@@ -188,3 +188,14 @@ C/Rust equivalence: both builds get the same scripted keys, and every
 `summary.json` records the race and class actually played. It is left as is
 so the existing reference logs stay valid. The suite names describe the
 requested indices, not the races played.
+
+## Observation: unexplained early exits (watching)
+
+While converting borg_danger with a heavy cross-check compiled in, an agent
+saw two `full` runs (blackguard seeds 1080, 1083) end with exit code 0 and no
+`summary.json`. Rerun on their own with the same build, both matched the
+reference exactly, and the clean `full` suite was 45/45. Likely cause: the
+process was killed from outside under memory or CPU pressure (several
+agents run suites at once), but this is not proven. `harness/suite.sh`
+reports such runs as MISSING, so they cannot pass silently. If it happens
+again, check `stderr.log` and `dmesg` for the run.
