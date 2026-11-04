@@ -352,6 +352,12 @@ pub fn tval_find_name(tval: i32) -> &'static [u8] {
 
 /// `lookup_sval(tval, name)`: the sval of the kind with this name, or -1.
 pub fn lookup_sval(tval: i32, name: &str) -> i32 {
+    lookup_sval_bytes(tval, name.as_bytes())
+}
+
+/// `lookup_sval(tval, name)` for a name that may not be UTF-8 (borg.txt
+/// bytes).
+pub fn lookup_sval_bytes(tval: i32, name: &[u8]) -> i32 {
     let c = CString::new(name).expect("no NUL in name");
     // SAFETY: c is a valid C string; lookup_sval only reads it and k_info.
     unsafe { crate::headers::obj_util_h::lookup_sval(tval, c.as_ptr()) }
@@ -539,4 +545,80 @@ pub fn all_letters_nohjkl(i: i32) -> u8 {
             as *const c_char)
     };
     s.to_bytes_with_nul()[i as usize]
+}
+
+// ---------------------------------------------------------------------------
+// Player class
+
+fn player_class_ref() -> &'static crate::headers::player_h::player_class {
+    // SAFETY: the player's class is set at birth, before the Borg runs,
+    // and points into the static class list.
+    unsafe { &*player_ref().class }
+}
+
+/// The `cidx` of the first class in the `classes` list whose name equals
+/// `name` ignoring case (`my_stricmp`), or -1.
+pub fn find_class(name: &[u8]) -> i32 {
+    let cname = CString::new(name).expect("no NUL in name");
+    // SAFETY: `classes` is loaded at startup, linked through `next` and
+    // terminated by NULL; names are C strings.
+    unsafe {
+        let mut c = crate::headers::player_h::classes;
+        while !c.is_null() {
+            if crate::headers::z_util_h::my_stricmp((*c).name, cname.as_ptr()) == 0 {
+                return (*c).cidx as i32;
+            }
+            c = (*c).next;
+        }
+    }
+    -1
+}
+
+/// `player->class->magic.spell_weight`
+pub fn class_spell_weight() -> i32 {
+    player_class_ref().magic.spell_weight
+}
+
+/// `player->class->magic.books[book].dungeon`
+pub fn class_book_dungeon(book: i32) -> bool {
+    let magic = &player_class_ref().magic;
+    debug_assert!(book >= 0 && book < magic.num_books);
+    // SAFETY: as in C, `book` is not checked here: callers only pass books
+    // the Borg holds copies of (`borg.amt_book[book] != 0`), and those
+    // exist for the class.
+    unsafe { (*magic.books.offset(book as isize)).dungeon }
+}
+
+/// `spell_chance(spell_index)`: the player's fail rate for a spell.
+pub fn spell_chance(spell_index: i32) -> i16 {
+    // SAFETY: plain call; the engine checks the index itself.
+    unsafe { crate::headers::player_spell_h::spell_chance(spell_index) }
+}
+
+// ---------------------------------------------------------------------------
+// Files
+
+/// An engine file (`ang_file *`) opened by someone else.
+#[derive(Clone, Copy)]
+pub struct AngFile(*mut crate::headers::z_file_h::ang_file);
+
+impl AngFile {
+    /// Wrap an open file.
+    ///
+    /// # Safety
+    /// `f` must be an open `ang_file` that stays open while the handle is
+    /// used.
+    pub unsafe fn from_raw(f: *mut crate::headers::z_file_h::ang_file) -> Self {
+        AngFile(f)
+    }
+}
+
+/// `file_getl(f, buf, len)`: read a line into `buf` (at most `len - 1`
+/// bytes and a NUL; `\r`, `\n` and `\r\n` end a line, tabs become
+/// spaces). Returns false at the end of the file.
+pub fn file_getl(f: AngFile, buf: &mut [u8], len: usize) -> bool {
+    assert!(len >= 1 && len <= buf.len());
+    // SAFETY: f is open (AngFile::from_raw); file_getl writes at most
+    // `len` bytes into buf.
+    unsafe { crate::headers::z_file_h::file_getl(f.0, buf.as_mut_ptr() as *mut c_char, len) }
 }

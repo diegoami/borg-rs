@@ -46,6 +46,7 @@
 
 **Checkpoint after module 11** (5 more module merges): `full` 45/45 identical, `deep` 9/9 identical.
 | 12 | borg_magic | own | `MagicState` (`magics: Vec<BorgMagic>` = `borg_magics`, empty = NULL; `ratings` = `borg_spell_ratings`); `BorgMagic.name` is a `&'static CStr` (c2rust format sites use `.name.as_ptr()`); `borg_magic`/`borg_spell_rating` are type aliases in the header; 5 c2rust `borg_magics` uses rewritten to `bridge::st().magic.magics[..]`; shims in `bridge::magic` (`borg_get_spell_entry` returns a pointer into the Vec); bridge `borg_item_tval_sval`; engine wrappers for class books/spells (`class_book`, `class_book_spell`, `spell_by_index`, `spell_effect_indices`, `spell_okay_to_cast`, `player_spell_flags`, `player_has`, `no_light`, `all_letters_nohjkl`, ...); smoke 3/3, full 45/45, deep 9/9 identical |
+| 13 | borg_formulas | own | `FormulasState` (power/depth/restock lines as `Vec`s of structs; a depth line keeps its reason as a `CString` for the C callers); parsers work on byte buffers with C string semantics so error notes match byte for byte; engine and lookups behind a `FormulaEnv` trait (fake in unit tests); the calculator calls `parse_value`/`calculate_from_value`/`borg_formula_error` directly (bridge wrappers removed); C-ABI shims in `bridge::formulas`; bridge wrappers for `prefix_pref`, `borg_settings`, `borg_items`, `borg_item_weight`, `borg_ego_has_random_power`, `borg_spell_stat`, `borg_can_cast`, `borg_get_spell_entry`; engine wrappers `AngFile`/`file_getl`, `find_class`, `class_spell_weight`, `class_book_dungeon`, `player_has`, `spell_chance`, `lookup_sval_bytes`; checked against the C file with stubs on 10k random formula sections (identical notes, parses and evaluations) and with `borg_uses_dynamic_calcs` on (5 runs x 100k turns, identical keys; local harness tweak feeds ESC after `z`, not committed) |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -67,6 +68,7 @@ impls), comments excluded.
 | borg_projection | 770 | 50 |
 | borg_cave_light | 766 | 50 |
 | borg_magic | 769 | 48 |
+| borg_formulas | 746 | 49 |
 
 ## Suite timings
 

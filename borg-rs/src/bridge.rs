@@ -222,67 +222,96 @@ pub mod item_val {
     }
 }
 
-/// `parse_value(value, full_line)` (still c2rust, borg-formulas.c). It
-/// parses a writable copy of `value` in place (as C did with its copy);
-/// the mem_alloc'd result is copied out and freed.
-pub fn parse_value(
-    _st: &mut BorgState,
-    value: &[u8],
-    full_line: &[u8],
-) -> Option<crate::headers::borg_formulas_h::value_sec> {
-    let mut buf = value.to_vec();
-    buf.push(0);
-    let full = std::ffi::CString::new(full_line).expect("no NUL");
-    // SAFETY: buf is a NUL-terminated writable copy; parse_value returns
-    // NULL or a mem_alloc'd value_sec that nothing else references.
+/// The name of trait `i` (`prefix_pref[i]`, still c2rust, borg-trait.c),
+/// for `i < BI_MAX`.
+pub fn trait_name(_st: &mut BorgState, i: usize) -> &'static [u8] {
+    assert!(i < crate::headers::borg_trait_h::BI_MAX as usize);
+    // SAFETY: prefix_pref is a static table of string literals with a
+    // non-NULL entry for every trait below BI_MAX; nothing writes it.
+    unsafe { cbytes(crate::c2rust::borg_trait::prefix_pref[i]) }
+}
+
+/// `borg_settings[i].setting_string` (still c2rust, borg-init.c); `None`
+/// for the NULL entry that ends the table.
+pub fn setting_string(_st: &mut BorgState, i: usize) -> Option<&'static [u8]> {
+    // SAFETY: borg_settings is a static table of string literals ended by
+    // a NULL entry (callers stop there); nothing writes the strings.
     unsafe {
-        let v = crate::c2rust::borg_formulas::parse_value(
-            buf.as_mut_ptr() as *mut c_char,
-            full.as_ptr(),
-        );
-        if v.is_null() {
-            return None;
-        }
-        let r = *v;
-        crate::headers::z_virt_h::mem_free(v as *mut core::ffi::c_void);
-        Some(r)
+        let p = crate::c2rust::borg_init::borg_settings[i].setting_string;
+        (!p.is_null()).then(|| cbytes(p))
     }
 }
 
-/// `calculate_from_value(value, range_index)` (still c2rust,
-/// borg-formulas.c).
-pub fn calculate_from_value(
-    _st: &mut BorgState,
-    value: &crate::headers::borg_formulas_h::value_sec,
-    range_index: i32,
-) -> i32 {
-    let mut v = *value;
-    // SAFETY: v is a valid value_sec; the callee only reads it.
-    unsafe { crate::c2rust::borg_formulas::calculate_from_value(&mut v, range_index) }
+/// A copy of `borg_items[i]` (still c2rust, borg-item.c).
+pub fn borg_item(_st: &mut BorgState, i: i32) -> crate::headers::borg_item_h::borg_item {
+    // SAFETY: borg_items is allocated by borg_init_item() with room for
+    // the pack, equipment and quiver; callers pass slots in that range.
+    unsafe { *crate::c2rust::borg_item::borg_items.offset(i as isize) }
 }
 
-/// `borg_formula_error(section, full_line, label, error)` (still c2rust,
-/// borg-formulas.c).
-pub fn borg_formula_error(
-    _st: &mut BorgState,
-    section: &[u8],
-    full_line: &[u8],
-    label: &str,
-    error: Option<&str>,
-) {
-    let section = std::ffi::CString::new(section).expect("no NUL");
-    let full = std::ffi::CString::new(full_line).expect("no NUL");
-    let label = std::ffi::CString::new(label).expect("no NUL");
-    let error = error.map(|e| std::ffi::CString::new(e).expect("no NUL"));
-    let error_ptr = error.as_ref().map_or(core::ptr::null(), |e| e.as_ptr());
-    // SAFETY: all strings are NUL-terminated and outlive the call.
+/// `borg_item_weight(&borg_items[i])` (still c2rust, borg-item.c).
+pub fn borg_item_weight(_st: &mut BorgState, i: i32) -> i16 {
+    // SAFETY: as for borg_item(); the callee only reads the item.
     unsafe {
-        crate::c2rust::borg_formulas::borg_formula_error(
-            section.as_ptr(),
-            full.as_ptr(),
-            label.as_ptr(),
-            error_ptr,
+        crate::c2rust::borg_item::borg_item_weight(crate::c2rust::borg_item::borg_items.offset(i as isize))
+    }
+}
+
+/// `borg_ego_has_random_power(&e_info[ego_idx])` (still c2rust,
+/// borg-item-analyze.c).
+pub fn borg_ego_has_random_power(_st: &mut BorgState, ego_idx: u8) -> bool {
+    // SAFETY: e_info has z_info->e_max entries and item ego indexes come
+    // from it; the callee only reads the ego.
+    unsafe {
+        crate::c2rust::borg_item_analyze::borg_ego_has_random_power(
+            crate::headers::object_h::e_info.offset(isize::from(ego_idx)),
         )
+    }
+}
+
+/// `borg_spell_stat()` (borg-magic.c, converted).
+pub fn borg_spell_stat(_st: &mut BorgState) -> i32 {
+    crate::borg_magic::borg_spell_stat()
+}
+
+/// `borg_can_cast()` (borg-magic.c, converted).
+pub fn borg_can_cast(_st: &mut BorgState) -> bool {
+    crate::borg_magic::borg_can_cast()
+}
+
+/// `borg_get_spell_entry(book, entry)` (borg-magic.c, converted): the
+/// spell's `(level, power)`, or `None` for NULL.
+pub fn borg_get_spell_entry(st: &mut BorgState, book: i32, entry: i32) -> Option<(u8, u8)> {
+    crate::borg_magic::borg_get_spell_entry(st, book, entry).map(|i| {
+        let m = &st.magic.magics[i];
+        (m.level, m.power)
+    })
+}
+
+/// C-ABI shims with the borg-formulas.c names.
+pub mod formulas {
+    use super::st;
+    use crate::borg_formulas;
+    use crate::headers::z_file_h::ang_file;
+    use core::ffi::{c_char, c_int};
+
+    pub unsafe extern "C" fn borg_load_formulas(fp: *mut ang_file) -> bool {
+        borg_formulas::borg_load_formulas(st(), crate::engine::AngFile::from_raw(fp))
+    }
+    pub unsafe extern "C" fn borg_free_formulas() {
+        borg_formulas::borg_free_formulas(st())
+    }
+    pub unsafe extern "C" fn borg_power_dynamic() -> i32 {
+        borg_formulas::borg_power_dynamic(st())
+    }
+    /// The reason points into the Borg state; it stays valid until the
+    /// formulas are loaded again or freed.
+    pub unsafe extern "C" fn borg_prepared_dynamic(depth: c_int) -> *const c_char {
+        borg_formulas::borg_prepared_dynamic(st(), depth).map_or(core::ptr::null(), |r| r.as_ptr())
+    }
+    /// As borg_prepared_dynamic().
+    pub unsafe extern "C" fn borg_restock_dynamic(depth: c_int) -> *const c_char {
+        borg_formulas::borg_restock_dynamic(st(), depth).map_or(core::ptr::null(), |r| r.as_ptr())
     }
 }
 

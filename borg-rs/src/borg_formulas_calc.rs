@@ -16,14 +16,14 @@
 //!
 //! The parser works on the bytes of a C string: reading past the end yields
 //! the terminating NUL (0), as in C. The calls out of this module
-//! (`parse_value`, `calculate_from_value`, `borg_formula_error`,
-//! `borg_note`) go through the [`CalcEnv`] trait so the calculator itself
-//! can be unit tested.
+//! (`parse_value`, `calculate_from_value`, `borg_formula_error` in
+//! borg_formulas, and `borg_note`) go through the [`CalcEnv`] trait so the
+//! calculator itself can be unit tested.
 
+use crate::borg_formulas::{self, ValueSec};
+use crate::borg_io;
 use crate::cctype::c_isdigit;
-use crate::headers::borg_formulas_h::value_sec;
 use crate::state::BorgState;
-use crate::{borg_io, bridge};
 
 /// `OP_LEVELS`
 const OP_LEVELS: usize = 4;
@@ -48,7 +48,7 @@ pub enum Op {
 #[derive(Clone, Copy)]
 pub enum TokenKind {
     /// `TOK_VALUE`: a parsed `value(type, index)`
-    Value(value_sec),
+    Value(ValueSec),
     /// `TOK_NUMBER`
     Number(i32),
     /// `TOK_MINUS` .. `TOK_GE`
@@ -80,9 +80,9 @@ pub struct CalcState {
 /// What the calculator needs from the rest of the Borg.
 pub trait CalcEnv {
     /// `parse_value(value, full_line)`; `None` for NULL.
-    fn parse_value(&mut self, value: &[u8], full_line: &[u8]) -> Option<value_sec>;
+    fn parse_value(&mut self, value: &[u8], full_line: &[u8]) -> Option<ValueSec>;
     /// `calculate_from_value(value, range_index)`
-    fn calculate_from_value(&mut self, value: &value_sec, range_index: i32) -> i32;
+    fn calculate_from_value(&mut self, value: &ValueSec, range_index: i32) -> i32;
     /// `borg_formula_error(section, full_line, label, error)`
     fn formula_error(&mut self, section: &[u8], full_line: &[u8], label: &str, error: &str);
     /// `borg_note(what)`
@@ -93,14 +93,14 @@ pub trait CalcEnv {
 struct StEnv<'a>(&'a mut BorgState);
 
 impl CalcEnv for StEnv<'_> {
-    fn parse_value(&mut self, value: &[u8], full_line: &[u8]) -> Option<value_sec> {
-        bridge::parse_value(self.0, value, full_line)
+    fn parse_value(&mut self, value: &[u8], full_line: &[u8]) -> Option<ValueSec> {
+        borg_formulas::parse_value(self.0, value, full_line)
     }
-    fn calculate_from_value(&mut self, value: &value_sec, range_index: i32) -> i32 {
-        bridge::calculate_from_value(self.0, value, range_index)
+    fn calculate_from_value(&mut self, value: &ValueSec, range_index: i32) -> i32 {
+        borg_formulas::calculate_from_value(self.0, value, range_index)
     }
     fn formula_error(&mut self, section: &[u8], full_line: &[u8], label: &str, error: &str) {
-        bridge::borg_formula_error(self.0, section, full_line, label, Some(error))
+        borg_formulas::borg_formula_error(self.0, section, full_line, label, Some(error.as_bytes()))
     }
     fn note(&mut self, what: &str) {
         borg_io::borg_note(self.0, what)
@@ -539,7 +539,7 @@ fn parse_calculation(
 }
 
 /// `parse_calculation_line()` on an explicit list of calculations.
-fn parse_calculation_line_in(
+pub(crate) fn parse_calculation_line_in(
     env: &mut impl CalcEnv,
     calculations: &mut Vec<Calculation>,
     line: &[u8],
@@ -667,7 +667,7 @@ fn calculate_value_from_formula_depth(
 }
 
 /// `borg_calculate_dynamic()` on an explicit list of calculations.
-fn calculate_dynamic_in(
+pub(crate) fn calculate_dynamic_in(
     env: &mut impl CalcEnv,
     calculations: &[Calculation],
     formula: i32,
@@ -709,15 +709,15 @@ mod tests {
     }
 
     impl CalcEnv for Env {
-        fn parse_value(&mut self, value: &[u8], _full: &[u8]) -> Option<value_sec> {
+        fn parse_value(&mut self, value: &[u8], _full: &[u8]) -> Option<ValueSec> {
             let s = String::from_utf8(value.to_vec()).unwrap();
             self.values_parsed.push(s.clone());
             let inner = s.to_ascii_lowercase();
             let inner = inner.strip_prefix("value(")?.strip_suffix(')')?;
             let index = inner.trim().parse().ok()?;
-            Some(value_sec { type_0: 0, index })
+            Some(ValueSec { vtype: 0, index })
         }
-        fn calculate_from_value(&mut self, v: &value_sec, range_index: i32) -> i32 {
+        fn calculate_from_value(&mut self, v: &ValueSec, range_index: i32) -> i32 {
             if v.index == 99 {
                 range_index
             } else {

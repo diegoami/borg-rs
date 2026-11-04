@@ -66,3 +66,30 @@ Format: file, function, (seed, turn when observed), explanation.
 * `borg_spell_stat()` tests `&books[0].spells[0] != NULL`, which is always
   true.
 * Rust (`borg_magic.rs`): all kept (`u8::from(status)`, `0..8`, no check).
+
+## 6. Formula error text lost to `format()`'s static buffer
+
+* borg-formulas.c, `parse_value()` and `get_value_index()`, only when a
+  borg.txt formula has a bad `value()` and `borg_uses_dynamic_calcs` is on
+  (by code reading, then reproduced with the C file and stubs).
+* Three callers pass `format(...)` as the `error` argument of
+  `borg_formula_error()`: "value type (first parameter '%s') not found" and
+  (twice) "value error for object type '%s' subtype '%s'". `format()`
+  returns its static buffer, and `borg_formula_error()` formats its own
+  notes with `format()` before it notes `error`. So the error note repeats
+  the "** error for section value '...'" note and the caller's message is
+  never shown. (That message also has an off-by-one: it prints
+  `value_type_names[t].name`, but the table starts at `VT_NONE`, so it is
+  the name of type `t - 1`, e.g. 'scroll' for a potion.) If the "error on
+  line" note grew `format()`'s buffer (a line of more than ~1000 bytes), C
+  would read freed memory instead; the Rust port assumes it does not.
+* Rust: `formula_error_format()` in `borg_formulas.rs` notes the "error for
+  section" text twice. Pinned by `errors_match_c`.
+
+## 7. `range()` errors (formulas)
+
+* borg-formulas.c, `parse_range()`, only with `borg_uses_dynamic_calcs`.
+  A missing ')' is reported as "** first value is not a number", and a first
+  value that really is not a number fails with no note at all, so the
+  formulas are turned off silently. (The section printed in these errors is
+  cut at the ',', where C wrote a NUL.) Kept as is.
