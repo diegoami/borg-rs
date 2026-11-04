@@ -25,6 +25,7 @@ pub mod headers;
 
 pub mod borg;
 pub mod borg_cave;
+pub mod borg_cave_view;
 pub mod borg_cave_util;
 pub mod borg_io;
 pub mod borg_item_activation;

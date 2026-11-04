@@ -38,6 +38,7 @@
 | 4 | borg_io | own | `IoState`; C-ABI shims under the old names in `bridge::io` (re-exported from `headers/borg_io_h.rs`) so 1,100 c2rust call sites stay as they are until their module converts; engine terminal/message/event/wcstombs wrappers |
 | 5 | borg (borg.c) | own | `Borg` struct + `CoreState` (cfg, rand_local, step, w_x/w_y) in `BorgState`; `trait`/`has`/`activation` are `Vec<i32>`; about 5,000 c2rust uses rewritten to `bridge::st().borg...`; the entry point (`inkey_hack` callback) is safe Rust; engine wrappers for the player, Term_inkey, RNG swap and inkey_hack |
 | 6 | borg_item_activation | own | `ActivationIds` (164 `act_*`); 547 c2rust uses rewritten |
+| 7 | borg_cave_view | own | `ViewState` (`view_n`, `view_x`/`view_y` as `Vec<u8>`); C-ABI shims in `bridge::cave_view`; `bridge::borg_los` wrapper; the 8 copied scan loops share `scan_ray`/`scan_strip` helpers (same order); 3 c2rust uses in borg_caution rewritten |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -53,6 +54,7 @@ impls), comments excluded.
 | borg_cave_util | 742 | 56 |
 | borg_io | 757 | 55 |
 | borg | 761 | 54 |
+| borg_cave_view | 762 | 52 |
 
 ## Suite timings
 

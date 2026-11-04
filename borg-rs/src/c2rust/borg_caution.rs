@@ -14,7 +14,6 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-use crate::headers::borg_cave_view_h::{borg_view_n, borg_view_x, borg_view_y};
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
 use crate::headers::borg_escape_h::{
     borg_caution_phase, borg_escape, borg_freedom, borg_recall, borg_surrounded,
@@ -1564,11 +1563,11 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         let mut ii: ::core::ffi::c_int = 0;
         let mut current_block_313: u64;
         j = 1 as ::core::ffi::c_int;
-        while j < borg_view_n as ::core::ffi::c_int {
+        while j < crate::bridge::st().view.view_n as ::core::ffi::c_int {
             let mut x1: ::core::ffi::c_int = crate::bridge::st().borg.c.x;
             let mut y1: ::core::ffi::c_int = crate::bridge::st().borg.c.y;
-            let mut x2: ::core::ffi::c_int = borg_view_x[j as usize] as ::core::ffi::c_int;
-            let mut y2: ::core::ffi::c_int = borg_view_y[j as usize] as ::core::ffi::c_int;
+            let mut x2: ::core::ffi::c_int = crate::bridge::st().view.view_x[j as usize] as ::core::ffi::c_int;
+            let mut y2: ::core::ffi::c_int = crate::bridge::st().view.view_y[j as usize] as ::core::ffi::c_int;
             if !(crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                 != 0)
             {

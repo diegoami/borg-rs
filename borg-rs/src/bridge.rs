@@ -196,3 +196,21 @@ pub mod item_activation {
         crate::borg_item_activation::borg_init_item_activation(st())
     }
 }
+
+/// `borg_los(y1, x1, y2, x2)` (still c2rust, borg-projection.c).
+pub fn borg_los(_st: &mut BorgState, y1: i32, x1: i32, y2: i32, x2: i32) -> bool {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::c2rust::borg_projection::borg_los(y1, x1, y2, x2) }
+}
+
+/// C-ABI shims with the borg-cave-view.c names.
+pub mod cave_view {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_forget_view() {
+        crate::borg_cave_view::borg_forget_view(st())
+    }
+    pub unsafe extern "C" fn borg_update_view() {
+        crate::borg_cave_view::borg_update_view(st())
+    }
+}
