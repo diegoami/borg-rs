@@ -149,9 +149,9 @@ c2r_void! {
     borg_log_death => crate::c2rust::borg_log::borg_log_death;
     borg_log_death_data => crate::c2rust::borg_log::borg_log_death_data;
     borg_clear_reactions => crate::c2rust::borg_messages_react::borg_clear_reactions;
-    borg_force_reincarnate => crate::c2rust::borg_reincarnate::borg_force_reincarnate;
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
-    borg_reincarnate_end => crate::c2rust::borg_reincarnate::borg_reincarnate_end;
+    borg_prepare_race_class_info => crate::c2rust::borg_init::borg_prepare_race_class_info;
+    borg_reinit_options => crate::c2rust::borg_init::borg_reinit_options;
     borg_display_status => crate::c2rust::borg_log::borg_display_status;
 }
 
@@ -673,5 +673,21 @@ pub mod prepared {
     }
     pub unsafe extern "C" fn borg_must_return_to_town() -> *const c_char {
         c_reason(p::borg_must_return_to_town(st()))
+    }
+}
+
+/// C-ABI shims with the borg-reincarnate.c names (callers in
+/// borg_commands and borg_messages_react).
+pub mod reincarnate {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_force_reincarnate() {
+        crate::borg_reincarnate::borg_force_reincarnate(st())
+    }
+    pub unsafe extern "C" fn borg_reincarnate_end() {
+        crate::borg_reincarnate::borg_reincarnate_end(st())
+    }
+    pub unsafe extern "C" fn borg_reincarnate_start() {
+        crate::borg_reincarnate::borg_reincarnate_start(st())
     }
 }

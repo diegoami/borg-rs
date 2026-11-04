@@ -138,3 +138,16 @@ Format: file, function, (seed, turn when observed), explanation.
   `borg_notice_home()` but prints `10 - num_ezheal` from after it, and
   ignores the Life potions and the ones carried.
 * Rust (`borg_prepared.rs`): all kept.
+## 11. Respawn picks the race/class with the wrong menu letters
+
+* `borg-reincarnate.c`, `borg_reincarnate_start()`, only when the Borg
+  respawns (game option `cheat_live` on and `borg_cheat_death` off, or
+  `borg_respawn_winners`). It types `all_letters[race]` and
+  `all_letters[class]`, but the birth menus use `all_letters_nohjkl`
+  (ui-birth.c). So index 7 (Half-Troll, Ranger) types 'h', which is no
+  menu letter, and indexes 8 and up select the entry before the one meant
+  (race 8, Dunadan, types 'i' and gets a Half-Troll; class 8, Blackguard,
+  gets the Ranger; race 10, Kobold, types 'k', no menu letter either).
+  The random name is still made for the race meant. Seen in local respawn
+  runs (seed 1011: race 8 chosen, a Half-Troll with a human name rolled).
+* Rust: kept (`engine::all_letters`) in `borg_reincarnate.rs`.

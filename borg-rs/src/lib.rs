@@ -38,6 +38,7 @@ pub mod borg_magic;
 pub mod borg_magic_play;
 pub mod borg_prepared;
 pub mod borg_projection;
+pub mod borg_reincarnate;
 pub mod borg_util;
 pub mod engine;
 pub mod state;

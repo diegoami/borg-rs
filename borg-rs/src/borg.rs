@@ -368,7 +368,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
             bridge::borg_log_death(st);
             bridge::borg_log_death_data(st);
             borg_flush(st);
-            bridge::borg_force_reincarnate(st);
+            crate::borg_reincarnate::borg_force_reincarnate(st);
             return false;
         }
     }
@@ -479,7 +479,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
 
     if st.borg.status.respawning != 0 {
         if !engine::player_is_dead() {
-            bridge::borg_reincarnate_end(st);
+            crate::borg_reincarnate::borg_reincarnate_end(st);
             st.borg.status.respawning = 0;
         } else {
             key.code = ESCAPE;

@@ -568,6 +568,48 @@ pub fn all_letters_nohjkl(i: i32) -> u8 {
     s.to_bytes_with_nul()[i as usize]
 }
 
+/// `all_letters[i]` (ui-menu.c): the menu letters a-z, A-Z (panics past
+/// the NUL, where C would read out of bounds).
+pub fn all_letters(i: usize) -> u8 {
+    // SAFETY: a static NUL-terminated string defined in ui-menu.c.
+    let s = unsafe {
+        CStr::from_ptr(core::ptr::addr_of!(crate::headers::ui_menu_h::all_letters) as *const c_char)
+    };
+    s.to_bytes_with_nul()[i]
+}
+
+/// `randint0(m)` (z-rand.h): `(int32_t) Rand_div(m)` from the game RNG
+/// (the Borg's own RNG while it thinks, see `borg::generate_keypress`).
+pub fn randint0(m: u32) -> i32 {
+    // SAFETY: plain call; the RNG state is engine-thread global.
+    unsafe { crate::headers::z_rand_h::Rand_div(m) as i32 }
+}
+
+/// `player->race->ridx`
+pub fn race_ridx() -> u32 {
+    // SAFETY: `player->race` points into the race list loaded at startup
+    // (set at birth, lives for the game).
+    unsafe { (*player_ref().race).ridx }
+}
+
+/// `player->noscore`
+pub fn player_noscore() -> u16 {
+    player_ref().noscore
+}
+
+/// `player->noscore = v`
+pub fn set_player_noscore(v: u16) {
+    // SAFETY: `player` is allocated at startup; plain field store on the
+    // engine thread, no reference to it is held across the call.
+    unsafe { (*crate::headers::player_h::player).noscore = v }
+}
+
+/// `option_set(name, val)` (option.c): returns whether the option exists.
+pub fn option_set(name: &CStr, val: bool) -> bool {
+    // SAFETY: option_set only reads the NUL-terminated name.
+    unsafe { crate::headers::option_h::option_set(name.as_ptr(), i32::from(val)) }
+}
+
 // ---------------------------------------------------------------------------
 // Player class
 
