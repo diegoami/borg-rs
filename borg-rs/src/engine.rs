@@ -316,3 +316,37 @@ pub fn find_activation(name: &str) -> Option<i32> {
     }
     None
 }
+
+/// An object kind (`struct object_kind`).
+pub type ObjectKind = crate::headers::object_h::object_kind;
+
+/// `k_info[0 .. z_info->k_max]`, the object kinds.
+pub fn k_info() -> &'static [ObjectKind] {
+    let n = usize::from(z_info().k_max);
+    // SAFETY: k_info is allocated with z_info->k_max entries when the game
+    // data is loaded, before any Borg code runs, and lives for the game.
+    unsafe { std::slice::from_raw_parts(crate::headers::object_h::k_info, n) }
+}
+
+/// `tval_find_idx(name)`: the tval with this name, or -1.
+pub fn tval_find_idx(name: &str) -> i32 {
+    let c = CString::new(name).expect("no NUL in name");
+    // SAFETY: c is a valid C string for the call.
+    unsafe { crate::headers::obj_tval_h::tval_find_idx(c.as_ptr()) }
+}
+
+/// `tval_find_name(tval)`: the tval's name ("unknown" if there is none).
+pub fn tval_find_name(tval: i32) -> &'static [u8] {
+    // SAFETY: the result points into the static tval name table (or is a
+    // string literal), never NULL.
+    unsafe {
+        std::ffi::CStr::from_ptr(crate::headers::obj_tval_h::tval_find_name(tval)).to_bytes()
+    }
+}
+
+/// `lookup_sval(tval, name)`: the sval of the kind with this name, or -1.
+pub fn lookup_sval(tval: i32, name: &str) -> i32 {
+    let c = CString::new(name).expect("no NUL in name");
+    // SAFETY: c is a valid C string; lookup_sval only reads it and k_info.
+    unsafe { crate::headers::obj_util_h::lookup_sval(tval, c.as_ptr()) }
+}

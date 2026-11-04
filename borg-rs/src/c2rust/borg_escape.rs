@@ -26,10 +26,7 @@ use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_read_scroll, borg_use_staff, borg_use_staff_fail, borg_zap_rod,
 };
-use crate::headers::borg_item_val_h::{
-    sv_rod_recall, sv_scroll_deep_descent, sv_scroll_phase_door, sv_scroll_teleport,
-    sv_scroll_teleport_level, sv_scroll_word_of_recall, sv_staff_teleportation,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_fail, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE,
     BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -170,10 +167,10 @@ pub use crate::headers::z_util_h::my_rational;
 #[no_mangle]
 pub unsafe extern "C" fn borg_recall() -> bool {
     if crate::bridge::st().borg.goal.recalling == 0 {
-        if borg_zap_rod(sv_rod_recall) as ::core::ffi::c_int != 0
+        if borg_zap_rod(crate::bridge::st().item_val.sv_rod_recall) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.recall) as ::core::ffi::c_int != 0
             || borg_spell_fail(WORD_OF_RECALL, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_word_of_recall) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_word_of_recall) as ::core::ffi::c_int != 0
         {
             if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 < crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
@@ -668,13 +665,13 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
 }
 unsafe extern "C" fn borg_teleport_off_level() -> bool {
     if !(crate::bridge::st().borg.goal.recalling != 0 || crate::bridge::st().borg.goal.descending != 0) {
-        if borg_read_scroll(sv_scroll_teleport_level) as ::core::ffi::c_int != 0
+        if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport_level) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.tele_level) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
         if borg_activate_item(crate::bridge::st().act.deep_descent) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_deep_descent) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_deep_descent) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -808,8 +805,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                     || borg_shadow_shift(tmp_allow_fail - 10 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                    || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                    || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0
+                    || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                    || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
                     || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
                     || borg_teleport_off_level() as ::core::ffi::c_int != 0
                     || borg_dimension_door(tmp_allow_fail + 9 as ::core::ffi::c_int)
@@ -824,14 +821,14 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                     || borg_shadow_shift(tmp_allow_fail + 9 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                    || borg_use_staff(sv_staff_teleportation) as ::core::ffi::c_int != 0
+                    || borg_use_staff(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
                     || borg_spell_fail(TELEPORT_LEVEL, tmp_allow_fail + 9 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
                     || borg_caution_phase(75 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                        && (borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
+                        && (borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0
                             || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
                             || borg_spell_fail(PHASE_DOOR, tmp_allow_fail) as ::core::ffi::c_int
                                 != 0
@@ -878,7 +875,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                         * (45 as ::core::ffi::c_int + risky_boost)
                         / 10 as ::core::ffi::c_int)
                 && (borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                    || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0))
+                    || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0))
         {
             crate::bridge::st().borg.escapes -= 1;
             borg_note(
@@ -957,14 +954,14 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                     || borg_shadow_shift(allow_fail - 10 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                    || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0
+                    || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
                     || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                    || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
+                    || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
                     || borg_dimension_door(allow_fail) as ::core::ffi::c_int != 0
                     || borg_spell_fail(TELEPORT_SELF, allow_fail) as ::core::ffi::c_int != 0
                     || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                     || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
-                    || borg_use_staff(sv_staff_teleportation) as ::core::ffi::c_int != 0)
+                    || borg_use_staff(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 2.1\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -978,7 +975,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell(PHASE_DOOR) as ::core::ffi::c_int != 0
                 || borg_spell(PORTAL) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 2.2\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1016,7 +1013,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 3.1\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1031,8 +1028,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 3.2\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1049,7 +1046,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 3.3\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1127,7 +1124,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 4.1\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1142,8 +1139,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 4.2\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1179,7 +1176,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 4.3\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1208,7 +1205,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 5.1\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1222,8 +1219,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 5.2\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1252,7 +1249,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 != 0
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0)
         {
             crate::bridge::st().borg.escapes -= 1;
@@ -1289,7 +1286,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 6.1\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1302,8 +1299,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(TELEPORT_SELF, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 6.2\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1340,7 +1337,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 8\0" as *const u8 as *const ::core::ffi::c_char);
             if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
@@ -1354,8 +1351,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_spell_fail(TELEPORT_SELF, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
                 || borg_teleport_off_level() as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 8\0" as *const u8 as *const ::core::ffi::c_char);

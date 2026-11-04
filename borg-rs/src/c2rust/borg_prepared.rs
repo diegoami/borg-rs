@@ -18,7 +18,7 @@ use crate::headers::borg_home_notice_h::{
     borg_notice_home, num_ezheal, num_ezheal_true, num_life, num_life_true,
 };
 pub use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_item_val_h::{kv_potion_healing, kv_potion_restore_mana, kv_rod_healing};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell_legal_fail, borg_spell_stat, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
     BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS,
@@ -693,11 +693,11 @@ unsafe extern "C" fn borg_prepared_aux(
     }
     if crate::bridge::st().borg.trait_[(BI_KING as ::core::ffi::c_int) as usize] == 0 {
         if crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] > 100 as ::core::ffi::c_int
-            && crate::bridge::st().borg.has[(kv_potion_restore_mana) as usize] < 15 as ::core::ffi::c_int
+            && crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_restore_mana) as usize] < 15 as ::core::ffi::c_int
         {
             return b"10 restore mana\0" as *const u8 as *const ::core::ffi::c_char;
         }
-        if crate::bridge::st().borg.has[(kv_potion_healing) as usize] < 5 as ::core::ffi::c_int {
+        if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize] < 5 as ::core::ffi::c_int {
             return b"5 Heal\0" as *const u8 as *const ::core::ffi::c_char;
         }
         if crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize]
@@ -983,7 +983,7 @@ pub unsafe extern "C" fn borg_restock(mut depth: ::core::ffi::c_int) -> *const :
         return NULL as *mut ::core::ffi::c_char;
     }
     if crate::bridge::st().borg.trait_[(BI_AHEAL as ::core::ffi::c_int) as usize]
-        + crate::bridge::st().borg.has[(kv_rod_healing) as usize]
+        + crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize]
         + crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize]
         < 1 as ::core::ffi::c_int
     {

@@ -21,13 +21,7 @@ use crate::headers::borg_inventory_h::{
 };
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 pub use crate::headers::borg_item_h::{borg_item, borg_items, safe_items};
-use crate::headers::borg_item_val_h::{
-    sv_light_lantern, sv_light_torch, sv_potion_healing, sv_potion_inc_con, sv_potion_inc_dex,
-    sv_potion_inc_int, sv_potion_inc_str, sv_potion_inc_wis, sv_potion_life,
-    sv_potion_star_healing, sv_rod_healing, sv_rod_illumination, sv_rod_recall, sv_rod_speed,
-    sv_rod_teleport_other, sv_scroll_remove_curse, sv_scroll_satisfy_hunger, sv_scroll_teleport,
-    sv_scroll_teleport_level, sv_wand_magic_missile, sv_wand_stinking_cloud,
-};
+
 use crate::headers::borg_magic_h::{
     borg_get_book_num, borg_is_dungeon_book, borg_primarily_caster,
 };
@@ -173,49 +167,49 @@ unsafe extern "C" fn borg_good_buy(
     }
     if who == 6 as ::core::ffi::c_int {
         if (*item).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
-            && (*item).sval as ::core::ffi::c_int == sv_scroll_remove_curse
+            && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_remove_curse
             && crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                 != 0
         {
             return true_0 != 0;
         }
         if (*item).tval as ::core::ffi::c_int == TV_POTION as ::core::ffi::c_int
-            && ((*item).sval as ::core::ffi::c_int == sv_potion_star_healing
-                || (*item).sval as ::core::ffi::c_int == sv_potion_life
-                || (*item).sval as ::core::ffi::c_int == sv_potion_healing
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_str
+            && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_star_healing
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_life
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_healing
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_str
                     && crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_int
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_int
                     && crate::bridge::st().borg.trait_[(BI_CINT as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_wis
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_wis
                     && crate::bridge::st().borg.trait_[(BI_CWIS as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_dex
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_dex
                     && crate::bridge::st().borg.trait_[(BI_CDEX as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_con
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_con
                     && crate::bridge::st().borg.trait_[(BI_CCON as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int)
             || (*item).tval as ::core::ffi::c_int == TV_ROD as ::core::ffi::c_int
-                && ((*item).sval as ::core::ffi::c_int == sv_rod_healing
-                    || (*item).sval as ::core::ffi::c_int == sv_rod_recall
+                && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_healing
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_recall
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_PRIEST
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_PALADIN
-                    || (*item).sval as ::core::ffi::c_int == sv_rod_speed
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_speed
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_DRUID
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_RANGER
-                    || (*item).sval as ::core::ffi::c_int == sv_rod_teleport_other
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_teleport_other
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_MAGE
                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_ROGUE
-                    || (*item).sval as ::core::ffi::c_int == sv_rod_illumination
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_illumination
                         && crate::bridge::st().borg.trait_[(BI_ALITE as ::core::ffi::c_int) as usize] == 0)
             || obj_kind_can_browse(k_info.offset((*item).kind as isize) as *mut object_kind)
                 as ::core::ffi::c_int
@@ -229,8 +223,8 @@ unsafe extern "C" fn borg_good_buy(
                 ) as ::core::ffi::c_int
                     != 0
             || (*item).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
-                && ((*item).sval as ::core::ffi::c_int == sv_scroll_teleport_level
-                    || (*item).sval as ::core::ffi::c_int == sv_scroll_teleport)
+                && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_teleport_level
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_teleport)
         {
             if crate::bridge::st().core.cfg[(BORG_SELF_SCUM as ::core::ffi::c_int) as usize] != 0
                 && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
@@ -382,22 +376,22 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                             && ((*item).tval as ::core::ffi::c_int
                                                 != TV_SCROLL as ::core::ffi::c_int
                                                 && (*item).sval as ::core::ffi::c_int
-                                                    != sv_scroll_satisfy_hunger)))
+                                                    != crate::bridge::st().item_val.sv_scroll_satisfy_hunger)))
                                     {
                                         if !((*item).tval as ::core::ffi::c_int
                                             == TV_WAND as ::core::ffi::c_int
                                             && ((*item).sval as ::core::ffi::c_int
-                                                == sv_wand_magic_missile
+                                                == crate::bridge::st().item_val.sv_wand_magic_missile
                                                 || (*item).sval as ::core::ffi::c_int
-                                                    == sv_wand_stinking_cloud)
+                                                    == crate::bridge::st().item_val.sv_wand_stinking_cloud)
                                             && crate::bridge::st().borg.trait_[(BI_GOOD_W_CHG as ::core::ffi::c_int) as usize] > 40 as ::core::ffi::c_int)
                                         {
                                             if !((*item).tval as ::core::ffi::c_int
                                                 == TV_WAND as ::core::ffi::c_int
                                                 && ((*item).sval as ::core::ffi::c_int
-                                                    == sv_wand_magic_missile
+                                                    == crate::bridge::st().item_val.sv_wand_magic_missile
                                                     || (*item).sval as ::core::ffi::c_int
-                                                        == sv_wand_stinking_cloud)
+                                                        == crate::bridge::st().item_val.sv_wand_stinking_cloud)
                                                 && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize] > 30 as ::core::ffi::c_int)
                                             {
                                                 qty = borg_min_item_quantity(item);
@@ -417,7 +411,7 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                                     if (*item).tval as ::core::ffi::c_int
                                                         == TV_LIGHT as ::core::ffi::c_int
                                                         && (*item).sval as ::core::ffi::c_int
-                                                            == sv_light_torch
+                                                            == crate::bridge::st().item_val.sv_light_torch
                                                     {
                                                         if flag_has(
                                                             &raw mut (*borg_items
@@ -448,7 +442,7 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                                         ))
                                                         .sval
                                                             as ::core::ffi::c_int
-                                                            == sv_light_lantern
+                                                            == crate::bridge::st().item_val.sv_light_lantern
                                                             && flag_has(
                                                                 &raw mut (*borg_items.offset(
                                                                     ((*z_info).pack_size

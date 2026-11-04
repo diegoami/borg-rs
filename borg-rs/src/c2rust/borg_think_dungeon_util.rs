@@ -35,9 +35,7 @@ pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_activate_ring, borg_need, borg_read_scroll, borg_use_staff,
     borg_use_things, borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
 };
-use crate::headers::borg_item_val_h::{
-    sv_ring_digging, sv_rod_illumination, sv_rod_recall, sv_scroll_light, sv_staff_light,
-};
+
 use crate::headers::borg_item_wear_h::borg_wear_stuff;
 use crate::headers::borg_light_h::{borg_light_beam, borg_maintain_light};
 pub use crate::headers::borg_magic_h::{
@@ -310,7 +308,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
         {
             return false_0 != 0;
         }
-        if crate::bridge::st().borg.goal.recalling == 0 && borg_zap_rod(sv_rod_recall) as ::core::ffi::c_int != 0 {
+        if crate::bridge::st().borg.goal.recalling == 0 && borg_zap_rod(crate::bridge::st().item_val.sv_rod_recall) as ::core::ffi::c_int != 0 {
             return true_0 != 0;
         }
         if crate::bridge::st().borg.goal.recalling == 0 {
@@ -415,9 +413,9 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                             {
                                 if borg_activate_item(crate::bridge::st().act.illumination) as ::core::ffi::c_int != 0
                                     || borg_activate_item(crate::bridge::st().act.light) as ::core::ffi::c_int != 0
-                                    || borg_zap_rod(sv_rod_illumination) as ::core::ffi::c_int != 0
-                                    || borg_use_staff(sv_staff_light) as ::core::ffi::c_int != 0
-                                    || borg_read_scroll(sv_scroll_light) as ::core::ffi::c_int != 0
+                                    || borg_zap_rod(crate::bridge::st().item_val.sv_rod_illumination) as ::core::ffi::c_int != 0
+                                    || borg_use_staff(crate::bridge::st().item_val.sv_staff_light) as ::core::ffi::c_int != 0
+                                    || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_light) as ::core::ffi::c_int != 0
                                     || borg_spell(CALL_LIGHT) as ::core::ffi::c_int != 0
                                     || borg_spell(LIGHT_ROOM) as ::core::ffi::c_int != 0
                                 {
@@ -1274,7 +1272,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 false_0 != 0,
             );
             if borg_spell(TURN_STONE_TO_MUD) as ::core::ffi::c_int != 0
-                || borg_activate_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+                || borg_activate_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.stone_to_mud) as ::core::ffi::c_int != 0
                 || distance(
                     crate::bridge::st().borg.c,

@@ -22,25 +22,7 @@ use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, borg_items, safe_items};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::{borg_eat, borg_quaff_potion, borg_read_scroll};
-use crate::headers::borg_item_val_h::{
-    sv_food_ration, sv_food_slime_mold, sv_food_waybread, sv_mush_cure_mind, sv_mush_debility,
-    sv_mush_emergency, sv_mush_fast_recovery, sv_mush_purging, sv_mush_restoring,
-    sv_mush_second_sight, sv_mush_sprinting, sv_mush_stoneskin, sv_mush_terror, sv_potion_berserk,
-    sv_potion_cure_critical, sv_potion_cure_light, sv_potion_cure_poison, sv_potion_cure_serious,
-    sv_potion_detect_invis, sv_potion_healing, sv_potion_heroism, sv_potion_inc_con2,
-    sv_potion_inc_dex2, sv_potion_inc_exp, sv_potion_inc_int2, sv_potion_inc_str2,
-    sv_potion_inc_wis2, sv_potion_infravision, sv_potion_life, sv_potion_resist_cold,
-    sv_potion_resist_heat, sv_potion_restore_life, sv_potion_restore_mana, sv_potion_slime_mold,
-    sv_potion_speed, sv_potion_star_healing, sv_rod_acid_ball, sv_rod_cold_ball, sv_rod_drain_life,
-    sv_rod_elec_ball, sv_rod_fire_ball, sv_rod_healing, sv_rod_light, sv_rod_mapping,
-    sv_scroll_blessing, sv_scroll_dispel_undead, sv_scroll_holy_chant, sv_scroll_holy_prayer,
-    sv_scroll_light, sv_scroll_monster_confusion, sv_scroll_protection_from_evil,
-    sv_scroll_rune_of_protection, sv_scroll_satisfy_hunger, sv_scroll_teleport_level,
-    sv_scroll_trap_door_destruction, sv_staff_destruction, sv_staff_dispel_evil, sv_staff_holiness,
-    sv_staff_power, sv_wand_acid_ball, sv_wand_annihilation, sv_wand_cold_ball,
-    sv_wand_dragon_cold, sv_wand_dragon_fire, sv_wand_drain_life, sv_wand_elec_ball,
-    sv_wand_fire_ball, sv_wand_teleport_away,
-};
+
 use crate::headers::borg_power_h::borg_power;
 pub use crate::headers::borg_trait_h::{
     borg_notice, C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS,
@@ -193,30 +175,30 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
     }
     match (*item).tval as ::core::ffi::c_int {
         26 => {
-            if (*item).sval as ::core::ffi::c_int == sv_potion_slime_mold
-                || (*item).sval as ::core::ffi::c_int == sv_potion_cure_light
-                || (*item).sval as ::core::ffi::c_int == sv_potion_cure_serious
-                || (*item).sval as ::core::ffi::c_int == sv_potion_cure_critical
-                || (*item).sval as ::core::ffi::c_int == sv_potion_healing
-                || (*item).sval as ::core::ffi::c_int == sv_potion_star_healing
-                || (*item).sval as ::core::ffi::c_int == sv_potion_life
-                || (*item).sval as ::core::ffi::c_int == sv_potion_restore_life
-                || (*item).sval as ::core::ffi::c_int == sv_potion_restore_mana
-                || (*item).sval as ::core::ffi::c_int == sv_potion_heroism
-                || (*item).sval as ::core::ffi::c_int == sv_potion_berserk
-                || (*item).sval as ::core::ffi::c_int == sv_potion_resist_heat
-                || (*item).sval as ::core::ffi::c_int == sv_potion_resist_cold
-                || (*item).sval as ::core::ffi::c_int == sv_potion_infravision
-                || (*item).sval as ::core::ffi::c_int == sv_potion_detect_invis
-                || (*item).sval as ::core::ffi::c_int == sv_potion_cure_poison
-                || (*item).sval as ::core::ffi::c_int == sv_potion_speed
-                || (*item).sval as ::core::ffi::c_int == sv_potion_inc_exp
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_slime_mold
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_light
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_serious
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_critical
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_healing
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_star_healing
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_life
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_restore_life
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_restore_mana
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_heroism
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_berserk
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_resist_heat
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_resist_cold
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_infravision
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_detect_invis
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_poison
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_speed
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_exp
             {
                 if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
                     return true_0 != 0;
                 }
             } else {
-                if (*item).sval as ::core::ffi::c_int == sv_potion_inc_str2 {
+                if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_str2 {
                     if crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                         >= 118 as ::core::ffi::c_int
                     {
@@ -234,7 +216,7 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
                         return true_0 != 0;
                     }
                 }
-                if (*item).sval as ::core::ffi::c_int == sv_potion_inc_int2 {
+                if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_int2 {
                     if crate::bridge::st().borg.trait_[(BI_CINT as ::core::ffi::c_int) as usize]
                         >= 118 as ::core::ffi::c_int
                     {
@@ -249,7 +231,7 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
                     if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
                         return true_0 != 0;
                     }
-                } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_wis2 {
+                } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_wis2 {
                     if crate::bridge::st().borg.trait_[(BI_CWIS as ::core::ffi::c_int) as usize]
                         >= 118 as ::core::ffi::c_int
                     {
@@ -264,7 +246,7 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
                     if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
                         return true_0 != 0;
                     }
-                } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_dex2 {
+                } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_dex2 {
                     if crate::bridge::st().borg.trait_[(BI_CDEX as ::core::ffi::c_int) as usize]
                         >= 118 as ::core::ffi::c_int
                     {
@@ -283,7 +265,7 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
                     if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
                         return true_0 != 0;
                     }
-                } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_con2 {
+                } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_con2 {
                     if crate::bridge::st().borg.trait_[(BI_CCON as ::core::ffi::c_int) as usize]
                         >= 118 as ::core::ffi::c_int
                     {
@@ -296,14 +278,14 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
             }
         }
         25 => {
-            if (*item).sval as ::core::ffi::c_int == sv_scroll_light
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_monster_confusion
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_trap_door_destruction
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_satisfy_hunger
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_dispel_undead
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_blessing
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_holy_chant
-                || (*item).sval as ::core::ffi::c_int == sv_scroll_holy_prayer
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_light
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_monster_confusion
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_trap_door_destruction
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_satisfy_hunger
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_dispel_undead
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_blessing
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_holy_chant
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_holy_prayer
             {
                 if borg_read_scroll((*item).sval as ::core::ffi::c_int) {
                     return true_0 != 0;
@@ -311,9 +293,9 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
             }
         }
         28 => {
-            if (*item).sval as ::core::ffi::c_int == sv_food_ration
-                || (*item).sval as ::core::ffi::c_int == sv_food_slime_mold
-                || (*item).sval as ::core::ffi::c_int == sv_food_waybread
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_ration
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_slime_mold
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_waybread
             {
                 if crate::bridge::st().borg.trait_[(BI_ISFULL as ::core::ffi::c_int) as usize]
                     == 0
@@ -328,16 +310,16 @@ unsafe extern "C" fn borg_consume(mut i: ::core::ffi::c_int) -> bool {
             }
         }
         29 => {
-            if (*item).sval as ::core::ffi::c_int == sv_mush_second_sight
-                || (*item).sval as ::core::ffi::c_int == sv_mush_fast_recovery
-                || (*item).sval as ::core::ffi::c_int == sv_mush_cure_mind
-                || (*item).sval as ::core::ffi::c_int == sv_mush_restoring
-                || (*item).sval as ::core::ffi::c_int == sv_mush_emergency
-                || (*item).sval as ::core::ffi::c_int == sv_mush_terror
-                || (*item).sval as ::core::ffi::c_int == sv_mush_stoneskin
-                || (*item).sval as ::core::ffi::c_int == sv_mush_debility
-                || (*item).sval as ::core::ffi::c_int == sv_mush_sprinting
-                || (*item).sval as ::core::ffi::c_int == sv_mush_purging
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_second_sight
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_fast_recovery
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_cure_mind
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_restoring
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_emergency
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_terror
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_stoneskin
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_debility
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_sprinting
+                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_purging
             {
                 if crate::bridge::st().borg.trait_[(BI_ISFULL as ::core::ffi::c_int) as usize]
                     == 0
@@ -449,61 +431,61 @@ pub unsafe extern "C" fn borg_drop_junk() -> bool {
                                             && ((*item).tval as ::core::ffi::c_int
                                                 == TV_POTION as ::core::ffi::c_int
                                                 && (*item).sval as ::core::ffi::c_int
-                                                    == sv_potion_restore_mana
+                                                    == crate::bridge::st().item_val.sv_potion_restore_mana
                                                 && crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] >= 1 as ::core::ffi::c_int
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_POTION as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_potion_healing
+                                                        == crate::bridge::st().item_val.sv_potion_healing
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_POTION as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_potion_star_healing
+                                                        == crate::bridge::st().item_val.sv_potion_star_healing
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_POTION as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_potion_life
+                                                        == crate::bridge::st().item_val.sv_potion_life
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_POTION as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_potion_speed
+                                                        == crate::bridge::st().item_val.sv_potion_speed
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_ROD as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_rod_drain_life
+                                                        == crate::bridge::st().item_val.sv_rod_drain_life
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_ROD as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_rod_healing
+                                                        == crate::bridge::st().item_val.sv_rod_healing
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_ROD as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_rod_mapping
+                                                        == crate::bridge::st().item_val.sv_rod_mapping
                                                     && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_WARRIOR
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_STAFF as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_staff_dispel_evil
+                                                        == crate::bridge::st().item_val.sv_staff_dispel_evil
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_STAFF as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_staff_power
+                                                        == crate::bridge::st().item_val.sv_staff_power
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_STAFF as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_staff_holiness
+                                                        == crate::bridge::st().item_val.sv_staff_holiness
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_WAND as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_wand_drain_life
+                                                        == crate::bridge::st().item_val.sv_wand_drain_life
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_WAND as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_wand_annihilation
+                                                        == crate::bridge::st().item_val.sv_wand_annihilation
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_WAND as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_wand_teleport_away
+                                                        == crate::bridge::st().item_val.sv_wand_teleport_away
                                                     && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_WARRIOR
                                                 || (*item).ego_idx as ::core::ffi::c_int != 0
                                                     && borg_ego_has_random_power(
@@ -515,12 +497,12 @@ pub unsafe extern "C" fn borg_drop_junk() -> bool {
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_SCROLL as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_scroll_teleport_level
+                                                        == crate::bridge::st().item_val.sv_scroll_teleport_level
                                                     && crate::bridge::st().borg.trait_[(BI_ATELEPORTLVL as ::core::ffi::c_int) as usize] < 1000 as ::core::ffi::c_int
                                                 || (*item).tval as ::core::ffi::c_int
                                                     == TV_SCROLL as ::core::ffi::c_int
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_scroll_protection_from_evil)
+                                                        == crate::bridge::st().item_val.sv_scroll_protection_from_evil)
                                         {
                                             value = (value as ::core::ffi::c_long
                                                 + 5000 as ::core::ffi::c_long)
@@ -786,56 +768,56 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                     if (*item).tval as ::core::ffi::c_int
                                                                         == TV_POTION as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_potion_restore_mana
+                                                                            == crate::bridge::st().item_val.sv_potion_restore_mana
                                                                         && crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
                                                                             >= 1 as ::core::ffi::c_int
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_POTION as ::core::ffi::c_int
-                                                                        && (*item).sval as ::core::ffi::c_int == sv_potion_healing
+                                                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_healing
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_POTION as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_potion_star_healing
+                                                                            == crate::bridge::st().item_val.sv_potion_star_healing
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_POTION as ::core::ffi::c_int
-                                                                        && (*item).sval as ::core::ffi::c_int == sv_potion_life
+                                                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_life
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_POTION as ::core::ffi::c_int
-                                                                        && (*item).sval as ::core::ffi::c_int == sv_potion_speed
+                                                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_speed
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_SCROLL as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_scroll_protection_from_evil
+                                                                            == crate::bridge::st().item_val.sv_scroll_protection_from_evil
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_SCROLL as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_scroll_rune_of_protection
+                                                                            == crate::bridge::st().item_val.sv_scroll_rune_of_protection
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_SCROLL as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_scroll_teleport_level
+                                                                            == crate::bridge::st().item_val.sv_scroll_teleport_level
                                                                         && crate::bridge::st().borg.trait_[(BI_ATELEPORTLVL as ::core::ffi::c_int) as usize]
                                                                             < 1000 as ::core::ffi::c_int
                                                                     {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_ROD as ::core::ffi::c_int
-                                                                        && ((*item).sval as ::core::ffi::c_int == sv_rod_healing
-                                                                            || (*item).sval as ::core::ffi::c_int == sv_rod_mapping
+                                                                        && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_healing
+                                                                            || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_mapping
                                                                                 && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                                                                                     == CLASS_WARRIOR)
                                                                         && (*item).iqty as ::core::ffi::c_int
@@ -845,7 +827,7 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_WAND as ::core::ffi::c_int
                                                                         && (*item).sval as ::core::ffi::c_int
-                                                                            == sv_wand_teleport_away
+                                                                            == crate::bridge::st().item_val.sv_wand_teleport_away
                                                                         && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                                                                             == CLASS_WARRIOR
                                                                         && crate::bridge::st().borg.trait_[(BI_ATPORTOTHER as ::core::ffi::c_int) as usize]
@@ -854,7 +836,7 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                         current_block_78 = 11006700562992250127;
                                                                     } else if (*item).tval as ::core::ffi::c_int
                                                                         == TV_ROD as ::core::ffi::c_int
-                                                                        && ((*item).sval as ::core::ffi::c_int == sv_rod_light
+                                                                        && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_light
                                                                             && crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                                                                                 <= 0 as ::core::ffi::c_int)
                                                                     {
@@ -982,11 +964,11 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                                         }
                                                                                     }
                                                                                     24 => {
-                                                                                        if (*item).sval as ::core::ffi::c_int != sv_rod_drain_life
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_rod_acid_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_rod_elec_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_rod_fire_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_rod_cold_ball
+                                                                                        if (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_drain_life
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_acid_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_elec_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_fire_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_cold_ball
                                                                                         {
                                                                                             value = ((*item).iqty as ::core::ffi::c_long
                                                                                                 * 300000 as ::core::ffi::c_long) as int32_t;
@@ -996,13 +978,13 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                                     }
                                                                                     22 => {
                                                                                         if (*item).sval as ::core::ffi::c_int
-                                                                                            != sv_staff_dispel_evil
-                                                                                            || ((*item).sval as ::core::ffi::c_int != sv_staff_power
-                                                                                                || (*item).sval as ::core::ffi::c_int != sv_staff_holiness)
+                                                                                            != crate::bridge::st().item_val.sv_staff_dispel_evil
+                                                                                            || ((*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_staff_power
+                                                                                                || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_staff_holiness)
                                                                                                 && crate::bridge::st().borg.trait_[(BI_GOOD_S_CHG as ::core::ffi::c_int) as usize]
                                                                                                     < 2 as ::core::ffi::c_int
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_staff_destruction
+                                                                                                != crate::bridge::st().item_val.sv_staff_destruction
                                                                                                 && crate::bridge::st().borg.trait_[(BI_ASTFDEST as ::core::ffi::c_int) as usize]
                                                                                                     < 2 as ::core::ffi::c_int
                                                                                         {
@@ -1013,17 +995,17 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                                         }
                                                                                     }
                                                                                     23 => {
-                                                                                        if (*item).sval as ::core::ffi::c_int != sv_wand_drain_life
+                                                                                        if (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_drain_life
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_wand_teleport_away
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_acid_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_elec_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_fire_ball
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_cold_ball
+                                                                                                != crate::bridge::st().item_val.sv_wand_teleport_away
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_acid_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_elec_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_fire_ball
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_cold_ball
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_wand_annihilation
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_dragon_fire
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_wand_dragon_cold
+                                                                                                != crate::bridge::st().item_val.sv_wand_annihilation
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_dragon_fire
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_wand_dragon_cold
                                                                                         {
                                                                                             value = ((*item).iqty as ::core::ffi::c_long
                                                                                                 * 300000 as ::core::ffi::c_long) as int32_t;
@@ -1033,9 +1015,9 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                                     }
                                                                                     25 => {
                                                                                         if (*item).sval as ::core::ffi::c_int
-                                                                                            != sv_scroll_protection_from_evil
+                                                                                            != crate::bridge::st().item_val.sv_scroll_protection_from_evil
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_scroll_rune_of_protection
+                                                                                                != crate::bridge::st().item_val.sv_scroll_rune_of_protection
                                                                                         {
                                                                                             value = ((*item).iqty as ::core::ffi::c_long
                                                                                                 * 30000 as ::core::ffi::c_long) as int32_t;
@@ -1044,12 +1026,12 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
                                                                                         }
                                                                                     }
                                                                                     26 => {
-                                                                                        if (*item).sval as ::core::ffi::c_int != sv_potion_healing
+                                                                                        if (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_potion_healing
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_potion_star_healing
-                                                                                            || (*item).sval as ::core::ffi::c_int != sv_potion_life
+                                                                                                != crate::bridge::st().item_val.sv_potion_star_healing
+                                                                                            || (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_potion_life
                                                                                             || (*item).sval as ::core::ffi::c_int
-                                                                                                != sv_potion_restore_mana
+                                                                                                != crate::bridge::st().item_val.sv_potion_restore_mana
                                                                                         {
                                                                                             value = ((*item).iqty as ::core::ffi::c_long
                                                                                                 * 300000 as ::core::ffi::c_long) as int32_t;
@@ -1301,14 +1283,14 @@ pub unsafe extern "C" fn borg_drop_slow() -> bool {
                                                 == TV_ROD as ::core::ffi::c_int
                                                 && (*item).aware as ::core::ffi::c_int != 0
                                                 && ((*item).sval as ::core::ffi::c_int
-                                                    == sv_rod_light
+                                                    == crate::bridge::st().item_val.sv_rod_light
                                                     && crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] <= 0 as ::core::ffi::c_int))
                                             {
                                                 if !((*item).tval as ::core::ffi::c_int
                                                     == TV_ROD as ::core::ffi::c_int
                                                     && (*item).aware as ::core::ffi::c_int != 0
                                                     && (*item).sval as ::core::ffi::c_int
-                                                        == sv_rod_healing)
+                                                        == crate::bridge::st().item_val.sv_rod_healing)
                                                 {
                                                     let ref mut fresh1 =
                                                         (*borg_items.offset(i as isize)).iqty;

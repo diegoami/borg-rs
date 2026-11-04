@@ -22,11 +22,7 @@ pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_aim_wand, borg_equips_rod, borg_need, borg_read_scroll,
     borg_use_staff, borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
 };
-use crate::headers::borg_item_val_h::{
-    sv_flask_oil, sv_light_lantern, sv_light_torch, sv_rod_detection, sv_rod_illumination,
-    sv_rod_light, sv_rod_mapping, sv_scroll_light, sv_scroll_mapping, sv_staff_light,
-    sv_staff_mapping, sv_wand_light,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_fail, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE,
     BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -283,9 +279,9 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
     }
     if borg_activate_item(crate::bridge::st().act.illumination) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.light) as ::core::ffi::c_int != 0
-        || borg_zap_rod(sv_rod_illumination) as ::core::ffi::c_int != 0
-        || borg_use_staff(sv_staff_light) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_light) as ::core::ffi::c_int != 0
+        || borg_zap_rod(crate::bridge::st().item_val.sv_rod_illumination) as ::core::ffi::c_int != 0
+        || borg_use_staff(crate::bridge::st().item_val.sv_staff_light) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_light) as ::core::ffi::c_int != 0
         || borg_spell_fail(LIGHT_ROOM, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         || borg_spell_fail(CALL_LIGHT, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
@@ -460,7 +456,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     {
         if borg_activate_item(crate::bridge::st().act.detect_all) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_detection) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_detection) as ::core::ffi::c_int != 0
             || borg_spell_fail(SENSE_SURROUNDINGS, 40 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
         {
@@ -572,9 +568,9 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
             != 0
     {
         if borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_mapping) as ::core::ffi::c_int != 0
-            || borg_use_staff(sv_staff_mapping) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_mapping) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_mapping) as ::core::ffi::c_int != 0
+            || borg_use_staff(crate::bridge::st().item_val.sv_staff_mapping) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_mapping) as ::core::ffi::c_int != 0
             || borg_spell(SENSE_SURROUNDINGS) as ::core::ffi::c_int != 0
         {
             let mut y: ::core::ffi::c_int = 0;
@@ -618,15 +614,15 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
 }
 unsafe extern "C" fn borg_refuel_lantern() -> bool {
     let mut i: ::core::ffi::c_int = 0;
-    i = borg_slot(TV_FLASK as ::core::ffi::c_int, sv_flask_oil);
+    i = borg_slot(TV_FLASK as ::core::ffi::c_int, crate::bridge::st().item_val.sv_flask_oil);
     if i < 0 as ::core::ffi::c_int {
-        i = borg_slot(TV_LIGHT as ::core::ffi::c_int, sv_light_lantern);
+        i = borg_slot(TV_LIGHT as ::core::ffi::c_int, crate::bridge::st().item_val.sv_light_lantern);
         if i >= 0 as ::core::ffi::c_int {
             while i < (*z_info).pack_size as ::core::ffi::c_int {
                 if (*borg_items.offset(i as isize)).tval as ::core::ffi::c_int
                     != TV_LIGHT as ::core::ffi::c_int
                     || (*borg_items.offset(i as isize)).sval as ::core::ffi::c_int
-                        != sv_light_lantern
+                        != crate::bridge::st().item_val.sv_light_lantern
                 {
                     i = -(1 as ::core::ffi::c_int);
                     break;
@@ -665,7 +661,7 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
     if (*borg_items
         .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize))
     .sval as ::core::ffi::c_int
-        != sv_light_lantern
+        != crate::bridge::st().item_val.sv_light_lantern
     {
         return false_0 != 0;
     }
@@ -703,18 +699,18 @@ pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
         return BORG_NO_NEED;
     }
     if (*current_light).tval as ::core::ffi::c_int == TV_LIGHT as ::core::ffi::c_int {
-        if (*current_light).sval as ::core::ffi::c_int == sv_light_torch {
+        if (*current_light).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_torch {
             if (*current_light).timeout as ::core::ffi::c_int > 250 as ::core::ffi::c_int {
                 return BORG_NO_NEED;
             } else {
-                i = borg_slot(TV_LIGHT as ::core::ffi::c_int, sv_light_torch);
+                i = borg_slot(TV_LIGHT as ::core::ffi::c_int, crate::bridge::st().item_val.sv_light_torch);
                 if i < 0 as ::core::ffi::c_int {
                     return BORG_UNMET_NEED;
                 }
                 return BORG_NO_NEED;
             }
         }
-        if (*current_light).sval as ::core::ffi::c_int == sv_light_lantern {
+        if (*current_light).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_lantern {
             if ((*borg_items.offset(
                 ((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize,
             ))
@@ -729,9 +725,9 @@ pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
         }
         return BORG_NO_NEED;
     } else {
-        i = borg_slot(TV_LIGHT as ::core::ffi::c_int, sv_light_lantern);
+        i = borg_slot(TV_LIGHT as ::core::ffi::c_int, crate::bridge::st().item_val.sv_light_lantern);
         if i < 0 as ::core::ffi::c_int {
-            i = borg_slot(TV_LIGHT as ::core::ffi::c_int, sv_light_torch);
+            i = borg_slot(TV_LIGHT as ::core::ffi::c_int, crate::bridge::st().item_val.sv_light_torch);
         }
         if i < 0 as ::core::ffi::c_int {
             return BORG_UNMET_NEED;
@@ -758,12 +754,12 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         return false_0 != 0;
     }
     if borg_spell_okay_fail(SPEAR_OF_LIGHT, 20 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || -(1 as ::core::ffi::c_int) != borg_slot(TV_WAND as ::core::ffi::c_int, sv_wand_light)
+        || -(1 as ::core::ffi::c_int) != borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_light)
             && (*borg_items
-                .offset(borg_slot(TV_WAND as ::core::ffi::c_int, sv_wand_light) as isize))
+                .offset(borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_light) as isize))
             .pval as ::core::ffi::c_int
                 != 0
-        || borg_equips_rod(sv_rod_light) as ::core::ffi::c_int != 0
+        || borg_equips_rod(crate::bridge::st().item_val.sv_rod_light) as ::core::ffi::c_int != 0
     {
         spell_ok = true_0 != 0;
     }
@@ -917,8 +913,8 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         return true_0 != 0;
     }
     if borg_spell_fail(SPEAR_OF_LIGHT, 20 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || borg_zap_rod(sv_rod_light) as ::core::ffi::c_int != 0
-        || borg_aim_wand(sv_wand_light) as ::core::ffi::c_int != 0
+        || borg_zap_rod(crate::bridge::st().item_val.sv_rod_light) as ::core::ffi::c_int != 0
+        || borg_aim_wand(crate::bridge::st().item_val.sv_wand_light) as ::core::ffi::c_int != 0
     {
         borg_keypress((dir + '0' as i32) as keycode_t);
         borg_note(b"# Illuminating this hallway\0" as *const u8 as *const ::core::ffi::c_char);

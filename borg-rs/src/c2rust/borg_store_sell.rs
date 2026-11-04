@@ -27,13 +27,7 @@ pub use crate::headers::borg_item_h::{
     BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
 };
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
-use crate::headers::borg_item_val_h::{
-    kv_potion_restore_mana, kv_rod_healing, sv_potion_cure_critical, sv_potion_cure_serious,
-    sv_potion_healing, sv_potion_life, sv_potion_restore_mana, sv_potion_speed,
-    sv_potion_star_healing, sv_rod_healing, sv_rod_mapping, sv_scroll_teleport,
-    sv_staff_teleportation, sv_wand_annihilation, sv_wand_drain_life, sv_wand_magic_missile,
-    sv_wand_stinking_cloud,
-};
+
 use crate::headers::borg_power_h::borg_power;
 use crate::headers::borg_store_buy_h::{
     bought_item_num, bought_item_pval, bought_item_store, bought_item_sval, bought_item_tval,
@@ -854,10 +848,10 @@ unsafe extern "C" fn borg_good_sell(mut item: *mut borg_item, mut who: ::core::f
                     return true_0 != 0;
                 }
                 if (*item).tval as ::core::ffi::c_int == TV_POTION as ::core::ffi::c_int
-                    && (*item).sval as ::core::ffi::c_int == sv_potion_restore_mana
+                    && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_restore_mana
                     && crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
                         > 100 as ::core::ffi::c_int
-                    && crate::bridge::st().borg.has[(kv_potion_restore_mana) as usize]
+                    && crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_restore_mana) as usize]
                         + num_mana as ::core::ffi::c_int
                         > 99 as ::core::ffi::c_int
                 {
@@ -943,14 +937,14 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                             < 45 as ::core::ffi::c_int)
                     {
                         if !((*item).tval as ::core::ffi::c_int == TV_ROD as ::core::ffi::c_int
-                            && (*item).sval as ::core::ffi::c_int == sv_rod_healing
-                            && crate::bridge::st().borg.has[(kv_rod_healing) as usize] <= 3 as ::core::ffi::c_int)
+                            && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_healing
+                            && crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] <= 3 as ::core::ffi::c_int)
                         {
                             if !(crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                                 == CLASS_WARRIOR
                                 && (*item).tval as ::core::ffi::c_int
                                     == TV_ROD as ::core::ffi::c_int
-                                && (*item).sval as ::core::ffi::c_int == sv_rod_mapping
+                                && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_mapping
                                 && (*item).iqty as ::core::ffi::c_int <= 2 as ::core::ffi::c_int)
                             {
                                 if !((*item).tval as ::core::ffi::c_int
@@ -958,11 +952,11 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                                     && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                                         < 35 as ::core::ffi::c_int
                                     && ((*item).sval as ::core::ffi::c_int
-                                        == sv_wand_magic_missile
+                                        == crate::bridge::st().item_val.sv_wand_magic_missile
                                         || (*item).sval as ::core::ffi::c_int
-                                            == sv_wand_stinking_cloud
+                                            == crate::bridge::st().item_val.sv_wand_stinking_cloud
                                         || (*item).sval as ::core::ffi::c_int
-                                            == sv_wand_annihilation)
+                                            == crate::bridge::st().item_val.sv_wand_annihilation)
                                     && (*item).pval as ::core::ffi::c_int
                                         != 0 as ::core::ffi::c_int)
                                 {
@@ -1224,38 +1218,38 @@ pub unsafe extern "C" fn borg_count_sell() -> ::core::ffi::c_int {
                                 }
                                 if !((*item).tval as ::core::ffi::c_int
                                     == TV_POTION as ::core::ffi::c_int
-                                    && (*item).sval as ::core::ffi::c_int == sv_potion_cure_serious
+                                    && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_serious
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_POTION as ::core::ffi::c_int
                                         && (*item).sval as ::core::ffi::c_int
-                                            == sv_potion_cure_critical
+                                            == crate::bridge::st().item_val.sv_potion_cure_critical
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_POTION as ::core::ffi::c_int
-                                        && (*item).sval as ::core::ffi::c_int == sv_potion_healing
+                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_healing
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_POTION as ::core::ffi::c_int
                                         && (*item).sval as ::core::ffi::c_int
-                                            == sv_potion_star_healing
+                                            == crate::bridge::st().item_val.sv_potion_star_healing
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_POTION as ::core::ffi::c_int
-                                        && (*item).sval as ::core::ffi::c_int == sv_potion_life
+                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_life
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_POTION as ::core::ffi::c_int
-                                        && (*item).sval as ::core::ffi::c_int == sv_potion_speed
+                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_speed
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_STAFF as ::core::ffi::c_int
                                         && (*item).sval as ::core::ffi::c_int
-                                            == sv_staff_teleportation
+                                            == crate::bridge::st().item_val.sv_staff_teleportation
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_WAND as ::core::ffi::c_int
-                                        && (*item).sval as ::core::ffi::c_int == sv_wand_drain_life
+                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_wand_drain_life
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_WAND as ::core::ffi::c_int
                                         && (*item).sval as ::core::ffi::c_int
-                                            == sv_wand_annihilation
+                                            == crate::bridge::st().item_val.sv_wand_annihilation
                                     || (*item).tval as ::core::ffi::c_int
                                         == TV_SCROLL as ::core::ffi::c_int
-                                        && (*item).sval as ::core::ffi::c_int == sv_scroll_teleport)
+                                        && (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_teleport)
                                 {
                                     price = (if ((*item).value as ::core::ffi::c_long)
                                         < 30000 as ::core::ffi::c_long

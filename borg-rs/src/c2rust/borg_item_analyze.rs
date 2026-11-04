@@ -20,11 +20,7 @@ pub use crate::headers::borg_item_h::{
     BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON,
     BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
 };
-use crate::headers::borg_item_val_h::{
-    sv_dragon_balance, sv_dragon_blue, sv_dragon_chaos, sv_dragon_gold, sv_dragon_green,
-    sv_dragon_law, sv_dragon_multihued, sv_dragon_power, sv_dragon_red, sv_dragon_shining,
-    sv_ring_acid, sv_ring_dog, sv_ring_flames, sv_ring_ice, sv_ring_lightning,
-};
+
 pub use crate::headers::init_h::{angband_constants, critical_level, o_critical_level, z_info};
 pub use crate::headers::list_elements_h::{
     ELEM_ACID, ELEM_ARROW, ELEM_CHAOS, ELEM_COLD, ELEM_DARK, ELEM_DISEN, ELEM_ELEC, ELEM_FIRE,
@@ -274,7 +270,7 @@ unsafe extern "C" fn borg_object_value_known(mut item: *mut borg_item) -> int32_
     let mut current_block_69: u64;
     match (*item).tval as ::core::ffi::c_int {
         21 => {
-            if (*item).sval as ::core::ffi::c_int == sv_ring_dog {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_ring_dog {
                 return 0 as int32_t;
             }
             current_block_69 = 790185930182612747;
@@ -761,48 +757,48 @@ pub unsafe extern "C" fn borg_item_analyze(
         (*item).activ_idx = (*(*o).activation).index;
     } else {
         if (*item).tval as ::core::ffi::c_int == TV_RING as ::core::ffi::c_int {
-            if (*item).sval as ::core::ffi::c_int == sv_ring_flames {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_ring_flames {
                 (*item).activ_idx = crate::bridge::st().act.ring_flames;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_ring_acid {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_ring_acid {
                 (*item).activ_idx = crate::bridge::st().act.ring_acid;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_ring_ice {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_ring_ice {
                 (*item).activ_idx = crate::bridge::st().act.ring_ice;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_ring_lightning {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_ring_lightning {
                 (*item).activ_idx = crate::bridge::st().act.ring_lightning;
             }
         }
         if (*item).tval as ::core::ffi::c_int == TV_DRAG_ARMOR as ::core::ffi::c_int {
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_blue {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_blue {
                 (*item).activ_idx = crate::bridge::st().act.dragon_blue;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_red {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_red {
                 (*item).activ_idx = crate::bridge::st().act.dragon_red;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_green {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_green {
                 (*item).activ_idx = crate::bridge::st().act.dragon_green;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_multihued {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_multihued {
                 (*item).activ_idx = crate::bridge::st().act.dragon_multihued;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_shining {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_shining {
                 (*item).activ_idx = crate::bridge::st().act.dragon_shining;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_law {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_law {
                 (*item).activ_idx = crate::bridge::st().act.dragon_law;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_gold {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_gold {
                 (*item).activ_idx = crate::bridge::st().act.dragon_gold;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_chaos {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_chaos {
                 (*item).activ_idx = crate::bridge::st().act.dragon_chaos;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_balance {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_balance {
                 (*item).activ_idx = crate::bridge::st().act.dragon_balance;
             }
-            if (*item).sval as ::core::ffi::c_int == sv_dragon_power {
+            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_dragon_power {
                 (*item).activ_idx = crate::bridge::st().act.dragon_power;
             }
         }

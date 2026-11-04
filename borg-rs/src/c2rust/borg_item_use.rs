@@ -10,17 +10,7 @@ use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
 use crate::headers::borg_item_analyze_h::borg_obj_has_effect;
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
-use crate::headers::borg_item_val_h::{
-    sv_food_apple, sv_food_draught, sv_food_handful, sv_food_honey_cake, sv_food_pint,
-    sv_food_ration, sv_food_slice, sv_food_slime_mold, sv_food_waybread, sv_mush_purging,
-    sv_mush_restoring, sv_potion_blindness, sv_potion_confusion, sv_potion_cure_critical,
-    sv_potion_cure_light, sv_potion_cure_serious, sv_potion_enlightenment, sv_potion_healing,
-    sv_potion_inc_all, sv_potion_inc_con, sv_potion_inc_dex, sv_potion_inc_int, sv_potion_inc_str,
-    sv_potion_inc_wis, sv_potion_restore_life, sv_potion_sleep, sv_potion_slime_mold,
-    sv_potion_slowness, sv_rod_recall, sv_scroll_acquirement, sv_scroll_mapping,
-    sv_scroll_recharging, sv_scroll_star_acquirement, sv_staff_destruction, sv_staff_power,
-    sv_staff_teleportation,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_fail, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE,
     BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -154,7 +144,7 @@ pub use crate::headers::z_util_h::my_rational;
 pub unsafe extern "C" fn borg_quaff_crit(mut no_check: bool) -> bool {
     static mut when_last_quaff: borg_time = 0 as borg_time;
     if no_check {
-        if borg_quaff_potion(sv_potion_cure_critical) {
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_critical) {
             when_last_quaff = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
@@ -169,7 +159,7 @@ pub unsafe extern "C" fn borg_quaff_crit(mut no_check: bool) -> bool {
     if crate::bridge::st().borg.trait_[(BI_ACCW as ::core::ffi::c_int) as usize] < 2 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if borg_quaff_potion(sv_potion_cure_critical) {
+    if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_critical) {
         when_last_quaff = crate::bridge::st().borg.time.now;
         return true_0 != 0;
     }
@@ -423,27 +413,27 @@ pub unsafe extern "C" fn borg_eat_food_any() -> bool {
         }
         i += 1;
     }
-    if borg_quaff_potion(sv_potion_slime_mold) {
+    if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_slime_mold) {
         return true_0 != 0;
     }
     if crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0
-        && (borg_quaff_potion(sv_potion_sleep) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_slowness) as ::core::ffi::c_int != 0)
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_sleep) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_slowness) as ::core::ffi::c_int != 0)
         || crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
             != 0
-            && borg_quaff_potion(sv_potion_blindness) as ::core::ffi::c_int != 0
+            && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_blindness) as ::core::ffi::c_int != 0
         || crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0
-            && borg_quaff_potion(sv_potion_confusion) as ::core::ffi::c_int != 0
+            && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_confusion) as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
     if (crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] < 4 as ::core::ffi::c_int
         || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             <= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize])
-        && (borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_critical) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0)
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_critical) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0)
     {
         return true_0 != 0;
     }
@@ -500,7 +490,7 @@ pub unsafe extern "C" fn borg_zap_rod(mut sval: ::core::ffi::c_int) -> bool {
     fail = 100 as ::core::ffi::c_int
         * (skill - lev - (141 as ::core::ffi::c_int - 1 as ::core::ffi::c_int))
         / (lev - skill - (100 as ::core::ffi::c_int - 10 as ::core::ffi::c_int));
-    if sval != sv_rod_recall {
+    if sval != crate::bridge::st().item_val.sv_rod_recall {
         if fail > 500 as ::core::ffi::c_int {
             return false_0 != 0;
         }
@@ -593,7 +583,7 @@ pub unsafe extern "C" fn borg_use_staff_fail(mut sval: ::core::ffi::c_int) -> bo
         * (skill - lev - (141 as ::core::ffi::c_int - 1 as ::core::ffi::c_int))
         / (lev - skill - (100 as ::core::ffi::c_int - 10 as ::core::ffi::c_int));
     if fail > 500 as ::core::ffi::c_int {
-        if sval != sv_staff_teleportation {
+        if sval != crate::bridge::st().item_val.sv_staff_teleportation {
             return false_0 != 0;
         }
         if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
@@ -640,14 +630,14 @@ pub unsafe extern "C" fn borg_equips_staff_fail(mut sval: ::core::ffi::c_int) ->
     fail = 100 as ::core::ffi::c_int
         * (skill - lev - (141 as ::core::ffi::c_int - 1 as ::core::ffi::c_int))
         / (lev - skill - (100 as ::core::ffi::c_int - 10 as ::core::ffi::c_int));
-    if sval == sv_staff_destruction {
+    if sval == crate::bridge::st().item_val.sv_staff_destruction {
         return true_0 != 0;
     }
     if fail > 500 as ::core::ffi::c_int {
-        if sval != sv_staff_teleportation {
+        if sval != crate::bridge::st().item_val.sv_staff_teleportation {
             return false_0 != 0;
         }
-        if sval == sv_staff_teleportation
+        if sval == crate::bridge::st().item_val.sv_staff_teleportation
             && crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                 == 0
         {
@@ -934,62 +924,62 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
             || borg_activate_item(crate::bridge::st().act.restore_exp) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_st_lev) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_life) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_restore_life) as ::core::ffi::c_int != 0)
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_life) as ::core::ffi::c_int != 0)
     {
         return true_0 != 0;
     }
-    if borg_quaff_potion(sv_potion_inc_str) as ::core::ffi::c_int != 0
-        || borg_quaff_potion(sv_potion_inc_int) as ::core::ffi::c_int != 0
-        || borg_quaff_potion(sv_potion_inc_wis) as ::core::ffi::c_int != 0
-        || borg_quaff_potion(sv_potion_inc_dex) as ::core::ffi::c_int != 0
-        || borg_quaff_potion(sv_potion_inc_con) as ::core::ffi::c_int != 0
+    if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_str) as ::core::ffi::c_int != 0
+        || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_int) as ::core::ffi::c_int != 0
+        || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_wis) as ::core::ffi::c_int != 0
+        || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_dex) as ::core::ffi::c_int != 0
+        || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_con) as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
     if crate::bridge::st().borg.trait_[(BI_ISFIXSTR as ::core::ffi::c_int) as usize]
         != 0
-        && (borg_quaff_potion(sv_potion_inc_str) as ::core::ffi::c_int != 0
-            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_purging) as ::core::ffi::c_int
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_str) as ::core::ffi::c_int != 0
+            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_purging) as ::core::ffi::c_int
                 != 0
             || borg_activate_item(crate::bridge::st().act.shroom_purging) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_str) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0
-            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring) as ::core::ffi::c_int
+            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring) as ::core::ffi::c_int
                 != 0)
         || crate::bridge::st().borg.trait_[(BI_ISFIXINT as ::core::ffi::c_int) as usize]
             != 0
-            && (borg_quaff_potion(sv_potion_inc_int) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_int) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_int) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0
-                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
+                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
         || crate::bridge::st().borg.trait_[(BI_ISFIXWIS as ::core::ffi::c_int) as usize]
             != 0
-            && (borg_quaff_potion(sv_potion_inc_wis) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_wis) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_wis) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0
-                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
+                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
         || crate::bridge::st().borg.trait_[(BI_ISFIXDEX as ::core::ffi::c_int) as usize]
             != 0
-            && (borg_quaff_potion(sv_potion_inc_dex) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_dex) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_dex) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0
-                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
+                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
         || crate::bridge::st().borg.trait_[(BI_ISFIXCON as ::core::ffi::c_int) as usize]
             != 0
-            && (borg_quaff_potion(sv_potion_inc_con) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_inc_con) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_con) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0
-                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_purging)
+                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_purging)
                     as ::core::ffi::c_int
                     != 0
                 || borg_activate_item(crate::bridge::st().act.shroom_purging) as ::core::ffi::c_int != 0
-                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
+                || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
     {
@@ -1001,10 +991,10 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
         if !((*item).iqty == 0 || !(*item).aware) {
             match (*item).tval as ::core::ffi::c_int {
                 26 => {
-                    if (*item).sval as ::core::ffi::c_int == sv_potion_enlightenment {
+                    if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_enlightenment {
                         crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             == 0;
-                    } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_all {
+                    } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_all {
                         if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
                             return true_0 != 0;
                         }
@@ -1016,9 +1006,9 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
                         || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                             != 0)
                     {
-                        if (*item).sval as ::core::ffi::c_int == sv_scroll_mapping
-                            || (*item).sval as ::core::ffi::c_int == sv_scroll_acquirement
-                            || (*item).sval as ::core::ffi::c_int == sv_scroll_star_acquirement
+                        if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_mapping
+                            || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_acquirement
+                            || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_star_acquirement
                         {
                             if !(crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                                 == 0)
@@ -1040,18 +1030,18 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
     {
         if borg_spell(REMOVE_HUNGER) as ::core::ffi::c_int != 0
             || borg_spell(HERBAL_CURING) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_slime_mold) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_slime_mold) as ::core::ffi::c_int
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_slime_mold) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_slime_mold) as ::core::ffi::c_int
                 != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_slice) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_apple) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_pint) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_handful) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_honey_cake) as ::core::ffi::c_int
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_slice) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_apple) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_pint) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_handful) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_honey_cake) as ::core::ffi::c_int
                 != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_ration) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_waybread) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_draught) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_ration) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_waybread) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_draught) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.food_waybread) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -1086,14 +1076,14 @@ pub unsafe extern "C" fn borg_recharging() -> bool {
                         && borg_spell_okay_fail(RECHARGING, 96 as ::core::ffi::c_int)
                             as ::core::ffi::c_int
                             != 0
-                        && ((*item).sval as ::core::ffi::c_int) < sv_staff_power
+                        && ((*item).sval as ::core::ffi::c_int) < crate::bridge::st().item_val.sv_staff_power
                     {
                         charge = true_0 != 0;
                     }
                     if (*item).pval as ::core::ffi::c_int <= 1 as ::core::ffi::c_int {
                         charge = true_0 != 0;
                     }
-                    if (*item).sval as ::core::ffi::c_int == sv_staff_teleportation
+                    if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_teleportation
                         && ((*item).pval as ::core::ffi::c_int) < 3 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             == 0
@@ -1108,7 +1098,7 @@ pub unsafe extern "C" fn borg_recharging() -> bool {
                     }
                 }
                 if charge {
-                    if !(borg_read_scroll(sv_scroll_recharging) as ::core::ffi::c_int != 0
+                    if !(borg_read_scroll(crate::bridge::st().item_val.sv_scroll_recharging) as ::core::ffi::c_int != 0
                         || borg_spell_fail(RECHARGING, 96 as ::core::ffi::c_int)
                             as ::core::ffi::c_int
                             != 0

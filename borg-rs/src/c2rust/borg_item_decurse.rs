@@ -11,9 +11,7 @@ use crate::headers::borg_io_h::borg_keypress;
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_equips_item, borg_equips_staff_fail, borg_read_scroll, borg_use_staff,
 };
-use crate::headers::borg_item_val_h::{
-    sv_scroll_remove_curse, sv_scroll_star_remove_curse, sv_staff_remove_curse,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL,
     BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS, BLOODLUST,
@@ -128,20 +126,20 @@ pub unsafe extern "C" fn borg_decurse_armour() -> bool {
         return false_0 != 0;
     }
     if -(1 as ::core::ffi::c_int)
-        == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_remove_curse)
-        && !borg_equips_staff_fail(sv_staff_remove_curse)
+        == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_remove_curse)
+        && !borg_equips_staff_fail(crate::bridge::st().item_val.sv_staff_remove_curse)
         && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
         && -(1 as ::core::ffi::c_int)
-            == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
+            == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_star_remove_curse)
         && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
         && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
     {
         return false_0 != 0;
     }
-    if borg_read_scroll(sv_scroll_remove_curse) as ::core::ffi::c_int != 0
-        || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
+    if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_remove_curse) as ::core::ffi::c_int != 0
+        || borg_use_staff(crate::bridge::st().item_val.sv_staff_remove_curse) as ::core::ffi::c_int != 0
         || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
     {
@@ -160,20 +158,20 @@ pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
         return false_0 != 0;
     }
     if -(1 as ::core::ffi::c_int)
-        == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_remove_curse)
-        && !borg_equips_staff_fail(sv_staff_remove_curse)
+        == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_remove_curse)
+        && !borg_equips_staff_fail(crate::bridge::st().item_val.sv_staff_remove_curse)
         && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
         && -(1 as ::core::ffi::c_int)
-            == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
+            == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_star_remove_curse)
         && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
         && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
     {
         return false_0 != 0;
     }
-    if borg_read_scroll(sv_scroll_remove_curse) as ::core::ffi::c_int != 0
-        || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
+    if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_remove_curse) as ::core::ffi::c_int != 0
+        || borg_use_staff(crate::bridge::st().item_val.sv_staff_remove_curse) as ::core::ffi::c_int != 0
         || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
     {
@@ -192,20 +190,20 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
         != 0
     {
         if -(1 as ::core::ffi::c_int)
-            == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_remove_curse)
-            && !borg_equips_staff_fail(sv_staff_remove_curse)
+            == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_remove_curse)
+            && !borg_equips_staff_fail(crate::bridge::st().item_val.sv_staff_remove_curse)
             && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
             && -(1 as ::core::ffi::c_int)
-                == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
+                == borg_slot(TV_SCROLL as ::core::ffi::c_int, crate::bridge::st().item_val.sv_scroll_star_remove_curse)
             && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
             && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
         {
             return false_0 != 0;
         }
-        if borg_read_scroll(sv_scroll_remove_curse) as ::core::ffi::c_int != 0
-            || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
+        if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_remove_curse) as ::core::ffi::c_int != 0
+            || borg_use_staff(crate::bridge::st().item_val.sv_staff_remove_curse) as ::core::ffi::c_int != 0
             || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
         {

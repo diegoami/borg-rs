@@ -17,12 +17,7 @@ pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_eat, borg_need, borg_quaff_crit, borg_quaff_potion, borg_read_scroll,
     borg_use_staff_fail, borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
 };
-use crate::headers::borg_item_val_h::{
-    kv_rod_healing, kv_rod_recall, sv_food_waybread, sv_mush_cure_mind, sv_mush_fast_recovery,
-    sv_potion_berserk, sv_potion_boldness, sv_potion_cure_light, sv_potion_cure_poison,
-    sv_potion_cure_serious, sv_potion_heroism, sv_rod_curing, sv_rod_healing, sv_rod_recall,
-    sv_scroll_satisfy_hunger, sv_staff_curing,
-};
+
 use crate::headers::borg_light_h::{borg_check_light_only, borg_maintain_light};
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_okay, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL,
@@ -195,7 +190,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
     if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery) as ::core::ffi::c_int
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery) as ::core::ffi::c_int
             != 0
             || borg_activate_item(crate::bridge::st().act.cure_body) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_critical) as ::core::ffi::c_int != 0
@@ -235,7 +230,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 75 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery) as ::core::ffi::c_int
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery) as ::core::ffi::c_int
             != 0
             || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
             || borg_spell(HERBAL_CURING) as ::core::ffi::c_int != 0
@@ -254,7 +249,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
             == 0
         && q < 75 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) as ::core::ffi::c_int != 0
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
             || borg_spell(HEROISM) as ::core::ffi::c_int != 0
             || borg_spell(BERSERK_STRENGTH) as ::core::ffi::c_int != 0
@@ -283,7 +278,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 75 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) {
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) {
             return true_0 != 0;
         }
     }
@@ -354,9 +349,9 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
+        if borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
@@ -369,9 +364,9 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         && q < 95 as ::core::ffi::c_int
     {
         if borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
         {
@@ -381,9 +376,9 @@ pub unsafe extern "C" fn borg_recover() -> bool {
     if crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
+        if borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
             || borg_quaff_crit(
@@ -399,11 +394,11 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery) as ::core::ffi::c_int
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery) as ::core::ffi::c_int
             != 0
-            || borg_quaff_potion(sv_potion_cure_poison) as ::core::ffi::c_int != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_waybread) as ::core::ffi::c_int != 0
-            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery)
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_poison) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_waybread) as ::core::ffi::c_int != 0
+            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery)
                 as ::core::ffi::c_int
                 != 0
             || borg_quaff_crit(
@@ -411,8 +406,8 @@ pub unsafe extern "C" fn borg_recover() -> bool {
                     < 10 as ::core::ffi::c_int,
             ) as ::core::ffi::c_int
                 != 0
-            || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.food_waybread) as ::core::ffi::c_int != 0
         {
@@ -423,14 +418,14 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery) as ::core::ffi::c_int
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery) as ::core::ffi::c_int
             != 0
-            || borg_eat(TV_FOOD as ::core::ffi::c_int, sv_food_waybread) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+            || borg_eat(TV_FOOD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_food_waybread) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.food_waybread) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -440,12 +435,12 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         != 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_confusion) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_curing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_curing) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -456,10 +451,10 @@ pub unsafe extern "C" fn borg_recover() -> bool {
             == 0
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_boldness) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_heroism) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_berserk) as ::core::ffi::c_int != 0
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_boldness) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_heroism) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_berserk) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -471,7 +466,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
             != 0)
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_read_scroll(sv_scroll_satisfy_hunger) as ::core::ffi::c_int != 0
+        if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_satisfy_hunger) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.satisfy) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -481,25 +476,25 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize] / 2 as ::core::ffi::c_int
         && q < 25 as ::core::ffi::c_int
     {
-        if borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        if borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_serious) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
     }
-    if crate::bridge::st().borg.has[(kv_rod_recall) as usize] != 0
-        || crate::bridge::st().borg.has[(kv_rod_healing) as usize] != 0
+    if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_recall) as usize] != 0
+        || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] != 0
     {
-        if crate::bridge::st().borg.has[(kv_rod_healing) as usize] != 0
+        if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] != 0
             && (*borg_items
-                .offset(borg_slot(TV_ROD as ::core::ffi::c_int, sv_rod_healing) as isize))
+                .offset(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_healing) as isize))
             .pval
                 == 0
-            || crate::bridge::st().borg.has[(kv_rod_recall) as usize] != 0
+            || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_recall) as usize] != 0
                 && (*borg_items
-                    .offset(borg_slot(TV_ROD as ::core::ffi::c_int, sv_rod_recall) as isize))
+                    .offset(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_recall) as isize))
                 .pval
                     == 0
         {

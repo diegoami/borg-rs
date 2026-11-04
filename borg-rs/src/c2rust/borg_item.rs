@@ -4,7 +4,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 use crate::headers::borg_inventory_h::{borg_equipment, borg_inventory};
 use crate::headers::borg_io_h::borg_keypress;
 pub use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_item_val_h::sv_food_slime_mold;
+
 use crate::headers::borg_store_h::borg_notice_store;
 pub use crate::headers::h_basic_h::errr;
 pub use crate::headers::init_h::{angband_constants, critical_level, o_critical_level, z_info};
@@ -40,7 +40,7 @@ pub unsafe extern "C" fn borg_get_note(mut item: *const borg_item) -> *const ::c
 #[no_mangle]
 pub unsafe extern "C" fn borg_deinscribe(mut i: ::core::ffi::c_int) {
     if (*borg_items.offset(i as isize)).tval as ::core::ffi::c_int == TV_FOOD as ::core::ffi::c_int
-        && (*borg_items.offset(i as isize)).sval as ::core::ffi::c_int == sv_food_slime_mold
+        && (*borg_items.offset(i as isize)).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_slime_mold
     {
         return;
     }

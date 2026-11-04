@@ -19,7 +19,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_io_h::borg_note;
 
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
-use crate::headers::borg_item_val_h::sv_scroll_rune_of_protection;
+
 pub use crate::headers::borg_magic_h::{
     borg_spell_fail, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL, BANISH_SPIRITS,
     BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS, BLOODLUST, BRAND_AMMUNITION,
@@ -135,7 +135,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
             crate::bridge::st().borg.c.y,
         ));
         if borg_spell_fail(GLYPH_OF_WARDING, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_rune_of_protection) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_rune_of_protection) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.glyph) as ::core::ffi::c_int != 0
         {
             i = 0 as ::core::ffi::c_int;

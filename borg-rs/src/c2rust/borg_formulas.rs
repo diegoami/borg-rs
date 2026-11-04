@@ -17,11 +17,7 @@ use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_activation_h::borg_findact;
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, borg_items};
-use crate::headers::borg_item_val_h::{
-    borg_lookup_kind, sv_potion_inc_all, sv_potion_inc_con, sv_potion_inc_dex, sv_potion_inc_int,
-    sv_potion_inc_str, sv_potion_inc_wis, sv_scroll_enchant_armor, sv_scroll_enchant_weapon_to_dam,
-    sv_scroll_enchant_weapon_to_hit, sv_scroll_star_enchant_armor, sv_scroll_star_enchant_weapon,
-};
+use crate::headers::borg_item_val_h::borg_lookup_kind;
 pub use crate::headers::borg_magic_h::{
     borg_can_cast, borg_get_spell_entry, borg_magic, borg_spell_stat, borg_spells, ACID_SPRAY,
     ANNIHILATE, BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -1512,30 +1508,30 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
             && (*item_0).iqty as ::core::ffi::c_int != 0
             && (*item_0).aware as ::core::ffi::c_int != 0
             && ((*item_0).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
-                && ((*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_armor
+                && ((*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_armor
                     && crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize]
                         < 1000 as ::core::ffi::c_int
                     && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int) as usize]
                         != 0
-                    || (*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_hit
+                    || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_hit
                         && crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int) as usize]
                             != 0
-                    || (*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_dam
+                    || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_dam
                         && crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int) as usize]
                             != 0
-                    || (*item_0).sval as ::core::ffi::c_int == sv_scroll_star_enchant_weapon
-                    || (*item_0).sval as ::core::ffi::c_int == sv_scroll_star_enchant_armor)
+                    || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_star_enchant_weapon
+                    || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_star_enchant_armor)
                 || (*item_0).tval as ::core::ffi::c_int == TV_POTION as ::core::ffi::c_int
-                    && ((*item_0).sval as ::core::ffi::c_int == sv_potion_inc_str
-                        || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_int
-                        || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_wis
-                        || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_dex
-                        || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_con
-                        || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_all)))
+                    && ((*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_str
+                        || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_int
+                        || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_wis
+                        || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_dex
+                        || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_con
+                        || (*item_0).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_all)))
         {
             total = (total as ::core::ffi::c_long
                 - ((crate::bridge::st().borg.trait_[(BI_WEIGHT as ::core::ffi::c_int) as usize]

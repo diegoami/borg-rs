@@ -11,7 +11,7 @@ use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::borg_note;
 
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_equips_item, borg_quaff_potion};
-use crate::headers::borg_item_val_h::sv_potion_berserk;
+
 pub use crate::headers::borg_magic_h::{
     borg_get_spell_power, borg_heroism_level, borg_spell, borg_spell_fail, borg_spell_okay_fail,
     borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM,
@@ -604,13 +604,13 @@ unsafe extern "C" fn borg_perma_aux_berserk_potion() -> ::core::ffi::c_int {
     if crate::bridge::st().borg.temp.hero as ::core::ffi::c_int != 0 || crate::bridge::st().borg.temp.berserk as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
-    if -(1 as ::core::ffi::c_int) == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_berserk) {
+    if -(1 as ::core::ffi::c_int) == borg_slot(TV_POTION as ::core::ffi::c_int, crate::bridge::st().item_val.sv_potion_berserk) {
         return 0 as ::core::ffi::c_int;
     }
     if borg_simulate {
         return 2 as ::core::ffi::c_int;
     }
-    if borg_quaff_potion(sv_potion_berserk) {
+    if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_berserk) {
         return 2 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;

@@ -214,3 +214,16 @@ pub mod cave_view {
         crate::borg_cave_view::borg_update_view(st())
     }
 }
+
+/// C-ABI shims with the borg-item-val.c names.
+pub mod item_val {
+    use super::st;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_init_item_val() {
+        crate::borg_item_val::borg_init_item_val(st())
+    }
+    pub unsafe extern "C" fn borg_lookup_kind(tval: c_int, sval: c_int) -> c_int {
+        crate::borg_item_val::borg_lookup_kind(tval, sval)
+    }
+}

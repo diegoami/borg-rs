@@ -35,7 +35,7 @@ pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_activate_ring, borg_equips_item, borg_equips_ring,
 };
-use crate::headers::borg_item_val_h::sv_ring_digging;
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_okay, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE,
     BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -346,14 +346,14 @@ pub unsafe extern "C" fn borg_can_dig(mut check_fail: bool, mut feat: uint8_t) -
             || borg_spell_okay_fail(SHATTER_STONE, 40 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
             || borg_equips_item(crate::bridge::st().act.stone_to_mud, true_0 != 0) as ::core::ffi::c_int != 0
-            || borg_equips_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+            || borg_equips_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
     } else if borg_spell_okay(TURN_STONE_TO_MUD) as ::core::ffi::c_int != 0
         || borg_spell_okay(SHATTER_STONE) as ::core::ffi::c_int != 0
         || borg_equips_item(crate::bridge::st().act.stone_to_mud, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+        || borg_equips_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
@@ -1134,7 +1134,7 @@ unsafe extern "C" fn borg_play_step(
             }
             if borg_spell(TURN_STONE_TO_MUD) as ::core::ffi::c_int != 0
                 || borg_spell(SHATTER_STONE) as ::core::ffi::c_int != 0
-                || borg_activate_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+                || borg_activate_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.stone_to_mud) as ::core::ffi::c_int != 0
             {
                 borg_note(b"# Melting a door\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1180,7 +1180,7 @@ unsafe extern "C" fn borg_play_step(
         }
         if borg_spell(TURN_STONE_TO_MUD) as ::core::ffi::c_int != 0
             || borg_spell(SHATTER_STONE) as ::core::ffi::c_int != 0
-            || borg_activate_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+            || borg_activate_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.stone_to_mud) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Melting a wall/etc\0" as *const u8 as *const ::core::ffi::c_char);

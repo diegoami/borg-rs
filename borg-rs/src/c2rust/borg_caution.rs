@@ -38,14 +38,7 @@ pub use crate::headers::borg_item_use_h::{
     borg_read_scroll, borg_read_unknown, borg_use_staff, borg_use_staff_fail, borg_use_unknown,
     borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
 };
-use crate::headers::borg_item_val_h::{
-    borg_lookup_kind, sv_mush_cure_mind, sv_mush_fast_recovery, sv_mush_purging, sv_mush_restoring,
-    sv_potion_berserk, sv_potion_boldness, sv_potion_cure_critical, sv_potion_cure_light,
-    sv_potion_cure_poison, sv_potion_cure_serious, sv_potion_healing, sv_potion_heroism,
-    sv_potion_life, sv_potion_restore_mana, sv_potion_star_healing, sv_rod_healing,
-    sv_scroll_phase_door, sv_scroll_teleport_level, sv_staff_curing, sv_staff_healing,
-    sv_staff_teleportation, sv_staff_the_magi,
-};
+use crate::headers::borg_item_val_h::borg_lookup_kind;
 use crate::headers::borg_item_wear_h::borg_backup_swap;
 use crate::headers::borg_light_h::borg_maintain_light;
 pub use crate::headers::borg_magic_h::{
@@ -241,8 +234,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
     if heal_heal < 300 as ::core::ffi::c_int {
         heal_heal = 300 as ::core::ffi::c_int;
     }
-    if borg_slot(TV_ROD as ::core::ffi::c_int, sv_rod_healing) != -(1 as ::core::ffi::c_int) {
-        if borg_activate_failure(TV_ROD as ::core::ffi::c_int, sv_rod_healing)
+    if borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_healing) != -(1 as ::core::ffi::c_int) {
+        if borg_activate_failure(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_healing)
             < 500 as ::core::ffi::c_int
         {
             rod_good = true_0 != 0;
@@ -334,7 +327,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
     {
         if pct_down >= 80 as ::core::ffi::c_int
             && danger - heal_heal < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
-            && borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+            && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Fixing Confusion. Level 1\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -343,8 +336,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             && danger
                 >= crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     * 2 as ::core::ffi::c_int
-            && (borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0)
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0)
         {
             borg_note(
                 b"# Fixing Confusion. Level 1.a\0" as *const u8 as *const ::core::ffi::c_char,
@@ -352,27 +345,27 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             return true_0 != 0;
         }
         if danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + csw_heal
-            && (borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind)
+            && (borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind)
                 as ::core::ffi::c_int
                 != 0
-                || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
                 || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.cure_confusion) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0)
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Fixing Confusion. Level 2\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
         }
-        if borg_equips_staff_fail(sv_staff_teleportation) {
-            if borg_activate_failure(TV_STAFF as ::core::ffi::c_int, sv_staff_teleportation)
+        if borg_equips_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) {
+            if borg_activate_failure(TV_STAFF as ::core::ffi::c_int, crate::bridge::st().item_val.sv_staff_teleportation)
                 > 650 as ::core::ffi::c_int
                 && danger
                     < (crate::bridge::st().borg.avoidance as ::core::ffi::c_int + ccw_heal) * 15 as ::core::ffi::c_int
                         / 10 as ::core::ffi::c_int
                 && (borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-                    || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0)
+                    || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0)
             {
                 borg_note(
                     b"# Fixing Confusion. Level 3\0" as *const u8 as *const ::core::ffi::c_char,
@@ -386,8 +379,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 return false_0 != 0;
             }
         } else if borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Fixing Confusion. Level 5\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -401,12 +394,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * 25 as ::core::ffi::c_int
                 / 10 as ::core::ffi::c_int
         {
-            if borg_equips_staff_fail(sv_staff_teleportation) {
+            if borg_equips_staff_fail(crate::bridge::st().item_val.sv_staff_teleportation) {
                 return 0 as ::core::ffi::c_int != 0;
             }
         }
         if hp_down >= 300 as ::core::ffi::c_int
-            && borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+            && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -416,15 +409,15 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                     / 4 as ::core::ffi::c_int
             && crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize] != 0)
         {
-            if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery)
+            if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery)
                 as ::core::ffi::c_int
                 != 0
-                || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
                 || borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
-                || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
+                || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
             {
                 borg_note(b"# Fixing Blindness.\0" as *const u8 as *const ::core::ffi::c_char);
                 return true_0 != 0;
@@ -440,7 +433,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     * 5 as ::core::ffi::c_int
                 && hp_down > 100 as ::core::ffi::c_int)
-        && borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
+        && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
     {
         borg_note(b"# Fixing Confusion/Blind.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -452,13 +445,13 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 > 250 as ::core::ffi::c_int
                 && borg_spell_fail(HOLY_WORD, 14 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || stats_needing_fix >= 5 as ::core::ffi::c_int
-                    && borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
+                    && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0
                 || hp_down > 500 as ::core::ffi::c_int
-                    && crate::bridge::st().borg.has[(borg_lookup_kind( TV_POTION as ::core::ffi::c_int, sv_potion_star_healing, )) as usize]
+                    && crate::bridge::st().borg.has[(borg_lookup_kind( TV_POTION as ::core::ffi::c_int, crate::bridge::st().item_val.sv_potion_star_healing, )) as usize]
                         <= 0 as ::core::ffi::c_int
-                    && borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+                    && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
@@ -471,8 +464,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                     && borg_spell_fail(HOLY_WORD, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                         != 0
                 || borg_spell_fail(HEALING, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
-                || borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0)
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0
+                || borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Healing in Questor Combat.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -482,7 +475,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         < crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] / 5 as ::core::ffi::c_int
         && (Rand_div(100 as uint32_t) as int32_t) < 50 as int32_t
     {
-        if borg_use_staff_fail(sv_staff_the_magi) as ::core::ffi::c_int != 0
+        if borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_the_magi) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.staff_magi) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Use Magi Staff\0" as *const u8 as *const ::core::ffi::c_char);
@@ -503,8 +496,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 == 0 as ::core::ffi::c_int
                 && danger > crate::bridge::st().borg.avoidance as ::core::ffi::c_int
         {
-            if borg_use_staff_fail(sv_staff_the_magi) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+            if borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_the_magi) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.staff_magi) as ::core::ffi::c_int != 0
             {
@@ -526,7 +519,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
     if stats_needing_fix >= 5 as ::core::ffi::c_int
         && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 10 as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] > 650 as ::core::ffi::c_int
-        && (borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring) as ::core::ffi::c_int
+        && (borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_restoring) as ::core::ffi::c_int
             != 0
             || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0)
     {
@@ -583,7 +576,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + clw_heal
         && clw_heal > danger / 3 as ::core::ffi::c_int
         && (borg_spell_fail(MINOR_HEALING, allow_fail) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_light) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 1.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -595,7 +588,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 < 20 as ::core::ffi::c_int)
         && danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + csw_heal
         && csw_heal > danger / 3 as ::core::ffi::c_int
-        && (borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_serious) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 2.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -624,7 +617,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         >= 80 as ::core::ffi::c_int
         && danger < 50 as ::core::ffi::c_int
         && pct_down >= 20 as ::core::ffi::c_int
-        && borg_quaff_potion(sv_potion_cure_critical) as ::core::ffi::c_int != 0
+        && borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_critical) as ::core::ffi::c_int != 0
     {
         borg_note(b"# Healing Level 5B.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -636,14 +629,14 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             && crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
                 == 0
             || rod_good as ::core::ffi::c_int != 0)
-            && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
+            && borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 6.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -659,7 +652,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
     }
     if pct_down > 50 as ::core::ffi::c_int
         && danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + heal_heal
-        && (borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+        && (borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
             || crate::bridge::st().borg.near.evil_unique as ::core::ffi::c_int != 0
                 && borg_spell_fail(HOLY_WORD, allow_fail) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0
@@ -668,9 +661,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 && crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
                     == 0
                 || rod_good as ::core::ffi::c_int != 0)
-                && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-            || borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0)
+                && borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
+            || borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 7.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -684,10 +677,10 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 && crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
                     == 0
                 || rod_good as ::core::ffi::c_int != 0)
-                && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
+                && borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
@@ -703,14 +696,14 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && (crate::bridge::st().borg.near.evil_unique as ::core::ffi::c_int != 0
             && borg_spell_fail(HOLY_WORD, allow_fail) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
             || (crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize]
                 == 0
                 && crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
                     == 0
                 || rod_good as ::core::ffi::c_int != 0)
-                && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+                && borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
@@ -718,9 +711,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
             || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
-                && (borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                    || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                    || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0))
+                && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                    || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+                    || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0))
     {
         borg_note(b"# Healing Level 9.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -730,9 +723,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize]
             + crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
             <= 0 as ::core::ffi::c_int
-        && (borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0)
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 10.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -750,7 +743,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
     {
         if borg_spell_fail(CURE_POISON, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(HERBAL_CURING, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_poison) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_poison) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_body) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_critical) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_temp) as ::core::ffi::c_int != 0
@@ -758,24 +751,24 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
-            || borg_use_staff(sv_staff_curing) as ::core::ffi::c_int != 0
-            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery)
+            || borg_use_staff(crate::bridge::st().item_val.sv_staff_curing) as ::core::ffi::c_int != 0
+            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_fast_recovery)
                 as ::core::ffi::c_int
                 != 0
-            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_purging) as ::core::ffi::c_int
+            || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_purging) as ::core::ffi::c_int
                 != 0
             || borg_activate_item(crate::bridge::st().act.shroom_purging) as ::core::ffi::c_int != 0
             || borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(HOLY_WORD, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Curing.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
         }
         if (borg_spell_legal(CURE_POISON) as ::core::ffi::c_int != 0
             || borg_spell_legal(HERBAL_CURING) as ::core::ffi::c_int != 0)
-            && (borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Curing next round.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -805,12 +798,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             return true_0 != 0;
         }
         crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] = sv_mana;
-        if borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
-        if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -818,9 +811,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 20 as ::core::ffi::c_int
-            && (borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0)
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Healing. Curing section.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -841,15 +834,15 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 / 3 as ::core::ffi::c_int
             || (Rand_div(100 as uint32_t) as int32_t) < 20 as int32_t)
     {
-        if borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
             || borg_quaff_crit(
                 crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     < 10 as ::core::ffi::c_int,
             ) as ::core::ffi::c_int
                 != 0
             || borg_spell(MINOR_HEALING) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_critical) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_critical) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -864,12 +857,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize];
         crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] =
             crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize];
-        if borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
-        if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -877,9 +870,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 20 as ::core::ffi::c_int
-            && (borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0)
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Healing.  Bleeding.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -949,7 +942,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             && crate::bridge::st().borg.trait_[(BI_KING as ::core::ffi::c_int) as usize] == 0
         {
             if borg_spell(TELEPORT_LEVEL) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport_level) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport_level) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_level) as ::core::ffi::c_int != 0
             {
                 borg_note(
@@ -1394,7 +1387,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         {
             return true_0 != 0;
         }
-        if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+        if borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -1964,19 +1957,19 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         if crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
             - crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             >= 300 as ::core::ffi::c_int
-            && (borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0)
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Healing.  Confusion.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
         }
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.cure_confusion) as ::core::ffi::c_int != 0
-            || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
+            || borg_use_staff_fail(crate::bridge::st().item_val.sv_staff_healing) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Healing.  Confusion.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -1991,10 +1984,10 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                 && crate::bridge::st().borg.trait_[(BI_AMISSILES as ::core::ffi::c_int) as usize]
                     <= 0 as ::core::ffi::c_int)
     {
-        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_cure_mind) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_boldness) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_heroism) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_berserk) as ::core::ffi::c_int != 0
+        if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, crate::bridge::st().item_val.sv_mush_cure_mind) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_boldness) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_heroism) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_berserk) as ::core::ffi::c_int != 0
             || borg_spell_fail(BERSERK_STRENGTH, 25 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
             || borg_spell_fail(HEROISM, 25 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -2083,9 +2076,9 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             && crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
             && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 >= 85 as ::core::ffi::c_int)
-        && (borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-            || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0)
+        && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+            || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Using reserve EZ_Heal.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -2113,7 +2106,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             && crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                 < crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                     / 4 as ::core::ffi::c_int
-            && (borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
+            && (borg_quaff_potion(crate::bridge::st().item_val.sv_potion_restore_mana) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0)
         {
             borg_note(
@@ -2125,7 +2118,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         if borg_caution_phase(50 as ::core::ffi::c_int, 1 as ::core::ffi::c_int)
             as ::core::ffi::c_int
             != 0
-            && (borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
+            && (borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PHASE_DOOR, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0)
@@ -2140,8 +2133,8 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             - crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             < 100 as ::core::ffi::c_int
             && (borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0)
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0)
         {
             borg_note(
                 b"# Buying time waiting for Recall.(3)\0" as *const u8
@@ -2152,13 +2145,13 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         if crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
             - crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             > 150 as ::core::ffi::c_int
-            && (borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
+            && (borg_zap_rod(crate::bridge::st().item_val.sv_rod_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_star_healing) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_life) as ::core::ffi::c_int != 0
                 || borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-                || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0)
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_serious) as ::core::ffi::c_int != 0
+                || borg_quaff_potion(crate::bridge::st().item_val.sv_potion_cure_light) as ::core::ffi::c_int != 0)
         {
             borg_note(
                 b"# Buying time waiting for Recall.(4)\0" as *const u8

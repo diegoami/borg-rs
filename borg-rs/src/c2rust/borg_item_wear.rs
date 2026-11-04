@@ -19,9 +19,7 @@ use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_items, safe_items};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::borg_read_scroll;
-use crate::headers::borg_item_val_h::{
-    sv_light_lantern, sv_light_torch, sv_rod_recall, sv_scroll_identify,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_legal, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL,
     BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS, BLOODLUST,
@@ -306,7 +304,7 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
     if b_i >= 0 as ::core::ffi::c_int {
         let mut item_1: *mut borg_item = borg_items.offset(b_i as isize) as *mut borg_item;
         if borg_spell(IDENTIFY_RUNE) as ::core::ffi::c_int != 0
-            || borg_read_scroll(sv_scroll_identify) as ::core::ffi::c_int != 0
+            || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_identify) as ::core::ffi::c_int != 0
         {
             borg_note(format(
                 b"# Identifying %s.\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1634,13 +1632,13 @@ pub unsafe extern "C" fn borg_wear_recharge() -> bool {
             if !((*item).timeout == 0) {
                 slot = borg_wield_slot(item);
                 if !((*item).tval as ::core::ffi::c_int == TV_ROD as ::core::ffi::c_int
-                    && (*item).sval as ::core::ffi::c_int != sv_rod_recall
+                    && (*item).sval as ::core::ffi::c_int != crate::bridge::st().item_val.sv_rod_recall
                     && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                         == 0 as ::core::ffi::c_int)
                 {
                     if !((*item).tval as ::core::ffi::c_int == TV_LIGHT as ::core::ffi::c_int
-                        && ((*item).sval as ::core::ffi::c_int == sv_light_torch
-                            || (*item).sval as ::core::ffi::c_int == sv_light_lantern))
+                        && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_torch
+                            || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_lantern))
                     {
                         b_i = i;
                         b_slot = slot;

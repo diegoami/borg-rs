@@ -29,6 +29,7 @@ pub mod borg_cave_view;
 pub mod borg_cave_util;
 pub mod borg_io;
 pub mod borg_item_activation;
+pub mod borg_item_val;
 pub mod borg_util;
 pub mod engine;
 pub mod state;

@@ -11,10 +11,7 @@ use crate::headers::borg_item_decurse_h::{
 };
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
-use crate::headers::borg_item_val_h::{
-    sv_scroll_enchant_armor, sv_scroll_enchant_weapon_to_dam, sv_scroll_enchant_weapon_to_hit,
-    sv_scroll_star_enchant_armor, sv_scroll_star_enchant_weapon,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_spell_fail, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
     BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS,
@@ -283,8 +280,8 @@ unsafe extern "C" fn borg_enchant_to_a() -> bool {
     if b_i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if borg_read_scroll(sv_scroll_star_enchant_armor) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_enchant_armor) as ::core::ffi::c_int != 0
+    if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_enchant_armor) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_enchant_armor) as ::core::ffi::c_int != 0
         || borg_spell_fail(ENCHANT_ARMOUR, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_pick_armor(b_i);
@@ -447,8 +444,8 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
     if b_i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if borg_read_scroll(sv_scroll_star_enchant_weapon) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_enchant_weapon_to_hit) as ::core::ffi::c_int != 0
+    if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_enchant_weapon) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_hit) as ::core::ffi::c_int != 0
         || borg_spell_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_pick_weapon(b_i);
@@ -615,8 +612,8 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
     if b_i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if borg_read_scroll(sv_scroll_star_enchant_weapon) as ::core::ffi::c_int != 0
-        || borg_read_scroll(sv_scroll_enchant_weapon_to_dam) as ::core::ffi::c_int != 0
+    if borg_read_scroll(crate::bridge::st().item_val.sv_scroll_star_enchant_weapon) as ::core::ffi::c_int != 0
+        || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_dam) as ::core::ffi::c_int != 0
         || borg_spell_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_pick_weapon(b_i);

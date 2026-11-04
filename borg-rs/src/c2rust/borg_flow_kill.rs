@@ -57,7 +57,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_io_h::{borg_massage_special_chars, borg_note};
 
 use crate::headers::borg_item_use_h::{borg_equips_item, borg_equips_ring};
-use crate::headers::borg_item_val_h::sv_ring_digging;
+
 pub use crate::headers::borg_magic_h::{
     borg_primarily_caster, borg_spell_okay, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
     BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS,
@@ -2595,7 +2595,7 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
     }
     if !borg_spell_okay(TURN_STONE_TO_MUD)
         && !borg_spell_okay(SHATTER_STONE)
-        && !borg_equips_ring(sv_ring_digging)
+        && !borg_equips_ring(crate::bridge::st().item_val.sv_ring_digging)
         && !borg_equips_item(crate::bridge::st().act.stone_to_mud, true_0 != 0)
     {
         return false_0 != 0;

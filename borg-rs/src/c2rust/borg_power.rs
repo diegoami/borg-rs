@@ -17,14 +17,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, borg_items};
-use crate::headers::borg_item_val_h::{
-    kv_mush_stoneskin, kv_potion_healing, kv_potion_restore_mana, kv_rod_healing, kv_rod_recall,
-    kv_scroll_mass_banishment, kv_scroll_remove_curse, kv_scroll_star_remove_curse,
-    kv_wand_annihilation, kv_wand_magic_missile, kv_wand_stinking_cloud, sv_potion_inc_all,
-    sv_potion_inc_con, sv_potion_inc_dex, sv_potion_inc_int, sv_potion_inc_str, sv_potion_inc_wis,
-    sv_scroll_enchant_armor, sv_scroll_enchant_weapon_to_dam, sv_scroll_enchant_weapon_to_hit,
-    sv_scroll_star_enchant_armor, sv_scroll_star_enchant_weapon, sv_sling,
-};
+
 pub use crate::headers::borg_magic_h::{
     borg_get_spell_entry, borg_magic, borg_spell_stat, borg_spells, ACID_SPRAY, ANNIHILATE,
     BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN,
@@ -384,13 +377,13 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
                 as ::core::ffi::c_long
                 * 200 as ::core::ffi::c_long) as int32_t;
     }
-    if (*item).sval as ::core::ffi::c_int == sv_sling
+    if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_sling
         && (*item).art_idx == 0
         && crate::bridge::st().borg.trait_[(BI_STR as ::core::ffi::c_int) as usize] < 9 as ::core::ffi::c_int
     {
         value = (value as ::core::ffi::c_long - 5000 as ::core::ffi::c_long) as int32_t;
     }
-    if (*item).sval as ::core::ffi::c_int == sv_sling
+    if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_sling
         && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             == 1 as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_STR as ::core::ffi::c_int) as usize] >= 9 as ::core::ffi::c_int
@@ -2077,7 +2070,7 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             }
             if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                 >= 50 as ::core::ffi::c_int
-                && crate::bridge::st().borg.has[(kv_rod_recall) as usize] != 0
+                && crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_recall) as usize] != 0
             {
                 value = (value as ::core::ffi::c_int + 12000 as ::core::ffi::c_int) as int32_t;
             }
@@ -2208,7 +2201,7 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             }
         }
         k = 0 as ::core::ffi::c_int;
-        while k < 6 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_rod_healing) as usize] {
+        while k < 6 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] {
             value = (value as ::core::ffi::c_long + 20000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
@@ -2250,13 +2243,13 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
         }
         if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_PALADIN {
             k = 0 as ::core::ffi::c_int;
-            while k < 3 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_potion_healing) as usize] {
+            while k < 3 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize] {
                 value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
                 k += 1;
             }
         }
         k = 0 as ::core::ffi::c_int;
-        while k < 4 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_rod_healing) as usize] {
+        while k < 4 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] {
             value = (value as ::core::ffi::c_long + 20000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
@@ -2267,13 +2260,13 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             == 1 as ::core::ffi::c_int
         {
             k = 0 as ::core::ffi::c_int;
-            while k < 10 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_potion_healing) as usize] {
+            while k < 10 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize] {
                 value = (value as ::core::ffi::c_long - 2000 as ::core::ffi::c_long) as int32_t;
                 k += 1;
             }
         }
         k = 0 as ::core::ffi::c_int;
-        while k < 5 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_potion_healing) as usize] {
+        while k < 5 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize] {
             value = (value as ::core::ffi::c_long + 2000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
@@ -2308,7 +2301,7 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             == 0
     {
         k = 0 as ::core::ffi::c_int;
-        while k < 99 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_potion_healing) as usize] {
+        while k < 99 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize] {
             value = (value as ::core::ffi::c_long + 8000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
@@ -2336,14 +2329,14 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
         k = 0 as ::core::ffi::c_int;
         if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_WARRIOR {
             while k < 99 as ::core::ffi::c_int
-                && k < crate::bridge::st().borg.has[(kv_potion_restore_mana) as usize]
+                && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_restore_mana) as usize]
             {
                 value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
                 k += 1;
             }
         }
         k = 0 as ::core::ffi::c_int;
-        while k < 40 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_mush_stoneskin) as usize] {
+        while k < 40 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_mush_stoneskin) as usize] {
             value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
@@ -2361,7 +2354,7 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
     }
     if crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] > 100 as ::core::ffi::c_int {
         k = 0 as ::core::ffi::c_int;
-        while k < 10 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(kv_potion_restore_mana) as usize]
+        while k < 10 as ::core::ffi::c_int && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_restore_mana) as usize]
         {
             value = (value as ::core::ffi::c_long + 4000 as ::core::ffi::c_long) as int32_t;
             k += 1;
@@ -2530,13 +2523,13 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
     {
         k = 0 as ::core::ffi::c_int;
         while k < 10 as ::core::ffi::c_int
-            && k < crate::bridge::st().borg.has[(kv_scroll_mass_banishment) as usize]
+            && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_scroll_mass_banishment) as usize]
         {
             value = (value as ::core::ffi::c_long + 10000 as ::core::ffi::c_long) as int32_t;
             k += 1;
         }
         while k < 25 as ::core::ffi::c_int
-            && k < crate::bridge::st().borg.has[(kv_scroll_mass_banishment) as usize]
+            && k < crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_scroll_mass_banishment) as usize]
         {
             value = (value as ::core::ffi::c_long + 2000 as ::core::ffi::c_long) as int32_t;
             k += 1;
@@ -2663,14 +2656,14 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
         value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
         k += 1;
     }
-    if (crate::bridge::st().borg.has[(kv_wand_magic_missile) as usize] != 0
-        || crate::bridge::st().borg.has[(kv_wand_stinking_cloud) as usize] != 0)
+    if (crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_magic_missile) as usize] != 0
+        || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_stinking_cloud) as usize] != 0)
         && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             < 30 as ::core::ffi::c_int
     {
         value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
     }
-    if crate::bridge::st().borg.has[(kv_wand_annihilation) as usize] != 0
+    if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_annihilation) as usize] != 0
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             < 30 as ::core::ffi::c_int
     {
@@ -2679,9 +2672,9 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
     if (crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_WARRIOR
         || crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             <= 20 as ::core::ffi::c_int)
-        && (crate::bridge::st().borg.has[(kv_wand_magic_missile) as usize] != 0
-            || crate::bridge::st().borg.has[(kv_wand_annihilation) as usize] != 0
-            || crate::bridge::st().borg.has[(kv_wand_stinking_cloud) as usize] != 0)
+        && (crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_magic_missile) as usize] != 0
+            || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_annihilation) as usize] != 0
+            || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_wand_stinking_cloud) as usize] != 0)
     {
         value = (value as ::core::ffi::c_long + 10000 as ::core::ffi::c_long) as int32_t;
     }
@@ -2776,10 +2769,10 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
     if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
         != 0
     {
-        if crate::bridge::st().borg.has[(kv_scroll_star_remove_curse) as usize] != 0 {
+        if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_scroll_star_remove_curse) as usize] != 0 {
             value = (value as ::core::ffi::c_int + 90000 as ::core::ffi::c_int) as int32_t;
         }
-        if crate::bridge::st().borg.has[(kv_scroll_remove_curse) as usize] != 0 {
+        if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_scroll_remove_curse) as usize] != 0 {
             value = (value as ::core::ffi::c_int + 90000 as ::core::ffi::c_int) as int32_t;
         }
     }
@@ -2926,30 +2919,30 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             && (*item).iqty as ::core::ffi::c_int != 0
             && (*item).aware as ::core::ffi::c_int != 0
             && ((*item).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
-                && ((*item).sval as ::core::ffi::c_int == sv_scroll_enchant_armor
+                && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_armor
                     && crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize]
                         < 1000 as ::core::ffi::c_int
                     && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int) as usize]
                         != 0
-                    || (*item).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_hit
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_hit
                         && crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int) as usize]
                             != 0
-                    || (*item).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_dam
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_dam
                         && crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int) as usize]
                             != 0
-                    || (*item).sval as ::core::ffi::c_int == sv_scroll_star_enchant_weapon
-                    || (*item).sval as ::core::ffi::c_int == sv_scroll_star_enchant_armor)
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_star_enchant_weapon
+                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_star_enchant_armor)
                 || (*item).tval as ::core::ffi::c_int == TV_POTION as ::core::ffi::c_int
-                    && ((*item).sval as ::core::ffi::c_int == sv_potion_inc_str
-                        || (*item).sval as ::core::ffi::c_int == sv_potion_inc_int
-                        || (*item).sval as ::core::ffi::c_int == sv_potion_inc_wis
-                        || (*item).sval as ::core::ffi::c_int == sv_potion_inc_dex
-                        || (*item).sval as ::core::ffi::c_int == sv_potion_inc_con
-                        || (*item).sval as ::core::ffi::c_int == sv_potion_inc_all)))
+                    && ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_str
+                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_int
+                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_wis
+                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_dex
+                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_con
+                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_all)))
         {
             value = (value as ::core::ffi::c_long
                 - ((crate::bridge::st().borg.trait_[(BI_WEIGHT as ::core::ffi::c_int) as usize]

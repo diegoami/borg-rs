@@ -56,9 +56,7 @@ pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_need, borg_read_scroll, borg_recharging, borg_use_staff,
     borg_use_things, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
 };
-use crate::headers::borg_item_val_h::{
-    sv_scroll_phase_door, sv_scroll_teleport, sv_scroll_teleport_level, sv_staff_teleportation,
-};
+
 use crate::headers::borg_item_wear_h::{
     borg_swap_rings, borg_test_stuff, borg_wear_recharge, borg_wear_rings, borg_wear_stuff,
 };
@@ -1980,7 +1978,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         if borg_allow_teleport() as ::core::ffi::c_int != 0
             && (borg_spell(PHASE_DOOR) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_dimension_door(90 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_spell(TELEPORT_SELF) as ::core::ffi::c_int != 0
                 || borg_spell(PORTAL) as ::core::ffi::c_int != 0
@@ -2055,9 +2053,9 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
                 || borg_spell(TELEPORT_SELF) as ::core::ffi::c_int != 0
                 || borg_spell(PORTAL) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(90 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-                || borg_use_staff(sv_staff_teleportation) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport) as ::core::ffi::c_int != 0
-                || borg_read_scroll(sv_scroll_teleport_level) as ::core::ffi::c_int != 0
+                || borg_use_staff(crate::bridge::st().item_val.sv_staff_teleportation) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport) as ::core::ffi::c_int != 0
+                || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_teleport_level) as ::core::ffi::c_int != 0
                 || borg_activate_item(crate::bridge::st().act.tele_level) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Teleport (twitchy)\0" as *const u8 as *const ::core::ffi::c_char);

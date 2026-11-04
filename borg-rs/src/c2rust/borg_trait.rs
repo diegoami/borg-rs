@@ -27,28 +27,7 @@ pub use crate::headers::borg_item_h::{
 };
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::{borg_activate_failure, borg_equips_item, borg_equips_ring};
-use crate::headers::borg_item_val_h::{
-    kv_flask_oil, kv_potion_healing, kv_staff_holiness, sv_food_apple, sv_food_draught,
-    sv_food_handful, sv_food_honey_cake, sv_food_pint, sv_food_ration, sv_food_sip, sv_food_slice,
-    sv_food_slime_mold, sv_food_waybread, sv_heavy_xbow, sv_light_lantern, sv_light_torch,
-    sv_light_xbow, sv_long_bow, sv_mush_cure_mind, sv_mush_debility, sv_mush_emergency,
-    sv_mush_purging, sv_mush_restoring, sv_mush_second_sight, sv_mush_sprinting, sv_mush_stoneskin,
-    sv_mush_terror, sv_potion_cure_critical, sv_potion_cure_light, sv_potion_cure_poison,
-    sv_potion_cure_serious, sv_potion_healing, sv_potion_inc_all, sv_potion_inc_con,
-    sv_potion_inc_dex, sv_potion_inc_int, sv_potion_inc_str, sv_potion_inc_wis, sv_potion_life,
-    sv_potion_resist_cold, sv_potion_resist_heat, sv_potion_resist_pois, sv_potion_restore_life,
-    sv_potion_speed, sv_potion_star_healing, sv_ring_digging, sv_rod_acid_ball, sv_rod_acid_bolt,
-    sv_rod_cold_ball, sv_rod_cold_bolt, sv_rod_detection, sv_rod_drain_life, sv_rod_elec_ball,
-    sv_rod_elec_bolt, sv_rod_fire_ball, sv_rod_fire_bolt, sv_rod_healing, sv_rod_illumination,
-    sv_rod_light, sv_rod_mapping, sv_rod_recall, sv_rod_speed, sv_scroll_enchant_armor,
-    sv_scroll_enchant_weapon_to_dam, sv_scroll_enchant_weapon_to_hit, sv_scroll_identify,
-    sv_scroll_mass_banishment, sv_scroll_phase_door, sv_scroll_protection_from_evil,
-    sv_scroll_recharging, sv_scroll_rune_of_protection, sv_scroll_star_enchant_armor,
-    sv_scroll_star_enchant_weapon, sv_scroll_teleport, sv_scroll_teleport_level,
-    sv_scroll_word_of_recall, sv_short_bow, sv_sling, sv_staff_destruction, sv_staff_healing,
-    sv_staff_holiness, sv_staff_power, sv_staff_speed, sv_staff_teleportation, sv_staff_the_magi,
-    sv_wand_annihilation, sv_wand_magic_missile, sv_wand_stinking_cloud, sv_wand_teleport_away,
-};
+
 use crate::headers::borg_item_wear_h::borg_is_ammo;
 pub use crate::headers::borg_magic_h::{
     borg_cheat_spells, borg_get_book_num, borg_spell_legal, borg_spell_legal_fail, borg_spell_stat,
@@ -2887,7 +2866,7 @@ unsafe extern "C" fn borg_notice_equipment() {
     crate::bridge::st().borg.trait_[(BI_BID as ::core::ffi::c_int) as usize] =
         (*item).ident as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SLING as ::core::ffi::c_int) as usize] =
-        ((*item).sval as ::core::ffi::c_int == sv_sling) as ::core::ffi::c_int;
+        ((*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_sling) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_BART as ::core::ffi::c_int) as usize] =
         (*item).art_idx as ::core::ffi::c_int;
     if hold < (*item).weight as ::core::ffi::c_int / 10 as ::core::ffi::c_int {
@@ -2898,27 +2877,27 @@ unsafe extern "C" fn borg_notice_equipment() {
     if (*item).iqty as ::core::ffi::c_int != 0
         && hold >= (*item).weight as ::core::ffi::c_int / 10 as ::core::ffi::c_int
     {
-        if (*item).sval as ::core::ffi::c_int == sv_sling {
+        if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_sling {
             crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize] =
                 TV_SHOT as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_SIDES as ::core::ffi::c_int) as usize] = 3 as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize] = 2 as ::core::ffi::c_int;
-        } else if (*item).sval as ::core::ffi::c_int == sv_short_bow {
+        } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_short_bow {
             crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize] =
                 TV_ARROW as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_SIDES as ::core::ffi::c_int) as usize] = 4 as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize] = 2 as ::core::ffi::c_int;
-        } else if (*item).sval as ::core::ffi::c_int == sv_long_bow {
+        } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_long_bow {
             crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize] =
                 TV_ARROW as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_SIDES as ::core::ffi::c_int) as usize] = 4 as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize] = 3 as ::core::ffi::c_int;
-        } else if (*item).sval as ::core::ffi::c_int == sv_light_xbow {
+        } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_xbow {
             crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize] =
                 TV_BOLT as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_SIDES as ::core::ffi::c_int) as usize] = 5 as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize] = 3 as ::core::ffi::c_int;
-        } else if (*item).sval as ::core::ffi::c_int == sv_heavy_xbow {
+        } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_heavy_xbow {
             crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize] =
                 TV_BOLT as ::core::ffi::c_int;
             crate::bridge::st().borg.trait_[(BI_AMMO_SIDES as ::core::ffi::c_int) as usize] = 5 as ::core::ffi::c_int;
@@ -3260,9 +3239,9 @@ unsafe extern "C" fn borg_notice_inventory() {
                             }
                         }
                         29 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_mush_purging
-                                || (*item).sval as ::core::ffi::c_int == sv_mush_restoring
-                                || (*item).sval as ::core::ffi::c_int == sv_mush_cure_mind
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_purging
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_restoring
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_cure_mind
                             {
                                 if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_START as ::core::ffi::c_int) as usize]
                                     != 0
@@ -3279,12 +3258,12 @@ unsafe extern "C" fn borg_notice_inventory() {
                             match current_block_187 {
                                 2167674248514145403 => {}
                                 _ => {
-                                    if (*item).sval as ::core::ffi::c_int == sv_mush_second_sight
-                                        || (*item).sval as ::core::ffi::c_int == sv_mush_emergency
-                                        || (*item).sval as ::core::ffi::c_int == sv_mush_terror
-                                        || (*item).sval as ::core::ffi::c_int == sv_mush_stoneskin
-                                        || (*item).sval as ::core::ffi::c_int == sv_mush_debility
-                                        || (*item).sval as ::core::ffi::c_int == sv_mush_sprinting
+                                    if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_second_sight
+                                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_emergency
+                                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_terror
+                                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_stoneskin
+                                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_debility
+                                        || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_mush_sprinting
                                     {
                                         if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_START as ::core::ffi::c_int) as usize] != 0
                                             && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
@@ -3301,68 +3280,68 @@ unsafe extern "C" fn borg_notice_inventory() {
                             current_block_187 = 18153031941552419006;
                         }
                         26 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_potion_healing {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_healing {
                                 crate::bridge::st().borg.trait_[(BI_AHEAL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_star_healing {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_star_healing {
                                 crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_life {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_life {
                                 crate::bridge::st().borg.trait_[(BI_ALIFE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_cure_critical
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_critical
                             {
                                 crate::bridge::st().borg.trait_[(BI_ACCW as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_cure_serious {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_serious {
                                 crate::bridge::st().borg.trait_[(BI_ACSW as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_cure_light {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_light {
                                 crate::bridge::st().borg.trait_[(BI_ACLW as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_cure_poison {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_cure_poison {
                                 crate::bridge::st().borg.trait_[(BI_ACUREPOIS as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_resist_heat {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_resist_heat {
                                 crate::bridge::st().borg.trait_[(BI_ARESHEAT as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_resist_cold {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_resist_cold {
                                 crate::bridge::st().borg.trait_[(BI_ARESCOLD as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_resist_pois {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_resist_pois {
                                 crate::bridge::st().borg.trait_[(BI_ARESPOIS as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_str {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_str {
                                 crate::bridge::st().borg.amt_statgain[STAT_STR as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_STR as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_int {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_int {
                                 crate::bridge::st().borg.amt_statgain[STAT_INT as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_INT as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_wis {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_wis {
                                 crate::bridge::st().borg.amt_statgain[STAT_WIS as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_WIS as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_dex {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_dex {
                                 crate::bridge::st().borg.amt_statgain[STAT_DEX as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_DEX as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_con {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_con {
                                 crate::bridge::st().borg.amt_statgain[STAT_CON as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_CON as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_all {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_inc_all {
                                 crate::bridge::st().borg.amt_statgain[STAT_STR as ::core::ffi::c_int as usize] =
                                     (crate::bridge::st().borg.amt_statgain[STAT_STR as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
@@ -3388,73 +3367,73 @@ unsafe extern "C" fn borg_notice_inventory() {
                                         as ::core::ffi::c_int
                                         + (*item).iqty as ::core::ffi::c_int)
                                         as int16_t;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_restore_life {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_restore_life {
                                 crate::bridge::st().borg.trait_[(BI_HASFIXEXP as ::core::ffi::c_int) as usize] = true_0;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_potion_speed {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_potion_speed {
                                 crate::bridge::st().borg.trait_[(BI_ASPEED as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             }
                             current_block_187 = 2167674248514145403;
                         }
                         25 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_scroll_identify {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_identify {
                                 crate::bridge::st().borg.trait_[(BI_AID as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_recharging {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_recharging {
                                 crate::bridge::st().borg.trait_[(BI_ARECHARGE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_phase_door {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_phase_door {
                                 crate::bridge::st().borg.trait_[(BI_APHASE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_teleport {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_teleport {
                                 crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_word_of_recall
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_word_of_recall
                             {
                                 crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_enchant_armor
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_enchant_armor
                             {
                                 crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_star_enchant_armor
+                                == crate::bridge::st().item_val.sv_scroll_star_enchant_armor
                             {
                                 crate::bridge::st().borg.trait_[(BI_AENCH_SARM as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_enchant_weapon_to_hit
+                                == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_hit
                             {
                                 crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_enchant_weapon_to_dam
+                                == crate::bridge::st().item_val.sv_scroll_enchant_weapon_to_dam
                             {
                                 crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_star_enchant_weapon
+                                == crate::bridge::st().item_val.sv_scroll_star_enchant_weapon
                             {
                                 crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_protection_from_evil
+                                == crate::bridge::st().item_val.sv_scroll_protection_from_evil
                             {
                                 crate::bridge::st().borg.trait_[(BI_APFE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_rune_of_protection
+                                == crate::bridge::st().item_val.sv_scroll_rune_of_protection
                             {
                                 crate::bridge::st().borg.trait_[(BI_AGLYPH as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_scroll_teleport_level
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_scroll_teleport_level
                             {
                                 crate::bridge::st().borg.trait_[(BI_ATELEPORTLVL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                                 crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize] +=
                                     1 as ::core::ffi::c_int;
                             } else if (*item).sval as ::core::ffi::c_int
-                                == sv_scroll_mass_banishment
+                                == crate::bridge::st().item_val.sv_scroll_mass_banishment
                             {
                                 crate::bridge::st().borg.trait_[(BI_AMASSBAN as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
@@ -3462,7 +3441,7 @@ unsafe extern "C" fn borg_notice_inventory() {
                             current_block_187 = 2167674248514145403;
                         }
                         24 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_rod_recall {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_recall {
                                 if borg_activate_failure(
                                     (*item).tval as ::core::ffi::c_int,
                                     (*item).sval as ::core::ffi::c_int,
@@ -3475,17 +3454,17 @@ unsafe extern "C" fn borg_notice_inventory() {
                                     crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize] +=
                                         (*item).iqty as ::core::ffi::c_int;
                                 }
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_detection {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_detection {
                                 crate::bridge::st().borg.trait_[(BI_ADETTRAP as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int * 100 as ::core::ffi::c_int;
                                 crate::bridge::st().borg.trait_[(BI_ADETDOOR as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int * 100 as ::core::ffi::c_int;
                                 crate::bridge::st().borg.trait_[(BI_ADETEVIL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int * 100 as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_illumination {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_illumination {
                                 crate::bridge::st().borg.trait_[(BI_ALITE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int * 100 as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_speed {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_speed {
                                 if borg_activate_failure(
                                     (*item).tval as ::core::ffi::c_int,
                                     (*item).sval as ::core::ffi::c_int,
@@ -3498,10 +3477,10 @@ unsafe extern "C" fn borg_notice_inventory() {
                                     crate::bridge::st().borg.trait_[(BI_ASPEED as ::core::ffi::c_int) as usize] +=
                                         (*item).iqty as ::core::ffi::c_int;
                                 }
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_mapping {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_mapping {
                                 crate::bridge::st().borg.trait_[(BI_AMAGICMAP as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int * 100 as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_healing {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_healing {
                                 if borg_activate_failure(
                                     (*item).tval as ::core::ffi::c_int,
                                     (*item).sval as ::core::ffi::c_int,
@@ -3515,19 +3494,19 @@ unsafe extern "C" fn borg_notice_inventory() {
                                         (*item).iqty as ::core::ffi::c_int
                                             + 1 as ::core::ffi::c_int;
                                 }
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_light
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_fire_bolt
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_elec_bolt
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_cold_bolt
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_acid_bolt
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_light
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_fire_bolt
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_elec_bolt
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_cold_bolt
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_acid_bolt
                             {
                                 crate::bridge::st().borg.trait_[(BI_AROD1 as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_rod_drain_life
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_fire_ball
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_elec_ball
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_cold_ball
-                                || (*item).sval as ::core::ffi::c_int == sv_rod_acid_ball
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_drain_life
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_fire_ball
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_elec_ball
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_cold_ball
+                                || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_rod_acid_ball
                             {
                                 crate::bridge::st().borg.trait_[(BI_AROD2 as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
@@ -3535,32 +3514,32 @@ unsafe extern "C" fn borg_notice_inventory() {
                             current_block_187 = 2167674248514145403;
                         }
                         23 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_wand_teleport_away {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_wand_teleport_away {
                                 crate::bridge::st().borg.trait_[(BI_ATPORTOTHER as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
                             }
-                            if (*item).sval as ::core::ffi::c_int == sv_wand_stinking_cloud
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_wand_stinking_cloud
                                 && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     < 30 as ::core::ffi::c_int
                             {
                                 crate::bridge::st().borg.trait_[(BI_GOOD_W_CHG as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
                             }
-                            if (*item).sval as ::core::ffi::c_int == sv_wand_magic_missile
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_wand_magic_missile
                                 && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     < 30 as ::core::ffi::c_int
                             {
                                 crate::bridge::st().borg.trait_[(BI_GOOD_W_CHG as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
                             }
-                            if (*item).sval as ::core::ffi::c_int == sv_wand_annihilation {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_wand_annihilation {
                                 crate::bridge::st().borg.trait_[(BI_GOOD_W_CHG as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
                             }
                             current_block_187 = 2167674248514145403;
                         }
                         22 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_staff_teleportation {
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_teleportation {
                                 crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                                 if borg_activate_failure(
@@ -3571,22 +3550,22 @@ unsafe extern "C" fn borg_notice_inventory() {
                                     crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize] +=
                                         (*item).pval as ::core::ffi::c_int;
                                 }
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_speed {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_speed {
                                 crate::bridge::st().borg.trait_[(BI_ASPEED as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_healing {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_healing {
                                 crate::bridge::st().borg.trait_[(BI_AHEAL as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_the_magi {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_the_magi {
                                 crate::bridge::st().borg.trait_[(BI_ASTFMAGI as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_destruction {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_destruction {
                                 crate::bridge::st().borg.trait_[(BI_ASTFDEST as ::core::ffi::c_int) as usize] +=
                                     (*item).pval as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_power {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_power {
                                 crate::bridge::st().borg.trait_[(BI_GOOD_S_CHG as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
-                            } else if (*item).sval as ::core::ffi::c_int == sv_staff_holiness {
+                            } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_staff_holiness {
                                 crate::bridge::st().borg.trait_[(BI_GOOD_S_CHG as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
                                 crate::bridge::st().borg.trait_[(BI_AHEAL as ::core::ffi::c_int) as usize] +=
@@ -3601,7 +3580,7 @@ unsafe extern "C" fn borg_notice_inventory() {
                                     as isize,
                             ))
                             .sval as ::core::ffi::c_int
-                                == sv_light_lantern
+                                == crate::bridge::st().item_val.sv_light_lantern
                             {
                                 crate::bridge::st().borg.trait_[(BI_AFUEL as ::core::ffi::c_int) as usize] +=
                                     (*item).iqty as ::core::ffi::c_int;
@@ -3609,7 +3588,7 @@ unsafe extern "C" fn borg_notice_inventory() {
                             current_block_187 = 2167674248514145403;
                         }
                         19 => {
-                            if (*item).sval as ::core::ffi::c_int == sv_light_torch
+                            if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_torch
                                 && (*item).timeout as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
                                 && (*borg_items.offset(
                                     ((*z_info).pack_size as ::core::ffi::c_int
@@ -3617,7 +3596,7 @@ unsafe extern "C" fn borg_notice_inventory() {
                                         as isize,
                                 ))
                                 .sval as ::core::ffi::c_int
-                                    == sv_light_torch
+                                    == crate::bridge::st().item_val.sv_light_torch
                                 && (*borg_items.offset(
                                     ((*z_info).pack_size as ::core::ffi::c_int
                                         + 5 as ::core::ffi::c_int)
@@ -3676,19 +3655,19 @@ unsafe extern "C" fn borg_notice_inventory() {
                                         crate::bridge::st().borg.trait_[(BI_FOOD_LO as ::core::ffi::c_int) as usize] +=
                                             (*item).iqty as ::core::ffi::c_int;
                                     }
-                                } else if (*item).sval as ::core::ffi::c_int == sv_food_apple
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_handful
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_slime_mold
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_pint
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_sip
+                                } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_apple
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_handful
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_slime_mold
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_pint
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_sip
                                 {
                                     crate::bridge::st().borg.trait_[(BI_FOOD_LO as ::core::ffi::c_int) as usize] +=
                                         (*item).iqty as ::core::ffi::c_int;
-                                } else if (*item).sval as ::core::ffi::c_int == sv_food_ration
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_slice
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_honey_cake
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_waybread
-                                    || (*item).sval as ::core::ffi::c_int == sv_food_draught
+                                } else if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_ration
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_slice
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_honey_cake
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_waybread
+                                    || (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_food_draught
                                 {
                                     crate::bridge::st().borg.trait_[(BI_FOOD_HI as ::core::ffi::c_int) as usize] +=
                                         (*item).iqty as ::core::ffi::c_int;
@@ -3724,13 +3703,13 @@ unsafe extern "C" fn borg_notice_inventory() {
         }
         i += 1;
     }
-    if crate::bridge::st().borg.has[(kv_flask_oil) as usize] != 0
+    if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_flask_oil) as usize] != 0
         && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int
     {
-        if crate::bridge::st().borg.has[(kv_flask_oil) as usize] < 15 as ::core::ffi::c_int {
+        if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_flask_oil) as usize] < 15 as ::core::ffi::c_int {
             crate::bridge::st().borg.trait_[(BI_AMISSILES as ::core::ffi::c_int) as usize] +=
-                crate::bridge::st().borg.has[(kv_flask_oil) as usize];
+                crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_flask_oil) as usize];
         } else {
             crate::bridge::st().borg.trait_[(BI_AMISSILES as ::core::ffi::c_int) as usize] += 15 as ::core::ffi::c_int;
         }
@@ -3785,7 +3764,7 @@ unsafe extern "C" fn borg_notice_inventory() {
     }
     if borg_spell_legal(PROTECTION_FROM_EVIL) as ::core::ffi::c_int != 0
         || borg_equips_item(crate::bridge::st().act.protevil, false_0 != 0) as ::core::ffi::c_int != 0
-        || crate::bridge::st().borg.has[(kv_staff_holiness) as usize] != 0
+        || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_staff_holiness) as usize] != 0
         || borg_equips_item(crate::bridge::st().act.staff_holy, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_APFE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
@@ -3827,7 +3806,7 @@ unsafe extern "C" fn borg_notice_inventory() {
     }
     if borg_spell_legal_fail(TURN_STONE_TO_MUD, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         || borg_equips_item(crate::bridge::st().act.stone_to_mud, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_ring(sv_ring_digging) as ::core::ffi::c_int != 0
+        || borg_equips_ring(crate::bridge::st().item_val.sv_ring_digging) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ADIGGER as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
     }
@@ -4100,7 +4079,7 @@ pub unsafe extern "C" fn borg_notice(mut notice_swap: bool) {
         >= 99 as ::core::ffi::c_int
     {
         borg_notice_home(::core::ptr::null_mut::<borg_item>(), false_0 != 0);
-        let mut total_big_heal: ::core::ffi::c_int = crate::bridge::st().borg.has[(kv_potion_healing) as usize];
+        let mut total_big_heal: ::core::ffi::c_int = crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize];
         total_big_heal += crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize];
         total_big_heal += crate::bridge::st().borg.trait_[(BI_ALIFE as ::core::ffi::c_int) as usize];
         total_big_heal += num_heal_true as ::core::ffi::c_int;
