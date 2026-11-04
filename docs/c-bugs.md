@@ -93,3 +93,16 @@ Format: file, function, (seed, turn when observed), explanation.
   value that really is not a number fails with no note at all, so the
   formulas are turned off silently. (The section printed in these errors is
   cut at the ',', where C wrote a NUL.) Kept as is.
+## 8. Home power: spell-stat drop at +26 and a dead neck branch
+
+* `borg-home-power.c`, `borg_power_home_aux1()`, by code reading (no suite
+  run stores +26 of the spell stat at home; checked by fuzzing the c2rust
+  version against the Rust one in-game).
+* Spell stat: the last tier is `20 * 100L + 6 * 300L + (s - 26) * 5L`; the
+  tier below it starts from `20 * 400L`. So the home value of the spell stat
+  falls from 9500 at +25 to 3800 at +26, surely meant to be `20 * 400L`.
+* Amulets: `if (num_neck > 3) ... else if (num_neck > 3) value -= (num_neck
+  - 3) * 700L;` repeats the condition, so the 700 penalty never applies
+  (the other item types use a lower second threshold, e.g. rings 6 / 4).
+* Rust: both kept in `borg_home_power.rs` (the dead branch is left out, as
+  clippy rejects an `if` with the same condition twice; a comment marks it).

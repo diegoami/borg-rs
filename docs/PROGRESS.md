@@ -43,6 +43,7 @@
 | 9 | borg_formulas_calc | own | `CalcState` (`calculations: Vec<Calculation>`, tokens are an enum); calls out go through a `CalcEnv` trait (bridge wrappers for `parse_value`, `calculate_from_value`, `borg_formula_error`) so the calculator is unit tested; C-ABI shims in `bridge::formulas_calc`; checked against the C file on 40k random formulas and with `borg_uses_dynamic_calcs` on (3 runs, local harness tweak, not committed) |
 | 10 | borg_projection | own | `ProjectionState` (`target_loc` = `borg_target_loc`, 1 c2rust use in borg_fight_defend rewritten); `borg_inc_motion(&mut y, &mut x, ..)`; `borg_los` core takes the origin check and floor test as closures (unit-tested on hand-made maps); C-ABI shims in `bridge::projection`; `bridge::borg_los` removed (borg_cave_view calls the safe one); bridge reads of `borg_fear_region`, `borg_kills[i]`, `borg_race_name`; engine wrappers `distance`, `r_info()`, `race_flag_has`; full 45/45 identical |
 | 11 | borg_cave_light | own | `LightState` (`light_*`, `glow_*` as `Vec<u8>`); shim in `bridge::cave_light`; `bridge::item(st, i)` copies a `borg_items` entry (transitional, until borg_item converts); 16 c2rust uses in borg_flow_dark/borg_flow_misc/borg_update rewritten to `bridge::st().light...`; C bug 3 (west-side grids) kept |
+| 14 | borg_home_power | own | no module state; the repeated "spare item" / stat / stack blocks share small helpers (`spare`, `too_many`, `stat_tiers`, `stack`) that keep the C `long`-then-truncate-to-`int32_t` arithmetic; transitional `bridge::home_notice::*` accessors copy the `int16_t` counters of borg_home_notice (macro-generated), `bridge::borg_spell_stat`; engine `kb_info()`; shim in `bridge::home_power`; checked in-game against the c2rust version on every call (full suite) and on 2M fuzzed counter sets per smoke run (local, not committed); C bug 5 (spell stat +26, dead neck branch) kept |
 
 **Checkpoint after module 11** (5 more module merges): `full` 45/45 identical, `deep` 9/9 identical.
 | 12 | borg_magic | own | `MagicState` (`magics: Vec<BorgMagic>` = `borg_magics`, empty = NULL; `ratings` = `borg_spell_ratings`); `BorgMagic.name` is a `&'static CStr` (c2rust format sites use `.name.as_ptr()`); `borg_magic`/`borg_spell_rating` are type aliases in the header; 5 c2rust `borg_magics` uses rewritten to `bridge::st().magic.magics[..]`; shims in `bridge::magic` (`borg_get_spell_entry` returns a pointer into the Vec); bridge `borg_item_tval_sval`; engine wrappers for class books/spells (`class_book`, `class_book_spell`, `spell_by_index`, `spell_effect_indices`, `spell_okay_to_cast`, `player_spell_flags`, `player_has`, `no_light`, `all_letters_nohjkl`, ...); smoke 3/3, full 45/45, deep 9/9 identical |
@@ -69,6 +70,7 @@ impls), comments excluded.
 | borg_cave_light | 766 | 50 |
 | borg_magic | 769 | 48 |
 | borg_formulas | 746 | 49 |
+| borg_home_power | 763 | 47 |
 
 ## Suite timings
 

@@ -334,6 +334,18 @@ pub fn k_info() -> &'static [ObjectKind] {
     unsafe { std::slice::from_raw_parts(crate::headers::object_h::k_info, n) }
 }
 
+/// An object base (`struct object_base`).
+pub type ObjectBase = crate::headers::object_h::object_base;
+
+/// `kb_info[0 .. TV_MAX]`, the object bases (indexed by tval).
+pub fn kb_info() -> &'static [ObjectBase] {
+    let n = crate::headers::obj_properties_h::TV_MAX as usize;
+    // SAFETY: kb_info is allocated with TV_MAX entries (obj-init.c) when
+    // the game data is loaded, before any Borg code runs, and lives for the
+    // game.
+    unsafe { std::slice::from_raw_parts(crate::headers::object_h::kb_info, n) }
+}
+
 /// `tval_find_idx(name)`: the tval with this name, or -1.
 pub fn tval_find_idx(name: &str) -> i32 {
     let c = CString::new(name).expect("no NUL in name");

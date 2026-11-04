@@ -519,3 +519,60 @@ pub mod magic {
         m::borg_prepare_book_info(st())
     }
 }
+
+/// Read-only accessors for the home counters filled by `borg_notice_home()`
+/// (still c2rust, borg-home-notice.c). Transitional: they go away when
+/// borg_home_notice converts. Each copies the `int16_t` global out, widened
+/// to `i32` as C's integer promotion does.
+pub mod home_notice {
+    use crate::state::BorgState;
+
+    macro_rules! counters {
+        ($($name:ident),* $(,)?) => {
+            $(
+                #[doc = concat!("`", stringify!($name), "`")]
+                pub fn $name(_st: &mut BorgState) -> i32 {
+                    // SAFETY: plain read of an int16_t global; Borg thread.
+                    unsafe { i32::from(crate::c2rust::borg_home_notice::$name) }
+                }
+            )*
+        };
+    }
+
+    counters!(
+        num_LIGHT, num_slow_digest, num_regenerate, num_telepathy, num_see_inv, num_ffall,
+        num_free_act, num_hold_life, num_resist_acid, num_immune_acid, num_resist_elec,
+        num_immune_elec, num_resist_fire, num_immune_fire, num_resist_cold, num_immune_cold,
+        num_resist_pois, num_resist_conf, num_resist_sound, num_resist_LIGHT, num_resist_dark,
+        num_resist_chaos, num_resist_disen, num_resist_shard, num_resist_nexus, num_resist_blind,
+        num_resist_neth, num_sustain_str, num_sustain_int, num_sustain_wis, num_sustain_con,
+        num_sustain_dex, num_sustain_all, num_weapons, num_bow, num_rings, num_neck, num_armor,
+        num_cloaks, num_shields, num_hats, num_gloves, num_boots, home_damage, num_edged_weapon,
+        num_bad_gloves, num_duplicate_items, num_food, num_ident, num_enchant_to_a,
+        num_enchant_to_h, num_enchant_to_d, num_pfe, num_glyph, num_genocide, num_mass_genocide,
+        num_recharge, num_pot_rheat, num_pot_rcold, num_recall, num_escape, num_tele_staves,
+        num_teleport, num_phase, num_mana, num_heal, num_cure_critical, num_ezheal, num_life,
+        num_cure_serious, num_fix_exp, num_artifact, num_ego, home_un_id,
+    );
+
+    /// `num_book[book]` (panics if `book >= 9`).
+    pub fn num_book(_st: &mut BorgState, book: usize) -> i32 {
+        // SAFETY: plain read of an int16_t global array; Borg thread.
+        unsafe { i32::from(crate::c2rust::borg_home_notice::num_book[book]) }
+    }
+
+    /// `home_stat_add[stat]` (panics if `stat >= STAT_MAX`).
+    pub fn home_stat_add(_st: &mut BorgState, stat: usize) -> i32 {
+        // SAFETY: plain read of an int16_t global array; Borg thread.
+        unsafe { i32::from(crate::c2rust::borg_home_notice::home_stat_add[stat]) }
+    }
+}
+
+/// C-ABI shims with the borg-home-power.c names.
+pub mod home_power {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_power_home() -> i32 {
+        crate::borg_home_power::borg_power_home(st())
+    }
+}
