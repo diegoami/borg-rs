@@ -6,9 +6,12 @@
 //! explicitly.
 
 use crate::borg_cave::CaveState;
+use crate::borg_io::IoState;
 
 #[derive(Default)]
 pub struct BorgState {
     /// borg-cave.c
     pub cave: CaveState,
+    /// borg-io.c
+    pub io: IoState,
 }

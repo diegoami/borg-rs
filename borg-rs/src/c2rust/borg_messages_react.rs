@@ -18,10 +18,7 @@ pub use crate::headers::borg_h::{
     BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
     BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
 };
-use crate::headers::borg_io_h::{
-    borg_confirm_target, borg_dump_recent_keys, borg_flush, borg_get_queued_direction, borg_inkey,
-    borg_note,
-};
+use crate::headers::borg_io_h::{borg_dump_recent_keys, borg_flush, borg_get_queued_direction, borg_inkey, borg_note};
 use crate::headers::borg_log_h::{borg_log_death, borg_log_death_data, borg_write_map};
 use crate::headers::borg_messages_h::{
     borg_msg_buf, borg_msg_len, borg_msg_max, borg_msg_num, borg_msg_pos, borg_msg_siz,
@@ -256,14 +253,14 @@ pub unsafe extern "C" fn borg_react_prompted(
                 9 as size_t,
             ) == 0 as ::core::ffi::c_int
         {
-            if borg_confirm_target {
+            if crate::bridge::st().io.confirm_target {
                 if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
                     borg_note(
                         b"# Expected request for Direction.\0" as *const u8
                             as *const ::core::ffi::c_char,
                     );
                 }
-                borg_confirm_target = false_0 != 0;
+                crate::bridge::st().io.confirm_target = false_0 != 0;
                 (*key).code = borg_get_queued_direction();
                 return !key.is_null();
             } else {

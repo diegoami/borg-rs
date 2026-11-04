@@ -31,9 +31,7 @@ pub use crate::headers::borg_h::{
     BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
     BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
 };
-use crate::headers::borg_io_h::{
-    borg_confirm_target, borg_flush, borg_keypress, borg_note, borg_what_text,
-};
+use crate::headers::borg_io_h::{borg_flush, borg_keypress, borg_note, borg_what_text};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_messages_react_h::{borg_dont_react, borg_react, borg_react_prompted};
 use crate::headers::borg_think_h::borg_oops;
@@ -473,7 +471,7 @@ unsafe extern "C" fn borg_parse_aux(
         borg_failure = true_0 != 0;
         borg_flush();
         successful_target = 0 as ::core::ffi::c_int;
-        borg_confirm_target = false_0 != 0;
+        crate::bridge::st().io.confirm_target = false_0 != 0;
         if borg_attempting_refresh_resist {
             if borg.resistance as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
                 borg.resistance = (borg.resistance as ::core::ffi::c_int

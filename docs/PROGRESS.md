@@ -31,6 +31,7 @@
 | 1 | borg_util | with 2 | `borg_sort` is a `BorgSortTarget` trait; `borg_trim` works in place on a byte buffer |
 | 2 | borg_cave | with 1 | `CaveState` (flat `Vec<BorgGrid>`); 320 c2rust grid sites use `bridge::grid` |
 | 3 | borg_cave_util | own | grid predicates take `&BorgGrid`; panel size via `engine::term_geometry()`; `tools/m3_calls.py` rewrites call sites |
+| 4 | borg_io | own | `IoState`; C-ABI shims under the old names in `bridge::io` (re-exported from `headers/borg_io_h.rs`) so 1,100 c2rust call sites stay as they are until their module converts; engine terminal/message/event/wcstombs wrappers |
 
 ## Unsafe count
 
@@ -40,8 +41,9 @@ impls), comments excluded.
 | after | total unsafe | c2rust modules left |
 |-------|--------------|---------------------|
 | M2 (c2rust) | 742 | 59 |
-| borg_util + borg_cave | 745   (c2rust modules left: 57, converted files: 5) | |
+| borg_util + borg_cave | 745 | 57 |
 | borg_cave_util | 742 | 56 |
+| borg_io | 757 | 55 |
 
 ## Suite timings
 
