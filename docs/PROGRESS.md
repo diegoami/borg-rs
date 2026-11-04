@@ -44,6 +44,8 @@
 | 10 | borg_projection | own | `ProjectionState` (`target_loc` = `borg_target_loc`, 1 c2rust use in borg_fight_defend rewritten); `borg_inc_motion(&mut y, &mut x, ..)`; `borg_los` core takes the origin check and floor test as closures (unit-tested on hand-made maps); C-ABI shims in `bridge::projection`; `bridge::borg_los` removed (borg_cave_view calls the safe one); bridge reads of `borg_fear_region`, `borg_kills[i]`, `borg_race_name`; engine wrappers `distance`, `r_info()`, `race_flag_has`; full 45/45 identical |
 | 11 | borg_cave_light | own | `LightState` (`light_*`, `glow_*` as `Vec<u8>`); shim in `bridge::cave_light`; `bridge::item(st, i)` copies a `borg_items` entry (transitional, until borg_item converts); 16 c2rust uses in borg_flow_dark/borg_flow_misc/borg_update rewritten to `bridge::st().light...`; C bug 3 (west-side grids) kept |
 
+**Checkpoint after module 11** (5 more module merges): `full` 45/45 identical, `deep` 9/9 identical.
+
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
 ## Unsafe count
