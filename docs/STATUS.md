@@ -5,7 +5,7 @@
 | milestone | state |
 |-----------|-------|
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
-| M2 c2rust transpile behind the seam | in progress |
+| M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
 | M3 safe idiomatic Rust | not started |
 
 ## Machine
@@ -115,6 +115,53 @@ classes that rest a lot. A whole `full` pass takes about 2m15s on 4 cores.
 
 Reference: `harness/reference/full/` (xz-compressed, 844 KB).
 
-## M2 notes
+## M2: c2rust transpile behind the seam
 
-(see below as work proceeds)
+* Tooling: c2rust 0.22.1 built against LLVM 18 (`apt install llvm-18-dev
+  libclang-18-dev`, then `cargo install --locked c2rust`).
+* `borg-rs/tools/transpile.sh` regenerates `borg-rs/src/c2rust/*.rs` (one
+  module per `src/borg/*.c`) from the harness build's
+  `compile_commands.json`, without `-O3` or the git build id. Flags kept:
+  `-DALLOW_BORG -DNDEBUG` (asserts are compiled out, as in the C reference
+  build).
+* Hand fixes c2rust needed: one only. c2rust emits
+  `#![feature(extern_types)]` for opaque engine structs (`dice_s`,
+  `history_info`, `monster_group`, `trap`, ...). `tools/postprocess.py`
+  turns them into zero-sized `#[repr(C)]` structs, so the crate builds on
+  **stable** Rust 1.97 (`raw_ref_op` is stable). Nothing else had to be
+  hand-translated: the Borg has no variadic definitions, no
+  setjmp/longjmp, no gotos.
+* Engine structs: c2rust writes its own `#[repr(C)]` copies of the engine
+  header types into each module, from the same headers and flags. This
+  amounts to bindgen output, duplicated per module. M3 will collapse them
+  into one `ffi` module.
+* Build: `angband/CMakeLists.txt` has `BORG_IMPL` (`c` default, or
+  `rust`). With `rust`, `src/borg/*.c` is not added to `OurCoreLib`.
+  cargo builds the `borg-rs` staticlib (`target-dir build/rust/cargo`) and
+  it is linked into the executable. The only engine-to-Borg symbol is
+  `do_cmd_borg`. Everything else goes Borg-to-engine (`extern "C"`).
+* `borg_engine_date` (`__DATE__` in borg.c) becomes the transpile date
+  string. It is shown only by the Borg's version command and never affects
+  keys.
+
+### Check M2 output
+
+```
+$ harness/check-no-c-borg.sh
+rust build: src/borg/*.c entries in compile_commands.json: 0
+rust build: src/borg object files: 0
+C Borg symbols: 1174; present in rust binary: 983; of those exported by the Rust crate: 982
+OK: no C Borg code in /home/user/borg-rs/build/rust/game/angband
+```
+
+`full` with the Rust Borg against the C reference:
+
+```
+$ BORG_IMPL=rust harness/suite.sh full
+$ harness/diff harness/out/rust/full harness/reference/full | tail -1
+45/45 runs identical
+$ harness/diff harness/out/c/full harness/reference/full | tail -1      # C build after the CMake change
+45/45 runs identical
+```
+
+Rust timing: `suite=full impl=rust jobs=4 wall_seconds=138.822782034` (C: about 133 s).

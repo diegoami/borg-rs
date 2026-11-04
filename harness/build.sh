@@ -13,7 +13,7 @@ if [ "$IMPL" = rust ]; then
     EXTRA+=(-DBORG_IMPL=rust)
 fi
 cmake -S "$ROOT/angband" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release \
-    -DSUPPORT_BORG_HARNESS=ON "${EXTRA[@]}" >"$BUILD.cmake.log" 2>&1 || {
+    -DSUPPORT_BORG_HARNESS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON "${EXTRA[@]}" >"$BUILD.cmake.log" 2>&1 || {
     cat "$BUILD.cmake.log"; exit 1; }
 make -C "$BUILD" -j"$(nproc)" >"$BUILD.make.log" 2>&1 || {
     tail -50 "$BUILD.make.log"; exit 1; }

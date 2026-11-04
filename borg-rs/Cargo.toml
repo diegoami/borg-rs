@@ -1,0 +1,15 @@
+[package]
+name = "borg-rs"
+version = "0.1.0"
+edition = "2021"
+license = "GPL-2.0-only"
+description = "Rust port of the Angband Borg (automatic player)"
+publish = false
+
+[lib]
+name = "borg_rs"
+path = "src/lib.rs"
+crate-type = ["staticlib", "rlib"]
+
+[dependencies]
+libc = "0.2"
