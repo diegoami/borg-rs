@@ -12,6 +12,7 @@ use crate::borg_formulas_calc::CalcState;
 use crate::borg_io::IoState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
+use crate::borg_projection::ProjectionState;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -31,4 +32,6 @@ pub struct BorgState {
     pub act: ActivationIds,
     /// borg-item-val.c: `sv_*`, `kv_*`
     pub item_val: ItemValState,
+    /// borg-projection.c: `borg_target_loc`
+    pub projection: ProjectionState,
 }

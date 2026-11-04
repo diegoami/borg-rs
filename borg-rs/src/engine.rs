@@ -22,6 +22,12 @@ pub fn square_in_bounds_fully(x: i32, y: i32) -> bool {
     unsafe { headers::cave_h::square_in_bounds_fully(headers::cave_h::cave, loc { x, y }) }
 }
 
+/// `distance(grid1, grid2)` (cave.c): the game's approximate distance.
+pub fn distance(grid1: loc, grid2: loc) -> i32 {
+    // SAFETY: pure arithmetic on two values.
+    unsafe { headers::cave_h::distance(grid1, grid2) }
+}
+
 /// Panel geometry of the current terminal (`Term`), as read by
 /// `borg_panel_hgt()` / `borg_panel_wid()`.
 #[derive(Clone, Copy, Debug)]
@@ -349,4 +355,23 @@ pub fn lookup_sval(tval: i32, name: &str) -> i32 {
     let c = CString::new(name).expect("no NUL in name");
     // SAFETY: c is a valid C string; lookup_sval only reads it and k_info.
     unsafe { crate::headers::obj_util_h::lookup_sval(tval, c.as_ptr()) }
+}
+
+/// A monster race (`struct monster_race`).
+pub type MonsterRace = crate::headers::monster_h::monster_race;
+
+/// `r_info[0 .. z_info->r_max]`, the monster races.
+pub fn r_info() -> &'static [MonsterRace] {
+    let n = usize::from(z_info().r_max);
+    // SAFETY: r_info is allocated with z_info->r_max entries when the game
+    // data is loaded, before any Borg code runs, and lives for the game.
+    unsafe { std::slice::from_raw_parts(crate::headers::monster_h::r_info, n) }
+}
+
+/// `rf_has(r_info[r_idx].flags, flag)`.
+pub fn race_flag_has(r_idx: usize, flag: u32) -> bool {
+    let flags = &r_info()[r_idx].flags;
+    // SAFETY: flags is the race's RF_SIZE-byte flag array; flag_has only
+    // reads within the size given.
+    unsafe { crate::headers::z_bitflag_h::flag_has(flags.as_ptr(), flags.len(), flag as i32) }
 }

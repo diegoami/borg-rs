@@ -16,8 +16,9 @@
 
 use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_cave_util::borg_cave_floor_grid;
+use crate::borg_projection::borg_los;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// Size of the view arrays (`AUTO_VIEW_MAX`).
 pub const AUTO_VIEW_MAX: usize = 9000;
@@ -156,7 +157,7 @@ fn borg_update_view_aux(
 
     /* Check line of sight */
     let (cy, cx) = (st.borg.c.y, st.borg.c.x);
-    if bridge::borg_los(st, cy, cx, y, x) {
+    if borg_los(st, cy, cx, y, x) {
         borg_cave_view_hack(st, y, x);
 
         return wall;

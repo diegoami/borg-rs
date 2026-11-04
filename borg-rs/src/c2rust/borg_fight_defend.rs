@@ -82,7 +82,7 @@ pub use crate::headers::borg_magic_h::{
 };
 use crate::headers::borg_projection_h::{
     borg_inc_motion, borg_los, borg_projectable, borg_projectable_dark, borg_projectable_pure,
-    borg_target, borg_target_loc,
+    borg_target,
 };
 pub use crate::headers::borg_trait_h::{
     borg_attacking, borg_create_door, borg_game_ratio, borg_on_glyph, borg_simulate,
@@ -249,8 +249,8 @@ unsafe extern "C" fn borg_log_spellpath() {
     let mut dist: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-    y = borg_target_loc.y;
-    x = borg_target_loc.x;
+    y = crate::bridge::st().projection.target_loc.y;
+    x = crate::bridge::st().projection.target_loc.x;
     n_x = crate::bridge::st().borg.c.x;
     n_y = crate::bridge::st().borg.c.y;
     loop {

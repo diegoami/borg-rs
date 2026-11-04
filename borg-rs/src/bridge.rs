@@ -197,12 +197,6 @@ pub mod item_activation {
     }
 }
 
-/// `borg_los(y1, x1, y2, x2)` (still c2rust, borg-projection.c).
-pub fn borg_los(_st: &mut BorgState, y1: i32, x1: i32, y2: i32, x2: i32) -> bool {
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::c2rust::borg_projection::borg_los(y1, x1, y2, x2) }
-}
-
 /// C-ABI shims with the borg-cave-view.c names.
 pub mod cave_view {
     use super::st;
@@ -309,5 +303,89 @@ pub mod formulas_calc {
     }
     pub unsafe extern "C" fn calculations_free() {
         borg_formulas_calc::calculations_free(st())
+    }
+}
+
+/// `borg_fear_region[y][x]` (still c2rust, borg-danger.c).
+pub fn borg_fear_region(_st: &mut BorgState, y: i32, x: i32) -> u16 {
+    // SAFETY: plain read of a fixed-size C-style global; out-of-range
+    // indices panic.
+    unsafe { crate::c2rust::borg_danger::borg_fear_region[y as usize][x as usize] }
+}
+
+/// A copy of `borg_kills[i]` (still c2rust, borg-flow-kill.c).
+pub fn borg_kill(_st: &mut BorgState, i: usize) -> crate::headers::borg_flow_kill_h::borg_kill {
+    // SAFETY: borg_kills is allocated with 256 entries by
+    // borg_init_flow_kill() before the Borg runs; the index is a u8 grid
+    // field (`borg_grid.kill`).
+    unsafe {
+        assert!(!crate::c2rust::borg_flow_kill::borg_kills.is_null() && i < 256);
+        *crate::c2rust::borg_flow_kill::borg_kills.add(i)
+    }
+}
+
+/// `borg_race_name(r_idx)` (still c2rust, borg-flow-kill.c), as bytes.
+pub fn borg_race_name(_st: &mut BorgState, r_idx: i32) -> Vec<u8> {
+    // SAFETY: borg_race_name returns a static C string or a race name
+    // from r_info, never NULL.
+    unsafe { cbytes(crate::c2rust::borg_flow_kill::borg_race_name(r_idx)).to_vec() }
+}
+
+/// C-ABI shims with the borg-projection.c names.
+pub mod projection {
+    use super::st;
+    use crate::borg_projection as p;
+    use crate::headers::z_type_h::loc;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_los(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> bool {
+        p::borg_los(st(), y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_projectable(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> bool {
+        p::borg_projectable(st(), y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_offset_projectable(
+        y1: c_int,
+        x1: c_int,
+        y2: c_int,
+        x2: c_int,
+    ) -> bool {
+        p::borg_offset_projectable(st(), y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_projectable_pure(
+        y1: c_int,
+        x1: c_int,
+        y2: c_int,
+        x2: c_int,
+    ) -> bool {
+        p::borg_projectable_pure(st(), y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_projectable_dark(
+        y1: c_int,
+        x1: c_int,
+        y2: c_int,
+        x2: c_int,
+    ) -> bool {
+        p::borg_projectable_dark(st(), y1, x1, y2, x2)
+    }
+    /// `py`/`px` point to the caller's position variables.
+    pub unsafe extern "C" fn borg_inc_motion(
+        py: *mut c_int,
+        px: *mut c_int,
+        y1: c_int,
+        x1: c_int,
+        y2: c_int,
+        x2: c_int,
+    ) {
+        p::borg_inc_motion(&mut *py, &mut *px, y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_distance(y: c_int, x: c_int, y2: c_int, x2: c_int) -> c_int {
+        p::borg_distance(y, x, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_target(t: loc, require_monster: bool) -> bool {
+        p::borg_target(st(), t, require_monster)
+    }
+    pub unsafe extern "C" fn borg_target_unknown_wall(y: c_int, x: c_int) -> bool {
+        p::borg_target_unknown_wall(st(), y, x)
     }
 }
