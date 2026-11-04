@@ -1125,3 +1125,76 @@ pub fn object_desc_full(obj: CarriedObject) -> Vec<u8> {
     let n = buf.iter().position(|&b| b == 0).unwrap_or(buf.len());
     buf[..n].to_vec()
 }
+// Danger (borg-danger.c): cave squares, game tables and monster blows
+
+/// `square_in_bounds(cave, loc(x, y))` on the current level.
+pub fn square_in_bounds(x: i32, y: i32) -> bool {
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // function only compares the grid with the level's size.
+    unsafe { headers::cave_h::square_in_bounds(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `square_isvault(cave, loc(x, y))` on the current level. The grid must
+/// be in bounds (the engine asserts it, as for C callers).
+pub fn square_isvault(x: i32, y: i32) -> bool {
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // function asserts the grid is in bounds before reading it.
+    unsafe { headers::cave_h::square_isvault(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `adj_dex_safe[i]` (player-calcs.c); panics out of range.
+pub fn adj_dex_safe(i: usize) -> i32 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::player_calcs_h::adj_dex_safe[i] }
+}
+
+/// `extract_energy[speed]` (game-world.c); panics out of range.
+pub fn extract_energy(speed: usize) -> u8 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::game_world_h::extract_energy[speed] }
+}
+
+/// `ddx_ddd[i]` (cave.c): the x offsets of the 8 directions (and 0).
+pub fn ddx_ddd(i: usize) -> i16 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::cave_h::ddx_ddd[i] }
+}
+
+/// `ddy_ddd[i]` (cave.c): the y offsets of the 8 directions (and 0).
+pub fn ddy_ddd(i: usize) -> i16 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::cave_h::ddy_ddd[i] }
+}
+
+/// One blow of a monster race (`r_info[r_idx].blow[k]`).
+#[derive(Clone, Copy)]
+pub struct RaceBlow {
+    /// `effect->name`
+    pub effect_name: &'static CStr,
+    /// `dice.dice`
+    pub dice: i32,
+    /// `dice.sides`
+    pub sides: i32,
+}
+
+/// `r_info[r_idx].blow[k]` for `k < z_info->mon_blows_max`, or `None` when
+/// the blow has no method (the end of the race's blows).
+pub fn race_blow(r_idx: usize, k: usize) -> Option<RaceBlow> {
+    assert!(k < usize::from(z_info().mon_blows_max));
+    let blows = r_info()[r_idx].blow;
+    assert!(!blows.is_null(), "race {r_idx} has no blow array");
+    // SAFETY: a race's blow array has z_info->mon_blows_max entries
+    // (checked above), allocated when the game data is loaded and kept
+    // for the game. A blow with a method has an effect with a name (the
+    // C code dereferences both without a check; asserted here).
+    unsafe {
+        let b = &*blows.add(k);
+        if b.method.is_null() {
+            return None;
+        }
+        assert!(!b.effect.is_null(), "race {r_idx} blow {k} has no effect");
+        let name = (*b.effect).name;
+        assert!(!name.is_null(), "race {r_idx} blow {k} effect has no name");
+        Some(RaceBlow { effect_name: CStr::from_ptr(name), dice: b.dice.dice, sides: b.dice.sides })
+    }
+}

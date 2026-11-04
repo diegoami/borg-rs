@@ -19,9 +19,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-use crate::headers::borg_danger_h::{
-    borg_danger, borg_danger_one_kill, borg_fear_monsters, borg_fear_region,
-};
+use crate::headers::borg_danger_h::{borg_danger, borg_danger_one_kill};
 use crate::headers::borg_escape_h::{borg_allow_teleport, borg_caution_phase, borg_shadow_shift};
 pub use crate::headers::borg_flow_h::{
     borg_can_dig, borg_data, borg_data_cost, borg_flow_clear, borg_flow_commit,
@@ -1429,7 +1427,7 @@ pub unsafe extern "C" fn borg_check_rest(
         return false_0 != 0;
     }
     if !borg_in_vault {
-        if borg_fear_region[(y / 11 as ::core::ffi::c_int) as usize]
+        if crate::bridge::st().danger.fear_region[(y / 11 as ::core::ffi::c_int) as usize]
             [(x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
             > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 / 20 as ::core::ffi::c_int
@@ -1438,7 +1436,7 @@ pub unsafe extern "C" fn borg_check_rest(
         {
             return false_0 != 0;
         }
-        if borg_fear_monsters[y as usize][x as usize] as ::core::ffi::c_int
+        if crate::bridge::st().danger.fear_monsters[y as usize][x as usize] as ::core::ffi::c_int
             > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 / 10 as ::core::ffi::c_int
             && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]

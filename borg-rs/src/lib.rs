@@ -28,6 +28,7 @@ pub mod borg_cave;
 pub mod borg_cave_light;
 pub mod borg_cave_view;
 pub mod borg_cave_util;
+pub mod borg_danger;
 pub mod borg_formulas;
 pub mod borg_formulas_calc;
 pub mod borg_home_notice;

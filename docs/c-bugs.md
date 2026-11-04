@@ -223,3 +223,37 @@ Format: file, function, (seed, turn when observed), explanation.
   buy/wear/remove code that needs a hole gives up. (Unlikely in play:
   the Borg nearly always carries something.)
 * Rust (`borg_inventory.rs`): both kept.
+## 17. Danger slips (danger)
+
+* `borg-danger.c`, found by code reading; all are in every danger
+  calculation, so every suite runs through them.
+* `borg_danger_physical()`:
+  * COLD blows test the temporary *acid* resistance (`borg.temp.res_acid`),
+    not `res_cold`.
+  * LOSE_CON blows add the "below 8" fear when `BI_CSTR < 8` (strength).
+  * HURT: the stun test `z > d_dice * d_side` comes right after
+    `z = d_dice * d_side`, so it is never true (dead code).
+  * The hit chance `150 - ((ac * 300) / 4 / 1 + (level + power) * 3)` is
+    below 5 for any armour class of 2 or more, so partial damage
+    (`full_damage == false`) is always 5% of the blow damage.
+* `borg_danger_spell()`:
+  * `bolt` is set by the first bolt spell and never reset, so every later
+    spell of the same monster (bolt or not) has its damage zeroed when the
+    monster has no clean shot at the Borg.
+  * The summon cases' grid scan assigns to the `x`/`y` parameters
+    (harmless: not read again). S_HI_DRAGON with protection from evil
+    adds no fear before dividing; S_AINU tests `borg.near.unique` in both
+    the first and the (then dead) second branch. STORM ends with a no-op
+    `if (borg.trait[BI_RCONF]) break;`.
+* `borg_danger_one_kill()`:
+  * The second `borg_crush_spell` block (in the ranged part) clears `v1`
+    again instead of `v2`.
+  * The Teleport Other skip list is read with `ii <= borg_tp_other_n`, one
+    entry past the count.
+  * The first move simulation tests `feat == FEAT_GRANITE`, the second
+    `feat >= FEAT_GRANITE` (so it also treats terrain above the permanent
+    wall, e.g. lava and passable rubble, as wall).
+* `borg_danger()` overwrites its `full_damage` argument with `true`, so the
+  partial-damage paths above are only reached through direct
+  `borg_danger_one_kill(..., false)` calls.
+* Rust: all kept in `borg_danger.rs`.

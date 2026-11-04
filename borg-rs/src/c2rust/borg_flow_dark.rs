@@ -13,7 +13,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
+use crate::headers::borg_danger_h::{borg_danger};
 pub use crate::headers::borg_flow_h::{
     borg_can_dig, borg_data, borg_data_cost, borg_data_icky, borg_data_know, borg_flow_clear,
     borg_flow_commit, borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread, borg_temp_n,
@@ -534,7 +534,7 @@ unsafe extern "C" fn borg_flow_dark_1(mut b_stair: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.ignoring as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0 {
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
@@ -596,7 +596,7 @@ unsafe extern "C" fn borg_flow_dark_2(mut b_stair: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.ignoring as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0 {
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
@@ -668,7 +668,7 @@ unsafe extern "C" fn borg_flow_dark_3(mut b_stair: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.ignoring as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0 {
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
@@ -752,7 +752,7 @@ unsafe extern "C" fn borg_flow_dark_4(mut b_stair: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.ignoring as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0 {
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
@@ -837,7 +837,7 @@ unsafe extern "C" fn borg_flow_dark_5(mut b_stair: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.ignoring as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0 {
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;

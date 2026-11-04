@@ -21,15 +21,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-pub use crate::headers::borg_danger_h::{
-    borg_danger, borg_danger_one_kill, borg_fear_region, BORG_MONBLOW, MONBLOW_ACID,
-    MONBLOW_BLACK_BREATH, MONBLOW_BLIND, MONBLOW_COLD, MONBLOW_CONFUSE, MONBLOW_DISENCHANT,
-    MONBLOW_DRAIN_CHARGES, MONBLOW_EAT_FOOD, MONBLOW_EAT_GOLD, MONBLOW_EAT_ITEM, MONBLOW_EAT_LIGHT,
-    MONBLOW_ELEC, MONBLOW_EXP_10, MONBLOW_EXP_20, MONBLOW_EXP_40, MONBLOW_EXP_80, MONBLOW_FIRE,
-    MONBLOW_HALLU, MONBLOW_HURT, MONBLOW_LOSE_ALL, MONBLOW_LOSE_CON, MONBLOW_LOSE_DEX,
-    MONBLOW_LOSE_INT, MONBLOW_LOSE_STR, MONBLOW_LOSE_WIS, MONBLOW_NONE, MONBLOW_PARALYZE,
-    MONBLOW_POISON, MONBLOW_SHATTER, MONBLOW_TERRIFY, MONBLOW_UNDEFINED,
-};
+pub use crate::headers::borg_danger_h::{borg_danger, borg_danger_one_kill, BORG_MONBLOW, MONBLOW_ACID, MONBLOW_BLACK_BREATH, MONBLOW_BLIND, MONBLOW_COLD, MONBLOW_CONFUSE, MONBLOW_DISENCHANT, MONBLOW_DRAIN_CHARGES, MONBLOW_EAT_FOOD, MONBLOW_EAT_GOLD, MONBLOW_EAT_ITEM, MONBLOW_EAT_LIGHT, MONBLOW_ELEC, MONBLOW_EXP_10, MONBLOW_EXP_20, MONBLOW_EXP_40, MONBLOW_EXP_80, MONBLOW_FIRE, MONBLOW_HALLU, MONBLOW_HURT, MONBLOW_LOSE_ALL, MONBLOW_LOSE_CON, MONBLOW_LOSE_DEX, MONBLOW_LOSE_INT, MONBLOW_LOSE_STR, MONBLOW_LOSE_WIS, MONBLOW_NONE, MONBLOW_PARALYZE, MONBLOW_POISON, MONBLOW_SHATTER, MONBLOW_TERRIFY, MONBLOW_UNDEFINED};
 pub use crate::headers::borg_fight_attack_h::{
     C2RustUnnamedH_19, C2RustUnnamedH_32, BF_ACT_ACID_BALL, BF_ACT_ACID_BOLT, BF_ACT_ACID_BOLT2,
     BF_ACT_ACID_BOLT3, BF_ACT_ARROW, BF_ACT_COLD_BALL100, BF_ACT_COLD_BALL160, BF_ACT_COLD_BALL2,
@@ -3219,7 +3211,7 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
                     .offset((q_x + 0 as ::core::ffi::c_int) as isize)
                 && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
                     .offset((q_x + 1 as ::core::ffi::c_int) as isize)
-                && (borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+                && (crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                     [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                     as ::core::ffi::c_int)
                     < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
@@ -3488,7 +3480,7 @@ unsafe extern "C" fn borg_launch_arc_at_location(
                     .offset((q_x + 0 as ::core::ffi::c_int) as isize)
                 && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
                     .offset((q_x + 1 as ::core::ffi::c_int) as isize)
-                && (borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+                && (crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                     [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                     as ::core::ffi::c_int)
                     < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int

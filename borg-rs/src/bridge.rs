@@ -320,11 +320,94 @@ pub mod formulas_calc {
     }
 }
 
-/// `borg_fear_region[y][x]` (still c2rust, borg-danger.c).
-pub fn borg_fear_region(_st: &mut BorgState, y: i32, x: i32) -> u16 {
-    // SAFETY: plain read of a fixed-size C-style global; out-of-range
-    // indices panic.
-    unsafe { crate::c2rust::borg_danger::borg_fear_region[y as usize][x as usize] }
+/// `borg_fear_region[y][x]` (borg-danger.c, converted).
+pub fn borg_fear_region(st: &mut BorgState, y: i32, x: i32) -> u16 {
+    st.danger.fear_region[y as usize][x as usize]
+}
+
+macro_rules! c2r_bool_global {
+    ($($name:ident => $path:path;)*) => {$(
+        #[doc = concat!("`", stringify!($name), "` (still c2rust).")]
+        pub fn $name(_st: &mut BorgState) -> bool {
+            // SAFETY: plain read of a bool global; Borg thread.
+            unsafe { $path }
+        }
+    )*};
+}
+c2r_bool_global! {
+    borg_attacking => crate::c2rust::borg_trait::borg_attacking;
+    borg_on_glyph => crate::c2rust::borg_trait::borg_on_glyph;
+    borg_create_door => crate::c2rust::borg_trait::borg_create_door;
+    borg_sleep_spell => crate::c2rust::borg_trait::borg_sleep_spell;
+    borg_sleep_spell_ii => crate::c2rust::borg_trait::borg_sleep_spell_ii;
+    borg_crush_spell => crate::c2rust::borg_trait::borg_crush_spell;
+    borg_slow_spell => crate::c2rust::borg_trait::borg_slow_spell;
+    borg_confuse_spell => crate::c2rust::borg_trait::borg_confuse_spell;
+    borg_fear_mon_spell => crate::c2rust::borg_trait::borg_fear_mon_spell;
+}
+
+/// `borg_tp_other_n` (still c2rust, borg-fight-attack.c).
+pub fn borg_tp_other_n(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_n }
+}
+
+/// `borg_tp_other_index[i]` (still c2rust, borg-fight-attack.c); panics
+/// past the 255 entries.
+pub fn borg_tp_other_index(_st: &mut BorgState, i: usize) -> i32 {
+    // SAFETY: plain read of a fixed-size int array global; Borg thread.
+    unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_index[i] }
+}
+
+/// `track_glyph.num` (still c2rust, borg-flow-glyph.c).
+pub fn track_glyph_num(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of a global struct field; Borg thread.
+    unsafe { crate::c2rust::borg_flow_glyph::track_glyph.num }
+}
+
+/// `(track_glyph.y[i], track_glyph.x[i])` (still c2rust,
+/// borg-flow-glyph.c), for `i < track_glyph.num`.
+pub fn track_glyph_at(_st: &mut BorgState, i: usize) -> (i32, i32) {
+    // SAFETY: borg_init_flow_glyph() allocates `size` entries for x and y
+    // (checked non-NULL); `num` never exceeds `size` (checked).
+    unsafe {
+        let t = &*(&raw const crate::c2rust::borg_flow_glyph::track_glyph);
+        assert!(i < t.num as usize && t.num <= t.size && !t.x.is_null() && !t.y.is_null());
+        (*t.y.add(i), *t.x.add(i))
+    }
+}
+
+/// `borg_mon_blow_effect(name)` (still c2rust, borg-fight-attack.c).
+pub fn borg_mon_blow_effect(_st: &mut BorgState, name: &std::ffi::CStr) -> i32 {
+    // SAFETY: the callee only compares the C string with its table.
+    unsafe { crate::c2rust::borg_fight_attack::borg_mon_blow_effect(name.as_ptr()) }
+}
+
+/// C-ABI shims with the borg-danger.c names, for c2rust callers.
+pub mod danger {
+    use super::st;
+    use crate::borg_danger as d;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_danger_one_kill(
+        y: c_int,
+        x: c_int,
+        c: c_int,
+        i: c_int,
+        average: bool,
+        full_damage: bool,
+    ) -> c_int {
+        d::borg_danger_one_kill(st(), y, x, c, i, average, full_damage)
+    }
+    pub unsafe extern "C" fn borg_danger(
+        y: c_int,
+        x: c_int,
+        c: c_int,
+        average: bool,
+        full_damage: bool,
+    ) -> c_int {
+        d::borg_danger(st(), y, x, c, average, full_damage)
+    }
 }
 
 /// A copy of `borg_kills[i]` (still c2rust, borg-flow-kill.c).

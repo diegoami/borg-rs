@@ -14,7 +14,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
+use crate::headers::borg_danger_h::{borg_danger};
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{
     borg_kill, borg_kills, borg_kills_nxt, borg_race_death, borg_shoot_scoot_safe,
@@ -628,7 +628,7 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
     if !borg_spell_okay_fail(DIMENSION_DOOR, allow_fail) {
         return 0 as ::core::ffi::c_int != 0;
     }
-    best_d = borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+    best_d = crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
         [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
     x_off = range * -(1 as ::core::ffi::c_int);
     while x_off < range {
@@ -652,7 +652,7 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
         x_off += 1;
     }
     if best_d
-        < borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+        < crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
             [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
     {
         borg_target(best, false_0 != 0);

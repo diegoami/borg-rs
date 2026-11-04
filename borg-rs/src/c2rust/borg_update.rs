@@ -21,9 +21,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_light_h::borg_update_light;
 
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
-use crate::headers::borg_danger_h::{
-    borg_danger, borg_danger_wipe, borg_fear_monsters, borg_fear_region,
-};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_fight_attack_h::successful_target;
 use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
 pub use crate::headers::borg_flow_h::{
@@ -683,8 +681,8 @@ unsafe extern "C" fn borg_fear_grid(
             if !(x + x1 <= 0 as ::core::ffi::c_int || x1 + x >= AUTO_MAX_X) {
                 if !(y + y1 <= 0 as ::core::ffi::c_int || y1 + y >= AUTO_MAX_Y) {
                     if borg_los((*kill).pos.y, (*kill).pos.x, y + y1, x + x1) {
-                        borg_fear_monsters[(y + y1) as usize][(x + x1) as usize] =
-                            (borg_fear_monsters[(y + y1) as usize][(x + x1) as usize]
+                        crate::bridge::st().danger.fear_monsters[(y + y1) as usize][(x + x1) as usize] =
+                            (crate::bridge::st().danger.fear_monsters[(y + y1) as usize][(x + x1) as usize]
                                 as ::core::ffi::c_int
                                 + k / 8 as ::core::ffi::c_int)
                                 as uint16_t;
@@ -692,8 +690,8 @@ unsafe extern "C" fn borg_fear_grid(
                     if !(x1 <= -(5 as ::core::ffi::c_int) || x1 >= 5 as ::core::ffi::c_int) {
                         if !(y1 <= -(5 as ::core::ffi::c_int) || y1 >= 5 as ::core::ffi::c_int) {
                             if borg_los((*kill).pos.y, (*kill).pos.x, y + y1, x + x1) {
-                                borg_fear_monsters[(y + y1) as usize][(x + x1) as usize] =
-                                    (borg_fear_monsters[(y + y1) as usize][(x + x1) as usize]
+                                crate::bridge::st().danger.fear_monsters[(y + y1) as usize][(x + x1) as usize] =
+                                    (crate::bridge::st().danger.fear_monsters[(y + y1) as usize][(x + x1) as usize]
                                         as ::core::ffi::c_int
                                         + k / 5 as ::core::ffi::c_int)
                                         as uint16_t;
@@ -704,8 +702,8 @@ unsafe extern "C" fn borg_fear_grid(
                                     || y1 >= 3 as ::core::ffi::c_int)
                                 {
                                     if borg_los((*kill).pos.y, (*kill).pos.x, y + y1, x + x1) {
-                                        borg_fear_monsters[(y + y1) as usize][(x + x1) as usize] =
-                                            (borg_fear_monsters[(y + y1) as usize]
+                                        crate::bridge::st().danger.fear_monsters[(y + y1) as usize][(x + x1) as usize] =
+                                            (crate::bridge::st().danger.fear_monsters[(y + y1) as usize]
                                                 [(x + x1) as usize]
                                                 as ::core::ffi::c_int
                                                 + k / 3 as ::core::ffi::c_int)
@@ -723,8 +721,8 @@ unsafe extern "C" fn borg_fear_grid(
                                                 y + y1,
                                                 x + x1,
                                             ) {
-                                                borg_fear_monsters[(y + y1) as usize]
-                                                    [(x + x1) as usize] = (borg_fear_monsters
+                                                crate::bridge::st().danger.fear_monsters[(y + y1) as usize]
+                                                    [(x + x1) as usize] = (crate::bridge::st().danger.fear_monsters
                                                     [(y + y1) as usize]
                                                     [(x + x1) as usize]
                                                     as ::core::ffi::c_int
@@ -743,9 +741,9 @@ unsafe extern "C" fn borg_fear_grid(
                                                         y + y1,
                                                         x + x1,
                                                     ) {
-                                                        borg_fear_monsters[(y + y1) as usize]
+                                                        crate::bridge::st().danger.fear_monsters[(y + y1) as usize]
                                                             [(x + x1) as usize] =
-                                                            (borg_fear_monsters[(y + y1) as usize]
+                                                            (crate::bridge::st().danger.fear_monsters[(y + y1) as usize]
                                                                 [(x + x1) as usize]
                                                                 as ::core::ffi::c_int
                                                                 + k)
@@ -820,28 +818,28 @@ unsafe extern "C" fn borg_fear_regional(
     } else {
         17 as ::core::ffi::c_int
     };
-    borg_fear_region[y0 as usize][x0 as usize] =
-        (borg_fear_region[y0 as usize][x0 as usize] as ::core::ffi::c_int + k) as uint16_t;
-    borg_fear_region[y0 as usize][x1 as usize] =
-        (borg_fear_region[y0 as usize][x1 as usize] as ::core::ffi::c_int + k) as uint16_t;
-    borg_fear_region[y0 as usize][x2 as usize] =
-        (borg_fear_region[y0 as usize][x2 as usize] as ::core::ffi::c_int + k) as uint16_t;
-    borg_fear_region[y1 as usize][x0 as usize] = (borg_fear_region[y1 as usize][x0 as usize]
+    crate::bridge::st().danger.fear_region[y0 as usize][x0 as usize] =
+        (crate::bridge::st().danger.fear_region[y0 as usize][x0 as usize] as ::core::ffi::c_int + k) as uint16_t;
+    crate::bridge::st().danger.fear_region[y0 as usize][x1 as usize] =
+        (crate::bridge::st().danger.fear_region[y0 as usize][x1 as usize] as ::core::ffi::c_int + k) as uint16_t;
+    crate::bridge::st().danger.fear_region[y0 as usize][x2 as usize] =
+        (crate::bridge::st().danger.fear_region[y0 as usize][x2 as usize] as ::core::ffi::c_int + k) as uint16_t;
+    crate::bridge::st().danger.fear_region[y1 as usize][x0 as usize] = (crate::bridge::st().danger.fear_region[y1 as usize][x0 as usize]
         as ::core::ffi::c_int
         + k / 2 as ::core::ffi::c_int) as uint16_t;
-    borg_fear_region[y2 as usize][x0 as usize] = (borg_fear_region[y2 as usize][x0 as usize]
+    crate::bridge::st().danger.fear_region[y2 as usize][x0 as usize] = (crate::bridge::st().danger.fear_region[y2 as usize][x0 as usize]
         as ::core::ffi::c_int
         + k / 2 as ::core::ffi::c_int) as uint16_t;
-    borg_fear_region[y1 as usize][x1 as usize] = (borg_fear_region[y1 as usize][x1 as usize]
+    crate::bridge::st().danger.fear_region[y1 as usize][x1 as usize] = (crate::bridge::st().danger.fear_region[y1 as usize][x1 as usize]
         as ::core::ffi::c_int
         + k / 2 as ::core::ffi::c_int) as uint16_t;
-    borg_fear_region[y1 as usize][x2 as usize] = (borg_fear_region[y1 as usize][x2 as usize]
+    crate::bridge::st().danger.fear_region[y1 as usize][x2 as usize] = (crate::bridge::st().danger.fear_region[y1 as usize][x2 as usize]
         as ::core::ffi::c_int
         + k / 3 as ::core::ffi::c_int) as uint16_t;
-    borg_fear_region[y2 as usize][x1 as usize] = (borg_fear_region[y2 as usize][x1 as usize]
+    crate::bridge::st().danger.fear_region[y2 as usize][x1 as usize] = (crate::bridge::st().danger.fear_region[y2 as usize][x1 as usize]
         as ::core::ffi::c_int
         + k / 3 as ::core::ffi::c_int) as uint16_t;
-    borg_fear_region[y2 as usize][x2 as usize] = (borg_fear_region[y2 as usize][x2 as usize]
+    crate::bridge::st().danger.fear_region[y2 as usize][x2 as usize] = (crate::bridge::st().danger.fear_region[y2 as usize][x2 as usize]
         as ::core::ffi::c_int
         + k / 3 as ::core::ffi::c_int) as uint16_t;
 }
@@ -1936,7 +1934,7 @@ pub unsafe extern "C" fn borg_update() {
         crate::bridge::st().borg.need_see_invis = 0 as ::core::ffi::c_int as borg_time;
         successful_target = 0 as ::core::ffi::c_int;
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         sold_item_num = 0 as ::core::ffi::c_int;
         sold_item_nxt = 1 as ::core::ffi::c_int;
         bought_item_nxt = 1 as ::core::ffi::c_int;
@@ -1982,7 +1980,7 @@ pub unsafe extern "C" fn borg_update() {
         while y < max_y {
             x = 0 as ::core::ffi::c_int;
             while x < max_x {
-                borg_fear_region[y as usize][x as usize] = 0 as uint16_t;
+                crate::bridge::st().danger.fear_region[y as usize][x as usize] = 0 as uint16_t;
                 x += 1;
             }
             y += 1;
@@ -1991,7 +1989,7 @@ pub unsafe extern "C" fn borg_update() {
         while y < AUTO_MAX_Y {
             x = 0 as ::core::ffi::c_int;
             while x < AUTO_MAX_X {
-                borg_fear_monsters[y as usize][x as usize] = 0 as uint16_t;
+                crate::bridge::st().danger.fear_monsters[y as usize][x as usize] = 0 as uint16_t;
                 x += 1;
             }
             y += 1;
@@ -2288,9 +2286,9 @@ pub unsafe extern "C" fn borg_update() {
             while y < max_y {
                 x = 0 as ::core::ffi::c_int;
                 while x < max_x {
-                    if borg_fear_region[y as usize][x as usize] != 0 {
-                        borg_fear_region[y as usize][x as usize] =
-                            borg_fear_region[y as usize][x as usize].wrapping_sub(1);
+                    if crate::bridge::st().danger.fear_region[y as usize][x as usize] != 0 {
+                        crate::bridge::st().danger.fear_region[y as usize][x as usize] =
+                            crate::bridge::st().danger.fear_region[y as usize][x as usize].wrapping_sub(1);
                     }
                     x += 1;
                 }
@@ -2301,7 +2299,7 @@ pub unsafe extern "C" fn borg_update() {
         while y < AUTO_MAX_Y {
             x = 0 as ::core::ffi::c_int;
             while x < AUTO_MAX_X {
-                borg_fear_monsters[y as usize][x as usize] = 0 as uint16_t;
+                crate::bridge::st().danger.fear_monsters[y as usize][x as usize] = 0 as uint16_t;
                 x += 1;
             }
             y += 1;

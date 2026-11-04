@@ -6,7 +6,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_flow_misc_h::borg_check_rest;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
@@ -554,7 +554,7 @@ pub unsafe extern "C" fn borg_recover() -> bool {
     {
         if borg_check_rest(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x) as ::core::ffi::c_int != 0
             && !crate::bridge::st().borg.mon.scary
-            && p <= borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            && p <= crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                 [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                 as ::core::ffi::c_int
             && crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int != GOAL_RECOVER

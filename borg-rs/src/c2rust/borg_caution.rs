@@ -14,7 +14,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_escape_h::{
     borg_caution_phase, borg_escape, borg_freedom, borg_recall, borg_surrounded,
 };
@@ -1020,7 +1020,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
     );
     if (pos_danger > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int
         || pos_danger
-            > borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            > crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                 [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                 as ::core::ffi::c_int
         || crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0

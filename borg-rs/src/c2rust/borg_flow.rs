@@ -15,7 +15,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_flow_glyph_h::{borg_free_flow_glyph, borg_init_flow_glyph};
 pub use crate::headers::borg_flow_h::{borg_data, borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_race_name};
@@ -366,7 +366,7 @@ pub unsafe extern "C" fn borg_flow_clear() {
         borg_data_hard as *const ::core::ffi::c_void,
         ::core::mem::size_of::<borg_data>() as size_t,
     );
-    if borg_danger_wipe {
+    if crate::bridge::st().danger.wipe {
         memset(
             borg_data_know as *mut ::core::ffi::c_void,
             0 as ::core::ffi::c_int,
@@ -377,7 +377,7 @@ pub unsafe extern "C" fn borg_flow_clear() {
             0 as ::core::ffi::c_int,
             ::core::mem::size_of::<borg_data>() as size_t,
         );
-        borg_danger_wipe = false_0 != 0;
+        crate::bridge::st().danger.wipe = false_0 != 0;
     }
     flow_head = 0 as ::core::ffi::c_int;
     flow_tail = 0 as ::core::ffi::c_int;

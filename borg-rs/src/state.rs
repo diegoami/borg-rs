@@ -9,6 +9,7 @@ use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;
 use crate::borg_cave_light::LightState;
 use crate::borg_cave_view::ViewState;
+use crate::borg_danger::DangerState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
 use crate::borg_home_notice::HomeState;
@@ -34,6 +35,9 @@ pub struct BorgState {
     pub light: LightState,
     /// borg-cave-view.c: `borg_view_n`, `borg_view_x`, `borg_view_y`
     pub view: ViewState,
+    /// borg-danger.c: `borg_fear_region`, `borg_fear_monsters`,
+    /// `borg_danger_wipe`
+    pub danger: DangerState,
     /// borg-formulas.c: `borg_formulas`
     pub formulas: FormulasState,
     /// borg-formulas-calc.c: `calculations`

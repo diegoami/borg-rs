@@ -17,7 +17,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-use crate::headers::borg_danger_h::{borg_fear_monsters, borg_fear_region};
+
 use crate::headers::borg_escape_h::borg_recall;
 pub use crate::headers::borg_flow_h::{
     borg_flow_old, borg_temp_n, borg_temp_x, borg_temp_y, borg_track,
@@ -354,7 +354,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                 }
                 ii += 1;
             }
-            if borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            if crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                 [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                 as ::core::ffi::c_int
                 > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
@@ -362,7 +362,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
             {
                 not_safe = true_0 != 0;
             }
-            if borg_fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
+            if crate::bridge::st().danger.fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
                 > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     / 10 as ::core::ffi::c_int
             {

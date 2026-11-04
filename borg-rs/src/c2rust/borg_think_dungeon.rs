@@ -21,7 +21,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_attack_munchkin_h::{borg_munchkin_mage, borg_munchkin_melee};
 use crate::headers::borg_caution_h::borg_caution;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_escape_h::{
     borg_allow_teleport, borg_dimension_door, borg_recall, borg_shadow_shift,
 };
@@ -1263,7 +1263,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         != crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
     {
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
     }
     if track_less.num as ::core::ffi::c_int != 0
         && (crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
@@ -1949,12 +1949,12 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         ));
         crate::bridge::st().borg.avoidance = (crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             * 2 as ::core::ffi::c_int) as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         if borg_think_dungeon_brave() {
             done = true_0 != 0;
         }
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         if done {
             return true_0 != 0;
         }
@@ -1986,12 +1986,12 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         ));
         crate::bridge::st().borg.avoidance = (crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
             * 4 as ::core::ffi::c_int) as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         if borg_think_dungeon_brave() {
             done_0 = true_0 != 0;
         }
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         if done_0 {
             return true_0 != 0;
         }
@@ -2004,7 +2004,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
             30000 as ::core::ffi::c_int,
         ));
         crate::bridge::st().borg.avoidance = 30000 as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         crate::bridge::st().borg.mon.unique = 0 as ::core::ffi::c_uint;
         crate::bridge::st().borg.mon.scary = false_0 != 0;
         crate::bridge::st().borg.near.breeder = false_0 != 0;
@@ -2028,7 +2028,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
             done_1 = true_0 != 0;
         }
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         if done_1 {
             return true_0 != 0;
         }

@@ -12,9 +12,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-use crate::headers::borg_danger_h::{
-    borg_danger, borg_danger_one_kill, borg_fear_monsters, borg_fear_region,
-};
+use crate::headers::borg_danger_h::{borg_danger, borg_danger_one_kill};
 use crate::headers::borg_escape_h::{borg_caution_teleport, borg_surrounded};
 pub use crate::headers::borg_fight_attack_h::{
     borg_launch_bolt, borg_tp_other_index, borg_tp_other_n, borg_tp_other_x, borg_tp_other_y,
@@ -2045,15 +2043,15 @@ unsafe extern "C" fn borg_defend_aux_genocide(mut p1: ::core::ffi::c_int) -> ::c
     {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+    if crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
         [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
         != 0
     {
-        p1 -= borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+        p1 -= crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
             [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
     }
-    if borg_fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] != 0 {
-        p1 -= borg_fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int;
+    if crate::bridge::st().danger.fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] != 0 {
+        p1 -= crate::bridge::st().danger.fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int;
     }
     if borg_spell_okay_fail(BANISHMENT, fail_allowed) as ::core::ffi::c_int != 0
         || borg_equips_item(crate::bridge::st().act.banishment, true_0 != 0) as ::core::ffi::c_int != 0
@@ -3561,7 +3559,7 @@ pub unsafe extern "C" fn borg_defend(mut p1: ::core::ffi::c_int) -> bool {
             false_0 != 0,
         );
         borg_attacking = false_0 != 0;
-        if p > borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+        if p > crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
             [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
             || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
         {

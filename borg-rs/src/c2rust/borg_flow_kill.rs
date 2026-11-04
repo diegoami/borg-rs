@@ -22,9 +22,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-use crate::headers::borg_danger_h::{
-    borg_danger, borg_danger_one_kill, borg_danger_wipe, borg_fear_region,
-};
+use crate::headers::borg_danger_h::{borg_danger, borg_danger_one_kill};
 pub use crate::headers::borg_fight_attack_h::{
     borg_attack_aux_launch, borg_attack_aux_spell_bolt, C2RustUnnamedH_32, BORG_ATTACK_ACID,
     BORG_ATTACK_ARROW, BORG_ATTACK_AWAY_ALL, BORG_ATTACK_AWAY_ALL_MORGOTH, BORG_ATTACK_AWAY_EVIL,
@@ -625,7 +623,7 @@ pub unsafe extern "C" fn borg_delete_kill(mut i: ::core::ffi::c_int) {
         ::core::mem::size_of::<borg_kill>() as size_t,
     );
     borg_kills_cnt -= 1;
-    borg_danger_wipe = true_0 != 0;
+    crate::bridge::st().danger.wipe = true_0 != 0;
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_sleep_kill(mut i: ::core::ffi::c_int) {
@@ -641,7 +639,7 @@ pub unsafe extern "C" fn borg_sleep_kill(mut i: ::core::ffi::c_int) {
     ));
     (*kill).awake = false_0 != 0;
     crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
-    borg_danger_wipe = true_0 != 0;
+    crate::bridge::st().danger.wipe = true_0 != 0;
 }
 unsafe extern "C" fn borg_follow_kill_aux(
     mut i: ::core::ffi::c_int,
@@ -844,7 +842,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
         oy,
         ox,
     ));
-    borg_danger_wipe = true_0 != 0;
+    crate::bridge::st().danger.wipe = true_0 != 0;
     if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize] == 0
         && crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int == GOAL_KILL
         && (borg_flow_y[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int == (*kill).pos.y
@@ -919,7 +917,7 @@ unsafe extern "C" fn borg_new_kill(
         (*kill).power as ::core::ffi::c_int,
         (*kill).r_idx as ::core::ffi::c_int,
     ));
-    borg_danger_wipe = true_0 != 0;
+    crate::bridge::st().danger.wipe = true_0 != 0;
     if crate::bridge::st().borg.time.now - crate::bridge::st().borg.need_see_invis > 45 as borg_time {
         let mut y0: ::core::ffi::c_int = 0;
         let mut x0: ::core::ffi::c_int = 0;
@@ -949,15 +947,15 @@ unsafe extern "C" fn borg_new_kill(
         } else {
             17 as ::core::ffi::c_int
         };
-        borg_fear_region[y0 as usize][x0 as usize] = 0 as uint16_t;
-        borg_fear_region[y0 as usize][x1 as usize] = 0 as uint16_t;
-        borg_fear_region[y0 as usize][x2 as usize] = 0 as uint16_t;
-        borg_fear_region[y1 as usize][x0 as usize] = 0 as uint16_t;
-        borg_fear_region[y2 as usize][x0 as usize] = 0 as uint16_t;
-        borg_fear_region[y1 as usize][x1 as usize] = 0 as uint16_t;
-        borg_fear_region[y1 as usize][x2 as usize] = 0 as uint16_t;
-        borg_fear_region[y2 as usize][x1 as usize] = 0 as uint16_t;
-        borg_fear_region[y2 as usize][x2 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y0 as usize][x0 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y0 as usize][x1 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y0 as usize][x2 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y1 as usize][x0 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y2 as usize][x0 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y1 as usize][x1 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y1 as usize][x2 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y2 as usize][x1 as usize] = 0 as uint16_t;
+        crate::bridge::st().danger.fear_region[y2 as usize][x2 as usize] = 0 as uint16_t;
         borg_note(format(
             b"# Removing Regional Fear (%d,%d) because of a LOS %s\0" as *const u8
                 as *const ::core::ffi::c_char,
@@ -1154,7 +1152,7 @@ pub unsafe extern "C" fn observe_kill_move(
                                                 ));
                                                 (*kill).r_idx = r_idx as uint16_t;
                                                 flicker = true_0 != 0;
-                                                borg_danger_wipe = true_0 != 0;
+                                                crate::bridge::st().danger.wipe = true_0 != 0;
                                                 crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
                                                 current_block_35 = 10043043949733653460;
                                             }
@@ -1188,7 +1186,7 @@ pub unsafe extern "C" fn observe_kill_move(
                                                     ox,
                                                 ),
                                             );
-                                            borg_danger_wipe = true_0 != 0;
+                                            crate::bridge::st().danger.wipe = true_0 != 0;
                                             if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize]
                                                 == 0
                                                 && crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int
@@ -1566,7 +1564,7 @@ pub unsafe extern "C" fn borg_locate_kill(
         if r == 0 {
             (*kill).known = true_0 != 0;
         }
-        borg_danger_wipe = true_0 != 0;
+        crate::bridge::st().danger.wipe = true_0 != 0;
         crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         return b_i;
     }

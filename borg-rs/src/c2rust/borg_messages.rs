@@ -9,7 +9,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_danger_h::borg_fear_region;
+
 use crate::headers::borg_fight_attack_h::{successful_target, target_closest};
 use crate::headers::borg_fight_defend_h::borg_attempting_refresh_resist;
 use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
@@ -1670,7 +1670,7 @@ unsafe extern "C" fn borg_parse_aux(
             }
             i += 1;
         }
-        borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+        crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
             [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] = 0 as uint16_t;
         return;
     }

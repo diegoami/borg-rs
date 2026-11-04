@@ -28,7 +28,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-use crate::headers::borg_danger_h::{borg_danger, borg_fear_monsters, borg_fear_region};
+use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_flow, borg_flow_x, borg_flow_y, borg_track, track_step,
@@ -1966,7 +1966,7 @@ unsafe extern "C" fn borg_cmd_fear() {
         x = 1 as ::core::ffi::c_int;
         while x <= AUTO_MAX_X - 1 as ::core::ffi::c_int {
             let mut a: uint8_t = COLOUR_RED as uint8_t;
-            p = borg_fear_region[(y / 11 as ::core::ffi::c_int) as usize]
+            p = crate::bridge::st().danger.fear_region[(y / 11 as ::core::ffi::c_int) as usize]
                 [(x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
             if !(p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int) {
                 if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
@@ -2001,7 +2001,7 @@ unsafe extern "C" fn borg_cmd_fear() {
         x = 1 as ::core::ffi::c_int;
         while x <= AUTO_MAX_X {
             let mut a_0: uint8_t = COLOUR_BLUE as uint8_t;
-            p = borg_fear_monsters[y as usize][x as usize] as ::core::ffi::c_int;
+            p = crate::bridge::st().danger.fear_monsters[y as usize][x as usize] as ::core::ffi::c_int;
             if !(p <= 0 as ::core::ffi::c_int) {
                 if p == 1 as ::core::ffi::c_int {
                     a_0 = COLOUR_L_BLUE as uint8_t;
