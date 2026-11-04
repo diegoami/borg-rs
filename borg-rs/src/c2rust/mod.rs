@@ -31,7 +31,6 @@ pub mod borg_log;
 pub mod borg_messages;
 pub mod borg_messages_react;
 pub mod borg_power;
-pub mod borg_prepared;
 pub mod borg_recover;
 pub mod borg_reincarnate;
 pub mod borg_store;

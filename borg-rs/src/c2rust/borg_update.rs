@@ -49,9 +49,6 @@ use crate::headers::borg_item_wear_h::{borg_clear_best, track_worn_num};
 use crate::headers::borg_messages_h::{
     borg_msg_buf, borg_msg_len, borg_msg_num, borg_msg_pos, borg_msg_use,
 };
-use crate::headers::borg_prepared_h::{
-    borg_depth_hunted_unique, borg_first_living_unique, borg_numb_live_unique,
-};
 use crate::headers::borg_projection_h::{borg_los, borg_target_unknown_wall};
 use crate::headers::borg_store_buy_h::{
     bought_item_num, bought_item_nxt, bought_item_pval, bought_item_store, bought_item_sval,
@@ -2082,9 +2079,9 @@ pub unsafe extern "C" fn borg_update() {
             0 as ::core::ffi::c_int,
             ((*z_info).r_max as size_t).wrapping_mul(::core::mem::size_of::<int16_t>() as size_t),
         );
-        borg_numb_live_unique = 0 as ::core::ffi::c_int;
-        borg_first_living_unique = 0 as ::core::ffi::c_uint;
-        borg_depth_hunted_unique = 0 as ::core::ffi::c_int;
+        crate::bridge::st().prepared.numb_live_unique = 0 as ::core::ffi::c_int;
+        crate::bridge::st().prepared.first_living_unique = 0 as ::core::ffi::c_uint;
+        crate::bridge::st().prepared.depth_hunted_unique = 0 as ::core::ffi::c_int;
         let mut unique_depths: [::core::ffi::c_int; 4] = [
             0 as ::core::ffi::c_int,
             0 as ::core::ffi::c_int,
@@ -2148,13 +2145,13 @@ pub unsafe extern "C" fn borg_update() {
                                 != 0)
                         {
                             if !((*r_ptr).rarity == 0) {
-                                if borg_numb_live_unique < 4 as ::core::ffi::c_int {
-                                    unique_depths[borg_numb_live_unique as usize] = (*r_ptr).level;
-                                    borg_numb_live_unique += 1;
-                                    if borg_numb_live_unique == 1 as ::core::ffi::c_int {
-                                        borg_first_living_unique = u_i;
+                                if crate::bridge::st().prepared.numb_live_unique < 4 as ::core::ffi::c_int {
+                                    unique_depths[crate::bridge::st().prepared.numb_live_unique as usize] = (*r_ptr).level;
+                                    crate::bridge::st().prepared.numb_live_unique += 1;
+                                    if crate::bridge::st().prepared.numb_live_unique == 1 as ::core::ffi::c_int {
+                                        crate::bridge::st().prepared.first_living_unique = u_i;
                                     }
-                                    if borg_numb_live_unique == 3 as ::core::ffi::c_int {
+                                    if crate::bridge::st().prepared.numb_live_unique == 3 as ::core::ffi::c_int {
                                         qsort(
                                             &raw mut unique_depths as *mut ::core::ffi::c_int
                                                 as *mut ::core::ffi::c_void,
@@ -2171,7 +2168,7 @@ pub unsafe extern "C" fn borg_update() {
                                         );
                                     }
                                 } else {
-                                    borg_numb_live_unique += 1;
+                                    crate::bridge::st().prepared.numb_live_unique += 1;
                                     if (*r_ptr).level
                                         < unique_depths[2 as ::core::ffi::c_int as usize]
                                     {
@@ -2200,13 +2197,13 @@ pub unsafe extern "C" fn borg_update() {
             }
             u_i = u_i.wrapping_add(1);
         }
-        if borg_numb_live_unique >= 3 as ::core::ffi::c_int {
-            borg_depth_hunted_unique = unique_depths[2 as ::core::ffi::c_int as usize];
-        } else if borg_numb_live_unique != 0 as ::core::ffi::c_int {
-            borg_depth_hunted_unique =
-                unique_depths[(borg_numb_live_unique - 1 as ::core::ffi::c_int) as usize];
+        if crate::bridge::st().prepared.numb_live_unique >= 3 as ::core::ffi::c_int {
+            crate::bridge::st().prepared.depth_hunted_unique = unique_depths[2 as ::core::ffi::c_int as usize];
+        } else if crate::bridge::st().prepared.numb_live_unique != 0 as ::core::ffi::c_int {
+            crate::bridge::st().prepared.depth_hunted_unique =
+                unique_depths[(crate::bridge::st().prepared.numb_live_unique - 1 as ::core::ffi::c_int) as usize];
         } else {
-            borg_depth_hunted_unique = 127 as ::core::ffi::c_int;
+            crate::bridge::st().prepared.depth_hunted_unique = 127 as ::core::ffi::c_int;
         }
         borg_forget_map();
         reset = true_0 != 0;

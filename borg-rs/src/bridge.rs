@@ -585,3 +585,93 @@ pub mod magic_play {
         crate::borg_magic_play::borg_play_magic(st(), bored)
     }
 }
+
+/// The home's *Heal*/Life potion counts from borg-home-notice.c (still
+/// c2rust), for borg_prepared: `num_ezheal`, `num_life`,
+/// `num_ezheal_true`, `num_life_true`.
+#[derive(Clone, Copy, Debug)]
+pub struct PreparedHomeHeals {
+    pub ezheal: i16,
+    pub life: i16,
+    pub ezheal_true: i16,
+    pub life_true: i16,
+}
+
+/// Read the home's heal potion counts (borg-home-notice.c globals).
+pub fn prepared_home_heals(_st: &mut BorgState) -> PreparedHomeHeals {
+    use crate::c2rust::borg_home_notice as h;
+    // SAFETY: plain reads of C-style integer globals (single-threaded).
+    unsafe {
+        PreparedHomeHeals {
+            ezheal: h::num_ezheal,
+            life: h::num_life,
+            ezheal_true: h::num_ezheal_true,
+            life_true: h::num_life_true,
+        }
+    }
+}
+
+/// `borg_notice_home(NULL, false)` (still c2rust, borg-home-notice.c),
+/// for borg_prepared.
+pub fn prepared_notice_home(_st: &mut BorgState) {
+    // SAFETY: a NULL item means "no extra item"; the callee only touches
+    // the Borg's own globals and state.
+    unsafe { crate::c2rust::borg_home_notice::borg_notice_home(core::ptr::null_mut(), false) }
+}
+
+/// C-ABI shims with the borg-prepared.c names.
+///
+/// As in C, the returned string is a string literal (static), a formula
+/// line's reason (valid until the formulas are reloaded or freed), or the
+/// one static `borg_prepared_buffer`, which the next formatted reason
+/// overwrites (callers that keep a reason across calls see that).
+pub mod prepared {
+    use super::st;
+    use crate::borg_prepared::{self as p, Reason};
+    use core::ffi::{c_char, c_int};
+    use std::collections::HashMap;
+    use std::ffi::CString;
+    use std::sync::Mutex;
+
+    /// `MAX_REASON`
+    const MAX_REASON: usize = 1024;
+    /// `borg_prepared_buffer`
+    static mut PREPARED_BUFFER: [c_char; MAX_REASON] = [0; MAX_REASON];
+    /// NUL-terminated copies of the fixed reasons (never freed, so the
+    /// pointers stay valid like C string literals).
+    static TEXTS: Mutex<Option<HashMap<&'static str, CString>>> = Mutex::new(None);
+
+    unsafe fn c_reason(r: Option<Reason>) -> *const c_char {
+        match r {
+            None => core::ptr::null(),
+            Some(Reason::Text(s)) => {
+                let mut texts = TEXTS.lock().expect("not poisoned");
+                let map = texts.get_or_insert_with(HashMap::new);
+                map.entry(s).or_insert_with(|| CString::new(s).expect("no NUL")).as_ptr()
+            }
+            Some(Reason::Formatted(s)) => {
+                // strnfmt(borg_prepared_buffer, MAX_REASON, ...)
+                let buf = &mut *(&raw mut PREPARED_BUFFER);
+                let bytes = s.as_bytes();
+                let n = bytes.len().min(MAX_REASON - 1);
+                for (d, &b) in buf.iter_mut().zip(&bytes[..n]) {
+                    *d = b as c_char;
+                }
+                buf[n] = 0;
+                buf.as_ptr()
+            }
+            Some(Reason::Depth(i)) => st().formulas.depth[i].reason.as_ptr(),
+            Some(Reason::Restock(i)) => st().formulas.restock[i].reason.as_ptr(),
+        }
+    }
+
+    pub unsafe extern "C" fn borg_prepared(depth: c_int) -> *const c_char {
+        c_reason(p::borg_prepared(st(), depth))
+    }
+    pub unsafe extern "C" fn borg_restock(depth: c_int) -> *const c_char {
+        c_reason(p::borg_restock(st(), depth))
+    }
+    pub unsafe extern "C" fn borg_must_return_to_town() -> *const c_char {
+        c_reason(p::borg_must_return_to_town(st()))
+    }
+}

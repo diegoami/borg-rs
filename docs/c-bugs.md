@@ -116,3 +116,25 @@ Format: file, function, (seed, turn when observed), explanation.
   grid normally also has `BORG_VIEW`/`BORG_MARK` etc., so in practice the
   check almost never triggers; `BI_LIGHT` is the real guard.
 * Rust: kept as `== BORG_DARK` in `borg_magic_play.rs`.
+
+## 10. Unreachable and mislabelled preparedness checks (prepared)
+
+* borg-prepared.c, `borg_prepared()`/`borg_prepared_aux()`/`borg_restock()`,
+  static (non-formula) mode; found by code reading, confirmed by a
+  randomized old-vs-new check (traits, config, uniques and home counts
+  perturbed, 81M calls) that never produced these texts.
+* `borg_prepared()` calls `borg_restock()` first and returns "Clevel <
+  depth" when `max clevel < depth` (below 50), so in `borg_prepared_aux()`:
+  "1 Lite" and "5 Fuel" (light 0 is already "restock light radius < 1"),
+  "2 tele + teleport staffs" (same test as "restock tele + tele staff < 2")
+  and the dlevel 10-19 class checks "dlevel - 4 >= clevel" and "dlevel >=
+  clevel" never fire. "2 cures (clw + csw + ccw)" repeats the "2 cure"
+  test exactly. The level-100 block ("10 restore mana", which tests for 15,
+  "5 Heal", "15 *heal* or life", "10 speed potions") is dead because
+  `borg_prepared_aux()` is only called for `depth <= 99`.
+* `borg_restock()`: "restock fuel" and "restock fuel < 2" need light 0,
+  which already returned "restock light radius < 1".
+* "Scumming *Heal* potions (%d to go)" tests the home counts from before
+  `borg_notice_home()` but prints `10 - num_ezheal` from after it, and
+  ignores the Life potions and the ones carried.
+* Rust (`borg_prepared.rs`): all kept.

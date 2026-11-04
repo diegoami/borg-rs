@@ -15,6 +15,7 @@ use crate::borg_io::IoState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
 use crate::borg_magic::MagicState;
+use crate::borg_prepared::PreparedState;
 use crate::borg_projection::ProjectionState;
 
 #[derive(Default)]
@@ -41,6 +42,9 @@ pub struct BorgState {
     pub item_val: ItemValState,
     /// borg-magic.c: `borg_magics`, `borg_spell_ratings`
     pub magic: MagicState,
+    /// borg-prepared.c: `borg_numb_live_unique`, `borg_first_living_unique`,
+    /// `borg_depth_hunted_unique`
+    pub prepared: PreparedState,
     /// borg-projection.c: `borg_target_loc`
     pub projection: ProjectionState,
 }

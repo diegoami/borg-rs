@@ -386,6 +386,15 @@ pub fn r_info() -> &'static [MonsterRace] {
     unsafe { std::slice::from_raw_parts(crate::headers::monster_h::r_info, n) }
 }
 
+/// `r_info[r_idx].name` (bytes up to the NUL).
+pub fn race_name(r_idx: usize) -> &'static [u8] {
+    let name = r_info()[r_idx].name;
+    assert!(!name.is_null(), "race {r_idx} has no name");
+    // SAFETY: a race's name is a C string allocated when the game data is
+    // loaded and kept for the game; checked non-null.
+    unsafe { CStr::from_ptr(name).to_bytes() }
+}
+
 /// `rf_has(r_info[r_idx].flags, flag)`.
 pub fn race_flag_has(r_idx: usize, flag: u32) -> bool {
     let flags = &r_info()[r_idx].flags;

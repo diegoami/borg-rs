@@ -52,7 +52,6 @@ pub use crate::headers::borg_magic_h::{
     WARG_FORM, WEREWOLF_FORM, WHIRLWIND_ATTACK, WORD_OF_DESTRUCTION, WORD_OF_RECALL,
     ZONE_OF_UNMAGIC,
 };
-use crate::headers::borg_prepared_h::{borg_depth_hunted_unique, borg_numb_live_unique};
 use crate::headers::borg_projection_h::{borg_distance, borg_los, borg_target};
 pub use crate::headers::borg_trait_h::{
     C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS, BI_ADETDOOR,
@@ -178,9 +177,9 @@ pub unsafe extern "C" fn borg_recall() -> bool {
                     != 0 as ::core::ffi::c_int
             {
                 let mut diff_max_from_desired_depth: ::core::ffi::c_int = crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
-                    - borg_depth_hunted_unique;
+                    - crate::bridge::st().prepared.depth_hunted_unique;
                 let mut diff_cur_from_desired_depth: ::core::ffi::c_int = crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
-                    - borg_depth_hunted_unique;
+                    - crate::bridge::st().prepared.depth_hunted_unique;
                 if diff_max_from_desired_depth > 5 as ::core::ffi::c_int
                     && diff_cur_from_desired_depth <= 5 as ::core::ffi::c_int
                     && diff_cur_from_desired_depth > -(5 as ::core::ffi::c_int)
@@ -214,7 +213,7 @@ pub unsafe extern "C" fn borg_recall() -> bool {
                         borg_keypress('n' as i32 as keycode_t);
                     } else if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                         == 99 as ::core::ffi::c_int
-                        && borg_numb_live_unique < 5 as ::core::ffi::c_int
+                        && crate::bridge::st().prepared.numb_live_unique < 5 as ::core::ffi::c_int
                     {
                         borg_note(
                             b"# Not Resetting recall depth.\0" as *const u8
