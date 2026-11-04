@@ -60,6 +60,7 @@
 
 **Checkpoint after module 21**: `full` 45/45 identical, `deep` 9/9 identical.
 | 22 | borg_item_id | own | no module state; `borg_object_fully_id(st)` copies each item (keypresses do not change items), `borg_item_note_needs_id(&borg_item)`; note bytes via new transitional `bridge::item_note(&borg_item)` (`borg_get_note` semantics, NULL = ""); shims in `bridge::item_id` (callers in borg_commands, borg_trait, borg_inventory, borg_item_wear, borg_store_sell, borg_fight_attack, borg_junk); `borg_object_fully_id` is only reached from the Borg debug commands (no suite): checked against the c2rust version on the real item state every 1000th `needs_id` call (~96k checks in full, 139 with keys) plus 20 fuzzed item sets each (random tval/ego/artifact/resists/flags/notes/depth, ~1.9M rounds), and `needs_id` on every call plus fuzzed ident flags and notes (full and deep, local, not committed); C bug 13 (quiver slots typed as equipment letters) kept; smoke 3/3, full 45/45, deep 9/9 identical |
+| 23 | borg_inventory | own | `InventoryState` (`do_crush_junk` = `borg_do_crush_junk`; 3 c2rust uses in borg_junk/borg_update rewritten to `bridge::st().inventory...`); engine `CarriedObject` (opaque handle for an object with a kind) with `inven_object`, `equip_object`, `quiver_object`, `object_desc_full` (256-byte `object_desc`, `ODESC_FULL`); bridge `borg_item_analyze(st, slot, obj, desc, in_store)` (NUL-terminated copy of the description) and `borg_item_note_needs_id`; the `!`/`borg` inscription test reads `bridge::borg_get_note` (NULL reads as "", which matches neither, as in C); borg_item.rs calls the safe readers directly (`bridge::borg_equipment`/`borg_inventory` removed); C-ABI shims in `bridge::inventory` (`borg_item_worth_id` copies the item first); C bug 14 (dead pval test in `borg_slot`, empty pack has no hole) kept; checked in-game against the c2rust version on every call (item arrays byte for byte, key queue, `borg_do_crush_junk`; the slot lookups too) in full and deep (local, not committed); smoke 3/3, full 45/45, deep 9/9 identical |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -91,6 +92,7 @@ impls), comments excluded.
 | borg_log | 682 | 41 |
 | borg_messages_react | 654 | 41 |
 | borg_item_id | 651 | 39 |
+| borg_inventory | 685 | 38 |
 
 ## Suite timings
 

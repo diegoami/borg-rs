@@ -1054,3 +1054,74 @@ pub fn prt(s: &[u8], row: i32, col: i32) {
     // SAFETY: c is a valid C string for the call.
     unsafe { crate::headers::ui_output_h::prt(c.as_ptr(), row, col) }
 }
+
+// ---------------------------------------------------------------------------
+// Carried objects (borg-inventory.c)
+
+/// A game object the player carries (pack, equipment or quiver) that has
+/// a kind. Opaque: the pointer stays on the FFI side (`engine`, `bridge`).
+#[derive(Clone, Copy)]
+pub struct CarriedObject(*const crate::headers::object_h::object);
+
+impl CarriedObject {
+    /// The raw object, for transitional c2rust calls (bridge).
+    pub fn as_ptr(self) -> *const crate::headers::object_h::object {
+        self.0
+    }
+
+    /// `obj && obj->kind`
+    fn with_kind(obj: *const crate::headers::object_h::object) -> Option<Self> {
+        if obj.is_null() {
+            return None;
+        }
+        // SAFETY: a non-NULL slot of the player's pack, body or quiver
+        // points at a live object.
+        let kind = unsafe { (*obj).kind };
+        (!kind.is_null()).then_some(CarriedObject(obj))
+    }
+}
+
+/// `player->upkeep->inven[i]` (i < pack_size), if it is an object with a
+/// kind.
+pub fn inven_object(i: usize) -> Option<CarriedObject> {
+    assert!(i < usize::from(z_info().pack_size), "pack slot out of range");
+    // SAFETY: inven is allocated with pack_size + 1 entries with the
+    // player's upkeep (index checked).
+    CarriedObject::with_kind(unsafe { *(*player_ref().upkeep).inven.add(i) })
+}
+
+/// `player->body.slots[i].obj` (i < body.count), if it is an object with a
+/// kind.
+pub fn equip_object(i: usize) -> Option<CarriedObject> {
+    let body = &player_ref().body;
+    assert!(i < usize::from(body.count), "equipment slot out of range");
+    // SAFETY: slots has body.count entries (checked).
+    CarriedObject::with_kind(unsafe { (*body.slots.add(i)).obj })
+}
+
+/// `player->upkeep->quiver[i]` (i < quiver_size), if it is an object with
+/// a kind.
+pub fn quiver_object(i: usize) -> Option<CarriedObject> {
+    assert!(i < usize::from(z_info().quiver_size), "quiver slot out of range");
+    // SAFETY: the quiver is allocated with z_info->quiver_size entries
+    // with the player's upkeep (index checked).
+    CarriedObject::with_kind(unsafe { *(*player_ref().upkeep).quiver.add(i) })
+}
+
+/// `object_desc(buf, 256, obj, ODESC_FULL, player)` (bytes up to the NUL).
+pub fn object_desc_full(obj: CarriedObject) -> Vec<u8> {
+    let mut buf = [0u8; 256];
+    // SAFETY: obj is a live carried object; object_desc writes at most
+    // 256 bytes, NUL included.
+    unsafe {
+        crate::headers::obj_desc_h::object_desc(
+            buf.as_mut_ptr() as *mut c_char,
+            buf.len(),
+            obj.0,
+            crate::headers::obj_desc_h::ODESC_FULL,
+            crate::headers::player_h::player,
+        );
+    }
+    let n = buf.iter().position(|&b| b == 0).unwrap_or(buf.len());
+    buf[..n].to_vec()
+}

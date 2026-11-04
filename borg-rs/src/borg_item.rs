@@ -109,8 +109,8 @@ pub fn borg_item_weight(item: &borg_item) -> i16 {
 /// Read the equipment, the pack and the store, then snapshot the items
 /// (`borg_find_all_items`).
 pub fn borg_find_all_items(st: &mut BorgState) {
-    bridge::borg_equipment(st);
-    bridge::borg_inventory(st);
+    crate::borg_inventory::borg_equipment(st);
+    crate::borg_inventory::borg_inventory(st);
     bridge::borg_notice_store(st);
     let n = quiver_end() as usize;
     let snapshot = st.items.items[..n].to_vec();

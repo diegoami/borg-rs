@@ -208,3 +208,18 @@ Format: file, function, (seed, turn when observed), explanation.
   and the function is only called from the Borg's debug commands
   (`borg-commands.c`), so no suite reaches it.
 * Rust: kept in `borg_item_id.rs`.
+
+## 16. Slot lookups: dead "largest pval" test; empty pack has no hole (inventory)
+
+* `borg-inventory.c`, found by code reading.
+* `borg_slot()`: the "Prefer largest pval (even if smaller pile)" test
+  skips an item only when `item->iqty > borg_items[n].iqty`, but the
+  "Prefer smallest pile" test just before has already skipped every such
+  item. So pval is never compared: of equally small piles the last one
+  wins.
+* `borg_first_empty_inventory_slot()` scans down from the last pack slot
+  for the last used one and returns the slot after it. With an empty pack
+  there is no used slot and it returns -1 ("no room"), not 0, so the
+  buy/wear/remove code that needs a hole gives up. (Unlikely in play:
+  the Borg nearly always carries something.)
+* Rust (`borg_inventory.rs`): both kept.

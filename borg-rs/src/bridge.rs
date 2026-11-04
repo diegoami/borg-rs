@@ -668,9 +668,75 @@ pub fn item_note(item: &crate::headers::borg_item_h::borg_item) -> Vec<u8> {
 }
 
 c2r_void! {
-    borg_equipment => crate::c2rust::borg_inventory::borg_equipment;
-    borg_inventory => crate::c2rust::borg_inventory::borg_inventory;
     borg_notice_store => crate::c2rust::borg_store::borg_notice_store;
+}
+
+/// `borg_item_analyze(&borg_items[i], obj, desc, in_store)` (still c2rust,
+/// borg-item-analyze.c). `desc` is passed as a NUL-terminated copy; the
+/// callee copies at most 79 bytes of it into the item's `desc` and points
+/// the item's `note` into that.
+pub fn borg_item_analyze(
+    st: &mut BorgState,
+    i: usize,
+    obj: crate::engine::CarriedObject,
+    desc: &[u8],
+    in_store: bool,
+) {
+    let mut buf = desc.to_vec();
+    buf.push(0);
+    let item: *mut crate::headers::borg_item_h::borg_item = &mut st.items.items[i];
+    // SAFETY: `item` is a live slot of the item Vec (not resized by the
+    // callee); obj is a live carried object with a kind; buf is a
+    // NUL-terminated buffer that the callee only reads.
+    unsafe {
+        crate::c2rust::borg_item_analyze::borg_item_analyze(
+            item,
+            obj.as_ptr(),
+            buf.as_mut_ptr() as *mut c_char,
+            in_store,
+        )
+    }
+}
+
+/// `borg_item_note_needs_id(item)` (borg-item-id.c, converted). The
+/// item's `note` must be NULL or point into a live item's `desc` (C
+/// semantics; callers pass items of the Borg's arrays or copies of them
+/// whose originals are still live).
+pub fn borg_item_note_needs_id(
+    _st: &mut BorgState,
+    item: &crate::headers::borg_item_h::borg_item,
+) -> bool {
+    crate::borg_item_id::borg_item_note_needs_id(item)
+}
+
+/// C-ABI shims with the borg-inventory.c names.
+pub mod inventory {
+    use super::st;
+    use crate::borg_inventory as inv;
+    use crate::headers::borg_item_h::borg_item;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_wield_slot(item: *const borg_item) -> c_int {
+        inv::borg_wield_slot(&*item)
+    }
+    pub unsafe extern "C" fn borg_slot(tval: c_int, sval: c_int) -> c_int {
+        inv::borg_slot(st(), tval, sval)
+    }
+    pub unsafe extern "C" fn borg_equipment() {
+        inv::borg_equipment(st())
+    }
+    pub unsafe extern "C" fn borg_inventory() {
+        inv::borg_inventory(st())
+    }
+    pub unsafe extern "C" fn borg_first_empty_inventory_slot() -> c_int {
+        inv::borg_first_empty_inventory_slot(st())
+    }
+    /// The item is copied first (it may be one of `st().items`); the
+    /// copy's note still points into the live original.
+    pub unsafe extern "C" fn borg_item_worth_id(item: *const borg_item) -> bool {
+        let copy = *item;
+        inv::borg_item_worth_id(st(), &copy)
+    }
 }
 
 /// C-ABI shims with the borg-item.c names.

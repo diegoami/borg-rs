@@ -15,7 +15,7 @@ use crate::headers::borg_danger_h::borg_danger;
 pub use crate::headers::borg_flow_take_h::{borg_get_top_object, borg_take, borg_takes};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::{
-    borg_do_crush_junk, borg_first_empty_inventory_slot, borg_item_worth_id,
+    borg_first_empty_inventory_slot, borg_item_worth_id,
 };
 use crate::headers::borg_io_h::{borg_keypress, borg_keypresses, borg_note};
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
@@ -345,7 +345,7 @@ pub unsafe extern "C" fn borg_drop_junk() -> bool {
     let mut p: int32_t = 0;
     let mut b_p: int32_t = crate::bridge::st().borg.power;
     let mut value: int32_t = 0 as int32_t;
-    if !borg_do_crush_junk {
+    if !crate::bridge::st().inventory.do_crush_junk {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.goal.recalling != 0 {
@@ -641,7 +641,7 @@ pub unsafe extern "C" fn borg_drop_junk() -> bool {
     if fix {
         borg_notice(true_0 != 0);
     }
-    borg_do_crush_junk = false_0 != 0;
+    crate::bridge::st().inventory.do_crush_junk = false_0 != 0;
     return false_0 != 0;
 }
 #[no_mangle]
