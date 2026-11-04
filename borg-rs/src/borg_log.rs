@@ -337,7 +337,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
 
             // Known Items
             if ag.take != 0 {
-                let kidx = bridge::borg_take_kidx(st, usize::from(ag.take));
+                let kidx = st.takes.takes[usize::from(ag.take)].kidx;
                 if kidx != 0 {
                     ch = engine::k_info()[kidx as usize].d_char;
                 }

@@ -271,3 +271,29 @@ Format: file, function, (seed, turn when observed), explanation.
   an item that has a pval (and a CON sustain does not).
 * Rust: kept (`engine::flag_has(&item.flags, STAT_*)`) in
   `borg_item_analyze.rs`.
+## 19. Object tracking and item flows (flow take)
+
+* `borg-flow-take.c`, found by code reading.
+* `borg_flow_take()`, `borg_flow_take_scum()`, `borg_flow_take_lunal()`:
+  the "nearest up stairs" scan skips a stair when `b_j >= j`, so it keeps
+  the *farthest* up staircase (the first of equally far ones). The leash
+  and "too far from the stairs" tests use that one.
+* `borg_flow_take_lunal()`:
+  * `if (!k_ptr) continue;` tests `&k_info[take->kidx]`, which is never
+    NULL, so dead entries below `borg_takes_nxt` are not skipped: their
+    location (0,0) becomes a target like any other (when in view and not
+    too far from the stairs).
+  * `item_bad` is worked out (with its "Lunal Item" notes) but never
+    read: every entry that passes the view and stairs tests is a target,
+    worthless ones (value <= 0) included.
+  * Only reached in lunal/munchkin mode (`borg_lunal_mode`,
+    `borg_munchkin_start`), which no suite turns on.
+* `borg_follow_take()`: an object under the Borg is deleted, but the
+  function goes on with the wiped entry: the "on screen" test reads grid
+  (0,0), and if that grid is `BORG_OKAY` (and no monster on the object's
+  old grid stops it) it notes "There was an object ..." and deletes the
+  entry again (a no-op). Only an extra note.
+* `observe_take_move()`: the attr test only applies when the kind's char
+  is `'!'` and its attr is not 11; for every other kind the attr is not
+  compared at all.
+* Rust (`borg_flow_take.rs`): all kept.

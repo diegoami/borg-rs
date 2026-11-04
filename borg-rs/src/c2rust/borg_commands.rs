@@ -37,7 +37,7 @@ pub use crate::headers::borg_flow_kill_h::{
     borg_kill, borg_kills, borg_kills_nxt, borg_nasties, borg_nasties_count, borg_nasties_limit,
     borg_nasties_num,
 };
-pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes, borg_takes_nxt};
+pub use crate::headers::borg_flow_take_h::{borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_home_notice_h::borg_notice_home;
 use crate::headers::borg_home_power_h::borg_power_home;
@@ -1820,8 +1820,8 @@ unsafe extern "C" fn borg_cmd_grid_objects() {
     let mut i: ::core::ffi::c_int = 0;
     let mut n: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_takes_nxt as ::core::ffi::c_int {
-        let mut take: *mut borg_take = borg_takes.offset(i as isize) as *mut borg_take;
+    while i < crate::bridge::st().takes.nxt as ::core::ffi::c_int {
+        let mut take: *mut borg_take = &raw mut crate::bridge::st().takes.takes[(i) as usize] as *mut borg_take;
         if (*take).kidx != 0 {
             let mut x: ::core::ffi::c_int = (*take).x as ::core::ffi::c_int;
             let mut y: ::core::ffi::c_int = (*take).y as ::core::ffi::c_int;

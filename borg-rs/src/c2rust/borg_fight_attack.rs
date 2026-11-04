@@ -84,7 +84,7 @@ pub use crate::headers::borg_flow_kill_h::{
     borg_kill, borg_kills, borg_kills_cnt, borg_kills_nxt, borg_race_name,
 };
 use crate::headers::borg_flow_misc_h::borg_extract_dir;
-pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes};
+pub use crate::headers::borg_flow_take_h::{borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::{borg_slot, borg_wield_slot};
 use crate::headers::borg_io_h::{borg_keypress, borg_note, borg_queue_direction};
@@ -3044,7 +3044,7 @@ unsafe extern "C" fn borg_launch_destroy_stuff(
     mut ag: *mut borg_grid,
     mut typ: ::core::ffi::c_int,
 ) -> ::core::ffi::c_int {
-    let mut take: *mut borg_take = borg_takes.offset((*ag).take as isize) as *mut borg_take;
+    let mut take: *mut borg_take = &raw mut crate::bridge::st().takes.takes[((*ag).take) as usize] as *mut borg_take;
     let mut k_ptr: *mut object_kind = k_info.offset((*take).kidx as isize) as *mut object_kind;
     match typ {
         4 => {
@@ -3272,7 +3272,7 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
                             ammo_location,
                         );
                         if (*ag).take as ::core::ffi::c_int != 0
-                            && (*borg_takes.offset((*ag).take as isize)).kidx != 0
+                            && (crate::bridge::st().takes.takes[((*ag).take) as usize]).kidx != 0
                         {
                             n -= borg_launch_destroy_stuff(ag, typ);
                         }
@@ -3550,7 +3550,7 @@ unsafe extern "C" fn borg_launch_arc_at_location(
                                 );
                             }
                             if (*ag).take as ::core::ffi::c_int != 0
-                                && (*borg_takes.offset((*ag).take as isize)).kidx != 0
+                                && (crate::bridge::st().takes.takes[((*ag).take) as usize]).kidx != 0
                             {
                                 n -= borg_launch_destroy_stuff(ag, typ);
                             }

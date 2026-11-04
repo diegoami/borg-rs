@@ -10,6 +10,7 @@ use crate::borg_cave::CaveState;
 use crate::borg_cave_light::LightState;
 use crate::borg_cave_view::ViewState;
 use crate::borg_danger::DangerState;
+use crate::borg_flow_take::TakeState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
 use crate::borg_home_notice::HomeState;
@@ -39,6 +40,8 @@ pub struct BorgState {
     /// borg-danger.c: `borg_fear_region`, `borg_fear_monsters`,
     /// `borg_danger_wipe`
     pub danger: DangerState,
+    /// borg-flow-take.c: `borg_takes`, `borg_takes_cnt`, `borg_takes_nxt`
+    pub takes: TakeState,
     /// borg-formulas.c: `borg_formulas`
     pub formulas: FormulasState,
     /// borg-formulas-calc.c: `calculations`

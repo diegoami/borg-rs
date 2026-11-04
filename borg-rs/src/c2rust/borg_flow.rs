@@ -25,9 +25,7 @@ use crate::headers::borg_flow_misc_h::{
 use crate::headers::borg_flow_stairs_h::{
     borg_free_flow_stairs, borg_init_flow_stairs, track_less,
 };
-pub use crate::headers::borg_flow_take_h::{
-    borg_delete_take, borg_get_top_object, borg_take, borg_takes,
-};
+pub use crate::headers::borg_flow_take_h::{borg_delete_take, borg_get_top_object, borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note, borg_queue_direction};
 
@@ -948,9 +946,9 @@ unsafe extern "C" fn borg_play_step(
         borg_keypress((dir + '0' as i32) as keycode_t);
         return true_0 != 0;
     }
-    if (*ag).take as ::core::ffi::c_int != 0 && (*borg_takes.offset((*ag).take as isize)).kidx != 0
+    if (*ag).take as ::core::ffi::c_int != 0 && (crate::bridge::st().takes.takes[((*ag).take) as usize]).kidx != 0
     {
-        let mut take: *mut borg_take = borg_takes.offset((*ag).take as isize) as *mut borg_take;
+        let mut take: *mut borg_take = &raw mut crate::bridge::st().takes.takes[((*ag).take) as usize] as *mut borg_take;
         if !strstr(
             (*k_info.offset((*take).kidx as isize)).name,
             b"chest\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1034,9 +1032,7 @@ unsafe extern "C" fn borg_play_step(
                             ag2 = crate::bridge::grid(xx, yy)
                                 as *mut borg_grid;
                             if (*ag2).take != 0 {
-                                (*borg_takes.offset(
-                                    (*crate::bridge::grid(xx, yy)).take as isize,
-                                ))
+                                (crate::bridge::st().takes.takes[((*crate::bridge::grid(xx, yy)).take) as usize])
                                 .orbed = true_0 != 0;
                             }
                         }

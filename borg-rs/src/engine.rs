@@ -1578,3 +1578,100 @@ pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
     }
     out
 }
+
+// ---------------------------------------------------------------------------
+// Floor objects and object kinds (borg-flow-take.c)
+
+/// `k_info[kidx].name` (bytes up to the NUL; "" for NULL, as `format`
+/// prints it). Panics for `kidx >= z_info->k_max`.
+pub fn kind_name(kidx: usize) -> &'static [u8] {
+    c_bytes(k_info()[kidx].name)
+}
+
+/// `tval_is_book_k(&k_info[kidx])`.
+pub fn tval_is_book_k(kidx: usize) -> bool {
+    let k: *const ObjectKind = &k_info()[kidx];
+    // SAFETY: k points into k_info (index checked above); the callee only
+    // reads the kind's tval.
+    unsafe { crate::headers::obj_tval_h::tval_is_book_k(k) }
+}
+
+/// An object lying on the floor of the current level (an entry of a
+/// grid's object pile). Opaque: the pointer stays on the FFI side
+/// (`engine`, `bridge`). Only valid until the game changes the pile, so
+/// it is used within one Borg call.
+#[derive(Clone, Copy)]
+pub struct FloorObject(*mut crate::headers::object_h::object);
+
+impl FloorObject {
+    /// The raw object, for transitional c2rust callers (bridge).
+    pub fn as_ptr(self) -> *mut crate::headers::object_h::object {
+        self.0
+    }
+
+    /// `*obj->kind` (a floor object always has a kind; it points into
+    /// `k_info`).
+    pub fn kind(self) -> &'static ObjectKind {
+        // SAFETY: a live floor object; its kind points into k_info, which
+        // lives for the game (checked non-NULL).
+        unsafe {
+            let k = (*self.0).kind;
+            assert!(!k.is_null(), "floor object without a kind");
+            &*k
+        }
+    }
+
+    /// `object_fully_known(obj)`.
+    pub fn fully_known(self) -> bool {
+        // SAFETY: a live floor object; the callee only reads it.
+        unsafe { crate::headers::obj_knowledge_h::object_fully_known(self.0) }
+    }
+
+    /// `(obj->to_a, obj->to_h, obj->to_d)`.
+    pub fn to_ahd(self) -> (i16, i16, i16) {
+        // SAFETY: a live floor object (plain field reads).
+        unsafe { ((*self.0).to_a, (*self.0).to_h, (*self.0).to_d) }
+    }
+
+    /// `quark_str(obj->note)` when the object has a note (`obj->note`
+    /// non-zero), as bytes.
+    pub fn note(self) -> Option<&'static [u8]> {
+        // SAFETY: a live floor object; a non-zero quark is a valid index
+        // into the quark table, whose strings live for the game.
+        unsafe {
+            let q = (*self.0).note;
+            (q != 0).then(|| c_bytes(crate::headers::z_quark_h::quark_str(q)))
+        }
+    }
+}
+
+/// `borg_get_top_object(cave, loc(x, y))` (borg-flow-take.c): the first
+/// object of the grid's pile that is neither ignored by the player
+/// (`known->notice & OBJ_NOTICE_IGNORE`) nor of an ignored kind, or `None`.
+/// The grid must be in bounds (`square_object` asserts it).
+pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
+    use crate::headers::object_h::OBJ_NOTICE_IGNORE;
+    // SAFETY: `cave` is the current level, valid while the game runs;
+    // square_object asserts the grid is in bounds and returns the head of
+    // its pile (or NULL). Each object of a pile is live and has a kind,
+    // and its `next` and `known` pointers are NULL or live objects.
+    unsafe {
+        let mut o = headers::cave_h::square_object(headers::cave_h::cave, loc { x, y });
+        while !o.is_null() {
+            let ignored_known = !(*o).known.is_null()
+                && i32::from((*(*o).known).notice) & OBJ_NOTICE_IGNORE as i32 != 0;
+            if !(ignored_known || (*(*o).kind).ignore != 0) {
+                break;
+            }
+            o = (*o).next;
+        }
+        (!o.is_null()).then_some(FloorObject(o))
+    }
+}
+
+/// `cave` (the current level), for transitional c2rust callers that pass
+/// it on (bridge).
+pub fn cave_ptr() -> *mut crate::headers::cave_h::chunk {
+    // SAFETY: plain read of the engine global.
+    unsafe { headers::cave_h::cave }
+}

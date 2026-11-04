@@ -19,30 +19,15 @@ pub use super::stdint_uintn_h::uint8_t;
 pub use super::z_type_h::loc;
 #[allow(unused_imports)]
 use super::*;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct borg_take {
-    pub kidx: uint32_t,
-    pub known: bool,
-    pub seen: bool,
-    pub extra: bool,
-    pub orbed: bool,
-    pub x: uint8_t,
-    pub y: uint8_t,
-    pub when: borg_time,
-    pub value: ::core::ffi::c_int,
-    pub tval: ::core::ffi::c_int,
-}
-pub use crate::c2rust::borg_flow_take::borg_delete_take;
-pub use crate::c2rust::borg_flow_take::borg_flow_take;
-pub use crate::c2rust::borg_flow_take::borg_flow_take_lunal;
-pub use crate::c2rust::borg_flow_take::borg_flow_take_scum;
-pub use crate::c2rust::borg_flow_take::borg_follow_take;
-pub use crate::c2rust::borg_flow_take::borg_free_flow_take;
-pub use crate::c2rust::borg_flow_take::borg_get_top_object;
-pub use crate::c2rust::borg_flow_take::borg_init_flow_take;
-pub use crate::c2rust::borg_flow_take::borg_takes;
-pub use crate::c2rust::borg_flow_take::borg_takes_cnt;
-pub use crate::c2rust::borg_flow_take::borg_takes_nxt;
-pub use crate::c2rust::borg_flow_take::observe_take_diff;
-pub use crate::c2rust::borg_flow_take::observe_take_move;
+/// `borg_take` (borg-flow-take.c, converted; same C layout).
+pub type borg_take = crate::borg_flow_take::BorgTake;
+pub use crate::bridge::flow_take::borg_delete_take;
+pub use crate::bridge::flow_take::borg_flow_take;
+pub use crate::bridge::flow_take::borg_flow_take_lunal;
+pub use crate::bridge::flow_take::borg_flow_take_scum;
+pub use crate::bridge::flow_take::borg_follow_take;
+pub use crate::bridge::flow_take::borg_free_flow_take;
+pub use crate::bridge::flow_take::borg_get_top_object;
+pub use crate::bridge::flow_take::borg_init_flow_take;
+pub use crate::bridge::flow_take::observe_take_diff;
+pub use crate::bridge::flow_take::observe_take_move;
