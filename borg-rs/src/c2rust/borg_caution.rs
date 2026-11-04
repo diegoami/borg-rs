@@ -13,7 +13,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{borg_cave_floor_bold, borg_cave_floor_grid};
+
 use crate::headers::borg_cave_view_h::{borg_view_n, borg_view_x, borg_view_y};
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
 use crate::headers::borg_escape_h::{
@@ -1757,7 +1757,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                 .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
                 != 0)
             {
-                if borg_cave_floor_bold(y2, x2) {
+                if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y2, x2) {
                     if !(*borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
                         >= *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
                             * 7 as ::core::ffi::c_int
@@ -1848,7 +1848,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                                         {
                                             break;
                                         }
-                                        if !borg_cave_floor_grid(ag_2)
+                                        if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag_2))
                                             || (*ag_2).feat as ::core::ffi::c_int
                                                 == FEAT_LAVA as ::core::ffi::c_int
                                                 && *borg
@@ -2033,7 +2033,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                 .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
                 != 0)
             {
-                if borg_cave_floor_grid(ag_3) {
+                if crate::borg_cave_util::borg_cave_floor_grid(&*(ag_3)) {
                     if !((*ag_3).kill != 0) {
                         if !feat_is_shop((*ag_3).feat as ::core::ffi::c_int) {
                             if (*ag_3).trap as ::core::ffi::c_int != 0 && !(*ag_3).glyph {

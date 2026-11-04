@@ -19,7 +19,7 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid};
+
 
 pub use crate::headers::borg_danger_h::{
     borg_danger, borg_danger_one_kill, borg_fear_region, BORG_MONBLOW, MONBLOW_ACID,
@@ -3082,7 +3082,7 @@ unsafe extern "C" fn borg_launch_bolt_aux_hack(
     y = (*kill).pos.y;
     ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
-    if !borg_cave_floor_grid(ag) {
+    if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
         return 0 as ::core::ffi::c_int;
     }
     if flag_has(
@@ -3268,8 +3268,8 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
     let mut q_x: ::core::ffi::c_int = 0;
     let mut q_y: ::core::ffi::c_int = 0;
-    q_x = w_x / borg_panel_wid();
-    q_y = w_y / borg_panel_hgt();
+    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
     n = 0 as ::core::ffi::c_int;
     x1 = borg.c.x;
     y1 = borg.c.y;
@@ -3297,7 +3297,7 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
         }
         ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
-        if !borg_cave_floor_grid(ag)
+        if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag))
             || (*ag).feat as ::core::ffi::c_int == FEAT_PASS_RUBBLE as ::core::ffi::c_int
         {
             if rad != -(1 as ::core::ffi::c_int) && rad != 10 as ::core::ffi::c_int {
@@ -3567,8 +3567,8 @@ unsafe extern "C" fn borg_launch_arc_at_location(
     let mut q_x: ::core::ffi::c_int = 0;
     let mut q_y: ::core::ffi::c_int = 0;
     let mut path_grids: [loc; 256] = [loc { x: 0, y: 0 }; 256];
-    q_x = w_x / borg_panel_wid();
-    q_y = w_y / borg_panel_hgt();
+    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
     n = 0 as ::core::ffi::c_int;
     x1 = borg.c.x;
     y1 = borg.c.y;
@@ -3598,7 +3598,7 @@ unsafe extern "C" fn borg_launch_arc_at_location(
         }
         ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
-        if !borg_cave_floor_grid(ag)
+        if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag))
             || (*ag).feat as ::core::ffi::c_int == FEAT_PASS_RUBBLE as ::core::ffi::c_int
         {
             break;

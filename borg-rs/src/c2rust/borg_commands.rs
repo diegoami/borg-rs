@@ -26,7 +26,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{borg_cave_floor_bold, borg_panel_hgt, borg_panel_wid};
+
 
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_monsters, borg_fear_region};
 use crate::headers::borg_flow_glyph_h::track_glyph;
@@ -550,8 +550,8 @@ unsafe extern "C" fn borg_cmd_avoidances() {
         b"(%d,%d of %d,%d) Avoidance value %d.\0" as *const u8 as *const ::core::ffi::c_char,
         borg.c.y,
         borg.c.x,
-        (*Term).offset_y / borg_panel_hgt(),
-        (*Term).offset_x / borg_panel_wid(),
+        (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
+        (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
         borg.avoidance as ::core::ffi::c_int,
     );
     event_signal(EVENT_MESSAGE_FLUSH);
@@ -1642,7 +1642,7 @@ unsafe extern "C" fn borg_cmd_grid_feature() {
             }
             match current_block_13 {
                 7659304154607701039 => {
-                    if borg_cave_floor_bold(y, x) {
+                    if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x) {
                         a = COLOUR_YELLOW as uint8_t;
                     }
                     print_rel('*' as i32, a, y, x);
@@ -2028,8 +2028,8 @@ unsafe extern "C" fn borg_cmd_fear() {
         b"(%d,%d of %d,%d) Regional Fear.\0" as *const u8 as *const ::core::ffi::c_char,
         borg.c.y,
         borg.c.x,
-        (*Term).offset_y / borg_panel_hgt(),
-        (*Term).offset_x / borg_panel_wid(),
+        (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
+        (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
     );
     event_signal(EVENT_MESSAGE_FLUSH);
     prt_map();
@@ -2076,8 +2076,8 @@ unsafe extern "C" fn borg_cmd_fear() {
         b"(%d,%d of %d,%d) Monster Fear.\0" as *const u8 as *const ::core::ffi::c_char,
         borg.c.y,
         borg.c.x,
-        (*Term).offset_y / borg_panel_hgt(),
-        (*Term).offset_x / borg_panel_wid(),
+        (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
+        (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
     );
     event_signal(EVENT_MESSAGE_FLUSH);
     prt_map();

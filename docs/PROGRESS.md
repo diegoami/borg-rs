@@ -30,6 +30,7 @@
 | 0 | (dedup headers) | M3 prep | 173k -> 95k lines, cross-module Rust paths |
 | 1 | borg_util | with 2 | `borg_sort` is a `BorgSortTarget` trait; `borg_trim` works in place on a byte buffer |
 | 2 | borg_cave | with 1 | `CaveState` (flat `Vec<BorgGrid>`); 320 c2rust grid sites use `bridge::grid` |
+| 3 | borg_cave_util | own | grid predicates take `&BorgGrid`; panel size via `engine::term_geometry()`; `tools/m3_calls.py` rewrites call sites |
 
 ## Unsafe count
 
@@ -40,6 +41,7 @@ impls), comments excluded.
 |-------|--------------|---------------------|
 | M2 (c2rust) | 742 | 59 |
 | borg_util + borg_cave | 745   (c2rust modules left: 57, converted files: 5) | |
+| borg_cave_util | 742 | 56 |
 
 ## Suite timings
 

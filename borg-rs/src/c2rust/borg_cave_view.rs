@@ -9,7 +9,7 @@ pub const BORG_XTRA: ::core::ffi::c_int = 0x80 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::borg_cave_floor_grid;
+
 
 pub use crate::headers::borg_h::{
     borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
@@ -96,8 +96,8 @@ unsafe extern "C" fn borg_update_view_aux(
         as *mut borg_grid;
     g2_ag = crate::bridge::grid(x2, y2)
         as *mut borg_grid;
-    f1 = borg_cave_floor_grid(g1_ag);
-    f2 = borg_cave_floor_grid(g2_ag);
+    f1 = crate::borg_cave_util::borg_cave_floor_grid(&*(g1_ag));
+    f2 = crate::borg_cave_util::borg_cave_floor_grid(&*(g2_ag));
     if !f1 && !f2 {
         return true_0 != 0;
     }
@@ -108,7 +108,7 @@ unsafe extern "C" fn borg_update_view_aux(
     }
     ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
-    wall = !borg_cave_floor_grid(ag);
+    wall = !crate::borg_cave_util::borg_cave_floor_grid(&*(ag));
     vis1 = v1 as ::core::ffi::c_int != 0 && (*g1_ag).info as ::core::ffi::c_int & BORG_XTRA != 0;
     vis2 = v2 as ::core::ffi::c_int != 0 && (*g2_ag).info as ::core::ffi::c_int & BORG_XTRA != 0;
     if vis1 as ::core::ffi::c_int != 0 && vis2 as ::core::ffi::c_int != 0 {
@@ -201,7 +201,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y + d) as uint8_t;
             borg_view_x[borg_view_n as usize] = (x + d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -216,7 +216,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y + d) as uint8_t;
             borg_view_x[borg_view_n as usize] = (x - d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -231,7 +231,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y - d) as uint8_t;
             borg_view_x[borg_view_n as usize] = (x + d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -246,7 +246,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y - d) as uint8_t;
             borg_view_x[borg_view_n as usize] = (x - d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -261,7 +261,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y + d) as uint8_t;
             borg_view_x[borg_view_n as usize] = x as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -278,7 +278,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = (y - d) as uint8_t;
             borg_view_x[borg_view_n as usize] = x as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -295,7 +295,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = y as uint8_t;
             borg_view_x[borg_view_n as usize] = (x + d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }
@@ -312,7 +312,7 @@ pub unsafe extern "C" fn borg_update_view() {
             borg_view_y[borg_view_n as usize] = y as uint8_t;
             borg_view_x[borg_view_n as usize] = (x - d) as uint8_t;
             borg_view_n += 1;
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 break;
             }
         }

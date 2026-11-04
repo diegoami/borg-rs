@@ -13,9 +13,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{
-    borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
-};
+
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{
@@ -364,7 +362,7 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
         let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
         let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
         if square_in_bounds_fully(cave, loc(x, y)) {
-            if !borg_cave_floor_grid(ag) {
+            if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 non_safe_grids += 1;
             } else if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
                 non_safe_grids += 1;
@@ -483,7 +481,7 @@ pub unsafe extern "C" fn borg_caution_phase(
                 if !(x <= 0 as ::core::ffi::c_int || x >= AUTO_MAX_X - 1 as ::core::ffi::c_int) {
                     ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
-                        if borg_cave_floor_bold(y, x) {
+                        if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x) {
                             if !((*ag).kill != 0) {
                                 if !(*ag).web {
                                     break;
@@ -541,8 +539,8 @@ pub unsafe extern "C" fn borg_caution_teleport(
     let mut q_x: ::core::ffi::c_int = 0;
     let mut q_y: ::core::ffi::c_int = 0;
     let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    q_x = w_x / borg_panel_wid();
-    q_y = w_y / borg_panel_hgt();
+    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
     if *borg
         .trait_0
         .offset(BI_ATELEPORT as ::core::ffi::c_int as isize)
@@ -593,7 +591,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
                                 == true_0
                             || borg.time.now - borg.time.level > 2000 as borg_time))
                     {
-                        if borg_cave_floor_bold(y, x) {
+                        if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x) {
                             if !((*ag).kill != 0) {
                                 if !(*ag).web {
                                     break;

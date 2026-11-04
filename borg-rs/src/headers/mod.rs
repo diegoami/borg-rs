@@ -8,7 +8,6 @@ pub mod borg_attack_munchkin_h;
 pub mod borg_caution_h;
 pub mod borg_cave_h;
 pub mod borg_cave_light_h;
-pub mod borg_cave_util_h;
 pub mod borg_cave_view_h;
 pub mod borg_danger_h;
 pub mod borg_escape_h;

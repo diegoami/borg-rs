@@ -12,7 +12,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_light_h::{borg_light_n, borg_light_x, borg_light_y};
-use crate::headers::borg_cave_util_h::borg_cave_floor_grid;
+
 
 use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
 pub use crate::headers::borg_flow_h::{
@@ -297,7 +297,7 @@ unsafe extern "C" fn borg_flow_dark_reachable(
         ag = crate::bridge::grid(x2, y2)
             as *mut borg_grid;
         if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
-            if borg_cave_floor_grid(ag) {
+            if crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 return true_0 != 0;
             }
         }
@@ -411,7 +411,7 @@ unsafe extern "C" fn borg_flow_direct(mut y: ::core::ffi::c_int, mut x: ::core::
         }
         ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
-        if !borg_cave_floor_grid(ag)
+        if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag))
             || (*ag).feat as ::core::ffi::c_int == FEAT_LAVA as ::core::ffi::c_int
                 && *borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) == 0
         {

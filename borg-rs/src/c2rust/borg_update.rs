@@ -21,7 +21,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_light_h::{
     borg_light_n, borg_light_x, borg_light_y, borg_update_light,
 };
-use crate::headers::borg_cave_util_h::{borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid};
+
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
 use crate::headers::borg_danger_h::{
     borg_danger, borg_danger_wipe, borg_fear_monsters, borg_fear_region,
@@ -370,7 +370,7 @@ unsafe extern "C" fn borg_update_map() {
                     borg.c.x = x;
                     borg.c.y = y;
                 }
-                old_wall = !borg_cave_floor_grid(ag);
+                old_wall = !crate::borg_cave_util::borg_cave_floor_grid(&*(ag));
                 if feat_is_shop(g.f_idx as ::core::ffi::c_int) {
                     (*ag).feat = g.f_idx as uint8_t;
                     i = square_shopnum(cave, l);
@@ -652,7 +652,7 @@ unsafe extern "C" fn borg_update_map() {
                                 !g.first_kind.is_null() || is_mimic as ::core::ffi::c_int != 0;
                             (*wank).is_kill = g.m_idx != 0 as uint32_t && !is_mimic;
                         }
-                        new_wall = !borg_cave_floor_grid(ag);
+                        new_wall = !crate::borg_cave_util::borg_cave_floor_grid(&*(ag));
                         if old_wall as ::core::ffi::c_int != new_wall as ::core::ffi::c_int {
                             if new_wall {
                                 (*borg_data_flow).data[y as usize][x as usize] = 255 as uint8_t;
@@ -1368,8 +1368,8 @@ unsafe extern "C" fn borg_handle_self(mut str: *mut ::core::ffi::c_char) {
     let mut q_y: ::core::ffi::c_int = 0;
     let mut y: ::core::ffi::c_int = 0;
     let mut x: ::core::ffi::c_int = 0;
-    q_x = o_w_x / borg_panel_wid();
-    q_y = o_w_y / borg_panel_hgt();
+    q_x = o_w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = o_w_y / crate::borg_cave_util::borg_panel_hgt();
     if borg_failure {
         borg_note(b"# Something failed\0" as *const u8 as *const ::core::ffi::c_char);
     } else if prefix(str, b"lite\0" as *const u8 as *const ::core::ffi::c_char) {
@@ -1572,15 +1572,15 @@ pub unsafe extern "C" fn borg_update() {
     w_y = (*Term).offset_y;
     w_x = (*Term).offset_x;
     borg.panels.x = 1 as ::core::ffi::c_int;
-    if (*cave).width > borg_panel_wid() {
-        borg.panels.x = ((*cave).width - borg_panel_wid()) * 2 as ::core::ffi::c_int
-            / borg_panel_wid()
+    if (*cave).width > crate::borg_cave_util::borg_panel_wid() {
+        borg.panels.x = ((*cave).width - crate::borg_cave_util::borg_panel_wid()) * 2 as ::core::ffi::c_int
+            / crate::borg_cave_util::borg_panel_wid()
             + 1 as ::core::ffi::c_int;
     }
     borg.panels.y = 1 as ::core::ffi::c_int;
-    if (*cave).height > borg_panel_hgt() {
-        borg.panels.y = ((*cave).height - borg_panel_hgt()) * 2 as ::core::ffi::c_int
-            / borg_panel_hgt()
+    if (*cave).height > crate::borg_cave_util::borg_panel_hgt() {
+        borg.panels.y = ((*cave).height - crate::borg_cave_util::borg_panel_hgt()) * 2 as ::core::ffi::c_int
+            / crate::borg_cave_util::borg_panel_hgt()
             + 1 as ::core::ffi::c_int;
     }
     if o_w_x > (*cave).width || o_w_y > (*cave).height {
@@ -1936,20 +1936,20 @@ pub unsafe extern "C" fn borg_update() {
             }
             if created_traps {
                 *(*borg_detect_trap
-                    .offset((o_w_y / borg_panel_hgt() + 0 as ::core::ffi::c_int) as isize))
-                .offset((o_w_x / borg_panel_wid() + 0 as ::core::ffi::c_int) as isize) =
+                    .offset((o_w_y / crate::borg_cave_util::borg_panel_hgt() + 0 as ::core::ffi::c_int) as isize))
+                .offset((o_w_x / crate::borg_cave_util::borg_panel_wid() + 0 as ::core::ffi::c_int) as isize) =
                     false_0 != 0;
                 *(*borg_detect_trap
-                    .offset((o_w_y / borg_panel_hgt() + 0 as ::core::ffi::c_int) as isize))
-                .offset((o_w_x / borg_panel_wid() + 1 as ::core::ffi::c_int) as isize) =
+                    .offset((o_w_y / crate::borg_cave_util::borg_panel_hgt() + 0 as ::core::ffi::c_int) as isize))
+                .offset((o_w_x / crate::borg_cave_util::borg_panel_wid() + 1 as ::core::ffi::c_int) as isize) =
                     false_0 != 0;
                 *(*borg_detect_trap
-                    .offset((o_w_y / borg_panel_hgt() + 1 as ::core::ffi::c_int) as isize))
-                .offset((o_w_x / borg_panel_wid() + 0 as ::core::ffi::c_int) as isize) =
+                    .offset((o_w_y / crate::borg_cave_util::borg_panel_hgt() + 1 as ::core::ffi::c_int) as isize))
+                .offset((o_w_x / crate::borg_cave_util::borg_panel_wid() + 0 as ::core::ffi::c_int) as isize) =
                     false_0 != 0;
                 *(*borg_detect_trap
-                    .offset((o_w_y / borg_panel_hgt() + 1 as ::core::ffi::c_int) as isize))
-                .offset((o_w_x / borg_panel_wid() + 1 as ::core::ffi::c_int) as isize) =
+                    .offset((o_w_y / crate::borg_cave_util::borg_panel_hgt() + 1 as ::core::ffi::c_int) as isize))
+                .offset((o_w_x / crate::borg_cave_util::borg_panel_wid() + 1 as ::core::ffi::c_int) as isize) =
                     false_0 != 0;
                 borg_note(
                     b"# Logging need for use of Detect Traps.\0" as *const u8
@@ -1961,7 +1961,7 @@ pub unsafe extern "C" fn borg_update() {
                     y = borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                     ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
-                        if borg_cave_floor_grid(ag) {
+                        if crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                             (*ag).trap = true_0 != 0;
                             borg_note(format(
                                 b"# Assuming a Traps at (%d,%d).\0" as *const u8

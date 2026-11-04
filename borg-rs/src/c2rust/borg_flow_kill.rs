@@ -20,9 +20,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{
-    borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
-};
+
 
 use crate::headers::borg_danger_h::{
     borg_danger, borg_danger_one_kill, borg_danger_wipe, borg_fear_region,
@@ -375,8 +373,8 @@ unsafe extern "C" fn borg_update_kill_new(mut i: ::core::ffi::c_int) {
     }
     (*kill).ranged_attack = num as uint8_t;
     if (*kill).r_idx as ::core::ffi::c_uint == borg.id.morgoth {
-        j = ((*kill).pos.y - borg_panel_hgt() / 2 as ::core::ffi::c_int) / borg_panel_hgt()
-            * borg_panel_hgt();
+        j = ((*kill).pos.y - crate::borg_cave_util::borg_panel_hgt() / 2 as ::core::ffi::c_int) / crate::borg_cave_util::borg_panel_hgt()
+            * crate::borg_cave_util::borg_panel_hgt();
         if j < 0 as ::core::ffi::c_int {
             j = 0 as ::core::ffi::c_int;
         }
@@ -393,8 +391,8 @@ unsafe extern "C" fn borg_update_kill_new(mut i: ::core::ffi::c_int) {
                     / tile_height as ::core::ffi::c_int;
         }
         borg.mon.morgoth_panel.y = j;
-        j = ((*kill).pos.x - borg_panel_wid() / 2 as ::core::ffi::c_int) / borg_panel_wid()
-            * borg_panel_wid();
+        j = ((*kill).pos.x - crate::borg_cave_util::borg_panel_wid() / 2 as ::core::ffi::c_int) / crate::borg_cave_util::borg_panel_wid()
+            * crate::borg_cave_util::borg_panel_wid();
         if j < 0 as ::core::ffi::c_int {
             j = 0 as ::core::ffi::c_int;
         }
@@ -539,8 +537,8 @@ unsafe extern "C" fn borg_update_kill_old(mut i: ::core::ffi::c_int) {
         *borg_race_death.offset(i as isize) = 1 as int16_t;
     }
     if (*kill).r_idx as ::core::ffi::c_uint == borg.id.morgoth {
-        j = ((*kill).pos.y - borg_panel_hgt() / 2 as ::core::ffi::c_int) / borg_panel_hgt()
-            * borg_panel_hgt();
+        j = ((*kill).pos.y - crate::borg_cave_util::borg_panel_hgt() / 2 as ::core::ffi::c_int) / crate::borg_cave_util::borg_panel_hgt()
+            * crate::borg_cave_util::borg_panel_hgt();
         if j < 0 as ::core::ffi::c_int {
             j = 0 as ::core::ffi::c_int;
         }
@@ -557,8 +555,8 @@ unsafe extern "C" fn borg_update_kill_old(mut i: ::core::ffi::c_int) {
                     / tile_height as ::core::ffi::c_int;
         }
         borg.mon.morgoth_panel.y = j;
-        j = ((*kill).pos.x - borg_panel_wid() / 2 as ::core::ffi::c_int) / borg_panel_wid()
-            * borg_panel_wid();
+        j = ((*kill).pos.x - crate::borg_cave_util::borg_panel_wid() / 2 as ::core::ffi::c_int) / crate::borg_cave_util::borg_panel_wid()
+            * crate::borg_cave_util::borg_panel_wid();
         if j < 0 as ::core::ffi::c_int {
             j = 0 as ::core::ffi::c_int;
         }
@@ -774,7 +772,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
         oy,
         ox,
     ));
-    if !borg_cave_floor_bold(oy, ox) {
+    if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), oy, ox) {
         borg_delete_kill(i);
         return;
     }
@@ -806,7 +804,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
         y = oy + dy;
         if square_in_bounds_fully(cave, loc(x, y)) {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
-            if borg_cave_floor_grid(ag) {
+            if crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                 if !((*ag).kill != 0) {
                     if !borg_follow_kill_aux(i, y, x) {
                         b_dx += dx;
@@ -831,7 +829,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
     y = oy + b_dy;
     ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
-    if !borg_cave_floor_grid(ag) {
+    if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
         borg_delete_kill(i);
         return;
     }
@@ -2677,8 +2675,8 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
         return false_0 != 0;
     }
     if !borg_los((*kill).pos.y, (*kill).pos.x, borg.c.y, borg.c.x) {
-        q_x = w_x / borg_panel_wid();
-        q_y = w_y / borg_panel_hgt();
+        q_x = w_x / crate::borg_cave_util::borg_panel_wid();
+        q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
         if *(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
             .offset((q_x + 0 as ::core::ffi::c_int) as isize) as ::core::ffi::c_int
             == true_0
@@ -3879,7 +3877,7 @@ pub unsafe extern "C" fn borg_shoot_scoot_safe(
                 if !(x <= 0 as ::core::ffi::c_int || x >= AUTO_MAX_X - 2 as ::core::ffi::c_int) {
                     ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
-                        if borg_cave_floor_bold(y, x) {
+                        if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x) {
                             if !((*ag).kill != 0) {
                                 break;
                             }

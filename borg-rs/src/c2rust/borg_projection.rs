@@ -4,7 +4,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{borg_cave_floor_bold, borg_cave_floor_grid};
+
 use crate::headers::borg_danger_h::borg_fear_region;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_race_name};
 pub use crate::headers::borg_h::{
@@ -153,7 +153,7 @@ pub unsafe extern "C" fn borg_los(
         if dy > 0 as ::core::ffi::c_int {
             ty = y1 + 1 as ::core::ffi::c_int;
             while ty < y2 {
-                if !borg_cave_floor_bold(ty, x1) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, x1) {
                     return false_0 != 0;
                 }
                 ty += 1;
@@ -161,7 +161,7 @@ pub unsafe extern "C" fn borg_los(
         } else {
             ty = y1 - 1 as ::core::ffi::c_int;
             while ty > y2 {
-                if !borg_cave_floor_bold(ty, x1) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, x1) {
                     return false_0 != 0;
                 }
                 ty -= 1;
@@ -173,7 +173,7 @@ pub unsafe extern "C" fn borg_los(
         if dx > 0 as ::core::ffi::c_int {
             tx = x1 + 1 as ::core::ffi::c_int;
             while tx < x2 {
-                if !borg_cave_floor_bold(y1, tx) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y1, tx) {
                     return false_0 != 0;
                 }
                 tx += 1;
@@ -181,7 +181,7 @@ pub unsafe extern "C" fn borg_los(
         } else {
             tx = x1 - 1 as ::core::ffi::c_int;
             while tx > x2 {
-                if !borg_cave_floor_bold(y1, tx) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y1, tx) {
                     return false_0 != 0;
                 }
                 tx -= 1;
@@ -201,13 +201,13 @@ pub unsafe extern "C" fn borg_los(
     };
     if ax == 1 as ::core::ffi::c_int {
         if ay == 2 as ::core::ffi::c_int {
-            if borg_cave_floor_bold(y1 + sy, x1) {
+            if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y1 + sy, x1) {
                 return true_0 != 0;
             }
         }
     } else if ay == 1 as ::core::ffi::c_int {
         if ax == 2 as ::core::ffi::c_int {
-            if borg_cave_floor_bold(y1, x1 + sx) {
+            if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y1, x1 + sx) {
                 return true_0 != 0;
             }
         }
@@ -225,7 +225,7 @@ pub unsafe extern "C" fn borg_los(
             ty = y1;
         }
         while x2 - tx != 0 {
-            if !borg_cave_floor_bold(ty, tx) {
+            if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, tx) {
                 return false_0 != 0;
             }
             qy += m;
@@ -233,7 +233,7 @@ pub unsafe extern "C" fn borg_los(
                 tx += sx;
             } else if qy > f2 {
                 ty += sy;
-                if !borg_cave_floor_bold(ty, tx) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, tx) {
                     return false_0 != 0;
                 }
                 qy -= f1;
@@ -255,7 +255,7 @@ pub unsafe extern "C" fn borg_los(
             tx = x1;
         }
         while y2 - ty != 0 {
-            if !borg_cave_floor_bold(ty, tx) {
+            if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, tx) {
                 return false_0 != 0;
             }
             qx += m;
@@ -263,7 +263,7 @@ pub unsafe extern "C" fn borg_los(
                 ty += sy;
             } else if qx > f2 {
                 tx += sx;
-                if !borg_cave_floor_bold(ty, tx) {
+                if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), ty, tx) {
                     return false_0 != 0;
                 }
                 qx -= f1;
@@ -328,7 +328,7 @@ pub unsafe extern "C" fn borg_projectable(
         {
             break;
         }
-        if dist != 0 && !borg_cave_floor_grid(ag) {
+        if dist != 0 && !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             break;
         }
         if x == x2 && y == y2 {
@@ -362,7 +362,7 @@ pub unsafe extern "C" fn borg_offset_projectable(
         if (*ag).feat as ::core::ffi::c_int == FEAT_PASS_RUBBLE as ::core::ffi::c_int {
             break;
         }
-        if dist != 0 && !borg_cave_floor_grid(ag) {
+        if dist != 0 && !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             break;
         }
         if x == x2 && y == y2 {
@@ -393,7 +393,7 @@ pub unsafe extern "C" fn borg_projectable_pure(
         if dist != 0 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
             break;
         }
-        if dist != 0 && !borg_cave_floor_grid(ag) {
+        if dist != 0 && !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             break;
         }
         if x == x2 && y == y2 {
@@ -428,7 +428,7 @@ pub unsafe extern "C" fn borg_projectable_dark(
         if dist != 0 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
             unknown += 1;
         }
-        if dist != 0 && !borg_cave_floor_grid(ag) {
+        if dist != 0 && !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             break;
         }
         if x == x2 && y == y2 && unknown >= 1 as ::core::ffi::c_int {

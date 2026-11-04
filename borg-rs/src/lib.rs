@@ -24,6 +24,7 @@ pub mod cctype;
 pub mod headers;
 
 pub mod borg_cave;
+pub mod borg_cave_util;
 pub mod borg_util;
 pub mod engine;
 pub mod state;

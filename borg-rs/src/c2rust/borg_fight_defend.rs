@@ -10,9 +10,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{
-    borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
-};
+
 
 use crate::headers::borg_danger_h::{
     borg_danger, borg_danger_one_kill, borg_fear_monsters, borg_fear_region,
@@ -285,7 +283,7 @@ unsafe extern "C" fn borg_log_spellpath() {
     loop {
         ag = crate::bridge::grid(n_x, n_y) as *mut borg_grid;
         kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
-        if !borg_cave_floor_grid(ag) {
+        if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             borg_note(format(
                 b"# Logging Spell pathway (%d,%d): Wall grid.\0" as *const u8
                     as *const ::core::ffi::c_char,
@@ -2982,7 +2980,7 @@ unsafe extern "C" fn borg_defend_aux_banishment(mut p1: ::core::ffi::c_int) -> :
                                 ),
                             );
                         }
-                    } else if !borg_cave_floor_bold((*kill_0).pos.y, (*kill_0).pos.x) {
+                    } else if !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), (*kill_0).pos.y, (*kill_0).pos.x) {
                         if !borg_simulate {
                             borg_note(format(
                                 b"# Banishing Evil: (%d,%d): %s, danger %d. Stays (in wall).\0"
@@ -3180,39 +3178,39 @@ unsafe extern "C" fn borg_defend_aux_lbeam(mut p1: ::core::ffi::c_int) -> ::core
     if borg.time.now - borg.need_see_invis < 48 as borg_time {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
-        && borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
-        && !borg_cave_floor_bold(y, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y, x + 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
+    if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
+        && crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x + 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
     {
         hallway = true_0 != 0;
     }
-    if borg_cave_floor_bold(y, x - 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        && borg_cave_floor_bold(y, x + 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
+    if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x - 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
+        && crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x + 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x + 1 as ::core::ffi::c_int)
     {
         hallway = true_0 != 0;
     }
-    if borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
-        && borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
-        && !borg_cave_floor_bold(y, x - 1 as ::core::ffi::c_int)
-        && !borg_cave_floor_bold(y, x + 1 as ::core::ffi::c_int)
+    if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
+        && crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x) as ::core::ffi::c_int != 0
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x - 1 as ::core::ffi::c_int)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x + 1 as ::core::ffi::c_int)
     {
         hallway = true_0 != 0;
     }
-    if borg_cave_floor_bold(y, x - 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        && borg_cave_floor_bold(y, x + 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        && !borg_cave_floor_bold(y - 1 as ::core::ffi::c_int, x)
-        && !borg_cave_floor_bold(y + 1 as ::core::ffi::c_int, x)
+    if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x - 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
+        && crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x + 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y - 1 as ::core::ffi::c_int, x)
+        && !crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y + 1 as ::core::ffi::c_int, x)
     {
         hallway = true_0 != 0;
     }
@@ -3260,21 +3258,21 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
     {
         return false_0 != 0;
     }
-    if (*Term).offset_x > borg_panel_wid() {
+    if (*Term).offset_x > crate::borg_cave_util::borg_panel_wid() {
         panel_num_x =
-            (*Term).offset_x * 2 as ::core::ffi::c_int / borg_panel_wid() + 1 as ::core::ffi::c_int;
+            (*Term).offset_x * 2 as ::core::ffi::c_int / crate::borg_cave_util::borg_panel_wid() + 1 as ::core::ffi::c_int;
     }
-    if (*Term).offset_y > borg_panel_hgt() {
+    if (*Term).offset_y > crate::borg_cave_util::borg_panel_hgt() {
         panel_num_y =
-            (*Term).offset_y * 2 as ::core::ffi::c_int / borg_panel_hgt() + 1 as ::core::ffi::c_int;
+            (*Term).offset_y * 2 as ::core::ffi::c_int / crate::borg_cave_util::borg_panel_hgt() + 1 as ::core::ffi::c_int;
     }
-    if borg_panel_wid() - pos_on_panel_x < 5 as ::core::ffi::c_int && panel_num_x < borg.panels.x {
+    if crate::borg_cave_util::borg_panel_wid() - pos_on_panel_x < 5 as ::core::ffi::c_int && panel_num_x < borg.panels.x {
         dir = 6 as ::core::ffi::c_int;
     }
     if pos_on_panel_x < 5 as ::core::ffi::c_int && panel_num_x > 1 as ::core::ffi::c_int {
         dir = 4 as ::core::ffi::c_int;
     }
-    if borg_panel_hgt() - pos_on_panel_y < 5 as ::core::ffi::c_int && panel_num_y < borg.panels.y {
+    if crate::borg_cave_util::borg_panel_hgt() - pos_on_panel_y < 5 as ::core::ffi::c_int && panel_num_y < borg.panels.y {
         dir = 2 as ::core::ffi::c_int;
     }
     if pos_on_panel_y < 5 as ::core::ffi::c_int && panel_num_y > 1 as ::core::ffi::c_int {

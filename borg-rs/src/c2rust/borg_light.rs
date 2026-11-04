@@ -11,9 +11,7 @@ pub const BORG_IGNORE_MAP: ::core::ffi::c_int = 0x100 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_util_h::{
-    borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
-};
+
 
 pub use crate::headers::borg_h::{
     borg, borg_best, borg_struct, borg_time, w_x, w_y, C2RustUnnamedH_10, C2RustUnnamedH_11,
@@ -183,7 +181,7 @@ unsafe extern "C" fn borg_check_dark_only() -> bool {
             let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
             if square_in_bounds_fully(cave, loc(x, y)) {
                 ag = crate::bridge::grid(x, y) as *mut borg_grid;
-                if borg_cave_floor_grid(ag) as ::core::ffi::c_int != 0
+                if crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) as ::core::ffi::c_int != 0
                     && square_isglow(cave, loc(x, y)) as ::core::ffi::c_int != 0
                 {
                     floors += 1;
@@ -259,7 +257,7 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
                 if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
                     corners += 1;
                 }
-                if !borg_cave_floor_grid(ag) {
+                if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
                     corners += 1;
                 }
             }
@@ -281,7 +279,7 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
                 let mut ag_0: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
                 if square_in_bounds_fully(cave, loc(x_0, y_0)) {
                     ag_0 = crate::bridge::grid(x_0, y_0) as *mut borg_grid;
-                    if borg_cave_floor_grid(ag_0) as ::core::ffi::c_int != 0
+                    if crate::borg_cave_util::borg_cave_floor_grid(&*(ag_0)) as ::core::ffi::c_int != 0
                         && (*ag_0).info as ::core::ffi::c_int & BORG_LIGHT != 0
                         && !square_isglow(cave, loc(x_0, y_0))
                     {
@@ -358,8 +356,8 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     {
         return false_0 != 0;
     }
-    q_x = w_x / borg_panel_wid();
-    q_y = w_y / borg_panel_hgt();
+    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
     do_trap = false_0 != 0;
     if !*(*borg_detect_trap.offset((q_y + 0 as ::core::ffi::c_int) as isize))
         .offset((q_x + 0 as ::core::ffi::c_int) as isize)
@@ -826,7 +824,7 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         ) {
             i = 0 as ::core::ffi::c_int;
             while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (borg_cave_floor_bold(borg.c.y - i, borg.c.x) as ::core::ffi::c_int != 0
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y - i, borg.c.x) as ::core::ffi::c_int != 0
                     || (*crate::bridge::grid(borg.c.x, (borg.c.y - i))).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
@@ -861,7 +859,7 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         ) {
             i = 0 as ::core::ffi::c_int;
             while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (borg_cave_floor_bold(borg.c.y + i, borg.c.x) as ::core::ffi::c_int != 0
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y + i, borg.c.x) as ::core::ffi::c_int != 0
                     || (*crate::bridge::grid(borg.c.x, (borg.c.y + i))).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
@@ -896,7 +894,7 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         ) {
             i = 0 as ::core::ffi::c_int;
             while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (borg_cave_floor_bold(borg.c.y, borg.c.x + i) as ::core::ffi::c_int != 0
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y, borg.c.x + i) as ::core::ffi::c_int != 0
                     || (*crate::bridge::grid((borg.c.x + i), borg.c.y)).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
@@ -931,7 +929,7 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
         ) {
             i = 1 as ::core::ffi::c_int;
             while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (borg_cave_floor_bold(borg.c.y, borg.c.x - i) as ::core::ffi::c_int != 0
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y, borg.c.x - i) as ::core::ffi::c_int != 0
                     || (*crate::bridge::grid((borg.c.x - i), borg.c.y)).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
@@ -951,8 +949,8 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
     if dir == 5 as ::core::ffi::c_int
         || spell_ok as ::core::ffi::c_int == false_0
         || blocked as ::core::ffi::c_int == true_0
-        || dir == 2 as ::core::ffi::c_int && borg.c.y > borg_panel_hgt() - 2 as ::core::ffi::c_int
-        || dir == 8 as ::core::ffi::c_int && borg.c.y > borg_panel_hgt() - 2 as ::core::ffi::c_int
+        || dir == 2 as ::core::ffi::c_int && borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
+        || dir == 8 as ::core::ffi::c_int && borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
