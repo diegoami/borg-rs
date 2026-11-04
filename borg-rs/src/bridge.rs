@@ -412,3 +412,81 @@ pub mod cave_light {
         crate::borg_cave_light::borg_update_light(st())
     }
 }
+
+/// `(borg_items[i].tval, borg_items[i].sval)` (still c2rust, borg-item.c).
+pub fn borg_item_tval_sval(_st: &mut BorgState, i: i32) -> (u8, u8) {
+    // SAFETY: borg_items is allocated by borg_init_item() before the Borg
+    // runs, with more than z_info->pack_size entries; callers pass a pack
+    // slot (checked).
+    unsafe {
+        let items = crate::c2rust::borg_item::borg_items;
+        assert!(!items.is_null() && i >= 0 && i < i32::from(crate::engine::z_info().pack_size));
+        let it = &*items.add(i as usize);
+        (it.tval, it.sval)
+    }
+}
+
+/// C-ABI shims with the borg-magic.c names.
+pub mod magic {
+    use super::st;
+    use crate::borg_magic as m;
+    use crate::headers::borg_magic_h::{borg_magic, borg_spells};
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_spell_stat() -> c_int {
+        m::borg_spell_stat()
+    }
+    pub unsafe extern "C" fn borg_can_cast() -> bool {
+        m::borg_can_cast()
+    }
+    pub unsafe extern "C" fn borg_primarily_caster() -> bool {
+        m::borg_primarily_caster()
+    }
+    pub unsafe extern "C" fn borg_heroism_level() -> c_int {
+        m::borg_heroism_level(st())
+    }
+    pub unsafe extern "C" fn borg_get_book_num(sval: c_int) -> c_int {
+        m::borg_get_book_num(sval)
+    }
+    pub unsafe extern "C" fn borg_is_dungeon_book(tval: c_int, sval: c_int) -> bool {
+        m::borg_is_dungeon_book(tval, sval)
+    }
+    /// A pointer into `st().magic.magics` (stable until the next
+    /// `borg_prepare_book_info`), or NULL.
+    pub unsafe extern "C" fn borg_get_spell_entry(book: c_int, entry: c_int) -> *mut borg_magic {
+        match m::borg_get_spell_entry(st(), book, entry) {
+            Some(i) => &raw mut st().magic.magics[i],
+            None => core::ptr::null_mut(),
+        }
+    }
+    pub unsafe extern "C" fn borg_get_spell_power(spell: borg_spells) -> c_int {
+        m::borg_get_spell_power(st(), spell)
+    }
+    pub unsafe extern "C" fn borg_spell_legal(spell: borg_spells) -> bool {
+        m::borg_spell_legal(st(), spell)
+    }
+    pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
+        m::borg_spell_okay(st(), spell)
+    }
+    pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> c_int {
+        m::borg_spell_fail_rate(st(), spell)
+    }
+    pub unsafe extern "C" fn borg_spell_okay_fail(spell: borg_spells, allow_fail: c_int) -> bool {
+        m::borg_spell_okay_fail(st(), spell, allow_fail)
+    }
+    pub unsafe extern "C" fn borg_spell_fail(spell: borg_spells, allow_fail: c_int) -> bool {
+        m::borg_spell_fail(st(), spell, allow_fail)
+    }
+    pub unsafe extern "C" fn borg_spell_legal_fail(spell: borg_spells, allow_fail: c_int) -> bool {
+        m::borg_spell_legal_fail(st(), spell, allow_fail)
+    }
+    pub unsafe extern "C" fn borg_spell(spell: borg_spells) -> bool {
+        m::borg_spell(st(), spell)
+    }
+    pub unsafe extern "C" fn borg_cheat_spells() {
+        m::borg_cheat_spells(st())
+    }
+    pub unsafe extern "C" fn borg_prepare_book_info() {
+        m::borg_prepare_book_info(st())
+    }
+}

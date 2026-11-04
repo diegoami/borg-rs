@@ -138,43 +138,23 @@ pub const PHASE_DOOR: borg_spells = 3;
 pub const FIND_TRAPS_DOORS_STAIRS: borg_spells = 2;
 pub const LIGHT_ROOM: borg_spells = 1;
 pub const MAGIC_MISSILE: borg_spells = 0;
-pub use crate::c2rust::borg_magic::borg_spell;
-pub use crate::c2rust::borg_magic::borg_spell_fail;
-pub use crate::c2rust::borg_magic::borg_spell_legal;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct borg_magic {
-    pub name: *const ::core::ffi::c_char,
-    pub status: uint8_t,
-    pub effect_index: uint16_t,
-    pub rating: uint8_t,
-    pub level: uint8_t,
-    pub power: uint8_t,
-    pub sfail: uint8_t,
-    pub book_offset: ::core::ffi::c_int,
-    pub book: ::core::ffi::c_int,
-    pub times: int32_t,
-    pub spell_enum: borg_spells,
-}
-pub use crate::c2rust::borg_magic::borg_can_cast;
-pub use crate::c2rust::borg_magic::borg_get_spell_entry;
-pub use crate::c2rust::borg_magic::borg_get_spell_power;
-pub use crate::c2rust::borg_magic::borg_heroism_level;
-pub use crate::c2rust::borg_magic::borg_magics;
-pub use crate::c2rust::borg_magic::borg_prepare_book_info;
-pub use crate::c2rust::borg_magic::borg_primarily_caster;
-pub use crate::c2rust::borg_magic::borg_spell_fail_rate;
-pub use crate::c2rust::borg_magic::borg_spell_legal_fail;
-pub use crate::c2rust::borg_magic::borg_spell_okay;
-pub use crate::c2rust::borg_magic::borg_spell_okay_fail;
-pub use crate::c2rust::borg_magic::borg_spell_stat;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct borg_spell_rating {
-    pub name: *const ::core::ffi::c_char,
-    pub rating: uint8_t,
-    pub spell_enum: borg_spells,
-}
-pub use crate::c2rust::borg_magic::borg_cheat_spells;
-pub use crate::c2rust::borg_magic::borg_get_book_num;
-pub use crate::c2rust::borg_magic::borg_is_dungeon_book;
+pub use crate::bridge::magic::borg_spell;
+pub use crate::bridge::magic::borg_spell_fail;
+pub use crate::bridge::magic::borg_spell_legal;
+/// Moved to the converted module (`crate::borg_magic::BorgMagic`).
+pub type borg_magic = crate::borg_magic::BorgMagic;
+pub use crate::bridge::magic::borg_can_cast;
+pub use crate::bridge::magic::borg_get_spell_entry;
+pub use crate::bridge::magic::borg_get_spell_power;
+pub use crate::bridge::magic::borg_heroism_level;
+pub use crate::bridge::magic::borg_prepare_book_info;
+pub use crate::bridge::magic::borg_primarily_caster;
+pub use crate::bridge::magic::borg_spell_fail_rate;
+pub use crate::bridge::magic::borg_spell_legal_fail;
+pub use crate::bridge::magic::borg_spell_okay;
+pub use crate::bridge::magic::borg_spell_okay_fail;
+pub use crate::bridge::magic::borg_spell_stat;
+pub type borg_spell_rating = crate::borg_magic::SpellRating;
+pub use crate::bridge::magic::borg_cheat_spells;
+pub use crate::bridge::magic::borg_get_book_num;
+pub use crate::bridge::magic::borg_is_dungeon_book;

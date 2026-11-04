@@ -375,3 +375,168 @@ pub fn race_flag_has(r_idx: usize, flag: u32) -> bool {
     // reads within the size given.
     unsafe { crate::headers::z_bitflag_h::flag_has(flags.as_ptr(), flags.len(), flag as i32) }
 }
+
+// ---------------------------------------------------------------------------
+// Player class magic (books and spells)
+
+use core::ffi::CStr;
+
+fn class_magic_ref() -> &'static crate::headers::player_h::class_magic {
+    // SAFETY: `player->class` points into the class list loaded at startup
+    // (it is set at birth and lives for the game).
+    unsafe { &(*player_ref().class).magic }
+}
+
+/// `player->class->cidx`
+pub fn class_cidx() -> u32 {
+    // SAFETY: as in class_magic_ref().
+    unsafe { (*player_ref().class).cidx }
+}
+
+/// `player->class->magic.num_books`
+pub fn class_num_books() -> i32 {
+    class_magic_ref().num_books
+}
+
+/// `player->class->magic.total_spells`
+pub fn class_total_spells() -> i32 {
+    class_magic_ref().total_spells
+}
+
+/// The plain data of a `struct class_book`.
+#[derive(Clone, Copy, Debug)]
+pub struct ClassBook {
+    pub tval: i32,
+    pub sval: i32,
+    pub dungeon: bool,
+    pub num_spells: i32,
+}
+
+fn class_book_ref(book: i32) -> &'static crate::headers::player_h::class_book {
+    let m = class_magic_ref();
+    assert!(book >= 0 && book < m.num_books, "class book index out of range");
+    // SAFETY: `books` has `num_books` entries (checked above).
+    unsafe { &*m.books.add(book as usize) }
+}
+
+/// `player->class->magic.books[book]` (0 <= book < num_books).
+pub fn class_book(book: i32) -> ClassBook {
+    let b = class_book_ref(book);
+    ClassBook { tval: b.tval, sval: b.sval, dungeon: b.dungeon, num_spells: b.num_spells }
+}
+
+/// The plain data of a `struct class_spell`.
+#[derive(Clone, Copy, Debug)]
+pub struct ClassSpell {
+    /// `name` (bytes up to the NUL)
+    pub name: &'static [u8],
+    pub sidx: i32,
+    pub bidx: i32,
+    pub slevel: i32,
+    pub smana: i32,
+    pub sfail: i32,
+}
+
+fn class_spell_data(s: &'static crate::headers::player_h::class_spell) -> ClassSpell {
+    // SAFETY: spell names are C strings loaded from class.txt that live
+    // for the game.
+    let name = unsafe { CStr::from_ptr(s.name).to_bytes() };
+    ClassSpell {
+        name,
+        sidx: s.sidx,
+        bidx: s.bidx,
+        slevel: s.slevel,
+        smana: s.smana,
+        sfail: s.sfail,
+    }
+}
+
+fn class_book_spell_ref(book: i32, n: i32) -> &'static crate::headers::player_h::class_spell {
+    let b = class_book_ref(book);
+    assert!(n >= 0 && n < b.num_spells, "book spell index out of range");
+    // SAFETY: `spells` has `num_spells` entries (checked above).
+    unsafe { &*b.spells.add(n as usize) }
+}
+
+/// `player->class->magic.books[book].spells[n]`.
+pub fn class_book_spell(book: i32, n: i32) -> ClassSpell {
+    class_spell_data(class_book_spell_ref(book, n))
+}
+
+/// `player->class->magic.books[book].spells[n].realm->stat`.
+pub fn class_book_spell_realm_stat(book: i32, n: i32) -> i32 {
+    let s = class_book_spell_ref(book, n);
+    assert!(!s.realm.is_null(), "class spell without a realm");
+    // SAFETY: realm points into the static realm list (checked non-NULL).
+    unsafe { (*s.realm).stat }
+}
+
+fn spell_by_index_ref(index: i32) -> &'static crate::headers::player_h::class_spell {
+    // SAFETY: spell_by_index only reads the player's class data and
+    // returns NULL or a pointer into it.
+    let p = unsafe {
+        crate::headers::player_spell_h::spell_by_index(crate::headers::player_h::player, index)
+    };
+    assert!(!p.is_null(), "spell_by_index: no such spell");
+    // SAFETY: non-NULL pointer into the class data, which lives for the game.
+    unsafe { &*p }
+}
+
+/// `spell_by_index(player, index)` (panics where C would get NULL).
+pub fn spell_by_index(index: i32) -> ClassSpell {
+    class_spell_data(spell_by_index_ref(index))
+}
+
+/// The effect indices of `spell_by_index(player, index)->effect`, in list
+/// order (following `next` until NULL).
+pub fn spell_effect_indices(index: i32) -> Vec<u16> {
+    let s = spell_by_index_ref(index);
+    let mut out = Vec::new();
+    let mut eff = s.effect;
+    while !eff.is_null() {
+        // SAFETY: effects form a NULL-terminated list loaded at startup.
+        unsafe {
+            out.push((*eff).index);
+            eff = (*eff).next;
+        }
+    }
+    out
+}
+
+/// `spell_okay_to_cast(player, index)`.
+pub fn spell_okay_to_cast(index: i32) -> bool {
+    // SAFETY: reads the player's spell flags and class data only.
+    unsafe {
+        crate::headers::player_spell_h::spell_okay_to_cast(crate::headers::player_h::player, index)
+    }
+}
+
+/// `player->spell_flags[sidx]`.
+pub fn player_spell_flags(sidx: i32) -> u8 {
+    assert!(sidx >= 0 && sidx < class_total_spells(), "spell index out of range");
+    // SAFETY: spell_flags is allocated with total_spells entries at birth.
+    unsafe { *player_ref().spell_flags.add(sidx as usize) }
+}
+
+/// `player_has(player, flag)`: a player flag in `player->state.pflags`.
+pub fn player_has(flag: u32) -> bool {
+    let f = &player_ref().state.pflags;
+    // SAFETY: flag_has reads within the size given (the array length).
+    unsafe { crate::headers::z_bitflag_h::flag_has(f.as_ptr(), f.len(), flag as i32) }
+}
+
+/// `no_light(player)`: the player's grid is not lit.
+pub fn no_light() -> bool {
+    // SAFETY: reads the player and the current level.
+    unsafe { crate::headers::cave_h::no_light(crate::headers::player_h::player) }
+}
+
+/// `all_letters_nohjkl[i]` (ui-menu.c): the menu letters without h/j/k/l.
+pub fn all_letters_nohjkl(i: i32) -> u8 {
+    // SAFETY: a static NUL-terminated string defined in ui-menu.c.
+    let s = unsafe {
+        CStr::from_ptr(core::ptr::addr_of!(crate::headers::ui_menu_h::all_letters_nohjkl)
+            as *const c_char)
+    };
+    s.to_bytes_with_nul()[i as usize]
+}

@@ -51,3 +51,18 @@ Format: file, function, (seed, turn when observed), explanation.
   once by the box scan). Duplicates only make readers of the array
   (`borg_flow_dark`, `borg_update`) visit a grid twice.
 * Rust: kept as is in `borg_cave_light.rs`.
+
+## 5. Spell status set from a bool; books 0-7 only (magic)
+
+* `borg-magic.c`, `borg_init_spell()`, all caster seeds, startup:
+  `spell->status = spell_okay_to_cast(player, spell_num);` stores a `bool`
+  in a field that holds `BORG_MAGIC_*` values, so a spell starts as 0
+  (`BORG_MAGIC_ICKY`) or 1 (`BORG_MAGIC_LOST`) until
+  `borg_cheat_spells()` sees its book in the pack. Harmless in practice:
+  every reader also requires the book to be carried, and carried books are
+  re-cheated first.
+* `borg_cheat_spells()` resets `borg.book_idx[0..9]` but only cheats books
+  0..7 (`book_idx < 8`); no class has a ninth book.
+* `borg_spell_stat()` tests `&books[0].spells[0] != NULL`, which is always
+  true.
+* Rust (`borg_magic.rs`): all kept (`u8::from(status)`, `0..8`, no check).
