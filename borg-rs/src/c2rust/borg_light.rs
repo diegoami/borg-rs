@@ -17,7 +17,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_aim_wand, borg_equips_rod, borg_need, borg_read_scroll,
     borg_use_staff, borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
@@ -619,16 +619,16 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
         i = borg_slot(TV_LIGHT as ::core::ffi::c_int, crate::bridge::st().item_val.sv_light_lantern);
         if i >= 0 as ::core::ffi::c_int {
             while i < (*z_info).pack_size as ::core::ffi::c_int {
-                if (*borg_items.offset(i as isize)).tval as ::core::ffi::c_int
+                if (crate::bridge::st().items.items[(i) as usize]).tval as ::core::ffi::c_int
                     != TV_LIGHT as ::core::ffi::c_int
-                    || (*borg_items.offset(i as isize)).sval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(i) as usize]).sval as ::core::ffi::c_int
                         != crate::bridge::st().item_val.sv_light_lantern
                 {
                     i = -(1 as ::core::ffi::c_int);
                     break;
                 } else {
                     if !flag_has(
-                        &raw mut (*borg_items.offset(i as isize)).flags as *mut bitflag,
+                        &raw mut (crate::bridge::st().items.items[(i) as usize]).flags as *mut bitflag,
                         (OF_MAX as ::core::ffi::c_int as size_t)
                             .wrapping_add(
                                 (::core::mem::size_of::<bitflag>() as size_t)
@@ -641,7 +641,7 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
                             ),
                         OF_NO_FUEL as ::core::ffi::c_int,
                     ) {
-                        if (*borg_items.offset(i as isize)).timeout as ::core::ffi::c_int
+                        if (crate::bridge::st().items.items[(i) as usize]).timeout as ::core::ffi::c_int
                             > 0 as ::core::ffi::c_int
                         {
                             break;
@@ -658,8 +658,7 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
     .sval as ::core::ffi::c_int
         != crate::bridge::st().item_val.sv_light_lantern
     {
@@ -667,7 +666,7 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
     }
     borg_note(format(
         b"# Refueling with %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('F' as i32 as keycode_t);
     borg_keypress(
@@ -682,8 +681,7 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
 #[no_mangle]
 pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
     let mut i: ::core::ffi::c_int = 0;
-    let mut current_light: *mut borg_item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize)
+    let mut current_light: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if flag_has(
         &raw mut (*current_light).flags as *mut bitflag,
@@ -711,9 +709,7 @@ pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
             }
         }
         if (*current_light).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_lantern {
-            if ((*borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize,
-            ))
+            if ((crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
             .timeout as ::core::ffi::c_int)
                 < 1000 as ::core::ffi::c_int
             {
@@ -755,8 +751,7 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
     }
     if borg_spell_okay_fail(SPEAR_OF_LIGHT, 20 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         || -(1 as ::core::ffi::c_int) != borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_light)
-            && (*borg_items
-                .offset(borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_light) as isize))
+            && (crate::bridge::st().items.items[(borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_light)) as usize])
             .pval as ::core::ffi::c_int
                 != 0
         || borg_equips_rod(crate::bridge::st().item_val.sv_rod_light) as ::core::ffi::c_int != 0

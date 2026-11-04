@@ -242,19 +242,14 @@ pub fn setting_string(_st: &mut BorgState, i: usize) -> Option<&'static [u8]> {
     }
 }
 
-/// A copy of `borg_items[i]` (still c2rust, borg-item.c).
-pub fn borg_item(_st: &mut BorgState, i: i32) -> crate::headers::borg_item_h::borg_item {
-    // SAFETY: borg_items is allocated by borg_init_item() with room for
-    // the pack, equipment and quiver; callers pass slots in that range.
-    unsafe { *crate::c2rust::borg_item::borg_items.offset(i as isize) }
+/// A copy of `borg_items[i]` (borg-item.c, converted).
+pub fn borg_item(st: &mut BorgState, i: i32) -> crate::headers::borg_item_h::borg_item {
+    st.items.items[i as usize]
 }
 
-/// `borg_item_weight(&borg_items[i])` (still c2rust, borg-item.c).
-pub fn borg_item_weight(_st: &mut BorgState, i: i32) -> i16 {
-    // SAFETY: as for borg_item(); the callee only reads the item.
-    unsafe {
-        crate::c2rust::borg_item::borg_item_weight(crate::c2rust::borg_item::borg_items.offset(i as isize))
-    }
+/// `borg_item_weight(&borg_items[i])` (borg-item.c, converted).
+pub fn borg_item_weight(st: &mut BorgState, i: i32) -> i16 {
+    crate::borg_item::borg_item_weight(&st.items.items[i as usize])
 }
 
 /// `borg_ego_has_random_power(&e_info[ego_idx])` (still c2rust,
@@ -422,15 +417,8 @@ pub mod projection {
 /// `borg_items[i]` (still c2rust, borg-item.c), copied out. Transitional:
 /// goes away when borg_item converts. The copy's `note` field is a raw C
 /// string pointer that safe code must not dereference.
-pub fn item(_st: &mut BorgState, i: usize) -> crate::headers::borg_item_h::borg_item {
-    // SAFETY: borg_items is allocated by borg_init_item() (with
-    // INVEN_TOTAL + QUIVER entries) before the Borg thinks; checked non-null.
-    // Callers pass in-range slots, as the C code does.
-    unsafe {
-        let p = crate::c2rust::borg_item::borg_items;
-        assert!(!p.is_null(), "borg_items not allocated");
-        *p.add(i)
-    }
+pub fn item(st: &mut BorgState, i: usize) -> crate::headers::borg_item_h::borg_item {
+    st.items.items[i]
 }
 
 /// C-ABI shims with the borg-cave-light.c names.
@@ -443,16 +431,10 @@ pub mod cave_light {
 }
 
 /// `(borg_items[i].tval, borg_items[i].sval)` (still c2rust, borg-item.c).
-pub fn borg_item_tval_sval(_st: &mut BorgState, i: i32) -> (u8, u8) {
-    // SAFETY: borg_items is allocated by borg_init_item() before the Borg
-    // runs, with more than z_info->pack_size entries; callers pass a pack
-    // slot (checked).
-    unsafe {
-        let items = crate::c2rust::borg_item::borg_items;
-        assert!(!items.is_null() && i >= 0 && i < i32::from(crate::engine::z_info().pack_size));
-        let it = &*items.add(i as usize);
-        (it.tval, it.sval)
-    }
+pub fn borg_item_tval_sval(st: &mut BorgState, i: i32) -> (u8, u8) {
+    assert!(i >= 0 && i < i32::from(crate::engine::z_info().pack_size));
+    let it = &st.items.items[i as usize];
+    (it.tval, it.sval)
 }
 
 /// C-ABI shims with the borg-magic.c names.
@@ -658,5 +640,62 @@ pub mod reincarnate {
     }
     pub unsafe extern "C" fn borg_reincarnate_start() {
         crate::borg_reincarnate::borg_reincarnate_start(st())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// borg-item.c (converted); its `note` field is still a raw pointer.
+
+/// A zeroed `borg_item` (what `mem_zalloc` gave the C arrays).
+pub fn blank_borg_item() -> crate::headers::borg_item_h::borg_item {
+    // SAFETY: borg_item is plain C data (integers, bools, arrays and one
+    // nullable pointer); the all-zero bit pattern is valid for each field.
+    unsafe { core::mem::zeroed() }
+}
+
+/// `borg_items[j].note[0]`. Transitional: `note` points into the item's
+/// `desc` (set by borg_item_analyze, still c2rust). C dereferences it
+/// without a check; a NULL note would crash C, so it panics here.
+pub fn item_note_first_byte(st: &mut BorgState, j: usize) -> u8 {
+    let p = st.items.items[j].note;
+    assert!(!p.is_null(), "borg_items[{}].note is NULL", j);
+    // SAFETY: a non-NULL note points at a NUL-terminated suffix of a
+    // `desc` buffer of a live item (C semantics).
+    unsafe { *p as u8 }
+}
+
+c2r_void! {
+    borg_equipment => crate::c2rust::borg_inventory::borg_equipment;
+    borg_inventory => crate::c2rust::borg_inventory::borg_inventory;
+    borg_notice_store => crate::c2rust::borg_store::borg_notice_store;
+}
+
+/// C-ABI shims with the borg-item.c names.
+pub mod item_fns {
+    use super::st;
+    use crate::borg_item;
+    use crate::headers::borg_item_h::borg_item as BorgItemC;
+    use core::ffi::{c_char, c_int};
+
+    pub unsafe extern "C" fn borg_get_note(item: *const BorgItemC) -> *const c_char {
+        if !(*item).note.is_null() {
+            return (*item).note;
+        }
+        c"".as_ptr()
+    }
+    pub unsafe extern "C" fn borg_deinscribe(i: c_int) {
+        borg_item::borg_deinscribe(st(), i)
+    }
+    pub unsafe extern "C" fn borg_item_weight(item: *mut BorgItemC) -> i16 {
+        borg_item::borg_item_weight(&*item)
+    }
+    pub unsafe extern "C" fn borg_find_all_items() {
+        borg_item::borg_find_all_items(st())
+    }
+    pub unsafe extern "C" fn borg_init_item() {
+        borg_item::borg_init_item(st())
+    }
+    pub unsafe extern "C" fn borg_free_item() {
+        borg_item::borg_free_item(st())
     }
 }

@@ -16,7 +16,7 @@ pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt
 pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 
-pub use crate::headers::borg_item_h::{borg_get_note, borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_get_note, borg_item};
 pub use crate::headers::borg_magic_h::{borg_can_cast, borg_magic, borg_spell_fail_rate, borg_spell_legal, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS, BLOODLUST, BRAND_AMMUNITION, CALL_LIGHT, CLAIRVOYANCE, COMMAND, CONFUSE_MONSTER, COVER_TRACKS, CREATE_ARROWS, CREATE_DARKNESS, CRUSH, CURE_POISON, CURSE, DARK_SPEAR, DECOY, DEMON_BANE, DETECTION, DETECT_EVIL, DETECT_LIFE, DETECT_MONSTERS, DETECT_STAIRS, DIMENSION_DOOR, DISABLE_TRAPS_DESTROY_DOORS, DISENCHANT, DISPEL_EVIL, DISPEL_LIFE, DISPEL_UNDEAD, DOOR_CREATION, EAGLES_FLIGHT, EARTH_RISING, ELECTRIC_ARC, ENCHANT_ARMOUR, ENCHANT_WEAPON, EXPLOSION, FIND_TRAPS_DOORS_STAIRS, FIRE_BALL, FORCEFUL_BLOW, FOX_FORM, FRIGHTEN, FROST_BOLT, FUME_OF_MORDOR, GLYPH_OF_WARDING, GRIM_PURPOSE, GRONDS_BLOW, HASTE_SELF, HEALING, HERBAL_CURING, HEROISM, HIT_AND_RUN, HOLY_WORD, HOWL_OF_THE_DAMNED, ICE_STORM, IDENTIFY_RUNE, LEAP_INTO_BATTLE, LIGHTNING_STRIKE, LIGHT_OF_VARDA, LIGHT_ROOM, MAGIC_MISSILE, MAIM_FOE, MANA_BOLT, MANA_CHANNEL, MANA_STORM, MASS_BANISHMENT, MASS_SLEEP, METEOR_SWARM, MINOR_HEALING, NETHER_BOLT, OBJECT_DETECTION, ORB_OF_DRAINING, PHASE_DOOR, PORTAL, POWER_SACRIFICE, PROTECTION_FROM_EVIL, QUAKE, RAPID_REGENERATION, READ_MINDS, RECHARGING, RELENTLESS_TAUNTING, REMEMBRANCE, REMOVE_CURSE, REMOVE_HUNGER, RESISTANCE, RESIST_POISON, RESTORATION, REVEAL_MONSTERS, REVITALIZE, RIFT, RIVER_OF_LIGHTNING, SEEK_BATTLE, SENSE_INVISIBLE, SENSE_SURROUNDINGS, SHADOW_SHIFT, SHATTER_STONE, SHOCK_WAVE, SINGLE_COMBAT, SLEEP_EVIL, SLOW_MONSTER, SMITE_EVIL, SPEAR_OF_LIGHT, SPEAR_OF_OROME, STINKING_CLOUD, STORM_OF_DARKNESS, TAP_MAGICAL_ENERGY, TAP_UNLIFE, TELEPORT_LEVEL, TELEPORT_OTHER, TELEPORT_SELF, THRUST_AWAY, TRANCE, TREASURE_DETECTION, TREMOR, TURN_STONE_TO_MUD, UNHOLY_REPRIEVE, UNLEASH_CHAOS, VAMPIRE_FORM, VAMPIRE_STRIKE, VENOM, VOLCANIC_ERUPTION, WARG_FORM, WEREWOLF_FORM, WHIRLWIND_ATTACK, WORD_OF_DESTRUCTION, WORD_OF_RECALL, ZONE_OF_UNMAGIC};
 use crate::headers::borg_prepared_h::borg_prepared;
 
@@ -569,7 +569,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     );
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if (*item).iqty != 0 {
             if (*item).iqty as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
                 file_putf(
@@ -663,7 +663,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
             b"  [Swap info]\n\n\0" as *const u8 as *const ::core::ffi::c_char,
         );
         if weapon_swap != 0 {
-            item = borg_items.offset((weapon_swap - 1 as ::core::ffi::c_int) as isize)
+            item = &raw mut crate::bridge::st().items.items[((weapon_swap - 1 as ::core::ffi::c_int)) as usize]
                 as *mut borg_item;
             file_putf(
                 borg_map_file,
@@ -677,7 +677,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
             );
         }
         if armour_swap != 0 {
-            item = borg_items.offset((armour_swap - 1 as ::core::ffi::c_int) as isize)
+            item = &raw mut crate::bridge::st().items.items[((armour_swap - 1 as ::core::ffi::c_int)) as usize]
                 as *mut borg_item;
             file_putf(
                 borg_map_file,
@@ -1090,7 +1090,7 @@ pub unsafe extern "C" fn borg_display_item(mut item2: *mut object, mut n: ::core
     let mut j: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut f: [bitflag; 5] = [0; 5];
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
-    item = borg_items.offset(n as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[(n) as usize] as *mut borg_item;
     object_flags(item2, &raw mut f as *mut bitflag);
     Term_clear();
     prt(

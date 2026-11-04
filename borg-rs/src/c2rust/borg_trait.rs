@@ -12,17 +12,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_home_notice_h::borg_notice_home;
 
 use crate::headers::borg_item_analyze_h::borg_obj_has_effect;
-pub use crate::headers::borg_item_h::{
-    borg_item, borg_item_weight, borg_items, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING,
-    BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP,
-    BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE,
-    BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING,
-    BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY,
-    BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON,
-    BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN,
-    BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON,
-    BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
-};
+pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::{borg_activate_failure, borg_equips_item, borg_equips_ring};
 
@@ -1380,7 +1370,7 @@ pub unsafe extern "C" fn borg_calc_blows(mut item: *mut borg_item) -> ::core::ff
     }) / 100 as ::core::ffi::c_int;
 }
 unsafe extern "C" fn borg_notice_ammo(mut slot: ::core::ffi::c_int) {
-    let mut item: *mut borg_item = borg_items.offset(slot as isize) as *mut borg_item;
+    let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item;
     if (*item).iqty == 0 {
         return;
     }
@@ -1852,8 +1842,8 @@ unsafe extern "C" fn borg_notice_equipment() {
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        if (*borg_items.offset(i as isize)).activ_idx != 0 {
-            crate::bridge::st().borg.activation[((*borg_items.offset(i as isize)).activ_idx) as usize] +=
+        if (crate::bridge::st().items.items[(i) as usize]).activ_idx != 0 {
+            crate::bridge::st().borg.activation[((crate::bridge::st().items.items[(i) as usize]).activ_idx) as usize] +=
                 1 as ::core::ffi::c_int;
         }
         i += 1;
@@ -1863,7 +1853,7 @@ unsafe extern "C" fn borg_notice_equipment() {
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).uncursable {
                 crate::bridge::st().borg.trait_[(BI_WHERE_CURSED as ::core::ffi::c_int) as usize] |=
@@ -2031,7 +2021,7 @@ unsafe extern "C" fn borg_notice_equipment() {
                     as ::core::ffi::c_int;
                 if i != (*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int
                     || flag_has(
-                        &raw mut (*borg_items.offset(i as isize)).flags as *mut bitflag,
+                        &raw mut (crate::bridge::st().items.items[(i) as usize]).flags as *mut bitflag,
                         (OF_MAX as ::core::ffi::c_int as size_t)
                             .wrapping_add(
                                 (::core::mem::size_of::<bitflag>() as size_t)
@@ -2845,8 +2835,7 @@ unsafe extern "C" fn borg_notice_equipment() {
     hold = adj_str_hold[crate::bridge::st().borg.trait_[(BI_STR_INDEX as ::core::ffi::c_int) as usize] as usize];
     crate::bridge::st().borg.trait_[(BI_DIG as ::core::ffi::c_int) as usize] += borg_adj_str_dig[crate::bridge::st().borg.trait_[(BI_STR_INDEX as ::core::ffi::c_int) as usize]
         as usize];
-    item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize)
+    item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if (*item).iqty as ::core::ffi::c_int == 0 as ::core::ffi::c_int
         || cursed_nonartifact(item) as ::core::ffi::c_int != 0
@@ -2936,7 +2925,7 @@ unsafe extern "C" fn borg_notice_equipment() {
         }
     }
     crate::bridge::st().borg.trait_[(BI_SHOTS as ::core::ffi::c_int) as usize] = my_num_fire;
-    item = borg_items.offset((*z_info).pack_size as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[((*z_info).pack_size) as usize] as *mut borg_item;
     if (*item).iqty as ::core::ffi::c_int == 0 as ::core::ffi::c_int
         || cursed_nonartifact(item) as ::core::ffi::c_int != 0
     {
@@ -3073,7 +3062,7 @@ unsafe extern "C" fn borg_notice_equipment() {
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i <= (*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).ident {
                 if !cursed_nonartifact(item) {
@@ -3120,7 +3109,7 @@ unsafe extern "C" fn borg_notice_equipment() {
     }
     i = (*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int;
     while i <= (*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).ident {
                 if !cursed_nonartifact(item) {
@@ -3193,7 +3182,7 @@ unsafe extern "C" fn borg_notice_inventory() {
         < (*z_info).pack_size as ::core::ffi::c_int
             - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
     {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if (*item).iqty == 0 {
             let ref mut fresh0 = crate::bridge::st().borg.trait_[(BI_EMPTY as ::core::ffi::c_int) as usize];
             *fresh0 += 1;
@@ -3572,11 +3561,7 @@ unsafe extern "C" fn borg_notice_inventory() {
                             current_block_187 = 2167674248514145403;
                         }
                         27 => {
-                            if (*borg_items.offset(
-                                ((*z_info).pack_size as ::core::ffi::c_int
-                                    + 5 as ::core::ffi::c_int)
-                                    as isize,
-                            ))
+                            if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
                             .sval as ::core::ffi::c_int
                                 == crate::bridge::st().item_val.sv_light_lantern
                             {
@@ -3588,18 +3573,10 @@ unsafe extern "C" fn borg_notice_inventory() {
                         19 => {
                             if (*item).sval as ::core::ffi::c_int == crate::bridge::st().item_val.sv_light_torch
                                 && (*item).timeout as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-                                && (*borg_items.offset(
-                                    ((*z_info).pack_size as ::core::ffi::c_int
-                                        + 5 as ::core::ffi::c_int)
-                                        as isize,
-                                ))
+                                && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
                                 .sval as ::core::ffi::c_int
                                     == crate::bridge::st().item_val.sv_light_torch
-                                && (*borg_items.offset(
-                                    ((*z_info).pack_size as ::core::ffi::c_int
-                                        + 5 as ::core::ffi::c_int)
-                                        as isize,
-                                ))
+                                && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
                                 .iqty as ::core::ffi::c_int
                                     != 0
                             {
@@ -3891,8 +3868,7 @@ unsafe extern "C" fn borg_notice_inventory() {
         crate::bridge::st().borg.trait_[(BI_ARECHARGE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if flag_has(
-        &raw mut (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize))
+        &raw mut (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
         .flags as *mut bitflag,
         (OF_MAX as ::core::ffi::c_int as size_t)
             .wrapping_add((::core::mem::size_of::<bitflag>() as size_t).wrapping_mul(8 as size_t))

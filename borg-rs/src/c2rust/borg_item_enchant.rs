@@ -9,7 +9,7 @@ use crate::headers::borg_io_h::borg_keypress;
 use crate::headers::borg_item_decurse_h::{
     borg_decurse_any, borg_decurse_armour, borg_decurse_weapon,
 };
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
 
 pub use crate::headers::borg_magic_h::{
@@ -124,26 +124,26 @@ unsafe extern "C" fn borg_pick_armor(mut i: ::core::ffi::c_int) {
         let mut found: bool = false_0 != 0;
         let mut e: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
         while e < (*z_info).pack_size as ::core::ffi::c_int {
-            if (*borg_items.offset(e as isize)).iqty as ::core::ffi::c_int != 0
-                && ((*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+            if (crate::bridge::st().items.items[(e) as usize]).iqty as ::core::ffi::c_int != 0
+                && ((crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                     == TV_BOOTS as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_GLOVES as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_CLOAK as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_CROWN as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_HELM as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_SHIELD as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_HELM as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_SOFT_ARMOR as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_HARD_ARMOR as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_DRAG_ARMOR as ::core::ffi::c_int)
             {
                 found = true_0 != 0;
@@ -177,16 +177,16 @@ unsafe extern "C" fn borg_pick_weapon(mut i: ::core::ffi::c_int) {
         let mut found: bool = false_0 != 0;
         let mut e: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
         while e < (*z_info).pack_size as ::core::ffi::c_int {
-            if (*borg_items.offset(e as isize)).iqty as ::core::ffi::c_int != 0
-                && ((*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+            if (crate::bridge::st().items.items[(e) as usize]).iqty as ::core::ffi::c_int != 0
+                && ((crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                     == TV_BOW as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_DIGGING as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_HAFTED as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_POLEARM as ::core::ffi::c_int
-                    || (*borg_items.offset(e as isize)).tval as ::core::ffi::c_int
+                    || (crate::bridge::st().items.items[(e) as usize]).tval as ::core::ffi::c_int
                         == TV_SWORD as ::core::ffi::c_int)
             {
                 found = true_0 != 0;
@@ -206,11 +206,9 @@ unsafe extern "C" fn borg_pick_weapon(mut i: ::core::ffi::c_int) {
             );
         } else {
             if found as ::core::ffi::c_int != 0
-                || (*borg_items.offset((*z_info).pack_size as isize)).iqty as ::core::ffi::c_int
+                || (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).iqty as ::core::ffi::c_int
                     != 0 as ::core::ffi::c_int
-                || (*borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
-                ))
+                || (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
                 .iqty as ::core::ffi::c_int
                     != 0 as ::core::ffi::c_int
             {
@@ -244,7 +242,7 @@ unsafe extern "C" fn borg_enchant_to_a() -> bool {
     let mut current_block_7: u64;
     i = (*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).ident {
                 a = (*item).to_a as ::core::ffi::c_int;
@@ -311,7 +309,7 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
     let mut current_block_7: u64;
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i <= (*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).ident {
                 if !((*item).tval as ::core::ffi::c_int == TV_DIGGING as ::core::ffi::c_int) {
@@ -358,7 +356,7 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
     if weapon_swap != 0 {
         let mut skip: bool = false_0 != 0;
         let mut item_0: *mut borg_item =
-            borg_items.offset((weapon_swap - 1 as ::core::ffi::c_int) as isize) as *mut borg_item;
+            &raw mut crate::bridge::st().items.items[((weapon_swap - 1 as ::core::ffi::c_int)) as usize] as *mut borg_item;
         if (*item_0).ident as ::core::ffi::c_int != 0
             && (*item_0).tval as ::core::ffi::c_int != TV_DIGGING as ::core::ffi::c_int
         {
@@ -388,18 +386,13 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
                 + 12 as ::core::ffi::c_int
                 + (*z_info).quiver_size as ::core::ffi::c_int
         {
-            let mut item_1: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+            let mut item_1: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if !(crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                 < 3 as ::core::ffi::c_int
-                || (*borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
-                ))
+                || (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
                 .art_idx
                     == 0
-                    && (*borg_items.offset(
-                        ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
-                            as isize,
-                    ))
+                    && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
                     .ego_idx
                         == 0)
             {
@@ -475,7 +468,7 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
     let mut current_block_7: u64;
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i <= (*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).ident {
                 if !((*item).tval as ::core::ffi::c_int == TV_DIGGING as ::core::ffi::c_int) {
@@ -522,7 +515,7 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
     if weapon_swap != 0 {
         let mut skip: bool = false_0 != 0;
         let mut item_0: *mut borg_item =
-            borg_items.offset((weapon_swap - 1 as ::core::ffi::c_int) as isize) as *mut borg_item;
+            &raw mut crate::bridge::st().items.items[((weapon_swap - 1 as ::core::ffi::c_int)) as usize] as *mut borg_item;
         if (*item_0).ident as ::core::ffi::c_int != 0
             && (*item_0).tval as ::core::ffi::c_int != TV_DIGGING as ::core::ffi::c_int
         {
@@ -552,18 +545,13 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
                 + 12 as ::core::ffi::c_int
                 + (*z_info).quiver_size as ::core::ffi::c_int
         {
-            let mut item_1: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+            let mut item_1: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if !(crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                 < 3 as ::core::ffi::c_int
-                || (*borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
-                ))
+                || (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
                 .art_idx
                     == 0
-                    && (*borg_items.offset(
-                        ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
-                            as isize,
-                    ))
+                    && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
                     .ego_idx
                         == 0)
             {
@@ -642,7 +630,7 @@ unsafe extern "C" fn borg_brand_weapon() -> bool {
             + 12 as ::core::ffi::c_int
             + (*z_info).quiver_size as ::core::ffi::c_int
     {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !(((*item).iqty as ::core::ffi::c_int) < 20 as ::core::ffi::c_int) {
             if (*item).ident {
                 if !((*item).tval as ::core::ffi::c_int

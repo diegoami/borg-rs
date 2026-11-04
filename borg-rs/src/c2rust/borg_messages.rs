@@ -20,7 +20,7 @@ pub use crate::headers::borg_flow_kill_h::{
 use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_flush, borg_keypress, borg_note, borg_what_text};
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 use crate::headers::borg_messages_react_h::{borg_dont_react, borg_react, borg_react_prompted};
 use crate::headers::borg_think_h::borg_oops;
 pub use crate::headers::borg_trait_h::{
@@ -1441,7 +1441,7 @@ unsafe extern "C" fn borg_parse_aux(
             (crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
         i = (*z_info).pack_size as ::core::ffi::c_int;
         while i <= (*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int {
-            let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+            let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if !((*item).iqty == 0) {
                 (*item).ident = true_0 != 0;
             }
@@ -1449,7 +1449,7 @@ unsafe extern "C" fn borg_parse_aux(
         }
         i = 0 as ::core::ffi::c_int;
         while i <= (*z_info).pack_size as ::core::ffi::c_int {
-            let mut item_0: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+            let mut item_0: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if !((*item_0).iqty == 0) {
                 (*item_0).ident = true_0 != 0;
             }
@@ -1461,8 +1461,7 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"Identifying The Phial\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        let mut item_1: *mut borg_item = borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize)
+        let mut item_1: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize]
             as *mut borg_item;
         (*item_1).ident = true_0 != 0;
         borg_keypress(ESCAPE as keycode_t);

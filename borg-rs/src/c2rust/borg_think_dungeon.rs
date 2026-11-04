@@ -51,7 +51,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
 use crate::headers::borg_item_enchant_h::borg_enchanting;
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_need, borg_read_scroll, borg_recharging, borg_use_staff,
     borg_use_things, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
@@ -320,8 +320,7 @@ unsafe extern "C" fn borg_think_dungeon_lunal() -> bool {
         borg_note(b"# Lunal. (need fuel)\0" as *const u8 as *const ::core::ffi::c_char);
     }
     if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
-        && (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize))
+        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
         .tval as ::core::ffi::c_int
             == 0 as ::core::ffi::c_int
     {
@@ -357,11 +356,7 @@ unsafe extern "C" fn borg_think_dungeon_lunal() -> bool {
     crate::bridge::st().borg.goal.fleeing_lunal = true_0 != 0;
     crate::bridge::st().borg.goal.fleeing = true_0 != 0;
     if track_less.num as ::core::ffi::c_int != 0
-        && (*borg_items.offset(
-            ((*z_info).pack_size as ::core::ffi::c_int
-                - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
-                - 2 as ::core::ffi::c_int) as isize,
-        ))
+        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize] - 2 as ::core::ffi::c_int)) as usize])
         .iqty as ::core::ffi::c_int
             != 0
         && (safe_place as ::core::ffi::c_int != 0
@@ -673,11 +668,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
                 - crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]);
     }
     if track_less.num as ::core::ffi::c_int != 0
-        && (*borg_items.offset(
-            ((*z_info).pack_size as ::core::ffi::c_int
-                - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
-                - 2 as ::core::ffi::c_int) as isize,
-        ))
+        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize] - 2 as ::core::ffi::c_int)) as usize])
         .iqty as ::core::ffi::c_int
             != 0
         && (safe_place as ::core::ffi::c_int != 0
@@ -1413,11 +1404,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         if borg_recover() {
             return true_0 != 0;
         }
-        if (*borg_items.offset(
-            ((*z_info).pack_size as ::core::ffi::c_int
-                - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
-                - 1 as ::core::ffi::c_int) as isize,
-        ))
+        if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize] - 1 as ::core::ffi::c_int)) as usize])
         .iqty as ::core::ffi::c_int
             != 0
             && borg_drop_hole(false_0 != 0) as ::core::ffi::c_int != 0
@@ -1438,13 +1425,13 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
     if borg_play_magic(false_0 != 0) {
         return true_0 != 0;
     }
-    if (*borg_items.offset((*z_info).pack_size as isize)).tval as ::core::ffi::c_int
+    if (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).tval as ::core::ffi::c_int
         == TV_DIGGING as ::core::ffi::c_int
         && borg_wear_stuff() as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
-    if (*borg_items.offset((*z_info).pack_size as isize)).tval == 0
+    if (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).tval == 0
         && borg_wear_stuff() as ::core::ffi::c_int != 0
     {
         return true_0 != 0;

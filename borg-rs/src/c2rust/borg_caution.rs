@@ -31,7 +31,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_failure, borg_activate_item, borg_eat, borg_eat_food_any, borg_eat_unknown,
     borg_equips_staff_fail, borg_need, borg_quaff_crit, borg_quaff_potion, borg_quaff_unknown,
@@ -906,8 +906,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
     let mut on_dnstair: bool = false_0 != 0;
     let mut on_upstair: bool = false_0 != 0;
     if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0
-        && ((*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize))
+        && ((crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
         .timeout as ::core::ffi::c_int)
             < 250 as ::core::ffi::c_int
     {

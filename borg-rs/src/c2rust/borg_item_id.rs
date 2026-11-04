@@ -7,7 +7,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_keypresses};
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
-pub use crate::headers::borg_item_h::{borg_get_note, borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_get_note, borg_item};
 pub use crate::headers::borg_trait_h::{
     C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS, BI_ADETDOOR,
     BI_ADETEVIL, BI_ADETTRAP, BI_ADEX, BI_ADIGGER, BI_AENCH_ARM, BI_AENCH_SARM, BI_AENCH_SWEP,
@@ -121,7 +121,7 @@ pub unsafe extern "C" fn borg_object_fully_id() -> bool {
             + 12 as ::core::ffi::c_int
             + (*z_info).quiver_size as ::core::ffi::c_int
     {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         let mut e_ptr: *mut ego_item = e_info.offset((*item).ego_idx as isize) as *mut ego_item;
         let mut note: *const ::core::ffi::c_char = borg_get_note(item);
         if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]

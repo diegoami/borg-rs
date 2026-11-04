@@ -6,17 +6,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_flow_kill_h::borg_race_death;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_wield_slot;
-pub use crate::headers::borg_item_h::{
-    borg_item, borg_items, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE,
-    BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE,
-    BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON,
-    BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION,
-    BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION,
-    BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS,
-    BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE,
-    BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON,
-    BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
-};
+pub use crate::headers::borg_item_h::{borg_item, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS};
 pub use crate::headers::borg_magic_h::{
     borg_spell_legal_fail, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT, BANISH_EVIL,
     BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS, BLOODLUST,
@@ -406,7 +396,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
     let mut current_block_256: u64;
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         v = -(1 as ::core::ffi::c_long) as int32_t;
         dam = 0 as ::core::ffi::c_int;
         damage = 0 as ::core::ffi::c_int;
@@ -526,8 +516,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                             TURN_STONE_TO_MUD,
                                             40 as ::core::ffi::c_int,
                                         ) && !flag_has(
-                                            &raw mut (*borg_items
-                                                .offset((*z_info).pack_size as isize))
+                                            &raw mut (crate::bridge::st().items.items[((*z_info).pack_size) as usize])
                                             .flags
                                                 as *mut bitflag,
                                             (OF_MAX as ::core::ffi::c_int as size_t)
@@ -542,8 +531,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 ),
                                             OF_DIG_1 as ::core::ffi::c_int,
                                         ) && !flag_has(
-                                            &raw mut (*borg_items
-                                                .offset((*z_info).pack_size as isize))
+                                            &raw mut (crate::bridge::st().items.items[((*z_info).pack_size) as usize])
                                             .flags
                                                 as *mut bitflag,
                                             (OF_MAX as ::core::ffi::c_int as size_t)
@@ -558,8 +546,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 ),
                                             OF_DIG_2 as ::core::ffi::c_int,
                                         ) && !flag_has(
-                                            &raw mut (*borg_items
-                                                .offset((*z_info).pack_size as isize))
+                                            &raw mut (crate::bridge::st().items.items[((*z_info).pack_size) as usize])
                                             .flags
                                                 as *mut bitflag,
                                             (OF_MAX as ::core::ffi::c_int as size_t)
@@ -1558,7 +1545,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
     }
     weapon_swap_value = b_v;
     weapon_swap = b_i + 1 as ::core::ffi::c_int;
-    item = borg_items.offset(b_i as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[(b_i) as usize] as *mut borg_item;
     if (borg_spell_legal_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
             >= 1 as ::core::ffi::c_int)
@@ -1853,7 +1840,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         v = -(1 as ::core::ffi::c_long) as int32_t;
         dam = 0 as ::core::ffi::c_int;
         damage = 0 as ::core::ffi::c_int;
@@ -2866,7 +2853,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
     if b_i == -(1 as ::core::ffi::c_int) {
         return;
     }
-    item = borg_items.offset(b_i as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[(b_i) as usize] as *mut borg_item;
     armour_swap_slay_animal = (*item).slays[RF_ANIMAL as ::core::ffi::c_int as usize] as uint8_t;
     armour_swap_slay_evil = (*item).slays[RF_EVIL as ::core::ffi::c_int as usize] as uint8_t;
     armour_swap_slay_undead = (*item).slays[RF_UNDEAD as ::core::ffi::c_int as usize] as uint8_t;

@@ -97,7 +97,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::{borg_slot, borg_wield_slot};
 use crate::headers::borg_io_h::{borg_keypress, borg_note, borg_queue_direction};
 
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::{
     borg_activate_dragon, borg_activate_failure, borg_activate_item, borg_activate_ring,
@@ -448,7 +448,7 @@ unsafe extern "C" fn borg_thrust_damage_one(mut i: ::core::ffi::c_int) -> ::core
     let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
     let mut chance: ::core::ffi::c_int = 0;
-    item = borg_items.offset((*z_info).pack_size as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[((*z_info).pack_size) as usize] as *mut borg_item;
     kill = borg_kills.offset(i as isize) as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     if (*kill).r_idx as ::core::ffi::c_int
@@ -1115,7 +1115,7 @@ unsafe extern "C" fn borg_attack_aux_thrust() -> ::core::ffi::c_int {
     ));
     borg_note(format(
         b"# Attacking with weapon '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset((*z_info).pack_size as isize)).desc
+        &raw mut (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).desc
             as *mut ::core::ffi::c_char,
     ));
     dir = borg_extract_dir(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, crate::bridge::st().borg.goal.g.y, crate::bridge::st().borg.goal.g.x);
@@ -1259,10 +1259,9 @@ unsafe extern "C" fn borg_launch_damage_one(
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     cur_dis = distance(crate::bridge::st().borg.c, (*kill).pos);
     bonus = crate::bridge::st().borg.trait_[(BI_TOHIT as ::core::ffi::c_int) as usize]
-        + (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize))
+        + (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize])
         .to_h as ::core::ffi::c_int
-        + (*borg_items.offset(ammo_location as isize)).to_h as ::core::ffi::c_int;
+        + (crate::bridge::st().items.items[(ammo_location) as usize]).to_h as ::core::ffi::c_int;
     chance = crate::bridge::st().borg.trait_[(BI_THB as ::core::ffi::c_int) as usize] + bonus * BTH_PLUS_ADJ;
     armor = (*r_ptr).ac + cur_dis;
     k = 0 as ::core::ffi::c_int;
@@ -1277,11 +1276,9 @@ unsafe extern "C" fn borg_launch_damage_one(
     }
     match typ {
         1 => {
-            let mut bow: *mut borg_item = borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item;
+            let mut bow: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize] as *mut borg_item;
             let mut ammo: *mut borg_item =
-                borg_items.offset(ammo_location as isize) as *mut borg_item;
+                &raw mut crate::bridge::st().items.items[(ammo_location) as usize] as *mut borg_item;
             let mut mult: ::core::ffi::c_int = borg_best_mult(bow, r_ptr);
             mult = if mult < borg_best_mult(ammo, r_ptr) {
                 borg_best_mult(ammo, r_ptr)
@@ -3642,8 +3639,7 @@ pub unsafe extern "C" fn borg_attack_aux_launch() -> ::core::ffi::c_int {
     let mut d: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut v: ::core::ffi::c_int = 0;
     let mut b_v: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
-    let mut bow: *mut borg_item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize)
+    let mut bow: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if (*bow).iqty as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
@@ -3663,7 +3659,7 @@ pub unsafe extern "C" fn borg_attack_aux_launch() -> ::core::ffi::c_int {
             + 12 as ::core::ffi::c_int
             + (*z_info).quiver_size as ::core::ffi::c_int
     {
-        let mut item: *mut borg_item = borg_items.offset(k as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(k) as usize] as *mut borg_item;
         if (*item).iqty == 0 {
             break;
         }
@@ -3712,7 +3708,7 @@ pub unsafe extern "C" fn borg_attack_aux_launch() -> ::core::ffi::c_int {
     }
     borg_note(format(
         b"# Firing missile '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(b_k as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(b_k) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('f' as i32 as keycode_t);
     borg_keypress(
@@ -3842,7 +3838,7 @@ unsafe extern "C" fn borg_attack_aux_object() -> ::core::ffi::c_int {
     let mut mul: ::core::ffi::c_int = 0;
     k = 0 as ::core::ffi::c_int;
     while k < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(k as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(k) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !obj_kind_can_browse(k_info.offset((*item).kind as isize) as *mut object_kind) {
                 if !(borg_wield_slot(item) >= 0 as ::core::ffi::c_int) {
@@ -3921,7 +3917,7 @@ unsafe extern "C" fn borg_attack_aux_object() -> ::core::ffi::c_int {
     }
     borg_note(format(
         b"# Throwing painful object '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(b_k as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(b_k) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('v' as i32 as keycode_t);
     borg_keypress(
@@ -4383,7 +4379,7 @@ unsafe extern "C" fn borg_attack_aux_wand_bolt(
     if i < 0 as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return 0 as ::core::ffi::c_int;
     }
     if (500 as ::core::ffi::c_int) < borg_activate_failure(TV_WAND as ::core::ffi::c_int, sval) {
@@ -4455,12 +4451,12 @@ unsafe extern "C" fn borg_attack_aux_wand_bolt_unknown(
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        if !((*borg_items.offset(i as isize)).iqty == 0) {
-            if !((*borg_items.offset(i as isize)).tval as ::core::ffi::c_int
+        if !((crate::bridge::st().items.items[(i) as usize]).iqty == 0) {
+            if !((crate::bridge::st().items.items[(i) as usize]).tval as ::core::ffi::c_int
                 != TV_WAND as ::core::ffi::c_int)
             {
-                if !(*borg_items.offset(i as isize)).aware {
-                    if !((*borg_items.offset(i as isize)).pval == 0) {
+                if !(crate::bridge::st().items.items[(i) as usize]).aware {
+                    if !((crate::bridge::st().items.items[(i) as usize]).pval == 0) {
                         b_i = i;
                     }
                 }
@@ -4483,7 +4479,7 @@ unsafe extern "C" fn borg_attack_aux_wand_bolt_unknown(
     }
     borg_note(format(
         b"# Aiming unknown wand '%s.'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(b_i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(b_i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('a' as i32 as keycode_t);
     borg_keypress(
@@ -4518,14 +4514,14 @@ unsafe extern "C" fn borg_attack_aux_rod_bolt_unknown(
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        if !((*borg_items.offset(i as isize)).iqty == 0) {
-            if !((*borg_items.offset(i as isize)).tval as ::core::ffi::c_int
+        if !((crate::bridge::st().items.items[(i) as usize]).iqty == 0) {
+            if !((crate::bridge::st().items.items[(i) as usize]).tval as ::core::ffi::c_int
                 != TV_ROD as ::core::ffi::c_int)
             {
-                if !(*borg_items.offset(i as isize)).aware {
-                    if !((*borg_items.offset(i as isize)).pval == 0) {
+                if !(crate::bridge::st().items.items[(i) as usize]).aware {
+                    if !((crate::bridge::st().items.items[(i) as usize]).pval == 0) {
                         if strstr(
-                            &raw mut (*borg_items.offset(i as isize)).desc
+                            &raw mut (crate::bridge::st().items.items[(i) as usize]).desc
                                 as *mut ::core::ffi::c_char,
                             b"tried\0" as *const u8 as *const ::core::ffi::c_char,
                         )
@@ -4554,7 +4550,7 @@ unsafe extern "C" fn borg_attack_aux_rod_bolt_unknown(
     }
     borg_note(format(
         b"# Aiming unknown rod '%s.'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(b_i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(b_i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('z' as i32 as keycode_t);
     borg_keypress(
@@ -4673,8 +4669,7 @@ unsafe extern "C" fn borg_attack_aux_dragon(
     {
         return 0 as ::core::ffi::c_int;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize])
     .art_idx
         != 0
     {
@@ -4911,7 +4906,7 @@ unsafe extern "C" fn borg_attack_aux_leap_into_battle() -> ::core::ffi::c_int {
     ));
     borg_note(format(
         b"# Attacking with weapon '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset((*z_info).pack_size as isize)).desc
+        &raw mut (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).desc
             as *mut ::core::ffi::c_char,
     ));
     borg_target(crate::bridge::st().borg.goal.g, true_0 != 0);

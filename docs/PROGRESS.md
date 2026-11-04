@@ -54,6 +54,7 @@
 **Checkpoint after module 16**: `full` 45/45 identical, `deep` 9/9 identical.
 | 17 | borg_reincarnate | own | no module state; the 18 syllable tables are `&[&str]` (sizes unit-tested against the C arrays, RNG range = table size); names built in a byte `Vec` with `my_strcat` truncation; `borg.player = player` dropped (the Rust `Borg` has no such field); engine wrappers `randint0` (z-rand `Rand_div`), `all_letters`, `race_ridx`, `player_noscore`/`set_player_noscore`, `option_set`; bridge wrappers `borg_prepare_race_class_info`, `borg_reinit_options`; borg.rs calls the safe `borg_force_reincarnate`/`borg_reincarnate_end` directly; C-ABI shims in `bridge::reincarnate` (borg_commands, borg_messages_react); respawn path not in any suite: checked C vs Rust on 12 local respawn runs (game `cheat_live` on, `borg_cheat_death` off, harness keeps going after death; random and fixed respawn race/class; local tweak, not committed); C bug 10 (birth letters) kept; smoke 3/3, full 45/45 identical |
 | 18 | borg_home_notice | own | `HomeState` (all `num_*`/`home_*` counters as `i16`, C names kept as fields; `num_book`, `num_fix_stat`, `home_stat_add` arrays); `int16_t +=` via a truncating `add`; `borg_notice_home(st, Option<&borg_item>, no_items)`; the full scan copies the home wares and equipment once (the dupe check reads that copy); borg_home_power reads `st.home` directly (the `bridge::home_notice` accessors are gone); 21 c2rust uses in borg_trait/borg_prepared/borg_log/borg_store_buy/borg_store_sell rewritten to `bridge::st().home...`; shim in `bridge::home_notice`; bridge `shop_item` (copy of `borg_shops[s].ware[i]`), `borg_calc_blows`, `borg_equips_item`; engine `flag_has`, `player_flags`, `player_race_res_level`, `obj_kind_can_browse`; checked in-game against the c2rust version on every call plus ~6 fuzzed pretend items and a fuzzed home per call (full and deep, local, not committed); C bug 9 (item sustains all count as STR, banishment never counted) kept |
+| 19 | borg_item | own | `ItemState` (`items`, `safe_items` as `Vec<borg_item>`); 414 c2rust uses rewritten to `bridge::st().items...`; bridge accessors now read state; `borg_item` stays the C struct for now, because its `note` is a self-referential pointer into `desc` (set by borg_item_analyze); `borg_get_note` and the one note dereference stay in bridge |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -81,6 +82,7 @@ impls), comments excluded.
 | borg_prepared | 761 | 45 |
 | borg_reincarnate | 650 | 43 |
 | borg_home_notice | 761 | 44 |
+| borg_item | 650 | 40 |
 
 ## Suite timings
 

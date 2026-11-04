@@ -15,17 +15,7 @@ use crate::headers::borg_home_power_h::borg_power_home;
 use crate::headers::borg_inventory_h::borg_item_worth_id;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
-pub use crate::headers::borg_item_h::{
-    borg_item, borg_items, safe_items, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING,
-    BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP,
-    BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE,
-    BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING,
-    BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY,
-    BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON,
-    BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN,
-    BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON,
-    BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
-};
+pub use crate::headers::borg_item_h::{borg_item, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 
 use crate::headers::borg_power_h::borg_power;
@@ -366,7 +356,7 @@ unsafe extern "C" fn borg_think_home_sell_bad(
     mut i: ::core::ffi::c_int,
     mut borg_empty_home_power: int32_t,
 ) -> bool {
-    let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+    let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
     let mut charge_each: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     if (*item).iqty == 0 || !(*item).aware {
         return true_0 != 0;
@@ -468,7 +458,7 @@ unsafe extern "C" fn borg_think_home_sell_best(mut best_home_power: *mut int32_t
         let mut current_block_39: u64;
         i = 0 as ::core::ffi::c_int;
         while i < (*z_info).pack_size as ::core::ffi::c_int {
-            item = borg_items.offset(i as isize) as *mut borg_item;
+            item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if !borg_think_home_sell_bad(i, borg_empty_home_power) {
                 if (*item).tval as ::core::ffi::c_int == TV_STAFF as ::core::ffi::c_int
                     || (*item).tval as ::core::ffi::c_int == TV_WAND as ::core::ffi::c_int
@@ -577,11 +567,7 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
     ))
     .iqty as ::core::ffi::c_int
         != 0
-        && (*borg_items.offset(
-            ((*z_info).pack_size as ::core::ffi::c_int
-                - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
-                - 1 as ::core::ffi::c_int) as isize,
-        ))
+        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize] - 1 as ::core::ffi::c_int)) as usize])
         .iqty as ::core::ffi::c_int
             != 0
     {
@@ -612,8 +598,8 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
         memcpy(
-            borg_items.offset(i as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(i as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         i += 1;
@@ -624,10 +610,7 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
         if *best_item.offset(i as isize) as ::core::ffi::c_int != i
             && *best_item.offset(i as isize) as ::core::ffi::c_int != 255 as ::core::ffi::c_int
         {
-            let mut item: *mut borg_item = borg_items.offset(
-                (*best_item.offset(i as isize) as ::core::ffi::c_int
-                    - (*z_info).store_inven_max as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item;
+            let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[((*best_item.offset(i as isize) as ::core::ffi::c_int - (*z_info).store_inven_max as ::core::ffi::c_int)) as usize] as *mut borg_item;
             let mut item2: *mut borg_item = (*borg_shops.offset(BORG_HOME as isize))
                 .ware
                 .offset(i as isize) as *mut borg_item;
@@ -643,11 +626,7 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
         }
         i += 1;
     }
-    if (*borg_items.offset(
-        ((*z_info).pack_size as ::core::ffi::c_int
-            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
-            - 1 as ::core::ffi::c_int) as isize,
-    ))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize] - 1 as ::core::ffi::c_int)) as usize])
     .iqty
         == 0
     {
@@ -660,11 +639,7 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
                 .iqty as ::core::ffi::c_int
                     != 0
             {
-                let mut item_0: *mut borg_item = borg_items.offset(
-                    (*best_item.offset(i as isize) as ::core::ffi::c_int
-                        - (*z_info).store_inven_max as ::core::ffi::c_int)
-                        as isize,
-                ) as *mut borg_item;
+                let mut item_0: *mut borg_item = &raw mut crate::bridge::st().items.items[((*best_item.offset(i as isize) as ::core::ffi::c_int - (*z_info).store_inven_max as ::core::ffi::c_int)) as usize] as *mut borg_item;
                 let mut item2_0: *mut borg_item = (*borg_shops.offset(BORG_HOME as isize))
                     .ware
                     .offset(i as isize)
@@ -693,10 +668,7 @@ pub unsafe extern "C" fn borg_think_home_sell_useful(mut best_home_power: *mut i
         if *best_item.offset(i as isize) as ::core::ffi::c_int != i
             && *best_item.offset(i as isize) as ::core::ffi::c_int != 255 as ::core::ffi::c_int
         {
-            if (*borg_items.offset(
-                (*best_item.offset(i as isize) as ::core::ffi::c_int
-                    - (*z_info).store_inven_max as ::core::ffi::c_int) as isize,
-            ))
+            if (crate::bridge::st().items.items[((*best_item.offset(i as isize) as ::core::ffi::c_int - (*z_info).store_inven_max as ::core::ffi::c_int)) as usize])
             .iqty
                 == 0
             {
@@ -728,7 +700,7 @@ unsafe extern "C" fn borg_has_mutiple(mut in_item: *mut borg_item) -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !(item == in_item) {
             if (*item).tval as ::core::ffi::c_int == (*in_item).tval as ::core::ffi::c_int
                 && (*item).sval as ::core::ffi::c_int == (*in_item).sval as ::core::ffi::c_int
@@ -741,7 +713,7 @@ unsafe extern "C" fn borg_has_mutiple(mut in_item: *mut borg_item) -> bool {
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        let mut item_0: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item_0: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if (*item_0).tval as ::core::ffi::c_int == (*in_item).tval as ::core::ffi::c_int
             && (*item_0).sval as ::core::ffi::c_int == (*in_item).sval as ::core::ffi::c_int
             && (*item_0).iqty as ::core::ffi::c_int != 0 as ::core::ffi::c_int
@@ -888,9 +860,7 @@ unsafe extern "C" fn borg_good_sell(mut item: *mut borg_item, mut who: ::core::f
     {
         if borg_ego_has_random_power(
             e_info.offset(
-                (*borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int) as isize,
-                ))
+                (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int)) as usize])
                 .ego_idx as isize,
             ) as *mut ego_item,
         ) {
@@ -929,7 +899,7 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
         if !((*(*borg_shops.offset(k as isize)).ware.offset(icky as isize)).iqty != 0) {
             i = 0 as ::core::ffi::c_int;
             while i < (*z_info).pack_size as ::core::ffi::c_int {
-                let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+                let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
                 if !((*item).iqty == 0) {
                     if !((*item).tval as ::core::ffi::c_int
                         == crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize]
@@ -973,7 +943,7 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                                                         .offset(icky as isize)
                                                         as *mut borg_item
                                                         as *mut ::core::ffi::c_void,
-                                                    safe_items.offset(i as isize) as *mut borg_item
+                                                    &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item
                                                         as *const ::core::ffi::c_void,
                                                     ::core::mem::size_of::<borg_item>() as size_t,
                                                 );
@@ -983,7 +953,7 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                                                     .offset(icky as isize))
                                                 .iqty = qty as uint8_t;
                                                 let ref mut fresh1 =
-                                                    (*borg_items.offset(i as isize)).iqty;
+                                                    (crate::bridge::st().items.items[(i) as usize]).iqty;
                                                 *fresh1 = (*fresh1 as ::core::ffi::c_int - qty)
                                                     as uint8_t;
                                                 if (*item).tval as ::core::ffi::c_int
@@ -992,16 +962,16 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                                                         == TV_WAND as ::core::ffi::c_int
                                                 {
                                                     let mut charge_loss: ::core::ffi::c_int =
-                                                        (*safe_items.offset(i as isize)).pval
+                                                        (crate::bridge::st().items.safe_items[(i) as usize]).pval
                                                             as ::core::ffi::c_int
-                                                            / (*safe_items.offset(i as isize)).iqty
+                                                            / (crate::bridge::st().items.safe_items[(i) as usize]).iqty
                                                                 as ::core::ffi::c_int;
                                                     (*(*borg_shops.offset(k as isize))
                                                         .ware
                                                         .offset(icky as isize))
                                                     .pval = (qty * charge_loss) as int16_t;
                                                     let ref mut fresh2 =
-                                                        (*borg_items.offset(i as isize)).pval;
+                                                        (crate::bridge::st().items.items[(i) as usize]).pval;
                                                     *fresh2 = (*fresh2 as ::core::ffi::c_int
                                                         - qty * charge_loss)
                                                         as int16_t;
@@ -1010,9 +980,9 @@ pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
                                                 borg_notice(true_0 != 0);
                                                 p = borg_power();
                                                 memcpy(
-                                                    borg_items.offset(i as isize) as *mut borg_item
+                                                    &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item
                                                         as *mut ::core::ffi::c_void,
-                                                    safe_items.offset(i as isize) as *mut borg_item
+                                                    &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item
                                                         as *const ::core::ffi::c_void,
                                                     ::core::mem::size_of::<borg_item>() as size_t,
                                                 );
@@ -1074,7 +1044,7 @@ pub unsafe extern "C" fn borg_think_shop_sell() -> bool {
     if crate::bridge::st().borg.goal.shop as ::core::ffi::c_int == shop_num as ::core::ffi::c_int
         && crate::bridge::st().borg.goal.item as ::core::ffi::c_int >= 0 as ::core::ffi::c_int
     {
-        let mut item: *mut borg_item = borg_items.offset(crate::bridge::st().borg.goal.item as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(crate::bridge::st().borg.goal.item) as usize] as *mut borg_item;
         qty = borg_min_item_quantity(item);
         borg_note(format(
             b"# Selling %s\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1200,7 +1170,7 @@ pub unsafe extern "C" fn borg_count_sell() -> ::core::ffi::c_int {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).value <= 0 as int32_t) {
                 if !(weapon_swap != 0 && i == weapon_swap - 1 as ::core::ffi::c_int) {

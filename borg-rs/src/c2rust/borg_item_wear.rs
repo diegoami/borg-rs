@@ -16,7 +16,7 @@ use crate::headers::borg_inventory_h::{
 };
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
-pub use crate::headers::borg_item_h::{borg_item, borg_items, safe_items};
+pub use crate::headers::borg_item_h::{borg_item};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::borg_read_scroll;
 
@@ -195,7 +195,7 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
             + (*z_info).quiver_size as ::core::ffi::c_int
     {
         let mut v: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).needs_ident {
                 if (*item).art_idx != 0 {
@@ -229,7 +229,7 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
             + (*z_info).quiver_size as ::core::ffi::c_int
     {
         let mut v_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-        let mut item_0: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item_0: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item_0).iqty == 0) {
             if (*item_0).needs_ident {
                 if i < (*z_info).pack_size as ::core::ffi::c_int {
@@ -302,7 +302,7 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
         i += 1;
     }
     if b_i >= 0 as ::core::ffi::c_int {
-        let mut item_1: *mut borg_item = borg_items.offset(b_i as isize) as *mut borg_item;
+        let mut item_1: *mut borg_item = &raw mut crate::bridge::st().items.items[(b_i) as usize] as *mut borg_item;
         if borg_spell(IDENTIFY_RUNE) as ::core::ffi::c_int != 0
             || borg_read_scroll(crate::bridge::st().item_val.sv_scroll_identify) as ::core::ffi::c_int != 0
         {
@@ -361,16 +361,13 @@ pub unsafe extern "C" fn borg_swap_rings() -> bool {
     {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
     .iqty as ::core::ffi::c_int
         != 0
-        && (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
         .iqty
             == 0
-        && !(*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize))
+        && !(crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
         .one_ring
     {
         borg_note(b"# Taking off naked loose ring.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -383,78 +380,62 @@ pub unsafe extern "C" fn borg_swap_rings() -> bool {
         );
         return true_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
     .iqty
         == 0
     {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
     .one_ring
     {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
     .iqty
         == 0
     {
         memcpy(
-            borg_items.offset(hole as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(hole) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
-        (*borg_items.offset(
-            ((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize,
-        ))
+        (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
         .iqty = 0 as uint8_t;
         borg_notice(true_0 != 0);
         v1 = borg_power();
         memcpy(
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
-        (*borg_items.offset(hole as isize)).iqty = 0 as uint8_t;
+        (crate::bridge::st().items.items[(hole) as usize]).iqty = 0 as uint8_t;
     } else {
         v1 = crate::bridge::st().borg.power;
     }
     memcpy(
-        borg_items.offset(hole as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(hole) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize]
             as *mut borg_item as *const ::core::ffi::c_void,
         ::core::mem::size_of::<borg_item>() as size_t,
     );
-    (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+    (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
     .iqty = 0 as uint8_t;
     borg_notice(false_0 != 0);
     v2 = borg_power();
     memcpy(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize]
             as *mut borg_item as *mut ::core::ffi::c_void,
-        safe_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.safe_items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize]
             as *mut borg_item as *const ::core::ffi::c_void,
         ::core::mem::size_of::<borg_item>() as size_t,
     );
-    (*borg_items.offset(hole as isize)).iqty = 0 as uint8_t;
+    (crate::bridge::st().items.items[(hole) as usize]).iqty = 0 as uint8_t;
     if v2 > v1 {
         borg_note(
             b"# Taking off less valuable right ring.\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        if (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+        if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
         .iqty
             != 0
         {
@@ -466,8 +447,7 @@ pub unsafe extern "C" fn borg_swap_rings() -> bool {
                 ) as keycode_t,
             );
         }
-        if (*borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize))
+        if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
         .iqty
             != 0
         {
@@ -500,15 +480,13 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
     if hole == -(1 as ::core::ffi::c_int) {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
     .iqty
         != 0
     {
         return false_0 != 0;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
     .iqty
         != 0
     {
@@ -520,7 +498,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
     {
         return false_0 != 0;
     }
-    if (*borg_items.offset((hole + 1 as ::core::ffi::c_int) as isize)).iqty != 0 {
+    if (crate::bridge::st().items.items[((hole + 1 as ::core::ffi::c_int)) as usize]).iqty != 0 {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
@@ -535,7 +513,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).aware {
                 if !((*item).value == 0) {
@@ -547,20 +525,12 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
                     {
                         if !((*item).tval as ::core::ffi::c_int != TV_RING as ::core::ffi::c_int) {
                             memcpy(
-                                borg_items.offset(
-                                    ((*z_info).pack_size as ::core::ffi::c_int
-                                        + 3 as ::core::ffi::c_int)
-                                        as isize,
-                                ) as *mut borg_item
+                                &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize] as *mut borg_item
                                     as *mut ::core::ffi::c_void,
                                 item as *const ::core::ffi::c_void,
                                 ::core::mem::size_of::<borg_item>() as size_t,
                             );
-                            (*borg_items.offset(
-                                ((*z_info).pack_size as ::core::ffi::c_int
-                                    + 3 as ::core::ffi::c_int)
-                                    as isize,
-                            ))
+                            (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
                             .iqty = 1 as uint8_t;
                             (*item).iqty = (*item).iqty.wrapping_sub(1);
                             fix = true_0 != 0;
@@ -569,11 +539,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
                             if (*item).one_ring {
                                 p = crate::bridge::st().borg.power * 2 as int32_t;
                             }
-                            (*borg_items.offset(
-                                ((*z_info).pack_size as ::core::ffi::c_int
-                                    + 3 as ::core::ffi::c_int)
-                                    as isize,
-                            ))
+                            (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
                             .iqty = 0 as uint8_t;
                             (*item).iqty = (*item).iqty.wrapping_add(1);
                             if !(b_i >= 0 as ::core::ffi::c_int && p < b_p) {
@@ -591,7 +557,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
         borg_notice(true_0 != 0);
     }
     if b_i >= 0 as ::core::ffi::c_int && b_p > crate::bridge::st().borg.power {
-        item = borg_items.offset(b_i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(b_i) as usize] as *mut borg_item;
         borg_note(b"# Putting on best tight ring.\0" as *const u8 as *const ::core::ffi::c_char);
         borg_note(format(
             b"# Wearing %s.\0" as *const u8 as *const ::core::ffi::c_char,
@@ -641,18 +607,18 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
         if i == -(1 as ::core::ffi::c_int) {
             i = 0 as ::core::ffi::c_int;
         }
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         slot = borg_wield_slot(item);
         if slot < 0 as ::core::ffi::c_int {
             return false_0 != 0;
         }
         memcpy(
-            borg_items.offset(slot as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(i as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
-        (*borg_items.offset(slot as isize)).iqty = 1 as uint8_t;
-        let ref mut fresh0 = (*borg_items.offset(i as isize)).iqty;
+        (crate::bridge::st().items.items[(slot) as usize]).iqty = 1 as uint8_t;
+        let ref mut fresh0 = (crate::bridge::st().items.items[(i) as usize]).iqty;
         *fresh0 = (*fresh0).wrapping_sub(1);
         fix = true_0 != 0;
         borg_notice(false_0 != 0);
@@ -664,13 +630,13 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
             false_0 != 0,
         ) as int32_t;
         memcpy(
-            borg_items.offset(slot as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(slot as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(slot) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         memcpy(
-            borg_items.offset(i as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(i as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         if save_rconf != 0
@@ -716,18 +682,18 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
         if i == -(1 as ::core::ffi::c_int) {
             i = 0 as ::core::ffi::c_int;
         }
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         slot = borg_wield_slot(item);
         if slot < 0 as ::core::ffi::c_int {
             return false_0 != 0;
         }
         memcpy(
-            borg_items.offset(slot as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(i as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
-        (*borg_items.offset(slot as isize)).iqty = 1 as uint8_t;
-        let ref mut fresh1 = (*borg_items.offset(i as isize)).iqty;
+        (crate::bridge::st().items.items[(slot) as usize]).iqty = 1 as uint8_t;
+        let ref mut fresh1 = (crate::bridge::st().items.items[(i) as usize]).iqty;
         *fresh1 = (*fresh1).wrapping_sub(1);
         fix = true_0 != 0;
         borg_notice(false_0 != 0);
@@ -762,13 +728,13 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
             b_p2 = 9999 as ::core::ffi::c_int as int32_t;
         }
         memcpy(
-            borg_items.offset(slot as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(slot as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(slot) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         memcpy(
-            borg_items.offset(i as isize) as *mut borg_item as *mut ::core::ffi::c_void,
-            safe_items.offset(i as isize) as *mut borg_item as *const ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item as *mut ::core::ffi::c_void,
+            &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item as *const ::core::ffi::c_void,
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         if fix {
@@ -853,7 +819,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
     let mut current_block_59: u64;
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        item = borg_items.offset(i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         recently_worn = false_0 != 0;
         if !((*item).iqty == 0) {
             if (*item).aware {
@@ -887,7 +853,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                 if crate::bridge::st().borg.trait_[(BI_ISENCUMB as ::core::ffi::c_int) as usize]
                                     != 0
                                 {
-                                    if (*borg_items.offset(slot as isize)).modifiers
+                                    if (crate::bridge::st().items.items[(slot) as usize]).modifiers
                                         [OBJ_MOD_STR as ::core::ffi::c_int as usize]
                                         as ::core::ffi::c_int
                                         > (*item).modifiers
@@ -914,38 +880,30 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                         if slot
                                             != (*z_info).pack_size as ::core::ffi::c_int
                                                 + 3 as ::core::ffi::c_int
-                                            || ((*borg_items.offset(
-                                                ((*z_info).pack_size as ::core::ffi::c_int
-                                                    + 3 as ::core::ffi::c_int)
-                                                    as isize,
-                                            ))
+                                            || ((crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
                                             .iqty
                                                 == 0
-                                                || (*borg_items.offset(
-                                                    ((*z_info).pack_size as ::core::ffi::c_int
-                                                        + 2 as ::core::ffi::c_int)
-                                                        as isize,
-                                                ))
+                                                || (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
                                                 .iqty
                                                     == 0)
                                         {
                                             memcpy(
-                                                borg_items.offset(hole as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(hole) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
-                                                safe_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.safe_items[(slot) as usize] as *mut borg_item
                                                     as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
                                             );
                                             memcpy(
-                                                borg_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
-                                                safe_items.offset(i as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item
                                                     as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
                                             );
-                                            (*borg_items.offset(slot as isize)).iqty = 1 as uint8_t;
+                                            (crate::bridge::st().items.items[(slot) as usize]).iqty = 1 as uint8_t;
                                             let ref mut fresh2 =
-                                                (*borg_items.offset(i as isize)).iqty;
+                                                (crate::bridge::st().items.items[(i) as usize]).iqty;
                                             *fresh2 = (*fresh2).wrapping_sub(1);
                                             fix = true_0 != 0;
                                             borg_notice(true_0 != 0);
@@ -958,26 +916,22 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                                 false_0 != 0,
                                             );
                                             memcpy(
-                                                borg_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
-                                                safe_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.safe_items[(slot) as usize] as *mut borg_item
                                                     as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
                                             );
                                             memcpy(
-                                                borg_items.offset(i as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
-                                                safe_items.offset(i as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.safe_items[(i) as usize] as *mut borg_item
                                                     as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
                                             );
-                                            (*borg_items.offset(hole as isize)).iqty = 0 as uint8_t;
+                                            (crate::bridge::st().items.items[(hole) as usize]).iqty = 0 as uint8_t;
                                             if (*item).one_ring as ::core::ffi::c_int != 0
-                                                && (*borg_items.offset(
-                                                    ((*z_info).pack_size as ::core::ffi::c_int
-                                                        + 3 as ::core::ffi::c_int)
-                                                        as isize,
-                                                ))
+                                                && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
                                                 .tval
                                                     == 0
                                             {
@@ -1005,21 +959,11 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                                     if slot
                                                         == (*z_info).pack_size as ::core::ffi::c_int
                                                             + 3 as ::core::ffi::c_int
-                                                        && (*borg_items.offset(
-                                                            ((*z_info).pack_size
-                                                                as ::core::ffi::c_int
-                                                                + 3 as ::core::ffi::c_int)
-                                                                as isize,
-                                                        ))
+                                                        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int)) as usize])
                                                         .iqty
                                                             as ::core::ffi::c_int
                                                             != 0
-                                                        && (*borg_items.offset(
-                                                            ((*z_info).pack_size
-                                                                as ::core::ffi::c_int
-                                                                + 2 as ::core::ffi::c_int)
-                                                                as isize,
-                                                        ))
+                                                        && (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int)) as usize])
                                                         .iqty
                                                             as ::core::ffi::c_int
                                                             != 0
@@ -1034,29 +978,28 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                                         {
                                                             slot = ii;
                                                             memcpy(
-                                                                borg_items.offset(hole as isize)
+                                                                &raw mut crate::bridge::st().items.items[(hole) as usize]
                                                                     as *mut borg_item
                                                                     as *mut ::core::ffi::c_void,
-                                                                safe_items.offset(slot as isize)
+                                                                &raw mut crate::bridge::st().items.safe_items[(slot) as usize]
                                                                     as *mut borg_item
                                                                     as *const ::core::ffi::c_void,
                                                                 ::core::mem::size_of::<borg_item>()
                                                                     as size_t,
                                                             );
                                                             memcpy(
-                                                                borg_items.offset(slot as isize)
+                                                                &raw mut crate::bridge::st().items.items[(slot) as usize]
                                                                     as *mut borg_item
                                                                     as *mut ::core::ffi::c_void,
-                                                                safe_items.offset(i as isize)
+                                                                &raw mut crate::bridge::st().items.safe_items[(i) as usize]
                                                                     as *mut borg_item
                                                                     as *const ::core::ffi::c_void,
                                                                 ::core::mem::size_of::<borg_item>()
                                                                     as size_t,
                                                             );
-                                                            (*borg_items.offset(slot as isize))
+                                                            (crate::bridge::st().items.items[(slot) as usize])
                                                                 .iqty = 1 as uint8_t;
-                                                            let ref mut fresh3 = (*borg_items
-                                                                .offset(i as isize))
+                                                            let ref mut fresh3 = (crate::bridge::st().items.items[(i) as usize])
                                                             .iqty;
                                                             *fresh3 = (*fresh3).wrapping_sub(1);
                                                             fix = true_0 != 0;
@@ -1070,26 +1013,26 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                                                 false_0 != 0,
                                                             );
                                                             memcpy(
-                                                                borg_items.offset(slot as isize)
+                                                                &raw mut crate::bridge::st().items.items[(slot) as usize]
                                                                     as *mut borg_item
                                                                     as *mut ::core::ffi::c_void,
-                                                                safe_items.offset(slot as isize)
+                                                                &raw mut crate::bridge::st().items.safe_items[(slot) as usize]
                                                                     as *mut borg_item
                                                                     as *const ::core::ffi::c_void,
                                                                 ::core::mem::size_of::<borg_item>()
                                                                     as size_t,
                                                             );
                                                             memcpy(
-                                                                borg_items.offset(i as isize)
+                                                                &raw mut crate::bridge::st().items.items[(i) as usize]
                                                                     as *mut borg_item
                                                                     as *mut ::core::ffi::c_void,
-                                                                safe_items.offset(i as isize)
+                                                                &raw mut crate::bridge::st().items.safe_items[(i) as usize]
                                                                     as *mut borg_item
                                                                     as *const ::core::ffi::c_void,
                                                                 ::core::mem::size_of::<borg_item>()
                                                                     as size_t,
                                                             );
-                                                            (*borg_items.offset(hole as isize))
+                                                            (crate::bridge::st().items.items[(hole) as usize])
                                                                 .iqty = 0 as uint8_t;
                                                             if ii
                                                                 == (*z_info).pack_size
@@ -1132,7 +1075,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
         borg_notice(true_0 != 0);
     }
     if b_i >= 0 as ::core::ffi::c_int && b_p > crate::bridge::st().borg.power {
-        item = borg_items.offset(b_i as isize) as *mut borg_item;
+        item = &raw mut crate::bridge::st().items.items[(b_i) as usize] as *mut borg_item;
         my_strcpy(
             &raw mut target_ring_desc as *mut ::core::ffi::c_char,
             &raw mut (*item).desc as *mut ::core::ffi::c_char,
@@ -1143,7 +1086,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
         {
             borg_note(format(
                 b"# Removing %s to make room for %s.\0" as *const u8 as *const ::core::ffi::c_char,
-                &raw mut (*borg_items.offset(b_ii as isize)).desc as *mut ::core::ffi::c_char,
+                &raw mut (crate::bridge::st().items.items[(b_ii) as usize]).desc as *mut ::core::ffi::c_char,
                 &raw mut (*item).desc as *mut ::core::ffi::c_char,
             ));
             borg_keypress('t' as i32 as keycode_t);
@@ -1264,7 +1207,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
     }
     slot = borg_best_stuff_order(item_num) as ::core::ffi::c_int;
     if (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).home {
-        if (*borg_items.offset(slot as isize)).iqty != 0 {
+        if (crate::bridge::st().items.items[(slot) as usize]).iqty != 0 {
             if borg_home_full() {
                 return borg_one_step_wearing_best(skip + 1 as ::core::ffi::c_int);
             }
@@ -1305,7 +1248,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
         }
         borg_oops(b"unable to find item in home\0" as *const u8 as *const ::core::ffi::c_char);
     } else {
-        if (*borg_items.offset(slot as isize)).iqty != 0 {
+        if (crate::bridge::st().items.items[(slot) as usize]).iqty != 0 {
             if borg_inventory_full() {
                 return borg_one_step_wearing_best(skip + 1 as ::core::ffi::c_int);
             }
@@ -1319,7 +1262,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
         }
         i = 0 as ::core::ffi::c_int;
         while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-            item = borg_items.offset(i as isize) as *mut borg_item;
+            item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             if (*item).pval as ::core::ffi::c_int
                 != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
                 || (*item).tval as ::core::ffi::c_int
@@ -1378,7 +1321,7 @@ unsafe extern "C" fn borg_best_stuff_aux(
     {
         let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
         if (i as ::core::ffi::c_int) < (*z_info).pack_size as ::core::ffi::c_int {
-            item = borg_items.offset(i as isize) as *mut borg_item;
+            item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         } else {
             item = (*borg_shops.offset(BORG_HOME as isize)).ware.offset(
                 (i as ::core::ffi::c_int - (*z_info).pack_size as ::core::ffi::c_int) as isize,
@@ -1458,9 +1401,9 @@ unsafe extern "C" fn borg_best_stuff_aux(
                                 match current_block_23 {
                                     7651349459974463963 => {}
                                     _ => {
-                                        if !(*borg_items.offset(slot as isize)).one_ring {
+                                        if !(crate::bridge::st().items.items[(slot) as usize]).one_ring {
                                             memcpy(
-                                                borg_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
                                                 item as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
@@ -1482,9 +1425,9 @@ unsafe extern "C" fn borg_best_stuff_aux(
                                                 vp,
                                             );
                                             memcpy(
-                                                borg_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.items[(slot) as usize] as *mut borg_item
                                                     as *mut ::core::ffi::c_void,
-                                                safe_items.offset(slot as isize) as *mut borg_item
+                                                &raw mut crate::bridge::st().items.safe_items[(slot) as usize] as *mut borg_item
                                                     as *const ::core::ffi::c_void,
                                                 ::core::mem::size_of::<borg_item>() as size_t,
                                             );
@@ -1553,7 +1496,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
         {
             found = true_0 != 0;
             if (i as ::core::ffi::c_int) < 100 as ::core::ffi::c_int {
-                item = borg_items.offset(i as isize) as *mut borg_item;
+                item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             } else {
                 item = (*borg_shops.offset(BORG_HOME as isize))
                     .ware
@@ -1587,7 +1530,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
                 } else {
                     borg_note(format(
                         b"new best: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                        &raw mut (*borg_items.offset(*best.offset(i as isize) as isize)).desc
+                        &raw mut (crate::bridge::st().items.items[(*best.offset(i as isize)) as usize]).desc
                             as *mut ::core::ffi::c_char,
                     ));
                 }
@@ -1627,7 +1570,7 @@ pub unsafe extern "C" fn borg_wear_recharge() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).timeout == 0) {
                 slot = borg_wield_slot(item);
@@ -1652,12 +1595,12 @@ pub unsafe extern "C" fn borg_wear_recharge() -> bool {
         return false_0 != 0;
     }
     if b_i >= (*z_info).pack_size as ::core::ffi::c_int
-        || (*borg_items.offset(b_i as isize)).tval as ::core::ffi::c_int
+        || (crate::bridge::st().items.items[(b_i) as usize]).tval as ::core::ffi::c_int
             == TV_ROD as ::core::ffi::c_int
     {
         borg_note(format(
             b"# Waiting for '%s' to Recharge.\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*borg_items.offset(b_i as isize)).desc as *mut ::core::ffi::c_char,
+            &raw mut (crate::bridge::st().items.items[(b_i) as usize]).desc as *mut ::core::ffi::c_char,
         ));
         borg_keypress('R' as i32 as keycode_t);
         borg_keypress('7' as i32 as keycode_t);

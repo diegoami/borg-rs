@@ -12,7 +12,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_eat, borg_need, borg_quaff_crit, borg_quaff_potion, borg_read_scroll,
     borg_use_staff_fail, borg_zap_rod, BORG_MET_NEED, BORG_NO_NEED, BORG_UNMET_NEED,
@@ -488,13 +488,11 @@ pub unsafe extern "C" fn borg_recover() -> bool {
         || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] != 0
     {
         if crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_healing) as usize] != 0
-            && (*borg_items
-                .offset(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_healing) as isize))
+            && (crate::bridge::st().items.items[(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_healing)) as usize])
             .pval
                 == 0
             || crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_rod_recall) as usize] != 0
-                && (*borg_items
-                    .offset(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_recall) as isize))
+                && (crate::bridge::st().items.items[(borg_slot(TV_ROD as ::core::ffi::c_int, crate::bridge::st().item_val.sv_rod_recall)) as usize])
                 .pval
                     == 0
         {

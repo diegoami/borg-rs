@@ -47,7 +47,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_activate_ring, borg_aim_wand, borg_eat, borg_equips_item,
     borg_equips_ring, borg_equips_rod, borg_equips_staff_fail, borg_quaff_potion, borg_read_scroll,
@@ -1353,8 +1353,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
         || borg_equips_item(crate::bridge::st().act.tele_other, true_0 != 0) as ::core::ffi::c_int != 0
         || -(1 as ::core::ffi::c_int)
             != borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_teleport_away)
-            && (*borg_items
-                .offset(borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_teleport_away) as isize))
+            && (crate::bridge::st().items.items[(borg_slot(TV_WAND as ::core::ffi::c_int, crate::bridge::st().item_val.sv_wand_teleport_away)) as usize])
             .pval as ::core::ffi::c_int
                 != 0
     {

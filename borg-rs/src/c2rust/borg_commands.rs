@@ -47,7 +47,7 @@ pub use crate::headers::borg_init_h::{
 };
 use crate::headers::borg_inventory_h::borg_inventory;
 use crate::headers::borg_io_h::borg_note;
-pub use crate::headers::borg_item_h::{borg_find_all_items, borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_find_all_items, borg_item};
 use crate::headers::borg_item_id_h::borg_object_fully_id;
 use crate::headers::borg_item_wear_h::borg_clear_best;
 use crate::headers::borg_log_h::{borg_display_item, borg_write_map};
@@ -2209,7 +2209,7 @@ unsafe extern "C" fn borg_cmd_swaps() {
     borg_update();
     if weapon_swap != 0 {
         item =
-            borg_items.offset((weapon_swap - 1 as ::core::ffi::c_int) as isize) as *mut borg_item;
+            &raw mut crate::bridge::st().items.items[((weapon_swap - 1 as ::core::ffi::c_int)) as usize] as *mut borg_item;
         msg(
             b"Swap Weapon:  %s, value= %d\0" as *const u8 as *const ::core::ffi::c_char,
             &raw mut (*item).desc as *mut ::core::ffi::c_char,
@@ -2220,7 +2220,7 @@ unsafe extern "C" fn borg_cmd_swaps() {
     }
     if armour_swap != 0 {
         item =
-            borg_items.offset((armour_swap - 1 as ::core::ffi::c_int) as isize) as *mut borg_item;
+            &raw mut crate::bridge::st().items.items[((armour_swap - 1 as ::core::ffi::c_int)) as usize] as *mut borg_item;
         msg(
             b"Swap Armour:  %s, value= %d\0" as *const u8 as *const ::core::ffi::c_char,
             &raw mut (*item).desc as *mut ::core::ffi::c_char,
@@ -2359,37 +2359,37 @@ unsafe extern "C" fn borg_cmd_has() {
                 }
             }
             105 | 73 => {
-                if (*borg_items.offset(item as isize)).iqty != 0 {
+                if (crate::bridge::st().items.items[(item) as usize]).iqty != 0 {
                     borg_note(format(
                         b"Item-Invn:%03d desc= %s qty %d.\0" as *const u8
                             as *const ::core::ffi::c_char,
                         item,
-                        &raw mut (*borg_items.offset(item as isize)).desc
+                        &raw mut (crate::bridge::st().items.items[(item) as usize]).desc
                             as *mut ::core::ffi::c_char,
-                        (*borg_items.offset(item as isize)).iqty as ::core::ffi::c_int,
+                        (crate::bridge::st().items.items[(item) as usize]).iqty as ::core::ffi::c_int,
                     ));
                 }
             }
             119 | 87 => {
-                if (*borg_items.offset(item as isize)).iqty != 0 {
+                if (crate::bridge::st().items.items[(item) as usize]).iqty != 0 {
                     borg_note(format(
                         b"Item-Worn:%03d desc= %s qty %d.\0" as *const u8
                             as *const ::core::ffi::c_char,
                         item,
-                        &raw mut (*borg_items.offset(item as isize)).desc
+                        &raw mut (crate::bridge::st().items.items[(item) as usize]).desc
                             as *mut ::core::ffi::c_char,
-                        (*borg_items.offset(item as isize)).iqty as ::core::ffi::c_int,
+                        (crate::bridge::st().items.items[(item) as usize]).iqty as ::core::ffi::c_int,
                     ));
                 }
             }
             114 | 82 => {
-                if (*borg_items.offset(item as isize)).iqty as ::core::ffi::c_int != 0
-                    && (*borg_items.offset(item as isize)).art_idx as ::core::ffi::c_int != 0
+                if (crate::bridge::st().items.items[(item) as usize]).iqty as ::core::ffi::c_int != 0
+                    && (crate::bridge::st().items.items[(item) as usize]).art_idx as ::core::ffi::c_int != 0
                 {
                     borg_note(format(
                         b"Item-Arti:%03d name= %s.\0" as *const u8 as *const ::core::ffi::c_char,
                         item,
-                        (*a_info.offset((*borg_items.offset(item as isize)).art_idx as isize)).name,
+                        (*a_info.offset((crate::bridge::st().items.items[(item) as usize]).art_idx as isize)).name,
                     ));
                 }
             }

@@ -24,7 +24,7 @@ use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 pub use crate::headers::borg_magic_h::{
     borg_spell_legal, borg_spell_stat, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
     BANISH_EVIL, BANISH_SPIRITS, BAT_FORM, BEAR_FORM, BECOME_PUKEL_MAN, BERSERK_STRENGTH, BLESS,
@@ -333,16 +333,11 @@ unsafe extern "C" fn borg_danger_physical(
             8 => {
                 z = d_dice * d_side;
                 power = 5 as ::core::ffi::c_int;
-                if !((*borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize,
-                ))
+                if !((crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
                 .timeout
                     == 0
                     || flag_has(
-                        &raw mut (*borg_items.offset(
-                            ((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)
-                                as isize,
-                        ))
+                        &raw mut (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int)) as usize])
                         .flags as *mut bitflag,
                         (OF_MAX as ::core::ffi::c_int as size_t)
                             .wrapping_add(

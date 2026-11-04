@@ -33,6 +33,7 @@ pub mod borg_formulas_calc;
 pub mod borg_home_notice;
 pub mod borg_home_power;
 pub mod borg_io;
+pub mod borg_item;
 pub mod borg_item_activation;
 pub mod borg_item_val;
 pub mod borg_magic;

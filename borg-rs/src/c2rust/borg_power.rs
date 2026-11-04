@@ -16,7 +16,7 @@ use crate::headers::borg_formulas_h::borg_power_dynamic;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
-pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, borg_items};
+pub use crate::headers::borg_item_h::{borg_item, borg_item_weight};
 
 pub use crate::headers::borg_magic_h::{
     borg_get_spell_entry, borg_magic, borg_spell_stat, borg_spells, ACID_SPRAY, ANNIHILATE,
@@ -141,7 +141,7 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
     let mut value: int32_t = 0 as int32_t;
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
     hold = adj_str_hold[crate::bridge::st().borg.trait_[(BI_STR_INDEX as ::core::ffi::c_int) as usize] as usize];
-    item = borg_items.offset((*z_info).pack_size as isize) as *mut borg_item;
+    item = &raw mut crate::bridge::st().items.items[((*z_info).pack_size) as usize] as *mut borg_item;
     if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         < 10 as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
@@ -334,8 +334,7 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
             + crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize] as ::core::ffi::c_long
                 * 45000 as ::core::ffi::c_long) as int32_t;
     }
-    item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize)
+    item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         < 10 as ::core::ffi::c_int
@@ -1676,13 +1675,11 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
         }
         act += 1;
     }
-    if (*borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int) as isize))
+    if (crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int)) as usize])
     .iqty
         != 0
     {
-        item = borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int) as isize)
+        item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int)) as usize]
             as *mut borg_item;
         if borg_ego_has_random_power(e_info.offset((*item).ego_idx as isize) as *mut ego_item)
             as ::core::ffi::c_int
@@ -1696,41 +1693,31 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
         < 15 as ::core::ffi::c_int
     {
         if borg_item_weight(
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize] as *mut borg_item,
         ) as ::core::ffi::c_int
             > 200 as ::core::ffi::c_int
         {
             value = (value as ::core::ffi::c_int
-                - (borg_item_weight(borg_items.offset(
-                    ((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize,
-                ) as *mut borg_item) as ::core::ffi::c_int
+                - (borg_item_weight(&raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize] as *mut borg_item) as ::core::ffi::c_int
                     - 200 as ::core::ffi::c_int)
                     * 15 as ::core::ffi::c_int) as int32_t;
         }
         if borg_item_weight(
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 9 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 9 as ::core::ffi::c_int)) as usize] as *mut borg_item,
         ) as ::core::ffi::c_int
             > 30 as ::core::ffi::c_int
         {
             value = (value as ::core::ffi::c_int - 250 as ::core::ffi::c_int) as int32_t;
         }
         if borg_item_weight(
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 8 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 8 as ::core::ffi::c_int)) as usize] as *mut borg_item,
         ) as ::core::ffi::c_int
             > 10 as ::core::ffi::c_int
         {
             value = (value as ::core::ffi::c_int - 250 as ::core::ffi::c_int) as int32_t;
         }
         if borg_item_weight(
-            borg_items.offset(
-                ((*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item,
+            &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int)) as usize] as *mut borg_item,
         ) as ::core::ffi::c_int
             > 50 as ::core::ffi::c_int
         {
@@ -1738,33 +1725,27 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
         }
     }
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 9 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 9 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 8 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 8 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 7 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 10 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 10 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     cur_wgt += borg_item_weight(
-        borg_items
-            .offset(((*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int) as isize)
+        &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int)) as usize]
             as *mut borg_item,
     ) as ::core::ffi::c_int;
     max_wgt = (*(*player).class).magic.spell_weight;
@@ -2828,7 +2809,7 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
             >= 25 as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
             < 100000 as ::core::ffi::c_int
-        && (*borg_items.offset((*z_info).pack_size as isize)).tval as ::core::ffi::c_int
+        && (crate::bridge::st().items.items[((*z_info).pack_size) as usize]).tval as ::core::ffi::c_int
             != TV_DIGGING as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_ADIGGER as ::core::ffi::c_int) as usize]
             == 1 as ::core::ffi::c_int
@@ -2908,8 +2889,8 @@ unsafe extern "C" fn borg_power_inventory() -> int32_t {
         let mut i: ::core::ffi::c_int = (*z_info).pack_size as ::core::ffi::c_int
             - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize];
         while i >= 0 as ::core::ffi::c_int {
-            if (*borg_items.offset(i as isize)).iqty != 0 {
-                item = borg_items.offset(i as isize) as *mut borg_item;
+            if (crate::bridge::st().items.items[(i) as usize]).iqty != 0 {
+                item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
                 break;
             } else {
                 i -= 1;

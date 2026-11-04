@@ -9,7 +9,7 @@ use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
 use crate::headers::borg_item_analyze_h::borg_obj_has_effect;
-pub use crate::headers::borg_item_h::{borg_item, borg_items};
+pub use crate::headers::borg_item_h::{borg_item};
 
 pub use crate::headers::borg_magic_h::{
     borg_spell, borg_spell_fail, borg_spell_okay_fail, borg_spells, ACID_SPRAY, ANNIHILATE,
@@ -174,7 +174,7 @@ pub unsafe extern "C" fn borg_quaff_potion(mut sval: ::core::ffi::c_int) -> bool
     }
     borg_note(format(
         b"# Quaffing %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('q' as i32 as keycode_t);
     borg_keypress(
@@ -192,7 +192,7 @@ pub unsafe extern "C" fn borg_quaff_unknown() -> bool {
     let mut n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).tval as ::core::ffi::c_int != TV_POTION as ::core::ffi::c_int) {
                 if !(*item).aware {
@@ -207,7 +207,7 @@ pub unsafe extern "C" fn borg_quaff_unknown() -> bool {
     }
     borg_note(format(
         b"# Quaffing unknown potion %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(n as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(n) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('q' as i32 as keycode_t);
     borg_keypress(
@@ -241,7 +241,7 @@ pub unsafe extern "C" fn borg_read_scroll(mut sval: ::core::ffi::c_int) -> bool 
     }
     borg_note(format(
         b"# Reading %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress(ESCAPE as keycode_t);
     borg_keypress(ESCAPE as keycode_t);
@@ -261,7 +261,7 @@ pub unsafe extern "C" fn borg_read_unknown() -> bool {
     let mut n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).tval as ::core::ffi::c_int != TV_SCROLL as ::core::ffi::c_int) {
                 if !(*item).aware {
@@ -286,7 +286,7 @@ pub unsafe extern "C" fn borg_read_unknown() -> bool {
     }
     borg_note(format(
         b"# Reading unknown scroll %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(n as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(n) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('r' as i32 as keycode_t);
     borg_keypress(
@@ -312,7 +312,7 @@ pub unsafe extern "C" fn borg_eat(
     }
     borg_note(format(
         b"# Eating %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('E' as i32 as keycode_t);
     borg_keypress(
@@ -330,7 +330,7 @@ pub unsafe extern "C" fn borg_eat_unknown() -> bool {
     let mut n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).tval as ::core::ffi::c_int != TV_FOOD as ::core::ffi::c_int
                 && (*item).tval as ::core::ffi::c_int != TV_MUSHROOM as ::core::ffi::c_int)
@@ -347,7 +347,7 @@ pub unsafe extern "C" fn borg_eat_unknown() -> bool {
     }
     borg_note(format(
         b"# Eating unknown mushroom %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(n as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(n) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('E' as i32 as keycode_t);
     borg_keypress(
@@ -365,7 +365,7 @@ pub unsafe extern "C" fn borg_eat_food_any() -> bool {
     let mut i: ::core::ffi::c_int = 0;
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if (*item).aware {
                 if !((*item).tval as ::core::ffi::c_int != TV_FOOD as ::core::ffi::c_int) {
@@ -382,7 +382,7 @@ pub unsafe extern "C" fn borg_eat_food_any() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item_0: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item_0: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item_0).iqty == 0) {
             if (*item_0).aware {
                 if !((*item_0).tval as ::core::ffi::c_int != TV_FOOD as ::core::ffi::c_int
@@ -449,10 +449,10 @@ pub unsafe extern "C" fn borg_equips_rod(mut sval: ::core::ffi::c_int) -> bool {
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
-    lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+    lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
     skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
     if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
@@ -477,10 +477,10 @@ pub unsafe extern "C" fn borg_zap_rod(mut sval: ::core::ffi::c_int) -> bool {
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
-    lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+    lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
     skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
     if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
@@ -497,7 +497,7 @@ pub unsafe extern "C" fn borg_zap_rod(mut sval: ::core::ffi::c_int) -> bool {
     }
     borg_note(format(
         b"# Zapping %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('z' as i32 as keycode_t);
     borg_keypress(
@@ -513,12 +513,12 @@ pub unsafe extern "C" fn borg_use_staff(mut sval: ::core::ffi::c_int) -> bool {
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
     borg_note(format(
         b"# Using %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('u' as i32 as keycode_t);
     borg_keypress(
@@ -533,7 +533,7 @@ pub unsafe extern "C" fn borg_use_unknown() -> bool {
     let mut n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).tval as ::core::ffi::c_int != TV_STAFF as ::core::ffi::c_int) {
                 if !(*item).aware {
@@ -548,7 +548,7 @@ pub unsafe extern "C" fn borg_use_unknown() -> bool {
     }
     borg_note(format(
         b"# Using unknown Staff %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(n as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(n) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('u' as i32 as keycode_t);
     borg_keypress(
@@ -569,10 +569,10 @@ pub unsafe extern "C" fn borg_use_staff_fail(mut sval: ::core::ffi::c_int) -> bo
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
-    lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+    lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
     skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
     if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
@@ -598,7 +598,7 @@ pub unsafe extern "C" fn borg_use_staff_fail(mut sval: ::core::ffi::c_int) -> bo
     }
     borg_note(format(
         b"# Using %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('u' as i32 as keycode_t);
     borg_keypress(
@@ -617,10 +617,10 @@ pub unsafe extern "C" fn borg_equips_staff_fail(mut sval: ::core::ffi::c_int) ->
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
-    lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+    lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
     skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
     if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
@@ -655,12 +655,12 @@ pub unsafe extern "C" fn borg_aim_wand(mut sval: ::core::ffi::c_int) -> bool {
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return false_0 != 0;
     }
     borg_note(format(
         b"# Aiming %s.\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut (*borg_items.offset(i as isize)).desc as *mut ::core::ffi::c_char,
+        &raw mut (crate::bridge::st().items.items[(i) as usize]).desc as *mut ::core::ffi::c_char,
     ));
     borg_keypress('a' as i32 as keycode_t);
     borg_keypress(
@@ -677,13 +677,13 @@ pub unsafe extern "C" fn borg_equips_ring(mut ring_sval: ::core::ffi::c_int) -> 
     let mut skill: ::core::ffi::c_int = 0;
     i = (*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0 || !(*item).aware) {
             if !((*item).tval as ::core::ffi::c_int != TV_RING as ::core::ffi::c_int) {
                 if !((*item).sval as ::core::ffi::c_int != ring_sval) {
                     if !((*item).timeout != 0) {
                         if (*item).ident {
-                            lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+                            lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
                             skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
                             if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                                 != 0
@@ -715,7 +715,7 @@ pub unsafe extern "C" fn borg_activate_ring(mut ring_sval: ::core::ffi::c_int) -
     let mut i: ::core::ffi::c_int = 0;
     i = (*z_info).pack_size as ::core::ffi::c_int + 2 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 3 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if (*item).aware {
             if !((*item).tval as ::core::ffi::c_int != TV_RING as ::core::ffi::c_int) {
                 if !((*item).sval as ::core::ffi::c_int != ring_sval) {
@@ -750,8 +750,7 @@ pub unsafe extern "C" fn borg_equips_dragon(mut drag_sval: ::core::ffi::c_int) -
     let mut skill: ::core::ffi::c_int = 0;
     let mut numerator: ::core::ffi::c_int = 0;
     let mut denominator: ::core::ffi::c_int = 0;
-    let mut item: *mut borg_item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize)
+    let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if (*item).iqty == 0 || !(*item).aware {
         return false_0 != 0;
@@ -792,8 +791,7 @@ pub unsafe extern "C" fn borg_equips_dragon(mut drag_sval: ::core::ffi::c_int) -
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_activate_dragon(mut drag_sval: ::core::ffi::c_int) -> bool {
-    let mut item: *mut borg_item = borg_items
-        .offset(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int) as isize)
+    let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(((*z_info).pack_size as ::core::ffi::c_int + 6 as ::core::ffi::c_int)) as usize]
         as *mut borg_item;
     if (*item).iqty == 0 || !(*item).aware {
         return false_0 != 0;
@@ -831,7 +829,7 @@ pub unsafe extern "C" fn borg_activate_item(mut activation: ::core::ffi::c_int) 
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).activ_idx != activation) {
                 if !((*item).timeout != 0) {
@@ -866,7 +864,7 @@ pub unsafe extern "C" fn borg_equips_item(
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !((*item).activ_idx != activation) {
                 if !(check_charge as ::core::ffi::c_int != 0
@@ -893,13 +891,13 @@ pub unsafe extern "C" fn borg_activate_failure(
     if i < 0 as ::core::ffi::c_int {
         return 100 as ::core::ffi::c_int;
     }
-    if (*borg_items.offset(i as isize)).pval == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).pval == 0 {
         return 100 as ::core::ffi::c_int;
     }
-    if (*borg_items.offset(i as isize)).activ_idx == 0 {
+    if (crate::bridge::st().items.items[(i) as usize]).activ_idx == 0 {
         return 100 as ::core::ffi::c_int;
     }
-    lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
+    lev = (crate::bridge::st().items.items[(i) as usize]).level as ::core::ffi::c_int;
     skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
     if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
@@ -987,7 +985,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0 || !(*item).aware) {
             match (*item).tval as ::core::ffi::c_int {
                 26 => {
@@ -1062,7 +1060,7 @@ pub unsafe extern "C" fn borg_recharging() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).pack_size as ::core::ffi::c_int {
-        let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
+        let mut item: *mut borg_item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         if !((*item).iqty == 0) {
             if !(!(*item).ident || !(*item).aware) {
                 charge = false_0 != 0;

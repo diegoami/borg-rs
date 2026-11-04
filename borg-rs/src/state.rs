@@ -13,6 +13,7 @@ use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
 use crate::borg_home_notice::HomeState;
 use crate::borg_io::IoState;
+use crate::borg_item::ItemState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
 use crate::borg_magic::MagicState;
@@ -39,6 +40,8 @@ pub struct BorgState {
     pub home: HomeState,
     /// borg-io.c
     pub io: IoState,
+    /// borg-item.c: `borg_items`, `safe_items`
+    pub items: ItemState,
     /// borg-item-activation.c: `act_*`
     pub act: ActivationIds,
     /// borg-item-val.c: `sv_*`, `kv_*`
