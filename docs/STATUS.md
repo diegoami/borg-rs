@@ -177,3 +177,14 @@ unmodified C build and was checked deterministic (two C runs, 9/9
 identical). It is in `harness/reference/deep/`. `deep` is run alongside
 `full` at every M3 checkpoint. This adds to the required suites; it
 replaces none of them.
+
+## Known harness quirk: race letters in the birth script
+
+`main-borgh.c` picks the race and class in the birth menus with `a`..`z`, but
+the menus use `all_letters_nohjkl` (they skip h, j, k, l). So a requested race
+index >= 7 selects a different race than the suite file says (the Borg's own
+respawn code has the same C bug, see c-bugs.md #11). This does not affect
+C/Rust equivalence: both builds get the same scripted keys, and every
+`summary.json` records the race and class actually played. It is left as is
+so the existing reference logs stay valid. The suite names describe the
+requested indices, not the races played.
