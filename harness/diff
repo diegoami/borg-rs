@@ -1,0 +1,106 @@
+#!/usr/bin/env python3
+"""Compare Borg keypress logs and print the first divergence.
+
+Usage:
+  harness/diff A B
+    A and B are either two key logs (keys.log or keys.log.xz) or two
+    directories of runs (each run is a subdirectory holding keys.log[.xz]
+    and summary.json), e.g. a suite output dir and harness/reference/full.
+
+For every pair that differs, prints the run name, seed, game turn and key
+index of the first divergence and 20 lines of context from each side.
+Exit status: 0 if every pair is identical, 1 otherwise.
+"""
+import json
+import lzma
+import os
+import sys
+
+CONTEXT = 20
+
+
+def open_log(path):
+    if os.path.exists(path):
+        pass
+    elif os.path.exists(path + ".xz"):
+        path = path + ".xz"
+    else:
+        return None
+    if path.endswith(".xz"):
+        with lzma.open(path, "rt") as f:
+            return f.read().splitlines()
+    with open(path) as f:
+        return f.read().splitlines()
+
+
+def seed_of(run_dir):
+    try:
+        with open(os.path.join(run_dir, "summary.json")) as f:
+            return json.load(f).get("seed")
+    except (OSError, ValueError):
+        return None
+
+
+def describe(line):
+    parts = line.split()
+    if len(parts) < 3:
+        return line
+    turn, typ, code = parts[0], parts[1], parts[2]
+    c = int(code, 16)
+    ch = chr(c) if 32 <= c < 127 else "0x%x" % c
+    return "turn %s type %s key %s" % (turn, typ, ch)
+
+
+def compare(name, a, b, seed):
+    if a is None or b is None:
+        print("== %s: missing log (%s)" % (name, "A" if a is None else "B"))
+        return False
+    if a == b:
+        return True
+    n = min(len(a), len(b))
+    i = 0
+    while i < n and a[i] == b[i]:
+        i += 1
+    turn = (a[i] if i < len(a) else b[i]).split()[0]
+    print("== %s: DIVERGES  seed=%s  game_turn=%s  key_index=%d"
+          "  (lengths %d vs %d)" % (name, seed, turn, i, len(a), len(b)))
+    lo = max(0, i - CONTEXT)
+    for label, lines in (("A", a), ("B", b)):
+        print("--- %s lines %d..%d" % (label, lo, min(len(lines), i + CONTEXT) - 1))
+        for j in range(lo, min(len(lines), i + CONTEXT)):
+            mark = ">>" if j == i else "  "
+            print("%s %7d  %-20s %s" % (mark, j, lines[j], describe(lines[j])))
+    return False
+
+
+def main(argv):
+    if len(argv) != 3:
+        print(__doc__)
+        return 2
+    A, B = argv[1], argv[2]
+    ok = True
+    if os.path.isdir(A) and os.path.isdir(B):
+        names = sorted(set(
+            d for d in os.listdir(A) if os.path.isdir(os.path.join(A, d))))
+        if not names:
+            print("no runs in %s" % A)
+            return 2
+        same = 0
+        for d in names:
+            ra, rb = os.path.join(A, d), os.path.join(B, d)
+            r = compare(d, open_log(os.path.join(ra, "keys.log")),
+                        open_log(os.path.join(rb, "keys.log")),
+                        seed_of(ra) or seed_of(rb))
+            same += r
+            ok &= r
+        print("%d/%d runs identical" % (same, len(names)))
+    else:
+        ok = compare(os.path.basename(A), open_log(A), open_log(B),
+                     seed_of(os.path.dirname(A)))
+        if ok:
+            print("identical")
+    return 0 if ok else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv))
