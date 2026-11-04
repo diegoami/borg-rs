@@ -21,7 +21,7 @@ use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_flush, borg_keypress, borg_note, borg_what_text};
 pub use crate::headers::borg_item_h::{borg_item};
-use crate::headers::borg_messages_react_h::{borg_dont_react, borg_react, borg_react_prompted};
+use crate::headers::borg_messages_react_h::{borg_react, borg_react_prompted};
 use crate::headers::borg_think_h::borg_oops;
 pub use crate::headers::borg_trait_h::{
     C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS, BI_ADETDOOR,
@@ -196,21 +196,6 @@ pub struct C2RustUnnamed_9 {
     pub omit_subject: bool,
     pub type_0: ::core::ffi::c_int,
 }
-#[no_mangle]
-pub static mut borg_msg_len: int16_t = 0;
-#[no_mangle]
-pub static mut borg_msg_siz: int16_t = 0;
-#[no_mangle]
-pub static mut borg_msg_buf: *mut ::core::ffi::c_char =
-    ::core::ptr::null::<::core::ffi::c_char>() as *mut ::core::ffi::c_char;
-#[no_mangle]
-pub static mut borg_msg_num: int16_t = 0;
-#[no_mangle]
-pub static mut borg_msg_max: int16_t = 0;
-#[no_mangle]
-pub static mut borg_msg_pos: *mut int16_t = ::core::ptr::null::<int16_t>() as *mut int16_t;
-#[no_mangle]
-pub static mut borg_msg_use: *mut int16_t = ::core::ptr::null::<int16_t>() as *mut int16_t;
 static mut suffix_pain: *mut *mut ::core::ffi::c_char =
     ::core::ptr::null::<*mut ::core::ffi::c_char>() as *mut *mut ::core::ffi::c_char;
 #[no_mangle]
@@ -543,7 +528,7 @@ unsafe extern "C" fn borg_parse_aux(
     ) == 0
     {
         borg_note(b"Ignoring Messages While KO'd\0" as *const u8 as *const ::core::ffi::c_char);
-        borg_dont_react = true_0 != 0;
+        crate::bridge::st().msgs.dont_react = true_0 != 0;
     }
     if strcmp(
         msg,
@@ -553,7 +538,7 @@ unsafe extern "C" fn borg_parse_aux(
         borg_note(
             b"Ignoring Messages While Paralyzed\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg_dont_react = true_0 != 0;
+        crate::bridge::st().msgs.dont_react = true_0 != 0;
     }
     if strcmp(
         msg,
@@ -2562,42 +2547,27 @@ pub unsafe extern "C" fn borg_init_messages() {
     borg_init_spell_messages();
     borg_init_pain_messages();
     borg_init_hit_by_messages();
-    borg_msg_len = 0 as int16_t;
-    borg_msg_siz = 4096 as int16_t;
-    borg_msg_buf = mem_zalloc(
-        (borg_msg_siz as size_t)
-            .wrapping_mul(::core::mem::size_of::<::core::ffi::c_char>() as size_t),
-    ) as *mut ::core::ffi::c_char;
-    borg_msg_num = 0 as int16_t;
-    borg_msg_max = 256 as int16_t;
-    borg_msg_pos = mem_zalloc(
-        (borg_msg_max as size_t).wrapping_mul(::core::mem::size_of::<int16_t>() as size_t),
-    ) as *mut int16_t;
-    borg_msg_use = mem_zalloc(
-        (borg_msg_max as size_t).wrapping_mul(::core::mem::size_of::<int16_t>() as size_t),
-    ) as *mut int16_t;
+    let m = &mut crate::bridge::st().msgs;
+    m.len = 0 as int16_t;
+    m.siz = 4096 as int16_t;
+    m.buf = vec![0; m.siz as usize];
+    m.num = 0 as int16_t;
+    m.max = 256 as int16_t;
+    m.pos = vec![0; m.max as usize];
+    m.use_ = vec![0; m.max as usize];
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_free_messages() {
     let mut i: ::core::ffi::c_int = 0;
-    if !borg_msg_buf.is_null() {
-        mem_free(borg_msg_buf as *mut ::core::ffi::c_void);
-        borg_msg_buf = ::core::ptr::null_mut::<::core::ffi::c_char>();
+    {
+        // (borg_msg_len and borg_msg_max are left as they are, as in C)
+        let m = &mut crate::bridge::st().msgs;
+        m.buf = Vec::new();
+        m.use_ = Vec::new();
+        m.pos = Vec::new();
+        m.num = 0 as int16_t;
+        m.siz = 0 as int16_t;
     }
-    if !borg_msg_use.is_null() {
-        mem_free(borg_msg_use as *mut ::core::ffi::c_void);
-        borg_msg_use = ::core::ptr::null_mut::<int16_t>();
-    }
-    if !borg_msg_pos.is_null() {
-        mem_free(borg_msg_pos as *mut ::core::ffi::c_void);
-        borg_msg_pos = ::core::ptr::null_mut::<int16_t>();
-    }
-    borg_msg_num = 0 as int16_t;
-    if !borg_msg_buf.is_null() {
-        mem_free(borg_msg_buf as *mut ::core::ffi::c_void);
-        borg_msg_buf = ::core::ptr::null_mut::<::core::ffi::c_char>();
-    }
-    borg_msg_siz = 0 as int16_t;
     if !suffix_pain.is_null() {
         i = 0 as ::core::ffi::c_int;
         while !(*suffix_pain.offset(i as isize)).is_null() {

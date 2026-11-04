@@ -15,7 +15,6 @@ pub use super::ui_event_h::keypress;
 pub use super::z_type_h::loc;
 #[allow(unused_imports)]
 use super::*;
-pub use crate::c2rust::borg_messages_react::borg_clear_reactions;
-pub use crate::c2rust::borg_messages_react::borg_dont_react;
-pub use crate::c2rust::borg_messages_react::borg_react;
-pub use crate::c2rust::borg_messages_react::borg_react_prompted;
+pub use crate::bridge::messages_react::borg_clear_reactions;
+pub use crate::bridge::messages_react::borg_react;
+pub use crate::bridge::messages_react::borg_react_prompted;

@@ -352,7 +352,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         crate::borg_log::borg_log_death_data(st);
         borg_flush(st);
         bridge::borg_parse_null(st);
-        bridge::borg_clear_reactions(st);
+        crate::borg_messages_react::borg_clear_reactions(st);
         bridge::borg_oops(st, "player died");
         key.code = ktrl(b'C');
         return true;

@@ -46,9 +46,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_inventory_h::borg_do_crush_junk;
 use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_wear_h::{borg_clear_best, track_worn_num};
-use crate::headers::borg_messages_h::{
-    borg_msg_buf, borg_msg_len, borg_msg_num, borg_msg_pos, borg_msg_use,
-};
+
 use crate::headers::borg_projection_h::{borg_los, borg_target_unknown_wall};
 use crate::headers::borg_store_buy_h::{
     bought_item_num, bought_item_nxt, bought_item_pval, bought_item_store, bought_item_sval,
@@ -1600,8 +1598,8 @@ pub unsafe extern "C" fn borg_update() {
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        msg = borg_msg_buf.offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
         borg_note(format(
             b"# %s (+)\0" as *const u8 as *const ::core::ffi::c_char,
             msg,
@@ -1609,52 +1607,50 @@ pub unsafe extern "C" fn borg_update() {
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             what = strchr(msg, ':' as i32).offset(1 as ::core::ffi::c_int as isize);
             if prefix(msg, b"SELF:\0" as *const u8 as *const ::core::ffi::c_char) {
                 borg_handle_self(what);
-                *borg_msg_use.offset(i as isize) = 1 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 1 as int16_t;
             } else if prefix(
                 msg,
                 b"FEELING_DANGER:\0" as *const u8 as *const ::core::ffi::c_char,
             ) {
                 borg_feeling_danger = atoi(what);
-                *borg_msg_use.offset(i as isize) = 1 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 1 as int16_t;
             } else if prefix(
                 msg,
                 b"FEELING_STUFF:\0" as *const u8 as *const ::core::ffi::c_char,
             ) {
                 borg_feeling_stuff = atoi(what);
-                *borg_msg_use.offset(i as isize) = 1 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 1 as int16_t;
             }
         }
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             what = strchr(msg, ':' as i32).offset(1 as ::core::ffi::c_int as isize);
             if prefix(msg, b"HIT:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 0 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 }
             } else if prefix(msg, b"MISS:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 0 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 }
             } else if prefix(msg, b"AFRAID:\0" as *const u8 as *const ::core::ffi::c_char) {
                 if (*crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y)).kill
                     as ::core::ffi::c_int
                     > 0 as ::core::ffi::c_int
                 {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 } else {
                     borg_create_kill(what, crate::bridge::st().borg.goal.g);
                 }
@@ -1663,7 +1659,7 @@ pub unsafe extern "C" fn borg_update() {
                 if k > 0 as ::core::ffi::c_int {
                     borg_count_death(k);
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
@@ -1673,7 +1669,7 @@ pub unsafe extern "C" fn borg_update() {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 0 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
@@ -1684,7 +1680,7 @@ pub unsafe extern "C" fn borg_update() {
                 if k > 0 as ::core::ffi::c_int {
                     borg_count_death(k);
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
@@ -1693,7 +1689,7 @@ pub unsafe extern "C" fn borg_update() {
             } else if prefix(msg, b"PAIN:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 3 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
                     successful_target = 2 as ::core::ffi::c_int;
@@ -1704,7 +1700,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 0 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1712,7 +1708,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 0 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 2 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 2 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1741,11 +1737,10 @@ pub unsafe extern "C" fn borg_update() {
     }
     hit_dist = 1 as ::core::ffi::c_int;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
             created_traps = false_0 != 0;
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             if prefix(msg, b"SPELL_\0" as *const u8 as *const ::core::ffi::c_char) {
                 let mut spell: ::core::ffi::c_int =
                     atoi(msg.offset(6 as ::core::ffi::c_int as isize));
@@ -1763,27 +1758,26 @@ pub unsafe extern "C" fn borg_update() {
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             what = strchr(msg, ':' as i32).offset(1 as ::core::ffi::c_int as isize);
             if prefix(msg, b"HIT:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, hit_dist);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(msg, b"MISS:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, hit_dist);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(msg, b"KILL:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 1 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_count_death(k);
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
@@ -1793,7 +1787,7 @@ pub unsafe extern "C" fn borg_update() {
                 k = borg_locate_kill(what, crate::bridge::st().borg.goal.g, 1 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target == -(1 as ::core::ffi::c_int) {
@@ -1804,7 +1798,7 @@ pub unsafe extern "C" fn borg_update() {
                 if k > 0 as ::core::ffi::c_int {
                     borg_count_death(k);
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                     crate::bridge::st().borg.antibounce_count = 1 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
@@ -1813,7 +1807,7 @@ pub unsafe extern "C" fn borg_update() {
             } else if prefix(msg, b"PAIN:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
                 if successful_target < 0 as ::core::ffi::c_int {
                     successful_target = 2 as ::core::ffi::c_int;
@@ -1821,7 +1815,7 @@ pub unsafe extern "C" fn borg_update() {
             } else if prefix(msg, b"HIT_BY:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, old_c, 1 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1829,7 +1823,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, old_c, 1 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1838,7 +1832,7 @@ pub unsafe extern "C" fn borg_update() {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_sleep_kill(k);
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1846,7 +1840,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1854,7 +1848,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -1862,12 +1856,12 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
             } else if prefix(msg, b"SPELL_\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, old_c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 3 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 3 as int16_t;
                 }
                 let mut spell_0: ::core::ffi::c_int =
                     atoi(msg.offset(6 as ::core::ffi::c_int as isize));
@@ -2647,27 +2641,26 @@ pub unsafe extern "C" fn borg_update() {
         i -= 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             what = strchr(msg, ':' as i32).offset(1 as ::core::ffi::c_int as isize);
             if prefix(msg, b"DIED:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_count_death(k);
                     borg_delete_kill(k);
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(msg, b"PAIN:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(msg, b"HIT_BY:\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, hit_dist);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -2675,7 +2668,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, hit_dist);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -2684,7 +2677,7 @@ pub unsafe extern "C" fn borg_update() {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
                     borg_sleep_kill(k);
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -2692,7 +2685,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -2700,7 +2693,7 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(
                 msg,
@@ -2708,22 +2701,21 @@ pub unsafe extern "C" fn borg_update() {
             ) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             } else if prefix(msg, b"SPELL_\0" as *const u8 as *const ::core::ffi::c_char) {
                 k = borg_locate_kill(what, crate::bridge::st().borg.c, 20 as ::core::ffi::c_int);
                 if k > 0 as ::core::ffi::c_int {
-                    *borg_msg_use.offset(i as isize) = 4 as int16_t;
+                    crate::bridge::st().msgs.use_[i as usize] = 4 as int16_t;
                 }
             }
         }
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        if !(*borg_msg_use.offset(i as isize) != 0) {
-            msg = borg_msg_buf
-                .offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        if !(crate::bridge::st().msgs.use_[i as usize] != 0) {
+            msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
             what = strchr(msg, ':' as i32).offset(1 as ::core::ffi::c_int as isize);
             if prefix(msg, b"HIT_BY:\0" as *const u8 as *const ::core::ffi::c_char) {
                 borg_fear_regional(
@@ -2736,7 +2728,7 @@ pub unsafe extern "C" fn borg_update() {
                             + 1 as ::core::ffi::c_int),
                     false_0 != 0,
                 );
-                *borg_msg_use.offset(i as isize) = 5 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 5 as int16_t;
             } else if prefix(
                 msg,
                 b"MISS_BY:\0" as *const u8 as *const ::core::ffi::c_char,
@@ -2751,7 +2743,7 @@ pub unsafe extern "C" fn borg_update() {
                             + 1 as ::core::ffi::c_int),
                     false_0 != 0,
                 );
-                *borg_msg_use.offset(i as isize) = 5 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 5 as int16_t;
             } else if prefix(msg, b"SPELL_\0" as *const u8 as *const ::core::ffi::c_char) {
                 borg_fear_regional(
                     what,
@@ -2760,18 +2752,18 @@ pub unsafe extern "C" fn borg_update() {
                     borg_fear_spell(atoi(msg.offset(6 as ::core::ffi::c_int as isize))),
                     false_0 != 0,
                 );
-                *borg_msg_use.offset(i as isize) = 5 as int16_t;
+                crate::bridge::st().msgs.use_[i as usize] = 5 as int16_t;
             }
         }
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_msg_num as ::core::ffi::c_int {
-        msg = borg_msg_buf.offset(*borg_msg_pos.offset(i as isize) as ::core::ffi::c_int as isize);
+    while i < crate::bridge::st().msgs.num as ::core::ffi::c_int {
+        msg = crate::bridge::msg_buf().offset(crate::bridge::st().msgs.pos[i as usize] as ::core::ffi::c_int as isize);
         borg_note(format(
             b"# %s (%d)\0" as *const u8 as *const ::core::ffi::c_char,
             msg,
-            *borg_msg_use.offset(i as isize) as ::core::ffi::c_int,
+            crate::bridge::st().msgs.use_[i as usize] as ::core::ffi::c_int,
         ));
         i += 1;
     }
@@ -2906,8 +2898,8 @@ pub unsafe extern "C" fn borg_update() {
     }
     crate::bridge::st().borg.oldchp = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
     borg_failure = false_0 != 0;
-    borg_msg_len = 0 as int16_t;
-    borg_msg_num = 0 as int16_t;
+    crate::bridge::st().msgs.len = 0 as int16_t;
+    crate::bridge::st().msgs.num = 0 as int16_t;
     old_c = crate::bridge::st().borg.c;
     o_w_x = crate::bridge::st().core.w_x;
     o_w_y = crate::bridge::st().core.w_y;

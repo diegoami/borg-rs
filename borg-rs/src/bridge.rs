@@ -146,7 +146,6 @@ macro_rules! c2r_void {
 }
 c2r_void! {
     borg_reset_settings => crate::c2rust::borg_init::borg_reset_settings;
-    borg_clear_reactions => crate::c2rust::borg_messages_react::borg_clear_reactions;
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
     borg_prepare_race_class_info => crate::c2rust::borg_init::borg_prepare_race_class_info;
     borg_reinit_options => crate::c2rust::borg_init::borg_reinit_options;
@@ -778,4 +777,48 @@ pub mod log {
     pub unsafe extern "C" fn borg_display_status() {
         l::borg_display_status(st())
     }
+}
+
+/// C-ABI shims with the borg-messages-react.c names (callers in
+/// borg_messages, borg_light and borg_think_dungeon_util).
+pub mod messages_react {
+    use super::{cbytes, st};
+    use crate::borg_messages_react as r;
+    use crate::headers::ui_event_h::keypress;
+    use crate::headers::z_type_h::loc;
+    use core::ffi::c_char;
+
+    /// As in C, a trailing ',' of `buf` is cut in the caller's buffer
+    /// (C casts away the `const`; the callers that pass string literals
+    /// pass none ending in ',').
+    pub unsafe extern "C" fn borg_react(msg: *const c_char, buf: *const c_char) {
+        let n = cbytes(buf).len();
+        if r::borg_react(st(), cbytes(msg), cbytes(buf)) {
+            *(buf as *mut c_char).add(n - 1) = 0;
+        }
+    }
+    pub unsafe extern "C" fn borg_react_prompted(
+        buf: *const c_char,
+        key: *mut keypress,
+        cursor: loc,
+    ) -> bool {
+        match r::borg_react_prompted(st(), cbytes(buf), cursor) {
+            Some(code) => {
+                (*key).code = code;
+                true
+            }
+            None => false,
+        }
+    }
+    pub unsafe extern "C" fn borg_clear_reactions() {
+        r::borg_clear_reactions(st())
+    }
+}
+
+/// `borg_msg_buf` as a C pointer, for c2rust readers of the message queue
+/// (`borg_msg_buf + borg_msg_pos[i]`). `borg_init_messages` allocates the
+/// buffer once and it never grows, so the pointer stays valid until
+/// `borg_free_messages`.
+pub fn msg_buf() -> *mut c_char {
+    st().msgs.buf.as_mut_ptr() as *mut c_char
 }

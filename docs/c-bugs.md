@@ -179,3 +179,20 @@ Format: file, function, (seed, turn when observed), explanation.
   always overwritten (`if (WS) blue; if (WK) green; else slate;`), so a
   plain slay shows as slate.
 * Rust (`borg_log.rs`): all kept; the NULL-file crash is a panic.
+## 14. `borg_dont_react` is never cleared
+
+* `borg-messages.c` sets the global `borg_dont_react` on "You have been
+  knocked out." and "You are paralyzed"; `borg_react()`
+  (`borg-messages-react.c`) then queues nothing and only notes "# Ignoring
+  messages.". The reset in `borg.c` (`borg_inkey_hack` path:
+  `borg.dont_react = false;`) clears the unused struct field
+  `borg.dont_react` instead, so once set the global stays true for the rest
+  of the process: the Borg never again queues hit/miss/kill/SELF messages
+  for `borg_update()`, and `borg_caution()` notes "# Borg ignoring messges."
+  every turn. By code reading; the full suite never sets it (checked with
+  a temporary log of the flag).
+* Harmless, same file: `borg_react_prompted()` returns `key` (a pointer)
+  from a `bool` function in three places; it is never NULL, so this is
+  just `true`.
+* Rust: kept (`st.msgs.dont_react` is only ever set; `st.borg.dont_react`
+  is reset) in `borg_messages_react.rs` / `borg.rs`.

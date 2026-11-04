@@ -208,7 +208,7 @@ pub fn borg_reincarnate_end(st: &mut BorgState) {
 
     // clear out the old reactions again in case more messages came after
     // the borg died
-    bridge::borg_clear_reactions(st);
+    crate::borg_messages_react::borg_clear_reactions(st);
 
     // set the old depth so we know we are on a new level
     st.borg.status.old_depth = 128;
@@ -233,7 +233,7 @@ pub fn borg_reincarnate_start(st: &mut BorgState) {
     st.borg.status.respawning = 1;
 
     // clear out the old reactions
-    bridge::borg_clear_reactions(st);
+    crate::borg_messages_react::borg_clear_reactions(st);
 
     borg_note(st, "# Respawning");
 

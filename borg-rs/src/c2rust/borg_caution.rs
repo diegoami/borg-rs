@@ -65,7 +65,7 @@ pub use crate::headers::borg_magic_h::{
     VAMPIRE_FORM, VAMPIRE_STRIKE, VENOM, VOLCANIC_ERUPTION, WARG_FORM, WEREWOLF_FORM,
     WHIRLWIND_ATTACK, WORD_OF_DESTRUCTION, WORD_OF_RECALL, ZONE_OF_UNMAGIC,
 };
-use crate::headers::borg_messages_react_h::borg_dont_react;
+
 use crate::headers::borg_prepared_h::{borg_prepared, borg_restock};
 use crate::headers::borg_store_sell_h::borg_count_sell;
 pub use crate::headers::borg_trait_h::{
@@ -1008,7 +1008,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
     if crate::bridge::st().borg.goal.ignoring {
         borg_note(b"# Ignoring combat with monsters.\0" as *const u8 as *const ::core::ffi::c_char);
     }
-    if borg_dont_react {
+    if crate::bridge::st().msgs.dont_react {
         borg_note(b"# Borg ignoring messges.\0" as *const u8 as *const ::core::ffi::c_char);
     }
     pos_danger = borg_danger(

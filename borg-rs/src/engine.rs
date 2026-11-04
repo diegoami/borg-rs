@@ -604,6 +604,13 @@ pub fn set_player_noscore(v: u16) {
     unsafe { (*crate::headers::player_h::player).noscore = v }
 }
 
+/// `do_cmd_wiz_cure_all(NULL)` (cmd-wizard.c): heal the player fully.
+pub fn do_cmd_wiz_cure_all() {
+    // SAFETY: the command argument is unused by this wizard command (the
+    // C Borg passes NULL); it only changes the player on the engine thread.
+    unsafe { crate::headers::cmds_h::do_cmd_wiz_cure_all(core::ptr::null_mut()) }
+}
+
 /// `option_set(name, val)` (option.c): returns whether the option exists.
 pub fn option_set(name: &CStr, val: bool) -> bool {
     // SAFETY: option_set only reads the NUL-terminated name.
