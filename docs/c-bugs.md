@@ -106,3 +106,13 @@ Format: file, function, (seed, turn when observed), explanation.
   (the other item types use a lower second threshold, e.g. rings 6 / 4).
 * Rust: both kept in `borg_home_power.rs` (the dead branch is left out, as
   clippy rejects an `if` with the same condition twice; a comment marks it).
+## 9. Dark-grid test uses `==` instead of `&` (magic play)
+
+* `borg-magic-play.c`, `borg_play_magic()`, every call (study and town
+  spell testing): `if (borg_grids[borg.c.y][borg.c.x].info == BORG_DARK)`
+  compares the whole info byte, so the "Dark" early return only fires when
+  `BORG_DARK` is the grid's only flag. Every other reader of `BORG_DARK`
+  (borg-commands.c, borg-think-dungeon-util.c) tests the bit. The player's
+  grid normally also has `BORG_VIEW`/`BORG_MARK` etc., so in practice the
+  check almost never triggers; `BI_LIGHT` is the real guard.
+* Rust: kept as `== BORG_DARK` in `borg_magic_play.rs`.

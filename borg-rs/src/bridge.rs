@@ -576,3 +576,12 @@ pub mod home_power {
         crate::borg_home_power::borg_power_home(st())
     }
 }
+
+/// C-ABI shim for c2rust callers of borg-magic-play.c (borg_think_dungeon).
+pub mod magic_play {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_play_magic(bored: bool) -> bool {
+        crate::borg_magic_play::borg_play_magic(st(), bored)
+    }
+}
