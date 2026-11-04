@@ -11,11 +11,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_projection_h::borg_los;
 pub use crate::headers::cave_h::{
     cave, chunk, connector, heatmap, monster_group, square, square_in_bounds_fully, trap,
@@ -140,7 +136,7 @@ unsafe extern "C" fn borg_update_view_aux(
         borg_view_n += 1;
         return wall;
     }
-    if borg_los(borg.c.y, borg.c.x, y, x) {
+    if borg_los(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x) {
         (*ag).info = ((*ag).info as ::core::ffi::c_int | BORG_VIEW) as uint16_t;
         borg_view_y[borg_view_n as usize] = y as uint8_t;
         borg_view_x[borg_view_n as usize] = x as uint8_t;
@@ -182,8 +178,8 @@ pub unsafe extern "C" fn borg_update_view() {
         n += 1;
     }
     borg_view_n = 0 as int16_t;
-    y = borg.c.y;
-    x = borg.c.x;
+    y = crate::bridge::st().borg.c.y;
+    x = crate::bridge::st().borg.c.x;
     ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     (*ag).info = ((*ag).info as ::core::ffi::c_int | BORG_XTRA) as uint16_t;

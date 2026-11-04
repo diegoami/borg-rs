@@ -48,18 +48,8 @@ pub fn borg_note(st: &mut BorgState, what: &str) {
     crate::borg_io::borg_note(st, what)
 }
 
-/// The C `borg` struct (still c2rust, borg.c).
-pub fn borg() -> &'static mut crate::headers::borg_h::borg_struct {
-    // SAFETY: single-threaded access to a C-style global.
-    unsafe { &mut *core::ptr::addr_of_mut!(crate::c2rust::borg::borg) }
-}
-
-/// `borg_cfg[i]` (still c2rust, borg.c / borg-init.c).
-pub fn borg_cfg(i: usize) -> i32 {
-    // SAFETY: borg_cfg is allocated by borg_init_txt_file() with
-    // BORG_MAX_SETTINGS entries before any use; i is a BORG_* index.
-    unsafe { *crate::c2rust::borg::borg_cfg.add(i) }
-}
+/// `borg_engine_date` as a C string (for c2rust format() calls).
+pub static ENGINE_DATE: &std::ffi::CStr = c"Nov  4 2026";
 
 /// `borg_oops(what)` (still c2rust, borg-think.c).
 pub fn borg_oops(_st: &mut BorgState, what: &str) {
@@ -139,4 +129,56 @@ pub mod io {
 pub fn set_borg_init_failure(_st: &mut BorgState) {
     // SAFETY: plain store to a C-style global on the engine thread.
     unsafe { crate::c2rust::borg_init::borg_init_failure = true }
+}
+
+// ---------------------------------------------------------------------------
+// Calls from converted code into still-c2rust functions. Each takes the
+// caller's `&mut BorgState` so the borrow visibly escapes into the call (the
+// c2rust code mutates the same state through `st()`).
+
+macro_rules! c2r_void {
+    ($($name:ident => $path:path;)*) => {$(
+        pub fn $name(_st: &mut BorgState) {
+            // SAFETY: plain call into transitional c2rust code.
+            unsafe { $path() }
+        }
+    )*};
+}
+c2r_void! {
+    borg_reset_settings => crate::c2rust::borg_init::borg_reset_settings;
+    borg_log_death => crate::c2rust::borg_log::borg_log_death;
+    borg_log_death_data => crate::c2rust::borg_log::borg_log_death_data;
+    borg_clear_reactions => crate::c2rust::borg_messages_react::borg_clear_reactions;
+    borg_force_reincarnate => crate::c2rust::borg_reincarnate::borg_force_reincarnate;
+    borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
+    borg_reincarnate_end => crate::c2rust::borg_reincarnate::borg_reincarnate_end;
+    borg_display_status => crate::c2rust::borg_log::borg_display_status;
+}
+
+/// `borg_write_map(ask)`
+pub fn borg_write_map(_st: &mut BorgState, ask: bool) {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::c2rust::borg_log::borg_write_map(ask) }
+}
+
+/// `borg_parse(NULL)`
+pub fn borg_parse_null(_st: &mut BorgState) {
+    // SAFETY: NULL is the documented "flush" argument.
+    unsafe { crate::c2rust::borg_messages::borg_parse(core::ptr::null_mut()) }
+}
+
+/// `borg_get_messages(&key, cursor)`
+pub fn borg_get_messages(
+    _st: &mut BorgState,
+    key: &mut crate::headers::ui_event_h::keypress,
+    cursor: crate::headers::z_type_h::loc,
+) -> bool {
+    // SAFETY: key is a valid out-pointer for the call.
+    unsafe { crate::c2rust::borg_messages::borg_get_messages(key, cursor) }
+}
+
+/// `borg_think()`
+pub fn borg_think(_st: &mut BorgState) -> bool {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::c2rust::borg_think::borg_think() }
 }

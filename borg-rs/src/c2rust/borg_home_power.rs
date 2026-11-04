@@ -2,11 +2,7 @@ pub const CLASS_WARRIOR: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_home_notice_h::{
     home_damage, home_stat_add, home_un_id, num_LIGHT, num_armor, num_artifact, num_bad_gloves,
     num_book, num_boots, num_bow, num_cloaks, num_cure_critical, num_cure_serious,
@@ -630,9 +626,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
     let mut k: ::core::ffi::c_int = 0;
     let mut book: ::core::ffi::c_int = 0;
     let mut value: int32_t = 0 as int32_t;
-    if *borg
-        .trait_0
-        .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
         < 10 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -655,9 +649,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             as int32_t;
         k += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 45 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -671,9 +663,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             k += 1;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 45 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -687,9 +677,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             k += 1;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 45 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -750,14 +738,10 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             as int32_t;
         k += 1;
     }
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_WARRIOR
-        && *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_WARRIOR
+        && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             > 20 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             < 80 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -802,9 +786,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
         value = (value as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
         k += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
         < 10 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -815,7 +797,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             k += 1;
         }
     }
-    if *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize) > 1 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] > 1 as ::core::ffi::c_int {
         k = 0 as ::core::ffi::c_int;
         while k < (*kb_info.offset(TV_POTION as ::core::ffi::c_int as isize)).max_stack
             && k < num_mana as ::core::ffi::c_int
@@ -827,9 +809,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             k += 1;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         == 1 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -862,9 +842,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
         value = (value as ::core::ffi::c_long + 9000 as ::core::ffi::c_long) as int32_t;
         k += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         > 35 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -876,21 +854,15 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
             k += 1;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         == 50 as ::core::ffi::c_int
         && num_fix_exp as ::core::ffi::c_int != 0
     {
         value = (value as ::core::ffi::c_long - 7500 as ::core::ffi::c_long) as int32_t;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         > 35 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             <= 49 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -901,9 +873,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
                 as int32_t;
             k += 1;
         }
-    } else if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    } else if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         <= 35 as ::core::ffi::c_int
     {
         k = 0 as ::core::ffi::c_int;
@@ -917,9 +887,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
     }
     book = 0 as ::core::ffi::c_int;
     while book < 9 as ::core::ffi::c_int {
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int
         {
             k = 0 as ::core::ffi::c_int;
@@ -942,7 +910,7 @@ unsafe extern "C" fn borg_power_home_aux2() -> int32_t {
     if home_un_id != 0 {
         value = (value as ::core::ffi::c_long
             + (home_un_id as ::core::ffi::c_int
-                - *borg.trait_0.offset(BI_AID as ::core::ffi::c_int as isize))
+                - crate::bridge::st().borg.trait_[(BI_AID as ::core::ffi::c_int) as usize])
                 as ::core::ffi::c_long
                 * 1005 as ::core::ffi::c_long) as int32_t;
     }

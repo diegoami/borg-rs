@@ -13,19 +13,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_home_notice_h::{borg_notice_home, num_food};
 use crate::headers::borg_home_power_h::borg_power_home;
 use crate::headers::borg_inventory_h::{
@@ -165,9 +153,7 @@ unsafe extern "C" fn borg_good_buy(
 ) -> bool {
     match (*item).tval as ::core::ffi::c_int {
         2 | 3 | 4 => {
-            if *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 35 as ::core::ffi::c_int
             {
                 if (*item).to_h != 0 {
@@ -188,9 +174,7 @@ unsafe extern "C" fn borg_good_buy(
     if who == 6 as ::core::ffi::c_int {
         if (*item).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
             && (*item).sval as ::core::ffi::c_int == sv_scroll_remove_curse
-            && *borg
-                .trait_0
-                .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                 != 0
         {
             return true_0 != 0;
@@ -200,43 +184,43 @@ unsafe extern "C" fn borg_good_buy(
                 || (*item).sval as ::core::ffi::c_int == sv_potion_life
                 || (*item).sval as ::core::ffi::c_int == sv_potion_healing
                 || (*item).sval as ::core::ffi::c_int == sv_potion_inc_str
-                    && *borg.trait_0.offset(BI_CSTR as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int == sv_potion_inc_int
-                    && *borg.trait_0.offset(BI_CINT as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CINT as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int == sv_potion_inc_wis
-                    && *borg.trait_0.offset(BI_CWIS as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CWIS as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int == sv_potion_inc_dex
-                    && *borg.trait_0.offset(BI_CDEX as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CDEX as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int == sv_potion_inc_con
-                    && *borg.trait_0.offset(BI_CCON as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CCON as ::core::ffi::c_int) as usize]
                         < 18 as ::core::ffi::c_int + 100 as ::core::ffi::c_int)
             || (*item).tval as ::core::ffi::c_int == TV_ROD as ::core::ffi::c_int
                 && ((*item).sval as ::core::ffi::c_int == sv_rod_healing
                     || (*item).sval as ::core::ffi::c_int == sv_rod_recall
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_PRIEST
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_PALADIN
                     || (*item).sval as ::core::ffi::c_int == sv_rod_speed
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_DRUID
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_RANGER
                     || (*item).sval as ::core::ffi::c_int == sv_rod_teleport_other
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_MAGE
-                        && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_ROGUE
                     || (*item).sval as ::core::ffi::c_int == sv_rod_illumination
-                        && *borg.trait_0.offset(BI_ALITE as ::core::ffi::c_int as isize) == 0)
+                        && crate::bridge::st().borg.trait_[(BI_ALITE as ::core::ffi::c_int) as usize] == 0)
             || obj_kind_can_browse(k_info.offset((*item).kind as isize) as *mut object_kind)
                 as ::core::ffi::c_int
                 != 0
-                && borg.amt_book[borg_get_book_num((*item).sval as ::core::ffi::c_int) as usize]
+                && crate::bridge::st().borg.amt_book[borg_get_book_num((*item).sval as ::core::ffi::c_int) as usize]
                     as ::core::ffi::c_int
                     == 0 as ::core::ffi::c_int
                 && borg_is_dungeon_book(
@@ -248,27 +232,21 @@ unsafe extern "C" fn borg_good_buy(
                 && ((*item).sval as ::core::ffi::c_int == sv_scroll_teleport_level
                     || (*item).sval as ::core::ffi::c_int == sv_scroll_teleport)
         {
-            if *borg_cfg.offset(BORG_SELF_SCUM as ::core::ffi::c_int as isize) != 0
-                && *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().core.cfg[(BORG_SELF_SCUM as ::core::ffi::c_int) as usize] != 0
+                && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     >= 10 as ::core::ffi::c_int
-                && *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) != 0
-                && *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] != 0
+                && crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                     + num_food as ::core::ffi::c_int
                     >= 100 as ::core::ffi::c_int
                 && (*item).cost <= 85000 as int32_t
             {
-                if adj_dex_safe[*borg
-                    .trait_0
-                    .offset(BI_DEX_INDEX as ::core::ffi::c_int as isize)
+                if adj_dex_safe[crate::bridge::st().borg.trait_[(BI_DEX_INDEX as ::core::ffi::c_int) as usize]
                     as usize]
-                    + *borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                    + crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     > 90 as ::core::ffi::c_int
                 {
-                    *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize) =
+                    crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize] =
                         (*item).cost as ::core::ffi::c_int;
                     borg_money_scum_who = who;
                     borg_money_scum_ware = ware;
@@ -276,25 +254,21 @@ unsafe extern "C" fn borg_good_buy(
             }
             return true_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                 < 20000 as ::core::ffi::c_int
         {
             return false_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 35 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                 < 15000 as ::core::ffi::c_int
         {
             return false_0 != 0;
         }
-        if *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
             < 10000 as ::core::ffi::c_int
         {
             return false_0 != 0;
@@ -306,7 +280,7 @@ unsafe extern "C" fn borg_good_buy(
             && sold_item_sval[p as usize] == (*item).sval as ::core::ffi::c_int
             && sold_item_store[p as usize] == who
         {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(format(
                     b"# Choosing not to buy back %s\0" as *const u8 as *const ::core::ffi::c_char,
                     &raw mut (*item).desc as *mut ::core::ffi::c_char,
@@ -327,9 +301,7 @@ unsafe extern "C" fn borg_good_buy(
             ii += 1;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
         < 5 as ::core::ffi::c_int
     {
         if obj_kind_can_browse(k_info.offset((*item).kind as isize) as *mut object_kind)
@@ -341,9 +313,7 @@ unsafe extern "C" fn borg_good_buy(
         }
     }
     if !borg_primarily_caster()
-        && *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
             <= 8 as ::core::ffi::c_int
     {
         if obj_kind_can_browse(k_info.offset((*item).kind as isize) as *mut object_kind)
@@ -373,23 +343,21 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
     if hole == -(1 as ::core::ffi::c_int) {
         return false_0 != 0;
     }
-    if borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
+    if crate::bridge::st().borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
         return false_0 != 0;
     }
-    b_p = borg.power;
+    b_p = crate::bridge::st().borg.power;
     k = 0 as ::core::ffi::c_int;
     while k < (*z_info).store_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int {
-        if !((*borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+        if !((crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
             == 0 as ::core::ffi::c_int
-            || *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                 == 0 as ::core::ffi::c_int)
             && k != 0 as ::core::ffi::c_int
             && k != BORG_HOME)
         {
-            if !((*borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0
-                || *borg
-                    .trait_0
-                    .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+            if !((crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0
+                || crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
                     != 0)
                 && k != 3 as ::core::ffi::c_int)
             {
@@ -399,18 +367,15 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                         (*borg_shops.offset(k as isize)).ware.offset(n as isize) as *mut borg_item;
                     if !((*item).iqty == 0) {
                         if borg_good_buy(item, k, n) {
-                            if !(*borg_cfg
-                                .offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
+                            if !(crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
                                 != 0
                                 && (k != borg_money_scum_who || n != borg_money_scum_ware))
                             {
-                                if !((*borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                                if !((crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                                     as int32_t)
                                     < (*item).cost)
                                 {
-                                    if !(*borg
-                                        .trait_0
-                                        .offset(BI_FOOD as ::core::ffi::c_int as isize)
+                                    if !(crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                                         == 0 as ::core::ffi::c_int
                                         && ((*item).tval as ::core::ffi::c_int
                                             != TV_FOOD as ::core::ffi::c_int
@@ -425,9 +390,7 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                                 == sv_wand_magic_missile
                                                 || (*item).sval as ::core::ffi::c_int
                                                     == sv_wand_stinking_cloud)
-                                            && *borg.trait_0.offset(
-                                                BI_GOOD_W_CHG as ::core::ffi::c_int as isize,
-                                            ) > 40 as ::core::ffi::c_int)
+                                            && crate::bridge::st().borg.trait_[(BI_GOOD_W_CHG as ::core::ffi::c_int) as usize] > 40 as ::core::ffi::c_int)
                                         {
                                             if !((*item).tval as ::core::ffi::c_int
                                                 == TV_WAND as ::core::ffi::c_int
@@ -435,9 +398,7 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                                     == sv_wand_magic_missile
                                                     || (*item).sval as ::core::ffi::c_int
                                                         == sv_wand_stinking_cloud)
-                                                && *borg.trait_0.offset(
-                                                    BI_MAXCLEVEL as ::core::ffi::c_int as isize,
-                                                ) > 30 as ::core::ffi::c_int)
+                                                && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize] > 30 as ::core::ffi::c_int)
                                             {
                                                 qty = borg_min_item_quantity(item);
                                                 let ref mut fresh0 = (*(*borg_shops
@@ -450,10 +411,7 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
                                                 slot = -(1 as ::core::ffi::c_int);
                                                 if (hole + 1 as ::core::ffi::c_int)
                                                     < (*z_info).pack_size as ::core::ffi::c_int
-                                                        - *borg.trait_0.offset(
-                                                            BI_QUIVER_SLOTS as ::core::ffi::c_int
-                                                                as isize,
-                                                        )
+                                                        - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                                                 {
                                                     slot = borg_wield_slot(item);
                                                     if (*item).tval as ::core::ffi::c_int
@@ -637,8 +595,8 @@ pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
         borg_notice(true_0 != 0);
     }
     if b_k >= 0 as ::core::ffi::c_int && b_n >= 0 as ::core::ffi::c_int {
-        borg.goal.shop = b_k as int16_t;
-        borg.goal.ware = b_n as int16_t;
+        crate::bridge::st().borg.goal.shop = b_k as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -659,7 +617,7 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
     let mut p_right: int32_t = 0 as int32_t;
     let mut fix: bool = false_0 != 0;
     let mut skip_it: bool = false_0 != 0;
-    b_p = borg.power;
+    b_p = crate::bridge::st().borg.power;
     let mut current_block_71: u64;
     n = 0 as ::core::ffi::c_int;
     while n < (*z_info).store_inven_max as ::core::ffi::c_int {
@@ -673,7 +631,7 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
                 if sold_item_tval[i as usize] == (*item).tval as ::core::ffi::c_int
                     && sold_item_sval[i as usize] == (*item).sval as ::core::ffi::c_int
                 {
-                    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                         borg_note(format(
                             b"# Choosing not to buy back '%s' from home.\0" as *const u8
                                 as *const ::core::ffi::c_char,
@@ -719,9 +677,7 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
                             current_block_71 = 15427931788582360902;
                         } else if hole + 1 as ::core::ffi::c_int
                             >= (*z_info).pack_size as ::core::ffi::c_int
-                                - *borg
-                                    .trait_0
-                                    .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+                                - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                         {
                             current_block_71 = 15427931788582360902;
                         } else {
@@ -882,9 +838,7 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
                                 } else if stack == -(1 as ::core::ffi::c_int)
                                     && hole + 1 as ::core::ffi::c_int
                                         >= (*z_info).pack_size as ::core::ffi::c_int
-                                            - *borg.trait_0.offset(
-                                                BI_QUIVER_SLOTS as ::core::ffi::c_int as isize,
-                                            )
+                                            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                                 {
                                     current_block_71 = 15427931788582360902;
                                 } else {
@@ -973,9 +927,9 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
     if fix {
         borg_notice(true_0 != 0);
     }
-    if b_n >= 0 as ::core::ffi::c_int && b_p > borg.power {
-        borg.goal.shop = BORG_HOME as int16_t;
-        borg.goal.ware = b_n as int16_t;
+    if b_n >= 0 as ::core::ffi::c_int && b_p > crate::bridge::st().borg.power {
+        crate::bridge::st().borg.goal.shop = BORG_HOME as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -994,16 +948,12 @@ pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
     let mut b_c: int32_t = 0 as int32_t;
     let mut borg_empty_home_power: int32_t = 0;
     let mut hole: ::core::ffi::c_int = 0;
-    if *borg
-        .trait_0
-        .offset(BI_SAURON_DEAD as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_SAURON_DEAD as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 15 as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -1016,9 +966,7 @@ pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
     }
     if hole + 1 as ::core::ffi::c_int
         >= (*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
@@ -1032,7 +980,7 @@ pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
                 (*borg_shops.offset(k as isize)).ware.offset(n as isize) as *mut borg_item;
             if !((*item).iqty == 0) {
                 if borg_good_buy(item, k, n) {
-                    if !((*borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                    if !((crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                         as ::core::ffi::c_long)
                         < 1000 as ::core::ffi::c_long
                             + ((*item).cost * 5 as int32_t) as ::core::ffi::c_long)
@@ -1067,7 +1015,7 @@ pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
                         if !(borg_empty_home_power >= borg_power_home()) {
                             if borg_think_home_sell_useful(&raw mut s) {
                                 c = (*item).cost * qty as int32_t;
-                                if c > *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                                if c > crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                                     as int32_t
                                     / 10 as int32_t
                                 {
@@ -1093,12 +1041,12 @@ pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
     (*borg_items.offset(hole as isize)).iqty = 0 as uint8_t;
     borg_notice_home(::core::ptr::null_mut::<borg_item>(), false_0 != 0);
     s = borg_power_home();
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     if b_k >= 0 as ::core::ffi::c_int && b_n >= 0 as ::core::ffi::c_int {
-        borg.goal.shop = b_k as int16_t;
-        borg.goal.ware = b_n as int16_t;
+        crate::bridge::st().borg.goal.shop = b_k as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -1119,9 +1067,7 @@ pub unsafe extern "C" fn borg_think_home_grab_useless() -> bool {
     }
     if hole + 1 as ::core::ffi::c_int
         >= (*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
@@ -1189,8 +1135,8 @@ pub unsafe extern "C" fn borg_think_home_grab_useless() -> bool {
     borg_notice_home(::core::ptr::null_mut::<borg_item>(), false_0 != 0);
     s = borg_power_home();
     if b_n >= 0 as ::core::ffi::c_int {
-        borg.goal.shop = BORG_HOME as int16_t;
-        borg.goal.ware = b_n as int16_t;
+        crate::bridge::st().borg.goal.shop = BORG_HOME as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -1274,8 +1220,8 @@ pub unsafe extern "C" fn borg_think_home_buy_swap_weapon() -> bool {
         borg_notice(true_0 != 0);
     }
     if b_n >= 0 as ::core::ffi::c_int && b_p > weapon_swap_value {
-        borg.goal.shop = BORG_HOME as int16_t;
-        borg.goal.ware = b_n as int16_t;
+        crate::bridge::st().borg.goal.shop = BORG_HOME as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         weapon_swap = old_weapon_swap;
         weapon_swap_value = old_weapon_swap_value;
         armour_swap = old_armour_swap;
@@ -1360,8 +1306,8 @@ pub unsafe extern "C" fn borg_think_home_buy_swap_armour() -> bool {
         borg_notice(true_0 != 0);
     }
     if b_n >= 0 as ::core::ffi::c_int && b_p > armour_swap_value {
-        borg.goal.shop = BORG_HOME as int16_t;
-        borg.goal.ware = b_n as int16_t;
+        crate::bridge::st().borg.goal.shop = BORG_HOME as int16_t;
+        crate::bridge::st().borg.goal.ware = b_n as int16_t;
         weapon_swap = old_weapon_swap;
         weapon_swap_value = old_weapon_swap_value;
         armour_swap = old_armour_swap;
@@ -1377,18 +1323,18 @@ pub unsafe extern "C" fn borg_think_home_buy_swap_armour() -> bool {
 #[no_mangle]
 pub unsafe extern "C" fn borg_think_shop_buy() -> bool {
     let mut purchase_target: ::core::ffi::c_char = '0' as i32 as ::core::ffi::c_char;
-    if borg.goal.shop as ::core::ffi::c_int == shop_num as ::core::ffi::c_int
-        && borg.goal.ware as ::core::ffi::c_int >= 0 as ::core::ffi::c_int
+    if crate::bridge::st().borg.goal.shop as ::core::ffi::c_int == shop_num as ::core::ffi::c_int
+        && crate::bridge::st().borg.goal.ware as ::core::ffi::c_int >= 0 as ::core::ffi::c_int
     {
-        let mut shop: *mut borg_shop = borg_shops.offset(borg.goal.shop as isize) as *mut borg_shop;
+        let mut shop: *mut borg_shop = borg_shops.offset(crate::bridge::st().borg.goal.shop as isize) as *mut borg_shop;
         let mut item: *mut borg_item =
-            (*shop).ware.offset(borg.goal.ware as isize) as *mut borg_item;
-        purchase_target = *SHOP_MENU_ITEMS.offset(borg.goal.ware as isize);
+            (*shop).ware.offset(crate::bridge::st().borg.goal.ware as isize) as *mut borg_item;
+        purchase_target = *SHOP_MENU_ITEMS.offset(crate::bridge::st().borg.goal.ware as isize);
         if (*item).tval as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
-            borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-            borg.goal.ware = borg.goal.item;
-            borg.goal.shop = borg.goal.ware;
-            borg.antibounce_count += 1;
+            crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+            crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+            crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+            crate::bridge::st().borg.antibounce_count += 1;
             return false_0 != 0;
         }
         borg_note(format(
@@ -1399,18 +1345,18 @@ pub unsafe extern "C" fn borg_think_shop_buy() -> bool {
         borg_keypress('p' as i32 as keycode_t);
         borg_keypress(KC_ENTER as keycode_t);
         borg_keypress(KC_ENTER as keycode_t);
-        if *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize) != 0
+        if crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize] != 0
             && (*item).cost
-                >= *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
+                >= crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
                     as int32_t
                     * 9 as int32_t
                     / 10 as int32_t
         {
-            *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize) =
+            crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize] =
                 0 as ::core::ffi::c_int;
             borg_note(format(
                 b"# Setting Money Scum to %d.\0" as *const u8 as *const ::core::ffi::c_char,
-                *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize),
+                crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize],
             ));
         }
         if bought_item_nxt >= 9 as ::core::ffi::c_int {
@@ -1419,17 +1365,17 @@ pub unsafe extern "C" fn borg_think_shop_buy() -> bool {
         bought_item_pval[bought_item_nxt as usize] = (*item).pval as ::core::ffi::c_int;
         bought_item_tval[bought_item_nxt as usize] = (*item).tval as ::core::ffi::c_int;
         bought_item_sval[bought_item_nxt as usize] = (*item).sval as ::core::ffi::c_int;
-        bought_item_store[bought_item_nxt as usize] = borg.goal.shop as ::core::ffi::c_int;
+        bought_item_store[bought_item_nxt as usize] = crate::bridge::st().borg.goal.shop as ::core::ffi::c_int;
         bought_item_num = bought_item_nxt;
         bought_item_nxt += 1;
-        borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-        borg.goal.ware = borg.goal.item;
-        borg.goal.shop = borg.goal.ware;
-        borg.antibounce_count += 1;
+        crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+        crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+        crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+        crate::bridge::st().borg.antibounce_count += 1;
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
-        borg.in_shop = false_0 != 0;
+        crate::bridge::st().borg.in_shop = false_0 != 0;
         return true_0 != 0;
     }
     return false_0 != 0;

@@ -38,20 +38,7 @@ pub use crate::headers::borg_flow_kill_h::{
     borg_nasties_num,
 };
 pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes, borg_takes_nxt};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_engine_date, borg_step, borg_struct, borg_time,
-    borg_update_entrypoint, w_x, w_y, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12,
-    C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17,
-    C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_home_notice_h::borg_notice_home;
 use crate::headers::borg_home_power_h::borg_power_home;
 pub use crate::headers::borg_init_h::{
@@ -450,7 +437,7 @@ unsafe extern "C" fn borg_cmd_target() -> bool {
             borg_note(b"targeting aborted\0" as *const u8 as *const ::core::ffi::c_char);
             return false_0 != 0;
         }
-        if !target_set_interactive(TARGET_LOOK, borg.c.x, borg.c.y, true_0 != 0) {
+        if !target_set_interactive(TARGET_LOOK, crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y, true_0 != 0) {
             borg_note(b"targeting aborted\0" as *const u8 as *const ::core::ffi::c_char);
             return false_0 != 0;
         }
@@ -502,9 +489,9 @@ unsafe extern "C" fn borg_cmd_help() {
 unsafe extern "C" fn borg_cmd_start() {
     borg_reinit_options();
     borg_clear_best();
-    borg.status.active = true_0 != 0;
-    borg.status.cancel = false_0 != 0;
-    borg_step = 0 as uint16_t;
+    crate::bridge::st().borg.status.active = true_0 != 0;
+    crate::bridge::st().borg.status.cancel = false_0 != 0;
+    crate::bridge::st().core.step = 0 as uint16_t;
     if (*player).opts.lazymove_delay as ::core::ffi::c_int != 0 as ::core::ffi::c_int {
         borg_note(
             b"# Turning off lazy movement controls\0" as *const u8 as *const ::core::ffi::c_char,
@@ -512,7 +499,7 @@ unsafe extern "C" fn borg_cmd_start() {
         (*player).opts.lazymove_delay = 0 as uint8_t;
     }
     borg_note(b"# Installing keypress hook\0" as *const u8 as *const ::core::ffi::c_char);
-    borg_update_entrypoint(true_0 != 0);
+    crate::borg::borg_update_entrypoint(true_0 != 0);
 }
 unsafe extern "C" fn borg_cmd_init_txt_file() {
     borg_init_txt_file();
@@ -527,17 +514,17 @@ unsafe extern "C" fn borg_cmd_avoidances() {
         while x <= AUTO_MAX_X - 1 as ::core::ffi::c_int {
             let mut a: uint8_t = COLOUR_RED as uint8_t;
             p = borg_danger(y, x, 1 as ::core::ffi::c_int, true_0 != 0, false_0 != 0);
-            if !(p < borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int) {
-                if p < borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
+            if !(p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int) {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
                     a = COLOUR_ORANGE as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int {
                     a = COLOUR_YELLOW as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 6 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 6 as ::core::ffi::c_int {
                     a = COLOUR_GREEN as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 8 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 8 as ::core::ffi::c_int {
                     a = COLOUR_BLUE as uint8_t;
                 }
                 print_rel('*' as i32, a, y, x);
@@ -548,42 +535,42 @@ unsafe extern "C" fn borg_cmd_avoidances() {
     }
     msg(
         b"(%d,%d of %d,%d) Avoidance value %d.\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
         (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
-        borg.avoidance as ::core::ffi::c_int,
+        crate::bridge::st().borg.avoidance as ::core::ffi::c_int,
     );
     event_signal(EVENT_MESSAGE_FLUSH);
 }
 unsafe extern "C" fn borg_cmd_step() {
     borg_reinit_options();
     borg_clear_best();
-    borg.status.active = true_0 != 0;
-    borg.status.cancel = false_0 != 0;
-    borg_step = get_quantity(
+    crate::bridge::st().borg.status.active = true_0 != 0;
+    crate::bridge::st().borg.status.cancel = false_0 != 0;
+    crate::bridge::st().core.step = get_quantity(
         b"Step how many times? \0" as *const u8 as *const ::core::ffi::c_char,
         1000 as ::core::ffi::c_int,
     ) as uint16_t;
-    if (borg_step as ::core::ffi::c_int) < 1 as ::core::ffi::c_int {
-        borg_step = 1 as uint16_t;
+    if (crate::bridge::st().core.step as ::core::ffi::c_int) < 1 as ::core::ffi::c_int {
+        crate::bridge::st().core.step = 1 as uint16_t;
     }
     borg_notice(true_0 != 0);
     borg_note(b"# Installing keypress hook\0" as *const u8 as *const ::core::ffi::c_char);
     borg_note(format(
         b"# Stepping Borg %d times\0" as *const u8 as *const ::core::ffi::c_char,
-        borg_step as ::core::ffi::c_int,
+        crate::bridge::st().core.step as ::core::ffi::c_int,
     ));
-    borg_update_entrypoint(true_0 != 0);
+    crate::borg::borg_update_entrypoint(true_0 != 0);
 }
 unsafe extern "C" fn borg_cmd_update() {
     borg_reinit_options();
-    borg.status.active = true_0 != 0;
-    borg.status.cancel = true_0 != 0;
-    borg_step = 0 as uint16_t;
+    crate::bridge::st().borg.status.active = true_0 != 0;
+    crate::bridge::st().borg.status.cancel = true_0 != 0;
+    crate::bridge::st().core.step = 0 as uint16_t;
     borg_notice(true_0 != 0);
     borg_note(b"# Installing keypress hook\0" as *const u8 as *const ::core::ffi::c_char);
-    borg_update_entrypoint(true_0 != 0);
+    crate::borg::borg_update_entrypoint(true_0 != 0);
 }
 unsafe extern "C" fn get_cfg_display(
     mut menu: *mut menu,
@@ -620,7 +607,7 @@ unsafe extern "C" fn get_cfg_display(
     {
         my_strcpy(
             &raw mut value as *mut ::core::ffi::c_char,
-            if *borg_cfg.offset(oid as isize) != 0 {
+            if crate::bridge::st().core.cfg[(oid) as usize] != 0 {
                 b"TRUE\0" as *const u8 as *const ::core::ffi::c_char
             } else {
                 b"FALSE\0" as *const u8 as *const ::core::ffi::c_char
@@ -632,7 +619,7 @@ unsafe extern "C" fn get_cfg_display(
             &raw mut value as *mut ::core::ffi::c_char,
             30 as size_t,
             b"%d\0" as *const u8 as *const ::core::ffi::c_char,
-            *borg_cfg.offset(oid as isize),
+            crate::bridge::st().core.cfg[(oid) as usize],
         );
     }
     c_put_str(
@@ -643,7 +630,7 @@ unsafe extern "C" fn get_cfg_display(
     );
 }
 unsafe extern "C" fn borg_cfg_get_quantity(mut config: ::core::ffi::c_int) -> ::core::ffi::c_int {
-    let mut amt: ::core::ffi::c_int = *borg_cfg.offset(config as isize);
+    let mut amt: ::core::ffi::c_int = crate::bridge::st().core.cfg[(config) as usize];
     let mut buf: [::core::ffi::c_char; 80] = [0; 80];
     strnfmt(
         &raw mut buf as *mut ::core::ffi::c_char,
@@ -739,13 +726,13 @@ unsafe extern "C" fn borg_cmd_flags() {
             .setting_type as ::core::ffi::c_int
             == 'b' as i32
         {
-            *borg_cfg.offset((*m).cursor as isize) =
-                (*borg_cfg.offset((*m).cursor as isize) == 0) as ::core::ffi::c_int;
+            crate::bridge::st().core.cfg[((*m).cursor) as usize] =
+                (crate::bridge::st().core.cfg[((*m).cursor) as usize] == 0) as ::core::ffi::c_int;
             msg(format(
                 b"new temp config for %s is %s\0" as *const u8 as *const ::core::ffi::c_char,
                 (*(&raw mut borg_settings as *mut borg_setting).offset((*m).cursor as isize))
                     .setting_string,
-                if *borg_cfg.offset((*m).cursor as isize) != 0 {
+                if crate::bridge::st().core.cfg[((*m).cursor) as usize] != 0 {
                     b"TRUE\0" as *const u8 as *const ::core::ffi::c_char
                 } else {
                     b"FALSE\0" as *const u8 as *const ::core::ffi::c_char
@@ -753,21 +740,21 @@ unsafe extern "C" fn borg_cmd_flags() {
             ));
         } else {
             let mut new_value: ::core::ffi::c_int = borg_cfg_get_quantity((*m).cursor);
-            *borg_cfg.offset((*m).cursor as isize) = new_value;
+            crate::bridge::st().core.cfg[((*m).cursor) as usize] = new_value;
             msg(format(
                 b"new temp config for %s is %d\0" as *const u8 as *const ::core::ffi::c_char,
                 (*(&raw mut borg_settings as *mut borg_setting).offset((*m).cursor as isize))
                     .setting_string,
-                *borg_cfg.offset((*m).cursor as isize),
+                crate::bridge::st().core.cfg[((*m).cursor) as usize],
             ));
         }
     }
 }
 unsafe extern "C" fn borg_cmd_cheat() {
-    borg.status.cheat_death = !borg.status.cheat_death;
+    crate::bridge::st().borg.status.cheat_death = !crate::bridge::st().borg.status.cheat_death;
     msg(
         b"Borg -- borg_cheat_death is now %d.\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.status.cheat_death as ::core::ffi::c_int,
+        crate::bridge::st().borg.status.cheat_death as ::core::ffi::c_int,
     );
 }
 unsafe extern "C" fn borg_cmd_nasties() {
@@ -1669,7 +1656,7 @@ unsafe extern "C" fn borg_cmd_grid_target_feature() {
     y = l.y;
     x = l.x;
     mask = (*crate::bridge::grid(x, y)).feat as uint16_t;
-    let mut feat: uint8_t = (*square(cave, borg.c)).feat;
+    let mut feat: uint8_t = (*square(cave, crate::bridge::st().borg.c)).feat;
     borg_note(format(
         b"Borg's Feat for grid (%d, %d) is %d, game Feat is %d\0" as *const u8
             as *const ::core::ffi::c_char,
@@ -1883,8 +1870,8 @@ unsafe extern "C" fn borg_cmd_targeting() {
     let mut ch: ::core::ffi::c_char = 0;
     let mut svDelay: uint8_t = (*player).opts.delay_factor;
     (*player).opts.delay_factor = 200 as uint8_t;
-    n_x = borg.c.x;
-    n_y = borg.c.y;
+    n_x = crate::bridge::st().borg.c.x;
+    n_y = crate::bridge::st().borg.c.y;
     target_get(&raw mut l);
     x = l.x;
     y = l.y;
@@ -1893,12 +1880,12 @@ unsafe extern "C" fn borg_cmd_targeting() {
         if n_x == x && n_y == y {
             break;
         }
-        borg_inc_motion(&raw mut n_y, &raw mut n_x, borg.c.y, borg.c.x, y, x);
+        borg_inc_motion(&raw mut n_y, &raw mut n_x, crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x);
     }
     msg(b"Borg's Targeting Path\0" as *const u8 as *const ::core::ffi::c_char);
     event_signal(EVENT_MESSAGE_FLUSH);
-    n_x = borg.c.x;
-    n_y = borg.c.y;
+    n_x = crate::bridge::st().borg.c.x;
+    n_y = crate::bridge::st().borg.c.y;
     x = l.x;
     y = l.y;
     if !get_com(
@@ -1943,8 +1930,8 @@ unsafe extern "C" fn borg_cmd_flow() {
     let mut o: ::core::ffi::c_int = 0;
     let mut false_y: ::core::ffi::c_int = 0;
     let mut false_x: ::core::ffi::c_int = 0;
-    false_y = borg.c.y;
-    false_x = borg.c.x;
+    false_y = crate::bridge::st().borg.c.y;
+    false_x = crate::bridge::st().borg.c.x;
     o = 0 as ::core::ffi::c_int;
     while o < 250 as ::core::ffi::c_int {
         let mut b_n: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
@@ -1952,7 +1939,7 @@ unsafe extern "C" fn borg_cmd_flow() {
         let mut b_i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
         let mut c: ::core::ffi::c_int = 0;
         let mut b_c: ::core::ffi::c_int = 0;
-        b_c = (*borg_data_flow).data[borg.c.y as usize][borg.c.x as usize] as ::core::ffi::c_int
+        b_c = (*borg_data_flow).data[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
             * 10 as ::core::ffi::c_int;
         b_c = b_c - 5 as ::core::ffi::c_int;
         i = 0 as ::core::ffi::c_int;
@@ -2005,17 +1992,17 @@ unsafe extern "C" fn borg_cmd_fear() {
             let mut a: uint8_t = COLOUR_RED as uint8_t;
             p = borg_fear_region[(y / 11 as ::core::ffi::c_int) as usize]
                 [(x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
-            if !(p < borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int) {
-                if p < borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
+            if !(p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int) {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
                     a = COLOUR_ORANGE as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int {
                     a = COLOUR_YELLOW as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 6 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 6 as ::core::ffi::c_int {
                     a = COLOUR_GREEN as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 8 as ::core::ffi::c_int {
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 8 as ::core::ffi::c_int {
                     a = COLOUR_BLUE as uint8_t;
                 }
                 print_rel('*' as i32, a, y, x);
@@ -2026,8 +2013,8 @@ unsafe extern "C" fn borg_cmd_fear() {
     }
     msg(
         b"(%d,%d of %d,%d) Regional Fear.\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
         (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
     );
@@ -2043,27 +2030,27 @@ unsafe extern "C" fn borg_cmd_fear() {
                 if p == 1 as ::core::ffi::c_int {
                     a_0 = COLOUR_L_BLUE as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
                     && p > 1 as ::core::ffi::c_int
                 {
                     a_0 = COLOUR_BLUE as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int
-                    && p > borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int
+                    && p > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
                 {
                     a_0 = COLOUR_GREEN as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int
-                    && p > borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int
+                    && p > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 10 as ::core::ffi::c_int
                 {
                     a_0 = COLOUR_YELLOW as uint8_t;
                 }
-                if p < borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int
-                    && p > borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int
+                if p < crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int
+                    && p > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 4 as ::core::ffi::c_int
                 {
                     a_0 = COLOUR_ORANGE as uint8_t;
                 }
-                if p > borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
+                if p > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
                     a_0 = COLOUR_RED as uint8_t;
                 }
                 print_rel('*' as i32, a_0, y, x);
@@ -2074,8 +2061,8 @@ unsafe extern "C" fn borg_cmd_fear() {
     }
     msg(
         b"(%d,%d of %d,%d) Monster Fear.\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         (*Term).offset_y / crate::borg_cave_util::borg_panel_hgt(),
         (*Term).offset_x / crate::borg_cave_util::borg_panel_wid(),
     );
@@ -2085,38 +2072,38 @@ unsafe extern "C" fn borg_cmd_fear() {
 unsafe extern "C" fn borg_cmd_time() {
     msg(
         b"time: (%ld) \0" as *const u8 as *const ::core::ffi::c_char,
-        borg.time.now as ::core::ffi::c_long,
+        crate::bridge::st().borg.time.now as ::core::ffi::c_long,
     );
     msg(
         b"; from town (%ld)\0" as *const u8 as *const ::core::ffi::c_char,
-        (borg.time.now - borg.time.town) as ::core::ffi::c_long,
+        (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town) as ::core::ffi::c_long,
     );
     msg(
         b"; bounciness (%ld)\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.antibounce_count as ::core::ffi::c_long,
+        crate::bridge::st().borg.antibounce_count as ::core::ffi::c_long,
     );
     msg(
         b"; when inviso (%ld)\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.need_see_invis as ::core::ffi::c_long,
+        crate::bridge::st().borg.need_see_invis as ::core::ffi::c_long,
     );
 }
 unsafe extern "C" fn borg_cmd_grid_line_of_sight() {
     let mut x: ::core::ffi::c_int = 0;
     let mut y: ::core::ffi::c_int = 0;
-    y = w_y;
-    while y < w_y
+    y = crate::bridge::st().core.w_y;
+    while y < crate::bridge::st().core.w_y
         + ((*Term).hgt
             - row_top_map[(*Term).sidebar_mode as usize]
             - row_bottom_map[(*Term).sidebar_mode as usize])
             / tile_height as ::core::ffi::c_int
     {
-        x = w_x;
-        while x < w_x
+        x = crate::bridge::st().core.w_x;
+        while x < crate::bridge::st().core.w_x
             + ((*Term).wid - col_map[(*Term).sidebar_mode as usize] - 1 as ::core::ffi::c_int)
                 / tile_width as ::core::ffi::c_int
         {
             let mut a: uint8_t = COLOUR_RED as uint8_t;
-            if borg_los(borg.c.y, borg.c.x, y, x) {
+            if borg_los(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x) {
                 print_rel('*' as i32, a, y, x);
             }
             x += 1;
@@ -2125,21 +2112,21 @@ unsafe extern "C" fn borg_cmd_grid_line_of_sight() {
     }
     msg(b"Borg has Projectable to these places.\0" as *const u8 as *const ::core::ffi::c_char);
     event_signal(EVENT_MESSAGE_FLUSH);
-    y = w_y;
-    while y < w_y
+    y = crate::bridge::st().core.w_y;
+    while y < crate::bridge::st().core.w_y
         + ((*Term).hgt
             - row_top_map[(*Term).sidebar_mode as usize]
             - row_bottom_map[(*Term).sidebar_mode as usize])
             / tile_height as ::core::ffi::c_int
     {
-        x = w_x;
-        while x < w_x
+        x = crate::bridge::st().core.w_x;
+        while x < crate::bridge::st().core.w_x
             + ((*Term).wid - col_map[(*Term).sidebar_mode as usize] - 1 as ::core::ffi::c_int)
                 / tile_width as ::core::ffi::c_int
         {
             let mut a_0: uint8_t = COLOUR_YELLOW as uint8_t;
             if square_in_bounds(cave, loc(x, y)) {
-                if borg_projectable_dark(borg.c.y, borg.c.x, y, x) {
+                if borg_projectable_dark(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x) {
                     print_rel('*' as i32, a_0, y, x);
                 }
             }
@@ -2149,20 +2136,20 @@ unsafe extern "C" fn borg_cmd_grid_line_of_sight() {
     }
     msg(b"Borg has Projectable Dark to these places.\0" as *const u8 as *const ::core::ffi::c_char);
     event_signal(EVENT_MESSAGE_FLUSH);
-    y = w_y;
-    while y < w_y
+    y = crate::bridge::st().core.w_y;
+    while y < crate::bridge::st().core.w_y
         + ((*Term).hgt
             - row_top_map[(*Term).sidebar_mode as usize]
             - row_bottom_map[(*Term).sidebar_mode as usize])
             / tile_height as ::core::ffi::c_int
     {
-        x = w_x;
-        while x < w_x
+        x = crate::bridge::st().core.w_x;
+        while x < crate::bridge::st().core.w_x
             + ((*Term).wid - col_map[(*Term).sidebar_mode as usize] - 1 as ::core::ffi::c_int)
                 / tile_width as ::core::ffi::c_int
         {
             let mut a_1: uint8_t = COLOUR_GREEN as uint8_t;
-            if borg_los(borg.c.y, borg.c.x, y, x) {
+            if borg_los(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x) {
                 print_rel('*' as i32, a_1, y, x);
             }
             x += 1;
@@ -2206,24 +2193,20 @@ unsafe extern "C" fn borg_cmd_prepare() {
     }
     msg(
         b"Max Level: %d  Prep'd For: %d  Reason: %s\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize),
+        crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize],
         i - 1 as ::core::ffi::c_int,
         borg_prepared(i),
     );
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
     {
         msg(b"Unable to check for big fight from town.\0" as *const u8
             as *const ::core::ffi::c_char);
-    } else if borg.ready_morgoth == 1 as ::core::ffi::c_int {
+    } else if crate::bridge::st().borg.ready_morgoth == 1 as ::core::ffi::c_int {
         msg(b"You are ready for the big fight!!\0" as *const u8 as *const ::core::ffi::c_char);
-    } else if borg.ready_morgoth == 0 as ::core::ffi::c_int {
+    } else if crate::bridge::st().borg.ready_morgoth == 0 as ::core::ffi::c_int {
         msg(b"You are NOT ready for the big fight!!\0" as *const u8 as *const ::core::ffi::c_char);
-    } else if borg.ready_morgoth == -(1 as ::core::ffi::c_int) {
+    } else if crate::bridge::st().borg.ready_morgoth == -(1 as ::core::ffi::c_int) {
         msg(b"No readiness check done.\0" as *const u8 as *const ::core::ffi::c_char);
     }
 }
@@ -2235,12 +2218,8 @@ unsafe extern "C" fn borg_cmd_stats() {
             b"stat # %s, is: cur %d, used %d\0" as *const u8 as *const ::core::ffi::c_char,
             *(&raw mut prefix_pref as *mut *const ::core::ffi::c_char)
                 .offset((BI_STR as ::core::ffi::c_int + i) as isize),
-            *borg
-                .trait_0
-                .offset((BI_CSTR as ::core::ffi::c_int + i) as isize),
-            *borg
-                .trait_0
-                .offset((BI_STR as ::core::ffi::c_int + i) as isize),
+            crate::bridge::st().borg.trait_[((BI_CSTR as ::core::ffi::c_int + i)) as usize],
+            crate::bridge::st().borg.trait_[((BI_STR as ::core::ffi::c_int + i)) as usize],
         ));
         i += 1;
     }
@@ -2393,13 +2372,13 @@ unsafe extern "C" fn borg_cmd_has() {
     while item < to {
         match cmd as ::core::ffi::c_int {
             97 | 65 => {
-                if *borg.has.offset(item as isize) != 0 {
+                if crate::bridge::st().borg.has[(item) as usize] != 0 {
                     borg_note(format(
                         b"Item-Kind:%03d name=%s value= %d.\0" as *const u8
                             as *const ::core::ffi::c_char,
                         item,
                         (*k_info.offset(item as isize)).name,
-                        *borg.has.offset(item as isize),
+                        crate::bridge::st().borg.has[(item) as usize],
                     ));
                 }
             }
@@ -2444,7 +2423,7 @@ unsafe extern "C" fn borg_cmd_has() {
                     item,
                     *(&raw mut prefix_pref as *mut *const ::core::ffi::c_char)
                         .offset(item as isize),
-                    *borg.trait_0.offset(item as isize),
+                    crate::bridge::st().borg.trait_[(item) as usize],
                 ));
             }
         }
@@ -2459,7 +2438,7 @@ unsafe extern "C" fn borg_cmd_dump() {
 unsafe extern "C" fn borg_cmd_version() {
     msg(
         b"Borg Version: %s\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut borg_engine_date as *mut ::core::ffi::c_char,
+        crate::bridge::ENGINE_DATE.as_ptr() as *mut ::core::ffi::c_char,
     );
 }
 unsafe extern "C" fn borg_cmd_object_desc() {
@@ -2554,7 +2533,7 @@ pub unsafe extern "C" fn do_cmd_borg() {
     let command_count: ::core::ffi::c_int = (::core::mem::size_of::<[borg_commands; 29]>() as usize)
         .wrapping_div(::core::mem::size_of::<borg_commands>() as usize)
         as ::core::ffi::c_int;
-    borg.c = (*player).grid;
+    crate::bridge::st().borg.c = (*player).grid;
     if !get_com(
         b"Borg command (? for help): \0" as *const u8 as *const ::core::ffi::c_char,
         &raw mut cmd,

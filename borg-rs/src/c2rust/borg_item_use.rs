@@ -4,11 +4,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_activation_h::{
@@ -163,22 +159,22 @@ pub unsafe extern "C" fn borg_quaff_crit(mut no_check: bool) -> bool {
     static mut when_last_quaff: borg_time = 0 as borg_time;
     if no_check {
         if borg_quaff_potion(sv_potion_cure_critical) {
-            when_last_quaff = borg.time.now;
+            when_last_quaff = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
         return false_0 != 0;
     }
-    if borg.time.now - when_last_quaff > 4 as borg_time
-        && borg.time.now - when_last_quaff > 0 as borg_time
+    if crate::bridge::st().borg.time.now - when_last_quaff > 4 as borg_time
+        && crate::bridge::st().borg.time.now - when_last_quaff > 0 as borg_time
         && (Rand_div(100 as uint32_t) as int32_t + 1 as int32_t) < 75 as int32_t
     {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_ACCW as ::core::ffi::c_int as isize) < 2 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.trait_[(BI_ACCW as ::core::ffi::c_int) as usize] < 2 as ::core::ffi::c_int {
         return false_0 != 0;
     }
     if borg_quaff_potion(sv_potion_cure_critical) {
-        when_last_quaff = borg.time.now;
+        when_last_quaff = crate::bridge::st().borg.time.now;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -199,9 +195,9 @@ pub unsafe extern "C" fn borg_quaff_potion(mut sval: ::core::ffi::c_int) -> bool
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(i as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -232,10 +228,10 @@ pub unsafe extern "C" fn borg_quaff_unknown() -> bool {
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(n as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
-    borg.trying_unknown = true_0 != 0;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+    crate::bridge::st().borg.trying_unknown = true_0 != 0;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -244,17 +240,11 @@ pub unsafe extern "C" fn borg_read_scroll(mut sval: ::core::ffi::c_int) -> bool 
     if no_light(player) {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISFORGET as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFORGET as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
@@ -274,9 +264,9 @@ pub unsafe extern "C" fn borg_read_scroll(mut sval: ::core::ffi::c_int) -> bool 
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(i as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -301,13 +291,9 @@ pub unsafe extern "C" fn borg_read_unknown() -> bool {
     if no_light(player) {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
@@ -322,10 +308,10 @@ pub unsafe extern "C" fn borg_read_unknown() -> bool {
             as keycode_t,
     );
     borg_keypress(ESCAPE as keycode_t);
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
-    borg.trying_unknown = true_0 != 0;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+    crate::bridge::st().borg.trying_unknown = true_0 != 0;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -347,9 +333,9 @@ pub unsafe extern "C" fn borg_eat(
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(i as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -382,10 +368,10 @@ pub unsafe extern "C" fn borg_eat_unknown() -> bool {
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(n as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
-    borg.trying_unknown = true_0 != 0;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+    crate::bridge::st().borg.trying_unknown = true_0 != 0;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -444,22 +430,20 @@ pub unsafe extern "C" fn borg_eat_food_any() -> bool {
     if borg_quaff_potion(sv_potion_slime_mold) {
         return true_0 != 0;
     }
-    if *borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) != 0
+    if crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0
         && (borg_quaff_potion(sv_potion_sleep) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_slowness) as ::core::ffi::c_int != 0)
-        || *borg
-            .trait_0
-            .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
             != 0
             && borg_quaff_potion(sv_potion_blindness) as ::core::ffi::c_int != 0
-        || *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0
+        || crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0
             && borg_quaff_potion(sv_potion_confusion) as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
-    if (*borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize) < 4 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            <= *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize))
+    if (crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] < 4 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            <= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize])
         && (borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_cure_critical) as ::core::ffi::c_int != 0
@@ -483,10 +467,8 @@ pub unsafe extern "C" fn borg_equips_rod(mut sval: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -513,10 +495,8 @@ pub unsafe extern "C" fn borg_zap_rod(mut sval: ::core::ffi::c_int) -> bool {
         return false_0 != 0;
     }
     lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -590,7 +570,7 @@ pub unsafe extern "C" fn borg_use_unknown() -> bool {
             as keycode_t,
     );
     borg_keypress(ESCAPE as keycode_t);
-    borg.trying_unknown = true_0 != 0;
+    crate::bridge::st().borg.trying_unknown = true_0 != 0;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -607,10 +587,8 @@ pub unsafe extern "C" fn borg_use_staff_fail(mut sval: ::core::ffi::c_int) -> bo
         return false_0 != 0;
     }
     lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -622,13 +600,9 @@ pub unsafe extern "C" fn borg_use_staff_fail(mut sval: ::core::ffi::c_int) -> bo
         if sval != sv_staff_teleportation {
             return false_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             == 0
-            && *borg
-                .trait_0
-                .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
                 == 0
         {
             if fail > 500 as ::core::ffi::c_int {
@@ -661,10 +635,8 @@ pub unsafe extern "C" fn borg_equips_staff_fail(mut sval: ::core::ffi::c_int) ->
         return false_0 != 0;
     }
     lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -680,9 +652,7 @@ pub unsafe extern "C" fn borg_equips_staff_fail(mut sval: ::core::ffi::c_int) ->
             return false_0 != 0;
         }
         if sval == sv_staff_teleportation
-            && *borg
-                .trait_0
-                .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                 == 0
         {
             if fail < 650 as ::core::ffi::c_int {
@@ -728,10 +698,8 @@ pub unsafe extern "C" fn borg_equips_ring(mut ring_sval: ::core::ffi::c_int) -> 
                     if !((*item).timeout != 0) {
                         if (*item).ident {
                             lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-                            skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-                            if *borg
-                                .trait_0
-                                .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+                            skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+                            if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                                 != 0
                             {
                                 skill =
@@ -815,10 +783,8 @@ pub unsafe extern "C" fn borg_equips_dragon(mut drag_sval: ::core::ffi::c_int) -
         return false_0 != 0;
     }
     lev = (*item).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -874,7 +840,7 @@ pub unsafe extern "C" fn borg_activate_dragon(mut drag_sval: ::core::ffi::c_int)
 #[no_mangle]
 pub unsafe extern "C" fn borg_activate_item(mut activation: ::core::ffi::c_int) -> bool {
     let mut i: ::core::ffi::c_int = 0;
-    if *borg.activation.offset(activation as isize) == 0 {
+    if crate::bridge::st().borg.activation[(activation) as usize] == 0 {
         return false_0 != 0;
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
@@ -907,7 +873,7 @@ pub unsafe extern "C" fn borg_equips_item(
     mut check_charge: bool,
 ) -> bool {
     let mut i: ::core::ffi::c_int = 0;
-    if *borg.activation.offset(activation as isize) == 0 {
+    if crate::bridge::st().borg.activation[(activation) as usize] == 0 {
         return false_0 != 0;
     } else if !check_charge {
         return true_0 != 0;
@@ -948,10 +914,8 @@ pub unsafe extern "C" fn borg_activate_failure(
         return 100 as ::core::ffi::c_int;
     }
     lev = (*borg_items.offset(i as isize)).level as ::core::ffi::c_int;
-    skill = *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    skill = crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         skill = skill * 75 as ::core::ffi::c_int / 100 as ::core::ffi::c_int;
@@ -964,13 +928,11 @@ pub unsafe extern "C" fn borg_activate_failure(
 #[no_mangle]
 pub unsafe extern "C" fn borg_use_things() -> bool {
     let mut i: ::core::ffi::c_int = 0;
-    if *borg
-        .trait_0
-        .offset(BI_ISFIXEXP as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISFIXEXP as ::core::ffi::c_int) as usize]
         != 0
         && (borg_spell(REVITALIZE) as ::core::ffi::c_int != 0
             || borg_spell(REMEMBRANCE) as ::core::ffi::c_int != 0
-            || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 > 90 as ::core::ffi::c_int
                 && borg_spell(UNHOLY_REPRIEVE) as ::core::ffi::c_int != 0
             || borg_activate_item(act_restore_exp) as ::core::ffi::c_int != 0
@@ -988,9 +950,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
     {
         return true_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISFIXSTR as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISFIXSTR as ::core::ffi::c_int) as usize]
         != 0
         && (borg_quaff_potion(sv_potion_inc_str) as ::core::ffi::c_int != 0
             || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_purging) as ::core::ffi::c_int
@@ -1000,9 +960,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
             || borg_activate_item(act_restore_all) as ::core::ffi::c_int != 0
             || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring) as ::core::ffi::c_int
                 != 0)
-        || *borg
-            .trait_0
-            .offset(BI_ISFIXINT as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFIXINT as ::core::ffi::c_int) as usize]
             != 0
             && (borg_quaff_potion(sv_potion_inc_int) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_restore_int) as ::core::ffi::c_int != 0
@@ -1010,9 +968,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
                 || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
-        || *borg
-            .trait_0
-            .offset(BI_ISFIXWIS as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFIXWIS as ::core::ffi::c_int) as usize]
             != 0
             && (borg_quaff_potion(sv_potion_inc_wis) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_restore_wis) as ::core::ffi::c_int != 0
@@ -1020,9 +976,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
                 || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
-        || *borg
-            .trait_0
-            .offset(BI_ISFIXDEX as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFIXDEX as ::core::ffi::c_int) as usize]
             != 0
             && (borg_quaff_potion(sv_potion_inc_dex) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_restore_dex) as ::core::ffi::c_int != 0
@@ -1030,9 +984,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
                 || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring)
                     as ::core::ffi::c_int
                     != 0)
-        || *borg
-            .trait_0
-            .offset(BI_ISFIXCON as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFIXCON as ::core::ffi::c_int) as usize]
             != 0
             && (borg_quaff_potion(sv_potion_inc_con) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_restore_con) as ::core::ffi::c_int != 0
@@ -1054,9 +1006,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
             match (*item).tval as ::core::ffi::c_int {
                 26 => {
                     if (*item).sval as ::core::ffi::c_int == sv_potion_enlightenment {
-                        *borg
-                            .trait_0
-                            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                        crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             == 0;
                     } else if (*item).sval as ::core::ffi::c_int == sv_potion_inc_all {
                         if borg_quaff_potion((*item).sval as ::core::ffi::c_int) {
@@ -1065,22 +1015,16 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
                     }
                 }
                 25 => {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
                         != 0
-                        || *borg
-                            .trait_0
-                            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+                        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                             != 0)
                     {
                         if (*item).sval as ::core::ffi::c_int == sv_scroll_mapping
                             || (*item).sval as ::core::ffi::c_int == sv_scroll_acquirement
                             || (*item).sval as ::core::ffi::c_int == sv_scroll_star_acquirement
                         {
-                            if !(*borg
-                                .trait_0
-                                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                            if !(crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                                 == 0)
                             {
                                 if borg_read_scroll((*item).sval as ::core::ffi::c_int) {
@@ -1095,9 +1039,7 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
         }
         i += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
         != 0
     {
         if borg_spell(REMOVE_HUNGER) as ::core::ffi::c_int != 0
@@ -1125,13 +1067,9 @@ pub unsafe extern "C" fn borg_use_things() -> bool {
 pub unsafe extern "C" fn borg_recharging() -> bool {
     let mut i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut charge: bool = false_0 != 0;
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
@@ -1161,9 +1099,7 @@ pub unsafe extern "C" fn borg_recharging() -> bool {
                     }
                     if (*item).sval as ::core::ffi::c_int == sv_staff_teleportation
                         && ((*item).pval as ::core::ffi::c_int) < 3 as ::core::ffi::c_int
-                        && *borg
-                            .trait_0
-                            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             == 0
                     {
                         charge = true_0 != 0;

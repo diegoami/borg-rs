@@ -9,11 +9,7 @@ pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_cost, borg_flow_clear, borg_flow_commit, borg_flow_enqueue_grid,
     borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track, borg_track,
 };
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::borg_note;
 pub use crate::headers::borg_magic_h::{
     borg_heroism_level, borg_spell_fail, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
@@ -173,32 +169,26 @@ pub unsafe extern "C" fn borg_flow_stair_both(
     if track_less.num == 0 && track_more.num == 0 {
         return false_0 != 0;
     }
-    if !borg.goal.fleeing
-        && !borg.mon.scary
+    if !crate::bridge::st().borg.goal.fleeing
+        && !crate::bridge::st().borg.mon.scary
         && track_less.num == 0
-        && borg.avoidance as ::core::ffi::c_int
-            <= *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.avoidance as ::core::ffi::c_int
+            <= crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 * 15 as ::core::ffi::c_int
                 / 10 as ::core::ffi::c_int
-        && (*borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
-            || *borg
-                .trait_0
-                .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
                 != 0
-            || *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                 < 2 as ::core::ffi::c_int)
     {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0 as ::core::ffi::c_int
-        && borg.munchkin_mode as ::core::ffi::c_int == false_0
+        && crate::bridge::st().borg.munchkin_mode as ::core::ffi::c_int == false_0
     {
         return false_0 != 0;
     }
@@ -271,11 +261,9 @@ pub unsafe extern "C" fn borg_flow_stair_less(
         }
         i += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         > 35 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
     {
         borg_flow_spread(
             250 as ::core::ffi::c_int,
@@ -289,7 +277,7 @@ pub unsafe extern "C" fn borg_flow_stair_less(
         borg_flow_spread(
             250 as ::core::ffi::c_int,
             false_0 != 0,
-            !borg.status.desperate,
+            !crate::bridge::st().borg.status.desperate,
             false_0 != 0,
             -(1 as ::core::ffi::c_int),
             sneak,
@@ -317,13 +305,11 @@ pub unsafe extern "C" fn borg_flow_stair_more(
         return false_0 != 0;
     }
     if track_less.num != 0 {
-        if !borg.lunal_mode
-            && !borg.munchkin_mode
+        if !crate::bridge::st().borg.lunal_mode
+            && !crate::bridge::st().borg.munchkin_mode
             && !brave
             && !(borg_prepared(
-                *borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     + 1 as ::core::ffi::c_int,
             ) as *mut ::core::ffi::c_char)
                 .is_null()
@@ -331,46 +317,36 @@ pub unsafe extern "C" fn borg_flow_stair_more(
             return false_0 != 0;
         }
         if !brave
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 != 0
-            && !borg.mon.scary
-            && (*borg
-                .trait_0
-                .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+            && !crate::bridge::st().borg.mon.scary
+            && (crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
                 != 0
-                || *borg
-                    .trait_0
-                    .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
                     != 0
-                || *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                     < 2 as ::core::ffi::c_int)
         {
             return false_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 25 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                 < 25000 as ::core::ffi::c_int
             && borg_count_sell() >= 13 as ::core::ffi::c_int
-            && !borg.munchkin_mode
+            && !crate::bridge::st().borg.munchkin_mode
         {
             return false_0 != 0;
         }
-        if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-            && borg.munchkin_mode as ::core::ffi::c_int == false_0
+        if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+            && crate::bridge::st().borg.munchkin_mode as ::core::ffi::c_int == false_0
         {
             return false_0 != 0;
         }
     }
-    if borg.goal.recalling != 0 {
+    if crate::bridge::st().borg.goal.recalling != 0 {
         return false_0 != 0;
     }
     borg_flow_clear();
@@ -408,29 +384,29 @@ pub unsafe extern "C" fn borg_flow_stair_more(
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_prep_leave_level_spells() -> bool {
-    if borg.goal.fleeing {
+    if crate::bridge::st().borg.goal.fleeing {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
-        < *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize) * 6 as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
+        < crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] * 6 as ::core::ffi::c_int
             / 10 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if !borg.temp.fast
+    if !crate::bridge::st().borg.temp.fast
         && borg_spell_fail(HASTE_SELF, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_note(
             b"# Casting speed spell before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 5000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 5000 as int16_t;
         return true_0 != 0;
     }
-    if (borg.temp.res_fire as ::core::ffi::c_int
-        + borg.temp.res_acid as ::core::ffi::c_int
-        + borg.temp.res_elec as ::core::ffi::c_int
-        + borg.temp.res_cold as ::core::ffi::c_int)
+    if (crate::bridge::st().borg.temp.res_fire as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_acid as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_elec as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_cold as ::core::ffi::c_int)
         < 3 as ::core::ffi::c_int
         && borg_spell_fail(RESISTANCE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
@@ -438,56 +414,52 @@ pub unsafe extern "C" fn borg_prep_leave_level_spells() -> bool {
             b"# Casting Resistance spell before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 21000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.fastcast
+    if !crate::bridge::st().borg.temp.fastcast
         && borg_spell_fail(MANA_CHANNEL, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_note(
             b"# Casting Mana Channel spell before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 6000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 6000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.berserk
+    if !crate::bridge::st().borg.temp.berserk
         && borg_spell_fail(BERSERK_STRENGTH, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_note(
             b"# Casting Berserk Strength spell before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 10000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 10000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.hero
+    if !crate::bridge::st().borg.temp.hero
         && borg_spell_fail(HEROISM, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             > borg_heroism_level()
     {
         borg_note(
             b"# Casting Heroism spell before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 3000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 3000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.regen
+    if !crate::bridge::st().borg.temp.regen
         && borg_spell_fail(RAPID_REGENERATION, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_note(
             b"# Casting Regen before leaving level.\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 6000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 6000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.smite_evil
-        && *borg
-            .trait_0
-            .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+    if !crate::bridge::st().borg.temp.smite_evil
+        && crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
             == 0
         && borg_spell_fail(SMITE_EVIL, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
@@ -495,36 +467,32 @@ pub unsafe extern "C" fn borg_prep_leave_level_spells() -> bool {
             b"# Casting Smite Evil before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 21000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.venom
-        && *borg
-            .trait_0
-            .offset(BI_WB_POIS as ::core::ffi::c_int as isize)
+    if !crate::bridge::st().borg.temp.venom
+        && crate::bridge::st().borg.trait_[(BI_WB_POIS as ::core::ffi::c_int) as usize]
             == 0
         && borg_spell_fail(VENOM, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
     {
         borg_note(
             b"# Casting Venom before leaving level.\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 18000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 18000 as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.prot_from_evil
+    if !crate::bridge::st().borg.temp.prot_from_evil
         && borg_spell_fail(PROTECTION_FROM_EVIL, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
             != 0
     {
         borg_note(
             b"# Casting PFE before leaving level.\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = (*borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.no_rest_prep = (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             * 1000 as ::core::ffi::c_int) as int16_t;
         return true_0 != 0;
     }
-    if !borg.temp.bless
+    if !crate::bridge::st().borg.temp.bless
         && (borg_spell_fail(BLESS, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(DEMON_BANE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0)
     {
@@ -532,7 +500,7 @@ pub unsafe extern "C" fn borg_prep_leave_level_spells() -> bool {
             b"# Casting blessing before leaving level.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.no_rest_prep = 11000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 11000 as int16_t;
         return true_0 != 0;
     }
     return false_0 != 0;

@@ -5,19 +5,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_dump_recent_keys, borg_flush, borg_get_queued_direction, borg_inkey, borg_note};
 use crate::headers::borg_log_h::{borg_log_death, borg_log_death_data, borg_write_map};
 use crate::headers::borg_messages_h::{
@@ -138,15 +126,13 @@ pub unsafe extern "C" fn borg_react(
 ) {
     let mut len: ::core::ffi::c_int = 0;
     if borg_dont_react as ::core::ffi::c_int != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISPARALYZED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISPARALYZED as ::core::ffi::c_int) as usize]
             != 0
     {
         borg_note(b"# Ignoring messages.\0" as *const u8 as *const ::core::ffi::c_char);
         return;
     }
-    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
         borg_note(format(
             b"> Reacting Msg (%s)\0" as *const u8 as *const ::core::ffi::c_char,
             msg,
@@ -192,15 +178,13 @@ pub unsafe extern "C" fn borg_react_prompted(
     if cursor.y == 0 as ::core::ffi::c_int {
         if prefix(buf, b"Die?\0" as *const u8 as *const ::core::ffi::c_char) as ::core::ffi::c_int
             != 0
-            && borg.status.cheat_death as ::core::ffi::c_int != 0
+            && crate::bridge::st().borg.status.cheat_death as ::core::ffi::c_int != 0
         {
             borg_parse(::core::ptr::null_mut::<::core::ffi::c_char>());
             borg_flush();
             borg_note(b"# Cheating death...\0" as *const u8 as *const ::core::ffi::c_char);
-            if *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
-                >= *borg_cfg.offset(BORG_DUMP_LEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
+                >= crate::bridge::st().core.cfg[(BORG_DUMP_LEVEL as ::core::ffi::c_int) as usize]
                 || !strstr(
                     &raw mut (*player).died_from as *mut ::core::ffi::c_char,
                     b"starvation\0" as *const u8 as *const ::core::ffi::c_char,
@@ -212,19 +196,19 @@ pub unsafe extern "C" fn borg_react_prompted(
             borg_log_death();
             borg_log_death_data();
             borg_flush();
-            if *borg_cfg.offset(BORG_CHEAT_DEATH as ::core::ffi::c_int as isize) == 0 {
+            if crate::bridge::st().core.cfg[(BORG_CHEAT_DEATH as ::core::ffi::c_int) as usize] == 0 {
                 borg_reincarnate_start();
                 (*key).code = 'y' as i32 as keycode_t;
                 return true_0 != 0;
             } else {
                 do_cmd_wiz_cure_all(::core::ptr::null_mut::<command>());
-                borg.time.now = 100 as ::core::ffi::c_int as borg_time;
+                crate::bridge::st().borg.time.now = 100 as ::core::ffi::c_int as borg_time;
                 (*key).code = 'n' as i32 as keycode_t;
                 return true_0 != 0;
             }
         }
         if prefix(buf, b"Atte\0" as *const u8 as *const ::core::ffi::c_char) {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(
                     b"# Confirming use of Spell/Prayer when low on mana.\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -238,7 +222,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             b"(Equip: c-d,\0" as *const u8 as *const ::core::ffi::c_char,
         ) {
             (*key).code = 'c' as i32 as keycode_t;
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(
                     b"# Putting ring on the left hand.\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -254,7 +238,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             ) == 0 as ::core::ffi::c_int
         {
             if crate::bridge::st().io.confirm_target {
-                if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                     borg_note(
                         b"# Expected request for Direction.\0" as *const u8
                             as *const ::core::ffi::c_char,
@@ -285,7 +269,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             buf,
             b"You have no room\0" as *const u8 as *const ::core::ffi::c_char,
         ) {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(
                     b"# 'You have no room' is a no-op\0" as *const u8 as *const ::core::ffi::c_char,
                 );
@@ -301,7 +285,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             ) as ::core::ffi::c_int
                 != 0
         {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(
                     b"# Use of Wonder selected BANISHMENT\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -321,7 +305,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             ) as ::core::ffi::c_int
                 != 0
         {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(b"# ignoring Lava warning\0" as *const u8 as *const ::core::ffi::c_char);
             }
             (*key).code = 'y' as i32 as keycode_t;
@@ -334,7 +318,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             ) as ::core::ffi::c_int
                 != 0
         {
-            if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(
                     b"# Use of unknown object with recall\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -354,7 +338,7 @@ pub unsafe extern "C" fn borg_react_prompted(
             buf,
             b"Word of Recall is already\0" as *const u8 as *const ::core::ffi::c_char,
         ) {
-            if !borg.trying_unknown {
+            if !crate::bridge::st().borg.trying_unknown {
                 borg_oops(
                     b"unexpected double Word of Recall\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -396,7 +380,7 @@ pub unsafe extern "C" fn borg_react_prompted(
         buf,
         b"Throw which item? (Throw\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
             borg_note(
                 b"# switching to inventory for throws\0" as *const u8 as *const ::core::ffi::c_char,
             );
@@ -412,7 +396,7 @@ pub unsafe extern "C" fn borg_react_prompted(
         ) as ::core::ffi::c_int
             != 0
     {
-        if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
             borg_note(
                 b"# Use of unknown object with multiple effects\0" as *const u8
                     as *const ::core::ffi::c_char,

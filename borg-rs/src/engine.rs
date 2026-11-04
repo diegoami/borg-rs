@@ -220,3 +220,78 @@ pub fn event_remove_handler(kind: game_event_type, f: game_event_handler) {
         crate::headers::game_event_h::event_remove_handler(kind, Some(f), core::ptr::null_mut())
     }
 }
+
+// ---------------------------------------------------------------------------
+// Player, input, RNG
+
+use crate::headers::ui_event_h::{keypress, ui_event_type};
+
+fn player_ref() -> &'static crate::headers::player_h::player {
+    // SAFETY: `player` is allocated at startup and lives for the game.
+    unsafe { &*crate::headers::player_h::player }
+}
+
+/// `player->is_dead`
+pub fn player_is_dead() -> bool {
+    player_ref().is_dead
+}
+
+/// `player->died_from` (bytes up to the NUL).
+pub fn player_died_from() -> Vec<u8> {
+    let d = &player_ref().died_from;
+    d.iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect()
+}
+
+/// `player->upkeep->resting`
+pub fn player_resting() -> i32 {
+    // SAFETY: upkeep is allocated with the player.
+    unsafe { (*player_ref().upkeep).resting }
+}
+
+/// `cmd_get_nrepeats()`
+pub fn cmd_get_nrepeats() -> i32 {
+    // SAFETY: plain call.
+    unsafe { crate::headers::cmd_core_h::cmd_get_nrepeats() }
+}
+
+/// `Term_inkey(&ev, wait, take)`: returns the event type and its key.
+pub fn term_inkey(wait: bool, take: bool) -> (ui_event_type, keypress) {
+    // SAFETY: ui_event is a C union of plain-data structs that all start
+    // with the type; Term_inkey zeroes it first, so reading the key
+    // variant is always defined.
+    unsafe {
+        let mut ev: crate::headers::ui_event_h::ui_event = core::mem::zeroed();
+        crate::headers::ui_term_h::Term_inkey(&mut ev, wait, take);
+        (ev.type_0, ev.key)
+    }
+}
+
+/// `flush(0, 0, 0)` (ui-input.c): discard pending input.
+pub fn flush_input() {
+    // SAFETY: the engine's flush ignores its arguments.
+    unsafe { crate::headers::ui_input_h::flush(0, core::ptr::null_mut(), core::ptr::null_mut()) }
+}
+
+/// The game RNG's simple-mode state (`Rand_quick`, `Rand_value`).
+pub fn rand_state() -> (bool, u32) {
+    // SAFETY: plain globals.
+    unsafe { (crate::headers::z_rand_h::Rand_quick, crate::headers::z_rand_h::Rand_value) }
+}
+
+/// Set `Rand_quick` and `Rand_value`.
+pub fn set_rand_state(quick: bool, value: u32) {
+    // SAFETY: plain globals, engine thread.
+    unsafe {
+        crate::headers::z_rand_h::Rand_quick = quick;
+        crate::headers::z_rand_h::Rand_value = value;
+    }
+}
+
+/// The `inkey_hack` callback type.
+pub type InkeyHack = unsafe extern "C" fn(core::ffi::c_int) -> keypress;
+
+/// Set or clear `inkey_hack` (ui-input.c).
+pub fn set_inkey_hack(f: Option<InkeyHack>) {
+    // SAFETY: plain global, engine thread.
+    unsafe { crate::headers::borg_h::inkey_hack = f }
+}

@@ -14,19 +14,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_flow_glyph_h::borg_needs_new_sea;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt, borg_race_name};
 pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_engine_date, borg_struct, borg_time, C2RustUnnamedH_10,
-    C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15,
-    C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE,
-    BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL,
-    BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS,
-    BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START,
-    BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_home_notice_h::{num_ezheal, num_heal, num_life, num_mana};
 pub use crate::headers::borg_item_h::{borg_get_note, borg_item, borg_items};
 pub use crate::headers::borg_magic_h::{
@@ -194,7 +182,7 @@ pub unsafe extern "C" fn borg_log_death() {
     let mut buf: [::core::ffi::c_char; 1024] = [0; 1024];
     let mut borg_log_file: *mut ang_file = ::core::ptr::null_mut::<ang_file>();
     let mut death_time: time_t = 0;
-    if *borg_cfg.offset(BORG_SAVE_DEATH as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().core.cfg[(BORG_SAVE_DEATH as ::core::ffi::c_int) as usize] == 0 {
         return;
     }
     path_build(
@@ -247,7 +235,7 @@ pub unsafe extern "C" fn borg_log_death() {
     file_putf(
         borg_log_file,
         b"Borg Compile Date: %s\n\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut borg_engine_date as *mut ::core::ffi::c_char,
+        crate::bridge::ENGINE_DATE.as_ptr() as *mut ::core::ffi::c_char,
     );
     file_put(
         borg_log_file,
@@ -260,7 +248,7 @@ pub unsafe extern "C" fn borg_log_death_data() {
     let mut buf: [::core::ffi::c_char; 1024] = [0; 1024];
     let mut borg_log_file: *mut ang_file = ::core::ptr::null_mut::<ang_file>();
     let mut death_time: time_t = 0;
-    if *borg_cfg.offset(BORG_SAVE_DEATH as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().core.cfg[(BORG_SAVE_DEATH as ::core::ffi::c_int) as usize] == 0 {
         return;
     }
     path_build(
@@ -281,7 +269,7 @@ pub unsafe extern "C" fn borg_log_death_data() {
     file_putf(
         borg_log_file,
         b"%s, %s, %s, %d, %d, %s\n\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut borg_engine_date as *mut ::core::ffi::c_char,
+        crate::bridge::ENGINE_DATE.as_ptr() as *mut ::core::ffi::c_char,
         (*(*player).race).name,
         (*(*player).class).name,
         (*player).lev as ::core::ffi::c_int,
@@ -311,7 +299,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     let mut itemm: ::core::ffi::c_int = 0;
     let mut m_idx: int16_t = 0;
     let mut o_name: [::core::ffi::c_char; 80] = [0; 80];
-    if *borg_cfg.offset(BORG_SAVE_DEATH as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().core.cfg[(BORG_SAVE_DEATH as ::core::ffi::c_int) as usize] == 0 {
         return;
     }
     i = 0 as ::core::ffi::c_int;
@@ -413,7 +401,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     file_putf(
         borg_map_file,
         b"Borg Compile Date: %s\n\0" as *const u8 as *const ::core::ffi::c_char,
-        &raw mut borg_engine_date as *mut ::core::ffi::c_char,
+        crate::bridge::ENGINE_DATE.as_ptr() as *mut ::core::ffi::c_char,
     );
     line = mem_zalloc(
         ((DUNGEON_WID + 1 as ::core::ffi::c_int) as size_t)
@@ -457,7 +445,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
                     r_info.offset((*kill).r_idx as isize) as *mut monster_race;
                 ch = (*r_ptr).d_char;
             }
-            if i == borg.c.y && j == borg.c.x {
+            if i == crate::bridge::st().borg.c.y && j == crate::bridge::st().borg.c.x {
                 ch = '@' as i32 as wchar_t;
             }
             *line.offset(j as isize) = ch;
@@ -693,7 +681,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     );
     mem_free(list as *mut ::core::ffi::c_void);
     list = ::core::ptr::null_mut::<*mut object>();
-    if *borg_cfg.offset(BORG_USES_SWAPS as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_USES_SWAPS as ::core::ffi::c_int) as usize] != 0 {
         file_putf(
             borg_map_file,
             b"  [Swap info]\n\n\0" as *const u8 as *const ::core::ffi::c_char,
@@ -738,7 +726,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     file_putf(
         borg_map_file,
         b"Current speed: %d. \n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg.trait_0.offset(BI_SPEED as ::core::ffi::c_int as isize),
+        crate::bridge::st().borg.trait_[(BI_SPEED as ::core::ffi::c_int) as usize],
     );
     if *(*player)
         .timed
@@ -951,32 +939,32 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     file_putf(
         borg_map_file,
         b"Anti-bounce counter: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.antibounce_count as ::core::ffi::c_int,
+        crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int,
     );
     file_putf(
         borg_map_file,
         b"Time on this level: %ld\n\0" as *const u8 as *const ::core::ffi::c_char,
-        (borg.time.now - borg.time.level) as ::core::ffi::c_long,
+        (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level) as ::core::ffi::c_long,
     );
     file_putf(
         borg_map_file,
         b"Time since left town: %ld\n\0" as *const u8 as *const ::core::ffi::c_char,
-        (borg.time.now - borg.time.town) as ::core::ffi::c_long,
+        (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town) as ::core::ffi::c_long,
     );
     file_putf(
         borg_map_file,
         b"Borg_no_retreat: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.no_retreat as ::core::ffi::c_int,
+        crate::bridge::st().borg.no_retreat as ::core::ffi::c_int,
     );
     file_putf(
         borg_map_file,
         b"borg.near.breeder: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.near.breeder as ::core::ffi::c_int,
+        crate::bridge::st().borg.near.breeder as ::core::ffi::c_int,
     );
     file_putf(
         borg_map_file,
         b"borg.mon.unique: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        borg.mon.unique,
+        crate::bridge::st().borg.mon.unique,
     );
     if turn as ::core::ffi::c_long
         % (10 as ::core::ffi::c_long * (*z_info).day_length as ::core::ffi::c_long)
@@ -1000,49 +988,47 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
     file_putf(
         borg_map_file,
         b"borg_uses_swaps: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_USES_SWAPS as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_USES_SWAPS as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_damage: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_DAMAGE as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_DAMAGE as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_speed: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_SPEED as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_SPEED as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_hp: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_HP as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_HP as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_mana: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_MANA as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_MANA as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_ac: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_AC as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_AC as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_worships_gold: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_WORSHIPS_GOLD as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_WORSHIPS_GOLD as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"borg_plays_risky: %d\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_PLAYS_RISKY as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_PLAYS_RISKY as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
         b"prepping for big fight: %d\n\n\0" as *const u8 as *const ::core::ffi::c_char,
-        *borg
-            .trait_0
-            .offset(BI_PREP_BIG_FIGHT as ::core::ffi::c_int as isize),
+        crate::bridge::st().borg.trait_[(BI_PREP_BIG_FIGHT as ::core::ffi::c_int) as usize],
     );
     file_putf(
         borg_map_file,
@@ -1094,7 +1080,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
             b"skill %d (%s) value= %d.\n\0" as *const u8 as *const ::core::ffi::c_char,
             itemm,
             *(&raw mut prefix_pref as *mut *const ::core::ffi::c_char).offset(itemm as isize),
-            *borg.trait_0.offset(itemm as isize),
+            crate::bridge::st().borg.trait_[(itemm) as usize],
         );
         itemm += 1;
     }
@@ -1199,7 +1185,7 @@ pub unsafe extern "C" fn borg_display_item(mut item2: *mut object, mut n: ::core
         format(
             b"Inscription: %s, chance: %d\0" as *const u8 as *const ::core::ffi::c_char,
             borg_get_note(item),
-            *borg.trait_0.offset(BI_DEV as ::core::ffi::c_int as isize)
+            crate::bridge::st().borg.trait_[(BI_DEV as ::core::ffi::c_int) as usize]
                 - (*item).level as ::core::ffi::c_int,
         ),
         9 as ::core::ffi::c_int,
@@ -1350,13 +1336,13 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"RESISTS\0" as *const u8 as *const ::core::ffi::c_char,
                 );
                 attr = COLOUR_SLATE as uint8_t;
-                if *borg.trait_0.offset(BI_RACID as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if borg.temp.res_acid {
+                if crate::bridge::st().borg.temp.res_acid {
                     attr = COLOUR_GREEN as uint8_t;
                 }
-                if *borg.trait_0.offset(BI_IACID as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 }
                 Term_putstr(
@@ -1367,13 +1353,13 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"Acid\0" as *const u8 as *const ::core::ffi::c_char,
                 );
                 attr = COLOUR_SLATE as uint8_t;
-                if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if borg.temp.res_elec {
+                if crate::bridge::st().borg.temp.res_elec {
                     attr = COLOUR_GREEN as uint8_t;
                 }
-                if *borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 }
                 Term_putstr(
@@ -1384,13 +1370,13 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"Elec\0" as *const u8 as *const ::core::ffi::c_char,
                 );
                 attr = COLOUR_SLATE as uint8_t;
-                if *borg.trait_0.offset(BI_RFIRE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if borg.temp.res_fire {
+                if crate::bridge::st().borg.temp.res_fire {
                     attr = COLOUR_GREEN as uint8_t;
                 }
-                if *borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 }
                 Term_putstr(
@@ -1401,13 +1387,13 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"Fire\0" as *const u8 as *const ::core::ffi::c_char,
                 );
                 attr = COLOUR_SLATE as uint8_t;
-                if *borg.trait_0.offset(BI_RCOLD as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if borg.temp.res_cold {
+                if crate::bridge::st().borg.temp.res_cold {
                     attr = COLOUR_GREEN as uint8_t;
                 }
-                if *borg.trait_0.offset(BI_ICOLD as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 }
                 Term_putstr(
@@ -1418,10 +1404,10 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"Cold\0" as *const u8 as *const ::core::ffi::c_char,
                 );
                 attr = COLOUR_SLATE as uint8_t;
-                if *borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if borg.temp.res_pois {
+                if crate::bridge::st().borg.temp.res_pois {
                     attr = COLOUR_GREEN as uint8_t;
                 }
                 Term_putstr(
@@ -1431,7 +1417,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Pois\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RFEAR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RFEAR as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1443,7 +1429,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Fear\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1455,7 +1441,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Lite\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1467,9 +1453,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Dark\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1483,7 +1467,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Blind\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1495,7 +1479,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Confu\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1507,7 +1491,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Sound\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RSHRD as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1519,7 +1503,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Shard\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RNXUS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1531,7 +1515,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Nexus\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1543,7 +1527,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Nethr\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RKAOS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1555,7 +1539,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Chaos\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_RDIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1567,7 +1551,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Disen\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SDIG as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SDIG as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1579,7 +1563,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"S.Dig\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_FEATH as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_FEATH as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1591,7 +1575,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Feath\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1603,7 +1587,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"PLite\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_REG as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_REG as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1615,7 +1599,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Regen\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_ESP as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1627,7 +1611,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Telep\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SINV as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SINV as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1639,7 +1623,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Invis\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1651,7 +1635,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"FrAct\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_HLIFE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1670,9 +1654,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     b"Weapon Slays:\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_ANIMAL as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_ANIMAL as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1686,9 +1668,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Animal\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1702,9 +1682,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Evil\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_UNDEAD as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_UNDEAD as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1718,16 +1696,12 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Undead\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_DEMON as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_DEMON as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if *borg
-                    .trait_0
-                    .offset(BI_WK_DEMON as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WK_DEMON as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_GREEN as uint8_t;
@@ -1741,9 +1715,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Demon\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_ORC as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_ORC as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1757,9 +1729,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Orc\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_TROLL as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_TROLL as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1773,9 +1743,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Troll\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_GIANT as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_GIANT as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1789,16 +1757,12 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Giant\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WS_DRAGON as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WS_DRAGON as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
                 }
-                if *borg
-                    .trait_0
-                    .offset(BI_WK_DRAGON as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WK_DRAGON as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_GREEN as uint8_t;
@@ -1812,9 +1776,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Dragon\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WB_ACID as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WB_ACID as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1828,9 +1790,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Acid\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WB_COLD as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WB_COLD as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1844,9 +1804,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Cold\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WB_ELEC as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WB_ELEC as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1860,9 +1818,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Elec\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_WB_FIRE as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WB_FIRE as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1883,9 +1839,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     b"Concerns:\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1899,9 +1853,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Cursed\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1915,9 +1867,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Weak\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1931,7 +1881,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Poison\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1943,9 +1893,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Cut\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1959,9 +1907,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Stun\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
                     != 0
                 {
                     attr = COLOUR_BLUE as uint8_t;
@@ -1975,7 +1921,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Confused\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.goal.fleeing {
+                if crate::bridge::st().borg.goal.fleeing {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -1987,7 +1933,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Goal Fleeing\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.no_rest_prep as ::core::ffi::c_int > 0 as ::core::ffi::c_int {
+                if crate::bridge::st().borg.no_rest_prep as ::core::ffi::c_int > 0 as ::core::ffi::c_int {
                     attr = COLOUR_BLUE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2020,7 +1966,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     format(
                         b"%ld\0" as *const u8 as *const ::core::ffi::c_char,
-                        (borg.time.now - borg.time.level) as ::core::ffi::c_long,
+                        (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level) as ::core::ffi::c_long,
                     ),
                 );
                 Term_putstr(
@@ -2037,7 +1983,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     format(
                         b"%ld\0" as *const u8 as *const ::core::ffi::c_char,
-                        (borg.time.now - borg.time.town) as ::core::ffi::c_long,
+                        (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town) as ::core::ffi::c_long,
                     ),
                 );
                 Term_putstr(
@@ -2054,7 +2000,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     format(
                         b"%d\0" as *const u8 as *const ::core::ffi::c_char,
-                        borg.antibounce_count as ::core::ffi::c_int,
+                        crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int,
                     ),
                 );
                 Term_putstr(
@@ -2064,7 +2010,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     b"Sustains\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SSTR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SSTR as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2076,7 +2022,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"STR\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SINT as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SINT as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2088,7 +2034,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"INT\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SWIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SWIS as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2100,7 +2046,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"WIS\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SDEX as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SDEX as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2112,7 +2058,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"DEX\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if *borg.trait_0.offset(BI_SCON as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_SCON as ::core::ffi::c_int) as usize] != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2131,7 +2077,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     b"Temp Effects\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.prot_from_evil {
+                if crate::bridge::st().borg.temp.prot_from_evil {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2143,7 +2089,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Prot. Evil\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.fastcast {
+                if crate::bridge::st().borg.temp.fastcast {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2155,7 +2101,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Fastcast\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.hero {
+                if crate::bridge::st().borg.temp.hero {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2167,7 +2113,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Heroism\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.berserk {
+                if crate::bridge::st().borg.temp.berserk {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2179,7 +2125,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Berserk\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.shield {
+                if crate::bridge::st().borg.temp.shield {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2191,7 +2137,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Shielded\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.bless {
+                if crate::bridge::st().borg.temp.bless {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2203,7 +2149,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Blessed\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.temp.fast {
+                if crate::bridge::st().borg.temp.fast {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2215,7 +2161,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Fast\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.see_inv as ::core::ffi::c_int >= 1 as ::core::ffi::c_int {
+                if crate::bridge::st().borg.see_inv as ::core::ffi::c_int >= 1 as ::core::ffi::c_int {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2234,7 +2180,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     COLOUR_WHITE,
                     b"Level Information\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.status.vault {
+                if crate::bridge::st().borg.status.vault {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2246,7 +2192,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Vault on level\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.mon.unique != 0 {
+                if crate::bridge::st().borg.mon.unique != 0 {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2258,7 +2204,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Unique on level\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.mon.unique != 0 {
+                if crate::bridge::st().borg.mon.unique != 0 {
                     Term_putstr(
                         58 as ::core::ffi::c_int,
                         2 as ::core::ffi::c_int,
@@ -2266,7 +2212,7 @@ pub unsafe extern "C" fn borg_display_status() {
                         attr as ::core::ffi::c_int,
                         format(
                             b"(%s)\0" as *const u8 as *const ::core::ffi::c_char,
-                            (*r_info.offset(borg.mon.unique as isize)).name,
+                            (*r_info.offset(crate::bridge::st().borg.mon.unique as isize)).name,
                         ),
                     );
                 } else {
@@ -2279,7 +2225,7 @@ pub unsafe extern "C" fn borg_display_status() {
                             as *const ::core::ffi::c_char,
                     );
                 }
-                if borg.mon.scary {
+                if crate::bridge::st().borg.mon.scary {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2291,7 +2237,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Scary Guy on level\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.near.breeder {
+                if crate::bridge::st().borg.near.breeder {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2303,7 +2249,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     b"Breeder level (closing doors)\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-                if borg.near.summoner_idx as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
+                if crate::bridge::st().borg.near.summoner_idx as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
                     attr = COLOUR_WHITE as uint8_t;
                 } else {
                     attr = COLOUR_SLATE as uint8_t;
@@ -2334,9 +2280,7 @@ pub unsafe extern "C" fn borg_display_status() {
                         b"%s                              \0" as *const u8
                             as *const ::core::ffi::c_char,
                         borg_prepared(
-                            *borg
-                                .trait_0
-                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                            crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                 + 1 as ::core::ffi::c_int,
                         ),
                     ),
@@ -2350,7 +2294,7 @@ pub unsafe extern "C" fn borg_display_status() {
                     b"Scumming: not active                          \0" as *const u8
                         as *const ::core::ffi::c_char,
                 );
-                if *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
+                if crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
                     != 0 as ::core::ffi::c_int
                 {
                     attr = COLOUR_WHITE as uint8_t;
@@ -2362,7 +2306,7 @@ pub unsafe extern "C" fn borg_display_status() {
                         format(
                             b"Scumming: $%d                  \0" as *const u8
                                 as *const ::core::ffi::c_char,
-                            *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize),
+                            crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize],
                         ),
                     );
                 }
@@ -2382,14 +2326,10 @@ pub unsafe extern "C" fn borg_display_status() {
                     attr as ::core::ffi::c_int,
                     format(
                         b"%d    \0" as *const u8 as *const ::core::ffi::c_char,
-                        *borg
-                            .trait_0
-                            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize),
+                        crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize],
                     ),
                 );
-                if *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                     >= 50 as ::core::ffi::c_int
                 {
                     Term_putstr(
@@ -2475,7 +2415,7 @@ pub unsafe extern "C" fn borg_display_status() {
                             num_mana as ::core::ffi::c_int,
                         ),
                     );
-                    if borg.near.morgoth {
+                    if crate::bridge::st().borg.near.morgoth {
                         attr = COLOUR_BLUE as uint8_t;
                     } else {
                         attr = COLOUR_SLATE as uint8_t;
@@ -2488,10 +2428,10 @@ pub unsafe extern "C" fn borg_display_status() {
                         format(
                             b"Morgoth on Level.  Last seen:%ld       \0" as *const u8
                                 as *const ::core::ffi::c_char,
-                            (borg.time.now - borg.time.morgoth) as ::core::ffi::c_long,
+                            (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.morgoth) as ::core::ffi::c_long,
                         ),
                     );
-                    if borg.morgoth_position {
+                    if crate::bridge::st().borg.morgoth_position {
                         attr = COLOUR_BLUE as uint8_t;
                     } else {
                         attr = COLOUR_SLATE as uint8_t;
@@ -2506,7 +2446,7 @@ pub unsafe extern "C" fn borg_display_status() {
                         attr as ::core::ffi::c_int,
                         b"Sea of Runes.\0" as *const u8 as *const ::core::ffi::c_char,
                     );
-                    if borg.ready_morgoth != 0 {
+                    if crate::bridge::st().borg.ready_morgoth != 0 {
                         attr = COLOUR_BLUE as uint8_t;
                     } else {
                         attr = COLOUR_SLATE as uint8_t;

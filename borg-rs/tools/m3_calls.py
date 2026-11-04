@@ -141,3 +141,96 @@ def drop_header_reexports(header_file, module):
     s = re.sub(r"pub use crate::c2rust::%s::\w+;\n" % re.escape(module), "", s)
     with open(header_file, "w") as fh:
         fh.write(s)
+
+
+def _code_spans(s):
+    """Yield (start, end, is_code) spans, splitting out string literals,
+    char literals and comments."""
+    i = 0
+    n = len(s)
+    start = 0
+    while i < n:
+        c = s[i]
+        if c == '"' or (c == "b" and i + 1 < n and s[i + 1] == '"' and
+                        (i == 0 or not (s[i - 1].isalnum() or s[i - 1] == "_"))):
+            if i > start:
+                yield (start, i, True)
+            j = i + (2 if c == "b" else 1)
+            while s[j] != '"':
+                if s[j] == "\\":
+                    j += 1
+                j += 1
+            yield (i, j + 1, False)
+            i = start = j + 1
+            continue
+        if s.startswith("//", i):
+            if i > start:
+                yield (start, i, True)
+            j = s.find("\n", i)
+            j = n if j < 0 else j
+            yield (i, j, False)
+            i = start = j
+            continue
+        if c == "'":
+            m = re.match(r"'(\\.|\\x[0-9a-fA-F]{2}|[^\\'])'", s[i:])
+            if m:
+                if i > start:
+                    yield (start, i, True)
+                yield (i, i + len(m.group(0)), False)
+                i = start = i + len(m.group(0))
+                continue
+        i += 1
+    if start < n:
+        yield (start, n, True)
+
+
+def sub_code(s, pattern, repl):
+    """re.sub on code only (not inside string/char literals or comments)."""
+    out = []
+    count = 0
+    for a, b, code in _code_spans(s):
+        if code:
+            t, k = re.subn(pattern, repl, s[a:b])
+            out.append(t)
+            count += k
+        else:
+            out.append(s[a:b])
+    return "".join(out), count
+
+
+def rewrite_ptr_index(files, prefix, new_base):
+    """`*PREFIX.offset(E)` -> `NEW_BASE[(E) as usize]` and
+    `PREFIX.offset(E)` -> `&raw mut NEW_BASE[(E) as usize]`."""
+    pat = re.compile(r"(\*\s*)?%s\s*\.offset\(" % re.escape(prefix))
+    total = 0
+    for f in files:
+        with open(f) as fh:
+            s = fh.read()
+        out = []
+        i = 0
+        n = 0
+        while True:
+            m = pat.search(s, i)
+            if not m:
+                out.append(s[i:])
+                break
+            # whole-word check on the prefix start
+            k = m.start() if not m.group(1) else m.start() + len(m.group(1))
+            if k > 0 and (s[k - 1].isalnum() or s[k - 1] in "_."):
+                out.append(s[i:m.end()])
+                i = m.end()
+                continue
+            a = m.end() - 1
+            b = _match(s, a, "(", ")")
+            e = re.sub(r"\s+", " ", s[a + 1:b].strip())
+            e = re.sub(r"\s+as isize$", "", e)
+            idx = "%s[(%s) as usize]" % (new_base, e)
+            out.append(s[i:m.start()])
+            out.append(idx if m.group(1) else "&raw mut " + idx)
+            i = b + 1
+            n += 1
+        if n:
+            with open(f, "w") as fh:
+                fh.write("".join(out))
+        total += n
+    return total

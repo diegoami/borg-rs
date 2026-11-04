@@ -15,11 +15,7 @@ pub use crate::headers::borg_flow_h::{
     borg_track,
 };
 use crate::headers::borg_flow_misc_h::borg_flow_reverse;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_activation_h::act_glyph;
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
@@ -107,8 +103,8 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
     let mut x: ::core::ffi::c_int = 0;
     let mut y: ::core::ffi::c_int = 0;
     let mut v: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    let mut b_x: ::core::ffi::c_int = borg.c.x;
-    let mut b_y: ::core::ffi::c_int = borg.c.y;
+    let mut b_x: ::core::ffi::c_int = crate::bridge::st().borg.c.x;
+    let mut b_y: ::core::ffi::c_int = crate::bridge::st().borg.c.y;
     let mut b_v: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut goal_glyph: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut glyph: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
@@ -116,7 +112,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
     if glyph_y_center as ::core::ffi::c_int == 0 as ::core::ffi::c_int
         && glyph_x_center as ::core::ffi::c_int == 0 as ::core::ffi::c_int
         || distance(
-            borg.c,
+            crate::bridge::st().borg.c,
             loc(
                 glyph_x_center as ::core::ffi::c_int,
                 glyph_y_center as ::core::ffi::c_int,
@@ -125,18 +121,18 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
     {
         borg_needs_new_sea = true_0 != 0;
     }
-    if glyph_x as ::core::ffi::c_int == borg.c.x && glyph_y as ::core::ffi::c_int == borg.c.y {
+    if glyph_x as ::core::ffi::c_int == crate::bridge::st().borg.c.x && glyph_y as ::core::ffi::c_int == crate::bridge::st().borg.c.y {
         glyph_x = 0 as uint8_t;
         glyph_y = 0 as uint8_t;
         if borg_needs_new_sea {
-            glyph_y_center = borg.c.y as uint8_t;
-            glyph_x_center = borg.c.x as uint8_t;
+            glyph_y_center = crate::bridge::st().borg.c.y as uint8_t;
+            glyph_x_center = crate::bridge::st().borg.c.x as uint8_t;
         }
         borg_needs_new_sea = false_0 != 0;
         borg_note(format(
             b"# Glyph Creating at (%d,%d)\0" as *const u8 as *const ::core::ffi::c_char,
-            borg.c.x,
-            borg.c.y,
+            crate::bridge::st().borg.c.x,
+            crate::bridge::st().borg.c.y,
         ));
         if borg_spell_fail(GLYPH_OF_WARDING, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_rune_of_protection) as ::core::ffi::c_int != 0
@@ -144,8 +140,8 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
         {
             i = 0 as ::core::ffi::c_int;
             while i < track_glyph.num as ::core::ffi::c_int {
-                if *track_glyph.x.offset(i as isize) == borg.c.x
-                    && *track_glyph.y.offset(i as isize) == borg.c.y
+                if *track_glyph.x.offset(i as isize) == crate::bridge::st().borg.c.x
+                    && *track_glyph.y.offset(i as isize) == crate::bridge::st().borg.c.y
                 {
                     return false_0 != 0;
                 }
@@ -156,8 +152,8 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
                     b"# Noting the creation of a glyph.\0" as *const u8
                         as *const ::core::ffi::c_char,
                 );
-                *track_glyph.x.offset(track_glyph.num as isize) = borg.c.x;
-                *track_glyph.y.offset(track_glyph.num as isize) = borg.c.y;
+                *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
+                *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
                 track_glyph.num += 1;
             }
             return true_0 != 0;

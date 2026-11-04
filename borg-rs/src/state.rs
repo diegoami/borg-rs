@@ -5,11 +5,16 @@
 //! through `crate::bridge::st()`. Converted code receives `&mut BorgState`
 //! explicitly.
 
+use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;
 use crate::borg_io::IoState;
 
 #[derive(Default)]
 pub struct BorgState {
+    /// borg.c: `borg` (what the Borg knows about itself)
+    pub borg: Borg,
+    /// borg.c: the other globals (`borg_cfg`, `borg_rand_local`, ...)
+    pub core: CoreState,
     /// borg-cave.c
     pub cave: CaveState,
     /// borg-io.c

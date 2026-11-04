@@ -5,19 +5,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_wear_h::{borg_best_stuff, borg_wear_stuff};
@@ -119,69 +107,59 @@ pub use crate::headers::z_util_h::my_rational;
 #[no_mangle]
 pub unsafe extern "C" fn borg_choose_shop() -> bool {
     let mut best_home_power: int32_t = 0;
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
     }
-    if borg.time.now - borg.time.level > 2000 as borg_time {
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 2000 as borg_time {
         return false_0 != 0;
     }
-    if borg.antibounce_count as ::core::ffi::c_int > 1350 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int > 1350 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if borg.goal.shop as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
-        && borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
+    if crate::bridge::st().borg.goal.shop as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
+        && crate::bridge::st().borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
     {
         return true_0 != 0;
     }
-    if *borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0
+        || crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
             != 0
     {
-        borg.goal.shop = 3 as int16_t;
+        crate::bridge::st().borg.goal.shop = 3 as int16_t;
     }
-    if *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 >= 2 as ::core::ffi::c_int
     {
-        borg.goal.shop = 0 as int16_t;
+        crate::bridge::st().borg.goal.shop = 0 as int16_t;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 1 as ::core::ffi::c_int
-        && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize) >= 100 as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 1 as ::core::ffi::c_int
+        && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize] >= 100 as ::core::ffi::c_int
     {
-        borg.goal.shop = 0 as int16_t;
+        crate::bridge::st().borg.goal.shop = 0 as int16_t;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize) == 0 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0
+        || crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 1 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 1 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                 >= 100 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 10 as ::core::ffi::c_int
     {
         if borg_think_shop_buy_useful() {
             borg_note(format(
                 b"# Buying '%s' at '%s' immediately\0" as *const u8 as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                     .ware
-                    .offset(borg.goal.ware as isize))
+                    .offset(crate::bridge::st().borg.goal.ware as isize))
                 .desc as *mut ::core::ffi::c_char,
-                (*f_info.offset((*stores.offset(borg.goal.shop as isize)).feat as isize)).name,
+                (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
             ));
             return true_0 != 0;
         }
@@ -189,46 +167,44 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
             borg_note(format(
                 b"# Buying '%s' from the home immediately.\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                     .ware
-                    .offset(borg.goal.ware as isize))
+                    .offset(crate::bridge::st().borg.goal.ware as isize))
                 .desc as *mut ::core::ffi::c_char,
             ));
             return true_0 != 0;
         }
     }
-    if borg.goal.shop as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
-        && borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
+    if crate::bridge::st().borg.goal.shop as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
+        && crate::bridge::st().borg.goal.ware as ::core::ffi::c_int != -(1 as ::core::ffi::c_int)
     {
         return true_0 != 0;
     }
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
-    if borg.goal.do_best as ::core::ffi::c_int != 0 && !borg_home_full() && !borg_inventory_full() {
-        borg.goal.shop = BORG_HOME as int16_t;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
+    if crate::bridge::st().borg.goal.do_best as ::core::ffi::c_int != 0 && !borg_home_full() && !borg_inventory_full() {
+        crate::bridge::st().borg.goal.shop = BORG_HOME as int16_t;
         return true_0 != 0;
     }
-    if *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
-        < *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
-        && *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
+        < crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
+        && crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
             != 0 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             == 0
-        && *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) != 0
-        && *borg_cfg.offset(BORG_SELF_SCUM as ::core::ffi::c_int as isize) == 0
+        && crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] != 0
+        && crate::bridge::st().core.cfg[(BORG_SELF_SCUM as ::core::ffi::c_int) as usize] == 0
     {
         if borg_think_shop_buy_useful() {
             borg_note(format(
                 b"# Buying '%s' at '%s' (money scumming)\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                     .ware
-                    .offset(borg.goal.ware as isize))
+                    .offset(crate::bridge::st().borg.goal.ware as isize))
                 .desc as *mut ::core::ffi::c_char,
-                (*f_info.offset((*stores.offset(borg.goal.shop as isize)).feat as isize)).name,
+                (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
             ));
             return true_0 != 0;
         } else {
@@ -236,19 +212,19 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
         }
     }
     if borg_think_home_sell_useful(&raw mut best_home_power) {
-        if borg.goal.item as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
+        if crate::bridge::st().borg.goal.item as ::core::ffi::c_int != -(1 as ::core::ffi::c_int) {
             borg_note(format(
                 b"# Selling '%s' to the home\0" as *const u8 as *const ::core::ffi::c_char,
-                &raw mut (*borg_items.offset(borg.goal.item as isize)).desc
+                &raw mut (*borg_items.offset(crate::bridge::st().borg.goal.item as isize)).desc
                     as *mut ::core::ffi::c_char,
             ));
         } else {
             borg_note(format(
                 b"# Buying '%s' from the home (step 1)\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                     .ware
-                    .offset(borg.goal.ware as isize))
+                    .offset(crate::bridge::st().borg.goal.ware as isize))
                 .desc as *mut ::core::ffi::c_char,
             ));
         }
@@ -257,8 +233,8 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     if borg_think_shop_sell_useless() {
         borg_note(format(
             b"# Selling '%s' at '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*borg_items.offset(borg.goal.item as isize)).desc as *mut ::core::ffi::c_char,
-            (*f_info.offset((*stores.offset(borg.goal.shop as isize)).feat as isize)).name,
+            &raw mut (*borg_items.offset(crate::bridge::st().borg.goal.item as isize)).desc as *mut ::core::ffi::c_char,
+            (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
         ));
         return true_0 != 0;
     }
@@ -266,21 +242,21 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
         borg_note(format(
             b"# Buying '%s'(%c) at '%s' (for player 'b')\0" as *const u8
                 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
-            *SHOP_MENU_ITEMS.offset(borg.goal.ware as isize) as ::core::ffi::c_int,
-            (*f_info.offset((*stores.offset(borg.goal.shop as isize)).feat as isize)).name,
+            *SHOP_MENU_ITEMS.offset(crate::bridge::st().borg.goal.ware as isize) as ::core::ffi::c_int,
+            (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
         ));
         return true_0 != 0;
     }
     if borg_think_home_buy_useful() {
         borg_note(format(
             b"# Buying '%s' from the home (step 4)\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -288,24 +264,24 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     if borg_think_home_grab_useless() {
         borg_note(format(
             b"# Grabbing (to sell) '%s' from the home\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
     }
-    if *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize] != 0 {
         return false_0 != 0;
     }
     if borg_think_shop_grab_interesting() {
         borg_note(format(
             b"# Grabbing (for home) '%s' at '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
-            (*f_info.offset((*stores.offset(borg.goal.shop as isize)).feat as isize)).name,
+            (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
         ));
         return true_0 != 0;
     }
@@ -314,9 +290,9 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     {
         borg_note(format(
             b"# Buying '%s' from the home as a backup\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -326,9 +302,9 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     {
         borg_note(format(
             b"# Buying '%s' from the home as a backup\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(borg.goal.shop as isize))
+            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
                 .ware
-                .offset(borg.goal.ware as isize))
+                .offset(crate::bridge::st().borg.goal.ware as isize))
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -338,14 +314,14 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
 #[no_mangle]
 pub unsafe extern "C" fn borg_think_store() -> bool {
     shop_num = square_shopnum(cave, (*player).grid) as int16_t;
-    borg.goal.type_0 = 0 as int16_t;
+    crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
     borg_do_spell = true_0 != 0;
-    if borg.status.cancel {
+    if crate::bridge::st().borg.status.cancel {
         return true_0 != 0;
     }
-    borg.in_shop = true_0 != 0;
-    if borg.time.now - borg.time.level >= 20000 as borg_time
-        && borg.time.now - borg.time.level <= 20010 as borg_time
+    crate::bridge::st().borg.in_shop = true_0 != 0;
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level >= 20000 as borg_time
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level <= 20010 as borg_time
     {
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
@@ -364,18 +340,18 @@ pub unsafe extern "C" fn borg_think_store() -> bool {
         return true_0 != 0;
     }
     if borg_choose_shop() {
-        if shop_num as ::core::ffi::c_int != borg.goal.shop as ::core::ffi::c_int {
+        if shop_num as ::core::ffi::c_int != crate::bridge::st().borg.goal.shop as ::core::ffi::c_int {
             borg_note(format(
                 b"# Currently in store '%d' would prefer '%d'.\0" as *const u8
                     as *const ::core::ffi::c_char,
                 shop_num as ::core::ffi::c_int + 1 as ::core::ffi::c_int,
-                borg.goal.shop as ::core::ffi::c_int + 1 as ::core::ffi::c_int,
+                crate::bridge::st().borg.goal.shop as ::core::ffi::c_int + 1 as ::core::ffi::c_int,
             ));
         } else {
             borg_note(format(
                 b"# Currently in preferred store '%d'.\0" as *const u8
                     as *const ::core::ffi::c_char,
-                borg.goal.shop as ::core::ffi::c_int + 1 as ::core::ffi::c_int,
+                crate::bridge::st().borg.goal.shop as ::core::ffi::c_int + 1 as ::core::ffi::c_int,
             ));
         }
         if borg_think_shop_sell() {
@@ -385,9 +361,9 @@ pub unsafe extern "C" fn borg_think_store() -> bool {
             return true_0 != 0;
         }
     }
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     borg_keypress(ESCAPE as keycode_t);
     borg_keypress(ESCAPE as keycode_t);
     borg_keypress(ESCAPE as keycode_t);

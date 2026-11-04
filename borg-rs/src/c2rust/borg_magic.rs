@@ -23,11 +23,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_init_h::borg_init_failure;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
@@ -1028,10 +1024,10 @@ pub unsafe extern "C" fn borg_primarily_caster() -> bool {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_heroism_level() -> ::core::ffi::c_int {
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_PRIEST {
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_PRIEST {
         return 20 as ::core::ffi::c_int;
     }
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_PALADIN {
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_PALADIN {
         return 15 as ::core::ffi::c_int;
     }
     return 99 as ::core::ffi::c_int;
@@ -1119,14 +1115,14 @@ pub unsafe extern "C" fn borg_spell_legal(spell: borg_spells) -> bool {
         return false_0 != 0;
     }
     let mut as_0: *mut borg_magic = borg_magics.offset(spell_num as isize) as *mut borg_magic;
-    if (borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int {
+    if (crate::bridge::st().borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
     if ((*borg_magics.offset(spell_num as isize)).status as ::core::ffi::c_int) < BORG_MAGIC_TEST {
         return false_0 != 0;
     }
     if (*borg_magics.offset(spell_num as isize)).power as ::core::ffi::c_int
-        > *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
+        > crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
@@ -1157,7 +1153,7 @@ pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
     if no_light(player) {
         return false_0 != 0;
     }
-    match *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) {
+    match crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] {
         CLASS_MAGE => {
             reserve_mana = 6 as ::core::ffi::c_int;
         }
@@ -1181,9 +1177,7 @@ pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
         }
         _ => {}
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 35 as ::core::ffi::c_int
     {
         reserve_mana = 0 as ::core::ffi::c_int;
@@ -1191,23 +1185,19 @@ pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
     if !borg_spell_legal(spell) {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
     if (*as_0).power as ::core::ffi::c_int
-        > *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+        > crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
-    if (*borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+    if (crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
         - (*as_0).power as ::core::ffi::c_int)
         < reserve_mana
     {
@@ -1219,9 +1209,7 @@ pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
         }
         if MAGIC_MISSILE as ::core::ffi::c_int as ::core::ffi::c_uint
             == spell as ::core::ffi::c_uint
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 <= 35 as ::core::ffi::c_int
         {
             return true_0 != 0;
@@ -1241,19 +1229,15 @@ pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> ::core::ffi
     let mut as_0: *mut borg_magic = borg_magics.offset(spell_num as isize) as *mut borg_magic;
     chance = (*as_0).sfail as ::core::ffi::c_int;
     chance -= 3 as ::core::ffi::c_int
-        * (*borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        * (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             - (*as_0).level as ::core::ffi::c_int);
-    chance -= *borg.trait_0.offset(BI_FAIL1 as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_ISAFRAID as ::core::ffi::c_int as isize)
+    chance -= crate::bridge::st().borg.trait_[(BI_FAIL1 as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_ISAFRAID as ::core::ffi::c_int) as usize]
         != 0
     {
         chance += 20 as ::core::ffi::c_int;
     }
-    minfail = *borg.trait_0.offset(BI_FAIL2 as ::core::ffi::c_int as isize);
+    minfail = crate::bridge::st().borg.trait_[(BI_FAIL2 as ::core::ffi::c_int) as usize];
     if !flag_has(
         &raw mut (*player).state.pflags as *mut bitflag,
         (PF_MAX as ::core::ffi::c_int as size_t)
@@ -1266,8 +1250,8 @@ pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> ::core::ffi
             minfail = 5 as ::core::ffi::c_int;
         }
     }
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER
-        && (*crate::bridge::grid(borg.c.x, borg.c.y)).info as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER
+        && (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).info as ::core::ffi::c_int
             & BORG_LIGHT
             != 0
     {
@@ -1279,23 +1263,17 @@ pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> ::core::ffi
     if chance > 50 as ::core::ffi::c_int {
         chance = 50 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
     {
         chance += 25 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
         != 0
     {
         chance += 15 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISFORGET as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISFORGET as ::core::ffi::c_int) as usize]
         != 0
     {
         chance *= 2 as ::core::ffi::c_int;
@@ -1346,7 +1324,7 @@ pub unsafe extern "C" fn borg_spell(spell: borg_spells) -> bool {
     if !borg_spell_okay(spell) {
         return false_0 != 0;
     }
-    i = borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int;
+    i = crate::bridge::st().borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int;
     if i < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
@@ -1382,9 +1360,7 @@ unsafe extern "C" fn borg_cheat_spell(mut book_num: ::core::ffi::c_int) {
             != 0
         {
             (*as_0).status = BORG_MAGIC_LOST as uint8_t;
-        } else if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        } else if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < (*as_0).level as ::core::ffi::c_int
         {
             (*as_0).status = BORG_MAGIC_HIGH as uint8_t;
@@ -1409,7 +1385,7 @@ pub unsafe extern "C" fn borg_cheat_spells() {
     let mut i: ::core::ffi::c_int = 0;
     i = 0 as ::core::ffi::c_int;
     while i < 9 as ::core::ffi::c_int {
-        borg.book_idx[i as usize] = -(1 as ::core::ffi::c_int) as int16_t;
+        crate::bridge::st().borg.book_idx[i as usize] = -(1 as ::core::ffi::c_int) as int16_t;
         i += 1;
     }
     i = 0 as ::core::ffi::c_int;
@@ -1422,7 +1398,7 @@ pub unsafe extern "C" fn borg_cheat_spells() {
             if (*item).tval as ::core::ffi::c_int == book.tval
                 && (*item).sval as ::core::ffi::c_int == book.sval
             {
-                borg.book_idx[book_num as usize] = i as int16_t;
+                crate::bridge::st().borg.book_idx[book_num as usize] = i as int16_t;
                 break;
             } else {
                 book_num += 1;
@@ -1435,7 +1411,7 @@ pub unsafe extern "C" fn borg_cheat_spells() {
     }
     let mut book_idx: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     while book_idx < 8 as ::core::ffi::c_int {
-        i = borg.book_idx[book_idx as usize] as ::core::ffi::c_int;
+        i = crate::bridge::st().borg.book_idx[book_idx as usize] as ::core::ffi::c_int;
         if i >= 0 as ::core::ffi::c_int {
             borg_cheat_spell(book_idx);
         }

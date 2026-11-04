@@ -1,7 +1,7 @@
 //! `/home/user/borg-rs/angband/src/z-type.h`
 #[allow(unused_imports)]
 use super::*;
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Default, Debug, PartialEq, Eq)]
 #[repr(C)]
 pub struct loc {
     pub x: ::core::ffi::c_int,

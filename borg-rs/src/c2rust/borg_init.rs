@@ -12,19 +12,7 @@ use crate::headers::borg_flow_h::{borg_free_flow, borg_init_flow};
 use crate::headers::borg_flow_kill_h::{borg_free_flow_kill, borg_init_flow_kill};
 use crate::headers::borg_flow_take_h::{borg_free_flow_take, borg_init_flow_take};
 use crate::headers::borg_formulas_h::{borg_free_formulas, borg_load_formulas};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_rand_local, borg_struct, borg_time, C2RustUnnamedH_10,
-    C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15,
-    C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE,
-    BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL,
-    BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS,
-    BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START,
-    BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 pub use crate::headers::borg_init_h::borg_setting;
 use crate::headers::borg_io_h::{borg_free_io, borg_init_io, borg_note, borg_warning};
 use crate::headers::borg_item_activation_h::borg_init_item_activation;
@@ -349,9 +337,9 @@ unsafe extern "C" fn borg_proc_setting(
                 || ch as ::core::ffi::c_int == 'Y' as i32
                 || ch as ::core::ffi::c_int == 'y' as i32
             {
-                *borg_cfg.offset(setting as isize) = true_0;
+                crate::bridge::st().core.cfg[(setting) as usize] = true_0;
             } else {
-                *borg_cfg.offset(setting as isize) = false_0;
+                crate::bridge::st().core.cfg[(setting) as usize] = false_0;
             }
             break;
         } else {
@@ -370,23 +358,20 @@ unsafe extern "C" fn borg_proc_setting(
                 {
                     continue;
                 }
-                *borg_cfg.offset(setting as isize) = atoi(line);
+                crate::bridge::st().core.cfg[(setting) as usize] = atoi(line);
                 break;
             }
         }
     }
     if negative {
-        *borg_cfg.offset(setting as isize) *= -(1 as ::core::ffi::c_int);
+        crate::bridge::st().core.cfg[(setting) as usize] *= -(1 as ::core::ffi::c_int);
     }
     return true_0 != 0;
 }
 unsafe extern "C" fn borg_free_txt_file() {
     borg_trait_free();
     borg_free_formulas();
-    if !borg_cfg.is_null() {
-        mem_free(borg_cfg as *mut ::core::ffi::c_void);
-    }
-    borg_cfg = ::core::ptr::null_mut::<::core::ffi::c_int>();
+    crate::bridge::st().core.cfg = Vec::new();
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_init_txt_file() -> bool {
@@ -500,13 +485,10 @@ pub unsafe extern "C" fn borg_init_txt_file() -> bool {
             4294967295 as file_type,
         );
     }
-    borg_cfg = mem_alloc(
-        (::core::mem::size_of::<::core::ffi::c_int>() as size_t)
-            .wrapping_mul(BORG_MAX_SETTINGS as ::core::ffi::c_int as size_t),
-    ) as *mut ::core::ffi::c_int;
+    crate::bridge::st().core.cfg = vec![0; BORG_MAX_SETTINGS as usize];
     i = 0 as ::core::ffi::c_int;
     while i < BORG_MAX_SETTINGS as ::core::ffi::c_int {
-        *borg_cfg.offset(i as isize) = borg_settings[i as usize].default_value;
+        crate::bridge::st().core.cfg[(i) as usize] = borg_settings[i as usize].default_value;
         i += 1;
     }
     while file_getl(
@@ -565,7 +547,7 @@ pub unsafe extern "C" fn borg_init_txt_file() -> bool {
         }
     }
     file_close(fp);
-    if *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] != 0 {
         warning = true_0 != 0;
         if old_formulas_found {
             borg_warning(
@@ -573,14 +555,14 @@ pub unsafe extern "C" fn borg_init_txt_file() -> bool {
                     as *const u8 as *const ::core::ffi::c_char,
             );
             borg_warning(b"** formulas disabled ** \0" as *const u8 as *const ::core::ffi::c_char);
-            *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) = false_0;
+            crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] = false_0;
         } else if !formulas_found {
             borg_warning(
                 b"** Borg's dynamic calculations enabled but no formulas found in borg.txt.\0"
                     as *const u8 as *const ::core::ffi::c_char,
             );
             borg_warning(b"** formulas disabled ** \0" as *const u8 as *const ::core::ffi::c_char);
-            *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) = false_0;
+            crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] = false_0;
         } else {
             borg_warning(
                 b"Borg's dynamic calculations enabled.  You may see some performance loss (~20 percent).\0"
@@ -589,59 +571,59 @@ pub unsafe extern "C" fn borg_init_txt_file() -> bool {
         }
         Term_fresh();
     }
-    borg.lunal_mode = *borg_cfg.offset(BORG_LUNAL_MODE as ::core::ffi::c_int as isize) != 0;
-    if *borg_cfg.offset(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int as isize)
+    crate::bridge::st().borg.lunal_mode = crate::bridge::st().core.cfg[(BORG_LUNAL_MODE as ::core::ffi::c_int) as usize] != 0;
+    if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int) as usize]
         <= 1 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int) as usize] =
             1 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int) as usize]
         >= 50 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_MUNCHKIN_LEVEL as ::core::ffi::c_int) as usize] =
             50 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int) as usize]
         <= 1 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int) as usize] =
             8 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int) as usize]
         >= 100 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_MUNCHKIN_DEPTH as ::core::ffi::c_int) as usize] =
             100 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize]
         <= 8 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize] =
             8 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize]
         >= 15 as ::core::ffi::c_int
     {
-        *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize] =
             15 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_RESPAWN_RACE as ::core::ffi::c_int as isize) >= MAX_RACES
-        || *borg_cfg.offset(BORG_RESPAWN_RACE as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_RESPAWN_RACE as ::core::ffi::c_int) as usize] >= MAX_RACES
+        || crate::bridge::st().core.cfg[(BORG_RESPAWN_RACE as ::core::ffi::c_int) as usize]
             < -(1 as ::core::ffi::c_int)
     {
-        *borg_cfg.offset(BORG_RESPAWN_RACE as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_RESPAWN_RACE as ::core::ffi::c_int) as usize] =
             0 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_RESPAWN_CLASS as ::core::ffi::c_int as isize) >= MAX_CLASSES
-        || *borg_cfg.offset(BORG_RESPAWN_CLASS as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_RESPAWN_CLASS as ::core::ffi::c_int) as usize] >= MAX_CLASSES
+        || crate::bridge::st().core.cfg[(BORG_RESPAWN_CLASS as ::core::ffi::c_int) as usize]
             < -(1 as ::core::ffi::c_int)
     {
-        *borg_cfg.offset(BORG_RESPAWN_CLASS as ::core::ffi::c_int as isize) =
+        crate::bridge::st().core.cfg[(BORG_RESPAWN_CLASS as ::core::ffi::c_int) as usize] =
             0 as ::core::ffi::c_int;
     }
-    if *borg_cfg.offset(BORG_RESPAWN_WINNERS as ::core::ffi::c_int as isize) != 0 {
-        *borg_cfg.offset(BORG_STOP_KING as ::core::ffi::c_int as isize) = false_0;
+    if crate::bridge::st().core.cfg[(BORG_RESPAWN_WINNERS as ::core::ffi::c_int) as usize] != 0 {
+        crate::bridge::st().core.cfg[(BORG_STOP_KING as ::core::ffi::c_int) as usize] = false_0;
     }
     return warning;
 }
@@ -649,28 +631,28 @@ pub unsafe extern "C" fn borg_init_txt_file() -> bool {
 pub unsafe extern "C" fn borg_reset_ignore() {
     let mut i: ::core::ffi::c_int = 0;
     let mut j: ::core::ffi::c_int = 0;
-    if *borg_cfg.offset(BORG_RESTORE_IGNORE_SETTINGS as ::core::ffi::c_int as isize) != 0 {
-        if !borg.init_save.kinfo_ignore.is_null() {
+    if crate::bridge::st().core.cfg[(BORG_RESTORE_IGNORE_SETTINGS as ::core::ffi::c_int) as usize] != 0 {
+        if !crate::bridge::st().borg.init_save.kinfo_ignore.is_null() {
             i = 0 as ::core::ffi::c_int;
             while i < (*z_info).k_max as ::core::ffi::c_int {
                 (*k_info.offset(i as isize)).ignore =
-                    *borg.init_save.kinfo_ignore.offset(i as isize);
+                    *crate::bridge::st().borg.init_save.kinfo_ignore.offset(i as isize);
                 i += 1;
             }
         }
         i = ITYPE_NONE as ::core::ffi::c_int;
         while i < ITYPE_MAX as ::core::ffi::c_int {
             *(&raw mut ignore_level as *mut uint8_t).offset(i as isize) =
-                borg.init_save.ignore_level[i as usize];
+                crate::bridge::st().borg.init_save.ignore_level[i as usize];
             i += 1;
         }
-        if !borg.init_save.ego_ignore_types.is_null() {
+        if !crate::bridge::st().borg.init_save.ego_ignore_types.is_null() {
             i = 0 as ::core::ffi::c_int;
             while i < (*z_info).e_max as ::core::ffi::c_int {
                 j = ITYPE_NONE as ::core::ffi::c_int;
                 while j < ITYPE_MAX as ::core::ffi::c_int {
                     *(*ego_ignore_types.offset(i as isize)).offset(j as isize) =
-                        *(*borg.init_save.ego_ignore_types.offset(i as isize)).offset(j as isize);
+                        *(*crate::bridge::st().borg.init_save.ego_ignore_types.offset(i as isize)).offset(j as isize);
                     j += 1;
                 }
                 i += 1;
@@ -679,26 +661,26 @@ pub unsafe extern "C" fn borg_reset_ignore() {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).e_max as ::core::ffi::c_int {
-        mem_free(*borg.init_save.ego_ignore_types.offset(i as isize) as *mut ::core::ffi::c_void);
+        mem_free(*crate::bridge::st().borg.init_save.ego_ignore_types.offset(i as isize) as *mut ::core::ffi::c_void);
         i += 1;
     }
-    mem_free(borg.init_save.ego_ignore_types as *mut ::core::ffi::c_void);
-    borg.init_save.ego_ignore_types = ::core::ptr::null_mut::<*mut bool>();
-    mem_free(borg.init_save.kinfo_ignore as *mut ::core::ffi::c_void);
-    borg.init_save.kinfo_ignore = ::core::ptr::null_mut::<uint8_t>();
+    mem_free(crate::bridge::st().borg.init_save.ego_ignore_types as *mut ::core::ffi::c_void);
+    crate::bridge::st().borg.init_save.ego_ignore_types = ::core::ptr::null_mut::<*mut bool>();
+    mem_free(crate::bridge::st().borg.init_save.kinfo_ignore as *mut ::core::ffi::c_void);
+    crate::bridge::st().borg.init_save.kinfo_ignore = ::core::ptr::null_mut::<uint8_t>();
 }
 unsafe extern "C" fn borg_init_ignore() {
     let mut i: ::core::ffi::c_int = 0;
     let mut j: ::core::ffi::c_int = 0;
-    borg.init_save.kinfo_ignore = mem_alloc(
+    crate::bridge::st().borg.init_save.kinfo_ignore = mem_alloc(
         (::core::mem::size_of::<uint8_t>() as size_t).wrapping_mul((*z_info).k_max as size_t),
     ) as *mut uint8_t;
-    borg.init_save.ego_ignore_types = mem_zalloc(
+    crate::bridge::st().borg.init_save.ego_ignore_types = mem_zalloc(
         ((*z_info).e_max as size_t).wrapping_mul(::core::mem::size_of::<*mut bool>() as size_t),
     ) as *mut *mut bool;
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).e_max as ::core::ffi::c_int {
-        let ref mut fresh0 = *borg.init_save.ego_ignore_types.offset(i as isize);
+        let ref mut fresh0 = *crate::bridge::st().borg.init_save.ego_ignore_types.offset(i as isize);
         *fresh0 = mem_zalloc(
             (ITYPE_MAX as ::core::ffi::c_int as size_t)
                 .wrapping_mul(::core::mem::size_of::<bool>() as size_t),
@@ -707,12 +689,12 @@ unsafe extern "C" fn borg_init_ignore() {
     }
     i = 0 as ::core::ffi::c_int;
     while i < (*z_info).k_max as ::core::ffi::c_int {
-        *borg.init_save.kinfo_ignore.offset(i as isize) = (*k_info.offset(i as isize)).ignore;
+        *crate::bridge::st().borg.init_save.kinfo_ignore.offset(i as isize) = (*k_info.offset(i as isize)).ignore;
         i += 1;
     }
     i = ITYPE_NONE as ::core::ffi::c_int;
     while i < ITYPE_MAX as ::core::ffi::c_int {
-        borg.init_save.ignore_level[i as usize] =
+        crate::bridge::st().borg.init_save.ignore_level[i as usize] =
             *(&raw mut ignore_level as *mut uint8_t).offset(i as isize);
         i += 1;
     }
@@ -720,7 +702,7 @@ unsafe extern "C" fn borg_init_ignore() {
     while i < (*z_info).e_max as ::core::ffi::c_int {
         j = ITYPE_NONE as ::core::ffi::c_int;
         while j < ITYPE_MAX as ::core::ffi::c_int {
-            *(*borg.init_save.ego_ignore_types.offset(i as isize)).offset(j as isize) =
+            *(*crate::bridge::st().borg.init_save.ego_ignore_types.offset(i as isize)).offset(j as isize) =
                 *(*ego_ignore_types.offset(i as isize)).offset(j as isize);
             j += 1;
         }
@@ -730,7 +712,7 @@ unsafe extern "C" fn borg_init_ignore() {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_reinit_options() {
-    borg.init_save.key_mode = if (*player).opts.opt
+    crate::bridge::st().borg.init_save.key_mode = if (*player).opts.opt
         [OPT_rogue_like_commands as ::core::ffi::c_int as usize]
         as ::core::ffi::c_int
         != 0
@@ -788,12 +770,12 @@ pub unsafe extern "C" fn borg_reinit_options() {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_reset_settings() {
-    if borg.init_save.key_mode == KEYMAP_MODE_ROGUE as ::core::ffi::c_int {
+    if crate::bridge::st().borg.init_save.key_mode == KEYMAP_MODE_ROGUE as ::core::ffi::c_int {
         option_set(
             b"rogue_like_commands\0" as *const u8 as *const ::core::ffi::c_char,
             true_0,
         );
-    } else if borg.init_save.key_mode == KEYMAP_MODE_ORIG as ::core::ffi::c_int {
+    } else if crate::bridge::st().borg.init_save.key_mode == KEYMAP_MODE_ORIG as ::core::ffi::c_int {
         option_set(
             b"rogue_like_commands\0" as *const u8 as *const ::core::ffi::c_char,
             false_0,
@@ -840,17 +822,16 @@ pub unsafe extern "C" fn borg_init() {
     ) as *mut uint8_t;
     mem_free(memory_test as *mut ::core::ffi::c_void);
     memory_test = ::core::ptr::null_mut::<uint8_t>();
-    if borg_rand_local == 0 {
-        borg_rand_local = (Rand_div(0x10000000 as uint32_t) as int32_t + 1 as int32_t) as uint32_t;
+    if crate::bridge::st().core.rand_local == 0 {
+        crate::bridge::st().core.rand_local = (Rand_div(0x10000000 as uint32_t) as int32_t + 1 as int32_t) as uint32_t;
     }
-    borg.player = player;
-    borg.status.old_depth = 128 as int16_t;
+    crate::bridge::st().borg.status.old_depth = 128 as int16_t;
     borg_note(b"Initializing the Borg... (borg.txt)\0" as *const u8 as *const ::core::ffi::c_char);
     warning_given = borg_init_txt_file();
     borg_note(b"Initializing the Borg... (options)\0" as *const u8 as *const ::core::ffi::c_char);
     Term_fresh();
     if screensaver as ::core::ffi::c_int != 0
-        || *borg_cfg.offset(BORG_CHEAT_DEATH as ::core::ffi::c_int as isize) != 0
+        || crate::bridge::st().core.cfg[(BORG_CHEAT_DEATH as ::core::ffi::c_int) as usize] != 0
     {
         option_set(
             b"cheat_live\0" as *const u8 as *const ::core::ffi::c_char,
@@ -861,9 +842,9 @@ pub unsafe extern "C" fn borg_init() {
         | 0x10000 as ::core::ffi::c_long) as uint32_t;
     borg_note(b"Initializing the Borg... (various)\0" as *const u8 as *const ::core::ffi::c_char);
     Term_fresh();
-    borg.status.cheat_death = false_0 != 0;
+    crate::bridge::st().borg.status.cheat_death = false_0 != 0;
     if (*player).opts.opt[OPT_cheat_live as ::core::ffi::c_int as usize] {
-        borg.status.cheat_death = true_0 != 0;
+        crate::bridge::st().borg.status.cheat_death = true_0 != 0;
     }
     borg_init_messages();
     borg_init_io();
@@ -879,7 +860,7 @@ pub unsafe extern "C" fn borg_init() {
     borg_init_update();
     borg_prepare_race_class_info();
     borg_note(b"Initializing the Borg... done.\0" as *const u8 as *const ::core::ffi::c_char);
-    borg.time.now = 10 as ::core::ffi::c_int as borg_time;
+    crate::bridge::st().borg.time.now = 10 as ::core::ffi::c_int as borg_time;
     if strcmp(
         (*player_id2class(0 as guid)).name,
         b"Warrior\0" as *const u8 as *const ::core::ffi::c_char,
@@ -923,7 +904,7 @@ pub unsafe extern "C" fn borg_init() {
         );
         borg_init_failure = true_0 != 0;
     }
-    if *borg_cfg.offset(BORG_ALLOW_STRANGE_OPTS as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().core.cfg[(BORG_ALLOW_STRANGE_OPTS as ::core::ffi::c_int) as usize] == 0 {
         if tile_width as ::core::ffi::c_int > 1 as ::core::ffi::c_int
             || tile_height as ::core::ffi::c_int > 1 as ::core::ffi::c_int
         {

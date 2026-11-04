@@ -2,7 +2,7 @@
 # Run a seed suite in parallel.
 # Usage: harness/suite.sh SUITE [OUTDIR]     (SUITE = name in harness/suites/)
 #   Env: BORG_IMPL=c|rust, JOBS (default nproc)
-# Suite file lines: NAME SEED RACE CLASS TURNS   ('#' comments allowed)
+# Suite file lines: NAME SEED RACE CLASS TURNS [FLAGS]   ('#' comments allowed)
 # Writes OUTDIR/<NAME>/{keys.log,summary.json} and OUTDIR/timing.txt
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -15,7 +15,7 @@ mkdir -p "$OUT"
 START=$(date +%s.%N)
 grep -v '^\s*#' "$SFILE" | grep -v '^\s*$' | \
   xargs -P "$JOBS" -L 1 bash -c \
-    '"$0" "$1/$2" "$3" "$4" "$5" "$6" && echo "done $2"' \
+    '"$0" "$1/$2" "$3" "$4" "$5" "$6" "${7:--}" && echo "done $2"' \
     "$ROOT/harness/run.sh" "$OUT"
 END=$(date +%s.%N)
 FAIL=0

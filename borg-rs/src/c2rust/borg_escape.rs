@@ -20,19 +20,7 @@ pub use crate::headers::borg_flow_kill_h::{
     borg_kill, borg_kills, borg_kills_nxt, borg_race_death, borg_shoot_scoot_safe,
 };
 use crate::headers::borg_flow_stairs_h::{track_less, track_more};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, w_x, w_y, C2RustUnnamedH_10,
-    C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15,
-    C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE,
-    BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL,
-    BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS,
-    BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START,
-    BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_activation_h::{
     act_deep_descent, act_recall, act_tele_level, act_tele_long, act_tele_phase,
@@ -183,44 +171,30 @@ pub use crate::headers::z_type_h::loc;
 pub use crate::headers::z_util_h::my_rational;
 #[no_mangle]
 pub unsafe extern "C" fn borg_recall() -> bool {
-    if borg.goal.recalling == 0 {
+    if crate::bridge::st().borg.goal.recalling == 0 {
         if borg_zap_rod(sv_rod_recall) as ::core::ffi::c_int != 0
             || borg_activate_item(act_recall) as ::core::ffi::c_int != 0
             || borg_spell_fail(WORD_OF_RECALL, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_word_of_recall) as ::core::ffi::c_int != 0
         {
-            if *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
-                < *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
-                && *borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
+                < crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
+                && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     != 0 as ::core::ffi::c_int
             {
-                let mut diff_max_from_desired_depth: ::core::ffi::c_int = *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                let mut diff_max_from_desired_depth: ::core::ffi::c_int = crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                     - borg_depth_hunted_unique;
-                let mut diff_cur_from_desired_depth: ::core::ffi::c_int = *borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                let mut diff_cur_from_desired_depth: ::core::ffi::c_int = crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     - borg_depth_hunted_unique;
                 if diff_max_from_desired_depth > 5 as ::core::ffi::c_int
                     && diff_cur_from_desired_depth <= 5 as ::core::ffi::c_int
                     && diff_cur_from_desired_depth > -(5 as ::core::ffi::c_int)
                 {
-                    if *borg
-                        .trait_0
-                        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                         >= 80 as ::core::ffi::c_int
-                        && *borg
-                            .trait_0
-                            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             < 100 as ::core::ffi::c_int
-                        && *borg_race_death.offset(borg.id.sauron as isize) as ::core::ffi::c_int
+                        && *borg_race_death.offset(crate::bridge::st().borg.id.sauron as isize) as ::core::ffi::c_int
                             != 0 as ::core::ffi::c_int
                     {
                         borg_note(
@@ -228,26 +202,22 @@ pub unsafe extern "C" fn borg_recall() -> bool {
                                 as *const ::core::ffi::c_char,
                         );
                         borg_keypress('y' as i32 as keycode_t);
-                    } else if borg.goal.fleeing_munchkin as ::core::ffi::c_int == true_0 {
+                    } else if crate::bridge::st().borg.goal.fleeing_munchkin as ::core::ffi::c_int == true_0 {
                         borg_note(
                             b"# Resetting recall depth during munchkin mode.\0" as *const u8
                                 as *const ::core::ffi::c_char,
                         );
                         borg_keypress('y' as i32 as keycode_t);
-                    } else if *borg
-                        .trait_0
-                        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                    } else if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                         >= 100 as ::core::ffi::c_int
-                        && *borg.trait_0.offset(BI_KING as ::core::ffi::c_int as isize) == 0
+                        && crate::bridge::st().borg.trait_[(BI_KING as ::core::ffi::c_int) as usize] == 0
                     {
                         borg_note(
                             b"# Not Resetting recall depth.\0" as *const u8
                                 as *const ::core::ffi::c_char,
                         );
                         borg_keypress('n' as i32 as keycode_t);
-                    } else if *borg
-                        .trait_0
-                        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                    } else if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                         == 99 as ::core::ffi::c_int
                         && borg_numb_live_unique < 5 as ::core::ffi::c_int
                     {
@@ -301,19 +271,19 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
             {
                 x9 = (*kill).pos.x;
                 y9 = (*kill).pos.y;
-                ax = if x9 > borg.c.x {
-                    x9 - borg.c.x
+                ax = if x9 > crate::bridge::st().borg.c.x {
+                    x9 - crate::bridge::st().borg.c.x
                 } else {
-                    borg.c.x - x9
+                    crate::bridge::st().borg.c.x - x9
                 };
-                ay = if y9 > borg.c.y {
-                    y9 - borg.c.y
+                ay = if y9 > crate::bridge::st().borg.c.y {
+                    y9 - crate::bridge::st().borg.c.y
                 } else {
-                    borg.c.y - y9
+                    crate::bridge::st().borg.c.y - y9
                 };
                 d = if ax < ay { ay } else { ax };
                 if !(d > 3 as ::core::ffi::c_int) {
-                    if borg_los(borg.c.y, borg.c.x, y9, x9) {
+                    if borg_los(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y9, x9) {
                         if (*kill).awake {
                             if !flag_has(
                                 &raw mut (*r_ptr).flags as *mut bitflag,
@@ -358,8 +328,8 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
     }
     i = 0 as ::core::ffi::c_int;
     while i < 8 as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
+        let mut x: ::core::ffi::c_int = crate::bridge::st().borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
         let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
         if square_in_bounds_fully(cave, loc(x, y)) {
             if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
@@ -388,7 +358,7 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
             monsters,
             safe_grids,
         ));
-        if borg.goal.ignoring {
+        if crate::bridge::st().borg.goal.ignoring {
         } else {
             return true_0 != 0;
         }
@@ -402,9 +372,7 @@ pub unsafe extern "C" fn borg_freedom(
 ) -> ::core::ffi::c_int {
     let mut d: ::core::ffi::c_int = 0;
     let mut f: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
         && track_more.num as ::core::ffi::c_int != 0
     {
@@ -419,9 +387,7 @@ pub unsafe extern "C" fn borg_freedom(
             f += 2000 as ::core::ffi::c_int - d * 500 as ::core::ffi::c_int;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
         && track_less.num as ::core::ffi::c_int != 0
     {
@@ -452,10 +418,8 @@ pub unsafe extern "C" fn borg_caution_phase(
     let mut p: ::core::ffi::c_int = 0;
     let mut dis: ::core::ffi::c_int = 10 as ::core::ffi::c_int;
     let mut min: ::core::ffi::c_int = dis / 2 as ::core::ffi::c_int;
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    if *borg
-        .trait_0
-        .offset(BI_APHASE as ::core::ffi::c_int as isize)
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
+    if crate::bridge::st().borg.trait_[(BI_APHASE as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
@@ -466,13 +430,13 @@ pub unsafe extern "C" fn borg_caution_phase(
         i = 0 as ::core::ffi::c_int;
         while i < 100 as ::core::ffi::c_int {
             loop {
-                y = (borg.c.y as int32_t
+                y = (crate::bridge::st().borg.c.y as int32_t
                     + Rand_div((1 as ::core::ffi::c_int + dis + dis) as uint32_t) as int32_t
                     - dis as int32_t) as ::core::ffi::c_int;
-                x = (borg.c.x as int32_t
+                x = (crate::bridge::st().borg.c.x as int32_t
                     + Rand_div((1 as ::core::ffi::c_int + dis + dis) as uint32_t) as int32_t
                     - dis as int32_t) as ::core::ffi::c_int;
-                d = distance(borg.c, loc(x, y));
+                d = distance(crate::bridge::st().borg.c, loc(x, y));
                 if d >= min && d <= dis {
                     break;
                 }
@@ -494,7 +458,7 @@ pub unsafe extern "C" fn borg_caution_phase(
             i += 1;
         }
         if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 < 30 as ::core::ffi::c_int
         {
             n += 1;
@@ -502,7 +466,7 @@ pub unsafe extern "C" fn borg_caution_phase(
             n += 1;
         } else {
             p = borg_danger(y, x, turns, true_0 != 0, false_0 != 0);
-            if p > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize) {
+            if p > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] {
                 n += 1;
             }
         }
@@ -538,16 +502,12 @@ pub unsafe extern "C" fn borg_caution_teleport(
     let mut min: ::core::ffi::c_int = dis / 2 as ::core::ffi::c_int;
     let mut q_x: ::core::ffi::c_int = 0;
     let mut q_y: ::core::ffi::c_int = 0;
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
-    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
-    if *borg
-        .trait_0
-        .offset(BI_ATELEPORT as ::core::ffi::c_int as isize)
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
+    q_x = crate::bridge::st().core.w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = crate::bridge::st().core.w_y / crate::borg_cave_util::borg_panel_hgt();
+    if crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize]
         == 0
-        || *borg
-            .trait_0
-            .offset(BI_AESCAPE as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize]
             == 0
     {
         return false_0 != 0;
@@ -558,13 +518,13 @@ pub unsafe extern "C" fn borg_caution_teleport(
         i = 0 as ::core::ffi::c_int;
         while i < 100 as ::core::ffi::c_int {
             loop {
-                y = (borg.c.y as int32_t
+                y = (crate::bridge::st().borg.c.y as int32_t
                     + Rand_div((1 as ::core::ffi::c_int + dis + dis) as uint32_t) as int32_t
                     - dis as int32_t) as ::core::ffi::c_int;
-                x = (borg.c.x as int32_t
+                x = (crate::bridge::st().borg.c.x as int32_t
                     + Rand_div((1 as ::core::ffi::c_int + dis + dis) as uint32_t) as int32_t
                     - dis as int32_t) as ::core::ffi::c_int;
-                d = distance(borg.c, loc(x, y));
+                d = distance(crate::bridge::st().borg.c, loc(x, y));
                 if d >= min && d <= dis {
                     break;
                 }
@@ -589,7 +549,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
                                 .offset((q_x + 1 as ::core::ffi::c_int) as isize)
                                 as ::core::ffi::c_int
                                 == true_0
-                            || borg.time.now - borg.time.level > 2000 as borg_time))
+                            || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 2000 as borg_time))
                     {
                         if crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), y, x) {
                             if !((*ag).kill != 0) {
@@ -604,7 +564,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
             i += 1;
         }
         if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 < 30 as ::core::ffi::c_int
         {
             n += 1;
@@ -612,7 +572,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
             n += 1;
         } else {
             p = borg_danger(y, x, turns, true_0 != 0, false_0 != 0);
-            if p > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize) {
+            if p > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] {
                 n += 1;
             }
         }
@@ -628,7 +588,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
     return true_0 != 0;
 }
 unsafe extern "C" fn borg_escape_stair() -> bool {
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
     if (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int
         && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
     {
@@ -643,12 +603,10 @@ pub unsafe extern "C" fn borg_allow_teleport() -> bool {
     if (*(*player).upkeep).arena_level {
         return false_0 != 0;
     }
-    if square_isno_teleport(cave, borg.c) {
+    if square_isno_teleport(cave, crate::bridge::st().borg.c) {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CRSNOTEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CRSNOTEL as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
@@ -657,7 +615,7 @@ pub unsafe extern "C" fn borg_allow_teleport() -> bool {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_shadow_shift(mut allow_fail: ::core::ffi::c_int) -> bool {
-    if *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize) < 12 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] < 12 as ::core::ffi::c_int {
         return false_0 != 0;
     }
     return borg_spell_fail(SHADOW_SHIFT, allow_fail);
@@ -676,16 +634,16 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
     if !borg_spell_okay_fail(DIMENSION_DOOR, allow_fail) {
         return 0 as ::core::ffi::c_int != 0;
     }
-    best_d = borg_fear_region[(borg.c.y / 11 as ::core::ffi::c_int) as usize]
-        [(borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
+    best_d = borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+        [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int;
     x_off = range * -(1 as ::core::ffi::c_int);
     while x_off < range {
         y_off = range * -(1 as ::core::ffi::c_int);
         while y_off < range {
-            t_x = borg.c.x + x_off;
-            t_y = borg.c.y + y_off;
+            t_x = crate::bridge::st().borg.c.x + x_off;
+            t_y = crate::bridge::st().borg.c.y + y_off;
             if !(t_x < 0 as ::core::ffi::c_int || t_y < 0 as ::core::ffi::c_int) {
-                target = loc(borg.c.x + x_off, borg.c.y + y_off);
+                target = loc(crate::bridge::st().borg.c.x + x_off, crate::bridge::st().borg.c.y + y_off);
                 if square_in_bounds_fully(cave, target) {
                     d = borg_danger(t_y, t_x, 2 as ::core::ffi::c_int, true_0 != 0, false_0 != 0);
                     if d < best_d {
@@ -700,8 +658,8 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
         x_off += 1;
     }
     if best_d
-        < borg_fear_region[(borg.c.y / 11 as ::core::ffi::c_int) as usize]
-            [(borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
+        < borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
     {
         borg_target(best, false_0 != 0);
         borg_spell(DIMENSION_DOOR);
@@ -711,7 +669,7 @@ pub unsafe extern "C" fn borg_dimension_door(mut allow_fail: ::core::ffi::c_int)
     return false_0 != 0;
 }
 unsafe extern "C" fn borg_teleport_off_level() -> bool {
-    if !(borg.goal.recalling != 0 || borg.goal.descending != 0) {
+    if !(crate::bridge::st().borg.goal.recalling != 0 || crate::bridge::st().borg.goal.descending != 0) {
         if borg_read_scroll(sv_scroll_teleport_level) as ::core::ffi::c_int != 0
             || borg_activate_item(act_tele_level) as ::core::ffi::c_int != 0
         {
@@ -733,52 +691,42 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut allow_fail: ::core::ffi::c_int = 25 as ::core::ffi::c_int;
     let mut sv_mana: ::core::ffi::c_int = 0;
-    if *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize) * 100 as ::core::ffi::c_int
-        / *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] * 100 as ::core::ffi::c_int
+        / crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
         > 70 as ::core::ffi::c_int
     {
         allow_fail = 10 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
     {
         allow_fail = 35 as ::core::ffi::c_int;
     }
-    sv_mana = *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize);
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    sv_mana = crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize];
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
-        && (*borg
-            .trait_0
-            .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
             != 0
-            || *borg
-                .trait_0
-                .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
                 != 0
-            || *borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0)
+            || crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0)
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 100 as ::core::ffi::c_int
-        && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            >= *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            >= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 * 5 as ::core::ffi::c_int
                 / 10 as ::core::ffi::c_int
     {
-        if borg.morgoth_position {
+        if crate::bridge::st().borg.morgoth_position {
             return false_0 != 0;
         }
         j = 0 as ::core::ffi::c_int;
         while j < 8 as ::core::ffi::c_int {
-            let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[j as usize] as ::core::ffi::c_int;
-            let mut x: ::core::ffi::c_int = borg.c.x + ddx_ddd[j as usize] as ::core::ffi::c_int;
+            let mut y: ::core::ffi::c_int = crate::bridge::st().borg.c.y + ddy_ddd[j as usize] as ::core::ffi::c_int;
+            let mut x: ::core::ffi::c_int = crate::bridge::st().borg.c.x + ddx_ddd[j as usize] as ::core::ffi::c_int;
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*ag).glyph {
                 glyphs += 1;
@@ -789,13 +737,9 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             return false_0 != 0;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
         != 0
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             == 1 as ::core::ffi::c_int
     {
         if borg_teleport_off_level() {
@@ -806,60 +750,50 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             return true_0 != 0;
         }
     }
-    if *borg_cfg.offset(BORG_PLAYS_RISKY as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_PLAYS_RISKY as ::core::ffi::c_int) as usize] != 0 {
         risky_boost = 3 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (45 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (45 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (40 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (40 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 10 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 10 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 == 100 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 < 600 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (30 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (30 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 10 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 10 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 == 99 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 < 600 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (25 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (25 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 >= 95 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                 < 550 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (17 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (17 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 < 95 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (15 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (15 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique == 0
+            && crate::bridge::st().borg.near.unique == 0
     {
         let mut tmp_allow_fail: ::core::ffi::c_int = 15 as ::core::ffi::c_int;
         if borg_escape_stair() as ::core::ffi::c_int != 0
@@ -906,23 +840,19 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                             || borg_spell_fail(PORTAL, tmp_allow_fail) as ::core::ffi::c_int != 0))
         {
             borg_note(b"# Danger Level 1.\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) =
-            *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize);
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] =
+            crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize];
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 10 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                     * 1 as ::core::ffi::c_int
                     / 10 as ::core::ffi::c_int
             && borg_allow_teleport() as ::core::ffi::c_int != 0
@@ -934,45 +864,39 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 b"# Danger Level 1.1  Critical Attempt\0" as *const u8
                     as *const ::core::ffi::c_char,
             );
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
-            && ((*borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            && ((crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                     * 1 as ::core::ffi::c_int
                     / 10 as ::core::ffi::c_int
                 || b_q
-                    > borg.avoidance as ::core::ffi::c_int
+                    > crate::bridge::st().borg.avoidance as ::core::ffi::c_int
                         * (45 as ::core::ffi::c_int + risky_boost)
                         / 10 as ::core::ffi::c_int)
                 && (borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                     || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0))
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(
                 b"# Danger Level 1.2  Critical Phase\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 10 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                     * 1 as ::core::ffi::c_int
                     / 10 as ::core::ffi::c_int
             && (borg_spell_fail(PHASE_DOOR, 15 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -982,52 +906,44 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 b"# Danger Level 1.3  Critical Attempt\0" as *const u8
                     as *const ::core::ffi::c_char,
             );
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) = sv_mana;
+        crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] = sv_mana;
     }
     if b_q
-        < borg.avoidance as ::core::ffi::c_int * (25 as ::core::ffi::c_int + risky_boost)
+        < crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (25 as ::core::ffi::c_int + risky_boost)
             / 10 as ::core::ffi::c_int
-        && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-        && borg.near.unique as ::core::ffi::c_int <= 3 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+        && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 3 as ::core::ffi::c_int
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             >= 97 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (3 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (3 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE
-            && *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
+            && crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                 <= 20 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
                 >= 45 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (13 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (13 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 != 99 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (11 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (11 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique == 0
+            && crate::bridge::st().borg.near.unique == 0
     {
         if borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_allow_teleport() as ::core::ffi::c_int != 0
@@ -1053,67 +969,61 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                     || borg_use_staff(sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 2.1\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
         if borg_caution_phase(50 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
             as ::core::ffi::c_int
             != 0
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell(PHASE_DOOR) as ::core::ffi::c_int != 0
                 || borg_spell(PORTAL) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 2.2\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
         != 0
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (13 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (13 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 2 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 2 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (10 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (10 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique == 0
+            && crate::bridge::st().borg.near.unique == 0
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (10 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (10 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_ISAFRAID as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_ISAFRAID as ::core::ffi::c_int) as usize]
                 != 0
-            && (*borg
-                .trait_0
-                .offset(BI_AMISSILES as ::core::ffi::c_int as isize)
+            && (crate::bridge::st().borg.trait_[(BI_AMISSILES as ::core::ffi::c_int) as usize]
                 <= 0 as ::core::ffi::c_int
-                && *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_WARRIOR)
+                && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_WARRIOR)
     {
         if (borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_caution_phase(25 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0)
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 3.1\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
@@ -1128,115 +1038,103 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 3.2\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
         if borg_caution_phase(75 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
             as ::core::ffi::c_int
             != 0
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 3.3\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
         if borg_teleport_off_level() {
             borg_note(b"# Danger Level 3.4\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        if !borg.goal.fleeing
-            && (borg.near.unique == 0
-                || *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if !crate::bridge::st().borg.goal.fleeing
+            && (crate::bridge::st().borg.near.unique == 0
+                || crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     < 35 as ::core::ffi::c_int)
-            && !borg.status.vault
+            && !crate::bridge::st().borg.status.vault
         {
             borg_note(
                 b"# Fleeing (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.fleeing = true_0 != 0;
+            crate::bridge::st().borg.goal.fleeing = true_0 != 0;
         }
-        if !borg.goal.leaving
-            && (borg.near.unique == 0
-                || *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if !crate::bridge::st().borg.goal.leaving
+            && (crate::bridge::st().borg.near.unique == 0
+                || crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     < 35 as ::core::ffi::c_int)
-            && !borg.status.vault
+            && !crate::bridge::st().borg.status.vault
         {
             borg_note(
                 b"# Leaving (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.leaving = true_0 != 0;
+            crate::bridge::st().borg.goal.leaving = true_0 != 0;
         }
     }
     if b_q
-        > borg.avoidance as ::core::ffi::c_int * (8 as ::core::ffi::c_int + risky_boost)
+        > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (8 as ::core::ffi::c_int + risky_boost)
             / 10 as ::core::ffi::c_int
-        && (*borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 35 as ::core::ffi::c_int
-            || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                <= *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                <= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                     / 3 as ::core::ffi::c_int)
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (9 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (9 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-            && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
-            && (*borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+            && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int
+            && (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 35 as ::core::ffi::c_int
-                || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                    <= *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                    <= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                         / 3 as ::core::ffi::c_int)
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 <= 20 as ::core::ffi::c_int
-            && borg.near.unique == 0
+            && crate::bridge::st().borg.near.unique == 0
         || b_q
-            > borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 <= 35 as ::core::ffi::c_int
     {
         if (borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_caution_phase(20 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0)
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(allow_fail) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 4.1\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
@@ -1250,65 +1148,59 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 4.2\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        if !borg.goal.fleeing
-            && borg.near.unique == 0
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if !crate::bridge::st().borg.goal.fleeing
+            && crate::bridge::st().borg.near.unique == 0
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 25 as ::core::ffi::c_int
-            && !borg.status.vault
+            && !crate::bridge::st().borg.status.vault
         {
             borg_note(
                 b"# Fleeing (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.fleeing = true_0 != 0;
+            crate::bridge::st().borg.goal.fleeing = true_0 != 0;
         }
-        if !borg.goal.leaving && borg.near.unique == 0 && !borg.status.vault {
+        if !crate::bridge::st().borg.goal.leaving && crate::bridge::st().borg.near.unique == 0 && !crate::bridge::st().borg.status.vault {
             borg_note(
                 b"# Leaving (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.leaving = true_0 != 0;
+            crate::bridge::st().borg.goal.leaving = true_0 != 0;
         }
-        if (*borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE
-            || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER)
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if (crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
+            || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 <= 35 as ::core::ffi::c_int
             && borg_caution_phase(65 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_long) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 4.3\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 10 as ::core::ffi::c_int
         && (b_q
-            > borg.avoidance as ::core::ffi::c_int * (5 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (5 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
             || b_q
-                > borg.avoidance as ::core::ffi::c_int * (7 as ::core::ffi::c_int + risky_boost)
+                > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (7 as ::core::ffi::c_int + risky_boost)
                     / 10 as ::core::ffi::c_int
-                && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-                && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int)
+                && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+                && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int)
     {
         if (borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_caution_phase(20 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
@@ -1321,8 +1213,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 5.1\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
@@ -1336,28 +1228,26 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 5.2\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
-        if !borg.goal.fleeing && borg.near.unique == 0 {
+        if !crate::bridge::st().borg.goal.fleeing && crate::bridge::st().borg.near.unique == 0 {
             borg_note(
                 b"# Fleeing (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.fleeing = true_0 != 0;
+            crate::bridge::st().borg.goal.fleeing = true_0 != 0;
         }
-        if !borg.goal.leaving && borg.near.unique == 0 {
+        if !crate::bridge::st().borg.goal.leaving && crate::bridge::st().borg.near.unique == 0 {
             borg_note(
                 b"# Leaving (failed to teleport)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.leaving = true_0 != 0;
+            crate::bridge::st().borg.goal.leaving = true_0 != 0;
         }
-        if (*borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE
-            || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER)
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if (crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
+            || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 <= 8 as ::core::ffi::c_int
             && borg_caution_phase(65 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
@@ -1367,45 +1257,45 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_long) as ::core::ffi::c_int != 0)
         {
-            borg.escapes -= 1;
+            crate::bridge::st().borg.escapes -= 1;
             borg_note(b"# Danger Level 5.3\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
     }
-    if (*borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE
-        || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_PRIEST
-        || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER)
+    if (crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
+        || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_PRIEST
+        || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER)
         && (b_q
-            > borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
+            > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (6 as ::core::ffi::c_int + risky_boost)
                 / 10 as ::core::ffi::c_int
             || b_q
-                > borg.avoidance as ::core::ffi::c_int * (8 as ::core::ffi::c_int + risky_boost)
+                > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * (8 as ::core::ffi::c_int + risky_boost)
                     / 10 as ::core::ffi::c_int
-                && borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
-                && borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int)
-        && (*borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
-            <= *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.near.unique as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
+                && crate::bridge::st().borg.near.unique as ::core::ffi::c_int <= 8 as ::core::ffi::c_int)
+        && (crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
+            <= crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
                 * 1 as ::core::ffi::c_int
                 / 10 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
                 >= 100 as ::core::ffi::c_int)
     {
         if (borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_caution_phase(20 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0)
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 6.1\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
@@ -1418,8 +1308,8 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_use_staff_fail(sv_staff_teleportation) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 6.2\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
@@ -1436,29 +1326,29 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
             borg_note(
                 b"# Shoot N Scoot. (Danger Level 7.1)\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.escapes -= 1;
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            crate::bridge::st().borg.escapes -= 1;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
             return true_0 != 0;
         }
     }
-    if borg.times_twitch as ::core::ffi::c_int > 50 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.times_twitch as ::core::ffi::c_int > 50 as ::core::ffi::c_int {
         if (borg_escape_stair() as ::core::ffi::c_int != 0
             || borg_caution_phase(20 as ::core::ffi::c_int, 2 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0)
-            && borg.time.now - borg.time.antisummon > 50 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon > 50 as borg_time
             && (borg_spell_fail(PHASE_DOOR, allow_fail) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, allow_fail) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 8\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
-            borg.times_twitch = 0 as int16_t;
+            crate::bridge::st().borg.times_twitch = 0 as int16_t;
             return true_0 != 0;
         }
         if borg_allow_teleport() as ::core::ffi::c_int != 0
@@ -1471,10 +1361,10 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
                 || borg_teleport_off_level() as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Danger Level 8\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.time.now - borg.time.antisummon < 50 as borg_time {
-                borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
+            if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.antisummon < 50 as borg_time {
+                crate::bridge::st().borg.time.antisummon = 0 as ::core::ffi::c_int as borg_time;
             }
-            borg.times_twitch = 0 as int16_t;
+            crate::bridge::st().borg.times_twitch = 0 as int16_t;
             return true_0 != 0;
         }
     }

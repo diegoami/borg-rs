@@ -1,0 +1,13 @@
+# deep: one run per class, 1,000,000 game turns, Borg cheat death ON
+# (borg_cheat_death = TRUE -> cheat_live), so characters survive and reach
+# deeper levels, shops and spells. Broader code coverage than full.
+# NAME              SEED  RACE CLASS TURNS    FLAGS
+deep-0-warrior      2000  0    0     1000000  cheat
+deep-1-mage         2001  2    1     1000000  cheat
+deep-2-druid        2002  3    2     1000000  cheat
+deep-3-priest       2003  5    3     1000000  cheat
+deep-4-necro        2004  10   4     1000000  cheat
+deep-5-paladin      2005  8    5     1000000  cheat
+deep-6-rogue        2006  3    6     1000000  cheat
+deep-7-ranger       2007  9    7     1000000  cheat
+deep-8-blackguard   2008  7    8     1000000  cheat

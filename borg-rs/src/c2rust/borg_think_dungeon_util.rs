@@ -27,19 +27,7 @@ use crate::headers::borg_flow_stairs_h::{
     borg_flow_stair_both, borg_flow_stair_less, borg_flow_stair_more, track_less, track_more,
 };
 use crate::headers::borg_flow_take_h::borg_flow_take_scum;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, w_x, w_y, C2RustUnnamedH_10,
-    C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15,
-    C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE,
-    BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL,
-    BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS,
-    BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START,
-    BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_activation_h::{act_illumination, act_light, act_stone_to_mud};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
@@ -202,7 +190,7 @@ static mut borg_stuff_feeling: [::core::ffi::c_int; 12] = [
 #[no_mangle]
 pub unsafe extern "C" fn borg_money_scum() -> bool {
     let mut divisor: ::core::ffi::c_int = 2 as ::core::ffi::c_int;
-    if *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
         == 0 as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -210,13 +198,11 @@ pub unsafe extern "C" fn borg_money_scum() -> bool {
     borg_note(format(
         b"# Waiting for towns people to breed.  I need %d...\0" as *const u8
             as *const ::core::ffi::c_char,
-        *borg_cfg.offset(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize)
-            - *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize),
+        crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize]
+            - crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize],
     ));
-    borg.in_shop = false_0 != 0;
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    crate::bridge::st().borg.in_shop = false_0 != 0;
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         >= 35 as ::core::ffi::c_int
     {
         borg_keypress(ESCAPE as keycode_t);
@@ -225,9 +211,7 @@ pub unsafe extern "C" fn borg_money_scum() -> bool {
         borg_keypress('0' as i32 as keycode_t);
         borg_keypress('0' as i32 as keycode_t);
         borg_keypress(KC_ENTER as keycode_t);
-    } else if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    } else if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         >= 15 as ::core::ffi::c_int
     {
         borg_keypress(ESCAPE as keycode_t);
@@ -249,15 +233,15 @@ pub unsafe extern "C" fn borg_money_scum() -> bool {
     {
         divisor = 5 as ::core::ffi::c_int;
     }
-    if borg.time.now % divisor as borg_time != 0 {
+    if crate::bridge::st().borg.time.now % divisor as borg_time != 0 {
         let mut dirs: [::core::ffi::c_int; 8] = [0; 8];
         let mut count: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
         let mut i: ::core::ffi::c_int = 0;
         i = 0 as ::core::ffi::c_int;
         while i < 8 as ::core::ffi::c_int {
             let mut next: loc = loc(
-                borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int,
-                borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int,
+                crate::bridge::st().borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int,
+                crate::bridge::st().borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int,
             );
             if square_in_bounds_fully(cave, next) as ::core::ffi::c_int != 0
                 && (*crate::bridge::grid(next.x, next.y)).feat as ::core::ffi::c_int
@@ -271,16 +255,16 @@ pub unsafe extern "C" fn borg_money_scum() -> bool {
         }
         if count != 0 {
             let mut dir: ::core::ffi::c_int = dirs[Rand_div(count as uint32_t) as int32_t as usize];
-            borg.goal.g = loc(
-                borg.c.x + ddx[dir as usize] as ::core::ffi::c_int,
-                borg.c.y + ddy[dir as usize] as ::core::ffi::c_int,
+            crate::bridge::st().borg.goal.g = loc(
+                crate::bridge::st().borg.c.x + ddx[dir as usize] as ::core::ffi::c_int,
+                crate::bridge::st().borg.c.y + ddy[dir as usize] as ::core::ffi::c_int,
             );
             borg_keypress(ESCAPE as keycode_t);
             borg_keypress((dir + '0' as i32) as keycode_t);
         }
     }
-    borg.antibounce_count = 1 as int16_t;
-    borg.time.level = 1 as ::core::ffi::c_int as borg_time;
+    crate::bridge::st().borg.antibounce_count = 1 as int16_t;
+    crate::bridge::st().borg.time.level = 1 as ::core::ffi::c_int as borg_time;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -290,29 +274,25 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
     let mut y: ::core::ffi::c_int = 0;
     let mut not_safe: bool = false_0 != 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    if *borg
-        .trait_0
-        .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
         != 0
         && borg_use_things() as ::core::ffi::c_int != 0
     {
         return true_0 != 0;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0
-        && (*borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0
+        && (crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
             <= 0 as ::core::ffi::c_int
             || (*borg_items.offset(
                 ((*z_info).pack_size as ::core::ffi::c_int + 5 as ::core::ffi::c_int) as isize,
             ))
             .timeout as ::core::ffi::c_int
                 <= 3 as ::core::ffi::c_int)
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             >= 1 as ::core::ffi::c_int
     {
         let mut need: borg_need = BORG_NO_NEED;
-        if borg.goal.recalling != 0 {
+        if crate::bridge::st().borg.goal.recalling != 0 {
             borg_keypress('R' as i32 as keycode_t);
             borg_keypress('9' as i32 as keycode_t);
             borg_keypress(KC_ENTER as keycode_t);
@@ -330,50 +310,46 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
         {
             return false_0 != 0;
         }
-        if borg.goal.recalling == 0 && borg_zap_rod(sv_rod_recall) as ::core::ffi::c_int != 0 {
+        if crate::bridge::st().borg.goal.recalling == 0 && borg_zap_rod(sv_rod_recall) as ::core::ffi::c_int != 0 {
             return true_0 != 0;
         }
-        if borg.goal.recalling == 0 {
+        if crate::bridge::st().borg.goal.recalling == 0 {
             if borg_recall() {
                 return true_0 != 0;
             }
         }
         if !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize] {
-            if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+            if (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
                 == FEAT_LESS as ::core::ffi::c_int
             {
                 borg_note(b"# Testing for stairs .\0" as *const u8 as *const ::core::ffi::c_char);
                 borg_keypress('<' as i32 as keycode_t);
             }
         }
-        if *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
-            < *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
-            && *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
+            < crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
+            && crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize]
                 > 0 as ::core::ffi::c_int
-            && ((*crate::bridge::grid(borg.c.x, borg.c.y)).info
+            && ((*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).info
                 as ::core::ffi::c_int
                 & BORG_GLOW
                 != 0
-                || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                     == CLASS_NECROMANCER)
-            && *borg
-                .trait_0
-                .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
                 == 0
             && (borg_spell_legal(HERBAL_CURING) as ::core::ffi::c_int != 0
                 || borg_spell_legal(REMOVE_HUNGER) as ::core::ffi::c_int != 0
-                || *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
-                    >= *borg
-                        .trait_0
-                        .offset(BI_CDEPTH as ::core::ffi::c_int as isize))
+                || crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
+                    >= crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize])
             && (borg_spell_legal(CALL_LIGHT) as ::core::ffi::c_int != 0
                 || borg_spell_legal(LIGHT_ROOM) as ::core::ffi::c_int != 0)
             && (!borg_spell_okay(CALL_LIGHT) && !borg_spell_okay(LIGHT_ROOM))
         {
             ii = 0 as ::core::ffi::c_int;
             while ii < 8 as ::core::ffi::c_int {
-                x = borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
-                y = borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
+                x = crate::bridge::st().borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
+                y = crate::bridge::st().borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                 if square_in_bounds_fully(cave, loc(x, y)) {
                     ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if (*ag).kill != 0 {
@@ -382,16 +358,16 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                 }
                 ii += 1;
             }
-            if borg_fear_region[(borg.c.y / 11 as ::core::ffi::c_int) as usize]
-                [(borg.c.x / 11 as ::core::ffi::c_int) as usize]
+            if borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+                [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                 as ::core::ffi::c_int
-                > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+                > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     / 10 as ::core::ffi::c_int
             {
                 not_safe = true_0 != 0;
             }
-            if borg_fear_monsters[borg.c.y as usize][borg.c.x as usize] as ::core::ffi::c_int
-                > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+            if borg_fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
+                > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     / 10 as ::core::ffi::c_int
             {
                 not_safe = true_0 != 0;
@@ -407,13 +383,13 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                 return true_0 != 0;
             }
         }
-        if borg.time.call_light == 0 as borg_time
-            || borg.time.now - borg.time.call_light > 7 as borg_time
+        if crate::bridge::st().borg.time.call_light == 0 as borg_time
+            || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.call_light > 7 as borg_time
         {
             ii = 0 as ::core::ffi::c_int;
             while ii < 8 as ::core::ffi::c_int {
-                x = borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
-                y = borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
+                x = crate::bridge::st().borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
+                y = crate::bridge::st().borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                 if square_in_bounds_fully(cave, loc(x, y)) {
                     ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int >= FEAT_RUBBLE as ::core::ffi::c_int
@@ -422,13 +398,13 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                         if ((*ag).feat as ::core::ffi::c_int == FEAT_OPEN as ::core::ffi::c_int
                             || (*ag).feat as ::core::ffi::c_int
                                 == FEAT_BROKEN as ::core::ffi::c_int)
-                            && (y == borg.c.y && x == borg.c.x)
+                            && (y == crate::bridge::st().borg.c.y && x == crate::bridge::st().borg.c.x)
                         {
-                            if square_isglow(cave, borg.c) {
+                            if square_isglow(cave, crate::bridge::st().borg.c) {
                                 (*ag).info =
                                     ((*ag).info as ::core::ffi::c_int | BORG_GLOW) as uint16_t;
                             }
-                        } else if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        } else if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             != CLASS_NECROMANCER
                         {
                             if (*ag).info as ::core::ffi::c_int & BORG_DARK != 0
@@ -453,7 +429,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                                         b"SELF:lite\0" as *const u8 as *const ::core::ffi::c_char,
                                         b"SELF:lite\0" as *const u8 as *const ::core::ffi::c_char,
                                     );
-                                    borg.time.call_light = borg.time.now;
+                                    crate::bridge::st().borg.time.call_light = crate::bridge::st().borg.time.now;
                                     return true_0 != 0;
                                 }
                                 if borg_light_beam(false_0 != 0) {
@@ -470,7 +446,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                                     b"# Darkening the region that is lit.\0" as *const u8
                                         as *const ::core::ffi::c_char,
                                 );
-                                borg.time.call_light = borg.time.now;
+                                crate::bridge::st().borg.time.call_light = crate::bridge::st().borg.time.now;
                                 return true_0 != 0;
                             }
                         }
@@ -485,7 +461,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
         if borg_flow_stair_less(GOAL_FLEE, false_0 != 0) as ::core::ffi::c_int != 0
             && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
         {
-            if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+            if (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
                 == FEAT_LESS as ::core::ffi::c_int
             {
                 borg_note(
@@ -499,9 +475,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
             );
             return true_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_RECALL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize]
             != 0
             && borg_flow_light(GOAL_FLEE) as ::core::ffi::c_int != 0
         {
@@ -515,30 +489,24 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     let mut j: ::core::ffi::c_int = 0;
     let mut b_j: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut i: ::core::ffi::c_int = 0;
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    let mut feat: uint8_t = (*square(cave, borg.c)).feat;
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
+    let mut feat: uint8_t = (*square(cave, crate::bridge::st().borg.c)).feat;
     let mut need: borg_need = BORG_NO_NEED;
     borg_notice(true_0 != 0);
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0 as ::core::ffi::c_int
-        || *borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
     {
         borg_note(
             b"# Leaving Scumming Mode. (Town or Weak)\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.lunal_mode = false_0 != 0;
+        crate::bridge::st().borg.lunal_mode = false_0 != 0;
         return false_0 != 0;
     }
     if (*borg_items.offset(
         ((*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
             - 1 as ::core::ffi::c_int) as isize,
     ))
     .iqty
@@ -551,16 +519,16 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     {
         i = 0 as ::core::ffi::c_int;
         while i < track_more.num as ::core::ffi::c_int {
-            if *track_more.x.offset(i as isize) == borg.c.x
-                && *track_more.y.offset(i as isize) == borg.c.y
+            if *track_more.x.offset(i as isize) == crate::bridge::st().borg.c.x
+                && *track_more.y.offset(i as isize) == crate::bridge::st().borg.c.y
             {
                 break;
             }
             i += 1;
         }
         if i == track_more.num as ::core::ffi::c_int && i < track_more.size as ::core::ffi::c_int {
-            *track_more.x.offset(i as isize) = borg.c.x;
-            *track_more.y.offset(i as isize) = borg.c.y;
+            *track_more.x.offset(i as isize) = crate::bridge::st().borg.c.x;
+            *track_more.y.offset(i as isize) = crate::bridge::st().borg.c.y;
             track_more.num += 1;
         }
         (*ag).feat = FEAT_MORE as ::core::ffi::c_int as uint8_t;
@@ -570,13 +538,13 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     {
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
-            *track_less.x.offset(i as isize) == borg.c.x
-                && *track_less.y.offset(i as isize) == borg.c.y;
+            *track_less.x.offset(i as isize) == crate::bridge::st().borg.c.x
+                && *track_less.y.offset(i as isize) == crate::bridge::st().borg.c.y;
             i += 1;
         }
         if i == track_less.num as ::core::ffi::c_int && i < track_less.size as ::core::ffi::c_int {
-            *track_less.x.offset(i as isize) = borg.c.x;
-            *track_less.y.offset(i as isize) = borg.c.y;
+            *track_less.x.offset(i as isize) = crate::bridge::st().borg.c.x;
+            *track_less.y.offset(i as isize) = crate::bridge::st().borg.c.y;
             track_less.num += 1;
         }
         (*ag).feat = FEAT_LESS as ::core::ffi::c_int as uint8_t;
@@ -596,13 +564,11 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
         return true_0 != 0;
     }
     borg_note(b"# Fleeing level. Scumming Mode\0" as *const u8 as *const ::core::ffi::c_char);
-    borg.goal.fleeing = true_0 != 0;
+    crate::bridge::st().borg.goal.fleeing = true_0 != 0;
     if track_more.num as ::core::ffi::c_int != 0
         && ((*ag).feat as ::core::ffi::c_int == FEAT_MORE as ::core::ffi::c_int
             || (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int
-            || *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 < 30 as ::core::ffi::c_int)
     {
         let mut y: ::core::ffi::c_int = 0;
@@ -617,7 +583,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
         while i < track_more.num as ::core::ffi::c_int {
             x = *track_more.x.offset(i as isize);
             y = *track_more.y.offset(i as isize);
-            j = distance(borg.c, loc(x, y));
+            j = distance(crate::bridge::st().borg.c, loc(x, y));
             if !(b_j <= j && b_j != -(1 as ::core::ffi::c_int)) {
                 b_j = j;
             }
@@ -625,9 +591,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
         }
         if b_j < 8 as ::core::ffi::c_int
             || (*ag).feat as ::core::ffi::c_int == FEAT_MORE as ::core::ffi::c_int
-            || *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 < 30 as ::core::ffi::c_int
         {
             borg_note(
@@ -646,21 +610,19 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
         }
     }
     if track_less.num as ::core::ffi::c_int != 0
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 1 as ::core::ffi::c_int
         && ((*ag).feat as ::core::ffi::c_int == FEAT_MORE as ::core::ffi::c_int
             || (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int)
     {
         let mut y_0: ::core::ffi::c_int = 0;
         let mut x_0: ::core::ffi::c_int = 0;
-        let mut tmp_ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
+        let mut tmp_ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x_0 = *track_less.x.offset(i as isize);
             y_0 = *track_less.y.offset(i as isize);
-            j = distance(borg.c, loc(x_0, y_0));
+            j = distance(crate::bridge::st().borg.c, loc(x_0, y_0));
             if !(b_j <= j && b_j != -(1 as ::core::ffi::c_int)) {
                 b_j = j;
             }
@@ -672,7 +634,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
             borg_note(
                 b"# Scumming Mode.  Power Climb. \0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.less = true_0 != 0;
+            crate::bridge::st().borg.goal.less = true_0 != 0;
             if borg_flow_old(GOAL_FLEE) {
                 return true_0 != 0;
             }
@@ -691,9 +653,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
             }
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         >= 2 as ::core::ffi::c_int
     {
         if borg_flow_old(GOAL_FLEE) {
@@ -707,38 +667,28 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     return false_0 != 0;
 }
 unsafe extern "C" fn borg_time_to_stay_on_level(mut bored: bool) -> ::core::ffi::c_int {
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         < 5 as ::core::ffi::c_int
         || borg_feeling_stuff == 0
     {
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 10 as ::core::ffi::c_int
         {
-            return *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            return crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 * 50 as ::core::ffi::c_int;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int
-            && *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                 < 3 as ::core::ffi::c_int
         {
-            return if *borg.trait_0.offset(BI_REG as ::core::ffi::c_int as isize) != 0 {
+            return if crate::bridge::st().borg.trait_[(BI_REG as ::core::ffi::c_int) as usize] != 0 {
                 2000 as ::core::ffi::c_int
             } else {
                 2500 as ::core::ffi::c_int
             };
         }
-        if *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
             < 20 as ::core::ffi::c_int
             && borg_feeling_stuff == 0 as ::core::ffi::c_int
         {
@@ -756,44 +706,36 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
     let mut g: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut try_not_to_descend: bool = false_0 != 0;
     let mut need_restock: bool = false_0 != 0;
-    if borg.goal.recalling != 0
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.goal.recalling != 0
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 1 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 100 as ::core::ffi::c_int
-        && borg.near.morgoth as ::core::ffi::c_int != 0
-        && borg.time.now - borg.time.morgoth < 5000 as borg_time
+        && crate::bridge::st().borg.near.morgoth as ::core::ffi::c_int != 0
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.morgoth < 5000 as borg_time
     {
-        borg.goal.leaving = false_0 != 0;
-        borg.goal.rising = false_0 != 0;
+        crate::bridge::st().borg.goal.leaving = false_0 != 0;
+        crate::bridge::st().borg.goal.rising = false_0 != 0;
         bored = false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
     {
-        borg.goal.rising = false_0 != 0;
+        crate::bridge::st().borg.goal.rising = false_0 != 0;
         if !bored {
             return false_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             == 100 as ::core::ffi::c_int
-            && *borg_cfg.offset(BORG_PLAYS_RISKY as ::core::ffi::c_int as isize) == 0
+            && crate::bridge::st().core.cfg[(BORG_PLAYS_RISKY as ::core::ffi::c_int) as usize] == 0
         {
             if !borg_restock(100 as ::core::ffi::c_int).is_null() {
-                borg.goal.fleeing = true_0 != 0;
-                borg.goal.leaving = true_0 != 0;
-                borg.stair_more = true_0 != 0;
+                crate::bridge::st().borg.goal.fleeing = true_0 != 0;
+                crate::bridge::st().borg.goal.leaving = true_0 != 0;
+                crate::bridge::st().borg.stair_more = true_0 != 0;
                 borg_note(
                     b"# Borg must crawl to deep dungeon- no recall to 100.\0" as *const u8
                         as *const ::core::ffi::c_char,
@@ -804,36 +746,28 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                 return false_0 != 0;
             }
         }
-        if *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
-            >= (if *borg_cfg.offset(BORG_WORSHIPS_GOLD as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
+            >= (if crate::bridge::st().core.cfg[(BORG_WORSHIPS_GOLD as ::core::ffi::c_int) as usize] != 0 {
                 10 as ::core::ffi::c_int
             } else {
                 8 as ::core::ffi::c_int
             })
-            && *borg
-                .trait_0
-                .offset(BI_RECALL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize]
                 >= 3 as ::core::ffi::c_int
             && ((borg_prepared(
-                *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                     * 6 as ::core::ffi::c_int
                     / 10 as ::core::ffi::c_int,
             ) as *mut ::core::ffi::c_char)
                 .is_null()
-                || *borg_cfg.offset(BORG_PLAYS_RISKY as ::core::ffi::c_int as isize) != 0)
+                || crate::bridge::st().core.cfg[(BORG_PLAYS_RISKY as ::core::ffi::c_int) as usize] != 0)
             && borg_recall() as ::core::ffi::c_int != 0
         {
             borg_note(b"# Recalling into dungeon.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
         } else {
-            if *borg
-                .trait_0
-                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
-                < (if *borg_cfg.offset(BORG_WORSHIPS_GOLD as ::core::ffi::c_int as isize) != 0 {
+            if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
+                < (if crate::bridge::st().core.cfg[(BORG_WORSHIPS_GOLD as ::core::ffi::c_int) as usize] != 0 {
                     10 as ::core::ffi::c_int
                 } else {
                     8 as ::core::ffi::c_int
@@ -842,18 +776,14 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                 borg_note(
                     b"# Not deep enough to recall\0" as *const u8 as *const ::core::ffi::c_char,
                 );
-            } else if *borg
-                .trait_0
-                .offset(BI_RECALL as ::core::ffi::c_int as isize)
+            } else if crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize]
                 <= 2 as ::core::ffi::c_int
             {
                 borg_note(
                     b"# Not enough recalls to recall\0" as *const u8 as *const ::core::ffi::c_char,
                 );
             } else if !(borg_prepared(
-                *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                     * 6 as ::core::ffi::c_int
                     / 10 as ::core::ffi::c_int,
             ) as *mut ::core::ffi::c_char)
@@ -863,9 +793,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                     b"# Way too scary to recall down there!   %s\0" as *const u8
                         as *const ::core::ffi::c_char,
                     borg_prepared(
-                        *borg
-                            .trait_0
-                            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize),
+                        crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize],
                     ),
                 ));
             } else {
@@ -874,24 +802,20 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                         as *const ::core::ffi::c_char,
                 );
             }
-            borg.goal.fleeing = true_0 != 0;
-            borg.goal.leaving = true_0 != 0;
+            crate::bridge::st().borg.goal.fleeing = true_0 != 0;
+            crate::bridge::st().borg.goal.leaving = true_0 != 0;
         }
-        borg.stair_more = true_0 != 0;
+        crate::bridge::st().borg.stair_more = true_0 != 0;
         if borg_flow_stair_more(GOAL_BORE, false_0 != 0, false_0 != 0) {
             return true_0 != 0;
         }
         return false_0 != 0;
     }
     let mut prep_cur_depth: *const ::core::ffi::c_char = borg_prepared(
-        *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize),
+        crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize],
     );
     let mut prep_next_depth: *const ::core::ffi::c_char = borg_prepared(
-        *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             + 1 as ::core::ffi::c_int,
     );
     if !prep_cur_depth.is_null() {
@@ -907,9 +831,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
         try_not_to_descend = true_0 != 0;
     }
     if g != 0
-        && *borg
-            .trait_0
-            .offset(BI_ISFIXEXP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_ISFIXEXP as ::core::ffi::c_int) as usize]
             != 0
     {
         try_not_to_descend = true_0 != 0;
@@ -922,8 +844,8 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
             prep_next_depth,
         ));
     } else if bored as ::core::ffi::c_int != 0
-        && borg.avoidance as ::core::ffi::c_int
-            > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.avoidance as ::core::ffi::c_int
+            > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
     {
         if !prep_next_depth.is_null() {
             g = -(1 as ::core::ffi::c_int);
@@ -938,9 +860,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
         }
     } else if !try_not_to_descend
         && borg_prepared(
-            *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 + 5 as ::core::ffi::c_int,
         )
         .is_null()
@@ -952,32 +872,24 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
         );
     } else if !try_not_to_descend
         && prep_next_depth.is_null()
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             >= 75 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             < 100 as ::core::ffi::c_int
     {
         g = 1 as ::core::ffi::c_int;
         borg_note(b"# power dive, head deep.\0" as *const u8 as *const ::core::ffi::c_char);
     }
     if !prep_cur_depth.is_null() {
-        if borg.mon.unique == 0 {
+        if crate::bridge::st().borg.mon.unique == 0 {
             if g == 0
                 && !borg_prepared(
-                    *borg
-                        .trait_0
-                        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                    crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                         * 5 as ::core::ffi::c_int
                         / 10 as ::core::ffi::c_int,
                 )
                 .is_null()
-                && *borg
-                    .trait_0
-                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                     > 65 as ::core::ffi::c_int
             {
                 borg_note(format(
@@ -985,7 +897,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                         as *const ::core::ffi::c_char,
                     prep_cur_depth,
                 ));
-                borg.goal.rising = true_0 != 0;
+                crate::bridge::st().borg.goal.rising = true_0 != 0;
             } else {
                 borg_note(format(
                     b"# Climbing (too deep: %s)\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1000,7 +912,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                     as *const ::core::ffi::c_char,
                 borg_must_return_to_town(),
             ));
-            borg.goal.rising = true_0 != 0;
+            crate::bridge::st().borg.goal.rising = true_0 != 0;
             need_restock = true_0 != 0;
         }
         if !strstr(
@@ -1013,53 +925,39 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                 b"# Returning to town to Collect stock.\0" as *const u8
                     as *const ::core::ffi::c_char,
             );
-            borg.goal.rising = true_0 != 0;
+            crate::bridge::st().borg.goal.rising = true_0 != 0;
             need_restock = true_0 != 0;
         }
     }
     if borg_prepared(
-        *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             + 20 as ::core::ffi::c_int,
     )
     .is_null()
         && borg_prepared(
-            *borg
-                .trait_0
-                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+            crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                 * 6 as ::core::ffi::c_int
                 / 10 as ::core::ffi::c_int,
         )
         .is_null()
-        && *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
-            > *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
+            > crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 + 20 as ::core::ffi::c_int
-        && (*borg
-            .trait_0
-            .offset(BI_RECALL as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize]
             >= 3 as ::core::ffi::c_int
-            || *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                 > 2000 as ::core::ffi::c_int)
     {
         borg_note(
             b"# returning to town to recall back down (too shallow)\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
-    if (*borg_cfg.offset(BORG_WORSHIPS_GOLD as ::core::ffi::c_int as isize) != 0
-        || *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if (crate::bridge::st().core.cfg[(BORG_WORSHIPS_GOLD as ::core::ffi::c_int) as usize] != 0
+        || crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int)
-        && *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
             <= 25 as ::core::ffi::c_int
         && sellable_item_count >= 12 as ::core::ffi::c_int
     {
@@ -1067,103 +965,79 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
             b"# Going to town (Sell Stuff, Worshipping Gold).\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
     if bored as ::core::ffi::c_int != 0
-        && *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
             >= 26 as ::core::ffi::c_int
         && sellable_item_count >= 12 as ::core::ffi::c_int
     {
         borg_note(b"# Going to town (Sell Stuff).\0" as *const u8 as *const ::core::ffi::c_char);
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISFIXLEV as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISFIXLEV as ::core::ffi::c_int) as usize]
         != 0
     {
         borg_note(b"# Going to town (Fix Level).\0" as *const u8 as *const ::core::ffi::c_char);
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
     if bored as ::core::ffi::c_int != 0
-        && *borg
-            .trait_0
-            .offset(BI_ISFIXEXP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_ISFIXEXP as ::core::ffi::c_int) as usize]
             != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             != 50 as ::core::ffi::c_int
     {
         borg_note(
             b"# Going to town (Fix Experience).\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
-    if !borg.goal.rising
+    if !crate::bridge::st().borg.goal.rising
         && bored as ::core::ffi::c_int != 0
-        && !borg.status.vault
-        && borg.near.unique == 0
-        && borg.time.now - borg.time.town > 8000 as borg_time
+        && !crate::bridge::st().borg.status.vault
+        && crate::bridge::st().borg.near.unique == 0
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town > 8000 as borg_time
     {
-        if *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             < 99 as ::core::ffi::c_int
-            || borg.mon.unique == 0
+            || crate::bridge::st().borg.mon.unique == 0
         {
             borg_note(
                 b"# Going to town (I miss my home).\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.goal.rising = true_0 != 0;
+            crate::bridge::st().borg.goal.rising = true_0 != 0;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
-        >= *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
+        >= crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             + 10 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             <= 12 as ::core::ffi::c_int
-        && borg.time.now - borg.time.town > 3500 as borg_time
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town > 3500 as borg_time
     {
         borg_note(
             b"# Going to town (scumming check).\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
-    if !borg.status.vault
-        && *borg
-            .trait_0
-            .offset(BI_PREP_BIG_FIGHT as ::core::ffi::c_int as isize)
+    if !crate::bridge::st().borg.status.vault
+        && crate::bridge::st().borg.trait_[(BI_PREP_BIG_FIGHT as ::core::ffi::c_int) as usize]
             != 0
-        && (*borg
-            .trait_0
-            .offset(BI_AEZHEAL as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize]
             >= 3 as ::core::ffi::c_int
-            || *borg.trait_0.offset(BI_ALIFE as ::core::ffi::c_int as isize)
+            || crate::bridge::st().borg.trait_[(BI_ALIFE as ::core::ffi::c_int) as usize]
                 >= 1 as ::core::ffi::c_int)
     {
         borg_note(
             b"# Going to town (Dropping off Potions).\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.goal.rising = true_0 != 0;
+        crate::bridge::st().borg.goal.rising = true_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 99 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_SAURON_DEAD as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_SAURON_DEAD as ::core::ffi::c_int) as usize]
             != 0
-        && borg.ready_morgoth != 1 as ::core::ffi::c_int
+        && crate::bridge::st().borg.ready_morgoth != 1 as ::core::ffi::c_int
     {
         borg_note(
             b"# Returning to level 98 to scum for items.\0" as *const u8
@@ -1171,60 +1045,50 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
         );
         g = -(1 as ::core::ffi::c_int);
     }
-    if *borg.trait_0.offset(BI_KING as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_KING as ::core::ffi::c_int) as usize] != 0 {
         g = 1 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         < 100 as ::core::ffi::c_int
         && borg_prepared(99 as ::core::ffi::c_int).is_null()
     {
         g = 1 as ::core::ffi::c_int;
     }
     if g == 0
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
-            > *borg_cfg.offset(BORG_NO_DEEPER as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
+            > crate::bridge::st().core.cfg[(BORG_NO_DEEPER as ::core::ffi::c_int) as usize]
     {
         borg_note(format(
             b"# Going up a bit (No Deeper than %d).\0" as *const u8 as *const ::core::ffi::c_char,
-            *borg_cfg.offset(BORG_NO_DEEPER as ::core::ffi::c_int as isize),
+            crate::bridge::st().core.cfg[(BORG_NO_DEEPER as ::core::ffi::c_int) as usize],
         ));
         g = -(1 as ::core::ffi::c_int);
     }
-    if g == 0 && borg.goal.rising as ::core::ffi::c_int != 0 {
+    if g == 0 && crate::bridge::st().borg.goal.rising as ::core::ffi::c_int != 0 {
         g = -(1 as ::core::ffi::c_int);
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         > 10 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             == 1 as ::core::ffi::c_int
-        && borg.time.now - borg.time.level < 200 as borg_time
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level < 200 as borg_time
         && g < 0 as ::core::ffi::c_int
-        && *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize) > 1 as ::core::ffi::c_int
+        && crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize] > 1 as ::core::ffi::c_int
     {
         borg_note(
             b"# Staying on level 1 to rotate shops.\0" as *const u8 as *const ::core::ffi::c_char,
         );
         g = 0 as ::core::ffi::c_int;
     }
-    if g == 0 && borg.time.now - borg.time.level > borg_time_to_stay_on_level(bored) as borg_time {
-        if *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+    if g == 0 && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > borg_time_to_stay_on_level(bored) as borg_time {
+        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             < 99 as ::core::ffi::c_int
-            || borg.mon.unique == 0
+            || crate::bridge::st().borg.mon.unique == 0
         {
             borg_note(format(
                 b"# Spent too long (%ld) on level, leaving.\0" as *const u8
                     as *const ::core::ffi::c_char,
-                (borg.time.now - borg.time.level) as ::core::ffi::c_long,
+                (crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level) as ::core::ffi::c_long,
             ));
             if try_not_to_descend {
                 g = -(1 as ::core::ffi::c_int);
@@ -1242,19 +1106,15 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
             borg_note(
                 b"# Looking for up stairs.  Going up.\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.stair_less = true_0 != 0;
+            crate::bridge::st().borg.stair_less = true_0 != 0;
         }
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             < 100 as ::core::ffi::c_int
             || borg_prepared(99 as ::core::ffi::c_int).is_null()
         {
-            if borg.goal.rising as ::core::ffi::c_int != 0
-                && borg.time.now - borg.time.town > 200 as borg_time
-                && *borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.goal.rising as ::core::ffi::c_int != 0
+                && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.town > 200 as borg_time
+                && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     >= 5 as ::core::ffi::c_int
             {
                 if borg_recall() {
@@ -1266,9 +1126,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                 }
             }
             if need_restock as ::core::ffi::c_int != 0
-                && *borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     >= 5 as ::core::ffi::c_int
             {
                 if borg_recall() {
@@ -1291,9 +1149,9 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
                     as *const ::core::ffi::c_char,
             );
         }
-        if borg.goal.rising as ::core::ffi::c_int != 0
+        if crate::bridge::st().borg.goal.rising as ::core::ffi::c_int != 0
             && bored as ::core::ffi::c_int != 0
-            && borg.time.now - borg.time.level >= 1000 as borg_time
+            && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level >= 1000 as borg_time
         {
             if borg_recall() {
                 borg_note(
@@ -1310,7 +1168,7 @@ pub unsafe extern "C" fn borg_leave_level(mut bored: bool) -> bool {
         }
     }
     if g > 0 as ::core::ffi::c_int {
-        borg.stair_more = true_0 != 0;
+        crate::bridge::st().borg.stair_more = true_0 != 0;
         if borg_flow_stair_more(GOAL_BORE, false_0 != 0, false_0 != 0) {
             return true_0 != 0;
         }
@@ -1329,7 +1187,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
     borg_temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     ii = 0 as ::core::ffi::c_int;
-    if !borg.status.vault {
+    if !crate::bridge::st().borg.status.vault {
         return false_0 != 0;
     }
     if !borg_spell_okay_fail(TURN_STONE_TO_MUD, 30 as ::core::ffi::c_int)
@@ -1337,19 +1195,19 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
     {
         return false_0 != 0;
     }
-    y = w_y;
-    while y < w_y
+    y = crate::bridge::st().core.w_y;
+    while y < crate::bridge::st().core.w_y
         + ((*Term).hgt
             - row_top_map[(*Term).sidebar_mode as usize]
             - row_bottom_map[(*Term).sidebar_mode as usize])
             / tile_height as ::core::ffi::c_int
     {
-        x = w_x;
-        while x < w_x
+        x = crate::bridge::st().core.w_x;
+        while x < crate::bridge::st().core.w_x
             + ((*Term).wid - col_map[(*Term).sidebar_mode as usize] - 1 as ::core::ffi::c_int)
                 / tile_width as ::core::ffi::c_int
         {
-            if !(distance(borg.c, loc(x, y)) > range) {
+            if !(distance(crate::bridge::st().borg.c, loc(x, y)) > range) {
                 if !((*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                     != FEAT_GRANITE as ::core::ffi::c_int
                     && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
@@ -1403,8 +1261,8 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
     i = 0 as ::core::ffi::c_int;
     while i < borg_temp_n as ::core::ffi::c_int {
         if borg_los(
-            borg.c.y,
-            borg.c.x,
+            crate::bridge::st().borg.c.y,
+            crate::bridge::st().borg.c.x,
             borg_temp_y[i as usize] as ::core::ffi::c_int,
             borg_temp_x[i as usize] as ::core::ffi::c_int,
         ) {
@@ -1419,7 +1277,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 || borg_activate_ring(sv_ring_digging) as ::core::ffi::c_int != 0
                 || borg_activate_item(act_stone_to_mud) as ::core::ffi::c_int != 0
                 || distance(
-                    borg.c,
+                    crate::bridge::st().borg.c,
                     loc(
                         borg_temp_x[i as usize] as ::core::ffi::c_int,
                         borg_temp_y[i as usize] as ::core::ffi::c_int,

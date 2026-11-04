@@ -5,19 +5,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{
     borg_flush, borg_keypress, borg_note, borg_warning, borg_what_text,
 };
@@ -113,7 +101,7 @@ pub static mut shop_num: int16_t = -(1 as ::core::ffi::c_int) as int16_t;
 pub static mut borg_do_spell: bool = true_0 != 0;
 #[no_mangle]
 pub unsafe extern "C" fn borg_oops(mut what: *const ::core::ffi::c_char) {
-    borg.status.active = false_0 != 0;
+    crate::bridge::st().borg.status.active = false_0 != 0;
     borg_note(format(
         b"# Aborting (%s).\0" as *const u8 as *const ::core::ffi::c_char,
         what,
@@ -134,13 +122,11 @@ unsafe extern "C" fn borg_check_save() -> bool {
     static mut svSavefile: [::core::ffi::c_char; 1024] = [0; 1024];
     static mut svSavefile2: [::core::ffi::c_char; 1024] = [0; 1024];
     static mut justSaved: bool = false_0 != 0;
-    if borg.status.save as ::core::ffi::c_int != 0 && borg_save_game() as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().borg.status.save as ::core::ffi::c_int != 0 && borg_save_game() as ::core::ffi::c_int != 0 {
         borg_note(b"# Auto Save!\0" as *const u8 as *const ::core::ffi::c_char);
-        borg.status.save = false_0 != 0;
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
-            >= *borg_cfg.offset(BORG_DUMP_LEVEL as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.status.save = false_0 != 0;
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
+            >= crate::bridge::st().core.cfg[(BORG_DUMP_LEVEL as ::core::ffi::c_int) as usize]
             || !strstr(
                 &raw mut (*player).died_from as *mut ::core::ffi::c_char,
                 b"starvation\0" as *const u8 as *const ::core::ffi::c_char,
@@ -226,7 +212,7 @@ pub unsafe extern "C" fn borg_think() -> bool {
     }
     borg_notice(true_0 != 0);
     borg_update();
-    borg.power = borg_power();
+    crate::bridge::st().borg.power = borg_power();
     if 0 as ::core::ffi::c_int
         == borg_what_text(
             1 as ::core::ffi::c_int,
@@ -247,41 +233,25 @@ pub unsafe extern "C" fn borg_think() -> bool {
         return borg_think_store();
     }
     borg_do_spell = true_0 != 0;
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
-        > *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
+        > crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
     {
-        *borg
-            .trait_0
-            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize) = *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize);
+        crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize] = crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize];
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
-        > *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
+        > crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
     {
-        *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize) = *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize);
+        crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize] = crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize];
     }
-    borg.time.now += 1;
-    if borg.time.now > BORG_TIME_MAX as borg_time - 100 as borg_time {
-        borg.time.now = 1 as ::core::ffi::c_int as borg_time;
+    crate::bridge::st().borg.time.now += 1;
+    if crate::bridge::st().borg.time.now > BORG_TIME_MAX as borg_time - 100 as borg_time {
+        crate::bridge::st().borg.time.now = 1 as ::core::ffi::c_int as borg_time;
         borg_warning(
             b"*****WARNING***** Borg Clock Overflow\0" as *const u8 as *const ::core::ffi::c_char,
         );
     }
-    borg.antibounce_count += 1;
-    if borg.status.cancel {
+    crate::bridge::st().borg.antibounce_count += 1;
+    if crate::bridge::st().borg.status.cancel {
         return true_0 != 0;
     }
     return borg_think_dungeon();

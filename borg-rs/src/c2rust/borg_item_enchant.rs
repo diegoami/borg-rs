@@ -3,19 +3,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::borg_keypress;
 use crate::headers::borg_item_activation_h::act_firebrand;
 use crate::headers::borg_item_decurse_h::{
@@ -244,20 +232,14 @@ unsafe extern "C" fn borg_enchant_to_a() -> bool {
     let mut b_i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut a: ::core::ffi::c_int = 0;
     let mut b_a: ::core::ffi::c_int = 99 as ::core::ffi::c_int;
-    if *borg
-        .trait_0
-        .offset(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_AENCH_ARM as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize]
         == 0
-        && *borg
-            .trait_0
-            .offset(BI_AENCH_SARM as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_AENCH_SARM as ::core::ffi::c_int) as usize]
             == 0
     {
         return false_0 != 0;
@@ -272,12 +254,10 @@ unsafe extern "C" fn borg_enchant_to_a() -> bool {
                 if borg_spell_okay_fail(ENCHANT_ARMOUR, 65 as ::core::ffi::c_int)
                     as ::core::ffi::c_int
                     != 0
-                    || *borg
-                        .trait_0
-                        .offset(BI_AENCH_SARM as ::core::ffi::c_int as isize)
+                    || crate::bridge::st().borg.trait_[(BI_AENCH_SARM as ::core::ffi::c_int) as usize]
                         >= 1 as ::core::ffi::c_int
                 {
-                    if a >= *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize) {
+                    if a >= crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize] {
                         current_block_7 = 17179679302217393232;
                     } else {
                         current_block_7 = 1841672684692190573;
@@ -318,21 +298,15 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
     let mut a: ::core::ffi::c_int = 0;
     let mut s_a: ::core::ffi::c_int = 0;
     let mut b_a: ::core::ffi::c_int = 99 as ::core::ffi::c_int;
-    if *borg
-        .trait_0
-        .offset(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int) as usize]
         == 0
         && enchant_weapon_swap_to_h == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_AENCH_TOH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize]
         == 0
-        && *borg
-            .trait_0
-            .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
             == 0
     {
         return false_0 != 0;
@@ -348,12 +322,10 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
                     if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                        || *borg
-                            .trait_0
-                            .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                        || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                             >= 1 as ::core::ffi::c_int
                     {
-                        if a >= *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize)
+                        if a >= crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize]
                         {
                             current_block_7 = 17179679302217393232;
                         } else {
@@ -370,9 +342,7 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
                             if !(i
                                 == (*z_info).pack_size as ::core::ffi::c_int
                                     + 1 as ::core::ffi::c_int
-                                && *borg
-                                    .trait_0
-                                    .offset(BI_AMMO_POWER as ::core::ffi::c_int as isize)
+                                && crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                                     < 3 as ::core::ffi::c_int
                                 && ((*item).art_idx == 0 && (*item).ego_idx == 0))
                             {
@@ -398,12 +368,10 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
             s_a = (*item_0).to_h as ::core::ffi::c_int;
             if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
-                || *borg
-                    .trait_0
-                    .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                     >= 1 as ::core::ffi::c_int
             {
-                if s_a >= *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize) {
+                if s_a >= crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize] {
                     skip = true_0 != 0;
                 }
             } else if s_a >= 8 as ::core::ffi::c_int {
@@ -424,9 +392,7 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
                 + (*z_info).quiver_size as ::core::ffi::c_int
         {
             let mut item_1: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
-            if !(*borg
-                .trait_0
-                .offset(BI_AMMO_POWER as ::core::ffi::c_int as isize)
+            if !(crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                 < 3 as ::core::ffi::c_int
                 || (*borg_items.offset(
                     ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
@@ -443,17 +409,13 @@ unsafe extern "C" fn borg_enchant_to_h() -> bool {
                 if !(((*item_1).iqty as ::core::ffi::c_int) < 5 as ::core::ffi::c_int) {
                     if (*item_1).ident {
                         if !((*item_1).tval as ::core::ffi::c_int
-                            != *borg
-                                .trait_0
-                                .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize))
+                            != crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize])
                         {
                             a = (*item_1).to_h as ::core::ffi::c_int;
                             if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int)
                                 as ::core::ffi::c_int
                                 != 0
-                                || *borg
-                                    .trait_0
-                                    .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                                || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                                     >= 1 as ::core::ffi::c_int
                             {
                                 if a >= 10 as ::core::ffi::c_int {
@@ -500,21 +462,15 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
     let mut a: ::core::ffi::c_int = 0;
     let mut s_a: ::core::ffi::c_int = 0;
     let mut b_a: ::core::ffi::c_int = 99 as ::core::ffi::c_int;
-    if *borg
-        .trait_0
-        .offset(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int) as usize]
         == 0
         && enchant_weapon_swap_to_d == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_AENCH_TOD as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize]
         == 0
-        && *borg
-            .trait_0
-            .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
             == 0
     {
         return false_0 != 0;
@@ -530,12 +486,10 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
                     if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int)
                         as ::core::ffi::c_int
                         != 0
-                        || *borg
-                            .trait_0
-                            .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                        || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                             >= 1 as ::core::ffi::c_int
                     {
-                        if a >= *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize)
+                        if a >= crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize]
                         {
                             current_block_7 = 17179679302217393232;
                         } else {
@@ -552,9 +506,7 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
                             if !(i
                                 == (*z_info).pack_size as ::core::ffi::c_int
                                     + 1 as ::core::ffi::c_int
-                                && *borg
-                                    .trait_0
-                                    .offset(BI_AMMO_POWER as ::core::ffi::c_int as isize)
+                                && crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                                     < 3 as ::core::ffi::c_int
                                 && ((*item).art_idx == 0 && (*item).ego_idx == 0))
                             {
@@ -580,12 +532,10 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
             s_a = (*item_0).to_d as ::core::ffi::c_int;
             if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
-                || *borg
-                    .trait_0
-                    .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                     >= 1 as ::core::ffi::c_int
             {
-                if s_a >= *borg_cfg.offset(BORG_ENCHANT_LIMIT as ::core::ffi::c_int as isize) {
+                if s_a >= crate::bridge::st().core.cfg[(BORG_ENCHANT_LIMIT as ::core::ffi::c_int) as usize] {
                     skip = true_0 != 0;
                 }
             } else if s_a >= 8 as ::core::ffi::c_int {
@@ -606,9 +556,7 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
                 + (*z_info).quiver_size as ::core::ffi::c_int
         {
             let mut item_1: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
-            if !(*borg
-                .trait_0
-                .offset(BI_AMMO_POWER as ::core::ffi::c_int as isize)
+            if !(crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                 < 3 as ::core::ffi::c_int
                 || (*borg_items.offset(
                     ((*z_info).pack_size as ::core::ffi::c_int + 1 as ::core::ffi::c_int) as isize,
@@ -622,25 +570,19 @@ unsafe extern "C" fn borg_enchant_to_d() -> bool {
                     .ego_idx
                         == 0)
             {
-                if !(*borg
-                    .trait_0
-                    .offset(BI_AMMO_POWER as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
                     < 3 as ::core::ffi::c_int)
                 {
                     if !(((*item_1).iqty as ::core::ffi::c_int) < 5 as ::core::ffi::c_int) {
                         if (*item_1).ident {
                             if !((*item_1).tval as ::core::ffi::c_int
-                                != *borg
-                                    .trait_0
-                                    .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize))
+                                != crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize])
                             {
                                 a = (*item_1).to_d as ::core::ffi::c_int;
                                 if borg_spell_okay_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int)
                                     as ::core::ffi::c_int
                                     != 0
-                                    || *borg
-                                        .trait_0
-                                        .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+                                    || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
                                         >= 1 as ::core::ffi::c_int
                                 {
                                     if a >= 10 as ::core::ffi::c_int {
@@ -687,16 +629,12 @@ unsafe extern "C" fn borg_brand_weapon() -> bool {
     let mut b_i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut a: ::core::ffi::c_int = 0;
     let mut b_a: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    if *borg
-        .trait_0
-        .offset(BI_NEED_BRAND_WEAPON as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_NEED_BRAND_WEAPON as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ABRAND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ABRAND as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
@@ -711,9 +649,7 @@ unsafe extern "C" fn borg_brand_weapon() -> bool {
         if !(((*item).iqty as ::core::ffi::c_int) < 20 as ::core::ffi::c_int) {
             if (*item).ident {
                 if !((*item).tval as ::core::ffi::c_int
-                    != *borg
-                        .trait_0
-                        .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize))
+                    != crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize])
                 {
                     a = (*item).to_h as ::core::ffi::c_int;
                     if !((*item).ego_idx != 0) {
@@ -740,26 +676,18 @@ unsafe extern "C" fn borg_brand_weapon() -> bool {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_enchanting() -> bool {
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    if borg.time.now - borg.time.level > 5500 as borg_time
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 5500 as borg_time
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             >= 1 as ::core::ffi::c_int
-        || borg.time.now - borg.time.level > 3501 as borg_time
-            && *borg
-                .trait_0
-                .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 3501 as borg_time
+            && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 == 0 as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -773,9 +701,7 @@ pub unsafe extern "C" fn borg_enchanting() -> bool {
     if borg_decurse_any() {
         return true_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;

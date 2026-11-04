@@ -23,6 +23,7 @@ pub mod cctype;
 #[allow(clippy::all)]
 pub mod headers;
 
+pub mod borg;
 pub mod borg_cave;
 pub mod borg_cave_util;
 pub mod borg_io;

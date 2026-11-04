@@ -14,6 +14,10 @@
     (e.g. `borg_note`).
 * State: each converted module owns a sub-struct of `state::BorgState`
   (e.g. `CaveState`). Converted functions take `st: &mut BorgState`.
+* Bridge wrappers that call into c2rust code take the caller's
+  `&mut BorgState` (even if unused), so the borrow visibly escapes into the call.
+  Otherwise LLVM's `noalias` on `&mut` could cache state that the c2rust code
+  changes through the global pointer.
 * C ctype classes come from `cctype.rs` (as measured under `C.UTF-8`).
 * Behaviour stays exact: the Borg's own algorithms (e.g. its quicksort,
   whose tie order matters) are kept, not replaced with std equivalents.
@@ -32,6 +36,7 @@
 | 2 | borg_cave | with 1 | `CaveState` (flat `Vec<BorgGrid>`); 320 c2rust grid sites use `bridge::grid` |
 | 3 | borg_cave_util | own | grid predicates take `&BorgGrid`; panel size via `engine::term_geometry()`; `tools/m3_calls.py` rewrites call sites |
 | 4 | borg_io | own | `IoState`; C-ABI shims under the old names in `bridge::io` (re-exported from `headers/borg_io_h.rs`) so 1,100 c2rust call sites stay as they are until their module converts; engine terminal/message/event/wcstombs wrappers |
+| 5 | borg (borg.c) | own | `Borg` struct + `CoreState` (cfg, rand_local, step, w_x/w_y) in `BorgState`; `trait`/`has`/`activation` are `Vec<i32>`; about 5,000 c2rust uses rewritten to `bridge::st().borg...`; the entry point (`inkey_hack` callback) is safe Rust; engine wrappers for the player, Term_inkey, RNG swap and inkey_hack |
 
 ## Unsafe count
 
@@ -44,6 +49,7 @@ impls), comments excluded.
 | borg_util + borg_cave | 745 | 57 |
 | borg_cave_util | 742 | 56 |
 | borg_io | 757 | 55 |
+| borg | 761 | 54 |
 
 ## Suite timings
 

@@ -54,11 +54,7 @@ pub use crate::headers::borg_fight_attack_h::{
 };
 use crate::headers::borg_flow_h::{borg_temp_n, borg_temp_x, borg_temp_y};
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_cnt, borg_kills_nxt};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::borg_note;
 pub use crate::headers::borg_trait_h::{
     borg_attacking, borg_simulate, C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW,
@@ -147,29 +143,27 @@ pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
     let mut dam: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut b_n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+    if (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
         != FEAT_MORE as ::core::ffi::c_int
-        && (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+        && (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
             != FEAT_LESS as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
     if borg_danger(
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         1 as ::core::ffi::c_int,
         true_0 != 0,
         true_0 != 0,
-    ) > borg.avoidance as ::core::ffi::c_int * 7 as ::core::ffi::c_int / 10 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+    ) > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * 7 as ::core::ffi::c_int / 10 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 3 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
@@ -184,22 +178,20 @@ pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
         kill = borg_kills.offset(i as isize) as *mut borg_kill;
         if !((*kill).r_idx == 0) {
-            if !(borg.time.now - (*kill).when > 2 as borg_time) {
+            if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
                 a.x = (*kill).pos.x;
                 a.y = (*kill).pos.y;
-                if !(*borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     == 0 as ::core::ffi::c_int)
                 {
                     if (*kill).speed as ::core::ffi::c_int
-                        > *borg.trait_0.offset(BI_SPEED as ::core::ffi::c_int as isize)
-                        && distance(borg.c, a) <= 2 as ::core::ffi::c_int
-                        || distance(borg.c, a) <= 1 as ::core::ffi::c_int
+                        > crate::bridge::st().borg.trait_[(BI_SPEED as ::core::ffi::c_int) as usize]
+                        && distance(crate::bridge::st().borg.c, a) <= 2 as ::core::ffi::c_int
+                        || distance(crate::bridge::st().borg.c, a) <= 1 as ::core::ffi::c_int
                     {
                         return false_0 != 0;
                     }
-                    if borg.mon.scary {
+                    if crate::bridge::st().borg.mon.scary {
                         return false_0 != 0;
                     }
                     c.x = (*kill).pos.x;
@@ -207,7 +199,7 @@ pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
                     ag = crate::bridge::grid(c.x, c.y) as *mut borg_grid;
                     if !((*ag).info as ::core::ffi::c_int & BORG_OKAY == 0) {
                         if !((*ag).info as ::core::ffi::c_int & BORG_VIEW == 0) {
-                            if !(distance(borg.c, c) > (*z_info).max_range as ::core::ffi::c_int) {
+                            if !(distance(crate::bridge::st().borg.c, c) > (*z_info).max_range as ::core::ffi::c_int) {
                                 borg_temp_x[borg_temp_n as usize] = c.x as uint8_t;
                                 borg_temp_y[borg_temp_n as usize] = c.y as uint8_t;
                                 borg_temp_n += 1;
@@ -253,14 +245,14 @@ pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
     let mut i: ::core::ffi::c_int = 0;
     let mut n: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE
-        || *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
+        || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER
     {
         return false_0 != 0;
     }
-    if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+    if (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
         != FEAT_MORE as ::core::ffi::c_int
-        && (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
+        && (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat as ::core::ffi::c_int
             != FEAT_LESS as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -269,21 +261,19 @@ pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
         return false_0 != 0;
     }
     if borg_danger(
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         1 as ::core::ffi::c_int,
         true_0 != 0,
         true_0 != 0,
-    ) > borg.avoidance as ::core::ffi::c_int * 7 as ::core::ffi::c_int / 10 as ::core::ffi::c_int
-        || *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+    ) > crate::bridge::st().borg.avoidance as ::core::ffi::c_int * 7 as ::core::ffi::c_int / 10 as ::core::ffi::c_int
+        || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 3 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
@@ -295,19 +285,17 @@ pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
         kill = borg_kills.offset(i as isize) as *mut borg_kill;
         if !((*kill).r_idx == 0) {
-            if !(borg.time.now - (*kill).when > 2 as borg_time) {
-                if !(*borg
-                    .trait_0
-                    .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+            if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
+                if !(crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                     == 0 as ::core::ffi::c_int)
                 {
-                    if borg.mon.scary {
+                    if crate::bridge::st().borg.mon.scary {
                         return false_0 != 0;
                     }
                     ag = crate::bridge::grid((*kill).pos.x, (*kill).pos.y) as *mut borg_grid;
                     if !((*ag).info as ::core::ffi::c_int & BORG_OKAY == 0) {
                         if !((*ag).info as ::core::ffi::c_int & BORG_VIEW == 0) {
-                            if !(distance(borg.c, (*kill).pos) != 1 as ::core::ffi::c_int) {
+                            if !(distance(crate::bridge::st().borg.c, (*kill).pos) != 1 as ::core::ffi::c_int) {
                                 borg_temp_x[borg_temp_n as usize] = (*kill).pos.x as uint8_t;
                                 borg_temp_y[borg_temp_n as usize] = (*kill).pos.y as uint8_t;
                                 borg_temp_n += 1;

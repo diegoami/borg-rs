@@ -9,11 +9,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 pub use crate::headers::borg_magic_h::{
     borg_magic, borg_magics, borg_spell, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
@@ -1600,21 +1596,17 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
     if (*(*player).class).magic.total_spells == 0 {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 {
         return false_0 != 0;
     }
-    if (*crate::bridge::grid(borg.c.x, borg.c.y)).info as ::core::ffi::c_int
+    if (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).info as ::core::ffi::c_int
         == BORG_DARK
     {
         return false_0 != 0;
@@ -1622,7 +1614,7 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
     spell_num = (*(*player).class).magic.total_spells - 1 as ::core::ffi::c_int;
     while spell_num >= 0 as ::core::ffi::c_int {
         let mut as_0: *mut borg_magic = borg_magics.offset(spell_num as isize) as *mut borg_magic;
-        if !((borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int)
+        if !((crate::bridge::st().borg.book_idx[(*as_0).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int)
         {
             if !((*as_0).status as ::core::ffi::c_int != BORG_MAGIC_OKAY) {
                 r = (*as_0).rating as ::core::ffi::c_int;
@@ -1638,9 +1630,7 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
         }
         spell_num -= 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISSTUDY as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISSTUDY as ::core::ffi::c_int) as usize]
         != 0
         && b_r > 0 as ::core::ffi::c_int
         && b_spell_num >= 0 as ::core::ffi::c_int
@@ -1653,7 +1643,7 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
         borg_keypress('G' as i32 as keycode_t);
         borg_keypress(
             *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char)
-                .offset(borg.book_idx[(*as_1).book as usize] as isize) as keycode_t,
+                .offset(crate::bridge::st().borg.book_idx[(*as_1).book as usize] as isize) as keycode_t,
         );
         if flag_has(
             &raw mut (*player).state.pflags as *mut bitflag,
@@ -1674,11 +1664,9 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
         }
         return true_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
-        && !borg.munchkin_mode
+        && !crate::bridge::st().borg.munchkin_mode
     {
         return false_0 != 0;
     }
@@ -1689,11 +1677,11 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
     spell_num = (*(*player).class).magic.total_spells - 1 as ::core::ffi::c_int;
     while spell_num >= 0 as ::core::ffi::c_int {
         let mut as_2: *mut borg_magic = borg_magics.offset(spell_num as isize) as *mut borg_magic;
-        if !((borg.book_idx[(*as_2).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int)
+        if !((crate::bridge::st().borg.book_idx[(*as_2).book as usize] as ::core::ffi::c_int) < 0 as ::core::ffi::c_int)
         {
             if !((*as_2).status as ::core::ffi::c_int != BORG_MAGIC_TEST) {
                 if borg_can_play_spell(as_2) {
-                    if borg.munchkin_mode {
+                    if crate::bridge::st().borg.munchkin_mode {
                         if flag_has(
                             &raw mut (*player).state.pflags as *mut bitflag,
                             (PF_MAX as ::core::ffi::c_int as size_t)

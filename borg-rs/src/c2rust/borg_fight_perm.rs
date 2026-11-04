@@ -6,11 +6,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_activation_h::{act_rage_bless_resist, act_resist_all};
@@ -137,22 +133,18 @@ pub type C2RustUnnamed_9 = ::core::ffi::c_uint;
 unsafe extern "C" fn borg_perma_aux_bless() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 15 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 20 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 25 as ::core::ffi::c_int;
     }
-    if borg.temp.bless {
+    if crate::bridge::st().borg.temp.bless {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -161,16 +153,14 @@ unsafe extern "C" fn borg_perma_aux_bless() -> ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     cost = borg_get_spell_power(BLESS);
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         > 10 as ::core::ffi::c_int
         && cost
-            >= (if borg.mon.unique != 0 {
-                *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+            >= (if crate::bridge::st().borg.mon.unique != 0 {
+                crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                     / 7 as ::core::ffi::c_int
             } else {
-                *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+                crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                     / 10 as ::core::ffi::c_int
             })
     {
@@ -180,22 +170,22 @@ unsafe extern "C" fn borg_perma_aux_bless() -> ::core::ffi::c_int {
         return 1 as ::core::ffi::c_int;
     }
     borg_spell(BLESS);
-    borg.no_rest_prep = 10000 as int16_t;
+    crate::bridge::st().borg.no_rest_prep = 10000 as int16_t;
     return 1 as ::core::ffi::c_int;
 }
 unsafe extern "C" fn borg_perma_aux_resist() -> ::core::ffi::c_int {
     let mut cost: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.res_fire as ::core::ffi::c_int
-        + borg.temp.res_acid as ::core::ffi::c_int
-        + borg.temp.res_elec as ::core::ffi::c_int
-        + borg.temp.res_cold as ::core::ffi::c_int
+    if crate::bridge::st().borg.temp.res_fire as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_acid as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_elec as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_cold as ::core::ffi::c_int
         >= 3 as ::core::ffi::c_int
     {
         return 0 as ::core::ffi::c_int;
@@ -205,10 +195,10 @@ unsafe extern "C" fn borg_perma_aux_resist() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(RESISTANCE);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -217,20 +207,20 @@ unsafe extern "C" fn borg_perma_aux_resist() -> ::core::ffi::c_int {
         return 2 as ::core::ffi::c_int;
     }
     borg_spell_fail(RESISTANCE, fail_allowed);
-    borg.no_rest_prep = 21000 as int16_t;
+    crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
     return 2 as ::core::ffi::c_int;
 }
 unsafe extern "C" fn borg_perma_aux_resist_colluin() -> ::core::ffi::c_int {
-    if borg.temp.res_fire as ::core::ffi::c_int
-        + borg.temp.res_acid as ::core::ffi::c_int
-        + borg.temp.res_pois as ::core::ffi::c_int
-        + borg.temp.res_elec as ::core::ffi::c_int
-        + borg.temp.res_cold as ::core::ffi::c_int
+    if crate::bridge::st().borg.temp.res_fire as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_acid as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_pois as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_elec as ::core::ffi::c_int
+        + crate::bridge::st().borg.temp.res_cold as ::core::ffi::c_int
         >= 3 as ::core::ffi::c_int
     {
         return 0 as ::core::ffi::c_int;
     }
-    if borg.near.unique == 0 {
+    if crate::bridge::st().borg.near.unique == 0 {
         return 0 as ::core::ffi::c_int;
     }
     if !borg_equips_item(act_resist_all, true_0 != 0)
@@ -244,20 +234,20 @@ unsafe extern "C" fn borg_perma_aux_resist_colluin() -> ::core::ffi::c_int {
     if borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
         || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
     {
-        borg.no_rest_prep = 21000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
     }
     return 2 as ::core::ffi::c_int;
 }
 unsafe extern "C" fn borg_perma_aux_resist_p() -> ::core::ffi::c_int {
     let mut cost: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.res_pois as ::core::ffi::c_int != 0 || borg.mon.unique == 0 {
+    if crate::bridge::st().borg.temp.res_pois as ::core::ffi::c_int != 0 || crate::bridge::st().borg.mon.unique == 0 {
         return 0 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESIST_POISON, fail_allowed) {
@@ -265,7 +255,7 @@ unsafe extern "C" fn borg_perma_aux_resist_p() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(RESIST_POISON);
     if cost
-        >= *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 20 as ::core::ffi::c_int
+        >= crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 20 as ::core::ffi::c_int
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -273,7 +263,7 @@ unsafe extern "C" fn borg_perma_aux_resist_p() -> ::core::ffi::c_int {
         return 1 as ::core::ffi::c_int;
     }
     if borg_spell_fail(RESIST_POISON, fail_allowed) {
-        borg.no_rest_prep = 21000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         return 1 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -281,13 +271,13 @@ unsafe extern "C" fn borg_perma_aux_resist_p() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_speed() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 7 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.fast {
+    if crate::bridge::st().borg.temp.fast {
         return 0 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(HASTE_SELF, fail_allowed) {
@@ -295,10 +285,10 @@ unsafe extern "C" fn borg_perma_aux_speed() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(HASTE_SELF);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -307,9 +297,7 @@ unsafe extern "C" fn borg_perma_aux_speed() -> ::core::ffi::c_int {
         return 5 as ::core::ffi::c_int;
     }
     if borg_spell_fail(HASTE_SELF, fail_allowed) {
-        borg.no_rest_prep = (*borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.no_rest_prep = (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             * 1000 as ::core::ffi::c_int) as int16_t;
         return 5 as ::core::ffi::c_int;
     }
@@ -318,13 +306,13 @@ unsafe extern "C" fn borg_perma_aux_speed() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_prot_evil() -> ::core::ffi::c_int {
     let mut cost: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
-    if borg.temp.prot_from_evil {
+    if crate::bridge::st().borg.temp.prot_from_evil {
         return 0 as ::core::ffi::c_int;
     }
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(PROTECTION_FROM_EVIL, fail_allowed) {
@@ -332,10 +320,10 @@ unsafe extern "C" fn borg_perma_aux_prot_evil() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(PROTECTION_FROM_EVIL);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -344,9 +332,7 @@ unsafe extern "C" fn borg_perma_aux_prot_evil() -> ::core::ffi::c_int {
         return 3 as ::core::ffi::c_int;
     }
     if borg_spell_fail(PROTECTION_FROM_EVIL, fail_allowed) {
-        borg.no_rest_prep = (*borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        crate::bridge::st().borg.no_rest_prep = (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             * 1000 as ::core::ffi::c_int) as int16_t;
         return 3 as ::core::ffi::c_int;
     }
@@ -355,22 +341,18 @@ unsafe extern "C" fn borg_perma_aux_prot_evil() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_fastcast() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.fastcast {
+    if crate::bridge::st().borg.temp.fastcast {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -380,10 +362,10 @@ unsafe extern "C" fn borg_perma_aux_fastcast() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(MANA_CHANNEL);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -392,7 +374,7 @@ unsafe extern "C" fn borg_perma_aux_fastcast() -> ::core::ffi::c_int {
         return 5 as ::core::ffi::c_int;
     }
     if borg_spell(MANA_CHANNEL) {
-        borg.no_rest_prep = 6000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 6000 as int16_t;
         return 1 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -400,29 +382,23 @@ unsafe extern "C" fn borg_perma_aux_fastcast() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_hero() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.hero {
+    if crate::bridge::st().borg.temp.hero {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         <= borg_heroism_level()
     {
         return 0 as ::core::ffi::c_int;
@@ -432,10 +408,10 @@ unsafe extern "C" fn borg_perma_aux_hero() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(HEROISM);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -444,7 +420,7 @@ unsafe extern "C" fn borg_perma_aux_hero() -> ::core::ffi::c_int {
         return 1 as ::core::ffi::c_int;
     }
     if borg_spell(HEROISM) {
-        borg.no_rest_prep = 3000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 3000 as int16_t;
         return 1 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -452,31 +428,25 @@ unsafe extern "C" fn borg_perma_aux_hero() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_regen() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.regen {
+    if crate::bridge::st().borg.temp.regen {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISFORGET as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISFORGET as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize) < 100 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize] < 100 as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RAPID_REGENERATION, fail_allowed) {
@@ -484,16 +454,16 @@ unsafe extern "C" fn borg_perma_aux_regen() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(RAPID_REGENERATION);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
     }
     if borg_spell(RAPID_REGENERATION) {
-        borg.no_rest_prep = 6000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 6000 as int16_t;
         return 1 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -501,27 +471,21 @@ unsafe extern "C" fn borg_perma_aux_regen() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_smite_evil() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.smite_evil as ::core::ffi::c_int != 0
-        || *borg
-            .trait_0
-            .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.temp.smite_evil as ::core::ffi::c_int != 0
+        || crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -531,10 +495,10 @@ unsafe extern "C" fn borg_perma_aux_smite_evil() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(SMITE_EVIL);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -543,7 +507,7 @@ unsafe extern "C" fn borg_perma_aux_smite_evil() -> ::core::ffi::c_int {
         return 3 as ::core::ffi::c_int;
     }
     if borg_spell(SMITE_EVIL) {
-        borg.no_rest_prep = 21000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         return 3 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -551,27 +515,21 @@ unsafe extern "C" fn borg_perma_aux_smite_evil() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_venom() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.venom as ::core::ffi::c_int != 0
-        || *borg
-            .trait_0
-            .offset(BI_WB_POIS as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.temp.venom as ::core::ffi::c_int != 0
+        || crate::bridge::st().borg.trait_[(BI_WB_POIS as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -581,10 +539,10 @@ unsafe extern "C" fn borg_perma_aux_venom() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(SMITE_EVIL);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -593,7 +551,7 @@ unsafe extern "C" fn borg_perma_aux_venom() -> ::core::ffi::c_int {
         return 3 as ::core::ffi::c_int;
     }
     if borg_spell(VENOM) {
-        borg.no_rest_prep = 19000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 19000 as int16_t;
         return 3 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -601,22 +559,18 @@ unsafe extern "C" fn borg_perma_aux_venom() -> ::core::ffi::c_int {
 unsafe extern "C" fn borg_perma_aux_berserk() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
     let mut cost: ::core::ffi::c_int = 0;
-    if borg.mon.unique != 0 {
+    if crate::bridge::st().borg.mon.unique != 0 {
         fail_allowed = 10 as ::core::ffi::c_int;
     }
-    if borg.near.unique != 0 {
+    if crate::bridge::st().borg.near.unique != 0 {
         fail_allowed = 15 as ::core::ffi::c_int;
     }
-    if borg.temp.berserk {
+    if crate::bridge::st().borg.temp.berserk {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
     {
         return 0 as ::core::ffi::c_int;
@@ -626,10 +580,10 @@ unsafe extern "C" fn borg_perma_aux_berserk() -> ::core::ffi::c_int {
     }
     cost = borg_get_spell_power(BERSERK_STRENGTH);
     if cost
-        >= (if borg.mon.unique != 0 {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 7 as ::core::ffi::c_int
+        >= (if crate::bridge::st().borg.mon.unique != 0 {
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 7 as ::core::ffi::c_int
         } else {
-            *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) / 10 as ::core::ffi::c_int
+            crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] / 10 as ::core::ffi::c_int
         })
     {
         return 0 as ::core::ffi::c_int;
@@ -638,16 +592,16 @@ unsafe extern "C" fn borg_perma_aux_berserk() -> ::core::ffi::c_int {
         return 2 as ::core::ffi::c_int;
     }
     if borg_spell(BERSERK_STRENGTH) {
-        borg.no_rest_prep = 11000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 11000 as int16_t;
         return 2 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
 }
 unsafe extern "C" fn borg_perma_aux_berserk_potion() -> ::core::ffi::c_int {
-    if borg.near.unique == 0 {
+    if crate::bridge::st().borg.near.unique == 0 {
         return 0 as ::core::ffi::c_int;
     }
-    if borg.temp.hero as ::core::ffi::c_int != 0 || borg.temp.berserk as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().borg.temp.hero as ::core::ffi::c_int != 0 || crate::bridge::st().borg.temp.berserk as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     if -(1 as ::core::ffi::c_int) == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_berserk) {
@@ -663,17 +617,13 @@ unsafe extern "C" fn borg_perma_aux_berserk_potion() -> ::core::ffi::c_int {
 }
 unsafe extern "C" fn borg_perma_aux_see_inv() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 25 as ::core::ffi::c_int;
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg.trait_0.offset(BI_SINV as ::core::ffi::c_int as isize) != 0
-        || borg.see_inv as ::core::ffi::c_int != 0
+        || crate::bridge::st().borg.trait_[(BI_SINV as ::core::ffi::c_int) as usize] != 0
+        || crate::bridge::st().borg.see_inv as ::core::ffi::c_int != 0
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -681,7 +631,7 @@ unsafe extern "C" fn borg_perma_aux_see_inv() -> ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     if (*ag).info as ::core::ffi::c_int & BORG_GLOW == 0
-        && *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0
+        && crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -689,8 +639,8 @@ unsafe extern "C" fn borg_perma_aux_see_inv() -> ::core::ffi::c_int {
         return 10 as ::core::ffi::c_int;
     }
     if borg_spell_fail(SENSE_INVISIBLE, fail_allowed) {
-        borg.see_inv = 32000 as int16_t;
-        borg.no_rest_prep = 16000 as int16_t;
+        crate::bridge::st().borg.see_inv = 32000 as int16_t;
+        crate::bridge::st().borg.no_rest_prep = 16000 as int16_t;
         return 10 as ::core::ffi::c_int;
     }
     return 0 as ::core::ffi::c_int;
@@ -723,36 +673,26 @@ pub unsafe extern "C" fn borg_perma_spell() -> bool {
     let mut g: ::core::ffi::c_int = 0;
     let mut b_g: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     borg_simulate = true_0 != 0;
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
-        < *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
+        < crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             / 3 as ::core::ffi::c_int
-        || *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             < 7 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         <= 10 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
-        < *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize) * 75 as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
+        < crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] * 75 as ::core::ffi::c_int
             / 100 as ::core::ffi::c_int
     {
         return false_0 != 0;

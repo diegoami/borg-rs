@@ -13,11 +13,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
 
 
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, w_x, w_y, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 use crate::headers::borg_item_activation_h::{
@@ -163,21 +159,21 @@ pub use crate::headers::z_rand_h::{random, random_value};
 pub use crate::headers::z_type_h::loc;
 pub use crate::headers::z_util_h::my_rational;
 unsafe extern "C" fn borg_check_dark_only() -> bool {
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) != CLASS_NECROMANCER {
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_NECROMANCER {
         return false_0 != 0;
     }
-    if borg.time.call_light != 0 as borg_time
-        && borg.time.now - borg.time.call_light < 7 as borg_time
+    if crate::bridge::st().borg.time.call_light != 0 as borg_time
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.call_light < 7 as borg_time
     {
         return false_0 != 0;
     }
     let mut x: ::core::ffi::c_int = 0;
     let mut y: ::core::ffi::c_int = 0;
     let mut floors: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    y = borg.c.y - 2 as ::core::ffi::c_int;
-    while y <= borg.c.y + 2 as ::core::ffi::c_int {
-        x = borg.c.x - 2 as ::core::ffi::c_int;
-        while x <= borg.c.x + 2 as ::core::ffi::c_int {
+    y = crate::bridge::st().borg.c.y - 2 as ::core::ffi::c_int;
+    while y <= crate::bridge::st().borg.c.y + 2 as ::core::ffi::c_int {
+        x = crate::bridge::st().borg.c.x - 2 as ::core::ffi::c_int;
+        while x <= crate::bridge::st().borg.c.x + 2 as ::core::ffi::c_int {
             let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
             if square_in_bounds_fully(cave, loc(x, y)) {
                 ag = crate::bridge::grid(x, y) as *mut borg_grid;
@@ -198,32 +194,26 @@ unsafe extern "C" fn borg_check_dark_only() -> bool {
         borg_note(
             b"# Calling Darkness in the dungeon\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.time.call_light = borg.time.now;
+        crate::bridge::st().borg.time.call_light = crate::bridge::st().borg.time.now;
         return true_0 != 0;
     }
     return false_0 != 0;
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_check_light_only() -> bool {
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    if borg.time.wizard_light == 0 || borg.time.now - borg.time.wizard_light >= 1000 as borg_time {
+    if crate::bridge::st().borg.time.wizard_light == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.wizard_light >= 1000 as borg_time {
         if borg_activate_item(act_clairvoyance) as ::core::ffi::c_int != 0
             || borg_activate_item(act_enlightenment) as ::core::ffi::c_int != 0
             || borg_spell_fail(FUME_OF_MORDOR, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -232,26 +222,26 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
             borg_note(
                 b"# Wizard lighting the dungeon\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.wizard_light = borg.time.now;
+            crate::bridge::st().borg.time.wizard_light = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER {
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER {
         return borg_check_dark_only();
     }
-    if borg.time.call_light != 0 as borg_time
-        && borg.time.now - borg.time.call_light < 7 as borg_time
+    if crate::bridge::st().borg.time.call_light != 0 as borg_time
+        && crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.call_light < 7 as borg_time
     {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 1 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 1 as ::core::ffi::c_int {
         let mut i: ::core::ffi::c_int = 0;
         let mut corners: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
         i = 4 as ::core::ffi::c_int;
         while i < 8 as ::core::ffi::c_int {
             let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-            let mut x: ::core::ffi::c_int = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
-            let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
+            let mut x: ::core::ffi::c_int = crate::bridge::st().borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
+            let mut y: ::core::ffi::c_int = crate::bridge::st().borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
             if square_in_bounds_fully(cave, loc(x, y)) {
                 ag = crate::bridge::grid(x, y) as *mut borg_grid;
                 if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
@@ -266,16 +256,16 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
         if corners > 2 as ::core::ffi::c_int {
             return false_0 != 0;
         }
-    } else if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    } else if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
         > 1 as ::core::ffi::c_int
     {
         let mut x_0: ::core::ffi::c_int = 0;
         let mut y_0: ::core::ffi::c_int = 0;
         let mut floors: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-        y_0 = borg.c.y - 2 as ::core::ffi::c_int;
-        while y_0 <= borg.c.y + 2 as ::core::ffi::c_int {
-            x_0 = borg.c.x - 2 as ::core::ffi::c_int;
-            while x_0 <= borg.c.x + 2 as ::core::ffi::c_int {
+        y_0 = crate::bridge::st().borg.c.y - 2 as ::core::ffi::c_int;
+        while y_0 <= crate::bridge::st().borg.c.y + 2 as ::core::ffi::c_int {
+            x_0 = crate::bridge::st().borg.c.x - 2 as ::core::ffi::c_int;
+            while x_0 <= crate::bridge::st().borg.c.x + 2 as ::core::ffi::c_int {
                 let mut ag_0: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
                 if square_in_bounds_fully(cave, loc(x_0, y_0)) {
                     ag_0 = crate::bridge::grid(x_0, y_0) as *mut borg_grid;
@@ -307,7 +297,7 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
             b"SELF:lite\0" as *const u8 as *const ::core::ffi::c_char,
             b"SELF:lite\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg.time.call_light = borg.time.now;
+        crate::bridge::st().borg.time.call_light = crate::bridge::st().borg.time.now;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -321,43 +311,29 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     let mut do_wall: bool = false;
     let mut do_evil: bool = false;
     let mut do_obj: bool = false;
-    if *borg
-        .trait_0
-        .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
         > 10 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             == 0
     {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISBLIND as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
             != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISPOISONED as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISPOISONED as ::core::ffi::c_int) as usize]
             != 0
-        || *borg.trait_0.offset(BI_ISCUT as ::core::ffi::c_int as isize) != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISCUT as ::core::ffi::c_int) as usize] != 0
+        || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    q_x = w_x / crate::borg_cave_util::borg_panel_wid();
-    q_y = w_y / crate::borg_cave_util::borg_panel_hgt();
+    q_x = crate::bridge::st().core.w_x / crate::borg_cave_util::borg_panel_wid();
+    q_y = crate::bridge::st().core.w_y / crate::borg_cave_util::borg_panel_hgt();
     do_trap = false_0 != 0;
     if !*(*borg_detect_trap.offset((q_y + 0 as ::core::ffi::c_int) as isize))
         .offset((q_x + 0 as ::core::ffi::c_int) as isize)
@@ -463,12 +439,10 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     {
         do_obj = true_0 != 0;
     }
-    if *borg.trait_0.offset(BI_ESP as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize] != 0 {
         do_evil = false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
     {
         do_trap = false_0 != 0;
@@ -478,15 +452,13 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     if (do_trap as ::core::ffi::c_int != 0
         || do_door as ::core::ffi::c_int != 0
         || do_evil as ::core::ffi::c_int != 0)
-        && (borg.time.detect_traps == 0
-            || borg.time.now - borg.time.detect_traps >= 5 as borg_time
-            || (borg.time.detect_evil == 0
-                || borg.time.now - borg.time.detect_evil >= 5 as borg_time)
-            || (borg.time.detect_doors == 0
-                || borg.time.now - borg.time.detect_doors >= 5 as borg_time))
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.time.detect_traps == 0
+            || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_traps >= 5 as borg_time
+            || (crate::bridge::st().borg.time.detect_evil == 0
+                || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_evil >= 5 as borg_time)
+            || (crate::bridge::st().borg.time.detect_doors == 0
+                || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_doors >= 5 as borg_time))
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
@@ -503,15 +475,15 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:TDE\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:TDE\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_traps = borg.time.now;
-            borg.time.detect_doors = borg.time.now;
-            borg.time.detect_evil = borg.time.now;
-            borg.time.detect_obj = borg.time.now;
+            crate::bridge::st().borg.time.detect_traps = crate::bridge::st().borg.time.now;
+            crate::bridge::st().borg.time.detect_doors = crate::bridge::st().borg.time.now;
+            crate::bridge::st().borg.time.detect_evil = crate::bridge::st().borg.time.now;
+            crate::bridge::st().borg.time.detect_obj = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
     if do_evil as ::core::ffi::c_int != 0
-        && (borg.time.detect_evil == 0 || borg.time.now - borg.time.detect_evil >= 20 as borg_time)
+        && (crate::bridge::st().borg.time.detect_evil == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_evil >= 20 as borg_time)
     {
         if borg_spell_fail(DETECT_EVIL, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(DETECT_MONSTERS, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -523,18 +495,16 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:evil\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:evil\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_evil = borg.time.now;
+            crate::bridge::st().borg.time.detect_evil = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
     if (do_trap as ::core::ffi::c_int != 0 || do_door as ::core::ffi::c_int != 0)
-        && (borg.time.detect_traps == 0
-            || borg.time.now - borg.time.detect_traps >= 5 as borg_time
-            || (borg.time.detect_doors == 0
-                || borg.time.now - borg.time.detect_doors >= 5 as borg_time))
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.time.detect_traps == 0
+            || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_traps >= 5 as borg_time
+            || (crate::bridge::st().borg.time.detect_doors == 0
+                || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_doors >= 5 as borg_time))
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
@@ -553,16 +523,14 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:both\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:both\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_traps = borg.time.now;
-            borg.time.detect_doors = borg.time.now;
+            crate::bridge::st().borg.time.detect_traps = crate::bridge::st().borg.time.now;
+            crate::bridge::st().borg.time.detect_doors = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
     if do_trap as ::core::ffi::c_int != 0
-        && (borg.time.detect_traps == 0 || borg.time.now - borg.time.detect_traps >= 7 as borg_time)
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.time.detect_traps == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_traps >= 7 as borg_time)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         if borg_spell_fail(DETECTION, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -575,15 +543,13 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:trap\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:trap\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_traps = borg.time.now;
+            crate::bridge::st().borg.time.detect_traps = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
     if do_door as ::core::ffi::c_int != 0
-        && (borg.time.detect_doors == 0 || borg.time.now - borg.time.detect_doors >= 9 as borg_time)
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.time.detect_doors == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_doors >= 9 as borg_time)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
@@ -598,16 +564,14 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:door\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:door\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_doors = borg.time.now;
+            crate::bridge::st().borg.time.detect_doors = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
     if do_wall as ::core::ffi::c_int != 0
-        && (borg.time.detect_walls == 0
-            || borg.time.now - borg.time.detect_walls >= 15 as borg_time)
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.time.detect_walls == 0
+            || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_walls >= 15 as borg_time)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         if borg_activate_item(act_mapping) as ::core::ffi::c_int != 0
@@ -623,7 +587,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:wall\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:wall\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_walls = borg.time.now;
+            crate::bridge::st().borg.time.detect_walls = crate::bridge::st().borg.time.now;
             y = 0 as ::core::ffi::c_int;
             while y < AUTO_MAX_Y {
                 x = 0 as ::core::ffi::c_int;
@@ -638,7 +602,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
         }
     }
     if do_obj as ::core::ffi::c_int != 0
-        && (borg.time.detect_obj == 0 || borg.time.now - borg.time.detect_obj >= 20 as borg_time)
+        && (crate::bridge::st().borg.time.detect_obj == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_obj >= 20 as borg_time)
     {
         if borg_activate_item(act_detect_objects) as ::core::ffi::c_int != 0
             || borg_spell_fail(OBJECT_DETECTION, 40 as ::core::ffi::c_int) as ::core::ffi::c_int
@@ -649,7 +613,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
                 b"SELF:obj\0" as *const u8 as *const ::core::ffi::c_char,
                 b"SELF:obj\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            borg.time.detect_obj = borg.time.now;
+            crate::bridge::st().borg.time.detect_obj = crate::bridge::st().borg.time.now;
             return true_0 != 0;
         }
     }
@@ -717,9 +681,9 @@ unsafe extern "C" fn borg_refuel_lantern() -> bool {
         *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(i as isize)
             as keycode_t,
     );
-    borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
-    borg.goal.ware = borg.goal.item;
-    borg.goal.shop = borg.goal.ware;
+    crate::bridge::st().borg.goal.item = -(1 as ::core::ffi::c_int) as int16_t;
+    crate::bridge::st().borg.goal.ware = crate::bridge::st().borg.goal.item;
+    crate::bridge::st().borg.goal.shop = crate::bridge::st().borg.goal.ware;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -738,7 +702,7 @@ pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
     ) {
         return BORG_NO_NEED;
     }
-    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER {
+    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_NECROMANCER {
         return BORG_NO_NEED;
     }
     if (*current_light).tval as ::core::ffi::c_int == TV_LIGHT as ::core::ffi::c_int {
@@ -790,10 +754,8 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
     let mut spell_ok: bool = false_0 != 0;
     let mut i: ::core::ffi::c_int = 0;
     let mut blocked: bool = false_0 != 0;
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
-    if *borg
-        .trait_0
-        .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y) as *mut borg_grid;
+    if crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
@@ -808,24 +770,24 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
     {
         spell_ok = true_0 != 0;
     }
-    if borg.c.y
-        - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.c.y
+        - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
         - 1 as ::core::ffi::c_int
         > 0 as ::core::ffi::c_int
     {
-        ag = crate::bridge::grid(borg.c.x, (borg.c.y
-                - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+        ag = crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y
+                - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 - 1 as ::core::ffi::c_int)) as *mut borg_grid;
         if panel_contains(
-            (borg.c.y
-                - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+            (crate::bridge::st().borg.c.y
+                - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 - 1 as ::core::ffi::c_int) as ::core::ffi::c_uint,
-            borg.c.x as ::core::ffi::c_uint,
+            crate::bridge::st().borg.c.x as ::core::ffi::c_uint,
         ) {
             i = 0 as ::core::ffi::c_int;
-            while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y - i, borg.c.x) as ::core::ffi::c_int != 0
-                    || (*crate::bridge::grid(borg.c.x, (borg.c.y - i))).feat
+            while i <= crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] {
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), crate::bridge::st().borg.c.y - i, crate::bridge::st().borg.c.x) as ::core::ffi::c_int != 0
+                    || (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y - i))).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
                     && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
@@ -841,26 +803,26 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
             }
         }
     }
-    if (borg.c.y
-        + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    if (crate::bridge::st().borg.c.y
+        + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
         + 1 as ::core::ffi::c_int)
         < AUTO_MAX_Y
         && dir == 5 as ::core::ffi::c_int
     {
         blocked = false_0 != 0;
-        ag = crate::bridge::grid(borg.c.x, (borg.c.y
-                + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+        ag = crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y
+                + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 + 1 as ::core::ffi::c_int)) as *mut borg_grid;
         if panel_contains(
-            (borg.c.y
-                + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+            (crate::bridge::st().borg.c.y
+                + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 + 1 as ::core::ffi::c_int) as ::core::ffi::c_uint,
-            borg.c.x as ::core::ffi::c_uint,
+            crate::bridge::st().borg.c.x as ::core::ffi::c_uint,
         ) {
             i = 0 as ::core::ffi::c_int;
-            while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y + i, borg.c.x) as ::core::ffi::c_int != 0
-                    || (*crate::bridge::grid(borg.c.x, (borg.c.y + i))).feat
+            while i <= crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] {
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), crate::bridge::st().borg.c.y + i, crate::bridge::st().borg.c.x) as ::core::ffi::c_int != 0
+                    || (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y + i))).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
                     && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
@@ -876,26 +838,26 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
             }
         }
     }
-    if (borg.c.x
-        + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    if (crate::bridge::st().borg.c.x
+        + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
         + 1 as ::core::ffi::c_int)
         < AUTO_MAX_X
         && dir == 5 as ::core::ffi::c_int
     {
         blocked = false_0 != 0;
-        ag = crate::bridge::grid((borg.c.x
-                + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
-                + 1 as ::core::ffi::c_int), borg.c.y) as *mut borg_grid;
+        ag = crate::bridge::grid((crate::bridge::st().borg.c.x
+                + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
+                + 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y) as *mut borg_grid;
         if panel_contains(
-            borg.c.y as ::core::ffi::c_uint,
-            (borg.c.x
-                + *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+            crate::bridge::st().borg.c.y as ::core::ffi::c_uint,
+            (crate::bridge::st().borg.c.x
+                + crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 + 1 as ::core::ffi::c_int) as ::core::ffi::c_uint,
         ) {
             i = 0 as ::core::ffi::c_int;
-            while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y, borg.c.x + i) as ::core::ffi::c_int != 0
-                    || (*crate::bridge::grid((borg.c.x + i), borg.c.y)).feat
+            while i <= crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] {
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x + i) as ::core::ffi::c_int != 0
+                    || (*crate::bridge::grid((crate::bridge::st().borg.c.x + i), crate::bridge::st().borg.c.y)).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
                     && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
@@ -911,26 +873,26 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
             }
         }
     }
-    if borg.c.x
-        - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.c.x
+        - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
         - 1 as ::core::ffi::c_int
         > 0 as ::core::ffi::c_int
         && dir == 5 as ::core::ffi::c_int
     {
         blocked = false_0 != 0;
-        ag = crate::bridge::grid((borg.c.x
-                - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
-                - 1 as ::core::ffi::c_int), borg.c.y) as *mut borg_grid;
+        ag = crate::bridge::grid((crate::bridge::st().borg.c.x
+                - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
+                - 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y) as *mut borg_grid;
         if panel_contains(
-            borg.c.y as ::core::ffi::c_uint,
-            (borg.c.x
-                - *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
+            crate::bridge::st().borg.c.y as ::core::ffi::c_uint,
+            (crate::bridge::st().borg.c.x
+                - crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 - 1 as ::core::ffi::c_int) as ::core::ffi::c_uint,
         ) {
             i = 1 as ::core::ffi::c_int;
-            while i <= *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) {
-                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), borg.c.y, borg.c.x - i) as ::core::ffi::c_int != 0
-                    || (*crate::bridge::grid((borg.c.x - i), borg.c.y)).feat
+            while i <= crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] {
+                if (crate::borg_cave_util::borg_cave_floor_bold(crate::bridge::st(), crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x - i) as ::core::ffi::c_int != 0
+                    || (*crate::bridge::grid((crate::bridge::st().borg.c.x - i), crate::bridge::st().borg.c.y)).feat
                         as ::core::ffi::c_int
                         == FEAT_NONE as ::core::ffi::c_int)
                     && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
@@ -949,8 +911,8 @@ pub unsafe extern "C" fn borg_light_beam(mut simulation: bool) -> bool {
     if dir == 5 as ::core::ffi::c_int
         || spell_ok as ::core::ffi::c_int == false_0
         || blocked as ::core::ffi::c_int == true_0
-        || dir == 2 as ::core::ffi::c_int && borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
-        || dir == 8 as ::core::ffi::c_int && borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
+        || dir == 2 as ::core::ffi::c_int && crate::bridge::st().borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
+        || dir == 8 as ::core::ffi::c_int && crate::bridge::st().borg.c.y > crate::borg_cave_util::borg_panel_hgt() - 2 as ::core::ffi::c_int
     {
         return false_0 != 0;
     }

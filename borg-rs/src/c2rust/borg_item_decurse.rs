@@ -4,11 +4,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::borg_keypress;
 use crate::headers::borg_item_activation_h::{act_remove_curse, act_remove_curse2};
@@ -192,9 +188,7 @@ pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_decurse_any() -> bool {
-    if *borg
-        .trait_0
-        .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
         != 0
     {
         if -(1 as ::core::ffi::c_int)
@@ -215,27 +209,19 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
             || borg_activate_item(act_remove_curse) as ::core::ffi::c_int != 0
             || borg_activate_item(act_remove_curse2) as ::core::ffi::c_int != 0
         {
-            if *borg
-                .trait_0
-                .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                 <= (*z_info).pack_size as ::core::ffi::c_int
             {
                 borg_keypress(
                     *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(
-                        (*borg
-                            .trait_0
-                            .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+                        (crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                             - 1 as ::core::ffi::c_int) as isize,
                     ) as keycode_t,
                 );
-            } else if *borg
-                .trait_0
-                .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+            } else if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                 <= (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int
             {
-                if *borg
-                    .trait_0
-                    .offset(BI_WHERE_CURSED as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WHERE_CURSED as ::core::ffi::c_int) as usize]
                     & BORG_INVEN as ::core::ffi::c_int
                     != 0
                 {
@@ -243,22 +229,16 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
                 }
                 borg_keypress(
                     *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(
-                        (*borg
-                            .trait_0
-                            .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+                        (crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                             - (*z_info).pack_size as ::core::ffi::c_int
                             - 1 as ::core::ffi::c_int) as isize,
                     ) as keycode_t,
                 );
             } else {
-                if *borg
-                    .trait_0
-                    .offset(BI_WHERE_CURSED as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_WHERE_CURSED as ::core::ffi::c_int) as usize]
                     & 1 as ::core::ffi::c_int
                     != 0
-                    || *borg
-                        .trait_0
-                        .offset(BI_WHERE_CURSED as ::core::ffi::c_int as isize)
+                    || crate::bridge::st().borg.trait_[(BI_WHERE_CURSED as ::core::ffi::c_int) as usize]
                         & BORG_EQUIP as ::core::ffi::c_int
                         != 0
                 {
@@ -266,9 +246,7 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
                 }
                 borg_keypress(
                     ('0' as i32
-                        + (*borg
-                            .trait_0
-                            .offset(BI_FIRST_CURSED as ::core::ffi::c_int as isize)
+                        + (crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                             - 1 as ::core::ffi::c_int
                             - ((*z_info).pack_size as ::core::ffi::c_int
                                 + 12 as ::core::ffi::c_int))) as keycode_t,

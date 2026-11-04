@@ -3,11 +3,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_item_analyze_h::borg_item_analyze;
 pub use crate::headers::borg_item_h::{borg_deinscribe, borg_item, borg_items};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
@@ -314,17 +310,13 @@ pub unsafe extern "C" fn borg_inventory() {
 pub unsafe extern "C" fn borg_first_empty_inventory_slot() -> ::core::ffi::c_int {
     let mut i: ::core::ffi::c_int = 0;
     i = (*z_info).pack_size as ::core::ffi::c_int
-        - *borg
-            .trait_0
-            .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+        - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
         - 1 as ::core::ffi::c_int;
     while i >= 0 as ::core::ffi::c_int {
         if (*borg_items.offset(i as isize)).iqty != 0 {
             if (i + 1 as ::core::ffi::c_int)
                 < (*z_info).pack_size as ::core::ffi::c_int
-                    - *borg
-                        .trait_0
-                        .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+                    - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
             {
                 return i + 1 as ::core::ffi::c_int;
             }

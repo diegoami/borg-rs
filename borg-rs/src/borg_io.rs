@@ -109,9 +109,8 @@ fn borg_note_internal(st: &mut BorgState, warning: bool, what: &[u8]) {
 
     // Mega-Hack -- Check against the swap loops
     if contains(what, b"Best Combo") || contains(what, b"Taking off ") {
-        let b = bridge::borg();
-        b.antibounce_count = b.antibounce_count.wrapping_add(10);
-        let msg = format!("# Anti-loop variable tick ({}).", b.antibounce_count);
+        st.borg.antibounce_count = st.borg.antibounce_count.wrapping_add(10);
+        let msg = format!("# Anti-loop variable tick ({}).", st.borg.antibounce_count);
         borg_note(st, &msg);
     }
 
@@ -207,7 +206,7 @@ pub fn borg_keypress(st: &mut BorgState, k: keycode_t) -> i32 {
 
 /// Record a keypress returned to the game (`borg_save_keypress`).
 pub fn borg_save_keypress(st: &mut BorgState, kp: keypress) -> keypress {
-    if bridge::borg_cfg(headers::borg_h::BORG_VERBOSE as usize) != 0 {
+    if st.cfg(headers::borg_h::BORG_VERBOSE) != 0 {
         if kp.type_0 == EVT_KBRD {
             let k = kp.code;
             let msg = if (32..=126).contains(&k) {
@@ -324,7 +323,7 @@ pub fn borg_dump_recent_keys(st: &mut BorgState, num: i32) {
 fn borg_bell_impl(st: &mut BorgState) {
     borg_note(st, "** BELL SOUNDED Dumping keypress history ***");
     borg_dump_recent_keys(st, 20);
-    if bridge::borg_cfg(headers::borg_h::BORG_STOP_ON_BELL as usize) != 0 {
+    if st.cfg(headers::borg_h::BORG_STOP_ON_BELL) != 0 {
         bridge::borg_oops(st, "** BELL SOUNDED***");
     }
 }

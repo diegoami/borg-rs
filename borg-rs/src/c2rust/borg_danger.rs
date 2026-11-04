@@ -23,11 +23,7 @@ use crate::headers::borg_fight_attack_h::{
 use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 pub use crate::headers::borg_magic_h::{
     borg_spell_legal, borg_spell_stat, borg_spells, ACID_SPRAY, ANNIHILATE, BANISHMENT,
@@ -193,13 +189,13 @@ unsafe extern "C" fn borg_danger_physical(
     let mut pfe: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut power: ::core::ffi::c_int = 0;
     let mut chance: ::core::ffi::c_int = 0;
-    let mut ac: int16_t = *borg.trait_0.offset(BI_ARMOR as ::core::ffi::c_int as isize) as int16_t;
+    let mut ac: int16_t = crate::bridge::st().borg.trait_[(BI_ARMOR as ::core::ffi::c_int) as usize] as int16_t;
     let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
     let mut r_ptr: *mut monster_race = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
-    if borg.temp.shield {
+    if crate::bridge::st().borg.temp.shield {
         ac = (ac as ::core::ffi::c_int + 50 as ::core::ffi::c_int) as int16_t;
     }
-    if borg.temp.prot_from_evil as ::core::ffi::c_int != 0
+    if crate::bridge::st().borg.temp.prot_from_evil as ::core::ffi::c_int != 0
         && flag_has(
             &raw mut (*r_ptr).flags as *mut bitflag,
             (RF_MAX as ::core::ffi::c_int as size_t)
@@ -213,9 +209,7 @@ unsafe extern "C" fn borg_danger_physical(
             RF_EVIL as ::core::ffi::c_int,
         ) as ::core::ffi::c_int
             != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             >= (*r_ptr).level
     {
         pfe = 1 as ::core::ffi::c_int;
@@ -256,8 +250,8 @@ unsafe extern "C" fn borg_danger_physical(
             2 => {
                 z = d_dice * d_side;
                 power = 5 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0) {
-                    if !borg.temp.res_pois {
+                if !(crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0) {
+                    if !crate::bridge::st().borg.temp.res_pois {
                         z += 10 as ::core::ffi::c_int;
                         if pfe != 0 && !borg_attacking {
                             z /= 2 as ::core::ffi::c_int;
@@ -268,7 +262,7 @@ unsafe extern "C" fn borg_danger_physical(
             3 => {
                 z = d_dice * d_side;
                 power = 20 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RDIS as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize] != 0) {
                     z += 500 as ::core::ffi::c_int;
                     if pfe != 0 && !borg_attacking {
                         z /= 2 as ::core::ffi::c_int;
@@ -285,27 +279,21 @@ unsafe extern "C" fn borg_danger_physical(
             }
             5 => {
                 z = d_dice * d_side;
-                if *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     < 5 as ::core::ffi::c_int
                 {
                     z += 50 as ::core::ffi::c_int;
                 }
                 power = 5 as ::core::ffi::c_int;
                 if !(100 as ::core::ffi::c_int
-                    <= adj_dex_safe[*borg
-                        .trait_0
-                        .offset(BI_DEX_INDEX as ::core::ffi::c_int as isize)
+                    <= adj_dex_safe[crate::bridge::st().borg.trait_[(BI_DEX_INDEX as ::core::ffi::c_int) as usize]
                         as usize]
-                        + *borg
-                            .trait_0
-                            .offset(BI_CLEVEL as ::core::ffi::c_int as isize))
+                        + crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize])
                 {
-                    if !(*borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                         < 100 as ::core::ffi::c_int)
                     {
-                        if !(*borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                        if !(crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                             > 100000 as ::core::ffi::c_int)
                         {
                             z += 5 as ::core::ffi::c_int;
@@ -320,13 +308,9 @@ unsafe extern "C" fn borg_danger_physical(
                 z = d_dice * d_side;
                 power = 5 as ::core::ffi::c_int;
                 if !(100 as ::core::ffi::c_int
-                    <= adj_dex_safe[*borg
-                        .trait_0
-                        .offset(BI_DEX_INDEX as ::core::ffi::c_int as isize)
+                    <= adj_dex_safe[crate::bridge::st().borg.trait_[(BI_DEX_INDEX as ::core::ffi::c_int) as usize]
                         as usize]
-                        + *borg
-                            .trait_0
-                            .offset(BI_CLEVEL as ::core::ffi::c_int as isize))
+                        + crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize])
                 {
                     z += 5 as ::core::ffi::c_int;
                     if pfe != 0 && !borg_attacking {
@@ -337,7 +321,7 @@ unsafe extern "C" fn borg_danger_physical(
             7 => {
                 z = d_dice * d_side;
                 power = 5 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_FOOD as ::core::ffi::c_int) as usize]
                     > 5 as ::core::ffi::c_int)
                 {
                     z += 5 as ::core::ffi::c_int;
@@ -374,7 +358,7 @@ unsafe extern "C" fn borg_danger_physical(
                     ) as ::core::ffi::c_int
                         != 0)
                 {
-                    if !(*borg.trait_0.offset(BI_AFUEL as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_AFUEL as ::core::ffi::c_int) as usize]
                         > 5 as ::core::ffi::c_int)
                     {
                         z += 5 as ::core::ffi::c_int;
@@ -385,12 +369,12 @@ unsafe extern "C" fn borg_danger_physical(
                 }
             }
             9 => {
-                if !(*borg.trait_0.offset(BI_IACID as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize] != 0) {
                     z = d_dice * d_side;
-                    if *borg.trait_0.offset(BI_RACID as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_acid {
+                    if crate::bridge::st().borg.temp.res_acid {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     z += 200 as ::core::ffi::c_int;
@@ -400,13 +384,13 @@ unsafe extern "C" fn borg_danger_physical(
                 }
             }
             10 => {
-                if !(*borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0) {
                     z = d_dice * d_side;
                     power = 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_elec {
+                    if crate::bridge::st().borg.temp.res_elec {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     z = z * 2 as ::core::ffi::c_int;
@@ -416,13 +400,13 @@ unsafe extern "C" fn borg_danger_physical(
                 }
             }
             11 => {
-                if !(*borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] != 0) {
                     z = d_dice * d_side;
                     power = 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RFIRE as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_fire {
+                    if crate::bridge::st().borg.temp.res_fire {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     z = z * 2 as ::core::ffi::c_int;
@@ -432,13 +416,13 @@ unsafe extern "C" fn borg_danger_physical(
                 }
             }
             12 => {
-                if !(*borg.trait_0.offset(BI_ICOLD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize] != 0) {
                     z = d_dice * d_side;
                     power = 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RCOLD as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_acid {
+                    if crate::bridge::st().borg.temp.res_acid {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     z = z * 2 as ::core::ffi::c_int;
@@ -450,13 +434,11 @@ unsafe extern "C" fn borg_danger_physical(
             13 => {
                 z = d_dice * d_side;
                 power = 2 as ::core::ffi::c_int;
-                if !(*borg
-                    .trait_0
-                    .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                     != 0)
                 {
                     z += 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE {
+                    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE {
                         z += 75 as ::core::ffi::c_int;
                     }
                     if pfe != 0 && !borg_attacking {
@@ -467,9 +449,9 @@ unsafe extern "C" fn borg_danger_physical(
             14 => {
                 z = d_dice * d_side;
                 power = 10 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0) {
                     z += 200 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE {
+                    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE {
                         z += 200 as ::core::ffi::c_int;
                     }
                     if pfe != 0 && !borg_attacking {
@@ -480,7 +462,7 @@ unsafe extern "C" fn borg_danger_physical(
             15 => {
                 z = d_dice * d_side;
                 power = 10 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RFEAR as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RFEAR as ::core::ffi::c_int) as usize] != 0) {
                     z = z * 2 as ::core::ffi::c_int;
                     if pfe != 0 && !borg_attacking {
                         z /= 2 as ::core::ffi::c_int;
@@ -490,7 +472,7 @@ unsafe extern "C" fn borg_danger_physical(
             16 => {
                 z = d_dice * d_side;
                 power = 2 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0) {
                     z += 200 as ::core::ffi::c_int;
                     if pfe != 0 && !borg_attacking {
                         z /= 2 as ::core::ffi::c_int;
@@ -499,15 +481,15 @@ unsafe extern "C" fn borg_danger_physical(
             }
             17 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_SSTR as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_CSTR as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SSTR as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                         <= 3 as ::core::ffi::c_int)
                     {
                         if !borg_spell_legal(RESTORATION) {
                             if !borg_spell_legal(REVITALIZE) {
                                 if !borg_spell_legal(UNHOLY_REPRIEVE) {
                                     z += 150 as ::core::ffi::c_int;
-                                    if *borg.trait_0.offset(BI_CSTR as ::core::ffi::c_int as isize)
+                                    if crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                                         < 10 as ::core::ffi::c_int
                                     {
                                         z += 100 as ::core::ffi::c_int;
@@ -523,14 +505,14 @@ unsafe extern "C" fn borg_danger_physical(
             }
             20 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_SDEX as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_CDEX as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SDEX as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CDEX as ::core::ffi::c_int) as usize]
                         <= 3 as ::core::ffi::c_int)
                     {
                         if !borg_spell_legal(RESTORATION) {
                             if !borg_spell_legal(REVITALIZE) {
                                 z += 150 as ::core::ffi::c_int;
-                                if *borg.trait_0.offset(BI_CDEX as ::core::ffi::c_int as isize)
+                                if crate::bridge::st().borg.trait_[(BI_CDEX as ::core::ffi::c_int) as usize]
                                     < 10 as ::core::ffi::c_int
                                 {
                                     z += 100 as ::core::ffi::c_int;
@@ -545,15 +527,15 @@ unsafe extern "C" fn borg_danger_physical(
             }
             21 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_SCON as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_CCON as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SCON as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CCON as ::core::ffi::c_int) as usize]
                         <= 3 as ::core::ffi::c_int)
                     {
                         if !borg_spell_legal(RESTORATION) {
                             if !borg_spell_legal(REVITALIZE) {
                                 if !borg_spell_legal(UNHOLY_REPRIEVE) {
                                     z += 150 as ::core::ffi::c_int;
-                                    if *borg.trait_0.offset(BI_CSTR as ::core::ffi::c_int as isize)
+                                    if crate::bridge::st().borg.trait_[(BI_CSTR as ::core::ffi::c_int) as usize]
                                         < 8 as ::core::ffi::c_int
                                     {
                                         z += 100 as ::core::ffi::c_int;
@@ -569,8 +551,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             18 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_SINT as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_CINT as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SINT as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CINT as ::core::ffi::c_int) as usize]
                         <= 3 as ::core::ffi::c_int)
                     {
                         if !borg_spell_legal(RESTORATION) {
@@ -591,8 +573,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             19 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_SWIS as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_CWIS as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SWIS as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CWIS as ::core::ffi::c_int) as usize]
                         <= 3 as ::core::ffi::c_int)
                     {
                         if !borg_spell_legal(RESTORATION) {
@@ -629,10 +611,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             24 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_HLIFE as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                         == 50 as ::core::ffi::c_int)
                     {
                         if !(borg_spell_legal(REMEMBRANCE) as ::core::ffi::c_int != 0
@@ -649,10 +629,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             25 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_HLIFE as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                         >= 50 as ::core::ffi::c_int)
                     {
                         if !(borg_spell_legal(REMEMBRANCE) as ::core::ffi::c_int != 0
@@ -669,10 +647,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             26 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_HLIFE as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                         >= 50 as ::core::ffi::c_int)
                     {
                         if !(borg_spell_legal(REMEMBRANCE) as ::core::ffi::c_int != 0
@@ -689,10 +665,8 @@ unsafe extern "C" fn borg_danger_physical(
             }
             27 => {
                 z = d_dice * d_side;
-                if !(*borg.trait_0.offset(BI_HLIFE as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                         >= 50 as ::core::ffi::c_int)
                     {
                         if !(borg_spell_legal(REMEMBRANCE) as ::core::ffi::c_int != 0
@@ -716,14 +690,12 @@ unsafe extern "C" fn borg_danger_physical(
             }
             _ => {}
         }
-        z -= *borg
-            .trait_0
-            .offset(BI_DAM_RED as ::core::ffi::c_int as isize);
+        z -= crate::bridge::st().borg.trait_[(BI_DAM_RED as ::core::ffi::c_int) as usize];
         if z < 0 as ::core::ffi::c_int {
             z = 0 as ::core::ffi::c_int;
         }
         if !full_damage {
-            if borg.near.unique as ::core::ffi::c_int != 0
+            if crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 || (*r_ptr).level + power > 0 as ::core::ffi::c_int
             {
                 chance = 150 as ::core::ffi::c_int
@@ -766,7 +738,7 @@ unsafe extern "C" fn borg_danger_spell(
     let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut r_ptr: *mut monster_race = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
-    if borg.temp.prot_from_evil as ::core::ffi::c_int != 0
+    if crate::bridge::st().borg.temp.prot_from_evil as ::core::ffi::c_int != 0
         && flag_has(
             &raw mut (*r_ptr).flags as *mut bitflag,
             (RF_MAX as ::core::ffi::c_int as size_t)
@@ -780,9 +752,7 @@ unsafe extern "C" fn borg_danger_spell(
             RF_EVIL as ::core::ffi::c_int,
         ) as ::core::ffi::c_int
             != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             >= (*r_ptr).level
     {
         pfe = 1 as ::core::ffi::c_int;
@@ -843,60 +813,60 @@ unsafe extern "C" fn borg_danger_spell(
                     * 7 as ::core::ffi::c_int;
             }
             7 => {
-                if !(*borg.trait_0.offset(BI_IACID as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize] != 0) {
                     z = hp / 3 as ::core::ffi::c_int;
                     if z > 1600 as ::core::ffi::c_int {
                         z = 1600 as ::core::ffi::c_int;
                     }
-                    if *borg.trait_0.offset(BI_RACID as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_acid {
+                    if crate::bridge::st().borg.temp.res_acid {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             8 => {
-                if !(*borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0) {
                     z = hp / 3 as ::core::ffi::c_int;
                     if z > 1600 as ::core::ffi::c_int {
                         z = 1600 as ::core::ffi::c_int;
                     }
-                    if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_elec {
+                    if crate::bridge::st().borg.temp.res_elec {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
                 }
             }
             9 => {
-                if !(*borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] != 0) {
                     z = hp / 3 as ::core::ffi::c_int;
                     if z > 1600 as ::core::ffi::c_int {
                         z = 1600 as ::core::ffi::c_int;
                     }
-                    if *borg.trait_0.offset(BI_RFIRE as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_fire {
+                    if crate::bridge::st().borg.temp.res_fire {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             10 => {
-                if !(*borg.trait_0.offset(BI_ICOLD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize] != 0) {
                     z = hp / 3 as ::core::ffi::c_int;
                     if z > 1600 as ::core::ffi::c_int {
                         z = 1600 as ::core::ffi::c_int;
                     }
-                    if *borg.trait_0.offset(BI_RCOLD as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_cold {
+                    if crate::bridge::st().borg.temp.res_cold {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
@@ -907,14 +877,14 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 800 as ::core::ffi::c_int {
                     z = 800 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0 {
                     z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                 }
-                if borg.temp.res_pois {
+                if crate::bridge::st().borg.temp.res_pois {
                     z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                 }
-                if !borg.temp.res_pois {
-                    if !(*borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0) {
+                if !crate::bridge::st().borg.temp.res_pois {
+                    if !(crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0) {
                         p += 20 as ::core::ffi::c_int;
                     }
                 }
@@ -924,7 +894,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 600 as ::core::ffi::c_int {
                     z = 600 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 } else {
                     p += 125 as ::core::ffi::c_int;
@@ -935,15 +905,13 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 500 as ::core::ffi::c_int {
                     z = 500 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 2 as ::core::ffi::c_int / 3 as ::core::ffi::c_int;
-                } else if !(*borg
-                    .trait_0
-                    .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                } else if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                     != 0)
                 {
                     p += 20 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_MAGE {
+                    if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE {
                         p += 20 as ::core::ffi::c_int;
                     }
                 }
@@ -953,17 +921,15 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 500 as ::core::ffi::c_int {
                     z = 500 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 2 as ::core::ffi::c_int / 3 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                         != 0)
                     {
                         p += 20 as ::core::ffi::c_int;
-                        if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_MAGE
                         {
                             p += 20 as ::core::ffi::c_int;
@@ -976,20 +942,16 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 500 as ::core::ffi::c_int {
                     z = 500 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 5 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 1000 as ::core::ffi::c_int;
@@ -1002,11 +964,11 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 600 as ::core::ffi::c_int {
                     z = 600 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RKAOS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
                 p += 100 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RKAOS as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize] != 0) {
                     p += 200 as ::core::ffi::c_int;
                 }
             }
@@ -1015,10 +977,10 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 500 as ::core::ffi::c_int {
                     z = 500 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RDIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RDIS as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize] != 0) {
                     p += 500 as ::core::ffi::c_int;
                 }
             }
@@ -1027,10 +989,10 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 400 as ::core::ffi::c_int {
                     z = 400 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RNXUS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RNXUS as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize] != 0) {
                     p += 100 as ::core::ffi::c_int;
                 }
             }
@@ -1054,17 +1016,13 @@ unsafe extern "C" fn borg_danger_spell(
                     z = 200 as ::core::ffi::c_int;
                 }
                 p += 100 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 1000 as ::core::ffi::c_int;
@@ -1076,10 +1034,10 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 500 as ::core::ffi::c_int {
                     z = 500 as ::core::ffi::c_int;
                 }
-                if *borg.trait_0.offset(BI_RSHRD as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RSHRD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0) {
                     p += 50 as ::core::ffi::c_int;
                 }
             }
@@ -1088,18 +1046,14 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 150 as ::core::ffi::c_int {
                     z = 150 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
                     p += 100 as ::core::ffi::c_int;
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 1000 as ::core::ffi::c_int;
@@ -1111,17 +1065,13 @@ unsafe extern "C" fn borg_danger_spell(
                 if z > 200 as ::core::ffi::c_int {
                     z = 200 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 100 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 500 as ::core::ffi::c_int;
@@ -1141,51 +1091,51 @@ unsafe extern "C" fn borg_danger_spell(
                 bolt = true_0 != 0;
             }
             28 => {
-                if !(*borg.trait_0.offset(BI_IACID as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize] != 0) {
                     z = (*r_ptr).spell_power * 3 as ::core::ffi::c_int + 15 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RACID as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_acid {
+                    if crate::bridge::st().borg.temp.res_acid {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             29 => {
-                if !(*borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0) {
                     z = (*r_ptr).spell_power * 3 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                         + 8 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_elec {
+                    if crate::bridge::st().borg.temp.res_elec {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
                 }
             }
             30 => {
-                if !(*borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] != 0) {
                     z = (*r_ptr).spell_power * 7 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                         + 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RFIRE as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_fire {
+                    if crate::bridge::st().borg.temp.res_fire {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             31 => {
-                if !(*borg.trait_0.offset(BI_ICOLD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize] != 0) {
                     z = (*r_ptr).spell_power * 3 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                         + 10 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RCOLD as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_cold {
+                    if crate::bridge::st().borg.temp.res_cold {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
@@ -1194,14 +1144,14 @@ unsafe extern "C" fn borg_danger_spell(
             32 => {
                 z = ((*r_ptr).spell_power / 2 as ::core::ffi::c_int + 3 as ::core::ffi::c_int)
                     * 4 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0 {
                     z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                 }
-                if borg.temp.res_pois {
+                if crate::bridge::st().borg.temp.res_pois {
                     z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                 }
-                if !borg.temp.res_pois {
-                    if !(*borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0) {
+                if !crate::bridge::st().borg.temp.res_pois {
+                    if !(crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0) {
                         p += 20 as ::core::ffi::c_int;
                     }
                 }
@@ -1209,44 +1159,40 @@ unsafe extern "C" fn borg_danger_spell(
             33 => {
                 z = (*r_ptr).spell_power * 3 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                     + 10 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RSHRD as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RSHRD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0) {
                     p += 20 as ::core::ffi::c_int;
                 }
             }
             34 => {
                 z = (*r_ptr).spell_power * 4 as ::core::ffi::c_int
                     + 10 as ::core::ffi::c_int * 10 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 8 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0) {
                     p += 250 as ::core::ffi::c_int;
                 }
             }
             35 => {
                 z = (*r_ptr).spell_power * 5 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                     + 50 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 1000 as ::core::ffi::c_int;
                     }
-                    if !(*borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0) {
                         p += 50 as ::core::ffi::c_int;
-                        if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_MAGE
                         {
                             p += 20 as ::core::ffi::c_int;
@@ -1269,17 +1215,15 @@ unsafe extern "C" fn borg_danger_spell(
             38 => {
                 z = (*r_ptr).spell_power * 4 as ::core::ffi::c_int
                     + 10 as ::core::ffi::c_int * 10 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                         != 0)
                     {
                         p += 20 as ::core::ffi::c_int;
-                        if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_MAGE
                         {
                             p += 20 as ::core::ffi::c_int;
@@ -1290,17 +1234,15 @@ unsafe extern "C" fn borg_danger_spell(
             39 => {
                 z = 10 as ::core::ffi::c_int
                     + (*r_ptr).spell_power * 3 as ::core::ffi::c_int / 2 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 9 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                         != 0)
                     {
                         p += 20 as ::core::ffi::c_int;
-                        if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_MAGE
                         {
                             p += 20 as ::core::ffi::c_int;
@@ -1310,31 +1252,27 @@ unsafe extern "C" fn borg_danger_spell(
             }
             40 => {
                 z = 70 as ::core::ffi::c_int + (*r_ptr).spell_power * 5 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 1000 as ::core::ffi::c_int;
                     }
-                    *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0;
+                    crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0;
                 }
             }
             41 => {
-                if *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize] != 0 {
                     p += 100 as ::core::ffi::c_int;
                 }
             }
             42 => {
-                if *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     < 100 as ::core::ffi::c_int
                 {
                     z = (*r_ptr).spell_power / 2 as ::core::ffi::c_int + 1 as ::core::ffi::c_int;
@@ -1345,13 +1283,13 @@ unsafe extern "C" fn borg_danger_spell(
                     / 2 as ::core::ffi::c_int;
                 p += 200 as ::core::ffi::c_int
                     - 2 as ::core::ffi::c_int
-                        * *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize);
+                        * crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize];
                 if p < 0 as ::core::ffi::c_int {
                     p = 0 as ::core::ffi::c_int;
                 }
             }
             44 => {
-                if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     >= 100 as ::core::ffi::c_int)
                 {
                     z = (*r_ptr).spell_power / 3 as ::core::ffi::c_int
@@ -1359,74 +1297,74 @@ unsafe extern "C" fn borg_danger_spell(
                         * 5 as ::core::ffi::c_int;
                     z = z
                         * (120 as ::core::ffi::c_int
-                            - *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize))
+                            - crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize])
                         / 100 as ::core::ffi::c_int;
                 }
             }
             45 => {
                 bolt = true_0 != 0;
-                if !(*borg.trait_0.offset(BI_IACID as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize] != 0) {
                     z = 7 as ::core::ffi::c_int * 8 as ::core::ffi::c_int
                         + (*r_ptr).spell_power / 3 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RACID as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_acid {
+                    if crate::bridge::st().borg.temp.res_acid {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             46 => {
-                if !(*borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0) {
                     bolt = true_0 != 0;
                     z = 4 as ::core::ffi::c_int * 8 as ::core::ffi::c_int
                         + (*r_ptr).spell_power / 3 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_elec {
+                    if crate::bridge::st().borg.temp.res_elec {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
                 }
             }
             47 => {
-                if !(*borg.trait_0.offset(BI_IFIRE as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] != 0) {
                     bolt = true_0 != 0;
                     z = 9 as ::core::ffi::c_int * 8 as ::core::ffi::c_int
                         + (*r_ptr).spell_power / 3 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RFIRE as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_fire {
+                    if crate::bridge::st().borg.temp.res_fire {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 40 as ::core::ffi::c_int;
                 }
             }
             48 => {
-                if !(*borg.trait_0.offset(BI_ICOLD as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize] != 0) {
                     bolt = true_0 != 0;
                     z = 6 as ::core::ffi::c_int * 8 as ::core::ffi::c_int
                         + (*r_ptr).spell_power / 3 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RCOLD as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_cold {
+                    if crate::bridge::st().borg.temp.res_cold {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     p += 20 as ::core::ffi::c_int;
                 }
             }
             49 => {
-                if !(*borg.trait_0.offset(BI_IPOIS as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IPOIS as ::core::ffi::c_int) as usize] != 0) {
                     z = 9 as ::core::ffi::c_int * 8 as ::core::ffi::c_int
                         + (*r_ptr).spell_power / 3 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RPOIS as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_pois {
+                    if crate::bridge::st().borg.temp.res_pois {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     bolt = true_0 != 0;
@@ -1437,34 +1375,30 @@ unsafe extern "C" fn borg_danger_spell(
                 z = 5 as ::core::ffi::c_int * 5 as ::core::ffi::c_int
                     + (*r_ptr).spell_power * 3 as ::core::ffi::c_int / 2 as ::core::ffi::c_int
                     + 50 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 8 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0) {
                     p += 200 as ::core::ffi::c_int;
                 }
             }
             51 => {
                 z = 10 as ::core::ffi::c_int * 10 as ::core::ffi::c_int + (*r_ptr).spell_power;
                 bolt = true_0 != 0;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         p += 1000 as ::core::ffi::c_int;
                     }
-                    if !(*borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0) {
                         p += 20 as ::core::ffi::c_int;
-                        if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
                             == CLASS_MAGE
                         {
                             p += 20 as ::core::ffi::c_int;
@@ -1483,17 +1417,13 @@ unsafe extern "C" fn borg_danger_spell(
                     + 8 as ::core::ffi::c_int * 7 as ::core::ffi::c_int
                     + (*r_ptr).spell_power;
                 bolt = true_0 != 0;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 500 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 1000 as ::core::ffi::c_int;
@@ -1504,17 +1434,13 @@ unsafe extern "C" fn borg_danger_spell(
                 z = 6 as ::core::ffi::c_int * 6 as ::core::ffi::c_int + (*r_ptr).spell_power;
                 bolt = true_0 != 0;
                 p += 20 as ::core::ffi::c_int;
-                if !(*borg.trait_0.offset(BI_RSND as ::core::ffi::c_int as isize) != 0) {
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISSTUN as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0) {
+                    if crate::bridge::st().borg.trait_[(BI_ISSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 50 as ::core::ffi::c_int;
                     }
-                    if *borg
-                        .trait_0
-                        .offset(BI_ISHEAVYSTUN as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_ISHEAVYSTUN as ::core::ffi::c_int) as usize]
                         != 0
                     {
                         z += 1000 as ::core::ffi::c_int;
@@ -1527,14 +1453,14 @@ unsafe extern "C" fn borg_danger_spell(
                 bolt = true_0 != 0;
             }
             56 => {
-                if !(*borg.trait_0.offset(BI_IELEC as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize] != 0) {
                     z = 5 as ::core::ffi::c_int * 5 as ::core::ffi::c_int
                         + (*r_ptr).spell_power * 2 as ::core::ffi::c_int
                         + 30 as ::core::ffi::c_int;
-                    if *borg.trait_0.offset(BI_RELEC as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0 {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
-                    if borg.temp.res_elec {
+                    if crate::bridge::st().borg.temp.res_elec {
                         z = (z + 2 as ::core::ffi::c_int) / 3 as ::core::ffi::c_int;
                     }
                     bolt = true_0 != 0;
@@ -1545,27 +1471,25 @@ unsafe extern "C" fn borg_danger_spell(
                 z = 5 as ::core::ffi::c_int * 5 as ::core::ffi::c_int
                     + (*r_ptr).spell_power * 2 as ::core::ffi::c_int
                     + 30 as ::core::ffi::c_int;
-                if *borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0 {
+                if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0 {
                     z = z * 6 as ::core::ffi::c_int / 8 as ::core::ffi::c_int;
                 }
-                if !(*borg.trait_0.offset(BI_RNTHR as ::core::ffi::c_int as isize) != 0) {
+                if !(crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0) {
                     bolt = true_0 != 0;
                 }
             }
             58 => {
-                if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     >= 100 as ::core::ffi::c_int)
                 {
                     p += 10 as ::core::ffi::c_int;
                 }
             }
             59 => {
-                if !(*borg
-                    .trait_0
-                    .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                     != 0)
                 {
-                    if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                         >= 100 as ::core::ffi::c_int)
                     {
                         p += 10 as ::core::ffi::c_int;
@@ -1573,8 +1497,8 @@ unsafe extern "C" fn borg_danger_spell(
                 }
             }
             60 => {
-                if !(*borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                         >= 100 as ::core::ffi::c_int)
                     {
                         p += 10 as ::core::ffi::c_int;
@@ -1582,8 +1506,8 @@ unsafe extern "C" fn borg_danger_spell(
                 }
             }
             61 => {
-                if !(*borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                         >= 100 as ::core::ffi::c_int)
                     {
                         p += 5 as ::core::ffi::c_int;
@@ -1591,8 +1515,8 @@ unsafe extern "C" fn borg_danger_spell(
                 }
             }
             62 => {
-                if !(*borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) != 0) {
-                    if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0) {
+                    if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                         >= 100 as ::core::ffi::c_int)
                     {
                         p += 150 as ::core::ffi::c_int;
@@ -1618,7 +1542,7 @@ unsafe extern "C" fn borg_danger_spell(
                 p += 10 as ::core::ffi::c_int;
             }
             71 => {
-                if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     >= 100 as ::core::ffi::c_int)
                 {
                     p += 50 as ::core::ffi::c_int;
@@ -1631,10 +1555,10 @@ unsafe extern "C" fn borg_danger_spell(
                 p += 50 as ::core::ffi::c_int;
             }
             74 => {
-                if !(*borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                if !(crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     >= 100 as ::core::ffi::c_int)
                 {
-                    if *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                         < 15 as ::core::ffi::c_int
                     {
                         p += 500 as ::core::ffi::c_int;
@@ -1663,8 +1587,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1679,7 +1603,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 3 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -1719,8 +1643,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1735,7 +1659,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 6 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -1775,8 +1699,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1789,7 +1713,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if pfe != 0
                     || glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += 0 as ::core::ffi::c_int;
                 } else {
@@ -1814,8 +1738,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1828,7 +1752,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if pfe != 0
                     || glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += 0 as ::core::ffi::c_int;
                 } else {
@@ -1867,8 +1791,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1881,7 +1805,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if pfe != 0
                     || glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += 0 as ::core::ffi::c_int;
                 } else {
@@ -1920,8 +1844,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1934,7 +1858,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if pfe != 0
                     || glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += 0 as ::core::ffi::c_int;
                 } else {
@@ -1973,8 +1897,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -1987,7 +1911,7 @@ unsafe extern "C" fn borg_danger_spell(
                 if pfe != 0
                     || glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += 0 as ::core::ffi::c_int;
                 } else {
@@ -2026,8 +1950,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2042,7 +1966,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 2 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2082,8 +2006,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2093,12 +2017,12 @@ unsafe extern "C" fn borg_danger_spell(
                     }
                     spot_x += 1;
                 }
-                if pfe != 0 || borg.near.unique as ::core::ffi::c_int != 0 {
+                if pfe != 0 || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0 {
                     p += (*r_ptr).spell_power;
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 3 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2138,8 +2062,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2154,7 +2078,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 3 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2194,8 +2118,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2210,7 +2134,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 3 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2250,8 +2174,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2266,7 +2190,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 3 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2306,8 +2230,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2322,7 +2246,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 6 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2362,8 +2286,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2377,7 +2301,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 6 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2417,8 +2341,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2433,7 +2357,7 @@ unsafe extern "C" fn borg_danger_spell(
                     p = p / spot_safe;
                 } else if glyph != 0
                     || borg_create_door as ::core::ffi::c_int != 0
-                    || borg.near.unique as ::core::ffi::c_int != 0
+                    || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 {
                     p += (*r_ptr).spell_power * 6 as ::core::ffi::c_int;
                     p = p / spot_safe;
@@ -2473,8 +2397,8 @@ unsafe extern "C" fn borg_danger_spell(
                                 if spot_safe == 8 as ::core::ffi::c_int {
                                     spot_safe = 100 as ::core::ffi::c_int;
                                 }
-                                if borg.morgoth_position as ::core::ffi::c_int != 0
-                                    || borg.status.anti_summon as ::core::ffi::c_int != 0
+                                if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+                                    || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
                                 {
                                     spot_safe = 1000 as ::core::ffi::c_int;
                                 }
@@ -2512,13 +2436,11 @@ unsafe extern "C" fn borg_danger_spell(
             27 | 65 | 66 | _ => {}
         }
         if bolt as ::core::ffi::c_int == true_0
-            && !borg_projectable_pure((*kill).pos.y, (*kill).pos.x, borg.c.y, borg.c.x)
+            && !borg_projectable_pure((*kill).pos.y, (*kill).pos.x, crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x)
         {
             z = 0 as ::core::ffi::c_int;
         }
-        if *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             >= 75 as ::core::ffi::c_int
         {
             p = 0 as ::core::ffi::c_int;
@@ -2530,14 +2452,12 @@ unsafe extern "C" fn borg_danger_spell(
         total_dam += p;
         q += 1;
     }
-    total_dam -= *borg
-        .trait_0
-        .offset(BI_DAM_RED as ::core::ffi::c_int as isize);
+    total_dam -= crate::bridge::st().borg.trait_[(BI_DAM_RED as ::core::ffi::c_int) as usize];
     if total_dam < 0 as ::core::ffi::c_int {
         total_dam = 0 as ::core::ffi::c_int;
     }
-    if borg.morgoth_position as ::core::ffi::c_int != 0
-        || borg.status.anti_summon as ::core::ffi::c_int != 0
+    if crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+        || crate::bridge::st().borg.status.anti_summon as ::core::ffi::c_int != 0
     {
         total_dam = total_dam * 7 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
     }
@@ -2546,7 +2466,7 @@ unsafe extern "C" fn borg_danger_spell(
         return av;
     }
     if n >= av * 15 as ::core::ffi::c_int / 10 as ::core::ffi::c_int
-        || n > *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
+        || n > crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
             * 8 as ::core::ffi::c_int
             / 10 as ::core::ffi::c_int
     {
@@ -2581,7 +2501,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
     let mut b_v2: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut b_v1: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut fake_speed: ::core::ffi::c_int =
-        *borg.trait_0.offset(BI_SPEED as ::core::ffi::c_int as isize);
+        crate::bridge::st().borg.trait_[(BI_SPEED as ::core::ffi::c_int) as usize];
     let mut monster_speed: ::core::ffi::c_int = (*kill).speed as ::core::ffi::c_int;
     let mut t: ::core::ffi::c_int = 0;
     let mut e: ::core::ffi::c_int = 0;
@@ -2613,23 +2533,21 @@ pub unsafe extern "C" fn borg_danger_one_kill(
     if d > 20 as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
-    if *borg.trait_0.offset(BI_SPEED as ::core::ffi::c_int as isize) >= 135 as ::core::ffi::c_int {
-        fake_speed = if borg.near.unique as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SPEED as ::core::ffi::c_int) as usize] >= 135 as ::core::ffi::c_int {
+        fake_speed = if crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0 {
             120 as ::core::ffi::c_int
         } else {
             125 as ::core::ffi::c_int
         };
     }
-    if borg.temp.fast {
+    if crate::bridge::st().borg.temp.fast {
         fake_speed += 10 as ::core::ffi::c_int;
     }
     if borg_slow_spell {
         monster_speed -= 10 as ::core::ffi::c_int;
     }
-    if *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize) < 20 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize] < 20 as ::core::ffi::c_int
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
         monster_speed += 3 as ::core::ffi::c_int;
@@ -2645,8 +2563,8 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         q = 10 as ::core::ffi::c_int;
     }
     v1 = borg_danger_physical(i, full_damage);
-    if borg.antibounce_count as ::core::ffi::c_int > 1200 as ::core::ffi::c_int
-        || borg.time.now - borg.time.level > 25000 as borg_time
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int > 1200 as ::core::ffi::c_int
+        || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 25000 as borg_time
     {
         v1 = v1 / 5 as ::core::ffi::c_int;
     }
@@ -2682,22 +2600,16 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         RF_MULTIPLY as ::core::ffi::c_int,
     ) as ::core::ffi::c_int
         != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 20 as ::core::ffi::c_int
     {
         v1 = v1 + v1 * 15 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
     }
     if (!(*r_ptr).friends.is_null() || !(*r_ptr).friends_base.is_null())
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 20 as ::core::ffi::c_int
     {
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 15 as ::core::ffi::c_int
         {
             v1 = v1 + v1 * 18 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
@@ -2707,9 +2619,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
     }
     if !(*kill).awake {
         let mut inc: ::core::ffi::c_int = (*r_ptr).sleep + 5 as ::core::ffi::c_int;
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             >= 25 as ::core::ffi::c_int
         {
             v1 = v1 / 2 as ::core::ffi::c_int;
@@ -2744,17 +2654,13 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 RF_UNIQUE as ::core::ffi::c_int,
             )
             && (*kill).level as ::core::ffi::c_int
-                <= *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                <= crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     - 15 as ::core::ffi::c_int
         {
-            if *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 20 as ::core::ffi::c_int
-                && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                    < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                    < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                         / 2 as ::core::ffi::c_int
             {
                 v1 = 0 as ::core::ffi::c_int;
@@ -2790,17 +2696,13 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 RF_UNIQUE as ::core::ffi::c_int,
             )
             && (*kill).level as ::core::ffi::c_int
-                <= *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                <= crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     - 15 as ::core::ffi::c_int
         {
-            if *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 20 as ::core::ffi::c_int
-                && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                    < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                    < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                         / 2 as ::core::ffi::c_int
             {
                 v1 = 0 as ::core::ffi::c_int;
@@ -2813,9 +2715,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         if ((*kill).power as ::core::ffi::c_int
             * (100 as ::core::ffi::c_int - (*kill).injury as ::core::ffi::c_int)
             / 100 as ::core::ffi::c_int)
-            < *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            < crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 * 4 as ::core::ffi::c_int
         {
             let mut ag: *mut borg_grid = crate::bridge::grid(x9, y9) as *mut borg_grid;
@@ -2860,17 +2760,13 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 RF_UNIQUE as ::core::ffi::c_int,
             )
             && (*kill).level as ::core::ffi::c_int
-                <= *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                <= crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     - 15 as ::core::ffi::c_int
         {
-            if *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 < 20 as ::core::ffi::c_int
-                && *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-                    < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+                    < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                         / 2 as ::core::ffi::c_int
             {
                 v1 = 0 as ::core::ffi::c_int;
@@ -3090,8 +2986,8 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         }
         v2 = b_v2;
     }
-    if borg.antibounce_count as ::core::ffi::c_int > 1200 as ::core::ffi::c_int
-        || borg.time.now - borg.time.level > 25000 as borg_time
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int > 1200 as ::core::ffi::c_int
+        || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 25000 as borg_time
     {
         v2 = v2 / 5 as ::core::ffi::c_int;
     }
@@ -3104,26 +3000,20 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         RF_MULTIPLY as ::core::ffi::c_int,
     ) as ::core::ffi::c_int
         != 0
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 20 as ::core::ffi::c_int
     {
         v2 = v2 + v2 * 12 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
     }
     if (!(*r_ptr).friends.is_null() || !(*r_ptr).friends_base.is_null())
-        && *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             < 20 as ::core::ffi::c_int
     {
         v2 = v2 + v2 * 12 as ::core::ffi::c_int / 10 as ::core::ffi::c_int;
     }
     if !(*kill).awake {
         let mut inc_0: ::core::ffi::c_int = (*r_ptr).sleep + 5 as ::core::ffi::c_int;
-        if *borg
-            .trait_0
-            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             >= 25 as ::core::ffi::c_int
         {
             v2 = v2 / 2 as ::core::ffi::c_int;
@@ -3158,18 +3048,12 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 RF_UNIQUE as ::core::ffi::c_int,
             )
             && (*kill).level as ::core::ffi::c_int
-                <= (if *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                <= (if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     < 15 as ::core::ffi::c_int
                 {
-                    *borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                    crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 } else {
-                    (*borg
-                        .trait_0
-                        .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                    (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                         - 10 as ::core::ffi::c_int)
                         / 4 as ::core::ffi::c_int
                         * 3 as ::core::ffi::c_int
@@ -3183,9 +3067,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
         if ((*kill).power as ::core::ffi::c_int
             * (100 as ::core::ffi::c_int - (*kill).injury as ::core::ffi::c_int)
             / 100 as ::core::ffi::c_int)
-            < *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            < crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 * 4 as ::core::ffi::c_int
         {
             let mut ag_0: *mut borg_grid = crate::bridge::grid(x9, y9) as *mut borg_grid;
@@ -3243,24 +3125,20 @@ pub unsafe extern "C" fn borg_danger(
         return 2000 as ::core::ffi::c_int;
     }
     if !square_isvault(cave, l)
-        && *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             <= 80 as ::core::ffi::c_int
     {
         p += borg_fear_region[(y / 11 as ::core::ffi::c_int) as usize]
             [(x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
             * c;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 100 as ::core::ffi::c_int
         && p >= 300 as ::core::ffi::c_int
     {
         p = 300 as ::core::ffi::c_int;
     }
-    if borg.antibounce_count as ::core::ffi::c_int <= 200 as ::core::ffi::c_int
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int <= 200 as ::core::ffi::c_int
         && !square_isvault(cave, loc(x, y))
     {
         p += borg_fear_monsters[y as usize][x as usize] as ::core::ffi::c_int * c;

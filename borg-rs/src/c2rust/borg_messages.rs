@@ -18,19 +18,7 @@ pub use crate::headers::borg_flow_kill_h::{
     borg_delete_kill, borg_kill, borg_kills, borg_kills_nxt,
 };
 use crate::headers::borg_flow_stairs_h::{track_less, track_more};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_flush, borg_keypress, borg_note, borg_what_text};
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_messages_react_h::{borg_dont_react, borg_react, borg_react_prompted};
@@ -376,7 +364,7 @@ pub unsafe extern "C" fn borg_get_messages(mut key: *mut keypress, mut cursor: l
             as ::core::ffi::c_int
             != 0
     {
-        if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
             borg_note(b"# message with -more-\0" as *const u8 as *const ::core::ffi::c_char);
         }
         if 0 as ::core::ffi::c_int
@@ -390,14 +378,14 @@ pub unsafe extern "C" fn borg_get_messages(mut key: *mut keypress, mut cursor: l
         {
             borg_parse(buf);
         }
-        if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
             borg_note(b"clearing -more-\0" as *const u8 as *const ::core::ffi::c_char);
         }
         (*key).code = ' ' as i32 as keycode_t;
         return true_0 != 0;
     }
     if borg_prompt as ::core::ffi::c_int != 0 && inkey_flag as ::core::ffi::c_int != 0 {
-        if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+        if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
             borg_note(b"# parse normal message\0" as *const u8 as *const ::core::ffi::c_char);
         }
         buf = &raw mut buffer as *mut ::core::ffi::c_char;
@@ -438,8 +426,8 @@ unsafe extern "C" fn borg_parse_aux(
     let mut d: ::core::ffi::c_int = 0;
     let mut who: [::core::ffi::c_char; 256] = [0; 256];
     let mut buf: [::core::ffi::c_char; 256] = [0; 256];
-    let mut ag: *mut borg_grid = crate::bridge::grid(borg.goal.g.x, borg.goal.g.y) as *mut borg_grid;
-    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+    let mut ag: *mut borg_grid = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
+    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
         borg_note(format(
             b"# Parse Msg bite <%s>\0" as *const u8 as *const ::core::ffi::c_char,
             msg,
@@ -453,11 +441,11 @@ unsafe extern "C" fn borg_parse_aux(
             || (*player).opts.opt[OPT_cheat_live as ::core::ffi::c_int as usize]
                 as ::core::ffi::c_int
                 != 0
-            || borg.status.cheat_death as ::core::ffi::c_int != 0)
+            || crate::bridge::st().borg.status.cheat_death as ::core::ffi::c_int != 0)
         {
             borg_oops(b"death\0" as *const u8 as *const ::core::ffi::c_char);
-            if borg.status.respawning == 0 {
-                borg.status.active = false_0 != 0;
+            if crate::bridge::st().borg.status.respawning == 0 {
+                crate::bridge::st().borg.status.active = false_0 != 0;
             }
             Term_xtra(TERM_XTRA_NOISE, 1 as ::core::ffi::c_int);
         }
@@ -473,8 +461,8 @@ unsafe extern "C" fn borg_parse_aux(
         successful_target = 0 as ::core::ffi::c_int;
         crate::bridge::st().io.confirm_target = false_0 != 0;
         if borg_attempting_refresh_resist {
-            if borg.resistance as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
-                borg.resistance = (borg.resistance as ::core::ffi::c_int
+            if crate::bridge::st().borg.resistance as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
+                crate::bridge::st().borg.resistance = (crate::bridge::st().borg.resistance as ::core::ffi::c_int
                     - 25000 as ::core::ffi::c_int) as int16_t;
             }
             borg_attempting_refresh_resist = false_0 != 0;
@@ -484,7 +472,7 @@ unsafe extern "C" fn borg_parse_aux(
     if borg_match[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int != 0
         && !strstr(msg, &raw mut borg_match as *mut ::core::ffi::c_char).is_null()
     {
-        borg.status.cancel = true_0 != 0;
+        crate::bridge::st().borg.status.cancel = true_0 != 0;
     }
     if prefix(
         msg,
@@ -540,18 +528,14 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"You feel your memories fade.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        *borg
-            .trait_0
-            .offset(BI_ISFORGET as ::core::ffi::c_int as isize) = true_0;
+        crate::bridge::st().borg.trait_[(BI_ISFORGET as ::core::ffi::c_int) as usize] = true_0;
     }
     if strcmp(
         msg,
         b"Your memories come flooding back.\0" as *const u8 as *const ::core::ffi::c_char,
     ) == 0
     {
-        *borg
-            .trait_0
-            .offset(BI_ISFORGET as ::core::ffi::c_int as isize) = false_0;
+        crate::bridge::st().borg.trait_[(BI_ISFORGET as ::core::ffi::c_int) as usize] = false_0;
     }
     if strcmp(
         msg,
@@ -580,9 +564,7 @@ unsafe extern "C" fn borg_parse_aux(
             b"# Hallucinating.  Special control of wanks.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        *borg
-            .trait_0
-            .offset(BI_ISIMAGE as ::core::ffi::c_int as isize) = true_0;
+        crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize] = true_0;
     }
     if strcmp(
         msg,
@@ -604,9 +586,7 @@ unsafe extern "C" fn borg_parse_aux(
             b"# Hallucination ended.  Normal control of wanks.\0" as *const u8
                 as *const ::core::ffi::c_char,
         );
-        *borg
-            .trait_0
-            .offset(BI_ISIMAGE as ::core::ffi::c_int as isize) = false_0;
+        crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize] = false_0;
     }
     if prefix(
         msg,
@@ -888,9 +868,9 @@ unsafe extern "C" fn borg_parse_aux(
                             i += 1;
                         }
                         track_glyph.num = 0 as int16_t;
-                        if square_iswarded(cave, borg.c) {
-                            *track_glyph.x.offset(track_glyph.num as isize) = borg.c.x;
-                            *track_glyph.y.offset(track_glyph.num as isize) = borg.c.y;
+                        if square_iswarded(cave, crate::bridge::st().borg.c) {
+                            *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
+                            *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
                             track_glyph.num += 1;
                         }
                     }
@@ -1134,7 +1114,7 @@ unsafe extern "C" fn borg_parse_aux(
     {
         if (*ag).feat as ::core::ffi::c_int == FEAT_OPEN as ::core::ffi::c_int {
             (*ag).feat = FEAT_BROKEN as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         }
         return;
     }
@@ -1147,7 +1127,7 @@ unsafe extern "C" fn borg_parse_aux(
             && (*ag).feat as ::core::ffi::c_int <= FEAT_PERM as ::core::ffi::c_int
         {
             (*ag).feat = FEAT_PERM as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         }
         return;
     }
@@ -1156,12 +1136,12 @@ unsafe extern "C" fn borg_parse_aux(
         b"You tunnel into the granite wall.\0" as *const u8 as *const ::core::ffi::c_char,
     ) == 0
     {
-        borg.antibounce_count = 1 as int16_t;
+        crate::bridge::st().borg.antibounce_count = 1 as int16_t;
         if (*ag).feat as ::core::ffi::c_int >= FEAT_GRANITE as ::core::ffi::c_int
             && (*ag).feat as ::core::ffi::c_int <= FEAT_PERM as ::core::ffi::c_int
         {
             (*ag).feat = FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         }
         return;
     }
@@ -1172,10 +1152,10 @@ unsafe extern "C" fn borg_parse_aux(
     {
         if (*ag).feat as ::core::ffi::c_int == FEAT_MAGMA_K as ::core::ffi::c_int {
             (*ag).feat = FEAT_QUARTZ_K as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         } else if (*ag).feat as ::core::ffi::c_int == FEAT_MAGMA as ::core::ffi::c_int {
             (*ag).feat = FEAT_QUARTZ as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         }
         return;
     }
@@ -1186,10 +1166,10 @@ unsafe extern "C" fn borg_parse_aux(
     {
         if (*ag).feat as ::core::ffi::c_int == FEAT_QUARTZ_K as ::core::ffi::c_int {
             (*ag).feat = FEAT_MAGMA_K as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         } else if (*ag).feat as ::core::ffi::c_int == FEAT_QUARTZ as ::core::ffi::c_int {
             (*ag).feat = FEAT_MAGMA as ::core::ffi::c_int as uint8_t;
-            borg.goal.type_0 = 0 as int16_t;
+            crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         }
         return;
     }
@@ -1197,7 +1177,7 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"You chip away futilely \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        if borg.goal.type_0 as ::core::ffi::c_int == GOAL_KILL
+        if crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int == GOAL_KILL
             && (*ag).kill as ::core::ffi::c_int != 0
         {
             borg_delete_kill((*ag).kill as ::core::ffi::c_int);
@@ -1208,14 +1188,14 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"The air about you becomes \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.goal.recalling = 15000 as ::core::ffi::c_int + 5000 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.recalling = 15000 as ::core::ffi::c_int + 5000 as ::core::ffi::c_int;
         return;
     }
     if prefix(
         msg,
         b"The air around you starts \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.goal.descending = 3000 as ::core::ffi::c_int + 2000 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.descending = 3000 as ::core::ffi::c_int + 2000 as ::core::ffi::c_int;
         return;
     }
     if prefix(
@@ -1223,7 +1203,7 @@ unsafe extern "C" fn borg_parse_aux(
         b"You feel yourself yanked \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
         borg_flush();
-        borg.goal.recalling = 0 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.recalling = 0 as ::core::ffi::c_int;
         return;
     }
     if prefix(
@@ -1231,21 +1211,21 @@ unsafe extern "C" fn borg_parse_aux(
         b"The floor opens beneath you!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
         borg_flush();
-        borg.goal.descending = 0 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.descending = 0 as ::core::ffi::c_int;
         return;
     }
     if prefix(
         msg,
         b"A tension leaves \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.goal.recalling = 0 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.recalling = 0 as ::core::ffi::c_int;
         return;
     }
     if prefix(
         msg,
         b"The air around you stops \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.goal.descending = 0 as ::core::ffi::c_int;
+        crate::bridge::st().borg.goal.descending = 0 as ::core::ffi::c_int;
         return;
     }
     if prefix(
@@ -1258,98 +1238,98 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"You feel safe from evil!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.prot_from_evil = true_0 != 0;
+        crate::bridge::st().borg.temp.prot_from_evil = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You no longer feel safe from evil.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.prot_from_evil = false_0 != 0;
+        crate::bridge::st().borg.temp.prot_from_evil = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel yourself moving faster!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.fast = true_0 != 0;
+        crate::bridge::st().borg.temp.fast = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel yourself slow down.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.fast = false_0 != 0;
+        crate::bridge::st().borg.temp.fast = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel righteous\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.bless = true_0 != 0;
+        crate::bridge::st().borg.temp.bless = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"The prayer has expired.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.bless = false_0 != 0;
+        crate::bridge::st().borg.temp.bless = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel your mind accelerate.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.fastcast = true_0 != 0;
+        crate::bridge::st().borg.temp.fastcast = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel your mind slow again.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.fastcast = false_0 != 0;
+        crate::bridge::st().borg.temp.fastcast = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel like a hero!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.hero = true_0 != 0;
+        crate::bridge::st().borg.temp.hero = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You no longer feel heroic.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.hero = false_0 != 0;
+        crate::bridge::st().borg.temp.hero = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel like a killing machine!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.berserk = true_0 != 0;
+        crate::bridge::st().borg.temp.berserk = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You no longer feel berserk.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.berserk = false_0 != 0;
+        crate::bridge::st().borg.temp.berserk = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"Your eyes feel very sensitive!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.see_inv = 30000 as int16_t;
+        crate::bridge::st().borg.see_inv = 30000 as int16_t;
         return;
     }
     if prefix(
         msg,
         b"Your eyes no longer feel so sensitive.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.see_inv = 0 as int16_t;
+        crate::bridge::st().borg.see_inv = 0 as int16_t;
         return;
     }
     if prefix(
@@ -1357,14 +1337,12 @@ unsafe extern "C" fn borg_parse_aux(
         b"There is a wall \0" as *const u8 as *const ::core::ffi::c_char,
     ) as ::core::ffi::c_int
         != 0
-        && *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             == 0
     {
-        borg.status.redraw = true_0 != 0;
-        borg.status.need_alter = true_0 != 0;
-        borg.goal.type_0 = 0 as int16_t;
+        crate::bridge::st().borg.status.redraw = true_0 != 0;
+        crate::bridge::st().borg.status.need_alter = true_0 != 0;
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         return;
     }
     if prefix(
@@ -1372,18 +1350,14 @@ unsafe extern "C" fn borg_parse_aux(
         b"There is a closed door blocking your way.\0" as *const u8 as *const ::core::ffi::c_char,
     ) as ::core::ffi::c_int
         != 0
-        && (*borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        && (crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             == 0
-            && *borg
-                .trait_0
-                .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
                 == 0)
     {
-        borg.status.redraw = true_0 != 0;
-        borg.status.need_alter = true_0 != 0;
-        borg.goal.type_0 = 0 as int16_t;
+        crate::bridge::st().borg.status.redraw = true_0 != 0;
+        crate::bridge::st().borg.status.need_alter = true_0 != 0;
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         return;
     }
     if prefix(
@@ -1391,9 +1365,7 @@ unsafe extern "C" fn borg_parse_aux(
         b"You spin around.\0" as *const u8 as *const ::core::ffi::c_char,
     ) as ::core::ffi::c_int
         != 0
-        && *borg
-            .trait_0
-            .offset(BI_ISCONFUSED as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_ISCONFUSED as ::core::ffi::c_int) as usize]
             == 0
     {
         i = 1 as ::core::ffi::c_int;
@@ -1402,15 +1374,15 @@ unsafe extern "C" fn borg_parse_aux(
             if !((*kill).r_idx == 0) {
                 x9 = (*kill).pos.x;
                 y9 = (*kill).pos.y;
-                ax = if x9 > borg.c.x {
-                    x9 - borg.c.x
+                ax = if x9 > crate::bridge::st().borg.c.x {
+                    x9 - crate::bridge::st().borg.c.x
                 } else {
-                    borg.c.x - x9
+                    crate::bridge::st().borg.c.x - x9
                 };
-                ay = if y9 > borg.c.y {
-                    y9 - borg.c.y
+                ay = if y9 > crate::bridge::st().borg.c.y {
+                    y9 - crate::bridge::st().borg.c.y
                 } else {
-                    borg.c.y - y9
+                    crate::bridge::st().borg.c.y - y9
                 };
                 d = if ax < ay { ay } else { ax };
                 if d < 4 as ::core::ffi::c_int {
@@ -1419,8 +1391,8 @@ unsafe extern "C" fn borg_parse_aux(
             }
             i += 1;
         }
-        borg.status.no_alter = true_0 != 0;
-        borg.goal.type_0 = 0 as int16_t;
+        crate::bridge::st().borg.status.no_alter = true_0 != 0;
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         return;
     }
     if prefix(
@@ -1436,7 +1408,7 @@ unsafe extern "C" fn borg_parse_aux(
     {
         track_less.num = 0 as int16_t;
         track_more.num = 0 as int16_t;
-        (*crate::bridge::grid(borg.c.x, borg.c.y)).feat =
+        (*crate::bridge::grid(crate::bridge::st().borg.c.x, crate::bridge::st().borg.c.y)).feat =
             FEAT_BROKEN as ::core::ffi::c_int as uint8_t;
         return;
     }
@@ -1445,8 +1417,8 @@ unsafe extern "C" fn borg_parse_aux(
         b"You see nothing there \0" as *const u8 as *const ::core::ffi::c_char,
     ) {
         (*ag).feat = FEAT_BROKEN as ::core::ffi::c_int as uint8_t;
-        borg.status.no_alter = true_0 != 0;
-        borg.goal.type_0 = 0 as int16_t;
+        crate::bridge::st().borg.status.no_alter = true_0 != 0;
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
         return;
     }
     if prefix(
@@ -1455,8 +1427,8 @@ unsafe extern "C" fn borg_parse_aux(
     ) {
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
-        borg.antibounce_count =
-            (borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
+        crate::bridge::st().borg.antibounce_count =
+            (crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
         return;
     }
     if prefix(
@@ -1465,8 +1437,8 @@ unsafe extern "C" fn borg_parse_aux(
     ) {
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
-        borg.antibounce_count =
-            (borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
+        crate::bridge::st().borg.antibounce_count =
+            (crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
         i = (*z_info).pack_size as ::core::ffi::c_int;
         while i <= (*z_info).pack_size as ::core::ffi::c_int + 11 as ::core::ffi::c_int {
             let mut item: *mut borg_item = borg_items.offset(i as isize) as *mut borg_item;
@@ -1495,77 +1467,77 @@ unsafe extern "C" fn borg_parse_aux(
         (*item_1).ident = true_0 != 0;
         borg_keypress(ESCAPE as keycode_t);
         borg_keypress(ESCAPE as keycode_t);
-        borg.antibounce_count =
-            (borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
+        crate::bridge::st().borg.antibounce_count =
+            (crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int + 100 as ::core::ffi::c_int) as int16_t;
     }
     if prefix(
         msg,
         b"You feel resistant to acid!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_acid = true_0 != 0;
+        crate::bridge::st().borg.temp.res_acid = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You are no longer resistant to acid.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_acid = false_0 != 0;
+        crate::bridge::st().borg.temp.res_acid = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel resistant to electricity!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_elec = true_0 != 0;
+        crate::bridge::st().borg.temp.res_elec = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You are no longer resistant to electricity.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_elec = false_0 != 0;
+        crate::bridge::st().borg.temp.res_elec = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel resistant to fire!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_fire = true_0 != 0;
+        crate::bridge::st().borg.temp.res_fire = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You are no longer resistant to fire.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_fire = false_0 != 0;
+        crate::bridge::st().borg.temp.res_fire = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel resistant to cold!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_cold = true_0 != 0;
+        crate::bridge::st().borg.temp.res_cold = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You are no longer resistant to cold.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_cold = false_0 != 0;
+        crate::bridge::st().borg.temp.res_cold = false_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You feel resistant to poison!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_pois = true_0 != 0;
+        crate::bridge::st().borg.temp.res_pois = true_0 != 0;
         return;
     }
     if prefix(
         msg,
         b"You are no longer resistant to poison.\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.temp.res_pois = false_0 != 0;
+        crate::bridge::st().borg.temp.res_pois = false_0 != 0;
         return;
     }
     if prefix(
@@ -1579,7 +1551,7 @@ unsafe extern "C" fn borg_parse_aux(
         ) as ::core::ffi::c_int
             != 0
     {
-        borg.temp.shield = true_0 != 0;
+        crate::bridge::st().borg.temp.shield = true_0 != 0;
         return;
     }
     if prefix(
@@ -1593,7 +1565,7 @@ unsafe extern "C" fn borg_parse_aux(
         ) as ::core::ffi::c_int
             != 0
     {
-        borg.temp.shield = false_0 != 0;
+        crate::bridge::st().borg.temp.shield = false_0 != 0;
         return;
     }
     if prefix(
@@ -1602,8 +1574,8 @@ unsafe extern "C" fn borg_parse_aux(
     ) {
         i = 0 as ::core::ffi::c_int;
         while i < track_glyph.num as ::core::ffi::c_int {
-            if *track_glyph.x.offset(i as isize) == borg.c.x
-                && *track_glyph.y.offset(i as isize) == borg.c.y
+            if *track_glyph.x.offset(i as isize) == crate::bridge::st().borg.c.x
+                && *track_glyph.y.offset(i as isize) == crate::bridge::st().borg.c.y
             {
                 break;
             }
@@ -1614,8 +1586,8 @@ unsafe extern "C" fn borg_parse_aux(
             borg_note(
                 b"# Noting the creation of a glyph.\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            *track_glyph.x.offset(i as isize) = borg.c.x;
-            *track_glyph.y.offset(i as isize) = borg.c.y;
+            *track_glyph.x.offset(i as isize) = crate::bridge::st().borg.c.x;
+            *track_glyph.y.offset(i as isize) = crate::bridge::st().borg.c.y;
             track_glyph.num += 1;
         }
         return;
@@ -1631,9 +1603,9 @@ unsafe extern "C" fn borg_parse_aux(
             i += 1;
         }
         track_glyph.num = 0 as int16_t;
-        if square_iswarded(cave, borg.c) {
-            *track_glyph.x.offset(track_glyph.num as isize) = borg.c.x;
-            *track_glyph.y.offset(track_glyph.num as isize) = borg.c.y;
+        if square_iswarded(cave, crate::bridge::st().borg.c) {
+            *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
+            *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
             track_glyph.num += 1;
         }
         return;
@@ -1665,11 +1637,11 @@ unsafe extern "C" fn borg_parse_aux(
     ) {
         let mut x: ::core::ffi::c_int = 0;
         let mut y: ::core::ffi::c_int = 0;
-        y = borg.c.y - 1 as ::core::ffi::c_int;
-        while y < borg.c.y + 1 as ::core::ffi::c_int {
-            x = borg.c.x - 1 as ::core::ffi::c_int;
-            while x < borg.c.x + 1 as ::core::ffi::c_int {
-                if !(*borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) != 0) {
+        y = crate::bridge::st().borg.c.y - 1 as ::core::ffi::c_int;
+        while y < crate::bridge::st().borg.c.y + 1 as ::core::ffi::c_int {
+            x = crate::bridge::st().borg.c.x - 1 as ::core::ffi::c_int;
+            while x < crate::bridge::st().borg.c.x + 1 as ::core::ffi::c_int {
+                if !(crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] != 0) {
                     if (*ag).feat as ::core::ffi::c_int == FEAT_RUBBLE as ::core::ffi::c_int {
                         (*ag).feat = FEAT_BROKEN as ::core::ffi::c_int as uint8_t;
                     }
@@ -1684,7 +1656,7 @@ unsafe extern "C" fn borg_parse_aux(
         msg,
         b"The enchantment failed\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        borg.antibounce_count = 1 as int16_t;
+        crate::bridge::st().borg.antibounce_count = 1 as int16_t;
         return;
     }
     if prefix(
@@ -1697,15 +1669,15 @@ unsafe extern "C" fn borg_parse_aux(
             x9 = (*kill_0).pos.x;
             y9 = (*kill_0).pos.y;
             if !((*kill_0).r_idx == 0) {
-                ax = if x9 > borg.c.x {
-                    x9 - borg.c.x
+                ax = if x9 > crate::bridge::st().borg.c.x {
+                    x9 - crate::bridge::st().borg.c.x
                 } else {
-                    borg.c.x - x9
+                    crate::bridge::st().borg.c.x - x9
                 };
-                ay = if y9 > borg.c.y {
-                    y9 - borg.c.y
+                ay = if y9 > crate::bridge::st().borg.c.y {
+                    y9 - crate::bridge::st().borg.c.y
                 } else {
-                    borg.c.y - y9
+                    crate::bridge::st().borg.c.y - y9
                 };
                 d = if ax < ay { ay } else { ax };
                 if !(d > 12 as ::core::ffi::c_int) {
@@ -1714,24 +1686,20 @@ unsafe extern "C" fn borg_parse_aux(
             }
             i += 1;
         }
-        borg_fear_region[(borg.c.y / 11 as ::core::ffi::c_int) as usize]
-            [(borg.c.x / 11 as ::core::ffi::c_int) as usize] = 0 as uint16_t;
+        borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] = 0 as uint16_t;
         return;
     }
     if prefix(
         msg,
         b"You hear a door burst open!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
-        if *borg
-            .trait_0
-            .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             <= 3 as ::core::ffi::c_int
-            && *borg
-                .trait_0
-                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                 <= 5 as ::core::ffi::c_int
         {
-            borg.mon.scary = true_0 != 0;
+            crate::bridge::st().borg.mon.scary = true_0 != 0;
         }
     }
     if prefix(
@@ -1750,7 +1718,7 @@ unsafe extern "C" fn borg_parse_aux(
         ) as ::core::ffi::c_int
             != 0
     {
-        borg.lunal_mode = false_0 != 0;
+        crate::bridge::st().borg.lunal_mode = false_0 != 0;
         borg_note(
             b"# Disconnecting Lunal Mode due to monster spell.\0" as *const u8
                 as *const ::core::ffi::c_char,
@@ -1789,7 +1757,7 @@ unsafe extern "C" fn borg_parse_aux(
 pub unsafe extern "C" fn borg_parse(mut msg: *mut ::core::ffi::c_char) {
     static mut len: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     static mut buf: [::core::ffi::c_char; 1024] = [0; 1024];
-    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 && !msg.is_null() {
+    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 && !msg.is_null() {
         borg_note(format(
             b"# Parsing msg <%s>\0" as *const u8 as *const ::core::ffi::c_char,
             msg,

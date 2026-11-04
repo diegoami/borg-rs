@@ -17,19 +17,7 @@ pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills};
 use crate::headers::borg_flow_misc_h::{borg_flow_far_from_stairs, borg_get_leash};
 use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair, track_less};
 pub use crate::headers::borg_flow_take_h::borg_take;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::borg_note;
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_val_h::{sv_potion_detect_invis, sv_potion_inc_str};
@@ -194,7 +182,7 @@ pub unsafe extern "C" fn borg_delete_take(mut i: ::core::ffi::c_int) {
     if (*take).kidx == 0 {
         return;
     }
-    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
         if (*take).kidx >= (*z_info).k_max as uint32_t {
             borg_note(format(
                 b"# Forgetting an object at (%d,%d)\0" as *const u8 as *const ::core::ffi::c_char,
@@ -219,8 +207,8 @@ pub unsafe extern "C" fn borg_delete_take(mut i: ::core::ffi::c_int) {
         ::core::mem::size_of::<borg_take>() as size_t,
     );
     borg_takes_cnt -= 1;
-    if borg.goal.type_0 as ::core::ffi::c_int == GOAL_TAKE {
-        borg.goal.type_0 = 0 as int16_t;
+    if crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int == GOAL_TAKE {
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
     }
 }
 unsafe extern "C" fn borg_follow_take_aux(mut i: ::core::ffi::c_int) -> bool {
@@ -246,7 +234,7 @@ pub unsafe extern "C" fn borg_follow_take(mut i: ::core::ffi::c_int) {
     ox = (*take).x as ::core::ffi::c_int;
     oy = (*take).y as ::core::ffi::c_int;
     old_kind = k_info.offset((*take).kidx as isize) as *mut object_kind;
-    if (*take).y as ::core::ffi::c_int == borg.c.y && (*take).x as ::core::ffi::c_int == borg.c.x {
+    if (*take).y as ::core::ffi::c_int == crate::bridge::st().borg.c.y && (*take).x as ::core::ffi::c_int == crate::bridge::st().borg.c.x {
         borg_delete_take(i);
     }
     if !borg_follow_take_aux(i) {
@@ -326,7 +314,7 @@ unsafe extern "C" fn borg_new_take(
     (*take).x = x as uint8_t;
     (*take).y = y as uint8_t;
     (*ag).take = n as uint8_t;
-    (*take).when = borg.time.now;
+    (*take).when = crate::bridge::st().borg.time.now;
     (*take).orbed = false_0 != 0;
     if (*kind).aware {
         (*take).value = (*kind).cost;
@@ -358,8 +346,8 @@ unsafe extern "C" fn borg_new_take(
         (*take).x as ::core::ffi::c_int,
         (*take).y as ::core::ffi::c_int,
     ));
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) != 0 {
-        borg.goal.type_0 = 0 as int16_t;
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] != 0 {
+        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
     }
     (*ag).feat = FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
     return n;
@@ -378,16 +366,14 @@ pub unsafe extern "C" fn observe_take_diff(
     if kind.is_null() {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
     }
     i = borg_new_take(kind, y, x);
     take = borg_takes.offset(i as isize) as *mut borg_take;
-    (*take).when = borg.time.now;
+    (*take).when = crate::bridge::st().borg.time.now;
     return true_0 != 0;
 }
 #[no_mangle]
@@ -414,15 +400,11 @@ pub unsafe extern "C" fn observe_take_move(
                 z = borg_distance(oy, ox, y, x);
                 if !(z > d) {
                     k_ptr = k_info.offset((*take).kidx as isize) as *mut object_kind;
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
                         == 0
                         && c != (*k_ptr).d_char)
                     {
-                        if *borg
-                            .trait_0
-                            .offset(BI_ISIMAGE as ::core::ffi::c_int as isize)
+                        if crate::bridge::st().borg.trait_[(BI_ISIMAGE as ::core::ffi::c_int) as usize]
                             == 0
                             && a as ::core::ffi::c_int != (*k_ptr).d_attr as ::core::ffi::c_int
                             && ((*k_ptr).d_attr as ::core::ffi::c_int != 11 as ::core::ffi::c_int
@@ -456,11 +438,11 @@ pub unsafe extern "C" fn observe_take_move(
                                         ox,
                                         oy,
                                     ));
-                                    if borg.goal.type_0 as ::core::ffi::c_int == GOAL_TAKE {
-                                        borg.goal.type_0 = 0 as int16_t;
+                                    if crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int == GOAL_TAKE {
+                                        crate::bridge::st().borg.goal.type_0 = 0 as int16_t;
                                     }
                                 }
-                                (*take).when = borg.time.now;
+                                (*take).when = crate::bridge::st().borg.time.now;
                                 (*take).seen = true_0 != 0;
                                 (*crate::bridge::grid((*take).x, (*take).y)).feat =
                                     FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
@@ -489,9 +471,7 @@ pub unsafe extern "C" fn borg_flow_take(
     let mut leash: ::core::ffi::c_int = borg_get_leash(true_0 != 0);
     let mut full_quiver: ::core::ffi::c_int = 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    if *borg
-        .trait_0
-        .offset(BI_FAST_SHOTS as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_FAST_SHOTS as ::core::ffi::c_int) as usize]
         != 0
     {
         full_quiver = ((*z_info).quiver_slot_size as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
@@ -504,9 +484,7 @@ pub unsafe extern "C" fn borg_flow_take(
     }
     if (*borg_items.offset(
         ((*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
             - 1 as ::core::ffi::c_int) as isize,
     ))
     .iqty
@@ -514,13 +492,13 @@ pub unsafe extern "C" fn borg_flow_take(
     {
         return false_0 != 0;
     }
-    if borg.mon.scary {
+    if crate::bridge::st().borg.mon.scary {
         return false_0 != 0;
     }
-    if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize] == 0 {
         return false_0 != 0;
     }
-    if borg.morgoth_position {
+    if crate::bridge::st().borg.morgoth_position {
         return false_0 != 0;
     }
     borg_temp_n = 0 as int16_t;
@@ -528,7 +506,7 @@ pub unsafe extern "C" fn borg_flow_take(
     while i < track_less.num as ::core::ffi::c_int {
         x = *track_less.x.offset(i as isize);
         y = *track_less.y.offset(i as isize);
-        j = distance(borg.c, loc(x, y));
+        j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;
             b_stair = i;
@@ -543,9 +521,7 @@ pub unsafe extern "C" fn borg_flow_take(
             x = (*take).x as ::core::ffi::c_int;
             y = (*take).y as ::core::ffi::c_int;
             if b_stair != -(1 as ::core::ffi::c_int)
-                && *borg
-                    .trait_0
-                    .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                     < 10 as ::core::ffi::c_int
             {
                 j = borg_distance(
@@ -571,19 +547,13 @@ pub unsafe extern "C" fn borg_flow_take(
                             && (*ag).info as ::core::ffi::c_int & BORG_VIEW == 0)
                         {
                             if !((*take).tval
-                                == *borg
-                                    .trait_0
-                                    .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize)
-                                && *borg
-                                    .trait_0
-                                    .offset(BI_AMISSILES as ::core::ffi::c_int as isize)
+                                == crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize]
+                                && crate::bridge::st().borg.trait_[(BI_AMISSILES as ::core::ffi::c_int) as usize]
                                     >= full_quiver)
                             {
-                                if *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+                                if crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                                     >= 500000 as ::core::ffi::c_int
-                                    && *borg_cfg.offset(
-                                        BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int as isize,
-                                    ) == 0 as ::core::ffi::c_int
+                                    && crate::bridge::st().core.cfg[(BORG_MONEY_SCUM_AMOUNT as ::core::ffi::c_int) as usize] == 0 as ::core::ffi::c_int
                                 {
                                     if (*take).tval == TV_GOLD as ::core::ffi::c_int {
                                         current_block_29 = 7175849428784450219;
@@ -602,9 +572,7 @@ pub unsafe extern "C" fn borg_flow_take(
                                         || (*take).tval == TV_ARROW as ::core::ffi::c_int
                                         || (*take).tval == TV_BOLT as ::core::ffi::c_int)
                                         && (*take).tval
-                                            != *borg
-                                                .trait_0
-                                                .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize)
+                                            != crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize]
                                     {
                                         current_block_29 = 7175849428784450219;
                                     } else {
@@ -618,9 +586,7 @@ pub unsafe extern "C" fn borg_flow_take(
                                     _ => {
                                         borg_flow_clear();
                                         if !(nearness > 5 as ::core::ffi::c_int
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                                                 < 20 as ::core::ffi::c_int
                                             && borg_flow_cost_stair(y, x, b_stair) > leash)
                                         {
@@ -686,9 +652,7 @@ pub unsafe extern "C" fn borg_flow_take_scum(
     }
     if (*borg_items.offset(
         ((*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
             - 1 as ::core::ffi::c_int) as isize,
     ))
     .iqty
@@ -701,7 +665,7 @@ pub unsafe extern "C" fn borg_flow_take_scum(
     while i < track_less.num as ::core::ffi::c_int {
         x = *track_less.x.offset(i as isize);
         y = *track_less.y.offset(i as isize);
-        j = distance(borg.c, loc(x, y));
+        j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;
             b_stair = i;
@@ -780,7 +744,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
     while i < track_less.num as ::core::ffi::c_int {
         x = *track_less.x.offset(i as isize);
         y = *track_less.y.offset(i as isize);
-        j = distance(borg.c, loc(x, y));
+        j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;
             b_stair = i;
@@ -835,9 +799,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
                     }
                 } else if (*borg_items.offset(
                     ((*z_info).pack_size as ::core::ffi::c_int
-                        - *borg
-                            .trait_0
-                            .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+                        - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                         - 1 as ::core::ffi::c_int) as isize,
                 ))
                 .iqty
@@ -846,9 +808,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
                     ii = 0 as ::core::ffi::c_int;
                     while ii
                         < (*z_info).pack_size as ::core::ffi::c_int
-                            - *borg
-                                .trait_0
-                                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+                            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                     {
                         if !((*borg_items.offset(ii as isize)).iqty == 0) {
                             if !((*take).kidx != (*borg_items.offset(ii as isize)).kind) {
@@ -877,9 +837,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
             }
             if (*borg_items.offset(
                 ((*z_info).pack_size as ::core::ffi::c_int
-                    - *borg
-                        .trait_0
-                        .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+                    - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
                     - 1 as ::core::ffi::c_int) as isize,
             ))
             .iqty
@@ -932,7 +890,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
                         ));
                         item_bad = false_0 != 0;
                     }
-                    if *borg_cfg.offset(BORG_MUNCHKIN_START as ::core::ffi::c_int as isize) != 0 {
+                    if crate::bridge::st().core.cfg[(BORG_MUNCHKIN_START as ::core::ffi::c_int) as usize] != 0 {
                         if (*take).value >= 1 as ::core::ffi::c_int {
                             item_bad = false_0 != 0;
                         }

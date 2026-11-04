@@ -4,11 +4,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_flow_kill_h::borg_race_death;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_wield_slot;
 pub use crate::headers::borg_item_h::{
     borg_item, borg_items, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE,
@@ -417,9 +413,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
         if !((*item).iqty == 0) {
             if (*item).aware {
                 if !(borg_wield_slot(item) == -(1 as ::core::ffi::c_int)) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                         < 50 as ::core::ffi::c_int
                         && (*item).tval as ::core::ffi::c_int != TV_DIGGING as ::core::ffi::c_int)
                     {
@@ -992,42 +986,28 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                             as ::core::ffi::c_int;
                                         v = (v as ::core::ffi::c_int
                                             + damage
-                                                * (*borg.trait_0.offset(
-                                                    BI_BLOWS as ::core::ffi::c_int as isize,
-                                                ) + 1 as ::core::ffi::c_int))
+                                                * (crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize] + 1 as ::core::ffi::c_int))
                                             as int32_t;
                                         v = (v as ::core::ffi::c_long
-                                            + (*borg
-                                                .trait_0
-                                                .offset(BI_TOHIT as ::core::ffi::c_int as isize)
+                                            + (crate::bridge::st().borg.trait_[(BI_TOHIT as ::core::ffi::c_int) as usize]
                                                 + (*item).to_h as ::core::ffi::c_int)
                                                 as ::core::ffi::c_long
                                                 * 100 as ::core::ffi::c_long)
                                             as int32_t;
                                         v = (v as ::core::ffi::c_long
-                                            + (*borg
-                                                .trait_0
-                                                .offset(BI_TODAM as ::core::ffi::c_int as isize)
+                                            + (crate::bridge::st().borg.trait_[(BI_TODAM as ::core::ffi::c_int) as usize]
                                                 + (*item).to_d as ::core::ffi::c_int)
                                                 as ::core::ffi::c_long
                                                 * 75 as ::core::ffi::c_long)
                                             as int32_t;
                                         dam = damage
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
                                         dam = damage
                                             * 2 as ::core::ffi::c_int
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ANIMAL as ::core::ffi::c_int as isize)
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ANIMAL as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WB_ELEC as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WB_ELEC as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && weapon_swap_slay_animal as ::core::ffi::c_int != 0
                                         {
@@ -1037,9 +1017,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_evil as ::core::ffi::c_int != 0
                                         {
@@ -1050,12 +1028,8 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                         }
                                         dam = damage
                                             * 3 as ::core::ffi::c_int
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ORC as ::core::ffi::c_int as isize)
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ORC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_orc as ::core::ffi::c_int != 0
                                         {
@@ -1064,9 +1038,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_TROLL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_TROLL as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_troll as ::core::ffi::c_int != 0
                                         {
@@ -1075,9 +1047,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_UNDEAD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_UNDEAD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_undead as ::core::ffi::c_int != 0
                                         {
@@ -1087,9 +1057,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_DEMON as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_DEMON as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_demon as ::core::ffi::c_int != 0
                                         {
@@ -1099,9 +1067,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_GIANT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_GIANT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slay_giant as ::core::ffi::c_int != 0
                                         {
@@ -1111,13 +1077,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_DRAGON as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_DRAGON as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WK_DRAGON as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WK_DRAGON as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && weapon_swap_slay_dragon as ::core::ffi::c_int != 0
                                         {
@@ -1127,9 +1089,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_ACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_ACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_brand_acid as ::core::ffi::c_int != 0
                                         {
@@ -1138,9 +1098,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_ELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_ELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_brand_elec as ::core::ffi::c_int != 0
                                         {
@@ -1149,9 +1107,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_FIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_FIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_brand_fire as ::core::ffi::c_int != 0
                                         {
@@ -1160,9 +1116,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_COLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_COLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_brand_cold as ::core::ffi::c_int != 0
                                         {
@@ -1171,9 +1125,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_POIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_POIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_brand_pois as ::core::ffi::c_int != 0
                                         {
@@ -1182,13 +1134,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ORC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ORC as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && weapon_swap_slay_orc as ::core::ffi::c_int != 0
                                         {
@@ -1197,13 +1145,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_TROLL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_TROLL as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && weapon_swap_slay_troll as ::core::ffi::c_int != 0
                                         {
@@ -1213,17 +1157,11 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                             <= 40 as ::core::ffi::c_int
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 >= 25 as ::core::ffi::c_int
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_GOLD as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
                                                 < 100000 as ::core::ffi::c_int
                                             && weapon_swap_digger as ::core::ffi::c_int != 0
                                         {
@@ -1233,9 +1171,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                     + 1000 as ::core::ffi::c_long))
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_SDIG as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_SDIG as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_slow_digest as ::core::ffi::c_int != 0
                                         {
@@ -1258,9 +1194,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 - 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_REG as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_REG as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_regenerate as ::core::ffi::c_int != 0
                                         {
@@ -1268,9 +1202,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_ESP as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_telepathy as ::core::ffi::c_int != 0
                                         {
@@ -1278,9 +1210,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_LIGHT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_light as ::core::ffi::c_int != 0
                                         {
@@ -1288,9 +1218,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_SINV as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_SINV as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_see_invis as ::core::ffi::c_int != 0
                                         {
@@ -1298,9 +1226,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 50000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_FEATH as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_FEATH as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_ffall as ::core::ffi::c_int != 0
                                         {
@@ -1308,9 +1234,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 10 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_FRACT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_free_act as ::core::ffi::c_int != 0
                                         {
@@ -1318,13 +1242,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 10000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_HLIFE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
                                                 < 50 as ::core::ffi::c_int
                                             && weapon_swap_hold_life as ::core::ffi::c_int != 0
                                         {
@@ -1332,9 +1252,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IFIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_immune_fire as ::core::ffi::c_int != 0
                                         {
@@ -1342,9 +1260,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 70000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_immune_acid as ::core::ffi::c_int != 0
                                         {
@@ -1352,9 +1268,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 30000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_immune_cold as ::core::ffi::c_int != 0
                                         {
@@ -1362,9 +1276,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 50000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_immune_elec as ::core::ffi::c_int != 0
                                         {
@@ -1372,9 +1284,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 25000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RFIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_fire as ::core::ffi::c_int != 0
                                         {
@@ -1382,9 +1292,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 8000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_acid as ::core::ffi::c_int != 0
                                         {
@@ -1392,9 +1300,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 6000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RCOLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_cold as ::core::ffi::c_int != 0
                                         {
@@ -1402,9 +1308,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 4000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_elec as ::core::ffi::c_int != 0
                                         {
@@ -1421,9 +1325,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 10000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RPOIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_pois as ::core::ffi::c_int != 0
                                         {
@@ -1431,9 +1333,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 20000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RCONF as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_conf as ::core::ffi::c_int != 0
                                         {
@@ -1441,9 +1341,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RSND as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_sound as ::core::ffi::c_int != 0
                                         {
@@ -1451,9 +1349,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RLITE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_light as ::core::ffi::c_int != 0
                                         {
@@ -1461,9 +1357,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 800 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDARK as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_dark as ::core::ffi::c_int != 0
                                         {
@@ -1471,9 +1365,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 800 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RKAOS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_chaos as ::core::ffi::c_int != 0
                                         {
@@ -1481,9 +1373,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 8000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_disen as ::core::ffi::c_int != 0
                                         {
@@ -1491,9 +1381,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RSHRD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_shard as ::core::ffi::c_int != 0
                                         {
@@ -1501,9 +1389,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 100 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNXUS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_nexus as ::core::ffi::c_int != 0
                                         {
@@ -1511,9 +1397,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 100 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_blind as ::core::ffi::c_int != 0
                                         {
@@ -1521,9 +1405,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNTHR as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_neth as ::core::ffi::c_int != 0
                                         {
@@ -1531,9 +1413,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5500 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RFEAR as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RFEAR as ::core::ffi::c_int) as usize]
                                             == 0
                                             && weapon_swap_resist_fear as ::core::ffi::c_int != 0
                                         {
@@ -1541,30 +1421,22 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 5500 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                             >= 75 as ::core::ffi::c_int
-                                            && (*borg
-                                                .trait_0
-                                                .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                            && (crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                                 == 0
                                                 && weapon_swap_immune_cold as ::core::ffi::c_int
                                                     != 0
-                                                || *borg.trait_0.offset(
-                                                    BI_IFIRE as ::core::ffi::c_int as isize,
-                                                ) == 0
+                                                || crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] == 0
                                                     && weapon_swap_immune_fire
                                                         as ::core::ffi::c_int
                                                         != 0)
                                         {
-                                            if *borg_race_death.offset(borg.id.tarrasque as isize)
+                                            if *borg_race_death.offset(crate::bridge::st().borg.id.tarrasque as isize)
                                                 as ::core::ffi::c_int
                                                 == 0 as ::core::ffi::c_int
                                             {
-                                                if *borg
-                                                    .trait_0
-                                                    .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                                if crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                                     == 0
                                                     && weapon_swap_immune_cold as ::core::ffi::c_int
                                                         != 0
@@ -1573,9 +1445,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                         + 90000 as ::core::ffi::c_long)
                                                         as int32_t;
                                                 }
-                                                if *borg
-                                                    .trait_0
-                                                    .offset(BI_IFIRE as ::core::ffi::c_int as isize)
+                                                if crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize]
                                                     == 0
                                                     && weapon_swap_immune_fire as ::core::ffi::c_int
                                                         != 0
@@ -1586,13 +1456,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 }
                                             }
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNTHR as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 55 as ::core::ffi::c_int
                                             && weapon_swap_resist_neth as ::core::ffi::c_int != 0
@@ -1601,13 +1467,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 100000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RKAOS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 60 as ::core::ffi::c_int
                                             && weapon_swap_resist_chaos as ::core::ffi::c_int != 0
@@ -1616,13 +1478,9 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                 + 100000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 60 as ::core::ffi::c_int
                                             && weapon_swap_resist_disen as ::core::ffi::c_int != 0
@@ -1702,9 +1560,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
     weapon_swap = b_i + 1 as ::core::ffi::c_int;
     item = borg_items.offset(b_i as isize) as *mut borg_item;
     if (borg_spell_legal_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || *borg
-            .trait_0
-            .offset(BI_AENCH_SWEP as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize]
             >= 1 as ::core::ffi::c_int)
         && (*item).tval as ::core::ffi::c_int != TV_DIGGING as ::core::ffi::c_int
     {
@@ -2004,9 +1860,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
         if !((*item).iqty == 0) {
             if (*item).aware {
                 if !(borg_wield_slot(item) == -(1 as ::core::ffi::c_int)) {
-                    if !(*borg
-                        .trait_0
-                        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                    if !(crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                         < 50 as ::core::ffi::c_int)
                     {
                         if !((*item).cursed as ::core::ffi::c_int != 0 && !(*item).uncursable) {
@@ -2460,42 +2314,28 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                             as ::core::ffi::c_int;
                                         v = (v as ::core::ffi::c_int
                                             + damage
-                                                * (*borg.trait_0.offset(
-                                                    BI_BLOWS as ::core::ffi::c_int as isize,
-                                                ) + 1 as ::core::ffi::c_int))
+                                                * (crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize] + 1 as ::core::ffi::c_int))
                                             as int32_t;
                                         v = (v as ::core::ffi::c_long
-                                            + (*borg
-                                                .trait_0
-                                                .offset(BI_TOHIT as ::core::ffi::c_int as isize)
+                                            + (crate::bridge::st().borg.trait_[(BI_TOHIT as ::core::ffi::c_int) as usize]
                                                 + (*item).to_h as ::core::ffi::c_int)
                                                 as ::core::ffi::c_long
                                                 * 100 as ::core::ffi::c_long)
                                             as int32_t;
                                         v = (v as ::core::ffi::c_long
-                                            + (*borg
-                                                .trait_0
-                                                .offset(BI_TODAM as ::core::ffi::c_int as isize)
+                                            + (crate::bridge::st().borg.trait_[(BI_TODAM as ::core::ffi::c_int) as usize]
                                                 + (*item).to_d as ::core::ffi::c_int)
                                                 as ::core::ffi::c_long
                                                 * 35 as ::core::ffi::c_long)
                                             as int32_t;
                                         dam = damage
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
                                         dam = damage
                                             * 2 as ::core::ffi::c_int
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ANIMAL as ::core::ffi::c_int as isize)
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ANIMAL as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WB_ELEC as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WB_ELEC as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && armour_swap_slay_animal as ::core::ffi::c_int != 0
                                         {
@@ -2505,9 +2345,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_evil as ::core::ffi::c_int != 0
                                         {
@@ -2518,12 +2356,8 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                         }
                                         dam = damage
                                             * 3 as ::core::ffi::c_int
-                                            * *borg
-                                                .trait_0
-                                                .offset(BI_BLOWS as ::core::ffi::c_int as isize);
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_UNDEAD as ::core::ffi::c_int as isize)
+                                            * crate::bridge::st().borg.trait_[(BI_BLOWS as ::core::ffi::c_int) as usize];
+                                        if crate::bridge::st().borg.trait_[(BI_WS_UNDEAD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_undead as ::core::ffi::c_int != 0
                                         {
@@ -2533,9 +2367,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_DEMON as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_DEMON as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_demon as ::core::ffi::c_int != 0
                                         {
@@ -2545,9 +2377,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_GIANT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_GIANT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_giant as ::core::ffi::c_int != 0
                                         {
@@ -2557,13 +2387,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_DRAGON as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_DRAGON as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WK_DRAGON as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WK_DRAGON as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && armour_swap_slay_dragon as ::core::ffi::c_int != 0
                                         {
@@ -2573,9 +2399,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_ACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_ACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_brand_acid as ::core::ffi::c_int != 0
                                         {
@@ -2584,9 +2408,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_ELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_ELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_brand_elec as ::core::ffi::c_int != 0
                                         {
@@ -2595,9 +2417,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_FIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_FIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_brand_fire as ::core::ffi::c_int != 0
                                         {
@@ -2606,9 +2426,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_COLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_COLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_brand_cold as ::core::ffi::c_int != 0
                                         {
@@ -2617,9 +2435,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WB_POIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WB_POIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_brand_pois as ::core::ffi::c_int != 0
                                         {
@@ -2628,9 +2444,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ORC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ORC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_orc as ::core::ffi::c_int != 0
                                         {
@@ -2639,9 +2453,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_TROLL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_TROLL as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slay_troll as ::core::ffi::c_int != 0
                                         {
@@ -2651,13 +2463,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_ORC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_ORC as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && armour_swap_slay_orc as ::core::ffi::c_int != 0
                                         {
@@ -2666,13 +2474,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_WS_TROLL as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_WS_TROLL as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_WS_EVIL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_WS_EVIL as ::core::ffi::c_int) as usize]
                                                 == 0
                                             && armour_swap_slay_troll as ::core::ffi::c_int != 0
                                         {
@@ -2682,9 +2486,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                     / 2 as ::core::ffi::c_int)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_SDIG as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_SDIG as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_slow_digest as ::core::ffi::c_int != 0
                                         {
@@ -2707,9 +2509,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 - 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_REG as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_REG as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_regenerate as ::core::ffi::c_int != 0
                                         {
@@ -2717,9 +2517,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_ESP as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_ESP as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_telepathy as ::core::ffi::c_int != 0
                                         {
@@ -2727,9 +2525,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_LIGHT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_light as ::core::ffi::c_int != 0
                                         {
@@ -2737,9 +2533,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_SINV as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_SINV as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_see_invis as ::core::ffi::c_int != 0
                                         {
@@ -2747,9 +2541,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 50000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_FEATH as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_FEATH as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_ffall as ::core::ffi::c_int != 0
                                         {
@@ -2757,9 +2549,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 10 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_FRACT as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_free_act as ::core::ffi::c_int != 0
                                         {
@@ -2767,13 +2557,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 10000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_HLIFE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
                                                 < 50 as ::core::ffi::c_int
                                             && armour_swap_hold_life as ::core::ffi::c_int != 0
                                         {
@@ -2781,9 +2567,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IFIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_immune_fire as ::core::ffi::c_int != 0
                                         {
@@ -2791,9 +2575,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 70000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_immune_acid as ::core::ffi::c_int != 0
                                         {
@@ -2801,9 +2583,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 30000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_immune_cold as ::core::ffi::c_int != 0
                                         {
@@ -2811,9 +2591,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 50000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_IELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_IELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_immune_elec as ::core::ffi::c_int != 0
                                         {
@@ -2821,9 +2599,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 25000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RFIRE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_fire as ::core::ffi::c_int != 0
                                         {
@@ -2831,9 +2607,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 8000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RACID as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_acid as ::core::ffi::c_int != 0
                                         {
@@ -2841,9 +2615,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 6000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RCOLD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_cold as ::core::ffi::c_int != 0
                                         {
@@ -2851,9 +2623,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 4000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RELEC as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_elec as ::core::ffi::c_int != 0
                                         {
@@ -2870,9 +2640,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 10000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RPOIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_pois as ::core::ffi::c_int != 0
                                         {
@@ -2880,9 +2648,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 20000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RCONF as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_conf as ::core::ffi::c_int != 0
                                         {
@@ -2890,9 +2656,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RSND as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_sound as ::core::ffi::c_int != 0
                                         {
@@ -2900,9 +2664,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 2000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RLITE as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_light as ::core::ffi::c_int != 0
                                         {
@@ -2910,9 +2672,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 800 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDARK as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_dark as ::core::ffi::c_int != 0
                                         {
@@ -2920,9 +2680,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 800 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RKAOS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_chaos as ::core::ffi::c_int != 0
                                         {
@@ -2930,9 +2688,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 8000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_disen as ::core::ffi::c_int != 0
                                         {
@@ -2940,9 +2696,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RSHRD as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_shard as ::core::ffi::c_int != 0
                                         {
@@ -2950,9 +2704,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 100 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNXUS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_nexus as ::core::ffi::c_int != 0
                                         {
@@ -2960,9 +2712,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 100 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_blind as ::core::ffi::c_int != 0
                                         {
@@ -2970,9 +2720,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 5000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNTHR as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize]
                                             == 0
                                             && armour_swap_resist_neth as ::core::ffi::c_int != 0
                                         {
@@ -2980,30 +2728,22 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 5500 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                             >= 75 as ::core::ffi::c_int
-                                            && (*borg
-                                                .trait_0
-                                                .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                            && (crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                                 == 0
                                                 && armour_swap_immune_cold as ::core::ffi::c_int
                                                     != 0
-                                                || *borg.trait_0.offset(
-                                                    BI_IFIRE as ::core::ffi::c_int as isize,
-                                                ) == 0
+                                                || crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize] == 0
                                                     && armour_swap_immune_fire
                                                         as ::core::ffi::c_int
                                                         != 0)
                                         {
-                                            if *borg_race_death.offset(borg.id.tarrasque as isize)
+                                            if *borg_race_death.offset(crate::bridge::st().borg.id.tarrasque as isize)
                                                 as ::core::ffi::c_int
                                                 == 0 as ::core::ffi::c_int
                                             {
-                                                if *borg
-                                                    .trait_0
-                                                    .offset(BI_ICOLD as ::core::ffi::c_int as isize)
+                                                if crate::bridge::st().borg.trait_[(BI_ICOLD as ::core::ffi::c_int) as usize]
                                                     == 0
                                                     && armour_swap_immune_cold as ::core::ffi::c_int
                                                         != 0
@@ -3012,9 +2752,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                         + 90000 as ::core::ffi::c_long)
                                                         as int32_t;
                                                 }
-                                                if *borg
-                                                    .trait_0
-                                                    .offset(BI_IFIRE as ::core::ffi::c_int as isize)
+                                                if crate::bridge::st().borg.trait_[(BI_IFIRE as ::core::ffi::c_int) as usize]
                                                     == 0
                                                     && armour_swap_immune_fire as ::core::ffi::c_int
                                                         != 0
@@ -3025,13 +2763,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 }
                                             }
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RNTHR as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 55 as ::core::ffi::c_int
                                             && weapon_swap_resist_neth == 0
@@ -3041,13 +2775,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 105000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RKAOS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 60 as ::core::ffi::c_int
                                             && weapon_swap_resist_chaos == 0
@@ -3057,13 +2787,9 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                 + 104000 as ::core::ffi::c_long)
                                                 as int32_t;
                                         }
-                                        if *borg
-                                            .trait_0
-                                            .offset(BI_RDIS as ::core::ffi::c_int as isize)
+                                        if crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize]
                                             == 0
-                                            && *borg
-                                                .trait_0
-                                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                            && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                                 + 1 as ::core::ffi::c_int
                                                 >= 60 as ::core::ffi::c_int
                                             && weapon_swap_resist_disen == 0
@@ -3398,9 +3124,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
         return;
     }
     if borg_spell_legal_fail(ENCHANT_ARMOUR, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || *borg
-            .trait_0
-            .offset(BI_AENCH_SARM as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_AENCH_SARM as ::core::ffi::c_int) as usize]
             >= 1 as ::core::ffi::c_int
     {
         if ((*item).to_a as ::core::ffi::c_int) < 10 as ::core::ffi::c_int {

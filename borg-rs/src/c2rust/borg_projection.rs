@@ -7,11 +7,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 use crate::headers::borg_danger_h::borg_fear_region;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_race_name};
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 pub use crate::headers::borg_trait_h::{
     C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS, BI_ADETDOOR,
@@ -294,19 +290,19 @@ pub unsafe extern "C" fn borg_projectable(
     while dist <= (*z_info).max_range as ::core::ffi::c_int {
         ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
-        if *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+        if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 3 as ::core::ffi::c_int
-            || borg.morgoth_position as ::core::ffi::c_int != 0
-            || borg.mon.scary as ::core::ffi::c_int != 0
+            || crate::bridge::st().borg.morgoth_position as ::core::ffi::c_int != 0
+            || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0
         {
             if dist > 20 as ::core::ffi::c_int
                 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
             {
                 break;
             }
-        } else if *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
-            < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
+        } else if crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
+            < crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                 / 2 as ::core::ffi::c_int
         {
             if dist > 10 as ::core::ffi::c_int
@@ -314,9 +310,9 @@ pub unsafe extern "C" fn borg_projectable(
             {
                 break;
             }
-        } else if borg_fear_region[(borg.c.y / 11 as ::core::ffi::c_int) as usize]
-            [(borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
-            >= borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
+        } else if borg_fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
+            [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize] as ::core::ffi::c_int
+            >= crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 20 as ::core::ffi::c_int
         {
             if dist > (*z_info).max_range as ::core::ffi::c_int
                 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
@@ -601,8 +597,8 @@ pub unsafe extern "C" fn borg_target(mut t: loc, mut require_monster: bool) -> b
     }
     borg_keypress('*' as i32 as keycode_t);
     borg_keypress('p' as i32 as keycode_t);
-    x1 = borg.c.x;
-    y1 = borg.c.y;
+    x1 = crate::bridge::st().borg.c.x;
+    y1 = crate::bridge::st().borg.c.y;
     x2 = t.x;
     y2 = t.y;
     while y1 < y2 && x1 < x2 {
@@ -668,45 +664,45 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
         y,
         x,
     ));
-    n_x = borg.c.x;
-    n_y = borg.c.y;
-    if (*crate::bridge::grid(borg.c.x, (borg.c.y + 1 as ::core::ffi::c_int))).feat
+    n_x = crate::bridge::st().borg.c.x;
+    n_y = crate::bridge::st().borg.c.y;
+    if (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y + 1 as ::core::ffi::c_int))).feat
         as ::core::ffi::c_int
         == FEAT_FLOOR as ::core::ffi::c_int
-        && (*crate::bridge::grid(borg.c.x, (borg.c.y - 1 as ::core::ffi::c_int)))
+        && (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y - 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-        && ((*crate::bridge::grid(borg.c.x, (borg.c.y + 2 as ::core::ffi::c_int)))
+        && ((*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y + 2 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-            || (*crate::bridge::grid(borg.c.x, (borg.c.y - 2 as ::core::ffi::c_int)))
+            || (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y - 2 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
                 == FEAT_FLOOR as ::core::ffi::c_int)
-        && ((*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), borg.c.y))
+        && ((*crate::bridge::grid((crate::bridge::st().borg.c.x + 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y))
             .feat as ::core::ffi::c_int
             != FEAT_FLOOR as ::core::ffi::c_int
-            && (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), borg.c.y))
+            && (*crate::bridge::grid((crate::bridge::st().borg.c.x - 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y))
             .feat as ::core::ffi::c_int
                 != FEAT_FLOOR as ::core::ffi::c_int)
     {
         x_hall = true_0 != 0;
     }
-    if (*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), borg.c.y)).feat
+    if (*crate::bridge::grid((crate::bridge::st().borg.c.x + 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y)).feat
         as ::core::ffi::c_int
         == FEAT_FLOOR as ::core::ffi::c_int
-        && (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), borg.c.y))
+        && (*crate::bridge::grid((crate::bridge::st().borg.c.x - 1 as ::core::ffi::c_int), crate::bridge::st().borg.c.y))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-        && ((*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), borg.c.y))
+        && ((*crate::bridge::grid((crate::bridge::st().borg.c.x + 2 as ::core::ffi::c_int), crate::bridge::st().borg.c.y))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-            || (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), borg.c.y))
+            || (*crate::bridge::grid((crate::bridge::st().borg.c.x - 2 as ::core::ffi::c_int), crate::bridge::st().borg.c.y))
             .feat as ::core::ffi::c_int
                 == FEAT_FLOOR as ::core::ffi::c_int)
-        && ((*crate::bridge::grid(borg.c.x, (borg.c.y + 1 as ::core::ffi::c_int)))
+        && ((*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y + 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             != FEAT_FLOOR as ::core::ffi::c_int
-            && (*crate::bridge::grid(borg.c.x, (borg.c.y - 1 as ::core::ffi::c_int)))
+            && (*crate::bridge::grid(crate::bridge::st().borg.c.x, (crate::bridge::st().borg.c.y - 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
                 != FEAT_FLOOR as ::core::ffi::c_int)
     {
@@ -743,8 +739,8 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
         }
         if (*crate::bridge::grid(n_x, n_y)).feat as ::core::ffi::c_int
             == FEAT_NONE as ::core::ffi::c_int
-            && (n_y != borg.c.y || !y_hall)
-            && (n_x != borg.c.x || !x_hall)
+            && (n_y != crate::bridge::st().borg.c.y || !y_hall)
+            && (n_x != crate::bridge::st().borg.c.x || !x_hall)
         {
             borg_note(format(
                 b"# Guessing wall (%d,%d) near target (%d,%d)\0" as *const u8
@@ -760,7 +756,7 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
             return found;
         }
         if n_x == x && n_y == y {
-            borg_inc_motion(&raw mut n_y, &raw mut n_x, y, x, borg.c.y, borg.c.x);
+            borg_inc_motion(&raw mut n_y, &raw mut n_x, y, x, crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x);
             borg_note(format(
                 b"# Guessing wall (%d,%d) near target (%d,%d)\0" as *const u8
                     as *const ::core::ffi::c_char,
@@ -774,6 +770,6 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
             found = true_0 != 0;
             return found;
         }
-        borg_inc_motion(&raw mut n_y, &raw mut n_x, borg.c.y, borg.c.x, y, x);
+        borg_inc_motion(&raw mut n_y, &raw mut n_x, crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x);
     }
 }

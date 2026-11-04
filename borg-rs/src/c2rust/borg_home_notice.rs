@@ -5,11 +5,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_item_activation_h::act_glyph;
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
@@ -1204,18 +1200,14 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
                     }
                     num_blow = borg_calc_blows(item) as int16_t;
                     if (*item).to_d as ::core::ffi::c_int > 8 as ::core::ffi::c_int
-                        || *borg
-                            .trait_0
-                            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                        || crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                             < 15 as ::core::ffi::c_int
                     {
                         home_damage = (home_damage as ::core::ffi::c_int
                             + num_blow as ::core::ffi::c_int
                                 * ((*item).dd as ::core::ffi::c_int
                                     * (*item).ds as ::core::ffi::c_int
-                                    + (*borg
-                                        .trait_0
-                                        .offset(BI_TODAM as ::core::ffi::c_int as isize)
+                                    + (crate::bridge::st().borg.trait_[(BI_TODAM as ::core::ffi::c_int) as usize]
                                         + (*item).to_d as ::core::ffi::c_int)))
                             as int16_t;
                     } else {
@@ -1223,9 +1215,7 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
                             + num_blow as ::core::ffi::c_int
                                 * ((*item).dd as ::core::ffi::c_int
                                     * (*item).ds as ::core::ffi::c_int
-                                    + (*borg
-                                        .trait_0
-                                        .offset(BI_TODAM as ::core::ffi::c_int as isize)
+                                    + (crate::bridge::st().borg.trait_[(BI_TODAM as ::core::ffi::c_int) as usize]
                                         + 8 as ::core::ffi::c_int)))
                             as int16_t;
                     }
@@ -1444,9 +1434,7 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
                 }
                 22 => {
                     if !((*item).pval as ::core::ffi::c_int <= 3 as ::core::ffi::c_int
-                        && *borg
-                            .trait_0
-                            .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                             > 30 as ::core::ffi::c_int)
                     {
                         if (*item).sval as ::core::ffi::c_int == sv_staff_teleportation {
@@ -1460,9 +1448,7 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
                 }
                 2 | 3 | 4 => {
                     if !((*item).tval as ::core::ffi::c_int
-                        != *borg
-                            .trait_0
-                            .offset(BI_AMMO_TVAL as ::core::ffi::c_int as isize))
+                        != crate::bridge::st().borg.trait_[(BI_AMMO_TVAL as ::core::ffi::c_int) as usize])
                     {
                         if !((*item).value <= 0 as int32_t) {
                             num_missile = (num_missile as ::core::ffi::c_int
@@ -1511,27 +1497,27 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
     if borg_spell_legal(RECHARGING) {
         num_recharge = (num_recharge as ::core::ffi::c_int + 1000 as ::core::ffi::c_int) as int16_t;
     }
-    if *borg.trait_0.offset(BI_SSTR as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SSTR as ::core::ffi::c_int) as usize] != 0 {
         num_fix_stat[STAT_STR as ::core::ffi::c_int as usize] =
             (num_fix_stat[STAT_STR as ::core::ffi::c_int as usize] as ::core::ffi::c_int
                 + 1000 as ::core::ffi::c_int) as int16_t;
     }
-    if *borg.trait_0.offset(BI_SINT as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SINT as ::core::ffi::c_int) as usize] != 0 {
         num_fix_stat[STAT_INT as ::core::ffi::c_int as usize] =
             (num_fix_stat[STAT_INT as ::core::ffi::c_int as usize] as ::core::ffi::c_int
                 + 1000 as ::core::ffi::c_int) as int16_t;
     }
-    if *borg.trait_0.offset(BI_SWIS as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SWIS as ::core::ffi::c_int) as usize] != 0 {
         num_fix_stat[STAT_WIS as ::core::ffi::c_int as usize] =
             (num_fix_stat[STAT_WIS as ::core::ffi::c_int as usize] as ::core::ffi::c_int
                 + 1000 as ::core::ffi::c_int) as int16_t;
     }
-    if *borg.trait_0.offset(BI_SDEX as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SDEX as ::core::ffi::c_int) as usize] != 0 {
         num_fix_stat[STAT_DEX as ::core::ffi::c_int as usize] =
             (num_fix_stat[STAT_DEX as ::core::ffi::c_int as usize] as ::core::ffi::c_int
                 + 1000 as ::core::ffi::c_int) as int16_t;
     }
-    if *borg.trait_0.offset(BI_SCON as ::core::ffi::c_int as isize) != 0 {
+    if crate::bridge::st().borg.trait_[(BI_SCON as ::core::ffi::c_int) as usize] != 0 {
         num_fix_stat[STAT_CON as ::core::ffi::c_int as usize] =
             (num_fix_stat[STAT_CON as ::core::ffi::c_int as usize] as ::core::ffi::c_int
                 + 1000 as ::core::ffi::c_int) as int16_t;

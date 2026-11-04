@@ -11,19 +11,7 @@ pub use crate::headers::borg_formulas_h::{
     borg_array, value_sec, value_type, VT_ACTIVATION, VT_CLASS, VT_CONFIG, VT_MAX, VT_NONE,
     VT_RANGE_INDEX, VT_TRAIT,
 };
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 pub use crate::headers::borg_init_h::{borg_setting, borg_settings};
 use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_activation_h::borg_findact;
@@ -829,15 +817,15 @@ pub unsafe extern "C" fn calculate_from_value(
     mut range_index: ::core::ffi::c_int,
 ) -> int32_t {
     match (*value).type_0 as ::core::ffi::c_int {
-        3 => return *borg.activation.offset((*value).index as isize) as int32_t,
-        1 => return *borg.trait_0.offset((*value).index as isize) as int32_t,
-        2 => return *borg_cfg.offset((*value).index as isize) as int32_t,
+        3 => return crate::bridge::st().borg.activation[((*value).index) as usize] as int32_t,
+        1 => return crate::bridge::st().borg.trait_[((*value).index) as usize] as int32_t,
+        2 => return crate::bridge::st().core.cfg[((*value).index) as usize] as int32_t,
         4 => {
-            return (*borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) as int32_t
+            return (crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] as int32_t
                 == (*value).index) as ::core::ffi::c_int;
         }
         0 => return range_index as int32_t,
-        _ => return *borg.has.offset((*value).index as isize) as int32_t,
+        _ => return crate::bridge::st().borg.has[((*value).index) as usize] as int32_t,
     };
 }
 #[no_mangle]
@@ -1322,9 +1310,7 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
             total = (total as ::core::ffi::c_long + 999999 as ::core::ffi::c_long) as int32_t;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_STR_INDEX as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_STR_INDEX as ::core::ffi::c_int) as usize]
         < 15 as ::core::ffi::c_int
     {
         if borg_item_weight(
@@ -1404,9 +1390,7 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
     if borg_can_cast() as ::core::ffi::c_int != 0
         && (cur_wgt - max_wgt) / 10 as ::core::ffi::c_int > 0 as ::core::ffi::c_int
     {
-        let mut max_sp: ::core::ffi::c_int = *borg
-            .trait_0
-            .offset(BI_SP_ADJ as ::core::ffi::c_int as isize)
+        let mut max_sp: ::core::ffi::c_int = crate::bridge::st().borg.trait_[(BI_SP_ADJ as ::core::ffi::c_int) as usize]
             / 100 as ::core::ffi::c_int
             + 1 as ::core::ffi::c_int;
         max_sp -= (cur_wgt - max_wgt) / 10 as ::core::ffi::c_int;
@@ -1431,28 +1415,22 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
                     * 3200 as ::core::ffi::c_long) as int32_t;
         }
     }
-    if *borg
-        .trait_0
-        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
         <= 40 as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
             >= 25 as ::core::ffi::c_int
-        && *borg.trait_0.offset(BI_GOLD as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_GOLD as ::core::ffi::c_int) as usize]
             < 100000 as ::core::ffi::c_int
         && (*borg_items.offset((*z_info).pack_size as isize)).tval as ::core::ffi::c_int
             != TV_DIGGING as ::core::ffi::c_int
-        && *borg
-            .trait_0
-            .offset(BI_ADIGGER as ::core::ffi::c_int as isize)
+        && crate::bridge::st().borg.trait_[(BI_ADIGGER as ::core::ffi::c_int) as usize]
             == 1 as ::core::ffi::c_int
     {
         total = (total as ::core::ffi::c_long + 5000 as ::core::ffi::c_long) as int32_t;
     }
     let mut book: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     while book < 9 as ::core::ffi::c_int {
-        if !(borg.amt_book[book as usize] == 0) {
+        if !(crate::bridge::st().borg.amt_book[book as usize] == 0) {
             if (*(*(*player).class).magic.books.offset(book as isize)).dungeon {
                 let mut what: ::core::ffi::c_int = 0;
                 what = 0 as ::core::ffi::c_int;
@@ -1462,12 +1440,10 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
                         break;
                     }
                     if !((*as_0).level as ::core::ffi::c_int
-                        > *borg
-                            .trait_0
-                            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize))
+                        > crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize])
                     {
                         if !((*as_0).power as ::core::ffi::c_int
-                            > *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize))
+                            > crate::bridge::st().borg.trait_[(BI_MAXSP as ::core::ffi::c_int) as usize])
                         {
                             total = (total as ::core::ffi::c_long + 15000 as ::core::ffi::c_long)
                                 as int32_t;
@@ -1491,24 +1467,22 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
                 }
                 if !(when > 5 as ::core::ffi::c_int
                     && when
-                        >= *borg
-                            .trait_0
-                            .offset(BI_MAXCLEVEL as ::core::ffi::c_int as isize)
+                        >= crate::bridge::st().borg.trait_[(BI_MAXCLEVEL as ::core::ffi::c_int) as usize]
                             + 2 as ::core::ffi::c_int)
                 {
                     let mut k: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
                     while k < 1 as ::core::ffi::c_int
-                        && k < borg.amt_book[book as usize] as ::core::ffi::c_int
+                        && k < crate::bridge::st().borg.amt_book[book as usize] as ::core::ffi::c_int
                     {
                         total = (total as ::core::ffi::c_long + 500000 as ::core::ffi::c_long)
                             as int32_t;
                         k += 1;
                     }
-                    if *borg.trait_0.offset(BI_STR as ::core::ffi::c_int as isize)
+                    if crate::bridge::st().borg.trait_[(BI_STR as ::core::ffi::c_int) as usize]
                         > 5 as ::core::ffi::c_int
                     {
                         while k < 2 as ::core::ffi::c_int
-                            && k < borg.amt_book[book as usize] as ::core::ffi::c_int
+                            && k < crate::bridge::st().borg.amt_book[book as usize] as ::core::ffi::c_int
                         {
                             total = (total as ::core::ffi::c_long + 10000 as ::core::ffi::c_long)
                                 as int32_t;
@@ -1520,16 +1494,12 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
         }
         book += 1;
     }
-    if *borg
-        .trait_0
-        .offset(BI_WEIGHT as ::core::ffi::c_int as isize)
-        > *borg.trait_0.offset(BI_CARRY as ::core::ffi::c_int as isize) / 2 as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_WEIGHT as ::core::ffi::c_int) as usize]
+        > crate::bridge::st().borg.trait_[(BI_CARRY as ::core::ffi::c_int) as usize] / 2 as ::core::ffi::c_int
     {
         let mut item_0: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
         i = (*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize);
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize];
         while i >= 0 as ::core::ffi::c_int {
             if (*borg_items.offset(i as isize)).iqty != 0 {
                 item_0 = borg_items.offset(i as isize) as *mut borg_item;
@@ -1543,31 +1513,19 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
             && (*item_0).aware as ::core::ffi::c_int != 0
             && ((*item_0).tval as ::core::ffi::c_int == TV_SCROLL as ::core::ffi::c_int
                 && ((*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_armor
-                    && *borg
-                        .trait_0
-                        .offset(BI_AENCH_ARM as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize]
                         < 1000 as ::core::ffi::c_int
-                    && *borg
-                        .trait_0
-                        .offset(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_A as ::core::ffi::c_int) as usize]
                         != 0
                     || (*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_hit
-                        && *borg
-                            .trait_0
-                            .offset(BI_AENCH_TOH as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
-                        && *borg
-                            .trait_0
-                            .offset(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_H as ::core::ffi::c_int) as usize]
                             != 0
                     || (*item_0).sval as ::core::ffi::c_int == sv_scroll_enchant_weapon_to_dam
-                        && *borg
-                            .trait_0
-                            .offset(BI_AENCH_TOD as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize]
                             < 1000 as ::core::ffi::c_int
-                        && *borg
-                            .trait_0
-                            .offset(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int as isize)
+                        && crate::bridge::st().borg.trait_[(BI_NEED_ENCHANT_TO_D as ::core::ffi::c_int) as usize]
                             != 0
                     || (*item_0).sval as ::core::ffi::c_int == sv_scroll_star_enchant_weapon
                     || (*item_0).sval as ::core::ffi::c_int == sv_scroll_star_enchant_armor)
@@ -1580,12 +1538,10 @@ pub unsafe extern "C" fn borg_power_dynamic() -> int32_t {
                         || (*item_0).sval as ::core::ffi::c_int == sv_potion_inc_all)))
         {
             total = (total as ::core::ffi::c_long
-                - ((*borg
-                    .trait_0
-                    .offset(BI_WEIGHT as ::core::ffi::c_int as isize)
-                    - *borg.trait_0.offset(BI_CARRY as ::core::ffi::c_int as isize)
+                - ((crate::bridge::st().borg.trait_[(BI_WEIGHT as ::core::ffi::c_int) as usize]
+                    - crate::bridge::st().borg.trait_[(BI_CARRY as ::core::ffi::c_int) as usize]
                         / 2 as ::core::ffi::c_int)
-                    / (*borg.trait_0.offset(BI_CARRY as ::core::ffi::c_int as isize)
+                    / (crate::bridge::st().borg.trait_[(BI_CARRY as ::core::ffi::c_int) as usize]
                         / 10 as ::core::ffi::c_int)) as ::core::ffi::c_long
                     * 1000 as ::core::ffi::c_long) as int32_t;
         }
@@ -1639,7 +1595,7 @@ pub unsafe extern "C" fn borg_load_formulas(mut fp: *mut ang_file) -> bool {
     borg_formulas.restock.count = 0 as ::core::ffi::c_int;
     borg_formulas.depth.count = 0 as ::core::ffi::c_int;
     borg_formulas.power.count = 0 as ::core::ffi::c_int;
-    if *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) == 0 {
+    if crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] == 0 {
         formulas_off = true_0 != 0;
     }
     while file_getl(
@@ -1790,9 +1746,9 @@ pub unsafe extern "C" fn borg_load_formulas(mut fp: *mut ang_file) -> bool {
         }
     }
     if formulas_off as ::core::ffi::c_int != 0
-        && *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) != 0
+        && crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] != 0
     {
-        *borg_cfg.offset(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int as isize) = false_0;
+        crate::bridge::st().core.cfg[(BORG_USES_DYNAMIC_CALCS as ::core::ffi::c_int) as usize] = false_0;
     }
     return formulas_off;
 }

@@ -15,19 +15,7 @@ pub const RACE_KOBOLD: ::core::ffi::c_int = 10;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_init_h::{borg_prepare_race_class_info, borg_reinit_options};
 use crate::headers::borg_io_h::{borg_keypress, borg_keypresses, borg_note};
 use crate::headers::borg_messages_react_h::borg_clear_reactions;
@@ -754,11 +742,10 @@ pub unsafe extern "C" fn borg_force_reincarnate() {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_reincarnate_end() {
-    borg.player = player;
     borg_prepare_race_class_info();
     borg_notice_player();
     borg_clear_reactions();
-    borg.status.old_depth = 128 as int16_t;
+    crate::bridge::st().borg.status.old_depth = 128 as int16_t;
     if (*player).noscore as ::core::ffi::c_int & NOSCORE_BORG == 0 {
         (*player).noscore = ((*player).noscore as ::core::ffi::c_int | NOSCORE_BORG) as uint16_t;
     }
@@ -774,24 +761,24 @@ pub unsafe extern "C" fn borg_reincarnate_start() {
     let mut full_name: [::core::ffi::c_char; 32] = [0; 32];
     let mut race: ::core::ffi::c_uint = 0;
     let mut class: ::core::ffi::c_uint = 0;
-    borg.status.respawning = true_0 as int16_t;
+    crate::bridge::st().borg.status.respawning = true_0 as int16_t;
     borg_clear_reactions();
     borg_note(b"# Respawning\0" as *const u8 as *const ::core::ffi::c_char);
     borg_keypress('n' as i32 as keycode_t);
     borg_keypress('y' as i32 as keycode_t);
     borg_keypress('n' as i32 as keycode_t);
-    if *borg_cfg.offset(BORG_RESPAWN_RACE as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_RESPAWN_RACE as ::core::ffi::c_int) as usize]
         != -(1 as ::core::ffi::c_int)
     {
-        race = *borg_cfg.offset(BORG_RESPAWN_RACE as ::core::ffi::c_int as isize)
+        race = crate::bridge::st().core.cfg[(BORG_RESPAWN_RACE as ::core::ffi::c_int) as usize]
             as ::core::ffi::c_uint;
     } else {
         race = Rand_div(11 as uint32_t) as int32_t as ::core::ffi::c_uint;
     }
-    if *borg_cfg.offset(BORG_RESPAWN_CLASS as ::core::ffi::c_int as isize)
+    if crate::bridge::st().core.cfg[(BORG_RESPAWN_CLASS as ::core::ffi::c_int) as usize]
         != -(1 as ::core::ffi::c_int)
     {
-        class = *borg_cfg.offset(BORG_RESPAWN_CLASS as ::core::ffi::c_int as isize)
+        class = crate::bridge::st().core.cfg[(BORG_RESPAWN_CLASS as ::core::ffi::c_int) as usize]
             as ::core::ffi::c_uint;
     } else {
         class = Rand_div(9 as uint32_t) as int32_t as ::core::ffi::c_uint;

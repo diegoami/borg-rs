@@ -9,19 +9,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_danger_h::borg_danger;
 use crate::headers::borg_flow_misc_h::borg_check_rest;
-pub use crate::headers::borg_h::{
-    borg, borg_best, borg_cfg, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
-    C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16,
-    C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH,
-    BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT,
-    BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT,
-    BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER,
-    BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS,
-    BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM,
-    BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS,
-    BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD,
-    BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
-};
+pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_init_h::borg_init_failure;
 use crate::headers::borg_inventory_h::{
     borg_first_empty_inventory_slot, borg_item_worth_id, borg_wield_slot,
@@ -186,15 +174,15 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
     let mut b_v: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut inv_item_needs_id: bool = false_0 != 0;
     let mut free_id: bool = borg_spell_legal(IDENTIFY_RUNE);
-    if *borg.trait_0.offset(BI_CURSP as ::core::ffi::c_int as isize) < 50 as ::core::ffi::c_int
+    if crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize] < 50 as ::core::ffi::c_int
         && borg_spell_legal(IDENTIFY_RUNE) as ::core::ffi::c_int != 0
-        && !borg_check_rest(borg.c.y, borg.c.x)
+        && !borg_check_rest(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x)
     {
         return false_0 != 0;
     }
     if borg_danger(
-        borg.c.y,
-        borg.c.x,
+        crate::bridge::st().borg.c.y,
+        crate::bridge::st().borg.c.x,
         1 as ::core::ffi::c_int,
         true_0 != 0,
         false_0 != 0,
@@ -265,41 +253,31 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
                     match (*item_0).tval as ::core::ffi::c_int {
                         21 | 20 => {
                             v_0 = (v_0 as ::core::ffi::c_long
-                                + *borg
-                                    .trait_0
-                                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                + crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     as ::core::ffi::c_long
                                     * 5000 as ::core::ffi::c_long)
                                 as ::core::ffi::c_int;
                         }
                         24 => {
                             v_0 = (v_0 as ::core::ffi::c_long
-                                + *borg
-                                    .trait_0
-                                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                + crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     as ::core::ffi::c_long
                                     * 3000 as ::core::ffi::c_long)
                                 as ::core::ffi::c_int;
                         }
                         23 | 22 => {
                             v_0 = (v_0 as ::core::ffi::c_long
-                                + *borg
-                                    .trait_0
-                                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                + crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     as ::core::ffi::c_long
                                     * 2000 as ::core::ffi::c_long)
                                 as ::core::ffi::c_int;
                         }
                         26 | 25 => {
-                            if !(*borg
-                                .trait_0
-                                .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                            if !(crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                 < 5 as ::core::ffi::c_int)
                             {
                                 v_0 = (v_0 as ::core::ffi::c_long
-                                    + *borg
-                                        .trait_0
-                                        .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                    + crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                         as ::core::ffi::c_long
                                         * 500 as ::core::ffi::c_long)
                                     as ::core::ffi::c_int;
@@ -307,9 +285,7 @@ pub unsafe extern "C" fn borg_test_stuff() -> bool {
                         }
                         28 => {
                             v_0 = (v_0 as ::core::ffi::c_long
-                                + *borg
-                                    .trait_0
-                                    .offset(BI_MAXDEPTH as ::core::ffi::c_int as isize)
+                                + crate::bridge::st().borg.trait_[(BI_MAXDEPTH as ::core::ffi::c_int) as usize]
                                     as ::core::ffi::c_long
                                     * 10 as ::core::ffi::c_long)
                                 as ::core::ffi::c_int;
@@ -375,18 +351,14 @@ pub unsafe extern "C" fn borg_swap_rings() -> bool {
     }
     if hole + 1 as ::core::ffi::c_int
         >= (*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
-    if borg.time.now - borg.time.level > 1000 as borg_time {
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 1000 as borg_time {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0 as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -455,7 +427,7 @@ pub unsafe extern "C" fn borg_swap_rings() -> bool {
         );
         (*borg_items.offset(hole as isize)).iqty = 0 as uint8_t;
     } else {
-        v1 = borg.power;
+        v1 = crate::bridge::st().borg.power;
     }
     memcpy(
         borg_items.offset(hole as isize) as *mut borg_item as *mut ::core::ffi::c_void,
@@ -546,27 +518,21 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
     }
     if hole + 1 as ::core::ffi::c_int
         >= (*z_info).pack_size as ::core::ffi::c_int
-            - *borg
-                .trait_0
-                .offset(BI_QUIVER_SLOTS as ::core::ffi::c_int as isize)
+            - crate::bridge::st().borg.trait_[(BI_QUIVER_SLOTS as ::core::ffi::c_int) as usize]
     {
         return false_0 != 0;
     }
     if (*borg_items.offset((hole + 1 as ::core::ffi::c_int) as isize)).iqty != 0 {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    if borg.time.now - borg.time.level > 2000 as borg_time {
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 2000 as borg_time {
         return false_0 != 0;
     }
     i = 0 as ::core::ffi::c_int;
@@ -603,7 +569,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
                             borg_notice(true_0 != 0);
                             p = borg_power();
                             if (*item).one_ring {
-                                p = borg.power * 2 as int32_t;
+                                p = crate::bridge::st().borg.power * 2 as int32_t;
                             }
                             (*borg_items.offset(
                                 ((*z_info).pack_size as ::core::ffi::c_int
@@ -626,7 +592,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
     if fix {
         borg_notice(true_0 != 0);
     }
-    if b_i >= 0 as ::core::ffi::c_int && b_p > borg.power {
+    if b_i >= 0 as ::core::ffi::c_int && b_p > crate::bridge::st().borg.power {
         item = borg_items.offset(b_i as isize) as *mut borg_item;
         borg_note(b"# Putting on best tight ring.\0" as *const u8 as *const ::core::ffi::c_char);
         borg_note(format(
@@ -638,7 +604,7 @@ pub unsafe extern "C" fn borg_wear_rings() -> bool {
             *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(b_i as isize)
                 as keycode_t,
         );
-        borg.antibounce_count += 1;
+        crate::bridge::st().borg.antibounce_count += 1;
         return true_0 != 0;
     }
     return false_0 != 0;
@@ -656,29 +622,23 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
     let mut save_fract: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
     let mut fix: bool = false_0 != 0;
-    if *borg
-        .trait_0
-        .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
     }
-    if borg.antibounce_count as ::core::ffi::c_int > 300 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int > 300 as ::core::ffi::c_int {
         return false_0 != 0;
     }
     if armour_swap == 0 && weapon_swap == 0 {
         return false_0 != 0;
     }
     if armour_swap != 0 {
-        save_rconf = *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize);
-        save_rblind = *borg
-            .trait_0
-            .offset(BI_RBLIND as ::core::ffi::c_int as isize);
-        save_fract = *borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize);
+        save_rconf = crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize];
+        save_rblind = crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize];
+        save_fract = crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize];
         i = armour_swap - 1 as ::core::ffi::c_int;
         if i == -(1 as ::core::ffi::c_int) {
             i = 0 as ::core::ffi::c_int;
@@ -699,8 +659,8 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
         fix = true_0 != 0;
         borg_notice(false_0 != 0);
         b_p1 = borg_danger(
-            borg.c.y,
-            borg.c.x,
+            crate::bridge::st().borg.c.y,
+            crate::bridge::st().borg.c.x,
             1 as ::core::ffi::c_int,
             true_0 != 0,
             false_0 != 0,
@@ -716,26 +676,24 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
             ::core::mem::size_of::<borg_item>() as size_t,
         );
         if save_rconf != 0
-            && *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize]
                 == 0 as ::core::ffi::c_int
         {
             b_p1 = 9999 as ::core::ffi::c_int as int32_t;
         }
         if save_rblind != 0
-            && (*borg
-                .trait_0
-                .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+            && (crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                 == 0
-                && *borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     < 100 as ::core::ffi::c_int)
         {
             b_p1 = 9999 as ::core::ffi::c_int as int32_t;
         }
         if save_fract != 0
-            && (*borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+            && (crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     < 100 as ::core::ffi::c_int)
         {
             b_p1 = 9999 as ::core::ffi::c_int as int32_t;
@@ -776,33 +734,31 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
         fix = true_0 != 0;
         borg_notice(false_0 != 0);
         b_p2 = borg_danger(
-            borg.c.y,
-            borg.c.x,
+            crate::bridge::st().borg.c.y,
+            crate::bridge::st().borg.c.x,
             1 as ::core::ffi::c_int,
             true_0 != 0,
             false_0 != 0,
         ) as int32_t;
         if save_rconf != 0
-            && *borg.trait_0.offset(BI_RCONF as ::core::ffi::c_int as isize)
+            && crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize]
                 == 0 as ::core::ffi::c_int
         {
             b_p2 = 9999 as ::core::ffi::c_int as int32_t;
         }
         if save_rblind != 0
-            && (*borg
-                .trait_0
-                .offset(BI_RBLIND as ::core::ffi::c_int as isize)
+            && (crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
                 == 0
-                && *borg.trait_0.offset(BI_RLITE as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_RDARK as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+                && crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     < 100 as ::core::ffi::c_int)
         {
             b_p2 = 9999 as ::core::ffi::c_int as int32_t;
         }
         if save_fract != 0
-            && (*borg.trait_0.offset(BI_FRACT as ::core::ffi::c_int as isize) == 0
-                && *borg.trait_0.offset(BI_SAV as ::core::ffi::c_int as isize)
+            && (crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] == 0
+                && crate::bridge::st().borg.trait_[(BI_SAV as ::core::ffi::c_int) as usize]
                     < 100 as ::core::ffi::c_int)
         {
             b_p2 = 9999 as ::core::ffi::c_int as int32_t;
@@ -841,10 +797,10 @@ pub unsafe extern "C" fn borg_backup_swap(mut p: ::core::ffi::c_int) -> bool {
     }
     if p as int32_t > b_p
         && b_p
-            <= (if borg.near.unique as ::core::ffi::c_int != 0 {
-                borg.avoidance as int32_t * 2 as int32_t / 3 as int32_t
+            <= (if crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0 {
+                crate::bridge::st().borg.avoidance as int32_t * 2 as int32_t / 3 as int32_t
             } else {
-                borg.avoidance as int32_t / 2 as int32_t
+                crate::bridge::st().borg.avoidance as int32_t / 2 as int32_t
             })
     {
         borg_note(format(
@@ -878,14 +834,10 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
     let mut target_ring_desc: [::core::ffi::c_char; 80] = [0; 80];
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
     let mut fix: bool = false_0 != 0;
-    b_p = borg.power;
-    if *borg
-        .trait_0
-        .offset(BI_ISHUNGRY as ::core::ffi::c_int as isize)
+    b_p = crate::bridge::st().borg.power;
+    if crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
         != 0
-        || *borg
-            .trait_0
-            .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+        || crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
             != 0
     {
         return false_0 != 0;
@@ -894,10 +846,10 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
     if hole == -(1 as ::core::ffi::c_int) {
         return false_0 != 0;
     }
-    if borg.time.now - borg.time.level > 2000 as borg_time {
+    if crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.level > 2000 as borg_time {
         return false_0 != 0;
     }
-    if borg.antibounce_count as ::core::ffi::c_int > 1300 as ::core::ffi::c_int {
+    if crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int > 1300 as ::core::ffi::c_int {
         return false_0 != 0;
     }
     let mut current_block_59: u64;
@@ -919,7 +871,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                             if track_worn_num as ::core::ffi::c_int >= 1 as ::core::ffi::c_int
                                 && *track_worn_name1.offset(o as isize) as ::core::ffi::c_int
                                     == (*item).art_idx as ::core::ffi::c_int
-                                && borg.time.now - track_worn_time as borg_time > 10 as borg_time
+                                && crate::bridge::st().borg.time.now - track_worn_time as borg_time > 10 as borg_time
                             {
                                 recently_worn = true_0 != 0;
                             }
@@ -934,9 +886,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                         } else {
                             slot = borg_wield_slot(item);
                             if !(slot < 0 as ::core::ffi::c_int) {
-                                if *borg
-                                    .trait_0
-                                    .offset(BI_ISENCUMB as ::core::ffi::c_int as isize)
+                                if crate::bridge::st().borg.trait_[(BI_ISENCUMB as ::core::ffi::c_int) as usize]
                                     != 0
                                 {
                                     if (*borg_items.offset(slot as isize)).modifiers
@@ -957,8 +907,8 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                     5399440093318478209 => {}
                                     _ => {
                                         danger = borg_danger(
-                                            borg.c.y,
-                                            borg.c.x,
+                                            crate::bridge::st().borg.c.y,
+                                            crate::bridge::st().borg.c.x,
                                             1 as ::core::ffi::c_int,
                                             true_0 != 0,
                                             false_0 != 0,
@@ -1003,8 +953,8 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                             borg_notice(true_0 != 0);
                                             p = borg_power();
                                             d = borg_danger(
-                                                borg.c.y,
-                                                borg.c.x,
+                                                crate::bridge::st().borg.c.y,
+                                                crate::bridge::st().borg.c.x,
                                                 1 as ::core::ffi::c_int,
                                                 true_0 != 0,
                                                 false_0 != 0,
@@ -1115,8 +1065,8 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                                                             borg_notice(true_0 != 0);
                                                             p = borg_power();
                                                             d = borg_danger(
-                                                                borg.c.y,
-                                                                borg.c.x,
+                                                                crate::bridge::st().borg.c.y,
+                                                                crate::bridge::st().borg.c.x,
                                                                 1 as ::core::ffi::c_int,
                                                                 true_0 != 0,
                                                                 false_0 != 0,
@@ -1183,7 +1133,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
     if fix {
         borg_notice(true_0 != 0);
     }
-    if b_i >= 0 as ::core::ffi::c_int && b_p > borg.power {
+    if b_i >= 0 as ::core::ffi::c_int && b_p > crate::bridge::st().borg.power {
         item = borg_items.offset(b_i as isize) as *mut borg_item;
         my_strcpy(
             &raw mut target_ring_desc as *mut ::core::ffi::c_char,
@@ -1204,7 +1154,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                     .offset((b_ii - (*z_info).pack_size as ::core::ffi::c_int) as isize)
                     as keycode_t,
             );
-            borg.antibounce_count += 1;
+            crate::bridge::st().borg.antibounce_count += 1;
             return true_0 != 0;
         }
         borg_note(format(
@@ -1216,7 +1166,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
             *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char).offset(b_i as isize)
                 as keycode_t,
         );
-        borg.antibounce_count += 1;
+        crate::bridge::st().borg.antibounce_count += 1;
         if (*item).art_idx as ::core::ffi::c_int != 0
             && (track_worn_num as ::core::ffi::c_int) < track_worn_size as ::core::ffi::c_int
         {
@@ -1224,7 +1174,7 @@ pub unsafe extern "C" fn borg_wear_stuff() -> bool {
                 b"# Noting the wearing of artifact.\0" as *const u8 as *const ::core::ffi::c_char,
             );
             *track_worn_name1.offset(track_worn_num as isize) = (*item).art_idx;
-            track_worn_time = borg.time.now as int16_t;
+            track_worn_time = crate::bridge::st().borg.time.now as int16_t;
             track_worn_num += 1;
         }
         return true_0 != 0;
@@ -1286,14 +1236,14 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
     let mut item_num: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut slot: ::core::ffi::c_int = 0;
     let mut i: ::core::ffi::c_int = 0;
-    if borg.goal.best_item.is_null() {
+    if crate::bridge::st().borg.goal.best_item.is_null() {
         return false_0 != 0;
     }
     loop {
         let mut skipping: ::core::ffi::c_int = skip;
-        if (*borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int != 0
-            || (*borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int != 0
-            || (*borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int != 0
+        if (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int != 0
+            || (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int != 0
+            || (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int != 0
         {
             if !(skipping != 0) {
                 break;
@@ -1308,14 +1258,14 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
             if item_num >= (*z_info).equip_slots_max as ::core::ffi::c_int {
                 borg_clear_best();
                 if skip == 0 {
-                    borg.goal.do_best = false_0 != 0;
+                    crate::bridge::st().borg.goal.do_best = false_0 != 0;
                 }
                 return false_0 != 0;
             }
         }
     }
     slot = borg_best_stuff_order(item_num) as ::core::ffi::c_int;
-    if (*borg.goal.best_item.offset(item_num as isize)).home {
+    if (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).home {
         if (*borg_items.offset(slot as isize)).iqty != 0 {
             if borg_home_full() {
                 return borg_one_step_wearing_best(skip + 1 as ::core::ffi::c_int);
@@ -1338,11 +1288,11 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
                 .ware
                 .offset(i as isize) as *mut borg_item;
             if (*item).pval as ::core::ffi::c_int
-                != (*borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
+                != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
                 || (*item).tval as ::core::ffi::c_int
-                    != (*borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int
+                    != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int
-                    != (*borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int
+                    != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int
             {
                 i += 1;
             } else {
@@ -1351,7 +1301,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
                 if (*item).iqty as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
                     borg_keypress(KC_ENTER as keycode_t);
                 }
-                (*borg.goal.best_item.offset(item_num as isize)).home = false_0 != 0;
+                (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).home = false_0 != 0;
                 return true_0 != 0;
             }
         }
@@ -1373,11 +1323,11 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
         while i < (*z_info).pack_size as ::core::ffi::c_int + 12 as ::core::ffi::c_int {
             item = borg_items.offset(i as isize) as *mut borg_item;
             if (*item).pval as ::core::ffi::c_int
-                != (*borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
+                != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
                 || (*item).tval as ::core::ffi::c_int
-                    != (*borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int
+                    != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).tval as ::core::ffi::c_int
                 || (*item).sval as ::core::ffi::c_int
-                    != (*borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int
+                    != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).sval as ::core::ffi::c_int
             {
                 i += 1;
             } else {
@@ -1386,10 +1336,10 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
                     *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char)
                         .offset(i as isize) as keycode_t,
                 );
-                (*borg.goal.best_item.offset(item_num as isize)).home = false_0 != 0;
-                (*borg.goal.best_item.offset(item_num as isize)).tval = 0 as uint8_t;
-                (*borg.goal.best_item.offset(item_num as isize)).pval = 0 as int16_t;
-                (*borg.goal.best_item.offset(item_num as isize)).sval = 0 as uint8_t;
+                (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).home = false_0 != 0;
+                (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).tval = 0 as uint8_t;
+                (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval = 0 as int16_t;
+                (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).sval = 0 as uint8_t;
                 return true_0 != 0;
             }
         }
@@ -1562,7 +1512,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
     if shop_num as ::core::ffi::c_int != BORG_HOME {
         return false_0 != 0;
     }
-    if !borg.goal.do_best {
+    if !crate::bridge::st().borg.goal.do_best {
         return borg_one_step_wearing_best(0 as ::core::ffi::c_int);
     }
     if borg_home_full() as ::core::ffi::c_int != 0
@@ -1570,7 +1520,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
     {
         return false_0 != 0;
     }
-    if !borg.goal.do_best {
+    if !crate::bridge::st().borg.goal.do_best {
         return false_0 != 0;
     }
     best = mem_alloc(
@@ -1588,11 +1538,11 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
         *best.offset(k as isize) = *fresh4;
         k += 1;
     }
-    value = borg.power;
+    value = crate::bridge::st().borg.power;
     borg_best_stuff_aux(0 as ::core::ffi::c_int, test, best, &raw mut value);
     borg_notice(true_0 != 0);
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
-    borg.goal.best_item = mem_zalloc(
+    crate::bridge::st().borg.goal.best_item = mem_zalloc(
         (::core::mem::size_of::<borg_best>() as size_t)
             .wrapping_mul((*z_info).equip_slots_max as size_t),
     ) as *mut borg_best;
@@ -1611,19 +1561,19 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
                     .ware
                     .offset((i as ::core::ffi::c_int - 100 as ::core::ffi::c_int) as isize)
                     as *mut borg_item;
-                (*borg.goal.best_item.offset(k as isize)).home = true_0 != 0;
+                (*crate::bridge::st().borg.goal.best_item.offset(k as isize)).home = true_0 != 0;
             }
-            (*borg.goal.best_item.offset(k as isize)).tval = (*item).tval;
-            (*borg.goal.best_item.offset(k as isize)).pval = (*item).pval;
-            (*borg.goal.best_item.offset(k as isize)).sval = (*item).sval;
+            (*crate::bridge::st().borg.goal.best_item.offset(k as isize)).tval = (*item).tval;
+            (*crate::bridge::st().borg.goal.best_item.offset(k as isize)).pval = (*item).pval;
+            (*crate::bridge::st().borg.goal.best_item.offset(k as isize)).sval = (*item).sval;
         }
         k += 1;
     }
     if !found {
         borg_clear_best();
     }
-    borg.goal.do_best = false_0 != 0;
-    if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
+    crate::bridge::st().borg.goal.do_best = false_0 != 0;
+    if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
         if found {
             i = 0 as uint16_t;
             while (i as ::core::ffi::c_int) < (*z_info).equip_slots_max as ::core::ffi::c_int {
@@ -1657,11 +1607,11 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_clear_best() {
-    if !borg.goal.best_item.is_null() {
-        mem_free(borg.goal.best_item as *mut ::core::ffi::c_void);
-        borg.goal.best_item = ::core::ptr::null_mut::<borg_best>();
+    if !crate::bridge::st().borg.goal.best_item.is_null() {
+        mem_free(crate::bridge::st().borg.goal.best_item as *mut ::core::ffi::c_void);
+        crate::bridge::st().borg.goal.best_item = ::core::ptr::null_mut::<borg_best>();
     }
-    borg.goal.do_best = true_0 != 0;
+    crate::bridge::st().borg.goal.do_best = true_0 != 0;
 }
 #[no_mangle]
 pub unsafe extern "C" fn borg_wear_recharge() -> bool {
@@ -1669,12 +1619,10 @@ pub unsafe extern "C" fn borg_wear_recharge() -> bool {
     let mut b_i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut slot: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut b_slot: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
-    if !borg_check_rest(borg.c.y, borg.c.x) {
+    if !borg_check_rest(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x) {
         return false_0 != 0;
     }
-    if *borg
-        .trait_0
-        .offset(BI_ISWEAK as ::core::ffi::c_int as isize)
+    if crate::bridge::st().borg.trait_[(BI_ISWEAK as ::core::ffi::c_int) as usize]
         != 0
     {
         return false_0 != 0;
@@ -1687,9 +1635,7 @@ pub unsafe extern "C" fn borg_wear_recharge() -> bool {
                 slot = borg_wield_slot(item);
                 if !((*item).tval as ::core::ffi::c_int == TV_ROD as ::core::ffi::c_int
                     && (*item).sval as ::core::ffi::c_int != sv_rod_recall
-                    && *borg
-                        .trait_0
-                        .offset(BI_CDEPTH as ::core::ffi::c_int as isize)
+                    && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                         == 0 as ::core::ffi::c_int)
                 {
                     if !((*item).tval as ::core::ffi::c_int == TV_LIGHT as ::core::ffi::c_int
