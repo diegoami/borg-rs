@@ -37,6 +37,9 @@
 | 3 | borg_cave_util | own | grid predicates take `&BorgGrid`; panel size via `engine::term_geometry()`; `tools/m3_calls.py` rewrites call sites |
 | 4 | borg_io | own | `IoState`; C-ABI shims under the old names in `bridge::io` (re-exported from `headers/borg_io_h.rs`) so 1,100 c2rust call sites stay as they are until their module converts; engine terminal/message/event/wcstombs wrappers |
 | 5 | borg (borg.c) | own | `Borg` struct + `CoreState` (cfg, rand_local, step, w_x/w_y) in `BorgState`; `trait`/`has`/`activation` are `Vec<i32>`; about 5,000 c2rust uses rewritten to `bridge::st().borg...`; the entry point (`inkey_hack` callback) is safe Rust; engine wrappers for the player, Term_inkey, RNG swap and inkey_hack |
+| 6 | borg_item_activation | own | `ActivationIds` (164 `act_*`); 547 c2rust uses rewritten |
+
+**Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
 ## Unsafe count
 
@@ -56,3 +59,5 @@ impls), comments excluded.
 | when | suite | impl | wall |
 |------|-------|------|------|
 | M2 | full | rust | 139 s |
+| M3 #6 | full | rust | 145 s |
+| M3 #6 | deep | rust | 326 s (C: 304 s) |

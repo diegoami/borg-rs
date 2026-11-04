@@ -6,7 +6,7 @@
 |-----------|-------|
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
-| M3 safe idiomatic Rust | not started |
+| M3 safe idiomatic Rust | in progress (see PROGRESS.md) |
 
 ## Machine
 
@@ -165,3 +165,15 @@ $ harness/diff harness/out/c/full harness/reference/full | tail -1      # C buil
 ```
 
 Rust timing: `suite=full impl=rust jobs=4 wall_seconds=138.822782034` (C: about 133 s).
+
+## Extra suite: deep (added during M3)
+
+`full` only covers the early game: clevel <= 10, depth <= 5, and 15/45 runs
+die early. The Borg's deep-dungeon, store, spell and recovery code would go
+untested. `harness/suites/deep` adds one run per class with 1,000,000 game
+turns and `borg_cheat_death = TRUE` (flag column `cheat` in the suite file).
+It reaches clevel 8-30 and depth 2-26. Its reference comes from the
+unmodified C build and was checked deterministic (two C runs, 9/9
+identical). It is in `harness/reference/deep/`. `deep` is run alongside
+`full` at every M3 checkpoint. This adds to the required suites; it
+replaces none of them.
