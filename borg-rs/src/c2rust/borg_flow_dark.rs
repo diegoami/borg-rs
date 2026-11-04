@@ -11,7 +11,6 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_light_h::{borg_light_n, borg_light_x, borg_light_y};
 
 
 use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
@@ -519,9 +518,9 @@ unsafe extern "C" fn borg_flow_dark_1(mut b_stair: ::core::ffi::c_int) -> bool {
     }
     borg_temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_light_n as ::core::ffi::c_int {
-        y = borg_light_y[i as usize] as ::core::ffi::c_int;
-        x = borg_light_x[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().light.light_n as ::core::ffi::c_int {
+        y = crate::bridge::st().light.light_y[i as usize] as ::core::ffi::c_int;
+        x = crate::bridge::st().light.light_x[i as usize] as ::core::ffi::c_int;
         if borg_flow_dark_interesting(y, x) {
             if !borg_flow_far_from_stairs(x, y, b_stair) {
                 borg_temp_x[borg_temp_n as usize] = x as uint8_t;

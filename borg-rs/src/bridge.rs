@@ -389,3 +389,26 @@ pub mod projection {
         p::borg_target_unknown_wall(st(), y, x)
     }
 }
+
+/// `borg_items[i]` (still c2rust, borg-item.c), copied out. Transitional:
+/// goes away when borg_item converts. The copy's `note` field is a raw C
+/// string pointer that safe code must not dereference.
+pub fn item(_st: &mut BorgState, i: usize) -> crate::headers::borg_item_h::borg_item {
+    // SAFETY: borg_items is allocated by borg_init_item() (with
+    // INVEN_TOTAL + QUIVER entries) before the Borg thinks; checked non-null.
+    // Callers pass in-range slots, as the C code does.
+    unsafe {
+        let p = crate::c2rust::borg_item::borg_items;
+        assert!(!p.is_null(), "borg_items not allocated");
+        *p.add(i)
+    }
+}
+
+/// C-ABI shims with the borg-cave-light.c names.
+pub mod cave_light {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_update_light() {
+        crate::borg_cave_light::borg_update_light(st())
+    }
+}

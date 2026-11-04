@@ -18,9 +18,7 @@ pub const BORG_HOME: ::core::ffi::c_int = 7 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_light_h::{
-    borg_light_n, borg_light_x, borg_light_y, borg_update_light,
-};
+use crate::headers::borg_cave_light_h::borg_update_light;
 
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
 use crate::headers::borg_danger_h::{
@@ -1345,9 +1343,9 @@ unsafe extern "C" fn borg_handle_self(mut str: *mut ::core::ffi::c_char) {
             }
         }
         i = 0 as ::core::ffi::c_int;
-        while i < borg_light_n as ::core::ffi::c_int {
-            x = borg_light_x[i as usize] as ::core::ffi::c_int;
-            y = borg_light_y[i as usize] as ::core::ffi::c_int;
+        while i < crate::bridge::st().light.light_n as ::core::ffi::c_int {
+            x = crate::bridge::st().light.light_x[i as usize] as ::core::ffi::c_int;
+            y = crate::bridge::st().light.light_y[i as usize] as ::core::ffi::c_int;
             let mut ag_0: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
             (*ag_0).info = ((*ag_0).info as ::core::ffi::c_int | BORG_GLOW) as uint16_t;
             (*ag_0).info = ((*ag_0).info as ::core::ffi::c_int & !BORG_DARK) as uint16_t;

@@ -38,3 +38,16 @@ Format: file, function, (seed, turn when observed), explanation.
   one such as `(1 + 2 +) 3` parses and evaluates to 3 with "error
   calculating a formula value" notes. Only with `borg_uses_dynamic_calcs`;
   not seen in any suite. Pinned by a unit test in `borg_formulas_calc.rs`.
+## 4. "West of the player" lights the wrong grids
+
+* `borg-cave-light.c`, `borg_update_light`, every run with a radius-2+
+  light (the full suite reaches this branch thousands of times).
+* The "East" block lights (y, x+2), (y+1, x+2), (y-1, x+2), but the "West"
+  block lights (y, x-2), (y+2, x-2), (y-2, x-2) instead of (y+1, x-2) and
+  (y-1, x-2). So (y+-1, x-2) never get `BORG_LIGHT`, and (y+-2, x-2) can be
+  added a second time to `borg_light_x/y` (already added by the South/North
+  blocks), contrary to the macro's comment. Also, with radius 4+ the four
+  (y+-3, x+-3) grids can be entered twice (once by the diagonal checks and
+  once by the box scan). Duplicates only make readers of the array
+  (`borg_flow_dark`, `borg_update`) visit a grid twice.
+* Rust: kept as is in `borg_cave_light.rs`.

@@ -42,6 +42,7 @@
 | 8 | borg_item_val | own | `ItemValState` (198 `sv_*`/`kv_*`, C names kept as fields); 750 c2rust uses rewritten to `bridge::st().item_val...`; shims in `bridge::item_val`; engine wrappers `k_info()`, `tval_find_idx`, `tval_find_name`, `lookup_sval` |
 | 9 | borg_formulas_calc | own | `CalcState` (`calculations: Vec<Calculation>`, tokens are an enum); calls out go through a `CalcEnv` trait (bridge wrappers for `parse_value`, `calculate_from_value`, `borg_formula_error`) so the calculator is unit tested; C-ABI shims in `bridge::formulas_calc`; checked against the C file on 40k random formulas and with `borg_uses_dynamic_calcs` on (3 runs, local harness tweak, not committed) |
 | 10 | borg_projection | own | `ProjectionState` (`target_loc` = `borg_target_loc`, 1 c2rust use in borg_fight_defend rewritten); `borg_inc_motion(&mut y, &mut x, ..)`; `borg_los` core takes the origin check and floor test as closures (unit-tested on hand-made maps); C-ABI shims in `bridge::projection`; `bridge::borg_los` removed (borg_cave_view calls the safe one); bridge reads of `borg_fear_region`, `borg_kills[i]`, `borg_race_name`; engine wrappers `distance`, `r_info()`, `race_flag_has`; full 45/45 identical |
+| 11 | borg_cave_light | own | `LightState` (`light_*`, `glow_*` as `Vec<u8>`); shim in `bridge::cave_light`; `bridge::item(st, i)` copies a `borg_items` entry (transitional, until borg_item converts); 16 c2rust uses in borg_flow_dark/borg_flow_misc/borg_update rewritten to `bridge::st().light...`; C bug 3 (west-side grids) kept |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -61,6 +62,7 @@ impls), comments excluded.
 | borg_item_val | 765 | 52 |
 | borg_formulas_calc | 751 | 52 |
 | borg_projection | 770 | 50 |
+| borg_cave_light | 766 | 50 |
 
 ## Suite timings
 

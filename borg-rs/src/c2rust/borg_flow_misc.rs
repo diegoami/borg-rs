@@ -17,7 +17,6 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_cave_h::{borg_grid};
-use crate::headers::borg_cave_light_h::{borg_glow_n, borg_glow_x, borg_glow_y};
 
 
 use crate::headers::borg_danger_h::{
@@ -941,7 +940,7 @@ pub unsafe extern "C" fn borg_flow_light(mut why: ::core::ffi::c_int) -> bool {
     let mut y: ::core::ffi::c_int = 0;
     let mut x: ::core::ffi::c_int = 0;
     let mut i: ::core::ffi::c_int = 0;
-    borg_glow_n = 0 as int16_t;
+    crate::bridge::st().light.glow_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     y = crate::bridge::st().core.w_y;
     while y < crate::bridge::st().core.w_y
@@ -957,23 +956,23 @@ pub unsafe extern "C" fn borg_flow_light(mut why: ::core::ffi::c_int) -> bool {
         {
             let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
             if !((*ag).info as ::core::ffi::c_int & BORG_GLOW == 0) {
-                borg_glow_y[borg_glow_n as usize] = y as uint8_t;
-                borg_glow_x[borg_glow_n as usize] = x as uint8_t;
-                borg_glow_n += 1;
+                crate::bridge::st().light.glow_y[crate::bridge::st().light.glow_n as usize] = y as uint8_t;
+                crate::bridge::st().light.glow_x[crate::bridge::st().light.glow_n as usize] = x as uint8_t;
+                crate::bridge::st().light.glow_n += 1;
             }
             x += 1;
         }
         y += 1;
     }
-    if borg_glow_n == 0 {
+    if crate::bridge::st().light.glow_n == 0 {
         return false_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
-    while i < borg_glow_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().light.glow_n as ::core::ffi::c_int {
         borg_flow_enqueue_grid(
-            borg_glow_y[i as usize] as ::core::ffi::c_int,
-            borg_glow_x[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().light.glow_y[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().light.glow_x[i as usize] as ::core::ffi::c_int,
         );
         i += 1;
     }

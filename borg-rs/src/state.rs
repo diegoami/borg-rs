@@ -7,6 +7,7 @@
 
 use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;
+use crate::borg_cave_light::LightState;
 use crate::borg_cave_view::ViewState;
 use crate::borg_formulas_calc::CalcState;
 use crate::borg_io::IoState;
@@ -22,6 +23,8 @@ pub struct BorgState {
     pub core: CoreState,
     /// borg-cave.c
     pub cave: CaveState,
+    /// borg-cave-light.c: `borg_light_*`, `borg_glow_*`
+    pub light: LightState,
     /// borg-cave-view.c: `borg_view_n`, `borg_view_x`, `borg_view_y`
     pub view: ViewState,
     /// borg-formulas-calc.c: `calculations`
