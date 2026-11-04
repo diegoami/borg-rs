@@ -1,916 +1,107 @@
-#[repr(C)]
-pub struct dice_s {
-    _opaque: [u8; 0],
-}
-
-extern "C" {
-    fn memset(
-        __s: *mut ::core::ffi::c_void,
-        __c: ::core::ffi::c_int,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_void;
-    fn strcmp(
-        __s1: *const ::core::ffi::c_char,
-        __s2: *const ::core::ffi::c_char,
-    ) -> ::core::ffi::c_int;
-    fn flag_has(flags: *const bitflag, size: size_t, flag: ::core::ffi::c_int) -> bool;
-    fn flag_next(
-        flags: *const bitflag,
-        size: size_t,
-        flag: ::core::ffi::c_int,
-    ) -> ::core::ffi::c_int;
-    fn my_strcpy(
-        buf: *mut ::core::ffi::c_char,
-        src: *const ::core::ffi::c_char,
-        bufsize: size_t,
-    ) -> size_t;
-    fn randcalc(
-        v: random_value,
-        level: ::core::ffi::c_int,
-        rand_aspect: aspect,
-    ) -> ::core::ffi::c_int;
-    fn lookup_obj_property(
-        type_0: ::core::ffi::c_int,
-        index: ::core::ffi::c_int,
-    ) -> *mut obj_property;
-    static mut k_info: *mut object_kind;
-    static mut a_info: *mut artifact;
-    static mut e_info: *mut ego_item;
-    static mut z_info: *mut angband_constants;
-    static mut curses: *mut curse;
-    fn object_runes_known(obj: *const object) -> bool;
-    fn object_fully_known(obj: *const object) -> bool;
-    fn object_flavor_is_aware(obj: *const object) -> bool;
-    static mut slays: *mut slay;
-    fn object_weight_one(obj: *const object) -> int16_t;
-    fn object_flags_known(obj: *const object, flags: *mut bitflag);
-    static mut act_dragon_power: ::core::ffi::c_int;
-    static mut act_dragon_shining: ::core::ffi::c_int;
-    static mut act_dragon_balance: ::core::ffi::c_int;
-    static mut act_dragon_law: ::core::ffi::c_int;
-    static mut act_dragon_chaos: ::core::ffi::c_int;
-    static mut act_dragon_gold: ::core::ffi::c_int;
-    static mut act_dragon_multihued: ::core::ffi::c_int;
-    static mut act_dragon_red: ::core::ffi::c_int;
-    static mut act_dragon_green: ::core::ffi::c_int;
-    static mut act_dragon_blue: ::core::ffi::c_int;
-    static mut act_ring_lightning: ::core::ffi::c_int;
-    static mut act_ring_ice: ::core::ffi::c_int;
-    static mut act_ring_flames: ::core::ffi::c_int;
-    static mut act_ring_acid: ::core::ffi::c_int;
-    static mut act_bizarre: ::core::ffi::c_int;
-    static mut sv_ring_flames: ::core::ffi::c_int;
-    static mut sv_ring_ice: ::core::ffi::c_int;
-    static mut sv_ring_acid: ::core::ffi::c_int;
-    static mut sv_ring_lightning: ::core::ffi::c_int;
-    static mut sv_ring_dog: ::core::ffi::c_int;
-    static mut sv_dragon_blue: ::core::ffi::c_int;
-    static mut sv_dragon_red: ::core::ffi::c_int;
-    static mut sv_dragon_green: ::core::ffi::c_int;
-    static mut sv_dragon_multihued: ::core::ffi::c_int;
-    static mut sv_dragon_shining: ::core::ffi::c_int;
-    static mut sv_dragon_law: ::core::ffi::c_int;
-    static mut sv_dragon_gold: ::core::ffi::c_int;
-    static mut sv_dragon_chaos: ::core::ffi::c_int;
-    static mut sv_dragon_balance: ::core::ffi::c_int;
-    static mut sv_dragon_power: ::core::ffi::c_int;
-}
-pub type __uint8_t = u8;
-pub type __int16_t = i16;
-pub type __uint16_t = u16;
-pub type __int32_t = i32;
-pub type __uint32_t = u32;
-pub type int16_t = __int16_t;
-pub type int32_t = __int32_t;
-pub type uint8_t = __uint8_t;
-pub type uint16_t = __uint16_t;
-pub type uint32_t = __uint32_t;
-pub type size_t = usize;
-pub type wchar_t = ::libc::wchar_t;
-pub type bitflag = uint8_t;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct my_rational {
-    pub n: ::core::ffi::c_uint,
-    pub d: ::core::ffi::c_uint,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct random {
-    pub base: ::core::ffi::c_int,
-    pub dice: ::core::ffi::c_int,
-    pub sides: ::core::ffi::c_int,
-    pub m_bonus: ::core::ffi::c_int,
-}
-pub type random_value = random;
-pub type aspect = ::core::ffi::c_uint;
-pub const RANDOMISE: aspect = 4;
-pub const EXTREMIFY: aspect = 3;
-pub const MAXIMISE: aspect = 2;
-pub const AVERAGE: aspect = 1;
-pub const MINIMISE: aspect = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct loc {
-    pub x: ::core::ffi::c_int,
-    pub y: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct object {
-    pub kind: *mut object_kind,
-    pub ego: *mut ego_item,
-    pub artifact: *const artifact,
-    pub prev: *mut object,
-    pub next: *mut object,
-    pub known: *mut object,
-    pub oidx: uint16_t,
-    pub grid: loc,
-    pub tval: uint8_t,
-    pub sval: uint8_t,
-    pub pval: int16_t,
-    pub weight: int16_t,
-    pub dd: uint8_t,
-    pub ds: uint8_t,
-    pub ac: int16_t,
-    pub to_a: int16_t,
-    pub to_h: int16_t,
-    pub to_d: int16_t,
-    pub flags: [bitflag; 5],
-    pub modifiers: [int16_t; 16],
-    pub el_info: [element_info; 25],
-    pub brands: *mut bool,
-    pub slays: *mut bool,
-    pub curses: *mut curse_data,
-    pub effect: *mut effect,
-    pub effect_msg: *mut ::core::ffi::c_char,
-    pub activation: *mut activation,
-    pub time: random_value,
-    pub timeout: int16_t,
-    pub number: uint8_t,
-    pub notice: bitflag,
-    pub held_m_idx: int16_t,
-    pub mimicking_m_idx: int16_t,
-    pub origin: uint8_t,
-    pub origin_depth: uint8_t,
-    pub origin_race: *const monster_race,
-    pub note: quark_t,
-}
-pub type quark_t = size_t;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_race {
-    pub next: *mut monster_race,
-    pub ridx: ::core::ffi::c_uint,
-    pub name: *mut ::core::ffi::c_char,
-    pub text: *mut ::core::ffi::c_char,
-    pub plural: *mut ::core::ffi::c_char,
-    pub base: *mut monster_base,
-    pub avg_hp: ::core::ffi::c_int,
-    pub ac: ::core::ffi::c_int,
-    pub sleep: ::core::ffi::c_int,
-    pub hearing: ::core::ffi::c_int,
-    pub smell: ::core::ffi::c_int,
-    pub speed: ::core::ffi::c_int,
-    pub light: ::core::ffi::c_int,
-    pub mexp: ::core::ffi::c_int,
-    pub freq_innate: ::core::ffi::c_int,
-    pub freq_spell: ::core::ffi::c_int,
-    pub spell_power: ::core::ffi::c_int,
-    pub flags: [bitflag; 11],
-    pub spell_flags: [bitflag; 12],
-    pub blow: *mut monster_blow,
-    pub level: ::core::ffi::c_int,
-    pub rarity: ::core::ffi::c_int,
-    pub d_attr: uint8_t,
-    pub d_char: wchar_t,
-    pub max_num: uint8_t,
-    pub cur_num: ::core::ffi::c_int,
-    pub spell_msgs: *mut monster_altmsg,
-    pub drops: *mut monster_drop,
-    pub friends: *mut monster_friends,
-    pub friends_base: *mut monster_friends_base,
-    pub mimic_kinds: *mut monster_mimic,
-    pub shapes: *mut monster_shape,
-    pub num_shapes: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_shape {
-    pub next: *mut monster_shape,
-    pub name: *mut ::core::ffi::c_char,
-    pub race: *mut monster_race,
-    pub base: *mut monster_base,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_base {
-    pub next: *mut monster_base,
-    pub name: *mut ::core::ffi::c_char,
-    pub text: *mut ::core::ffi::c_char,
-    pub flags: [bitflag; 11],
-    pub d_char: wchar_t,
-    pub pain: *mut monster_pain,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_pain {
-    pub messages: [*const ::core::ffi::c_char; 7],
-    pub pain_idx: ::core::ffi::c_int,
-    pub next: *mut monster_pain,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_mimic {
-    pub next: *mut monster_mimic,
-    pub kind: *mut object_kind,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct object_kind {
-    pub name: *mut ::core::ffi::c_char,
-    pub text: *mut ::core::ffi::c_char,
-    pub base: *mut object_base,
-    pub next: *mut object_kind,
-    pub kidx: uint32_t,
-    pub tval: ::core::ffi::c_int,
-    pub sval: ::core::ffi::c_int,
-    pub pval: random_value,
-    pub to_h: random_value,
-    pub to_d: random_value,
-    pub to_a: random_value,
-    pub ac: ::core::ffi::c_int,
-    pub dd: ::core::ffi::c_int,
-    pub ds: ::core::ffi::c_int,
-    pub weight: ::core::ffi::c_int,
-    pub cost: ::core::ffi::c_int,
-    pub flags: [bitflag; 5],
-    pub kind_flags: [bitflag; 2],
-    pub modifiers: [random_value; 16],
-    pub el_info: [element_info; 25],
-    pub brands: *mut bool,
-    pub slays: *mut bool,
-    pub curses: *mut ::core::ffi::c_int,
-    pub d_attr: uint8_t,
-    pub d_char: wchar_t,
-    pub alloc_prob: ::core::ffi::c_int,
-    pub alloc_min: ::core::ffi::c_int,
-    pub alloc_max: ::core::ffi::c_int,
-    pub level: ::core::ffi::c_int,
-    pub activation: *mut activation,
-    pub effect: *mut effect,
-    pub power: ::core::ffi::c_int,
-    pub effect_msg: *mut ::core::ffi::c_char,
-    pub vis_msg: *mut ::core::ffi::c_char,
-    pub time: random_value,
-    pub charge: random_value,
-    pub gen_mult_prob: ::core::ffi::c_int,
-    pub stack_size: random_value,
-    pub flavor: *mut flavor,
-    pub note_aware: quark_t,
-    pub note_unaware: quark_t,
-    pub aware: bool,
-    pub tried: bool,
-    pub ignore: uint8_t,
-    pub everseen: bool,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct flavor {
-    pub text: *mut ::core::ffi::c_char,
-    pub next: *mut flavor,
-    pub fidx: ::core::ffi::c_uint,
-    pub tval: uint8_t,
-    pub sval: uint8_t,
-    pub d_attr: uint8_t,
-    pub d_char: wchar_t,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct effect {
-    pub next: *mut effect,
-    pub index: uint16_t,
-    pub dice: *mut dice_t,
-    pub y: ::core::ffi::c_int,
-    pub x: ::core::ffi::c_int,
-    pub subtype: ::core::ffi::c_int,
-    pub radius: ::core::ffi::c_int,
-    pub other: ::core::ffi::c_int,
-    pub msg: *mut ::core::ffi::c_char,
-}
-pub type dice_t = dice_s;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct activation {
-    pub next: *mut activation,
-    pub name: *mut ::core::ffi::c_char,
-    pub index: ::core::ffi::c_int,
-    pub aim: bool,
-    pub level: ::core::ffi::c_int,
-    pub power: ::core::ffi::c_int,
-    pub effect: *mut effect,
-    pub message: *mut ::core::ffi::c_char,
-    pub desc: *mut ::core::ffi::c_char,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct element_info {
-    pub res_level: int16_t,
-    pub flags: bitflag,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct object_base {
-    pub name: *mut ::core::ffi::c_char,
-    pub tval: ::core::ffi::c_int,
-    pub next: *mut object_base,
-    pub attr: ::core::ffi::c_int,
-    pub flags: [bitflag; 5],
-    pub kind_flags: [bitflag; 2],
-    pub el_info: [element_info; 25],
-    pub break_perc: ::core::ffi::c_int,
-    pub max_stack: ::core::ffi::c_int,
-    pub num_svals: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_friends_base {
-    pub next: *mut monster_friends_base,
-    pub base: *mut monster_base,
-    pub role: monster_group_role,
-    pub percent_chance: ::core::ffi::c_uint,
-    pub number_dice: ::core::ffi::c_uint,
-    pub number_side: ::core::ffi::c_uint,
-}
-pub type monster_group_role = ::core::ffi::c_uint;
-pub const MON_GROUP_SUMMON: monster_group_role = 4;
-pub const MON_GROUP_MEMBER: monster_group_role = 3;
-pub const MON_GROUP_BODYGUARD: monster_group_role = 2;
-pub const MON_GROUP_SERVANT: monster_group_role = 1;
-pub const MON_GROUP_LEADER: monster_group_role = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_friends {
-    pub next: *mut monster_friends,
-    pub name: *mut ::core::ffi::c_char,
-    pub race: *mut monster_race,
-    pub role: monster_group_role,
-    pub percent_chance: ::core::ffi::c_uint,
-    pub number_dice: ::core::ffi::c_uint,
-    pub number_side: ::core::ffi::c_uint,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_drop {
-    pub next: *mut monster_drop,
-    pub kind: *mut object_kind,
-    pub tval: ::core::ffi::c_uint,
-    pub percent_chance: ::core::ffi::c_uint,
-    pub min: ::core::ffi::c_uint,
-    pub max: ::core::ffi::c_uint,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_altmsg {
-    pub next: *mut monster_altmsg,
-    pub message: *mut ::core::ffi::c_char,
-    pub msg_type: monster_altmsg_type,
-    pub index: uint16_t,
-}
-pub type monster_altmsg_type = ::core::ffi::c_uint;
-pub const MON_ALTMSG_MISS: monster_altmsg_type = 2;
-pub const MON_ALTMSG_UNSEEN: monster_altmsg_type = 1;
-pub const MON_ALTMSG_SEEN: monster_altmsg_type = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct monster_blow {
-    pub next: *mut monster_blow,
-    pub method: *mut blow_method,
-    pub effect: *mut blow_effect,
-    pub dice: random_value,
-    pub times_seen: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct blow_effect {
-    pub name: *mut ::core::ffi::c_char,
-    pub power: ::core::ffi::c_int,
-    pub eval: ::core::ffi::c_int,
-    pub desc: *mut ::core::ffi::c_char,
-    pub lore_attr: uint8_t,
-    pub lore_attr_resist: uint8_t,
-    pub lore_attr_immune: uint8_t,
-    pub effect_type: *mut ::core::ffi::c_char,
-    pub resist: ::core::ffi::c_int,
-    pub lash_type: ::core::ffi::c_int,
-    pub next: *mut blow_effect,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct blow_method {
-    pub name: *mut ::core::ffi::c_char,
-    pub cut: bool,
-    pub stun: bool,
-    pub miss: bool,
-    pub phys: bool,
-    pub msgt: ::core::ffi::c_int,
-    pub messages: *mut blow_message,
-    pub num_messages: ::core::ffi::c_int,
-    pub desc: *mut ::core::ffi::c_char,
-    pub next: *mut blow_method,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct blow_message {
-    pub act_msg: *mut ::core::ffi::c_char,
-    pub next: *mut blow_message,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct curse_data {
-    pub power: ::core::ffi::c_int,
-    pub timeout: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct artifact {
-    pub name: *mut ::core::ffi::c_char,
-    pub text: *mut ::core::ffi::c_char,
-    pub aidx: uint32_t,
-    pub next: *mut artifact,
-    pub tval: ::core::ffi::c_int,
-    pub sval: ::core::ffi::c_int,
-    pub to_h: ::core::ffi::c_int,
-    pub to_d: ::core::ffi::c_int,
-    pub to_a: ::core::ffi::c_int,
-    pub ac: ::core::ffi::c_int,
-    pub dd: ::core::ffi::c_int,
-    pub ds: ::core::ffi::c_int,
-    pub weight: ::core::ffi::c_int,
-    pub cost: ::core::ffi::c_int,
-    pub flags: [bitflag; 5],
-    pub modifiers: [::core::ffi::c_int; 16],
-    pub el_info: [element_info; 25],
-    pub brands: *mut bool,
-    pub slays: *mut bool,
-    pub curses: *mut ::core::ffi::c_int,
-    pub level: ::core::ffi::c_int,
-    pub alloc_prob: ::core::ffi::c_int,
-    pub alloc_min: ::core::ffi::c_int,
-    pub alloc_max: ::core::ffi::c_int,
-    pub activation: *mut activation,
-    pub alt_msg: *mut ::core::ffi::c_char,
-    pub time: random_value,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct ego_item {
-    pub next: *mut ego_item,
-    pub name: *mut ::core::ffi::c_char,
-    pub text: *mut ::core::ffi::c_char,
-    pub eidx: uint32_t,
-    pub cost: ::core::ffi::c_int,
-    pub flags: [bitflag; 5],
-    pub flags_off: [bitflag; 5],
-    pub kind_flags: [bitflag; 2],
-    pub modifiers: [random_value; 16],
-    pub min_modifiers: [::core::ffi::c_int; 16],
-    pub el_info: [element_info; 25],
-    pub brands: *mut bool,
-    pub slays: *mut bool,
-    pub curses: *mut ::core::ffi::c_int,
-    pub rating: ::core::ffi::c_int,
-    pub alloc_prob: ::core::ffi::c_int,
-    pub alloc_min: ::core::ffi::c_int,
-    pub alloc_max: ::core::ffi::c_int,
-    pub poss_items: *mut poss_item,
-    pub to_h: random_value,
-    pub to_d: random_value,
-    pub to_a: random_value,
-    pub min_to_h: ::core::ffi::c_int,
-    pub min_to_d: ::core::ffi::c_int,
-    pub min_to_a: ::core::ffi::c_int,
-    pub activation: *mut activation,
-    pub time: random_value,
-    pub everseen: bool,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct poss_item {
-    pub kidx: uint32_t,
-    pub next: *mut poss_item,
-}
-pub type C2RustUnnamed = ::core::ffi::c_uint;
-pub const TV_MAX: C2RustUnnamed = 36;
-pub const TV_GOLD: C2RustUnnamed = 35;
-pub const TV_OTHER_BOOK: C2RustUnnamed = 34;
-pub const TV_SHADOW_BOOK: C2RustUnnamed = 33;
-pub const TV_NATURE_BOOK: C2RustUnnamed = 32;
-pub const TV_PRAYER_BOOK: C2RustUnnamed = 31;
-pub const TV_MAGIC_BOOK: C2RustUnnamed = 30;
-pub const TV_MUSHROOM: C2RustUnnamed = 29;
-pub const TV_FOOD: C2RustUnnamed = 28;
-pub const TV_FLASK: C2RustUnnamed = 27;
-pub const TV_POTION: C2RustUnnamed = 26;
-pub const TV_SCROLL: C2RustUnnamed = 25;
-pub const TV_ROD: C2RustUnnamed = 24;
-pub const TV_WAND: C2RustUnnamed = 23;
-pub const TV_STAFF: C2RustUnnamed = 22;
-pub const TV_RING: C2RustUnnamed = 21;
-pub const TV_AMULET: C2RustUnnamed = 20;
-pub const TV_LIGHT: C2RustUnnamed = 19;
-pub const TV_DRAG_ARMOR: C2RustUnnamed = 18;
-pub const TV_HARD_ARMOR: C2RustUnnamed = 17;
-pub const TV_SOFT_ARMOR: C2RustUnnamed = 16;
-pub const TV_CLOAK: C2RustUnnamed = 15;
-pub const TV_SHIELD: C2RustUnnamed = 14;
-pub const TV_CROWN: C2RustUnnamed = 13;
-pub const TV_HELM: C2RustUnnamed = 12;
-pub const TV_GLOVES: C2RustUnnamed = 11;
-pub const TV_BOOTS: C2RustUnnamed = 10;
-pub const TV_SWORD: C2RustUnnamed = 9;
-pub const TV_POLEARM: C2RustUnnamed = 8;
-pub const TV_HAFTED: C2RustUnnamed = 7;
-pub const TV_DIGGING: C2RustUnnamed = 6;
-pub const TV_BOW: C2RustUnnamed = 5;
-pub const TV_BOLT: C2RustUnnamed = 4;
-pub const TV_ARROW: C2RustUnnamed = 3;
-pub const TV_SHOT: C2RustUnnamed = 2;
-pub const TV_CHEST: C2RustUnnamed = 1;
-pub const TV_NULL: C2RustUnnamed = 0;
-pub type C2RustUnnamed_0 = ::core::ffi::c_uint;
-pub const OF_MAX: C2RustUnnamed_0 = 39;
-pub const OF_MULTIPLY_WEIGHT: C2RustUnnamed_0 = 38;
-pub const OF_THROWING: C2RustUnnamed_0 = 37;
-pub const OF_TRAP_IMMUNE: C2RustUnnamed_0 = 36;
-pub const OF_EXPLODE: C2RustUnnamed_0 = 35;
-pub const OF_DIG_3: C2RustUnnamed_0 = 34;
-pub const OF_DIG_2: C2RustUnnamed_0 = 33;
-pub const OF_DIG_1: C2RustUnnamed_0 = 32;
-pub const OF_LIGHT_3: C2RustUnnamed_0 = 31;
-pub const OF_LIGHT_2: C2RustUnnamed_0 = 30;
-pub const OF_FRAGILE: C2RustUnnamed_0 = 29;
-pub const OF_STICKY: C2RustUnnamed_0 = 28;
-pub const OF_DRAIN_EXP: C2RustUnnamed_0 = 27;
-pub const OF_AGGRAVATE: C2RustUnnamed_0 = 26;
-pub const OF_NO_TELEPORT: C2RustUnnamed_0 = 25;
-pub const OF_AFRAID: C2RustUnnamed_0 = 24;
-pub const OF_IMPAIR_MANA: C2RustUnnamed_0 = 23;
-pub const OF_IMPAIR_HP: C2RustUnnamed_0 = 22;
-pub const OF_NO_FUEL: C2RustUnnamed_0 = 21;
-pub const OF_TAKES_FUEL: C2RustUnnamed_0 = 20;
-pub const OF_BURNS_OUT: C2RustUnnamed_0 = 19;
-pub const OF_BLESSED: C2RustUnnamed_0 = 18;
-pub const OF_IMPACT: C2RustUnnamed_0 = 17;
-pub const OF_HOLD_LIFE: C2RustUnnamed_0 = 16;
-pub const OF_FREE_ACT: C2RustUnnamed_0 = 15;
-pub const OF_SEE_INVIS: C2RustUnnamed_0 = 14;
-pub const OF_TELEPATHY: C2RustUnnamed_0 = 13;
-pub const OF_REGEN: C2RustUnnamed_0 = 12;
-pub const OF_FEATHER: C2RustUnnamed_0 = 11;
-pub const OF_SLOW_DIGEST: C2RustUnnamed_0 = 10;
-pub const OF_PROT_STUN: C2RustUnnamed_0 = 9;
-pub const OF_PROT_CONF: C2RustUnnamed_0 = 8;
-pub const OF_PROT_BLIND: C2RustUnnamed_0 = 7;
-pub const OF_PROT_FEAR: C2RustUnnamed_0 = 6;
-pub const OF_SUST_CON: C2RustUnnamed_0 = 5;
-pub const OF_SUST_DEX: C2RustUnnamed_0 = 4;
-pub const OF_SUST_WIS: C2RustUnnamed_0 = 3;
-pub const OF_SUST_INT: C2RustUnnamed_0 = 2;
-pub const OF_SUST_STR: C2RustUnnamed_0 = 1;
-pub const OF_NONE: C2RustUnnamed_0 = 0;
-pub type C2RustUnnamed_1 = ::core::ffi::c_uint;
-pub const KF_MAX: C2RustUnnamed_1 = 15;
-pub const KF_RAND_RES_POWER: C2RustUnnamed_1 = 14;
-pub const KF_RAND_BASE_RES: C2RustUnnamed_1 = 13;
-pub const KF_SHOOTS_BOLTS: C2RustUnnamed_1 = 12;
-pub const KF_SHOOTS_ARROWS: C2RustUnnamed_1 = 11;
-pub const KF_SHOOTS_SHOTS: C2RustUnnamed_1 = 10;
-pub const KF_SHOW_MULT: C2RustUnnamed_1 = 9;
-pub const KF_SHOW_DICE: C2RustUnnamed_1 = 8;
-pub const KF_GOOD: C2RustUnnamed_1 = 7;
-pub const KF_EASY_KNOW: C2RustUnnamed_1 = 6;
-pub const KF_QUEST_ART: C2RustUnnamed_1 = 5;
-pub const KF_INSTA_ART: C2RustUnnamed_1 = 4;
-pub const KF_RAND_POWER: C2RustUnnamed_1 = 3;
-pub const KF_RAND_SUSTAIN: C2RustUnnamed_1 = 2;
-pub const KF_RAND_HI_RES: C2RustUnnamed_1 = 1;
-pub const KF_NONE: C2RustUnnamed_1 = 0;
-pub type C2RustUnnamed_2 = ::core::ffi::c_uint;
-pub const OBJ_MOD_MAX: C2RustUnnamed_2 = 16;
-pub const OBJ_MOD_MOVES: C2RustUnnamed_2 = 15;
-pub const OBJ_MOD_DAM_RED: C2RustUnnamed_2 = 14;
-pub const OBJ_MOD_LIGHT: C2RustUnnamed_2 = 13;
-pub const OBJ_MOD_MIGHT: C2RustUnnamed_2 = 12;
-pub const OBJ_MOD_SHOTS: C2RustUnnamed_2 = 11;
-pub const OBJ_MOD_BLOWS: C2RustUnnamed_2 = 10;
-pub const OBJ_MOD_SPEED: C2RustUnnamed_2 = 9;
-pub const OBJ_MOD_TUNNEL: C2RustUnnamed_2 = 8;
-pub const OBJ_MOD_INFRA: C2RustUnnamed_2 = 7;
-pub const OBJ_MOD_SEARCH: C2RustUnnamed_2 = 6;
-pub const OBJ_MOD_STEALTH: C2RustUnnamed_2 = 5;
-pub const OBJ_MOD_CON: C2RustUnnamed_2 = 4;
-pub const OBJ_MOD_DEX: C2RustUnnamed_2 = 3;
-pub const OBJ_MOD_WIS: C2RustUnnamed_2 = 2;
-pub const OBJ_MOD_INT: C2RustUnnamed_2 = 1;
-pub const OBJ_MOD_STR: C2RustUnnamed_2 = 0;
-pub type obj_property_type = ::core::ffi::c_uint;
-pub const OBJ_PROPERTY_MAX: obj_property_type = 8;
-pub const OBJ_PROPERTY_IMM: obj_property_type = 7;
-pub const OBJ_PROPERTY_VULN: obj_property_type = 6;
-pub const OBJ_PROPERTY_RESIST: obj_property_type = 5;
-pub const OBJ_PROPERTY_IGNORE: obj_property_type = 4;
-pub const OBJ_PROPERTY_FLAG: obj_property_type = 3;
-pub const OBJ_PROPERTY_MOD: obj_property_type = 2;
-pub const OBJ_PROPERTY_STAT: obj_property_type = 1;
-pub const OBJ_PROPERTY_NONE: obj_property_type = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct obj_property {
-    pub next: *mut obj_property,
-    pub type_0: ::core::ffi::c_int,
-    pub subtype: ::core::ffi::c_int,
-    pub id_type: ::core::ffi::c_int,
-    pub index: ::core::ffi::c_int,
-    pub power: ::core::ffi::c_int,
-    pub mult: ::core::ffi::c_int,
-    pub type_mult: [::core::ffi::c_int; 36],
-    pub name: *mut ::core::ffi::c_char,
-    pub adjective: *mut ::core::ffi::c_char,
-    pub neg_adj: *mut ::core::ffi::c_char,
-    pub msg: *mut ::core::ffi::c_char,
-    pub desc: *mut ::core::ffi::c_char,
-}
-pub type C2RustUnnamed_3 = ::core::ffi::c_uint;
-pub const ELEM_MAX: C2RustUnnamed_3 = 25;
-pub const ELEM_ARROW: C2RustUnnamed_3 = 24;
-pub const ELEM_HOLY_ORB: C2RustUnnamed_3 = 23;
-pub const ELEM_MANA: C2RustUnnamed_3 = 22;
-pub const ELEM_MISSILE: C2RustUnnamed_3 = 21;
-pub const ELEM_METEOR: C2RustUnnamed_3 = 20;
-pub const ELEM_PLASMA: C2RustUnnamed_3 = 19;
-pub const ELEM_TIME: C2RustUnnamed_3 = 18;
-pub const ELEM_FORCE: C2RustUnnamed_3 = 17;
-pub const ELEM_INERTIA: C2RustUnnamed_3 = 16;
-pub const ELEM_GRAVITY: C2RustUnnamed_3 = 15;
-pub const ELEM_ICE: C2RustUnnamed_3 = 14;
-pub const ELEM_WATER: C2RustUnnamed_3 = 13;
-pub const ELEM_DISEN: C2RustUnnamed_3 = 12;
-pub const ELEM_CHAOS: C2RustUnnamed_3 = 11;
-pub const ELEM_NETHER: C2RustUnnamed_3 = 10;
-pub const ELEM_NEXUS: C2RustUnnamed_3 = 9;
-pub const ELEM_SHARD: C2RustUnnamed_3 = 8;
-pub const ELEM_SOUND: C2RustUnnamed_3 = 7;
-pub const ELEM_DARK: C2RustUnnamed_3 = 6;
-pub const ELEM_LIGHT: C2RustUnnamed_3 = 5;
-pub const ELEM_POIS: C2RustUnnamed_3 = 4;
-pub const ELEM_COLD: C2RustUnnamed_3 = 3;
-pub const ELEM_FIRE: C2RustUnnamed_3 = 2;
-pub const ELEM_ELEC: C2RustUnnamed_3 = 1;
-pub const ELEM_ACID: C2RustUnnamed_3 = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct slay {
-    pub code: *mut ::core::ffi::c_char,
-    pub name: *mut ::core::ffi::c_char,
-    pub base: *mut ::core::ffi::c_char,
-    pub melee_verb: *mut ::core::ffi::c_char,
-    pub range_verb: *mut ::core::ffi::c_char,
-    pub race_flag: ::core::ffi::c_int,
-    pub multiplier: ::core::ffi::c_int,
-    pub o_multiplier: ::core::ffi::c_int,
-    pub power: ::core::ffi::c_int,
-    pub next: *mut slay,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct curse {
-    pub next: *mut curse,
-    pub name: *mut ::core::ffi::c_char,
-    pub poss: *mut bool,
-    pub obj: *mut object,
-    pub conflict: *mut ::core::ffi::c_char,
-    pub conflict_flags: [bitflag; 5],
-    pub desc: *mut ::core::ffi::c_char,
-}
-pub type C2RustUnnamed_4 = ::core::ffi::c_uint;
-pub const STAT_MAX: C2RustUnnamed_4 = 5;
-pub const STAT_CON: C2RustUnnamed_4 = 4;
-pub const STAT_DEX: C2RustUnnamed_4 = 3;
-pub const STAT_WIS: C2RustUnnamed_4 = 2;
-pub const STAT_INT: C2RustUnnamed_4 = 1;
-pub const STAT_STR: C2RustUnnamed_4 = 0;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct critical_level {
-    pub next: *mut critical_level,
-    pub cutoff: ::core::ffi::c_int,
-    pub mult: ::core::ffi::c_int,
-    pub add: ::core::ffi::c_int,
-    pub msgt: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct o_critical_level {
-    pub next: *mut o_critical_level,
-    pub chance: ::core::ffi::c_uint,
-    pub added_dice: ::core::ffi::c_uint,
-    pub msgt: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct angband_constants {
-    pub store_max: uint16_t,
-    pub trap_max: uint16_t,
-    pub k_max: uint16_t,
-    pub a_max: uint16_t,
-    pub e_max: uint16_t,
-    pub r_max: uint16_t,
-    pub mp_max: uint16_t,
-    pub s_max: uint16_t,
-    pub pit_max: uint16_t,
-    pub act_max: uint16_t,
-    pub curse_max: uint8_t,
-    pub slay_max: uint8_t,
-    pub brand_max: uint8_t,
-    pub mon_blows_max: uint16_t,
-    pub blow_methods_max: uint16_t,
-    pub blow_effects_max: uint16_t,
-    pub equip_slots_max: uint16_t,
-    pub profile_max: uint16_t,
-    pub quest_max: uint16_t,
-    pub projection_max: uint16_t,
-    pub calculation_max: uint16_t,
-    pub property_max: uint16_t,
-    pub ordinary_kind_max: uint16_t,
-    pub shape_max: uint16_t,
-    pub level_monster_max: uint16_t,
-    pub alloc_monster_chance: uint16_t,
-    pub level_monster_min: uint16_t,
-    pub town_monsters_day: uint16_t,
-    pub town_monsters_night: uint16_t,
-    pub repro_monster_max: uint16_t,
-    pub ood_monster_chance: uint16_t,
-    pub ood_monster_amount: uint16_t,
-    pub monster_group_max: uint16_t,
-    pub monster_group_dist: uint16_t,
-    pub glyph_hardness: uint16_t,
-    pub repro_monster_rate: uint16_t,
-    pub life_drain_percent: uint16_t,
-    pub flee_range: uint16_t,
-    pub turn_range: uint16_t,
-    pub level_room_max: uint16_t,
-    pub level_door_max: uint16_t,
-    pub wall_pierce_max: uint16_t,
-    pub tunn_grid_max: uint16_t,
-    pub room_item_av: uint16_t,
-    pub both_item_av: uint16_t,
-    pub both_gold_av: uint16_t,
-    pub level_pit_max: uint16_t,
-    pub max_depth: uint16_t,
-    pub day_length: uint16_t,
-    pub dungeon_hgt: uint16_t,
-    pub dungeon_wid: uint16_t,
-    pub town_hgt: uint16_t,
-    pub town_wid: uint16_t,
-    pub feeling_total: uint16_t,
-    pub feeling_need: uint16_t,
-    pub stair_skip: uint16_t,
-    pub move_energy: uint16_t,
-    pub pack_size: uint16_t,
-    pub quiver_size: uint16_t,
-    pub quiver_slot_size: uint16_t,
-    pub thrown_quiver_mult: uint16_t,
-    pub floor_size: uint16_t,
-    pub store_inven_max: uint16_t,
-    pub store_turns: uint16_t,
-    pub store_shuffle: uint16_t,
-    pub store_magic_level: uint16_t,
-    pub max_obj_depth: uint16_t,
-    pub great_obj: uint16_t,
-    pub great_ego: uint16_t,
-    pub fuel_torch: uint16_t,
-    pub fuel_lamp: uint16_t,
-    pub default_lamp: uint16_t,
-    pub max_sight: uint16_t,
-    pub max_range: uint16_t,
-    pub start_gold: uint16_t,
-    pub food_value: uint16_t,
-    pub m_crit_debuff_toh: ::core::ffi::c_int,
-    pub m_crit_chance_weight_scl: ::core::ffi::c_int,
-    pub m_crit_chance_toh_scl: ::core::ffi::c_int,
-    pub m_crit_chance_level_scl: ::core::ffi::c_int,
-    pub m_crit_chance_toh_skill_scl: ::core::ffi::c_int,
-    pub m_crit_chance_offset: ::core::ffi::c_int,
-    pub m_crit_chance_range: ::core::ffi::c_int,
-    pub m_crit_power_weight_scl: ::core::ffi::c_int,
-    pub m_crit_power_random: ::core::ffi::c_int,
-    pub m_crit_level_head: *mut critical_level,
-    pub r_crit_debuff_toh: ::core::ffi::c_int,
-    pub r_crit_chance_weight_scl: ::core::ffi::c_int,
-    pub r_crit_chance_toh_scl: ::core::ffi::c_int,
-    pub r_crit_chance_level_scl: ::core::ffi::c_int,
-    pub r_crit_chance_launched_toh_skill_scl: ::core::ffi::c_int,
-    pub r_crit_chance_thrown_toh_skill_scl: ::core::ffi::c_int,
-    pub r_crit_chance_offset: ::core::ffi::c_int,
-    pub r_crit_chance_range: ::core::ffi::c_int,
-    pub r_crit_power_weight_scl: ::core::ffi::c_int,
-    pub r_crit_power_random: ::core::ffi::c_int,
-    pub r_crit_level_head: *mut critical_level,
-    pub o_m_crit_debuff_toh: ::core::ffi::c_int,
-    pub o_m_crit_power_toh_scl_num: ::core::ffi::c_int,
-    pub o_m_crit_power_toh_scl_den: ::core::ffi::c_int,
-    pub o_m_crit_chance_power_scl_num: ::core::ffi::c_int,
-    pub o_m_crit_chance_power_scl_den: ::core::ffi::c_int,
-    pub o_m_crit_chance_add_den: ::core::ffi::c_int,
-    pub o_m_crit_level_head: *mut o_critical_level,
-    pub o_m_max_added: my_rational,
-    pub o_r_crit_debuff_toh: ::core::ffi::c_int,
-    pub o_r_crit_power_launched_toh_scl_num: ::core::ffi::c_int,
-    pub o_r_crit_power_launched_toh_scl_den: ::core::ffi::c_int,
-    pub o_r_crit_power_thrown_toh_scl_num: ::core::ffi::c_int,
-    pub o_r_crit_power_thrown_toh_scl_den: ::core::ffi::c_int,
-    pub o_r_crit_chance_power_scl_num: ::core::ffi::c_int,
-    pub o_r_crit_chance_power_scl_den: ::core::ffi::c_int,
-    pub o_r_crit_chance_add_den: ::core::ffi::c_int,
-    pub o_r_crit_level_head: *mut o_critical_level,
-    pub o_r_max_added: my_rational,
-    pub max_hearing: ::core::ffi::c_int,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct borg_item {
-    pub desc: [::core::ffi::c_char; 80],
-    pub note: *mut ::core::ffi::c_char,
-    pub kind: uint32_t,
-    pub ident: bool,
-    pub needs_ident: bool,
-    pub aware: bool,
-    pub xxxx: bool,
-    pub tval: uint8_t,
-    pub sval: uint8_t,
-    pub pval: int16_t,
-    pub iqty: uint8_t,
-    pub weight: int16_t,
-    pub art_idx: uint8_t,
-    pub ego_idx: uint8_t,
-    pub activ_idx: ::core::ffi::c_int,
-    pub one_ring: bool,
-    pub timeout: int16_t,
-    pub to_h: int16_t,
-    pub to_d: int16_t,
-    pub to_a: int16_t,
-    pub ac: int16_t,
-    pub dd: uint8_t,
-    pub ds: uint8_t,
-    pub level: uint8_t,
-    pub cost: int32_t,
-    pub value: int32_t,
-    pub cursed: bool,
-    pub uncursable: bool,
-    pub curses: [bool; 28],
-    pub flags: [bitflag; 5],
-    pub modifiers: [int16_t; 16],
-    pub el_info: [element_info; 25],
-    pub brands: [bool; 254],
-    pub slays: [::core::ffi::c_int; 85],
-}
-pub type C2RustUnnamed_5 = ::core::ffi::c_uint;
-pub const BORG_CURSE_MAX: C2RustUnnamed_5 = 28;
-pub const BORG_CURSE_AIR_SWING: C2RustUnnamed_5 = 27;
-pub const BORG_CURSE_STEELSKIN: C2RustUnnamed_5 = 26;
-pub const BORG_CURSE_CHILLED_TO_THE_BONE: C2RustUnnamed_5 = 25;
-pub const BORG_CURSE_BURNING_UP: C2RustUnnamed_5 = 24;
-pub const BORG_CURSE_TREACHEROUS_WEAPON: C2RustUnnamed_5 = 23;
-pub const BORG_CURSE_ANTI_TELEPORTATION: C2RustUnnamed_5 = 22;
-pub const BORG_CURSE_STONE: C2RustUnnamed_5 = 21;
-pub const BORG_CURSE_COWARDICE: C2RustUnnamed_5 = 20;
-pub const BORG_CURSE_IMPAIR_HITPOINT_RECOVERY: C2RustUnnamed_5 = 19;
-pub const BORG_CURSE_IMPAIR_MANA_RECOVERY: C2RustUnnamed_5 = 18;
-pub const BORG_CURSE_UNDEAD_SUMMON: C2RustUnnamed_5 = 17;
-pub const BORG_CURSE_DEMON_SUMMON: C2RustUnnamed_5 = 16;
-pub const BORG_CURSE_DRAGON_SUMMON: C2RustUnnamed_5 = 15;
-pub const BORG_CURSE_PARALYSIS: C2RustUnnamed_5 = 14;
-pub const BORG_CURSE_HALLUCINATION: C2RustUnnamed_5 = 13;
-pub const BORG_CURSE_SIREN: C2RustUnnamed_5 = 12;
-pub const BORG_CURSE_POISON: C2RustUnnamed_5 = 11;
-pub const BORG_CURSE_ANNOYANCE: C2RustUnnamed_5 = 10;
-pub const BORG_CURSE_SLOWNESS: C2RustUnnamed_5 = 9;
-pub const BORG_CURSE_CLUMSINESS: C2RustUnnamed_5 = 8;
-pub const BORG_CURSE_WEAKNESS: C2RustUnnamed_5 = 7;
-pub const BORG_CURSE_IRRITATION: C2RustUnnamed_5 = 6;
-pub const BORG_CURSE_ENVELOPING: C2RustUnnamed_5 = 5;
-pub const BORG_CURSE_SICKLINESS: C2RustUnnamed_5 = 4;
-pub const BORG_CURSE_DULLNESS: C2RustUnnamed_5 = 3;
-pub const BORG_CURSE_TELEPORTATION: C2RustUnnamed_5 = 2;
-pub const BORG_CURSE_VULNERABILITY: C2RustUnnamed_5 = 1;
-pub const BORG_CURSE_UNKNOWN: C2RustUnnamed_5 = 0;
-pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::c_void>();
 pub const FLAG_WIDTH: usize = (::core::mem::size_of::<bitflag>() as usize).wrapping_mul(8 as usize);
 pub const FLAG_START: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
 pub const FLAG_END: ::core::ffi::c_int = FLAG_START - 1 as ::core::ffi::c_int;
+pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::c_void>();
+pub const MAX_BLOWS: ::core::ffi::c_int = 5 as ::core::ffi::c_int;
+
+pub use crate::headers::__stddef_size_t_h::size_t;
+pub use crate::headers::__stddef_wchar_t_h::wchar_t;
+use crate::headers::borg_item_activation_h::{
+    act_bizarre, act_dragon_balance, act_dragon_blue, act_dragon_chaos, act_dragon_gold,
+    act_dragon_green, act_dragon_law, act_dragon_multihued, act_dragon_power, act_dragon_red,
+    act_dragon_shining, act_ring_acid, act_ring_flames, act_ring_ice, act_ring_lightning,
+};
+pub use crate::headers::borg_item_h::{
+    borg_item, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE,
+    BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE,
+    BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON,
+    BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION,
+    BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION,
+    BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS,
+    BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE,
+    BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON,
+    BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS,
+};
+use crate::headers::borg_item_val_h::{
+    sv_dragon_balance, sv_dragon_blue, sv_dragon_chaos, sv_dragon_gold, sv_dragon_green,
+    sv_dragon_law, sv_dragon_multihued, sv_dragon_power, sv_dragon_red, sv_dragon_shining,
+    sv_ring_acid, sv_ring_dog, sv_ring_flames, sv_ring_ice, sv_ring_lightning,
+};
+pub use crate::headers::init_h::{angband_constants, critical_level, o_critical_level, z_info};
+pub use crate::headers::list_elements_h::{
+    ELEM_ACID, ELEM_ARROW, ELEM_CHAOS, ELEM_COLD, ELEM_DARK, ELEM_DISEN, ELEM_ELEC, ELEM_FIRE,
+    ELEM_FORCE, ELEM_GRAVITY, ELEM_HOLY_ORB, ELEM_ICE, ELEM_INERTIA, ELEM_LIGHT, ELEM_MANA,
+    ELEM_METEOR, ELEM_MISSILE, ELEM_NETHER, ELEM_NEXUS, ELEM_PLASMA, ELEM_POIS, ELEM_SHARD,
+    ELEM_SOUND, ELEM_TIME, ELEM_WATER,
+};
+pub use crate::headers::list_kind_flags_h::{
+    KF_EASY_KNOW, KF_GOOD, KF_INSTA_ART, KF_MAX, KF_NONE, KF_QUEST_ART, KF_RAND_BASE_RES,
+    KF_RAND_HI_RES, KF_RAND_POWER, KF_RAND_RES_POWER, KF_RAND_SUSTAIN, KF_SHOOTS_ARROWS,
+    KF_SHOOTS_BOLTS, KF_SHOOTS_SHOTS, KF_SHOW_DICE, KF_SHOW_MULT,
+};
+pub use crate::headers::list_object_flags_h::{
+    OF_AFRAID, OF_AGGRAVATE, OF_BLESSED, OF_BURNS_OUT, OF_DIG_1, OF_DIG_2, OF_DIG_3, OF_DRAIN_EXP,
+    OF_EXPLODE, OF_FEATHER, OF_FRAGILE, OF_FREE_ACT, OF_HOLD_LIFE, OF_IMPACT, OF_IMPAIR_HP,
+    OF_IMPAIR_MANA, OF_LIGHT_2, OF_LIGHT_3, OF_MAX, OF_MULTIPLY_WEIGHT, OF_NO_FUEL, OF_NO_TELEPORT,
+    OF_PROT_BLIND, OF_PROT_CONF, OF_PROT_FEAR, OF_PROT_STUN, OF_REGEN, OF_SEE_INVIS,
+    OF_SLOW_DIGEST, OF_STICKY, OF_SUST_CON, OF_SUST_DEX, OF_SUST_INT, OF_SUST_STR, OF_SUST_WIS,
+    OF_TAKES_FUEL, OF_TELEPATHY, OF_THROWING, OF_TRAP_IMMUNE,
+};
+pub use crate::headers::list_object_modifiers_h::{
+    OBJ_MOD_BLOWS, OBJ_MOD_DAM_RED, OBJ_MOD_INFRA, OBJ_MOD_LIGHT, OBJ_MOD_MIGHT, OBJ_MOD_MOVES,
+    OBJ_MOD_SEARCH, OBJ_MOD_SHOTS, OBJ_MOD_SPEED, OBJ_MOD_STEALTH, OBJ_MOD_TUNNEL,
+};
+pub use crate::headers::list_stats_h::{
+    OBJ_MOD_CON, OBJ_MOD_DEX, OBJ_MOD_INT, OBJ_MOD_STR, OBJ_MOD_WIS, STAT_CON, STAT_DEX, STAT_INT,
+    STAT_STR, STAT_WIS,
+};
+pub use crate::headers::list_tvals_h::{
+    TV_AMULET, TV_ARROW, TV_BOLT, TV_BOOTS, TV_BOW, TV_CHEST, TV_CLOAK, TV_CROWN, TV_DIGGING,
+    TV_DRAG_ARMOR, TV_FLASK, TV_FOOD, TV_GLOVES, TV_GOLD, TV_HAFTED, TV_HARD_ARMOR, TV_HELM,
+    TV_LIGHT, TV_MAGIC_BOOK, TV_MUSHROOM, TV_NATURE_BOOK, TV_NULL, TV_OTHER_BOOK, TV_POLEARM,
+    TV_POTION, TV_PRAYER_BOOK, TV_RING, TV_ROD, TV_SCROLL, TV_SHADOW_BOOK, TV_SHIELD, TV_SHOT,
+    TV_SOFT_ARMOR, TV_STAFF, TV_SWORD, TV_WAND,
+};
+pub use crate::headers::mon_blows_h::{blow_effect, blow_message, blow_method};
+pub use crate::headers::monster_h::{
+    monster_altmsg, monster_altmsg_type, monster_base, monster_blow, monster_drop, monster_friends,
+    monster_friends_base, monster_group_role, monster_mimic, monster_pain, monster_race,
+    monster_shape, MON_ALTMSG_MISS, MON_ALTMSG_SEEN, MON_ALTMSG_UNSEEN, MON_GROUP_BODYGUARD,
+    MON_GROUP_LEADER, MON_GROUP_MEMBER, MON_GROUP_SERVANT, MON_GROUP_SUMMON,
+};
+use crate::headers::obj_curse_h::curses;
+use crate::headers::obj_knowledge_h::{
+    object_flavor_is_aware, object_fully_known, object_runes_known,
+};
+
+pub use crate::headers::obj_properties_h::{
+    lookup_obj_property, obj_property, obj_property_type, C2RustUnnamedH_20, C2RustUnnamedH_31,
+    C2RustUnnamedH_36, C2RustUnnamedH_39, OBJ_MOD_MAX, OBJ_PROPERTY_FLAG, OBJ_PROPERTY_IGNORE,
+    OBJ_PROPERTY_IMM, OBJ_PROPERTY_MAX, OBJ_PROPERTY_MOD, OBJ_PROPERTY_NONE, OBJ_PROPERTY_RESIST,
+    OBJ_PROPERTY_STAT, OBJ_PROPERTY_VULN, OF_NONE, TV_MAX,
+};
+use crate::headers::obj_slays_h::slays;
+use crate::headers::obj_util_h::{object_flags_known, object_weight_one};
+pub use crate::headers::object_h::{
+    a_info, activation, artifact, curse, curse_data, e_info, effect, ego_item, element_info,
+    flavor, k_info, object, object_base, object_kind, poss_item, slay, C2RustUnnamedH_38, ELEM_MAX,
+};
+pub use crate::headers::player_h::{C2RustUnnamedH_23, STAT_MAX};
+
+pub use crate::headers::stdint_intn_h::{int16_t, int32_t};
+pub use crate::headers::stdint_uintn_h::{uint16_t, uint32_t, uint8_t};
+use crate::headers::string_h::{memset, strcmp};
+pub use crate::headers::types_h::{__int16_t, __int32_t, __uint16_t, __uint32_t, __uint8_t};
+pub use crate::headers::z_bitflag_h::{bitflag, flag_has, flag_next};
+pub use crate::headers::z_dice_h::{dice_s, dice_t};
+pub use crate::headers::z_quark_h::quark_t;
+pub use crate::headers::z_rand_h::{
+    aspect, randcalc, random, random_value, AVERAGE, EXTREMIFY, MAXIMISE, MINIMISE, RANDOMISE,
+};
+pub use crate::headers::z_type_h::loc;
+pub use crate::headers::z_util_h::{my_rational, my_strcpy};
 unsafe extern "C" fn borg_object_value_known(mut item: *mut borg_item) -> int32_t {
     let mut value: int32_t = 0;
     let mut k_ptr: *mut object_kind = k_info.offset((*item).kind as isize) as *mut object_kind;
@@ -1762,4 +953,3 @@ pub unsafe extern "C" fn borg_ego_has_random_power(mut e_ptr: *mut ego_item) -> 
     }
     return false_0 != 0;
 }
-pub const MAX_BLOWS: ::core::ffi::c_int = 5 as ::core::ffi::c_int;

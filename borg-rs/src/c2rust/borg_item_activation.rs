@@ -1,48 +1,14 @@
-#[repr(C)]
-pub struct dice_s {
-    _opaque: [u8; 0],
-}
-
-extern "C" {
-    fn format(fmt: *const ::core::ffi::c_char, ...) -> *mut ::core::ffi::c_char;
-    fn my_stricmp(
-        s1: *const ::core::ffi::c_char,
-        s2: *const ::core::ffi::c_char,
-    ) -> ::core::ffi::c_int;
-    static mut activations: *mut activation;
-    static mut borg_init_failure: bool;
-    fn borg_note(what: *const ::core::ffi::c_char);
-}
-pub type __uint16_t = u16;
-pub type uint16_t = __uint16_t;
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct activation {
-    pub next: *mut activation,
-    pub name: *mut ::core::ffi::c_char,
-    pub index: ::core::ffi::c_int,
-    pub aim: bool,
-    pub level: ::core::ffi::c_int,
-    pub power: ::core::ffi::c_int,
-    pub effect: *mut effect,
-    pub message: *mut ::core::ffi::c_char,
-    pub desc: *mut ::core::ffi::c_char,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct effect {
-    pub next: *mut effect,
-    pub index: uint16_t,
-    pub dice: *mut dice_t,
-    pub y: ::core::ffi::c_int,
-    pub x: ::core::ffi::c_int,
-    pub subtype: ::core::ffi::c_int,
-    pub radius: ::core::ffi::c_int,
-    pub other: ::core::ffi::c_int,
-    pub msg: *mut ::core::ffi::c_char,
-}
-pub type dice_t = dice_s;
 pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+
+use crate::headers::borg_init_h::borg_init_failure;
+use crate::headers::borg_io_h::borg_note;
+pub use crate::headers::object_h::{activation, activations, effect};
+
+pub use crate::headers::stdint_uintn_h::uint16_t;
+pub use crate::headers::types_h::__uint16_t;
+pub use crate::headers::z_dice_h::{dice_s, dice_t};
+use crate::headers::z_form_h::format;
+use crate::headers::z_util_h::my_stricmp;
 #[no_mangle]
 pub static mut act_dragon_power: ::core::ffi::c_int = 0;
 #[no_mangle]

@@ -1,6 +1,7 @@
 //! Rust port of the Angband Borg.
 //!
-//! Stage M2: `c2rust` is the unsafe transpilation of `angband/src/borg/*.c`
+//! `c2rust` is the unsafe transpilation (one module per C file) and
+//! `headers` the deduplicated C header declarations of `angband/src/borg/*.c`
 //! (upstream copyright: Ben Harrison, James E. Wilson, Robert A. Koeneke,
 //! Andi Sidwell, Chris Carr, Ed Graham, Erik Osheim and other Angband/Borg
 //! contributors; GPLv2 / Angband licence).
@@ -16,3 +17,4 @@
 extern crate libc;
 
 pub mod c2rust;
+pub mod headers;

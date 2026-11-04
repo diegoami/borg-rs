@@ -1,61 +1,36 @@
-extern "C" {
-    fn __ctype_b_loc() -> *mut *const ::core::ffi::c_ushort;
-    fn atol(__nptr: *const ::core::ffi::c_char) -> ::core::ffi::c_long;
-    fn strncpy(
-        __dest: *mut ::core::ffi::c_char,
-        __src: *const ::core::ffi::c_char,
-        __n: size_t,
-    ) -> *mut ::core::ffi::c_char;
-    fn strchr(__s: *const ::core::ffi::c_char, __c: ::core::ffi::c_int)
-        -> *mut ::core::ffi::c_char;
-    fn strlen(__s: *const ::core::ffi::c_char) -> size_t;
-    fn mem_alloc(len: size_t) -> *mut ::core::ffi::c_void;
-    fn mem_zalloc(len: size_t) -> *mut ::core::ffi::c_void;
-    fn mem_free(p: *mut ::core::ffi::c_void);
-    fn string_make(str: *const ::core::ffi::c_char) -> *mut ::core::ffi::c_char;
-    fn prefix_i(s: *const ::core::ffi::c_char, t: *const ::core::ffi::c_char) -> bool;
-    fn borg_array_add(a: *mut borg_array, item: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
-    fn borg_formula_error(
-        section: *const ::core::ffi::c_char,
-        full_line: *const ::core::ffi::c_char,
-        section_label: *const ::core::ffi::c_char,
-        error: *const ::core::ffi::c_char,
-    );
-    fn calculate_from_value(value: *mut value_sec, range_index: ::core::ffi::c_int) -> int32_t;
-    fn parse_value(
-        line: *mut ::core::ffi::c_char,
-        full_line: *const ::core::ffi::c_char,
-    ) -> *mut value_sec;
-    fn borg_note(what: *const ::core::ffi::c_char);
-}
-pub type __int32_t = i32;
-pub type C2RustUnnamed = ::core::ffi::c_uint;
-pub const _ISalnum: C2RustUnnamed = 8;
-pub const _ISpunct: C2RustUnnamed = 4;
-pub const _IScntrl: C2RustUnnamed = 2;
-pub const _ISblank: C2RustUnnamed = 1;
-pub const _ISgraph: C2RustUnnamed = 32768;
-pub const _ISprint: C2RustUnnamed = 16384;
-pub const _ISspace: C2RustUnnamed = 8192;
-pub const _ISxdigit: C2RustUnnamed = 4096;
-pub const _ISdigit: C2RustUnnamed = 2048;
-pub const _ISalpha: C2RustUnnamed = 1024;
-pub const _ISlower: C2RustUnnamed = 512;
-pub const _ISupper: C2RustUnnamed = 256;
-pub type int32_t = __int32_t;
-pub type size_t = usize;
+pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::c_void>();
+pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
+pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
+
+pub use crate::headers::__stddef_size_t_h::size_t;
+pub use crate::headers::borg_formulas_h::{
+    borg_array, borg_array_add, borg_formula_error, calculate_from_value, parse_value, value_sec,
+    value_type, VT_ACTIVATION, VT_CLASS, VT_CONFIG, VT_MAX, VT_NONE, VT_RANGE_INDEX, VT_TRAIT,
+};
+use crate::headers::borg_io_h::borg_note;
+pub use crate::headers::ctype_h::{
+    _ISalnum, _ISalpha, _ISblank, _IScntrl, _ISdigit, _ISgraph, _ISlower, _ISprint, _ISpunct,
+    _ISspace, _ISupper, _ISxdigit, __ctype_b_loc, C2RustUnnamedH_37,
+};
+pub use crate::headers::list_tvals_h::{
+    VT_AMULET, VT_ARROW, VT_BOLT, VT_BOOTS, VT_BOW, VT_CHEST, VT_CLOAK, VT_CROWN, VT_DIGGING,
+    VT_DRAG_ARMOR, VT_FLASK, VT_FOOD, VT_GLOVES, VT_GOLD, VT_HAFTED, VT_HARD_ARMOR, VT_HELM,
+    VT_LIGHT, VT_MAGIC_BOOK, VT_MUSHROOM, VT_NATURE_BOOK, VT_NULL, VT_OTHER_BOOK, VT_POLEARM,
+    VT_POTION, VT_PRAYER_BOOK, VT_RING, VT_ROD, VT_SCROLL, VT_SHADOW_BOOK, VT_SHIELD, VT_SHOT,
+    VT_SOFT_ARMOR, VT_STAFF, VT_SWORD, VT_WAND,
+};
+
+pub use crate::headers::stdint_intn_h::int32_t;
+use crate::headers::stdlib_h::atol;
+use crate::headers::string_h::{strchr, strlen, strncpy};
+pub use crate::headers::types_h::__int32_t;
+use crate::headers::z_util_h::prefix_i;
+use crate::headers::z_virt_h::{mem_alloc, mem_free, mem_zalloc, string_make};
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct borg_calculation {
     pub token_array: *mut borg_array,
     pub max_depth: int32_t,
-}
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct borg_array {
-    pub max: ::core::ffi::c_int,
-    pub count: ::core::ffi::c_int,
-    pub items: *mut *mut ::core::ffi::c_void,
 }
 #[derive(Copy, Clone)]
 #[repr(C)]
@@ -87,57 +62,6 @@ pub struct operator_struct {
     pub level: ::core::ffi::c_int,
     pub position: ::core::ffi::c_int,
 }
-#[derive(Copy, Clone)]
-#[repr(C)]
-pub struct value_sec {
-    pub type_0: value_type,
-    pub index: int32_t,
-}
-pub type value_type = ::core::ffi::c_int;
-pub const VT_MAX: value_type = 41;
-pub const VT_GOLD: value_type = 40;
-pub const VT_OTHER_BOOK: value_type = 39;
-pub const VT_SHADOW_BOOK: value_type = 38;
-pub const VT_NATURE_BOOK: value_type = 37;
-pub const VT_PRAYER_BOOK: value_type = 36;
-pub const VT_MAGIC_BOOK: value_type = 35;
-pub const VT_MUSHROOM: value_type = 34;
-pub const VT_FOOD: value_type = 33;
-pub const VT_FLASK: value_type = 32;
-pub const VT_POTION: value_type = 31;
-pub const VT_SCROLL: value_type = 30;
-pub const VT_ROD: value_type = 29;
-pub const VT_WAND: value_type = 28;
-pub const VT_STAFF: value_type = 27;
-pub const VT_RING: value_type = 26;
-pub const VT_AMULET: value_type = 25;
-pub const VT_LIGHT: value_type = 24;
-pub const VT_DRAG_ARMOR: value_type = 23;
-pub const VT_HARD_ARMOR: value_type = 22;
-pub const VT_SOFT_ARMOR: value_type = 21;
-pub const VT_CLOAK: value_type = 20;
-pub const VT_SHIELD: value_type = 19;
-pub const VT_CROWN: value_type = 18;
-pub const VT_HELM: value_type = 17;
-pub const VT_GLOVES: value_type = 16;
-pub const VT_BOOTS: value_type = 15;
-pub const VT_SWORD: value_type = 14;
-pub const VT_POLEARM: value_type = 13;
-pub const VT_HAFTED: value_type = 12;
-pub const VT_DIGGING: value_type = 11;
-pub const VT_BOW: value_type = 10;
-pub const VT_BOLT: value_type = 9;
-pub const VT_ARROW: value_type = 8;
-pub const VT_SHOT: value_type = 7;
-pub const VT_CHEST: value_type = 6;
-pub const VT_NULL: value_type = 5;
-pub const VT_CLASS: value_type = 4;
-pub const VT_ACTIVATION: value_type = 3;
-pub const VT_CONFIG: value_type = 2;
-pub const VT_TRAIT: value_type = 1;
-pub const VT_RANGE_INDEX: value_type = 0;
-pub const VT_NONE: value_type = -1;
-pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::c_void>();
 #[no_mangle]
 pub static mut calculations: borg_array = borg_array {
     max: 0,
@@ -833,5 +757,3 @@ pub unsafe extern "C" fn calculations_free() {
     }
     calculations.count = 0 as ::core::ffi::c_int;
 }
-pub const true_0: ::core::ffi::c_int = 1 as ::core::ffi::c_int;
-pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
