@@ -31,13 +31,7 @@ use crate::headers::borg_flow_stairs_h::{
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
-use crate::headers::borg_item_activation_h::{
-    act_cure_body, act_cure_confusion, act_cure_critical, act_cure_full, act_cure_full2,
-    act_cure_light, act_cure_mind, act_cure_nonorlybig, act_cure_paranoia, act_cure_serious,
-    act_cure_temp, act_heal1, act_heal2, act_heal3, act_hero, act_rage_bless_resist,
-    act_rem_fear_pois, act_restore_all, act_restore_mana, act_shero, act_shroom_purging,
-    act_staff_magi, act_tele_level, act_tele_phase,
-};
+
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_failure, borg_activate_item, borg_eat, borg_eat_food_any, borg_eat_unknown,
@@ -366,7 +360,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
                 || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
                 || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_cure_confusion) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.cure_confusion) as ::core::ffi::c_int != 0
                 || borg_use_staff_fail(sv_staff_curing) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Fixing Confusion. Level 2\0" as *const u8 as *const ::core::ffi::c_char);
@@ -466,9 +460,9 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                     && borg_quaff_potion(sv_potion_life) as ::core::ffi::c_int != 0
                 || borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
                 || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_heal1) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_heal2) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_heal3) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
                 || crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                     < 250 as ::core::ffi::c_int
                     && borg_spell_fail(HOLY_WORD, 5 as ::core::ffi::c_int) as ::core::ffi::c_int
@@ -490,7 +484,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && (Rand_div(100 as uint32_t) as int32_t) < 50 as int32_t
     {
         if borg_use_staff_fail(sv_staff_the_magi) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_staff_magi) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.staff_magi) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Use Magi Staff\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -512,8 +506,8 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         {
             if borg_use_staff_fail(sv_staff_the_magi) as ::core::ffi::c_int != 0
                 || borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_staff_magi) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.staff_magi) as ::core::ffi::c_int != 0
             {
                 borg_note(b"# Restored My Mana\0" as *const u8 as *const ::core::ffi::c_char);
                 return true_0 != 0;
@@ -535,7 +529,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] > 650 as ::core::ffi::c_int
         && (borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_restoring) as ::core::ffi::c_int
             != 0
-            || borg_activate_item(act_restore_all) as ::core::ffi::c_int != 0)
+            || borg_activate_item(crate::bridge::st().act.restore_all) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Trying to fix stats in combat.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -591,7 +585,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && clw_heal > danger / 3 as ::core::ffi::c_int
         && (borg_spell_fail(MINOR_HEALING, allow_fail) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_cure_light) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_light) as ::core::ffi::c_int != 0)
+            || borg_activate_item(crate::bridge::st().act.cure_light) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 1.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -603,7 +597,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + csw_heal
         && csw_heal > danger / 3 as ::core::ffi::c_int
         && (borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_serious) as ::core::ffi::c_int != 0)
+            || borg_activate_item(crate::bridge::st().act.cure_serious) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 2.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -612,7 +606,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         && pct_down <= 55 as ::core::ffi::c_int
         && danger < crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] + ccw_heal
         && ccw_heal > danger / 3 as ::core::ffi::c_int
-        && (borg_activate_item(act_cure_critical) as ::core::ffi::c_int != 0
+        && (borg_activate_item(crate::bridge::st().act.cure_critical) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 3.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -644,12 +638,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 == 0
             || rod_good as ::core::ffi::c_int != 0)
             && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_nonorlybig) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal1) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal3) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
             || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0)
     {
@@ -695,12 +689,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             || borg_spell_fail(HEALING, allow_fail) as ::core::ffi::c_int != 0
             || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_nonorlybig) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal1) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal3) as ::core::ffi::c_int != 0)
+            || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0)
     {
         borg_note(b"# Healing Level 8.\0" as *const u8 as *const ::core::ffi::c_char);
         return true_0 != 0;
@@ -718,12 +712,12 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
                 || rod_good as ::core::ffi::c_int != 0)
                 && borg_zap_rod(sv_rod_healing) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_nonorlybig) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal1) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_heal3) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal1) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.heal3) as ::core::ffi::c_int != 0
             || crate::bridge::st().borg.near.unique as ::core::ffi::c_int != 0
                 && (borg_quaff_potion(sv_potion_star_healing) as ::core::ffi::c_int != 0
                     || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
@@ -758,20 +752,20 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         if borg_spell_fail(CURE_POISON, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(HERBAL_CURING, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_cure_poison) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_body) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_critical) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_temp) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rem_fear_pois) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_full2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_nonorlybig) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_body) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_critical) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_temp) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_full2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_nonorlybig) as ::core::ffi::c_int != 0
             || borg_use_staff(sv_staff_curing) as ::core::ffi::c_int != 0
             || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_fast_recovery)
                 as ::core::ffi::c_int
                 != 0
             || borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_purging) as ::core::ffi::c_int
                 != 0
-            || borg_activate_item(act_shroom_purging) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.shroom_purging) as ::core::ffi::c_int != 0
             || borg_quaff_crit(true_0 != 0) as ::core::ffi::c_int != 0
             || borg_spell_fail(HEALING, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(HOLY_WORD, 60 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -783,7 +777,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
         if (borg_spell_legal(CURE_POISON) as ::core::ffi::c_int != 0
             || borg_spell_legal(HERBAL_CURING) as ::core::ffi::c_int != 0)
             && (borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0)
+                || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0)
         {
             borg_note(b"# Curing next round.\0" as *const u8 as *const ::core::ffi::c_char);
             return true_0 != 0;
@@ -818,7 +812,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             return true_0 != 0;
         }
         if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -877,7 +871,7 @@ unsafe extern "C" fn borg_heal(mut danger: ::core::ffi::c_int) -> bool {
             return true_0 != 0;
         }
         if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -957,7 +951,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         {
             if borg_spell(TELEPORT_LEVEL) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_teleport_level) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_tele_level) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.tele_level) as ::core::ffi::c_int != 0
             {
                 borg_note(
                     b"# Rising one dlevel (Not ready for Morgoth)\0" as *const u8
@@ -1402,7 +1396,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             return true_0 != 0;
         }
         if borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
         }
@@ -1982,7 +1976,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             || borg_quaff_potion(sv_potion_cure_serious) as ::core::ffi::c_int != 0
             || borg_quaff_crit(false_0 != 0) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_healing) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_confusion) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_confusion) as ::core::ffi::c_int != 0
             || borg_use_staff_fail(sv_staff_healing) as ::core::ffi::c_int != 0
         {
             borg_note(b"# Healing.  Confusion.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -2005,12 +1999,12 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             || borg_spell_fail(BERSERK_STRENGTH, 25 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
             || borg_spell_fail(HEROISM, 25 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_paranoia) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_hero) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_shero) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_cure_mind) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rem_fear_pois) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_paranoia) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.hero) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.shero) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.cure_mind) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rem_fear_pois) as ::core::ffi::c_int != 0
             || borg_spell_fail(HOLY_WORD, 25 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         {
             return true_0 != 0;
@@ -2121,7 +2115,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                 < crate::bridge::st().borg.trait_[(BI_CURSP as ::core::ffi::c_int) as usize]
                     / 4 as ::core::ffi::c_int
             && (borg_quaff_potion(sv_potion_restore_mana) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_restore_mana) as ::core::ffi::c_int != 0)
+                || borg_activate_item(crate::bridge::st().act.restore_mana) as ::core::ffi::c_int != 0)
         {
             borg_note(
                 b"# Buying time waiting for Recall.(1)\0" as *const u8
@@ -2135,7 +2129,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             && (borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PHASE_DOOR, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0)
+                || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0)
         {
             borg_note(
                 b"# Buying time waiting for Recall.(2)\0" as *const u8

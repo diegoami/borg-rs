@@ -17,7 +17,7 @@ pub use crate::headers::borg_flow_h::{
 use crate::headers::borg_flow_misc_h::borg_flow_reverse;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::borg_note;
-use crate::headers::borg_item_activation_h::act_glyph;
+
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
 use crate::headers::borg_item_val_h::sv_scroll_rune_of_protection;
 pub use crate::headers::borg_magic_h::{
@@ -136,7 +136,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
         ));
         if borg_spell_fail(GLYPH_OF_WARDING, 30 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_rune_of_protection) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_glyph) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.glyph) as ::core::ffi::c_int != 0
         {
             i = 0 as ::core::ffi::c_int;
             while i < track_glyph.num as ::core::ffi::c_int {

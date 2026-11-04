@@ -12,15 +12,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_home_notice_h::{
     borg_notice_home, num_ezheal_true, num_heal_true, num_life_true, num_speed,
 };
-use crate::headers::borg_item_activation_h::{
-    act_clairvoyance, act_cure_critical, act_cure_full, act_cure_full2, act_cure_light,
-    act_cure_nonorlybig, act_cure_serious, act_detect_all, act_enchant_armor, act_enchant_armor2,
-    act_enchant_todam, act_enchant_tohit, act_enchant_weapon, act_enlightenment, act_firebrand,
-    act_glyph, act_haste, act_haste1, act_haste2, act_heal1, act_heal2, act_heal3,
-    act_illumination, act_light, act_mapping, act_protevil, act_recall, act_recharge,
-    act_restore_exp, act_restore_life, act_restore_st_lev, act_staff_holy, act_staff_magi,
-    act_stone_to_mud, act_tele_long, act_tele_phase,
-};
+
 use crate::headers::borg_item_analyze_h::borg_obj_has_effect;
 pub use crate::headers::borg_item_h::{
     borg_item, borg_item_weight, borg_items, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING,
@@ -1451,7 +1443,7 @@ unsafe extern "C" fn borg_notice_ammo(mut slot: ::core::ffi::c_int) {
     if crate::bridge::st().borg.trait_[(BI_AMMO_POWER as ::core::ffi::c_int) as usize]
         >= 3 as ::core::ffi::c_int
     {
-        if (borg_equips_item(act_firebrand, false_0 != 0) as ::core::ffi::c_int != 0
+        if (borg_equips_item(crate::bridge::st().act.firebrand, false_0 != 0) as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(BRAND_AMMUNITION, 65 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
                 != 0)
@@ -1498,7 +1490,7 @@ unsafe extern "C" fn borg_notice_ammo(mut slot: ::core::ffi::c_int) {
     {
         return;
     }
-    if (borg_equips_item(act_firebrand, false_0 != 0) as ::core::ffi::c_int != 0
+    if (borg_equips_item(crate::bridge::st().act.firebrand, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_spell_legal_fail(BRAND_AMMUNITION, 65 as ::core::ffi::c_int) as ::core::ffi::c_int
             != 0)
         && (*item).iqty as ::core::ffi::c_int >= 5 as ::core::ffi::c_int
@@ -1889,7 +1881,7 @@ unsafe extern "C" fn borg_notice_equipment() {
         }
         i += 1;
     }
-    if crate::bridge::st().borg.activation[(act_staff_magi) as usize] != 0 {
+    if crate::bridge::st().borg.activation[(crate::bridge::st().act.staff_magi) as usize] != 0 {
         crate::bridge::st().borg.trait_[(BI_ASTFMAGI as ::core::ffi::c_int) as usize] += 10 as ::core::ffi::c_int;
     }
     i = (*z_info).pack_size as ::core::ffi::c_int;
@@ -3766,8 +3758,8 @@ unsafe extern "C" fn borg_notice_inventory() {
         crate::bridge::st().borg.trait_[(BI_ADETEVIL as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal(DETECTION) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_enlightenment, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_clairvoyance, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.enlightenment, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.clairvoyance, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ADETDOOR as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_ADETTRAP as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
@@ -3777,29 +3769,29 @@ unsafe extern "C" fn borg_notice_inventory() {
         crate::bridge::st().borg.trait_[(BI_DINV as ::core::ffi::c_int) as usize] = true_0;
     }
     if borg_spell_legal(SENSE_SURROUNDINGS) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_detect_all, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_mapping, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.detect_all, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.mapping, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ADETDOOR as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_ADETTRAP as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_AMAGICMAP as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal(LIGHT_ROOM) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_light, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_illumination, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.light, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.illumination, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_spell_legal(CALL_LIGHT) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ALITE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal(PROTECTION_FROM_EVIL) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_protevil, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.protevil, false_0 != 0) as ::core::ffi::c_int != 0
         || crate::bridge::st().borg.has[(kv_staff_holiness) as usize] != 0
-        || borg_equips_item(act_staff_holy, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.staff_holy, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_APFE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal(GLYPH_OF_WARDING) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_glyph, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.glyph, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_AGLYPH as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
@@ -3808,33 +3800,33 @@ unsafe extern "C" fn borg_notice_inventory() {
         crate::bridge::st().borg.trait_[(BI_ADETTRAP as ::core::ffi::c_int) as usize] = 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal_fail(ENCHANT_WEAPON, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_enchant_weapon, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.enchant_weapon, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_AENCH_SWEP as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_enchant_tohit, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.enchant_tohit, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_AENCH_TOH as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_enchant_todam, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.enchant_todam, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_AENCH_TOD as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_firebrand, false_0 != 0) as ::core::ffi::c_int != 0
+    if borg_equips_item(crate::bridge::st().act.firebrand, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_spell_legal_fail(BRAND_AMMUNITION, 65 as ::core::ffi::c_int) as ::core::ffi::c_int
             != 0
     {
         crate::bridge::st().borg.trait_[(BI_ABRAND as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal_fail(ENCHANT_ARMOUR, 65 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_enchant_armor, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_enchant_armor2, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.enchant_armor, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.enchant_armor2, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_AENCH_ARM as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_AENCH_SARM as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal_fail(TURN_STONE_TO_MUD, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_stone_to_mud, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.stone_to_mud, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_equips_ring(sv_ring_digging) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ADIGGER as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
@@ -3846,7 +3838,7 @@ unsafe extern "C" fn borg_notice_inventory() {
     {
         crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_recall, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.recall, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_RECALL as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
     }
     if borg_spell_legal_fail(TELEPORT_LEVEL, 20 as ::core::ffi::c_int) {
@@ -3855,7 +3847,7 @@ unsafe extern "C" fn borg_notice_inventory() {
     if borg_spell_legal_fail(PHASE_DOOR, 3 as ::core::ffi::c_int) {
         crate::bridge::st().borg.trait_[(BI_APHASE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_tele_phase, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.tele_phase, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_APHASE as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
     }
     if borg_spell_legal_fail(TELEPORT_SELF, 1 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
@@ -3865,7 +3857,7 @@ unsafe extern "C" fn borg_notice_inventory() {
     {
         crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_tele_long, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.tele_long, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_AESCAPE as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
         crate::bridge::st().borg.trait_[(BI_ATELEPORT as ::core::ffi::c_int) as usize] += 1 as ::core::ffi::c_int;
     }
@@ -3876,47 +3868,47 @@ unsafe extern "C" fn borg_notice_inventory() {
         crate::bridge::st().borg.trait_[(BI_AHWORD as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
     if borg_spell_legal(HASTE_SELF) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste1, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste2, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste1, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste2, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ASPEED as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_cure_light, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.cure_light, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_ACLW as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_cure_serious, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.cure_serious, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_ACSW as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_cure_critical, false_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.cure_critical, false_0 != 0) {
         crate::bridge::st().borg.trait_[(BI_ACCW as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_cure_full, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_cure_full2, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_heal1, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_heal2, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_heal3, false_0 != 0) as ::core::ffi::c_int != 0
+    if borg_equips_item(crate::bridge::st().act.cure_full, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.cure_full2, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.heal1, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.heal2, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.heal3, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_spell_legal(HEALING) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_AHEAL as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;
     }
-    if borg_equips_item(act_cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_exp, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_st_lev, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_life, false_0 != 0) as ::core::ffi::c_int != 0
+    if borg_equips_item(crate::bridge::st().act.cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_exp, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_st_lev, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_life, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_HASFIXEXP as ::core::ffi::c_int) as usize] = true_0;
     }
     if borg_spell_legal(REMEMBRANCE) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_exp, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_st_lev, false_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_restore_life, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.cure_nonorlybig, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_exp, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_st_lev, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.restore_life, false_0 != 0) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] = true_0;
     }
-    if borg_equips_item(act_recharge, false_0 != 0) as ::core::ffi::c_int != 0
+    if borg_equips_item(crate::bridge::st().act.recharge, false_0 != 0) as ::core::ffi::c_int != 0
         || borg_spell_legal(RECHARGING) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.trait_[(BI_ARECHARGE as ::core::ffi::c_int) as usize] += 1000 as ::core::ffi::c_int;

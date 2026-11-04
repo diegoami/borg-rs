@@ -295,3 +295,24 @@ pub fn set_inkey_hack(f: Option<InkeyHack>) {
     // SAFETY: plain global, engine thread.
     unsafe { crate::headers::borg_h::inkey_hack = f }
 }
+
+// ---------------------------------------------------------------------------
+// Game data lookups
+
+/// Walk the activation list from `activations[1]` and return the index of
+/// the first entry whose name equals `name` ignoring case (`my_stricmp`).
+pub fn find_activation(name: &str) -> Option<i32> {
+    let cname = CString::new(name).expect("no NUL in name");
+    // SAFETY: `activations` is loaded at startup; the list is linked
+    // through `next` and terminated by NULL; names are C strings.
+    unsafe {
+        let mut act = crate::headers::object_h::activations.add(1);
+        while !act.is_null() {
+            if crate::headers::z_util_h::my_stricmp((*act).name, cname.as_ptr()) == 0 {
+                return Some((*act).index);
+            }
+            act = (*act).next;
+        }
+    }
+    None
+}

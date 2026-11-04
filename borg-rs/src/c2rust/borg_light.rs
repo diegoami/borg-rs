@@ -16,10 +16,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
-use crate::headers::borg_item_activation_h::{
-    act_clairvoyance, act_detect_all, act_detect_objects, act_enlightenment, act_illumination,
-    act_light, act_mapping,
-};
+
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_aim_wand, borg_equips_rod, borg_need, borg_read_scroll,
@@ -214,8 +211,8 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
         return false_0 != 0;
     }
     if crate::bridge::st().borg.time.wizard_light == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.wizard_light >= 1000 as borg_time {
-        if borg_activate_item(act_clairvoyance) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_enlightenment) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.clairvoyance) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.enlightenment) as ::core::ffi::c_int != 0
             || borg_spell_fail(FUME_OF_MORDOR, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(CLAIRVOYANCE, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
         {
@@ -284,8 +281,8 @@ pub unsafe extern "C" fn borg_check_light_only() -> bool {
             return false_0 != 0;
         }
     }
-    if borg_activate_item(act_illumination) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_light) as ::core::ffi::c_int != 0
+    if borg_activate_item(crate::bridge::st().act.illumination) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.light) as ::core::ffi::c_int != 0
         || borg_zap_rod(sv_rod_illumination) as ::core::ffi::c_int != 0
         || borg_use_staff(sv_staff_light) as ::core::ffi::c_int != 0
         || borg_read_scroll(sv_scroll_light) as ::core::ffi::c_int != 0
@@ -461,8 +458,8 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
-        if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_mapping) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.detect_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
             || borg_zap_rod(sv_rod_detection) as ::core::ffi::c_int != 0
             || borg_spell_fail(SENSE_SURROUNDINGS, 40 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
@@ -507,8 +504,8 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
-        if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_mapping) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.detect_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
             || borg_spell_fail(DETECTION, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(FIND_TRAPS_DOORS_STAIRS, 40 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
@@ -552,8 +549,8 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
-        if borg_activate_item(act_detect_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_mapping) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.detect_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
             || borg_spell_fail(DETECTION, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
             || borg_spell_fail(FIND_TRAPS_DOORS_STAIRS, 40 as ::core::ffi::c_int)
                 as ::core::ffi::c_int
@@ -574,7 +571,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
     {
-        if borg_activate_item(act_mapping) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.mapping) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_mapping) as ::core::ffi::c_int != 0
             || borg_use_staff(sv_staff_mapping) as ::core::ffi::c_int != 0
             || borg_zap_rod(sv_rod_mapping) as ::core::ffi::c_int != 0
@@ -604,7 +601,7 @@ pub unsafe extern "C" fn borg_check_light() -> bool {
     if do_obj as ::core::ffi::c_int != 0
         && (crate::bridge::st().borg.time.detect_obj == 0 || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.detect_obj >= 20 as borg_time)
     {
-        if borg_activate_item(act_detect_objects) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.detect_objects) as ::core::ffi::c_int != 0
             || borg_spell_fail(OBJECT_DETECTION, 40 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0
         {

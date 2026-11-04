@@ -9,7 +9,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::borg_note;
-use crate::headers::borg_item_activation_h::{act_rage_bless_resist, act_resist_all};
+
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_equips_item, borg_quaff_potion};
 use crate::headers::borg_item_val_h::sv_potion_berserk;
 pub use crate::headers::borg_magic_h::{
@@ -223,16 +223,16 @@ unsafe extern "C" fn borg_perma_aux_resist_colluin() -> ::core::ffi::c_int {
     if crate::bridge::st().borg.near.unique == 0 {
         return 0 as ::core::ffi::c_int;
     }
-    if !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+    if !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
     if borg_simulate {
         return 2 as ::core::ffi::c_int;
     }
-    if borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+    if borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
     }

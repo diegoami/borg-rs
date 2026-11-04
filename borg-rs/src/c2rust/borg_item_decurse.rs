@@ -7,7 +7,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::borg_keypress;
-use crate::headers::borg_item_activation_h::{act_remove_curse, act_remove_curse2};
+
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_equips_item, borg_equips_staff_fail, borg_read_scroll, borg_use_staff,
 };
@@ -133,8 +133,8 @@ pub unsafe extern "C" fn borg_decurse_armour() -> bool {
         && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
-        && !borg_equips_item(act_remove_curse, true_0 != 0)
-        && !borg_equips_item(act_remove_curse2, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
     {
         return false_0 != 0;
     }
@@ -142,8 +142,8 @@ pub unsafe extern "C" fn borg_decurse_armour() -> bool {
         || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
         || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
         || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_remove_curse) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_remove_curse2) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
     {
         borg_keypress(
             *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char)
@@ -165,8 +165,8 @@ pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
         && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
-        && !borg_equips_item(act_remove_curse, true_0 != 0)
-        && !borg_equips_item(act_remove_curse2, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
     {
         return false_0 != 0;
     }
@@ -174,8 +174,8 @@ pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
         || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
         || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
         || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_remove_curse) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_remove_curse2) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
     {
         borg_keypress(
             *(&raw const all_letters_nohjkl as *const ::core::ffi::c_char)
@@ -197,8 +197,8 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
             && !borg_spell_okay_fail(REMOVE_CURSE, 40 as ::core::ffi::c_int)
             && -(1 as ::core::ffi::c_int)
                 == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_star_remove_curse)
-            && !borg_equips_item(act_remove_curse, true_0 != 0)
-            && !borg_equips_item(act_remove_curse2, true_0 != 0)
+            && !borg_equips_item(crate::bridge::st().act.remove_curse, true_0 != 0)
+            && !borg_equips_item(crate::bridge::st().act.remove_curse2, true_0 != 0)
         {
             return false_0 != 0;
         }
@@ -206,8 +206,8 @@ pub unsafe extern "C" fn borg_decurse_any() -> bool {
             || borg_use_staff(sv_staff_remove_curse) as ::core::ffi::c_int != 0
             || borg_spell(REMOVE_CURSE) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_star_remove_curse) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_remove_curse) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_remove_curse2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.remove_curse) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.remove_curse2) as ::core::ffi::c_int != 0
         {
             if crate::bridge::st().borg.trait_[(BI_FIRST_CURSED as ::core::ffi::c_int) as usize]
                 <= (*z_info).pack_size as ::core::ffi::c_int

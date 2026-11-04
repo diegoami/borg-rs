@@ -14,38 +14,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_formulas_h::borg_power_dynamic;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
-use crate::headers::borg_item_activation_h::{
-    act_acid_ball, act_acid_bolt, act_acid_bolt2, act_acid_bolt3, act_arrow, act_banishment,
-    act_berserker, act_bizarre, act_blessing, act_blessing2, act_blessing3, act_brawn,
-    act_clairvoyance, act_cold_ball100, act_cold_ball160, act_cold_ball2, act_cold_ball50,
-    act_cold_bolt, act_cold_bolt2, act_confuse2, act_confusing, act_contemplation, act_cure_body,
-    act_cure_confusion, act_cure_critical, act_cure_full, act_cure_full2, act_cure_light,
-    act_cure_mind, act_cure_nonorlybig, act_cure_paranoia, act_cure_serious, act_cure_temp,
-    act_deep_descent, act_destroy_doors, act_destruction2, act_detect_all, act_detect_evil,
-    act_detect_invis, act_detect_objects, act_detect_treasure, act_disable_traps, act_dispel_all,
-    act_dispel_evil, act_dispel_evil60, act_dispel_undead, act_dragon_balance, act_dragon_blue,
-    act_dragon_chaos, act_dragon_gold, act_dragon_green, act_dragon_law, act_dragon_multihued,
-    act_dragon_power, act_dragon_red, act_dragon_shining, act_drain_life1, act_drain_life2,
-    act_drain_life3, act_drain_life4, act_drink_breath, act_earthquakes, act_elec_ball,
-    act_elec_ball2, act_elec_bolt, act_enchant_armor, act_enchant_armor2, act_enchant_todam,
-    act_enchant_tohit, act_enchant_weapon, act_enlightenment, act_fire_ball, act_fire_ball2,
-    act_fire_ball200, act_fire_ball72, act_fire_bolt, act_fire_bolt2, act_fire_bolt3,
-    act_firebrand, act_food_waybread, act_glyph, act_haste, act_haste1, act_haste2, act_heal1,
-    act_heal2, act_heal3, act_hero, act_illumination, act_intellect, act_light, act_light_line,
-    act_losconf, act_loskill, act_lossleep, act_losslow, act_mana_bolt, act_mapping, act_missile,
-    act_mon_confuse, act_mon_scare, act_mon_slow, act_nimbleness, act_polymorph, act_probing,
-    act_protevil, act_rage_bless_resist, act_recall, act_recharge, act_rem_fear_pois,
-    act_remove_curse, act_remove_curse2, act_resist_acid, act_resist_all, act_resist_cold,
-    act_resist_elec, act_resist_fire, act_resist_pois, act_restore_all, act_restore_con,
-    act_restore_dex, act_restore_exp, act_restore_int, act_restore_life, act_restore_mana,
-    act_restore_st_lev, act_restore_str, act_restore_wis, act_ring_acid, act_ring_flames,
-    act_ring_ice, act_ring_lightning, act_satisfy, act_shero, act_shroom_debility,
-    act_shroom_emergency, act_shroom_purging, act_shroom_sprinting, act_shroom_stone,
-    act_shroom_terror, act_sleep_all, act_sleepii, act_staff_holy, act_staff_magi, act_star_ball,
-    act_starlight, act_starlight2, act_stinking_cloud, act_stone_to_mud, act_tele_level,
-    act_tele_long, act_tele_other, act_tele_phase, act_tmd_esp, act_tmd_free_act, act_tmd_infra,
-    act_tmd_sinvis, act_toughness, act_wand_breath, act_wonder,
-};
+
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_item_weight, borg_items};
 use crate::headers::borg_item_val_h::{
@@ -1319,95 +1288,95 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
     while act < (*z_info).act_max as ::core::ffi::c_int {
         if !(crate::bridge::st().borg.activation[(act) as usize] == 0) {
             activation_bonus = 0 as ::core::ffi::c_int;
-            if act_illumination == act {
+            if crate::bridge::st().act.illumination == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_mapping == act {
+            } else if crate::bridge::st().act.mapping == act {
                 activation_bonus += 550 as ::core::ffi::c_int;
-            } else if act_clairvoyance == act {
+            } else if crate::bridge::st().act.clairvoyance == act {
                 activation_bonus += 600 as ::core::ffi::c_int;
-            } else if act_fire_bolt == act {
+            } else if crate::bridge::st().act.fire_bolt == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 9 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_cold_bolt == act {
+            } else if crate::bridge::st().act.cold_bolt == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 6 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_elec_bolt == act {
+            } else if crate::bridge::st().act.elec_bolt == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 4 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_acid_bolt == act {
+            } else if crate::bridge::st().act.acid_bolt == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 5 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_mana_bolt == act {
+            } else if crate::bridge::st().act.mana_bolt == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 12 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_stinking_cloud == act {
+            } else if crate::bridge::st().act.stinking_cloud == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 24 as ::core::ffi::c_int;
-            } else if act_cold_ball50 == act {
+            } else if crate::bridge::st().act.cold_ball50 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 96 as ::core::ffi::c_int;
-            } else if act_cold_ball100 == act {
+            } else if crate::bridge::st().act.cold_ball100 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 200 as ::core::ffi::c_int;
-            } else if act_fire_ball72 == act {
+            } else if crate::bridge::st().act.fire_ball72 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 72 as ::core::ffi::c_int;
-            } else if act_cold_bolt2 == act {
+            } else if crate::bridge::st().act.cold_bolt2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 12 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_fire_ball == act {
+            } else if crate::bridge::st().act.fire_ball == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 144 as ::core::ffi::c_int;
-            } else if act_dispel_evil == act {
+            } else if crate::bridge::st().act.dispel_evil == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + (10 as ::core::ffi::c_int
                         + crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
                             * 5 as ::core::ffi::c_int
                             / 2 as ::core::ffi::c_int);
-            } else if act_confuse2 == act {
+            } else if crate::bridge::st().act.confuse2 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_haste == act {
+            } else if crate::bridge::st().act.haste == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_haste1 == act {
+            } else if crate::bridge::st().act.haste1 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_haste2 == act {
+            } else if crate::bridge::st().act.haste2 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_detect_objects == act {
+            } else if crate::bridge::st().act.detect_objects == act {
                 activation_bonus += 10 as ::core::ffi::c_int;
-            } else if act_probing == act {
+            } else if crate::bridge::st().act.probing == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_stone_to_mud == act {
+            } else if crate::bridge::st().act.stone_to_mud == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_tele_other == act {
+            } else if crate::bridge::st().act.tele_other == act {
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE {
                     activation_bonus += 500 as ::core::ffi::c_int;
                 } else {
                     activation_bonus += 500 as ::core::ffi::c_int + 500 as ::core::ffi::c_int;
                 }
-            } else if act_drain_life1 == act {
+            } else if crate::bridge::st().act.drain_life1 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 90 as ::core::ffi::c_int;
-            } else if act_drain_life2 == act {
+            } else if crate::bridge::st().act.drain_life2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 120 as ::core::ffi::c_int;
-            } else if act_berserker == act {
+            } else if crate::bridge::st().act.berserker == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_cure_light == act {
+            } else if crate::bridge::st().act.cure_light == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_cure_serious == act {
+            } else if crate::bridge::st().act.cure_serious == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_cure_critical == act {
+            } else if crate::bridge::st().act.cure_critical == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_cure_full2 == act {
+            } else if crate::bridge::st().act.cure_full2 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_loskill == act {
+            } else if crate::bridge::st().act.loskill == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 200 as ::core::ffi::c_int;
-            } else if act_recall == act {
+            } else if crate::bridge::st().act.recall == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_arrow == act {
+            } else if crate::bridge::st().act.arrow == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 150 as ::core::ffi::c_int;
-            } else if act_rem_fear_pois == act {
+            } else if crate::bridge::st().act.rem_fear_pois == act {
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_MAGE
                     || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_PRIEST
                     || crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] == CLASS_DRUID
@@ -1416,32 +1385,32 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
                 } else {
                     activation_bonus += 500 as ::core::ffi::c_int + 200 as ::core::ffi::c_int;
                 }
-            } else if act_tele_phase == act {
+            } else if crate::bridge::st().act.tele_phase == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_detect_all == act {
+            } else if crate::bridge::st().act.detect_all == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_cure_full == act {
+            } else if crate::bridge::st().act.cure_full == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_heal1 == act {
+            } else if crate::bridge::st().act.heal1 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_heal2 == act {
+            } else if crate::bridge::st().act.heal2 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_heal3 == act {
+            } else if crate::bridge::st().act.heal3 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_cure_nonorlybig == act {
+            } else if crate::bridge::st().act.cure_nonorlybig == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_protevil == act {
+            } else if crate::bridge::st().act.protevil == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_destroy_doors == act {
+            } else if crate::bridge::st().act.destroy_doors == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_banishment == act {
+            } else if crate::bridge::st().act.banishment == act {
                 activation_bonus += 1000 as ::core::ffi::c_int;
-            } else if act_resist_all == act {
+            } else if crate::bridge::st().act.resist_all == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 150 as ::core::ffi::c_int;
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_MAGE {
                     activation_bonus += 25000 as ::core::ffi::c_int;
                 }
-            } else if act_sleepii == act {
+            } else if crate::bridge::st().act.sleepii == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_DRUID
                     && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize]
@@ -1449,263 +1418,263 @@ unsafe extern "C" fn borg_power_equipment() -> int32_t {
                 {
                     activation_bonus += 200 as ::core::ffi::c_int;
                 }
-            } else if act_recharge == act {
+            } else if crate::bridge::st().act.recharge == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_MAGE
                     && crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_ROGUE
                 {
                     activation_bonus += 100 as ::core::ffi::c_int;
                 }
-            } else if act_tele_long == act {
+            } else if crate::bridge::st().act.tele_long == act {
                 activation_bonus += 300 as ::core::ffi::c_int;
-            } else if act_missile == act {
+            } else if crate::bridge::st().act.missile == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 2 as ::core::ffi::c_int * (6 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_cure_temp == act {
+            } else if crate::bridge::st().act.cure_temp == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_starlight2 == act {
+            } else if crate::bridge::st().act.starlight2 == act {
                 activation_bonus += 100 as ::core::ffi::c_int
                     + 10 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_bizarre == act {
+            } else if crate::bridge::st().act.bizarre == act {
                 activation_bonus += 999999 as ::core::ffi::c_int;
-            } else if act_star_ball == act {
+            } else if crate::bridge::st().act.star_ball == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 300 as ::core::ffi::c_int;
-            } else if act_rage_bless_resist == act {
+            } else if crate::bridge::st().act.rage_bless_resist == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 150 as ::core::ffi::c_int;
                 if crate::bridge::st().borg.trait_[(BI_CLASS as ::core::ffi::c_int) as usize] != CLASS_MAGE {
                     activation_bonus += 25000 as ::core::ffi::c_int;
                 }
-            } else if act_polymorph == act {
+            } else if crate::bridge::st().act.polymorph == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_starlight == act {
+            } else if crate::bridge::st().act.starlight == act {
                 activation_bonus += 100 as ::core::ffi::c_int
                     + 6 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_light == act {
+            } else if crate::bridge::st().act.light == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_firebrand == act {
+            } else if crate::bridge::st().act.firebrand == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_restore_life == act {
+            } else if crate::bridge::st().act.restore_life == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_restore_exp == act {
+            } else if crate::bridge::st().act.restore_exp == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_restore_st_lev == act {
+            } else if crate::bridge::st().act.restore_st_lev == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enlightenment == act {
+            } else if crate::bridge::st().act.enlightenment == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_hero == act {
+            } else if crate::bridge::st().act.hero == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_shero == act {
+            } else if crate::bridge::st().act.shero == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_cure_paranoia == act {
+            } else if crate::bridge::st().act.cure_paranoia == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_cure_mind == act {
+            } else if crate::bridge::st().act.cure_mind == act {
                 activation_bonus += 1000 as ::core::ffi::c_int;
-            } else if act_cure_body == act {
+            } else if crate::bridge::st().act.cure_body == act {
                 activation_bonus += 1000 as ::core::ffi::c_int;
-            } else if act_mon_slow == act {
+            } else if crate::bridge::st().act.mon_slow == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_mon_confuse == act {
+            } else if crate::bridge::st().act.mon_confuse == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_sleep_all == act {
+            } else if crate::bridge::st().act.sleep_all == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_mon_scare == act {
+            } else if crate::bridge::st().act.mon_scare == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_light_line == act {
+            } else if crate::bridge::st().act.light_line == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_disable_traps == act {
+            } else if crate::bridge::st().act.disable_traps == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_drain_life3 == act {
+            } else if crate::bridge::st().act.drain_life3 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 150 as ::core::ffi::c_int;
-            } else if act_drain_life4 == act {
+            } else if crate::bridge::st().act.drain_life4 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 250 as ::core::ffi::c_int;
-            } else if act_elec_ball == act {
+            } else if crate::bridge::st().act.elec_ball == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 64 as ::core::ffi::c_int;
-            } else if act_elec_ball2 == act {
+            } else if crate::bridge::st().act.elec_ball2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 250 as ::core::ffi::c_int;
-            } else if act_acid_bolt2 == act {
+            } else if crate::bridge::st().act.acid_bolt2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 10 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_acid_bolt3 == act {
+            } else if crate::bridge::st().act.acid_bolt3 == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 12 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_acid_ball == act {
+            } else if crate::bridge::st().act.acid_ball == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 120 as ::core::ffi::c_int;
-            } else if act_cold_ball160 == act {
+            } else if crate::bridge::st().act.cold_ball160 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 160 as ::core::ffi::c_int;
-            } else if act_cold_ball2 == act {
+            } else if crate::bridge::st().act.cold_ball2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 200 as ::core::ffi::c_int;
-            } else if act_fire_ball2 == act {
+            } else if crate::bridge::st().act.fire_ball2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 120 as ::core::ffi::c_int;
-            } else if act_fire_ball200 == act {
+            } else if crate::bridge::st().act.fire_ball200 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 200 as ::core::ffi::c_int;
-            } else if act_fire_bolt2 == act {
+            } else if crate::bridge::st().act.fire_bolt2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 12 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_fire_bolt3 == act {
+            } else if crate::bridge::st().act.fire_bolt3 == act {
                 activation_bonus += 500 as ::core::ffi::c_int
                     + 16 as ::core::ffi::c_int
                         * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                         / 2 as ::core::ffi::c_int;
-            } else if act_dispel_evil60 == act {
+            } else if crate::bridge::st().act.dispel_evil60 == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 60 as ::core::ffi::c_int;
-            } else if act_dispel_undead == act {
+            } else if crate::bridge::st().act.dispel_undead == act {
                 activation_bonus += 500 as ::core::ffi::c_int + 60 as ::core::ffi::c_int;
-            } else if act_dispel_all == act {
+            } else if crate::bridge::st().act.dispel_all == act {
                 activation_bonus +=
                     500 as ::core::ffi::c_int + 60 as ::core::ffi::c_int * 2 as ::core::ffi::c_int;
-            } else if act_deep_descent == act {
+            } else if crate::bridge::st().act.deep_descent == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_earthquakes == act {
+            } else if crate::bridge::st().act.earthquakes == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_destruction2 == act {
+            } else if crate::bridge::st().act.destruction2 == act {
                 activation_bonus += 500 as ::core::ffi::c_int;
-            } else if act_losslow == act {
+            } else if crate::bridge::st().act.losslow == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_lossleep == act {
+            } else if crate::bridge::st().act.lossleep == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_losconf == act {
+            } else if crate::bridge::st().act.losconf == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_satisfy == act {
+            } else if crate::bridge::st().act.satisfy == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_blessing == act {
+            } else if crate::bridge::st().act.blessing == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_blessing2 == act {
+            } else if crate::bridge::st().act.blessing2 == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_blessing3 == act {
+            } else if crate::bridge::st().act.blessing3 == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_glyph == act {
+            } else if crate::bridge::st().act.glyph == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_tele_level == act {
+            } else if crate::bridge::st().act.tele_level == act {
                 activation_bonus = (activation_bonus as ::core::ffi::c_long
                     + 5000 as ::core::ffi::c_long)
                     as ::core::ffi::c_int;
-            } else if act_confusing == act {
+            } else if crate::bridge::st().act.confusing == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enchant_tohit == act {
+            } else if crate::bridge::st().act.enchant_tohit == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enchant_todam == act {
+            } else if crate::bridge::st().act.enchant_todam == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enchant_weapon == act {
+            } else if crate::bridge::st().act.enchant_weapon == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enchant_armor == act {
+            } else if crate::bridge::st().act.enchant_armor == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_enchant_armor2 == act {
+            } else if crate::bridge::st().act.enchant_armor2 == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_remove_curse == act {
+            } else if crate::bridge::st().act.remove_curse == act {
                 activation_bonus += 9000 as ::core::ffi::c_int;
-            } else if act_remove_curse2 == act {
+            } else if crate::bridge::st().act.remove_curse2 == act {
                 activation_bonus += 10000 as ::core::ffi::c_int;
-            } else if act_detect_treasure == act {
+            } else if crate::bridge::st().act.detect_treasure == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_detect_invis == act {
+            } else if crate::bridge::st().act.detect_invis == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_detect_evil == act {
+            } else if crate::bridge::st().act.detect_evil == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_mana == act {
+            } else if crate::bridge::st().act.restore_mana == act {
                 activation_bonus += 5000 as ::core::ffi::c_int;
-            } else if act_brawn == act {
+            } else if crate::bridge::st().act.brawn == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_intellect == act {
+            } else if crate::bridge::st().act.intellect == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_contemplation == act {
+            } else if crate::bridge::st().act.contemplation == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_toughness == act {
+            } else if crate::bridge::st().act.toughness == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_nimbleness == act {
+            } else if crate::bridge::st().act.nimbleness == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_restore_str == act {
+            } else if crate::bridge::st().act.restore_str == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_int == act {
+            } else if crate::bridge::st().act.restore_int == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_wis == act {
+            } else if crate::bridge::st().act.restore_wis == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_dex == act {
+            } else if crate::bridge::st().act.restore_dex == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_con == act {
+            } else if crate::bridge::st().act.restore_con == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_restore_all == act {
+            } else if crate::bridge::st().act.restore_all == act {
                 activation_bonus += 150 as ::core::ffi::c_int;
-            } else if act_tmd_free_act == act {
+            } else if crate::bridge::st().act.tmd_free_act == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_tmd_infra == act {
+            } else if crate::bridge::st().act.tmd_infra == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_tmd_sinvis == act {
+            } else if crate::bridge::st().act.tmd_sinvis == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_tmd_esp == act {
+            } else if crate::bridge::st().act.tmd_esp == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_resist_acid == act {
+            } else if crate::bridge::st().act.resist_acid == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_resist_elec == act {
+            } else if crate::bridge::st().act.resist_elec == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_resist_fire == act {
+            } else if crate::bridge::st().act.resist_fire == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_resist_cold == act {
+            } else if crate::bridge::st().act.resist_cold == act {
                 activation_bonus += 100 as ::core::ffi::c_int;
-            } else if act_resist_pois == act {
+            } else if crate::bridge::st().act.resist_pois == act {
                 activation_bonus += 150 as ::core::ffi::c_int;
-            } else if act_cure_confusion == act {
+            } else if crate::bridge::st().act.cure_confusion == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_wonder == act {
+            } else if crate::bridge::st().act.wonder == act {
                 activation_bonus += 300 as ::core::ffi::c_int;
-            } else if act_wand_breath == act {
+            } else if crate::bridge::st().act.wand_breath == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_staff_magi == act {
+            } else if crate::bridge::st().act.staff_magi == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_staff_holy == act {
+            } else if crate::bridge::st().act.staff_holy == act {
                 activation_bonus += 1000 as ::core::ffi::c_int;
-            } else if act_drink_breath == act {
+            } else if crate::bridge::st().act.drink_breath == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_food_waybread == act {
+            } else if crate::bridge::st().act.food_waybread == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_shroom_emergency == act {
+            } else if crate::bridge::st().act.shroom_emergency == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_shroom_terror == act {
+            } else if crate::bridge::st().act.shroom_terror == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_shroom_stone == act {
+            } else if crate::bridge::st().act.shroom_stone == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_shroom_debility == act {
+            } else if crate::bridge::st().act.shroom_debility == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_shroom_sprinting == act {
+            } else if crate::bridge::st().act.shroom_sprinting == act {
                 activation_bonus += 0 as ::core::ffi::c_int;
-            } else if act_shroom_purging == act {
+            } else if crate::bridge::st().act.shroom_purging == act {
                 activation_bonus += 50 as ::core::ffi::c_int;
-            } else if act_ring_acid == act {
+            } else if crate::bridge::st().act.ring_acid == act {
                 activation_bonus += 10000 as ::core::ffi::c_int;
-            } else if act_ring_flames == act {
+            } else if crate::bridge::st().act.ring_flames == act {
                 activation_bonus += 25000 as ::core::ffi::c_int;
-            } else if act_ring_ice == act {
+            } else if crate::bridge::st().act.ring_ice == act {
                 activation_bonus += 15000 as ::core::ffi::c_int;
-            } else if act_ring_lightning == act {
+            } else if crate::bridge::st().act.ring_lightning == act {
                 activation_bonus += 10000 as ::core::ffi::c_int;
-            } else if act_dragon_blue == act {
+            } else if crate::bridge::st().act.dragon_blue == act {
                 activation_bonus += 1100 as ::core::ffi::c_int;
-            } else if act_dragon_green == act {
+            } else if crate::bridge::st().act.dragon_green == act {
                 activation_bonus += 2750 as ::core::ffi::c_int;
-            } else if act_dragon_red == act {
+            } else if crate::bridge::st().act.dragon_red == act {
                 activation_bonus += 1100 as ::core::ffi::c_int;
-            } else if act_dragon_multihued == act {
+            } else if crate::bridge::st().act.dragon_multihued == act {
                 activation_bonus += 3250 as ::core::ffi::c_int;
-            } else if act_dragon_gold == act {
+            } else if crate::bridge::st().act.dragon_gold == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
-            } else if act_dragon_chaos == act {
+            } else if crate::bridge::st().act.dragon_chaos == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
-            } else if act_dragon_law == act {
+            } else if crate::bridge::st().act.dragon_law == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
-            } else if act_dragon_balance == act {
+            } else if crate::bridge::st().act.dragon_balance == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
-            } else if act_dragon_shining == act {
+            } else if crate::bridge::st().act.dragon_shining == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
-            } else if act_dragon_power == act {
+            } else if crate::bridge::st().act.dragon_power == act {
                 activation_bonus += 5150 as ::core::ffi::c_int;
             }
             value = (value as ::core::ffi::c_int

@@ -96,19 +96,7 @@ pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::{borg_slot, borg_wield_slot};
 use crate::headers::borg_io_h::{borg_keypress, borg_note, borg_queue_direction};
-use crate::headers::borg_item_activation_h::{
-    act_acid_ball, act_acid_bolt, act_acid_bolt2, act_arrow, act_cold_ball100, act_cold_ball160,
-    act_cold_ball2, act_cold_ball50, act_cold_bolt, act_cold_bolt2, act_confuse2, act_dispel_evil,
-    act_dispel_evil60, act_dispel_undead, act_dragon_balance, act_dragon_blue, act_dragon_chaos,
-    act_dragon_gold, act_dragon_green, act_dragon_law, act_dragon_multihued, act_dragon_power,
-    act_dragon_red, act_dragon_shining, act_drain_life1, act_drain_life2, act_drain_life3,
-    act_drain_life4, act_elec_ball, act_elec_ball2, act_elec_bolt, act_fire_ball, act_fire_ball2,
-    act_fire_ball200, act_fire_ball72, act_fire_bolt, act_fire_bolt2, act_fire_bolt3,
-    act_light_line, act_losconf, act_lossleep, act_losslow, act_mana_bolt, act_missile,
-    act_mon_confuse, act_mon_scare, act_mon_slow, act_ring_acid, act_ring_flames, act_ring_ice,
-    act_ring_lightning, act_sleep_all, act_sleepii, act_staff_holy, act_star_ball, act_starlight,
-    act_starlight2, act_stinking_cloud, act_wonder,
-};
+
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_id_h::borg_item_note_needs_id;
 use crate::headers::borg_item_use_h::{
@@ -5307,7 +5295,7 @@ unsafe extern "C" fn borg_attack_aux_artifact_holcolleth() -> ::core::ffi::c_int
     let mut p1: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut p2: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut d: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    if !borg_equips_item(act_sleepii, true_0 != 0) {
+    if !borg_equips_item(crate::bridge::st().act.sleepii, true_0 != 0) {
         return 0 as ::core::ffi::c_int;
     }
     borg_sleep_spell_ii = false_0 != 0;
@@ -5331,7 +5319,7 @@ unsafe extern "C" fn borg_attack_aux_artifact_holcolleth() -> ::core::ffi::c_int
     if borg_simulate {
         return d;
     }
-    if borg_activate_item(act_sleepii) {
+    if borg_activate_item(crate::bridge::st().act.sleepii) {
         return d;
     } else {
         borg_note(
@@ -6420,7 +6408,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 9 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_bolt,
+                crate::bridge::st().act.fire_bolt,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6432,7 +6420,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 72 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_ball72,
+                crate::bridge::st().act.fire_ball72,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6444,7 +6432,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 144 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_ball,
+                crate::bridge::st().act.fire_ball,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6457,7 +6445,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 6 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_bolt,
+                crate::bridge::st().act.cold_bolt,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6469,7 +6457,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 50 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_ball50,
+                crate::bridge::st().act.cold_ball50,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6482,7 +6470,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 12 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_bolt2,
+                crate::bridge::st().act.cold_bolt2,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6494,7 +6482,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 100 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_ball100,
+                crate::bridge::st().act.cold_ball100,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6507,7 +6495,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 6 as ::core::ffi::c_int * (6 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_elec_bolt,
+                crate::bridge::st().act.elec_bolt,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -6519,7 +6507,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 12 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_stinking_cloud,
+                crate::bridge::st().act.stinking_cloud,
                 rad,
                 dam,
                 BORG_ATTACK_POIS as ::core::ffi::c_int,
@@ -6531,7 +6519,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 120 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_drain_life2,
+                crate::bridge::st().act.drain_life2,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_DRAIN as ::core::ffi::c_int,
@@ -6543,7 +6531,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 20 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_confuse2,
+                crate::bridge::st().act.confuse2,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_CONF as ::core::ffi::c_int,
@@ -6559,7 +6547,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 90 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_drain_life1,
+                crate::bridge::st().act.drain_life1,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_DRAIN as ::core::ffi::c_int,
@@ -6571,7 +6559,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_arrow,
+                crate::bridge::st().act.arrow,
                 rad,
                 dam,
                 BORG_ATTACK_MISSILE as ::core::ffi::c_int,
@@ -6584,7 +6572,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 3 as ::core::ffi::c_int * (4 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_missile,
+                crate::bridge::st().act.missile,
                 rad,
                 dam,
                 BORG_ATTACK_MISSILE as ::core::ffi::c_int,
@@ -6597,7 +6585,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 5 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_acid_bolt,
+                crate::bridge::st().act.acid_bolt,
                 rad,
                 dam,
                 BORG_ATTACK_ACID as ::core::ffi::c_int,
@@ -6612,7 +6600,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
                     * 5 as ::core::ffi::c_int
                     / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dispel_evil,
+                crate::bridge::st().act.dispel_evil,
                 rad,
                 dam,
                 BORG_ATTACK_DISP_EVIL as ::core::ffi::c_int,
@@ -6625,7 +6613,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 12 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_mana_bolt,
+                crate::bridge::st().act.mana_bolt,
                 rad,
                 dam,
                 BORG_ATTACK_MANA as ::core::ffi::c_int,
@@ -6637,7 +6625,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 3 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_star_ball,
+                crate::bridge::st().act.star_ball,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -6650,7 +6638,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 10 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_starlight2,
+                crate::bridge::st().act.starlight2,
                 rad,
                 dam,
                 BORG_ATTACK_LIGHT as ::core::ffi::c_int,
@@ -6663,7 +6651,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 6 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_starlight,
+                crate::bridge::st().act.starlight,
                 rad,
                 dam,
                 BORG_ATTACK_LIGHT as ::core::ffi::c_int,
@@ -6675,7 +6663,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 20 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_mon_slow,
+                crate::bridge::st().act.mon_slow,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_SLOW as ::core::ffi::c_int,
@@ -6688,7 +6676,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 2 as ::core::ffi::c_int * (6 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_mon_confuse,
+                crate::bridge::st().act.mon_confuse,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_CONF as ::core::ffi::c_int,
@@ -6700,7 +6688,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 60 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_sleep_all,
+                crate::bridge::st().act.sleep_all,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_SLEEP as ::core::ffi::c_int,
@@ -6713,7 +6701,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 2 as ::core::ffi::c_int * (6 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_mon_scare,
+                crate::bridge::st().act.mon_scare,
                 rad,
                 dam,
                 BORG_ATTACK_TURN_ALL as ::core::ffi::c_int,
@@ -6726,7 +6714,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 6 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_light_line,
+                crate::bridge::st().act.light_line,
                 rad,
                 dam,
                 BORG_ATTACK_LIGHT_WEAK as ::core::ffi::c_int,
@@ -6738,7 +6726,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_drain_life3,
+                crate::bridge::st().act.drain_life3,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_DRAIN as ::core::ffi::c_int,
@@ -6750,7 +6738,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 0 as ::core::ffi::c_int;
             dam = 250 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_drain_life4,
+                crate::bridge::st().act.drain_life4,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_DRAIN as ::core::ffi::c_int,
@@ -6762,7 +6750,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 64 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_elec_ball,
+                crate::bridge::st().act.elec_ball,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -6774,7 +6762,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 250 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_elec_ball2,
+                crate::bridge::st().act.elec_ball2,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -6787,7 +6775,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 10 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_acid_bolt2,
+                crate::bridge::st().act.acid_bolt2,
                 rad,
                 dam,
                 BORG_ATTACK_ACID as ::core::ffi::c_int,
@@ -6800,7 +6788,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 12 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_acid_bolt2,
+                crate::bridge::st().act.acid_bolt2,
                 rad,
                 dam,
                 BORG_ATTACK_ACID as ::core::ffi::c_int,
@@ -6812,7 +6800,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 120 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_acid_ball,
+                crate::bridge::st().act.acid_ball,
                 rad,
                 dam,
                 BORG_ATTACK_ACID as ::core::ffi::c_int,
@@ -6824,7 +6812,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 160 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_ball160,
+                crate::bridge::st().act.cold_ball160,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6836,7 +6824,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 200 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_cold_ball2,
+                crate::bridge::st().act.cold_ball2,
                 rad,
                 dam,
                 BORG_ATTACK_COLD as ::core::ffi::c_int,
@@ -6848,7 +6836,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 120 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_ball2,
+                crate::bridge::st().act.fire_ball2,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6860,7 +6848,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 200 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_ball200,
+                crate::bridge::st().act.fire_ball200,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6873,7 +6861,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 12 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_bolt2,
+                crate::bridge::st().act.fire_bolt2,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6886,7 +6874,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 16 as ::core::ffi::c_int * (8 as ::core::ffi::c_int + 1 as ::core::ffi::c_int)
                 / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_fire_bolt3,
+                crate::bridge::st().act.fire_bolt3,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -6898,7 +6886,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 10 as ::core::ffi::c_int;
             dam = 60 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dispel_evil60,
+                crate::bridge::st().act.dispel_evil60,
                 rad,
                 dam,
                 BORG_ATTACK_DISP_EVIL as ::core::ffi::c_int,
@@ -6910,7 +6898,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 10 as ::core::ffi::c_int;
             dam = 60 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dispel_undead,
+                crate::bridge::st().act.dispel_undead,
                 rad,
                 dam,
                 BORG_ATTACK_DISP_UNDEAD as ::core::ffi::c_int,
@@ -6922,7 +6910,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 10 as ::core::ffi::c_int;
             dam = 60 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dispel_undead,
+                crate::bridge::st().act.dispel_undead,
                 rad,
                 dam,
                 BORG_ATTACK_DISP_ALL as ::core::ffi::c_int,
@@ -6934,7 +6922,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 10 as ::core::ffi::c_int;
             dam = 20 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_losslow,
+                crate::bridge::st().act.losslow,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_SLOW as ::core::ffi::c_int,
@@ -6946,7 +6934,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 10 as ::core::ffi::c_int;
             dam = 20 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_lossleep,
+                crate::bridge::st().act.lossleep,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_SLEEP as ::core::ffi::c_int,
@@ -6959,7 +6947,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 5 as ::core::ffi::c_int
                 + (5 as ::core::ffi::c_int + 1 as ::core::ffi::c_int) / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_losconf,
+                crate::bridge::st().act.losconf,
                 rad,
                 dam,
                 BORG_ATTACK_OLD_CONF as ::core::ffi::c_int,
@@ -6971,7 +6959,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             dam = 5 as ::core::ffi::c_int
                 + (5 as ::core::ffi::c_int + 1 as ::core::ffi::c_int) / 2 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_wonder,
+                crate::bridge::st().act.wonder,
                 rad,
                 dam,
                 BORG_ATTACK_MISSILE as ::core::ffi::c_int,
@@ -6989,7 +6977,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
                 dam = 120 as ::core::ffi::c_int;
             }
             return borg_attack_aux_activation(
-                act_staff_holy,
+                crate::bridge::st().act.staff_holy,
                 rad,
                 dam,
                 BORG_ATTACK_DISP_EVIL as ::core::ffi::c_int,
@@ -7001,7 +6989,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 70 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_ring_acid,
+                crate::bridge::st().act.ring_acid,
                 rad,
                 dam,
                 BORG_ATTACK_ACID as ::core::ffi::c_int,
@@ -7013,7 +7001,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 80 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_ring_flames,
+                crate::bridge::st().act.ring_flames,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -7025,7 +7013,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 75 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_ring_ice,
+                crate::bridge::st().act.ring_ice,
                 rad,
                 dam,
                 BORG_ATTACK_ICE as ::core::ffi::c_int,
@@ -7037,7 +7025,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 85 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_ring_lightning,
+                crate::bridge::st().act.ring_lightning,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -7049,7 +7037,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dragon_blue,
+                crate::bridge::st().act.dragon_blue,
                 rad,
                 dam,
                 BORG_ATTACK_ELEC as ::core::ffi::c_int,
@@ -7061,7 +7049,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dragon_green,
+                crate::bridge::st().act.dragon_green,
                 rad,
                 dam,
                 BORG_ATTACK_POIS as ::core::ffi::c_int,
@@ -7073,7 +7061,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 200 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dragon_red,
+                crate::bridge::st().act.dragon_red,
                 rad,
                 dam,
                 BORG_ATTACK_FIRE as ::core::ffi::c_int,
@@ -7100,7 +7088,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             let mut x: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             while x < 5 as ::core::ffi::c_int {
                 value[x as usize] = borg_attack_aux_activation(
-                    act_dragon_multihued,
+                    crate::bridge::st().act.dragon_multihued,
                     rad,
                     dam,
                     type_0[x as usize],
@@ -7119,7 +7107,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             borg_simulate = tmp_simulate;
             if !borg_simulate {
                 value[biggest as usize] = borg_attack_aux_activation(
-                    act_dragon_multihued,
+                    crate::bridge::st().act.dragon_multihued,
                     rad,
                     dam,
                     type_0[biggest as usize],
@@ -7133,7 +7121,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 150 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dragon_gold,
+                crate::bridge::st().act.dragon_gold,
                 rad,
                 dam,
                 BORG_ATTACK_SOUND as ::core::ffi::c_int,
@@ -7157,7 +7145,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             let mut x_1: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             while x_1 < 2 as ::core::ffi::c_int {
                 value_0[x_1 as usize] = borg_attack_aux_activation(
-                    act_dragon_chaos,
+                    crate::bridge::st().act.dragon_chaos,
                     rad,
                     dam,
                     type_1[x_1 as usize],
@@ -7176,7 +7164,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             borg_simulate = tmp_simulate_0;
             if !borg_simulate {
                 value_0[biggest_0 as usize] = borg_attack_aux_activation(
-                    act_dragon_chaos,
+                    crate::bridge::st().act.dragon_chaos,
                     rad,
                     dam,
                     type_1[biggest_0 as usize],
@@ -7202,7 +7190,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             let mut x_3: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             while x_3 < 2 as ::core::ffi::c_int {
                 value_1[x_3 as usize] = borg_attack_aux_activation(
-                    act_dragon_law,
+                    crate::bridge::st().act.dragon_law,
                     rad,
                     dam,
                     type_2[x_3 as usize],
@@ -7221,7 +7209,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             borg_simulate = tmp_simulate_1;
             if !borg_simulate {
                 value_1[biggest_1 as usize] = borg_attack_aux_activation(
-                    act_dragon_law,
+                    crate::bridge::st().act.dragon_law,
                     rad,
                     dam,
                     type_2[biggest_1 as usize],
@@ -7249,7 +7237,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             let mut x_5: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             while x_5 < 4 as ::core::ffi::c_int {
                 value_2[x_5 as usize] = borg_attack_aux_activation(
-                    act_dragon_balance,
+                    crate::bridge::st().act.dragon_balance,
                     rad,
                     dam,
                     type_3[x_5 as usize],
@@ -7268,7 +7256,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             borg_simulate = tmp_simulate_2;
             if !borg_simulate {
                 value_2[biggest_2 as usize] = borg_attack_aux_activation(
-                    act_dragon_balance,
+                    crate::bridge::st().act.dragon_balance,
                     rad,
                     dam,
                     type_3[biggest_2 as usize],
@@ -7294,7 +7282,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             let mut x_7: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             while x_7 < 2 as ::core::ffi::c_int {
                 value_3[x_7 as usize] = borg_attack_aux_activation(
-                    act_dragon_shining,
+                    crate::bridge::st().act.dragon_shining,
                     rad,
                     dam,
                     type_4[x_7 as usize],
@@ -7313,7 +7301,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             borg_simulate = tmp_simulate_3;
             if !borg_simulate {
                 value_3[biggest_3 as usize] = borg_attack_aux_activation(
-                    act_dragon_shining,
+                    crate::bridge::st().act.dragon_shining,
                     rad,
                     dam,
                     type_4[biggest_3 as usize],
@@ -7327,7 +7315,7 @@ pub unsafe extern "C" fn borg_calculate_attack_effectiveness(
             rad = 2 as ::core::ffi::c_int;
             dam = 300 as ::core::ffi::c_int;
             return borg_attack_aux_activation(
-                act_dragon_power,
+                crate::bridge::st().act.dragon_power,
                 rad,
                 dam,
                 BORG_ATTACK_MISSILE as ::core::ffi::c_int,

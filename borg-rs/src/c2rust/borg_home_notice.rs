@@ -6,7 +6,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
-use crate::headers::borg_item_activation_h::act_glyph;
+
 use crate::headers::borg_item_analyze_h::borg_ego_has_random_power;
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_use_h::borg_equips_item;
@@ -1483,7 +1483,7 @@ unsafe extern "C" fn borg_notice_home_aux(mut in_item: *mut borg_item, mut no_it
         num_pfe = (num_pfe as ::core::ffi::c_int + 1000 as ::core::ffi::c_int) as int16_t;
     }
     if borg_spell_legal(GLYPH_OF_WARDING) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_glyph, false_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.glyph, false_0 != 0) as ::core::ffi::c_int != 0
     {
         num_glyph = (num_glyph as ::core::ffi::c_int + 1000 as ::core::ffi::c_int) as int16_t;
     }

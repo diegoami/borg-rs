@@ -8,6 +8,7 @@
 use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;
 use crate::borg_io::IoState;
+use crate::borg_item_activation::ActivationIds;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -19,4 +20,6 @@ pub struct BorgState {
     pub cave: CaveState,
     /// borg-io.c
     pub io: IoState,
+    /// borg-item-activation.c: `act_*`
+    pub act: ActivationIds,
 }

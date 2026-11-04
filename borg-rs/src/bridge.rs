@@ -182,3 +182,17 @@ pub fn borg_think(_st: &mut BorgState) -> bool {
     // SAFETY: plain call into transitional c2rust code.
     unsafe { crate::c2rust::borg_think::borg_think() }
 }
+
+/// C-ABI shims with the borg-item-activation.c names.
+pub mod item_activation {
+    use super::{cbytes, st};
+    use core::ffi::{c_char, c_int};
+
+    pub unsafe extern "C" fn borg_findact(name: *const c_char) -> c_int {
+        let name = std::str::from_utf8(cbytes(name)).expect("ASCII activation name");
+        crate::borg_item_activation::borg_findact(st(), name)
+    }
+    pub unsafe extern "C" fn borg_init_item_activation() {
+        crate::borg_item_activation::borg_init_item_activation(st())
+    }
+}

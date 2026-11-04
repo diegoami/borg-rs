@@ -33,7 +33,7 @@ pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt
 use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair, track_less};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
-use crate::headers::borg_item_activation_h::{act_tele_long, act_tele_phase};
+
 use crate::headers::borg_item_use_h::{borg_activate_item, borg_read_scroll};
 use crate::headers::borg_item_val_h::sv_scroll_phase_door;
 pub use crate::headers::borg_magic_h::{
@@ -1117,8 +1117,8 @@ pub unsafe extern "C" fn borg_twitchy() -> bool {
             && (borg_spell_fail(PHASE_DOOR, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_spell_fail(PORTAL, 40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
                 || borg_shadow_shift(40 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_tele_phase) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_tele_long) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.tele_phase) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.tele_long) as ::core::ffi::c_int != 0
                 || borg_read_scroll(sv_scroll_phase_door) as ::core::ffi::c_int != 0)
         {
             return true_0 != 0;

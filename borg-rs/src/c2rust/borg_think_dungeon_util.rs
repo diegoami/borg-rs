@@ -29,7 +29,7 @@ use crate::headers::borg_flow_stairs_h::{
 use crate::headers::borg_flow_take_h::borg_flow_take_scum;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
-use crate::headers::borg_item_activation_h::{act_illumination, act_light, act_stone_to_mud};
+
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 pub use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_activate_ring, borg_need, borg_read_scroll, borg_use_staff,
@@ -413,8 +413,8 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                                 || (*ag).info as ::core::ffi::c_int & BORG_MARK == 0
                                 || (*ag).info as ::core::ffi::c_int & BORG_GLOW == 0
                             {
-                                if borg_activate_item(act_illumination) as ::core::ffi::c_int != 0
-                                    || borg_activate_item(act_light) as ::core::ffi::c_int != 0
+                                if borg_activate_item(crate::bridge::st().act.illumination) as ::core::ffi::c_int != 0
+                                    || borg_activate_item(crate::bridge::st().act.light) as ::core::ffi::c_int != 0
                                     || borg_zap_rod(sv_rod_illumination) as ::core::ffi::c_int != 0
                                     || borg_use_staff(sv_staff_light) as ::core::ffi::c_int != 0
                                     || borg_read_scroll(sv_scroll_light) as ::core::ffi::c_int != 0
@@ -1275,7 +1275,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
             );
             if borg_spell(TURN_STONE_TO_MUD) as ::core::ffi::c_int != 0
                 || borg_activate_ring(sv_ring_digging) as ::core::ffi::c_int != 0
-                || borg_activate_item(act_stone_to_mud) as ::core::ffi::c_int != 0
+                || borg_activate_item(crate::bridge::st().act.stone_to_mud) as ::core::ffi::c_int != 0
                 || distance(
                     crate::bridge::st().borg.c,
                     loc(

@@ -46,14 +46,7 @@ pub use crate::headers::borg_flow_kill_h::{
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
-use crate::headers::borg_item_activation_h::{
-    act_banishment, act_berserker, act_blessing, act_blessing2, act_blessing3, act_destruction2,
-    act_detect_evil, act_detect_invis, act_earthquakes, act_glyph, act_haste, act_haste1,
-    act_haste2, act_loskill, act_protevil, act_rage_bless_resist, act_resist_acid, act_resist_all,
-    act_resist_cold, act_resist_elec, act_resist_fire, act_resist_pois, act_ring_acid,
-    act_ring_flames, act_ring_ice, act_ring_lightning, act_shero, act_shroom_stone, act_tele_other,
-    act_tmd_esp, act_tmd_sinvis,
-};
+
 pub use crate::headers::borg_item_h::{borg_item, borg_items};
 use crate::headers::borg_item_use_h::{
     borg_activate_item, borg_activate_ring, borg_aim_wand, borg_eat, borg_equips_item,
@@ -345,9 +338,9 @@ unsafe extern "C" fn borg_defend_aux_bless(mut p1: ::core::ffi::c_int) -> ::core
         return 0 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(BLESS, fail_allowed)
-        && !borg_equips_item(act_blessing, true_0 != 0)
-        && !borg_equips_item(act_blessing2, true_0 != 0)
-        && !borg_equips_item(act_blessing3, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.blessing, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.blessing2, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.blessing3, true_0 != 0)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_blessing)
         && -(1 as ::core::ffi::c_int)
@@ -383,9 +376,9 @@ unsafe extern "C" fn borg_defend_aux_bless(mut p1: ::core::ffi::c_int) -> ::core
         borg_note(b"# Attempting to cast Bless\0" as *const u8 as *const ::core::ffi::c_char);
         crate::bridge::st().borg.no_rest_prep = 11000 as int16_t;
         if borg_spell(BLESS) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_blessing) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_blessing2) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_blessing3) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.blessing) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.blessing2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.blessing3) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_blessing) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_holy_chant) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_holy_prayer) as ::core::ffi::c_int != 0
@@ -436,18 +429,18 @@ unsafe extern "C" fn borg_defend_aux_speed(mut p1: ::core::ffi::c_int) -> ::core
         && !speed_staff
         && !speed_rod
         && !speed_spell
-        && !borg_equips_item(act_haste, true_0 != 0)
-        && !borg_equips_item(act_haste1, true_0 != 0)
-        && !borg_equips_item(act_haste2, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.haste, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.haste1, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.haste2, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
     if speed_rod as ::core::ffi::c_int != 0
         || speed_spell as ::core::ffi::c_int != 0
         || speed_staff as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste, true_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste1, true_0 != 0) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_haste2, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste1, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.haste2, true_0 != 0) as ::core::ffi::c_int != 0
     {
         good_speed = true_0 != 0;
     }
@@ -544,9 +537,9 @@ unsafe extern "C" fn borg_defend_aux_speed(mut p1: ::core::ffi::c_int) -> ::core
         crate::bridge::st().borg.no_rest_prep = (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
             * 1000 as ::core::ffi::c_int) as int16_t;
         if borg_zap_rod(sv_rod_speed) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_haste) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_haste1) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_haste2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.haste) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.haste1) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.haste2) as ::core::ffi::c_int != 0
             || borg_use_staff(sv_staff_speed) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_speed) as ::core::ffi::c_int != 0
         {
@@ -656,8 +649,8 @@ unsafe extern "C" fn borg_defend_aux_resist_fecap(
     {
         return 0 as ::core::ffi::c_int;
     }
-    if !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+    if !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -717,8 +710,8 @@ unsafe extern "C" fn borg_defend_aux_resist_fecap(
             return p1 - p2 + 2 as ::core::ffi::c_int;
         }
         borg_note(b"# Attempting to cast FECAP\0" as *const u8 as *const ::core::ffi::c_char);
-        if borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         }
@@ -753,11 +746,11 @@ unsafe extern "C" fn borg_defend_aux_resist_f(mut p1: ::core::ffi::c_int) -> ::c
         fail_allowed += 10 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESISTANCE, fail_allowed)
-        && !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_resist_fire, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_fire, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
         && !borg_equips_ring(sv_ring_flames)
-        && !borg_equips_item(act_ring_flames, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.ring_flames, true_0 != 0)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_resist_heat)
     {
@@ -802,15 +795,15 @@ unsafe extern "C" fn borg_defend_aux_resist_f(mut p1: ::core::ffi::c_int) -> ::c
         }
         borg_note(b"# Attempting to cast RFire\0" as *const u8 as *const ::core::ffi::c_char);
         if borg_activate_ring(sv_ring_flames) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_ring_flames) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.ring_flames) as ::core::ffi::c_int != 0
         {
             borg_keypress('*' as i32 as keycode_t);
             borg_keypress('5' as i32 as keycode_t);
             return p1 - p2;
         }
-        if borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_fire) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_fire) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
             || borg_spell_fail(RESISTANCE, fail_allowed) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_resist_heat) as ::core::ffi::c_int != 0
         {
@@ -846,11 +839,11 @@ unsafe extern "C" fn borg_defend_aux_resist_c(mut p1: ::core::ffi::c_int) -> ::c
         fail_allowed += 10 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESISTANCE, fail_allowed)
-        && !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
-        && !borg_equips_item(act_resist_cold, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_cold, true_0 != 0)
         && !borg_equips_ring(sv_ring_ice)
-        && !borg_equips_item(act_ring_ice, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.ring_ice, true_0 != 0)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_resist_cold)
     {
@@ -896,15 +889,15 @@ unsafe extern "C" fn borg_defend_aux_resist_c(mut p1: ::core::ffi::c_int) -> ::c
         }
         borg_note(b"# Attempting to cast RCold\0" as *const u8 as *const ::core::ffi::c_char);
         if borg_activate_ring(sv_ring_ice) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_ring_ice) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.ring_ice) as ::core::ffi::c_int != 0
         {
             borg_keypress('*' as i32 as keycode_t);
             borg_keypress('5' as i32 as keycode_t);
             return p1 - p2;
         }
-        if borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_cold) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_cold) as ::core::ffi::c_int != 0
             || borg_spell_fail(RESISTANCE, fail_allowed) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_resist_cold) as ::core::ffi::c_int != 0
         {
@@ -940,9 +933,9 @@ unsafe extern "C" fn borg_defend_aux_resist_a(mut p1: ::core::ffi::c_int) -> ::c
         fail_allowed += 10 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESISTANCE, fail_allowed)
-        && !borg_equips_item(act_resist_acid, true_0 != 0)
-        && !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_acid, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
         && !borg_equips_ring(sv_ring_acid)
     {
         return 0 as ::core::ffi::c_int;
@@ -982,15 +975,15 @@ unsafe extern "C" fn borg_defend_aux_resist_a(mut p1: ::core::ffi::c_int) -> ::c
             return p1 - p2;
         }
         if borg_activate_ring(sv_ring_acid) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_ring_acid) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.ring_acid) as ::core::ffi::c_int != 0
         {
             borg_keypress('*' as i32 as keycode_t);
             borg_keypress('5' as i32 as keycode_t);
             return p1 - p2;
         }
-        if borg_activate_item(act_resist_acid) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.resist_acid) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         }
@@ -1024,11 +1017,11 @@ unsafe extern "C" fn borg_defend_aux_resist_e(mut p1: ::core::ffi::c_int) -> ::c
         fail_allowed += 10 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESISTANCE, fail_allowed)
-        && !borg_equips_item(act_resist_elec, true_0 != 0)
-        && !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_elec, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
         && !borg_equips_ring(sv_ring_lightning)
-        && !borg_equips_item(act_ring_lightning, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.ring_lightning, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -1067,15 +1060,15 @@ unsafe extern "C" fn borg_defend_aux_resist_e(mut p1: ::core::ffi::c_int) -> ::c
             return p1 - p2;
         }
         if borg_activate_ring(sv_ring_lightning) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_ring_lightning) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.ring_lightning) as ::core::ffi::c_int != 0
         {
             borg_keypress('*' as i32 as keycode_t);
             borg_keypress('5' as i32 as keycode_t);
             return p1 - p2;
         }
-        if borg_activate_item(act_resist_elec) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+        if borg_activate_item(crate::bridge::st().act.resist_elec) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
         }
@@ -1109,9 +1102,9 @@ unsafe extern "C" fn borg_defend_aux_resist_p(mut p1: ::core::ffi::c_int) -> ::c
         fail_allowed += 10 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(RESIST_POISON, fail_allowed)
-        && !borg_equips_item(act_resist_pois, true_0 != 0)
-        && !borg_equips_item(act_resist_all, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_pois, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.resist_all, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_resist_pois)
     {
@@ -1149,9 +1142,9 @@ unsafe extern "C" fn borg_defend_aux_resist_p(mut p1: ::core::ffi::c_int) -> ::c
         }
         borg_note(b"# Attempting to cast RPois\0" as *const u8 as *const ::core::ffi::c_char);
         if borg_spell_fail(RESIST_POISON, fail_allowed) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_pois) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_resist_all) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_pois) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.resist_all) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_resist_pois) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = 21000 as int16_t;
@@ -1211,7 +1204,7 @@ unsafe extern "C" fn borg_defend_aux_prot_evil(mut p1: ::core::ffi::c_int) -> ::
     {
         pfe_spell = false_0 != 0;
     }
-    if borg_equips_item(act_protevil, true_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.protevil, true_0 != 0) {
         pfe_spell = true_0 != 0;
     }
     if pfe_spell as ::core::ffi::c_int == false_0 {
@@ -1252,7 +1245,7 @@ unsafe extern "C" fn borg_defend_aux_prot_evil(mut p1: ::core::ffi::c_int) -> ::
         }
         borg_note(b"# Attempting to cast PFE\0" as *const u8 as *const ::core::ffi::c_char);
         if borg_spell_fail(PROTECTION_FROM_EVIL, fail_allowed) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_protevil) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.protevil) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_protection_from_evil) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = (crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
@@ -1277,7 +1270,7 @@ unsafe extern "C" fn borg_defend_aux_shield(mut p1: ::core::ffi::c_int) -> ::cor
         return 0 as ::core::ffi::c_int;
     }
     if crate::bridge::st().borg.has[(kv_mush_stoneskin) as usize] <= 0 as ::core::ffi::c_int
-        && !borg_equips_item(act_shroom_stone, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.shroom_stone, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -1308,7 +1301,7 @@ unsafe extern "C" fn borg_defend_aux_shield(mut p1: ::core::ffi::c_int) -> ::cor
         }
         borg_note(b"# Attempting to eat a stone skin\0" as *const u8 as *const ::core::ffi::c_char);
         if borg_eat(TV_MUSHROOM as ::core::ffi::c_int, sv_mush_stoneskin) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_shroom_stone) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.shroom_stone) as ::core::ffi::c_int != 0
         {
             crate::bridge::st().borg.no_rest_prep = 2000 as int16_t;
             return p1 - p2;
@@ -1365,7 +1358,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
         fail_allowed += 5 as ::core::ffi::c_int;
     }
     if borg_spell_okay_fail(TELEPORT_OTHER, fail_allowed) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_tele_other, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.tele_other, true_0 != 0) as ::core::ffi::c_int != 0
         || -(1 as ::core::ffi::c_int)
             != borg_slot(TV_WAND as ::core::ffi::c_int, sv_wand_teleport_away)
             && (*borg_items
@@ -1449,7 +1442,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
     borg_temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     if borg_spell(TELEPORT_OTHER) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_tele_other) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.tele_other) as ::core::ffi::c_int != 0
         || borg_aim_wand(sv_wand_teleport_away) as ::core::ffi::c_int != 0
     {
         borg_keypress('5' as i32 as keycode_t);
@@ -1562,9 +1555,9 @@ unsafe extern "C" fn borg_defend_aux_berserk(mut p1: ::core::ffi::c_int) -> ::co
     if !borg_spell_okay_fail(BERSERK_STRENGTH, fail_allowed)
         && -(1 as ::core::ffi::c_int)
             == borg_slot(TV_POTION as ::core::ffi::c_int, sv_potion_berserk)
-        && !borg_equips_item(act_berserker, true_0 != 0)
-        && !borg_equips_item(act_rage_bless_resist, true_0 != 0)
-        && !borg_equips_item(act_shero, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.berserker, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.rage_bless_resist, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.shero, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -1582,9 +1575,9 @@ unsafe extern "C" fn borg_defend_aux_berserk(mut p1: ::core::ffi::c_int) -> ::co
             return 5 as ::core::ffi::c_int;
         }
         if borg_spell(BERSERK_STRENGTH) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_berserker) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_rage_bless_resist) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_shero) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.berserker) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.rage_bless_resist) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.shero) as ::core::ffi::c_int != 0
             || borg_quaff_potion(sv_potion_berserk) as ::core::ffi::c_int != 0
         {
             return 5 as ::core::ffi::c_int;
@@ -1722,7 +1715,7 @@ unsafe extern "C" fn borg_defend_aux_glyph(mut p1: ::core::ffi::c_int) -> ::core
     {
         glyph_spell = true_0 != 0;
     }
-    if borg_equips_item(act_glyph, true_0 != 0) {
+    if borg_equips_item(crate::bridge::st().act.glyph, true_0 != 0) {
         glyph_spell = true_0 != 0;
     }
     if (crate::bridge::st().borg.trait_[(BI_ISBLIND as ::core::ffi::c_int) as usize]
@@ -1767,7 +1760,7 @@ unsafe extern "C" fn borg_defend_aux_glyph(mut p1: ::core::ffi::c_int) -> ::core
         }
         if borg_spell_fail(GLYPH_OF_WARDING, fail_allowed) as ::core::ffi::c_int != 0
             || borg_read_scroll(sv_scroll_rune_of_protection) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_glyph) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.glyph) as ::core::ffi::c_int != 0
         {
             i = 0 as ::core::ffi::c_int;
             while i < track_glyph.num as ::core::ffi::c_int {
@@ -1907,7 +1900,7 @@ unsafe extern "C" fn borg_defend_aux_mass_genocide(
         return 0 as ::core::ffi::c_int;
     }
     if !borg_spell_okay_fail(MASS_BANISHMENT, 40 as ::core::ffi::c_int)
-        && !borg_equips_item(act_banishment, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.banishment, true_0 != 0)
         && crate::bridge::st().borg.trait_[(BI_AMASSBAN as ::core::ffi::c_int) as usize]
             == 0 as ::core::ffi::c_int
     {
@@ -1986,7 +1979,7 @@ unsafe extern "C" fn borg_defend_aux_mass_genocide(
             return p1 - p2;
         }
         if borg_read_scroll(sv_scroll_mass_banishment) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_banishment) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.banishment) as ::core::ffi::c_int != 0
             || borg_spell(MASS_BANISHMENT) as ::core::ffi::c_int != 0
         {
             i = 1 as ::core::ffi::c_int;
@@ -2072,7 +2065,7 @@ unsafe extern "C" fn borg_defend_aux_genocide(mut p1: ::core::ffi::c_int) -> ::c
         p1 -= borg_fear_monsters[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int;
     }
     if borg_spell_okay_fail(BANISHMENT, fail_allowed) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_banishment, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.banishment, true_0 != 0) as ::core::ffi::c_int != 0
         || borg_equips_staff_fail(sv_staff_banishment) as ::core::ffi::c_int != 0
         || -(1 as ::core::ffi::c_int)
             != borg_slot(TV_SCROLL as ::core::ffi::c_int, sv_scroll_banishment)
@@ -2257,7 +2250,7 @@ unsafe extern "C" fn borg_defend_aux_genocide(mut p1: ::core::ffi::c_int) -> ::c
         }
         if borg_read_scroll(sv_scroll_banishment) as ::core::ffi::c_int != 0
             || borg_spell(BANISHMENT) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_banishment) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.banishment) as ::core::ffi::c_int != 0
             || borg_use_staff(sv_staff_banishment) as ::core::ffi::c_int != 0
         {
             borg_keypress(tmp_genocide_target as keycode_t);
@@ -2326,7 +2319,7 @@ unsafe extern "C" fn borg_defend_aux_genocide_nasties(
         return 0 as ::core::ffi::c_int;
     }
     if borg_spell_okay_fail(BANISHMENT, 35 as ::core::ffi::c_int) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_banishment, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.banishment, true_0 != 0) as ::core::ffi::c_int != 0
         || borg_equips_staff_fail(sv_staff_banishment) as ::core::ffi::c_int != 0
     {
         genocide_spell = true_0 != 0;
@@ -2354,7 +2347,7 @@ unsafe extern "C" fn borg_defend_aux_genocide_nasties(
         borg_nasties[b_i as usize] as ::core::ffi::c_int,
         borg_nasties_count[b_i as usize] as ::core::ffi::c_int,
     ));
-    if borg_activate_item(act_banishment) as ::core::ffi::c_int != 0
+    if borg_activate_item(crate::bridge::st().act.banishment) as ::core::ffi::c_int != 0
         || borg_use_staff(sv_staff_banishment) as ::core::ffi::c_int != 0
         || borg_spell(BANISHMENT) as ::core::ffi::c_int != 0
     {
@@ -2387,7 +2380,7 @@ unsafe extern "C" fn borg_defend_aux_earthquake(mut p1: ::core::ffi::c_int) -> :
             borg_keypress('5' as i32 as keycode_t);
         } else if borg_spell(QUAKE) as ::core::ffi::c_int != 0
             || borg_spell(GRONDS_BLOW) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_earthquakes) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.earthquakes) as ::core::ffi::c_int != 0
         {
             return p2;
         }
@@ -2404,7 +2397,7 @@ unsafe extern "C" fn borg_defend_aux_earthquake(mut p1: ::core::ffi::c_int) -> :
     if !borg_spell_okay_fail(TREMOR, 35 as ::core::ffi::c_int)
         && !borg_spell_okay_fail(QUAKE, 35 as ::core::ffi::c_int)
         && !borg_spell_okay_fail(GRONDS_BLOW, 35 as ::core::ffi::c_int)
-        && !borg_equips_item(act_earthquakes, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.earthquakes, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -2472,7 +2465,7 @@ unsafe extern "C" fn borg_defend_aux_destruction(mut p1: ::core::ffi::c_int) -> 
     if !borg_simulate {
         if borg_spell(WORD_OF_DESTRUCTION) as ::core::ffi::c_int != 0
             || borg_use_staff(sv_staff_destruction) as ::core::ffi::c_int != 0
-            || borg_activate_item(act_destruction2) as ::core::ffi::c_int != 0
+            || borg_activate_item(crate::bridge::st().act.destruction2) as ::core::ffi::c_int != 0
         {
             borg_needs_new_sea = true_0 != 0;
         }
@@ -2524,7 +2517,7 @@ unsafe extern "C" fn borg_defend_aux_destruction(mut p1: ::core::ffi::c_int) -> 
     if borg_spell_okay_fail(WORD_OF_DESTRUCTION, 55 as ::core::ffi::c_int) as ::core::ffi::c_int
         != 0
         || borg_equips_staff_fail(sv_staff_destruction) as ::core::ffi::c_int != 0
-        || borg_equips_item(act_destruction2, true_0 != 0) as ::core::ffi::c_int != 0
+        || borg_equips_item(crate::bridge::st().act.destruction2, true_0 != 0) as ::core::ffi::c_int != 0
     {
         spell = true_0 != 0;
     }
@@ -2633,7 +2626,7 @@ unsafe extern "C" fn borg_defend_aux_banishment(mut p1: ::core::ffi::c_int) -> :
     {
         return 0 as ::core::ffi::c_int;
     }
-    using_artifact = borg_equips_item(act_loskill, true_0 != 0) as ::core::ffi::c_int != 0
+    using_artifact = borg_equips_item(crate::bridge::st().act.loskill, true_0 != 0) as ::core::ffi::c_int != 0
         && crate::bridge::st().borg.has[(BI_CURHP as ::core::ffi::c_int) as usize] > 100 as ::core::ffi::c_int;
     if !using_artifact && !borg_spell_okay_fail(BANISH_EVIL, fail_allowed) {
         return 0 as ::core::ffi::c_int;
@@ -2813,7 +2806,7 @@ unsafe extern "C" fn borg_defend_aux_banishment(mut p1: ::core::ffi::c_int) -> :
     }
     if !borg_simulate {
         if using_artifact {
-            if borg_activate_item(act_loskill) {
+            if borg_activate_item(crate::bridge::st().act.loskill) {
                 return p1 - p2;
             }
         }
@@ -2884,10 +2877,10 @@ unsafe extern "C" fn borg_defend_aux_inviso(mut p1: ::core::ffi::c_int) -> ::cor
         && !borg_spell_okay_fail(SENSE_INVISIBLE, fail_allowed)
         && !borg_spell_okay_fail(DETECTION, fail_allowed)
         && !borg_spell_okay_fail(REVEAL_MONSTERS, fail_allowed)
-        && !borg_equips_item(act_detect_invis, true_0 != 0)
-        && !borg_equips_item(act_tmd_sinvis, true_0 != 0)
-        && !borg_equips_item(act_tmd_esp, true_0 != 0)
-        && !borg_equips_item(act_detect_evil, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.detect_invis, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.tmd_sinvis, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.tmd_esp, true_0 != 0)
+        && !borg_equips_item(crate::bridge::st().act.detect_evil, true_0 != 0)
     {
         return 0 as ::core::ffi::c_int;
     }
@@ -2904,10 +2897,10 @@ unsafe extern "C" fn borg_defend_aux_inviso(mut p1: ::core::ffi::c_int) -> ::cor
         || borg_read_scroll(sv_scroll_detect_invis) as ::core::ffi::c_int != 0
         || borg_use_staff(sv_staff_detect_invis) as ::core::ffi::c_int != 0
         || borg_use_staff(sv_staff_detect_evil) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_detect_invis) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_tmd_sinvis) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_tmd_esp) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_detect_evil) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.detect_invis) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.tmd_sinvis) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.tmd_esp) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.detect_evil) as ::core::ffi::c_int != 0
     {
         crate::bridge::st().borg.see_inv = 3000 as int16_t;
         return 10 as ::core::ffi::c_int;
@@ -3311,7 +3304,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
         b"# Attempting to cast T.O. for depth 100.\0" as *const u8 as *const ::core::ffi::c_char,
     );
     if borg_spell(TELEPORT_OTHER) as ::core::ffi::c_int != 0
-        || borg_activate_item(act_tele_other) as ::core::ffi::c_int != 0
+        || borg_activate_item(crate::bridge::st().act.tele_other) as ::core::ffi::c_int != 0
         || borg_aim_wand(sv_wand_teleport_away) as ::core::ffi::c_int != 0
     {
         borg_keypress('5' as i32 as keycode_t);
