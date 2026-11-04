@@ -3,7 +3,6 @@
 pub mod borg;
 pub mod borg_attack_munchkin;
 pub mod borg_caution;
-pub mod borg_cave;
 pub mod borg_cave_light;
 pub mod borg_cave_util;
 pub mod borg_cave_view;
@@ -58,4 +57,3 @@ pub mod borg_think_store;
 pub mod borg_trait;
 pub mod borg_trait_swap;
 pub mod borg_update;
-pub mod borg_util;

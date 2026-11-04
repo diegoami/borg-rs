@@ -5,7 +5,7 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::{
     borg_cave_floor_bold, borg_cave_floor_grid, borg_feature_protected,
 };
@@ -1655,8 +1655,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1712,8 +1711,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1769,8 +1767,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1809,8 +1806,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1863,8 +1859,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1917,8 +1912,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -1971,8 +1965,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2025,8 +2018,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2082,8 +2074,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2139,8 +2130,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2196,8 +2186,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2253,8 +2242,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2310,8 +2298,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2367,8 +2354,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2423,8 +2409,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2480,8 +2465,7 @@ unsafe extern "C" fn borg_danger_spell(
                     while spot_y <= 1 as ::core::ffi::c_int {
                         x = spot_x + (*kill).pos.x;
                         y = spot_y + (*kill).pos.y;
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(x == (*kill).pos.x && y == (*kill).pos.y) {
                             if borg_feature_protected(ag) {
                                 spot_safe += 1;
@@ -2836,9 +2820,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
                 * 4 as ::core::ffi::c_int
         {
-            let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                .offset(y9 as isize))
-            .offset(x9 as isize) as *mut borg_grid;
+            let mut ag: *mut borg_grid = crate::bridge::grid(x9, y9) as *mut borg_grid;
             if (*ag).info as ::core::ffi::c_int & BORG_VIEW != 0
                 && borg_cave_floor_grid(ag) as ::core::ffi::c_int != 0
             {
@@ -2923,31 +2905,31 @@ pub unsafe extern "C" fn borg_danger_one_kill(
             y_temp = y9 + ddy_ddd[ii as usize] as ::core::ffi::c_int;
             x_temp = x9 + ddx_ddd[ii as usize] as ::core::ffi::c_int;
             if square_in_bounds_fully(cave, loc(x_temp, y_temp)) {
-                if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).kill != 0) {
-                    if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                if !((*crate::bridge::grid(x_temp, y_temp)).kill != 0) {
+                    if !((*crate::bridge::grid(x_temp, y_temp)).feat
                         as ::core::ffi::c_int
                         == FEAT_CLOSED as ::core::ffi::c_int)
                     {
-                        if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                        if !((*crate::bridge::grid(x_temp, y_temp)).feat
                             as ::core::ffi::c_int
                             == FEAT_PERM as ::core::ffi::c_int)
                         {
-                            if (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                            if (*crate::bridge::grid(x_temp, y_temp)).feat
                                 as ::core::ffi::c_int
                                 == FEAT_GRANITE as ::core::ffi::c_int
-                                || ((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                || ((*crate::bridge::grid(x_temp, y_temp)).feat
                                     as ::core::ffi::c_int
                                     == FEAT_MAGMA as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_QUARTZ as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_MAGMA_K as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_QUARTZ_K as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_RUBBLE as ::core::ffi::c_int)
                             {
@@ -3035,31 +3017,31 @@ pub unsafe extern "C" fn borg_danger_one_kill(
             y_temp = y9 + ddy_ddd[ii as usize] as ::core::ffi::c_int;
             x_temp = x9 + ddx_ddd[ii as usize] as ::core::ffi::c_int;
             if square_in_bounds_fully(cave, loc(x_temp, y_temp)) {
-                if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).kill != 0) {
-                    if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                if !((*crate::bridge::grid(x_temp, y_temp)).kill != 0) {
+                    if !((*crate::bridge::grid(x_temp, y_temp)).feat
                         as ::core::ffi::c_int
                         == FEAT_CLOSED as ::core::ffi::c_int)
                     {
-                        if !((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                        if !((*crate::bridge::grid(x_temp, y_temp)).feat
                             as ::core::ffi::c_int
                             == FEAT_PERM as ::core::ffi::c_int)
                         {
-                            if (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                            if (*crate::bridge::grid(x_temp, y_temp)).feat
                                 as ::core::ffi::c_int
                                 >= FEAT_GRANITE as ::core::ffi::c_int
-                                || ((*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                || ((*crate::bridge::grid(x_temp, y_temp)).feat
                                     as ::core::ffi::c_int
                                     == FEAT_MAGMA as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_QUARTZ as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_MAGMA_K as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_QUARTZ_K as ::core::ffi::c_int
-                                    || (*borg_grids[y_temp as usize].offset(x_temp as isize)).feat
+                                    || (*crate::bridge::grid(x_temp, y_temp)).feat
                                         as ::core::ffi::c_int
                                         == FEAT_RUBBLE as ::core::ffi::c_int)
                             {
@@ -3208,9 +3190,7 @@ pub unsafe extern "C" fn borg_danger_one_kill(
                 .offset(BI_CLEVEL as ::core::ffi::c_int as isize)
                 * 4 as ::core::ffi::c_int
         {
-            let mut ag_0: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                .offset(y9 as isize))
-            .offset(x9 as isize) as *mut borg_grid;
+            let mut ag_0: *mut borg_grid = crate::bridge::grid(x9, y9) as *mut borg_grid;
             if (*ag_0).info as ::core::ffi::c_int & BORG_VIEW != 0
                 && borg_cave_floor_grid(ag_0) as ::core::ffi::c_int != 0
             {

@@ -7,7 +7,7 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::borg_cave_floor_bold;
 
 pub use crate::headers::borg_h::{
@@ -109,7 +109,7 @@ pub unsafe extern "C" fn borg_update_light() {
     while i < borg_light_n as ::core::ffi::c_int {
         y = borg_light_y[i as usize] as ::core::ffi::c_int;
         x = borg_light_x[i as usize] as ::core::ffi::c_int;
-        let ref mut fresh0 = (*borg_grids[y as usize].offset(x as isize)).info;
+        let ref mut fresh0 = (*crate::bridge::grid(x, y)).info;
         *fresh0 = (*fresh0 as ::core::ffi::c_int & !BORG_LIGHT) as uint16_t;
         i += 1;
     }
@@ -121,63 +121,55 @@ pub unsafe extern "C" fn borg_update_light() {
     {
         return;
     }
-    let ref mut fresh1 = (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).info;
+    let ref mut fresh1 = (*crate::bridge::grid(borg.c.x, borg.c.y)).info;
     *fresh1 = (*fresh1 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
     borg_light_y[borg_light_n as usize] = borg.c.y as uint8_t;
     borg_light_x[borg_light_n as usize] = borg.c.x as uint8_t;
     borg_light_n += 1;
     if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) >= 1 as ::core::ffi::c_int {
-        let ref mut fresh2 = (*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize]
-            .offset(borg.c.x as isize))
+        let ref mut fresh2 = (*crate::bridge::grid(borg.c.x, (borg.c.y + 1 as ::core::ffi::c_int)))
         .info;
         *fresh2 = (*fresh2 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_x[borg_light_n as usize] = borg.c.x as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh3 = (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize]
-            .offset(borg.c.x as isize))
+        let ref mut fresh3 = (*crate::bridge::grid(borg.c.x, (borg.c.y - 1 as ::core::ffi::c_int)))
         .info;
         *fresh3 = (*fresh3 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y - 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_x[borg_light_n as usize] = borg.c.x as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh4 = (*borg_grids[borg.c.y as usize]
-            .offset((borg.c.x + 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh4 = (*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), borg.c.y))
         .info;
         *fresh4 = (*fresh4 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = borg.c.y as uint8_t;
         borg_light_x[borg_light_n as usize] = (borg.c.x + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh5 = (*borg_grids[borg.c.y as usize]
-            .offset((borg.c.x - 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh5 = (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), borg.c.y))
         .info;
         *fresh5 = (*fresh5 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = borg.c.y as uint8_t;
         borg_light_x[borg_light_n as usize] = (borg.c.x - 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh6 = (*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize]
-            .offset((borg.c.x + 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh6 = (*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), (borg.c.y + 1 as ::core::ffi::c_int)))
         .info;
         *fresh6 = (*fresh6 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_x[borg_light_n as usize] = (borg.c.x + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh7 = (*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize]
-            .offset((borg.c.x - 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh7 = (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), (borg.c.y + 1 as ::core::ffi::c_int)))
         .info;
         *fresh7 = (*fresh7 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_x[borg_light_n as usize] = (borg.c.x - 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh8 = (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize]
-            .offset((borg.c.x + 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh8 = (*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), (borg.c.y - 1 as ::core::ffi::c_int)))
         .info;
         *fresh8 = (*fresh8 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y - 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_x[borg_light_n as usize] = (borg.c.x + 1 as ::core::ffi::c_int) as uint8_t;
         borg_light_n += 1;
-        let ref mut fresh9 = (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize]
-            .offset((borg.c.x - 1 as ::core::ffi::c_int) as isize))
+        let ref mut fresh9 = (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), (borg.c.y - 1 as ::core::ffi::c_int)))
         .info;
         *fresh9 = (*fresh9 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
         borg_light_y[borg_light_n as usize] = (borg.c.y - 1 as ::core::ffi::c_int) as uint8_t;
@@ -191,22 +183,19 @@ pub unsafe extern "C" fn borg_update_light() {
         && borg.c.x - 2 as ::core::ffi::c_int > 0 as ::core::ffi::c_int
     {
         if borg_cave_floor_bold(borg.c.y + 2 as ::core::ffi::c_int, borg.c.x) {
-            let ref mut fresh10 = (*borg_grids[(borg.c.y + 2 as ::core::ffi::c_int) as usize]
-                .offset(borg.c.x as isize))
+            let ref mut fresh10 = (*crate::bridge::grid(borg.c.x, (borg.c.y + 2 as ::core::ffi::c_int)))
             .info;
             *fresh10 = (*fresh10 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = borg.c.x as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh11 = (*borg_grids[(borg.c.y + 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh11 = (*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), (borg.c.y + 2 as ::core::ffi::c_int)))
             .info;
             *fresh11 = (*fresh11 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh12 = (*borg_grids[(borg.c.y + 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh12 = (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), (borg.c.y + 2 as ::core::ffi::c_int)))
             .info;
             *fresh12 = (*fresh12 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 2 as ::core::ffi::c_int) as uint8_t;
@@ -214,22 +203,19 @@ pub unsafe extern "C" fn borg_update_light() {
             borg_light_n += 1;
         }
         if borg_cave_floor_bold(borg.c.y - 2 as ::core::ffi::c_int, borg.c.x) {
-            let ref mut fresh13 = (*borg_grids[(borg.c.y - 2 as ::core::ffi::c_int) as usize]
-                .offset(borg.c.x as isize))
+            let ref mut fresh13 = (*crate::bridge::grid(borg.c.x, (borg.c.y - 2 as ::core::ffi::c_int)))
             .info;
             *fresh13 = (*fresh13 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = borg.c.x as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh14 = (*borg_grids[(borg.c.y - 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh14 = (*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), (borg.c.y - 2 as ::core::ffi::c_int)))
             .info;
             *fresh14 = (*fresh14 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh15 = (*borg_grids[(borg.c.y - 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh15 = (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), (borg.c.y - 2 as ::core::ffi::c_int)))
             .info;
             *fresh15 = (*fresh15 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 2 as ::core::ffi::c_int) as uint8_t;
@@ -237,22 +223,19 @@ pub unsafe extern "C" fn borg_update_light() {
             borg_light_n += 1;
         }
         if borg_cave_floor_bold(borg.c.y, borg.c.x + 2 as ::core::ffi::c_int) {
-            let ref mut fresh16 = (*borg_grids[borg.c.y as usize]
-                .offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh16 = (*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), borg.c.y))
             .info;
             *fresh16 = (*fresh16 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = borg.c.y as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh17 = (*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh17 = (*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), (borg.c.y + 1 as ::core::ffi::c_int)))
             .info;
             *fresh17 = (*fresh17 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 1 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh18 = (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh18 = (*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), (borg.c.y - 1 as ::core::ffi::c_int)))
             .info;
             *fresh18 = (*fresh18 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 1 as ::core::ffi::c_int) as uint8_t;
@@ -260,22 +243,19 @@ pub unsafe extern "C" fn borg_update_light() {
             borg_light_n += 1;
         }
         if borg_cave_floor_bold(borg.c.y, borg.c.x - 2 as ::core::ffi::c_int) {
-            let ref mut fresh19 = (*borg_grids[borg.c.y as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh19 = (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), borg.c.y))
             .info;
             *fresh19 = (*fresh19 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = borg.c.y as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x - 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh20 = (*borg_grids[(borg.c.y + 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh20 = (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), (borg.c.y + 2 as ::core::ffi::c_int)))
             .info;
             *fresh20 = (*fresh20 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_x[borg_light_n as usize] = (borg.c.x - 2 as ::core::ffi::c_int) as uint8_t;
             borg_light_n += 1;
-            let ref mut fresh21 = (*borg_grids[(borg.c.y - 2 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            let ref mut fresh21 = (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), (borg.c.y - 2 as ::core::ffi::c_int)))
             .info;
             *fresh21 = (*fresh21 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 2 as ::core::ffi::c_int) as uint8_t;
@@ -299,8 +279,7 @@ pub unsafe extern "C" fn borg_update_light() {
             borg.c.y + 3 as ::core::ffi::c_int,
             borg.c.x + 3 as ::core::ffi::c_int,
         ) {
-            let ref mut fresh22 = (*borg_grids[(borg.c.y + 3 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 3 as ::core::ffi::c_int) as isize))
+            let ref mut fresh22 = (*crate::bridge::grid((borg.c.x + 3 as ::core::ffi::c_int), (borg.c.y + 3 as ::core::ffi::c_int)))
             .info;
             *fresh22 = (*fresh22 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 3 as ::core::ffi::c_int) as uint8_t;
@@ -311,8 +290,7 @@ pub unsafe extern "C" fn borg_update_light() {
             borg.c.y + 3 as ::core::ffi::c_int,
             borg.c.x - 3 as ::core::ffi::c_int,
         ) {
-            let ref mut fresh23 = (*borg_grids[(borg.c.y + 3 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 3 as ::core::ffi::c_int) as isize))
+            let ref mut fresh23 = (*crate::bridge::grid((borg.c.x - 3 as ::core::ffi::c_int), (borg.c.y + 3 as ::core::ffi::c_int)))
             .info;
             *fresh23 = (*fresh23 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y + 3 as ::core::ffi::c_int) as uint8_t;
@@ -323,8 +301,7 @@ pub unsafe extern "C" fn borg_update_light() {
             borg.c.y - 3 as ::core::ffi::c_int,
             borg.c.x + 3 as ::core::ffi::c_int,
         ) {
-            let ref mut fresh24 = (*borg_grids[(borg.c.y - 3 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x + 3 as ::core::ffi::c_int) as isize))
+            let ref mut fresh24 = (*crate::bridge::grid((borg.c.x + 3 as ::core::ffi::c_int), (borg.c.y - 3 as ::core::ffi::c_int)))
             .info;
             *fresh24 = (*fresh24 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 3 as ::core::ffi::c_int) as uint8_t;
@@ -335,8 +312,7 @@ pub unsafe extern "C" fn borg_update_light() {
             borg.c.y - 3 as ::core::ffi::c_int,
             borg.c.x - 3 as ::core::ffi::c_int,
         ) {
-            let ref mut fresh25 = (*borg_grids[(borg.c.y - 3 as ::core::ffi::c_int) as usize]
-                .offset((borg.c.x - 3 as ::core::ffi::c_int) as isize))
+            let ref mut fresh25 = (*crate::bridge::grid((borg.c.x - 3 as ::core::ffi::c_int), (borg.c.y - 3 as ::core::ffi::c_int)))
             .info;
             *fresh25 = (*fresh25 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
             borg_light_y[borg_light_n as usize] = (borg.c.y - 3 as ::core::ffi::c_int) as uint8_t;
@@ -380,11 +356,11 @@ pub unsafe extern "C" fn borg_update_light() {
                         dx + (dy >> 1 as ::core::ffi::c_int)
                     };
                     if !(d > p) {
-                        if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int
+                        if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int
                             & BORG_VIEW
                             != 0
                         {
-                            let ref mut fresh26 = (*borg_grids[y as usize].offset(x as isize)).info;
+                            let ref mut fresh26 = (*crate::bridge::grid(x, y)).info;
                             *fresh26 = (*fresh26 as ::core::ffi::c_int | BORG_LIGHT) as uint16_t;
                             borg_light_y[borg_light_n as usize] = y as uint8_t;
                             borg_light_x[borg_light_n as usize] = x as uint8_t;

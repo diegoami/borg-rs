@@ -20,7 +20,7 @@ pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_attack_munchkin_h::{borg_munchkin_mage, borg_munchkin_melee};
 use crate::headers::borg_caution_h::borg_caution;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
 use crate::headers::borg_escape_h::{
     borg_allow_teleport, borg_dimension_door, borg_recall, borg_shadow_shift,
@@ -233,9 +233,7 @@ unsafe extern "C" fn borg_think_dungeon_lunal() -> bool {
     let mut j: ::core::ffi::c_int = 0;
     let mut b_j: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut i: ::core::ffi::c_int = 0;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     let mut feat: uint8_t = (*square(cave, borg.c)).feat;
     let mut need: borg_need = BORG_NO_NEED;
     borg_notice(true_0 != 0);
@@ -409,9 +407,7 @@ unsafe extern "C" fn borg_think_dungeon_lunal() -> bool {
         let mut y: ::core::ffi::c_int = 0;
         let mut x: ::core::ffi::c_int = 0;
         let mut closeness: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-        let mut tmp_ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x = *track_less.x.offset(i as isize);
@@ -517,9 +513,7 @@ unsafe extern "C" fn borg_think_dungeon_lunal() -> bool {
     {
         let mut y_1: ::core::ffi::c_int = 0;
         let mut x_1: ::core::ffi::c_int = 0;
-        let mut tmp_ag_0: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag_0: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x_1 = *track_less.x.offset(i as isize);
@@ -598,9 +592,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
     let mut x: ::core::ffi::c_int = 0;
     let mut y: ::core::ffi::c_int = 0;
     let mut closeness: ::core::ffi::c_int = 8 as ::core::ffi::c_int;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     let mut feat: uint8_t = (*square(cave, borg.c)).feat;
     let mut need: borg_need = BORG_NO_NEED;
     borg_notice(true_0 != 0);
@@ -759,9 +751,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
             || *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize)
                 == 0 as ::core::ffi::c_int)
     {
-        let mut tmp_ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x = *track_less.x.offset(i as isize);
@@ -817,9 +807,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
         && (safe_place as ::core::ffi::c_int != 0
             || (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int)
     {
-        let mut tmp_ag_0: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag_0: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         b_j = -(1 as ::core::ffi::c_int);
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
@@ -918,9 +906,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
         && safe_place as ::core::ffi::c_int != 0
         || (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int
     {
-        let mut tmp_ag_1: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag_1: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x = *track_less.x.offset(i as isize);
@@ -973,8 +959,7 @@ unsafe extern "C" fn borg_think_dungeon_munchkin() -> bool {
             y = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
             x = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
             if square_in_bounds(cave, loc(x, y)) {
-                ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                    .offset(x as isize) as *mut borg_grid;
+                ag = crate::bridge::grid(x, y) as *mut borg_grid;
                 if (*ag).kill != 0 {
                     ii = 0 as ::core::ffi::c_int;
                     while ii < track_less.num as ::core::ffi::c_int {
@@ -1053,7 +1038,7 @@ unsafe extern "C" fn borg_think_dungeon_brave() -> bool {
     if borg_light_beam(false_0 != 0) {
         return true_0 != 0;
     }
-    if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+    if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
         == FEAT_MORE as ::core::ffi::c_int
     {
         borg_note(b"# Fleeing via stairs.\0" as *const u8 as *const ::core::ffi::c_char);
@@ -1517,7 +1502,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
             b"# Needing to get back on correct depth\0" as *const u8 as *const ::core::ffi::c_char,
         );
         borg.goal.less = true_0 != 0;
-        if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+        if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
             == FEAT_LESS as ::core::ffi::c_int
             && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
         {

@@ -8,7 +8,7 @@ pub const GOAL_MISC: ::core::ffi::c_int = 3 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_cost, borg_ddx_ddd, borg_ddy_ddd, borg_flow_clear, borg_flow_commit,
     borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track,
@@ -179,8 +179,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
             let mut ag_ptr: [*mut borg_grid; 24] = [::core::ptr::null_mut::<borg_grid>(); 24];
             let mut floor: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
             let mut tmp_glyph: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if !((*ag).feat as ::core::ffi::c_int != FEAT_FLOOR as ::core::ffi::c_int
                 && (*ag).glyph as ::core::ffi::c_int != 0)
             {
@@ -193,8 +192,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
                         let mut yy: ::core::ffi::c_int =
                             y + borg_ddy_ddd[i as usize] as ::core::ffi::c_int;
                         ag_ptr[i as usize] =
-                            (*(&raw mut borg_grids as *mut *mut borg_grid).offset(yy as isize))
-                                .offset(xx as isize) as *mut borg_grid;
+                            crate::bridge::grid(xx, yy) as *mut borg_grid;
                         i += 1;
                     }
                     if borg_needs_new_sea {
@@ -220,7 +218,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
                             }
                             v = 100 as ::core::ffi::c_int + tmp_glyph * 500 as ::core::ffi::c_int
                                 - cost * 1 as ::core::ffi::c_int;
-                            if (*borg_grids[y as usize].offset(x as isize)).feat
+                            if (*crate::bridge::grid(x, y)).feat
                                 as ::core::ffi::c_int
                                 == FEAT_FLOOR as ::core::ffi::c_int
                             {
@@ -230,7 +228,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
                                 v += 5000 as ::core::ffi::c_int;
                             }
                             if tmp_glyph != goal_glyph
-                                && (*borg_grids[y as usize].offset(x as isize)).glyph
+                                && (*crate::bridge::grid(x, y)).glyph
                                     as ::core::ffi::c_int
                                     != 0
                             {
@@ -255,7 +253,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
                                     + borg_ddy_ddd[i as usize] as ::core::ffi::c_int
                                     != y)
                                 {
-                                    if !(*borg_grids[y as usize].offset(x as isize)).glyph {
+                                    if !(*crate::bridge::grid(x, y)).glyph {
                                         v = 500 as ::core::ffi::c_int
                                             + tmp_glyph * 500 as ::core::ffi::c_int
                                             - cost * 1 as ::core::ffi::c_int;
@@ -288,9 +286,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
             let mut yy_0: ::core::ffi::c_int = glyph_y_center as ::core::ffi::c_int
                 + borg_ddy_ddd[i as usize] as ::core::ffi::c_int;
             let mut ag_ptr_0: [*mut borg_grid; 24] = [::core::ptr::null_mut::<borg_grid>(); 24];
-            ag_ptr_0[i as usize] = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                .offset(yy_0 as isize))
-            .offset(xx_0 as isize) as *mut borg_grid;
+            ag_ptr_0[i as usize] = crate::bridge::grid(xx_0, yy_0) as *mut borg_grid;
             ag = ag_ptr_0[i as usize];
             if (*ag).glyph {
                 glyph += 1;
@@ -307,7 +303,7 @@ pub unsafe extern "C" fn borg_flow_glyph() -> bool {
     if b_v < 0 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(b_y as isize)).offset(b_x as isize)
+    ag = crate::bridge::grid(b_x, b_y)
         as *mut borg_grid;
     glyph_x = b_x as uint8_t;
     glyph_y = b_y as uint8_t;

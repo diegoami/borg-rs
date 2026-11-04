@@ -25,7 +25,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::{borg_cave_floor_bold, borg_panel_hgt, borg_panel_wid};
 
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_monsters, borg_fear_region};
@@ -984,9 +984,7 @@ unsafe extern "C" fn borg_cmd_grid_feature() {
         x = 1 as ::core::ffi::c_int;
         while x <= AUTO_MAX_X - 1 as ::core::ffi::c_int {
             let mut a: uint8_t = COLOUR_RED as uint8_t;
-            let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                .offset(y as isize))
-            .offset(x as isize) as *mut borg_grid;
+            let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*m).cursor < FEAT_MAX as ::core::ffi::c_int {
                 if !((*ag).feat as ::core::ffi::c_int == (*m).cursor) {
                     current_block_13 = 11812396948646013369;
@@ -1670,7 +1668,7 @@ unsafe extern "C" fn borg_cmd_grid_target_feature() {
     target_get(&raw mut l);
     y = l.y;
     x = l.x;
-    mask = (*borg_grids[y as usize].offset(x as isize)).feat as uint16_t;
+    mask = (*crate::bridge::grid(x, y)).feat as uint16_t;
     let mut feat: uint8_t = (*square(cave, borg.c)).feat;
     borg_note(format(
         b"Borg's Feat for grid (%d, %d) is %d, game Feat is %d\0" as *const u8
@@ -1693,56 +1691,56 @@ unsafe extern "C" fn borg_cmd_grid_target_info() {
     target_get(&raw mut l);
     y = l.y;
     x = l.x;
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_MARK != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_MARK != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is MARK\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_GLOW != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_GLOW != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is GLOW\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_DARK != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_DARK != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is DARK\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_OKAY != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_OKAY != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is OKAY\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_LIGHT != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_LIGHT != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is LITE\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_VIEW != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_VIEW != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is VIEW\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_TEMP != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_TEMP != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is TEMP\0" as *const u8 as *const ::core::ffi::c_char,
             y,
             x,
         );
     }
-    if (*borg_grids[y as usize].offset(x as isize)).info as ::core::ffi::c_int & BORG_XTRA != 0 {
+    if (*crate::bridge::grid(x, y)).info as ::core::ffi::c_int & BORG_XTRA != 0 {
         msg(
             b"Borg Info for grid (%d, %d) is XTRA\0" as *const u8 as *const ::core::ffi::c_char,
             y,

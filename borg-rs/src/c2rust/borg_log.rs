@@ -10,7 +10,7 @@ pub const BORG_HOME: ::core::ffi::c_int = 7 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_flow_glyph_h::borg_needs_new_sea;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt, borg_race_name};
 pub use crate::headers::borg_flow_take_h::{borg_take, borg_takes};
@@ -428,9 +428,7 @@ pub unsafe extern "C" fn borg_write_map(mut ask: bool) {
         j = 0 as ::core::ffi::c_int;
         while j < DUNGEON_WID {
             let mut ch: wchar_t = 0;
-            let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                .offset(i as isize))
-            .offset(j as isize) as *mut borg_grid;
+            let mut ag: *mut borg_grid = crate::bridge::grid(j, i) as *mut borg_grid;
             if !square_monster(cave, loc(j, i)).is_null() {
                 m_idx = (*square_monster(cave, loc(j, i))).midx as int16_t;
             } else {

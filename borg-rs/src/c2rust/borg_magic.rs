@@ -21,7 +21,7 @@ pub const BORG_LIGHT: ::core::ffi::c_int = 0x10 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 
 pub use crate::headers::borg_h::{
     borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
@@ -1267,7 +1267,7 @@ pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> ::core::ffi
         }
     }
     if *borg.trait_0.offset(BI_CLASS as ::core::ffi::c_int as isize) == CLASS_NECROMANCER
-        && (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).info as ::core::ffi::c_int
+        && (*crate::bridge::grid(borg.c.x, borg.c.y)).info as ::core::ffi::c_int
             & BORG_LIGHT
             != 0
     {

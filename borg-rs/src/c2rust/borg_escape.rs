@@ -12,7 +12,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::{
     borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
 };
@@ -362,9 +362,7 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
     while i < 8 as ::core::ffi::c_int {
         let mut x: ::core::ffi::c_int = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
         let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
-        let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(y as isize))
-        .offset(x as isize) as *mut borg_grid;
+        let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
         if square_in_bounds_fully(cave, loc(x, y)) {
             if !borg_cave_floor_grid(ag) {
                 non_safe_grids += 1;
@@ -456,9 +454,7 @@ pub unsafe extern "C" fn borg_caution_phase(
     let mut p: ::core::ffi::c_int = 0;
     let mut dis: ::core::ffi::c_int = 10 as ::core::ffi::c_int;
     let mut min: ::core::ffi::c_int = dis / 2 as ::core::ffi::c_int;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     if *borg
         .trait_0
         .offset(BI_APHASE as ::core::ffi::c_int as isize)
@@ -485,8 +481,7 @@ pub unsafe extern "C" fn borg_caution_phase(
             }
             if !(y <= 0 as ::core::ffi::c_int || y >= AUTO_MAX_Y - 1 as ::core::ffi::c_int) {
                 if !(x <= 0 as ::core::ffi::c_int || x >= AUTO_MAX_X - 1 as ::core::ffi::c_int) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
                         if borg_cave_floor_bold(y, x) {
                             if !((*ag).kill != 0) {
@@ -545,9 +540,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
     let mut min: ::core::ffi::c_int = dis / 2 as ::core::ffi::c_int;
     let mut q_x: ::core::ffi::c_int = 0;
     let mut q_y: ::core::ffi::c_int = 0;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     q_x = w_x / borg_panel_wid();
     q_y = w_y / borg_panel_hgt();
     if *borg
@@ -580,8 +573,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
             }
             if !(y <= 0 as ::core::ffi::c_int || y >= AUTO_MAX_Y - 1 as ::core::ffi::c_int) {
                 if !(x <= 0 as ::core::ffi::c_int || x >= AUTO_MAX_X - 1 as ::core::ffi::c_int) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
                         && (*(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
                             .offset((q_x + 0 as ::core::ffi::c_int) as isize)
@@ -638,9 +630,7 @@ pub unsafe extern "C" fn borg_caution_teleport(
     return true_0 != 0;
 }
 unsafe extern "C" fn borg_escape_stair() -> bool {
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     if (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int
         && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
     {
@@ -791,8 +781,7 @@ pub unsafe extern "C" fn borg_escape(mut b_q: ::core::ffi::c_int) -> bool {
         while j < 8 as ::core::ffi::c_int {
             let mut y: ::core::ffi::c_int = borg.c.y + ddy_ddd[j as usize] as ::core::ffi::c_int;
             let mut x: ::core::ffi::c_int = borg.c.x + ddx_ddd[j as usize] as ::core::ffi::c_int;
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*ag).glyph {
                 glyphs += 1;
             }

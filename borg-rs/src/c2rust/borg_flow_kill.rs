@@ -19,7 +19,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::{
     borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid,
 };
@@ -136,9 +136,6 @@ pub use crate::headers::borg_trait_h::{
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT,
 };
 use crate::headers::borg_update_h::borg_detect_wall;
-use crate::headers::borg_util_h::{
-    borg_sort, borg_sort_comp, borg_sort_comp_hook, borg_sort_swap, borg_sort_swap_hook,
-};
 pub use crate::headers::cave_h::{
     cave, chunk, connector, ddx_ddd, ddy_ddd, distance, heatmap, monster_group, square,
     square_in_bounds_fully, square_isvault, square_monster, trap, C2RustUnnamedH_18, FEAT_MAX,
@@ -419,10 +416,10 @@ unsafe extern "C" fn borg_update_kill_new(mut i: ::core::ffi::c_int) {
             .wrapping_div((::core::mem::size_of::<bitflag>() as size_t).wrapping_mul(8 as size_t)),
         RF_PASS_WALL as ::core::ffi::c_int,
     ) {
-        (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat =
+        (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat =
             FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
     }
-    if (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat
+    if (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat
         as ::core::ffi::c_int
         != FEAT_FLOOR as ::core::ffi::c_int
         && flag_has(
@@ -439,7 +436,7 @@ unsafe extern "C" fn borg_update_kill_new(mut i: ::core::ffi::c_int) {
         ) as ::core::ffi::c_int
             != 0
     {
-        (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat =
+        (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat =
             FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
     }
 }
@@ -583,10 +580,10 @@ unsafe extern "C" fn borg_update_kill_old(mut i: ::core::ffi::c_int) {
             .wrapping_div((::core::mem::size_of::<bitflag>() as size_t).wrapping_mul(8 as size_t)),
         RF_PASS_WALL as ::core::ffi::c_int,
     ) {
-        (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat =
+        (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat =
             FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
     }
-    if (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat
+    if (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat
         as ::core::ffi::c_int
         != FEAT_FLOOR as ::core::ffi::c_int
         && flag_has(
@@ -603,7 +600,7 @@ unsafe extern "C" fn borg_update_kill_old(mut i: ::core::ffi::c_int) {
         ) as ::core::ffi::c_int
             != 0
     {
-        (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).feat =
+        (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).feat =
             FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
     }
 }
@@ -625,7 +622,7 @@ pub unsafe extern "C" fn borg_delete_kill(mut i: ::core::ffi::c_int) {
     {
         borg.goal.type_0 = 0 as int16_t;
     }
-    (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).kill = 0 as uint8_t;
+    (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).kill = 0 as uint8_t;
     if flag_has(
         &raw mut (*r_info.offset((*kill).r_idx as isize)).flags as *mut bitflag,
         (RF_MAX as ::core::ffi::c_int as size_t)
@@ -673,7 +670,7 @@ unsafe extern "C" fn borg_follow_kill_aux(
     if d > (*z_info).max_sight as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+    ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     if (*ag).info as ::core::ffi::c_int & BORG_OKAY == 0 {
         return false_0 != 0;
@@ -808,8 +805,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
         x = ox + dx;
         y = oy + dy;
         if square_in_bounds_fully(cave, loc(x, y)) {
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if borg_cave_floor_grid(ag) {
                 if !((*ag).kill != 0) {
                     if !borg_follow_kill_aux(i, y, x) {
@@ -833,7 +829,7 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
     }
     x = ox + b_dx;
     y = oy + b_dy;
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+    ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     if !borg_cave_floor_grid(ag) {
         borg_delete_kill(i);
@@ -847,12 +843,12 @@ pub unsafe extern "C" fn borg_follow_kill(mut i: ::core::ffi::c_int) {
         borg_delete_kill(i);
         return;
     }
-    (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).kill = 0 as uint8_t;
+    (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).kill = 0 as uint8_t;
     (*kill).ox = ox as uint8_t;
     (*kill).oy = oy as uint8_t;
     (*kill).pos.x = ox + b_dx;
     (*kill).pos.y = oy + b_dy;
-    (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).kill = i as uint8_t;
+    (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).kill = i as uint8_t;
     borg_note(format(
         b"# Following a monster '%s' to (%d,%d) from (%d,%d)\0" as *const u8
             as *const ::core::ffi::c_char,
@@ -913,7 +909,7 @@ unsafe extern "C" fn borg_new_kill(
     borg_kills_cnt += 1;
     kill = borg_kills.offset(n as isize) as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+    ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     (*kill).r_idx = r_idx as uint16_t;
     (*kill).pos.x = x;
@@ -921,7 +917,7 @@ unsafe extern "C" fn borg_new_kill(
     (*kill).pos.y = y;
     (*kill).oy = (*kill).pos.y as uint8_t;
     (*kill).m_idx = (*m_ptr).midx as int16_t;
-    (*borg_grids[(*kill).pos.y as usize].offset((*kill).pos.x as isize)).kill = n as uint8_t;
+    (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y)).kill = n as uint8_t;
     (*kill).when = borg.time.now;
     if (*kill).r_idx as ::core::ffi::c_uint == borg.id.morgoth {
         borg.time.morgoth = borg.time.now;
@@ -1193,15 +1189,13 @@ pub unsafe extern "C" fn observe_kill_move(
                                     14916268686031723178 => {}
                                     _ => {
                                         if z != 0 {
-                                            (*borg_grids[(*kill).pos.y as usize]
-                                                .offset((*kill).pos.x as isize))
+                                            (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y))
                                             .kill = 0 as uint8_t;
                                             (*kill).ox = (*kill).pos.x as uint8_t;
                                             (*kill).oy = (*kill).pos.y as uint8_t;
                                             (*kill).pos.x = x;
                                             (*kill).pos.y = y;
-                                            (*borg_grids[(*kill).pos.y as usize]
-                                                .offset((*kill).pos.x as isize))
+                                            (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y))
                                             .kill = i as uint8_t;
                                             borg_note(
                                                 format(
@@ -1768,8 +1762,7 @@ pub unsafe extern "C" fn borg_flow_kill(
         while hall_y <= 1 as ::core::ffi::c_int {
             x = hall_x + borg.c.x;
             y = hall_y + borg.c.y;
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*ag).glyph as ::core::ffi::c_int != 0
                 || (*ag).feat as ::core::ffi::c_int >= FEAT_MAGMA as ::core::ffi::c_int
                     && (*ag).feat as ::core::ffi::c_int <= FEAT_PERM as ::core::ffi::c_int
@@ -1915,9 +1908,7 @@ pub unsafe extern "C" fn borg_flow_kill(
                                 {
                                     x = (*kill).pos.x;
                                     y = (*kill).pos.y;
-                                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                                        .offset(y as isize))
-                                    .offset(x as isize)
+                                    ag = crate::bridge::grid(x, y)
                                         as *mut borg_grid;
                                     if !(viewable as ::core::ffi::c_int != 0
                                         && (*ag).info as ::core::ffi::c_int & BORG_VIEW == 0)
@@ -2039,15 +2030,7 @@ pub unsafe extern "C" fn borg_flow_kill(
                                                                         cave,
                                                                         loc(hall_x + x, hall_y + y),
                                                                     ) {
-                                                                        ag = (*(&raw mut borg_grids
-                                                                            as *mut *mut borg_grid)
-                                                                            .offset(
-                                                                                (hall_y + y)
-                                                                                    as isize,
-                                                                            ))
-                                                                        .offset(
-                                                                            (hall_x + x) as isize,
-                                                                        )
+                                                                        ag = crate::bridge::grid((hall_x + x), (hall_y + y))
                                                                             as *mut borg_grid;
                                                                         if (*ag).glyph as ::core::ffi::c_int != 0
                                                                             || (*ag).feat as ::core::ffi::c_int
@@ -2759,8 +2742,7 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
             m_y = borg.c.y + o_y + ny[i as usize];
             m_x = borg.c.x + o_x + nx[i as usize];
             if square_in_bounds_fully(cave, loc(m_x, m_y)) {
-                ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(m_y as isize))
-                    .offset(m_x as isize) as *mut borg_grid;
+                ag = crate::bridge::grid(m_x, m_y) as *mut borg_grid;
                 if n_array[i as usize] == 0 as ::core::ffi::c_int
                     && ((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
                         || (*ag).feat as ::core::ffi::c_int >= FEAT_MAGMA as ::core::ffi::c_int
@@ -2815,8 +2797,7 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
             m_y = borg.c.y + o_y + sy[i as usize];
             m_x = borg.c.x + o_x + sx[i as usize];
             if square_in_bounds_fully(cave, loc(m_x, m_y)) {
-                ag_0 = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(m_y as isize))
-                    .offset(m_x as isize) as *mut borg_grid;
+                ag_0 = crate::bridge::grid(m_x, m_y) as *mut borg_grid;
                 if s_array[i as usize] == 0 as ::core::ffi::c_int
                     && ((*ag_0).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
                         || (*ag_0).feat as ::core::ffi::c_int >= FEAT_MAGMA as ::core::ffi::c_int
@@ -2870,8 +2851,7 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
             m_y = borg.c.y + o_y + ey[i as usize];
             m_x = borg.c.x + o_x + ex[i as usize];
             if square_in_bounds_fully(cave, loc(m_x, m_y)) {
-                ag_1 = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(m_y as isize))
-                    .offset(m_x as isize) as *mut borg_grid;
+                ag_1 = crate::bridge::grid(m_x, m_y) as *mut borg_grid;
                 if e_array[i as usize] == 0 as ::core::ffi::c_int
                     && ((*ag_1).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
                         || (*ag_1).feat as ::core::ffi::c_int >= FEAT_MAGMA as ::core::ffi::c_int
@@ -2926,8 +2906,7 @@ pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
             m_y = borg.c.y + o_y + wy[i as usize];
             m_x = borg.c.x + o_x + wx[i as usize];
             if square_in_bounds_fully(cave, loc(m_x, m_y)) {
-                ag_2 = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(m_y as isize))
-                    .offset(m_x as isize) as *mut borg_grid;
+                ag_2 = crate::bridge::grid(m_x, m_y) as *mut borg_grid;
                 if w_array[i as usize] == 0 as ::core::ffi::c_int
                     && ((*ag_2).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int
                         || (*ag_2).feat as ::core::ffi::c_int >= FEAT_MAGMA as ::core::ffi::c_int
@@ -3771,7 +3750,7 @@ pub unsafe extern "C" fn borg_shoot_scoot_safe(
     while i < 8 as ::core::ffi::c_int {
         x = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
         y = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
@@ -3898,8 +3877,7 @@ pub unsafe extern "C" fn borg_shoot_scoot_safe(
             }
             if !(y <= 0 as ::core::ffi::c_int || y >= AUTO_MAX_Y - 2 as ::core::ffi::c_int) {
                 if !(x <= 0 as ::core::ffi::c_int || x >= AUTO_MAX_X - 2 as ::core::ffi::c_int) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
                         if borg_cave_floor_bold(y, x) {
                             if !((*ag).kill != 0) {
@@ -3920,14 +3898,9 @@ pub unsafe extern "C" fn borg_shoot_scoot_safe(
             } else {
                 u = 0 as ::core::ffi::c_int;
                 while u < 8 as ::core::ffi::c_int {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(
-                        (y + *(&raw const ddy_ddd as *const int16_t).offset(u as isize)
-                            as ::core::ffi::c_int) as isize,
-                    ))
-                    .offset(
-                        (x + *(&raw const ddx_ddd as *const int16_t).offset(u as isize)
-                            as ::core::ffi::c_int) as isize,
-                    ) as *mut borg_grid;
+                    ag = crate::bridge::grid((x + *(&raw const ddx_ddd as *const int16_t).offset(u as isize)
+                            as ::core::ffi::c_int), (y + *(&raw const ddy_ddd as *const int16_t).offset(u as isize)
+                            as ::core::ffi::c_int)) as *mut borg_grid;
                     kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
                     if (*ag).kill as ::core::ffi::c_int != 0
                         && (*kill).awake as ::core::ffi::c_int != 0
@@ -4260,45 +4233,7 @@ unsafe extern "C" fn borg_init_monster_names() {
         }
         i += 1;
     }
-    borg_sort_comp = Some(
-        borg_sort_comp_hook
-            as unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> bool,
-    )
-        as Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> bool,
-        >;
-    borg_sort_swap = Some(
-        borg_sort_swap_hook
-            as unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> (),
-    )
-        as Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> (),
-        >;
-    borg_sort(
-        &raw mut text as *mut *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
-        &raw mut what as *mut int16_t as *mut ::core::ffi::c_void,
-        size,
-    );
+    sort_text_what(&mut text, &mut what, size);
     borg_unique_size = size;
     borg_unique_text = mem_zalloc(
         (borg_unique_size as size_t)
@@ -4348,45 +4283,7 @@ unsafe extern "C" fn borg_init_monster_names() {
         }
         i += 1;
     }
-    borg_sort_comp = Some(
-        borg_sort_comp_hook
-            as unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> bool,
-    )
-        as Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> bool,
-        >;
-    borg_sort_swap = Some(
-        borg_sort_swap_hook
-            as unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> (),
-    )
-        as Option<
-            unsafe extern "C" fn(
-                *mut ::core::ffi::c_void,
-                *mut ::core::ffi::c_void,
-                ::core::ffi::c_int,
-                ::core::ffi::c_int,
-            ) -> (),
-        >;
-    borg_sort(
-        &raw mut text as *mut *mut ::core::ffi::c_char as *mut ::core::ffi::c_void,
-        &raw mut what as *mut int16_t as *mut ::core::ffi::c_void,
-        size,
-    );
+    sort_text_what(&mut text, &mut what, size);
     borg_normal_size = size;
     borg_normal_text = mem_zalloc(
         (borg_normal_size as size_t)
@@ -4492,5 +4389,24 @@ pub unsafe extern "C" fn borg_free_flow_kill() {
     if !borg_kills.is_null() {
         mem_free(borg_kills as *mut ::core::ffi::c_void);
         borg_kills = ::core::ptr::null_mut::<borg_kill>();
+    }
+}
+
+/// Bridge to the safe `borg_sort` for the C string arrays built here
+/// (borg_sort_comp_hook / borg_sort_swap_hook).
+unsafe fn sort_text_what(
+    text: &mut [*mut ::core::ffi::c_char],
+    what: &mut [int16_t],
+    size: ::core::ffi::c_int,
+) {
+    let n = size as usize;
+    let mut t: Vec<&::core::ffi::CStr> =
+        text[..n].iter().map(|&p| ::core::ffi::CStr::from_ptr(p)).collect();
+    crate::borg_util::borg_sort(
+        &mut crate::borg_util::TextWhat { text: &mut t, what: &mut what[..n] },
+        size,
+    );
+    for (dst, src) in text[..n].iter_mut().zip(t) {
+        *dst = src.as_ptr() as *mut ::core::ffi::c_char;
     }
 }

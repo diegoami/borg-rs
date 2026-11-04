@@ -15,7 +15,7 @@ pub const BORG_IGNORE_MAP: ::core::ffi::c_int = 0x100 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 
 use crate::headers::borg_danger_h::{borg_fear_monsters, borg_fear_region};
 use crate::headers::borg_escape_h::borg_recall;
@@ -260,7 +260,7 @@ pub unsafe extern "C" fn borg_money_scum() -> bool {
                 borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int,
             );
             if square_in_bounds_fully(cave, next) as ::core::ffi::c_int != 0
-                && (*borg_grids[next.y as usize].offset(next.x as isize)).feat as ::core::ffi::c_int
+                && (*crate::bridge::grid(next.x, next.y)).feat as ::core::ffi::c_int
                     == FEAT_FLOOR as ::core::ffi::c_int
             {
                 let fresh0 = count;
@@ -339,7 +339,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
             }
         }
         if !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize] {
-            if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+            if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
                 == FEAT_LESS as ::core::ffi::c_int
             {
                 borg_note(b"# Testing for stairs .\0" as *const u8 as *const ::core::ffi::c_char);
@@ -350,7 +350,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
             < *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
             && *borg.trait_0.offset(BI_MAXSP as ::core::ffi::c_int as isize)
                 > 0 as ::core::ffi::c_int
-            && ((*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).info
+            && ((*crate::bridge::grid(borg.c.x, borg.c.y)).info
                 as ::core::ffi::c_int
                 & BORG_GLOW
                 != 0
@@ -375,8 +375,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                 x = borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
                 y = borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                 if square_in_bounds_fully(cave, loc(x, y)) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if (*ag).kill != 0 {
                         not_safe = true_0 != 0;
                     }
@@ -416,8 +415,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
                 x = borg.c.x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
                 y = borg.c.y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                 if square_in_bounds_fully(cave, loc(x, y)) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int >= FEAT_RUBBLE as ::core::ffi::c_int
                         && (*ag).feat as ::core::ffi::c_int <= FEAT_PERM as ::core::ffi::c_int)
                     {
@@ -487,7 +485,7 @@ pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
         if borg_flow_stair_less(GOAL_FLEE, false_0 != 0) as ::core::ffi::c_int != 0
             && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
         {
-            if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+            if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
                 == FEAT_LESS as ::core::ffi::c_int
             {
                 borg_note(
@@ -517,9 +515,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     let mut j: ::core::ffi::c_int = 0;
     let mut b_j: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut i: ::core::ffi::c_int = 0;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     let mut feat: uint8_t = (*square(cave, borg.c)).feat;
     let mut need: borg_need = BORG_NO_NEED;
     borg_notice(true_0 != 0);
@@ -659,9 +655,7 @@ pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
     {
         let mut y_0: ::core::ffi::c_int = 0;
         let mut x_0: ::core::ffi::c_int = 0;
-        let mut tmp_ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-            .offset(borg.c.y as isize))
-        .offset(borg.c.x as isize) as *mut borg_grid;
+        let mut tmp_ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         i = 0 as ::core::ffi::c_int;
         while i < track_less.num as ::core::ffi::c_int {
             x_0 = *track_less.x.offset(i as isize);
@@ -1356,17 +1350,17 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 / tile_width as ::core::ffi::c_int
         {
             if !(distance(borg.c, loc(x, y)) > range) {
-                if !((*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                if !((*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                     != FEAT_GRANITE as ::core::ffi::c_int
-                    && (*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                    && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                         != FEAT_RUBBLE as ::core::ffi::c_int
-                    && (*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                    && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                         != FEAT_QUARTZ as ::core::ffi::c_int
-                    && (*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                    && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                         != FEAT_MAGMA as ::core::ffi::c_int
-                    && (*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                    && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                         != FEAT_QUARTZ_K as ::core::ffi::c_int
-                    && (*borg_grids[y as usize].offset(x as isize)).feat as ::core::ffi::c_int
+                    && (*crate::bridge::grid(x, y)).feat as ::core::ffi::c_int
                         != FEAT_MAGMA_K as ::core::ffi::c_int)
                 {
                     i = 0 as ::core::ffi::c_int;
@@ -1374,9 +1368,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                         b_x = x + ddx_ddd[i as usize] as ::core::ffi::c_int;
                         b_y = y + ddy_ddd[i as usize] as ::core::ffi::c_int;
                         if square_in_bounds_fully(cave, loc(b_x, b_y)) {
-                            ag = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                                .offset(b_y as isize))
-                            .offset(b_x as isize)
+                            ag = crate::bridge::grid(b_x, b_y)
                                 as *mut borg_grid;
                             if !((*ag).feat as ::core::ffi::c_int
                                 != FEAT_PERM as ::core::ffi::c_int)
@@ -1439,19 +1431,15 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 borg_keypress('5' as i32 as keycode_t);
                 borg_do_update_view = true_0 != 0;
                 borg_do_update_lite = true_0 != 0;
-                let ref mut fresh1 = (*borg_grids[borg_temp_y[i as usize] as usize]
-                    .offset(borg_temp_x[i as usize] as isize))
+                let ref mut fresh1 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
                 .info;
                 *fresh1 = (*fresh1 as ::core::ffi::c_int & !BORG_GLOW) as uint16_t;
-                let ref mut fresh2 = (*borg_grids[borg_temp_y[i as usize] as usize]
-                    .offset(borg_temp_x[i as usize] as isize))
+                let ref mut fresh2 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
                 .info;
                 *fresh2 = (*fresh2 as ::core::ffi::c_int | BORG_GLOW) as uint16_t;
-                (*borg_grids[borg_temp_y[i as usize] as usize]
-                    .offset(borg_temp_x[i as usize] as isize))
+                (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
                 .feat = FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
-                let ref mut fresh3 = (*borg_grids[borg_temp_y[i as usize] as usize]
-                    .offset(borg_temp_x[i as usize] as isize))
+                let ref mut fresh3 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
                 .info;
                 *fresh3 = (*fresh3 as ::core::ffi::c_int | BORG_IGNORE_MAP) as uint16_t;
                 track_vein.num = 0 as int16_t;

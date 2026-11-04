@@ -3,7 +3,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 pub use crate::headers::cave_h::{
     cave, chunk, connector, heatmap, monster_group, square, square_in_bounds_fully, trap,
     C2RustUnnamedH_18, FEAT_MAX,
@@ -43,18 +43,18 @@ pub unsafe extern "C" fn borg_cave_floor_bold(
     mut X: ::core::ffi::c_int,
 ) -> bool {
     if square_in_bounds_fully(cave, loc(X, y)) {
-        if (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+        if (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-            || (*borg_grids[y as usize].offset(X as isize)).trap as ::core::ffi::c_int != 0
-            || (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+            || (*crate::bridge::grid(X, y)).trap as ::core::ffi::c_int != 0
+            || (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
                 == FEAT_LESS as ::core::ffi::c_int
-            || (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+            || (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
                 == FEAT_MORE as ::core::ffi::c_int
-            || (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+            || (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
                 == FEAT_BROKEN as ::core::ffi::c_int
-            || (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+            || (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
                 == FEAT_PASS_RUBBLE as ::core::ffi::c_int
-            || (*borg_grids[y as usize].offset(X as isize)).feat as ::core::ffi::c_int
+            || (*crate::bridge::grid(X, y)).feat as ::core::ffi::c_int
                 == FEAT_OPEN as ::core::ffi::c_int
         {
             return true_0 != 0;

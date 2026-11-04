@@ -97,7 +97,6 @@ pub use crate::headers::borg_trait_h::{
     BI_WS_DEMON, BI_WS_DRAGON, BI_WS_EVIL, BI_WS_GIANT, BI_WS_ORC, BI_WS_TROLL, BI_WS_UNDEAD,
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT,
 };
-use crate::headers::borg_util_h::borg_trim;
 pub use crate::headers::cave_h::{chunk, connector, heatmap, monster_group, square, trap};
 pub use crate::headers::ctype_h::{
     _ISalnum, _ISalpha, _ISblank, _IScntrl, _ISdigit, _ISgraph, _ISlower, _ISprint, _ISpunct,
@@ -1649,7 +1648,7 @@ pub unsafe extern "C" fn borg_load_formulas(mut fp: *mut ang_file) -> bool {
         (::core::mem::size_of::<[::core::ffi::c_char; 1024]>() as size_t).wrapping_sub(1 as size_t),
     ) {
         let mut line: *mut ::core::ffi::c_char =
-            borg_trim(&raw mut buf as *mut ::core::ffi::c_char);
+            crate::bridge::trim_c_buf(&raw mut buf);
         if *line.offset(0 as ::core::ffi::c_int as isize) == 0
             || *line.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int == '#' as i32
         {

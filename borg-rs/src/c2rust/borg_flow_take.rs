@@ -7,7 +7,7 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 
 pub use crate::headers::borg_flow_h::{
     borg_flow_clear, borg_flow_commit, borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread,
@@ -211,8 +211,7 @@ pub unsafe extern "C" fn borg_delete_take(mut i: ::core::ffi::c_int) {
             ));
         }
     }
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset((*take).y as isize))
-        .offset((*take).x as isize) as *mut borg_grid;
+    ag = crate::bridge::grid((*take).x, (*take).y) as *mut borg_grid;
     (*ag).take = 0 as uint8_t;
     memset(
         take as *mut ::core::ffi::c_void,
@@ -226,9 +225,7 @@ pub unsafe extern "C" fn borg_delete_take(mut i: ::core::ffi::c_int) {
 }
 unsafe extern "C" fn borg_follow_take_aux(mut i: ::core::ffi::c_int) -> bool {
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset((*borg_takes.offset(i as isize)).y as isize))
-    .offset((*borg_takes.offset(i as isize)).x as isize) as *mut borg_grid;
+    ag = crate::bridge::grid((*borg_takes.offset(i as isize)).x, (*borg_takes.offset(i as isize)).y) as *mut borg_grid;
     if (*ag).info as ::core::ffi::c_int & BORG_OKAY == 0 {
         return false_0 != 0;
     }
@@ -239,9 +236,7 @@ pub unsafe extern "C" fn borg_follow_take(mut i: ::core::ffi::c_int) {
     let mut ox: ::core::ffi::c_int = 0;
     let mut oy: ::core::ffi::c_int = 0;
     let mut take: *mut borg_take = borg_takes.offset(i as isize) as *mut borg_take;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset((*take).y as isize))
-    .offset((*take).x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid((*take).x, (*take).y) as *mut borg_grid;
     let mut kill: *mut borg_kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
     let mut r_ptr: *mut monster_race = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     let mut old_kind: *mut object_kind = ::core::ptr::null_mut::<object_kind>();
@@ -301,8 +296,7 @@ unsafe extern "C" fn borg_new_take(
     let mut i: ::core::ffi::c_int = 0;
     let mut n: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
     let mut take: *mut borg_take = ::core::ptr::null_mut::<borg_take>();
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-        .offset(x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(x, y) as *mut borg_grid;
     let mut o_ptr: *mut object = borg_get_top_object(cave, loc(x, y));
     i = 1 as ::core::ffi::c_int;
     while n < 0 as ::core::ffi::c_int && i < borg_takes_nxt as ::core::ffi::c_int {
@@ -446,11 +440,11 @@ pub unsafe extern "C" fn observe_take_move(
                             16668937799742929182 => {}
                             _ => {
                                 if z != 0 {
-                                    (*borg_grids[(*take).y as usize].offset((*take).x as isize))
+                                    (*crate::bridge::grid((*take).x, (*take).y))
                                         .take = 0 as uint8_t;
                                     (*take).x = x as uint8_t;
                                     (*take).y = y as uint8_t;
-                                    (*borg_grids[(*take).y as usize].offset((*take).x as isize))
+                                    (*crate::bridge::grid((*take).x, (*take).y))
                                         .take = i as uint8_t;
                                     borg_note(format(
                                         b"# Tracking an object '%s' at (%d,%d) from (%d,%d)\0"
@@ -468,7 +462,7 @@ pub unsafe extern "C" fn observe_take_move(
                                 }
                                 (*take).when = borg.time.now;
                                 (*take).seen = true_0 != 0;
-                                (*borg_grids[(*take).y as usize].offset((*take).x as isize)).feat =
+                                (*crate::bridge::grid((*take).x, (*take).y)).feat =
                                     FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
                                 return true_0 != 0;
                             }
@@ -572,8 +566,7 @@ pub unsafe extern "C" fn borg_flow_take(
                 7175849428784450219 => {}
                 _ => {
                     if !((*take).value <= 0 as ::core::ffi::c_int) {
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !(viewable as ::core::ffi::c_int != 0
                             && (*ag).info as ::core::ffi::c_int & BORG_VIEW == 0)
                         {
@@ -721,8 +714,7 @@ pub unsafe extern "C" fn borg_flow_take_scum(
         if !((*take).kidx == 0) {
             x = (*take).x as ::core::ffi::c_int;
             y = (*take).y as ::core::ffi::c_int;
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if !((*take).value <= 0 as ::core::ffi::c_int) {
                 if !(viewable as ::core::ffi::c_int != 0
                     && (*ag).info as ::core::ffi::c_int & BORG_VIEW == 0)
@@ -947,8 +939,7 @@ pub unsafe extern "C" fn borg_flow_take_lunal(
                     }
                 }
             }
-            ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if !(viewable as ::core::ffi::c_int != 0
                 && (*ag).info as ::core::ffi::c_int & BORG_VIEW == 0)
             {

@@ -61,7 +61,6 @@ pub mod borg_think_store_h;
 pub mod borg_trait_h;
 pub mod borg_trait_swap_h;
 pub mod borg_update_h;
-pub mod borg_util_h;
 pub mod cave_h;
 pub mod cmd_core_h;
 pub mod cmds_h;

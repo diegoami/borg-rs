@@ -12,9 +12,18 @@
 #![allow(unused_assignments)]
 #![allow(unused_mut)]
 #![allow(static_mut_refs)]
-#![allow(clippy::all)]
 
 extern crate libc;
 
+#[allow(clippy::all)]
+pub mod bridge;
+#[allow(clippy::all)]
 pub mod c2rust;
+pub mod cctype;
+#[allow(clippy::all)]
 pub mod headers;
+
+pub mod borg_cave;
+pub mod borg_util;
+pub mod engine;
+pub mod state;

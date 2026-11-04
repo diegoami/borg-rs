@@ -10,7 +10,7 @@ pub const BORG_VIEW: ::core::ffi::c_int = 0x20 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_light_h::{borg_light_n, borg_light_x, borg_light_y};
 use crate::headers::borg_cave_util_h::borg_cave_floor_grid;
 
@@ -113,7 +113,7 @@ unsafe extern "C" fn borg_flow_dark_interesting(
     let mut ox: ::core::ffi::c_int = 0;
     let mut i: ::core::ffi::c_int = 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+    ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     if (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
         return true_0 != 0;
@@ -173,8 +173,7 @@ unsafe extern "C" fn borg_flow_dark_interesting(
             while ox <= 1 as ::core::ffi::c_int {
                 oy = -(1 as ::core::ffi::c_int);
                 while oy <= 1 as ::core::ffi::c_int {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset((oy + y) as isize))
-                        .offset((ox + x) as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid((ox + x), (oy + y)) as *mut borg_grid;
                     if (*ag).feat as ::core::ffi::c_int != FEAT_PERM as ::core::ffi::c_int {
                         oy += 1;
                     } else {
@@ -184,7 +183,7 @@ unsafe extern "C" fn borg_flow_dark_interesting(
                 ox += 1;
             }
         }
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
     }
     if (*ag).feat as ::core::ffi::c_int == FEAT_RUBBLE as ::core::ffi::c_int
@@ -295,7 +294,7 @@ unsafe extern "C" fn borg_flow_dark_reachable(
     while j < 8 as ::core::ffi::c_int {
         let mut y2: ::core::ffi::c_int = y + ddy_ddd[j as usize] as ::core::ffi::c_int;
         let mut x2: ::core::ffi::c_int = x + ddx_ddd[j as usize] as ::core::ffi::c_int;
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y2 as isize)).offset(x2 as isize)
+        ag = crate::bridge::grid(x2, y2)
             as *mut borg_grid;
         if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
             if borg_cave_floor_grid(ag) {
@@ -410,7 +409,7 @@ unsafe extern "C" fn borg_flow_direct(mut y: ::core::ffi::c_int, mut x: ::core::
         {
             return;
         }
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         if !borg_cave_floor_grid(ag)
             || (*ag).feat as ::core::ffi::c_int == FEAT_LAVA as ::core::ffi::c_int
@@ -636,8 +635,7 @@ unsafe extern "C" fn borg_flow_dark_2(mut b_stair: ::core::ffi::c_int) -> bool {
             if !(x < 1 as ::core::ffi::c_int) {
                 if !(y > AUTO_MAX_Y - 2 as ::core::ffi::c_int) {
                     if !(x > AUTO_MAX_X - 2 as ::core::ffi::c_int) {
-                        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                            .offset(x as isize) as *mut borg_grid;
+                        ag = crate::bridge::grid(x, y) as *mut borg_grid;
                         if !((*ag).feat as ::core::ffi::c_int != FEAT_NONE as ::core::ffi::c_int) {
                             if !((*ag).info as ::core::ffi::c_int & BORG_VIEW == 0) {
                                 if !borg_flow_far_from_stairs(x, y, b_stair) {

@@ -3,7 +3,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_cave_util_h::{borg_cave_floor_bold, borg_cave_floor_grid};
 use crate::headers::borg_danger_h::borg_fear_region;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_race_name};
@@ -292,7 +292,7 @@ pub unsafe extern "C" fn borg_projectable(
     x = x1;
     dist = 0 as ::core::ffi::c_int;
     while dist <= (*z_info).max_range as ::core::ffi::c_int {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         if *borg.trait_0.offset(BI_CURHP as ::core::ffi::c_int as isize)
             < *borg.trait_0.offset(BI_MAXHP as ::core::ffi::c_int as isize)
@@ -354,7 +354,7 @@ pub unsafe extern "C" fn borg_offset_projectable(
     x = x1;
     dist = 0 as ::core::ffi::c_int;
     while dist <= (*z_info).max_range as ::core::ffi::c_int {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         if dist != 0 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
             break;
@@ -388,7 +388,7 @@ pub unsafe extern "C" fn borg_projectable_pure(
     x = x1;
     dist = 0 as ::core::ffi::c_int;
     while dist <= (*z_info).max_range as ::core::ffi::c_int {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         if dist != 0 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
             break;
@@ -423,7 +423,7 @@ pub unsafe extern "C" fn borg_projectable_dark(
     x = x1;
     dist = 0 as ::core::ffi::c_int;
     while dist <= (*z_info).max_range as ::core::ffi::c_int {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+        ag = crate::bridge::grid(x, y)
             as *mut borg_grid;
         if dist != 0 && (*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int {
             unknown += 1;
@@ -580,7 +580,7 @@ pub unsafe extern "C" fn borg_target(mut t: loc, mut require_monster: bool) -> b
     let mut y2: ::core::ffi::c_int = 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(t.y as isize)).offset(t.x as isize)
+    ag = crate::bridge::grid(t.x, t.y)
         as *mut borg_grid;
     kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
     if (*ag).kill != 0 {
@@ -670,55 +670,50 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
     ));
     n_x = borg.c.x;
     n_y = borg.c.y;
-    if (*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize].offset(borg.c.x as isize)).feat
+    if (*crate::bridge::grid(borg.c.x, (borg.c.y + 1 as ::core::ffi::c_int))).feat
         as ::core::ffi::c_int
         == FEAT_FLOOR as ::core::ffi::c_int
-        && (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize].offset(borg.c.x as isize))
+        && (*crate::bridge::grid(borg.c.x, (borg.c.y - 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-        && ((*borg_grids[(borg.c.y + 2 as ::core::ffi::c_int) as usize].offset(borg.c.x as isize))
+        && ((*crate::bridge::grid(borg.c.x, (borg.c.y + 2 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-            || (*borg_grids[(borg.c.y - 2 as ::core::ffi::c_int) as usize]
-                .offset(borg.c.x as isize))
+            || (*crate::bridge::grid(borg.c.x, (borg.c.y - 2 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
                 == FEAT_FLOOR as ::core::ffi::c_int)
-        && ((*borg_grids[borg.c.y as usize].offset((borg.c.x + 1 as ::core::ffi::c_int) as isize))
+        && ((*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), borg.c.y))
             .feat as ::core::ffi::c_int
             != FEAT_FLOOR as ::core::ffi::c_int
-            && (*borg_grids[borg.c.y as usize]
-                .offset((borg.c.x - 1 as ::core::ffi::c_int) as isize))
+            && (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), borg.c.y))
             .feat as ::core::ffi::c_int
                 != FEAT_FLOOR as ::core::ffi::c_int)
     {
         x_hall = true_0 != 0;
     }
-    if (*borg_grids[borg.c.y as usize].offset((borg.c.x + 1 as ::core::ffi::c_int) as isize)).feat
+    if (*crate::bridge::grid((borg.c.x + 1 as ::core::ffi::c_int), borg.c.y)).feat
         as ::core::ffi::c_int
         == FEAT_FLOOR as ::core::ffi::c_int
-        && (*borg_grids[borg.c.y as usize].offset((borg.c.x - 1 as ::core::ffi::c_int) as isize))
+        && (*crate::bridge::grid((borg.c.x - 1 as ::core::ffi::c_int), borg.c.y))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-        && ((*borg_grids[borg.c.y as usize].offset((borg.c.x + 2 as ::core::ffi::c_int) as isize))
+        && ((*crate::bridge::grid((borg.c.x + 2 as ::core::ffi::c_int), borg.c.y))
             .feat as ::core::ffi::c_int
             == FEAT_FLOOR as ::core::ffi::c_int
-            || (*borg_grids[borg.c.y as usize]
-                .offset((borg.c.x - 2 as ::core::ffi::c_int) as isize))
+            || (*crate::bridge::grid((borg.c.x - 2 as ::core::ffi::c_int), borg.c.y))
             .feat as ::core::ffi::c_int
                 == FEAT_FLOOR as ::core::ffi::c_int)
-        && ((*borg_grids[(borg.c.y + 1 as ::core::ffi::c_int) as usize].offset(borg.c.x as isize))
+        && ((*crate::bridge::grid(borg.c.x, (borg.c.y + 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
             != FEAT_FLOOR as ::core::ffi::c_int
-            && (*borg_grids[(borg.c.y - 1 as ::core::ffi::c_int) as usize]
-                .offset(borg.c.x as isize))
+            && (*crate::bridge::grid(borg.c.x, (borg.c.y - 1 as ::core::ffi::c_int)))
             .feat as ::core::ffi::c_int
                 != FEAT_FLOOR as ::core::ffi::c_int)
     {
         y_hall = true_0 != 0;
     }
     loop {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(n_y as isize))
-            .offset(n_x as isize) as *mut borg_grid;
+        ag = crate::bridge::grid(n_x, n_y) as *mut borg_grid;
         kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         if flag_has(
@@ -741,12 +736,12 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
                 n_y,
                 n_x,
             ));
-            (*borg_grids[n_y as usize].offset(n_x as isize)).feat =
+            (*crate::bridge::grid(n_x, n_y)).feat =
                 FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
             found = true_0 != 0;
             return found;
         }
-        if (*borg_grids[n_y as usize].offset(n_x as isize)).feat as ::core::ffi::c_int
+        if (*crate::bridge::grid(n_x, n_y)).feat as ::core::ffi::c_int
             == FEAT_NONE as ::core::ffi::c_int
             && (n_y != borg.c.y || !y_hall)
             && (n_x != borg.c.x || !x_hall)
@@ -759,7 +754,7 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
                 y,
                 x,
             ));
-            (*borg_grids[n_y as usize].offset(n_x as isize)).feat =
+            (*crate::bridge::grid(n_x, n_y)).feat =
                 FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
             found = true_0 != 0;
             return found;
@@ -774,7 +769,7 @@ pub unsafe extern "C" fn borg_target_unknown_wall(
                 y,
                 x,
             ));
-            (*borg_grids[n_y as usize].offset(n_x as isize)).feat =
+            (*crate::bridge::grid(n_x, n_y)).feat =
                 FEAT_GRANITE as ::core::ffi::c_int as uint8_t;
             found = true_0 != 0;
             return found;

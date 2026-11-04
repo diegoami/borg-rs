@@ -7,7 +7,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 
 pub use crate::headers::borg_h::{
     borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
@@ -1614,7 +1614,7 @@ pub unsafe extern "C" fn borg_play_magic(mut bored: bool) -> bool {
     if *borg.trait_0.offset(BI_LIGHT as ::core::ffi::c_int as isize) == 0 {
         return false_0 != 0;
     }
-    if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).info as ::core::ffi::c_int
+    if (*crate::bridge::grid(borg.c.x, borg.c.y)).info as ::core::ffi::c_int
         == BORG_DARK
     {
         return false_0 != 0;

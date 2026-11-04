@@ -14,7 +14,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::{borg_danger, borg_danger_wipe};
 use crate::headers::borg_flow_glyph_h::{borg_free_flow_glyph, borg_init_flow_glyph};
 pub use crate::headers::borg_flow_h::{borg_data, borg_track};
@@ -472,15 +472,14 @@ pub unsafe extern "C" fn borg_flow_spread(
             y = y1 + ddy_ddd[i as usize] as ::core::ffi::c_int;
             if square_in_bounds_fully(cave, loc(x, y)) {
                 if !((*borg_data_cost).data[y as usize][x as usize] as ::core::ffi::c_int <= n) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                        .offset(x as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid(x, y) as *mut borg_grid;
                     if sneak as ::core::ffi::c_int != 0 && !borg.status.desperate && !twitchy {
                         ii = 0 as ::core::ffi::c_int;
                         while ii < 8 as ::core::ffi::c_int {
                             xx = x + ddx_ddd[ii as usize] as ::core::ffi::c_int;
                             yy = y + ddy_ddd[ii as usize] as ::core::ffi::c_int;
                             if square_in_bounds_fully(cave, loc(xx, yy)) {
-                                if (*borg_grids[yy as usize].offset(xx as isize)).kill != 0 {
+                                if (*crate::bridge::grid(xx, yy)).kill != 0 {
                                     bad_sneak = true_0 != 0;
                                     break;
                                 }
@@ -904,9 +903,7 @@ unsafe extern "C" fn borg_play_step(
             oy = -(1 as ::core::ffi::c_int);
             while oy <= 1 as ::core::ffi::c_int {
                 if !(oy + borg.c.y == borg.c.y && ox + borg.c.x == borg.c.x) {
-                    ag = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                        .offset((oy + borg.c.y) as isize))
-                    .offset((ox + borg.c.x) as isize) as *mut borg_grid;
+                    ag = crate::bridge::grid((ox + borg.c.x), (oy + borg.c.y)) as *mut borg_grid;
                     if !((*ag).feat as ::core::ffi::c_int != FEAT_OPEN as ::core::ffi::c_int) {
                         if !((*ag).kill != 0) {
                             if !(track_door.num as ::core::ffi::c_int >= 255 as ::core::ffi::c_int)
@@ -954,8 +951,7 @@ unsafe extern "C" fn borg_play_step(
         }
     }
     if borg.goal.less {
-        ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(borg.c.y as isize))
-            .offset(borg.c.x as isize) as *mut borg_grid;
+        ag = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
         if (*ag).feat as ::core::ffi::c_int == FEAT_LESS as ::core::ffi::c_int
             && !(*player).opts.opt[OPT_birth_force_descend as ::core::ffi::c_int as usize]
         {
@@ -970,7 +966,7 @@ unsafe extern "C" fn borg_play_step(
     }
     x = borg.c.x + ddx[dir as usize] as ::core::ffi::c_int;
     y = borg.c.y + ddy[dir as usize] as ::core::ffi::c_int;
-    ag = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize)).offset(x as isize)
+    ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
     borg.goal.g.x = x;
     borg.goal.g.y = y;
@@ -1115,13 +1111,11 @@ unsafe extern "C" fn borg_play_step(
                         let mut yy: ::core::ffi::c_int = (*take).y as ::core::ffi::c_int
                             + borg_ddy_ddd[i as usize] as ::core::ffi::c_int;
                         if square_in_bounds_fully(cave, loc(xx, yy)) {
-                            ag2 = (*(&raw mut borg_grids as *mut *mut borg_grid)
-                                .offset(yy as isize))
-                            .offset(xx as isize)
+                            ag2 = crate::bridge::grid(xx, yy)
                                 as *mut borg_grid;
                             if (*ag2).take != 0 {
                                 (*borg_takes.offset(
-                                    (*borg_grids[yy as usize].offset(xx as isize)).take as isize,
+                                    (*crate::bridge::grid(xx, yy)).take as isize,
                                 ))
                                 .orbed = true_0 != 0;
                             }
@@ -1200,8 +1194,7 @@ unsafe extern "C" fn borg_play_step(
         while i < 8 as ::core::ffi::c_int {
             x = borg.c.x + ddx_ddd[i as usize] as ::core::ffi::c_int;
             y = borg.c.y + ddy_ddd[i as usize] as ::core::ffi::c_int;
-            ag2 = (*(&raw mut borg_grids as *mut *mut borg_grid).offset(y as isize))
-                .offset(x as isize) as *mut borg_grid;
+            ag2 = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*ag2).kill as ::core::ffi::c_int != 0
                 && *borg
                     .trait_0

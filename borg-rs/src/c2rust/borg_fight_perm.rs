@@ -4,7 +4,7 @@ pub const BORG_GLOW: ::core::ffi::c_int = 0x2 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 
 pub use crate::headers::borg_h::{
     borg, borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11,
@@ -663,9 +663,7 @@ unsafe extern "C" fn borg_perma_aux_berserk_potion() -> ::core::ffi::c_int {
 }
 unsafe extern "C" fn borg_perma_aux_see_inv() -> ::core::ffi::c_int {
     let mut fail_allowed: ::core::ffi::c_int = 25 as ::core::ffi::c_int;
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.c.y as isize))
-    .offset(borg.c.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.c.x, borg.c.y) as *mut borg_grid;
     if *borg
         .trait_0
         .offset(BI_ISBLIND as ::core::ffi::c_int as isize)

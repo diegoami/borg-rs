@@ -8,7 +8,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::borg_fear_region;
 use crate::headers::borg_fight_attack_h::{successful_target, target_closest};
 use crate::headers::borg_fight_defend_h::borg_attempting_refresh_resist;
@@ -76,7 +76,6 @@ pub use crate::headers::borg_trait_h::{
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT,
 };
 use crate::headers::borg_update_h::borg_failure;
-use crate::headers::borg_util_h::borg_trim;
 pub use crate::headers::cave_h::{
     cave, chunk, connector, heatmap, monster_group, square, square_iswarded, trap,
     C2RustUnnamedH_18, FEAT_MAX,
@@ -342,7 +341,7 @@ pub unsafe extern "C" fn borg_get_messages(mut key: *mut keypress, mut cursor: l
         &raw mut t_a,
         &raw mut buffer as *mut ::core::ffi::c_char,
     );
-    buf = borg_trim(buf);
+    buf = crate::bridge::trim_c_buf(&raw mut buffer);
     if t_a as ::core::ffi::c_int != COLOUR_DARK
         && (*buf.offset(0 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != ' ' as i32
             || *buf.offset(1 as ::core::ffi::c_int as isize) as ::core::ffi::c_int != ' ' as i32
@@ -441,9 +440,7 @@ unsafe extern "C" fn borg_parse_aux(
     let mut d: ::core::ffi::c_int = 0;
     let mut who: [::core::ffi::c_char; 256] = [0; 256];
     let mut buf: [::core::ffi::c_char; 256] = [0; 256];
-    let mut ag: *mut borg_grid = (*(&raw mut borg_grids as *mut *mut borg_grid)
-        .offset(borg.goal.g.y as isize))
-    .offset(borg.goal.g.x as isize) as *mut borg_grid;
+    let mut ag: *mut borg_grid = crate::bridge::grid(borg.goal.g.x, borg.goal.g.y) as *mut borg_grid;
     if *borg_cfg.offset(BORG_VERBOSE as ::core::ffi::c_int as isize) != 0 {
         borg_note(format(
             b"# Parse Msg bite <%s>\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1441,7 +1438,7 @@ unsafe extern "C" fn borg_parse_aux(
     {
         track_less.num = 0 as int16_t;
         track_more.num = 0 as int16_t;
-        (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat =
+        (*crate::bridge::grid(borg.c.x, borg.c.y)).feat =
             FEAT_BROKEN as ::core::ffi::c_int as uint8_t;
         return;
     }

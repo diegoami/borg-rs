@@ -10,7 +10,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::borg_danger;
 pub use crate::headers::borg_flow_take_h::{borg_get_top_object, borg_take, borg_takes};
 pub use crate::headers::borg_h::{
@@ -170,15 +170,14 @@ pub use crate::headers::z_type_h::loc;
 pub use crate::headers::z_util_h::my_rational;
 #[no_mangle]
 pub unsafe extern "C" fn borg_destroy_floor() -> bool {
-    if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).take == 0 {
+    if (*crate::bridge::grid(borg.c.x, borg.c.y)).take == 0 {
         return false_0 != 0;
     }
     if borg_get_top_object(cave, borg.c).is_null() {
         return false_0 != 0;
     }
     let mut take: *mut borg_take = borg_takes.offset(
-        (*(*(&raw mut borg_grids as *mut *mut borg_grid).offset(borg.c.y as isize))
-            .offset(borg.c.x as isize))
+        (*crate::bridge::grid(borg.c.x, borg.c.y))
         .take as isize,
     ) as *mut borg_take;
     if (*take).value != -(10 as ::core::ffi::c_int) {
@@ -754,7 +753,7 @@ pub unsafe extern "C" fn borg_drop_hole(mut desperate: bool) -> bool {
     {
         return false_0 != 0;
     }
-    if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+    if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
         != FEAT_FLOOR as ::core::ffi::c_int
     {
         return false_0 != 0;
@@ -1565,7 +1564,7 @@ pub unsafe extern "C" fn borg_dump_quiver() -> bool {
     if borg.antibounce_count as ::core::ffi::c_int > 150 as ::core::ffi::c_int {
         return false_0 != 0;
     }
-    if (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat as ::core::ffi::c_int
+    if (*crate::bridge::grid(borg.c.x, borg.c.y)).feat as ::core::ffi::c_int
         != FEAT_FLOOR as ::core::ffi::c_int
     {
         return false_0 != 0;

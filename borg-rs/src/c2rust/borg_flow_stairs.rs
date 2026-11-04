@@ -4,7 +4,7 @@ pub const NULL: *mut ::core::ffi::c_void = ::core::ptr::null_mut::<::core::ffi::
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_cost, borg_flow_clear, borg_flow_commit, borg_flow_enqueue_grid,
     borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track, borg_track,
@@ -205,8 +205,7 @@ pub unsafe extern "C" fn borg_flow_stair_both(
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
     while i < track_less.num as ::core::ffi::c_int {
-        if !((*borg_grids[*track_less.y.offset(i as isize) as usize]
-            .offset(*track_less.x.offset(i as isize) as isize))
+        if !((*crate::bridge::grid(*track_less.x.offset(i as isize), *track_less.y.offset(i as isize)))
         .kill
             != 0)
         {
@@ -219,8 +218,7 @@ pub unsafe extern "C" fn borg_flow_stair_both(
     }
     i = 0 as ::core::ffi::c_int;
     while i < track_more.num as ::core::ffi::c_int {
-        if !((*borg_grids[*track_more.y.offset(i as isize) as usize]
-            .offset(*track_more.x.offset(i as isize) as isize))
+        if !((*crate::bridge::grid(*track_more.x.offset(i as isize), *track_more.y.offset(i as isize)))
         .kill
             != 0)
         {
@@ -262,8 +260,7 @@ pub unsafe extern "C" fn borg_flow_stair_less(
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
     while i < track_less.num as ::core::ffi::c_int {
-        if !((*borg_grids[*track_less.y.offset(i as isize) as usize]
-            .offset(*track_less.x.offset(i as isize) as isize))
+        if !((*crate::bridge::grid(*track_less.x.offset(i as isize), *track_less.y.offset(i as isize)))
         .kill
             != 0)
         {
@@ -379,8 +376,7 @@ pub unsafe extern "C" fn borg_flow_stair_more(
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
     while i < track_more.num as ::core::ffi::c_int {
-        if !((*borg_grids[*track_more.y.offset(i as isize) as usize]
-            .offset(*track_more.x.offset(i as isize) as isize))
+        if !((*crate::bridge::grid(*track_more.x.offset(i as isize), *track_more.y.offset(i as isize)))
         .kill
             != 0)
         {

@@ -5,7 +5,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-pub use crate::headers::borg_cave_h::{borg_grid, borg_grids};
+pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::{borg_danger, borg_fear_region};
 use crate::headers::borg_flow_misc_h::borg_check_rest;
 pub use crate::headers::borg_h::{
@@ -743,10 +743,10 @@ pub unsafe extern "C" fn borg_recover() -> bool {
                 == 0
             && *borg.trait_0.offset(BI_FOOD as ::core::ffi::c_int as isize)
                 > 2 as ::core::ffi::c_int
-            && ((*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat
+            && ((*crate::bridge::grid(borg.c.x, borg.c.y)).feat
                 as ::core::ffi::c_int
                 == FEAT_MORE as ::core::ffi::c_int
-                || (*borg_grids[borg.c.y as usize].offset(borg.c.x as isize)).feat
+                || (*crate::bridge::grid(borg.c.x, borg.c.y)).feat
                     as ::core::ffi::c_int
                     == FEAT_LESS as ::core::ffi::c_int)
         {

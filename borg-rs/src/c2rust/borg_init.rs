@@ -7,7 +7,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-use crate::headers::borg_cave_h::{borg_free_cave, borg_init_cave};
+
 use crate::headers::borg_flow_h::{borg_free_flow, borg_init_flow};
 use crate::headers::borg_flow_kill_h::{borg_free_flow_kill, borg_init_flow_kill};
 use crate::headers::borg_flow_take_h::{borg_free_flow_take, borg_init_flow_take};
@@ -869,7 +869,7 @@ pub unsafe extern "C" fn borg_init() {
     borg_init_io();
     borg_init_item_val();
     borg_init_item_activation();
-    borg_init_cave();
+    crate::borg_cave::borg_init_cave(crate::bridge::st());
     borg_init_flow();
     borg_init_item_wear();
     borg_init_flow_take();
@@ -1012,7 +1012,7 @@ pub unsafe extern "C" fn borg_free() {
     borg_free_flow_take();
     borg_free_item_wear();
     borg_free_flow();
-    borg_free_cave();
+    crate::borg_cave::borg_free_cave(crate::bridge::st());
     borg_free_io();
     borg_free_messages();
     borg_free_txt_file();
