@@ -8,6 +8,7 @@
 use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;
 use crate::borg_cave_view::ViewState;
+use crate::borg_formulas_calc::CalcState;
 use crate::borg_io::IoState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
@@ -22,6 +23,8 @@ pub struct BorgState {
     pub cave: CaveState,
     /// borg-cave-view.c: `borg_view_n`, `borg_view_x`, `borg_view_y`
     pub view: ViewState,
+    /// borg-formulas-calc.c: `calculations`
+    pub formulas_calc: CalcState,
     /// borg-io.c
     pub io: IoState,
     /// borg-item-activation.c: `act_*`

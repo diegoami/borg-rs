@@ -227,3 +227,87 @@ pub mod item_val {
         crate::borg_item_val::borg_lookup_kind(tval, sval)
     }
 }
+
+/// `parse_value(value, full_line)` (still c2rust, borg-formulas.c). It
+/// parses a writable copy of `value` in place (as C did with its copy);
+/// the mem_alloc'd result is copied out and freed.
+pub fn parse_value(
+    _st: &mut BorgState,
+    value: &[u8],
+    full_line: &[u8],
+) -> Option<crate::headers::borg_formulas_h::value_sec> {
+    let mut buf = value.to_vec();
+    buf.push(0);
+    let full = std::ffi::CString::new(full_line).expect("no NUL");
+    // SAFETY: buf is a NUL-terminated writable copy; parse_value returns
+    // NULL or a mem_alloc'd value_sec that nothing else references.
+    unsafe {
+        let v = crate::c2rust::borg_formulas::parse_value(
+            buf.as_mut_ptr() as *mut c_char,
+            full.as_ptr(),
+        );
+        if v.is_null() {
+            return None;
+        }
+        let r = *v;
+        crate::headers::z_virt_h::mem_free(v as *mut core::ffi::c_void);
+        Some(r)
+    }
+}
+
+/// `calculate_from_value(value, range_index)` (still c2rust,
+/// borg-formulas.c).
+pub fn calculate_from_value(
+    _st: &mut BorgState,
+    value: &crate::headers::borg_formulas_h::value_sec,
+    range_index: i32,
+) -> i32 {
+    let mut v = *value;
+    // SAFETY: v is a valid value_sec; the callee only reads it.
+    unsafe { crate::c2rust::borg_formulas::calculate_from_value(&mut v, range_index) }
+}
+
+/// `borg_formula_error(section, full_line, label, error)` (still c2rust,
+/// borg-formulas.c).
+pub fn borg_formula_error(
+    _st: &mut BorgState,
+    section: &[u8],
+    full_line: &[u8],
+    label: &str,
+    error: Option<&str>,
+) {
+    let section = std::ffi::CString::new(section).expect("no NUL");
+    let full = std::ffi::CString::new(full_line).expect("no NUL");
+    let label = std::ffi::CString::new(label).expect("no NUL");
+    let error = error.map(|e| std::ffi::CString::new(e).expect("no NUL"));
+    let error_ptr = error.as_ref().map_or(core::ptr::null(), |e| e.as_ptr());
+    // SAFETY: all strings are NUL-terminated and outlive the call.
+    unsafe {
+        crate::c2rust::borg_formulas::borg_formula_error(
+            section.as_ptr(),
+            full.as_ptr(),
+            label.as_ptr(),
+            error_ptr,
+        )
+    }
+}
+
+/// C-ABI shims with the borg-formulas-calc.c names.
+pub mod formulas_calc {
+    use super::{cbytes, st};
+    use crate::borg_formulas_calc;
+    use core::ffi::{c_char, c_int};
+
+    pub unsafe extern "C" fn parse_calculation_line(
+        line: *mut c_char,
+        full_line: *const c_char,
+    ) -> c_int {
+        borg_formulas_calc::parse_calculation_line(st(), cbytes(line), cbytes(full_line))
+    }
+    pub unsafe extern "C" fn borg_calculate_dynamic(formula: c_int, range_index: c_int) -> i32 {
+        borg_formulas_calc::borg_calculate_dynamic(st(), formula, range_index)
+    }
+    pub unsafe extern "C" fn calculations_free() {
+        borg_formulas_calc::calculations_free(st())
+    }
+}

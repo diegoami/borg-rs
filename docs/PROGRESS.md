@@ -40,6 +40,7 @@
 | 6 | borg_item_activation | own | `ActivationIds` (164 `act_*`); 547 c2rust uses rewritten |
 | 7 | borg_cave_view | own | `ViewState` (`view_n`, `view_x`/`view_y` as `Vec<u8>`); C-ABI shims in `bridge::cave_view`; `bridge::borg_los` wrapper; the 8 copied scan loops share `scan_ray`/`scan_strip` helpers (same order); 3 c2rust uses in borg_caution rewritten |
 | 8 | borg_item_val | own | `ItemValState` (198 `sv_*`/`kv_*`, C names kept as fields); 750 c2rust uses rewritten to `bridge::st().item_val...`; shims in `bridge::item_val`; engine wrappers `k_info()`, `tval_find_idx`, `tval_find_name`, `lookup_sval` |
+| 9 | borg_formulas_calc | own | `CalcState` (`calculations: Vec<Calculation>`, tokens are an enum); calls out go through a `CalcEnv` trait (bridge wrappers for `parse_value`, `calculate_from_value`, `borg_formula_error`) so the calculator is unit tested; C-ABI shims in `bridge::formulas_calc`; checked against the C file on 40k random formulas and with `borg_uses_dynamic_calcs` on (3 runs, local harness tweak, not committed) |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -57,6 +58,7 @@ impls), comments excluded.
 | borg | 761 | 54 |
 | borg_cave_view | 762 | 52 |
 | borg_item_val | 765 | 52 |
+| borg_formulas_calc | 751 | 52 |
 
 ## Suite timings
 

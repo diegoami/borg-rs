@@ -28,3 +28,13 @@ Format: file, function, (seed, turn when observed), explanation.
   same as `sv_wand_elec_bolt`); copy-and-paste slips. `sv_mush_cure_mind` is
   "Clear Mind" like `sv_mush_mana` and `sv_potion_berserk` is looked up twice
   (both harmless). Kept as is in `borg_item_val.rs`.
+
+## 3. Last token of each block not ordered (formulas)
+
+* borg-formulas-calc.c, `adjust_order_operations()`: the blocks passed to
+  `adjust_order_ops_depth_block(f, pdepth, start, itoken - 1)` are scanned
+  with `tok < end`, so the last token of each block is never looked at.
+  Harmless for well-formed formulas (a block ends in a value); a malformed
+  one such as `(1 + 2 +) 3` parses and evaluates to 3 with "error
+  calculating a formula value" notes. Only with `borg_uses_dynamic_calcs`;
+  not seen in any suite. Pinned by a unit test in `borg_formulas_calc.rs`.
