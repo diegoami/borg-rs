@@ -59,6 +59,7 @@
 | 21 | borg_messages_react | own | `MsgState` (`st.msgs`): the message queue of borg-messages.c (`borg_msg_len/siz/buf/num/max/pos/use` as `len`, `siz`, `buf: Vec<u8>`, `num`, `max`, `pos`/`use_: Vec<i16>`; C limits checked against the counters, empty `Vec` = NULL) and `borg_dont_react`; 73 c2rust uses in borg_update/borg_messages/borg_caution rewritten (`bridge::st().msgs...`, `bridge::msg_buf()` for `borg_msg_buf + pos`), `borg_init_messages`/`borg_free_messages` fill/empty the `Vec`s (free keeps `len`/`max`, as C); `borg_react` returns whether it cut a trailing ',' and the shim writes the NUL into the caller's buffer (C casts away `const`); `borg_react_prompted` returns `Option<keycode_t>` (shim stores it in `key->code`); C-ABI shims in `bridge::messages_react`; borg.rs/borg_reincarnate call `borg_clear_reactions` directly (bridge wrapper removed); engine `do_cmd_wiz_cure_all`; C bug 12 (`borg_dont_react` never cleared) kept; old c2rust code run as a shadow on every call in full and deep (queue bytes, positions, counts, cut, prompt answers) plus synthetic prompts for the untaken branches (local, not committed); deep takes the "Die?" cure-all branch 9 times; never run: unexpected "Direction", "Word of Recall is already", "Die?" with respawn; smoke 3/3, full 45/45, deep 9/9 identical |
 
 **Checkpoint after module 21**: `full` 45/45 identical, `deep` 9/9 identical.
+| 22 | borg_item_id | own | no module state; `borg_object_fully_id(st)` copies each item (keypresses do not change items), `borg_item_note_needs_id(&borg_item)`; note bytes via new transitional `bridge::item_note(&borg_item)` (`borg_get_note` semantics, NULL = ""); shims in `bridge::item_id` (callers in borg_commands, borg_trait, borg_inventory, borg_item_wear, borg_store_sell, borg_fight_attack, borg_junk); `borg_object_fully_id` is only reached from the Borg debug commands (no suite): checked against the c2rust version on the real item state every 1000th `needs_id` call (~96k checks in full, 139 with keys) plus 20 fuzzed item sets each (random tval/ego/artifact/resists/flags/notes/depth, ~1.9M rounds), and `needs_id` on every call plus fuzzed ident flags and notes (full and deep, local, not committed); C bug 13 (quiver slots typed as equipment letters) kept; smoke 3/3, full 45/45, deep 9/9 identical |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -89,6 +90,7 @@ impls), comments excluded.
 | borg_item | 650 | 40 |
 | borg_log | 682 | 41 |
 | borg_messages_react | 654 | 41 |
+| borg_item_id | 651 | 39 |
 
 ## Suite timings
 

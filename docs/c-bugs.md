@@ -196,3 +196,15 @@ Format: file, function, (seed, turn when observed), explanation.
   just `true`.
 * Rust: kept (`st.msgs.dont_react` is only ever set; `st.borg.dont_react`
   is reset) in `borg_messages_react.rs` / `borg.rs`.
+## 15. Inscribing a quiver item types an equipment letter
+
+* `borg-item-id.c`, `borg_object_fully_id()`, by code reading. The loop
+  runs to `QUIVER_END`, and every slot from `INVEN_WIELD` up is selected
+  with `'/'` and `all_letters_nohjkl[i - INVEN_WIELD]`. For a quiver slot
+  that is index 12 and up ('q', 'r', ...), past the 12 equipment slots;
+  the quiver is selected with `'|'` and digits (as `borg_deinscribe()`
+  does). Only a quiver item with tval in `TV_BOW..TV_RING` (a throwing
+  weapon) that is an artifact or an ego with a random power is affected,
+  and the function is only called from the Borg's debug commands
+  (`borg-commands.c`), so no suite reaches it.
+* Rust: kept in `borg_item_id.rs`.

@@ -654,6 +654,19 @@ pub fn item_note_first_byte(st: &mut BorgState, j: usize) -> u8 {
     unsafe { *p as u8 }
 }
 
+/// The bytes of `borg_get_note(item)` (the inscription part of `desc`, or
+/// "" when `note` is NULL). Transitional: `note` points into an item's
+/// `desc` (set by borg_item_analyze, still c2rust); for a copied item it
+/// still points into the original's `desc`, as in C.
+pub fn item_note(item: &crate::headers::borg_item_h::borg_item) -> Vec<u8> {
+    if item.note.is_null() {
+        return Vec::new();
+    }
+    // SAFETY: a non-NULL note points at a NUL-terminated suffix of a live
+    // item's `desc` buffer (C semantics; C reads it the same way).
+    unsafe { cbytes(item.note).to_vec() }
+}
+
 c2r_void! {
     borg_equipment => crate::c2rust::borg_inventory::borg_equipment;
     borg_inventory => crate::c2rust::borg_inventory::borg_inventory;
@@ -822,3 +835,18 @@ pub mod messages_react {
 pub fn msg_buf() -> *mut c_char {
     st().msgs.buf.as_mut_ptr() as *mut c_char
 }
+/// C-ABI shims with the borg-item-id.c names, for c2rust callers.
+pub mod item_id {
+    use super::st;
+    use crate::borg_item_id as id;
+    use crate::headers::borg_item_h::borg_item;
+
+    pub unsafe extern "C" fn borg_object_fully_id() -> bool {
+        id::borg_object_fully_id(st())
+    }
+    /// `item` is only read.
+    pub unsafe extern "C" fn borg_item_note_needs_id(item: *const borg_item) -> bool {
+        id::borg_item_note_needs_id(&*item)
+    }
+}
+
