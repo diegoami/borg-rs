@@ -206,3 +206,13 @@ external SIGTERM/SIGHUP. Most likely one agent ran `pkill angband`, which
 also hits the other worktrees' games. Their key logs matched the
 reference up to the stop. From now on, agent instructions forbid killing
 processes they did not start (kill by PID only).
+
+## Container restart (during M3, after 27 modules)
+
+The session's container was restarted while three module conversions
+(borg_flow_kill, borg_item_use, borg_item_wear) were in progress in agent
+worktrees. The main branch was committed and pushed at module 27, so nothing
+merged was lost. The worktrees, including their uncommitted edits, survived
+on disk, and the conversions were resumed from that state.
+Everything merged so far is pushed; only work-in-progress in worktrees is ever
+at risk.
