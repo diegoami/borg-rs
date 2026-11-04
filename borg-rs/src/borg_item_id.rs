@@ -28,6 +28,7 @@ use crate::headers::list_object_flags_h::{
 use crate::headers::list_object_modifiers_h::OBJ_MOD_SPEED;
 use crate::headers::list_tvals_h::{TV_BOW, TV_RING};
 use crate::state::BorgState;
+use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::{bridge, engine};
 
 /// `strstr(hay, needle) != NULL` on the bytes of a C string.
@@ -62,7 +63,7 @@ pub fn borg_object_fully_id(st: &mut BorgState) -> bool {
         if st.borg.tr(BI_CDEPTH) != 0
             && u32::from(item.tval) >= TV_BOW
             && u32::from(item.tval) <= TV_RING
-            && (bridge::borg_ego_has_random_power(st, item.ego_idx) || item.art_idx != 0)
+            && (borg_ego_has_random_power(usize::from(item.ego_idx)) || item.art_idx != 0)
             && (note == b"{ }" || note.is_empty() || contains(&note, b"uncursed"))
         {
             // make the inscription

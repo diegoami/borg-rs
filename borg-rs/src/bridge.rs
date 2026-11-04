@@ -242,18 +242,6 @@ pub fn borg_item_weight(st: &mut BorgState, i: i32) -> i16 {
     crate::borg_item::borg_item_weight(&st.items.items[i as usize])
 }
 
-/// `borg_ego_has_random_power(&e_info[ego_idx])` (still c2rust,
-/// borg-item-analyze.c).
-pub fn borg_ego_has_random_power(_st: &mut BorgState, ego_idx: u8) -> bool {
-    // SAFETY: e_info has z_info->e_max entries and item ego indexes come
-    // from it; the callee only reads the ego.
-    unsafe {
-        crate::c2rust::borg_item_analyze::borg_ego_has_random_power(
-            crate::headers::object_h::e_info.offset(isize::from(ego_idx)),
-        )
-    }
-}
-
 /// `borg_spell_stat()` (borg-magic.c, converted).
 pub fn borg_spell_stat(_st: &mut BorgState) -> i32 {
     crate::borg_magic::borg_spell_stat()
@@ -735,10 +723,9 @@ pub fn item_note(item: &crate::headers::borg_item_h::borg_item) -> Vec<u8> {
     unsafe { cbytes(item.note).to_vec() }
 }
 
-/// `borg_item_analyze(&borg_items[i], obj, desc, in_store)` (still c2rust,
-/// borg-item-analyze.c). `desc` is passed as a NUL-terminated copy; the
-/// callee copies at most 79 bytes of it into the item's `desc` and points
-/// the item's `note` into that.
+/// `borg_item_analyze(&borg_items[i], obj, desc, in_store)` (borg-item-analyze.c,
+/// converted). Kept for callers in conversions in flight; borg_inventory
+/// calls the safe function directly.
 pub fn borg_item_analyze(
     st: &mut BorgState,
     i: usize,
@@ -746,19 +733,55 @@ pub fn borg_item_analyze(
     desc: &[u8],
     in_store: bool,
 ) {
-    let mut buf = desc.to_vec();
-    buf.push(0);
-    let item: *mut crate::headers::borg_item_h::borg_item = &mut st.items.items[i];
-    // SAFETY: `item` is a live slot of the item Vec (not resized by the
-    // callee); obj is a live carried object with a kind; buf is a
-    // NUL-terminated buffer that the callee only reads.
-    unsafe {
-        crate::c2rust::borg_item_analyze::borg_item_analyze(
-            item,
-            obj.as_ptr(),
-            buf.as_mut_ptr() as *mut c_char,
+    crate::borg_item_analyze::borg_item_analyze_slot(st, i, obj.into(), desc, in_store)
+}
+
+/// `item->note = item->desc + offset` (borg-item-analyze.c). Transitional:
+/// `note` stays a raw pointer into the item's own `desc` (C semantics:
+/// copies of the item keep pointing at this item's `desc`).
+pub fn set_item_note(item: &mut crate::headers::borg_item_h::borg_item, offset: usize) {
+    assert!(offset < item.desc.len(), "note offset outside desc");
+    // SAFETY: offset is inside the item's desc array (checked), so the
+    // pointer stays in bounds of that allocation; nothing is dereferenced
+    // here. It is dereferenced later by readers, as in C.
+    item.note = unsafe { item.desc.as_mut_ptr().add(offset) };
+}
+
+/// C-ABI shims with the borg-item-analyze.c names, for c2rust callers.
+pub mod item_analyze {
+    use super::{cbytes, st};
+    use crate::borg_item_analyze as ia;
+    use crate::headers::borg_item_h::borg_item;
+    use crate::headers::object_h::{ego_item, object};
+    use core::ffi::{c_char, c_int};
+
+    /// `item` is written in place (its `note` points into its own
+    /// `desc`); `real_item` is a live object with or without a kind (no
+    /// kind or no number: the item is just wiped); `desc` is a C string
+    /// that is only read.
+    pub unsafe extern "C" fn borg_item_analyze(
+        item: *mut borg_item,
+        real_item: *const object,
+        desc: *mut c_char,
+        in_store: bool,
+    ) {
+        let s = st();
+        let desc = cbytes(desc).to_vec();
+        ia::borg_item_analyze(
+            &mut *item,
+            crate::engine::GameObject::from_raw(real_item),
+            &desc,
             in_store,
+            &s.act,
+            &s.item_val,
         )
+    }
+    pub unsafe extern "C" fn borg_obj_has_effect(kind: u32, index: c_int, subtype: c_int) -> bool {
+        ia::borg_obj_has_effect(kind, index, subtype)
+    }
+    /// `e_ptr` points at an ego of `e_info` (only its kind flags are read).
+    pub unsafe extern "C" fn borg_ego_has_random_power(e_ptr: *mut ego_item) -> bool {
+        ia::ego_kind_flags_have_random_power(&(*e_ptr).kind_flags)
     }
 }
 

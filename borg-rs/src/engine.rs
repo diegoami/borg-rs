@@ -1294,3 +1294,287 @@ pub fn race_blow(r_idx: usize, k: usize) -> Option<RaceBlow> {
         Some(RaceBlow { effect_name: CStr::from_ptr(name), dice: b.dice.dice, sides: b.dice.sides })
     }
 }
+
+// ---------------------------------------------------------------------------
+// Game objects and object tables (borg-item-analyze.c)
+
+use crate::headers::object_h::{element_info, object, object_kind};
+
+/// A live game object (`const struct object *`): a carried object, a
+/// store ware, or the player's knowledge of one (`obj->known`). Opaque:
+/// the pointer stays on the FFI side.
+#[derive(Clone, Copy)]
+pub struct GameObject(*const object);
+
+impl From<CarriedObject> for GameObject {
+    fn from(o: CarriedObject) -> Self {
+        GameObject(o.0)
+    }
+}
+
+impl GameObject {
+    /// Wrap a raw object pointer (C-ABI shims of c2rust callers).
+    ///
+    /// # Safety
+    /// `p` must point at a live game object that stays alive, and is not
+    /// written, while the handle is used (one Borg call).
+    pub unsafe fn from_raw(p: *const object) -> Self {
+        assert!(!p.is_null(), "NULL object");
+        GameObject(p)
+    }
+
+    fn obj(&self) -> &object {
+        // SAFETY: the handle was made from a live object (CarriedObject or
+        // from_raw), which the engine does not change or free while the
+        // Borg thinks.
+        unsafe { &*self.0 }
+    }
+
+    /// The object's kind (panics where C would dereference NULL).
+    fn kind(&self) -> &object_kind {
+        let k = self.obj().kind;
+        assert!(!k.is_null(), "object without a kind");
+        // SAFETY: non-NULL kinds point into k_info, which lives for the game.
+        unsafe { &*k }
+    }
+
+    /// `obj->kind != NULL`
+    pub fn has_kind(self) -> bool {
+        !self.obj().kind.is_null()
+    }
+    /// `obj->number`
+    pub fn number(self) -> u8 {
+        self.obj().number
+    }
+    /// `obj->tval`
+    pub fn tval(self) -> u8 {
+        self.obj().tval
+    }
+    /// `obj->sval`
+    pub fn sval(self) -> u8 {
+        self.obj().sval
+    }
+    /// `obj->pval`
+    pub fn pval(self) -> i16 {
+        self.obj().pval
+    }
+    /// `obj->timeout`
+    pub fn timeout(self) -> i16 {
+        self.obj().timeout
+    }
+    /// `obj->ac`
+    pub fn ac(self) -> i16 {
+        self.obj().ac
+    }
+    /// `obj->dd`
+    pub fn dd(self) -> u8 {
+        self.obj().dd
+    }
+    /// `obj->ds`
+    pub fn ds(self) -> u8 {
+        self.obj().ds
+    }
+    /// `obj->to_h`
+    pub fn to_h(self) -> i16 {
+        self.obj().to_h
+    }
+    /// `obj->to_d`
+    pub fn to_d(self) -> i16 {
+        self.obj().to_d
+    }
+    /// `obj->to_a`
+    pub fn to_a(self) -> i16 {
+        self.obj().to_a
+    }
+    /// `obj->modifiers`
+    pub fn modifiers(self) -> [i16; 16] {
+        self.obj().modifiers
+    }
+    /// `obj->el_info`
+    pub fn el_info(self) -> [element_info; 25] {
+        self.obj().el_info
+    }
+
+    /// `obj->known`, if not NULL.
+    pub fn known(self) -> Option<GameObject> {
+        let k = self.obj().known;
+        (!k.is_null()).then_some(GameObject(k))
+    }
+
+    /// `object_fully_known(obj)`
+    pub fn fully_known(self) -> bool {
+        // SAFETY: reads the live object (and its known version) only.
+        unsafe { crate::headers::obj_knowledge_h::object_fully_known(self.0) }
+    }
+    /// `object_runes_known(obj)`
+    pub fn runes_known(self) -> bool {
+        // SAFETY: reads the live object (and its known version) only.
+        unsafe { crate::headers::obj_knowledge_h::object_runes_known(self.0) }
+    }
+    /// `object_flavor_is_aware(obj)` (the object must have a kind).
+    pub fn flavor_is_aware(self) -> bool {
+        // SAFETY: reads the object's kind only.
+        unsafe { crate::headers::obj_knowledge_h::object_flavor_is_aware(self.0) }
+    }
+    /// `object_flags_known(obj, flags)`
+    pub fn flags_known(self) -> [u8; OF_SIZE] {
+        let mut f = [0u8; OF_SIZE];
+        // SAFETY: reads the live object (C dereferences `obj->known`, as
+        // here); writes exactly OF_SIZE bytes into f.
+        unsafe { crate::headers::obj_util_h::object_flags_known(self.0, f.as_mut_ptr()) };
+        f
+    }
+    /// `object_weight_one(obj)`
+    pub fn weight_one(self) -> i16 {
+        // SAFETY: reads the live object and the curse table only.
+        unsafe { crate::headers::obj_util_h::object_weight_one(self.0) }
+    }
+
+    /// `obj->kind->kidx`
+    pub fn kind_kidx(self) -> u32 {
+        self.kind().kidx
+    }
+    /// `obj->kind->level`
+    pub fn kind_level(self) -> i32 {
+        self.kind().level
+    }
+    /// `obj->kind->cost`
+    pub fn kind_cost(self) -> i32 {
+        self.kind().cost
+    }
+    /// `randcalc(obj->kind->time, 0, MINIMISE)` (draws no random numbers).
+    pub fn kind_time_min(self) -> i32 {
+        let t = self.kind().time;
+        // SAFETY: pure arithmetic on a copied value; MINIMISE uses no RNG.
+        unsafe { crate::headers::z_rand_h::randcalc(t, 0, crate::headers::z_rand_h::MINIMISE) }
+    }
+
+    /// `obj->curses[0 .. curse_max].power`, or `None` for NULL `curses`.
+    pub fn curse_powers(self) -> Option<Vec<i32>> {
+        let p = self.obj().curses;
+        if p.is_null() {
+            return None;
+        }
+        let n = usize::from(z_info().curse_max);
+        // SAFETY: a non-NULL curses array has z_info->curse_max entries.
+        let c = unsafe { std::slice::from_raw_parts(p, n) };
+        Some(c.iter().map(|c| c.power).collect())
+    }
+    /// `obj->slays[0 .. slay_max]`, or `None` for NULL `slays`.
+    pub fn slays(self) -> Option<Vec<bool>> {
+        let p = self.obj().slays;
+        if p.is_null() {
+            return None;
+        }
+        let n = usize::from(z_info().slay_max);
+        // SAFETY: a non-NULL slays array has z_info->slay_max entries.
+        Some(unsafe { std::slice::from_raw_parts(p, n) }.to_vec())
+    }
+    /// `obj->brands[0 .. brand_max]`, or `None` for NULL `brands`.
+    pub fn brands(self) -> Option<Vec<bool>> {
+        let p = self.obj().brands;
+        if p.is_null() {
+            return None;
+        }
+        let n = usize::from(z_info().brand_max);
+        // SAFETY: a non-NULL brands array has z_info->brand_max entries.
+        Some(unsafe { std::slice::from_raw_parts(p, n) }.to_vec())
+    }
+    /// `obj->activation->index`, or `None` for no activation.
+    pub fn activation_index(self) -> Option<i32> {
+        let a = self.obj().activation;
+        // SAFETY: a non-NULL activation points into the activation list,
+        // which lives for the game.
+        (!a.is_null()).then(|| unsafe { (*a).index })
+    }
+    /// `obj->artifact->aidx`, or `None` for no artifact.
+    pub fn artifact_aidx(self) -> Option<u32> {
+        let a = self.obj().artifact;
+        // SAFETY: a non-NULL artifact points into a_info (lives for the game).
+        (!a.is_null()).then(|| unsafe { (*a).aidx })
+    }
+    /// `obj->ego->eidx`, or `None` for no ego.
+    pub fn ego_eidx(self) -> Option<u32> {
+        let e = self.obj().ego;
+        // SAFETY: a non-NULL ego points into e_info (lives for the game).
+        (!e.is_null()).then(|| unsafe { (*e).eidx })
+    }
+}
+
+/// An artifact (`struct artifact`).
+pub type Artifact = crate::headers::object_h::artifact;
+
+/// `a_info[0 .. z_info->a_max]`, the artifacts.
+pub fn a_info() -> &'static [Artifact] {
+    let n = usize::from(z_info().a_max);
+    // SAFETY: a_info is allocated with z_info->a_max entries when the game
+    // data is loaded, before any Borg code runs, and lives for the game.
+    unsafe { std::slice::from_raw_parts(crate::headers::object_h::a_info, n) }
+}
+
+/// An ego item type (`struct ego_item`).
+pub type EgoItem = crate::headers::object_h::ego_item;
+
+/// `e_info[0 .. z_info->e_max]`, the ego item types.
+pub fn e_info() -> &'static [EgoItem] {
+    let n = usize::from(z_info().e_max);
+    // SAFETY: e_info is allocated with z_info->e_max entries when the game
+    // data is loaded, before any Borg code runs, and lives for the game.
+    unsafe { std::slice::from_raw_parts(crate::headers::object_h::e_info, n) }
+}
+
+/// `curses[i].name` (i < curse_max; panics where C would read NULL).
+pub fn curse_name(i: usize) -> &'static [u8] {
+    assert!(i < usize::from(z_info().curse_max), "curse index out of range");
+    // SAFETY: curses has z_info->curse_max entries (index checked), loaded
+    // at startup and kept for the game.
+    let name = unsafe { (*crate::headers::obj_curse_h::curses.add(i)).name };
+    assert!(!name.is_null(), "curse {i} has no name");
+    // SAFETY: a non-NULL curse name is a C string that lives for the game.
+    unsafe { CStr::from_ptr(name).to_bytes() }
+}
+
+/// `(slays[i].race_flag, slays[i].multiplier)` (i < slay_max).
+pub fn slay_race_flag_multiplier(i: usize) -> (i32, i32) {
+    assert!(i < usize::from(z_info().slay_max), "slay index out of range");
+    // SAFETY: slays has z_info->slay_max entries (index checked), loaded at
+    // startup and kept for the game.
+    let s = unsafe { &*crate::headers::obj_slays_h::slays.add(i) };
+    (s.race_flag, s.multiplier)
+}
+
+/// `lookup_obj_property(OBJ_PROPERTY_FLAG, flag)->power`, or `None` where
+/// the lookup gives NULL.
+pub fn obj_flag_power(flag: i32) -> Option<i32> {
+    // SAFETY: the property list is loaded at startup; the result is NULL
+    // or an entry of it.
+    unsafe {
+        let p = crate::headers::obj_properties_h::lookup_obj_property(
+            crate::headers::obj_properties_h::OBJ_PROPERTY_FLAG as i32,
+            flag,
+        );
+        (!p.is_null()).then(|| (*p).power)
+    }
+}
+
+/// `flag_next(flags, size, flag)` (z-bitflag.c) on a whole flag array: the
+/// first set flag from `flag` on, or `FLAG_END` (0).
+pub fn flag_next(flags: &[u8], flag: i32) -> i32 {
+    // SAFETY: flag_next reads only below the size given (the slice length).
+    unsafe { crate::headers::z_bitflag_h::flag_next(flags.as_ptr(), flags.len(), flag) }
+}
+
+/// The effects of `k_info[kind]` as `(index, subtype)`, in list order
+/// (following `next` until NULL).
+pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
+    let mut out = Vec::new();
+    let mut e = k_info()[kind].effect;
+    while !e.is_null() {
+        // SAFETY: effects form a NULL-terminated list loaded at startup.
+        unsafe {
+            out.push(((*e).index, (*e).subtype));
+            e = (*e).next;
+        }
+    }
+    out
+}

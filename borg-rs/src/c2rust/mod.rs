@@ -15,7 +15,6 @@ pub mod borg_flow_misc;
 pub mod borg_flow_stairs;
 pub mod borg_flow_take;
 pub mod borg_init;
-pub mod borg_item_analyze;
 pub mod borg_item_decurse;
 pub mod borg_item_enchant;
 pub mod borg_item_use;

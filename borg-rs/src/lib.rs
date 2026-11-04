@@ -37,6 +37,7 @@ pub mod borg_inventory;
 pub mod borg_io;
 pub mod borg_item;
 pub mod borg_item_activation;
+pub mod borg_item_analyze;
 pub mod borg_item_id;
 pub mod borg_item_val;
 pub mod borg_log;

@@ -41,6 +41,7 @@ use crate::headers::borg_trait_h::{
 use crate::headers::list_player_flags_h::PF_ZERO_FAIL;
 use crate::headers::list_tvals_h::{TV_DIGGING, TV_POTION, TV_SCROLL, VT_NULL};
 use crate::state::BorgState;
+use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::{borg_io, bridge, engine};
 
 /// `struct value_sec`: a parsed `value(type, name)`.
@@ -1129,7 +1130,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
     // Hack-- Reward the borg for carrying a NON-ID items that have random
     // powers
     let outer = bridge::borg_item(st, inven_outer);
-    if outer.iqty != 0 && bridge::borg_ego_has_random_power(st, outer.ego_idx) && !outer.ident {
+    if outer.iqty != 0 && borg_ego_has_random_power(usize::from(outer.ego_idx)) && !outer.ident {
         total = total.wrapping_add(999999);
     }
 

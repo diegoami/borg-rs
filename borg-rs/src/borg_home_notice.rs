@@ -49,6 +49,7 @@ use crate::headers::list_tvals_h::{
     TV_SHADOW_BOOK, TV_SHIELD, TV_SHOT, TV_SOFT_ARMOR, TV_STAFF, TV_SWORD,
 };
 use crate::state::BorgState;
+use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::{bridge, engine};
 
 /// `BORG_HOME` (borg-store.h): the home's index in `borg_shops`.
@@ -356,7 +357,7 @@ fn borg_notice_home_dupe(
 
     // check for a duplicate.
     // be careful about extra powers (elvenkind/magi)
-    if bridge::borg_ego_has_random_power(st, item.ego_idx) {
+    if borg_ego_has_random_power(usize::from(item.ego_idx)) {
         return;
     }
 
@@ -578,7 +579,7 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
             add(&mut h.num_artifact, iqty);
         }
         // count egos that need *ID*
-        if bridge::borg_ego_has_random_power(st, item.ego_idx) && item.needs_ident {
+        if borg_ego_has_random_power(usize::from(item.ego_idx)) && item.needs_ident {
             add(&mut st.home.num_ego, iqty);
         }
 

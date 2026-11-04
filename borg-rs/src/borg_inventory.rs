@@ -16,6 +16,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::borg_item::{blank_item, borg_deinscribe, inven_wield, quiver_start};
+use crate::borg_item_analyze::borg_item_analyze_slot;
 use crate::engine::{self, CarriedObject};
 use crate::headers::borg_item_h::borg_item;
 use crate::headers::borg_trait_h::BI_QUIVER_SLOTS;
@@ -103,7 +104,7 @@ pub fn borg_slot(st: &mut BorgState, tval: i32, sval: i32) -> i32 {
 /// or `borg` inscription (the equipment and quiver readers).
 fn analyze_and_deinscribe(st: &mut BorgState, i: i32, obj: CarriedObject, desc: &[u8]) {
     /* Analyze the item (no price) */
-    bridge::borg_item_analyze(st, i as usize, obj, desc, false);
+    borg_item_analyze_slot(st, i as usize, obj.into(), desc, false);
     deinscribe_if_marked(st, i);
 }
 
@@ -167,7 +168,7 @@ pub fn borg_inventory(st: &mut BorgState) {
         }
 
         /* Analyze the item (no price) */
-        bridge::borg_item_analyze(st, i as usize, obj, &desc, false);
+        borg_item_analyze_slot(st, i as usize, obj.into(), &desc, false);
 
         /* Note changed inventory */
         st.inventory.do_crush_junk = true;

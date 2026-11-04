@@ -257,3 +257,17 @@ Format: file, function, (seed, turn when observed), explanation.
   partial-damage paths above are only reached through direct
   `borg_danger_one_kill(..., false)` calls.
 * Rust: all kept in `borg_danger.rs`.
+
+## 18. Item value: stat bonuses tested as object flags (item analyze)
+
+* `borg-item-analyze.c`, `borg_object_value_known()`, by code reading
+  (every identified wearable with a non-zero pval goes through it).
+* "Give credit for stat bonuses" tests `of_has(item->flags, STAT_STR)` ...
+  `of_has(item->flags, STAT_CON)`: stat indices (0..4) used as object flag
+  numbers. `STAT_STR` is 0 = `FLAG_END`, which `flag_has()` always reports
+  as unset; `STAT_INT`..`STAT_CON` (1..4) are `OF_SUST_STR`..`OF_SUST_DEX`.
+  So no stat bonus is ever credited (stat boosts are modifiers, not flags),
+  while a known STR/INT/WIS/DEX sustain adds `pval * 200` to the value of
+  an item that has a pval (and a CON sustain does not).
+* Rust: kept (`engine::flag_has(&item.flags, STAT_*)`) in
+  `borg_item_analyze.rs`.
