@@ -14,9 +14,7 @@ use crate::headers::borg_store_buy_h::{
     borg_think_home_grab_useless, borg_think_shop_buy, borg_think_shop_buy_useful,
     borg_think_shop_grab_interesting,
 };
-pub use crate::headers::borg_store_h::{
-    borg_home_full, borg_inventory_full, borg_shop, borg_shops, SHOP_MENU_ITEMS,
-};
+pub use crate::headers::borg_store_h::{borg_home_full, borg_inventory_full};
 use crate::headers::borg_store_sell_h::{
     borg_think_home_sell_useful, borg_think_shop_sell, borg_think_shop_sell_useless,
 };
@@ -155,9 +153,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
         if borg_think_shop_buy_useful() {
             borg_note(format(
                 b"# Buying '%s' at '%s' immediately\0" as *const u8 as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                    .ware
-                    .offset(crate::bridge::st().borg.goal.ware as isize))
+                &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
                 .desc as *mut ::core::ffi::c_char,
                 (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
             ));
@@ -167,9 +163,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
             borg_note(format(
                 b"# Buying '%s' from the home immediately.\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                    .ware
-                    .offset(crate::bridge::st().borg.goal.ware as isize))
+                &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
                 .desc as *mut ::core::ffi::c_char,
             ));
             return true_0 != 0;
@@ -200,9 +194,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
             borg_note(format(
                 b"# Buying '%s' at '%s' (money scumming)\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                    .ware
-                    .offset(crate::bridge::st().borg.goal.ware as isize))
+                &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
                 .desc as *mut ::core::ffi::c_char,
                 (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
             ));
@@ -222,9 +214,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
             borg_note(format(
                 b"# Buying '%s' from the home (step 1)\0" as *const u8
                     as *const ::core::ffi::c_char,
-                &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                    .ware
-                    .offset(crate::bridge::st().borg.goal.ware as isize))
+                &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
                 .desc as *mut ::core::ffi::c_char,
             ));
         }
@@ -242,11 +232,9 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
         borg_note(format(
             b"# Buying '%s'(%c) at '%s' (for player 'b')\0" as *const u8
                 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
-            *SHOP_MENU_ITEMS.offset(crate::bridge::st().borg.goal.ware as isize) as ::core::ffi::c_int,
+            (crate::borg_store::SHOP_MENU_ITEMS[crate::bridge::st().borg.goal.ware as usize] as ::core::ffi::c_char) as ::core::ffi::c_int,
             (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
         ));
         return true_0 != 0;
@@ -254,9 +242,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     if borg_think_home_buy_useful() {
         borg_note(format(
             b"# Buying '%s' from the home (step 4)\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -264,9 +250,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     if borg_think_home_grab_useless() {
         borg_note(format(
             b"# Grabbing (to sell) '%s' from the home\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -277,9 +261,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     if borg_think_shop_grab_interesting() {
         borg_note(format(
             b"# Grabbing (for home) '%s' at '%s'\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
             (*f_info.offset((*stores.offset(crate::bridge::st().borg.goal.shop as isize)).feat as isize)).name,
         ));
@@ -290,9 +272,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     {
         borg_note(format(
             b"# Buying '%s' from the home as a backup\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;
@@ -302,9 +282,7 @@ pub unsafe extern "C" fn borg_choose_shop() -> bool {
     {
         borg_note(format(
             b"# Buying '%s' from the home as a backup\0" as *const u8 as *const ::core::ffi::c_char,
-            &raw mut (*(*borg_shops.offset(crate::bridge::st().borg.goal.shop as isize))
-                .ware
-                .offset(crate::bridge::st().borg.goal.ware as isize))
+            &raw mut crate::bridge::st().store.shops[crate::bridge::st().borg.goal.shop as usize].ware[crate::bridge::st().borg.goal.ware as usize]
             .desc as *mut ::core::ffi::c_char,
         ));
         return true_0 != 0;

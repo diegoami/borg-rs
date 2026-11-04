@@ -46,6 +46,7 @@ pub mod borg_messages_react;
 pub mod borg_prepared;
 pub mod borg_projection;
 pub mod borg_reincarnate;
+pub mod borg_store;
 pub mod borg_util;
 pub mod engine;
 pub mod state;

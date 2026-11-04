@@ -199,3 +199,10 @@ process was killed from outside under memory or CPU pressure (several
 agents run suites at once), but this is not proven. `harness/suite.sh`
 reports such runs as MISSING, so they cannot pass silently. If it happens
 again, check `stderr.log` and `dmesg` for the run.
+
+Update: during the borg_store conversion, two `deep` runs in another
+worktree stopped at the same millisecond with a save, the signature of an
+external SIGTERM/SIGHUP. Most likely one agent ran `pkill angband`, which
+also hits the other worktrees' games. Their key logs matched the
+reference up to the stop. From now on, agent instructions forbid killing
+processes they did not start (kill by PID only).

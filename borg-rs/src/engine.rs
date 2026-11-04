@@ -987,6 +987,102 @@ pub fn store_stock_descs(store: usize, mode: u32) -> Vec<Vec<u8>> {
 }
 
 // ---------------------------------------------------------------------------
+// Store stock (borg-store.c)
+
+/// An object in a store's stock (an entry of `store_stock_list`).
+///
+/// Only valid while the store's stock does not change, i.e. within the
+/// Borg call that got it; callers do not keep it.
+#[derive(Clone, Copy)]
+pub struct StoreObject(*const crate::headers::object_h::object);
+
+/// `store_stock_list(&stores[store], list, z_info->store_inven_max)`: the
+/// entries before the first NULL, in order.
+pub fn store_stock(store: usize) -> Vec<StoreObject> {
+    let n = usize::from(z_info().store_inven_max);
+    assert!(store < usize::from(z_info().store_max), "store index out of range");
+    let mut list: Vec<*mut crate::headers::object_h::object> = vec![core::ptr::null_mut(); n];
+    // SAFETY: stores has store_max entries (checked); list has room for
+    // the n entries store_stock_list fills.
+    unsafe {
+        crate::headers::store_h::store_stock_list(
+            crate::headers::store_h::stores.add(store),
+            list.as_mut_ptr(),
+            n as i32,
+        );
+    }
+    list.iter().take_while(|o| !o.is_null()).map(|&o| StoreObject(o)).collect()
+}
+
+impl StoreObject {
+    /// The raw object, for transitional bridge calls into c2rust code.
+    pub fn as_ptr(self) -> *const crate::headers::object_h::object {
+        self.0
+    }
+
+    /// `object_desc(buf, 120, obj, mode, player)` (bytes up to the NUL).
+    pub fn desc120(self, mode: u32) -> Vec<u8> {
+        let mut buf = [0u8; 120];
+        // SAFETY: self is a live store object (see the type); object_desc
+        // writes at most 120 bytes, NUL included.
+        unsafe {
+            crate::headers::obj_desc_h::object_desc(
+                buf.as_mut_ptr() as *mut c_char,
+                buf.len(),
+                self.0,
+                mode,
+                crate::headers::player_h::player,
+            );
+        }
+        let n = buf.iter().position(|&b| b == 0).unwrap_or(buf.len());
+        buf[..n].to_vec()
+    }
+
+    /// `tval_can_have_charges(obj)`
+    pub fn can_have_charges(self) -> bool {
+        // SAFETY: self is a live store object; the call only reads it.
+        unsafe { crate::headers::obj_tval_h::tval_can_have_charges(self.0) }
+    }
+
+    /// `object_value_real(obj, qty)`
+    pub fn value_real(self, qty: i32) -> i32 {
+        // SAFETY: self is a live store object; the call only reads it.
+        unsafe { crate::headers::obj_power_h::object_value_real(self.0, qty) }
+    }
+
+    /// `object_value(obj, qty)`
+    pub fn value(self, qty: i32) -> i32 {
+        // SAFETY: self is a live store object; the call only reads it.
+        unsafe { crate::headers::obj_power_h::object_value(self.0, qty) }
+    }
+}
+
+/// `stores[store].owner->max_cost`
+pub fn store_owner_max_cost(store: usize) -> i32 {
+    assert!(store < usize::from(z_info().store_max), "store index out of range");
+    // SAFETY: stores has store_max entries (checked), each with an owner
+    // set when the stores are created.
+    unsafe {
+        let owner = (*crate::headers::store_h::stores.add(store)).owner;
+        assert!(!owner.is_null(), "store without owner");
+        (*owner).max_cost
+    }
+}
+
+/// `f_info[feat].shopnum`
+pub fn feat_shopnum(feat: usize) -> u8 {
+    assert!(feat < crate::headers::cave_h::FEAT_MAX as usize, "feature out of range");
+    // SAFETY: f_info is allocated with FEAT_MAX entries when the game data
+    // is loaded (index checked).
+    unsafe { (*crate::headers::cave_h::f_info.add(feat)).shopnum }
+}
+
+/// `player->opts.opt[opt]` (the `OPT(player, ...)` macro).
+pub fn player_opt(opt: u32) -> bool {
+    player_ref().opts.opt[opt as usize]
+}
+
+// ---------------------------------------------------------------------------
 // Map and messages (borg-log.c)
 
 /// `square_monster(cave, loc(x, y))->midx`, or `None` for no monster.

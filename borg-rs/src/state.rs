@@ -22,6 +22,7 @@ use crate::borg_magic::MagicState;
 use crate::borg_messages_react::MsgState;
 use crate::borg_prepared::PreparedState;
 use crate::borg_projection::ProjectionState;
+use crate::borg_store::StoreState;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -64,4 +65,6 @@ pub struct BorgState {
     pub prepared: PreparedState,
     /// borg-projection.c: `borg_target_loc`
     pub projection: ProjectionState,
+    /// borg-store.c: `borg_shops`, `borg_safe_shops`
+    pub store: StoreState,
 }

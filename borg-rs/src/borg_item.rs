@@ -111,7 +111,7 @@ pub fn borg_item_weight(item: &borg_item) -> i16 {
 pub fn borg_find_all_items(st: &mut BorgState) {
     crate::borg_inventory::borg_equipment(st);
     crate::borg_inventory::borg_inventory(st);
-    bridge::borg_notice_store(st);
+    crate::borg_store::borg_notice_store(st);
     let n = quiver_end() as usize;
     let snapshot = st.items.items[..n].to_vec();
     st.items.safe_items[..n].copy_from_slice(&snapshot);

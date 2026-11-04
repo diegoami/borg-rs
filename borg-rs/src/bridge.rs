@@ -575,26 +575,11 @@ pub mod magic {
     }
 }
 
-/// A copy of `borg_shops[shop].ware[i]` (still c2rust, borg-store.c).
-/// Transitional, like `item()`; the copy's `note` field is a raw C string
-/// pointer that safe code must not dereference.
-pub fn shop_item(
-    _st: &mut BorgState,
-    shop: usize,
-    i: usize,
-) -> crate::headers::borg_item_h::borg_item {
-    let z = crate::engine::z_info();
-    assert!(shop < usize::from(z.store_max) && i < usize::from(z.store_inven_max));
-    // SAFETY: borg_init_store() allocates z_info->store_max shops, each
-    // with z_info->store_inven_max wares, before the Borg runs (checked
-    // non-null); the indices are checked above.
-    unsafe {
-        let shops = crate::c2rust::borg_store::borg_shops;
-        assert!(!shops.is_null(), "borg_shops not allocated");
-        let ware = (*shops.add(shop)).ware;
-        assert!(!ware.is_null(), "borg_shops ware not allocated");
-        *ware.add(i)
-    }
+/// A copy of `borg_shops[shop].ware[i]` (borg-store.c, converted). The
+/// copy's `note` field is a raw C string pointer that safe code must not
+/// dereference.
+pub fn shop_item(st: &mut BorgState, shop: usize, i: usize) -> crate::headers::borg_item_h::borg_item {
+    st.store.shops[shop].ware[i]
 }
 
 /// `borg_calc_blows(item)` (still c2rust, borg-trait.c).
@@ -748,10 +733,6 @@ pub fn item_note(item: &crate::headers::borg_item_h::borg_item) -> Vec<u8> {
     // SAFETY: a non-NULL note points at a NUL-terminated suffix of a live
     // item's `desc` buffer (C semantics; C reads it the same way).
     unsafe { cbytes(item.note).to_vec() }
-}
-
-c2r_void! {
-    borg_notice_store => crate::c2rust::borg_store::borg_notice_store;
 }
 
 /// `borg_item_analyze(&borg_items[i], obj, desc, in_store)` (still c2rust,
@@ -999,3 +980,71 @@ pub mod item_id {
     }
 }
 
+
+/// `borg_first_empty_inventory_slot()` (still c2rust, borg-inventory.c),
+/// for borg-store.c.
+pub fn store_first_empty_inventory_slot(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain call into transitional code (it reads the items and
+    // traits).
+    unsafe { crate::headers::borg_inventory_h::borg_first_empty_inventory_slot() }
+}
+
+/// `borg_init_store_sell()` (still c2rust, borg-store-sell.c).
+pub fn borg_init_store_sell(_st: &mut BorgState) {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::headers::borg_store_sell_h::borg_init_store_sell() }
+}
+
+/// `borg_free_store_sell()` (still c2rust, borg-store-sell.c).
+pub fn borg_free_store_sell(_st: &mut BorgState) {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::headers::borg_store_sell_h::borg_free_store_sell() }
+}
+
+/// `borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`
+/// (still c2rust, borg-item-analyze.c), for borg_notice_store.
+pub fn borg_item_analyze_ware(
+    st: &mut BorgState,
+    shop: usize,
+    slot: usize,
+    obj: crate::engine::StoreObject,
+    desc: &[u8],
+    in_store: bool,
+) {
+    let mut buf = desc.to_vec();
+    buf.push(0);
+    let item: *mut crate::headers::borg_item_h::borg_item = &mut st.store.shops[shop].ware[slot];
+    // SAFETY: item points at a live ware (the callee does not reallocate
+    // the shops); obj is a live store object (engine::StoreObject); buf is
+    // NUL-terminated and outlives the call, which copies it.
+    unsafe {
+        crate::headers::borg_item_analyze_h::borg_item_analyze(
+            item,
+            obj.as_ptr(),
+            buf.as_mut_ptr() as *mut c_char,
+            in_store,
+        )
+    }
+}
+
+/// C-ABI shims with the borg-store.c names.
+pub mod store {
+    use super::st;
+    use crate::borg_store as s;
+
+    pub unsafe extern "C" fn borg_home_full() -> bool {
+        s::borg_home_full(st())
+    }
+    pub unsafe extern "C" fn borg_inventory_full() -> bool {
+        s::borg_inventory_full(st())
+    }
+    pub unsafe extern "C" fn borg_notice_store() {
+        s::borg_notice_store(st())
+    }
+    pub unsafe extern "C" fn borg_init_store() {
+        s::borg_init_store(st())
+    }
+    pub unsafe extern "C" fn borg_free_store() {
+        s::borg_free_store(st())
+    }
+}

@@ -25,7 +25,6 @@ pub mod borg_light;
 pub mod borg_messages;
 pub mod borg_power;
 pub mod borg_recover;
-pub mod borg_store;
 pub mod borg_store_buy;
 pub mod borg_store_sell;
 pub mod borg_think;

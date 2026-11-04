@@ -45,9 +45,7 @@ pub use crate::headers::borg_magic_h::{
     WHIRLWIND_ATTACK, WORD_OF_DESTRUCTION, WORD_OF_RECALL, ZONE_OF_UNMAGIC,
 };
 use crate::headers::borg_power_h::borg_power;
-pub use crate::headers::borg_store_h::{
-    borg_home_full, borg_inventory_full, borg_shop, borg_shops, SHOP_MENU_ITEMS,
-};
+pub use crate::headers::borg_store_h::{borg_home_full, borg_inventory_full};
 use crate::headers::borg_think_h::{borg_oops, shop_num};
 pub use crate::headers::borg_trait_h::{
     borg_notice, C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS,
@@ -1225,9 +1223,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
         }
         i = 0 as ::core::ffi::c_int;
         while i < (*z_info).store_inven_max as ::core::ffi::c_int {
-            item = (*borg_shops.offset(BORG_HOME as isize))
-                .ware
-                .offset(i as isize) as *mut borg_item;
+            item = (&raw mut crate::bridge::st().store.shops[BORG_HOME as usize].ware[i as usize]) as *mut borg_item;
             if (*item).pval as ::core::ffi::c_int
                 != (*crate::bridge::st().borg.goal.best_item.offset(item_num as isize)).pval as ::core::ffi::c_int
                 || (*item).tval as ::core::ffi::c_int
@@ -1237,7 +1233,7 @@ unsafe extern "C" fn borg_one_step_wearing_best(mut skip: ::core::ffi::c_int) ->
             {
                 i += 1;
             } else {
-                borg_keypress(*SHOP_MENU_ITEMS.offset(i as isize) as keycode_t);
+                borg_keypress((crate::borg_store::SHOP_MENU_ITEMS[i as usize] as ::core::ffi::c_char) as keycode_t);
                 borg_keypress('p' as i32 as keycode_t);
                 if (*item).iqty as ::core::ffi::c_int > 1 as ::core::ffi::c_int {
                     borg_keypress(KC_ENTER as keycode_t);
@@ -1323,9 +1319,7 @@ unsafe extern "C" fn borg_best_stuff_aux(
         if (i as ::core::ffi::c_int) < (*z_info).pack_size as ::core::ffi::c_int {
             item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
         } else {
-            item = (*borg_shops.offset(BORG_HOME as isize)).ware.offset(
-                (i as ::core::ffi::c_int - (*z_info).pack_size as ::core::ffi::c_int) as isize,
-            ) as *mut borg_item;
+            item = (&raw mut crate::bridge::st().store.shops[BORG_HOME as usize].ware[((i as ::core::ffi::c_int - (*z_info).pack_size as ::core::ffi::c_int)) as usize]) as *mut borg_item;
         }
         if !((*item).iqty == 0) {
             if (*item).aware {
@@ -1498,9 +1492,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
             if (i as ::core::ffi::c_int) < 100 as ::core::ffi::c_int {
                 item = &raw mut crate::bridge::st().items.items[(i) as usize] as *mut borg_item;
             } else {
-                item = (*borg_shops.offset(BORG_HOME as isize))
-                    .ware
-                    .offset((i as ::core::ffi::c_int - 100 as ::core::ffi::c_int) as isize)
+                item = (&raw mut crate::bridge::st().store.shops[BORG_HOME as usize].ware[((i as ::core::ffi::c_int - 100 as ::core::ffi::c_int)) as usize])
                     as *mut borg_item;
                 (*crate::bridge::st().borg.goal.best_item.offset(k as isize)).home = true_0 != 0;
             }
@@ -1521,10 +1513,7 @@ pub unsafe extern "C" fn borg_best_stuff() -> bool {
                 if *best.offset(i as isize) as ::core::ffi::c_int >= 100 as ::core::ffi::c_int {
                     borg_note(format(
                         b"new best: %s\0" as *const u8 as *const ::core::ffi::c_char,
-                        &raw mut (*(*borg_shops.offset(BORG_HOME as isize)).ware.offset(
-                            (*best.offset(i as isize) as ::core::ffi::c_int
-                                - 100 as ::core::ffi::c_int) as isize,
-                        ))
+                        &raw mut crate::bridge::st().store.shops[BORG_HOME as usize].ware[((*best.offset(i as isize) as ::core::ffi::c_int - 100 as ::core::ffi::c_int)) as usize]
                         .desc as *mut ::core::ffi::c_char,
                     ));
                 } else {
