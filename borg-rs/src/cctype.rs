@@ -40,6 +40,11 @@ pub fn c_isalnum(c: u8) -> bool {
     c.is_ascii_alphanumeric()
 }
 
+/// `iscntrl()`: 0x00-0x1F and 0x7F.
+pub fn c_iscntrl(c: u8) -> bool {
+    c.is_ascii_control()
+}
+
 /// `tolower()`.
 pub fn c_tolower(c: u8) -> u8 {
     c.to_ascii_lowercase()

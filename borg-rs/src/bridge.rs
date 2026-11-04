@@ -146,19 +146,10 @@ macro_rules! c2r_void {
 }
 c2r_void! {
     borg_reset_settings => crate::c2rust::borg_init::borg_reset_settings;
-    borg_log_death => crate::c2rust::borg_log::borg_log_death;
-    borg_log_death_data => crate::c2rust::borg_log::borg_log_death_data;
     borg_clear_reactions => crate::c2rust::borg_messages_react::borg_clear_reactions;
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
     borg_prepare_race_class_info => crate::c2rust::borg_init::borg_prepare_race_class_info;
     borg_reinit_options => crate::c2rust::borg_init::borg_reinit_options;
-    borg_display_status => crate::c2rust::borg_log::borg_display_status;
-}
-
-/// `borg_write_map(ask)`
-pub fn borg_write_map(_st: &mut BorgState, ask: bool) {
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::c2rust::borg_log::borg_write_map(ask) }
 }
 
 /// `borg_parse(NULL)`
@@ -697,5 +688,94 @@ pub mod item_fns {
     }
     pub unsafe extern "C" fn borg_free_item() {
         borg_item::borg_free_item(st())
+    }
+}
+
+/// `borg_kills_nxt` (still c2rust, borg-flow-kill.c).
+pub fn borg_kills_nxt(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_flow_kill::borg_kills_nxt }
+}
+
+/// `borg_takes[i].kidx` (still c2rust, borg-flow-take.c).
+pub fn borg_take_kidx(_st: &mut BorgState, i: usize) -> u32 {
+    // SAFETY: borg_takes is allocated with 256 entries by
+    // borg_init_flow_take() before the Borg runs (checked); the index is a
+    // u8 grid field (`borg_grid.take`).
+    unsafe {
+        let p = crate::c2rust::borg_flow_take::borg_takes;
+        assert!(!p.is_null() && i < 256);
+        (*p.add(i)).kidx
+    }
+}
+
+/// `weapon_swap` (still c2rust, borg-trait-swap.c): the swap weapon's
+/// slot + 1, or 0.
+pub fn weapon_swap(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain read of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::weapon_swap }
+}
+
+/// `armour_swap` (still c2rust, borg-trait-swap.c): the swap armour's
+/// slot + 1, or 0.
+pub fn armour_swap(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain read of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::armour_swap }
+}
+
+/// `borg_needs_new_sea` (still c2rust, borg-flow-glyph.c).
+pub fn borg_needs_new_sea(_st: &mut BorgState) -> bool {
+    // SAFETY: plain read of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_flow_glyph::borg_needs_new_sea }
+}
+
+/// `borg_get_note(&borg_items[i])` (borg-item.c), as bytes. The note
+/// pointer is still raw (see borg_item.rs); copied out at once.
+pub fn borg_get_note(st: &mut BorgState, i: usize) -> Vec<u8> {
+    let it: *const crate::headers::borg_item_h::borg_item = &st.items.items[i];
+    // SAFETY: `it` points at a live item; the note is NULL (-> "") or a
+    // NUL-terminated suffix of its desc buffer.
+    unsafe { cbytes(item_fns::borg_get_note(it)).to_vec() }
+}
+
+/// `borg_prepared(depth)` through the C-ABI shim, so the static
+/// `borg_prepared_buffer` is written as in C (c2rust callers may hold a
+/// pointer to it). `None` for NULL.
+pub fn borg_prepared_c(_st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
+    // SAFETY: the shim returns NULL or a NUL-terminated string that stays
+    // valid until the next call; copied out at once.
+    unsafe {
+        let p = prepared::borg_prepared(depth);
+        (!p.is_null()).then(|| cbytes(p).to_vec())
+    }
+}
+
+/// C-ABI shims with the borg-log.c names (callers in borg_commands and
+/// borg_messages_react).
+pub mod log {
+    use super::st;
+    use crate::borg_log as l;
+    use crate::headers::object_h::object;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_log_death() {
+        l::borg_log_death(st())
+    }
+    pub unsafe extern "C" fn borg_log_death_data() {
+        l::borg_log_death_data(st())
+    }
+    pub unsafe extern "C" fn borg_write_map(ask: bool) {
+        l::borg_write_map(st(), ask)
+    }
+    /// `item2` is the game object of inventory slot `n` (borg_commands).
+    pub unsafe extern "C" fn borg_display_item(item2: *mut object, n: c_int) {
+        // object_flags(item2, f): a pure read, done before the safe code
+        // (which clears the screen first) as in C.
+        let mut f = [0u8; 5];
+        crate::headers::obj_util_h::object_flags(item2, f.as_mut_ptr());
+        l::borg_display_item(st(), &f, n)
+    }
+    pub unsafe extern "C" fn borg_display_status() {
+        l::borg_display_status(st())
     }
 }

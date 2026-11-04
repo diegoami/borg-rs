@@ -346,10 +346,10 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         if st.borg.tr(BI_CLEVEL) >= st.cfg(BORG_DUMP_LEVEL)
             || died_from.windows(10).any(|w| w == b"starvation")
         {
-            bridge::borg_write_map(st, false);
+            crate::borg_log::borg_write_map(st, false);
         }
-        bridge::borg_log_death(st);
-        bridge::borg_log_death_data(st);
+        crate::borg_log::borg_log_death(st);
+        crate::borg_log::borg_log_death_data(st);
         borg_flush(st);
         bridge::borg_parse_null(st);
         bridge::borg_clear_reactions(st);
@@ -360,13 +360,13 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
 
     if st.borg.tr(BI_KING) != 0 {
         if st.cfg(BORG_STOP_KING) != 0 {
-            bridge::borg_write_map(st, false);
+            crate::borg_log::borg_write_map(st, false);
             bridge::borg_oops(st, "retire");
         }
         if st.cfg(BORG_RESPAWN_WINNERS) != 0 {
-            bridge::borg_write_map(st, false);
-            bridge::borg_log_death(st);
-            bridge::borg_log_death_data(st);
+            crate::borg_log::borg_write_map(st, false);
+            crate::borg_log::borg_log_death(st);
+            crate::borg_log::borg_log_death_data(st);
             borg_flush(st);
             crate::borg_reincarnate::borg_force_reincarnate(st);
             return false;
@@ -495,7 +495,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
 
     while !bridge::borg_think(st) {}
 
-    bridge::borg_display_status(st);
+    crate::borg_log::borg_display_status(st);
 
     st.core.rand_local = engine::rand_state().1;
     engine::set_rand_state(rand_quick, rand_value);

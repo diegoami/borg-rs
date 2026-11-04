@@ -36,6 +36,7 @@ pub mod borg_io;
 pub mod borg_item;
 pub mod borg_item_activation;
 pub mod borg_item_val;
+pub mod borg_log;
 pub mod borg_magic;
 pub mod borg_magic_play;
 pub mod borg_prepared;

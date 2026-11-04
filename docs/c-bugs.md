@@ -163,3 +163,19 @@ Format: file, function, (seed, turn when observed), explanation.
   looked for), so the home power reward for them is always 0. (The
   `num_brand_weapon` global is never written at all.)
 * Rust: all kept in `borg_home_notice.rs`.
+
+## 13. Log and status slips (log)
+
+* `borg-log.c`, found by code reading.
+* `borg_write_map()`: "Your hands are glowing dull red." tests
+  `TMD_CONFUSED` again (it meant a different timed effect), so a confused
+  Borg's map dump prints both lines. Seen in the full suite's death maps.
+* `borg_write_map(true)` (the `^z` map command, not in any suite): when the
+  file prompt is cancelled or the file cannot be opened, the file stays
+  NULL. `file_putf()` ignores a NULL file, but `file_put()` (the "Swap
+  ...: NONE" lines, with `borg_uses_swaps`) and the final `file_close()`
+  dereference it, so the game crashes.
+* `borg_display_status()`: for "Demon" and "Dragon" the slay's blue is
+  always overwritten (`if (WS) blue; if (WK) green; else slate;`), so a
+  plain slay shows as slate.
+* Rust (`borg_log.rs`): all kept; the NULL-file crash is a panic.

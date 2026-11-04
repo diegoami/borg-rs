@@ -727,3 +727,323 @@ pub fn obj_kind_can_browse(kind: usize) -> bool {
     // reads the kind and the player's class.
     unsafe { crate::headers::obj_util_h::obj_kind_can_browse(k) }
 }
+
+// ---------------------------------------------------------------------------
+// Writable files, paths and the clock (borg-log.c)
+
+/// How `file_open()` opens a file for writing.
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum WriteMode {
+    /// `MODE_WRITE`: create or truncate.
+    Write,
+    /// `MODE_APPEND`: create or append.
+    Append,
+}
+
+/// An engine file opened for writing by `file_open()` (`ang_file *`). Not
+/// `Copy`: `close()` consumes it. Dropping it without closing leaks it.
+pub struct OpenFile(*mut crate::headers::z_file_h::ang_file);
+
+/// `file_open(path, mode, FTYPE_TEXT)`; `None` where C gets NULL.
+pub fn file_open(path: &[u8], mode: WriteMode) -> Option<OpenFile> {
+    use crate::headers::z_file_h as z;
+    let c = CString::new(path).expect("no NUL in path");
+    let m = match mode {
+        WriteMode::Write => z::MODE_WRITE,
+        WriteMode::Append => z::MODE_APPEND,
+    };
+    // SAFETY: c is a valid C string for the call; the result is NULL or a
+    // file the engine allocated.
+    let f = unsafe { z::file_open(c.as_ptr(), m, z::FTYPE_TEXT) };
+    (!f.is_null()).then_some(OpenFile(f))
+}
+
+impl OpenFile {
+    /// `file_put(f, s)` (no NUL in `s`).
+    pub fn put(&mut self, s: &[u8]) -> bool {
+        let c = CString::new(s).expect("no NUL in file text");
+        // SAFETY: self.0 is open (only close() ends it, by value); c is a
+        // valid C string.
+        unsafe { crate::headers::z_file_h::file_put(self.0, c.as_ptr()) }
+    }
+
+    /// `file_close(f)`.
+    pub fn close(self) -> bool {
+        // SAFETY: self.0 is open and is not used again (self is consumed).
+        unsafe { crate::headers::z_file_h::file_close(self.0) }
+    }
+}
+
+/// `path_build(buf, len, ANGBAND_DIR_ARCHIVE, leaf)`: the path (bytes up
+/// to the NUL) as built in a buffer of `len` bytes.
+pub fn path_build_archive(len: usize, leaf: &[u8]) -> Vec<u8> {
+    assert!(len >= 1);
+    let leaf = CString::new(leaf).expect("no NUL in file name");
+    let mut buf = vec![0u8; len];
+    // SAFETY: buf has len bytes; ANGBAND_DIR_ARCHIVE is a C string set up
+    // at startup (or NULL, which path_build accepts); leaf is a C string.
+    unsafe {
+        crate::headers::z_file_h::path_build(
+            buf.as_mut_ptr() as *mut c_char,
+            len,
+            crate::headers::init_h::ANGBAND_DIR_ARCHIVE,
+            leaf.as_ptr(),
+        );
+    }
+    let n = buf.iter().position(|&b| b == 0).unwrap_or(len);
+    buf.truncate(n);
+    buf
+}
+
+/// `time(NULL)`.
+pub fn time_now() -> i64 {
+    // SAFETY: time() accepts a NULL out-pointer.
+    unsafe { crate::headers::time_h::time(core::ptr::null_mut()) }
+}
+
+/// `strftime(buf, max, fmt, localtime(&t))`: the bytes written (empty
+/// where strftime returns 0).
+pub fn strftime_local(t: i64, max: usize, fmt: &CStr) -> Vec<u8> {
+    let mut buf = vec![0u8; max];
+    // SAFETY: localtime reads t and returns its static struct (or NULL,
+    // checked); strftime writes at most max bytes into buf.
+    let n = unsafe {
+        let tm = crate::headers::time_h::localtime(&t);
+        assert!(!tm.is_null(), "localtime failed");
+        crate::headers::time_h::strftime(buf.as_mut_ptr() as *mut c_char, max, fmt.as_ptr(), tm)
+    };
+    buf.truncate(n);
+    buf
+}
+
+/// `quit_fmt("%s", text)`: end the game with a message. Never returns.
+pub fn quit(text: &[u8]) -> ! {
+    let c = CString::new(text).expect("no NUL in message");
+    // SAFETY: format string and argument are valid C strings.
+    unsafe { crate::headers::z_form_h::quit_fmt(c"%s".as_ptr(), c.as_ptr()) }
+    unreachable!("quit() returned")
+}
+
+/// `get_string(prompt, buf, len)`: let the player edit the NUL-terminated
+/// text in `buf` (at most `len` bytes, NUL included). False on escape.
+pub fn get_string(prompt: &CStr, buf: &mut [u8], len: usize) -> bool {
+    assert!(len >= 1 && len <= buf.len() && buf.contains(&0));
+    // SAFETY: buf is NUL-terminated and has at least len bytes; get_string
+    // writes at most len bytes.
+    unsafe {
+        crate::headers::game_input_h::get_string(
+            prompt.as_ptr(),
+            buf.as_mut_ptr() as *mut c_char,
+            len,
+        )
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Player summary, timed effects, objects (borg-log.c)
+
+/// The bytes of a C string from the game data ("" for NULL, as `strnfmt`
+/// prints it).
+fn c_bytes(p: *const c_char) -> &'static [u8] {
+    if p.is_null() {
+        return b"";
+    }
+    // SAFETY: non-NULL C strings passed here are game data (names) that
+    // live for the game.
+    unsafe { CStr::from_ptr(p).to_bytes() }
+}
+
+/// The bytes of a C char array up to its NUL.
+fn c_array_bytes(a: &[c_char]) -> Vec<u8> {
+    a.iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect()
+}
+
+/// The player fields that the death log and map dump print.
+#[derive(Clone, Debug)]
+pub struct PlayerSummary {
+    /// `player->full_name`
+    pub full_name: Vec<u8>,
+    /// `player->race->name` (NULL reads as "", as in `strnfmt`)
+    pub race_name: &'static [u8],
+    /// `player->class->name`
+    pub class_name: &'static [u8],
+    pub lev: i16,
+    pub max_lev: i16,
+    pub max_exp: i32,
+    pub max_depth: i16,
+    pub au: i32,
+    pub depth: i16,
+    /// `player->died_from`
+    pub died_from: Vec<u8>,
+    pub word_recall: i16,
+}
+
+/// Read the player's summary fields.
+pub fn player_summary() -> PlayerSummary {
+    let p = player_ref();
+    // SAFETY: race and class point into the static race/class lists (set
+    // at birth, live for the game).
+    let (race, class) = unsafe { ((*p.race).name, (*p.class).name) };
+    PlayerSummary {
+        full_name: c_array_bytes(&p.full_name),
+        race_name: c_bytes(race),
+        class_name: c_bytes(class),
+        lev: p.lev,
+        max_lev: p.max_lev,
+        max_exp: p.max_exp,
+        max_depth: p.max_depth,
+        au: p.au,
+        depth: p.depth,
+        died_from: c_array_bytes(&p.died_from),
+        word_recall: p.word_recall,
+    }
+}
+
+/// `player->timed[idx]` (idx < TMD_MAX).
+pub fn player_timed(idx: u32) -> i16 {
+    assert!(idx < crate::headers::player_timed_h::TMD_MAX, "timed index out of range");
+    // SAFETY: timed is allocated with TMD_MAX entries with the player.
+    unsafe { *player_ref().timed.add(idx as usize) }
+}
+
+/// `player_of_has(player, flag)`: an object flag on the player.
+pub fn player_of_has(flag: u32) -> bool {
+    // SAFETY: reads the player's state only.
+    unsafe {
+        crate::headers::player_util_h::player_of_has(crate::headers::player_h::player, flag as i32)
+    }
+}
+
+/// The game turn (`turn`).
+pub fn game_turn() -> i32 {
+    // SAFETY: plain global, engine thread.
+    unsafe { crate::headers::game_world_h::turn }
+}
+
+/// `object_desc(buf, 80, obj, mode, player)` (bytes up to the NUL).
+fn object_desc80(obj: *const crate::headers::object_h::object, mode: u32) -> Vec<u8> {
+    let mut buf = [0u8; 80];
+    // SAFETY: obj is NULL or a live object of the player or a store
+    // (callers); object_desc writes at most 80 bytes, NUL included.
+    unsafe {
+        crate::headers::obj_desc_h::object_desc(
+            buf.as_mut_ptr() as *mut c_char,
+            buf.len(),
+            obj,
+            mode,
+            crate::headers::player_h::player,
+        );
+    }
+    let n = buf.iter().position(|&b| b == 0).unwrap_or(buf.len());
+    buf[..n].to_vec()
+}
+
+/// `player->body.count`: the number of equipment slots.
+pub fn body_count() -> u16 {
+    player_ref().body.count
+}
+
+/// `object_desc()` of `player->body.slots[i].obj` (NULL: "(nothing)").
+pub fn equip_desc(i: usize, mode: u32) -> Vec<u8> {
+    let body = &player_ref().body;
+    assert!(i < usize::from(body.count), "equipment slot out of range");
+    // SAFETY: slots has body.count entries (checked).
+    let obj = unsafe { (*body.slots.add(i)).obj };
+    object_desc80(obj, mode)
+}
+
+/// `object_desc()` of `player->upkeep->quiver[i]` (i < quiver_size).
+pub fn quiver_desc(i: usize, mode: u32) -> Vec<u8> {
+    assert!(i < usize::from(z_info().quiver_size), "quiver slot out of range");
+    // SAFETY: the quiver is allocated with z_info->quiver_size entries
+    // with the player's upkeep.
+    let obj = unsafe { *(*player_ref().upkeep).quiver.add(i) };
+    object_desc80(obj, mode)
+}
+
+/// `store_stock_list(&stores[store], list, z_info->store_inven_max)`, then
+/// `object_desc()` of each list entry, in order.
+pub fn store_stock_descs(store: usize, mode: u32) -> Vec<Vec<u8>> {
+    let n = usize::from(z_info().store_inven_max);
+    assert!(store < usize::from(z_info().store_max), "store index out of range");
+    let mut list: Vec<*mut crate::headers::object_h::object> = vec![core::ptr::null_mut(); n];
+    // SAFETY: stores has store_max entries (checked); list has room for
+    // the n entries store_stock_list fills.
+    unsafe {
+        crate::headers::store_h::store_stock_list(
+            crate::headers::store_h::stores.add(store),
+            list.as_mut_ptr(),
+            n as i32,
+        );
+    }
+    list.iter().map(|&o| object_desc80(o, mode)).collect()
+}
+
+// ---------------------------------------------------------------------------
+// Map and messages (borg-log.c)
+
+/// `square_monster(cave, loc(x, y))->midx`, or `None` for no monster.
+pub fn square_monster_midx(x: i32, y: i32) -> Option<i32> {
+    // SAFETY: `cave` is the current level; callers stay inside the
+    // dungeon bounds; the result is NULL or a live monster.
+    unsafe {
+        let m = crate::headers::cave_h::square_monster(crate::headers::cave_h::cave, loc { x, y });
+        (!m.is_null()).then(|| (*m).midx)
+    }
+}
+
+/// `f_info[feat].d_char`.
+pub fn feat_d_char(feat: usize) -> wchar_t {
+    assert!(feat < crate::headers::cave_h::FEAT_MAX as usize, "feature index out of range");
+    // SAFETY: f_info is allocated with FEAT_MAX entries when the game data
+    // is loaded and lives for the game (index checked).
+    unsafe { (*crate::headers::cave_h::f_info.add(feat)).d_char }
+}
+
+/// `messages_num()`
+pub fn messages_num() -> u16 {
+    // SAFETY: plain call.
+    unsafe { crate::headers::message_h::messages_num() }
+}
+
+/// `message_str(age)` (bytes up to the NUL; "" for no such message).
+pub fn message_str(age: u16) -> Vec<u8> {
+    // SAFETY: message_str returns a string owned by the message list (or
+    // a literal); it is copied out at once.
+    unsafe { c_bytes(crate::headers::message_h::message_str(age)).to_vec() }
+}
+
+// ---------------------------------------------------------------------------
+// More terminal output (borg-log.c)
+
+/// `Term_putstr(x, y, n, a, s)` (no NUL in `s`).
+pub fn term_putstr(x: i32, y: i32, n: i32, a: i32, s: &[u8]) {
+    let c = CString::new(s).expect("no NUL in term text");
+    // SAFETY: c is a valid C string for the call.
+    unsafe {
+        crate::headers::ui_term_h::Term_putstr(x, y, n, a, c.as_ptr());
+    }
+}
+
+/// `Term_putch(x, y, a, c)`.
+pub fn term_putch(x: i32, y: i32, a: i32, c: wchar_t) {
+    // SAFETY: plain call on the active term.
+    unsafe {
+        crate::headers::ui_term_h::Term_putch(x, y, a, c);
+    }
+}
+
+/// `Term_clear()`.
+pub fn term_clear() {
+    // SAFETY: plain call on the active term.
+    unsafe {
+        crate::headers::ui_term_h::Term_clear();
+    }
+}
+
+/// `prt(s, row, col)` (no NUL in `s`).
+pub fn prt(s: &[u8], row: i32, col: i32) {
+    let c = CString::new(s).expect("no NUL in term text");
+    // SAFETY: c is a valid C string for the call.
+    unsafe { crate::headers::ui_output_h::prt(c.as_ptr(), row, col) }
+}
