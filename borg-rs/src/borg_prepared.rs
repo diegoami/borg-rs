@@ -37,7 +37,7 @@ use crate::headers::borg_trait_h::{
     BI_STR,
 };
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 const CLASS_WARRIOR: i32 = 0;
 const CLASS_MAGE: i32 = 1;
@@ -703,31 +703,31 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
     }
 
     // Scum on depth 80-81 for some *heal* potions
-    let home = bridge::prepared_home_heals(st);
+    let home = &st.home;
     if depth >= 82
-        && (i32::from(home.ezheal) + i32::from(home.life) < 10
+        && (i32::from(home.num_ezheal) + i32::from(home.num_life) < 10
             && st.borg.tr(BI_AEZHEAL) + st.borg.tr(BI_ALIFE) < 10)
     {
         // Must know exact number of Potions  in home
-        bridge::prepared_notice_home(st);
+        crate::borg_home_notice::borg_notice_home(st, None, false);
 
-        let home = bridge::prepared_home_heals(st);
+        let home = &st.home;
         return Some(Reason::Formatted(format!(
             "Scumming *Heal* potions ({} to go).",
-            10 - i32::from(home.ezheal)
+            10 - i32::from(home.num_ezheal)
         )));
     }
 
     // Scum on depth 80-81 for lots of *Heal* potions preparatory for Endgame
     if depth >= 82 && st.borg.tr(BI_MAXDEPTH) >= 97 {
         // Must know exact number of Potions  in home
-        bridge::prepared_notice_home(st);
+        crate::borg_home_notice::borg_notice_home(st, None, false);
 
         // Scum for 30
-        let home = bridge::prepared_home_heals(st);
-        let heals = i32::from(home.ezheal_true)
+        let home = &st.home;
+        let heals = i32::from(home.num_ezheal_true)
             + st.borg.tr(BI_AEZHEAL)
-            + i32::from(home.life_true)
+            + i32::from(home.num_life_true)
             + st.borg.tr(BI_ALIFE);
         if heals < 30 {
             return Some(Reason::Formatted(format!(
@@ -739,12 +739,12 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
         // Return to town to get your stock from the home
         if st.borg.tr(BI_AEZHEAL) + st.borg.tr(BI_ALIFE) < 30
             && heals >= 30
-            && home.ezheal_true >= 1
+            && home.num_ezheal_true >= 1
             && st.borg.tr(BI_MAXDEPTH) >= 99
         {
             return Some(Reason::Formatted(format!(
                 "Collect from house ({} potions).",
-                i32::from(home.ezheal_true) + i32::from(home.life_true)
+                i32::from(home.num_ezheal_true) + i32::from(home.num_life_true)
             )));
         }
     }

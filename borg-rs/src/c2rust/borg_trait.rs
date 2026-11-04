@@ -9,9 +9,7 @@ pub use crate::headers::__stddef_wchar_t_h::wchar_t;
 
 use crate::headers::borg_flow_kill_h::borg_race_death;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
-use crate::headers::borg_home_notice_h::{
-    borg_notice_home, num_ezheal_true, num_heal_true, num_life_true, num_speed,
-};
+use crate::headers::borg_home_notice_h::borg_notice_home;
 
 use crate::headers::borg_item_analyze_h::borg_obj_has_effect;
 pub use crate::headers::borg_item_h::{
@@ -4082,11 +4080,11 @@ pub unsafe extern "C" fn borg_notice(mut notice_swap: bool) {
         let mut total_big_heal: ::core::ffi::c_int = crate::bridge::st().borg.has[(crate::bridge::st().item_val.kv_potion_healing) as usize];
         total_big_heal += crate::bridge::st().borg.trait_[(BI_AEZHEAL as ::core::ffi::c_int) as usize];
         total_big_heal += crate::bridge::st().borg.trait_[(BI_ALIFE as ::core::ffi::c_int) as usize];
-        total_big_heal += num_heal_true as ::core::ffi::c_int;
-        total_big_heal += num_ezheal_true as ::core::ffi::c_int;
-        total_big_heal += num_life_true as ::core::ffi::c_int;
+        total_big_heal += crate::bridge::st().home.num_heal_true as ::core::ffi::c_int;
+        total_big_heal += crate::bridge::st().home.num_ezheal_true as ::core::ffi::c_int;
+        total_big_heal += crate::bridge::st().home.num_life_true as ::core::ffi::c_int;
         if total_big_heal < 30 as ::core::ffi::c_int
-            || num_speed as ::core::ffi::c_int
+            || crate::bridge::st().home.num_speed as ::core::ffi::c_int
                 + crate::bridge::st().borg.trait_[(BI_ASPEED as ::core::ffi::c_int) as usize]
                 < 15 as ::core::ffi::c_int
         {

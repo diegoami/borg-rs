@@ -685,3 +685,45 @@ pub fn file_getl(f: AngFile, buf: &mut [u8], len: usize) -> bool {
     // `len` bytes into buf.
     unsafe { crate::headers::z_file_h::file_getl(f.0, buf.as_mut_ptr() as *mut c_char, len) }
 }
+
+// ---------------------------------------------------------------------------
+// Flags, player flags and race resistances
+
+/// `flag_has(flags, size, flag)` (z-bitflag.c) on a whole flag array; the
+/// function behind `of_has`, `kf_has`, `rf_has` and friends.
+pub fn flag_has(flags: &[u8], flag: i32) -> bool {
+    // SAFETY: flag_has reads one byte below the size given (it asserts the
+    // flag's offset is in range), and the size is the slice length.
+    unsafe { crate::headers::z_bitflag_h::flag_has(flags.as_ptr(), flags.len(), flag) }
+}
+
+/// `OF_SIZE`: bytes in an object flag set.
+pub const OF_SIZE: usize = 5;
+
+/// `player_flags(player, f)`: the player's race and class object flags.
+pub fn player_flags() -> [u8; OF_SIZE] {
+    let mut f = [0u8; OF_SIZE];
+    // SAFETY: `player` lives for the game; player_flags writes exactly
+    // OF_SIZE bytes into f (a copy of the race's flags, then unions).
+    unsafe {
+        crate::headers::player_h::player_flags(crate::headers::player_h::player, f.as_mut_ptr())
+    };
+    f
+}
+
+/// `player->race->el_info[elem].res_level`.
+pub fn player_race_res_level(elem: u32) -> i16 {
+    // SAFETY: the race is set at birth and points into the race table,
+    // which lives for the game.
+    let race = unsafe { &*player_ref().race };
+    race.el_info[elem as usize].res_level
+}
+
+/// `obj_kind_can_browse(&k_info[kind])`: the player's class can browse
+/// books of this kind.
+pub fn obj_kind_can_browse(kind: usize) -> bool {
+    let k: *const ObjectKind = &k_info()[kind];
+    // SAFETY: k points into k_info (index checked above); the callee only
+    // reads the kind and the player's class.
+    unsafe { crate::headers::obj_util_h::obj_kind_can_browse(k) }
+}

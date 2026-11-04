@@ -11,6 +11,7 @@ use crate::borg_cave_light::LightState;
 use crate::borg_cave_view::ViewState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
+use crate::borg_home_notice::HomeState;
 use crate::borg_io::IoState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
@@ -34,6 +35,8 @@ pub struct BorgState {
     pub formulas: FormulasState,
     /// borg-formulas-calc.c: `calculations`
     pub formulas_calc: CalcState,
+    /// borg-home-notice.c: the home counters (`num_*`, `home_*`)
+    pub home: HomeState,
     /// borg-io.c
     pub io: IoState,
     /// borg-item-activation.c: `act_*`

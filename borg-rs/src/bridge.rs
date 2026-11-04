@@ -520,51 +520,53 @@ pub mod magic {
     }
 }
 
-/// Read-only accessors for the home counters filled by `borg_notice_home()`
-/// (still c2rust, borg-home-notice.c). Transitional: they go away when
-/// borg_home_notice converts. Each copies the `int16_t` global out, widened
-/// to `i32` as C's integer promotion does.
+/// A copy of `borg_shops[shop].ware[i]` (still c2rust, borg-store.c).
+/// Transitional, like `item()`; the copy's `note` field is a raw C string
+/// pointer that safe code must not dereference.
+pub fn shop_item(
+    _st: &mut BorgState,
+    shop: usize,
+    i: usize,
+) -> crate::headers::borg_item_h::borg_item {
+    let z = crate::engine::z_info();
+    assert!(shop < usize::from(z.store_max) && i < usize::from(z.store_inven_max));
+    // SAFETY: borg_init_store() allocates z_info->store_max shops, each
+    // with z_info->store_inven_max wares, before the Borg runs (checked
+    // non-null); the indices are checked above.
+    unsafe {
+        let shops = crate::c2rust::borg_store::borg_shops;
+        assert!(!shops.is_null(), "borg_shops not allocated");
+        let ware = (*shops.add(shop)).ware;
+        assert!(!ware.is_null(), "borg_shops ware not allocated");
+        *ware.add(i)
+    }
+}
+
+/// `borg_calc_blows(item)` (still c2rust, borg-trait.c).
+pub fn borg_calc_blows(_st: &mut BorgState, item: &crate::headers::borg_item_h::borg_item) -> i32 {
+    let mut copy = *item;
+    // SAFETY: the callee only reads the item (a local copy), the player
+    // and the Borg's traits.
+    unsafe { crate::c2rust::borg_trait::borg_calc_blows(&mut copy) }
+}
+
+/// `borg_equips_item(activation, check_charge)` (still c2rust,
+/// borg-item-use.c).
+pub fn borg_equips_item(_st: &mut BorgState, activation: i32, check_charge: bool) -> bool {
+    // SAFETY: plain call into transitional c2rust code (it reads
+    // borg.activation and the equipment).
+    unsafe { crate::c2rust::borg_item_use::borg_equips_item(activation, check_charge) }
+}
+
+/// C-ABI shims with the borg-home-notice.c names.
 pub mod home_notice {
-    use crate::state::BorgState;
+    use super::st;
+    use crate::headers::borg_item_h::borg_item;
 
-    macro_rules! counters {
-        ($($name:ident),* $(,)?) => {
-            $(
-                #[doc = concat!("`", stringify!($name), "`")]
-                pub fn $name(_st: &mut BorgState) -> i32 {
-                    // SAFETY: plain read of an int16_t global; Borg thread.
-                    unsafe { i32::from(crate::c2rust::borg_home_notice::$name) }
-                }
-            )*
-        };
-    }
-
-    counters!(
-        num_LIGHT, num_slow_digest, num_regenerate, num_telepathy, num_see_inv, num_ffall,
-        num_free_act, num_hold_life, num_resist_acid, num_immune_acid, num_resist_elec,
-        num_immune_elec, num_resist_fire, num_immune_fire, num_resist_cold, num_immune_cold,
-        num_resist_pois, num_resist_conf, num_resist_sound, num_resist_LIGHT, num_resist_dark,
-        num_resist_chaos, num_resist_disen, num_resist_shard, num_resist_nexus, num_resist_blind,
-        num_resist_neth, num_sustain_str, num_sustain_int, num_sustain_wis, num_sustain_con,
-        num_sustain_dex, num_sustain_all, num_weapons, num_bow, num_rings, num_neck, num_armor,
-        num_cloaks, num_shields, num_hats, num_gloves, num_boots, home_damage, num_edged_weapon,
-        num_bad_gloves, num_duplicate_items, num_food, num_ident, num_enchant_to_a,
-        num_enchant_to_h, num_enchant_to_d, num_pfe, num_glyph, num_genocide, num_mass_genocide,
-        num_recharge, num_pot_rheat, num_pot_rcold, num_recall, num_escape, num_tele_staves,
-        num_teleport, num_phase, num_mana, num_heal, num_cure_critical, num_ezheal, num_life,
-        num_cure_serious, num_fix_exp, num_artifact, num_ego, home_un_id,
-    );
-
-    /// `num_book[book]` (panics if `book >= 9`).
-    pub fn num_book(_st: &mut BorgState, book: usize) -> i32 {
-        // SAFETY: plain read of an int16_t global array; Borg thread.
-        unsafe { i32::from(crate::c2rust::borg_home_notice::num_book[book]) }
-    }
-
-    /// `home_stat_add[stat]` (panics if `stat >= STAT_MAX`).
-    pub fn home_stat_add(_st: &mut BorgState, stat: usize) -> i32 {
-        // SAFETY: plain read of an int16_t global array; Borg thread.
-        unsafe { i32::from(crate::c2rust::borg_home_notice::home_stat_add[stat]) }
+    /// `in_item` may be NULL; it is only read (copied first).
+    pub unsafe extern "C" fn borg_notice_home(in_item: *mut borg_item, no_items: bool) {
+        let copy = if in_item.is_null() { None } else { Some(*in_item) };
+        crate::borg_home_notice::borg_notice_home(st(), copy.as_ref(), no_items)
     }
 }
 
@@ -584,39 +586,6 @@ pub mod magic_play {
     pub unsafe extern "C" fn borg_play_magic(bored: bool) -> bool {
         crate::borg_magic_play::borg_play_magic(st(), bored)
     }
-}
-
-/// The home's *Heal*/Life potion counts from borg-home-notice.c (still
-/// c2rust), for borg_prepared: `num_ezheal`, `num_life`,
-/// `num_ezheal_true`, `num_life_true`.
-#[derive(Clone, Copy, Debug)]
-pub struct PreparedHomeHeals {
-    pub ezheal: i16,
-    pub life: i16,
-    pub ezheal_true: i16,
-    pub life_true: i16,
-}
-
-/// Read the home's heal potion counts (borg-home-notice.c globals).
-pub fn prepared_home_heals(_st: &mut BorgState) -> PreparedHomeHeals {
-    use crate::c2rust::borg_home_notice as h;
-    // SAFETY: plain reads of C-style integer globals (single-threaded).
-    unsafe {
-        PreparedHomeHeals {
-            ezheal: h::num_ezheal,
-            life: h::num_life,
-            ezheal_true: h::num_ezheal_true,
-            life_true: h::num_life_true,
-        }
-    }
-}
-
-/// `borg_notice_home(NULL, false)` (still c2rust, borg-home-notice.c),
-/// for borg_prepared.
-pub fn prepared_notice_home(_st: &mut BorgState) {
-    // SAFETY: a NULL item means "no extra item"; the callee only touches
-    // the Borg's own globals and state.
-    unsafe { crate::c2rust::borg_home_notice::borg_notice_home(core::ptr::null_mut(), false) }
 }
 
 /// C-ABI shims with the borg-prepared.c names.

@@ -151,3 +151,15 @@ Format: file, function, (seed, turn when observed), explanation.
   The random name is still made for the race meant. Seen in local respawn
   runs (seed 1011: race 8 chosen, a Half-Troll with a human name rolled).
 * Rust: kept (`engine::all_letters`) in `borg_reincarnate.rs`.
+## 12. Home notice: item sustains all count as STR; banishment never counted
+
+* `borg-home-notice.c`, `borg_notice_home_aux()`, by code reading (any run
+  that keeps or wears a sustain item reaches the first part).
+* Sustains on items: the five `of_has(item->flags, OF_SUST_*)` tests all
+  add to `num_sustain_str`, so `num_sustain_int/wis/dex/con` only ever count
+  the player's own race/class sustains (added at the end with `rf_has`),
+  and `borg_power_home()` sees too many STR sustains.
+* `num_genocide` is reset but never counted (scrolls of Banishment are not
+  looked for), so the home power reward for them is always 0. (The
+  `num_brand_weapon` global is never written at all.)
+* Rust: all kept in `borg_home_notice.rs`.

@@ -15,7 +15,6 @@ pub mod borg_flow_kill;
 pub mod borg_flow_misc;
 pub mod borg_flow_stairs;
 pub mod borg_flow_take;
-pub mod borg_home_notice;
 pub mod borg_init;
 pub mod borg_inventory;
 pub mod borg_item;
