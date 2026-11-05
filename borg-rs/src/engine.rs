@@ -1183,6 +1183,31 @@ pub fn feat_shopnum(feat: usize) -> u8 {
     unsafe { (*crate::headers::cave_h::f_info.add(feat)).shopnum }
 }
 
+/// `f_info[stores[store].feat].name` (bytes up to the NUL).
+pub fn store_feat_name(store: usize) -> Vec<u8> {
+    assert!(store < usize::from(z_info().store_max), "store index out of range");
+    // SAFETY: stores has store_max entries (checked); each store's feature
+    // is a valid f_info index whose name is a NUL-terminated string set
+    // when the game data is loaded.
+    unsafe {
+        let feat = (*crate::headers::store_h::stores.add(store)).feat;
+        assert!(
+            (0..crate::headers::cave_h::FEAT_MAX as i32).contains(&feat),
+            "feature out of range"
+        );
+        let name = (*crate::headers::cave_h::f_info.add(feat as usize)).name;
+        std::ffi::CStr::from_ptr(name).to_bytes().to_vec()
+    }
+}
+
+/// `square_shopnum(cave, player->grid)`: the store at the player's grid,
+/// or -1.
+pub fn player_square_shopnum() -> i32 {
+    // SAFETY: `cave` is the current level and the player's grid is inside
+    // it; the call only reads the square.
+    unsafe { crate::headers::cave_h::square_shopnum(headers::cave_h::cave, player_ref().grid) }
+}
+
 /// `player->opts.opt[opt]` (the `OPT(player, ...)` macro).
 pub fn player_opt(opt: u32) -> bool {
     player_ref().opts.opt[opt as usize]

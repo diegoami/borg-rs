@@ -664,3 +664,18 @@ Format: file, function, (seed, turn when observed), explanation.
   known floor grid without a monster, or in range of the spell; it ignores
   the result of `borg_spell()`.
 * Rust (`borg_escape.rs`): all kept.
+## 36. Shop choice slips (think store)
+
+* `borg-think-store.c`, found by code reading.
+* `borg_choose_shop()`: "If poisoned or bleeding -- flow to temple"
+  (`goal.shop = 3`) and "flow to general store" (`goal.shop = 0`) have no
+  effect on the choice: none of the buy/sell helpers reads `goal.shop`, and
+  unless one of them sets a ware the next step resets
+  `goal.shop = goal.ware = goal.item = -1`. They matter only if
+  `goal.ware != -1` came in with `goal.shop == -1`: then
+  `borg_think_shop_buy_useful()` returns false at once ("already have a
+  target") and the second "already flowing" test returns true with the
+  forced shop and the stale ware.
+* The money-scumming test repeats `!borg.trait[BI_CDEPTH]`, already
+  returned on at the top of the function.
+* Rust (`borg_think_store.rs`): all kept.

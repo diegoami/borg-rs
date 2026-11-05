@@ -1271,8 +1271,7 @@ pub fn bought_item(st: &mut BorgState, i: usize) -> BoughtItem {
 }
 
 /// C-ABI shims with the borg-store-sell.c names, for c2rust callers
-/// (borg_think_store, borg_store_buy, borg_think_dungeon,
-/// borg_think_dungeon_util, borg_caution).
+/// (borg_think_dungeon, borg_think_dungeon_util, borg_caution).
 pub mod store_sell {
     use super::st;
     use crate::borg_store_sell as s;
@@ -1284,21 +1283,6 @@ pub mod store_sell {
     pub unsafe extern "C" fn borg_min_item_quantity(item: *mut borg_item) -> c_int {
         let copy = *item;
         s::borg_min_item_quantity(st(), &copy)
-    }
-    /// `best_home_power` points to the caller's variable; it is written
-    /// only where C writes it (not on the early "home and pack full"
-    /// return).
-    pub unsafe extern "C" fn borg_think_home_sell_useful(best_home_power: *mut i32) -> bool {
-        let mut v = *best_home_power;
-        let r = s::borg_think_home_sell_useful(st(), &mut v);
-        *best_home_power = v;
-        r
-    }
-    pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
-        s::borg_think_shop_sell_useless(st())
-    }
-    pub unsafe extern "C" fn borg_think_shop_sell() -> bool {
-        s::borg_think_shop_sell(st())
     }
     pub unsafe extern "C" fn borg_count_sell() -> c_int {
         s::borg_count_sell(st())
@@ -1394,12 +1378,6 @@ pub mod store {
     use super::st;
     use crate::borg_store as s;
 
-    pub unsafe extern "C" fn borg_home_full() -> bool {
-        s::borg_home_full(st())
-    }
-    pub unsafe extern "C" fn borg_inventory_full() -> bool {
-        s::borg_inventory_full(st())
-    }
     pub unsafe extern "C" fn borg_notice_store() {
         s::borg_notice_store(st())
     }
@@ -1607,8 +1585,39 @@ pub fn shop_num(st: &mut BorgState) -> i16 {
     r
 }
 
+/// `shop_num = v` (still c2rust, borg-think.c).
+pub fn set_shop_num(st: &mut BorgState, v: i16) {
+    escape(st);
+    // SAFETY: plain write of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_think::shop_num = v };
+    escape(st);
+}
+
+/// `borg_do_spell = v` (still c2rust, borg-think.c): recheck the spells
+/// at the next `borg_notice`.
+pub fn set_borg_do_spell(st: &mut BorgState, v: bool) {
+    escape(st);
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_think::borg_do_spell = v };
+    escape(st);
+}
+
+/// C-ABI shims with the borg-think-store.c names, for c2rust callers
+/// (borg_think, borg_think_dungeon).
+pub mod think_store {
+    use super::st;
+    use crate::borg_think_store as t;
+
+    pub unsafe extern "C" fn borg_choose_shop() -> bool {
+        t::borg_choose_shop(st())
+    }
+    pub unsafe extern "C" fn borg_think_store() -> bool {
+        t::borg_think_store(st())
+    }
+}
+
 /// C-ABI shims with the borg-item-wear.c names, for c2rust callers
-/// (borg_think_dungeon, borg_think_dungeon_util, borg_think_store,
+/// (borg_think_dungeon, borg_think_dungeon_util,
 /// borg_caution, borg_trait, borg_update, borg_commands, borg_init).
 pub mod item_wear {
     use super::st;
@@ -1629,9 +1638,6 @@ pub mod item_wear {
     }
     pub unsafe extern "C" fn borg_wear_stuff() -> bool {
         w::borg_wear_stuff(st())
-    }
-    pub unsafe extern "C" fn borg_best_stuff() -> bool {
-        w::borg_best_stuff(st())
     }
     pub unsafe extern "C" fn borg_clear_best() {
         w::borg_clear_best(st())
@@ -2006,35 +2012,6 @@ pub fn set_trait_swaps(st: &mut BorgState, v: (i32, i32, i32, i32)) {
         t::armour_swap_value = v.3;
     }
     escape(st);
-}
-
-/// C-ABI shims with the borg-store-buy.c names, for c2rust callers
-/// (borg_think_store).
-pub mod store_buy {
-    use super::st;
-    use crate::borg_store_buy as b;
-
-    pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
-        b::borg_think_shop_buy_useful(st())
-    }
-    pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
-        b::borg_think_home_buy_useful(st())
-    }
-    pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
-        b::borg_think_shop_grab_interesting(st())
-    }
-    pub unsafe extern "C" fn borg_think_home_grab_useless() -> bool {
-        b::borg_think_home_grab_useless(st())
-    }
-    pub unsafe extern "C" fn borg_think_home_buy_swap_weapon() -> bool {
-        b::borg_think_home_buy_swap_weapon(st())
-    }
-    pub unsafe extern "C" fn borg_think_home_buy_swap_armour() -> bool {
-        b::borg_think_home_buy_swap_armour(st())
-    }
-    pub unsafe extern "C" fn borg_think_shop_buy() -> bool {
-        b::borg_think_shop_buy(st())
-    }
 }
 
 /// C-ABI shims with the borg-escape.c names, for c2rust callers.
