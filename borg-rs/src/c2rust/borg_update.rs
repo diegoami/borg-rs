@@ -28,12 +28,7 @@ pub use crate::headers::borg_flow_h::{
     borg_can_dig, borg_data, borg_data_cost, borg_data_flow, borg_data_hard, borg_data_icky,
     borg_data_know, borg_ddx_ddd, borg_ddy_ddd, borg_track, track_closed, track_door, track_step,
 };
-pub use crate::headers::borg_flow_kill_h::{
-    borg_count_death, borg_create_kill, borg_delete_kill, borg_follow_kill, borg_kill, borg_kills,
-    borg_kills_cnt, borg_kills_nxt, borg_locate_kill, borg_nasties, borg_nasties_count,
-    borg_nasties_num, borg_race_count, borg_race_death, borg_race_name, borg_sleep_kill,
-    observe_kill_diff, observe_kill_move,
-};
+pub use crate::headers::borg_flow_kill_h::{borg_count_death, borg_create_kill, borg_delete_kill, borg_follow_kill, borg_kill, borg_locate_kill, borg_race_name, borg_sleep_kill, observe_kill_diff, observe_kill_move};
 use crate::headers::borg_flow_misc_h::{track_shop_x, track_shop_y, track_vein};
 use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_flow_take_h::{borg_delete_take, borg_follow_take, borg_take, observe_take_diff, observe_take_move};
@@ -665,7 +660,7 @@ unsafe extern "C" fn borg_fear_grid(
     }
     ag = crate::bridge::grid(x, y)
         as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     if crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         == 50 as ::core::ffi::c_int
     {
@@ -1529,8 +1524,8 @@ pub unsafe extern "C" fn borg_update() {
     borg_alloc_detection();
     let mut current_block_16: u64;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             (*kill).seen = false_0 != 0;
             (*kill).used = false_0 != 0;
@@ -2035,8 +2030,8 @@ pub unsafe extern "C" fn borg_update() {
         crate::bridge::st().takes.nxt = 1 as int16_t;
         /* memset(borg_takes, 0, 256 * sizeof(borg_take)) */
         crate::bridge::st().takes.takes.fill(borg_take::default());
-        borg_kills_cnt = 0 as int16_t;
-        borg_kills_nxt = 1 as int16_t;
+        crate::bridge::st().kills.cnt = 0 as int16_t;
+        crate::bridge::st().kills.nxt = 1 as int16_t;
         crate::bridge::st().borg.near.morgoth = false_0 != 0;
         if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             >= 100 as ::core::ffi::c_int
@@ -2047,23 +2042,15 @@ pub unsafe extern "C" fn borg_update() {
             borg_needs_new_sea = true_0 != 0;
         }
         i = 0 as ::core::ffi::c_int;
-        while i < borg_nasties_num as ::core::ffi::c_int {
-            borg_nasties_count[i as usize] = 0 as uint8_t;
-            if borg_nasties[i as usize] as ::core::ffi::c_int == 'Z' as i32 {
-                borg_nasties_count[i as usize] = 25 as uint8_t;
+        while i < crate::bridge::st().kills.nasties_num as ::core::ffi::c_int {
+            crate::bridge::st().kills.nasties_count[i as usize] = 0 as uint8_t;
+            if crate::bridge::st().kills.nasties[i as usize] as ::core::ffi::c_int == 'Z' as i32 {
+                crate::bridge::st().kills.nasties_count[i as usize] = 25 as uint8_t;
             }
             i += 1;
         }
-        memset(
-            borg_kills as *mut ::core::ffi::c_void,
-            0 as ::core::ffi::c_int,
-            (256 as size_t).wrapping_mul(::core::mem::size_of::<borg_kill>() as size_t),
-        );
-        memset(
-            borg_race_count as *mut ::core::ffi::c_void,
-            0 as ::core::ffi::c_int,
-            ((*z_info).r_max as size_t).wrapping_mul(::core::mem::size_of::<int16_t>() as size_t),
-        );
+        crate::bridge::st().kills.kills.fill(crate::borg_flow_kill::BorgKill::BLANK);
+        crate::bridge::st().kills.race_count.fill(0);
         crate::bridge::st().prepared.numb_live_unique = 0 as ::core::ffi::c_int;
         crate::bridge::st().prepared.first_living_unique = 0 as ::core::ffi::c_uint;
         crate::bridge::st().prepared.depth_hunted_unique = 0 as ::core::ffi::c_int;
@@ -2093,9 +2080,9 @@ pub unsafe extern "C" fn borg_update() {
                     RF_UNIQUE as ::core::ffi::c_int,
                 ) {
                     if (*r_ptr).max_num as ::core::ffi::c_int == 0 as ::core::ffi::c_int {
-                        *borg_race_death.offset(u_i as isize) = 1 as int16_t;
+                        crate::bridge::st().kills.race_death[(u_i) as usize] = 1 as int16_t;
                     }
-                    if !(*borg_race_death.offset(u_i as isize) as ::core::ffi::c_int
+                    if !(crate::bridge::st().kills.race_death[(u_i) as usize] as ::core::ffi::c_int
                         != 0 as ::core::ffi::c_int)
                     {
                         if !(flag_has(
@@ -2362,9 +2349,9 @@ pub unsafe extern "C" fn borg_update() {
         borg_do_update_lite = false_0 != 0;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill_0: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill_0 = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill_0 = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill_0).r_idx == 0) {
             if !flag_has(
                 &raw mut (*r_info.offset((*kill_0).r_idx as isize)).flags as *mut bitflag,
@@ -2759,8 +2746,8 @@ pub unsafe extern "C" fn borg_update() {
         i += 1;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill_1: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill_1: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill_1).r_idx == 0) {
             if !((*kill_1).when == crate::bridge::st().borg.time.now) {
                 if !(*kill_1).seen {
@@ -2778,9 +2765,9 @@ pub unsafe extern "C" fn borg_update() {
     }
     crate::bridge::st().borg.mon.breeders = 0 as uint16_t;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut p: ::core::ffi::c_int = 0;
-        let mut kill_2: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        let mut kill_2: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         let mut r_ptr_0: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
         monster_in_vault = false_0 != 0;
         if !((*kill_2).r_idx == 0) {

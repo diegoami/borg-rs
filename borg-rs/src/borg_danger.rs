@@ -16,7 +16,7 @@
 //!
 //! Integer semantics: all of the danger arithmetic is C `int` (i32), with
 //! C's truncating division; `ac` is an `int16_t`. The monster comes from
-//! `borg_kills` (still c2rust, borg-flow-kill.c), copied once per monster,
+//! `borg_kills` (`st.kills`, borg-flow-kill.c), copied once per monster,
 //! and its race from the engine's `r_info`.
 
 use crate::borg_cave::{BorgGrid, AUTO_MAX_X, AUTO_MAX_Y};
@@ -26,7 +26,7 @@ use crate::borg_magic::{borg_spell_legal, borg_spell_stat};
 use crate::borg_projection::{borg_distance, borg_projectable, borg_projectable_pure};
 // the MONBLOW_* blow effects (borg-danger.h)
 use crate::headers::borg_danger_h::*;
-use crate::headers::borg_flow_kill_h::borg_kill;
+use crate::borg_flow_kill::BorgKill;
 use crate::headers::borg_magic_h::{REMEMBRANCE, RESTORATION, REVITALIZE, UNHOLY_REPRIEVE};
 use crate::headers::borg_trait_h::{
     BI_AFUEL, BI_ARMOR, BI_CCON, BI_CDEPTH, BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR,
@@ -125,7 +125,7 @@ impl SpellFlags {
 }
 
 /// `rf_has(r_info[kill->r_idx].flags, flag)`
-fn rf(kill: &borg_kill, flag: u32) -> bool {
+fn rf(kill: &BorgKill, flag: u32) -> bool {
     engine::race_flag_has(usize::from(kill.r_idx), flag)
 }
 
@@ -135,7 +135,7 @@ fn inven_light() -> usize {
 }
 
 /// Does protection from evil work against this monster?
-fn pfe_applies(st: &BorgState, kill: &borg_kill) -> bool {
+fn pfe_applies(st: &BorgState, kill: &BorgKill) -> bool {
     let r_ptr = &engine::r_info()[usize::from(kill.r_idx)];
     st.borg.temp.prot_from_evil && rf(kill, RF_EVIL) && st.borg.tr(BI_CLEVEL) >= r_ptr.level
 }
@@ -150,7 +150,7 @@ fn pfe_applies(st: &BorgState, kill: &borg_kill) -> bool {
 /// PFE reduces my fear of an area.
 fn borg_danger_physical(
     st: &mut BorgState,
-    kill: &borg_kill,
+    kill: &BorgKill,
     flags: SpellFlags,
     full_damage: bool,
 ) -> i32 {
@@ -684,7 +684,7 @@ fn borg_danger_physical(
 /// (C repeats this loop in every summon case). `spot_safe` is shared by
 /// all the spells of one monster, as in C. (C also leaves the function's
 /// `x`/`y` parameters at the last grid scanned; they are not read again.)
-fn count_safe_spots(st: &BorgState, kill: &borg_kill, spot_safe: &mut i32) {
+fn count_safe_spots(st: &BorgState, kill: &BorgKill, spot_safe: &mut i32) {
     for spot_x in -1..=1 {
         for spot_y in -1..=1 {
             // Acquire location
@@ -729,7 +729,7 @@ fn count_safe_spots(st: &BorgState, kill: &borg_kill, spot_safe: &mut i32) {
 /// We reduce the danger if the monster is immobile or not LOS
 fn borg_danger_spell(
     st: &mut BorgState,
-    kill: &borg_kill,
+    kill: &BorgKill,
     flags: SpellFlags,
     y: i32,
     x: i32,
@@ -1972,7 +1972,7 @@ fn wall_like(feat: u32, granite_or_more: bool) -> bool {
 }
 
 /// The monster's sleep 2 spell condition on its level (v1 part).
-fn sleepable(st: &BorgState, kill: &borg_kill) -> bool {
+fn sleepable(st: &BorgState, kill: &BorgKill) -> bool {
     !rf(kill, RF_NO_SLEEP)
         && !rf(kill, RF_UNIQUE)
         && i32::from(kill.level) <= st.borg.tr(BI_CLEVEL) - 15
@@ -2005,7 +2005,7 @@ pub fn borg_danger_one_kill(
     average: bool,
     full_damage: bool,
 ) -> i32 {
-    let kill = bridge::borg_kill(st, i as usize);
+    let kill = st.kills.kills[i as usize];
     danger_one_kill(st, &kill, y, x, c, i, average, full_damage)
 }
 
@@ -2013,7 +2013,7 @@ pub fn borg_danger_one_kill(
 #[allow(clippy::too_many_arguments)]
 fn danger_one_kill(
     st: &mut BorgState,
-    kill: &borg_kill,
+    kill: &BorgKill,
     y: i32,
     x: i32,
     c: i32,
@@ -2500,7 +2500,7 @@ fn danger_one_kill(
 
 /// The crush spell condition: the monster dies (less than 4x the borg's
 /// level in hit points) and is in view on a floor grid.
-fn crushable(st: &BorgState, kill: &borg_kill) -> bool {
+fn crushable(st: &BorgState, kill: &BorgKill) -> bool {
     // Either it dies or it doesn't.  For it to die it must have less
     // than 4x the borgs leve in hp and be in view.
     // So power(total hp) times (100-injury(percent injured)) divided by 100
@@ -2569,8 +2569,8 @@ pub fn borg_danger(
     let full_damage = true;
 
     // Examine all the monsters
-    for i in 1..i32::from(bridge::borg_kills_nxt(st)) {
-        let kill = bridge::borg_kill(st, i as usize);
+    for i in 1..i32::from(st.kills.nxt) {
+        let kill = st.kills.kills[i as usize];
 
         // Skip dead monsters
         if kill.r_idx == 0 {

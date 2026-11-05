@@ -183,7 +183,7 @@ pub fn borg_follow_take(st: &mut BorgState, i: i32) {
     /* Some monsters won't take or crush items */
     let kill = st.cave.grid(gx, gy).kill;
     if kill != 0 {
-        let r_idx = usize::from(bridge::borg_kill(st, usize::from(kill)).r_idx);
+        let r_idx = usize::from(st.kills.kills[usize::from(kill)].r_idx);
         if !engine::race_flag_has(r_idx, RF_TAKE_ITEM)
             && !engine::race_flag_has(r_idx, RF_KILL_ITEM)
         {
@@ -610,7 +610,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, x, y);
+        bridge::borg_temp_push(st, y, x);
     }
 
     /* Nothing to take */
@@ -694,7 +694,7 @@ fn scum_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, x, y);
+        bridge::borg_temp_push(st, y, x);
     }
 
     /* Nothing to take */
@@ -883,7 +883,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, x, y);
+        bridge::borg_temp_push(st, y, x);
     }
 
     /* Nothing to take */

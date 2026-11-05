@@ -16,9 +16,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 use crate::headers::borg_danger_h::{borg_danger};
 pub use crate::headers::borg_flow_h::borg_track;
-pub use crate::headers::borg_flow_kill_h::{
-    borg_kill, borg_kills, borg_kills_nxt, borg_race_death, borg_shoot_scoot_safe,
-};
+pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_shoot_scoot_safe};
 use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
@@ -188,7 +186,7 @@ pub unsafe extern "C" fn borg_recall() -> bool {
                         >= 80 as ::core::ffi::c_int
                         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                             < 100 as ::core::ffi::c_int
-                        && *borg_race_death.offset(crate::bridge::st().borg.id.sauron as isize) as ::core::ffi::c_int
+                        && crate::bridge::st().kills.race_death[(crate::bridge::st().borg.id.sauron) as usize] as ::core::ffi::c_int
                             != 0 as ::core::ffi::c_int
                     {
                         borg_note(
@@ -256,8 +254,8 @@ pub unsafe extern "C" fn borg_surrounded() -> bool {
     let mut d: ::core::ffi::c_int = 0;
     let mut i: ::core::ffi::c_int = 0;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int

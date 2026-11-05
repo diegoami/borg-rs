@@ -3,7 +3,7 @@ pub const false_0: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
 
 pub use crate::headers::__stddef_size_t_h::size_t;
 pub use crate::headers::__stddef_wchar_t_h::wchar_t;
-use crate::headers::borg_flow_kill_h::borg_race_death;
+
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_inventory_h::borg_wield_slot;
 pub use crate::headers::borg_item_h::{borg_item, C2RustUnnamedH_44, BORG_CURSE_AIR_SWING, BORG_CURSE_ANNOYANCE, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_BURNING_UP, BORG_CURSE_CHILLED_TO_THE_BONE, BORG_CURSE_CLUMSINESS, BORG_CURSE_COWARDICE, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON, BORG_CURSE_DULLNESS, BORG_CURSE_ENVELOPING, BORG_CURSE_HALLUCINATION, BORG_CURSE_IMPAIR_HITPOINT_RECOVERY, BORG_CURSE_IMPAIR_MANA_RECOVERY, BORG_CURSE_IRRITATION, BORG_CURSE_MAX, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SICKLINESS, BORG_CURSE_SIREN, BORG_CURSE_SLOWNESS, BORG_CURSE_STEELSKIN, BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON, BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN, BORG_CURSE_VULNERABILITY, BORG_CURSE_WEAKNESS};
@@ -1419,7 +1419,7 @@ pub unsafe extern "C" fn borg_notice_weapon_swap() {
                                                         as ::core::ffi::c_int
                                                         != 0)
                                         {
-                                            if *borg_race_death.offset(crate::bridge::st().borg.id.tarrasque as isize)
+                                            if crate::bridge::st().kills.race_death[(crate::bridge::st().borg.id.tarrasque) as usize]
                                                 as ::core::ffi::c_int
                                                 == 0 as ::core::ffi::c_int
                                             {
@@ -2726,7 +2726,7 @@ pub unsafe extern "C" fn borg_notice_armour_swap() {
                                                         as ::core::ffi::c_int
                                                         != 0)
                                         {
-                                            if *borg_race_death.offset(crate::bridge::st().borg.id.tarrasque as isize)
+                                            if crate::bridge::st().kills.race_death[(crate::bridge::st().borg.id.tarrasque) as usize]
                                                 as ::core::ffi::c_int
                                                 == 0 as ::core::ffi::c_int
                                             {

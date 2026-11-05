@@ -53,7 +53,7 @@ pub use crate::headers::borg_fight_attack_h::{
     BF_WAND_SLOW_MONSTER, BF_WAND_STINKING_CLOUD, BF_WAND_UNKNOWN, BF_WAND_WONDER,
 };
 use crate::headers::borg_flow_h::{borg_temp_n, borg_temp_x, borg_temp_y};
-pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_cnt, borg_kills_nxt};
+pub use crate::headers::borg_flow_kill_h::{borg_kill};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::borg_note;
 pub use crate::headers::borg_trait_h::{
@@ -168,15 +168,15 @@ pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
     {
         return false_0 != 0;
     }
-    if borg_kills_cnt == 0 {
+    if crate::bridge::st().kills.cnt == 0 {
         return false_0 != 0;
     }
     borg_attacking = true_0 != 0;
     borg_temp_n = 0 as int16_t;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
                 a.x = (*kill).pos.x;
@@ -257,7 +257,7 @@ pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
     {
         return false_0 != 0;
     }
-    if borg_kills_cnt == 0 {
+    if crate::bridge::st().kills.cnt == 0 {
         return false_0 != 0;
     }
     if borg_danger(
@@ -281,9 +281,9 @@ pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
     borg_attacking = true_0 != 0;
     borg_temp_n = 0 as int16_t;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
                 if !(crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]

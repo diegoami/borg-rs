@@ -350,7 +350,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
 
             // Known Monsters
             if ag.kill != 0 {
-                let kill = bridge::borg_kill(st, usize::from(ag.kill));
+                let kill = st.kills.kills[usize::from(ag.kill)];
                 ch = engine::r_info()[usize::from(kill.r_idx)].d_char;
             }
 
@@ -376,9 +376,9 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
     }
 
     // Known/Seen monsters
-    let kills_nxt = i32::from(bridge::borg_kills_nxt(st));
+    let kills_nxt = i32::from(st.kills.nxt);
     for i in 1..kills_nxt {
-        let kill = bridge::borg_kill(st, i as usize);
+        let kill = st.kills.kills[i as usize];
 
         // Skip dead monsters
         if kill.r_idx == 0 {
@@ -386,12 +386,12 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
         }
 
         // Note
-        let name = bridge::borg_race_name(st, i32::from(kill.r_idx));
+        let name = crate::borg_flow_kill::borg_race_name(i32::from(kill.r_idx)).to_bytes();
         putf(
             f,
             &cat(&[
                 b"monster '",
-                &name,
+                name,
                 format!(
                     "' ({}) at ({},{}) speed:{} \n",
                     kill.r_idx, kill.pos.y, kill.pos.x, kill.speed

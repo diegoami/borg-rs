@@ -80,9 +80,7 @@ pub use crate::headers::borg_fight_attack_h::{
     BORG_ATTACK_TURN_EVIL, BORG_ATTACK_TURN_UNDEAD, BORG_ATTACK_WATER,
 };
 use crate::headers::borg_flow_h::{borg_flow_y, borg_temp_n, borg_temp_x, borg_temp_y};
-pub use crate::headers::borg_flow_kill_h::{
-    borg_kill, borg_kills, borg_kills_cnt, borg_kills_nxt, borg_race_name,
-};
+pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_race_name};
 use crate::headers::borg_flow_misc_h::borg_extract_dir;
 pub use crate::headers::borg_flow_take_h::{borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
@@ -441,7 +439,7 @@ unsafe extern "C" fn borg_thrust_damage_one(mut i: ::core::ffi::c_int) -> ::core
     let mut item: *mut borg_item = ::core::ptr::null_mut::<borg_item>();
     let mut chance: ::core::ffi::c_int = 0;
     item = &raw mut crate::bridge::st().items.items[((*z_info).pack_size) as usize] as *mut borg_item;
-    kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     if (*kill).r_idx as ::core::ffi::c_int
         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int
@@ -1029,7 +1027,7 @@ unsafe extern "C" fn borg_attack_aux_thrust() -> ::core::ffi::c_int {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int);
             if !(d <= 0 as ::core::ffi::c_int) {
-                kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+                kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
                 if !((*kill).r_idx as ::core::ffi::c_int
                     >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
                 {
@@ -1096,7 +1094,7 @@ unsafe extern "C" fn borg_attack_aux_thrust() -> ::core::ffi::c_int {
     crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
     crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     borg_note(format(
         b"# Facing %s at (%d,%d) who has %d Hit Points.\0" as *const u8
             as *const ::core::ffi::c_char,
@@ -1242,7 +1240,7 @@ unsafe extern "C" fn borg_launch_damage_one(
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-    kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
     if (*kill).r_idx as ::core::ffi::c_int
         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int
     {
@@ -2927,7 +2925,7 @@ unsafe extern "C" fn borg_launch_bolt_aux_hack(
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
     let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-    kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     if (*kill).r_idx == 0 {
         return 0 as ::core::ffi::c_int;
@@ -3138,7 +3136,7 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
     y = y1;
     ag = crate::bridge::grid(x2, y2)
         as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     if (*kill).r_idx as ::core::ffi::c_int
         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int
@@ -3437,7 +3435,7 @@ unsafe extern "C" fn borg_launch_arc_at_location(
     y = y1;
     ag = crate::bridge::grid(x2, y2)
         as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
     if (*kill).r_idx as ::core::ffi::c_int
         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int
@@ -3726,8 +3724,8 @@ unsafe extern "C" fn borg_attack_aux_rest() -> ::core::ffi::c_int {
         false_0 != 0,
     );
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         let mut x9: ::core::ffi::c_int = (*kill).pos.x;
         let mut y9: ::core::ffi::c_int = (*kill).pos.y;
         let mut ax: ::core::ffi::c_int = 0;
@@ -3805,7 +3803,7 @@ unsafe extern "C" fn borg_attack_aux_rest() -> ::core::ffi::c_int {
         }
         i += 1;
     }
-    if i >= borg_kills_nxt as ::core::ffi::c_int {
+    if i >= crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     if borg_simulate {
@@ -3814,7 +3812,7 @@ unsafe extern "C" fn borg_attack_aux_rest() -> ::core::ffi::c_int {
     borg_keypress(',' as i32 as keycode_t);
     borg_note(format(
         b"# Waiting for monster '%s' to approach.\0" as *const u8 as *const ::core::ffi::c_char,
-        (*r_info.offset((*borg_kills.offset(i as isize)).r_idx as isize)).name,
+        (*r_info.offset((crate::bridge::st().kills.kills[(i) as usize]).r_idx as isize)).name,
     ));
     crate::bridge::st().borg.goal.waiting = true_0 != 0;
     return 1 as ::core::ffi::c_int;
@@ -4104,9 +4102,9 @@ unsafe extern "C" fn borg_attack_aux_spell_bolt_reserve(
         return 0 as ::core::ffi::c_int;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if (*kill).r_idx == 0 {
             i += 1;
         } else {
@@ -4712,7 +4710,7 @@ unsafe extern "C" fn borg_attack_aux_whirlwind_attack() -> ::core::ffi::c_int {
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int);
             if !(d <= 0 as ::core::ffi::c_int) {
                 d = d * blows;
-                kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+                kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
                 if !(*kill).awake && d <= (*kill).power as ::core::ffi::c_int && !crate::bridge::st().borg.munchkin_mode
                 {
                     p = borg_danger_one_kill(
@@ -4818,7 +4816,7 @@ unsafe extern "C" fn borg_attack_aux_leap_into_battle() -> ::core::ffi::c_int {
                     + 1 as ::core::ffi::c_int;
                 d *= blows;
                 if !(d <= 0 as ::core::ffi::c_int) {
-                    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+                    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
                     if !((*kill).r_idx as ::core::ffi::c_int
                         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
                     {
@@ -4886,7 +4884,7 @@ unsafe extern "C" fn borg_attack_aux_leap_into_battle() -> ::core::ffi::c_int {
     crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
     crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     borg_note(format(
         b"# Leaping at %s at (%d,%d dist %d) who has %d Hit Points.\0" as *const u8
             as *const ::core::ffi::c_char,
@@ -4945,7 +4943,7 @@ unsafe extern "C" fn borg_attack_aux_maim_foe() -> ::core::ffi::c_int {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int) * blows;
             if !(d <= 0 as ::core::ffi::c_int) {
-                kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+                kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
                 if !((*kill).r_idx as ::core::ffi::c_int
                     >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
                 {
@@ -5012,7 +5010,7 @@ unsafe extern "C" fn borg_attack_aux_maim_foe() -> ::core::ffi::c_int {
     crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
     crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     dir = borg_extract_dir(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, crate::bridge::st().borg.goal.g.y, crate::bridge::st().borg.goal.g.x);
     if borg_simulate {
         return d;
@@ -5097,7 +5095,7 @@ unsafe extern "C" fn borg_attack_aux_vampire_strike() -> ::core::ffi::c_int {
         as *mut borg_grid;
     d = crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
         * 2 as ::core::ffi::c_int;
-    kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+    kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     if (*kill).r_idx as ::core::ffi::c_int
         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int
     {
@@ -7636,16 +7634,16 @@ pub unsafe extern "C" fn borg_attack(mut boosted_bravery: bool) -> bool {
     let mut adjacent_monster: bool = false_0 != 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-    if borg_kills_cnt == 0 {
+    if crate::bridge::st().kills.cnt == 0 {
         return false_0 != 0;
     }
     borg_attacking = true_0 != 0;
     borg_temp_n = 0 as int16_t;
     let mut current_block_23: u64;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int

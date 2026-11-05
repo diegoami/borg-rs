@@ -21,7 +21,7 @@ use crate::headers::borg_escape_h::{
 use crate::headers::borg_fight_defend_h::borg_defend;
 use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{borg_track, track_step};
-pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt};
+pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_misc_h::{borg_check_rest, borg_goto_dir, borg_happy_grid_bold};
 use crate::headers::borg_flow_stairs_h::{
     borg_flow_stair_less, borg_flow_stair_more, borg_prep_leave_level_spells, track_less,
@@ -1491,8 +1491,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                 y = crate::bridge::st().borg.c.y + ddy_ddd[i_2 as usize] as ::core::ffi::c_int;
                 if square_in_bounds(cave, loc(x, y)) {
                     if !((*crate::bridge::grid(x, y)).kill == 0) {
-                        if (*borg_kills
-                            .offset((*crate::bridge::grid(x, y)).kill as isize))
+                        if (crate::bridge::st().kills.kills[((*crate::bridge::grid(x, y)).kill) as usize])
                         .speed as ::core::ffi::c_int
                             > crate::bridge::st().borg.trait_[(BI_SPEED as ::core::ffi::c_int) as usize]
                         {
@@ -1708,10 +1707,10 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                                                 break;
                                             }
                                             ii = 1 as ::core::ffi::c_int;
-                                            while ii < borg_kills_nxt as ::core::ffi::c_int {
+                                            while ii < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
                                                 let mut kill: *mut borg_kill =
                                                     ::core::ptr::null_mut::<borg_kill>();
-                                                kill = borg_kills.offset(ii as isize)
+                                                kill = &raw mut crate::bridge::st().kills.kills[(ii) as usize]
                                                     as *mut borg_kill;
                                                 if !((*kill).r_idx == 0) {
                                                     if !(crate::bridge::st().borg.time.now - (*kill).when
@@ -1851,10 +1850,10 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                                     >= 300 as ::core::ffi::c_int)
                             {
                                 ii_0 = 1 as ::core::ffi::c_int;
-                                while ii_0 < borg_kills_nxt as ::core::ffi::c_int {
+                                while ii_0 < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
                                     let mut kill_0: *mut borg_kill =
                                         ::core::ptr::null_mut::<borg_kill>();
-                                    kill_0 = borg_kills.offset(ii_0 as isize) as *mut borg_kill;
+                                    kill_0 = &raw mut crate::bridge::st().kills.kills[(ii_0) as usize] as *mut borg_kill;
                                     if !((*kill_0).r_idx == 0) {
                                         if !(crate::bridge::st().borg.time.now - (*kill_0).when > 2 as borg_time) {
                                             if distance((*kill_0).pos, loc(x_0, y_0))

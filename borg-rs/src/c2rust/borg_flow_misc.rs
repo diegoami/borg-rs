@@ -26,7 +26,7 @@ pub use crate::headers::borg_flow_h::{
     borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track,
     borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
 };
-pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_kills_nxt};
+pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair, track_less};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
@@ -1464,8 +1464,8 @@ pub unsafe extern "C" fn borg_check_rest(
         }
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         let mut r_ptr: *mut monster_race =
             r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         let mut x9: ::core::ffi::c_int = (*kill).pos.x;

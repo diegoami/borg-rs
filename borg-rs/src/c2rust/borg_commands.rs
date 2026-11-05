@@ -33,10 +33,7 @@ use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_flow, borg_flow_x, borg_flow_y, borg_track, track_step,
 };
-pub use crate::headers::borg_flow_kill_h::{
-    borg_kill, borg_kills, borg_kills_nxt, borg_nasties, borg_nasties_count, borg_nasties_limit,
-    borg_nasties_num,
-};
+pub use crate::headers::borg_flow_kill_h::{borg_kill};
 pub use crate::headers::borg_flow_take_h::{borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_home_notice_h::borg_notice_home;
@@ -737,12 +734,12 @@ unsafe extern "C" fn borg_cmd_nasties() {
     let mut i: ::core::ffi::c_int = 0;
     borg_note(b"Borg Nasties Count\0" as *const u8 as *const ::core::ffi::c_char);
     i = 0 as ::core::ffi::c_int;
-    while i < borg_nasties_num as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nasties_num as ::core::ffi::c_int {
         borg_note(format(
             b"Nasty: [%c] Count: %d, limited: %d\0" as *const u8 as *const ::core::ffi::c_char,
-            borg_nasties[i as usize] as ::core::ffi::c_int,
-            borg_nasties_count[i as usize] as ::core::ffi::c_int,
-            borg_nasties_limit[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().kills.nasties[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().kills.nasties_count[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().kills.nasties_limit[i as usize] as ::core::ffi::c_int,
         ));
         i += 1;
     }
@@ -1799,8 +1796,8 @@ unsafe extern "C" fn borg_cmd_grid_monsters() {
     let mut i: ::core::ffi::c_int = 0;
     let mut n: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if (*kill).r_idx != 0 {
             let mut x: ::core::ffi::c_int = (*kill).pos.x;
             let mut y: ::core::ffi::c_int = (*kill).pos.y;

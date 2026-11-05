@@ -37,10 +37,7 @@ use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
 pub use crate::headers::borg_flow_h::{
     borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
 };
-pub use crate::headers::borg_flow_kill_h::{
-    borg_delete_kill, borg_kill, borg_kills, borg_kills_cnt, borg_kills_nxt, borg_nasties,
-    borg_nasties_count, borg_nasties_limit, borg_nasties_num, borg_race_name,
-};
+pub use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_kill, borg_race_name};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
@@ -253,7 +250,7 @@ unsafe extern "C" fn borg_log_spellpath() {
     n_y = crate::bridge::st().borg.c.y;
     loop {
         ag = crate::bridge::grid(n_x, n_y) as *mut borg_grid;
-        kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
         if !crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
             borg_note(format(
                 b"# Logging Spell pathway (%d,%d): Wall grid.\0" as *const u8
@@ -341,9 +338,9 @@ unsafe extern "C" fn borg_defend_aux_bless(mut p1: ::core::ffi::c_int) -> ::core
         return 0 as ::core::ffi::c_int;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !(crate::bridge::st().borg.time.now - (*kill).when > 5 as borg_time) {
                 if !(distance(crate::bridge::st().borg.c, (*kill).pos) > 3 as ::core::ffi::c_int) {
@@ -1363,15 +1360,15 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
     if borg_surrounded() as ::core::ffi::c_int == true_0 {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_kills_cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     borg_temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
                 ag = crate::bridge::grid((*kill).pos.x, (*kill).pos.y) as *mut borg_grid;
@@ -1579,8 +1576,8 @@ unsafe extern "C" fn near_evil() -> bool {
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int
                 >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
@@ -1902,8 +1899,8 @@ unsafe extern "C" fn borg_defend_aux_mass_genocide(
         return 0 as ::core::ffi::c_int;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int
@@ -1972,10 +1969,10 @@ unsafe extern "C" fn borg_defend_aux_mass_genocide(
             || borg_spell(MASS_BANISHMENT) as ::core::ffi::c_int != 0
         {
             i = 1 as ::core::ffi::c_int;
-            while i < borg_kills_nxt as ::core::ffi::c_int {
+            while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
                 let mut tmp_kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
                 let mut tmp_r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-                tmp_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+                tmp_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
                 if !((*tmp_kill).r_idx as ::core::ffi::c_int == 0 as ::core::ffi::c_int) {
                     if !((*tmp_kill).r_idx as ::core::ffi::c_int
                         >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
@@ -2078,8 +2075,8 @@ unsafe extern "C" fn borg_defend_aux_genocide(mut p1: ::core::ffi::c_int) -> ::c
     }
     max_threat = 1 as ::core::ffi::c_int;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int
@@ -2244,8 +2241,8 @@ unsafe extern "C" fn borg_defend_aux_genocide(mut p1: ::core::ffi::c_int) -> ::c
         {
             borg_keypress(tmp_genocide_target as keycode_t);
             i = 1 as ::core::ffi::c_int;
-            while i < borg_kills_nxt as ::core::ffi::c_int {
-                kill = borg_kills.offset(i as isize) as *mut borg_kill;
+            while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+                kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
                 r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
                 if !((*r_ptr).d_char != tmp_genocide_target as wchar_t) {
                     if !flag_has(
@@ -2317,9 +2314,9 @@ unsafe extern "C" fn borg_defend_aux_genocide_nasties(
         return 0 as ::core::ffi::c_int;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_nasties_num as ::core::ffi::c_int {
-        if borg_nasties_count[i as usize] as ::core::ffi::c_int
-            >= borg_nasties_limit[i as usize] as ::core::ffi::c_int
+    while i < crate::bridge::st().kills.nasties_num as ::core::ffi::c_int {
+        if crate::bridge::st().kills.nasties_count[i as usize] as ::core::ffi::c_int
+            >= crate::bridge::st().kills.nasties_limit[i as usize] as ::core::ffi::c_int
         {
             b_i = i;
         }
@@ -2333,22 +2330,22 @@ unsafe extern "C" fn borg_defend_aux_genocide_nasties(
     }
     borg_note(format(
         b"# Banishing nasties '%c' (qty:%d).\0" as *const u8 as *const ::core::ffi::c_char,
-        borg_nasties[b_i as usize] as ::core::ffi::c_int,
-        borg_nasties_count[b_i as usize] as ::core::ffi::c_int,
+        crate::bridge::st().kills.nasties[b_i as usize] as ::core::ffi::c_int,
+        crate::bridge::st().kills.nasties_count[b_i as usize] as ::core::ffi::c_int,
     ));
     if borg_activate_item(crate::bridge::st().act.banishment) as ::core::ffi::c_int != 0
         || borg_use_staff(crate::bridge::st().item_val.sv_staff_banishment) as ::core::ffi::c_int != 0
         || borg_spell(BANISHMENT) as ::core::ffi::c_int != 0
     {
-        borg_keypress(borg_nasties[b_i as usize] as keycode_t);
-        borg_nasties_count[b_i as usize] = 0 as uint8_t;
+        borg_keypress(crate::bridge::st().kills.nasties[b_i as usize] as keycode_t);
+        crate::bridge::st().kills.nasties_count[b_i as usize] = 0 as uint8_t;
         i = 1 as ::core::ffi::c_int;
-        while i < borg_kills_nxt as ::core::ffi::c_int {
+        while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
             let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
             let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-            kill = borg_kills.offset(i as isize) as *mut borg_kill;
+            kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
             r_ptr = r_info.offset((*kill).r_idx as isize) as *mut monster_race;
-            if !((*r_ptr).d_char != borg_nasties[b_i as usize] as wchar_t) {
+            if !((*r_ptr).d_char != crate::bridge::st().kills.nasties[b_i as usize] as wchar_t) {
                 borg_delete_kill(i);
             }
             i += 1;
@@ -2397,8 +2394,8 @@ unsafe extern "C" fn borg_defend_aux_earthquake(mut p1: ::core::ffi::c_int) -> :
         return 0 as ::core::ffi::c_int;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if borg_los(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, (*kill).pos.y, (*kill).pos.x) as ::core::ffi::c_int != 0
             && (*kill).ranged_attack as ::core::ffi::c_int != 0
             && distance((*kill).pos, crate::bridge::st().borg.c) >= 2 as ::core::ffi::c_int
@@ -2622,9 +2619,9 @@ unsafe extern "C" fn borg_defend_aux_banishment(mut p1: ::core::ffi::c_int) -> :
     }
     p1 = 1 as ::core::ffi::c_int;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         ag = crate::bridge::grid((*kill).pos.x, (*kill).pos.y) as *mut borg_grid;
         if !((*kill).r_idx == 0) {
             if borg_projectable(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, (*kill).pos.y, (*kill).pos.x) {
@@ -2642,10 +2639,10 @@ unsafe extern "C" fn borg_defend_aux_banishment(mut p1: ::core::ffi::c_int) -> :
     }
     p2 = p1;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill_0: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
         let mut r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-        kill_0 = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill_0 = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         r_ptr = r_info.offset((*kill_0).r_idx as isize) as *mut monster_race;
         ag = crate::bridge::grid((*kill_0).pos.x, (*kill_0).pos.y) as *mut borg_grid;
         if !((*kill_0).r_idx == 0) {
@@ -3146,8 +3143,8 @@ unsafe extern "C" fn borg_defend_aux_rest() -> ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        let mut kill: *mut borg_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         let mut x9: ::core::ffi::c_int = (*kill).pos.x;
         let mut y9: ::core::ffi::c_int = (*kill).pos.y;
         let mut ax: ::core::ffi::c_int = 0;
@@ -3230,15 +3227,15 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
     if borg_surrounded() as ::core::ffi::c_int == true_0 {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_kills_cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     borg_temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
         let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {
                 ag = crate::bridge::grid((*kill).pos.x, (*kill).pos.y) as *mut borg_grid;
@@ -3327,13 +3324,13 @@ unsafe extern "C" fn borg_defend_aux_banishment_morgoth() -> ::core::ffi::c_int 
     if !banishment && !banish_evil {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_kills_cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     count = 0 as ::core::ffi::c_int;
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_int
                 >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
@@ -3388,10 +3385,10 @@ unsafe extern "C" fn borg_defend_aux_banishment_morgoth() -> ::core::ffi::c_int 
         || borg_spell(BANISH_EVIL) as ::core::ffi::c_int != 0
     {
         i = 0 as ::core::ffi::c_int;
-        while i < borg_kills_nxt as ::core::ffi::c_int {
+        while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
             let mut tmp_kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
             let mut tmp_r_ptr: *mut monster_race = ::core::ptr::null_mut::<monster_race>();
-            tmp_kill = borg_kills.offset(i as isize) as *mut borg_kill;
+            tmp_kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
             if !((*tmp_kill).r_idx as ::core::ffi::c_int == 0 as ::core::ffi::c_int
                 || (*tmp_kill).r_idx as ::core::ffi::c_int
                     >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int)
@@ -3447,12 +3444,12 @@ unsafe extern "C" fn borg_defend_aux_light_morgoth() -> ::core::ffi::c_int {
     {
         return 0 as ::core::ffi::c_int;
     }
-    if borg_kills_cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     i = 1 as ::core::ffi::c_int;
-    while i < borg_kills_nxt as ::core::ffi::c_int {
-        kill = borg_kills.offset(i as isize) as *mut borg_kill;
+    while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
+        kill = &raw mut crate::bridge::st().kills.kills[(i) as usize] as *mut borg_kill;
         if !((*kill).r_idx == 0) {
             if !((*kill).r_idx as ::core::ffi::c_uint != crate::bridge::st().borg.id.morgoth) {
                 if !(crate::bridge::st().borg.time.now - (*kill).when > 2 as borg_time) {

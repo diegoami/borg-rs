@@ -670,9 +670,9 @@ pub fn borg_target(st: &mut BorgState, t: loc, require_monster: bool) -> bool {
     /* Log */
     /* Report a little bit */
     if kill_idx != 0 {
-        let kill = bridge::borg_kill(st, usize::from(kill_idx));
+        let kill = st.kills.kills[usize::from(kill_idx)];
         let mut msg = b"# Targeting ".to_vec();
-        msg.extend_from_slice(&bridge::borg_race_name(st, i32::from(kill.r_idx)));
+        msg.extend_from_slice(crate::borg_flow_kill::borg_race_name(i32::from(kill.r_idx)).to_bytes());
         msg.extend_from_slice(
             format!(" who has {} Hit Points ({},{}).", kill.power, t.y, t.x).as_bytes(),
         );
@@ -812,7 +812,7 @@ pub fn borg_target_unknown_wall(st: &mut BorgState, y: i32, x: i32) -> bool {
 
     loop {
         let kill_idx = st.cave.grid(n_x, n_y).kill;
-        let kill = bridge::borg_kill(st, usize::from(kill_idx));
+        let kill = st.kills.kills[usize::from(kill_idx)];
 
         if engine::race_flag_has(usize::from(kill.r_idx), RF_PASS_WALL) {
             borg_note(

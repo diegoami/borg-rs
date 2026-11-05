@@ -388,11 +388,99 @@ pub fn r_info() -> &'static [MonsterRace] {
 
 /// `r_info[r_idx].name` (bytes up to the NUL).
 pub fn race_name(r_idx: usize) -> &'static [u8] {
+    race_name_cstr(r_idx).to_bytes()
+}
+
+/// `r_info[r_idx].name` as a C string.
+pub fn race_name_cstr(r_idx: usize) -> &'static CStr {
     let name = r_info()[r_idx].name;
     assert!(!name.is_null(), "race {r_idx} has no name");
     // SAFETY: a race's name is a C string allocated when the game data is
     // loaded and kept for the game; checked non-null.
+    unsafe { CStr::from_ptr(name) }
+}
+
+/// `r_info[r_idx].plural` (bytes up to the NUL), `None` for NULL.
+pub fn race_plural(r_idx: usize) -> Option<&'static [u8]> {
+    let p = r_info()[r_idx].plural;
+    // SAFETY: a non-NULL plural is a C string allocated when the game data
+    // is loaded and kept for the game.
+    (!p.is_null()).then(|| unsafe { CStr::from_ptr(p).to_bytes() })
+}
+
+/// `r_info[r_idx].base->name` (bytes up to the NUL).
+pub fn race_base_name(r_idx: usize) -> &'static [u8] {
+    let base = r_info()[r_idx].base;
+    assert!(!base.is_null(), "race {r_idx} has no base");
+    // SAFETY: a race's base points into rb_info, loaded with the game data
+    // and kept for the game (checked non-null); its name is checked too.
+    unsafe {
+        let name = (*base).name;
+        assert!(!name.is_null(), "race {r_idx} base has no name");
+        CStr::from_ptr(name).to_bytes()
+    }
+}
+
+/// `k_info[kidx].name` (bytes up to the NUL).
+pub fn kind_name(kidx: usize) -> &'static [u8] {
+    let name = k_info()[kidx].name;
+    assert!(!name.is_null(), "kind {kidx} has no name");
+    // SAFETY: a kind's name is a C string allocated when the game data is
+    // loaded and kept for the game; checked non-null.
     unsafe { CStr::from_ptr(name).to_bytes() }
+}
+
+/// The fields of a game monster (`struct monster`) the Borg cheats.
+#[derive(Clone, Copy, Debug)]
+pub struct MonsterView {
+    pub midx: i32,
+    pub grid: loc,
+    pub hp: i16,
+    pub maxhp: i16,
+    pub m_timed: [i16; crate::headers::list_mon_timed_h::MON_TMD_MAX as usize],
+    pub mspeed: u8,
+    /// `race->ridx`, `None` for a NULL race (an unused slot).
+    pub ridx: Option<u32>,
+}
+
+/// Copy the fields of a monster.
+///
+/// SAFETY (caller): `m` points at a `struct monster` of the current level.
+unsafe fn monster_view(m: *const crate::headers::monster_h::monster) -> MonsterView {
+    let m = &*m;
+    MonsterView {
+        midx: m.midx,
+        grid: m.grid,
+        hp: m.hp,
+        maxhp: m.maxhp,
+        m_timed: m.m_timed,
+        mspeed: m.mspeed,
+        ridx: (!m.race.is_null()).then(|| (*m.race).ridx),
+    }
+}
+
+/// `square_monster(cave, loc(x, y))`, `None` for no monster. The grid must
+/// be in bounds (the engine asserts it, as for C callers).
+pub fn square_monster(x: i32, y: i32) -> Option<MonsterView> {
+    // SAFETY: `cave` is the current level; the result is NULL or a live
+    // monster of it, whose race (if any) points into r_info.
+    unsafe {
+        let m = crate::headers::cave_h::square_monster(crate::headers::cave_h::cave, loc { x, y });
+        (!m.is_null()).then(|| monster_view(m))
+    }
+}
+
+/// `cave->monsters[m_idx]` (any slot, live or not).
+pub fn cave_monster(m_idx: i32) -> MonsterView {
+    let max = i32::from(z_info().level_monster_max);
+    assert!((0..max).contains(&m_idx), "monster index {m_idx} out of range");
+    // SAFETY: `cave->monsters` has z_info->level_monster_max entries
+    // (cave_new zeroes them); the index is checked; a slot's race is NULL
+    // or a pointer into r_info.
+    unsafe {
+        let c = &*crate::headers::cave_h::cave;
+        monster_view(c.monsters.add(m_idx as usize))
+    }
 }
 
 /// `rf_has(r_info[r_idx].flags, flag)`.
@@ -1597,12 +1685,6 @@ pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
 
 // ---------------------------------------------------------------------------
 // Floor objects and object kinds (borg-flow-take.c)
-
-/// `k_info[kidx].name` (bytes up to the NUL; "" for NULL, as `format`
-/// prints it). Panics for `kidx >= z_info->k_max`.
-pub fn kind_name(kidx: usize) -> &'static [u8] {
-    c_bytes(k_info()[kidx].name)
-}
 
 /// `tval_is_book_k(&k_info[kidx])`.
 pub fn tval_is_book_k(kidx: usize) -> bool {

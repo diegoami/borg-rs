@@ -33,10 +33,7 @@ use crate::headers::borg_flow_glyph_h::{borg_flow_glyph, track_glyph};
 pub use crate::headers::borg_flow_h::{
     borg_flow_old, borg_track, track_closed, track_door, track_step,
 };
-use crate::headers::borg_flow_kill_h::{
-    borg_delete_kill, borg_flow_kill, borg_flow_kill_aim, borg_flow_kill_corridor,
-    borg_flow_kill_direct, borg_kills_cnt, borg_kills_nxt, borg_near_monster_type,
-};
+use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_flow_kill, borg_flow_kill_aim, borg_flow_kill_corridor, borg_flow_kill_direct, borg_near_monster_type};
 use crate::headers::borg_flow_misc_h::{
     borg_check_rest, borg_flow_recover, borg_flow_shop_entry, borg_flow_spastic, borg_flow_vault,
     borg_flow_vein, borg_twitchy, track_vein,
@@ -1122,12 +1119,12 @@ unsafe extern "C" fn borg_check_bounciness() -> bool {
         crate::bridge::st().takes.cnt = 0 as int16_t;
         crate::bridge::st().takes.nxt = 1 as int16_t;
         i = 1 as ::core::ffi::c_int;
-        while i < borg_kills_nxt as ::core::ffi::c_int {
+        while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
             borg_delete_kill(i);
             i += 1;
         }
-        borg_kills_cnt = 0 as int16_t;
-        borg_kills_nxt = 1 as int16_t;
+        crate::bridge::st().kills.cnt = 0 as int16_t;
+        crate::bridge::st().kills.nxt = 1 as int16_t;
     }
     if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
@@ -2060,8 +2057,8 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
     crate::bridge::st().borg.near.breeder = false_0 != 0;
     crate::bridge::st().takes.cnt = 0 as int16_t;
     crate::bridge::st().takes.nxt = 1 as int16_t;
-    borg_kills_cnt = 0 as int16_t;
-    borg_kills_nxt = 1 as int16_t;
+    crate::bridge::st().kills.cnt = 0 as int16_t;
+    crate::bridge::st().kills.nxt = 1 as int16_t;
     if borg_flow_kill_direct(true_0 != 0) {
         return true_0 != 0;
     }

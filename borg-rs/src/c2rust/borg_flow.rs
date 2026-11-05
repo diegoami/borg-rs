@@ -18,7 +18,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_flow_glyph_h::{borg_free_flow_glyph, borg_init_flow_glyph};
 pub use crate::headers::borg_flow_h::{borg_data, borg_track};
-pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_kills, borg_race_name};
+pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_race_name};
 use crate::headers::borg_flow_misc_h::{
     borg_free_flow_misc, borg_goto_dir, borg_init_flow_misc, track_vein,
 };
@@ -897,7 +897,7 @@ unsafe extern "C" fn borg_play_step(
     crate::bridge::st().borg.goal.g.x = x;
     crate::bridge::st().borg.goal.g.y = y;
     if (*ag).kill != 0 {
-        let mut kill: *mut borg_kill = borg_kills.offset((*ag).kill as isize) as *mut borg_kill;
+        let mut kill: *mut borg_kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
         if (*kill).r_idx as ::core::ffi::c_int == 0 as ::core::ffi::c_int
             || (*kill).r_idx as ::core::ffi::c_int
                 >= (*z_info).r_max as ::core::ffi::c_int - 1 as ::core::ffi::c_int

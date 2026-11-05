@@ -388,3 +388,36 @@ Format: file, function, (seed, turn when observed), explanation.
   `borg_notice_*_swap`, which clears the flag when there is no swap) C
   would read the byte before the array (padding, 0, see section 21).
 * Rust (`borg_item_decurse.rs`): all kept (`letter(-1)` gives the 0 key).
+## 24. Monster tracking slips (flow-kill)
+
+* `borg-flow-kill.c`, found by code reading.
+* `borg_update_kill_old()`: the "unique is dead" fix-up writes
+  `borg_race_death[i]` with the *kill* index `i`, not the race index.
+* `borg_new_kill()`: `r_ptr` is taken from the slot's race *before*
+  `kill->r_idx` is set, so the "force the grid to floor / granite" step at
+  the end uses the old race of the slot (race 0 for a wiped slot, or a
+  stale race when `borg_kills_nxt` was reset without wiping the array).
+* `borg_follow_kill()`: `randint1(100) < 1` is never true (but still draws
+  a random number). The "delete monsters that did not really move" test
+  compares `kill->pos` with `oy`/`ox` before the position is changed, so
+  every path that gets past the earlier checks deletes the monster; the
+  code that moves it to the guessed grid is dead.
+* `observe_kill_move()`: for a unique, `d = d * 2` changes the parameter,
+  so the allowed distance stays doubled (and doubles again per unique) for
+  the rest of the scan.
+* `borg_flow_kill()`: `hall_walls` and `skip_monster` are set up once,
+  not per monster. `hall_walls` keeps counting from the Borg's own
+  surroundings, and once one monster sets `skip_monster` every later
+  monster in the list is skipped too.
+* `borg_flow_kill_aim()`: the "next to a monster" check scans slot 0 and
+  dead slots too (their stale or (0,0) positions).
+* `borg_shoot_scoot_safe()`: the danger of an adjacent monster is
+  `borg_danger_one_kill(..., i, ...)` with `i` the *direction* index
+  (0..7), not the monster's kill index `ag->kill`.
+* `borg_init_flow_kill()`: the "extract dead uniques" cheat says "skip
+  non-uniques" but skips uniques, so it marks non-unique races with
+  `max_num == 0` (`borg_update()` redoes the unique check on each new
+  level).
+* `borg_locate_kill()`: `my_strnicmp(who, "It", 2)` treats any name that
+  starts with "it" (any case) as an invisible monster.
+* Rust (`borg_flow_kill.rs`): all kept.

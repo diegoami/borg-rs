@@ -398,22 +398,294 @@ pub mod danger {
     }
 }
 
-/// A copy of `borg_kills[i]` (still c2rust, borg-flow-kill.c).
-pub fn borg_kill(_st: &mut BorgState, i: usize) -> crate::headers::borg_flow_kill_h::borg_kill {
-    // SAFETY: borg_kills is allocated with 256 entries by
-    // borg_init_flow_kill() before the Borg runs; the index is a u8 grid
-    // field (`borg_grid.kill`).
+// ---------------------------------------------------------------------------
+// borg-flow-kill.c (converted): calls into still-c2rust code and C-ABI shims.
+
+/// Let the caller's `&mut BorgState` escape before a call into c2rust code.
+///
+/// An unused `_st` parameter is not enough once the wrapper is inlined: LLVM
+/// then sees no use of the `noalias` borrow around the call and may keep
+/// the caller's state in registers or drop stores the callee reads through
+/// `st()` (borg_flow_kill_aim moves `borg.c` around such calls).
+/// `black_box` makes the pointer escape into an opaque use, so the stores
+/// happen before the call and the values are reloaded after it.
+#[inline(always)]
+fn escape(st: &mut BorgState) {
+    std::hint::black_box(st as *mut BorgState);
+}
+
+/// `(borg_flow_y[0], borg_flow_x[0])` (still c2rust, borg-flow.c).
+pub fn borg_flow_first(_st: &mut BorgState) -> (i32, i32) {
+    // SAFETY: plain read of fixed-size u8 array globals; Borg thread.
     unsafe {
-        assert!(!crate::c2rust::borg_flow_kill::borg_kills.is_null() && i < 256);
-        *crate::c2rust::borg_flow_kill::borg_kills.add(i)
+        (
+            i32::from(crate::c2rust::borg_flow::borg_flow_y[0]),
+            i32::from(crate::c2rust::borg_flow::borg_flow_x[0]),
+        )
     }
 }
 
-/// `borg_race_name(r_idx)` (still c2rust, borg-flow-kill.c), as bytes.
-pub fn borg_race_name(_st: &mut BorgState, r_idx: i32) -> Vec<u8> {
-    // SAFETY: borg_race_name returns a static C string or a race name
-    // from r_info, never NULL.
-    unsafe { cbytes(crate::c2rust::borg_flow_kill::borg_race_name(r_idx)).to_vec() }
+/// `borg_temp_n = 0` (still c2rust, borg-flow.c).
+pub fn borg_temp_clear(_st: &mut BorgState) {
+    // SAFETY: plain store to an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_flow::borg_temp_n = 0 }
+}
+
+/// `borg_temp_n` (still c2rust, borg-flow.c).
+pub fn borg_temp_n(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_flow::borg_temp_n }
+}
+
+/// `borg_temp_x[borg_temp_n] = x; borg_temp_y[borg_temp_n] = y;
+/// borg_temp_n++;` (still c2rust, borg-flow.c); panics past the 9000
+/// entries.
+pub fn borg_temp_push(_st: &mut BorgState, y: i32, x: i32) {
+    // SAFETY: plain stores to fixed-size array globals (indexing is
+    // bounds checked); Borg thread.
+    unsafe {
+        use crate::c2rust::borg_flow as f;
+        let n = f::borg_temp_n as usize;
+        (*(&raw mut f::borg_temp_x))[n] = x as u8;
+        (*(&raw mut f::borg_temp_y))[n] = y as u8;
+        f::borg_temp_n += 1;
+    }
+}
+
+/// `(borg_temp_y[i], borg_temp_x[i])` (still c2rust, borg-flow.c).
+pub fn borg_temp_at(_st: &mut BorgState, i: usize) -> (i32, i32) {
+    // SAFETY: plain reads of fixed-size array globals (bounds checked).
+    unsafe {
+        use crate::c2rust::borg_flow as f;
+        (i32::from((*(&raw const f::borg_temp_y))[i]), i32::from((*(&raw const f::borg_temp_x))[i]))
+    }
+}
+
+/// `borg_flow_clear()` (still c2rust, borg-flow.c).
+pub fn borg_flow_clear(st: &mut BorgState) {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_flow::borg_flow_clear() };
+    escape(st);
+    r
+}
+
+/// `borg_flow_enqueue_grid(y, x)` (still c2rust, borg-flow.c).
+pub fn borg_flow_enqueue_grid(st: &mut BorgState, y: i32, x: i32) {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_flow::borg_flow_enqueue_grid(y, x) };
+    escape(st);
+    r
+}
+
+/// `borg_flow_spread(...)` (still c2rust, borg-flow.c).
+pub fn borg_flow_spread(
+    st: &mut BorgState,
+    depth: i32,
+    optimize: bool,
+    avoid: bool,
+    tunneling: bool,
+    stair_idx: i32,
+    sneak: bool,
+) {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe {
+        crate::c2rust::borg_flow::borg_flow_spread(depth, optimize, avoid, tunneling, stair_idx, sneak)
+    };
+    escape(st);
+    r
+}
+
+/// `borg_flow_commit(who, why)` (still c2rust, borg-flow.c).
+pub fn borg_flow_commit(st: &mut BorgState, who: &std::ffi::CStr, why: i32) -> bool {
+    escape(st);
+    // SAFETY: the callee only reads the C string (for a note).
+    let r = unsafe { crate::c2rust::borg_flow::borg_flow_commit(who.as_ptr(), why) };
+    escape(st);
+    r
+}
+
+/// `borg_flow_old(why)` (still c2rust, borg-flow.c).
+pub fn borg_flow_old(st: &mut BorgState, why: i32) -> bool {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_flow::borg_flow_old(why) };
+    escape(st);
+    r
+}
+
+/// `borg_can_dig(check_fail, feat)` (still c2rust, borg-flow.c).
+pub fn borg_can_dig(st: &mut BorgState, check_fail: bool, feat: u8) -> bool {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_flow::borg_can_dig(check_fail, feat) };
+    escape(st);
+    r
+}
+
+/// `borg_flow_far_from_stairs(x, y, b_stair)` (still c2rust,
+/// borg-flow-misc.c).
+pub fn borg_flow_far_from_stairs(st: &mut BorgState, x: i32, y: i32, b_stair: i32) -> bool {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs(x, y, b_stair) };
+    escape(st);
+    r
+}
+
+/// `track_less.num` (still c2rust, borg-flow-stairs.c).
+pub fn track_less_num(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of a global struct field; Borg thread.
+    unsafe { crate::c2rust::borg_flow_stairs::track_less.num }
+}
+
+/// `(track_less.y[i], track_less.x[i])` (still c2rust,
+/// borg-flow-stairs.c), for `i < track_less.num`.
+pub fn track_less_at(_st: &mut BorgState, i: usize) -> (i32, i32) {
+    // SAFETY: borg_init_flow_stairs() allocates `size` entries for x and y
+    // (checked non-NULL); `num` never exceeds `size` (checked).
+    unsafe {
+        let t = &*(&raw const crate::c2rust::borg_flow_stairs::track_less);
+        assert!(i < t.num as usize && t.num <= t.size && !t.x.is_null() && !t.y.is_null());
+        (*t.y.add(i), *t.x.add(i))
+    }
+}
+
+/// `borg_takes_nxt` (borg-flow-take.c, converted).
+pub fn borg_takes_nxt(st: &mut BorgState) -> i16 {
+    st.takes.nxt
+}
+
+/// A copy of `borg_takes[i]` (borg-flow-take.c, converted).
+pub fn borg_take(st: &mut BorgState, i: usize) -> crate::headers::borg_flow_take_h::borg_take {
+    assert!(i < 256 && !st.takes.takes.is_empty());
+    st.takes.takes[i]
+}
+
+/// `borg_delete_take(i)` (borg-flow-take.c, converted).
+pub fn borg_delete_take(st: &mut BorgState, i: i32) {
+    crate::borg_flow_take::borg_delete_take(st, i)
+}
+
+/// `borg_attack_aux_spell_bolt(...)` (still c2rust, borg-fight-attack.c).
+pub fn borg_attack_aux_spell_bolt(
+    st: &mut BorgState,
+    spell: crate::headers::borg_magic_h::borg_spells,
+    rad: i32,
+    dam: i32,
+    typ: i32,
+    max_range: i32,
+    is_arc: bool,
+) -> i32 {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe {
+        crate::c2rust::borg_fight_attack::borg_attack_aux_spell_bolt(
+            spell, rad, dam, typ, max_range, is_arc,
+        )
+    };
+    escape(st);
+    r
+}
+
+/// `borg_attack_aux_launch()` (still c2rust, borg-fight-attack.c).
+pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_fight_attack::borg_attack_aux_launch() };
+    escape(st);
+    r
+}
+
+/// `borg_equips_ring(ring_sval)` (borg-item-use.c, converted).
+pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
+    crate::borg_item_use::borg_equips_ring(st, ring_sval)
+}
+
+/// `borg_detect_wall[y][x]` (still c2rust, borg-update.c). The map is
+/// `(borg.panels.y + 1) x (borg.panels.x + 1)`.
+pub fn borg_detect_wall(st: &mut BorgState, y: i32, x: i32) -> bool {
+    assert!((0..=st.borg.panels.y).contains(&y) && (0..=st.borg.panels.x).contains(&x));
+    // SAFETY: borg_alloc_detection() allocates panels.y + 1 rows of
+    // panels.x + 1 bools (pointer checked non-NULL, indexes checked above).
+    unsafe {
+        let p = crate::c2rust::borg_update::borg_detect_wall;
+        assert!(!p.is_null());
+        let row = *p.add(y as usize);
+        assert!(!row.is_null());
+        *row.add(x as usize)
+    }
+}
+
+/// C-ABI shims with the borg-flow-kill.c names, for c2rust callers.
+pub mod flow_kill {
+    use super::{cbytes, st};
+    use crate::borg_flow_kill as fk;
+    use crate::headers::__stddef_wchar_t_h::wchar_t;
+    use crate::headers::z_type_h::loc;
+    use core::ffi::{c_char, c_int};
+
+    pub unsafe extern "C" fn borg_race_name(r_idx: c_int) -> *const c_char {
+        fk::borg_race_name(r_idx).as_ptr()
+    }
+    pub unsafe extern "C" fn borg_delete_kill(i: c_int) {
+        fk::borg_delete_kill(st(), i)
+    }
+    pub unsafe extern "C" fn borg_sleep_kill(i: c_int) {
+        fk::borg_sleep_kill(st(), i)
+    }
+    pub unsafe extern "C" fn borg_follow_kill(i: c_int) {
+        fk::borg_follow_kill(st(), i)
+    }
+    /// `a` and `c` (the screen attr/char) are not used by the C code.
+    pub unsafe extern "C" fn observe_kill_diff(y: c_int, x: c_int, _a: u8, _c: wchar_t) -> bool {
+        fk::observe_kill_diff(st(), y, x)
+    }
+    pub unsafe extern "C" fn observe_kill_move(
+        y: c_int,
+        x: c_int,
+        d: c_int,
+        a: u8,
+        c: wchar_t,
+        flag: bool,
+    ) -> bool {
+        fk::observe_kill_move(st(), y, x, d, a, c, flag)
+    }
+    pub unsafe extern "C" fn borg_locate_kill(who: *mut c_char, c: loc, r: c_int) -> c_int {
+        fk::borg_locate_kill(st(), cbytes(who), c, r)
+    }
+    pub unsafe extern "C" fn borg_count_death(i: c_int) {
+        fk::borg_count_death(st(), i)
+    }
+    pub unsafe extern "C" fn borg_flow_kill(viewable: bool, nearness: c_int) -> bool {
+        fk::borg_flow_kill(st(), viewable, nearness)
+    }
+    pub unsafe extern "C" fn borg_flow_kill_aim(viewable: bool) -> bool {
+        fk::borg_flow_kill_aim(st(), viewable)
+    }
+    pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
+        fk::borg_flow_kill_corridor(st())
+    }
+    pub unsafe extern "C" fn borg_flow_kill_direct(twitchy: bool) -> bool {
+        fk::borg_flow_kill_direct(st(), twitchy)
+    }
+    pub unsafe extern "C" fn borg_near_monster_type(dist: c_int) {
+        fk::borg_near_monster_type(st(), dist)
+    }
+    pub unsafe extern "C" fn borg_shoot_scoot_safe(emergency: c_int, turns: c_int, b_p: c_int) -> bool {
+        fk::borg_shoot_scoot_safe(st(), emergency, turns, b_p)
+    }
+    pub unsafe extern "C" fn borg_create_kill(who: *mut c_char, c: loc) -> c_int {
+        fk::borg_create_kill(st(), cbytes(who), c)
+    }
+    pub unsafe extern "C" fn borg_init_flow_kill() {
+        fk::borg_init_flow_kill(st())
+    }
+    pub unsafe extern "C" fn borg_free_flow_kill() {
+        fk::borg_free_flow_kill(st())
+    }
 }
 
 /// C-ABI shims with the borg-projection.c names.
@@ -854,12 +1126,6 @@ pub mod item_fns {
     }
 }
 
-/// `borg_kills_nxt` (still c2rust, borg-flow-kill.c).
-pub fn borg_kills_nxt(_st: &mut BorgState) -> i16 {
-    // SAFETY: plain read of an int16_t global; Borg thread.
-    unsafe { crate::c2rust::borg_flow_kill::borg_kills_nxt }
-}
-
 /// `weapon_swap` (still c2rust, borg-trait-swap.c): the swap weapon's
 /// slot + 1, or 0.
 pub fn weapon_swap(_st: &mut BorgState) -> i32 {
@@ -1045,14 +1311,6 @@ pub fn borg_get_leash(_st: &mut BorgState, pick_up: bool) -> i32 {
     unsafe { crate::c2rust::borg_flow_misc::borg_get_leash(pick_up) }
 }
 
-/// `borg_flow_far_from_stairs(x, y, b_stair)` (still c2rust,
-/// borg-flow-misc.c).
-pub fn borg_flow_far_from_stairs(_st: &mut BorgState, x: i32, y: i32, b_stair: i32) -> bool {
-    // SAFETY: plain call into transitional c2rust code; b_stair is -1 or
-    // an index below track_less.num (callers pick it from that list).
-    unsafe { crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs(x, y, b_stair) }
-}
-
 /// `borg_flow_cost_stair(y, x, b_stair)` (still c2rust, borg-flow-stairs.c).
 pub fn borg_flow_cost_stair(_st: &mut BorgState, y: i32, x: i32, b_stair: i32) -> i32 {
     // SAFETY: as borg_flow_far_from_stairs; (y, x) is a take's grid.
@@ -1060,43 +1318,6 @@ pub fn borg_flow_cost_stair(_st: &mut BorgState, y: i32, x: i32, b_stair: i32) -
 }
 
 c2r_void! {
-    borg_flow_clear => crate::c2rust::borg_flow::borg_flow_clear;
-}
-
-/// `borg_flow_enqueue_grid(y, x)` (still c2rust, borg-flow.c).
-pub fn borg_flow_enqueue_grid(_st: &mut BorgState, y: i32, x: i32) {
-    // SAFETY: plain call into transitional c2rust code; (y, x) is a grid
-    // of the map (u8 coordinates of a take).
-    unsafe { crate::c2rust::borg_flow::borg_flow_enqueue_grid(y, x) }
-}
-
-/// `borg_flow_spread(depth, optimize, avoid, tunneling, stair_idx, sneak)`
-/// (still c2rust, borg-flow.c).
-pub fn borg_flow_spread(
-    _st: &mut BorgState,
-    depth: i32,
-    optimize: bool,
-    avoid: bool,
-    tunneling: bool,
-    stair_idx: i32,
-    sneak: bool,
-) {
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe {
-        crate::c2rust::borg_flow::borg_flow_spread(depth, optimize, avoid, tunneling, stair_idx, sneak)
-    }
-}
-
-/// `borg_flow_commit(who, why)` (still c2rust, borg-flow.c).
-pub fn borg_flow_commit(_st: &mut BorgState, who: &'static std::ffi::CStr, why: i32) -> bool {
-    // SAFETY: `who` is a static C string (the callee only formats it).
-    unsafe { crate::c2rust::borg_flow::borg_flow_commit(who.as_ptr(), why) }
-}
-
-/// `borg_flow_old(why)` (still c2rust, borg-flow.c).
-pub fn borg_flow_old(_st: &mut BorgState, why: i32) -> bool {
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::c2rust::borg_flow::borg_flow_old(why) }
 }
 
 /// The panel detection arrays of borg-update.c (still c2rust):
@@ -1136,60 +1357,10 @@ pub fn borg_detect(_st: &mut BorgState, what: Detect, y: i32, x: i32) -> bool {
     }
 }
 
-/// `track_less.num` (still c2rust, borg-flow-stairs.c).
-pub fn track_less_num(_st: &mut BorgState) -> i16 {
-    // SAFETY: plain read of a global struct field; Borg thread.
-    unsafe { crate::c2rust::borg_flow_stairs::track_less.num }
-}
-
-/// `(track_less.y[i], track_less.x[i])` (still c2rust,
-/// borg-flow-stairs.c), for `i < track_less.num`.
-pub fn track_less_at(_st: &mut BorgState, i: usize) -> (i32, i32) {
-    // SAFETY: borg_init_flow_stairs() allocates `size` entries for x and
-    // y (checked non-NULL); `num` never exceeds `size` (checked).
-    unsafe {
-        let t = &*(&raw const crate::c2rust::borg_flow_stairs::track_less);
-        assert!(i < t.num as usize && t.num <= t.size && !t.x.is_null() && !t.y.is_null());
-        (*t.y.add(i), *t.x.add(i))
-    }
-}
-
-/// `borg_temp_n` (still c2rust, borg-flow.c).
-pub fn borg_temp_n(_st: &mut BorgState) -> i16 {
-    // SAFETY: plain read of an int16_t global; Borg thread.
-    unsafe { crate::c2rust::borg_flow::borg_temp_n }
-}
-
 /// `borg_temp_n = 0` (still c2rust, borg-flow.c).
 pub fn borg_temp_reset(_st: &mut BorgState) {
     // SAFETY: plain store to an int16_t global; Borg thread.
     unsafe { crate::c2rust::borg_flow::borg_temp_n = 0 }
-}
-
-/// `borg_temp_x[borg_temp_n] = x; borg_temp_y[borg_temp_n] = y;
-/// borg_temp_n++;` (still c2rust, borg-flow.c). Panics past the arrays'
-/// 9000 entries (C would write out of bounds).
-pub fn borg_temp_push(_st: &mut BorgState, x: i32, y: i32) {
-    // SAFETY: plain stores to fixed-size global arrays (indexes checked
-    // by Rust) and an int16_t global; Borg thread.
-    unsafe {
-        let n = crate::c2rust::borg_flow::borg_temp_n as usize;
-        (*(&raw mut crate::c2rust::borg_flow::borg_temp_x))[n] = x as u8;
-        (*(&raw mut crate::c2rust::borg_flow::borg_temp_y))[n] = y as u8;
-        crate::c2rust::borg_flow::borg_temp_n += 1;
-    }
-}
-
-/// `(borg_temp_y[i], borg_temp_x[i])` (still c2rust, borg-flow.c).
-pub fn borg_temp_at(_st: &mut BorgState, i: usize) -> (i32, i32) {
-    // SAFETY: plain reads of fixed-size global arrays (index checked by
-    // Rust); Borg thread.
-    unsafe {
-        (
-            i32::from((*(&raw const crate::c2rust::borg_flow::borg_temp_y))[i]),
-            i32::from((*(&raw const crate::c2rust::borg_flow::borg_temp_x))[i]),
-        )
-    }
 }
 
 /// C-ABI shims with the borg-store.c names.

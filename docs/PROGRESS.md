@@ -17,7 +17,13 @@
 * Bridge wrappers that call into c2rust code take the caller's
   `&mut BorgState` (even if unused), so the borrow visibly escapes into the call.
   Otherwise LLVM's `noalias` on `&mut` could cache state that the c2rust code
-  changes through the global pointer.
+  changes through the global pointer. An *unused* parameter is not enough
+  once the wrapper is inlined: the wrapper must call `escape(st)` (a
+  `black_box` of the pointer) before and after the c2rust call. Seen in
+  borg_flow_kill: `borg_flow_kill_aim` moves `borg.c` around calls that read
+  it, and without the escape the stores were dropped (4/45 `full` runs
+  diverged). Older wrappers with an unused `_st` still have this latent
+  hazard.
 * C ctype classes come from `cctype.rs` (as measured under `C.UTF-8`).
 * Behaviour stays exact: the Borg's own algorithms (e.g. its quicksort,
   whose tie order matters) are kept, not replaced with std equivalents.
@@ -73,6 +79,7 @@
 
 **Checkpoint after module 30**: `full` 45/45 identical, `deep` 9/9 identical.
 | 31 | borg_item_decurse | own | no module state; the three functions share `can_decurse` (the "ability for curses" test) and `start_decurse` (scroll, staff, spell, *scroll*, activations; same `||` order) and call borg_inventory/borg_item_use/borg_magic directly; keys: `all_letters_nohjkl[i]` sign-extended from C `char`, `'/'`, `'|'`, `'0' + n` as `keycode_t`, `KC_ENTER`; `letter(-1)` (a decurse flag with swap 0) is the 0 key like `borg_item_wear::swap_letter`; new bridge wrappers `borg_uses_swaps`, `decurse_armour_swap`, `decurse_weapon_swap`; no engine changes; C-ABI shims in `bridge::item_decurse` (borg_item_enchant); checked against the old c2rust code on every real call (return, queued keys, queue head/tail, shop goals, spell counters) in full (~465k calls, 13 real decurses) and deep (~1.33M calls, 49 real decurses, all pack items), plus 4 fuzz rounds per call (random swaps and decurse flags incl. swap 0, `borg_uses_swaps` config/depth, first/where cursed over all slots, blind/confused/amnesia, SP/level/device skill, remove-curse scrolls/staffs in the pack, equipment activations and timeouts, the spell's status/power/level; ~7.2M rounds, ~1.3M returning true, every pack/equipment/quiver branch and the `[-1]` key) (local, not committed): 0 mismatches; never reached in real play: the swap decurses and the equipment/quiver letters (fuzz only); C bug 22 kept; smoke 3/3, full 45/45, deep 9/9 identical |
+| 32 | borg_flow_kill | own | `KillState` (`st.kills`: `kills: Vec<BorgKill>` = `borg_kills`, 256 entries in the C layout, empty = NULL, only init/free reallocate so c2rust `*mut borg_kill` stay valid; `cnt`, `nxt`, `race_count`, `race_death`, `nasties*`; the unique/normal name tables as `Vec<Vec<u8>>` + `Vec<u32>`, sorted with `borg_sort`/`TextWhat` as in C); `headers::borg_flow_kill_h::borg_kill` is an alias of `BorgKill`; about 120 c2rust uses in borg_update/borg_fight_*/borg_think_dungeon/borg_messages/borg_caution/... rewritten to `bridge::st().kills...` (the `memset`s of borg_update are `fill`s); borg_danger/borg_log/borg_projection read `st.kills` directly (`bridge::borg_kill`, `borg_kills_nxt`, `borg_race_name` removed); the name search is `guess_race_name` (side-effect free, unit tested); the 4 anti-summon patterns share `pattern_score`; bridge wrappers `borg_flow_{clear,enqueue_grid,spread,commit,old,first}`, `borg_can_dig`, `borg_flow_far_from_stairs`, `borg_temp_*`, `track_less_*`, `borg_takes_nxt`/`borg_take`/`borg_delete_take`, `borg_attack_aux_{spell_bolt,launch}`, `borg_equips_ring`, `borg_detect_wall`; wrappers that call c2rust now `escape(st)` around the call (see Conventions); engine `MonsterView` (`square_monster`, `cave_monster`), `race_name_cstr`, `race_plural`, `race_base_name`, `kind_name`; C-ABI shims in `bridge::flow_kill`; C bug 18 kept; old c2rust code run as a shadow on every real call in full and deep (kill array, counters, name tables, map, fear, Borg fields, RNG, takes, temp list, notes; flow functions compared up to the commit, `borg_flow_kill_aim` not shadowed because its attack simulation may act), plus synthetic calls every 16th turn on the live state (sleep, follow of awake monsters, flicker/convert in `observe_kill_move`, create at every nearby monster incl. as Morgoth, the full-list steal, locate with odd names, object conversion, `near_monster_type` at other levels/resists, shoot'n'scoot with an adjacent monster, verbose on/off), and the name search on every race name/plural with prefixes/suffixes/case changes at 10 depths (~1.2M per init), no mismatch (local, not committed); never called in the suites: `borg_sleep_kill`, `borg_create_kill` (synthetic only), the dead follow branch; smoke 3/3, full 45/45, deep 9/9 identical |
 
 **Checkpoint after module 6** (5 module commits): `full` 45/45 identical, `deep` 9/9 identical.
 
@@ -113,6 +120,7 @@ impls), comments excluded.
 | borg_item_wear | 741 | 31 |
 | borg_light | 739 | 30 |
 | borg_item_decurse | 742 | 29 |
+| borg_flow_kill | 719 | 33 |
 
 ## Suite timings
 
