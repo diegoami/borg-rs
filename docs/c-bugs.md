@@ -814,3 +814,40 @@ Format: file, function, (seed, turn when observed), explanation.
 * Rust (`borg_caution.rs`): all kept. `borg_heal()` divides by `BI_MAXHP`
   and the resistance note by `borg_game_ratio`; a 0 there panics where C
   traps.
+
+## 41. Debug command slips (commands)
+
+* `borg-commands.c` (the `^z` commands; the suites only use `z`), found by
+  code reading and the fuzz cross-check.
+* `borg_cmd_steps()` (`y`): the loop shows `track_step.{x,y}[num - i]` for
+  `i = 0 .. num - 1`, i.e. entries `num` down to 1: one past the newest
+  step (a stale or zero entry) and never entry 0. With a full list
+  (`num == size`, 100) C reads one `int` past each array; Rust panics.
+* `borg_cmd_targeting()` (`t`): when the "Show Arc" prompt is cancelled the
+  function returns without restoring `player->opts.delay_factor`, which
+  stays 200.
+* `borg_cmd_power()` (`p`): `msg("... %ld", p)` with an `int32_t` (Borg and
+  home power). gcc passes the value zero-extended (`mov %eax,%esi`, checked
+  in the C build) and `vstrnfmt` reads a `long`, so a negative power prints
+  as its unsigned 32-bit value.
+* `borg_cmd_flow()` (`^`): the start cost `b_c` is read at the Borg's real
+  grid on every step, not at the simulated one. Neighbours of a simulated
+  grid on the map edge are read at `y` or `x` = -1 (C reads outside the
+  array; Rust panics).
+* `borg_cmd_grid_target_feature()` (`G`): the "game Feat" is the feature
+  under the Borg (`square(cave, borg.c)`), not at the targeted grid.
+* `borg_cmd_flags()` (`f`) and `borg_cmd_grid_target_info()` (`I`) pass
+  `format(...)` output as the format of `msg()`. The texts never contain a
+  `%` (setting names, numbers), so this has no effect.
+* `borg_cmd_flags()` and `borg_cmd_grid_feature()` never free their menus
+  (`menu_new` without `menu_free`; kept, the Rust `engine::Menu` is never
+  freed either).
+* `borg_cmd_object_desc()` (`o`): "Which item?" accepts `pack_size`, the
+  always-empty end of `player->upkeep->inven`; the display then shows
+  `borg_items[pack_size]` (the weapon slot) with all-zero flags.
+* `do_cmd_borg()`: an escaped command prompt calls `Term_load()` without a
+  matching `Term_save()`, so it pops a screen saved by someone else (or
+  nothing). `borg_cmd_help()` saves once and loads twice when the nested
+  prompt is escaped, and `borg_cmd_target()` (`G`, `I`, `D`) starts with a
+  `Term_load()` whether or not it was reached from the help.
+* Rust (`borg_commands.rs`): all kept; the out-of-bounds reads are panics.

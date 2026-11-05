@@ -97,9 +97,6 @@ pub fn borg_note(st: &mut BorgState, what: &str) {
     crate::borg_io::borg_note(st, what)
 }
 
-/// `borg_engine_date` as a C string (for c2rust format() calls).
-pub static ENGINE_DATE: &std::ffi::CStr = c"Nov  4 2026";
-
 /// `borg_oops(what)` (still c2rust, borg-think.c).
 pub fn borg_oops(st: &mut BorgState, what: &str) {
     let c = std::ffi::CString::new(what).expect("no NUL");
@@ -176,25 +173,6 @@ pub mod io {
     }
     pub unsafe extern "C" fn borg_free_io() {
         borg_io::borg_free_io(st())
-    }
-}
-
-/// C-ABI shims with the borg-init.c names, for c2rust callers
-/// (borg_commands).
-pub mod init {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_init() {
-        crate::borg_init::borg_init(st())
-    }
-    pub unsafe extern "C" fn borg_free() {
-        crate::borg_init::borg_free(st())
-    }
-    pub unsafe extern "C" fn borg_init_txt_file() -> bool {
-        crate::borg_init::borg_init_txt_file(st())
-    }
-    pub unsafe extern "C" fn borg_reinit_options() {
-        crate::borg_init::borg_reinit_options(st())
     }
 }
 
@@ -738,9 +716,6 @@ pub mod magic {
     pub unsafe extern "C" fn borg_spell_stat() -> c_int {
         m::borg_spell_stat()
     }
-    pub unsafe extern "C" fn borg_can_cast() -> bool {
-        m::borg_can_cast()
-    }
     pub unsafe extern "C" fn borg_primarily_caster() -> bool {
         m::borg_primarily_caster()
     }
@@ -769,9 +744,6 @@ pub mod magic {
     }
     pub unsafe extern "C" fn borg_spell_okay(spell: borg_spells) -> bool {
         m::borg_spell_okay(st(), spell)
-    }
-    pub unsafe extern "C" fn borg_spell_fail_rate(spell: borg_spells) -> c_int {
-        m::borg_spell_fail_rate(st(), spell)
     }
     pub unsafe extern "C" fn borg_spell_okay_fail(spell: borg_spells, allow_fail: c_int) -> bool {
         m::borg_spell_okay_fail(st(), spell, allow_fail)
@@ -826,15 +798,6 @@ pub mod home_notice {
     pub unsafe extern "C" fn borg_notice_home(in_item: *mut borg_item, no_items: bool) {
         let copy = if in_item.is_null() { None } else { Some(*in_item) };
         crate::borg_home_notice::borg_notice_home(st(), copy.as_ref(), no_items)
-    }
-}
-
-/// C-ABI shims with the borg-home-power.c names.
-pub mod home_power {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_power_home() -> i32 {
-        crate::borg_home_power::borg_power_home(st())
     }
 }
 
@@ -904,14 +867,10 @@ pub mod prepared {
     }
 }
 
-/// C-ABI shims with the borg-reincarnate.c names (callers in
-/// borg_commands and borg_messages_react).
+/// C-ABI shims with the borg-reincarnate.c names.
 pub mod reincarnate {
     use super::st;
 
-    pub unsafe extern "C" fn borg_force_reincarnate() {
-        crate::borg_reincarnate::borg_force_reincarnate(st())
-    }
     pub unsafe extern "C" fn borg_reincarnate_end() {
         crate::borg_reincarnate::borg_reincarnate_end(st())
     }
@@ -1045,9 +1004,6 @@ pub mod inventory {
     pub unsafe extern "C" fn borg_equipment() {
         inv::borg_equipment(st())
     }
-    pub unsafe extern "C" fn borg_inventory() {
-        inv::borg_inventory(st())
-    }
     pub unsafe extern "C" fn borg_first_empty_inventory_slot() -> c_int {
         inv::borg_first_empty_inventory_slot(st())
     }
@@ -1147,30 +1103,16 @@ pub fn borg_prepared_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
     r
 }
 
-/// C-ABI shims with the borg-log.c names (callers in borg_commands and
-/// borg_messages_react).
+/// C-ABI shims with the borg-log.c names.
 pub mod log {
     use super::st;
     use crate::borg_log as l;
-    use crate::headers::object_h::object;
-    use core::ffi::c_int;
 
     pub unsafe extern "C" fn borg_log_death() {
         l::borg_log_death(st())
     }
     pub unsafe extern "C" fn borg_log_death_data() {
         l::borg_log_death_data(st())
-    }
-    pub unsafe extern "C" fn borg_write_map(ask: bool) {
-        l::borg_write_map(st(), ask)
-    }
-    /// `item2` is the game object of inventory slot `n` (borg_commands).
-    pub unsafe extern "C" fn borg_display_item(item2: *mut object, n: c_int) {
-        // object_flags(item2, f): a pure read, done before the safe code
-        // (which clears the screen first) as in C.
-        let mut f = [0u8; 5];
-        crate::headers::obj_util_h::object_flags(item2, f.as_mut_ptr());
-        l::borg_display_item(st(), &f, n)
     }
     pub unsafe extern "C" fn borg_display_status() {
         l::borg_display_status(st())
@@ -1229,13 +1171,9 @@ pub unsafe fn msg_buf() -> *mut c_char {
 }
 /// C-ABI shims with the borg-item-id.c names, for c2rust callers.
 pub mod item_id {
-    use super::st;
     use crate::borg_item_id as id;
     use crate::headers::borg_item_h::borg_item;
 
-    pub unsafe extern "C" fn borg_object_fully_id() -> bool {
-        id::borg_object_fully_id(st())
-    }
     /// `item` is only read.
     pub unsafe extern "C" fn borg_item_note_needs_id(item: *const borg_item) -> bool {
         id::borg_item_note_needs_id(&*item)
@@ -1595,7 +1533,7 @@ pub mod think_store {
 
 /// C-ABI shims with the borg-item-wear.c names, for c2rust callers
 /// (borg_think_dungeon, borg_think_dungeon_util,
-/// borg_trait, borg_update, borg_commands, borg_init).
+/// borg_trait, borg_update).
 pub mod item_wear {
     use super::st;
     use crate::borg_item_wear as w;
@@ -2084,4 +2022,126 @@ pub mod caution {
     pub unsafe extern "C" fn borg_caution() -> bool {
         crate::borg_caution::borg_caution(st())
     }
+}
+
+// ---------------------------------------------------------------------------
+// borg-commands.c (converted): the engine's entry into the ^Z commands,
+// engine calls that wait for keys, and calls into still-c2rust code.
+
+/// The engine's call into the Borg commands (`do_cmd_borg`, called by
+/// `do_cmd_try_borg` in cmd-misc.c for `^Z`).
+pub mod commands {
+    #[no_mangle]
+    pub extern "C" fn do_cmd_borg() {
+        super::with_entry_state(crate::borg_commands::do_cmd_borg)
+    }
+}
+
+/// `get_com(prompt, &cmd)` from Borg code that holds the state (waits for
+/// a key, so as `msg`).
+pub fn get_com(st: &mut BorgState, prompt: &std::ffi::CStr) -> (bool, u8) {
+    escape(st);
+    let r = crate::engine::get_com(prompt);
+    escape(st);
+    r
+}
+
+/// `get_com_ex(prompt, &ke)` from Borg code that holds the state (waits
+/// for a key, so as `msg`).
+pub fn get_com_ex(st: &mut BorgState, prompt: &std::ffi::CStr) -> bool {
+    escape(st);
+    let r = crate::engine::get_com_ex(prompt);
+    escape(st);
+    r
+}
+
+/// `get_quantity(prompt, max)` from Borg code that holds the state (waits
+/// for keys, so as `msg`).
+pub fn get_quantity(st: &mut BorgState, prompt: &std::ffi::CStr, max: i32) -> i32 {
+    escape(st);
+    let r = crate::engine::get_quantity(prompt, max);
+    escape(st);
+    r
+}
+
+/// `target_set_interactive(mode, x, y, allow)` from Borg code that holds
+/// the state (waits for keys, so as `msg`).
+pub fn target_set_interactive(st: &mut BorgState, mode: i32, x: i32, y: i32, allow: bool) -> bool {
+    escape(st);
+    let r = crate::engine::target_set_interactive(mode, x, y, allow);
+    escape(st);
+    r
+}
+
+/// `screen_save()` from Borg code that holds the state (flushes messages,
+/// so as `msg`).
+pub fn screen_save(st: &mut BorgState) {
+    escape(st);
+    crate::engine::screen_save();
+    escape(st);
+}
+
+/// `screen_load()` from Borg code that holds the state (flushes messages,
+/// so as `msg`).
+pub fn screen_load(st: &mut BorgState) {
+    escape(st);
+    crate::engine::screen_load();
+    escape(st);
+}
+
+/// `menu_select(m, notify, popup)` from Borg code that holds the state
+/// (waits for keys, so as `msg`). `display` must not use the state.
+pub fn menu_select(
+    st: &mut BorgState,
+    m: &mut crate::engine::Menu,
+    notify: i32,
+    popup: bool,
+    display: &mut dyn FnMut(crate::engine::MenuRow),
+) -> crate::headers::ui_event_h::ui_event_type {
+    escape(st);
+    let r = m.select(notify, popup, display);
+    escape(st);
+    r
+}
+
+/// `project(source_player(), ...)` from Borg code that holds the state
+/// (signals display events, so as `msg`).
+#[allow(clippy::too_many_arguments)]
+pub fn project_from_player(
+    st: &mut BorgState,
+    rad: i32,
+    x: i32,
+    y: i32,
+    dam: i32,
+    typ: i32,
+    flg: i32,
+    arc: i32,
+    diameter: u8,
+) -> bool {
+    escape(st);
+    let r = crate::engine::project_from_player(rad, x, y, dam, typ, flg, arc, diameter);
+    escape(st);
+    r
+}
+
+c2r_void! {
+    borg_update => crate::c2rust::borg_update::borg_update;
+}
+
+/// `borg_match` (still c2rust, borg-messages.c): the text that stops the
+/// Borg when a message contains it (`char[128]`).
+pub fn borg_match(st: &mut BorgState) -> [u8; 128] {
+    escape(st);
+    // SAFETY: plain read of a char array global; Borg thread.
+    let r = unsafe { *(core::ptr::addr_of!(crate::c2rust::borg_messages::borg_match) as *const [u8; 128]) };
+    escape(st);
+    r
+}
+
+/// `borg_match = v` (all 128 bytes).
+pub fn set_borg_match(st: &mut BorgState, v: &[u8; 128]) {
+    escape(st);
+    // SAFETY: plain write of a char array global; Borg thread.
+    unsafe { *(core::ptr::addr_of_mut!(crate::c2rust::borg_messages::borg_match) as *mut [u8; 128]) = *v };
+    escape(st);
 }

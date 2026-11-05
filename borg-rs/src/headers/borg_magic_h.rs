@@ -143,13 +143,11 @@ pub use crate::bridge::magic::borg_spell_fail;
 pub use crate::bridge::magic::borg_spell_legal;
 /// Moved to the converted module (`crate::borg_magic::BorgMagic`).
 pub type borg_magic = crate::borg_magic::BorgMagic;
-pub use crate::bridge::magic::borg_can_cast;
 pub use crate::bridge::magic::borg_get_spell_entry;
 pub use crate::bridge::magic::borg_get_spell_power;
 pub use crate::bridge::magic::borg_heroism_level;
 pub use crate::bridge::magic::borg_prepare_book_info;
 pub use crate::bridge::magic::borg_primarily_caster;
-pub use crate::bridge::magic::borg_spell_fail_rate;
 pub use crate::bridge::magic::borg_spell_legal_fail;
 pub use crate::bridge::magic::borg_spell_okay;
 pub use crate::bridge::magic::borg_spell_okay_fail;

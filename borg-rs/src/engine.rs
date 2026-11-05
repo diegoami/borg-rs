@@ -2032,3 +2032,334 @@ pub fn ignore_birth_init() {
     // SAFETY: plain call on the engine thread.
     unsafe { crate::headers::obj_ignore_h::ignore_birth_init() }
 }
+
+// ---------------------------------------------------------------------------
+// The Borg's ^Z command interface (borg-commands.c). The calls that can
+// wait for a key (`get_com`, `get_com_ex`, `get_quantity`, `menu_select`,
+// `target_set_interactive`, `screen_save`/`screen_load` (message flush),
+// `project` (display events)) are called from Borg code through the
+// `bridge` wrappers that `escape` the state.
+
+/// `player->grid`
+pub fn player_grid() -> loc {
+    player_ref().grid
+}
+
+/// `player->opts.lazymove_delay`
+pub fn player_lazymove_delay() -> u8 {
+    player_ref().opts.lazymove_delay
+}
+
+/// `player->opts.lazymove_delay = v`
+pub fn set_player_lazymove_delay(v: u8) {
+    // SAFETY: `player` is allocated at startup; single-threaded write.
+    unsafe { (*crate::headers::player_h::player).opts.lazymove_delay = v }
+}
+
+/// `player->opts.delay_factor`
+pub fn player_delay_factor() -> u8 {
+    player_ref().opts.delay_factor
+}
+
+/// `player->opts.delay_factor = v`
+pub fn set_player_delay_factor(v: u8) {
+    // SAFETY: `player` is allocated at startup; single-threaded write.
+    unsafe { (*crate::headers::player_h::player).opts.delay_factor = v }
+}
+
+/// `Term_save()`
+pub fn term_save() {
+    // SAFETY: plain call on the active term.
+    unsafe {
+        crate::headers::ui_term_h::Term_save();
+    }
+}
+
+/// `Term_load()`
+pub fn term_load() {
+    // SAFETY: plain call on the active term (with no saved screen it
+    // loads a blank one).
+    unsafe {
+        crate::headers::ui_term_h::Term_load();
+    }
+}
+
+/// `Term_flush()`: discard pending keypresses.
+pub fn term_flush() {
+    // SAFETY: plain call on the active term.
+    unsafe {
+        crate::headers::ui_term_h::Term_flush();
+    }
+}
+
+/// `target_okay()`
+pub fn target_okay() -> bool {
+    // SAFETY: plain call; reads the target and the current level.
+    unsafe { crate::headers::target_h::target_okay() }
+}
+
+/// `target_get(&grid)`
+pub fn target_get() -> loc {
+    let mut l = loc { x: 0, y: 0 };
+    // SAFETY: out-pointer to a local.
+    unsafe { crate::headers::target_h::target_get(&mut l) };
+    l
+}
+
+/// `get_com(prompt, &cmd)`: the result and the key as the C `char`
+/// (byte). Waits for a key.
+pub fn get_com(prompt: &CStr) -> (bool, u8) {
+    let mut cmd: c_char = 0;
+    // SAFETY: valid prompt and out-pointer to a local.
+    let r = unsafe { crate::headers::game_input_h::get_com(prompt.as_ptr(), &mut cmd) };
+    (r, cmd as u8)
+}
+
+/// `get_com_ex(prompt, &ke)`; the event itself is dropped. Waits for a
+/// key.
+pub fn get_com_ex(prompt: &CStr) -> bool {
+    // SAFETY: ui_event is plain data (zeroed = EVT_NONE); valid prompt and
+    // out-pointer to a local.
+    unsafe {
+        let mut ke: crate::headers::ui_event_h::ui_event = core::mem::zeroed();
+        crate::headers::ui_input_h::get_com_ex(prompt.as_ptr(), &mut ke)
+    }
+}
+
+/// `get_quantity(prompt, max)`. Waits for keys.
+pub fn get_quantity(prompt: &CStr, max: i32) -> i32 {
+    // SAFETY: valid prompt.
+    unsafe { crate::headers::game_input_h::get_quantity(prompt.as_ptr(), max) }
+}
+
+/// `target_set_interactive(mode, x, y, allow_pathfinding)`. Waits for
+/// keys.
+pub fn target_set_interactive(mode: i32, x: i32, y: i32, allow_pathfinding: bool) -> bool {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::ui_target_h::target_set_interactive(mode, x, y, allow_pathfinding) }
+}
+
+/// `print_rel(c, a, y, x)`: draw a character at a map grid (if it is on
+/// the panel).
+pub fn print_rel(c: u8, a: u8, y: i32, x: i32) {
+    // SAFETY: plain call; the function only draws grids on the panel.
+    unsafe { crate::headers::ui_map_h::print_rel(wchar_t::from(c), a, y, x) }
+}
+
+/// `prt_map()`: redraw the map.
+pub fn prt_map() {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::ui_map_h::prt_map() }
+}
+
+/// `c_put_str(attr, s, row, col)` (no NUL in `s`).
+pub fn c_put_str(attr: u8, s: &[u8], row: i32, col: i32) {
+    let c = CString::new(s).expect("no NUL in term text");
+    // SAFETY: c is a valid C string for the call.
+    unsafe { crate::headers::ui_output_h::c_put_str(attr, c.as_ptr(), row, col) }
+}
+
+/// `screen_save()` (flushes messages, which can wait for a key).
+pub fn screen_save() {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::ui_output_h::screen_save() }
+}
+
+/// `screen_load()` (flushes messages, which can wait for a key).
+pub fn screen_load() {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::ui_output_h::screen_load() }
+}
+
+/// `window_make(origin_x, origin_y, end_x, end_y)`
+pub fn window_make(origin_x: i32, origin_y: i32, end_x: i32, end_y: i32) {
+    // SAFETY: plain call; draws on the active term.
+    unsafe { crate::headers::ui_output_h::window_make(origin_x, origin_y, end_x, end_y) }
+}
+
+/// One `display_row` call of a menu.
+#[derive(Clone, Copy, Debug)]
+pub struct MenuRow {
+    pub oid: i32,
+    pub cursor: bool,
+    pub row: i32,
+    pub col: i32,
+    pub width: i32,
+}
+
+/// The row display of the menu shown by `Menu::select` (lifetime erased;
+/// only set while `select` runs).
+static mut MENU_DISPLAY: Option<*mut dyn FnMut(MenuRow)> = None;
+
+unsafe extern "C" fn menu_display_row(
+    _menu: *mut crate::headers::ui_menu_h::menu,
+    oid: core::ffi::c_int,
+    cursor: bool,
+    row: core::ffi::c_int,
+    col: core::ffi::c_int,
+    width: core::ffi::c_int,
+) {
+    let f = MENU_DISPLAY.expect("menu row drawn outside Menu::select");
+    (*f)(MenuRow { oid, cursor, row, col, width });
+}
+
+/// The row functions of a Borg menu: only `display_row`, as the
+/// `menu_iter`s of borg-commands.c.
+static MENU_ITER: crate::headers::ui_menu_h::menu_iter = crate::headers::ui_menu_h::menu_iter {
+    get_tag: None,
+    valid_row: None,
+    display_row: Some(menu_display_row),
+    row_handler: None,
+    resize: None,
+};
+
+/// A scrolling menu (`menu_new(MN_SKIN_SCROLL, iter)`). As in C it is
+/// never freed.
+pub struct Menu(*mut crate::headers::ui_menu_h::menu);
+
+impl Menu {
+    /// `menu_new(MN_SKIN_SCROLL, &iter)`
+    pub fn new_scroll() -> Menu {
+        // SAFETY: MENU_ITER is a static that outlives the menu.
+        let m = unsafe {
+            crate::headers::ui_menu_h::menu_new(crate::headers::ui_menu_h::MN_SKIN_SCROLL, &MENU_ITER)
+        };
+        assert!(!m.is_null());
+        Menu(m)
+    }
+
+    /// `menu_setpriv(m, count, data)`. The private data is never read
+    /// (the row display does not use it); a pointer to the row functions
+    /// is stored.
+    pub fn setpriv(&mut self, count: i32) {
+        // SAFETY: live menu; the data pointer is only stored.
+        unsafe {
+            crate::headers::ui_menu_h::menu_setpriv(
+                self.0,
+                count,
+                &MENU_ITER as *const _ as *mut core::ffi::c_void,
+            )
+        }
+    }
+
+    /// `menu_layout(m, &area)`
+    pub fn layout(&mut self, area: crate::headers::ui_output_h::region) -> bool {
+        // SAFETY: live menu; the region is read during the call.
+        unsafe { crate::headers::ui_menu_h::menu_layout(self.0, &area) }
+    }
+
+    /// `menu_select(m, notify, popup)`: the type of the returned event.
+    /// `display` draws a row (the `display_row` of the C iterator).
+    /// Waits for keys.
+    pub fn select(&mut self, notify: i32, popup: bool, display: &mut dyn FnMut(MenuRow)) -> ui_event_type {
+        let p: *mut (dyn FnMut(MenuRow) + '_) = display;
+        // SAFETY: the pointer is only used by menu_display_row while this
+        // call runs (restored before returning), so the erased lifetime is
+        // never outlived; engine thread only.
+        unsafe {
+            let saved = MENU_DISPLAY;
+            MENU_DISPLAY = Some(core::mem::transmute::<
+                *mut (dyn FnMut(MenuRow) + '_),
+                *mut (dyn FnMut(MenuRow) + 'static),
+            >(p));
+            let ev = crate::headers::ui_menu_h::menu_select(self.0, notify, popup);
+            MENU_DISPLAY = saved;
+            ev.type_0
+        }
+    }
+
+    /// `m->cursor`
+    pub fn cursor(&self) -> i32 {
+        // SAFETY: live menu.
+        unsafe { (*self.0).cursor }
+    }
+}
+
+/// `project(source_player(), rad, loc(x, y), dam, typ, flg, arc,
+/// diameter, NULL)`.
+#[allow(clippy::too_many_arguments)]
+pub fn project_from_player(
+    rad: i32,
+    x: i32,
+    y: i32,
+    dam: i32,
+    typ: i32,
+    flg: i32,
+    degrees_of_arc: i32,
+    diameter_of_source: u8,
+) -> bool {
+    // SAFETY: plain call; a NULL object is allowed.
+    unsafe {
+        crate::headers::project_h::project(
+            crate::headers::source_h::source_player(),
+            rad,
+            loc { x, y },
+            dam,
+            typ,
+            flg,
+            degrees_of_arc,
+            diameter_of_source,
+            core::ptr::null(),
+        )
+    }
+}
+
+/// `SQUARE_SIZE`: bytes in a square's info flags.
+pub const SQUARE_SIZE: usize = (crate::headers::cave_h::SQUARE_MAX as usize).div_ceil(8);
+
+/// `square(cave, loc(x, y))->feat`; panics out of bounds (the engine's
+/// assert is compiled out).
+pub fn square_feat(x: i32, y: i32) -> u8 {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds.
+    unsafe { (*headers::cave_h::square(headers::cave_h::cave, loc { x, y })).feat }
+}
+
+/// `square(cave, loc(x, y))->info` (`SQUARE_SIZE` bytes); panics out of
+/// bounds.
+pub fn square_info(x: i32, y: i32) -> [u8; SQUARE_SIZE] {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds and its
+    // info points at SQUARE_SIZE bytes.
+    unsafe {
+        let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
+        *((*sq).info as *const [u8; SQUARE_SIZE])
+    }
+}
+
+/// `f_info[feat].name` (feat < FEAT_MAX; panics on a NULL name, where C
+/// would crash in `c_put_str`).
+pub fn feat_name(feat: i32) -> &'static [u8] {
+    assert!((0..crate::headers::cave_h::FEAT_MAX as i32).contains(&feat), "feature out of range");
+    // SAFETY: f_info has FEAT_MAX entries (index checked), loaded at
+    // startup and kept for the game.
+    let name = unsafe { (*crate::headers::cave_h::f_info.add(feat as usize)).name };
+    assert!(!name.is_null(), "feature without a name");
+    // SAFETY: a non-NULL game data string.
+    unsafe { CStr::from_ptr(name).to_bytes() }
+}
+
+/// `k_info[kidx].name` as `%s` prints it (NULL prints as "").
+pub fn kind_name_or_empty(kidx: usize) -> &'static [u8] {
+    c_bytes(k_info()[kidx].name)
+}
+
+/// `a_info[aidx].name` as `%s` prints it (NULL prints as "").
+pub fn artifact_name_or_empty(aidx: usize) -> &'static [u8] {
+    c_bytes(a_info()[aidx].name)
+}
+
+/// `object_flags(player->upkeep->inven[n], f)` (all zero for an empty
+/// slot); `0 <= n <= pack_size` (the array has a NULL entry at
+/// `pack_size`).
+pub fn inven_object_flags(n: i32) -> [u8; OF_SIZE] {
+    assert!((0..=i32::from(z_info().pack_size)).contains(&n), "pack slot out of range");
+    let mut f = [0u8; OF_SIZE];
+    // SAFETY: inven has pack_size + 1 entries (index checked); object_flags
+    // accepts NULL and writes OF_SIZE bytes.
+    unsafe {
+        let obj = *(*player_ref().upkeep).inven.add(n as usize);
+        crate::headers::obj_util_h::object_flags(obj, f.as_mut_ptr());
+    }
+    f
+}
