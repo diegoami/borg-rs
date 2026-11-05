@@ -899,7 +899,7 @@ with its issues.
 ## 43. Power slips (power)
 
 * `borg-power.c`, found by code reading; all checked against the c2rust
-  code (see PROGRESS.md, module 50).
+  code (see PROGRESS.md, module 51).
 * `borg_power_inventory()`, "collect Resistance pots if not immune -- All
   Classes": `k` is not reset before the loop, so it starts where the
   previous loop left it (the low-calorie food count, capped at 15, or the
