@@ -5,6 +5,13 @@ here so nobody "fixes" one by accident.
 
 Format: file, function, (seed, turn when observed), explanation.
 
+Each slip is also filed as a lead in
+[diegoami/neo-angband-tracker](https://github.com/diegoami/neo-angband-tracker)
+(see `CLAUDE.md`, "C bug leads are filed in the tracker"). Sections 1-41
+were imported there by the tracker itself as CBUG-0001 to CBUG-0152 (from
+commit `c375a8245`). From section 42 on, each section has a `Tracker:` line
+with its issues.
+
 ## 1. `borg.has[BI_CURHP]` instead of `borg.trait[BI_CURHP]`
 
 * File: `angband/src/borg/borg-fight-defend.c:2498`,
