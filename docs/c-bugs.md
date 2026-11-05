@@ -604,3 +604,37 @@ Format: file, function, (seed, turn when observed), explanation.
   item).
 * Rust (`borg_store_sell.rs`): all kept (`test_item`/`best_item` clear
   their first 8 bytes; a shorter array would panic where C overruns).
+## 34. Shopping slips (store buy)
+
+* `borg-store-buy.c`, found by code reading.
+* `borg_good_buy()`: the Black Market Rod of Teleport Other test reads
+  `class != CLASS_MAGE && class == CLASS_ROGUE` (comment: "mage and rogue
+  can cast teleport away"), so only rogues may buy it there; `!=` was
+  meant for both.
+* `borg_think_shop_buy_useful()`: the "immediate shopping" test (no food)
+  is `tval != TV_FOOD && (tval != TV_SCROLL && sval !=
+  sv_scroll_satisfy_hunger)`: every scroll, and every item whose sval
+  happens to equal Satisfy Hunger's, gets through; `!(tval == TV_SCROLL &&
+  sval == ...)` was meant.
+* `borg_think_home_buy_useful()`: the two "require two empty slots"
+  `continue`s come after the ware was taken out of the home
+  (`iqty -= qty`, and `pval` for staffs/wands), so that home ware keeps the
+  reduced count until the next store read. `p_left`/`p_right` are not
+  reset per ware: when a ring slot holds the One Ring, the other hand's
+  value comes from an earlier ring. The left-hand trial uses one ring, the
+  right-hand trial `qty` rings.
+* `borg_think_home_grab_useless()`: `skip_it` is never reset, so after the
+  first ware that was just sold to the home, every later ware is skipped.
+* `borg_think_home_buy_swap_weapon()` / `_armour()`: when there is no
+  hole, they return without restoring `weapon_swap_value` /
+  `armour_swap_value` (left at -1). When a swap exists, the trial slot is
+  the swap's own pack slot: each candidate is copied over it and its
+  `iqty` set to 0 afterwards, and the slot is not restored from
+  `safe_items`, so the swap item is gone from `borg_items` until the next
+  inventory read (the final `borg_notice(true)` already sees no swap).
+* `bought_item_num` is the index of the last entry written, but the
+  readers (`borg_store_sell`) loop `p < bought_item_num`, so the latest
+  purchase is never checked; `bought_item_nxt` wraps at 9, so entry 9 is
+  never used. (`sold_item_*` in borg-store-sell.c work the same way and are
+  read the same way here.)
+* Rust (`borg_store_buy.rs`): all kept.

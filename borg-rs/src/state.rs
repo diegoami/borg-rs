@@ -31,6 +31,7 @@ use crate::borg_prepared::PreparedState;
 use crate::borg_projection::ProjectionState;
 use crate::borg_store::StoreState;
 use crate::borg_store_sell::StoreSellState;
+use crate::borg_store_buy::BuyState;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -95,4 +96,7 @@ pub struct BorgState {
     pub store: StoreState,
     /// borg-store-sell.c: `sold_item_*`, `test_item`, `best_item`
     pub store_sell: StoreSellState,
+    /// borg-store-buy.c: `bought_item_*` and the statics
+    /// `borg_money_scum_who`/`borg_money_scum_ware`
+    pub buy: BuyState,
 }

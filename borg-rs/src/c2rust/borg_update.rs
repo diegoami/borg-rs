@@ -32,10 +32,6 @@ use crate::headers::borg_io_h::borg_note;
 use crate::headers::borg_item_wear_h::borg_clear_best;
 
 use crate::headers::borg_projection_h::{borg_los, borg_target_unknown_wall};
-use crate::headers::borg_store_buy_h::{
-    bought_item_num, bought_item_nxt, bought_item_pval, bought_item_store, bought_item_sval,
-    bought_item_tval,
-};
 
 use crate::headers::borg_think_dungeon_h::{borg_feeling_danger, borg_feeling_stuff};
 use crate::headers::borg_think_h::{borg_do_spell, borg_oops};
@@ -1908,18 +1904,18 @@ pub unsafe extern "C" fn borg_update() {
         crate::bridge::st().danger.wipe = true_0 != 0;
         crate::bridge::st().store_sell.sold_item_num = 0 as ::core::ffi::c_int;
         crate::bridge::st().store_sell.sold_item_nxt = 1 as ::core::ffi::c_int;
-        bought_item_nxt = 1 as ::core::ffi::c_int;
-        bought_item_num = 0 as ::core::ffi::c_int;
+        crate::bridge::st().buy.bought_item_nxt = 1 as ::core::ffi::c_int;
+        crate::bridge::st().buy.bought_item_num = 0 as ::core::ffi::c_int;
         i = 0 as ::core::ffi::c_int;
         while i < 10 as ::core::ffi::c_int {
             crate::bridge::st().store_sell.sold_item_tval[i as usize] = 0 as ::core::ffi::c_int;
             crate::bridge::st().store_sell.sold_item_sval[i as usize] = 0 as ::core::ffi::c_int;
             crate::bridge::st().store_sell.sold_item_pval[i as usize] = 0 as ::core::ffi::c_int;
             crate::bridge::st().store_sell.sold_item_store[i as usize] = 0 as ::core::ffi::c_int;
-            bought_item_tval[i as usize] = 0 as ::core::ffi::c_int;
-            bought_item_sval[i as usize] = 0 as ::core::ffi::c_int;
-            bought_item_pval[i as usize] = 0 as ::core::ffi::c_int;
-            bought_item_store[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().buy.bought_item_tval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().buy.bought_item_sval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().buy.bought_item_pval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().buy.bought_item_store[i as usize] = 0 as ::core::ffi::c_int;
             i += 1;
         }
         borg_do_update_view = true_0 != 0;

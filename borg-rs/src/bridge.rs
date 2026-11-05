@@ -1253,32 +1253,21 @@ pub struct BoughtItem {
     pub store: i32,
 }
 
-/// `bought_item_num` (still c2rust, borg-store-buy.c).
+/// `bought_item_num` (borg-store-buy.c, converted).
 pub fn bought_item_num(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_store_buy::bought_item_num };
-    escape(st);
-    r
+    st.buy.bought_item_num
 }
 
 /// `bought_item_*[i]` (still c2rust, borg-store-buy.c); panics past the
 /// 10 entries.
 pub fn bought_item(st: &mut BorgState, i: usize) -> BoughtItem {
-    escape(st);
-    // SAFETY: plain reads of fixed-size int array globals (bounds
-    // checked); Borg thread.
-    let r = unsafe {
-        use crate::c2rust::borg_store_buy as b;
-        BoughtItem {
-            tval: (*(&raw const b::bought_item_tval))[i],
-            sval: (*(&raw const b::bought_item_sval))[i],
-            pval: (*(&raw const b::bought_item_pval))[i],
-            store: (*(&raw const b::bought_item_store))[i],
-        }
-    };
-    escape(st);
-    r
+    let b = &st.buy;
+    BoughtItem {
+        tval: b.bought_item_tval[i],
+        sval: b.bought_item_sval[i],
+        pval: b.bought_item_pval[i],
+        store: b.bought_item_store[i],
+    }
 }
 
 /// C-ABI shims with the borg-store-sell.c names, for c2rust callers
@@ -1926,5 +1915,124 @@ pub mod flow {
     }
     pub unsafe extern "C" fn borg_free_flow() {
         f::borg_free_flow(st())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// borg-store-buy.c (converted): calls into still-c2rust code.
+
+/// `sold_item_num` (still c2rust, borg-store-sell.c): the index of the
+/// last item sold (-1 at start).
+pub fn sold_item_num(st: &mut BorgState) -> i32 {
+    st.store_sell.sold_item_num
+}
+
+/// `(sold_item_tval[p], sold_item_sval[p], sold_item_store[p])` (still
+/// c2rust, borg-store-sell.c); panics past the 10 entries.
+pub fn sold_item(st: &mut BorgState, p: usize) -> (i32, i32, i32) {
+    let s = &st.store_sell;
+    (s.sold_item_tval[p], s.sold_item_sval[p], s.sold_item_store[p])
+}
+
+/// `borg_min_item_quantity(item)` (still c2rust, borg-store-sell.c), on a
+/// copy of the item (it only reads it).
+pub fn borg_min_item_quantity(
+    st: &mut BorgState,
+    item: &crate::headers::borg_item_h::borg_item,
+) -> i32 {
+    crate::borg_store_sell::borg_min_item_quantity(st, item)
+}
+
+/// `borg_think_home_sell_useful(&best_home_power)` (still c2rust,
+/// borg-store-sell.c).
+pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32) -> bool {
+    crate::borg_store_sell::borg_think_home_sell_useful(st, best_home_power)
+}
+
+/// `weapon_swap_value` (still c2rust, borg-trait-swap.c).
+pub fn weapon_swap_value(st: &mut BorgState) -> i32 {
+    escape(st);
+    // SAFETY: plain read of an int32_t global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_trait_swap::weapon_swap_value };
+    escape(st);
+    r
+}
+
+/// `armour_swap_value` (still c2rust, borg-trait-swap.c).
+pub fn armour_swap_value(st: &mut BorgState) -> i32 {
+    escape(st);
+    // SAFETY: plain read of an int32_t global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_trait_swap::armour_swap_value };
+    escape(st);
+    r
+}
+
+/// `weapon_swap_value = v` (still c2rust, borg-trait-swap.c).
+pub fn set_weapon_swap_value(st: &mut BorgState, v: i32) {
+    escape(st);
+    // SAFETY: plain write of an int32_t global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::weapon_swap_value = v };
+    escape(st);
+}
+
+/// `armour_swap_value = v` (still c2rust, borg-trait-swap.c).
+pub fn set_armour_swap_value(st: &mut BorgState, v: i32) {
+    escape(st);
+    // SAFETY: plain write of an int32_t global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::armour_swap_value = v };
+    escape(st);
+}
+
+/// `(weapon_swap, weapon_swap_value, armour_swap, armour_swap_value)`
+/// (still c2rust, borg-trait-swap.c).
+pub fn trait_swaps(st: &mut BorgState) -> (i32, i32, i32, i32) {
+    use crate::c2rust::borg_trait_swap as t;
+    escape(st);
+    // SAFETY: plain reads of int globals; Borg thread.
+    let r = unsafe { (t::weapon_swap, t::weapon_swap_value, t::armour_swap, t::armour_swap_value) };
+    escape(st);
+    r
+}
+
+/// Set the four globals of `trait_swaps` (in C's order).
+pub fn set_trait_swaps(st: &mut BorgState, v: (i32, i32, i32, i32)) {
+    use crate::c2rust::borg_trait_swap as t;
+    escape(st);
+    // SAFETY: plain writes of int globals; Borg thread.
+    unsafe {
+        t::weapon_swap = v.0;
+        t::weapon_swap_value = v.1;
+        t::armour_swap = v.2;
+        t::armour_swap_value = v.3;
+    }
+    escape(st);
+}
+
+/// C-ABI shims with the borg-store-buy.c names, for c2rust callers
+/// (borg_think_store).
+pub mod store_buy {
+    use super::st;
+    use crate::borg_store_buy as b;
+
+    pub unsafe extern "C" fn borg_think_shop_buy_useful() -> bool {
+        b::borg_think_shop_buy_useful(st())
+    }
+    pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
+        b::borg_think_home_buy_useful(st())
+    }
+    pub unsafe extern "C" fn borg_think_shop_grab_interesting() -> bool {
+        b::borg_think_shop_grab_interesting(st())
+    }
+    pub unsafe extern "C" fn borg_think_home_grab_useless() -> bool {
+        b::borg_think_home_grab_useless(st())
+    }
+    pub unsafe extern "C" fn borg_think_home_buy_swap_weapon() -> bool {
+        b::borg_think_home_buy_swap_weapon(st())
+    }
+    pub unsafe extern "C" fn borg_think_home_buy_swap_armour() -> bool {
+        b::borg_think_home_buy_swap_armour(st())
+    }
+    pub unsafe extern "C" fn borg_think_shop_buy() -> bool {
+        b::borg_think_shop_buy(st())
     }
 }

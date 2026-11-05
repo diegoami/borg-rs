@@ -10,7 +10,6 @@ pub mod borg_init;
 pub mod borg_junk;
 pub mod borg_messages;
 pub mod borg_power;
-pub mod borg_store_buy;
 pub mod borg_think;
 pub mod borg_think_dungeon;
 pub mod borg_think_dungeon_util;
