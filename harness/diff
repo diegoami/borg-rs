@@ -2,14 +2,31 @@
 """Compare Borg keypress logs and print the first divergence.
 
 Usage:
-  harness/diff A B
-    A and B are either two key logs (keys.log or keys.log.xz) or two
-    directories of runs (each run is a subdirectory holding keys.log[.xz]
-    and summary.json), e.g. a suite output dir and harness/reference/full.
+  harness/diff [--suite NAME] [--allow-incomplete] A B
 
-For every pair that differs, prints the run name, seed, game turn and key
-index of the first divergence and 20 lines of context from each side.
-Exit status: 0 if every pair is identical, 1 otherwise.
+  A and B are either two key logs (keys.log or keys.log.xz) or two
+  directories of runs (each run is a subdirectory holding keys.log[.xz]
+  and summary.json), e.g. a suite output dir and harness/reference/full.
+
+Directory mode:
+  * The runs compared are the union of the run names on both sides. A run
+    present on one side only is a failure.
+  * --suite NAME: both sides must hold exactly the runs listed in
+    harness/suites/NAME, or in the suite file NAME if it contains a '/'
+    (a missing or extra run is a failure).
+  * Each run passes only if
+      - the key logs are byte-identical,
+      - on each side the key log has summary.keys lines and its last line's
+        game turn equals summary.game_turns,
+      - the two summary.json files are equal apart from wall_seconds.
+  * A suite output dir (plain keys.log files) must hold the DONE marker
+    that harness/suite.sh writes last; otherwise the diff refuses it
+    (exit 2). --allow-incomplete turns that into a warning. Reference dirs
+    (keys.log.xz only) need no marker.
+
+For a key-log divergence it prints the run name, seed, game turn and key
+index of the first differing line and 20 lines of context from each side.
+Exit status: 0 if everything matches, 1 on any difference, 2 on bad input.
 """
 import json
 import lzma
@@ -17,26 +34,35 @@ import os
 import sys
 
 CONTEXT = 20
+# summary.json fields that are not part of the oracle
+IGNORED_FIELDS = {"wall_seconds"}
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-def open_log(path):
-    if os.path.exists(path):
-        pass
-    elif os.path.exists(path + ".xz"):
-        path = path + ".xz"
-    else:
+def find_log(path):
+    if os.path.isfile(path):
+        return path
+    if os.path.isfile(path + ".xz"):
+        return path + ".xz"
+    return None
+
+
+def read_log(path):
+    """Raw bytes of a key log (decompressed), or None."""
+    p = find_log(path)
+    if p is None:
         return None
-    if path.endswith(".xz"):
-        with lzma.open(path, "rt") as f:
-            return f.read().splitlines()
-    with open(path) as f:
-        return f.read().splitlines()
+    if p.endswith(".xz"):
+        with lzma.open(p, "rb") as f:
+            return f.read()
+    with open(p, "rb") as f:
+        return f.read()
 
 
-def seed_of(run_dir):
+def read_summary(run_dir):
     try:
         with open(os.path.join(run_dir, "summary.json")) as f:
-            return json.load(f).get("seed")
+            return json.load(f)
     except (OSError, ValueError):
         return None
 
@@ -46,58 +72,192 @@ def describe(line):
     if len(parts) < 3:
         return line
     turn, typ, code = parts[0], parts[1], parts[2]
-    c = int(code, 16)
+    try:
+        c = int(code, 16)
+    except ValueError:
+        return line
     ch = chr(c) if 32 <= c < 127 else "0x%x" % c
     return "turn %s type %s key %s" % (turn, typ, ch)
 
 
-def compare(name, a, b, seed):
-    if a is None or b is None:
-        print("== %s: missing log (%s)" % (name, "A" if a is None else "B"))
-        return False
-    if a == b:
-        return True
-    n = min(len(a), len(b))
+def consistency(label, data, summary):
+    """Problems between one side's key log and its summary.json."""
+    probs = []
+    if summary is None:
+        return ["%s: no readable summary.json" % label]
+    if data and not data.endswith(b"\n"):
+        probs.append("%s: key log does not end with a newline" % label)
+    lines = data.split(b"\n")
+    if lines and lines[-1] == b"":
+        lines.pop()
+    keys = summary.get("keys")
+    if keys != len(lines):
+        probs.append("%s: key log has %d lines, summary keys=%s"
+                     % (label, len(lines), keys))
+    if lines:
+        try:
+            last_turn = int(lines[-1].split()[0])
+        except (ValueError, IndexError):
+            last_turn = None
+        if last_turn != summary.get("game_turns"):
+            probs.append("%s: last key at game turn %s, summary game_turns=%s"
+                         % (label, last_turn, summary.get("game_turns")))
+    return probs
+
+
+def show_divergence(name, a, b, seed):
+    la = a.decode("utf-8", "replace").split("\n")
+    lb = b.decode("utf-8", "replace").split("\n")
+    n = min(len(la), len(lb))
     i = 0
-    while i < n and a[i] == b[i]:
+    while i < n and la[i] == lb[i]:
         i += 1
-    turn = (a[i] if i < len(a) else b[i]).split()[0]
+    if i < len(la) or i < len(lb):
+        ref = la[i] if i < len(la) else lb[i]
+    else:
+        ref = ""
+    turn = ref.split()[0] if ref.split() else "?"
     print("== %s: DIVERGES  seed=%s  game_turn=%s  key_index=%d"
-          "  (lengths %d vs %d)" % (name, seed, turn, i, len(a), len(b)))
+          "  (bytes %d vs %d)" % (name, seed, turn, i, len(a), len(b)))
+    if la[:n] == lb[:n] and len(la) == len(lb):
+        # same lines, different bytes (e.g. line endings)
+        print("   (same lines, different bytes)")
+        return
     lo = max(0, i - CONTEXT)
-    for label, lines in (("A", a), ("B", b)):
-        print("--- %s lines %d..%d" % (label, lo, min(len(lines), i + CONTEXT) - 1))
-        for j in range(lo, min(len(lines), i + CONTEXT)):
+    for label, lines in (("A", la), ("B", lb)):
+        hi = min(len(lines), i + CONTEXT)
+        print("--- %s lines %d..%d" % (label, lo, hi - 1))
+        for j in range(lo, hi):
             mark = ">>" if j == i else "  "
             print("%s %7d  %-20s %s" % (mark, j, lines[j], describe(lines[j])))
+
+
+def compare_run(name, da, db):
+    """Compare one run (two run dirs). True if identical and consistent."""
+    a = read_log(os.path.join(da, "keys.log"))
+    b = read_log(os.path.join(db, "keys.log"))
+    sa, sb = read_summary(da), read_summary(db)
+    if a is None or b is None:
+        print("== %s: missing key log (%s)" % (name, "A" if a is None else "B"))
+        return False
+    ok = True
+    seed = (sa or {}).get("seed", (sb or {}).get("seed"))
+    if a != b:
+        show_divergence(name, a, b, seed)
+        ok = False
+    probs = consistency("A", a, sa) + consistency("B", b, sb)
+    if sa is not None and sb is not None:
+        keys = sorted(set(sa) | set(sb))
+        for k in keys:
+            if k in IGNORED_FIELDS:
+                continue
+            if sa.get(k, "<absent>") != sb.get(k, "<absent>"):
+                probs.append("summary %s: A=%r B=%r"
+                             % (k, sa.get(k, "<absent>"), sb.get(k, "<absent>")))
+    if probs:
+        print("== %s: %s" % (name, "; ".join(probs)))
+        ok = False
+    return ok
+
+
+def suite_names(suite):
+    path = suite if "/" in suite else os.path.join(ROOT, "harness", "suites", suite)
+    names = []
+    with open(path) as f:
+        for line in f:
+            line = line.split("#", 1)[0].split()
+            if line:
+                names.append(line[0])
+    return names
+
+
+def run_dirs(d):
+    return set(x for x in os.listdir(d) if os.path.isdir(os.path.join(d, x)))
+
+
+def check_done(d, allow):
+    """A suite output dir (plain keys.log) must carry DONE."""
+    plain = any(os.path.isfile(os.path.join(d, r, "keys.log"))
+                for r in run_dirs(d))
+    if not plain or os.path.isfile(os.path.join(d, "DONE")):
+        return True
+    msg = "%s has no DONE marker (incomplete, failed or stale suite output)" % d
+    if os.path.isfile(os.path.join(d, "FAILED")):
+        msg = "%s is marked FAILED by harness/suite.sh" % d
+    if allow:
+        print("WARNING: " + msg)
+        return True
+    print("REFUSED: " + msg + "; use --allow-incomplete to compare anyway")
     return False
 
 
 def main(argv):
-    if len(argv) != 3:
+    args = argv[1:]
+    suite = None
+    allow = False
+    while args and args[0].startswith("--"):
+        opt = args.pop(0)
+        if opt == "--suite" and args:
+            suite = args.pop(0)
+        elif opt == "--allow-incomplete":
+            allow = True
+        else:
+            print(__doc__)
+            return 2
+    if len(args) != 2:
         print(__doc__)
         return 2
-    A, B = argv[1], argv[2]
-    ok = True
+    A, B = args
     if os.path.isdir(A) and os.path.isdir(B):
-        names = sorted(set(
-            d for d in os.listdir(A) if os.path.isdir(os.path.join(A, d))))
+        if not (check_done(A, allow) & check_done(B, allow)):
+            return 2
+        na, nb = run_dirs(A), run_dirs(B)
+        ok = True
+        if suite is not None:
+            expected = suite_names(suite)
+            if len(set(expected)) != len(expected):
+                print("suite %s lists a run name twice" % suite)
+                return 2
+            for label, d, have in (("A", A, na), ("B", B, nb)):
+                missing = sorted(set(expected) - have)
+                extra = sorted(have - set(expected))
+                for r in missing:
+                    print("== %s: MISSING in %s (%s)" % (r, label, d))
+                for r in extra:
+                    print("== %s: not in suite %s, present in %s (%s)"
+                          % (r, suite, label, d))
+                ok &= not missing and not extra
+            names = sorted(set(expected) | na | nb)
+        else:
+            names = sorted(na | nb)
+            expected = names
         if not names:
-            print("no runs in %s" % A)
+            print("no runs in %s or %s" % (A, B))
             return 2
         same = 0
         for d in names:
-            ra, rb = os.path.join(A, d), os.path.join(B, d)
-            r = compare(d, open_log(os.path.join(ra, "keys.log")),
-                        open_log(os.path.join(rb, "keys.log")),
-                        seed_of(ra) or seed_of(rb))
+            if d not in na or d not in nb:
+                if suite is None:
+                    print("== %s: only in %s" % (d, "A" if d in na else "B"))
+                ok = False
+                continue
+            r = compare_run(d, os.path.join(A, d), os.path.join(B, d))
             same += r
             ok &= r
-        print("%d/%d runs identical" % (same, len(names)))
+        print("%d/%d runs identical (expected %d)"
+              % (same, len(names), len(expected)))
+        if same != len(expected):
+            ok = False
     else:
-        ok = compare(os.path.basename(A), open_log(A), open_log(B),
-                     seed_of(os.path.dirname(A)))
-        if ok:
+        a, b = read_log(A), read_log(B)
+        if a is None or b is None:
+            print("missing log (%s)" % ("A" if a is None else "B"))
+            return 1
+        ok = a == b
+        if not ok:
+            s = read_summary(os.path.dirname(A)) or {}
+            show_divergence(os.path.basename(A), a, b, s.get("seed"))
+        else:
             print("identical")
     return 0 if ok else 1
 
