@@ -216,7 +216,7 @@ when a big c2rust module goes away.
 | borg_init (`5f4aa7c3f`) | 702 | 13 |
 | borg_flow_misc (`30e2024df`) | 687 | 12 |
 | borg_caution (`041f52ac8`) | 678 | 11 |
-| borg_commands | 632 | 11 |
+| borg_commands (`5700fd73a`) | 623 | 10 |
 
 ## Suite timings
 
