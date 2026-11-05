@@ -2,3 +2,4 @@ build/
 harness/out/
 target/
 .claude/
+__pycache__/

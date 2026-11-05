@@ -23,10 +23,7 @@ use crate::headers::borg_cave_light_h::borg_update_light;
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
 use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_fight_attack_h::successful_target;
-pub use crate::headers::borg_flow_h::{
-    borg_can_dig, borg_data, borg_data_cost, borg_data_flow, borg_data_hard, borg_data_icky,
-    borg_data_know, borg_ddx_ddd, borg_ddy_ddd, borg_track, track_closed, track_door, track_step,
-};
+pub use crate::headers::borg_flow_h::{borg_can_dig, borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_count_death, borg_create_kill, borg_delete_kill, borg_follow_kill, borg_kill, borg_locate_kill, borg_race_name, borg_sleep_kill, observe_kill_diff, observe_kill_move};
 use crate::headers::borg_flow_misc_h::{track_shop_x, track_shop_y, track_vein};
 pub use crate::headers::borg_flow_take_h::{borg_delete_take, borg_follow_take, borg_take, observe_take_diff, observe_take_move};
@@ -161,7 +158,7 @@ pub use crate::headers::player_h::{
 pub use crate::headers::stdint_intn_h::{int16_t, int32_t};
 pub use crate::headers::stdint_uintn_h::{uint16_t, uint32_t, uint8_t};
 pub use crate::headers::stdlib_h::{__compar_fn_t, atoi, qsort};
-use crate::headers::string_h::{memcpy, memset, strchr};
+use crate::headers::string_h::{memset, strchr};
 pub use crate::headers::target_h::target;
 pub use crate::headers::trap_h::{trap, trap_info, trap_kind, C2RustUnnamedH_48, TRF_MAX};
 pub use crate::headers::types_h::{__int16_t, __int32_t, __uint16_t, __uint32_t, __uint8_t};
@@ -256,26 +253,13 @@ unsafe extern "C" fn borg_forget_map() {
         }
         y += 1;
     }
-    memcpy(
-        borg_data_cost as *mut ::core::ffi::c_void,
-        borg_data_hard as *const ::core::ffi::c_void,
-        ::core::mem::size_of::<borg_data>() as size_t,
-    );
-    memcpy(
-        borg_data_flow as *mut ::core::ffi::c_void,
-        borg_data_hard as *const ::core::ffi::c_void,
-        ::core::mem::size_of::<borg_data>() as size_t,
-    );
-    memset(
-        borg_data_know as *mut ::core::ffi::c_void,
-        0 as ::core::ffi::c_int,
-        ::core::mem::size_of::<borg_data>() as size_t,
-    );
-    memset(
-        borg_data_icky as *mut ::core::ffi::c_void,
-        0 as ::core::ffi::c_int,
-        ::core::mem::size_of::<borg_data>() as size_t,
-    );
+    {
+        let f = &mut crate::bridge::st().flow;
+        crate::borg_flow::copy_data(&mut f.data_cost, &f.data_hard);
+        crate::borg_flow::copy_data(&mut f.data_flow, &f.data_hard);
+        crate::borg_flow::zero_data(&mut f.data_know);
+        crate::borg_flow::zero_data(&mut f.data_icky);
+    }
     borg_forget_view();
 }
 unsafe extern "C" fn borg_update_map() {
@@ -488,24 +472,24 @@ unsafe extern "C" fn borg_update_map() {
                             <= 5 as ::core::ffi::c_int
                         {
                             i = 0 as ::core::ffi::c_int;
-                            while i < track_closed.num as ::core::ffi::c_int {
-                                if *track_closed.x.offset(i as isize) == x
-                                    && *track_closed.y.offset(i as isize) == y
+                            while i < crate::bridge::st().flow.track_closed.num as ::core::ffi::c_int {
+                                if crate::bridge::st().flow.track_closed.x[(i) as usize] == x
+                                    && crate::bridge::st().flow.track_closed.y[(i) as usize] == y
                                 {
                                     break;
                                 }
                                 i += 1;
                             }
-                            if i == track_closed.num as ::core::ffi::c_int
-                                && i < track_closed.size as ::core::ffi::c_int
+                            if i == crate::bridge::st().flow.track_closed.num as ::core::ffi::c_int
+                                && i < crate::bridge::st().flow.track_closed.size as ::core::ffi::c_int
                             {
-                                *track_closed.x.offset(i as isize) = x;
-                                *track_closed.y.offset(i as isize) = y;
-                                track_closed.num += 1;
-                                if track_closed.num as ::core::ffi::c_int
+                                crate::bridge::st().flow.track_closed.x[(i) as usize] = x;
+                                crate::bridge::st().flow.track_closed.y[(i) as usize] = y;
+                                crate::bridge::st().flow.track_closed.num += 1;
+                                if crate::bridge::st().flow.track_closed.num as ::core::ffi::c_int
                                     > 254 as ::core::ffi::c_int
                                 {
-                                    track_closed.num = 254 as int16_t;
+                                    crate::bridge::st().flow.track_closed.num = 254 as int16_t;
                                 }
                             }
                         }
@@ -613,10 +597,10 @@ unsafe extern "C" fn borg_update_map() {
                         new_wall = !crate::borg_cave_util::borg_cave_floor_grid(&*(ag));
                         if old_wall as ::core::ffi::c_int != new_wall as ::core::ffi::c_int {
                             if new_wall {
-                                (*borg_data_flow).data[y as usize][x as usize] = 255 as uint8_t;
+                                crate::bridge::st().flow.data_flow[y as usize][x as usize] = 255 as uint8_t;
                             }
-                            (*borg_data_know).data[y as usize][x as usize] = false_0 as uint8_t;
-                            (*borg_data_icky).data[y as usize][x as usize] = false_0 as uint8_t;
+                            crate::bridge::st().flow.data_know[y as usize][x as usize] = false_0 as uint8_t;
+                            crate::bridge::st().flow.data_icky[y as usize][x as usize] = false_0 as uint8_t;
                             if (*ag).info as ::core::ffi::c_int & BORG_VIEW != 0 {
                                 borg_do_update_view = true_0 != 0;
                             }
@@ -2019,9 +2003,9 @@ pub unsafe extern "C" fn borg_update() {
         crate::bridge::st().stairs.less.num = 0 as int16_t;
         crate::bridge::st().stairs.more.num = 0 as int16_t;
         crate::bridge::st().glyph.track.num = 0 as int16_t;
-        track_step.num = 0 as int16_t;
-        track_door.num = 0 as int16_t;
-        track_closed.num = 0 as int16_t;
+        crate::bridge::st().flow.track_step.num = 0 as int16_t;
+        crate::bridge::st().flow.track_door.num = 0 as int16_t;
+        crate::bridge::st().flow.track_closed.num = 0 as int16_t;
         track_vein.num = 0 as int16_t;
         crate::bridge::st().wear.track_worn_num = 0 as int16_t;
         crate::bridge::st().takes.cnt = 0 as int16_t;
@@ -2313,19 +2297,19 @@ pub unsafe extern "C" fn borg_update() {
     }
     borg_wank_num = 0 as ::core::ffi::c_int;
     borg_update_map();
-    *track_step.x.offset(track_step.num as isize) = crate::bridge::st().borg.c.x;
-    *track_step.y.offset(track_step.num as isize) = crate::bridge::st().borg.c.y;
-    track_step.num += 1;
-    if track_step.num as ::core::ffi::c_int >= 75 as ::core::ffi::c_int {
+    crate::bridge::st().flow.track_step.x[(crate::bridge::st().flow.track_step.num) as usize] = crate::bridge::st().borg.c.x;
+    crate::bridge::st().flow.track_step.y[(crate::bridge::st().flow.track_step.num) as usize] = crate::bridge::st().borg.c.y;
+    crate::bridge::st().flow.track_step.num += 1;
+    if crate::bridge::st().flow.track_step.num as ::core::ffi::c_int >= 75 as ::core::ffi::c_int {
         i = 0 as ::core::ffi::c_int;
         while i <= 75 as ::core::ffi::c_int {
-            *track_step.x.offset(i as isize) =
-                *track_step.x.offset((i + 1 as ::core::ffi::c_int) as isize);
-            *track_step.y.offset(i as isize) =
-                *track_step.y.offset((i + 1 as ::core::ffi::c_int) as isize);
+            crate::bridge::st().flow.track_step.x[(i) as usize] =
+                crate::bridge::st().flow.track_step.x[((i + 1 as ::core::ffi::c_int)) as usize];
+            crate::bridge::st().flow.track_step.y[(i) as usize] =
+                crate::bridge::st().flow.track_step.y[((i + 1 as ::core::ffi::c_int)) as usize];
             i += 1;
         }
-        track_step.num = 75 as int16_t;
+        crate::bridge::st().flow.track_step.num = 75 as int16_t;
     }
     if reset {
         o_w_x = crate::bridge::st().core.w_x;
@@ -2380,8 +2364,8 @@ pub unsafe extern "C" fn borg_update() {
         {
             j = 0 as ::core::ffi::c_int;
             while j < 24 as ::core::ffi::c_int {
-                y = crate::bridge::st().borg.c.y + borg_ddy_ddd[j as usize] as ::core::ffi::c_int;
-                x = crate::bridge::st().borg.c.x + borg_ddx_ddd[j as usize] as ::core::ffi::c_int;
+                y = crate::bridge::st().borg.c.y + crate::borg_flow::BORG_DDY_DDD[j as usize] as ::core::ffi::c_int;
+                x = crate::bridge::st().borg.c.x + crate::borg_flow::BORG_DDX_DDD[j as usize] as ::core::ffi::c_int;
                 ag = crate::bridge::grid(x, y) as *mut borg_grid;
                 if (*ag).glyph {
                     floor_glyphed += 1;
@@ -2395,8 +2379,8 @@ pub unsafe extern "C" fn borg_update() {
     }
     j = 0 as ::core::ffi::c_int;
     while j < 24 as ::core::ffi::c_int {
-        y = crate::bridge::st().borg.c.y + borg_ddy_ddd[j as usize] as ::core::ffi::c_int;
-        x = crate::bridge::st().borg.c.x + borg_ddx_ddd[j as usize] as ::core::ffi::c_int;
+        y = crate::bridge::st().borg.c.y + crate::borg_flow::BORG_DDY_DDD[j as usize] as ::core::ffi::c_int;
+        x = crate::bridge::st().borg.c.x + crate::borg_flow::BORG_DDX_DDD[j as usize] as ::core::ffi::c_int;
         if !square_in_bounds(cave, loc(x, y)) {
             floor_grid += 1;
         } else {
@@ -2424,12 +2408,12 @@ pub unsafe extern "C" fn borg_update() {
         <= 5 as ::core::ffi::c_int
         && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
             != 0
-        && track_closed.num as ::core::ffi::c_int != 0
+        && crate::bridge::st().flow.track_closed.num as ::core::ffi::c_int != 0
     {
         i = 0 as ::core::ffi::c_int;
-        while i < track_closed.num as ::core::ffi::c_int {
-            x = *track_closed.x.offset(i as isize);
-            y = *track_closed.y.offset(i as isize);
+        while i < crate::bridge::st().flow.track_closed.num as ::core::ffi::c_int {
+            x = crate::bridge::st().flow.track_closed.x[(i) as usize];
+            y = crate::bridge::st().flow.track_closed.y[(i) as usize];
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             if (*ag).feat as ::core::ffi::c_int == FEAT_OPEN as ::core::ffi::c_int
                 || (*ag).feat as ::core::ffi::c_int == FEAT_BROKEN as ::core::ffi::c_int

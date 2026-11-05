@@ -16,8 +16,8 @@
 //!
 //! The known glyphs of warding (`track_glyph`), `borg_needs_new_sea` and
 //! the file statics of the "Sea of Runes" builder live in `GlyphState`.
-//! The flow itself is still c2rust (borg-flow.c, borg-flow-misc.c) and is
-//! called through `bridge`.
+//! The flow core is `borg_flow`; `borg_flow_reverse` (borg-flow-misc.c)
+//! is still c2rust and is called through `bridge`.
 
 use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_flow_stairs::StairTrack;
@@ -25,7 +25,7 @@ use crate::headers::borg_magic_h::GLYPH_OF_WARDING;
 use crate::headers::list_terrain_h::FEAT_FLOOR;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_io, borg_item_use, borg_magic, bridge, engine};
+use crate::{borg_flow, borg_io, borg_item_use, borg_magic, bridge, engine};
 
 /// `GOAL_MISC` (borg-flow.h): the goal of a miscellaneous flow.
 const GOAL_MISC: i32 = 3;
@@ -58,7 +58,7 @@ fn ring(st: &BorgState, x: i32, y: i32) -> [(u8, bool); 24] {
     let mut out = [(0, false); 24];
     for (i, o) in out.iter_mut().enumerate() {
         /* Extract the location */
-        let (dx, dy) = bridge::borg_ddxy_ddd(i);
+        let (dx, dy) = borg_flow::borg_ddxy_ddd(i);
 
         /* Get the grid contents */
         let g = st.cave.grid(x + dx, y + dy);
@@ -180,7 +180,7 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
             }
 
             /* Acquire the cost */
-            let cost = i32::from(bridge::borg_data_cost_at(st, y, x));
+            let cost = i32::from(st.flow.cost_at(y, x));
 
             /* Skip grids that are really far away.  He probably
              * won't be able to safely get there
@@ -250,7 +250,7 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
 
                 for i in 0..24 {
                     /* Leave if this grid is not in good array */
-                    let (dx, dy) = bridge::borg_ddxy_ddd(i);
+                    let (dx, dy) = borg_flow::borg_ddxy_ddd(i);
                     if cx + dx != x {
                         continue;
                     }
@@ -290,7 +290,7 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
         let mut glyph = 0;
         for i in 0..24 {
             /* Extract the location */
-            let (dx, dy) = bridge::borg_ddxy_ddd(i);
+            let (dx, dy) = borg_flow::borg_ddxy_ddd(i);
 
             /* Count the glyphs */
             if st.cave.grid(cx + dx, cy + dy).glyph {
@@ -307,7 +307,7 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
     }
 
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Nothing found */
     if b_v < 0 {
@@ -319,18 +319,18 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
     st.glyph.glyph_y = b_y as u8;
 
     /* Enqueue the grid */
-    bridge::borg_flow_enqueue_grid(st, b_y, b_x);
+    borg_flow::borg_flow_enqueue_grid(st, b_y, b_x);
 
     /* Spread the flow */
-    bridge::borg_flow_spread(st, 250, true, false, false, -1, false);
+    borg_flow::borg_flow_spread(st, 250, true, false, false, -1, false);
 
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, c"Glyph", GOAL_MISC) {
+    if !borg_flow::borg_flow_commit(st, c"Glyph", GOAL_MISC) {
         return false;
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, GOAL_MISC) {
+    if !borg_flow::borg_flow_old(st, GOAL_MISC) {
         return false;
     }
 

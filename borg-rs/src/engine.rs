@@ -1373,6 +1373,25 @@ pub fn ddy_ddd(i: usize) -> i16 {
     unsafe { headers::cave_h::ddy_ddd[i] }
 }
 
+/// `ddx[dir]` (cave.c): the x offset of keypad direction `dir` (0..9).
+pub fn ddx(dir: usize) -> i16 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::cave_h::ddx[dir] }
+}
+
+/// `ddy[dir]` (cave.c): the y offset of keypad direction `dir` (0..9).
+pub fn ddy(dir: usize) -> i16 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::cave_h::ddy[dir] }
+}
+
+/// `feat_is_shop(feat)` (cave-square.c): the terrain is a shop entrance.
+pub fn feat_is_shop(feat: i32) -> bool {
+    assert!((0..crate::headers::cave_h::FEAT_MAX as i32).contains(&feat), "feature out of range");
+    // SAFETY: plain call; reads `f_info[feat]` (index checked above).
+    unsafe { headers::cave_h::feat_is_shop(feat) }
+}
+
 /// One blow of a monster race (`r_info[r_idx].blow[k]`).
 #[derive(Clone, Copy)]
 pub struct RaceBlow {
@@ -1747,6 +1766,18 @@ impl FloorObject {
             let q = (*self.0).note;
             (q != 0).then(|| c_bytes(crate::headers::z_quark_h::quark_str(q)))
         }
+    }
+
+    /// `obj->pval`.
+    pub fn pval(self) -> i16 {
+        // SAFETY: a live floor object (plain field read).
+        unsafe { (*self.0).pval }
+    }
+
+    /// `obj->known != NULL`.
+    pub fn has_known(self) -> bool {
+        // SAFETY: a live floor object (plain field read).
+        unsafe { !(*self.0).known.is_null() }
     }
 }
 

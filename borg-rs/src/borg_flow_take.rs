@@ -18,7 +18,7 @@
 //! `TakeState`. A grid's `take` field indexes it. Code that is still c2rust
 //! holds raw pointers into the `Vec`, which is only reallocated by
 //! `borg_init_flow_take` / `borg_free_flow_take`. The flow itself is
-//! still c2rust (borg-flow.c) and is called through `bridge`.
+//! `borg_flow`.
 
 use crate::borg::BorgTime;
 use crate::borg_cave_view::BORG_VIEW;
@@ -37,7 +37,7 @@ use crate::headers::list_tvals_h::{
     TV_ARROW, TV_BOLT, TV_GOLD, TV_POTION, TV_ROD, TV_SCROLL, TV_SHOT,
 };
 use crate::state::BorgState;
-use crate::{borg_io, bridge, engine};
+use crate::{borg_flow, borg_io, bridge, engine};
 
 /// `GOAL_TAKE` (borg-flow.h): the goal of flowing towards an object.
 pub const GOAL_TAKE: i16 = 2;
@@ -468,14 +468,14 @@ fn far_up_stair(st: &mut BorgState) -> (i32, i32) {
 /// common middle of the three flows).
 fn spread_to_temp(st: &mut BorgState, nearness: i32, optimize: bool, viewable: bool, sneak: bool) {
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Look for something to take */
     let mut i: i32 = 0;
-    while i < i32::from(bridge::borg_temp_n(st)) {
+    while i < i32::from(st.flow.temp_n) {
         /* Enqueue the grid */
-        let (y, x) = bridge::borg_temp_at(st, i as usize);
-        bridge::borg_flow_enqueue_grid(st, y, x);
+        let (y, x) = st.flow.temp_at(i as usize);
+        borg_flow::borg_flow_enqueue_grid(st, y, x);
         i += 1;
     }
 
@@ -483,7 +483,7 @@ fn spread_to_temp(st: &mut BorgState, nearness: i32, optimize: bool, viewable: b
     /* if we are not flowing toward items that we can see, make sure they */
     /* are at least easily reachable.  The second flag is weather or not  */
     /* to avoid unknown squares.  This was for performance. */
-    bridge::borg_flow_spread(st, nearness, optimize, !viewable, false, -1, sneak);
+    borg_flow::borg_flow_spread(st, nearness, optimize, !viewable, false, -1, sneak);
 }
 
 /// Prepare to "flow" towards objects to "take" (`borg_flow_take`).
@@ -532,7 +532,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     }
 
     /* Starting over on count */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Check distance away from stairs, used later */
     let (b_stair, b_j) = far_up_stair(st);
@@ -599,7 +599,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
         }
 
         /* Clear the flow codes */
-        bridge::borg_flow_clear(st);
+        borg_flow::borg_flow_clear(st);
 
         /* Check the distance to stair for this proposed grid and leash*/
         if nearness > 5
@@ -610,11 +610,11 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     /* Nothing to take */
-    bridge::borg_temp_n(st) != 0
+    st.flow.temp_n != 0
 }
 
 /// The flow part of `borg_flow_take`, after `take_select`.
@@ -622,12 +622,12 @@ fn take_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     spread_to_temp(st, nearness, true, viewable, false);
 
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, c"item", i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_commit(st, c"item", i32::from(GOAL_TAKE)) {
         return false;
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_old(st, i32::from(GOAL_TAKE)) {
         return false;
     }
 
@@ -658,7 +658,7 @@ fn scum_select(st: &mut BorgState, viewable: bool) -> bool {
     }
 
     /* Nothing yet */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Check for an existing "up stairs" */
     let (b_stair, _) = far_up_stair(st);
@@ -694,11 +694,11 @@ fn scum_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     /* Nothing to take */
-    bridge::borg_temp_n(st) != 0
+    st.flow.temp_n != 0
 }
 
 /// The flow part of `borg_flow_take_scum`, after `scum_select`.
@@ -706,12 +706,12 @@ fn scum_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     spread_to_temp(st, nearness, true, viewable, true);
 
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, c"Scum item", i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_commit(st, c"Scum item", i32::from(GOAL_TAKE)) {
         return false;
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_old(st, i32::from(GOAL_TAKE)) {
         return false;
     }
 
@@ -744,7 +744,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
     let (b_stair, _) = far_up_stair(st);
 
     /* Nothing yet */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     let z = engine::z_info();
     let qss = i32::from(z.quiver_slot_size);
@@ -883,11 +883,11 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     /* Nothing to take */
-    bridge::borg_temp_n(st) != 0
+    st.flow.temp_n != 0
 }
 
 /// The flow part of `borg_flow_take_lunal`, after `lunal_select`.
@@ -895,7 +895,7 @@ fn lunal_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     spread_to_temp(st, nearness, false, viewable, true);
 
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, c"munchkin item", i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_commit(st, c"munchkin item", i32::from(GOAL_TAKE)) {
         return false;
     }
 
@@ -905,7 +905,7 @@ fn lunal_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, i32::from(GOAL_TAKE)) {
+    if !borg_flow::borg_flow_old(st, i32::from(GOAL_TAKE)) {
         return false;
     }
 

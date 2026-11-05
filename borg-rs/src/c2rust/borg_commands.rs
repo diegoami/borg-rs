@@ -29,9 +29,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 
 use crate::headers::borg_danger_h::{borg_danger};
-pub use crate::headers::borg_flow_h::{
-    borg_data, borg_data_flow, borg_flow_x, borg_flow_y, borg_track, track_step,
-};
+pub use crate::headers::borg_flow_h::{borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
 pub use crate::headers::borg_flow_take_h::{borg_take};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
@@ -1755,37 +1753,25 @@ unsafe extern "C" fn borg_cmd_steps() {
     let mut i: ::core::ffi::c_int = 0;
     let mut a: uint8_t = COLOUR_RED as uint8_t;
     i = 0 as ::core::ffi::c_int;
-    while i < track_step.num as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.track_step.num as ::core::ffi::c_int {
         print_rel(
             '*' as i32,
             a,
-            *track_step
-                .y
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
-            *track_step
-                .x
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
+            crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
+            crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
         );
         msg(
             b"(-%d) Steps noted %d,%d\0" as *const u8 as *const ::core::ffi::c_char,
             i,
-            *track_step
-                .y
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
-            *track_step
-                .x
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
+            crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
+            crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
         );
         event_signal(EVENT_MESSAGE_FLUSH);
         print_rel(
             '*' as i32,
             COLOUR_ORANGE as uint8_t,
-            *track_step
-                .y
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
-            *track_step
-                .x
-                .offset((track_step.num as ::core::ffi::c_int - i) as isize),
+            crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
+            crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - i)) as usize],
         );
         i += 1;
     }
@@ -1911,14 +1897,14 @@ unsafe extern "C" fn borg_cmd_flow() {
         let mut b_i: ::core::ffi::c_int = -(1 as ::core::ffi::c_int);
         let mut c: ::core::ffi::c_int = 0;
         let mut b_c: ::core::ffi::c_int = 0;
-        b_c = (*borg_data_flow).data[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
+        b_c = crate::bridge::st().flow.data_flow[crate::bridge::st().borg.c.y as usize][crate::bridge::st().borg.c.x as usize] as ::core::ffi::c_int
             * 10 as ::core::ffi::c_int;
         b_c = b_c - 5 as ::core::ffi::c_int;
         i = 0 as ::core::ffi::c_int;
         while i < 8 as ::core::ffi::c_int {
             x = false_x + ddx_ddd[i as usize] as ::core::ffi::c_int;
             y = false_y + ddy_ddd[i as usize] as ::core::ffi::c_int;
-            c = (*borg_data_flow).data[y as usize][x as usize] as ::core::ffi::c_int
+            c = crate::bridge::st().flow.data_flow[y as usize][x as usize] as ::core::ffi::c_int
                 * 10 as ::core::ffi::c_int;
             if !(c > b_c) {
                 if c < b_c {
@@ -1946,8 +1932,8 @@ unsafe extern "C" fn borg_cmd_flow() {
     print_rel(
         '*' as i32,
         COLOUR_YELLOW as uint8_t,
-        borg_flow_y[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int,
-        borg_flow_x[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int,
+        crate::bridge::st().flow.flow_y[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int,
+        crate::bridge::st().flow.flow_x[0 as ::core::ffi::c_int as usize] as ::core::ffi::c_int,
     );
     msg(b"Probable Flow Path\0" as *const u8 as *const ::core::ffi::c_char);
     event_signal(EVENT_MESSAGE_FLUSH);

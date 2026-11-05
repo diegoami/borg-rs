@@ -91,7 +91,7 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
     bridge::set_borg_attacking(st, true);
 
     /* Reset list */
-    bridge::borg_temp_clear(st);
+    st.flow.temp_n = 0;
 
     /* Find "nearby" monsters */
     for i in 1..i32::from(st.kills.nxt) {
@@ -153,11 +153,11 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
         }
 
         /* Save the location (careful) */
-        bridge::borg_temp_push(st, c.y, c.x);
+        st.flow.temp_push(c.y, c.x);
     }
 
     /* No destinations */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         bridge::set_borg_attacking(st, false);
         return false;
     }
@@ -241,7 +241,7 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
     bridge::set_borg_attacking(st, true);
 
     /* Reset list */
-    bridge::borg_temp_clear(st);
+    st.flow.temp_n = 0;
 
     /* Find "nearby" monsters */
     for i in 1..i32::from(st.kills.nxt) {
@@ -290,11 +290,11 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
         }
 
         /* Save the location (careful) */
-        bridge::borg_temp_push(st, pos.y, pos.x);
+        st.flow.temp_push(pos.y, pos.x);
     }
 
     /* No destinations */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         bridge::set_borg_attacking(st, false);
         return false;
     }

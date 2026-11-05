@@ -19,9 +19,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 
 use crate::headers::borg_escape_h::borg_recall;
-pub use crate::headers::borg_flow_h::{
-    borg_flow_old, borg_temp_n, borg_temp_x, borg_temp_y, borg_track,
-};
+pub use crate::headers::borg_flow_h::{borg_flow_old, borg_track};
 use crate::headers::borg_flow_misc_h::{borg_flow_light, track_vein};
 use crate::headers::borg_flow_stairs_h::{borg_flow_stair_both, borg_flow_stair_less, borg_flow_stair_more};
 use crate::headers::borg_flow_take_h::borg_flow_take_scum;
@@ -1174,7 +1172,7 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
     let mut b_y: ::core::ffi::c_int = 0;
     let mut b_x: ::core::ffi::c_int = 0;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     ii = 0 as ::core::ffi::c_int;
     if !crate::bridge::st().borg.status.vault {
@@ -1222,18 +1220,18 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                                 != FEAT_PERM as ::core::ffi::c_int)
                             {
                                 ii = 0 as ::core::ffi::c_int;
-                                while ii < borg_temp_n as ::core::ffi::c_int {
-                                    if borg_temp_y[ii as usize] as ::core::ffi::c_int == y
-                                        && borg_temp_x[ii as usize] as ::core::ffi::c_int == x
+                                while ii < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+                                    if crate::bridge::st().flow.temp_y[ii as usize] as ::core::ffi::c_int == y
+                                        && crate::bridge::st().flow.temp_x[ii as usize] as ::core::ffi::c_int == x
                                     {
                                         break;
                                     }
                                     ii += 1;
                                 }
-                                if ii == borg_temp_n as ::core::ffi::c_int && ii < AUTO_TEMP_MAX {
-                                    borg_temp_x[ii as usize] = x as uint8_t;
-                                    borg_temp_y[ii as usize] = y as uint8_t;
-                                    borg_temp_n += 1;
+                                if ii == crate::bridge::st().flow.temp_n as ::core::ffi::c_int && ii < AUTO_TEMP_MAX {
+                                    crate::bridge::st().flow.temp_x[ii as usize] = x as uint8_t;
+                                    crate::bridge::st().flow.temp_y[ii as usize] = y as uint8_t;
+                                    crate::bridge::st().flow.temp_n += 1;
                                 }
                             }
                         }
@@ -1245,21 +1243,21 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
         }
         y += 1;
     }
-    if borg_temp_n == 0 {
+    if crate::bridge::st().flow.temp_n == 0 {
         return false_0 != 0;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
         if borg_los(
             crate::bridge::st().borg.c.y,
             crate::bridge::st().borg.c.x,
-            borg_temp_y[i as usize] as ::core::ffi::c_int,
-            borg_temp_x[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
         ) {
             borg_target(
                 loc(
-                    borg_temp_x[i as usize] as ::core::ffi::c_int,
-                    borg_temp_y[i as usize] as ::core::ffi::c_int,
+                    crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
+                    crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
                 ),
                 false_0 != 0,
             );
@@ -1269,8 +1267,8 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 || distance(
                     crate::bridge::st().borg.c,
                     loc(
-                        borg_temp_x[i as usize] as ::core::ffi::c_int,
-                        borg_temp_y[i as usize] as ::core::ffi::c_int,
+                        crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
+                        crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
                     ),
                 ) == 1 as ::core::ffi::c_int
                     && borg_spell(SHATTER_STONE) as ::core::ffi::c_int != 0
@@ -1279,15 +1277,15 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
                 borg_keypress('5' as i32 as keycode_t);
                 borg_do_update_view = true_0 != 0;
                 borg_do_update_lite = true_0 != 0;
-                let ref mut fresh1 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
+                let ref mut fresh1 = (*crate::bridge::grid(crate::bridge::st().flow.temp_x[i as usize], crate::bridge::st().flow.temp_y[i as usize]))
                 .info;
                 *fresh1 = (*fresh1 as ::core::ffi::c_int & !BORG_GLOW) as uint16_t;
-                let ref mut fresh2 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
+                let ref mut fresh2 = (*crate::bridge::grid(crate::bridge::st().flow.temp_x[i as usize], crate::bridge::st().flow.temp_y[i as usize]))
                 .info;
                 *fresh2 = (*fresh2 as ::core::ffi::c_int | BORG_GLOW) as uint16_t;
-                (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
+                (*crate::bridge::grid(crate::bridge::st().flow.temp_x[i as usize], crate::bridge::st().flow.temp_y[i as usize]))
                 .feat = FEAT_FLOOR as ::core::ffi::c_int as uint8_t;
-                let ref mut fresh3 = (*crate::bridge::grid(borg_temp_x[i as usize], borg_temp_y[i as usize]))
+                let ref mut fresh3 = (*crate::bridge::grid(crate::bridge::st().flow.temp_x[i as usize], crate::bridge::st().flow.temp_y[i as usize]))
                 .info;
                 *fresh3 = (*fresh3 as ::core::ffi::c_int | BORG_IGNORE_MAP) as uint16_t;
                 track_vein.num = 0 as int16_t;

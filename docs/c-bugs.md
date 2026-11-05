@@ -548,3 +548,29 @@ Format: file, function, (seed, turn when observed), explanation.
   branches are identical (short leash).
 * Rust (`borg_flow_dark.rs`): all kept (the two identical branches are one
   test, `(a && b) || (c && b)`, without side effects).
+## 32. Flow core slips (flow)
+
+* `borg-flow.c`, found by code reading.
+* `borg_flow_spread()` skips a shop entrance that is not the goal shop
+  only when it is in neither the Borg's row nor its column
+  (`y != borg.c.y && x != borg.c.x`); an `||` (any grid but the Borg's)
+  was likely meant, so the flow may still run through other shops'
+  entrances in line with the Borg.
+* `borg_play_step()` (breeder levels) skips doors when
+  `track_door.num >= 255`, but `track_door` has only 100 entries, so the
+  test is never true: doors the Borg keeps closing are never skipped
+  (once the list is full, new doors are just not noted). When several
+  open doors are adjacent, the last one scanned is closed.
+* `borg_play_step()` looks up the chest under the goal grid
+  (`loc(x2, y2)`), not under the grid stepped on; the two are the same
+  for the only caller (`borg_flow_old()` passes an adjacent grid).
+* `borg_flow_old()` reads `borg_data_flow` at the neighbour before its
+  "avoid screen edges" test (a Borg on row/column 0 would read index -1).
+* `borg_play_step()` ends with a dead `ui_event` "unhook" (a local that is
+  never set); `borg_free_flow()` frees `borg_data_flow` twice (the second
+  test sees NULL).
+* `borg_flow_enqueue_grid()` computes the danger of every new grid even
+  when desperate/lunal/munchkin/digging, then ignores it (no effect but
+  cost).
+* Rust (`borg_flow.rs`): all kept (the index -1 read panics; the dead
+  event code and the double free are left out, as they have no effect).

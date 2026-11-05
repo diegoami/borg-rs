@@ -33,9 +33,7 @@ pub use crate::headers::borg_fight_attack_h::{
     BORG_ATTACK_TAP_UNLIFE, BORG_ATTACK_TIME, BORG_ATTACK_TURN_ALL, BORG_ATTACK_TURN_EVIL,
     BORG_ATTACK_TURN_UNDEAD, BORG_ATTACK_WATER,
 };
-pub use crate::headers::borg_flow_h::{
-    borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
-};
+pub use crate::headers::borg_flow_h::{borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_kill, borg_race_name};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::borg_slot;
@@ -1362,7 +1360,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
     if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     i = 1 as ::core::ffi::c_int;
     while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
@@ -1379,9 +1377,9 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
                             if !(distance(crate::bridge::st().borg.c, (*kill).pos)
                                 > (*z_info).max_range as ::core::ffi::c_int)
                             {
-                                borg_temp_x[borg_temp_n as usize] = (*kill).pos.x as uint8_t;
-                                borg_temp_y[borg_temp_n as usize] = (*kill).pos.y as uint8_t;
-                                borg_temp_n += 1;
+                                crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] = (*kill).pos.x as uint8_t;
+                                crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] = (*kill).pos.y as uint8_t;
+                                crate::bridge::st().flow.temp_n += 1;
                             }
                         }
                     }
@@ -1390,7 +1388,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
         }
         i += 1;
     }
-    if borg_temp_n == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().flow.temp_n == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     p2 = borg_launch_bolt(
@@ -1404,7 +1402,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
         return 0 as ::core::ffi::c_int;
     }
     if borg_simulate {
-        borg_temp_n = 0 as int16_t;
+        crate::bridge::st().flow.temp_n = 0 as int16_t;
         borg_tp_other_n = 0 as int16_t;
         if p2 != 0 && p2 > crate::bridge::st().borg.avoidance as ::core::ffi::c_int / 2 as ::core::ffi::c_int {
             return p2;
@@ -1424,7 +1422,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away(mut p1: ::core::ffi::c_int) -> ::
         ));
         i += 1;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     if borg_spell(TELEPORT_OTHER) as ::core::ffi::c_int != 0
         || borg_activate_item(crate::bridge::st().act.tele_other) as ::core::ffi::c_int != 0
@@ -3031,7 +3029,7 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
         && (crate::bridge::st().borg.time.now - crate::bridge::st().borg.when_shift_panel <= 10 as borg_time
             || crate::bridge::st().borg.time.now - crate::bridge::st().borg.time.morgoth <= 10 as borg_time))
     {
-        if track_step.num != 0 {
+        if crate::bridge::st().flow.track_step.num != 0 {
             if dir == 8 as ::core::ffi::c_int
                 && borg_projectable_pure(
                     crate::bridge::st().borg.c.y,
@@ -3040,9 +3038,7 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
                     crate::bridge::st().borg.c.x,
                 ) as ::core::ffi::c_int
                     != 0
-                && *track_step.y.offset(
-                    (track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize,
-                ) != crate::bridge::st().borg.c.y - 1 as ::core::ffi::c_int
+                && crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize) as usize] != crate::bridge::st().borg.c.y - 1 as ::core::ffi::c_int
             {
                 borg_keypress('L' as i32 as keycode_t);
                 borg_keypress((dir + '0' as i32) as keycode_t);
@@ -3061,9 +3057,7 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
                     crate::bridge::st().borg.c.x,
                 ) as ::core::ffi::c_int
                     != 0
-                && *track_step.y.offset(
-                    (track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize,
-                ) != crate::bridge::st().borg.c.y + 1 as ::core::ffi::c_int
+                && crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize) as usize] != crate::bridge::st().borg.c.y + 1 as ::core::ffi::c_int
             {
                 borg_keypress('L' as i32 as keycode_t);
                 borg_keypress((dir + '0' as i32) as keycode_t);
@@ -3082,9 +3076,7 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
                     crate::bridge::st().borg.c.x - 2 as ::core::ffi::c_int,
                 ) as ::core::ffi::c_int
                     != 0
-                && *track_step.x.offset(
-                    (track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize,
-                ) != crate::bridge::st().borg.c.x - 1 as ::core::ffi::c_int
+                && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize) as usize] != crate::bridge::st().borg.c.x - 1 as ::core::ffi::c_int
             {
                 borg_keypress('L' as i32 as keycode_t);
                 borg_keypress((dir + '0' as i32) as keycode_t);
@@ -3103,9 +3095,7 @@ unsafe extern "C" fn borg_defend_panel_shift() -> bool {
                     crate::bridge::st().borg.c.x + 2 as ::core::ffi::c_int,
                 ) as ::core::ffi::c_int
                     != 0
-                && *track_step.x.offset(
-                    (track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize,
-                ) != crate::bridge::st().borg.c.x + 1 as ::core::ffi::c_int
+                && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 1 as ::core::ffi::c_int) as isize) as usize] != crate::bridge::st().borg.c.x + 1 as ::core::ffi::c_int
             {
                 borg_keypress('L' as i32 as keycode_t);
                 borg_keypress((dir + '0' as i32) as keycode_t);
@@ -3229,7 +3219,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
     if crate::bridge::st().kills.cnt == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
@@ -3244,9 +3234,9 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
                             > (*z_info).max_range as ::core::ffi::c_int)
                         {
                             if borg_projectable(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, (*kill).pos.y, (*kill).pos.x) {
-                                borg_temp_x[borg_temp_n as usize] = (*kill).pos.x as uint8_t;
-                                borg_temp_y[borg_temp_n as usize] = (*kill).pos.y as uint8_t;
-                                borg_temp_n += 1;
+                                crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] = (*kill).pos.x as uint8_t;
+                                crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] = (*kill).pos.y as uint8_t;
+                                crate::bridge::st().flow.temp_n += 1;
                             }
                         }
                     }
@@ -3255,7 +3245,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
         }
         i += 1;
     }
-    if borg_temp_n == 0 && borg_simulate as ::core::ffi::c_int != 0 {
+    if crate::bridge::st().flow.temp_n == 0 && borg_simulate as ::core::ffi::c_int != 0 {
         return 0 as ::core::ffi::c_int;
     }
     p2 = borg_launch_bolt(
@@ -3268,7 +3258,7 @@ unsafe extern "C" fn borg_defend_aux_tele_away_morgoth() -> ::core::ffi::c_int {
     if p2 > 1000 as ::core::ffi::c_int {
         p2 = 1000 as ::core::ffi::c_int;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     borg_tp_other_n = 0 as int16_t;
     if borg_simulate {
         return p2;

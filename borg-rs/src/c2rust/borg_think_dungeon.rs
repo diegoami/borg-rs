@@ -30,9 +30,7 @@ use crate::headers::borg_fight_defend_h::borg_defend;
 use crate::headers::borg_fight_perm_h::borg_perma_spell;
 use crate::headers::borg_flow_dark_h::borg_flow_dark;
 use crate::headers::borg_flow_glyph_h::borg_flow_glyph;
-pub use crate::headers::borg_flow_h::{
-    borg_flow_old, borg_track, track_closed, track_door, track_step,
-};
+pub use crate::headers::borg_flow_h::{borg_flow_old, borg_track};
 use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_flow_kill, borg_flow_kill_aim, borg_flow_kill_corridor, borg_flow_kill_direct, borg_near_monster_type};
 use crate::headers::borg_flow_misc_h::{
     borg_check_rest, borg_flow_recover, borg_flow_shop_entry, borg_flow_spastic, borg_flow_vault,
@@ -2011,9 +2009,9 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         crate::bridge::st().stairs.less.num = 0 as int16_t;
         crate::bridge::st().stairs.more.num = 0 as int16_t;
         crate::bridge::st().glyph.track.num = 0 as int16_t;
-        track_step.num = 0 as int16_t;
-        track_door.num = 0 as int16_t;
-        track_closed.num = 0 as int16_t;
+        crate::bridge::st().flow.track_step.num = 0 as int16_t;
+        crate::bridge::st().flow.track_door.num = 0 as int16_t;
+        crate::bridge::st().flow.track_closed.num = 0 as int16_t;
         track_vein.num = 0 as int16_t;
         crate::bridge::st().takes.cnt = 0 as int16_t;
         crate::bridge::st().takes.nxt = 1 as int16_t;

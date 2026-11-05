@@ -31,6 +31,7 @@ pub mod borg_cave_view;
 pub mod borg_cave_util;
 pub mod borg_danger;
 pub mod borg_fight_perm;
+pub mod borg_flow;
 pub mod borg_flow_glyph;
 pub mod borg_flow_dark;
 pub mod borg_flow_take;

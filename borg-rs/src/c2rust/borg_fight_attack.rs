@@ -79,7 +79,6 @@ pub use crate::headers::borg_fight_attack_h::{
     BORG_ATTACK_SOUND, BORG_ATTACK_TAP_UNLIFE, BORG_ATTACK_TIME, BORG_ATTACK_TURN_ALL,
     BORG_ATTACK_TURN_EVIL, BORG_ATTACK_TURN_UNDEAD, BORG_ATTACK_WATER,
 };
-use crate::headers::borg_flow_h::{borg_flow_y, borg_temp_n, borg_temp_x, borg_temp_y};
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_race_name};
 use crate::headers::borg_flow_misc_h::borg_extract_dir;
 pub use crate::headers::borg_flow_take_h::{borg_take};
@@ -1020,9 +1019,9 @@ unsafe extern "C" fn borg_attack_aux_thrust() -> ::core::ffi::c_int {
     }
     let mut current_block_12: u64;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         if !(borg_distance(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, y, x) > 1 as ::core::ffi::c_int) {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int);
@@ -1091,8 +1090,8 @@ unsafe extern "C" fn borg_attack_aux_thrust() -> ::core::ffi::c_int {
     if borg_simulate {
         return b_d;
     }
-    crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
-    crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
     kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     borg_note(format(
@@ -3303,27 +3302,27 @@ pub unsafe extern "C" fn borg_launch_bolt(
     let mut b_d: ::core::ffi::c_int = (*z_info).max_range as ::core::ffi::c_int;
     let mut require_monster: bool = false_0 != 0;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         o_x = -(1 as ::core::ffi::c_int);
         while o_x <= 1 as ::core::ffi::c_int {
             o_y = -(1 as ::core::ffi::c_int);
             while o_y <= 1 as ::core::ffi::c_int {
-                x = borg_temp_x[i as usize] as ::core::ffi::c_int + o_x;
-                y = borg_temp_y[i as usize] as ::core::ffi::c_int + o_y;
+                x = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int + o_x;
+                y = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int + o_y;
                 borg_tp_other_n = 0 as int16_t;
                 n = 0 as ::core::ffi::c_int;
                 if square_in_bounds(cave, loc(x, y)) {
                     d = distance(
                         crate::bridge::st().borg.c,
                         loc(
-                            borg_temp_x[i as usize] as ::core::ffi::c_int,
-                            borg_temp_y[i as usize] as ::core::ffi::c_int,
+                            crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
+                            crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
                         ),
                     );
-                    if !((x != borg_temp_x[i as usize] as ::core::ffi::c_int
-                        || y != borg_temp_y[i as usize] as ::core::ffi::c_int)
+                    if !((x != crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int
+                        || y != crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int)
                         && typ == BORG_ATTACK_AWAY_ALL as ::core::ffi::c_int)
                     {
                         if !(distance(crate::bridge::st().borg.c, loc(x, y)) > max) {
@@ -3331,8 +3330,8 @@ pub unsafe extern "C" fn borg_launch_bolt(
                                 && (*crate::bridge::grid(x, y)).feat
                                     as ::core::ffi::c_int
                                     != FEAT_NONE as ::core::ffi::c_int
-                                || y == borg_temp_y[i as usize] as ::core::ffi::c_int
-                                    && x == borg_temp_x[i as usize] as ::core::ffi::c_int
+                                || y == crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int
+                                    && x == crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int
                             {
                                 n = borg_launch_bolt_at_location(
                                     y,
@@ -3390,8 +3389,8 @@ pub unsafe extern "C" fn borg_launch_bolt(
     if borg_simulate {
         return b_n;
     }
-    crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int + b_o_x;
-    crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int + b_o_y;
+    crate::bridge::st().borg.goal.g.x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int + b_o_x;
+    crate::bridge::st().borg.goal.g.y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int + b_o_y;
     if typ == BORG_ATTACK_CURSE as ::core::ffi::c_int {
         require_monster = true_0 != 0;
     }
@@ -3582,15 +3581,15 @@ unsafe extern "C" fn borg_launch_arc(
         max = 20 as ::core::ffi::c_int;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         n = 0 as ::core::ffi::c_int;
         d = distance(
             crate::bridge::st().borg.c,
             loc(
-                borg_temp_x[i as usize] as ::core::ffi::c_int,
-                borg_temp_y[i as usize] as ::core::ffi::c_int,
+                crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
+                crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
             ),
         );
         if !(d > max) {
@@ -3615,8 +3614,8 @@ unsafe extern "C" fn borg_launch_arc(
     if borg_simulate {
         return b_n;
     }
-    crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int + b_o_x;
-    crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int + b_o_y;
+    crate::bridge::st().borg.goal.g.x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int + b_o_x;
+    crate::bridge::st().borg.goal.g.y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int + b_o_y;
     borg_target(crate::bridge::st().borg.goal.g, false_0 != 0);
     return b_n;
 }
@@ -3775,7 +3774,7 @@ unsafe extern "C" fn borg_attack_aux_rest() -> ::core::ffi::c_int {
                                         {
                                             if !(crate::bridge::st().borg.goal.type_0 as ::core::ffi::c_int
                                                 != GOAL_KILL
-                                                || borg_flow_y[0 as ::core::ffi::c_int as usize]
+                                                || crate::bridge::st().flow.flow_y[0 as ::core::ffi::c_int as usize]
                                                     as ::core::ffi::c_int
                                                     != (*kill).pos.y)
                                             {
@@ -4702,9 +4701,9 @@ unsafe extern "C" fn borg_attack_aux_whirlwind_attack() -> ::core::ffi::c_int {
         / 15 as ::core::ffi::c_int;
     let mut current_block_12: u64;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         if !(distance(crate::bridge::st().borg.c, loc(x, y)) > 1 as ::core::ffi::c_int) {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int);
@@ -4800,10 +4799,10 @@ unsafe extern "C" fn borg_attack_aux_leap_into_battle() -> ::core::ffi::c_int {
     }
     let mut current_block_19: u64;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
         let mut blows: ::core::ffi::c_int = 0;
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         let mut m_dist: ::core::ffi::c_int = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(m_dist > 4 as ::core::ffi::c_int) {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
@@ -4881,8 +4880,8 @@ unsafe extern "C" fn borg_attack_aux_leap_into_battle() -> ::core::ffi::c_int {
     if borg_simulate {
         return b_d;
     }
-    crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
-    crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
     kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     borg_note(format(
@@ -4936,9 +4935,9 @@ unsafe extern "C" fn borg_attack_aux_maim_foe() -> ::core::ffi::c_int {
         / 15 as ::core::ffi::c_int;
     let mut current_block_15: u64;
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        let mut x: ::core::ffi::c_int = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        let mut y: ::core::ffi::c_int = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        let mut x: ::core::ffi::c_int = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        let mut y: ::core::ffi::c_int = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         if !(distance(crate::bridge::st().borg.c, loc(x, y)) > 1 as ::core::ffi::c_int) {
             ag = crate::bridge::grid(x, y) as *mut borg_grid;
             d = borg_thrust_damage_one((*ag).kill as ::core::ffi::c_int) * blows;
@@ -5007,8 +5006,8 @@ unsafe extern "C" fn borg_attack_aux_maim_foe() -> ::core::ffi::c_int {
     if borg_simulate {
         return b_d;
     }
-    crate::bridge::st().borg.goal.g.x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
-    crate::bridge::st().borg.goal.g.y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int;
+    crate::bridge::st().borg.goal.g.y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int;
     ag = crate::bridge::grid(crate::bridge::st().borg.goal.g.x, crate::bridge::st().borg.goal.g.y) as *mut borg_grid;
     kill = &raw mut crate::bridge::st().kills.kills[((*ag).kill) as usize] as *mut borg_kill;
     dir = borg_extract_dir(crate::bridge::st().borg.c.y, crate::bridge::st().borg.c.x, crate::bridge::st().borg.goal.g.y, crate::bridge::st().borg.goal.g.x);
@@ -5045,9 +5044,9 @@ unsafe extern "C" fn borg_attack_aux_vampire_strike() -> ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
-        x = borg_temp_x[i as usize] as ::core::ffi::c_int;
-        y = borg_temp_y[i as usize] as ::core::ffi::c_int;
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
+        x = crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int;
+        y = crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int;
         dist = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(dist > best_dist) {
             best_dist = dist;
@@ -5061,16 +5060,16 @@ unsafe extern "C" fn borg_attack_aux_vampire_strike() -> ::core::ffi::c_int {
     if dist >= 20 as ::core::ffi::c_int {
         return 0 as ::core::ffi::c_int;
     }
-    x = borg_temp_x[b_i as usize] as ::core::ffi::c_int;
-    y = borg_temp_y[b_i as usize] as ::core::ffi::c_int;
+    x = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int;
+    y = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int;
     let mut found: bool = false_0 != 0;
     o_x = -(1 as ::core::ffi::c_int);
     while o_x <= 1 as ::core::ffi::c_int && !found {
         o_y = -(1 as ::core::ffi::c_int);
         while o_y <= 1 as ::core::ffi::c_int && !found {
             if !(o_x == 0 && o_y == 0) {
-                x2 = borg_temp_x[b_i as usize] as ::core::ffi::c_int + o_x;
-                y2 = borg_temp_y[b_i as usize] as ::core::ffi::c_int + o_y;
+                x2 = crate::bridge::st().flow.temp_x[b_i as usize] as ::core::ffi::c_int + o_x;
+                y2 = crate::bridge::st().flow.temp_y[b_i as usize] as ::core::ffi::c_int + o_y;
                 ag = crate::bridge::grid(x2, y2) as *mut borg_grid;
                 if (*ag).kill == 0
                     && (*ag).feat as ::core::ffi::c_int == FEAT_FLOOR as ::core::ffi::c_int
@@ -7638,7 +7637,7 @@ pub unsafe extern "C" fn borg_attack(mut boosted_bravery: bool) -> bool {
         return false_0 != 0;
     }
     borg_attacking = true_0 != 0;
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     let mut current_block_23: u64;
     i = 1 as ::core::ffi::c_int;
     while i < crate::bridge::st().kills.nxt as ::core::ffi::c_int {
@@ -7776,11 +7775,11 @@ pub unsafe extern "C" fn borg_attack(mut boosted_bravery: bool) -> bool {
                                                     (*crate::bridge::grid((*kill).pos.x, (*kill).pos.y))
                                                     .kill = i as uint8_t;
                                                 }
-                                                borg_temp_x[borg_temp_n as usize] =
+                                                crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] =
                                                     (*kill).pos.x as uint8_t;
-                                                borg_temp_y[borg_temp_n as usize] =
+                                                crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] =
                                                     (*kill).pos.y as uint8_t;
-                                                borg_temp_n += 1;
+                                                crate::bridge::st().flow.temp_n += 1;
                                             }
                                         }
                                     }
@@ -7793,7 +7792,7 @@ pub unsafe extern "C" fn borg_attack(mut boosted_bravery: bool) -> bool {
         }
         i += 1;
     }
-    if borg_temp_n == 0 {
+    if crate::bridge::st().flow.temp_n == 0 {
         borg_attacking = false_0 != 0;
         return false_0 != 0;
     }

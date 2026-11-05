@@ -19,7 +19,7 @@ use crate::headers::borg_escape_h::{
     borg_caution_phase, borg_escape, borg_freedom, borg_recall, borg_surrounded,
 };
 use crate::headers::borg_fight_defend_h::borg_defend;
-pub use crate::headers::borg_flow_h::{borg_track, track_step};
+pub use crate::headers::borg_flow_h::{borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_misc_h::{borg_check_rest, borg_goto_dir, borg_happy_grid_bold};
 use crate::headers::borg_flow_stairs_h::{borg_flow_stair_less, borg_flow_stair_more, borg_prep_leave_level_spells};
@@ -1563,23 +1563,11 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                         >= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                             * 7 as ::core::ffi::c_int
                             / 10 as ::core::ffi::c_int
-                        && (track_step.num as ::core::ffi::c_int > 2 as ::core::ffi::c_int
-                            && (*track_step.y.offset(
-                                (track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int)
-                                    as isize,
-                            ) == y2
-                                && *track_step.x.offset(
-                                    (track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int)
-                                        as isize,
-                                ) == x2
-                                && *track_step.y.offset(
-                                    (track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int)
-                                        as isize,
-                                ) == crate::bridge::st().borg.c.y
-                                && *track_step.x.offset(
-                                    (track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int)
-                                        as isize,
-                                ) == crate::bridge::st().borg.c.x))
+                        && (crate::bridge::st().flow.track_step.num as ::core::ffi::c_int > 2 as ::core::ffi::c_int
+                            && (crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == y2
+                                && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == x2
+                                && crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.y
+                                && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.x))
                         || crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int >= 300 as ::core::ffi::c_int)
                     {
                         if borg_happy_grid_bold(y2, x2) {
@@ -1618,28 +1606,12 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                                             >= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                                                 * 7 as ::core::ffi::c_int
                                                 / 10 as ::core::ffi::c_int
-                                            && (track_step.num as ::core::ffi::c_int
+                                            && (crate::bridge::st().flow.track_step.num as ::core::ffi::c_int
                                                 > 2 as ::core::ffi::c_int
-                                                && (*track_step.y.offset(
-                                                    (track_step.num as ::core::ffi::c_int
-                                                        - 2 as ::core::ffi::c_int)
-                                                        as isize,
-                                                ) == y1
-                                                    && *track_step.x.offset(
-                                                        (track_step.num as ::core::ffi::c_int
-                                                            - 2 as ::core::ffi::c_int)
-                                                            as isize,
-                                                    ) == x1
-                                                    && *track_step.y.offset(
-                                                        (track_step.num as ::core::ffi::c_int
-                                                            - 3 as ::core::ffi::c_int)
-                                                            as isize,
-                                                    ) == crate::bridge::st().borg.c.y
-                                                    && *track_step.x.offset(
-                                                        (track_step.num as ::core::ffi::c_int
-                                                            - 3 as ::core::ffi::c_int)
-                                                            as isize,
-                                                    ) == crate::bridge::st().borg.c.x))
+                                                && (crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == y1
+                                                    && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == x1
+                                                    && crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.y
+                                                    && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.x))
                                             || crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int
                                                 >= 300 as ::core::ffi::c_int
                                         {
@@ -1821,27 +1793,11 @@ pub unsafe extern "C" fn borg_caution() -> bool {
                                 >= crate::bridge::st().borg.trait_[(BI_MAXHP as ::core::ffi::c_int) as usize]
                                     * 7 as ::core::ffi::c_int
                                     / 10 as ::core::ffi::c_int
-                                && (track_step.num as ::core::ffi::c_int > 2 as ::core::ffi::c_int
-                                    && (*track_step.y.offset(
-                                        (track_step.num as ::core::ffi::c_int
-                                            - 2 as ::core::ffi::c_int)
-                                            as isize,
-                                    ) == y_0
-                                        && *track_step.x.offset(
-                                            (track_step.num as ::core::ffi::c_int
-                                                - 2 as ::core::ffi::c_int)
-                                                as isize,
-                                        ) == x_0
-                                        && *track_step.y.offset(
-                                            (track_step.num as ::core::ffi::c_int
-                                                - 3 as ::core::ffi::c_int)
-                                                as isize,
-                                        ) == crate::bridge::st().borg.c.y
-                                        && *track_step.x.offset(
-                                            (track_step.num as ::core::ffi::c_int
-                                                - 3 as ::core::ffi::c_int)
-                                                as isize,
-                                        ) == crate::bridge::st().borg.c.x))
+                                && (crate::bridge::st().flow.track_step.num as ::core::ffi::c_int > 2 as ::core::ffi::c_int
+                                    && (crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == y_0
+                                        && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 2 as ::core::ffi::c_int) as isize) as usize] == x_0
+                                        && crate::bridge::st().flow.track_step.y[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.y
+                                        && crate::bridge::st().flow.track_step.x[((crate::bridge::st().flow.track_step.num as ::core::ffi::c_int - 3 as ::core::ffi::c_int) as isize) as usize] == crate::bridge::st().borg.c.x))
                                 || crate::bridge::st().borg.antibounce_count as ::core::ffi::c_int
                                     >= 300 as ::core::ffi::c_int)
                             {

@@ -88,7 +88,7 @@ fn borg_flow_dark_interesting(st: &mut BorgState, y: i32, x: i32) -> bool {
         }
 
         /* don't try to dig if we can't */
-        if !bridge::borg_can_dig(st, false, ag.feat) {
+        if !crate::borg_flow::borg_can_dig(st, false, ag.feat) {
             return false;
         }
 
@@ -109,7 +109,7 @@ fn borg_flow_dark_interesting(st: &mut BorgState, y: i32, x: i32) -> bool {
         }
 
         /* make sure we can dig */
-        if !bridge::borg_can_dig(st, false, ag.feat) {
+        if !crate::borg_flow::borg_can_dig(st, false, ag.feat) {
             return false;
         }
 
@@ -467,17 +467,17 @@ fn wipe_and_clear(st: &mut BorgState) {
     }
 
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    crate::borg_flow::borg_flow_clear(st);
 }
 
 /// Enqueue every grid of the `borg_temp_*` list, in list order.
 fn enqueue_temp(st: &mut BorgState) {
     let mut i = 0;
-    while i < i32::from(bridge::borg_temp_n(st)) {
-        let (y, x) = bridge::borg_temp_at(st, i as usize);
+    while i < i32::from(st.flow.temp_n) {
+        let (y, x) = st.flow.temp_at(i as usize);
 
         /* Enqueue the grid */
-        bridge::borg_flow_enqueue_grid(st, y, x);
+        crate::borg_flow::borg_flow_enqueue_grid(st, y, x);
         i += 1;
     }
 }
@@ -486,8 +486,8 @@ fn enqueue_temp(st: &mut BorgState) {
 /// order.
 fn direct_temp(st: &mut BorgState) {
     let mut i = 0;
-    while i < i32::from(bridge::borg_temp_n(st)) {
-        let (y, x) = bridge::borg_temp_at(st, i as usize);
+    while i < i32::from(st.flow.temp_n) {
+        let (y, x) = st.flow.temp_at(i as usize);
 
         /* Create a path */
         borg_flow_direct(st, y, x);
@@ -498,12 +498,12 @@ fn direct_temp(st: &mut BorgState) {
 /// Commit the flow and take one step (the common end of every method).
 fn commit_and_step(st: &mut BorgState, who: &CStr) -> bool {
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, who, GOAL_DARK) {
+    if !crate::borg_flow::borg_flow_commit(st, who, GOAL_DARK) {
         return false;
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, GOAL_DARK) {
+    if !crate::borg_flow::borg_flow_old(st, GOAL_DARK) {
         return false;
     }
 
@@ -545,7 +545,7 @@ fn borg_flow_dark_1(st: &mut BorgState, b_stair: i32) -> bool {
     }
 
     /* Reset */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Scan torch-lit grids */
     let mut i = 0;
@@ -565,11 +565,11 @@ fn borg_flow_dark_1(st: &mut BorgState, b_stair: i32) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     /* Nothing */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         return false;
     }
 
@@ -598,7 +598,7 @@ fn borg_flow_dark_2(st: &mut BorgState, b_stair: i32) -> bool {
     let r = st.borg.tr(BI_LIGHT) + 1;
 
     /* Reset */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Four directions */
     for i in 0..4 {
@@ -629,11 +629,11 @@ fn borg_flow_dark_2(st: &mut BorgState, b_stair: i32) -> bool {
         }
 
         /* Careful -- Remember it */
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     /* Nothing */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         return false;
     }
 
@@ -689,10 +689,10 @@ fn scan_region(
             }
 
             /* Careful -- Remember it */
-            bridge::borg_temp_push(st, y, x);
+            st.flow.temp_push(y, x);
 
             /* Paranoia -- Check for overflow (double break) */
-            if stop_when_full && i32::from(bridge::borg_temp_n(st)) == AUTO_TEMP_MAX {
+            if stop_when_full && i32::from(st.flow.temp_n) == AUTO_TEMP_MAX {
                 return;
             }
         }
@@ -716,13 +716,13 @@ fn borg_flow_dark_3(st: &mut BorgState, b_stair: i32) -> bool {
     let region = local_region(st, 4);
 
     /* Reset */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Examine the region */
     scan_region(st, region, b_stair, StairTest::Leash, false);
 
     /* Nothing interesting */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         return false;
     }
 
@@ -732,7 +732,7 @@ fn borg_flow_dark_3(st: &mut BorgState, b_stair: i32) -> bool {
     enqueue_temp(st);
 
     /* Spread the flow (limit depth) */
-    bridge::borg_flow_spread(st, 5, false, true, false, -1, false);
+    crate::borg_flow::borg_flow_spread(st, 5, false, true, false, -1, false);
 
     commit_and_step(st, c"dark-3")
 }
@@ -766,13 +766,13 @@ fn borg_flow_dark_4(st: &mut BorgState, b_stair: i32) -> bool {
     let (y1, x1, y2, x2) = local_region(st, 11);
 
     /* Nothing yet */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Examine the panel */
     scan_region(st, (y1, x1, y2, x2), b_stair, StairTest::Dist(leash), false);
 
     /* Nothing useful */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         return false;
     }
 
@@ -790,10 +790,10 @@ fn borg_flow_dark_4(st: &mut BorgState, b_stair: i32) -> bool {
     /* Spread the flow (limit depth Leash) */
     if st.borg.tr(BI_CLEVEL) < 15 {
         /* Short Leash */
-        bridge::borg_flow_spread(st, leash, true, true, false, -1, false);
+        crate::borg_flow::borg_flow_spread(st, leash, true, true, false, -1, false);
     } else {
         /* Long Leash */
-        bridge::borg_flow_spread(st, 250, true, true, false, -1, false);
+        crate::borg_flow::borg_flow_spread(st, 250, true, true, false, -1, false);
     }
 
     /* Clear the edges (C bug 31: also forgets marks set before) */
@@ -812,14 +812,14 @@ fn borg_flow_dark_5(st: &mut BorgState, b_stair: i32) -> bool {
     }
 
     /* Nothing yet */
-    bridge::borg_temp_reset(st);
+    st.flow.temp_n = 0;
 
     /* Examine every "legal" grid */
     let region = (1, 1, AUTO_MAX_Y - 2, AUTO_MAX_X - 2);
     scan_region(st, region, b_stair, StairTest::Dist(leash), true);
 
     /* Nothing useful */
-    if bridge::borg_temp_n(st) == 0 {
+    if st.flow.temp_n == 0 {
         return false;
     }
 
@@ -834,10 +834,10 @@ fn borg_flow_dark_5(st: &mut BorgState, b_stair: i32) -> bool {
     let brave = i32::from(st.borg.avoidance) <= st.borg.tr(BI_CURHP);
     if (st.borg.tr(BI_CLEVEL) <= 5 && brave) || (st.borg.tr(BI_CLEVEL) <= 30 && brave) {
         /* Short Leash */
-        bridge::borg_flow_spread(st, leash, true, true, false, -1, false);
+        crate::borg_flow::borg_flow_spread(st, leash, true, true, false, -1, false);
     } else {
         /* Long Leash */
-        bridge::borg_flow_spread(st, 250, true, true, false, -1, false);
+        crate::borg_flow::borg_flow_spread(st, 250, true, true, false, -1, false);
     }
 
     commit_and_step(st, c"dark-5")

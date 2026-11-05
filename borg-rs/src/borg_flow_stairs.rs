@@ -15,8 +15,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
 //! The known up and down staircases (`track_less`, `track_more`) live in
-//! `StairsState`. The flow itself is still c2rust (borg-flow.c) and is
-//! called through `bridge`.
+//! `StairsState`. The flow itself is `borg_flow`.
 
 use crate::headers::borg_magic_h::{
     BERSERK_STRENGTH, BLESS, DEMON_BANE, HASTE_SELF, HEROISM, MANA_CHANNEL, PROTECTION_FROM_EVIL,
@@ -28,7 +27,7 @@ use crate::headers::borg_trait_h::{
 };
 use crate::headers::list_options_h::OPT_birth_force_descend;
 use crate::state::BorgState;
-use crate::{borg_io, borg_magic, bridge, engine};
+use crate::{borg_flow, borg_io, borg_magic, bridge, engine};
 
 /// A list of known stairs (`struct borg_track` as used for `track_less`
 /// and `track_more`). C semantics: `size` entries are allocated (zeroed),
@@ -106,7 +105,7 @@ fn enqueue_stairs(st: &mut BorgState, which: Which) {
         }
 
         /* Enqueue the grid */
-        bridge::borg_flow_enqueue_grid(st, y, x);
+        borg_flow::borg_flow_enqueue_grid(st, y, x);
         i += 1;
     }
 }
@@ -114,12 +113,12 @@ fn enqueue_stairs(st: &mut BorgState, which: Which) {
 /// Commit the flow and take one step (the common end of the three flows).
 fn commit_and_step(st: &mut BorgState, who: &std::ffi::CStr, why: i32) -> bool {
     /* Attempt to Commit the flow */
-    if !bridge::borg_flow_commit(st, who, why) {
+    if !borg_flow::borg_flow_commit(st, who, why) {
         return false;
     }
 
     /* Take one step */
-    if !bridge::borg_flow_old(st, why) {
+    if !borg_flow::borg_flow_old(st, why) {
         return false;
     }
 
@@ -130,7 +129,7 @@ fn commit_and_step(st: &mut BorgState, who: &std::ffi::CStr, why: i32) -> bool {
 /// Do a Stair-Flow. Look at how far away this grid is to my closest stair.
 pub fn borg_flow_cost_stair(st: &mut BorgState, y: i32, x: i32, b_stair: i32) -> i32 {
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Paranoid */
     if b_stair == -1 {
@@ -140,13 +139,13 @@ pub fn borg_flow_cost_stair(st: &mut BorgState, y: i32, x: i32, b_stair: i32) ->
     /* Enqueue the player's grid (C reads any allocated entry) */
     let sy = st.stairs.less.y[b_stair as usize];
     let sx = st.stairs.less.x[b_stair as usize];
-    bridge::borg_flow_enqueue_grid(st, sy, sx);
+    borg_flow::borg_flow_enqueue_grid(st, sy, sx);
 
     /* Spread, but do NOT optimize */
-    bridge::borg_flow_spread(st, 250, false, false, false, b_stair, false);
+    borg_flow::borg_flow_spread(st, 250, false, false, false, b_stair, false);
 
     /* Distance from the grid to the stair */
-    let cost = i32::from(bridge::borg_data_cost_at(st, y, x));
+    let cost = i32::from(st.flow.cost_at(y, x));
 
     /* if it is impossible to get to the stairs, go off leash */
     if cost == 255 {
@@ -179,14 +178,14 @@ pub fn borg_flow_stair_both(st: &mut BorgState, why: i32, sneak: bool) -> bool {
     }
 
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Enqueue useful grids */
     enqueue_stairs(st, Which::Less);
     enqueue_stairs(st, Which::More);
 
     /* Spread the flow */
-    bridge::borg_flow_spread(st, 250, false, false, false, -1, sneak);
+    borg_flow::borg_flow_spread(st, 250, false, false, false, -1, sneak);
 
     commit_and_step(st, c"stairs", why)
 }
@@ -204,18 +203,18 @@ pub fn borg_flow_stair_less(st: &mut BorgState, why: i32, sneak: bool) -> bool {
     }
 
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Enqueue useful grids */
     enqueue_stairs(st, Which::Less);
 
     if st.borg.tr(BI_CLEVEL) > 35 || st.borg.tr(BI_LIGHT) == 0 {
         /* Spread the flow */
-        bridge::borg_flow_spread(st, 250, true, false, false, -1, sneak);
+        borg_flow::borg_flow_spread(st, 250, true, false, false, -1, sneak);
     } else {
         /* Spread the flow, No Optimize, Avoid */
         let avoid = !st.borg.status.desperate;
-        bridge::borg_flow_spread(st, 250, false, avoid, false, -1, sneak);
+        borg_flow::borg_flow_spread(st, 250, false, avoid, false, -1, sneak);
     }
 
     commit_and_step(st, c"up-stairs", why)
@@ -272,13 +271,13 @@ pub fn borg_flow_stair_more(st: &mut BorgState, why: i32, sneak: bool, brave: bo
     }
 
     /* Clear the flow codes */
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     /* Enqueue useful grids */
     enqueue_stairs(st, Which::More);
 
     /* Spread the flow */
-    bridge::borg_flow_spread(st, 250, true, false, false, -1, sneak);
+    borg_flow::borg_flow_spread(st, 250, true, false, false, -1, sneak);
 
     commit_and_step(st, c"down-stairs", why)
 }

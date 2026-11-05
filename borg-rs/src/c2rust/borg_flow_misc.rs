@@ -21,11 +21,7 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 use crate::headers::borg_danger_h::{borg_danger, borg_danger_one_kill};
 use crate::headers::borg_escape_h::{borg_allow_teleport, borg_caution_phase, borg_shadow_shift};
-pub use crate::headers::borg_flow_h::{
-    borg_can_dig, borg_data, borg_data_cost, borg_flow_clear, borg_flow_commit,
-    borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track,
-    borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
-};
+pub use crate::headers::borg_flow_h::{borg_can_dig, borg_flow_clear, borg_flow_commit, borg_flow_enqueue_grid, borg_flow_old, borg_flow_spread, borg_free_track, borg_init_track, borg_track};
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
@@ -338,8 +334,8 @@ pub unsafe extern "C" fn borg_happy_grid_bold(
         return true_0 != 0;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < track_step.num as ::core::ffi::c_int {
-        if *track_step.y.offset(i as isize) == y && *track_step.x.offset(i as isize) == x {
+    while i < crate::bridge::st().flow.track_step.num as ::core::ffi::c_int {
+        if crate::bridge::st().flow.track_step.y[(i) as usize] == y && crate::bridge::st().flow.track_step.x[(i) as usize] == x {
             if i < 25 as ::core::ffi::c_int {
                 return true_0 != 0;
             }
@@ -403,7 +399,7 @@ pub unsafe extern "C" fn borg_flow_recover(mut dist: ::core::ffi::c_int) -> bool
     {
         return false_0 != 0;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     y = crate::bridge::st().borg.c.y - 25 as ::core::ffi::c_int;
     while y < crate::bridge::st().borg.c.y + 25 as ::core::ffi::c_int {
         x = crate::bridge::st().borg.c.x - 25 as ::core::ffi::c_int;
@@ -420,9 +416,9 @@ pub unsafe extern "C" fn borg_flow_recover(mut dist: ::core::ffi::c_int) -> bool
                                     != FEAT_PASS_RUBBLE as ::core::ffi::c_int)
                             {
                                 if borg_check_rest(y, x) {
-                                    borg_temp_x[borg_temp_n as usize] = x as uint8_t;
-                                    borg_temp_y[borg_temp_n as usize] = y as uint8_t;
-                                    borg_temp_n += 1;
+                                    crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] = x as uint8_t;
+                                    crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] = y as uint8_t;
+                                    crate::bridge::st().flow.temp_n += 1;
                                 }
                             }
                         }
@@ -433,15 +429,15 @@ pub unsafe extern "C" fn borg_flow_recover(mut dist: ::core::ffi::c_int) -> bool
         }
         y += 1;
     }
-    if borg_temp_n == 0 {
+    if crate::bridge::st().flow.temp_n == 0 {
         return false_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
         borg_flow_enqueue_grid(
-            borg_temp_y[i as usize] as ::core::ffi::c_int,
-            borg_temp_x[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
         );
         i += 1;
     }
@@ -493,7 +489,7 @@ pub unsafe extern "C" fn borg_flow_vein(
     if !borg_can_dig(true_0 != 0, min_feat) {
         return false_0 != 0;
     }
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     while i < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
         x = crate::bridge::st().stairs.less.x[i as usize];
@@ -532,23 +528,23 @@ pub unsafe extern "C" fn borg_flow_vein(
             match current_block_25 {
                 5143058163439228106 => {}
                 _ => {
-                    borg_temp_x[borg_temp_n as usize] = x as uint8_t;
-                    borg_temp_y[borg_temp_n as usize] = y as uint8_t;
-                    borg_temp_n += 1;
+                    crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] = x as uint8_t;
+                    crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] = y as uint8_t;
+                    crate::bridge::st().flow.temp_n += 1;
                 }
             }
         }
         i += 1;
     }
-    if borg_temp_n == 0 {
+    if crate::bridge::st().flow.temp_n == 0 {
         return false_0 != 0;
     }
     borg_flow_clear();
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
         borg_flow_enqueue_grid(
-            borg_temp_y[i as usize] as ::core::ffi::c_int,
-            borg_temp_x[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
         );
         i += 1;
     }
@@ -672,7 +668,7 @@ pub unsafe extern "C" fn borg_flow_spastic(mut bored: bool) -> bool {
             if !((*ag).feat as ::core::ffi::c_int == FEAT_NONE as ::core::ffi::c_int) {
                 if !(*ag).trap {
                     if crate::borg_cave_util::borg_cave_floor_grid(&*(ag)) {
-                        cost = (*borg_data_cost).data[y as usize][x as usize] as ::core::ffi::c_int;
+                        cost = crate::bridge::st().flow.data_cost[y as usize][x as usize] as ::core::ffi::c_int;
                         if !(cost >= 250 as ::core::ffi::c_int) {
                             if !(cost >= 25 as ::core::ffi::c_int
                                 && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
@@ -1002,7 +998,7 @@ pub unsafe extern "C" fn borg_flow_vault(mut nearness: ::core::ffi::c_int) -> bo
     let mut b_x: ::core::ffi::c_int = 0;
     let mut can_dig_hard: bool = false;
     let mut ag: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
-    borg_temp_n = 0 as int16_t;
+    crate::bridge::st().flow.temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
     if !crate::bridge::st().borg.status.vault {
         return false_0 != 0;
@@ -1055,9 +1051,9 @@ pub unsafe extern "C" fn borg_flow_vault(mut nearness: ::core::ffi::c_int) -> bo
                                 if !((*ag).feat as ::core::ffi::c_int
                                     != FEAT_PERM as ::core::ffi::c_int)
                                 {
-                                    borg_temp_y[borg_temp_n as usize] = y as uint8_t;
-                                    borg_temp_x[borg_temp_n as usize] = x as uint8_t;
-                                    borg_temp_n += 1;
+                                    crate::bridge::st().flow.temp_y[crate::bridge::st().flow.temp_n as usize] = y as uint8_t;
+                                    crate::bridge::st().flow.temp_x[crate::bridge::st().flow.temp_n as usize] = x as uint8_t;
+                                    crate::bridge::st().flow.temp_n += 1;
                                 }
                             }
                             i += 1;
@@ -1069,14 +1065,14 @@ pub unsafe extern "C" fn borg_flow_vault(mut nearness: ::core::ffi::c_int) -> bo
         }
         y += 1;
     }
-    if borg_temp_n == 0 {
+    if crate::bridge::st().flow.temp_n == 0 {
         return false_0 != 0;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < borg_temp_n as ::core::ffi::c_int {
+    while i < crate::bridge::st().flow.temp_n as ::core::ffi::c_int {
         borg_flow_enqueue_grid(
-            borg_temp_y[i as usize] as ::core::ffi::c_int,
-            borg_temp_x[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_y[i as usize] as ::core::ffi::c_int,
+            crate::bridge::st().flow.temp_x[i as usize] as ::core::ffi::c_int,
         );
         i += 1;
     }

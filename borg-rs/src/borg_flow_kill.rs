@@ -62,7 +62,7 @@ use crate::headers::list_terrain_h::{
 };
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::bridge;
+use crate::{borg_flow, bridge};
 
 /// `GOAL_KILL`, `GOAL_TAKE`, `GOAL_DIGGING` (borg-flow.h)
 const GOAL_KILL: i16 = 1;
@@ -536,7 +536,7 @@ pub fn borg_delete_kill(st: &mut BorgState, i: i32) {
     );
 
     // Clear goals if I am flowing to this monster.
-    let (fy, fx) = bridge::borg_flow_first(st);
+    let (fy, fx) = st.flow.first();
     if st.borg.goal.type_0 == GOAL_KILL && fy == kill.pos.y && fx == kill.pos.x {
         st.borg.goal.type_0 = 0;
     }
@@ -654,7 +654,7 @@ fn borg_follow_kill_aux(st: &BorgState, i: usize, y: i32, x: i32) -> bool {
 /// Clear the goal after a tracked monster moved: kill goals aimed at its
 /// new grid (without ESP), or any munchkin take goal.
 fn clear_goal_after_move(st: &mut BorgState, pos: loc) {
-    let (fy, fx) = bridge::borg_flow_first(st);
+    let (fy, fx) = st.flow.first();
     if (st.borg.tr(BI_ESP) == 0
         && st.borg.goal.type_0 == GOAL_KILL
         && (fy == pos.y && fx == pos.x))
@@ -1821,7 +1821,7 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
     }
 
     // Nothing found
-    bridge::borg_temp_clear(st);
+    st.flow.temp_n = 0;
 
     // check to see if in a hall, used later
     for hall_x in -1..=1 {
@@ -1991,36 +1991,36 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
         }
 
         // Careful -- Remember it
-        bridge::borg_temp_push(st, y, x);
+        st.flow.temp_push(y, x);
     }
 
     // Nothing to kill
-    let n = bridge::borg_temp_n(st);
+    let n = st.flow.temp_n;
     if n == 0 {
         return false;
     }
 
     // Clear the flow codes
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     // Look for something to kill
     for i in 0..usize::from(n as u16) {
         // Enqueue the grid
-        let (y, x) = bridge::borg_temp_at(st, i);
-        bridge::borg_flow_enqueue_grid(st, y, x);
+        let (y, x) = st.flow.temp_at(i);
+        borg_flow::borg_flow_enqueue_grid(st, y, x);
     }
 
     // Spread the flow: if we are not flowing toward monsters that we can
     // see, make sure they are at least easily reachable.
-    bridge::borg_flow_spread(st, nearness, true, !viewable, false, -1, false);
+    borg_flow::borg_flow_spread(st, nearness, true, !viewable, false, -1, false);
 
     // Attempt to Commit the flow
-    if !bridge::borg_flow_commit(st, c"kill", i32::from(GOAL_KILL)) {
+    if !borg_flow::borg_flow_commit(st, c"kill", i32::from(GOAL_KILL)) {
         return false;
     }
 
     // Take one step
-    if !bridge::borg_flow_old(st, i32::from(GOAL_KILL)) {
+    if !borg_flow::borg_flow_old(st, i32::from(GOAL_KILL)) {
         return false;
     }
 
@@ -2133,26 +2133,26 @@ pub fn borg_flow_kill_aim(st: &mut BorgState, viewable: bool) -> bool {
             // Check for a distance attack from here
             if borg_has_distance_attack(st) {
                 // Clear the flow codes
-                bridge::borg_flow_clear(st);
+                borg_flow::borg_flow_clear(st);
 
                 // Enqueue the grid
                 let (cy, cx) = (st.borg.c.y, st.borg.c.x);
-                bridge::borg_flow_enqueue_grid(st, cy, cx);
+                borg_flow::borg_flow_enqueue_grid(st, cy, cx);
 
                 // restore the saved player position
                 st.borg.c.x = s_c_x;
                 st.borg.c.y = s_c_y;
 
                 // Spread the flow
-                bridge::borg_flow_spread(st, 5, true, !viewable, false, -1, false);
+                borg_flow::borg_flow_spread(st, 5, true, !viewable, false, -1, false);
 
                 // Attempt to Commit the flow
-                if !bridge::borg_flow_commit(st, c"targetable position", i32::from(GOAL_KILL)) {
+                if !borg_flow::borg_flow_commit(st, c"targetable position", i32::from(GOAL_KILL)) {
                     return false;
                 }
 
                 // Take one step
-                if !bridge::borg_flow_old(st, i32::from(GOAL_KILL)) {
+                if !borg_flow::borg_flow_old(st, i32::from(GOAL_KILL)) {
                     return false;
                 }
 
@@ -2233,25 +2233,25 @@ fn pattern_score(st: &BorgState, p: &Pattern, o_x: i32, o_y: i32) -> i32 {
 /// Enqueue a hiding grid, dig to it and take one step.
 fn dig_to(st: &mut BorgState, y: i32, x: i32, depth: i32, who: &CStr, twice: bool) -> bool {
     // Clear the flow codes
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     // Enqueue the grid where I will hide
     st.borg.status.digging = true;
-    bridge::borg_flow_enqueue_grid(st, y, x);
+    borg_flow::borg_flow_enqueue_grid(st, y, x);
 
     // Spread the flow
     if twice {
         st.borg.status.digging = true;
     }
-    bridge::borg_flow_spread(st, depth, true, false, true, -1, false);
+    borg_flow::borg_flow_spread(st, depth, true, false, true, -1, false);
 
     // Attempt to Commit the flow
-    if !bridge::borg_flow_commit(st, who, GOAL_DIGGING) {
+    if !borg_flow::borg_flow_commit(st, who, GOAL_DIGGING) {
         return false;
     }
 
     // Take one step
-    if !bridge::borg_flow_old(st, GOAL_DIGGING) {
+    if !borg_flow::borg_flow_old(st, GOAL_DIGGING) {
         return false;
     }
 
@@ -2364,11 +2364,11 @@ pub fn borg_flow_kill_corridor(st: &mut BorgState) -> bool {
             && bridge::borg_detect_wall(st, q_y, q_x + 1)
             && bridge::borg_detect_wall(st, q_y + 1, q_x)
             && bridge::borg_detect_wall(st, q_y + 1, q_x + 1);
-        bridge::borg_flow_clear(st);
+        borg_flow::borg_flow_clear(st);
         st.borg.status.digging = true;
-        bridge::borg_flow_enqueue_grid(st, kill.pos.y, kill.pos.x);
-        bridge::borg_flow_spread(st, 10, true, !mapped, false, -1, false);
-        if !bridge::borg_flow_commit(st, c"Monster Path", i32::from(GOAL_KILL)) {
+        borg_flow::borg_flow_enqueue_grid(st, kill.pos.y, kill.pos.x);
+        borg_flow::borg_flow_spread(st, 10, true, !mapped, false, -1, false);
+        if !borg_flow::borg_flow_commit(st, c"Monster Path", i32::from(GOAL_KILL)) {
             return false;
         }
     }
@@ -2511,7 +2511,7 @@ pub fn borg_flow_kill_direct(st: &mut BorgState, twitchy: bool) -> bool {
     let mut b_d = i32::from(engine::z_info().max_sight);
 
     // Assume we need to dig granite
-    if !bridge::borg_can_dig(st, false, FEAT_GRANITE as u8) {
+    if !borg_flow::borg_can_dig(st, false, FEAT_GRANITE as u8) {
         return false;
     }
 
@@ -2580,21 +2580,21 @@ pub fn borg_flow_kill_direct(st: &mut BorgState, twitchy: bool) -> bool {
 /// The flow of `borg_flow_kill_direct` (no `digging` flag).
 fn dig_to_direct(st: &mut BorgState, y: i32, x: i32, depth: i32, who: &CStr) -> bool {
     // Clear the flow codes
-    bridge::borg_flow_clear(st);
+    borg_flow::borg_flow_clear(st);
 
     // Enqueue the grid
-    bridge::borg_flow_enqueue_grid(st, y, x);
+    borg_flow::borg_flow_enqueue_grid(st, y, x);
 
     // Spread the flow
-    bridge::borg_flow_spread(st, depth, true, false, true, -1, false);
+    borg_flow::borg_flow_spread(st, depth, true, false, true, -1, false);
 
     // Attempt to Commit the flow
-    if !bridge::borg_flow_commit(st, who, GOAL_DIGGING) {
+    if !borg_flow::borg_flow_commit(st, who, GOAL_DIGGING) {
         return false;
     }
 
     // Take one step
-    if !bridge::borg_flow_old(st, GOAL_DIGGING) {
+    if !borg_flow::borg_flow_old(st, GOAL_DIGGING) {
         return false;
     }
 
