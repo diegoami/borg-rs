@@ -35,9 +35,11 @@ See `docs/harness.md` for the design. Decisions:
   (Borg idle while resting). One line each:
   `turn type code mods`. The log hook is in `ui-input.c`, i.e. engine
   side, so it does not depend on which Borg implementation is linked.
-* Race per run in `full`: `(class + k) % 11`, so every race appears.
+* Race per run in `full`: `(class + k) % 11` as requested indices. Because
+  of the birth-letter quirk (below) only 8 races and 8 classes are really
+  played: no Dunadan, High-Elf, Kobold or Blackguard.
 * Death ends a run (cheat death off). 15/45 `full` runs end in an early
-  death, mostly at clevel 1-3.
+  death, all by clevel 5, mostly at clevel 1-3.
 
 ### Check M1 output
 
@@ -146,6 +148,9 @@ Reference: `harness/reference/full/` (xz-compressed, 844 KB).
 
 ### Check M2 output
 
+Output at M2 time (old version of the script; its "exported by the Rust
+crate" list matched every archive symbol, so that number meant nothing):
+
 ```
 $ harness/check-no-c-borg.sh
 rust build: src/borg/*.c entries in compile_commands.json: 0
@@ -153,6 +158,9 @@ rust build: src/borg object files: 0
 C Borg symbols: 1174; present in rust binary: 983; of those exported by the Rust crate: 982
 OK: no C Borg code in /home/user/borg-rs/build/rust/game/angband
 ```
+
+The script was rewritten after the harness review; see "Harness review
+fixes" below for its current output.
 
 `full` with the Rust Borg against the C reference:
 
@@ -168,36 +176,48 @@ Rust timing: `suite=full impl=rust jobs=4 wall_seconds=138.822782034` (C: about 
 
 ## Extra suite: deep (added during M3)
 
-`full` only covers the early game: clevel <= 10, depth <= 5, and 15/45 runs
-die early. The Borg's deep-dungeon, store, spell and recovery code would go
-untested. `harness/suites/deep` adds one run per class with 1,000,000 game
-turns and `borg_cheat_death = TRUE` (flag column `cheat` in the suite file).
-It reaches clevel 8-30 and depth 2-26. Its reference comes from the
+`full` only covers the early game: clevel 1-10 (median 4), max depth 1-5
+(median 2), and 15/45 runs die early. The Borg's deep-dungeon, store, spell
+and recovery code would go untested. `harness/suites/deep` adds 9 runs
+(one per requested class index) with 1,000,000 game turns and
+`borg_cheat_death = TRUE` (flag column `cheat` in the suite file). Because
+of the quirk below it plays 8 classes (Warrior twice, no Blackguard) and 5
+races. It reaches clevel 8-30 (median 18) and max depth 2-26 (median 7).
+Its reference comes from the
 unmodified C build and was checked deterministic (two C runs, 9/9
 identical). It is in `harness/reference/deep/`. `deep` is run alongside
 `full` at every M3 checkpoint. This adds to the required suites; it
 replaces none of them.
 
-## Known harness quirk: race letters in the birth script
+## Known harness quirk: race and class letters in the birth script
 
 `main-borgh.c` picks the race and class in the birth menus with `a`..`z`, but
 the menus use `all_letters_nohjkl` (they skip h, j, k, l). So a requested race
-index >= 7 selects a different race than the suite file says (the Borg's own
-respawn code has the same C bug, see c-bugs.md #11). This does not affect
-C/Rust equivalence: both builds get the same scripted keys, and every
-`summary.json` records the race and class actually played. It is left as is
-so the existing reference logs stay valid. The suite names describe the
-requested indices, not the races played.
+or class index >= 7 selects a different entry than the suite file says
+(the Borg's own respawn code has the same C bug, see c-bugs.md #11):
+class 7 stays Warrior, class 8 becomes Ranger; race 7, 9 and 10 stay Human,
+race 8 becomes Half-Troll. So `full` and `deep` never play a Blackguard,
+Dunadan, High-Elf or Kobold. This does not affect C/Rust equivalence: both
+builds get the same scripted keys, and every `summary.json` records the
+race and class actually played. The default is left as is so the existing
+reference logs stay valid; the suite names describe the requested indices,
+not what was played. The `classes` suite uses the new `-menu-letters`
+option (suite flag `menu`) to cover what is missing; see `docs/harness.md`.
 
 ## Observation: unexplained early exits (watching)
 
 While converting borg_danger with a heavy cross-check compiled in, an agent
-saw two `full` runs (blackguard seeds 1080, 1083) end with exit code 0 and no
+saw two `full` runs (`full-8-blackguard-0` and `-3`, seeds 1080 and 1083;
+Rangers in fact, see the quirk) end with exit code 0 and no
 `summary.json`. Rerun on their own with the same build, both matched the
 reference exactly, and the clean `full` suite was 45/45. Likely cause: the
 process was killed from outside under memory or CPU pressure (several
-agents run suites at once), but this is not proven. `harness/suite.sh`
-reports such runs as MISSING, so they cannot pass silently. If it happens
+agents run suites at once), but this is not proven. `run.sh` fails such a
+run (no summary), `harness/suite.sh` reports it as MISSING and marks the
+output dir FAILED, and `harness/diff` refuses that dir, so it cannot pass
+silently. (Before the harness review fixes, `suite.sh` stopped at the first
+failed run without the MISSING report, and `harness/diff` only compared the
+runs present in its first argument.) If it happens
 again, check `stderr.log` and `dmesg` for the run.
 
 Update: during the borg_store conversion, two `deep` runs in another
@@ -216,3 +236,64 @@ merged was lost. The worktrees, including their uncommitted edits, survived
 on disk, and the conversions were resumed from that state.
 Everything merged so far is pushed; only work-in-progress in worktrees is ever
 at risk.
+
+## Harness review fixes (2026-11-05)
+
+An independent review of the harness found gaps in the tooling and in the
+coverage claims. Fixed:
+
+* `harness/diff` compares the union of run names (`--suite` requires the
+  exact suite), compares raw bytes, cross-checks each key log against its
+  `summary.json` (`keys`, last `game_turns`), compares the summaries (except
+  `wall_seconds`), and refuses a suite output dir without `DONE`. Before,
+  it compared only the runs present in its first argument, so a missing
+  run passed.
+* `harness/suite.sh` runs into a fresh dir, writes `manifest`
+  (git rev, binary sha256, `BORG_IMPL`, suite sha256) and `DONE`/`FAILED`
+  last, keeps going after a failed run, and always writes `timing.txt`.
+* `harness/check-no-c-borg.sh` rewritten (see `docs/harness.md`): staticlib
+  members checked by name and `.comment`, empty inputs fail, engine objects
+  compared byte for byte.
+* `build.sh` always passes `-DBORG_IMPL`; `run.sh` sets `TZ=UTC`;
+  `main-borgh.c` exits 3 if the key log or summary cannot be written, and
+  has the opt-in `-menu-letters` (suite flag `menu`).
+* New suite `classes` with the correct menu letters, covering Blackguard,
+  Dunadan, High-Elf and Kobold (never played by `full`/`deep`).
+
+Evidence (worktree build of 590783e1f plus these harness commits):
+
+```
+$ harness/check-no-c-borg.sh
+1. rust build: src/borg/*.c entries in compile_commands.json: 0
+   rust build: src/borg object files: 0
+2. staticlib members: 344; rustc objects: 309 (borg_rs crate: 17); compiler-builtins C objects: 35
+3. C Borg symbols: 1174; rust binary symbols: 8943; borg_rs exports: 1354; C Borg names in the rust binary: 207, of those exported by borg_rs: 206
+4. engine objects: 154 in build/c, byte-identical in build/rust: 154 (buildid.c.o may differ)
+OK: no C Borg code in .../build/rust/game/angband
+```
+
+The script was also shown to fail on broken inputs (scratchpad, not
+committed): a gcc object named like a `borg_rs` rcgu member, a gcc object
+named like a compiler-builtins member, the C binary in place of the Rust
+one, a stripped binary, a C build dir without Borg objects, one engine
+object changed, and a C build dir configured as `rust`.
+
+With the new `main-borgh.c` (C build) and the new `harness/diff --suite`:
+
+| suite | C vs reference | second C run | Rust vs reference |
+|---|---|---|---|
+| smoke | 3/3 | 3/3 (smoke determinism, first recorded here) | 3/3 |
+| full | 45/45 | - | 45/45 |
+| deep | 9/9 | - | 9/9 |
+| classes | 16/16 (it is the reference) | 16/16 | 16/16 |
+
+The older outputs in the main checkout (`harness/out/c/{smoke,full,full-1,
+full-2,deep-1,deep-2}`, `harness/out/rust/{smoke,full,deep}`) also pass the
+new diff against the references (with `--allow-incomplete`, as they have no
+`DONE` marker). Every reference passes the key-log/summary cross-check.
+
+Valgrind memcheck (`--track-origins=yes`) on the three `smoke` runs with
+the C build: 0 errors each, and the key logs are identical to the
+reference. Memcheck does not see reads past the end of a static array
+inside the same object (like the `all_letters_nohjkl[-1]` read in
+c-bugs #21), so that class of bug is not covered.
