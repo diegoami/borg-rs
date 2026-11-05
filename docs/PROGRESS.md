@@ -22,8 +22,9 @@
   `black_box` of the pointer) before and after the c2rust call. Seen in
   borg_flow_kill: `borg_flow_kill_aim` moves `borg.c` around calls that read
   it, and without the escape the stores were dropped (4/45 `full` runs
-  diverged). Older wrappers with an unused `_st` still have this latent
-  hazard.
+  diverged). All bridge wrappers that call c2rust code (or a C-ABI shim
+  that uses `st()`) were retrofitted with `escape` after module 32. Plain
+  reads of static tables or of c2rust-owned globals do not need it.
 * C ctype classes come from `cctype.rs` (as measured under `C.UTF-8`).
 * Behaviour stays exact: the Borg's own algorithms (e.g. its quicksort,
   whose tie order matters) are kept, not replaced with std equivalents.
