@@ -223,7 +223,7 @@ when a big c2rust module goes away.
 | borg_flow_misc (`30e2024df`) | 687 | 12 |
 | borg_caution (`041f52ac8`) | 678 | 11 |
 | borg_commands (`5700fd73a`) | 623 | 10 |
-| borg_fight_defend (this commit) | 594 | 9 |
+| borg_fight_defend (`7bb2e83d4`) | 594 | 9 |
 
 ## Suite timings
 
