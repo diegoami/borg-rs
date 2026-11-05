@@ -1009,3 +1009,5 @@ with its issues.
 * `borg_notice_armour_swap()`: gloves are wearable but not in the
   switch, so they are never a swap armour.
 * Rust (`borg_trait_swap.rs`): all kept.
+* Tracker: one lead per slip, in the order above:
+  diegoami/neo-angband-tracker#199, #201, #202, #203, #204, #205.
