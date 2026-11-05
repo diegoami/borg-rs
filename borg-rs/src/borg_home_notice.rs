@@ -50,6 +50,7 @@ use crate::headers::list_tvals_h::{
 };
 use crate::state::BorgState;
 use crate::borg_item_analyze::borg_ego_has_random_power;
+use crate::borg_item_use::borg_equips_item;
 use crate::{bridge, engine};
 
 /// `BORG_HOME` (borg-store.h): the home's index in `borg_shops`.
@@ -884,7 +885,7 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
 
     //  Handle "rune of protection" glyph
     let act_glyph = st.act.glyph;
-    if borg_spell_legal(st, GLYPH_OF_WARDING) || bridge::borg_equips_item(st, act_glyph, false) {
+    if borg_spell_legal(st, GLYPH_OF_WARDING) || borg_equips_item(st, act_glyph, false) {
         add(&mut st.home.num_glyph, 1000);
     }
 

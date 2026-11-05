@@ -18,6 +18,7 @@ use crate::borg_inventory::InventoryState;
 use crate::borg_io::IoState;
 use crate::borg_item::ItemState;
 use crate::borg_item_activation::ActivationIds;
+use crate::borg_item_use::ItemUseState;
 use crate::borg_item_val::ItemValState;
 use crate::borg_magic::MagicState;
 use crate::borg_messages_react::MsgState;
@@ -56,6 +57,8 @@ pub struct BorgState {
     pub items: ItemState,
     /// borg-item-activation.c: `act_*`
     pub act: ActivationIds,
+    /// borg-item-use.c: `when_last_quaff` (static in `borg_quaff_crit`)
+    pub item_use: ItemUseState,
     /// borg-item-val.c: `sv_*`, `kv_*`
     pub item_val: ItemValState,
     /// borg-magic.c: `borg_magics`, `borg_spell_ratings`

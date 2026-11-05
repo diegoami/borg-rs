@@ -578,12 +578,10 @@ pub fn borg_calc_blows(_st: &mut BorgState, item: &crate::headers::borg_item_h::
     unsafe { crate::c2rust::borg_trait::borg_calc_blows(&mut copy) }
 }
 
-/// `borg_equips_item(activation, check_charge)` (still c2rust,
-/// borg-item-use.c).
-pub fn borg_equips_item(_st: &mut BorgState, activation: i32, check_charge: bool) -> bool {
-    // SAFETY: plain call into transitional c2rust code (it reads
-    // borg.activation and the equipment).
-    unsafe { crate::c2rust::borg_item_use::borg_equips_item(activation, check_charge) }
+/// `borg_equips_item(activation, check_charge)`: forwards to the safe
+/// `borg_item_use::borg_equips_item` (kept for callers not yet switched).
+pub fn borg_equips_item(st: &mut BorgState, activation: i32, check_charge: bool) -> bool {
+    crate::borg_item_use::borg_equips_item(st, activation, check_charge)
 }
 
 /// C-ABI shims with the borg-home-notice.c names.
@@ -1241,3 +1239,83 @@ pub mod flow_take {
     }
 }
 
+
+/// C-ABI shims with the borg-item-use.c names, for c2rust callers.
+pub mod item_use {
+    use super::st;
+    use crate::borg_item_use as u;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_quaff_crit(no_check: bool) -> bool {
+        u::borg_quaff_crit(st(), no_check)
+    }
+    pub unsafe extern "C" fn borg_quaff_potion(sval: c_int) -> bool {
+        u::borg_quaff_potion(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_quaff_unknown() -> bool {
+        u::borg_quaff_unknown(st())
+    }
+    pub unsafe extern "C" fn borg_read_scroll(sval: c_int) -> bool {
+        u::borg_read_scroll(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_read_unknown() -> bool {
+        u::borg_read_unknown(st())
+    }
+    pub unsafe extern "C" fn borg_eat(tval: c_int, sval: c_int) -> bool {
+        u::borg_eat(st(), tval, sval)
+    }
+    pub unsafe extern "C" fn borg_eat_unknown() -> bool {
+        u::borg_eat_unknown(st())
+    }
+    pub unsafe extern "C" fn borg_eat_food_any() -> bool {
+        u::borg_eat_food_any(st())
+    }
+    pub unsafe extern "C" fn borg_equips_rod(sval: c_int) -> bool {
+        u::borg_equips_rod(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_zap_rod(sval: c_int) -> bool {
+        u::borg_zap_rod(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_use_staff(sval: c_int) -> bool {
+        u::borg_use_staff(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_use_unknown() -> bool {
+        u::borg_use_unknown(st())
+    }
+    pub unsafe extern "C" fn borg_use_staff_fail(sval: c_int) -> bool {
+        u::borg_use_staff_fail(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_equips_staff_fail(sval: c_int) -> bool {
+        u::borg_equips_staff_fail(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_aim_wand(sval: c_int) -> bool {
+        u::borg_aim_wand(st(), sval)
+    }
+    pub unsafe extern "C" fn borg_equips_ring(ring_sval: c_int) -> bool {
+        u::borg_equips_ring(st(), ring_sval)
+    }
+    pub unsafe extern "C" fn borg_activate_ring(ring_sval: c_int) -> bool {
+        u::borg_activate_ring(st(), ring_sval)
+    }
+    pub unsafe extern "C" fn borg_equips_dragon(drag_sval: c_int) -> bool {
+        u::borg_equips_dragon(st(), drag_sval)
+    }
+    pub unsafe extern "C" fn borg_activate_dragon(drag_sval: c_int) -> bool {
+        u::borg_activate_dragon(st(), drag_sval)
+    }
+    pub unsafe extern "C" fn borg_activate_item(activation: c_int) -> bool {
+        u::borg_activate_item(st(), activation)
+    }
+    pub unsafe extern "C" fn borg_equips_item(activation: c_int, check_charge: bool) -> bool {
+        u::borg_equips_item(st(), activation, check_charge)
+    }
+    pub unsafe extern "C" fn borg_activate_failure(tval: c_int, sval: c_int) -> c_int {
+        u::borg_activate_failure(st(), tval, sval)
+    }
+    pub unsafe extern "C" fn borg_use_things() -> bool {
+        u::borg_use_things(st())
+    }
+    pub unsafe extern "C" fn borg_recharging() -> bool {
+        u::borg_recharging(st())
+    }
+}

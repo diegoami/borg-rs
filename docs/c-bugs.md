@@ -297,3 +297,28 @@ Format: file, function, (seed, turn when observed), explanation.
   is `'!'` and its attr is not 11; for every other kind the attr is not
   compared at all.
 * Rust (`borg_flow_take.rs`): all kept.
+
+## 20. Device use slips (item use)
+
+* `borg-item-use.c`, found by code reading.
+* The device fail check `100 * ((skill - lev) - 140) / ((lev - skill) - 90)`
+  (rods, staffs, rings, `borg_activate_failure`) divides by zero when the
+  item level is exactly 90 above the device skill (a crash in C, a panic
+  in Rust). Only `borg_equips_dragon()` guards against it. Needs a very
+  low skill (e.g. a confused low-level character) and a level 90+ device.
+* `borg_quaff_crit()`: "Avoid drinking CCW twice in a row" returns false
+  (74 times in 100) when the last CCW was quaffed *more* than 4 game turns
+  ago; the extra `borg_timer(..) > 0` test is implied by `> 4`.
+* `borg_equips_ring()` / `borg_activate_ring()` loop from `INVEN_RIGHT`
+  to `< INVEN_LEFT`, so only the right ring is ever checked.
+* `borg_use_staff_fail()`: the "desperation" Teleportation branch tests
+  `fail > 500` again inside `fail > 500`, so a not-confused, not-blind Borg
+  always gives up there. `borg_equips_staff_fail()` does the opposite: a
+  not-confused Borg gives up when `500 < fail < 650` but accepts the
+  staff when its chance is even worse (`fail >= 650`).
+* `borg_eat_food_any()`: "when hurting" is `CURHP < 4 || CURHP <= MAXHP`,
+  which is true whenever current HP is not above the maximum (so nearly
+  always).
+* `borg_use_things()`: the Enlightenment potion branch only `break`s
+  (never quaffs); the comment says "Check the scroll".
+* Rust: all kept in `borg_item_use.rs`.

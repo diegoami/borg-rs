@@ -16,7 +16,6 @@ pub mod borg_flow_stairs;
 pub mod borg_init;
 pub mod borg_item_decurse;
 pub mod borg_item_enchant;
-pub mod borg_item_use;
 pub mod borg_item_wear;
 pub mod borg_junk;
 pub mod borg_light;
