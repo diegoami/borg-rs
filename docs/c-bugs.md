@@ -322,3 +322,32 @@ Format: file, function, (seed, turn when observed), explanation.
 * `borg_use_things()`: the Enlightenment potion branch only `break`s
   (never quaffs); the comment says "Check the scroll".
 * Rust: all kept in `borg_item_use.rs`.
+## 21. Equipment swaps and the "best" list (item wear)
+
+* `borg-item-wear.c`, found by code reading.
+* `borg_backup_swap()`:
+  * "Pass on the swap which yields the best result" keeps the *higher*
+    danger: `if (b_p1 <= b_p2) b_p = b_p2 (weapon) else b_p = b_p1
+    (armour)`. So with both swaps the worse one is weighed and worn.
+  * With an armour swap and no weapon swap, `b_p2` stays 0, so an armour
+    danger of 0 picks `swap = weapon_swap - 1 = -1` and the key is
+    `all_letters_nohjkl[-1]`, the byte before the array. In the C and the
+    Rust harness binaries that byte is alignment padding (0, checked with
+    `objdump`), so `borg_keypress` refuses it ("BAD KEY" note) and only the
+    `'w'` is queued.
+  * The `i == -1` fixes are dead (the swap index is non-zero there).
+* `borg_one_step_wearing_best()`: `int skipping = skip;` sits inside the
+  loop, so it is reset on every pass. With `skip > 0` (inventory or home
+  full) every remaining entry is skipped instead of only `skip` of them:
+  the function returns false (or, when it ends on an empty entry, clears
+  the list but keeps `do_best`), so "try the next change" never tries one.
+* `borg_best_stuff_aux()`: the "don't test the same item in both ring
+  slots" test for `INVEN_LEFT` (order 8) reads `test[n + 1]`, the
+  `INVEN_RIGHT` entry (order 9), which is only written deeper in the
+  recursion: it holds the last right ring of the previous subtree, so a
+  left-ring candidate equal to it is skipped for no reason.
+* `borg_wear_stuff()`: `track_worn_time` is an `int16_t`, so
+  `borg.time.now` is truncated; once the time passes 32767 the "worn
+  more than 10 turns ago" test is true at once. The test itself skips an
+  artifact worn on this level *more* than 10 turns ago (not recently).
+* Rust (`borg_item_wear.rs`): all kept (`swap_letter(-1)` gives the 0 key).

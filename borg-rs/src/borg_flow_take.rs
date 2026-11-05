@@ -781,7 +781,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
 
         /* If full can I absorb the item into an existing stack */
         if item_bad && take.value > 0 {
-            if bridge::borg_is_ammo(st, take.tval) {
+            if crate::borg_item_wear::borg_is_ammo(take.tval) {
                 /* Scan the quiver */
                 for ii in quiver_start()..quiver_end() {
                     let it = &st.items.items[ii as usize];
@@ -836,7 +836,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
         /* Require one empty slot */
         if st.items.items[(pack_slots - 1) as usize].iqty == 0 && item_bad {
             /* for ammo, make sure the quiver isn't full */
-            if !bridge::borg_is_ammo(st, take.tval)
+            if !crate::borg_item_wear::borg_is_ammo(take.tval)
                 || st.items.items[(quiver_end() - 1) as usize].iqty == 0
             {
                 /* Certain Potions are worthless */

@@ -20,6 +20,7 @@ use crate::borg_item::ItemState;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_use::ItemUseState;
 use crate::borg_item_val::ItemValState;
+use crate::borg_item_wear::WearState;
 use crate::borg_magic::MagicState;
 use crate::borg_messages_react::MsgState;
 use crate::borg_prepared::PreparedState;
@@ -61,6 +62,8 @@ pub struct BorgState {
     pub item_use: ItemUseState,
     /// borg-item-val.c: `sv_*`, `kv_*`
     pub item_val: ItemValState,
+    /// borg-item-wear.c: `track_worn_*`
+    pub wear: WearState,
     /// borg-magic.c: `borg_magics`, `borg_spell_ratings`
     pub magic: MagicState,
     /// borg-messages.c / borg-messages-react.c: the message queue

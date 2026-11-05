@@ -145,7 +145,7 @@ pub struct BorgTimes {
     pub last_kill_mult: BorgTime,
 }
 
-#[derive(Copy, Clone)]
+#[derive(Clone, Default)]
 pub struct BorgGoal {
     pub type_0: i16,
     pub g: loc,
@@ -164,7 +164,9 @@ pub struct BorgGoal {
     pub ware: i16,
     pub item: i16,
     pub do_best: bool,
-    pub best_item: *mut BorgBest,
+    /// `z_info->equip_slots_max` entries while a "best" list is pending
+    /// (borg-item-wear.c); empty = NULL.
+    pub best_item: Vec<BorgBest>,
 }
 
 #[derive(Copy, Clone)]
@@ -233,31 +235,6 @@ pub struct BorgNear {
     pub evil_unique: bool,
     pub summoner: bool,
     pub summoner_idx: i16,
-}
-
-impl Default for BorgGoal {
-    fn default() -> Self {
-        BorgGoal {
-            type_0: 0,
-            g: loc::default(),
-            rising: false,
-            leaving: false,
-            fleeing: false,
-            fleeing_lunal: false,
-            fleeing_munchkin: false,
-            fleeing_to_town: false,
-            ignoring: false,
-            less: false,
-            waiting: false,
-            recalling: 0,
-            descending: 0,
-            shop: 0,
-            ware: 0,
-            item: 0,
-            do_best: false,
-            best_item: core::ptr::null_mut(),
-        }
-    }
 }
 
 impl Default for BorgInitSave {

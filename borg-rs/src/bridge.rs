@@ -1105,12 +1105,6 @@ pub fn borg_check_light(_st: &mut BorgState) -> bool {
     unsafe { crate::c2rust::borg_light::borg_check_light() }
 }
 
-/// `borg_is_ammo(tval)` (still c2rust, borg-item-wear.c).
-pub fn borg_is_ammo(_st: &mut BorgState, tval: i32) -> bool {
-    // SAFETY: a pure switch on the value.
-    unsafe { crate::c2rust::borg_item_wear::borg_is_ammo(tval) }
-}
-
 /// `track_less.num` (still c2rust, borg-flow-stairs.c).
 pub fn track_less_num(_st: &mut BorgState) -> i16 {
     // SAFETY: plain read of a global struct field; Borg thread.
@@ -1317,5 +1311,82 @@ pub mod item_use {
     }
     pub unsafe extern "C" fn borg_recharging() -> bool {
         u::borg_recharging(st())
+    }
+}
+
+// ---------------------------------------------------------------------------
+// borg-item-wear.c (converted): calls into still-c2rust code.
+
+/// `borg_notice(notice_swap)` (still c2rust, borg-trait.c).
+pub fn borg_notice(_st: &mut BorgState, notice_swap: bool) {
+    // SAFETY: plain call into transitional c2rust code (reads the items,
+    // writes the traits).
+    unsafe { crate::c2rust::borg_trait::borg_notice(notice_swap) }
+}
+
+/// `borg_power()` (still c2rust, borg-power.c).
+pub fn borg_power(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe { crate::c2rust::borg_power::borg_power() }
+}
+
+/// `borg_check_rest(y, x)` (still c2rust, borg-flow-misc.c).
+pub fn borg_check_rest(_st: &mut BorgState, y: i32, x: i32) -> bool {
+    // SAFETY: plain call into transitional c2rust code; (y, x) is the
+    // Borg's grid.
+    unsafe { crate::c2rust::borg_flow_misc::borg_check_rest(y, x) }
+}
+
+/// `borg_read_scroll(sval)` (borg-item-use.c, converted).
+pub fn borg_read_scroll(st: &mut BorgState, sval: i32) -> bool {
+    crate::borg_item_use::borg_read_scroll(st, sval)
+}
+
+/// `shop_num` (still c2rust, borg-think.c): the store the Borg is in, or -1.
+pub fn shop_num(_st: &mut BorgState) -> i16 {
+    // SAFETY: plain read of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_think::shop_num }
+}
+
+/// C-ABI shims with the borg-item-wear.c names, for c2rust callers
+/// (borg_think_dungeon, borg_think_dungeon_util, borg_think_store,
+/// borg_caution, borg_trait, borg_update, borg_commands, borg_init).
+pub mod item_wear {
+    use super::st;
+    use crate::borg_item_wear as w;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_test_stuff() -> bool {
+        w::borg_test_stuff(st())
+    }
+    pub unsafe extern "C" fn borg_swap_rings() -> bool {
+        w::borg_swap_rings(st())
+    }
+    pub unsafe extern "C" fn borg_wear_rings() -> bool {
+        w::borg_wear_rings(st())
+    }
+    pub unsafe extern "C" fn borg_backup_swap(p: c_int) -> bool {
+        w::borg_backup_swap(st(), p)
+    }
+    pub unsafe extern "C" fn borg_wear_stuff() -> bool {
+        w::borg_wear_stuff(st())
+    }
+    pub unsafe extern "C" fn borg_best_stuff() -> bool {
+        w::borg_best_stuff(st())
+    }
+    pub unsafe extern "C" fn borg_clear_best() {
+        w::borg_clear_best(st())
+    }
+    pub unsafe extern "C" fn borg_wear_recharge() -> bool {
+        w::borg_wear_recharge(st())
+    }
+    pub unsafe extern "C" fn borg_is_ammo(tval: c_int) -> bool {
+        w::borg_is_ammo(tval)
+    }
+    pub unsafe extern "C" fn borg_init_item_wear() {
+        w::borg_init_item_wear(st())
+    }
+    pub unsafe extern "C" fn borg_free_item_wear() {
+        w::borg_free_item_wear(st())
     }
 }
