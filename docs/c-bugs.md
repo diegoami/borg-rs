@@ -930,3 +930,6 @@ with its issues.
   Kept.
 * Rust (`borg_power.rs`): all kept; the out-of-bounds reads and the
   division by zero are panics.
+* Tracker: one lead per slip, in the order above (the out-of-bounds bullet
+  is two):
+  diegoami/neo-angband-tracker#184 to diegoami/neo-angband-tracker#190.
