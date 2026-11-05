@@ -199,7 +199,7 @@ pub fn borg_init_store(st: &mut BorgState) {
             "borg thinks home is {}, game thinks home is {}.  aborting. ",
             home, BORG_HOME
         );
-        engine::msg(text.as_bytes());
+        bridge::msg(st, text.as_bytes());
         bridge::set_borg_init_failure(st);
     }
 

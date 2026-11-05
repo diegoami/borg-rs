@@ -295,9 +295,10 @@ impl BorgState {
 /// The `inkey_hack` callback: capture control from the game and feed it
 /// keypresses (`borg_entry_point`).
 extern "C" fn borg_entry_point(flush_first: core::ffi::c_int) -> keypress {
-    let st = bridge::st();
-    let k = generate_keypress(st, flush_first != 0);
-    crate::borg_io::borg_save_keypress(st, k)
+    bridge::with_entry_state(|st| {
+        let k = generate_keypress(st, flush_first != 0);
+        crate::borg_io::borg_save_keypress(st, k)
+    })
 }
 
 /// Install or remove the keypress hook (`borg_update_entrypoint`).

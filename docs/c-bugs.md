@@ -250,6 +250,10 @@ Format: file, function, (seed, turn when observed), explanation.
     again instead of `v2`.
   * The Teleport Other skip list is read with `ii <= borg_tp_other_n`, one
     entry past the count.
+    The list is `int[255]`: with 255 entries C reads one `int` past the
+    array; Rust panics there (the bounds check of
+    `bridge::borg_tp_other_index`). Not reachable in practice: it needs
+    255 Teleport Other candidates in one `borg_defend` scan.
   * The first move simulation tests `feat == FEAT_GRANITE`, the second
     `feat >= FEAT_GRANITE` (so it also treats terrain above the permanent
     wall, e.g. lava and passable rubble, as wall).

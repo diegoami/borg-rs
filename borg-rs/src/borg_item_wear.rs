@@ -1564,7 +1564,7 @@ pub fn borg_init_item_wear(st: &mut BorgState) {
 
     let z = engine::z_info();
     if i32::from(z.equip_slots_max) + i32::from(z.pack_size) >= 100 {
-        engine::msg(b"pack size plus equipment slots exceeds 100.  Need a rewrite of best_item code");
+        bridge::msg(st, b"pack size plus equipment slots exceeds 100.  Need a rewrite of best_item code");
         bridge::set_borg_init_failure(st);
     }
 }

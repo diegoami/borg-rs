@@ -93,8 +93,8 @@ extern "C" {
     pub fn menu_select(menu: *mut menu, notify: ::core::ffi::c_int, popup: bool) -> ui_event;
 }
 extern "C" {
-    pub static all_letters_nohjkl: [::core::ffi::c_char; 0];
+    pub static all_letters_nohjkl: [::core::ffi::c_char; 49];
 }
 extern "C" {
-    pub static all_letters: [::core::ffi::c_char; 0];
+    pub static all_letters: [::core::ffi::c_char; 53];
 }

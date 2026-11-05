@@ -500,7 +500,7 @@ pub fn borg_caution_teleport(st: &mut BorgState, emergency: i32, turns: i32) -> 
 
 /// `borg_detect_wall[y][x] == true` (borg-update.c's detection map).
 fn detect_wall(st: &mut BorgState, y: i32, x: i32) -> bool {
-    bridge::borg_detect_wall(st, y, x)
+    bridge::borg_detect(st, bridge::Detect::Wall, y, x)
 }
 
 /// If the borg is standing on a stair and is in some danger, just leave

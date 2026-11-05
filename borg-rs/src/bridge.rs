@@ -15,18 +15,67 @@ use crate::state::BorgState;
 
 static mut STATE: *mut BorgState = core::ptr::null_mut();
 
-/// The one Borg state, for code that is still c2rust. Allocated on first
-/// use and never freed: the C globals lived for the whole process too.
-pub fn st() -> &'static mut BorgState {
-    // SAFETY: single-threaded (the engine thread); the pointer is
-    // created once and never freed. Transitional: c2rust code and
-    // converted code share it the way they shared the C globals.
+/// The one Borg state, as a raw pointer. Allocated on first use and never
+/// freed: the C globals lived for the whole process too.
+pub(crate) fn state_ptr() -> *mut BorgState {
+    // SAFETY: single-threaded (the engine thread); the pointer is created
+    // once and never freed or moved.
     unsafe {
         if STATE.is_null() {
             STATE = Box::into_raw(Box::default());
         }
-        &mut *STATE
+        STATE
     }
+}
+
+/// The one Borg state as `&mut`, for code that is still c2rust and for
+/// the C-ABI shims. Transitional: c2rust code and converted code share the
+/// state the way they shared the C globals, and this goes away with
+/// `bridge.rs`.
+///
+/// # Safety
+///
+/// The result aliases every other `&mut BorgState` handed out (by earlier
+/// `st()` calls, and the `st` parameter of converted code). Callers must
+/// not use another reference into the state while the returned one is in
+/// use, and code that holds one across a call that may reach `st()` (any
+/// c2rust function or C-ABI shim) must pass it through `escape` before and
+/// after that call, so the compiler does not keep state in registers
+/// across it. Under Rust's aliasing model this is still undefined
+/// behaviour; `escape` only keeps today's optimiser from exploiting it
+/// (see docs/REVIEW.md). Engine thread only.
+pub(crate) unsafe fn st() -> &'static mut BorgState {
+    &mut *state_ptr()
+}
+
+static mut ENTRY_DEPTH: u32 = 0;
+
+/// Run an engine callback into the Borg (the `inkey_hack` hook, an event
+/// handler) with the state. This is where a borrow of the state starts:
+/// nothing else holds one when the engine calls in.
+///
+/// Except in one case, which C allows too: a Borg call into the engine
+/// that waits for a key (a long `msg()` with `auto_more` off goes through
+/// `msg_flush` -> `anykey` -> `inkey_ex` -> the hook) runs a whole nested
+/// Borg turn while the outer one is still running. The nested turn is kept,
+/// as in C, but it aliases the outer `&mut` (see `st`). It is reported on
+/// stderr, which the harness keeps per run (`stderr.log`), so the suites
+/// show whether it ever happens.
+pub(crate) fn with_entry_state<R>(f: impl FnOnce(&mut BorgState) -> R) -> R {
+    // SAFETY: engine thread only; the counter is only touched here.
+    let depth = unsafe {
+        ENTRY_DEPTH += 1;
+        ENTRY_DEPTH
+    };
+    if depth > 1 {
+        eprintln!("borg-rs: nested Borg entry (depth {depth})");
+    }
+    // SAFETY: at depth 1 no other reference into the state is live (the
+    // engine called in from outside the Borg). At depth > 1 see above.
+    let r = f(unsafe { st() });
+    // SAFETY: as above.
+    unsafe { ENTRY_DEPTH -= 1 };
+    r
 }
 
 /// Integer conversions the way C does them when indexing (`as`).
@@ -86,7 +135,10 @@ pub mod io {
         borg_io::borg_note_bytes(st(), cbytes(what))
     }
     pub unsafe extern "C" fn borg_warning(what: *const c_char) {
-        borg_io::borg_warning_bytes(st(), cbytes(what))
+        // Copied: the text may live in z-util's `format()` buffer, which a
+        // nested Borg turn (see `with_entry_state`) can reallocate.
+        let what = cbytes(what).to_vec();
+        borg_io::borg_warning_bytes(st(), &what)
     }
     pub unsafe extern "C" fn borg_keypress(k: keycode_t) -> c_int {
         borg_io::borg_keypress(st(), k)
@@ -447,6 +499,24 @@ fn escape(st: &mut BorgState) {
     std::hint::black_box(st as *mut BorgState);
 }
 
+/// `msg(text)` from Borg code that holds the state. The engine may wait
+/// for a key here and so run a nested Borg turn (see `with_entry_state`),
+/// so the state escapes around the call like around a c2rust call.
+pub fn msg(st: &mut BorgState, text: &[u8]) {
+    escape(st);
+    crate::engine::msg(text);
+    escape(st);
+}
+
+/// `get_string(prompt, buf, len)` from Borg code that holds the state
+/// (waits for keys, so as `msg`).
+pub fn get_string(st: &mut BorgState, prompt: &std::ffi::CStr, buf: &mut [u8], len: usize) -> bool {
+    escape(st);
+    let r = crate::engine::get_string(prompt, buf, len);
+    escape(st);
+    r
+}
+
 /// `borg_flow_far_from_stairs(x, y, b_stair)` (still c2rust,
 /// borg-flow-misc.c).
 pub fn borg_flow_far_from_stairs(st: &mut BorgState, x: i32, y: i32, b_stair: i32) -> bool {
@@ -550,21 +620,6 @@ pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
     crate::borg_item_use::borg_equips_ring(st, ring_sval)
 }
 
-/// `borg_detect_wall[y][x]` (still c2rust, borg-update.c). The map is
-/// `(borg.panels.y + 1) x (borg.panels.x + 1)`.
-pub fn borg_detect_wall(st: &mut BorgState, y: i32, x: i32) -> bool {
-    assert!((0..=st.borg.panels.y).contains(&y) && (0..=st.borg.panels.x).contains(&x));
-    // SAFETY: borg_alloc_detection() allocates panels.y + 1 rows of
-    // panels.x + 1 bools (pointer checked non-NULL, indexes checked above).
-    unsafe {
-        let p = crate::c2rust::borg_update::borg_detect_wall;
-        assert!(!p.is_null());
-        let row = *p.add(y as usize);
-        assert!(!row.is_null());
-        *row.add(x as usize)
-    }
-}
-
 /// C-ABI shims with the borg-flow-kill.c names, for c2rust callers.
 pub mod flow_kill {
     use super::{cbytes, st};
@@ -600,7 +655,9 @@ pub mod flow_kill {
         fk::observe_kill_move(st(), y, x, d, a, c, flag)
     }
     pub unsafe extern "C" fn borg_locate_kill(who: *mut c_char, c: loc, r: c_int) -> c_int {
-        fk::borg_locate_kill(st(), cbytes(who), c, r)
+        // Copied: `who` may point into the state (the message buffer).
+        let who = cbytes(who).to_vec();
+        fk::borg_locate_kill(st(), &who, c, r)
     }
     pub unsafe extern "C" fn borg_count_death(i: c_int) {
         fk::borg_count_death(st(), i)
@@ -624,7 +681,9 @@ pub mod flow_kill {
         fk::borg_shoot_scoot_safe(st(), emergency, turns, b_p)
     }
     pub unsafe extern "C" fn borg_create_kill(who: *mut c_char, c: loc) -> c_int {
-        fk::borg_create_kill(st(), cbytes(who), c)
+        // Copied: `who` may point into the state (the message buffer).
+        let who = cbytes(who).to_vec();
+        fk::borg_create_kill(st(), &who, c)
     }
     pub unsafe extern "C" fn borg_init_flow_kill() {
         fk::borg_init_flow_kill(st())
@@ -868,7 +927,7 @@ pub mod prepared {
             Some(Reason::Formatted(s)) => {
                 // strnfmt(borg_prepared_buffer, MAX_REASON, ...)
                 let buf = &mut *(&raw mut PREPARED_BUFFER);
-                let bytes = s.as_bytes();
+                let bytes = &s[..];
                 let n = bytes.len().min(MAX_REASON - 1);
                 for (d, &b) in buf.iter_mut().zip(&bytes[..n]) {
                     *d = b as c_char;
@@ -968,7 +1027,7 @@ pub fn set_item_note(item: &mut crate::headers::borg_item_h::borg_item, offset: 
 
 /// C-ABI shims with the borg-item-analyze.c names, for c2rust callers.
 pub mod item_analyze {
-    use super::{cbytes, st};
+    use super::cbytes;
     use crate::borg_item_analyze as ia;
     use crate::headers::borg_item_h::borg_item;
     use crate::headers::object_h::{ego_item, object};
@@ -984,15 +1043,17 @@ pub mod item_analyze {
         desc: *mut c_char,
         in_store: bool,
     ) {
-        let s = st();
+        // Only the two tables are borrowed from the state, never the
+        // whole state, because `item` may point into it (an item or ware).
+        let s = super::state_ptr();
         let desc = cbytes(desc).to_vec();
         ia::borg_item_analyze(
             &mut *item,
             crate::engine::GameObject::from_raw(real_item),
             &desc,
             in_store,
-            &s.act,
-            &s.item_val,
+            &(*s).act,
+            &(*s).item_val,
         )
     }
     pub unsafe extern "C" fn borg_obj_has_effect(kind: u32, index: c_int, subtype: c_int) -> bool {
@@ -1176,8 +1237,10 @@ pub mod messages_react {
     /// (C casts away the `const`; the callers that pass string literals
     /// pass none ending in ',').
     pub unsafe extern "C" fn borg_react(msg: *const c_char, buf: *const c_char) {
-        let n = cbytes(buf).len();
-        if r::borg_react(st(), cbytes(msg), cbytes(buf)) {
+        // Copied: the texts must not alias the state while it is borrowed.
+        let (msg, text) = (cbytes(msg).to_vec(), cbytes(buf).to_vec());
+        let n = text.len();
+        if r::borg_react(st(), &msg, &text) {
             *(buf as *mut c_char).add(n - 1) = 0;
         }
     }
@@ -1186,7 +1249,8 @@ pub mod messages_react {
         key: *mut keypress,
         cursor: loc,
     ) -> bool {
-        match r::borg_react_prompted(st(), cbytes(buf), cursor) {
+        let text = cbytes(buf).to_vec();
+        match r::borg_react_prompted(st(), &text, cursor) {
             Some(code) => {
                 (*key).code = code;
                 true
@@ -1203,8 +1267,12 @@ pub mod messages_react {
 /// (`borg_msg_buf + borg_msg_pos[i]`). `borg_init_messages` allocates the
 /// buffer once and it never grows, so the pointer stays valid until
 /// `borg_free_messages`.
-pub fn msg_buf() -> *mut c_char {
-    st().msgs.buf.as_mut_ptr() as *mut c_char
+///
+/// # Safety
+///
+/// As `st`: no reference into the message buffer may be live.
+pub unsafe fn msg_buf() -> *mut c_char {
+    (*state_ptr()).msgs.buf.as_mut_ptr() as *mut c_char
 }
 /// C-ABI shims with the borg-item-id.c names, for c2rust callers.
 pub mod item_id {
@@ -1296,7 +1364,8 @@ pub mod store_sell {
 }
 
 /// `borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`
-/// (still c2rust, borg-item-analyze.c), for borg_notice_store.
+/// for borg_notice_store (c2rust). Calls the converted analyzer directly,
+/// with the ware and the two tables it reads borrowed as separate fields.
 pub fn borg_item_analyze_ware(
     st: &mut BorgState,
     shop: usize,
@@ -1305,20 +1374,15 @@ pub fn borg_item_analyze_ware(
     desc: &[u8],
     in_store: bool,
 ) {
-    let mut buf = desc.to_vec();
-    buf.push(0);
-    let item: *mut crate::headers::borg_item_h::borg_item = &mut st.store.shops[shop].ware[slot];
-    // SAFETY: item points at a live ware (the callee does not reallocate
-    // the shops); obj is a live store object (engine::StoreObject); buf is
-    // NUL-terminated and outlives the call, which copies it.
-    unsafe {
-        crate::headers::borg_item_analyze_h::borg_item_analyze(
-            item,
-            obj.as_ptr(),
-            buf.as_mut_ptr() as *mut c_char,
-            in_store,
-        )
-    }
+    let BorgState { store, act, item_val, .. } = st;
+    crate::borg_item_analyze::borg_item_analyze(
+        &mut store.shops[shop].ware[slot],
+        obj.into(),
+        desc,
+        in_store,
+        act,
+        item_val,
+    );
 }
 
 // ---------------------------------------------------------------------------

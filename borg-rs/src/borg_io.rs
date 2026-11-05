@@ -100,7 +100,7 @@ fn borg_info(_what: &[u8]) {}
 fn borg_note_internal(st: &mut BorgState, warning: bool, what: &[u8]) {
     let old = engine::term_current();
     if warning {
-        engine::msg(what);
+        bridge::msg(st, what);
     } else {
         engine::message_add(what, MSG_GENERIC as u16);
         engine::event_signal_message_null(EVENT_MESSAGE, MSG_GENERIC as i32);
@@ -334,7 +334,7 @@ extern "C" fn borg_bell(
     _data: *mut game_event_data,
     _user: *mut core::ffi::c_void,
 ) {
-    borg_bell_impl(bridge::st());
+    bridge::with_entry_state(borg_bell_impl);
 }
 
 /// Set up the key queue and history (`borg_init_io`).

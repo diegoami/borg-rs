@@ -2360,10 +2360,10 @@ pub fn borg_flow_kill_corridor(st: &mut BorgState) -> bool {
         let q_x = st.core.w_x / borg_panel_wid();
         let q_y = st.core.w_y / borg_panel_hgt();
 
-        let mapped = bridge::borg_detect_wall(st, q_y, q_x)
-            && bridge::borg_detect_wall(st, q_y, q_x + 1)
-            && bridge::borg_detect_wall(st, q_y + 1, q_x)
-            && bridge::borg_detect_wall(st, q_y + 1, q_x + 1);
+        let mapped = bridge::borg_detect(st, bridge::Detect::Wall, q_y, q_x)
+            && bridge::borg_detect(st, bridge::Detect::Wall, q_y, q_x + 1)
+            && bridge::borg_detect(st, bridge::Detect::Wall, q_y + 1, q_x)
+            && bridge::borg_detect(st, bridge::Detect::Wall, q_y + 1, q_x + 1);
         borg_flow::borg_flow_clear(st);
         st.borg.status.digging = true;
         borg_flow::borg_flow_enqueue_grid(st, kill.pos.y, kill.pos.x);

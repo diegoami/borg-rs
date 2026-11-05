@@ -68,7 +68,7 @@ pub enum Reason {
     Text(&'static str),
     /// A text C formats into its static `borg_prepared_buffer`
     /// (`MAX_REASON` = 1024 bytes).
-    Formatted(String),
+    Formatted(Vec<u8>),
     /// The reason of `st.formulas.depth[i]` (`borg_prepared_dynamic()`).
     Depth(usize),
     /// The reason of `st.formulas.restock[i]` (`borg_restock_dynamic()`).
@@ -80,7 +80,7 @@ impl Reason {
     pub fn text<'a>(&'a self, st: &'a BorgState) -> &'a [u8] {
         match self {
             Reason::Text(s) => s.as_bytes(),
-            Reason::Formatted(s) => s.as_bytes(),
+            Reason::Formatted(s) => s,
             Reason::Depth(i) => st.formulas.depth[*i].reason.to_bytes(),
             Reason::Restock(i) => st.formulas.restock[*i].reason.to_bytes(),
         }
@@ -688,7 +688,7 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
 
         // Not if No_Deeper is set
         if depth >= st.cfg(BORG_NO_DEEPER) {
-            return Some(Reason::Formatted(format!("No deeper {}.", st.cfg(BORG_NO_DEEPER))));
+            return Some(Reason::Formatted(format!("No deeper {}.", st.cfg(BORG_NO_DEEPER)).into_bytes()));
         }
     }
 
@@ -715,7 +715,7 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
         return Some(Reason::Formatted(format!(
             "Scumming *Heal* potions ({} to go).",
             10 - i32::from(home.num_ezheal)
-        )));
+        ).into_bytes()));
     }
 
     // Scum on depth 80-81 for lots of *Heal* potions preparatory for Endgame
@@ -733,7 +733,7 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
             return Some(Reason::Formatted(format!(
                 "Scumming *Heal* potions ({} to go).",
                 30 - heals
-            )));
+            ).into_bytes()));
         }
 
         // Return to town to get your stock from the home
@@ -745,7 +745,7 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
             return Some(Reason::Formatted(format!(
                 "Collect from house ({} potions).",
                 i32::from(home.num_ezheal_true) + i32::from(home.num_life_true)
-            )));
+            ).into_bytes()));
         }
     }
 
@@ -770,8 +770,8 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
         }
 
         // Reset our description for not diving
-        let name = race_name(pr.first_living_unique);
-        return Some(Reason::Formatted(format!("Must kill {name}.")));
+        let name = engine::race_name(pr.first_living_unique as usize);
+        return Some(Reason::Formatted([b"Must kill ", name, b"."].concat()));
     } else if st.borg.tr(BI_MAXDEPTH) >= 98 && depth >= 98 {
         // check to make sure the borg does not go to level 100
         // unless all the uniques are dead.
@@ -799,15 +799,10 @@ pub fn borg_prepared(st: &mut BorgState, depth: i32) -> Option<Reason> {
         }
 
         // Access the living unique obtained from borg_update()
-        let name = race_name(st.prepared.first_living_unique);
-        return Some(Reason::Formatted(format!("{name} still alive!")));
+        let name = engine::race_name(st.prepared.first_living_unique as usize);
+        return Some(Reason::Formatted([name, b" still alive!"].concat()));
     }
     None
-}
-
-/// `r_info[r_idx].name` for a reason text.
-fn race_name(r_idx: u32) -> String {
-    String::from_utf8_lossy(engine::race_name(r_idx as usize)).into_owned()
 }
 
 /// Determine if the Borg is out of "crucial" supplies (`borg_restock`).

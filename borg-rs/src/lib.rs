@@ -12,15 +12,21 @@
 #![allow(unused_assignments)]
 #![allow(unused_mut)]
 #![allow(static_mut_refs)]
+// Converted modules contain no `unsafe`: only the FFI boundary (`engine`,
+// `headers`) and the transitional code (`bridge`, `c2rust`) may.
+#![deny(unsafe_code)]
 
 extern crate libc;
 
 #[allow(clippy::all)]
+#[allow(unsafe_code)]
 pub mod bridge;
 #[allow(clippy::all)]
+#[allow(unsafe_code)]
 pub mod c2rust;
 pub mod cctype;
 #[allow(clippy::all)]
+#[allow(unsafe_code)]
 pub mod headers;
 
 pub mod borg;
@@ -68,5 +74,6 @@ pub mod borg_store_sell;
 pub mod borg_store_buy;
 pub mod borg_think_store;
 pub mod borg_util;
+#[allow(unsafe_code)]
 pub mod engine;
 pub mod state;

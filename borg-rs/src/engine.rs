@@ -154,11 +154,14 @@ pub fn term_fresh() {
 
 /// The attribute and character on screen at (x, y) of the active term
 /// (`Term->scr->a[y][x]`, `Term->scr->c[y][x]`).
+/// Panics if (x, y) is off the term (C would read outside the screen).
 pub fn screen_at(x: i32, y: i32) -> (i32, wchar_t) {
-    // SAFETY: callers keep (x, y) on the screen (checked against
-    // term_get_size()); scr rows are allocated for the term size.
+    // SAFETY: `Term` is the active term while the game runs; (x, y) is
+    // inside it (checked below), and `scr` rows are allocated for its size.
     unsafe {
-        let scr = &*(*crate::headers::ui_term_h::Term).scr;
+        let t = &*crate::headers::ui_term_h::Term;
+        assert!((0..t.wid).contains(&x) && (0..t.hgt).contains(&y), "screen position off the term");
+        let scr = &*t.scr;
         let a = *(*scr.a.offset(y as isize)).offset(x as isize);
         let c = *(*scr.c.offset(y as isize)).offset(x as isize);
         (a, c)
@@ -664,24 +667,20 @@ pub fn no_light() -> bool {
     unsafe { crate::headers::cave_h::no_light(crate::headers::player_h::player) }
 }
 
-/// `all_letters_nohjkl[i]` (ui-menu.c): the menu letters without h/j/k/l.
+/// `all_letters_nohjkl[i]` (ui-menu.c): the menu letters without h/j/k/l
+/// (49 bytes with the NUL; panics past it, where C would read out of bounds).
 pub fn all_letters_nohjkl(i: i32) -> u8 {
-    // SAFETY: a static NUL-terminated string defined in ui-menu.c.
-    let s = unsafe {
-        CStr::from_ptr(core::ptr::addr_of!(crate::headers::ui_menu_h::all_letters_nohjkl)
-            as *const c_char)
-    };
-    s.to_bytes_with_nul()[i as usize]
+    // SAFETY: a constant array defined in ui-menu.c, declared with its C
+    // length (`[c_char; 49]`); nothing writes it.
+    unsafe { crate::headers::ui_menu_h::all_letters_nohjkl[i as usize] as u8 }
 }
 
-/// `all_letters[i]` (ui-menu.c): the menu letters a-z, A-Z (panics past
-/// the NUL, where C would read out of bounds).
+/// `all_letters[i]` (ui-menu.c): the menu letters a-z, A-Z (53 bytes with
+/// the NUL; panics past it, where C would read out of bounds).
 pub fn all_letters(i: usize) -> u8 {
-    // SAFETY: a static NUL-terminated string defined in ui-menu.c.
-    let s = unsafe {
-        CStr::from_ptr(core::ptr::addr_of!(crate::headers::ui_menu_h::all_letters) as *const c_char)
-    };
-    s.to_bytes_with_nul()[i]
+    // SAFETY: a constant array defined in ui-menu.c, declared with its C
+    // length (`[c_char; 53]`); nothing writes it.
+    unsafe { crate::headers::ui_menu_h::all_letters[i] as u8 }
 }
 
 /// `randint0(m)` (z-rand.h): `(int32_t) Rand_div(m)` from the game RNG
@@ -757,12 +756,9 @@ pub fn class_spell_weight() -> i32 {
 
 /// `player->class->magic.books[book].dungeon`
 pub fn class_book_dungeon(book: i32) -> bool {
-    let magic = &player_class_ref().magic;
-    debug_assert!(book >= 0 && book < magic.num_books);
-    // SAFETY: as in C, `book` is not checked here: callers only pass books
-    // the Borg holds copies of (`borg.amt_book[book] != 0`), and those
-    // exist for the class.
-    unsafe { (*magic.books.offset(book as isize)).dungeon }
+    // Panics on a book the class does not have (C does not check; callers
+    // only pass books the Borg holds, `borg.amt_book[book] != 0`).
+    class_book_ref(book).dungeon
 }
 
 /// `spell_chance(spell_index)`: the player's fail rate for a spell.
@@ -1361,11 +1357,13 @@ pub fn square_in_bounds(x: i32, y: i32) -> bool {
     unsafe { headers::cave_h::square_in_bounds(headers::cave_h::cave, loc { x, y }) }
 }
 
-/// `square_isvault(cave, loc(x, y))` on the current level. The grid must
-/// be in bounds (the engine asserts it, as for C callers).
+/// `square_isvault(cave, loc(x, y))` on the current level. Panics if the
+/// grid is out of bounds (the engine's own `assert` is compiled out in the
+/// release build, so C would read outside the level).
 pub fn square_isvault(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
     // SAFETY: `cave` is the current level, valid while the game runs; the
-    // function asserts the grid is in bounds before reading it.
+    // grid is in bounds (checked above).
     unsafe { headers::cave_h::square_isvault(headers::cave_h::cave, loc { x, y }) }
 }
 
@@ -1391,11 +1389,12 @@ pub fn extract_energy(speed: usize) -> u8 {
     unsafe { headers::game_world_h::extract_energy[speed] }
 }
 
-/// `square_isglow(cave, loc(x, y))` on the current level. The grid must
-/// be in bounds (the engine asserts it, as for C callers).
+/// `square_isglow(cave, loc(x, y))` on the current level. Panics if the
+/// grid is out of bounds (as `square_isvault`).
 pub fn square_isglow(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
     // SAFETY: `cave` is the current level, valid while the game runs; the
-    // function asserts the grid is in bounds before reading it.
+    // grid is in bounds (checked above).
     unsafe { headers::cave_h::square_isglow(headers::cave_h::cave, loc { x, y }) }
 }
 
@@ -1410,7 +1409,8 @@ pub fn panel_contains(y: i32, x: i32) -> bool {
 /// `feat_is_trap_holding(feat)` (cave.c): can the terrain feature hold a
 /// trap?
 pub fn feat_is_trap_holding(feat: i32) -> bool {
-    // SAFETY: plain call; reads the constant feature table `f_info`.
+    assert!((0..crate::headers::cave_h::FEAT_MAX as i32).contains(&feat), "feature out of range");
+    // SAFETY: plain call; reads `f_info[feat]` (index checked above).
     unsafe { headers::cave_h::feat_is_trap_holding(feat) }
 }
 
@@ -1488,6 +1488,12 @@ use crate::headers::object_h::{element_info, object, object_kind};
 /// the pointer stays on the FFI side.
 #[derive(Clone, Copy)]
 pub struct GameObject(*const object);
+
+impl From<StoreObject> for GameObject {
+    fn from(o: StoreObject) -> Self {
+        GameObject(o.0)
+    }
+}
 
 impl From<CarriedObject> for GameObject {
     fn from(o: CarriedObject) -> Self {
