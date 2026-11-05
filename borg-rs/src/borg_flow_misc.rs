@@ -34,7 +34,7 @@ use crate::borg_io::{borg_keypress, borg_note, KC_ENTER};
 use crate::borg_item_use::{borg_activate_item, borg_read_scroll};
 use crate::borg_magic::{borg_primarily_caster, borg_spell_fail};
 use crate::borg_projection::{borg_distance, borg_los};
-use crate::bridge::Detect;
+use crate::borg_update::Detect;
 use crate::headers::borg_magic_h::{PHASE_DOOR, PORTAL};
 use crate::headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD, BI_IFIRE, BI_ISAFRAID, BI_ISCUT,
@@ -50,7 +50,7 @@ use crate::headers::list_terrain_h::{
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// Goals (borg-flow.h).
 const GOAL_TAKE: i32 = 2;
@@ -761,7 +761,7 @@ pub fn borg_flow_spastic(st: &mut BorgState, bored: bool) -> bool {
             }
 
             /* Avoid searching detected sectors */
-            if bridge::borg_detect(st, Detect::Door, y / panel_hgt, x / panel_wid) {
+            if st.update.detect(Detect::Door, y / panel_hgt, x / panel_wid) {
                 continue;
             }
 

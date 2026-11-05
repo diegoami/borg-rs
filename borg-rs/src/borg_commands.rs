@@ -1061,7 +1061,7 @@ fn find_notice_update(st: &mut BorgState) {
     bridge::borg_notice(st, true);
 
     // Examine the screen
-    bridge::borg_update(st);
+    crate::borg_update::borg_update(st);
 }
 
 /// Show the Borg's power (`borg_cmd_power`).
@@ -1154,7 +1154,7 @@ fn borg_cmd_swaps(st: &mut BorgState) {
     borg_power(st);
 
     // Examine the screen
-    bridge::borg_update(st);
+    crate::borg_update::borg_update(st);
 
     // note the swap items
     let (swap, value) = (st.trait_swap.weapon_swap, st.trait_swap.weapon_swap_value);
@@ -1333,7 +1333,7 @@ fn borg_cmd_object_desc(st: &mut BorgState) {
     borg_power(st);
 
     // Examine the screen
-    bridge::borg_update(st);
+    crate::borg_update::borg_update(st);
 
     // Save the screen
     engine::term_save();

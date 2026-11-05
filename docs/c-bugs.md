@@ -1011,3 +1011,56 @@ with its issues.
 * Rust (`borg_trait_swap.rs`): all kept.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#199, #201, #202, #203, #204, #205.
+
+## 46. Update slips (update)
+
+* `borg-update.c`, found by code reading; all checked against the c2rust
+  code (see PROGRESS.md, module 52).
+* `borg_update_map()`: `old_wall` is taken after the grid's `feat` has
+  already been overwritten with the game's feature, so `old_wall` and
+  `new_wall` only differ when a later branch changes `feat` again (a shop
+  entrance not in view on a grid marked `BORG_IGNORE_MAP`). Newly seen
+  walls, opened or closed doors and dug tunnels are therefore never taken
+  out of the current flow (`borg_data_flow` 255, `borg_data_know`/`icky`
+  cleared), never trigger a view or light update, and never reset the
+  wizard light and detect walls stamps. Not seen once in real play
+  (smoke, full, deep, classes); the fuzz cross-check reaches it.
+* Same function: the "Floors" branch tests `g.f_idx == FEAT_NONE`, the
+  condition of the "Darkness" branch just before it, so it is never taken:
+  floor grids are never marked `BORG_GLOW`, `BORG_DARK` or `BORG_LIGHT`
+  from the game's lighting (only darkness, "call light" and the light
+  code mark them).
+* Same function: when the 9000-entry `borg_wanks` list is full it calls
+  `borg_oops()` and then still writes the next entry past the end of the
+  array (out of bounds in C; Rust panics). Not reachable with the 80x24
+  map panel (at most 66 x 21 grids per update).
+* `borg_update()`, the first message pass ("monsters at the goal"):
+  `STATE__FEAR:` is tested twice in the same `else if` chain; the second
+  test (which would note that shooting through darkness worked) is never
+  reached.
+* Same function, the hit-distance scan: it stops at the first unparsed
+  `SPELL_` or `QUAKE:` message, so a teleport-to or teleport-away spell
+  queued after another monster spell does not widen the distance.
+* Same function, the second message pass ("monsters near the old
+  location"): `created_traps` is set by a trap-creating spell and never
+  reset inside the loop, so every later unparsed message of the same turn
+  clears the trap detection of the old panel again and marks the floor
+  grids around the Borg as traps again (with the notes). In the same pass
+  a `BLINK:` message only counts as a successful dark shot when
+  `successful_target == -1`, where every other message tests `< 0`.
+* Same function, new level: the panel flags of walls, traps, doors and
+  evil are cleared, but `borg_detect_obj` is not, so object detection
+  done on the previous level still counts on the new one (the arrays are
+  only reallocated, cleared, when the number of panels changes).
+* Same function, new level, the live unique count: the fourth live unique
+  is stored in `unique_depths[3]` without sorting, and a later unique only
+  replaces it when it is shallower than the third. So the fourth unique is
+  never counted among the three shallowest, even when it is shallower.
+* `borg_fear_spell()`: after the switch, `ouch` is doubled when it is at
+  least half the hit points ("Things which hurt us a lot need to be a
+  concern"), but `ouch` is not read again, so the extra concern never
+  applies.
+* Rust (`borg_update.rs`): all kept; the out-of-bounds write is a panic,
+  and so are a detection panel index outside the arrays and a queued
+  `SPELL_` message without a ':' (C reads through `NULL + 1`; every
+  message the Borg queues has one).

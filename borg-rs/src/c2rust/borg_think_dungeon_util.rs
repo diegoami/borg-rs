@@ -102,7 +102,6 @@ pub use crate::headers::borg_trait_h::{
     BI_WS_DEMON, BI_WS_DRAGON, BI_WS_EVIL, BI_WS_GIANT, BI_WS_ORC, BI_WS_TROLL, BI_WS_UNDEAD,
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT,
 };
-use crate::headers::borg_update_h::{borg_do_update_lite, borg_do_update_view};
 pub use crate::headers::cave_h::{
     cave, chunk, connector, ddd, ddx, ddx_ddd, ddy, ddy_ddd, distance, heatmap, monster_group,
     square, square_in_bounds_fully, square_isglow, trap, C2RustUnnamedH_18, FEAT_MAX,
@@ -1275,8 +1274,8 @@ pub unsafe extern "C" fn borg_excavate_vault(mut range: ::core::ffi::c_int) -> b
             {
                 borg_note(b"# Excavation of vault\0" as *const u8 as *const ::core::ffi::c_char);
                 borg_keypress('5' as i32 as keycode_t);
-                borg_do_update_view = true_0 != 0;
-                borg_do_update_lite = true_0 != 0;
+                crate::bridge::st().update.do_update_view = true_0 != 0;
+                crate::bridge::st().update.do_update_lite = true_0 != 0;
                 let ref mut fresh1 = (*crate::bridge::grid(crate::bridge::st().flow.temp_x[i as usize], crate::bridge::st().flow.temp_y[i as usize]))
                 .info;
                 *fresh1 = (*fresh1 as ::core::ffi::c_int & !BORG_GLOW) as uint16_t;

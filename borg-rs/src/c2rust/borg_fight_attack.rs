@@ -163,7 +163,6 @@ pub use crate::headers::borg_trait_h::{
     BI_WS_DEMON, BI_WS_DRAGON, BI_WS_EVIL, BI_WS_GIANT, BI_WS_ORC, BI_WS_TROLL, BI_WS_UNDEAD,
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT,
 };
-use crate::headers::borg_update_h::borg_detect_wall;
 pub use crate::headers::cave_h::{
     cave, chunk, connector, ddx_ddd, ddy_ddd, distance, heatmap, monster_group, square,
     square_in_bounds, square_in_bounds_fully, trap, C2RustUnnamedH_18, FEAT_MAX,
@@ -3200,14 +3199,10 @@ unsafe extern "C" fn borg_launch_bolt_at_location(
                 }
             }
         } else {
-            if !*(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
-                .offset((q_x + 0 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 1 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 0 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 1 as ::core::ffi::c_int) as isize)
+            if !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 0, q_x + 0)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 0, q_x + 1)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 1, q_x + 0)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 1, q_x + 1)
                 && (crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                     [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                     as ::core::ffi::c_int)
@@ -3469,14 +3464,10 @@ unsafe extern "C" fn borg_launch_arc_at_location(
                 {
                     break;
                 }
-            } else if !*(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
-                .offset((q_x + 0 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 0 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 1 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 0 as ::core::ffi::c_int) as isize)
-                && !*(*borg_detect_wall.offset((q_y + 1 as ::core::ffi::c_int) as isize))
-                    .offset((q_x + 1 as ::core::ffi::c_int) as isize)
+            } else if !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 0, q_x + 0)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 0, q_x + 1)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 1, q_x + 0)
+                && !crate::bridge::st().update.detect(crate::borg_update::Detect::Wall, q_y + 1, q_x + 1)
                 && (crate::bridge::st().danger.fear_region[(crate::bridge::st().borg.c.y / 11 as ::core::ffi::c_int) as usize]
                     [(crate::bridge::st().borg.c.x / 11 as ::core::ffi::c_int) as usize]
                     as ::core::ffi::c_int)

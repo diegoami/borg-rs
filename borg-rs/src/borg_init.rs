@@ -590,7 +590,7 @@ pub fn borg_reset_settings(st: &mut BorgState) {
     }
 
     borg_reset_ignore(st);
-    bridge::borg_free_detection(st);
+    crate::borg_update::borg_free_detection(st);
 }
 
 /// Tell the borg that the game was closed (`borg_leave_game`, the
@@ -706,7 +706,7 @@ pub fn borg_init(st: &mut BorgState) {
     crate::borg_item::borg_init_item(st);
     crate::borg_store::borg_init_store(st);
     // Object/Monster tracking
-    bridge::borg_init_update(st);
+    crate::borg_update::borg_init_update(st);
 
     // React to race and class
 
@@ -792,7 +792,7 @@ fn birth_option_failure(st: &mut BorgState, what: &str) {
 pub fn borg_free(st: &mut BorgState) {
     // Undo the allocations in reverse order from what borg_init() does.
     engine::event_remove_handler(EVENT_LEAVE_GAME, borg_leave_game);
-    bridge::borg_free_update(st);
+    crate::borg_update::borg_free_update(st);
     crate::borg_item::borg_free_item(st);
     crate::borg_store::borg_free_store(st);
 

@@ -37,6 +37,7 @@ use crate::borg_store::StoreState;
 use crate::borg_store_sell::StoreSellState;
 use crate::borg_store_buy::BuyState;
 use crate::borg_trait_swap::TraitSwapState;
+use crate::borg_update::UpdateState;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -118,4 +119,8 @@ pub struct BorgState {
     /// borg-trait-swap.c: `weapon_swap`, `armour_swap`, their values,
     /// enchantment needs and flags (`weapon_swap_*`, `armour_swap_*`)
     pub trait_swap: TraitSwapState,
+    /// borg-update.c: the detection arrays (`borg_detect_*`, `old_panels`),
+    /// `borg_failure`, `borg_do_update_view/lite`, the monster/object
+    /// tracking list (`borg_wanks`) and the old panel and location
+    pub update: UpdateState,
 }

@@ -81,6 +81,7 @@ pub mod borg_store_sell;
 pub mod borg_store_buy;
 pub mod borg_think_store;
 pub mod borg_trait_swap;
+pub mod borg_update;
 pub mod borg_util;
 #[allow(unsafe_code)]
 pub mod engine;

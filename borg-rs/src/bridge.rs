@@ -195,9 +195,6 @@ c2r_void! {
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
     borg_trait_init => crate::c2rust::borg_trait::borg_trait_init;
     borg_trait_free => crate::c2rust::borg_trait::borg_trait_free;
-    borg_init_update => crate::c2rust::borg_update::borg_init_update;
-    borg_free_update => crate::c2rust::borg_update::borg_free_update;
-    borg_free_detection => crate::c2rust::borg_update::borg_free_detection;
 }
 
 /// `borg_think()`
@@ -1273,40 +1270,40 @@ pub fn borg_item_analyze_ware(
 c2r_void! {
 }
 
-/// The panel detection arrays of borg-update.c (still c2rust):
-/// `borg_detect_wall/trap/door/evil/obj`.
-#[derive(Clone, Copy)]
-pub enum Detect {
-    Wall,
-    Trap,
-    Door,
-    Evil,
-    Obj,
+// ---------------------------------------------------------------------------
+// borg-update.c (converted): calls into still-c2rust code, and its shim.
+
+/// `successful_target` (still c2rust, borg-fight-attack.c).
+pub fn successful_target(st: &mut BorgState) -> i32 {
+    escape(st);
+    // SAFETY: plain read of an int global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_fight_attack::successful_target };
+    escape(st);
+    r
 }
 
-/// `borg_detect_<what>[y][x]` (still c2rust, borg-update.c). Panics when
-/// the arrays are not allocated or the panel is past them (C would read
-/// through NULL or out of bounds).
-pub fn borg_detect(_st: &mut BorgState, what: Detect, y: i32, x: i32) -> bool {
-    use crate::c2rust::borg_update as u;
-    // SAFETY: borg_alloc_detection() allocates `old_panels.y + 1` rows of
-    // `old_panels.x + 1` bools for each array and records the sizes in
-    // `old_panels`; borg_free_detection() nulls the arrays (checked). The
-    // indexes are checked against those sizes. Borg thread.
-    unsafe {
-        let arr = match what {
-            Detect::Wall => u::borg_detect_wall,
-            Detect::Trap => u::borg_detect_trap,
-            Detect::Door => u::borg_detect_door,
-            Detect::Evil => u::borg_detect_evil,
-            Detect::Obj => u::borg_detect_obj,
-        };
-        let size = u::old_panels;
-        assert!(!arr.is_null(), "borg_detect: arrays not allocated");
-        assert!((0..=size.y).contains(&y) && (0..=size.x).contains(&x), "borg_detect: out of bounds");
-        let row = *arr.add(y as usize);
-        assert!(!row.is_null());
-        *row.add(x as usize)
+/// `borg_feeling_danger = v` (still c2rust, borg-think-dungeon.c).
+pub fn set_borg_feeling_danger(st: &mut BorgState, v: i32) {
+    escape(st);
+    // SAFETY: plain write of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_danger = v };
+    escape(st);
+}
+
+/// `borg_feeling_stuff = v` (still c2rust, borg-think-dungeon.c).
+pub fn set_borg_feeling_stuff(st: &mut BorgState, v: i32) {
+    escape(st);
+    // SAFETY: plain write of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_stuff = v };
+    escape(st);
+}
+
+/// C-ABI shim with the borg-update.c name (borg_think).
+pub mod update {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_update() {
+        crate::borg_update::borg_update(st())
     }
 }
 
@@ -2047,16 +2044,6 @@ pub fn project_from_player(
     let r = crate::engine::project_from_player(rad, x, y, dam, typ, flg, arc, diameter);
     escape(st);
     r
-}
-
-c2r_void! {
-    borg_update => crate::c2rust::borg_update::borg_update;
-}
-
-/// `borg_failure = v` (global of borg-update.c, still c2rust).
-pub fn set_borg_failure(_st: &mut BorgState, v: bool) {
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_update::borg_failure = v };
 }
 
 /// `target_closest = v` (global of borg-fight-attack.c, still c2rust).

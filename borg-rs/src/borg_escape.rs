@@ -27,7 +27,7 @@ use crate::borg_item_use::{
 };
 use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_okay_fail};
 use crate::borg_projection::{borg_distance, borg_los, borg_target};
-use crate::bridge;
+use crate::borg_update::Detect;
 use crate::engine;
 use crate::headers::borg_h::BORG_PLAYS_RISKY;
 use crate::headers::borg_magic_h::{
@@ -500,7 +500,7 @@ pub fn borg_caution_teleport(st: &mut BorgState, emergency: i32, turns: i32) -> 
 
 /// `borg_detect_wall[y][x] == true` (borg-update.c's detection map).
 fn detect_wall(st: &mut BorgState, y: i32, x: i32) -> bool {
-    bridge::borg_detect(st, bridge::Detect::Wall, y, x)
+    st.update.detect(Detect::Wall, y, x)
 }
 
 /// If the borg is standing on a stair and is in some danger, just leave

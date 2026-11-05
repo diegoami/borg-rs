@@ -462,6 +462,10 @@ pub struct MonsterView {
     pub mspeed: u8,
     /// `race->ridx`, `None` for a NULL race (an unused slot).
     pub ridx: Option<u32>,
+    /// `attr`: the colour the monster is drawn in
+    pub attr: u8,
+    /// `mimicked_obj != NULL`: the monster mimics an object
+    pub mimics: bool,
 }
 
 /// Copy the fields of a monster.
@@ -477,6 +481,8 @@ unsafe fn monster_view(m: *const crate::headers::monster_h::monster) -> MonsterV
         m_timed: m.m_timed,
         mspeed: m.mspeed,
         ridx: (!m.race.is_null()).then(|| (*m.race).ridx),
+        attr: m.attr,
+        mimics: !m.mimicked_obj.is_null(),
     }
 }
 
@@ -2368,6 +2374,116 @@ pub fn inven_object_flags(n: i32) -> [u8; OF_SIZE] {
         crate::headers::obj_util_h::object_flags(obj, f.as_mut_ptr());
     }
     f
+}
+
+// ---------------------------------------------------------------------------
+// Map updates (borg-update.c)
+
+/// `cave->width`, `cave->height` of the current level.
+pub fn cave_size() -> (i32, i32) {
+    // SAFETY: `cave` is the current level, valid while the game runs.
+    unsafe {
+        let c = &*headers::cave_h::cave;
+        (c.width, c.height)
+    }
+}
+
+/// What `map_info()` reports about a grid (the fields the Borg reads).
+#[derive(Clone, Copy, Debug)]
+pub struct MapGrid {
+    /// `m_idx`: the visible monster (0 = none)
+    pub m_idx: u32,
+    /// `f_idx`: the remembered feature (after mimics)
+    pub f_idx: u32,
+    /// `first_kind`: `(kidx, d_attr, d_char)` of the first visible object
+    /// kind, `None` for NULL
+    pub first_kind: Option<(u32, u8, wchar_t)>,
+    /// `lighting` (`LIGHTING_*`)
+    pub lighting: u32,
+    pub in_view: bool,
+    pub is_player: bool,
+}
+
+/// `map_info(loc(x, y), &g)` (cave-map.c). It also memorizes the grid
+/// when the player sees it, as in C. Panics out of bounds (the engine's
+/// asserts are compiled out).
+pub fn map_info(x: i32, y: i32) -> MapGrid {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    let mut g = headers::cave_h::grid_data {
+        m_idx: 0,
+        f_idx: 0,
+        first_kind: core::ptr::null_mut(),
+        trap: core::ptr::null_mut(),
+        multiple_objects: false,
+        unseen_object: false,
+        unseen_money: false,
+        lighting: 0,
+        in_view: false,
+        is_player: false,
+        hallucinate: false,
+    };
+    // SAFETY: the grid is in bounds (checked); map_info fills every field
+    // the Borg reads; first_kind is NULL or an object kind of the game
+    // data, which lives for the game.
+    unsafe {
+        headers::cave_h::map_info(loc { x, y }, &mut g);
+        MapGrid {
+            m_idx: g.m_idx,
+            f_idx: g.f_idx,
+            first_kind: (!g.first_kind.is_null()).then(|| {
+                let k = &*g.first_kind;
+                (k.kidx, k.d_attr, k.d_char)
+            }),
+            lighting: g.lighting,
+            in_view: g.in_view,
+            is_player: g.is_player,
+        }
+    }
+}
+
+/// `square_shopnum(cave, loc(x, y))`: the store of a shop entrance (-1
+/// otherwise). Panics out of bounds.
+pub fn square_shopnum(x: i32, y: i32) -> i32 {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds.
+    unsafe { headers::cave_h::square_shopnum(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `square_isdisarmabletrap(cave, loc(x, y))`. Panics out of bounds.
+pub fn square_isdisarmabletrap(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds.
+    unsafe { headers::cave_h::square_isdisarmabletrap(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `trf_has(trap_info[square(cave, loc(x, y))->trap->t_idx].flags,
+/// TRF_GLYPH)`: the (first) trap on the grid is a glyph. Panics out of
+/// bounds, without a trap (C reads through NULL) or for a bad trap index.
+pub fn square_trap_is_glyph(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds; the trap
+    // pointer is checked; trap_info has z_info->trap_max entries (index
+    // checked); flag_has reads within the flag array's size.
+    unsafe {
+        let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
+        let trap = (*sq).trap;
+        assert!(!trap.is_null(), "no trap on the grid");
+        let t_idx = usize::from((*trap).t_idx);
+        assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
+        let flags = &(*headers::trap_h::trap_info.add(t_idx)).flags;
+        headers::z_bitflag_h::flag_has(
+            flags.as_ptr(),
+            flags.len(),
+            headers::list_trap_flags_h::TRF_GLYPH as i32,
+        )
+    }
+}
+
+/// `square_iswebbed(cave, loc(x, y))`. Panics out of bounds.
+pub fn square_iswebbed(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds.
+    unsafe { headers::cave_h::square_iswebbed(headers::cave_h::cave, loc { x, y }) }
 }
 
 // ---------------------------------------------------------------------------

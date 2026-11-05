@@ -651,7 +651,7 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
         borg_note(st, "# Normal failure.");
 
         // Set the failure flag
-        bridge::set_borg_failure(st, true);
+        st.update.failure = true;
 
         // Flush our key-buffer
         borg_flush(st);

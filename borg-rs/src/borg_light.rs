@@ -27,7 +27,7 @@ use crate::borg_item_use::{
 };
 use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_okay_fail};
 use crate::borg_messages_react::borg_react;
-use crate::bridge::{self, Detect};
+use crate::borg_update::Detect;
 use crate::engine;
 use crate::headers::borg_magic_h::{
     CALL_LIGHT, CLAIRVOYANCE, CREATE_DARKNESS, DETECTION, DETECT_EVIL, DETECT_MONSTERS,
@@ -92,10 +92,10 @@ fn key(c: u8) -> keycode_t {
 /// the given detection array (the four `if (!borg_detect_x[..][..])`
 /// tests; all four are read, as in C).
 fn undetected(st: &mut BorgState, what: Detect, q_y: i32, q_x: i32) -> bool {
-    let a = bridge::borg_detect(st, what, q_y, q_x);
-    let b = bridge::borg_detect(st, what, q_y, q_x + 1);
-    let c = bridge::borg_detect(st, what, q_y + 1, q_x);
-    let d = bridge::borg_detect(st, what, q_y + 1, q_x + 1);
+    let a = st.update.detect(what, q_y, q_x);
+    let b = st.update.detect(what, q_y, q_x + 1);
+    let c = st.update.detect(what, q_y + 1, q_x);
+    let d = st.update.detect(what, q_y + 1, q_x + 1);
     !a || !b || !c || !d
 }
 
