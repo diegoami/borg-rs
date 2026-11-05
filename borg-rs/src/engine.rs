@@ -254,6 +254,12 @@ pub fn player_resting() -> i32 {
     unsafe { (*player_ref().upkeep).resting }
 }
 
+/// `player->upkeep->arena_level`
+pub fn player_arena_level() -> bool {
+    // SAFETY: upkeep is allocated with the player.
+    unsafe { (*player_ref().upkeep).arena_level }
+}
+
 /// `cmd_get_nrepeats()`
 pub fn cmd_get_nrepeats() -> i32 {
     // SAFETY: plain call.
@@ -1336,6 +1342,16 @@ pub fn square_isvault(x: i32, y: i32) -> bool {
     // SAFETY: `cave` is the current level, valid while the game runs; the
     // function asserts the grid is in bounds before reading it.
     unsafe { headers::cave_h::square_isvault(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `square_isno_teleport(cave, loc(x, y))` on the current level: the
+/// grid forbids teleporting (borg-escape.c). Panics if the grid is out of
+/// bounds (the engine would read outside the level).
+pub fn square_isno_teleport(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // grid is in bounds (checked above).
+    unsafe { headers::cave_h::square_isno_teleport(headers::cave_h::cave, loc { x, y }) }
 }
 
 /// `adj_dex_safe[i]` (player-calcs.c); panics out of range.

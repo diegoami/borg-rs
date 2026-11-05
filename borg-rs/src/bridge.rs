@@ -2036,3 +2036,38 @@ pub mod store_buy {
         b::borg_think_shop_buy(st())
     }
 }
+
+/// C-ABI shims with the borg-escape.c names, for c2rust callers.
+pub mod escape_fns {
+    use super::st;
+    use crate::borg_escape as e;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_recall() -> bool {
+        e::borg_recall(st())
+    }
+    pub unsafe extern "C" fn borg_surrounded() -> bool {
+        e::borg_surrounded(st())
+    }
+    pub unsafe extern "C" fn borg_freedom(y: c_int, x: c_int) -> c_int {
+        e::borg_freedom(st(), y, x)
+    }
+    pub unsafe extern "C" fn borg_caution_phase(emergency: c_int, turns: c_int) -> bool {
+        e::borg_caution_phase(st(), emergency, turns)
+    }
+    pub unsafe extern "C" fn borg_caution_teleport(emergency: c_int, turns: c_int) -> bool {
+        e::borg_caution_teleport(st(), emergency, turns)
+    }
+    pub unsafe extern "C" fn borg_allow_teleport() -> bool {
+        e::borg_allow_teleport(st())
+    }
+    pub unsafe extern "C" fn borg_shadow_shift(allow_fail: c_int) -> bool {
+        e::borg_shadow_shift(st(), allow_fail)
+    }
+    pub unsafe extern "C" fn borg_dimension_door(allow_fail: c_int) -> bool {
+        e::borg_dimension_door(st(), allow_fail)
+    }
+    pub unsafe extern "C" fn borg_escape(b_q: c_int) -> bool {
+        e::borg_escape(st(), b_q)
+    }
+}

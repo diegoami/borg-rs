@@ -638,3 +638,29 @@ Format: file, function, (seed, turn when observed), explanation.
   never used. (`sold_item_*` in borg-store-sell.c work the same way and are
   read the same way here.)
 * Rust (`borg_store_buy.rs`): all kept.
+
+## 35. Escape slips (escape)
+
+* `borg-escape.c`, found by code reading.
+* `borg_escape()`, danger level 1: before the "critical" attempts (1.1 to
+  1.3) the Borg pretends to have full mana
+  (`borg.trait[BI_CURSP] = borg.trait[BI_MAXSP]`). The real value is put
+  back only when all three fail. When one of them succeeds, the function
+  returns with `BI_CURSP` still at `BI_MAXSP` until the traits are next
+  recomputed.
+* Danger levels 3.1, 4.1, 5.1, 6.1 and 8 test
+  `(borg_escape_stair() || borg_caution_phase(..)) && ... && (phase spell
+  || scroll ...)`. On an up staircase `borg_escape_stair()` already queues
+  `<` (and its note) and skips the landing-zone check. If no phase is then
+  possible (or the anti-summon timer is <= 50), the `<` stays queued and
+  the function goes on to the next tests; if a phase is possible, both the
+  `<` and the phase keys are queued and the phase bookkeeping
+  (`borg.escapes--`, "Danger Level 3.1" etc.) is applied.
+* The anti-summon reset (`if (borg_timer(borg.time.antisummon) < 50)
+  borg.time.antisummon = 0;`) after 2.2, 3.1, 3.3, 4.1, 4.3, 6.1 and the
+  first level 8 test is dead: those branches require the timer to be > 50.
+* `borg_dimension_door()` targets the least dangerous grid of the 100x100
+  box (offsets -50..49) that is in bounds, without checking that it is a
+  known floor grid without a monster, or in range of the spell; it ignores
+  the result of `borg_spell()`.
+* Rust (`borg_escape.rs`): all kept.

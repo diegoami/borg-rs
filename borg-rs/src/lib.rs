@@ -30,6 +30,7 @@ pub mod borg_cave_light;
 pub mod borg_cave_view;
 pub mod borg_cave_util;
 pub mod borg_danger;
+pub mod borg_escape;
 pub mod borg_fight_perm;
 pub mod borg_flow;
 pub mod borg_flow_glyph;
