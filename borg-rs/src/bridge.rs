@@ -1200,6 +1200,20 @@ pub fn armour_swap(st: &mut BorgState) -> i32 {
     r
 }
 
+/// `enchant_weapon_swap_to_h` (still c2rust, borg-trait-swap.c): the
+/// swap weapon's to-hit enchantment need.
+pub fn enchant_weapon_swap_to_h(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain read of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_h }
+}
+
+/// `enchant_weapon_swap_to_d` (still c2rust, borg-trait-swap.c): the
+/// swap weapon's to-dam enchantment need.
+pub fn enchant_weapon_swap_to_d(_st: &mut BorgState) -> i32 {
+    // SAFETY: plain read of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_d }
+}
+
 /// `borg_needs_new_sea` (still c2rust, borg-flow-glyph.c).
 pub fn borg_needs_new_sea(st: &mut BorgState) -> bool {
     escape(st);
@@ -1738,19 +1752,13 @@ pub fn decurse_weapon_swap(st: &mut BorgState) -> bool {
     r
 }
 
-/// C-ABI shims with the borg-item-decurse.c names, for c2rust callers
-/// (borg_item_enchant).
-pub mod item_decurse {
+/// C-ABI shims with the borg-item-enchant.c names, for c2rust callers
+/// (borg_think_dungeon).
+pub mod item_enchant {
     use super::st;
-    use crate::borg_item_decurse as d;
+    use crate::borg_item_enchant as e;
 
-    pub unsafe extern "C" fn borg_decurse_armour() -> bool {
-        d::borg_decurse_armour(st())
-    }
-    pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
-        d::borg_decurse_weapon(st())
-    }
-    pub unsafe extern "C" fn borg_decurse_any() -> bool {
-        d::borg_decurse_any(st())
+    pub unsafe extern "C" fn borg_enchanting() -> bool {
+        e::borg_enchanting(st())
     }
 }

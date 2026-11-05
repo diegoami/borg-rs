@@ -421,3 +421,19 @@ Format: file, function, (seed, turn when observed), explanation.
 * `borg_locate_kill()`: `my_strnicmp(who, "It", 2)` treats any name that
   starts with "it" (any case) as an invisible monster.
 * Rust (`borg_flow_kill.rs`): all kept.
+
+## 25. Enchant item prompt keys (item enchant)
+
+* `borg-item-enchant.c`, found by code reading.
+* `borg_pick_weapon()` decides whether to send `'/'` (to equipment) or
+  `'|'` (to quiver) by looking for bows, diggers, hafted weapons,
+  polearms and swords in the pack. The enchant-weapon scrolls and spell
+  accept any `tval_is_weapon()` item, which includes shots, arrows and
+  bolts, and the item prompt opens on the pack when any accepted item is
+  there (`textui_get_item`). So with ammo in the pack (outside the
+  quiver) and no other weapon there, no `'/'` (or, for a quiver target
+  with nothing wielded, no `'|'`) is sent, and the equipment letter or
+  quiver digit is typed into the pack menu.
+* `borg_pick_armor()` tests `TV_HELM` twice; `borg_enchant_to_d()` tests
+  `BI_AMMO_POWER < 3` twice in its ammo loop (both harmless).
+* Rust (`borg_item_enchant.rs`): all kept.
