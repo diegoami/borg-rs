@@ -17,7 +17,6 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 use crate::headers::borg_danger_h::{borg_danger};
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{borg_kill, borg_shoot_scoot_safe};
-use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
@@ -366,13 +365,13 @@ pub unsafe extern "C" fn borg_freedom(
     let mut f: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         == 0
-        && track_more.num as ::core::ffi::c_int != 0
+        && crate::bridge::st().stairs.more.num as ::core::ffi::c_int != 0
     {
         d = borg_distance(
             y << 1 as ::core::ffi::c_int,
             x << 1 as ::core::ffi::c_int,
-            *track_more.y.offset(0 as ::core::ffi::c_int as isize) << 1 as ::core::ffi::c_int,
-            *track_more.x.offset(0 as ::core::ffi::c_int as isize) << 1 as ::core::ffi::c_int,
+            crate::bridge::st().stairs.more.y[(0 as ::core::ffi::c_int) as usize] << 1 as ::core::ffi::c_int,
+            crate::bridge::st().stairs.more.x[(0 as ::core::ffi::c_int) as usize] << 1 as ::core::ffi::c_int,
         );
         f += 1000 as ::core::ffi::c_int - d;
         if d < 4 as ::core::ffi::c_int {
@@ -381,13 +380,13 @@ pub unsafe extern "C" fn borg_freedom(
     }
     if crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
         != 0
-        && track_less.num as ::core::ffi::c_int != 0
+        && crate::bridge::st().stairs.less.num as ::core::ffi::c_int != 0
     {
         d = borg_distance(
             y << 1 as ::core::ffi::c_int,
             x << 1 as ::core::ffi::c_int,
-            *track_less.y.offset(0 as ::core::ffi::c_int as isize) << 1 as ::core::ffi::c_int,
-            *track_less.x.offset(0 as ::core::ffi::c_int as isize) << 1 as ::core::ffi::c_int,
+            crate::bridge::st().stairs.less.y[(0 as ::core::ffi::c_int) as usize] << 1 as ::core::ffi::c_int,
+            crate::bridge::st().stairs.less.x[(0 as ::core::ffi::c_int) as usize] << 1 as ::core::ffi::c_int,
         );
         f += 1000 as ::core::ffi::c_int - d;
         if d < 4 as ::core::ffi::c_int {

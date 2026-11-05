@@ -27,7 +27,7 @@ pub use crate::headers::borg_flow_h::{
     borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
 };
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
-use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair, track_less};
+use crate::headers::borg_flow_stairs_h::{borg_flow_cost_stair};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
 
@@ -495,9 +495,9 @@ pub unsafe extern "C" fn borg_flow_vein(
     }
     borg_temp_n = 0 as int16_t;
     i = 0 as ::core::ffi::c_int;
-    while i < track_less.num as ::core::ffi::c_int {
-        x = *track_less.x.offset(i as isize);
-        y = *track_less.y.offset(i as isize);
+    while i < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+        x = crate::bridge::st().stairs.less.x[i as usize];
+        y = crate::bridge::st().stairs.less.y[i as usize];
         j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;
@@ -616,9 +616,9 @@ pub unsafe extern "C" fn borg_flow_spastic(mut bored: bool) -> bool {
         }
     }
     i = 0 as ::core::ffi::c_int;
-    while i < track_less.num as ::core::ffi::c_int {
-        x = *track_less.x.offset(i as isize);
-        y = *track_less.y.offset(i as isize);
+    while i < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+        x = crate::bridge::st().stairs.less.x[i as usize];
+        y = crate::bridge::st().stairs.less.y[i as usize];
         j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;
@@ -699,16 +699,16 @@ pub unsafe extern "C" fn borg_flow_spastic(mut bored: bool) -> bool {
                                                             <= crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize]
                                                     {
                                                         j = borg_distance(
-                                                            *track_less.y.offset(b_stair as isize),
-                                                            *track_less.x.offset(b_stair as isize),
+                                                            crate::bridge::st().stairs.less.y[b_stair as usize],
+                                                            crate::bridge::st().stairs.less.x[b_stair as usize],
                                                             y,
                                                             x,
                                                         );
                                                         b_j = borg_distance(
                                                             crate::bridge::st().borg.c.y,
                                                             crate::bridge::st().borg.c.x,
-                                                            *track_less.y.offset(b_stair as isize),
-                                                            *track_less.x.offset(b_stair as isize),
+                                                            crate::bridge::st().stairs.less.y[b_stair as usize],
+                                                            crate::bridge::st().stairs.less.x[b_stair as usize],
                                                         );
                                                         if b_j
                                                             <= crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize] * 3 as ::core::ffi::c_int

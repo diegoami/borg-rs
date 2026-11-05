@@ -1845,8 +1845,8 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
     // Check distance away from stairs, used later
 
     // Check for an existing "up stairs"
-    for i in 0..i32::from(bridge::track_less_num(st)) {
-        let (y, x) = bridge::track_less_at(st, i as usize);
+    for i in 0..i32::from(st.stairs.less.num) {
+        let (y, x) = st.stairs.less.at(i as usize);
 
         // How far is the nearest up stairs
         let j = engine::distance(st.borg.c, loc { x, y });
@@ -1941,7 +1941,7 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
         // Skip ones that make me wander too far
         if b_stair != -1 && st.borg.tr(BI_CLEVEL) < 10 {
             // Check the distance of this monster to the stair
-            let (sy, sx) = bridge::track_less_at(st, b_stair as usize);
+            let (sy, sx) = st.stairs.less.at(b_stair as usize);
             let j = borg_distance(sy, sx, y, x);
             // skip far away monsters while I am close to stair
             let leash = st.borg.tr(BI_CLEVEL) * 5 + 9;

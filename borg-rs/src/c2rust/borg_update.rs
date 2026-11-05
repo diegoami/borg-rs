@@ -30,7 +30,6 @@ pub use crate::headers::borg_flow_h::{
 };
 pub use crate::headers::borg_flow_kill_h::{borg_count_death, borg_create_kill, borg_delete_kill, borg_follow_kill, borg_kill, borg_locate_kill, borg_race_name, borg_sleep_kill, observe_kill_diff, observe_kill_move};
 use crate::headers::borg_flow_misc_h::{track_shop_x, track_shop_y, track_vein};
-use crate::headers::borg_flow_stairs_h::{track_less, track_more};
 pub use crate::headers::borg_flow_take_h::{borg_delete_take, borg_follow_take, borg_take, observe_take_diff, observe_take_move};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::borg_note;
@@ -513,37 +512,37 @@ unsafe extern "C" fn borg_update_map() {
                         }
                     } else if g.f_idx == FEAT_LESS as ::core::ffi::c_int as uint32_t {
                         i = 0 as ::core::ffi::c_int;
-                        while i < track_less.num as ::core::ffi::c_int {
-                            if *track_less.x.offset(i as isize) == x
-                                && *track_less.y.offset(i as isize) == y
+                        while i < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+                            if crate::bridge::st().stairs.less.x[i as usize] == x
+                                && crate::bridge::st().stairs.less.y[i as usize] == y
                             {
                                 break;
                             }
                             i += 1;
                         }
-                        if i == track_less.num as ::core::ffi::c_int
-                            && i < track_less.size as ::core::ffi::c_int
+                        if i == crate::bridge::st().stairs.less.num as ::core::ffi::c_int
+                            && i < crate::bridge::st().stairs.less.size as ::core::ffi::c_int
                         {
-                            *track_less.x.offset(i as isize) = x;
-                            *track_less.y.offset(i as isize) = y;
-                            track_less.num += 1;
+                            crate::bridge::st().stairs.less.x[i as usize] = x;
+                            crate::bridge::st().stairs.less.y[i as usize] = y;
+                            crate::bridge::st().stairs.less.num += 1;
                         }
                     } else if g.f_idx == FEAT_MORE as ::core::ffi::c_int as uint32_t {
                         i = 0 as ::core::ffi::c_int;
-                        while i < track_more.num as ::core::ffi::c_int {
-                            if *track_more.x.offset(i as isize) == x
-                                && *track_more.y.offset(i as isize) == y
+                        while i < crate::bridge::st().stairs.more.num as ::core::ffi::c_int {
+                            if crate::bridge::st().stairs.more.x[i as usize] == x
+                                && crate::bridge::st().stairs.more.y[i as usize] == y
                             {
                                 break;
                             }
                             i += 1;
                         }
-                        if i == track_more.num as ::core::ffi::c_int
-                            && i < track_more.size as ::core::ffi::c_int
+                        if i == crate::bridge::st().stairs.more.num as ::core::ffi::c_int
+                            && i < crate::bridge::st().stairs.more.size as ::core::ffi::c_int
                         {
-                            *track_more.x.offset(i as isize) = x;
-                            *track_more.y.offset(i as isize) = y;
-                            track_more.num += 1;
+                            crate::bridge::st().stairs.more.x[i as usize] = x;
+                            crate::bridge::st().stairs.more.y[i as usize] = y;
+                            crate::bridge::st().stairs.more.num += 1;
                         }
                     }
                     current_block_150 = 18002345992382212654;
@@ -2018,8 +2017,8 @@ pub unsafe extern "C" fn borg_update() {
         {
             crate::bridge::st().borg.goal.fleeing_to_town = false_0 != 0;
         }
-        track_less.num = 0 as int16_t;
-        track_more.num = 0 as int16_t;
+        crate::bridge::st().stairs.less.num = 0 as int16_t;
+        crate::bridge::st().stairs.more.num = 0 as int16_t;
         track_glyph.num = 0 as int16_t;
         track_step.num = 0 as int16_t;
         track_door.num = 0 as int16_t;

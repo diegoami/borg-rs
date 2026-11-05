@@ -447,8 +447,8 @@ fn far_up_stair(st: &mut BorgState) -> (i32, i32) {
     let mut b_stair = -1;
     let mut b_j = -1;
     let mut i: i32 = 0;
-    while i < i32::from(bridge::track_less_num(st)) {
-        let (y, x) = bridge::track_less_at(st, i as usize);
+    while i < i32::from(st.stairs.less.num) {
+        let (y, x) = st.stairs.less.at(i as usize);
 
         /* How far is the nearest up stairs */
         let j = engine::distance(st.borg.c, crate::headers::z_type_h::loc { x, y });
@@ -555,7 +555,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
         /* Skip ones that make me wander too far */
         if b_stair != -1 && st.borg.tr(BI_CLEVEL) < 10 {
             /* Check the distance of this 'take' to the stair */
-            let (sy, sx) = bridge::track_less_at(st, b_stair as usize);
+            let (sy, sx) = st.stairs.less.at(b_stair as usize);
             let j = borg_distance(sy, sx, y, x);
             /* skip far away takes while I am close to stair*/
             if j != 255 && (b_j <= leash && j >= leash) {
@@ -604,7 +604,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
         /* Check the distance to stair for this proposed grid and leash*/
         if nearness > 5
             && st.borg.tr(BI_CLEVEL) < 20
-            && bridge::borg_flow_cost_stair(st, y, x, b_stair) > leash
+            && crate::borg_flow_stairs::borg_flow_cost_stair(st, y, x, b_stair) > leash
         {
             continue;
         }

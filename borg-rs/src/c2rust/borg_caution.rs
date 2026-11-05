@@ -23,10 +23,7 @@ use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{borg_track, track_step};
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_misc_h::{borg_check_rest, borg_goto_dir, borg_happy_grid_bold};
-use crate::headers::borg_flow_stairs_h::{
-    borg_flow_stair_less, borg_flow_stair_more, borg_prep_leave_level_spells, track_less,
-    track_more,
-};
+use crate::headers::borg_flow_stairs_h::{borg_flow_stair_less, borg_flow_stair_more, borg_prep_leave_level_spells};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_inventory_h::borg_slot;
 use crate::headers::borg_io_h::{borg_keypress, borg_note};
@@ -1087,12 +1084,12 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             i += 1;
         }
     }
-    if track_less.num != 0 {
+    if crate::bridge::st().stairs.less.num != 0 {
         let mut i_0: ::core::ffi::c_int = 0;
         i_0 = 0 as ::core::ffi::c_int;
-        while i_0 < track_less.num as ::core::ffi::c_int {
-            if *track_less.y.offset(i_0 as isize) == crate::bridge::st().borg.c.y
-                && *track_less.x.offset(i_0 as isize) == crate::bridge::st().borg.c.x
+        while i_0 < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+            if crate::bridge::st().stairs.less.y[i_0 as usize] == crate::bridge::st().borg.c.y
+                && crate::bridge::st().stairs.less.x[i_0 as usize] == crate::bridge::st().borg.c.x
             {
                 borg_note(format(
                     b"# Standing on up-stairs\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1102,12 +1099,12 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             i_0 += 1;
         }
     }
-    if track_more.num != 0 {
+    if crate::bridge::st().stairs.more.num != 0 {
         let mut i_1: ::core::ffi::c_int = 0;
         i_1 = 0 as ::core::ffi::c_int;
-        while i_1 < track_more.num as ::core::ffi::c_int {
-            if *track_more.y.offset(i_1 as isize) == crate::bridge::st().borg.c.y
-                && *track_more.x.offset(i_1 as isize) == crate::bridge::st().borg.c.x
+        while i_1 < crate::bridge::st().stairs.more.num as ::core::ffi::c_int {
+            if crate::bridge::st().stairs.more.y[i_1 as usize] == crate::bridge::st().borg.c.y
+                && crate::bridge::st().stairs.more.x[i_1 as usize] == crate::bridge::st().borg.c.x
             {
                 borg_note(format(
                     b"# Standing on dn-stairs\0" as *const u8 as *const ::core::ffi::c_char,
@@ -1301,7 +1298,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         {
             crate::bridge::st().borg.stair_more = true_0 != 0;
         }
-        if track_less.num as ::core::ffi::c_int != 0
+        if crate::bridge::st().stairs.less.num as ::core::ffi::c_int != 0
             && (crate::bridge::st().borg.trait_[(BI_LIGHT as ::core::ffi::c_int) as usize]
                 == 0 as ::core::ffi::c_int
                 || crate::bridge::st().borg.trait_[(BI_ISHUNGRY as ::core::ffi::c_int) as usize]
@@ -1313,7 +1310,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         {
             crate::bridge::st().borg.stair_more = false_0 != 0;
         }
-        if track_less.num as ::core::ffi::c_int != 0
+        if crate::bridge::st().stairs.less.num as ::core::ffi::c_int != 0
             && crate::bridge::st().borg.trait_[(BI_CDEPTH as ::core::ffi::c_int) as usize]
                 != 0
             && crate::bridge::st().borg.trait_[(BI_CLEVEL as ::core::ffi::c_int) as usize]
@@ -1413,7 +1410,7 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             crate::bridge::st().borg.goal.fleeing = true_0 != 0;
         }
     }
-    if (track_less.num as ::core::ffi::c_int != 0 || track_more.num as ::core::ffi::c_int != 0)
+    if (crate::bridge::st().stairs.less.num as ::core::ffi::c_int != 0 || crate::bridge::st().stairs.more.num as ::core::ffi::c_int != 0)
         && (crate::bridge::st().borg.goal.fleeing as ::core::ffi::c_int != 0
             || crate::bridge::st().borg.mon.scary as ::core::ffi::c_int != 0
             || pos_danger > crate::bridge::st().borg.avoidance as ::core::ffi::c_int
@@ -1429,9 +1426,9 @@ pub unsafe extern "C" fn borg_caution() -> bool {
         let mut safe: bool = true_0 != 0;
         let mut ag_1: *mut borg_grid = ::core::ptr::null_mut::<borg_grid>();
         i_2 = 0 as ::core::ffi::c_int;
-        while i_2 < track_less.num as ::core::ffi::c_int {
-            x = *track_less.x.offset(i_2 as isize);
-            y = *track_less.y.offset(i_2 as isize);
+        while i_2 < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+            x = crate::bridge::st().stairs.less.x[i_2 as usize];
+            y = crate::bridge::st().stairs.less.y[i_2 as usize];
             ag_1 = crate::bridge::grid(x, y) as *mut borg_grid;
             j = distance(crate::bridge::st().borg.c, loc(x, y));
             if !((*ag_1).kill != 0) {
@@ -1442,9 +1439,9 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             i_2 += 1;
         }
         i_2 = 0 as ::core::ffi::c_int;
-        while i_2 < track_more.num as ::core::ffi::c_int {
-            x = *track_more.x.offset(i_2 as isize);
-            y = *track_more.y.offset(i_2 as isize);
+        while i_2 < crate::bridge::st().stairs.more.num as ::core::ffi::c_int {
+            x = crate::bridge::st().stairs.more.x[i_2 as usize];
+            y = crate::bridge::st().stairs.more.y[i_2 as usize];
             ag_1 = crate::bridge::grid(x, y) as *mut borg_grid;
             m = distance(crate::bridge::st().borg.c, loc(x, y));
             if !((*ag_1).kill != 0) {

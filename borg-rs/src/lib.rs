@@ -31,6 +31,7 @@ pub mod borg_cave_util;
 pub mod borg_danger;
 pub mod borg_flow_take;
 pub mod borg_flow_kill;
+pub mod borg_flow_stairs;
 pub mod borg_formulas;
 pub mod borg_formulas_calc;
 pub mod borg_home_notice;

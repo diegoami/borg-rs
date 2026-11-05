@@ -22,7 +22,6 @@ pub use crate::headers::borg_flow_h::{
 use crate::headers::borg_flow_misc_h::{
     borg_flow_far_from_stairs, borg_flow_far_from_stairs_dist, borg_get_leash,
 };
-use crate::headers::borg_flow_stairs_h::track_less;
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17};
 pub use crate::headers::borg_trait_h::{
     C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS, BI_ADETDOOR,
@@ -911,9 +910,9 @@ pub unsafe extern "C" fn borg_flow_dark(mut neer: bool) -> bool {
         return false_0 != 0;
     }
     i = 0 as ::core::ffi::c_int;
-    while i < track_less.num as ::core::ffi::c_int {
-        x = *track_less.x.offset(i as isize);
-        y = *track_less.y.offset(i as isize);
+    while i < crate::bridge::st().stairs.less.num as ::core::ffi::c_int {
+        x = crate::bridge::st().stairs.less.x[i as usize];
+        y = crate::bridge::st().stairs.less.y[i as usize];
         j = distance(crate::bridge::st().borg.c, loc(x, y));
         if !(b_j >= j) {
             b_j = j;

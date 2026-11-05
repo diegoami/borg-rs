@@ -452,3 +452,17 @@ Format: file, function, (seed, turn when observed), explanation.
   is in the pack.
 * Rust (`borg_recover.rs`): all kept (a missing rod panics instead of
   reading `borg_items[-1]`).
+## 27. Protection from Evil rest timer overflows (flow stairs)
+
+* `borg-flow-stairs.c`, found by code reading.
+* `borg_prep_leave_level_spells()` sets `borg.no_rest_prep =
+  borg.trait[BI_CLEVEL] * 1000` after casting Protection from Evil.
+  `no_rest_prep` is an `int16_t`, so from clevel 33 on the value wraps
+  (33 -> -32536, 50 -> -15536). The timer is then below 1, so the
+  "don't rest while prepared" checks (`borg_update()`, borg-flow-misc.c,
+  borg-think-dungeon.c) treat it as expired at once. borg-fight-defend.c
+  and borg-fight-perm.c have the same assignment.
+* `borg_flow_cost_stair()` does not check `b_stair` against
+  `track_less.num` (it reads any allocated entry).
+* Rust (`borg_flow_stairs.rs`): kept (`no_rest as i16` truncates the same
+  way; `b_stair` is only checked against the allocated size).

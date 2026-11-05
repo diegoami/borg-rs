@@ -12,6 +12,7 @@ use crate::borg_cave_view::ViewState;
 use crate::borg_danger::DangerState;
 use crate::borg_flow_take::TakeState;
 use crate::borg_flow_kill::KillState;
+use crate::borg_flow_stairs::StairsState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
 use crate::borg_home_notice::HomeState;
@@ -49,6 +50,8 @@ pub struct BorgState {
     /// `borg_race_count`, `borg_race_death`, the unique/normal monster name
     /// tables and `borg_nasties*`
     pub kills: KillState,
+    /// borg-flow-stairs.c: `track_less`, `track_more`
+    pub stairs: StairsState,
     /// borg-formulas.c: `borg_formulas`
     pub formulas: FormulasState,
     /// borg-formulas-calc.c: `calculations`
