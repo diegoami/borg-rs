@@ -207,7 +207,7 @@ when a big c2rust module goes away.
 | borg_junk (`6229821ea`) | 694 | 14 |
 | soundness fixes (`c4969c0c5`) | 696 | 14 |
 | borg_init (`5f4aa7c3f`) | 702 | 13 |
-| borg_flow_misc | 687 | 12 |
+| borg_flow_misc (`30e2024df`) | 687 | 12 |
 
 ## Suite timings
 

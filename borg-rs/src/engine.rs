@@ -1231,6 +1231,7 @@ pub fn store_feat_name(store: usize) -> Vec<u8> {
             "feature out of range"
         );
         let name = (*crate::headers::cave_h::f_info.add(feat as usize)).name;
+        assert!(!name.is_null(), "feature without a name");
         std::ffi::CStr::from_ptr(name).to_bytes().to_vec()
     }
 }
