@@ -5,5 +5,4 @@ pub mod borg_think;
 pub mod borg_think_dungeon;
 pub mod borg_think_dungeon_util;
 pub mod borg_trait;
-pub mod borg_trait_swap;
 pub mod borg_update;

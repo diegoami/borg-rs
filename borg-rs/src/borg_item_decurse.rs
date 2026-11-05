@@ -84,7 +84,7 @@ fn start_decurse(st: &mut BorgState) -> bool {
 }
 
 /// Remove the curse of a swap item in pack slot `swap - 1`.
-fn decurse_swap(st: &mut BorgState, swap: fn(&mut BorgState) -> i32) -> bool {
+fn decurse_swap(st: &mut BorgState, swap: fn(&BorgState) -> i32) -> bool {
     /* Ability for curses */
     if !can_decurse(st) {
         return false;
@@ -109,21 +109,21 @@ fn decurse_swap(st: &mut BorgState, swap: fn(&mut BorgState) -> i32) -> bool {
 /// Remove Curse swap armour
 pub fn borg_decurse_armour(st: &mut BorgState) -> bool {
     /* Nothing to decurse */
-    if !bridge::borg_uses_swaps(st) || !bridge::decurse_armour_swap(st) {
+    if !bridge::borg_uses_swaps(st) || !st.trait_swap.armour.decurse {
         return false;
     }
 
-    decurse_swap(st, bridge::armour_swap)
+    decurse_swap(st, |st| st.trait_swap.armour_swap)
 }
 
 /// Remove Curse swap weapon
 pub fn borg_decurse_weapon(st: &mut BorgState) -> bool {
     /* Nothing to decurse */
-    if !bridge::borg_uses_swaps(st) || !bridge::decurse_weapon_swap(st) {
+    if !bridge::borg_uses_swaps(st) || !st.trait_swap.weapon.decurse {
         return false;
     }
 
-    decurse_swap(st, bridge::weapon_swap)
+    decurse_swap(st, |st| st.trait_swap.weapon_swap)
 }
 
 /// Remove Curse any

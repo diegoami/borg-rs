@@ -145,11 +145,11 @@ fn home_ware(st: &mut BorgState, n: i32) -> &mut borg_item {
 /// `weapon_swap && i == weapon_swap - 1` or the same for `armour_swap`:
 /// slot `i` holds a swap item.
 fn is_swap(st: &mut BorgState, i: i32) -> bool {
-    let weapon_swap = bridge::weapon_swap(st);
+    let weapon_swap = st.trait_swap.weapon_swap;
     if weapon_swap != 0 && i == weapon_swap - 1 {
         return true;
     }
-    let armour_swap = bridge::armour_swap(st);
+    let armour_swap = st.trait_swap.armour_swap;
     armour_swap != 0 && i == armour_swap - 1
 }
 

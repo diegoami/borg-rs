@@ -1089,40 +1089,6 @@ pub mod item_fns {
     }
 }
 
-/// `weapon_swap` (still c2rust, borg-trait-swap.c): the swap weapon's
-/// slot + 1, or 0.
-pub fn weapon_swap(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::weapon_swap };
-    escape(st);
-    r
-}
-
-/// `armour_swap` (still c2rust, borg-trait-swap.c): the swap armour's
-/// slot + 1, or 0.
-pub fn armour_swap(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::armour_swap };
-    escape(st);
-    r
-}
-
-/// `enchant_weapon_swap_to_h` (still c2rust, borg-trait-swap.c): the
-/// swap weapon's to-hit enchantment need.
-pub fn enchant_weapon_swap_to_h(_st: &mut BorgState) -> i32 {
-    // SAFETY: plain read of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_h }
-}
-
-/// `enchant_weapon_swap_to_d` (still c2rust, borg-trait-swap.c): the
-/// swap weapon's to-dam enchantment need.
-pub fn enchant_weapon_swap_to_d(_st: &mut BorgState) -> i32 {
-    // SAFETY: plain read of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_d }
-}
-
 /// `borg_get_note(&borg_items[i])` (borg-item.c), as bytes. The note
 /// pointer is still raw (see borg_item.rs); copied out at once.
 pub fn borg_get_note(st: &mut BorgState, i: usize) -> Vec<u8> {
@@ -1597,26 +1563,6 @@ pub fn borg_uses_swaps(st: &mut BorgState) -> bool {
     r
 }
 
-/// `decurse_armour_swap` (still c2rust, borg-trait-swap.c): the swap
-/// armour is good except for its curse.
-pub fn decurse_armour_swap(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain read of a bool global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::decurse_armour_swap };
-    escape(st);
-    r
-}
-
-/// `decurse_weapon_swap` (still c2rust, borg-trait-swap.c): the swap
-/// weapon is good except for its curse.
-pub fn decurse_weapon_swap(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain read of a bool global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::decurse_weapon_swap };
-    escape(st);
-    r
-}
-
 /// C-ABI shims with the borg-item-enchant.c names, for c2rust callers
 /// (borg_think_dungeon).
 pub mod item_enchant {
@@ -1880,65 +1826,6 @@ pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32
     crate::borg_store_sell::borg_think_home_sell_useful(st, best_home_power)
 }
 
-/// `weapon_swap_value` (still c2rust, borg-trait-swap.c).
-pub fn weapon_swap_value(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int32_t global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::weapon_swap_value };
-    escape(st);
-    r
-}
-
-/// `armour_swap_value` (still c2rust, borg-trait-swap.c).
-pub fn armour_swap_value(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int32_t global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait_swap::armour_swap_value };
-    escape(st);
-    r
-}
-
-/// `weapon_swap_value = v` (still c2rust, borg-trait-swap.c).
-pub fn set_weapon_swap_value(st: &mut BorgState, v: i32) {
-    escape(st);
-    // SAFETY: plain write of an int32_t global; Borg thread.
-    unsafe { crate::c2rust::borg_trait_swap::weapon_swap_value = v };
-    escape(st);
-}
-
-/// `armour_swap_value = v` (still c2rust, borg-trait-swap.c).
-pub fn set_armour_swap_value(st: &mut BorgState, v: i32) {
-    escape(st);
-    // SAFETY: plain write of an int32_t global; Borg thread.
-    unsafe { crate::c2rust::borg_trait_swap::armour_swap_value = v };
-    escape(st);
-}
-
-/// `(weapon_swap, weapon_swap_value, armour_swap, armour_swap_value)`
-/// (still c2rust, borg-trait-swap.c).
-pub fn trait_swaps(st: &mut BorgState) -> (i32, i32, i32, i32) {
-    use crate::c2rust::borg_trait_swap as t;
-    escape(st);
-    // SAFETY: plain reads of int globals; Borg thread.
-    let r = unsafe { (t::weapon_swap, t::weapon_swap_value, t::armour_swap, t::armour_swap_value) };
-    escape(st);
-    r
-}
-
-/// Set the four globals of `trait_swaps` (in C's order).
-pub fn set_trait_swaps(st: &mut BorgState, v: (i32, i32, i32, i32)) {
-    use crate::c2rust::borg_trait_swap as t;
-    escape(st);
-    // SAFETY: plain writes of int globals; Borg thread.
-    unsafe {
-        t::weapon_swap = v.0;
-        t::weapon_swap_value = v.1;
-        t::armour_swap = v.2;
-        t::armour_swap_value = v.3;
-    }
-    escape(st);
-}
-
 /// C-ABI shims with the borg-escape.c names, for c2rust callers.
 pub mod escape_fns {
     use super::st;
@@ -2029,6 +1916,19 @@ pub mod fight_defend {
 
     pub unsafe extern "C" fn borg_defend(p1: core::ffi::c_int) -> bool {
         crate::borg_fight_defend::borg_defend(st(), p1)
+    }
+}
+
+/// C-ABI shims with the borg-trait-swap.c names, for the c2rust caller
+/// (`borg_notice` in borg_trait).
+pub mod trait_swap {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_notice_weapon_swap() {
+        crate::borg_trait_swap::borg_notice_weapon_swap(st())
+    }
+    pub unsafe extern "C" fn borg_notice_armour_swap() {
+        crate::borg_trait_swap::borg_notice_armour_swap(st())
     }
 }
 

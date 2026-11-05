@@ -983,3 +983,29 @@ with its issues.
   are panics.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#191 to diegoami/neo-angband-tracker#198.
+
+
+## 45. Swap slips (trait swap)
+
+* `borg-trait-swap.c`, found by code reading.
+* `borg_notice_weapon_swap()`, final block for the chosen weapon: sets
+  `weapon_swap_resist_acid` from the *electricity* resistance
+  (`el_info[ELEM_ELEC]`), so a swap weapon with only acid resistance
+  does not count as one for `BI_SRACID` (the valuation loop reads acid
+  correctly).
+* `borg_notice_weapon_swap()`: the first-half troll reward adds
+  `(dam * 2) / 2` instead of `(dam * weapon_swap_slay_troll) / 2`.
+* `weapon_swap_resist_fear` and `armour_swap_resist_fear` are never
+  written, so they stay false: the weapon's +5500 fear reward never
+  applies and `BI_SRFEAR` never comes from a swap.
+* `borg_notice_weapon_swap()`: with swaps off (`borg_uses_swaps()`
+  false), the first wearable non-digger at max depth 50+ makes the
+  function `return` in the middle of the scan: the swap flags keep the
+  values of the previous item looked at (or of the previous call), and
+  `enchant_weapon_swap_to_h/_d` keep the previous call's values (only the
+  normal end clears them).
+* `weapon_swap_digger` is cleared per item but not after the scan, so it
+  keeps the digging power of the last weapon looked at.
+* `borg_notice_armour_swap()`: gloves are wearable but not in the
+  switch, so they are never a swap armour.
+* Rust (`borg_trait_swap.rs`): all kept.

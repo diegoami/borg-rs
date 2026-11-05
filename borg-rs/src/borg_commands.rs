@@ -1157,11 +1157,11 @@ fn borg_cmd_swaps(st: &mut BorgState) {
     bridge::borg_update(st);
 
     // note the swap items
-    let (swap, value) = (bridge::weapon_swap(st), bridge::weapon_swap_value(st));
+    let (swap, value) = (st.trait_swap.weapon_swap, st.trait_swap.weapon_swap_value);
     let text = swap_text(st, "Weapon", swap, value);
     msg(st, text);
 
-    let (swap, value) = (bridge::armour_swap(st), bridge::armour_swap_value(st));
+    let (swap, value) = (st.trait_swap.armour_swap, st.trait_swap.armour_swap_value);
     let text = swap_text(st, "Armour", swap, value);
     msg(st, text);
 }

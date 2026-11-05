@@ -1855,8 +1855,8 @@ pub fn borg_power(st: &mut BorgState) -> i32 {
     value = add(value, i64::from(i - 1) * 40000);
 
     // Add the value for the swap items
-    value = value.wrapping_add(bridge::weapon_swap_value(st));
-    value = value.wrapping_add(bridge::armour_swap_value(st));
+    value = value.wrapping_add(st.trait_swap.weapon_swap_value);
+    value = value.wrapping_add(st.trait_swap.armour_swap_value);
 
     // Return the value
     value

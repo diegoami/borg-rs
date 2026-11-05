@@ -124,11 +124,11 @@ fn off_floor(st: &BorgState) -> bool {
 /// `i == weapon_swap - 1` or `i == armour_swap - 1` (each swap is the
 /// slot + 1, 0 = none; both read now, as C reads the globals).
 fn is_swap(st: &mut BorgState, i: i32) -> bool {
-    let w = bridge::weapon_swap(st);
+    let w = st.trait_swap.weapon_swap;
     if w != 0 && i == w - 1 {
         return true;
     }
-    let a = bridge::armour_swap(st);
+    let a = st.trait_swap.armour_swap;
     a != 0 && i == a - 1
 }
 

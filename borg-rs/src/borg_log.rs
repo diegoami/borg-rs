@@ -493,14 +493,14 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
     // Write swap info
     if st.cfg(BORG_USES_SWAPS) != 0 {
         putf(f, b"  [Swap info]\n\n");
-        let weapon_swap = bridge::weapon_swap(st);
+        let weapon_swap = st.trait_swap.weapon_swap;
         if weapon_swap != 0 {
             let item = bridge::item(st, (weapon_swap - 1) as usize);
             putf(f, &cat(&[b"Swap Weapon:  ", &c_chars(&item.desc), b"\n"]));
         } else {
             put(f, b"Swap Weapon:  NONE\n");
         }
-        let armour_swap = bridge::armour_swap(st);
+        let armour_swap = st.trait_swap.armour_swap;
         if armour_swap != 0 {
             let item = bridge::item(st, (armour_swap - 1) as usize);
             putf(f, &cat(&[b"Swap Armour:  ", &c_chars(&item.desc), b"\n"]));

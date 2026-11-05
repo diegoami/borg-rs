@@ -23,7 +23,6 @@ use crate::borg_item::{inven_wield, quiver_end, quiver_start};
 use crate::borg_item_decurse::{borg_decurse_any, borg_decurse_armour, borg_decurse_weapon};
 use crate::borg_item_use::{borg_activate_item, borg_read_scroll};
 use crate::borg_magic::{borg_spell_fail, borg_spell_okay_fail};
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::BORG_ENCHANT_LIMIT;
 use crate::headers::borg_item_h::borg_item;
@@ -256,13 +255,13 @@ fn enchant_weapon(st: &mut BorgState, bonus: Bonus) -> bool {
     let (need, swap_needs, ability, sv_scroll) = match bonus {
         Bonus::ToHit => (
             BI_NEED_ENCHANT_TO_H,
-            bridge::enchant_weapon_swap_to_h(st),
+            st.trait_swap.enchant_weapon_swap_to_h,
             BI_AENCH_TOH,
             st.item_val.sv_scroll_enchant_weapon_to_hit,
         ),
         Bonus::ToDam => (
             BI_NEED_ENCHANT_TO_D,
-            bridge::enchant_weapon_swap_to_d(st),
+            st.trait_swap.enchant_weapon_swap_to_d,
             BI_AENCH_TOD,
             st.item_val.sv_scroll_enchant_weapon_to_dam,
         ),
@@ -326,7 +325,7 @@ fn enchant_weapon(st: &mut BorgState, bonus: Bonus) -> bool {
         b_i = i;
         b_a = a;
     }
-    let weapon_swap = bridge::weapon_swap(st);
+    let weapon_swap = st.trait_swap.weapon_swap;
     if weapon_swap != 0 {
         let mut skip = false;
         let item = &st.items.items[(weapon_swap - 1) as usize];

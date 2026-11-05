@@ -81,20 +81,7 @@ pub use crate::headers::borg_trait_h::{
     BI_WS_DEMON, BI_WS_DRAGON, BI_WS_EVIL, BI_WS_GIANT, BI_WS_ORC, BI_WS_TROLL, BI_WS_UNDEAD,
     BI_WTODAM, BI_WTOHIT, BI_W_IMPACT, BORG_EQUIP, BORG_INVEN, BORG_QUILL,
 };
-use crate::headers::borg_trait_swap_h::{
-    armour_swap_free_act, armour_swap_hold_life, armour_swap_resist_acid, armour_swap_resist_blind,
-    armour_swap_resist_chaos, armour_swap_resist_cold, armour_swap_resist_conf,
-    armour_swap_resist_dark, armour_swap_resist_disen, armour_swap_resist_elec,
-    armour_swap_resist_fear, armour_swap_resist_fire, armour_swap_resist_light,
-    armour_swap_resist_neth, armour_swap_resist_nexus, armour_swap_resist_pois,
-    armour_swap_resist_shard, armour_swap_resist_sound, borg_notice_armour_swap,
-    borg_notice_weapon_swap, weapon_swap_free_act, weapon_swap_hold_life, weapon_swap_resist_acid,
-    weapon_swap_resist_blind, weapon_swap_resist_chaos, weapon_swap_resist_cold,
-    weapon_swap_resist_conf, weapon_swap_resist_dark, weapon_swap_resist_disen,
-    weapon_swap_resist_elec, weapon_swap_resist_fear, weapon_swap_resist_fire,
-    weapon_swap_resist_light, weapon_swap_resist_neth, weapon_swap_resist_nexus,
-    weapon_swap_resist_pois, weapon_swap_resist_shard, weapon_swap_resist_sound,
-};
+use crate::headers::borg_trait_swap_h::{borg_notice_armour_swap, borg_notice_weapon_swap};
 pub use crate::headers::cave_h::{chunk, connector, heatmap, monster_group, square, trap};
 pub use crate::headers::effects_h::{C2RustUnnamedH_45, EF_MAX, EF_NONE};
 pub use crate::headers::init_h::{angband_constants, critical_level, o_critical_level, z_info};
@@ -3943,87 +3930,87 @@ pub unsafe extern "C" fn borg_notice(mut notice_swap: bool) {
     }
     crate::bridge::st().borg.trait_[(BI_SRACID as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RACID as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_acid as ::core::ffi::c_int != 0
-            || weapon_swap_resist_acid as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.armour.resist_acid as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_acid as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(RESISTANCE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRELEC as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RELEC as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_elec as ::core::ffi::c_int != 0
-            || weapon_swap_resist_elec as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.armour.resist_elec as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_elec as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(RESISTANCE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRFIRE as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RFIRE as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_fire as ::core::ffi::c_int != 0
-            || weapon_swap_resist_fire as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.armour.resist_fire as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_fire as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(RESISTANCE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRCOLD as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RCOLD as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_cold as ::core::ffi::c_int != 0
-            || weapon_swap_resist_cold as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.armour.resist_cold as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_cold as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(RESISTANCE, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRPOIS as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RPOIS as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_pois as ::core::ffi::c_int != 0
-            || weapon_swap_resist_pois as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.armour.resist_pois as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_pois as ::core::ffi::c_int != 0
             || borg_spell_legal_fail(RESIST_POISON, 15 as ::core::ffi::c_int) as ::core::ffi::c_int
                 != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRFEAR as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RFEAR as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_fear as ::core::ffi::c_int != 0
-            || weapon_swap_resist_fear as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_fear as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_fear as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRLITE as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RLITE as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_light as ::core::ffi::c_int != 0
-            || weapon_swap_resist_light as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_light as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_light as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRDARK as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RDARK as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_dark as ::core::ffi::c_int != 0
-            || weapon_swap_resist_dark as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_dark as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_dark as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRBLIND as ::core::ffi::c_int) as usize] = (crate::bridge::st().borg.trait_[(BI_RBLIND as ::core::ffi::c_int) as usize]
         != 0
-        || armour_swap_resist_blind as ::core::ffi::c_int != 0
-        || weapon_swap_resist_blind as ::core::ffi::c_int != 0)
+        || crate::bridge::st().trait_swap.armour.resist_blind as ::core::ffi::c_int != 0
+        || crate::bridge::st().trait_swap.weapon.resist_blind as ::core::ffi::c_int != 0)
         as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRCONF as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RCONF as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_conf as ::core::ffi::c_int != 0
-            || weapon_swap_resist_conf as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_conf as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_conf as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRSND as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RSND as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_sound as ::core::ffi::c_int != 0
-            || weapon_swap_resist_sound as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_sound as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_sound as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRSHRD as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RSHRD as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_shard as ::core::ffi::c_int != 0
-            || weapon_swap_resist_shard as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_shard as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_shard as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRNXUS as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RNXUS as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_nexus as ::core::ffi::c_int != 0
-            || weapon_swap_resist_nexus as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_nexus as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_nexus as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRNTHR as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RNTHR as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_neth as ::core::ffi::c_int != 0
-            || weapon_swap_resist_neth as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_neth as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_neth as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRKAOS as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RKAOS as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_chaos as ::core::ffi::c_int != 0
-            || weapon_swap_resist_chaos as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_chaos as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_chaos as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SRDIS as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_RDIS as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_resist_disen as ::core::ffi::c_int != 0
-            || weapon_swap_resist_disen as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.resist_disen as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.resist_disen as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SHLIFE as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_HLIFE as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_hold_life as ::core::ffi::c_int != 0
-            || weapon_swap_hold_life as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.hold_life as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.hold_life as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_SFRACT as ::core::ffi::c_int) as usize] =
         (crate::bridge::st().borg.trait_[(BI_FRACT as ::core::ffi::c_int) as usize] != 0
-            || armour_swap_free_act as ::core::ffi::c_int != 0
-            || weapon_swap_free_act as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
+            || crate::bridge::st().trait_swap.armour.free_act as ::core::ffi::c_int != 0
+            || crate::bridge::st().trait_swap.weapon.free_act as ::core::ffi::c_int != 0) as ::core::ffi::c_int;
     crate::bridge::st().borg.trait_[(BI_CARRY as ::core::ffi::c_int) as usize] = borg_adj_str_wgt[crate::bridge::st().borg.trait_[(BI_STR_INDEX as ::core::ffi::c_int) as usize]
         as usize]
         * 100 as ::core::ffi::c_int;

@@ -1086,9 +1086,24 @@ pub fn borg_think_home_grab_useless(st: &mut BorgState) -> bool {
     false
 }
 
-/// The four swap globals of borg-trait-swap.c (still c2rust):
+/// The four swap globals of borg-trait-swap.c:
 /// `weapon_swap`, `weapon_swap_value`, `armour_swap`, `armour_swap_value`.
 type Swaps = (i32, i32, i32, i32);
+
+/// Read the four `Swaps` globals.
+fn swaps(st: &BorgState) -> Swaps {
+    let t = &st.trait_swap;
+    (t.weapon_swap, t.weapon_swap_value, t.armour_swap, t.armour_swap_value)
+}
+
+/// Set the four `Swaps` globals (in C's order).
+fn set_swaps(st: &mut BorgState, v: Swaps) {
+    let t = &mut st.trait_swap;
+    t.weapon_swap = v.0;
+    t.weapon_swap_value = v.1;
+    t.armour_swap = v.2;
+    t.armour_swap_value = v.3;
+}
 
 /// Which swap `home_buy_swap` looks for.
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -1100,8 +1115,8 @@ enum Swap {
 /// `weapon_swap_value` or `armour_swap_value`, read now.
 fn swap_value(st: &mut BorgState, which: Swap) -> i32 {
     match which {
-        Swap::Weapon => bridge::weapon_swap_value(st),
-        Swap::Armour => bridge::armour_swap_value(st),
+        Swap::Weapon => st.trait_swap.weapon_swap_value,
+        Swap::Armour => st.trait_swap.armour_swap_value,
     }
 }
 
@@ -1117,7 +1132,7 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
     let mut fix = false;
 
     /* save the current values */
-    let old: Swaps = bridge::trait_swaps(st);
+    let old: Swaps = swaps(st);
     let (swap, value) = match which {
         Swap::Weapon => (old.0, old.1),
         Swap::Armour => (old.2, old.3),
@@ -1126,8 +1141,8 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
     let hole = if swap <= 0 || value <= 0 {
         let h = borg_first_empty_inventory_slot(st);
         match which {
-            Swap::Weapon => bridge::set_weapon_swap_value(st, -1),
-            Swap::Armour => bridge::set_armour_swap_value(st, -1),
+            Swap::Weapon => st.trait_swap.weapon_swap_value = -1,
+            Swap::Armour => st.trait_swap.armour_swap_value = -1,
         }
         h
     } else {
@@ -1208,14 +1223,14 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
         st.borg.goal.ware = b_n as i16;
 
         /* Restore the values */
-        bridge::set_trait_swaps(st, old);
+        set_swaps(st, old);
 
         /* Success */
         return true;
     }
 
     /* Restore the values */
-    bridge::set_trait_swaps(st, old);
+    set_swaps(st, old);
 
     /* Nope */
     false

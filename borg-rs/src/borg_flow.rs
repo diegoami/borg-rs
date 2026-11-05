@@ -47,7 +47,7 @@ use crate::headers::list_tvals_h::{TV_DIGGING, TV_SHOT, TV_STAFF};
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow_glyph, borg_flow_kill, borg_flow_misc, borg_flow_stairs, borg_flow_take, bridge, engine};
+use crate::{borg_flow_glyph, borg_flow_kill, borg_flow_misc, borg_flow_stairs, borg_flow_take, engine};
 
 /// Size of the circular flow queue (`AUTO_FLOW_MAX`).
 pub const AUTO_FLOW_MAX: i32 = 1536;
@@ -258,7 +258,7 @@ pub fn borg_can_dig(st: &mut BorgState, check_fail: bool, feat: u8) -> bool {
         dig_check -= (twitch - 10).min(19);
     }
 
-    let weapon_swap = bridge::weapon_swap(st);
+    let weapon_swap = st.trait_swap.weapon_swap;
     if (weapon_swap != 0
         && st.borg.tr(BI_DIG) >= dig_check
         && u32::from(st.items.items[(weapon_swap - 1) as usize].tval) == TV_DIGGING)

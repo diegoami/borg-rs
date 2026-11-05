@@ -1,51 +1,8 @@
 //! `/home/user/borg-rs/angband/src/borg/borg-trait-swap.h`
-pub use super::stdint_intn_h::int32_t;
-pub use super::stdint_uintn_h::uint8_t;
+//!
+//! borg-trait-swap.c is converted (`crate::borg_trait_swap`); the C names
+//! below are C-ABI shims in `bridge::trait_swap`. (The swap globals live in
+//! `BorgState::trait_swap`.)
 #[allow(unused_imports)]
 use super::*;
-pub use crate::c2rust::borg_trait_swap::armour_swap;
-pub use crate::c2rust::borg_trait_swap::armour_swap_free_act;
-pub use crate::c2rust::borg_trait_swap::armour_swap_hold_life;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_acid;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_blind;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_chaos;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_cold;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_conf;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_dark;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_disen;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_elec;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_fear;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_fire;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_light;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_neth;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_nexus;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_pois;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_shard;
-pub use crate::c2rust::borg_trait_swap::armour_swap_resist_sound;
-pub use crate::c2rust::borg_trait_swap::armour_swap_value;
-pub use crate::c2rust::borg_trait_swap::borg_notice_armour_swap;
-pub use crate::c2rust::borg_trait_swap::borg_notice_weapon_swap;
-pub use crate::c2rust::borg_trait_swap::decurse_armour_swap;
-pub use crate::c2rust::borg_trait_swap::decurse_weapon_swap;
-pub use crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_d;
-pub use crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_h;
-pub use crate::c2rust::borg_trait_swap::weapon_swap;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_free_act;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_hold_life;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_acid;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_blind;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_chaos;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_cold;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_conf;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_dark;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_disen;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_elec;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_fear;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_fire;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_light;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_neth;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_nexus;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_pois;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_shard;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_resist_sound;
-pub use crate::c2rust::borg_trait_swap::weapon_swap_value;
+pub use crate::bridge::trait_swap::{borg_notice_armour_swap, borg_notice_weapon_swap};

@@ -668,18 +668,18 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
      * `borg_notice(true)` recomputes them) */
 
     /* make sure we have an appropriate swap */
-    if bridge::armour_swap(st) == 0 && bridge::weapon_swap(st) == 0 {
+    if st.trait_swap.armour_swap == 0 && st.trait_swap.weapon_swap == 0 {
         return false;
     }
 
-    if bridge::armour_swap(st) != 0 {
+    if st.trait_swap.armour_swap != 0 {
         /* Save our normal condition */
         save_rconf = st.borg.tr(BI_RCONF);
         save_rblind = st.borg.tr(BI_RBLIND);
         save_fract = st.borg.tr(BI_FRACT);
 
         /* Check the items, first armour then weapon */
-        let mut i = bridge::armour_swap(st) - 1;
+        let mut i = st.trait_swap.armour_swap - 1;
 
         /* make sure it is not a -1 */
         if i == -1 {
@@ -721,9 +721,9 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
     }
 
     /* Now we check the weapon */
-    if bridge::weapon_swap(st) != 0 {
+    if st.trait_swap.weapon_swap != 0 {
         /* get the item */
-        let mut i = bridge::weapon_swap(st) - 1;
+        let mut i = st.trait_swap.weapon_swap - 1;
 
         /* make sure it is not a -1 */
         if i == -1 {
@@ -766,9 +766,9 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
 
     /* Pass on the swap which yields the best result */
     let (b_p, swap) = if b_p1 <= b_p2 {
-        (b_p2, bridge::weapon_swap(st) - 1)
+        (b_p2, st.trait_swap.weapon_swap - 1)
     } else {
-        (b_p1, bridge::armour_swap(st) - 1)
+        (b_p1, st.trait_swap.armour_swap - 1)
     };
 
     /* good swap.  Make sure it helps a significant amount */
