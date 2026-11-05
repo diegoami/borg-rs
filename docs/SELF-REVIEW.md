@@ -81,3 +81,9 @@ On `c4969c0c5` (45 modules plus the fixes above): `cargo test` and
 `clippy` clean, smoke 3/3, `full` 45/45 and `deep` 9/9 identical to the C
 references. No run of any suite printed a nested Borg entry, so the U1 path
 is not reached by the suites. `main` was moved to this commit.
+
+After the harness fixes were merged (branch tip `ed86d53c8`, 46 modules):
+the new `check-no-c-borg.sh` passes (309 rustc members, 35 known
+compiler-builtins members, 153/154 engine objects byte-identical plus
+`buildid.c.o`), `smoke` 3/3 and the new `classes` suite 16/16 identical to
+the C references, no nested Borg entry.
