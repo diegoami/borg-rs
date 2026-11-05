@@ -349,6 +349,13 @@ c2r_bool_global! {
     borg_slow_spell => crate::c2rust::borg_trait::borg_slow_spell;
     borg_confuse_spell => crate::c2rust::borg_trait::borg_confuse_spell;
     borg_fear_mon_spell => crate::c2rust::borg_trait::borg_fear_mon_spell;
+    borg_simulate => crate::c2rust::borg_trait::borg_simulate;
+}
+
+/// `borg_simulate = v` (global of borg-trait.c, still c2rust).
+pub fn set_borg_simulate(_st: &mut BorgState, v: bool) {
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait::borg_simulate = v };
 }
 
 /// `borg_tp_other_n` (still c2rust, borg-fight-attack.c).
@@ -1790,5 +1797,16 @@ pub mod flow_stairs {
     }
     pub unsafe extern "C" fn borg_free_flow_stairs() {
         fs::borg_free_flow_stairs(st())
+    }
+}
+
+/// C-ABI shims with the borg-fight-perm.c names, for c2rust callers
+/// (borg_think_dungeon).
+pub mod fight_perm {
+    use super::st;
+    use crate::borg_fight_perm as p;
+
+    pub unsafe extern "C" fn borg_perma_spell() -> bool {
+        p::borg_perma_spell(st())
     }
 }

@@ -466,3 +466,25 @@ Format: file, function, (seed, turn when observed), explanation.
   `track_less.num` (it reads any allocated entry).
 * Rust (`borg_flow_stairs.rs`): kept (`no_rest as i16` truncates the same
   way; `b_stair` is only checked against the allocated size).
+
+## 28. Perma-spell simulation and costs (fight perm)
+
+* `borg-fight-perm.c`, found by code reading.
+* `borg_perma_aux_regen()` has no `if (borg_simulate) return ...;` test,
+  so the scoring loop of `borg_perma_spell()` really casts Rapid
+  Regeneration (keys queued, `no_rest_prep = 6000`) while it is only
+  simulating. If another move then scores higher, its spell is queued
+  after it; if Rapid Regeneration wins (value 1), it is queued twice.
+* `borg_perma_aux_venom()` checks the cost of `SMITE_EVIL`, not `VENOM`
+  (for a class without Smite Evil the cost is -1, so it always passes).
+* `borg_perma_aux_fastcast()` scores 5 when simulating but returns 1 when
+  cast (harmless: the real call's value is not used).
+* `borg_perma_aux_bless()` and `borg_perma_aux_resist()` ignore whether
+  the cast worked and always set `no_rest_prep`; `..._resist_colluin()`
+  always returns 2, even when no activation was sent.
+* Speed and Protection from Evil set the `int16_t` `borg.no_rest_prep`
+  to `CLEVEL * 1000`, which wraps negative from level 33 on (33000 ->
+  -32536), so `no_rest_prep` has no effect then (the same pattern is in
+  borg-fight-defend.c and borg-flow-stairs.c).
+* Rust (`borg_fight_perm.rs`): all kept (`as i16` truncation for the
+  level timer).
