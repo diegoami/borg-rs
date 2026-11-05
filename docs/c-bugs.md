@@ -437,3 +437,18 @@ Format: file, function, (seed, turn when observed), explanation.
 * `borg_pick_armor()` tests `TV_HELM` twice; `borg_enchant_to_d()` tests
   `BI_AMMO_POWER < 3` twice in its ammo loop (both harmless).
 * Rust (`borg_item_enchant.rs`): all kept.
+
+## 26. Recovery notes and checks (recover)
+
+* `borg-recover.c`, found by code reading.
+* The munchkin "cure blindness by resting" branch calls
+  `borg_note("# Resting to cure problem. (danger %d)...")` without
+  `format()`, so the note keeps a literal `%d`.
+* The "expensive" poison cure tries `borg_eat(TV_MUSHROOM,
+  sv_mush_fast_recovery)` twice in the same `||` chain (the second try
+  repeats the first; harmless).
+* The rod recharge rest indexes `borg_items[borg_slot(TV_ROD, sval)]`
+  without checking for -1; it relies on `borg.has[kind]` meaning the rod
+  is in the pack.
+* Rust (`borg_recover.rs`): all kept (a missing rod panics instead of
+  reading `borg_items[-1]`).

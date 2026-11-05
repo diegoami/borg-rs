@@ -1762,3 +1762,14 @@ pub mod item_enchant {
         e::borg_enchanting(st())
     }
 }
+
+/// C-ABI shims with the borg-recover.c names, for c2rust callers
+/// (borg_think_dungeon).
+pub mod recover {
+    use super::st;
+    use crate::borg_recover as r;
+
+    pub unsafe extern "C" fn borg_recover() -> bool {
+        r::borg_recover(st())
+    }
+}

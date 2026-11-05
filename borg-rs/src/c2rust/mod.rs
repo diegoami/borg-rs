@@ -16,7 +16,6 @@ pub mod borg_init;
 pub mod borg_junk;
 pub mod borg_messages;
 pub mod borg_power;
-pub mod borg_recover;
 pub mod borg_store_buy;
 pub mod borg_store_sell;
 pub mod borg_think;
