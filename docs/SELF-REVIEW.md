@@ -58,4 +58,7 @@ PENDING (harness agent)
 
 ## 4. Checks after the fixes
 
-PENDING
+On `c4969c0c5` (45 modules plus the fixes above): `cargo test` and
+`clippy` clean, smoke 3/3, `full` 45/45 and `deep` 9/9 identical to the C
+references. No run of any suite printed a nested Borg entry, so the U1 path
+is not reached by the suites. `main` was moved to this commit.
