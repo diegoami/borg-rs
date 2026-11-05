@@ -1064,3 +1064,6 @@ with its issues.
   and so are a detection panel index outside the arrays and a queued
   `SPELL_` message without a ':' (C reads through `NULL + 1`; every
   message the Borg queues has one).
+* Tracker: one lead per slip, in the order above (the `created_traps` /
+  `BLINK:` bullet is two):
+  diegoami/neo-angband-tracker#212 to diegoami/neo-angband-tracker#221.
