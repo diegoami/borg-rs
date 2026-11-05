@@ -8,4 +8,3 @@ pub use crate::bridge::flow_stairs::borg_flow_stair_less;
 pub use crate::bridge::flow_stairs::borg_flow_stair_more;
 pub use crate::bridge::flow_stairs::borg_free_flow_stairs;
 pub use crate::bridge::flow_stairs::borg_init_flow_stairs;
-pub use crate::bridge::flow_stairs::borg_prep_leave_level_spells;

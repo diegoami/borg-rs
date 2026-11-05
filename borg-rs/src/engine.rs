@@ -1466,6 +1466,12 @@ pub fn ddy_ddd(i: usize) -> i16 {
     unsafe { headers::cave_h::ddy_ddd[i] }
 }
 
+/// `ddd[i]` (cave.c): the keypad directions in `ddx_ddd` order (and 5).
+pub fn ddd(i: usize) -> i16 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::cave_h::ddd[i] }
+}
+
 /// `ddx[dir]` (cave.c): the x offset of keypad direction `dir` (0..9).
 pub fn ddx(dir: usize) -> i16 {
     // SAFETY: a constant table of the engine; nothing writes it.

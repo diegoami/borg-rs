@@ -774,3 +774,43 @@ Format: file, function, (seed, turn when observed), explanation.
 * Rust (`borg_flow_misc.rs`): all kept. Where C would read or write out of
   bounds (a `borg_temp_*` overflow, a shop index past `store_max`), the
   Rust code panics.
+
+## 40. Caution slips (caution)
+
+* `borg-caution.c`, found by code reading; all checked against the c2rust
+  code (see PROGRESS.md, module 47).
+* `borg_caution()`: when the Borg stands on a tracked up or down staircase
+  it notes "# Standing on up-stairs" / "dn-stairs" and sets `on_upstair` /
+  `on_dnstair` to `false` (they start `false`), so both are always false.
+  The "danger and standing on stair" clause of the take-the-stairs test is
+  dead, and the stair keys only follow the grid's own feature
+  (`FEAT_LESS` / `FEAT_MORE`).
+* "Desperation Head for stairs": the scans say "How far is the nearest up
+  stairs" but `if (b_j >= j) continue;` keeps the *farthest* stair without a
+  monster on it, so `b_j < 3` / `b_j <= 2` / `b_j < 20` (and `b_m <= 2`)
+  only hold when every free staircase of that kind is that close.
+* Strategic retreat: "Skip this grid if it is adjacent to a monster" only
+  `break`s out of the monster scan, so the test has no effect.
+* Back away: `adjacent_monster` is set inside the grid loop and never reset,
+  so after the first grid next to a (fast) monster every later grid is
+  skipped too; the `!adjacent_monster` term of the `MAXCLEVEL < 35` test is
+  then always true. "Mega-Hack -- skip traps" is a `break`: a known trap
+  without a glyph on one neighbour ends the whole scan.
+* "Excessive danger": the Borg only starts fleeing when
+  `borg.ready_morgoth == 1` (the comment says "do not flee level if going
+  after Morgoth"); with `ready_morgoth` 0 or -1 it never flees here.
+* Waiting for recall in danger, step (1): `borg.trait[BI_CURSP] <
+  (borg.trait[BI_CURSP] / 4)` compares the mana with itself (true only for
+  negative mana); `BI_MAXSP` was meant.
+* `borg_heal()`: the two critical blocks (poisoned, bleeding) set
+  `BI_CURSP = BI_MAXSP` and put the real value back only after their spells
+  fail. When a spell is cast, or (bleeding block, where the fake mana is set
+  before the potions) a cure or restore-mana potion is quaffed first, the
+  function returns with `BI_CURSP` still at `BI_MAXSP` until the traits are
+  next recomputed (as C bug 35).
+* `borg_heal()`, "Heal step two": the chain zaps the healing rod twice, the
+  second time without the "keep the rod if I can escape" test, so that test
+  has no effect there. `cmw_heal` is computed and never used.
+* Rust (`borg_caution.rs`): all kept. `borg_heal()` divides by `BI_MAXHP`
+  and the resistance note by `borg_game_ratio`; a 0 there panics where C
+  traps.
