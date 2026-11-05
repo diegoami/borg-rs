@@ -27,6 +27,7 @@ use crate::borg_item::{inven_wield, quiver_end, quiver_start};
 use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_magic::{borg_spell, borg_spell_legal};
+use crate::borg_power::borg_power;
 use crate::borg_store::{borg_home_full, borg_inventory_full, BORG_HOME, SHOP_MENU_ITEMS};
 use crate::{borg_flow_misc, bridge};
 use crate::engine;
@@ -386,7 +387,7 @@ pub fn borg_swap_rings(st: &mut BorgState) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let v1 = bridge::borg_power(st);
+        let v1 = borg_power(st);
 
         /* Restore the ring */
         from_safe(st, left, left);
@@ -410,7 +411,7 @@ pub fn borg_swap_rings(st: &mut BorgState) -> bool {
     bridge::borg_notice(st, false);
 
     /* Evaluate the inventory */
-    let v2 = bridge::borg_power(st);
+    let v2 = borg_power(st);
 
     /* Restore the ring */
     from_safe(st, right, right);
@@ -538,7 +539,7 @@ pub fn borg_wear_rings(st: &mut BorgState) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let mut p = bridge::borg_power(st);
+        let mut p = borg_power(st);
 
         /* the One Ring would be awesome */
         if st.items.items[i as usize].one_ring {
@@ -808,7 +809,7 @@ fn wear_trial(st: &mut BorgState, hole: i32, slot: i32, i: i32) -> (i32, i32) {
     bridge::borg_notice(st, true);
 
     /* Evaluate the inventory */
-    let p = bridge::borg_power(st);
+    let p = borg_power(st);
 
     /* Evaluate local danger */
     let d = danger_here(st);
@@ -1238,7 +1239,7 @@ fn borg_best_stuff_aux(st: &mut BorgState, n: i32, test: &mut [u16], best: &mut 
         bridge::borg_notice(st, true);
 
         /* Evaluate */
-        let p = bridge::borg_power(st);
+        let p = borg_power(st);
 
         /* Track best */
         if p > *vp {

@@ -1544,15 +1544,6 @@ pub fn borg_notice(st: &mut BorgState, notice_swap: bool) {
     escape(st);
 }
 
-/// `borg_power()` (still c2rust, borg-power.c).
-pub fn borg_power(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_power::borg_power() };
-    escape(st);
-    r
-}
-
 /// `borg_read_scroll(sval)` (borg-item-use.c, converted).
 pub fn borg_read_scroll(st: &mut BorgState, sval: i32) -> bool {
     crate::borg_item_use::borg_read_scroll(st, sval)
@@ -2088,6 +2079,15 @@ pub mod caution {
 
     pub unsafe extern "C" fn borg_caution() -> bool {
         crate::borg_caution::borg_caution(st())
+    }
+}
+
+/// C-ABI shim with the borg-power.c name (caller in borg_think).
+pub mod power {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_power() -> i32 {
+        crate::borg_power::borg_power(st())
     }
 }
 

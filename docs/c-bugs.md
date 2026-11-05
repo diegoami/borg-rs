@@ -895,3 +895,38 @@ with its issues.
 * Rust (`borg_fight_defend.rs`): all kept.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#173 to diegoami/neo-angband-tracker#183.
+
+## 43. Power slips (power)
+
+* `borg-power.c`, found by code reading; all checked against the c2rust
+  code (see PROGRESS.md, module 50).
+* `borg_power_inventory()`, "collect Resistance pots if not immune -- All
+  Classes": `k` is not reset before the loop, so it starts where the
+  previous loop left it (the low-calorie food count, capped at 15, or the
+  Cure Serious count of the cut/poison block, capped at 5). With 4 or more
+  of those, Resist Poison potions get no reward here.
+* Same function, "Reward Resistance Potions for Warriors": `k` is reset
+  before the heat and cold loops but not before the poison loop, which
+  starts at the Resist Cold count (capped at 4).
+* Same function, the encumbrance test scans for the "last" item from
+  `PACK_SLOTS` down, one slot past the last usable pack slot (other Borg
+  code starts at `PACK_SLOTS - 1`). With an empty quiver that slot is
+  `INVEN_WIELD`, so when a weapon is wielded it is taken as the "test item"
+  and the exemption for enchant scrolls and stat potions just bought never
+  applies.
+* Same function: the penalty divides by `borg.trait[BI_CARRY] / 10`
+  unchecked; a carry limit below 10 traps in C and panics in Rust (not
+  reachable in play).
+* `borg_power_equipment()`: `adj_str_hold[borg.trait[BI_STR_INDEX]]` is not
+  bounds checked (38 entries); an index above 37 reads outside the table in
+  C and panics in Rust (`borg_notice` caps the index at 37). The books loop
+  of `borg_power_inventory()` reads `player->class->magic.books[book]` for
+  every book the Borg counts; a book the class does not have would read
+  past the array in C and panics in Rust (`borg.amt_book` only counts the
+  class's own books).
+* `borg_power_equipment()`, the speed rewards with `borg_worships_speed`:
+  the 140-144 tier repeats the 135-139 base (175000), so going from +19
+  to +20 speed gains no step bonus, unlike every other tier boundary.
+  Kept.
+* Rust (`borg_power.rs`): all kept; the out-of-bounds reads and the
+  division by zero are panics.

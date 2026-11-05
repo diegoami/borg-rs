@@ -30,6 +30,7 @@ use crate::borg_item::{borg_item_weight, inven_feet, inven_wield, quiver_end, qu
 use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_item_use::{borg_eat, borg_quaff_potion, borg_read_scroll};
+use crate::borg_power::borg_power;
 use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
@@ -621,7 +622,7 @@ pub fn borg_drop_junk(st: &mut BorgState) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let p = bridge::borg_power(st);
+        let p = borg_power(st);
 
         /* Restore the item */
         from_safe(st, i, i);
@@ -935,7 +936,7 @@ pub fn borg_drop_hole(st: &mut BorgState, desperate: bool) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let mut p = bridge::borg_power(st);
+        let mut p = borg_power(st);
 
         /* Restore the item */
         from_safe(st, i, i);
@@ -1196,7 +1197,7 @@ pub fn borg_drop_slow(st: &mut BorgState) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let mut p = bridge::borg_power(st);
+        let mut p = borg_power(st);
 
         /* Restore the item */
         add_iqty(st, i, 1);
@@ -1454,7 +1455,7 @@ pub fn borg_remove_stuff(st: &mut BorgState) -> bool {
         bridge::borg_notice(st, true);
 
         /* Evaluate the inventory */
-        let p = bridge::borg_power(st);
+        let p = borg_power(st);
 
         /* Restore the item */
         from_safe(st, i, i);

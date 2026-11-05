@@ -33,6 +33,7 @@ use crate::borg_danger::borg_danger;
 use crate::borg_init::BORG_SETTINGS;
 use crate::borg_io::{borg_note, borg_note_bytes};
 use crate::borg_item::{inven_wield, quiver_end};
+use crate::borg_power::borg_power;
 use crate::borg_projection::{borg_inc_motion, borg_los, borg_projectable_dark};
 use crate::headers::borg_h::BORG_MAX_SETTINGS;
 use crate::headers::borg_trait_h::{BI_CDEPTH, BI_CSTR, BI_MAX, BI_MAXDEPTH, BI_STR};
@@ -1071,7 +1072,7 @@ fn borg_cmd_power(st: &mut BorgState) {
     crate::borg_item_id::borg_object_fully_id(st);
 
     // Evaluate
-    let p = bridge::borg_power(st);
+    let p = borg_power(st);
 
     crate::borg_home_notice::borg_notice_home(st, None, false);
 
@@ -1150,7 +1151,7 @@ fn borg_cmd_swaps(st: &mut BorgState) {
     crate::borg_home_notice::borg_notice_home(st, None, false);
 
     // Check the power
-    bridge::borg_power(st);
+    borg_power(st);
 
     // Examine the screen
     bridge::borg_update(st);
@@ -1329,7 +1330,7 @@ fn borg_cmd_object_desc(st: &mut BorgState) {
     crate::borg_home_notice::borg_notice_home(st, None, false);
 
     // Check the power
-    bridge::borg_power(st);
+    borg_power(st);
 
     // Examine the screen
     bridge::borg_update(st);

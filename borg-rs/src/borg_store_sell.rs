@@ -28,6 +28,7 @@ use crate::borg_io::{borg_keypress, borg_note_bytes, ESCAPE, KC_ENTER};
 use crate::borg_item::inven_wield;
 use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
+use crate::borg_power::borg_power;
 use crate::borg_store::BORG_HOME;
 use crate::bridge;
 use crate::engine;
@@ -452,7 +453,7 @@ fn borg_think_home_sell_bad(st: &mut BorgState, i: i32, borg_empty_home_power: i
     bridge::borg_notice(st, true);
 
     // if this reduces the borgs power, it is a bad transaction
-    if bridge::borg_power(st) < st.borg.power {
+    if borg_power(st) < st.borg.power {
         let item = pack_item(st, i);
         item.iqty = item.iqty.wrapping_add(1);
 
@@ -1042,7 +1043,7 @@ pub fn borg_think_shop_sell_useless(st: &mut BorgState) -> bool {
             bridge::borg_notice(st, true);
 
             // Evaluate the inventory
-            let p = bridge::borg_power(st);
+            let p = borg_power(st);
 
             // Restore the item
             st.items.items[iu] = st.items.safe_items[iu];
@@ -1281,7 +1282,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
         let sv_qty = item.iqty;
         pack_item(st, i).iqty = 0;
         bridge::borg_notice(st, true);
-        let p = bridge::borg_power(st);
+        let p = borg_power(st);
         pack_item(st, i).iqty = sv_qty;
 
         if p.wrapping_add(50) < st.borg.power {

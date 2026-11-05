@@ -1423,6 +1423,12 @@ pub fn adj_dex_safe(i: usize) -> i32 {
     unsafe { headers::player_calcs_h::adj_dex_safe[i] }
 }
 
+/// `adj_str_hold[i]` (player-calcs.c); panics out of range.
+pub fn adj_str_hold(i: usize) -> i32 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::player_calcs_h::adj_str_hold[i] }
+}
+
 /// `extract_energy[speed]` (game-world.c); panics out of range.
 pub fn extract_energy(speed: usize) -> u8 {
     // SAFETY: a constant table of the engine; nothing writes it.

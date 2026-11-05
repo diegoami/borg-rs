@@ -28,6 +28,7 @@ use crate::borg_inventory::{borg_first_empty_inventory_slot, borg_slot, borg_wie
 use crate::borg_io::{borg_keypress, borg_note, borg_note_bytes, ESCAPE, KC_ENTER};
 use crate::borg_item::inven_wield;
 use crate::borg_magic::{borg_get_book_num, borg_is_dungeon_book, borg_primarily_caster};
+use crate::borg_power::borg_power;
 use crate::borg_store::{BORG_HOME, SHOP_MENU_ITEMS};
 use crate::bridge;
 use crate::engine;
@@ -491,7 +492,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
                 bridge::borg_notice(st, true);
 
                 /* Evaluate the inventory */
-                p = bridge::borg_power(st);
+                p = borg_power(st);
 
                 /* Restore old item */
                 item_from_safe(st, slot, slot);
@@ -514,7 +515,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
                 bridge::borg_notice(st, true);
 
                 /* Evaluate the equipment */
-                p = bridge::borg_power(st);
+                p = borg_power(st);
             }
 
             /* Restore hole */
@@ -670,7 +671,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                     bridge::borg_notice(st, true);
 
                     /* Evaluate the inventory */
-                    p_left = bridge::borg_power(st);
+                    p_left = borg_power(st);
 
                     /* Restore old item */
                     item_from_safe(st, slot, slot);
@@ -695,7 +696,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                     bridge::borg_notice(st, true);
 
                     /* Evaluate the inventory */
-                    p_right = bridge::borg_power(st);
+                    p_right = borg_power(st);
 
                     /* Restore old item */
                     item_from_safe(st, inven_right(), inven_right());
@@ -725,7 +726,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                 bridge::borg_notice(st, true);
 
                 /* Evaluate the inventory */
-                p = bridge::borg_power(st);
+                p = borg_power(st);
 
                 /* Restore old item */
                 item_from_safe(st, slot, slot);
@@ -785,7 +786,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
             bridge::borg_notice(st, true);
 
             /* Evaluate the equipment */
-            p = bridge::borg_power(st);
+            p = borg_power(st);
         }
 
         /* Restore hole */
