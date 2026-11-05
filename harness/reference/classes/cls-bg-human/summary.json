@@ -1,0 +1,19 @@
+{
+  "seed": 3003,
+  "race": "Human",
+  "race_idx": 0,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "death",
+  "game_turns": 47560,
+  "player_turns": 4959,
+  "resting_turns": 737,
+  "clevel": 6,
+  "max_depth": 4,
+  "depth": 4,
+  "dead": true,
+  "death_cause": "a kobold archer",
+  "keys": 6075,
+  "wall_seconds": 28.405
+}

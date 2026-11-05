@@ -1,0 +1,19 @@
+{
+  "seed": 3010,
+  "race": "Dunadan",
+  "race_idx": 8,
+  "class": "Ranger",
+  "class_idx": 7,
+  "menu_letters": true,
+  "stop_reason": "death",
+  "game_turns": 26791,
+  "player_turns": 2759,
+  "resting_turns": 276,
+  "clevel": 3,
+  "max_depth": 2,
+  "depth": 2,
+  "dead": true,
+  "death_cause": "a fruit bat",
+  "keys": 3731,
+  "wall_seconds": 17.338
+}

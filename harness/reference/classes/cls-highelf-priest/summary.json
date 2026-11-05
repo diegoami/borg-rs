@@ -1,0 +1,19 @@
+{
+  "seed": 3013,
+  "race": "High-Elf",
+  "race_idx": 9,
+  "class": "Priest",
+  "class_idx": 3,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100008,
+  "player_turns": 10165,
+  "resting_turns": 5365,
+  "clevel": 5,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 7564,
+  "wall_seconds": 29.945
+}

@@ -1,0 +1,11 @@
+suite=classes
+suite_sha256=57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2
+borg_impl_env=c
+binary=/home/user/borg-rs/.claude/worktrees/agent-a16c731f39ee2d7e6/build/c/game/angband
+binary_sha256=d7431953db2c66e2cb16688f3c4af80b0b121916412af733b683f97be81cf55e
+binary_cmake_borg_impl=c
+git_rev=7bf674cf728d174caeb957dbfa648f6a5d081b8e
+git_dirty=yes
+jobs=2
+started_utc=2026-11-05T11:54:55Z
+finished_utc=2026-11-05T12:02:10Z result=OK
