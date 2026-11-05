@@ -1015,7 +1015,7 @@ with its issues.
 ## 46. Update slips (update)
 
 * `borg-update.c`, found by code reading; all checked against the c2rust
-  code (see PROGRESS.md, module 52).
+  code (see PROGRESS.md, module 54).
 * `borg_update_map()`: `old_wall` is taken after the grid's `feat` has
   already been overwritten with the game's feature, so `old_wall` and
   `new_wall` only differ when a later branch changes `feat` again (a shop
