@@ -29,6 +29,7 @@ use crate::borg_item_use::ItemUseState;
 use crate::borg_item_val::ItemValState;
 use crate::borg_item_wear::WearState;
 use crate::borg_magic::MagicState;
+use crate::borg_messages::MessagesState;
 use crate::borg_messages_react::MsgState;
 use crate::borg_prepared::PreparedState;
 use crate::borg_projection::ProjectionState;
@@ -97,6 +98,10 @@ pub struct BorgState {
     /// borg-messages.c / borg-messages-react.c: the message queue
     /// (`borg_msg_*`) and `borg_dont_react`
     pub msgs: MsgState,
+    /// borg-messages.c: `borg_match`, the message tables (`suffix_pain`,
+    /// `suffix_hit_by`, `spell_msgs`, `spell_invis_msgs`) and the
+    /// `borg_parse` buffer
+    pub messages: MessagesState,
     /// borg-prepared.c: `borg_numb_live_unique`, `borg_first_living_unique`,
     /// `borg_depth_hunted_unique`
     pub prepared: PreparedState,

@@ -195,32 +195,9 @@ c2r_void! {
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
     borg_trait_init => crate::c2rust::borg_trait::borg_trait_init;
     borg_trait_free => crate::c2rust::borg_trait::borg_trait_free;
-    borg_init_messages => crate::c2rust::borg_messages::borg_init_messages;
-    borg_free_messages => crate::c2rust::borg_messages::borg_free_messages;
     borg_init_update => crate::c2rust::borg_update::borg_init_update;
     borg_free_update => crate::c2rust::borg_update::borg_free_update;
     borg_free_detection => crate::c2rust::borg_update::borg_free_detection;
-}
-
-/// `borg_parse(NULL)`
-pub fn borg_parse_null(st: &mut BorgState) {
-    escape(st);
-    // SAFETY: NULL is the documented "flush" argument.
-    unsafe { crate::c2rust::borg_messages::borg_parse(core::ptr::null_mut()) }
-    escape(st);
-}
-
-/// `borg_get_messages(&key, cursor)`
-pub fn borg_get_messages(
-    st: &mut BorgState,
-    key: &mut crate::headers::ui_event_h::keypress,
-    cursor: crate::headers::z_type_h::loc,
-) -> bool {
-    escape(st);
-    // SAFETY: key is a valid out-pointer for the call.
-    let r = unsafe { crate::c2rust::borg_messages::borg_get_messages(key, cursor) };
-    escape(st);
-    r
 }
 
 /// `borg_think()`
@@ -1186,13 +1163,11 @@ pub mod log {
     }
 }
 
-/// C-ABI shims with the borg-messages-react.c names (callers in
-/// borg_messages, borg_light and borg_think_dungeon_util).
+/// C-ABI shim with the borg-messages-react.c name (caller in
+/// borg_think_dungeon_util).
 pub mod messages_react {
     use super::{cbytes, st};
     use crate::borg_messages_react as r;
-    use crate::headers::ui_event_h::keypress;
-    use crate::headers::z_type_h::loc;
     use core::ffi::c_char;
 
     /// As in C, a trailing ',' of `buf` is cut in the caller's buffer
@@ -1205,23 +1180,6 @@ pub mod messages_react {
         if r::borg_react(st(), &msg, &text) {
             *(buf as *mut c_char).add(n - 1) = 0;
         }
-    }
-    pub unsafe extern "C" fn borg_react_prompted(
-        buf: *const c_char,
-        key: *mut keypress,
-        cursor: loc,
-    ) -> bool {
-        let text = cbytes(buf).to_vec();
-        match r::borg_react_prompted(st(), &text, cursor) {
-            Some(code) => {
-                (*key).code = code;
-                true
-            }
-            None => false,
-        }
-    }
-    pub unsafe extern "C" fn borg_clear_reactions() {
-        r::borg_clear_reactions(st())
     }
 }
 
@@ -2195,20 +2153,14 @@ c2r_void! {
     borg_update => crate::c2rust::borg_update::borg_update;
 }
 
-/// `borg_match` (still c2rust, borg-messages.c): the text that stops the
-/// Borg when a message contains it (`char[128]`).
-pub fn borg_match(st: &mut BorgState) -> [u8; 128] {
-    escape(st);
-    // SAFETY: plain read of a char array global; Borg thread.
-    let r = unsafe { *(core::ptr::addr_of!(crate::c2rust::borg_messages::borg_match) as *const [u8; 128]) };
-    escape(st);
-    r
+/// `borg_failure = v` (global of borg-update.c, still c2rust).
+pub fn set_borg_failure(_st: &mut BorgState, v: bool) {
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_update::borg_failure = v };
 }
 
-/// `borg_match = v` (all 128 bytes).
-pub fn set_borg_match(st: &mut BorgState, v: &[u8; 128]) {
-    escape(st);
-    // SAFETY: plain write of a char array global; Borg thread.
-    unsafe { *(core::ptr::addr_of_mut!(crate::c2rust::borg_messages::borg_match) as *mut [u8; 128]) = *v };
-    escape(st);
+/// `target_closest = v` (global of borg-fight-attack.c, still c2rust).
+pub fn set_target_closest(_st: &mut BorgState, v: i32) {
+    // SAFETY: plain write of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_fight_attack::target_closest = v };
 }

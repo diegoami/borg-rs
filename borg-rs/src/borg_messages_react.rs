@@ -162,7 +162,7 @@ pub fn borg_react_prompted(st: &mut BorgState, buf: &[u8], cursor: loc) -> Optio
         // And the text acquired above is "Die?"
         if buf.starts_with(b"Die?") && st.borg.status.cheat_death {
             // Flush messages
-            bridge::borg_parse_null(st);
+            crate::borg_messages::borg_parse(st, None);
 
             // flush the buffer
             borg_flush(st);

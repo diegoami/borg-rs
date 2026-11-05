@@ -322,7 +322,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         crate::borg_log::borg_log_death(st);
         crate::borg_log::borg_log_death_data(st);
         borg_flush(st);
-        bridge::borg_parse_null(st);
+        crate::borg_messages::borg_parse(st, None);
         crate::borg_messages_react::borg_clear_reactions(st);
         bridge::borg_oops(st, "player died");
         key.code = ktrl(b'C');
@@ -419,11 +419,11 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     }
 
     // Messages at the top of the screen; some need an answer right away
-    if bridge::borg_get_messages(st, &mut key, cursor) {
+    if crate::borg_messages::borg_get_messages(st, &mut key, cursor) {
         return key;
     }
 
-    bridge::borg_parse_null(st);
+    crate::borg_messages::borg_parse(st, None);
     st.borg.dont_react = false;
 
     let borg_ch = borg_inkey(st, true);

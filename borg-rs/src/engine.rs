@@ -2369,3 +2369,120 @@ pub fn inven_object_flags(n: i32) -> [u8; OF_SIZE] {
     }
     f
 }
+
+// ---------------------------------------------------------------------------
+// Messages (borg-messages.c)
+
+/// A C string of game data as owned bytes, `None` for NULL.
+fn opt_text(p: *const c_char) -> Option<Vec<u8>> {
+    // SAFETY: non-NULL pointers passed here are game data strings that live
+    // for the game.
+    (!p.is_null()).then(|| unsafe { CStr::from_ptr(p).to_bytes().to_vec() })
+}
+
+/// `inkey_flag` (ui-input.c): the game is waiting for a command.
+pub fn inkey_flag() -> bool {
+    // SAFETY: plain read of a bool global; engine thread.
+    unsafe { crate::headers::ui_input_h::inkey_flag }
+}
+
+/// `player->wizard`
+pub fn player_wizard() -> bool {
+    player_ref().wizard
+}
+
+/// `TERM_XTRA_NOISE` (ui-term.h): make a noise.
+pub const TERM_XTRA_NOISE: i32 = 7;
+
+/// `Term_xtra(n, v)` on the current terminal (the Borg only uses
+/// `TERM_XTRA_NOISE`; the headless frontend ignores it).
+pub fn term_xtra(n: i32, v: i32) -> i32 {
+    // SAFETY: the active terminal is set up by the frontend; a noise
+    // request never waits for a key.
+    unsafe { crate::headers::ui_term_h::Term_xtra(n, v) }
+}
+
+/// `square_iswarded(cave, loc(x, y))` on the current level: a glyph of
+/// warding (or another protective rune) on the grid. Panics if the grid
+/// is out of bounds (as `square_isvault`).
+pub fn square_iswarded(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // grid is in bounds (checked above).
+    unsafe { headers::cave_h::square_iswarded(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// The texts of one level of a monster spell (`struct
+/// monster_spell_level`), `None` for NULL.
+pub struct SpellLevelTexts {
+    pub blind_message: Option<Vec<u8>>,
+    pub message: Option<Vec<u8>>,
+    pub miss_message: Option<Vec<u8>>,
+}
+
+/// The monster spells (`monster_spells`, in list order): each spell's
+/// `index` and the texts of its levels (in list order).
+pub fn monster_spell_texts() -> Vec<(u16, Vec<SpellLevelTexts>)> {
+    use crate::headers::monster_h::{monster_spell, monster_spell_level};
+    let mut out = Vec::new();
+    // SAFETY: `monster_spells` is parsed game data (NULL-ended lists,
+    // never freed while the game runs); the nodes are only read.
+    unsafe {
+        let mut spell = crate::headers::monster_h::monster_spells as *const monster_spell;
+        while !spell.is_null() {
+            let mut levels = Vec::new();
+            let mut lv = (*spell).level as *const monster_spell_level;
+            while !lv.is_null() {
+                levels.push(SpellLevelTexts {
+                    blind_message: opt_text((*lv).blind_message),
+                    message: opt_text((*lv).message),
+                    miss_message: opt_text((*lv).miss_message),
+                });
+                lv = (*lv).next;
+            }
+            out.push(((*spell).index, levels));
+            spell = (*spell).next;
+        }
+    }
+    out
+}
+
+/// `pain_messages[idx].messages` (`None` for NULL); panics unless
+/// `idx < z_info->mp_max`.
+pub fn pain_texts(idx: usize) -> [Option<Vec<u8>>; 7] {
+    assert!(idx < usize::from(z_info().mp_max), "pain index out of range");
+    // SAFETY: plain read of a pointer global set up by the game's init.
+    let p = unsafe { crate::headers::monster_h::pain_messages };
+    assert!(!p.is_null(), "no pain messages");
+    // SAFETY: `pain_messages` has `mp_max` entries (index checked) of game
+    // data that live for the game.
+    let pain = unsafe { &*p.add(idx) };
+    core::array::from_fn(|i| opt_text(pain.messages[i]))
+}
+
+/// The blow methods (`blow_methods[0 .. z_info->blow_methods_max]`): each
+/// method's `msgt` and the `act_msg` of its messages (in list order,
+/// `None` for NULL).
+pub fn blow_method_texts() -> Vec<(i32, Vec<Option<Vec<u8>>>)> {
+    use crate::headers::mon_blows_h::blow_message;
+    let n = usize::from(z_info().blow_methods_max);
+    // SAFETY: plain read of a pointer global set up by the game's init.
+    let base = unsafe { crate::headers::mon_blows_h::blow_methods };
+    assert!(n == 0 || !base.is_null(), "no blow methods");
+    let mut out = Vec::with_capacity(n);
+    for i in 0..n {
+        // SAFETY: `blow_methods` has `blow_methods_max` entries of parsed
+        // game data (NULL-ended message lists) that live for the game.
+        unsafe {
+            let m = &*base.add(i);
+            let mut texts = Vec::new();
+            let mut msg = m.messages as *const blow_message;
+            while !msg.is_null() {
+                texts.push(opt_text((*msg).act_msg));
+                msg = (*msg).next;
+            }
+            out.push((m.msgt, texts));
+        }
+    }
+    out
+}

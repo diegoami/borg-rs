@@ -933,3 +933,51 @@ with its issues.
 * Tracker: one lead per slip, in the order above (the out-of-bounds bullet
   is two):
   diegoami/neo-angband-tracker#184 to diegoami/neo-angband-tracker#190.
+
+## 44. Message parsing slips (messages)
+
+* `borg-messages.c`, found by code reading and the cross-check.
+* `borg_parse_aux()`: "You are too afraid to attack ..." is tested twice;
+  the first test reacts `AFRAID:` and returns, so the second (`MISS:`) is
+  dead.
+* "You have removed the ...": the "remove rubble around the Borg" loop
+  runs over 2x2 grids (`y` from `c.y - 1` to `c.y`, `x` likewise, not
+  3x3) and only ever looks at the goal grid `ag`, never at `(x, y)`: it
+  marks the goal grid as a broken door if it is rubble (and the Borg has no
+  light).
+* The "monster spell moved the Borg" test (`prefix(msg, "commands you to
+  return.")`, "teleports you away.", "gestures at your feet.") uses
+  `prefix` on texts that always start with the monster's name ("Something
+  commands you to return."), so it never matches and Lunal mode is never
+  switched off here.
+* "Identifying The Phial" has no `return`: the remaining tests run on the
+  message too (none matches it).
+* The failed-glyph handler ("The object resists the spell", "There is no
+  clear floor") writes `track_glyph.x[num]`/`y[num]` with no check: with a
+  full list (`num == size`, 200) C writes one `int` past each array, and
+  `num` can go below 0 (C bug 29). Rust panics on both.
+* `who` buffers: for "hit by" and spell patterns the monster name is
+  `strnfmt(who, start - msg, "%s", msg)`. When the pattern is at the start
+  of the message (spell texts without a `{name}`, e.g. "You feel something
+  roll beneath your feet."), `max` is 0, `vstrnfmt`'s `max - 1` wraps and
+  the whole message is copied: the "name" is the message itself, and a
+  message of 256 bytes or more would overflow the 256-byte `who` (Rust
+  panics). Likewise every `who` text is limited only by the message length
+  (`1 + len - tmp`), not by `sizeof(who)`; fragments that long do not occur
+  (the message line is 80 columns and long messages are split at sentence
+  ends).
+* `borg_get_parsed_pain()` stops at `pos < strlen(pain)` (the buffer is
+  `strlen + 1` bytes and starts with the added space), so a message without
+  `[|]` loses its last character: " can move again", " falls under your
+  spell", " is no longer under your control", " shimmers for a moment",
+  " There is a puff of smoke" (no final '.' or '!'). Messages end in
+  punctuation, so these five pain suffixes never match.
+* "It hits you" (with known glyphs) and "The rune of protection is broken!"
+  call `square_iswarded(cave, borg.c)` without a bounds check. Messages
+  are parsed before `borg_update()` moves `borg.c` to the new level, so on
+  the first key after a level change `borg.c` can still hold the old
+  level's position, outside a smaller level (seen in the fuzz check: the
+  town, 66x22, with `borg.c` = (113, 48)); C then reads outside the
+  level's row array. `engine::square_iswarded` panics.
+* Rust (`borg_messages.rs`): all kept; the out-of-bounds reads and writes
+  are panics.

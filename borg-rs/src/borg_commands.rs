@@ -506,13 +506,13 @@ fn borg_cmd_nasties(st: &mut BorgState) {
 fn borg_cmd_search_string(st: &mut BorgState) {
     // Get the new search string (or cancel the matching); edited in a
     // copy of all of borg_match, written back as a whole
-    let mut buf = bridge::borg_match(st);
+    let mut buf = st.messages.match_;
     let ok = bridge::get_string(st, c"Borg Match String: ", &mut buf, 70);
     if !ok {
         // Cancel it (`my_strcpy(borg_match, "", ...)`)
         buf[0] = 0;
     }
-    bridge::set_borg_match(st, &buf);
+    st.messages.match_ = buf;
     if !ok {
 
         // Message

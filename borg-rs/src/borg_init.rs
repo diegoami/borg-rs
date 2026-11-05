@@ -688,7 +688,7 @@ pub fn borg_init(st: &mut BorgState) {
 
     // Initialize
 
-    bridge::borg_init_messages(st);
+    crate::borg_messages::borg_init_messages(st);
 
     // Initialize
     crate::borg_io::borg_init_io(st);
@@ -804,7 +804,7 @@ pub fn borg_free(st: &mut BorgState) {
     crate::borg_cave::borg_free_cave(st);
     crate::borg_io::borg_free_io(st);
 
-    bridge::borg_free_messages(st);
+    crate::borg_messages::borg_free_messages(st);
     borg_free_txt_file(st);
 }
 
