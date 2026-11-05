@@ -1099,10 +1099,41 @@ pub fn borg_flow_old(_st: &mut BorgState, why: i32) -> bool {
     unsafe { crate::c2rust::borg_flow::borg_flow_old(why) }
 }
 
-/// `borg_check_light()` (still c2rust, borg-light.c).
-pub fn borg_check_light(_st: &mut BorgState) -> bool {
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::c2rust::borg_light::borg_check_light() }
+/// The panel detection arrays of borg-update.c (still c2rust):
+/// `borg_detect_wall/trap/door/evil/obj`.
+#[derive(Clone, Copy)]
+pub enum Detect {
+    Wall,
+    Trap,
+    Door,
+    Evil,
+    Obj,
+}
+
+/// `borg_detect_<what>[y][x]` (still c2rust, borg-update.c). Panics when
+/// the arrays are not allocated or the panel is past them (C would read
+/// through NULL or out of bounds).
+pub fn borg_detect(_st: &mut BorgState, what: Detect, y: i32, x: i32) -> bool {
+    use crate::c2rust::borg_update as u;
+    // SAFETY: borg_alloc_detection() allocates `old_panels.y + 1` rows of
+    // `old_panels.x + 1` bools for each array and records the sizes in
+    // `old_panels`; borg_free_detection() nulls the arrays (checked). The
+    // indexes are checked against those sizes. Borg thread.
+    unsafe {
+        let arr = match what {
+            Detect::Wall => u::borg_detect_wall,
+            Detect::Trap => u::borg_detect_trap,
+            Detect::Door => u::borg_detect_door,
+            Detect::Evil => u::borg_detect_evil,
+            Detect::Obj => u::borg_detect_obj,
+        };
+        let size = u::old_panels;
+        assert!(!arr.is_null(), "borg_detect: arrays not allocated");
+        assert!((0..=size.y).contains(&y) && (0..=size.x).contains(&x), "borg_detect: out of bounds");
+        let row = *arr.add(y as usize);
+        assert!(!row.is_null());
+        *row.add(x as usize)
+    }
 }
 
 /// `track_less.num` (still c2rust, borg-flow-stairs.c).
@@ -1233,6 +1264,26 @@ pub mod flow_take {
     }
 }
 
+
+/// C-ABI shims with the borg-light.c names, for c2rust callers.
+pub mod light {
+    use super::st;
+    use crate::borg_light as l;
+    use crate::headers::borg_item_use_h::borg_need;
+
+    pub unsafe extern "C" fn borg_check_light_only() -> bool {
+        l::borg_check_light_only(st())
+    }
+    pub unsafe extern "C" fn borg_check_light() -> bool {
+        l::borg_check_light(st())
+    }
+    pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
+        l::borg_maintain_light(st()) as borg_need
+    }
+    pub unsafe extern "C" fn borg_light_beam(simulation: bool) -> bool {
+        l::borg_light_beam(st(), simulation)
+    }
+}
 
 /// C-ABI shims with the borg-item-use.c names, for c2rust callers.
 pub mod item_use {

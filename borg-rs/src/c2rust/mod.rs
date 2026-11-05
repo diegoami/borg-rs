@@ -17,7 +17,6 @@ pub mod borg_init;
 pub mod borg_item_decurse;
 pub mod borg_item_enchant;
 pub mod borg_junk;
-pub mod borg_light;
 pub mod borg_messages;
 pub mod borg_power;
 pub mod borg_recover;

@@ -900,7 +900,7 @@ fn lunal_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     }
 
     /* Check for monsters before walking over to the item */
-    if bridge::borg_check_light(st) {
+    if crate::borg_light::borg_check_light(st) {
         return true;
     }
 

@@ -1250,6 +1250,22 @@ pub fn extract_energy(speed: usize) -> u8 {
     unsafe { headers::game_world_h::extract_energy[speed] }
 }
 
+/// `square_isglow(cave, loc(x, y))` on the current level. The grid must
+/// be in bounds (the engine asserts it, as for C callers).
+pub fn square_isglow(x: i32, y: i32) -> bool {
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // function asserts the grid is in bounds before reading it.
+    unsafe { headers::cave_h::square_isglow(headers::cave_h::cave, loc { x, y }) }
+}
+
+/// `panel_contains(y, x)` (game-input.c, `textui_panel_contains`): is the
+/// grid on the current map panel? The arguments are C `unsigned int`s (a
+/// negative value wraps, as in C).
+pub fn panel_contains(y: i32, x: i32) -> bool {
+    // SAFETY: plain call; the hook reads the main term's offsets and size.
+    unsafe { headers::game_input_h::panel_contains(y as u32, x as u32) }
+}
+
 /// `ddx_ddd[i]` (cave.c): the x offsets of the 8 directions (and 0).
 pub fn ddx_ddd(i: usize) -> i16 {
     // SAFETY: a constant table of the engine; nothing writes it.

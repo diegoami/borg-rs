@@ -351,3 +351,24 @@ Format: file, function, (seed, turn when observed), explanation.
   more than 10 turns ago" test is true at once. The test itself skips an
   artifact worn on this level *more* than 10 turns ago (not recently).
 * Rust (`borg_item_wear.rs`): all kept (`swap_letter(-1)` gives the 0 key).
+
+## 22. Light beam edge test and lantern refuel scan (light)
+
+* `borg-light.c`, found by code reading.
+* `borg_light_beam()`: "Don't do it if on the edge of shifting the panel"
+  compares the Borg's absolute dungeon row `borg.c.y` with the panel
+  height (`borg.c.y > borg_panel_hgt() - 2`), not its row on the panel,
+  and uses that same "bottom edge" test for north (`dir == 8`) and south
+  (`dir == 2`). So a north or south beam is only ever cast in the top
+  rows of the dungeon (`borg.c.y <= borg_panel_hgt() - 2`).
+* `borg_light_beam()`: the west test starts at step 1 while north, south
+  and east start at step 0 (the Borg's own grid), so with a light radius
+  of 0 the west loop never runs and never picks direction 4. The
+  `blocked == false` test inside each loop is always true there.
+* `borg_refuel_lantern()`: with no flask of oil, the lantern scan starts
+  at `borg_slot(TV_LIGHT, sv_light_lantern)`, which (lanterns do not
+  stack, all piles are 1) is the *last* lantern in the pack. Only that one
+  is checked: if it is Everburning or empty, the next slot is not a
+  lantern (or the pack ends) and no lantern is used, even when an earlier
+  lantern has fuel.
+* Rust (`borg_light.rs`): all kept.

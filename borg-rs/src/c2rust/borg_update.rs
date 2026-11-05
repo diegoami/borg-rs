@@ -215,7 +215,7 @@ pub static mut borg_detect_evil: *mut *mut bool =
     ::core::ptr::null::<*mut bool>() as *mut *mut bool;
 #[no_mangle]
 pub static mut borg_detect_obj: *mut *mut bool = ::core::ptr::null::<*mut bool>() as *mut *mut bool;
-static mut old_panels: loc = loc {
+pub(crate) static mut old_panels: loc = loc {
     x: -(1 as ::core::ffi::c_int),
     y: -(1 as ::core::ffi::c_int),
 };
