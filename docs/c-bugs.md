@@ -981,3 +981,5 @@ with its issues.
   level's row array. `engine::square_iswarded` panics.
 * Rust (`borg_messages.rs`): all kept; the out-of-bounds reads and writes
   are panics.
+* Tracker: one lead per slip, in the order above:
+  diegoami/neo-angband-tracker#191 to diegoami/neo-angband-tracker#198.
