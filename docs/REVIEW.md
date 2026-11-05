@@ -84,6 +84,9 @@ harness/check-no-c-borg.sh
 
 ## What to look at critically
 
+A self-review (three independent read-only reviews) was done before the
+external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
+
 * **Coverage.** The keypress oracle only covers what the suites reach.
   Deep-dungeon code (below level 26), rare items and the Morgoth endgame are
   checked only by the per-module fuzz cross-checks and by reading the code.

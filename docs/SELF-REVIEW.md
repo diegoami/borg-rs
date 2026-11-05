@@ -54,7 +54,26 @@ Panics across FFI are not an issue: both profiles use `panic = "abort"`.
 
 ## 3. Harness and evidence
 
-PENDING (harness agent)
+The references hold up: every stored C output still diffs identical to
+them, 153 of 154 engine objects were byte-identical between the two builds
+(only `buildid.c.o` differed), and the reference history shows no edits.
+But the evidence had real gaps.
+
+| id | finding | verdict | action |
+|----|---------|---------|--------|
+| E6 | The birth-script letter quirk hits classes too: class 7 stays Warrior, class 8 plays Ranger. **Blackguard was never played**; Dunadan, High-Elf and Kobold never appeared. "9 classes" / "every race" were wrong | real coverage gap | opt-in `-menu-letters` (default unchanged, so old references stay valid); new suite `classes` (16 runs: Blackguard 8 times incl. a 1M-turn cheat-death run, the three missing races with 7 classes) with its own C reference, made twice (identical). **Rust: 16/16 identical** (`a0858e744`, `fe38227de`) |
+| E1 | `harness/diff` compared only the runs present in its first argument; a missing Rust run passed silently | real | compares the union, `--suite NAME` requires the exact run set, prints `(expected N)` (`f8633d84e`) |
+| E2, E3 | `suite.sh` reused its output dir (stale runs could pass) and stopped at the first failed run (no MISSING report) | real | fresh dir moved into place, `manifest` (git rev, binary sha256, impl, suite hash) and `DONE`/`FAILED` marker; keeps going after failures; diff refuses dirs without `DONE` (`b1775ac54`, `f8633d84e`) |
+| E4 | `check-no-c-borg.sh`: its whitelist grep matched every archive member, the strings check could never fire, empty inputs passed | real | archive members filtered by rustc name and `.comment`, explicit compiler-builtins list, fails on empty or stripped inputs, compares all engine objects byte for byte; shown to fail on 7 broken inputs (`a3ef10397`). Not done: a link-map check, so deliberately renamed C code would still pass |
+| E5 | references do not record their provenance; `build.sh` never passed `-DBORG_IMPL=c` | real | `build.sh` always passes it; suite outputs carry a manifest. Old references keep no binary hash (they predate this) |
+| M1, M3, M4 | diff was line-based, ignored `summary.json`, did not cross-check key counts | minor | raw byte compare; summaries compared (except `wall_seconds`); log lines = `keys` and last turn = `game_turns` on both sides |
+| M2 | trailing whitespace in a suite file could merge lines | minor | suite files read with `read`, comments and field counts checked |
+| M5 | TZ not pinned | minor (harmless) | `TZ=UTC` |
+| M6 | no uninitialised-memory audit of the C oracle | minor | C smoke under valgrind memcheck: 0 errors, keys identical |
+| M7 | smoke reference determinism not shown | minor | C smoke run twice, identical |
+| E7 | the oracle sees only keys: notes, direct state writes and config-dependent paths (munchkin, dynamic calcs, respawn) are not checked | real, open | documented in REVIEW.md. A notes log and a `config` suite are possible next steps |
+| E8 | per-module cross-checks were never committed | real, open | documented in REVIEW.md; for code the suites never reach they are the only evidence |
+| I1-I10 | wrong or stale claims in STATUS/REVIEW/harness.md/PROGRESS (coverage numbers, C bug numbers off by one or two, rows out of order, unsafe table wrong in most rows, a checkpoint label) | real | all corrected; the unsafe table is now recomputed from each commit (`c6d61faa6` and earlier docs commits, `a59054946`) |
 
 ## 4. Checks after the fixes
 
