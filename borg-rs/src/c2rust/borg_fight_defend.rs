@@ -33,7 +33,6 @@ pub use crate::headers::borg_fight_attack_h::{
     BORG_ATTACK_TAP_UNLIFE, BORG_ATTACK_TIME, BORG_ATTACK_TURN_ALL, BORG_ATTACK_TURN_EVIL,
     BORG_ATTACK_TURN_UNDEAD, BORG_ATTACK_WATER,
 };
-use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
 pub use crate::headers::borg_flow_h::{
     borg_temp_n, borg_temp_x, borg_temp_y, borg_track, track_step,
 };
@@ -1749,22 +1748,22 @@ unsafe extern "C" fn borg_defend_aux_glyph(mut p1: ::core::ffi::c_int) -> ::core
             || borg_activate_item(crate::bridge::st().act.glyph) as ::core::ffi::c_int != 0
         {
             i = 0 as ::core::ffi::c_int;
-            while i < track_glyph.num as ::core::ffi::c_int {
-                if *track_glyph.x.offset(i as isize) == crate::bridge::st().borg.c.x
-                    && *track_glyph.y.offset(i as isize) == crate::bridge::st().borg.c.y
+            while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+                if crate::bridge::st().glyph.track.x[i as usize] == crate::bridge::st().borg.c.x
+                    && crate::bridge::st().glyph.track.y[i as usize] == crate::bridge::st().borg.c.y
                 {
                     return p1 - p2;
                 }
                 i += 1;
             }
-            if (track_glyph.num as ::core::ffi::c_int) < track_glyph.size as ::core::ffi::c_int {
+            if (crate::bridge::st().glyph.track.num as ::core::ffi::c_int) < crate::bridge::st().glyph.track.size as ::core::ffi::c_int {
                 borg_note(
                     b"# Noting the creation of a glyph.\0" as *const u8
                         as *const ::core::ffi::c_char,
                 );
-                *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
-                *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
-                track_glyph.num += 1;
+                crate::bridge::st().glyph.track.x[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.x;
+                crate::bridge::st().glyph.track.y[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.y;
+                crate::bridge::st().glyph.track.num += 1;
             }
             return p1 - p2;
         }
@@ -1860,7 +1859,7 @@ unsafe extern "C" fn borg_defend_aux_create_door(mut p1: ::core::ffi::c_int) -> 
         }
         if borg_spell_fail(DOOR_CREATION, fail_allowed) {
             crate::bridge::st().borg.near.breeder = true_0 != 0;
-            borg_needs_new_sea = true_0 != 0;
+            crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
             return p1 - p2;
         }
     }
@@ -2360,7 +2359,7 @@ unsafe extern "C" fn borg_defend_aux_earthquake(mut p1: ::core::ffi::c_int) -> :
     let mut threat_count: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
     let mut kill: *mut borg_kill = ::core::ptr::null_mut::<borg_kill>();
     if !borg_simulate {
-        borg_needs_new_sea = true_0 != 0;
+        crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
         if borg_spell(TREMOR) {
             borg_keypress('*' as i32 as keycode_t);
             borg_keypress('5' as i32 as keycode_t);
@@ -2453,7 +2452,7 @@ unsafe extern "C" fn borg_defend_aux_destruction(mut p1: ::core::ffi::c_int) -> 
             || borg_use_staff(crate::bridge::st().item_val.sv_staff_destruction) as ::core::ffi::c_int != 0
             || borg_activate_item(crate::bridge::st().act.destruction2) as ::core::ffi::c_int != 0
         {
-            borg_needs_new_sea = true_0 != 0;
+            crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
         }
         return 500 as ::core::ffi::c_int;
     }
@@ -2538,7 +2537,7 @@ unsafe extern "C" fn borg_defend_aux_teleportlevel(
 ) -> ::core::ffi::c_int {
     if !borg_simulate {
         if borg_spell(TELEPORT_LEVEL) {
-            borg_needs_new_sea = true_0 != 0;
+            crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
             return 500 as ::core::ffi::c_int;
         }
     }

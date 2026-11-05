@@ -29,7 +29,7 @@ use crate::headers::borg_fight_attack_h::borg_attack;
 use crate::headers::borg_fight_defend_h::borg_defend;
 use crate::headers::borg_fight_perm_h::borg_perma_spell;
 use crate::headers::borg_flow_dark_h::borg_flow_dark;
-use crate::headers::borg_flow_glyph_h::{borg_flow_glyph, track_glyph};
+use crate::headers::borg_flow_glyph_h::borg_flow_glyph;
 pub use crate::headers::borg_flow_h::{
     borg_flow_old, borg_track, track_closed, track_door, track_step,
 };
@@ -2010,7 +2010,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         crate::bridge::st().borg.goal.ignoring = false_0 != 0;
         crate::bridge::st().stairs.less.num = 0 as int16_t;
         crate::bridge::st().stairs.more.num = 0 as int16_t;
-        track_glyph.num = 0 as int16_t;
+        crate::bridge::st().glyph.track.num = 0 as int16_t;
         track_step.num = 0 as int16_t;
         track_door.num = 0 as int16_t;
         track_closed.num = 0 as int16_t;

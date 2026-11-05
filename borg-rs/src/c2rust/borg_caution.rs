@@ -19,7 +19,6 @@ use crate::headers::borg_escape_h::{
     borg_caution_phase, borg_escape, borg_freedom, borg_recall, borg_surrounded,
 };
 use crate::headers::borg_fight_defend_h::borg_defend;
-use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{borg_track, track_step};
 pub use crate::headers::borg_flow_kill_h::{borg_kill};
 use crate::headers::borg_flow_misc_h::{borg_check_rest, borg_goto_dir, borg_happy_grid_bold};
@@ -1070,12 +1069,12 @@ pub unsafe extern "C" fn borg_caution() -> bool {
             );
         }
     }
-    if track_glyph.num != 0 {
+    if crate::bridge::st().glyph.track.num != 0 {
         let mut i: ::core::ffi::c_int = 0;
         i = 0 as ::core::ffi::c_int;
-        while i < track_glyph.num as ::core::ffi::c_int {
-            if *track_glyph.y.offset(i as isize) == crate::bridge::st().borg.c.y
-                && *track_glyph.x.offset(i as isize) == crate::bridge::st().borg.c.x
+        while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+            if crate::bridge::st().glyph.track.y[i as usize] == crate::bridge::st().borg.c.y
+                && crate::bridge::st().glyph.track.x[i as usize] == crate::bridge::st().borg.c.x
             {
                 borg_note(format(
                     b"# Standing on Glyph\0" as *const u8 as *const ::core::ffi::c_char,

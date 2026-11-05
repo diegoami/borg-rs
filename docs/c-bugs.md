@@ -488,3 +488,24 @@ Format: file, function, (seed, turn when observed), explanation.
   borg-fight-defend.c and borg-flow-stairs.c).
 * Rust (`borg_fight_perm.rs`): all kept (`as i16` truncation for the
   level timer).
+## 29. Sea of Runes scan slips (flow glyph)
+
+* `borg-flow-glyph.c`, found by code reading.
+* The "Skip every non floor/glyph" test is `ag->feat != FEAT_FLOOR &&
+  ag->glyph`: it skips only glyphed non-floor grids, so every other grid
+  (walls, doors, rubble, ...) is scored too. With an old center, such a
+  grid in the 5x5 ring is a target if its flow cost is below 75.
+* In the "old center" branch `tmp_glyph` is never counted, so the score
+  is always `500 - cost`.
+* On arrival `borg_needs_new_sea` is cleared (and the center stored) even
+  if no glyph can be made. When the cast/read/activation works but the
+  grid is already in `track_glyph`, the function returns false although
+  the keys are queued.
+* The "is the sea complete" check reads `borg_grids[center + ddd]`
+  without a bounds check (a center on row/column 1 would read index -1).
+* `track_glyph.num` can go below 0: borg-messages.c's "The object resists
+  the spell" / "There is no clear floor" handler does `num--` without a
+  check (after writing `x[num]`, `y[num]`); the next glyph would then be
+  written at index -1.
+* Rust (`borg_flow_glyph.rs`): all kept; an index of -1 panics instead
+  of reading or writing outside the arrays.

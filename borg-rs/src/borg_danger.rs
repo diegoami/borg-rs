@@ -754,11 +754,11 @@ fn borg_danger_spell(
     if flags.on_glyph {
         glyph = true;
     } else {
-        let num = bridge::track_glyph_num(st);
+        let num = st.glyph.track.num;
         if num != 0 {
             // Check all existing glyphs
             for glyph_check in 0..i32::from(num) {
-                let (gy, gx) = bridge::track_glyph_at(st, glyph_check as usize);
+                let (gy, gx) = st.glyph.track.at(glyph_check as usize);
                 if gy == y && gx == x {
                     // Reduce the danger
                     glyph = true;

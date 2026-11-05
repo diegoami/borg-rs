@@ -1195,7 +1195,7 @@ fn display_status_window(st: &mut BorgState) {
         );
 
         let mut attr = lit(st.borg.morgoth_position, COLOUR_BLUE);
-        if bridge::borg_needs_new_sea(st) {
+        if st.glyph.needs_new_sea {
             attr = COLOUR_WHITE;
         }
         put_at(1, 21, attr, b"Sea of Runes.");

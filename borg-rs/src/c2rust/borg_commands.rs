@@ -29,7 +29,6 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 
 use crate::headers::borg_danger_h::{borg_danger};
-use crate::headers::borg_flow_glyph_h::track_glyph;
 pub use crate::headers::borg_flow_h::{
     borg_data, borg_data_flow, borg_flow_x, borg_flow_y, borg_track, track_step,
 };
@@ -2449,12 +2448,12 @@ unsafe extern "C" fn borg_cmd_grid_glyphs() {
     let mut glyph_check: ::core::ffi::c_int = 0;
     let mut a: uint8_t = COLOUR_RED as uint8_t;
     glyph_check = 0 as ::core::ffi::c_int;
-    while glyph_check < track_glyph.num as ::core::ffi::c_int {
+    while glyph_check < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
         print_rel(
             '*' as i32,
             a,
-            *track_glyph.y.offset(glyph_check as isize),
-            *track_glyph.x.offset(glyph_check as isize),
+            crate::bridge::st().glyph.track.y[glyph_check as usize],
+            crate::bridge::st().glyph.track.x[glyph_check as usize],
         );
         msg(
             b"Borg has Glyph (%d)noted.\0" as *const u8 as *const ::core::ffi::c_char,

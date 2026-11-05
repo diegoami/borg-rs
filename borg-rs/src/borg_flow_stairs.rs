@@ -47,7 +47,7 @@ pub struct StairTrack {
 
 impl StairTrack {
     /// `borg_init_track(track, size)`: `size` zeroed entries, none in use.
-    fn init(&mut self, size: i16) {
+    pub(crate) fn init(&mut self, size: i16) {
         self.num = 0;
         self.size = size;
         self.x = vec![0; size as usize];
@@ -55,7 +55,7 @@ impl StairTrack {
     }
 
     /// `borg_free_track(track)`.
-    fn free(&mut self) {
+    pub(crate) fn free(&mut self) {
         self.num = 0;
         self.size = 0;
         self.x = Vec::new();

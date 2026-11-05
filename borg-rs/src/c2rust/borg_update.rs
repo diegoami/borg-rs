@@ -23,7 +23,6 @@ use crate::headers::borg_cave_light_h::borg_update_light;
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
 use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_fight_attack_h::successful_target;
-use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
 pub use crate::headers::borg_flow_h::{
     borg_can_dig, borg_data, borg_data_cost, borg_data_flow, borg_data_hard, borg_data_icky,
     borg_data_know, borg_ddx_ddd, borg_ddy_ddd, borg_track, track_closed, track_door, track_step,
@@ -364,20 +363,20 @@ unsafe extern "C" fn borg_update_map() {
                     ) {
                         (*ag).glyph = true_0 != 0;
                         i = 0 as ::core::ffi::c_int;
-                        while i < track_glyph.num as ::core::ffi::c_int {
-                            if *track_glyph.x.offset(i as isize) == x
-                                && *track_glyph.y.offset(i as isize) == y
+                        while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+                            if crate::bridge::st().glyph.track.x[i as usize] == x
+                                && crate::bridge::st().glyph.track.y[i as usize] == y
                             {
                                 break;
                             }
                             i += 1;
                         }
-                        if i == track_glyph.num as ::core::ffi::c_int
-                            && i < track_glyph.size as ::core::ffi::c_int
+                        if i == crate::bridge::st().glyph.track.num as ::core::ffi::c_int
+                            && i < crate::bridge::st().glyph.track.size as ::core::ffi::c_int
                         {
-                            *track_glyph.x.offset(i as isize) = x;
-                            *track_glyph.y.offset(i as isize) = y;
-                            track_glyph.num += 1;
+                            crate::bridge::st().glyph.track.x[i as usize] = x;
+                            crate::bridge::st().glyph.track.y[i as usize] = y;
+                            crate::bridge::st().glyph.track.num += 1;
                         }
                     }
                     current_block_150 = 18002345992382212654;
@@ -2019,7 +2018,7 @@ pub unsafe extern "C" fn borg_update() {
         }
         crate::bridge::st().stairs.less.num = 0 as int16_t;
         crate::bridge::st().stairs.more.num = 0 as int16_t;
-        track_glyph.num = 0 as int16_t;
+        crate::bridge::st().glyph.track.num = 0 as int16_t;
         track_step.num = 0 as int16_t;
         track_door.num = 0 as int16_t;
         track_closed.num = 0 as int16_t;
@@ -2038,7 +2037,7 @@ pub unsafe extern "C" fn borg_update() {
             || crate::bridge::st().borg.mon.unique == crate::bridge::st().borg.id.morgoth
         {
             crate::bridge::st().borg.near.morgoth = true_0 != 0;
-            borg_needs_new_sea = true_0 != 0;
+            crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
         }
         i = 0 as ::core::ffi::c_int;
         while i < crate::bridge::st().kills.nasties_num as ::core::ffi::c_int {

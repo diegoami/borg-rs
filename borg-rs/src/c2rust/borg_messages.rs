@@ -12,7 +12,6 @@ pub use crate::headers::borg_cave_h::{borg_grid};
 
 use crate::headers::borg_fight_attack_h::{successful_target, target_closest};
 use crate::headers::borg_fight_defend_h::borg_attempting_refresh_resist;
-use crate::headers::borg_flow_glyph_h::{borg_needs_new_sea, track_glyph};
 pub use crate::headers::borg_flow_h::borg_track;
 pub use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_kill};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
@@ -482,7 +481,7 @@ unsafe extern "C" fn borg_parse_aux(
             msg,
             b"QUAKE:Somebody\0" as *const u8 as *const ::core::ffi::c_char,
         );
-        borg_needs_new_sea = true_0 != 0;
+        crate::bridge::st().glyph.needs_new_sea = true_0 != 0;
         return;
     }
     if prefix(
@@ -842,18 +841,18 @@ unsafe extern "C" fn borg_parse_aux(
                         &raw mut who as *mut ::core::ffi::c_char,
                     );
                     borg_react(msg, &raw mut buf as *mut ::core::ffi::c_char);
-                    if track_glyph.num != 0 {
+                    if crate::bridge::st().glyph.track.num != 0 {
                         i = 0 as ::core::ffi::c_int;
-                        while i < track_glyph.num as ::core::ffi::c_int {
-                            *track_glyph.x.offset(i as isize) = 0 as ::core::ffi::c_int;
-                            *track_glyph.y.offset(i as isize) = 0 as ::core::ffi::c_int;
+                        while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+                            crate::bridge::st().glyph.track.x[i as usize] = 0 as ::core::ffi::c_int;
+                            crate::bridge::st().glyph.track.y[i as usize] = 0 as ::core::ffi::c_int;
                             i += 1;
                         }
-                        track_glyph.num = 0 as int16_t;
+                        crate::bridge::st().glyph.track.num = 0 as int16_t;
                         if square_iswarded(cave, crate::bridge::st().borg.c) {
-                            *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
-                            *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
-                            track_glyph.num += 1;
+                            crate::bridge::st().glyph.track.x[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.x;
+                            crate::bridge::st().glyph.track.y[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.y;
+                            crate::bridge::st().glyph.track.num += 1;
                         }
                     }
                     return;
@@ -1554,22 +1553,22 @@ unsafe extern "C" fn borg_parse_aux(
         b"You inscribe a mystic symbol on the ground!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
         i = 0 as ::core::ffi::c_int;
-        while i < track_glyph.num as ::core::ffi::c_int {
-            if *track_glyph.x.offset(i as isize) == crate::bridge::st().borg.c.x
-                && *track_glyph.y.offset(i as isize) == crate::bridge::st().borg.c.y
+        while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+            if crate::bridge::st().glyph.track.x[i as usize] == crate::bridge::st().borg.c.x
+                && crate::bridge::st().glyph.track.y[i as usize] == crate::bridge::st().borg.c.y
             {
                 break;
             }
             i += 1;
         }
-        if i == track_glyph.num as ::core::ffi::c_int && i < track_glyph.size as ::core::ffi::c_int
+        if i == crate::bridge::st().glyph.track.num as ::core::ffi::c_int && i < crate::bridge::st().glyph.track.size as ::core::ffi::c_int
         {
             borg_note(
                 b"# Noting the creation of a glyph.\0" as *const u8 as *const ::core::ffi::c_char,
             );
-            *track_glyph.x.offset(i as isize) = crate::bridge::st().borg.c.x;
-            *track_glyph.y.offset(i as isize) = crate::bridge::st().borg.c.y;
-            track_glyph.num += 1;
+            crate::bridge::st().glyph.track.x[i as usize] = crate::bridge::st().borg.c.x;
+            crate::bridge::st().glyph.track.y[i as usize] = crate::bridge::st().borg.c.y;
+            crate::bridge::st().glyph.track.num += 1;
         }
         return;
     }
@@ -1578,16 +1577,16 @@ unsafe extern "C" fn borg_parse_aux(
         b"The rune of protection is broken!\0" as *const u8 as *const ::core::ffi::c_char,
     ) {
         i = 0 as ::core::ffi::c_int;
-        while i < track_glyph.num as ::core::ffi::c_int {
-            *track_glyph.x.offset(i as isize) = 0 as ::core::ffi::c_int;
-            *track_glyph.y.offset(i as isize) = 0 as ::core::ffi::c_int;
+        while i < crate::bridge::st().glyph.track.num as ::core::ffi::c_int {
+            crate::bridge::st().glyph.track.x[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().glyph.track.y[i as usize] = 0 as ::core::ffi::c_int;
             i += 1;
         }
-        track_glyph.num = 0 as int16_t;
+        crate::bridge::st().glyph.track.num = 0 as int16_t;
         if square_iswarded(cave, crate::bridge::st().borg.c) {
-            *track_glyph.x.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.x;
-            *track_glyph.y.offset(track_glyph.num as isize) = crate::bridge::st().borg.c.y;
-            track_glyph.num += 1;
+            crate::bridge::st().glyph.track.x[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.x;
+            crate::bridge::st().glyph.track.y[crate::bridge::st().glyph.track.num as usize] = crate::bridge::st().borg.c.y;
+            crate::bridge::st().glyph.track.num += 1;
         }
         return;
     }
@@ -1602,9 +1601,9 @@ unsafe extern "C" fn borg_parse_aux(
         ) as ::core::ffi::c_int
             != 0
     {
-        *track_glyph.x.offset(track_glyph.num as isize) = 0 as ::core::ffi::c_int;
-        *track_glyph.y.offset(track_glyph.num as isize) = 0 as ::core::ffi::c_int;
-        track_glyph.num -= 1;
+        crate::bridge::st().glyph.track.x[crate::bridge::st().glyph.track.num as usize] = 0 as ::core::ffi::c_int;
+        crate::bridge::st().glyph.track.y[crate::bridge::st().glyph.track.num as usize] = 0 as ::core::ffi::c_int;
+        crate::bridge::st().glyph.track.num -= 1;
         borg_note(
             b"# Removing the Glyph under me, placing with broken door.\0" as *const u8
                 as *const ::core::ffi::c_char,

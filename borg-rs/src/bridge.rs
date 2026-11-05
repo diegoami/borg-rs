@@ -377,30 +377,6 @@ pub fn borg_tp_other_index(st: &mut BorgState, i: usize) -> i32 {
     r
 }
 
-/// `track_glyph.num` (still c2rust, borg-flow-glyph.c).
-pub fn track_glyph_num(st: &mut BorgState) -> i16 {
-    escape(st);
-    // SAFETY: plain read of a global struct field; Borg thread.
-    let r = unsafe { crate::c2rust::borg_flow_glyph::track_glyph.num };
-    escape(st);
-    r
-}
-
-/// `(track_glyph.y[i], track_glyph.x[i])` (still c2rust,
-/// borg-flow-glyph.c), for `i < track_glyph.num`.
-pub fn track_glyph_at(st: &mut BorgState, i: usize) -> (i32, i32) {
-    escape(st);
-    // SAFETY: borg_init_flow_glyph() allocates `size` entries for x and y
-    // (checked non-NULL); `num` never exceeds `size` (checked).
-    let r = unsafe {
-        let t = &*(&raw const crate::c2rust::borg_flow_glyph::track_glyph);
-        assert!(i < t.num as usize && t.num <= t.size && !t.x.is_null() && !t.y.is_null());
-        (*t.y.add(i), *t.x.add(i))
-    };
-    escape(st);
-    r
-}
-
 /// `borg_mon_blow_effect(name)` (still c2rust, borg-fight-attack.c).
 pub fn borg_mon_blow_effect(st: &mut BorgState, name: &std::ffi::CStr) -> i32 {
     escape(st);
@@ -585,6 +561,37 @@ pub fn borg_flow_far_from_stairs(st: &mut BorgState, x: i32, y: i32, b_stair: i3
     let r = unsafe { crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs(x, y, b_stair) };
     escape(st);
     r
+}
+
+/// `borg_flow_reverse(...)` (still c2rust, borg-flow-misc.c).
+pub fn borg_flow_reverse(
+    st: &mut BorgState,
+    depth: i32,
+    optimize: bool,
+    avoid: bool,
+    tunneling: bool,
+    stair_idx: i32,
+    sneak: bool,
+) {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    unsafe {
+        crate::c2rust::borg_flow_misc::borg_flow_reverse(
+            depth, optimize, avoid, tunneling, stair_idx, sneak,
+        )
+    };
+    escape(st);
+}
+
+/// `(borg_ddx_ddd[i], borg_ddy_ddd[i])` (still c2rust, borg-flow.c): the
+/// 24 offsets around a grid; panics past them.
+pub fn borg_ddxy_ddd(i: usize) -> (i32, i32) {
+    // SAFETY: plain read of fixed-size int16_t tables that are never
+    // written (bounds checked); Borg thread.
+    unsafe {
+        use crate::c2rust::borg_flow as f;
+        (i32::from((*(&raw const f::borg_ddx_ddd))[i]), i32::from((*(&raw const f::borg_ddy_ddd))[i]))
+    }
 }
 
 /// `borg_data_cost->data[y][x]` (still c2rust, borg-flow.c).
@@ -1220,15 +1227,6 @@ pub fn enchant_weapon_swap_to_d(_st: &mut BorgState) -> i32 {
     unsafe { crate::c2rust::borg_trait_swap::enchant_weapon_swap_to_d }
 }
 
-/// `borg_needs_new_sea` (still c2rust, borg-flow-glyph.c).
-pub fn borg_needs_new_sea(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain read of a bool global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_flow_glyph::borg_needs_new_sea };
-    escape(st);
-    r
-}
-
 /// `borg_get_note(&borg_items[i])` (borg-item.c), as bytes. The note
 /// pointer is still raw (see borg_item.rs); copied out at once.
 pub fn borg_get_note(st: &mut BorgState, i: usize) -> Vec<u8> {
@@ -1808,5 +1806,21 @@ pub mod fight_perm {
 
     pub unsafe extern "C" fn borg_perma_spell() -> bool {
         p::borg_perma_spell(st())
+    }
+}
+
+/// C-ABI shims with the borg-flow-glyph.c names, for c2rust callers.
+pub mod flow_glyph {
+    use super::st;
+    use crate::borg_flow_glyph as fg;
+
+    pub unsafe extern "C" fn borg_flow_glyph() -> bool {
+        fg::borg_flow_glyph(st())
+    }
+    pub unsafe extern "C" fn borg_init_flow_glyph() {
+        fg::borg_init_flow_glyph(st())
+    }
+    pub unsafe extern "C" fn borg_free_flow_glyph() {
+        fg::borg_free_flow_glyph(st())
     }
 }
