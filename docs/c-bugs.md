@@ -679,3 +679,32 @@ Format: file, function, (seed, turn when observed), explanation.
 * The money-scumming test repeats `!borg.trait[BI_CDEPTH]`, already
   returned on at the top of the function.
 * Rust (`borg_think_store.rs`): all kept.
+
+## 37. Junk and drop choices (junk)
+
+* `borg-junk.c`, found by code reading.
+* `borg_drop_junk()`: the "# Dropping junk %s (valued at %ld)" note prints
+  `value`, which still holds the value of the *last* item scanned, not
+  the value of the item being dropped.
+* `borg_drop_hole()`: the "BIG HACK! don't crush cool stuff" tests for
+  rods, wands, scrolls and potions (Borg above clevel 35) chain `!=` with
+  `||`, so they hold for every sval (the svals compared are distinct).
+  Every aware rod, wand and potion is valued at `iqty * 300000`, every
+  aware scroll at `iqty * 30000`, and the `value / 2` / `value / 10` else
+  branches are dead. The staff test is false only for Dispel Evil when
+  `BI_GOOD_S_CHG >= 2` and `BI_ASTFDEST >= 2`.
+* `borg_drop_hole()`: the second "Skip artifacts" test (`art_idx &&
+  !ident`) is dead (all artifacts were skipped earlier). In the
+  desperate pass `value_boost = 7000` overwrites the 10000 (boots, weapon
+  while digging) and 5000 (unknown runes) boosts set just before it.
+* `borg_drop_slow()`: the scan skips every equipment slot
+  (`pack_size <= i <= INVEN_FEET`), so the `/` + equipment letter branches
+  of the inscribe and drop keys are dead.
+* `borg_remove_stuff()`: `b_p` stays `borg.power`, so the *last*
+  equipment slot whose removal does not lower the power is taken off, not
+  the best one, and "Power with" always prints `borg.power`. The hole
+  slot is restored with `iqty = 0` only: it keeps a copy of the last
+  tested item during the final `borg_notice()`.
+* `borg_consume()`: Brawn (`sv_potion_inc_str2`) has no `break` after a
+  failed quaff and falls into the other potion tests (harmless).
+* Rust (`borg_junk.rs`): all kept.

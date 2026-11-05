@@ -1765,6 +1765,15 @@ pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
 // ---------------------------------------------------------------------------
 // Floor objects and object kinds (borg-flow-take.c)
 
+/// `k_info[kidx].base->name` (bytes up to the NUL), or `None` when the
+/// kind has no base (`base` is NULL). Panics for `kidx >= z_info->k_max`.
+pub fn kind_base_name(kidx: usize) -> Option<&'static [u8]> {
+    let base = k_info()[kidx].base;
+    // SAFETY: a non-NULL kind base points into kb_info, which (with its
+    // names) lives for the game.
+    (!base.is_null()).then(|| c_bytes(unsafe { (*base).name }))
+}
+
 /// `tval_is_book_k(&k_info[kidx])`.
 pub fn tval_is_book_k(kidx: usize) -> bool {
     let k: *const ObjectKind = &k_info()[kidx];

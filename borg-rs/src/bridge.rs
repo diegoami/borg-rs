@@ -2048,3 +2048,29 @@ pub mod escape_fns {
         e::borg_escape(st(), b_q)
     }
 }
+
+/// C-ABI shims with the borg-junk.c names, for c2rust callers
+/// (borg_think_dungeon).
+pub mod junk {
+    use super::st;
+    use crate::borg_junk as j;
+
+    pub unsafe extern "C" fn borg_destroy_floor() -> bool {
+        j::borg_destroy_floor(st())
+    }
+    pub unsafe extern "C" fn borg_drop_junk() -> bool {
+        j::borg_drop_junk(st())
+    }
+    pub unsafe extern "C" fn borg_drop_hole(desperate: bool) -> bool {
+        j::borg_drop_hole(st(), desperate)
+    }
+    pub unsafe extern "C" fn borg_drop_slow() -> bool {
+        j::borg_drop_slow(st())
+    }
+    pub unsafe extern "C" fn borg_dump_quiver() -> bool {
+        j::borg_dump_quiver(st())
+    }
+    pub unsafe extern "C" fn borg_remove_stuff() -> bool {
+        j::borg_remove_stuff(st())
+    }
+}

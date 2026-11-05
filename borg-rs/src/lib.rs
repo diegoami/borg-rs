@@ -53,6 +53,7 @@ pub mod borg_item_id;
 pub mod borg_item_use;
 pub mod borg_item_val;
 pub mod borg_item_wear;
+pub mod borg_junk;
 pub mod borg_light;
 pub mod borg_log;
 pub mod borg_magic;
