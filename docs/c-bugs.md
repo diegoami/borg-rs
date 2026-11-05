@@ -893,3 +893,5 @@ with its issues.
   is not found on the real call (not reachable: the real call follows a
   simulation of the same state that found him). Rust starts it at (0, 0).
 * Rust (`borg_fight_defend.rs`): all kept.
+* Tracker: one lead per slip, in the order above:
+  diegoami/neo-angband-tracker#173 to diegoami/neo-angband-tracker#183.
