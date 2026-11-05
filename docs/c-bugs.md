@@ -372,3 +372,19 @@ Format: file, function, (seed, turn when observed), explanation.
   lantern (or the pack ends) and no lantern is used, even when an earlier
   lantern has fuel.
 * Rust (`borg_light.rs`): all kept.
+## 23. Curse removal item letters (item decurse)
+
+* `borg-item-decurse.c`, `borg_decurse_any()`, found by code reading.
+* `BI_FIRST_CURSED` is set by `borg_notice()` in the order equipment,
+  quiver, inventory, so in the quiver branch `BORG_EQUIP` is never set and
+  the `BI_WHERE_CURSED & BORG_EQUIP` test for the `'|'` key is dead (the
+  `& 1` next to it is `BORG_INVEN` written as a literal).
+* A cursed ammo stack in the pack (outside the quiver) sets `BORG_QUILL`,
+  not `BORG_INVEN`. With such a stack and a cursed quiver slot first, no
+  `'|'` is sent although the item prompt can open on the pack.
+* `borg_decurse_armour()` / `borg_decurse_weapon()` send
+  `all_letters_nohjkl[swap - 1]` without checking the swap: with a
+  `decurse_*_swap` flag but `*_swap == 0` (not left behind by
+  `borg_notice_*_swap`, which clears the flag when there is no swap) C
+  would read the byte before the array (padding, 0, see section 21).
+* Rust (`borg_item_decurse.rs`): all kept (`letter(-1)` gives the 0 key).

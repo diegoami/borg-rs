@@ -1441,3 +1441,44 @@ pub mod item_wear {
         w::borg_free_item_wear(st())
     }
 }
+
+// ---------------------------------------------------------------------------
+// borg-item-decurse.c (converted): calls into still-c2rust code.
+
+/// `borg_uses_swaps()` (still c2rust, borg-trait.c).
+pub fn borg_uses_swaps(_st: &mut BorgState) -> bool {
+    // SAFETY: plain call into transitional c2rust code (reads the config
+    // and traits).
+    unsafe { crate::c2rust::borg_trait::borg_uses_swaps() }
+}
+
+/// `decurse_armour_swap` (still c2rust, borg-trait-swap.c): the swap
+/// armour is good except for its curse.
+pub fn decurse_armour_swap(_st: &mut BorgState) -> bool {
+    // SAFETY: plain read of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::decurse_armour_swap }
+}
+
+/// `decurse_weapon_swap` (still c2rust, borg-trait-swap.c): the swap
+/// weapon is good except for its curse.
+pub fn decurse_weapon_swap(_st: &mut BorgState) -> bool {
+    // SAFETY: plain read of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait_swap::decurse_weapon_swap }
+}
+
+/// C-ABI shims with the borg-item-decurse.c names, for c2rust callers
+/// (borg_item_enchant).
+pub mod item_decurse {
+    use super::st;
+    use crate::borg_item_decurse as d;
+
+    pub unsafe extern "C" fn borg_decurse_armour() -> bool {
+        d::borg_decurse_armour(st())
+    }
+    pub unsafe extern "C" fn borg_decurse_weapon() -> bool {
+        d::borg_decurse_weapon(st())
+    }
+    pub unsafe extern "C" fn borg_decurse_any() -> bool {
+        d::borg_decurse_any(st())
+    }
+}

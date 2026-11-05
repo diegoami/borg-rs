@@ -39,6 +39,7 @@ pub mod borg_io;
 pub mod borg_item;
 pub mod borg_item_activation;
 pub mod borg_item_analyze;
+pub mod borg_item_decurse;
 pub mod borg_item_id;
 pub mod borg_item_use;
 pub mod borg_item_val;
