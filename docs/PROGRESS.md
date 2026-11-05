@@ -225,7 +225,7 @@ when a big c2rust module goes away.
 | borg_caution (`041f52ac8`) | 678 | 11 |
 | borg_commands (`5700fd73a`) | 623 | 10 |
 | borg_fight_defend (`7bb2e83d4`) | 594 | 9 |
-| borg_power (this commit) | 621 | 9 |
+| borg_power (`93181059b`) | 592 | 8 |
 
 ## Suite timings
 
