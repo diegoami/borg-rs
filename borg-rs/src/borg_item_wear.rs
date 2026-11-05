@@ -28,7 +28,7 @@ use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_magic::{borg_spell, borg_spell_legal};
 use crate::borg_store::{borg_home_full, borg_inventory_full, BORG_HOME, SHOP_MENU_ITEMS};
-use crate::bridge;
+use crate::{borg_flow_misc, bridge};
 use crate::engine;
 use crate::headers::borg_h::BORG_VERBOSE;
 use crate::headers::borg_item_h::borg_item;
@@ -158,7 +158,7 @@ pub fn borg_test_stuff(st: &mut BorgState) -> bool {
     /* don't ID stuff when you can't recover spent spell point immediately */
     if st.borg.tr(BI_CURSP) < 50 && borg_spell_legal(st, IDENTIFY_RUNE) && {
         let (y, x) = (st.borg.c.y, st.borg.c.x);
-        !bridge::borg_check_rest(st, y, x)
+        !borg_flow_misc::borg_check_rest(st, y, x)
     } {
         return false;
     }
@@ -1452,7 +1452,7 @@ pub fn borg_wear_recharge(st: &mut BorgState) -> bool {
 
     /* No resting in danger */
     let (y, x) = (st.borg.c.y, st.borg.c.x);
-    if !bridge::borg_check_rest(st, y, x) {
+    if !borg_flow_misc::borg_check_rest(st, y, x) {
         return false;
     }
 

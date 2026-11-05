@@ -62,7 +62,7 @@ use crate::headers::list_terrain_h::{
 };
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow, bridge};
+use crate::{borg_flow, borg_flow_misc, bridge};
 
 /// `GOAL_KILL`, `GOAL_TAKE`, `GOAL_DIGGING` (borg-flow.h)
 const GOAL_KILL: i16 = 1;
@@ -1986,7 +1986,7 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
         }
 
         // don't go too far from the stairs
-        if bridge::borg_flow_far_from_stairs(st, x, y, b_stair) {
+        if borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair) {
             continue;
         }
 

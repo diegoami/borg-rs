@@ -14,9 +14,9 @@
 //!    and not for profit purposes provided that this copyright and statement
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
-//! No module state. The flow arrays (`borg_data_cost/know/icky`), the
-//! `borg_temp_*` list, `track_door` and the flow core are still c2rust
-//! (borg-flow.c, borg-flow-misc.c) and are reached through `bridge`.
+//! No module state. The flow arrays (`borg_data_cost/know/icky`) and
+//! `track_door` (borg-flow.c) are reached through `bridge` accessors; the
+//! stair distance tests are in `borg_flow_misc`.
 //! C bugs kept are listed in `docs/c-bugs.md` (section 29).
 
 use std::ffi::CStr;
@@ -27,7 +27,7 @@ use crate::borg_cave_util::borg_cave_floor_grid;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::borg_danger;
 use crate::bridge::{self, FlowData};
-use crate::engine;
+use crate::{borg_flow_misc, engine};
 use crate::headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_DISM, BI_DISP, BI_FOOD, BI_GOLD, BI_IFIRE, BI_ISBLIND,
     BI_ISCONFUSED, BI_ISIMAGE, BI_ISWEAK, BI_LIGHT, BI_MAXCLEVEL,
@@ -560,7 +560,7 @@ fn borg_flow_dark_1(st: &mut BorgState, b_stair: i32) -> bool {
         }
 
         /* don't go too far from the stairs */
-        if bridge::borg_flow_far_from_stairs(st, x, y, b_stair) {
+        if borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair) {
             continue;
         }
 
@@ -624,7 +624,7 @@ fn borg_flow_dark_2(st: &mut BorgState, b_stair: i32) -> bool {
         }
 
         /* don't go too far from the stairs */
-        if bridge::borg_flow_far_from_stairs(st, x, y, b_stair) {
+        if borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair) {
             continue;
         }
 
@@ -679,9 +679,9 @@ fn scan_region(
 
             /* don't go too far from the stairs */
             let far = match test {
-                StairTest::Leash => bridge::borg_flow_far_from_stairs(st, x, y, b_stair),
+                StairTest::Leash => borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair),
                 StairTest::Dist(leash) => {
-                    bridge::borg_flow_far_from_stairs_dist(st, x, y, b_stair, leash)
+                    borg_flow_misc::borg_flow_far_from_stairs_dist(st, x, y, b_stair, leash)
                 }
             };
             if far {
@@ -750,7 +750,7 @@ fn borg_flow_dark_3(st: &mut BorgState, b_stair: i32) -> bool {
 ///
 /// The "borg_temp" array is large enough to hold one panel full of grids.
 fn borg_flow_dark_4(st: &mut BorgState, b_stair: i32) -> bool {
-    let leash = bridge::borg_get_leash(st, false);
+    let leash = borg_flow_misc::borg_get_leash(st, false);
 
     /* Not in town */
     if st.borg.tr(BI_CDEPTH) == 0 {
@@ -804,7 +804,7 @@ fn borg_flow_dark_4(st: &mut BorgState, b_stair: i32) -> bool {
 
 /// Prepare to "flow" towards "interesting" grids (method 5)
 fn borg_flow_dark_5(st: &mut BorgState, b_stair: i32) -> bool {
-    let leash = bridge::borg_get_leash(st, false);
+    let leash = borg_flow_misc::borg_get_leash(st, false);
 
     /* Not in town */
     if st.borg.tr(BI_CDEPTH) == 0 {

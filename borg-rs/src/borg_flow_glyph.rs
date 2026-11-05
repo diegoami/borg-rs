@@ -16,8 +16,8 @@
 //!
 //! The known glyphs of warding (`track_glyph`), `borg_needs_new_sea` and
 //! the file statics of the "Sea of Runes" builder live in `GlyphState`.
-//! The flow core is `borg_flow`; `borg_flow_reverse` (borg-flow-misc.c)
-//! is still c2rust and is called through `bridge`.
+//! The flow core is `borg_flow`; `borg_flow_reverse` is in
+//! `borg_flow_misc`.
 
 use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_flow_stairs::StairTrack;
@@ -25,7 +25,7 @@ use crate::headers::borg_magic_h::GLYPH_OF_WARDING;
 use crate::headers::list_terrain_h::FEAT_FLOOR;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow, borg_io, borg_item_use, borg_magic, bridge, engine};
+use crate::{borg_flow, borg_flow_misc, borg_io, borg_item_use, borg_magic, engine};
 
 /// `GOAL_MISC` (borg-flow.h): the goal of a miscellaneous flow.
 const GOAL_MISC: i32 = 3;
@@ -162,7 +162,7 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
     }
 
     /* Reverse flow */
-    bridge::borg_flow_reverse(st, 250, true, false, false, -1, false);
+    borg_flow_misc::borg_flow_reverse(st, 250, true, false, false, -1, false);
 
     let needs_new_sea = st.glyph.needs_new_sea;
     let cx = i32::from(st.glyph.center_x);

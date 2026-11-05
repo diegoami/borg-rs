@@ -23,9 +23,9 @@ use crate::headers::borg_cave_light_h::borg_update_light;
 pub use crate::headers::borg_cave_view_h::{borg_forget_view, borg_update_view};
 use crate::headers::borg_danger_h::{borg_danger};
 use crate::headers::borg_fight_attack_h::successful_target;
-pub use crate::headers::borg_flow_h::{borg_can_dig, borg_track};
+pub use crate::headers::borg_flow_h::{borg_can_dig};
 pub use crate::headers::borg_flow_kill_h::{borg_count_death, borg_create_kill, borg_delete_kill, borg_follow_kill, borg_kill, borg_locate_kill, borg_race_name, borg_sleep_kill, observe_kill_diff, observe_kill_move};
-use crate::headers::borg_flow_misc_h::{track_shop_x, track_shop_y, track_vein};
+
 pub use crate::headers::borg_flow_take_h::{borg_delete_take, borg_follow_take, borg_take, observe_take_diff, observe_take_move};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
 use crate::headers::borg_io_h::borg_note;
@@ -318,8 +318,8 @@ unsafe extern "C" fn borg_update_map() {
                     (*ag).feat = g.f_idx as uint8_t;
                     i = square_shopnum(cave, l);
                     (*ag).store = i as uint8_t;
-                    *track_shop_x.offset(i as isize) = x;
-                    *track_shop_y.offset(i as isize) = y;
+                    crate::bridge::st().flow_misc.track_shop_x[i as usize] = x;
+                    crate::bridge::st().flow_misc.track_shop_y[i as usize] = y;
                     current_block_150 = 18002345992382212654;
                 } else if square_isdisarmabletrap(cave, l) {
                     (*ag).trap = true_0 != 0;
@@ -414,22 +414,22 @@ unsafe extern "C" fn borg_update_map() {
                             current_block_150 = 10680521327981672866;
                         } else {
                             i = 0 as ::core::ffi::c_int;
-                            while i < track_vein.num as ::core::ffi::c_int {
-                                if *track_vein.x.offset(i as isize) == x
-                                    && *track_vein.y.offset(i as isize) == y
+                            while i < crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int {
+                                if crate::bridge::st().flow_misc.track_vein.x[i as usize] == x
+                                    && crate::bridge::st().flow_misc.track_vein.y[i as usize] == y
                                 {
                                     break;
                                 }
                                 i += 1;
                             }
-                            if i == track_vein.num as ::core::ffi::c_int
-                                && i < track_vein.size as ::core::ffi::c_int
+                            if i == crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int
+                                && i < crate::bridge::st().flow_misc.track_vein.size as ::core::ffi::c_int
                             {
-                                *track_vein.x.offset(i as isize) = x;
-                                *track_vein.y.offset(i as isize) = y;
-                                track_vein.num += 1;
-                                if track_vein.num as ::core::ffi::c_int > 99 as ::core::ffi::c_int {
-                                    track_vein.num = 99 as int16_t;
+                                crate::bridge::st().flow_misc.track_vein.x[i as usize] = x;
+                                crate::bridge::st().flow_misc.track_vein.y[i as usize] = y;
+                                crate::bridge::st().flow_misc.track_vein.num += 1;
+                                if crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int > 99 as ::core::ffi::c_int {
+                                    crate::bridge::st().flow_misc.track_vein.num = 99 as int16_t;
                                 }
                             }
                             current_block_150 = 18002345992382212654;
@@ -442,22 +442,22 @@ unsafe extern "C" fn borg_update_map() {
                         || g.f_idx == FEAT_QUARTZ_K as ::core::ffi::c_int as uint32_t
                     {
                         i = 0 as ::core::ffi::c_int;
-                        while i < track_vein.num as ::core::ffi::c_int {
-                            if *track_vein.x.offset(i as isize) == x
-                                && *track_vein.y.offset(i as isize) == y
+                        while i < crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int {
+                            if crate::bridge::st().flow_misc.track_vein.x[i as usize] == x
+                                && crate::bridge::st().flow_misc.track_vein.y[i as usize] == y
                             {
                                 break;
                             }
                             i += 1;
                         }
-                        if i == track_vein.num as ::core::ffi::c_int
-                            && i < track_vein.size as ::core::ffi::c_int
+                        if i == crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int
+                            && i < crate::bridge::st().flow_misc.track_vein.size as ::core::ffi::c_int
                         {
-                            *track_vein.x.offset(i as isize) = x;
-                            *track_vein.y.offset(i as isize) = y;
-                            track_vein.num += 1;
-                            if track_vein.num as ::core::ffi::c_int > 99 as ::core::ffi::c_int {
-                                track_vein.num = 99 as int16_t;
+                            crate::bridge::st().flow_misc.track_vein.x[i as usize] = x;
+                            crate::bridge::st().flow_misc.track_vein.y[i as usize] = y;
+                            crate::bridge::st().flow_misc.track_vein.num += 1;
+                            if crate::bridge::st().flow_misc.track_vein.num as ::core::ffi::c_int > 99 as ::core::ffi::c_int {
+                                crate::bridge::st().flow_misc.track_vein.num = 99 as int16_t;
                             }
                         }
                     } else if g.f_idx == FEAT_CLOSED as ::core::ffi::c_int as uint32_t {
@@ -1999,7 +1999,7 @@ pub unsafe extern "C" fn borg_update() {
         crate::bridge::st().flow.track_step.num = 0 as int16_t;
         crate::bridge::st().flow.track_door.num = 0 as int16_t;
         crate::bridge::st().flow.track_closed.num = 0 as int16_t;
-        track_vein.num = 0 as int16_t;
+        crate::bridge::st().flow_misc.track_vein.num = 0 as int16_t;
         crate::bridge::st().wear.track_worn_num = 0 as int16_t;
         crate::bridge::st().takes.cnt = 0 as int16_t;
         crate::bridge::st().takes.nxt = 1 as int16_t;

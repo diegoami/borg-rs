@@ -47,7 +47,7 @@ use crate::headers::list_tvals_h::{TV_DIGGING, TV_SHOT, TV_STAFF};
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow_glyph, borg_flow_kill, borg_flow_stairs, borg_flow_take, bridge, engine};
+use crate::{borg_flow_glyph, borg_flow_kill, borg_flow_misc, borg_flow_stairs, borg_flow_take, bridge, engine};
 
 /// Size of the circular flow queue (`AUTO_FLOW_MAX`).
 pub const AUTO_FLOW_MAX: i32 = 1536;
@@ -811,7 +811,7 @@ fn close_breeder_door(st: &mut BorgState, y2: i32, x2: i32) -> bool {
     }
 
     /* Get a direction, if possible */
-    let dir = bridge::borg_goto_dir(st, cy, cx, cy + o_y, cx + o_x);
+    let dir = borg_flow_misc::borg_goto_dir(st, cy, cx, cy + o_y, cx + o_x);
 
     /* Obtain the destination */
     let x = st.borg.c.x + i32::from(engine::ddx(dir as usize));
@@ -1072,7 +1072,7 @@ fn borg_play_step(st: &mut BorgState, y2: i32, x2: i32) -> bool {
     }
 
     /* Get a direction, if possible */
-    let dir = bridge::borg_goto_dir(st, st.borg.c.y, st.borg.c.x, y2, x2);
+    let dir = borg_flow_misc::borg_goto_dir(st, st.borg.c.y, st.borg.c.x, y2, x2);
 
     /* We have arrived */
     if dir == 5 {
@@ -1230,7 +1230,7 @@ fn borg_play_step(st: &mut BorgState, y2: i32, x2: i32) -> bool {
             borg_keypress(st, i2d(dir));
 
             /* Forget number of mineral veins to force rebuild of vein list */
-            bridge::clear_track_vein(st);
+            st.flow_misc.track_vein.num = 0;
 
             return true;
         }
@@ -1249,7 +1249,7 @@ fn borg_play_step(st: &mut BorgState, y2: i32, x2: i32) -> bool {
 
         /* Forget number of mineral veins to force rebuild of vein list */
         /* XXX Maybe only do this if successful? */
-        bridge::clear_track_vein(st);
+        st.flow_misc.track_vein.num = 0;
 
         return true;
     }
@@ -1430,12 +1430,12 @@ pub fn borg_init_flow(st: &mut BorgState) {
 
     borg_flow_stairs::borg_init_flow_stairs(st);
     borg_flow_glyph::borg_init_flow_glyph(st);
-    bridge::borg_init_flow_misc(st);
+    borg_flow_misc::borg_init_flow_misc(st);
 }
 
 /// `borg_free_flow()`.
 pub fn borg_free_flow(st: &mut BorgState) {
-    bridge::borg_free_flow_misc(st);
+    borg_flow_misc::borg_free_flow_misc(st);
     borg_flow_glyph::borg_free_flow_glyph(st);
     borg_flow_stairs::borg_free_flow_stairs(st);
 

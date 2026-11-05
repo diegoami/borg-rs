@@ -37,7 +37,7 @@ use crate::headers::list_tvals_h::{
     TV_ARROW, TV_BOLT, TV_GOLD, TV_POTION, TV_ROD, TV_SCROLL, TV_SHOT,
 };
 use crate::state::BorgState;
-use crate::{borg_flow, borg_io, bridge, engine};
+use crate::{borg_flow, borg_flow_misc, borg_io, engine};
 
 /// `GOAL_TAKE` (borg-flow.h): the goal of flowing towards an object.
 pub const GOAL_TAKE: i16 = 2;
@@ -499,7 +499,7 @@ pub fn borg_flow_take(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
 /// The object selection of `borg_flow_take`: fills `borg_temp_*`; false when
 /// there is nothing to take.
 fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
-    let leash = bridge::borg_get_leash(st, true);
+    let leash = borg_flow_misc::borg_get_leash(st, true);
 
     /* Missile carry limit */
     /* allow shooters to two quiver slots full */
@@ -689,7 +689,7 @@ fn scum_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* don't go too far from the stairs */
-        if bridge::borg_flow_far_from_stairs(st, x, y, b_stair) {
+        if borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair) {
             continue;
         }
 
@@ -878,7 +878,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
         }
 
         /* don't go too far from the stairs */
-        if bridge::borg_flow_far_from_stairs(st, x, y, b_stair) {
+        if borg_flow_misc::borg_flow_far_from_stairs(st, x, y, b_stair) {
             continue;
         }
 

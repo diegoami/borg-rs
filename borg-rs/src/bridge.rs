@@ -526,58 +526,6 @@ pub fn event_signal(st: &mut BorgState, ev: crate::headers::game_event_h::game_e
     escape(st);
 }
 
-/// `borg_flow_far_from_stairs(x, y, b_stair)` (still c2rust,
-/// borg-flow-misc.c).
-pub fn borg_flow_far_from_stairs(st: &mut BorgState, x: i32, y: i32, b_stair: i32) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs(x, y, b_stair) };
-    escape(st);
-    r
-}
-
-/// `borg_flow_reverse(...)` (still c2rust, borg-flow-misc.c).
-pub fn borg_flow_reverse(
-    st: &mut BorgState,
-    depth: i32,
-    optimize: bool,
-    avoid: bool,
-    tunneling: bool,
-    stair_idx: i32,
-    sneak: bool,
-) {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe {
-        crate::c2rust::borg_flow_misc::borg_flow_reverse(
-            depth, optimize, avoid, tunneling, stair_idx, sneak,
-        )
-    };
-    escape(st);
-}
-
-/// `borg_goto_dir(y1, x1, y2, x2)` (still c2rust, borg-flow-misc.c).
-pub fn borg_goto_dir(st: &mut BorgState, y1: i32, x1: i32, y2: i32, x2: i32) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code (pure arithmetic).
-    let r = unsafe { crate::c2rust::borg_flow_misc::borg_goto_dir(y1, x1, y2, x2) };
-    escape(st);
-    r
-}
-
-/// `track_vein.num = 0` (still c2rust, borg-flow-misc.c).
-pub fn clear_track_vein(st: &mut BorgState) {
-    escape(st);
-    // SAFETY: plain store to a field of a C-style global; Borg thread.
-    unsafe { crate::c2rust::borg_flow_misc::track_vein.num = 0 }
-    escape(st);
-}
-
-c2r_void! {
-    borg_init_flow_misc => crate::c2rust::borg_flow_misc::borg_init_flow_misc;
-    borg_free_flow_misc => crate::c2rust::borg_flow_misc::borg_free_flow_misc;
-}
-
 /// `borg_takes_nxt` (borg-flow-take.c, converted).
 pub fn borg_takes_nxt(st: &mut BorgState) -> i16 {
     st.takes.nxt
@@ -1397,15 +1345,6 @@ pub fn borg_item_analyze_ware(
 // ---------------------------------------------------------------------------
 // borg-flow-take.c (converted): calls into still-c2rust flow code.
 
-/// `borg_get_leash(pick_up)` (still c2rust, borg-flow-misc.c).
-pub fn borg_get_leash(st: &mut BorgState, pick_up: bool) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code (reads traits).
-    let r = unsafe { crate::c2rust::borg_flow_misc::borg_get_leash(pick_up) };
-    escape(st);
-    r
-}
-
 c2r_void! {
 }
 
@@ -1634,16 +1573,6 @@ pub fn borg_power(st: &mut BorgState) -> i32 {
     r
 }
 
-/// `borg_check_rest(y, x)` (still c2rust, borg-flow-misc.c).
-pub fn borg_check_rest(st: &mut BorgState, y: i32, x: i32) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code; (y, x) is the
-    // Borg's grid.
-    let r = unsafe { crate::c2rust::borg_flow_misc::borg_check_rest(y, x) };
-    escape(st);
-    r
-}
-
 /// `borg_read_scroll(sval)` (borg-item-use.c, converted).
 pub fn borg_read_scroll(st: &mut BorgState, sval: i32) -> bool {
     crate::borg_item_use::borg_read_scroll(st, sval)
@@ -1864,24 +1793,6 @@ pub fn track_door_at(st: &mut BorgState, i: usize) -> (i32, i32) {
     (t.y[i], t.x[i])
 }
 
-/// `borg_flow_far_from_stairs_dist(x, y, b_stair, distance)` (still
-/// c2rust, borg-flow-misc.c).
-pub fn borg_flow_far_from_stairs_dist(
-    st: &mut BorgState,
-    x: i32,
-    y: i32,
-    b_stair: i32,
-    distance: i32,
-) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe {
-        crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs_dist(x, y, b_stair, distance)
-    };
-    escape(st);
-    r
-}
-
 /// C-ABI shims with the borg-flow-dark.c names, for c2rust callers
 /// (borg_think_dungeon).
 pub mod flow_dark {
@@ -1933,11 +1844,51 @@ pub mod attack_munchkin {
     }
 }
 
+/// C-ABI shims with the borg-flow-misc.c names, for c2rust callers.
+pub mod flow_misc {
+    use super::st;
+    use crate::borg_flow_misc as m;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_happy_grid_bold(y: c_int, x: c_int) -> bool {
+        m::borg_happy_grid_bold(st(), y, x)
+    }
+    pub unsafe extern "C" fn borg_flow_recover(dist: c_int) -> bool {
+        m::borg_flow_recover(st(), dist)
+    }
+    pub unsafe extern "C" fn borg_flow_vein(viewable: bool, nearness: c_int) -> bool {
+        m::borg_flow_vein(st(), viewable, nearness)
+    }
+    pub unsafe extern "C" fn borg_flow_spastic(bored: bool) -> bool {
+        m::borg_flow_spastic(st(), bored)
+    }
+    pub unsafe extern "C" fn borg_flow_shop_entry(i: c_int) -> bool {
+        m::borg_flow_shop_entry(st(), i)
+    }
+    pub unsafe extern "C" fn borg_flow_light(why: c_int) -> bool {
+        m::borg_flow_light(st(), why)
+    }
+    pub unsafe extern "C" fn borg_flow_vault(nearness: c_int) -> bool {
+        m::borg_flow_vault(st(), nearness)
+    }
+    pub unsafe extern "C" fn borg_twitchy() -> bool {
+        m::borg_twitchy(st())
+    }
+    pub unsafe extern "C" fn borg_extract_dir(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> c_int {
+        m::borg_extract_dir(y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_goto_dir(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> c_int {
+        m::borg_goto_dir(st(), y1, x1, y2, x2)
+    }
+    pub unsafe extern "C" fn borg_check_rest(y: c_int, x: c_int) -> bool {
+        m::borg_check_rest(st(), y, x)
+    }
+}
+
 /// C-ABI shims with the borg-flow.c names, for c2rust callers.
 pub mod flow {
     use super::{cbytes, st};
     use crate::borg_flow as f;
-    use crate::headers::borg_flow_h::borg_track;
     use core::ffi::{c_char, c_int};
 
     pub unsafe extern "C" fn borg_can_dig(check_fail: bool, feat: u8) -> bool {
@@ -1966,28 +1917,6 @@ pub mod flow {
     }
     pub unsafe extern "C" fn borg_flow_old(why: c_int) -> bool {
         f::borg_flow_old(st(), why)
-    }
-    /// For the c2rust tracks (borg-flow-misc.c): allocated as in C.
-    pub unsafe extern "C" fn borg_init_track(track: *mut borg_track, size: c_int) {
-        use crate::headers::z_virt_h::mem_zalloc;
-        let n = (size as usize).wrapping_mul(core::mem::size_of::<c_int>());
-        (*track).num = 0;
-        (*track).size = size as i16;
-        (*track).x = mem_zalloc(n) as *mut c_int;
-        (*track).y = mem_zalloc(n) as *mut c_int;
-    }
-    pub unsafe extern "C" fn borg_free_track(track: *mut borg_track) {
-        use crate::headers::z_virt_h::mem_free;
-        (*track).num = 0;
-        (*track).size = 0;
-        if !(*track).x.is_null() {
-            mem_free((*track).x as *mut core::ffi::c_void);
-            (*track).x = core::ptr::null_mut();
-        }
-        if !(*track).y.is_null() {
-            mem_free((*track).y as *mut core::ffi::c_void);
-            (*track).y = core::ptr::null_mut();
-        }
     }
     pub unsafe extern "C" fn borg_init_flow() {
         f::borg_init_flow(st())

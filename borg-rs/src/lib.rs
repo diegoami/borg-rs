@@ -43,6 +43,7 @@ pub mod borg_flow_glyph;
 pub mod borg_flow_dark;
 pub mod borg_flow_take;
 pub mod borg_flow_kill;
+pub mod borg_flow_misc;
 pub mod borg_flow_stairs;
 pub mod borg_formulas;
 pub mod borg_formulas_calc;

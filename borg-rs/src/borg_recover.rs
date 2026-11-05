@@ -24,7 +24,7 @@ use crate::borg_item_use::{
 };
 use crate::borg_light::{borg_check_light_only, borg_maintain_light, BorgNeed};
 use crate::borg_magic::{borg_spell, borg_spell_okay};
-use crate::bridge;
+use crate::borg_flow_misc;
 use crate::engine;
 use crate::headers::borg_magic_h::{
     BERSERK_STRENGTH, CURE_POISON, HEALING, HERBAL_CURING, HEROISM, HOLY_WORD, MINOR_HEALING,
@@ -391,7 +391,7 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
         && st.borg.tr(BI_ISCUT) == 0
         && st.borg.tr(BI_ISHUNGRY) == 0
         && st.borg.tr(BI_ISPOISONED) == 0
-        && bridge::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
+        && borg_flow_misc::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
         && !borg_spell_okay(st, RECHARGING)
     {
         borg_note(st, "# Resting to recharge a rod...");
@@ -428,7 +428,7 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
             || st.borg.tr(BI_ISHEAVYSTUN) != 0
             || st.borg.tr(BI_CURHP) < st.borg.tr(BI_MAXHP)
             || st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) * sp_tenths / 10)
-        && bridge::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
+        && borg_flow_misc::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
         && !st.borg.mon.scary
         && p <= i32::from(
             st.danger.fear_region[(st.borg.c.y / 11) as usize][(st.borg.c.x / 11) as usize],
@@ -461,7 +461,7 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
         && (st.borg.tr(BI_CLEVEL) <= 40 || st.borg.tr(BI_CDEPTH) >= 85)
         && st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) * 8 / 10
         && p < i32::from(st.borg.avoidance) / 10
-        && bridge::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
+        && borg_flow_misc::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
         && st.borg.tr(BI_ISWEAK) == 0
         && st.borg.tr(BI_ISCUT) == 0
         && st.borg.tr(BI_ISHUNGRY) == 0
@@ -484,7 +484,7 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
     if st.borg.tr(BI_MAXSP) != 0
         && st.borg.munchkin_mode
         && (st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) || st.borg.tr(BI_CURHP) < st.borg.tr(BI_MAXHP))
-        && bridge::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
+        && borg_flow_misc::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
         && st.borg.tr(BI_ISWEAK) == 0
         && st.borg.tr(BI_ISCUT) == 0
         && st.borg.tr(BI_ISHUNGRY) == 0

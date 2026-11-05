@@ -738,3 +738,39 @@ Format: file, function, (seed, turn when observed), explanation.
   `borg_reinit_options()`, which no command path does).
 * Rust (`borg_init.rs`): all kept (the hang is the same loop; the NULL
   reads are panics).
+
+## 39. Misc flow slips (flow misc)
+
+* `borg-flow-misc.c`, found by code reading and the cross-check.
+* `borg_flow_spastic()`: the reverse flow is spread with `optimize` set,
+  and the origin is the Borg's own grid (cost 0), so `borg_flow_spread()`
+  stops at its first dequeue: every other grid keeps cost 255 and is
+  skipped as unreachable. Only the Borg's own grid can be picked; the
+  commit succeeds (cost 0) but `borg_flow_old()` finds no step, cancels
+  the goal and returns false. The next call takes the "We have arrived"
+  branch (note, `xtra += 5` on the 9 grids) and returns false as well. The
+  function never moves the Borg and never returns true.
+* `borg_flow_spastic()`: the value `v` subtracts `ag->xtra * 40`, but
+  `ag` was reused by the neighbour loops and points at the last one
+  (`ag_ptr[7]`, the north-west grid), not at the candidate grid.
+* `borg_flow_vault()`: the flow is not cleared before the grids are
+  enqueued, so the queue and costs left by the previous flow are spread
+  further; each excavatable grid is listed once per adjacent permanent
+  wall (duplicate entries; up to 8 per grid, so `borg_temp_*` could in
+  theory overflow).
+* `borg_check_rest(y, x)`: the vault test loops `-1 <= i, ii < 1`, so it
+  looks at the 2x2 grids up and left of the Borg (not the 3x3 around
+  him), and always around the Borg's position, not around (y, x). The
+  function clears `borg.time.last_kill_mult` once the early tests pass, so
+  `borg_flow_recover()`'s scan resets it on its first candidate. The
+  monster danger is `borg_danger_one_kill()` at the monster's own grid,
+  not at (y, x).
+* `borg_twitchy()`: the 20th random pick decrements `count` to 0 before
+  its tests, so even a good 20th pick runs the "surrounded by walls"
+  scan, which may choose another direction; `borg.goal.g` is left at the
+  last random pick.
+* `borg_flow_vein()`: `borg_flow_clear()` runs once per listed vein inside
+  the scan loop (no effect beyond the first, except the work).
+* Rust (`borg_flow_misc.rs`): all kept. Where C would read or write out of
+  bounds (a `borg_temp_*` overflow, a shop index past `store_max`), the
+  Rust code panics.

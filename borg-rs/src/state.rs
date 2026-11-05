@@ -14,6 +14,7 @@ use crate::borg_flow::FlowState;
 use crate::borg_flow_glyph::GlyphState;
 use crate::borg_flow_take::TakeState;
 use crate::borg_flow_kill::KillState;
+use crate::borg_flow_misc::FlowMiscState;
 use crate::borg_flow_stairs::StairsState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
@@ -61,6 +62,9 @@ pub struct BorgState {
     /// `borg_race_count`, `borg_race_death`, the unique/normal monster name
     /// tables and `borg_nasties*`
     pub kills: KillState,
+    /// borg-flow-misc.c: `track_shop_x/y`, `track_vein` and the file
+    /// statics `spastic_x`/`spastic_y`
+    pub flow_misc: FlowMiscState,
     /// borg-flow-stairs.c: `track_less`, `track_more`
     pub stairs: StairsState,
     /// borg-formulas.c: `borg_formulas`

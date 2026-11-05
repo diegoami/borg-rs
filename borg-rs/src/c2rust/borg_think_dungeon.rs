@@ -30,12 +30,9 @@ use crate::headers::borg_fight_defend_h::borg_defend;
 use crate::headers::borg_fight_perm_h::borg_perma_spell;
 use crate::headers::borg_flow_dark_h::borg_flow_dark;
 use crate::headers::borg_flow_glyph_h::borg_flow_glyph;
-pub use crate::headers::borg_flow_h::{borg_flow_old, borg_track};
+pub use crate::headers::borg_flow_h::{borg_flow_old};
 use crate::headers::borg_flow_kill_h::{borg_delete_kill, borg_flow_kill, borg_flow_kill_aim, borg_flow_kill_corridor, borg_flow_kill_direct, borg_near_monster_type};
-use crate::headers::borg_flow_misc_h::{
-    borg_check_rest, borg_flow_recover, borg_flow_shop_entry, borg_flow_spastic, borg_flow_vault,
-    borg_flow_vein, borg_twitchy, track_vein,
-};
+use crate::headers::borg_flow_misc_h::{borg_check_rest, borg_flow_recover, borg_flow_shop_entry, borg_flow_spastic, borg_flow_vault, borg_flow_vein, borg_twitchy};
 use crate::headers::borg_flow_stairs_h::{borg_flow_stair_both, borg_flow_stair_less, borg_flow_stair_more};
 use crate::headers::borg_flow_take_h::{borg_delete_take, borg_flow_take, borg_flow_take_lunal};
 pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnnamedH_10, C2RustUnnamedH_11, C2RustUnnamedH_12, C2RustUnnamedH_13, C2RustUnnamedH_14, C2RustUnnamedH_15, C2RustUnnamedH_16, C2RustUnnamedH_17, C2RustUnnamedH_9, BORG_ALLOW_STRANGE_OPTS, BORG_AUTOSAVE, BORG_CHEAT_DEATH, BORG_CHEST_FAIL_TOLERANCE, BORG_DELAY_FACTOR, BORG_DUMP_LEVEL, BORG_ENCHANT_LIMIT, BORG_KILLS_UNIQUES, BORG_LUNAL_MODE, BORG_MAX_SETTINGS, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_SAVE_DEATH, BORG_SELF_LUNAL, BORG_SELF_SCUM, BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING, BORG_STOP_ON_BELL, BORG_USES_DYNAMIC_CALCS, BORG_USES_SWAPS, BORG_VERBOSE, BORG_WORSHIPS_AC, BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED};
@@ -2012,7 +2009,7 @@ pub unsafe extern "C" fn borg_think_dungeon() -> bool {
         crate::bridge::st().flow.track_step.num = 0 as int16_t;
         crate::bridge::st().flow.track_door.num = 0 as int16_t;
         crate::bridge::st().flow.track_closed.num = 0 as int16_t;
-        track_vein.num = 0 as int16_t;
+        crate::bridge::st().flow_misc.track_vein.num = 0 as int16_t;
         crate::bridge::st().takes.cnt = 0 as int16_t;
         crate::bridge::st().takes.nxt = 1 as int16_t;
         if borg_think_dungeon_brave() {
