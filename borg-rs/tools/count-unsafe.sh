@@ -13,6 +13,6 @@ for f in $(find . -name '*.rs' | sort); do
     if [ "$n" -gt 0 ]; then rows+="$(printf '%6d  %s' "$n" "${f#./}")"$'\n'; fi
 done
 if [ "${1:-}" != "--summary" ]; then printf '%s' "$rows" | sort -rn; fi
-conv=$(ls *.rs | grep -v -E '^(lib|bridge)\.rs$' | wc -l)
+conv=$(ls *.rs | { grep -v -E '^(lib|bridge)\.rs$' || true; } | wc -l)
 left=$(ls c2rust/*.rs | grep -v mod.rs | wc -l)
 echo "total unsafe: $total   (c2rust modules left: $left, converted files: $conv)"
