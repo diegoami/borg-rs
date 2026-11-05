@@ -16,7 +16,7 @@
 
 use crate::borg_io::borg_note;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// The activation index of each activation the Borg knows (`act_*`).
 #[derive(Clone, Copy, Default, Debug)]
@@ -194,7 +194,7 @@ pub fn borg_findact(st: &mut BorgState, act_name: &str) -> i32 {
         st,
         &format!("**STARTUP FAILURE** activation lookup failure - {} ", act_name),
     );
-    bridge::set_borg_init_failure(st);
+    st.init.init_failure = true;
     0
 }
 

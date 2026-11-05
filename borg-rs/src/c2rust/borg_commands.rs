@@ -36,8 +36,7 @@ pub use crate::headers::borg_h::{borg_best, borg_struct, borg_time, C2RustUnname
 use crate::headers::borg_home_notice_h::borg_notice_home;
 use crate::headers::borg_home_power_h::borg_power_home;
 pub use crate::headers::borg_init_h::{
-    borg_free, borg_init, borg_init_failure, borg_init_txt_file, borg_initialized,
-    borg_reinit_options, borg_setting, borg_settings, game_closed,
+    borg_free, borg_init, borg_init_txt_file, borg_reinit_options,
 };
 use crate::headers::borg_inventory_h::borg_inventory;
 use crate::headers::borg_io_h::borg_note;
@@ -567,11 +566,11 @@ unsafe extern "C" fn get_cfg_display(
     );
     c_put_str(
         label_attr as uint8_t,
-        (*(&raw mut borg_settings as *mut borg_setting).offset(oid as isize)).setting_string,
+        crate::borg_init::BORG_SETTINGS[oid as usize].name.as_ptr(),
         row,
         col,
     );
-    if (*(&raw mut borg_settings as *mut borg_setting).offset(oid as isize)).setting_type
+    if crate::borg_init::BORG_SETTINGS[oid as usize].kind
         as ::core::ffi::c_int
         == 'b' as i32
     {
@@ -611,7 +610,7 @@ unsafe extern "C" fn borg_cfg_get_quantity(mut config: ::core::ffi::c_int) -> ::
     if !get_string(
         format(
             b"Enter new temp value for %s: \0" as *const u8 as *const ::core::ffi::c_char,
-            (*(&raw mut borg_settings as *mut borg_setting).offset(config as isize)).setting_string,
+            crate::borg_init::BORG_SETTINGS[config as usize].name.as_ptr(),
         ),
         &raw mut buf as *mut ::core::ffi::c_char,
         7 as size_t,
@@ -692,16 +691,14 @@ unsafe extern "C" fn borg_cmd_flags() {
             borg_note(b"oops\0" as *const u8 as *const ::core::ffi::c_char);
             return;
         }
-        if (*(&raw mut borg_settings as *mut borg_setting).offset((*m).cursor as isize))
-            .setting_type as ::core::ffi::c_int
+        if crate::borg_init::BORG_SETTINGS[(*m).cursor as usize].kind as ::core::ffi::c_int
             == 'b' as i32
         {
             crate::bridge::st().core.cfg[((*m).cursor) as usize] =
                 (crate::bridge::st().core.cfg[((*m).cursor) as usize] == 0) as ::core::ffi::c_int;
             msg(format(
                 b"new temp config for %s is %s\0" as *const u8 as *const ::core::ffi::c_char,
-                (*(&raw mut borg_settings as *mut borg_setting).offset((*m).cursor as isize))
-                    .setting_string,
+                crate::borg_init::BORG_SETTINGS[(*m).cursor as usize].name.as_ptr(),
                 if crate::bridge::st().core.cfg[((*m).cursor) as usize] != 0 {
                     b"TRUE\0" as *const u8 as *const ::core::ffi::c_char
                 } else {
@@ -713,8 +710,7 @@ unsafe extern "C" fn borg_cmd_flags() {
             crate::bridge::st().core.cfg[((*m).cursor) as usize] = new_value;
             msg(format(
                 b"new temp config for %s is %d\0" as *const u8 as *const ::core::ffi::c_char,
-                (*(&raw mut borg_settings as *mut borg_setting).offset((*m).cursor as isize))
-                    .setting_string,
+                crate::borg_init::BORG_SETTINGS[(*m).cursor as usize].name.as_ptr(),
                 crate::bridge::st().core.cfg[((*m).cursor) as usize],
             ));
         }
@@ -2502,13 +2498,13 @@ pub unsafe extern "C" fn do_cmd_borg() {
     i = 0 as ::core::ffi::c_int;
     while i < command_count {
         if borg_commands[i as usize].selection as ::core::ffi::c_int == cmd as ::core::ffi::c_int {
-            if !borg_initialized || game_closed as ::core::ffi::c_int != 0 {
-                if borg_initialized {
+            if !crate::bridge::st().init.initialized || crate::bridge::st().init.game_closed as ::core::ffi::c_int != 0 {
+                if crate::bridge::st().init.initialized {
                     borg_free();
                 }
                 borg_init();
-                if borg_init_failure {
-                    borg_initialized = false_0 != 0;
+                if crate::bridge::st().init.init_failure {
+                    crate::bridge::st().init.initialized = false_0 != 0;
                     borg_free();
                     borg_note(
                         b"** startup failure borg cannot run ** \0" as *const u8

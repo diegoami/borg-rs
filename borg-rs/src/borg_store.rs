@@ -200,7 +200,7 @@ pub fn borg_init_store(st: &mut BorgState) {
             home, BORG_HOME
         );
         bridge::msg(st, text.as_bytes());
-        bridge::set_borg_init_failure(st);
+        st.init.init_failure = true;
     }
 
     let z = engine::z_info();

@@ -202,7 +202,7 @@ pub fn borg_reincarnate_end(st: &mut BorgState) {
     // Rust `Borg` has no such field: the player is read through `engine`.
 
     // Notice the new race and class
-    bridge::borg_prepare_race_class_info(st);
+    crate::borg_init::borg_prepare_race_class_info(st);
 
     bridge::borg_notice_player(st);
 
@@ -219,7 +219,7 @@ pub fn borg_reincarnate_end(st: &mut BorgState) {
         engine::set_player_noscore(noscore | NOSCORE_BORG);
     }
 
-    bridge::borg_reinit_options(st);
+    crate::borg_init::borg_reinit_options(st);
 
     // We need the borg to keep playing after he dies
     engine::option_set(c"cheat_live", true);

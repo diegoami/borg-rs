@@ -16,7 +16,7 @@
 
 use crate::borg_io::borg_note;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// The svals (`sv_*`) and kind indexes (`kv_*`) of the items the Borg
 /// knows, looked up by name at startup. Field names are the C globals'.
@@ -231,7 +231,7 @@ fn borg_lookup_sval_fail(st: &mut BorgState, tval: i32, name: &str) -> i32 {
             st,
             &format!("**STARTUP FAILURE** sval lookup failure - {} ", name),
         );
-        bridge::set_borg_init_failure(st);
+        st.init.init_failure = true;
     }
     sval
 }

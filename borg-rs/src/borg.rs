@@ -169,12 +169,16 @@ pub struct BorgGoal {
     pub best_item: Vec<BorgBest>,
 }
 
-#[derive(Copy, Clone)]
+/// The player's settings saved while the Borg runs (borg-init.c).
+#[derive(Clone, Default)]
 pub struct BorgInitSave {
+    /// The user's keymap mode (`KEYMAP_MODE_*`).
     pub key_mode: i32,
-    pub kinfo_ignore: *mut u8,
-    pub ignore_level: [u8; 27],
-    pub ego_ignore_types: *mut *mut bool,
+    /// `k_info[i].ignore` for every object kind; empty = NULL.
+    pub kinfo_ignore: Vec<u8>,
+    pub ignore_level: [u8; engine::ITYPE_MAX],
+    /// `ego_ignore_types[i]` for every ego item; empty = NULL.
+    pub ego_ignore_types: Vec<[bool; engine::ITYPE_MAX]>,
 }
 
 #[derive(Copy, Clone, Default)]
@@ -235,17 +239,6 @@ pub struct BorgNear {
     pub evil_unique: bool,
     pub summoner: bool,
     pub summoner_idx: i16,
-}
-
-impl Default for BorgInitSave {
-    fn default() -> Self {
-        BorgInitSave {
-            key_mode: 0,
-            kinfo_ignore: core::ptr::null_mut(),
-            ignore_level: [0; 27],
-            ego_ignore_types: core::ptr::null_mut(),
-        }
-    }
 }
 
 impl Borg {
@@ -314,7 +307,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         engine::set_inkey_hack(None);
         borg_flush(st);
         engine::flush_input();
-        bridge::borg_reset_settings(st);
+        crate::borg_init::borg_reset_settings(st);
         key.code = ESCAPE;
         return true;
     }

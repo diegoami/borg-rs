@@ -48,6 +48,7 @@ pub mod borg_formulas;
 pub mod borg_formulas_calc;
 pub mod borg_home_notice;
 pub mod borg_home_power;
+pub mod borg_init;
 pub mod borg_inventory;
 pub mod borg_io;
 pub mod borg_item;

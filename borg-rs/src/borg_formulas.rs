@@ -197,7 +197,7 @@ fn stricmp_eq(a: &[u8], b: &[u8]) -> bool {
 
 /// `strtol(s, &end, 10)` (glibc): the value, saturated at the `long`
 /// limits, and the number of bytes used (0 when there are no digits).
-fn c_strtol(s: &[u8]) -> (i64, usize) {
+pub(crate) fn c_strtol(s: &[u8]) -> (i64, usize) {
     let mut p = skip_space(s, 0);
     let mut neg = false;
     if at(s, p) == b'-' || at(s, p) == b'+' {
@@ -628,13 +628,12 @@ fn get_value_index<E: FormulaEnv>(
             -1
         }
         VT_CONFIG => {
-            let mut i = 0;
-            while let Some(setting) = bridge::setting_string(env.st(), i) {
+            // (the table's NULL entry ends the C loop)
+            for (i, setting) in crate::borg_init::BORG_SETTINGS.iter().enumerate() {
                 // +5 to get rid of borg_
-                if stricmp_eq(&setting[5..], name) {
+                if stricmp_eq(&setting.name.to_bytes()[5..], name) {
                     return i as i32;
                 }
-                i += 1;
             }
             formula_error(
                 env,
@@ -1345,9 +1344,16 @@ enum Section {
 /// file (after its `[BEGIN FORMULA SECTION]` line). Returns true if the
 /// formulas are off.
 pub fn borg_load_formulas(st: &mut BorgState, fp: engine::AngFile) -> bool {
-    load_formulas(&mut StEnv(st), |buf| {
-        engine::file_getl(fp, buf, LINE_BUF - 1)
-    })
+    borg_load_formulas_from(st, |buf, len| engine::file_getl(fp, buf, len))
+}
+
+/// `borg_load_formulas(fp)` reading the lines with `getl(buf, len)`
+/// (`file_getl(fp, buf, len)`): borg-init.c passes its open borg.txt.
+pub fn borg_load_formulas_from(
+    st: &mut BorgState,
+    mut getl: impl FnMut(&mut [u8], usize) -> bool,
+) -> bool {
+    load_formulas(&mut StEnv(st), |buf| getl(buf, LINE_BUF - 1))
 }
 
 /// `borg_load_formulas()` reading lines with `getl` (`file_getl()` into a

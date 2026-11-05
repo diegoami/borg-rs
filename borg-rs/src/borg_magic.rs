@@ -793,7 +793,7 @@ fn borg_init_spell(st: &mut BorgState, spell_num: i32) {
         note.extend_from_slice(r.name.to_bytes());
         note.push(b'>');
         borg_note_bytes(st, &note);
-        bridge::set_borg_init_failure(st);
+        st.init.init_failure = true;
         return;
     }
     // C dereferences `cspell->effect` (never NULL for a class spell)

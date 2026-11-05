@@ -886,22 +886,61 @@ impl OpenFile {
 /// `path_build(buf, len, ANGBAND_DIR_ARCHIVE, leaf)`: the path (bytes up
 /// to the NUL) as built in a buffer of `len` bytes.
 pub fn path_build_archive(len: usize, leaf: &[u8]) -> Vec<u8> {
+    // SAFETY: plain read of a pointer global set up at startup.
+    path_build_in(unsafe { crate::headers::init_h::ANGBAND_DIR_ARCHIVE }, len, leaf)
+}
+
+/// `path_build(buf, len, ANGBAND_DIR_USER, leaf)`: the path (bytes up to
+/// the NUL) as built in a buffer of `len` bytes.
+pub fn path_build_user(len: usize, leaf: &[u8]) -> Vec<u8> {
+    // SAFETY: plain read of a pointer global set up at startup.
+    path_build_in(unsafe { crate::headers::init_h::ANGBAND_DIR_USER }, len, leaf)
+}
+
+/// `path_build(buf, len, dir, leaf)` for one of the `ANGBAND_DIR_*` globals.
+fn path_build_in(dir: *mut c_char, len: usize, leaf: &[u8]) -> Vec<u8> {
     assert!(len >= 1);
     let leaf = CString::new(leaf).expect("no NUL in file name");
     let mut buf = vec![0u8; len];
-    // SAFETY: buf has len bytes; ANGBAND_DIR_ARCHIVE is a C string set up
+    // SAFETY: buf has len bytes; dir is an `ANGBAND_DIR_*` C string set up
     // at startup (or NULL, which path_build accepts); leaf is a C string.
     unsafe {
-        crate::headers::z_file_h::path_build(
-            buf.as_mut_ptr() as *mut c_char,
-            len,
-            crate::headers::init_h::ANGBAND_DIR_ARCHIVE,
-            leaf.as_ptr(),
-        );
+        crate::headers::z_file_h::path_build(buf.as_mut_ptr() as *mut c_char, len, dir, leaf.as_ptr());
     }
     let n = buf.iter().position(|&b| b == 0).unwrap_or(len);
     buf.truncate(n);
     buf
+}
+
+/// An engine file opened for reading by `file_open(path, MODE_READ, -1)`
+/// (`ang_file *`). Not `Copy`: `close()` consumes it. Dropping it without
+/// closing leaks it.
+pub struct ReadFile(*mut crate::headers::z_file_h::ang_file);
+
+/// `file_open(path, MODE_READ, -1)`; `None` where C gets NULL.
+pub fn file_open_read(path: &[u8]) -> Option<ReadFile> {
+    use crate::headers::z_file_h as z;
+    let c = CString::new(path).expect("no NUL in path");
+    // SAFETY: c is a valid C string for the call; the file type is not
+    // used for reading (C passes -1); the result is NULL or a file the
+    // engine allocated.
+    let f = unsafe { z::file_open(c.as_ptr(), z::MODE_READ, u32::MAX) };
+    (!f.is_null()).then_some(ReadFile(f))
+}
+
+impl ReadFile {
+    /// `file_getl(f, buf, len)`, as [`file_getl`].
+    pub fn getl(&mut self, buf: &mut [u8], len: usize) -> bool {
+        // AngFile contract: self.0 is open (only close() ends it, by value)
+        // and the handle does not outlive this call.
+        file_getl(AngFile(self.0), buf, len)
+    }
+
+    /// `file_close(f)`.
+    pub fn close(self) -> bool {
+        // SAFETY: self.0 is open and is not used again (self is consumed).
+        unsafe { crate::headers::z_file_h::file_close(self.0) }
+    }
 }
 
 /// `time(NULL)`.
@@ -1878,4 +1917,111 @@ pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
 pub fn cave_ptr() -> *mut crate::headers::cave_h::chunk {
     // SAFETY: plain read of the engine global.
     unsafe { headers::cave_h::cave }
+}
+
+// ---------------------------------------------------------------------------
+// Borg start-up (borg-init.c)
+
+/// `do_cmd_redraw()`: redraw the whole screen.
+pub fn do_cmd_redraw() {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::ui_command_h::do_cmd_redraw() }
+}
+
+/// `event_signal(type)`.
+pub fn event_signal(kind: game_event_type) {
+    // SAFETY: plain call; handlers get no data, as in C.
+    unsafe { crate::headers::game_event_h::event_signal(kind) }
+}
+
+/// `screensaver` (option.c).
+pub fn screensaver() -> bool {
+    // SAFETY: plain read of a bool global on the engine thread.
+    unsafe { crate::headers::option_h::screensaver }
+}
+
+/// `(tile_width, tile_height)` (ui-term.c).
+pub fn tile_size() -> (u8, u8) {
+    // SAFETY: plain reads of two byte globals on the engine thread.
+    unsafe { (crate::headers::ui_term_h::tile_width, crate::headers::ui_term_h::tile_height) }
+}
+
+/// `player->upkeep->redraw |= flags`.
+pub fn player_redraw_add(flags: u32) {
+    // SAFETY: `player` and its upkeep are allocated at startup and live for
+    // the game; single-threaded write.
+    unsafe { (*(*crate::headers::player_h::player).upkeep).redraw |= flags }
+}
+
+/// `player->opts.hitpoint_warn = v`.
+pub fn set_player_hitpoint_warn(v: u8) {
+    // SAFETY: `player` is allocated at startup; single-threaded write.
+    unsafe { (*crate::headers::player_h::player).opts.hitpoint_warn = v }
+}
+
+/// `player_id2class(id)->name` (panics where C would read through NULL).
+pub fn class_name_by_id(id: u32) -> &'static [u8] {
+    // SAFETY: player_id2class returns NULL or an entry of the static class
+    // list, whose name is a C string that lives for the game.
+    unsafe {
+        let c = crate::headers::player_h::player_id2class(id);
+        assert!(!c.is_null(), "player_id2class returned NULL");
+        CStr::from_ptr((*c).name).to_bytes()
+    }
+}
+
+/// `ITYPE_MAX` (obj-ignore.h): the number of ignore types.
+pub const ITYPE_MAX: usize = crate::headers::obj_ignore_h::ITYPE_MAX as usize;
+
+/// `k_info[kind].ignore = v`.
+pub fn set_kind_ignore(kind: usize, v: u8) {
+    assert!(kind < usize::from(z_info().k_max));
+    // SAFETY: k_info has z_info->k_max entries (checked); single-threaded
+    // write of a byte field.
+    unsafe { (*crate::headers::object_h::k_info.add(kind)).ignore = v }
+}
+
+/// `ignore_level[0 .. ITYPE_MAX]` (obj-ignore.c).
+pub fn ignore_level() -> [u8; ITYPE_MAX] {
+    // SAFETY: ignore_level is a static array of ITYPE_MAX bytes (declared
+    // with length 0 in the header).
+    unsafe {
+        let p = core::ptr::addr_of!(crate::headers::obj_ignore_h::ignore_level) as *const u8;
+        *(p as *const [u8; ITYPE_MAX])
+    }
+}
+
+/// `ignore_level[i] = levels[i]` for all ignore types.
+pub fn set_ignore_level(levels: &[u8; ITYPE_MAX]) {
+    // SAFETY: as ignore_level(); single-threaded write.
+    unsafe {
+        let p = core::ptr::addr_of_mut!(crate::headers::obj_ignore_h::ignore_level) as *mut u8;
+        *(p as *mut [u8; ITYPE_MAX]) = *levels;
+    }
+}
+
+/// `ego_ignore_types[ego][0 .. ITYPE_MAX]` (obj-ignore.c).
+pub fn ego_ignore_types(ego: usize) -> [bool; ITYPE_MAX] {
+    assert!(ego < usize::from(z_info().e_max));
+    // SAFETY: ego_ignore_types has z_info->e_max rows (checked) of
+    // ITYPE_MAX bools each, allocated by ignore_init() at startup.
+    unsafe {
+        *(*crate::headers::obj_ignore_h::ego_ignore_types.add(ego) as *const [bool; ITYPE_MAX])
+    }
+}
+
+/// `ego_ignore_types[ego][i] = types[i]` for all ignore types.
+pub fn set_ego_ignore_types(ego: usize, types: &[bool; ITYPE_MAX]) {
+    assert!(ego < usize::from(z_info().e_max));
+    // SAFETY: as ego_ignore_types(); single-threaded write.
+    unsafe {
+        *(*crate::headers::obj_ignore_h::ego_ignore_types.add(ego) as *mut [bool; ITYPE_MAX]) =
+            *types;
+    }
+}
+
+/// `ignore_birth_init()` (obj-ignore.c): reset the ignore settings.
+pub fn ignore_birth_init() {
+    // SAFETY: plain call on the engine thread.
+    unsafe { crate::headers::obj_ignore_h::ignore_birth_init() }
 }

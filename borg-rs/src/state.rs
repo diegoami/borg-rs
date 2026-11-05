@@ -17,6 +17,7 @@ use crate::borg_flow_kill::KillState;
 use crate::borg_flow_stairs::StairsState;
 use crate::borg_formulas::FormulasState;
 use crate::borg_formulas_calc::CalcState;
+use crate::borg_init::InitState;
 use crate::borg_home_notice::HomeState;
 use crate::borg_inventory::InventoryState;
 use crate::borg_io::IoState;
@@ -68,6 +69,8 @@ pub struct BorgState {
     pub formulas_calc: CalcState,
     /// borg-home-notice.c: the home counters (`num_*`, `home_*`)
     pub home: HomeState,
+    /// borg-init.c: `borg_initialized`, `game_closed`, `borg_init_failure`
+    pub init: InitState,
     /// borg-inventory.c: `borg_do_crush_junk`
     pub inventory: InventoryState,
     /// borg-io.c

@@ -712,3 +712,29 @@ Format: file, function, (seed, turn when observed), explanation.
 * `borg_consume()`: Brawn (`sv_potion_inc_str2`) has no `break` after a
   failed quaff and falls into the other potion tests (harmless).
 * Rust (`borg_junk.rs`): all kept.
+
+## 38. borg.txt parsing slips (init)
+
+* `borg-init.c`, found by code reading; checked with the C parser on
+  4,000 random borg.txt files (see PROGRESS.md, module 45).
+* `borg_proc_setting()`: for an int setting, a byte after the name that is
+  not ` `, `=`, `-` or a digit (e.g. `borg_stop_dlevel = x`, or an unknown
+  key that starts with an int setting's name, `borg_stop_dlevelx 5`) is
+  never consumed: the loop spins forever and the game hangs at start-up
+  (seen with the C parser at -O2).
+* `borg_proc_setting()`: a `-` with no digits after it still negates the
+  setting, so `borg_no_deeper -` gives -127 (the default, negated). The
+  value is `atoi()`, so a number past `INT_MAX` is the low 32 bits of the
+  `long` (`borg_enchant_limit 99999999999` is 1215752191, then 15).
+* `borg_proc_setting()`: names are prefix-matched, so `borg_verbosex = TRUE`
+  sets `borg_verbose`; leading spaces are skipped for settings but not for
+  the `REQ`/`FORMULA`/`CND`/`POWER`/`[BEGIN FORMULA SECTION]` tests.
+* `borg_init_txt_file()`: if borg.txt is missing and cannot be written, it
+  returns before `borg_cfg` is allocated; `borg_init()` then reads the NULL
+  `borg_cfg` and crashes. If the written file cannot be reopened,
+  `file_getl()` reads through a NULL file.
+* `borg_reset_ignore()` frees `borg.init_save.ego_ignore_types[i]` for every
+  ego without checking the array for NULL (only reached without an earlier
+  `borg_reinit_options()`, which no command path does).
+* Rust (`borg_init.rs`): all kept (the hang is the same loop; the NULL
+  reads are panics).

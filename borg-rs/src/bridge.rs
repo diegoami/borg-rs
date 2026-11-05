@@ -179,12 +179,23 @@ pub mod io {
     }
 }
 
-/// `borg_init_failure = true` (still c2rust, borg-init.c).
-pub fn set_borg_init_failure(st: &mut BorgState) {
-    escape(st);
-    // SAFETY: plain store to a C-style global on the engine thread.
-    unsafe { crate::c2rust::borg_init::borg_init_failure = true }
-    escape(st);
+/// C-ABI shims with the borg-init.c names, for c2rust callers
+/// (borg_commands).
+pub mod init {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_init() {
+        crate::borg_init::borg_init(st())
+    }
+    pub unsafe extern "C" fn borg_free() {
+        crate::borg_init::borg_free(st())
+    }
+    pub unsafe extern "C" fn borg_init_txt_file() -> bool {
+        crate::borg_init::borg_init_txt_file(st())
+    }
+    pub unsafe extern "C" fn borg_reinit_options() {
+        crate::borg_init::borg_reinit_options(st())
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -203,10 +214,14 @@ macro_rules! c2r_void {
     )*};
 }
 c2r_void! {
-    borg_reset_settings => crate::c2rust::borg_init::borg_reset_settings;
     borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
-    borg_prepare_race_class_info => crate::c2rust::borg_init::borg_prepare_race_class_info;
-    borg_reinit_options => crate::c2rust::borg_init::borg_reinit_options;
+    borg_trait_init => crate::c2rust::borg_trait::borg_trait_init;
+    borg_trait_free => crate::c2rust::borg_trait::borg_trait_free;
+    borg_init_messages => crate::c2rust::borg_messages::borg_init_messages;
+    borg_free_messages => crate::c2rust::borg_messages::borg_free_messages;
+    borg_init_update => crate::c2rust::borg_update::borg_init_update;
+    borg_free_update => crate::c2rust::borg_update::borg_free_update;
+    borg_free_detection => crate::c2rust::borg_update::borg_free_detection;
 }
 
 /// `borg_parse(NULL)`
@@ -285,20 +300,6 @@ pub fn trait_name(_st: &mut BorgState, i: usize) -> &'static [u8] {
     // SAFETY: prefix_pref is a static table of string literals with a
     // non-NULL entry for every trait below BI_MAX; nothing writes it.
     unsafe { cbytes(crate::c2rust::borg_trait::prefix_pref[i]) }
-}
-
-/// `borg_settings[i].setting_string` (still c2rust, borg-init.c); `None`
-/// for the NULL entry that ends the table.
-pub fn setting_string(st: &mut BorgState, i: usize) -> Option<&'static [u8]> {
-    escape(st);
-    // SAFETY: borg_settings is a static table of string literals ended by
-    // a NULL entry (callers stop there); nothing writes the strings.
-    let r = unsafe {
-        let p = crate::c2rust::borg_init::borg_settings[i].setting_string;
-        (!p.is_null()).then(|| cbytes(p))
-    };
-    escape(st);
-    r
 }
 
 /// A copy of `borg_items[i]` (borg-item.c, converted).
@@ -515,6 +516,14 @@ pub fn get_string(st: &mut BorgState, prompt: &std::ffi::CStr, buf: &mut [u8], l
     let r = crate::engine::get_string(prompt, buf, len);
     escape(st);
     r
+}
+
+/// `event_signal(ev)` from Borg code that holds the state (a message flush
+/// can wait for a key, so as `msg`).
+pub fn event_signal(st: &mut BorgState, ev: crate::headers::game_event_h::game_event_type) {
+    escape(st);
+    crate::engine::event_signal(ev);
+    escape(st);
 }
 
 /// `borg_flow_far_from_stairs(x, y, b_stair)` (still c2rust,
