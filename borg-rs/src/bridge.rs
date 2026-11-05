@@ -1816,6 +1816,109 @@ pub mod flow_stairs {
     }
 }
 
+// ---------------------------------------------------------------------------
+// borg-flow-dark.c (converted): calls into still-c2rust flow code.
+
+/// One of the flow arrays of borg-flow.c (still c2rust).
+#[derive(Clone, Copy)]
+pub enum FlowData {
+    /// `borg_data_cost`
+    Cost,
+    /// `borg_data_know`
+    Know,
+    /// `borg_data_icky`
+    Icky,
+}
+
+/// The pointer to one flow array (panics if it is not allocated).
+fn flow_data_ptr(which: FlowData) -> *mut crate::headers::borg_flow_h::borg_data {
+    use crate::c2rust::borg_flow as f;
+    // SAFETY: plain reads of pointer globals; Borg thread.
+    let p = unsafe {
+        match which {
+            FlowData::Cost => f::borg_data_cost,
+            FlowData::Know => f::borg_data_know,
+            FlowData::Icky => f::borg_data_icky,
+        }
+    };
+    assert!(!p.is_null(), "flow array not allocated");
+    p
+}
+
+/// `borg_data_<which>->data[y][x]` (still c2rust, borg-flow.c).
+pub fn borg_data_at(st: &mut BorgState, which: FlowData, y: i32, x: i32) -> u8 {
+    escape(st);
+    let p = flow_data_ptr(which);
+    // SAFETY: borg_init_flow() allocates the arrays (checked non-NULL);
+    // the fixed-size array indexes are bounds checked. Borg thread.
+    let r = unsafe { (*p).data[y as usize][x as usize] };
+    escape(st);
+    r
+}
+
+/// `borg_data_<which>->data[y][x] = v` (still c2rust, borg-flow.c).
+pub fn set_borg_data(st: &mut BorgState, which: FlowData, y: i32, x: i32, v: u8) {
+    escape(st);
+    let p = flow_data_ptr(which);
+    // SAFETY: as in `borg_data_at`.
+    unsafe { (*p).data[y as usize][x as usize] = v }
+    escape(st);
+}
+
+/// `track_door.num` (still c2rust, borg-flow.c).
+pub fn track_door_num(st: &mut BorgState) -> i16 {
+    escape(st);
+    // SAFETY: plain read of a global struct field; Borg thread.
+    let r = unsafe { crate::c2rust::borg_flow::track_door.num };
+    escape(st);
+    r
+}
+
+/// `(track_door.y[i], track_door.x[i])` (still c2rust, borg-flow.c), for
+/// `i < track_door.size`.
+pub fn track_door_at(st: &mut BorgState, i: usize) -> (i32, i32) {
+    escape(st);
+    // SAFETY: borg_init_flow() allocates `size` entries for x and y
+    // (pointers checked non-NULL, index checked against `size`).
+    let r = unsafe {
+        let t = &raw const crate::c2rust::borg_flow::track_door;
+        assert!(i < (*t).size.max(0) as usize, "track_door index past the list");
+        assert!(!(*t).x.is_null() && !(*t).y.is_null());
+        (*(*t).y.add(i), *(*t).x.add(i))
+    };
+    escape(st);
+    r
+}
+
+/// `borg_flow_far_from_stairs_dist(x, y, b_stair, distance)` (still
+/// c2rust, borg-flow-misc.c).
+pub fn borg_flow_far_from_stairs_dist(
+    st: &mut BorgState,
+    x: i32,
+    y: i32,
+    b_stair: i32,
+    distance: i32,
+) -> bool {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe {
+        crate::c2rust::borg_flow_misc::borg_flow_far_from_stairs_dist(x, y, b_stair, distance)
+    };
+    escape(st);
+    r
+}
+
+/// C-ABI shims with the borg-flow-dark.c names, for c2rust callers
+/// (borg_think_dungeon).
+pub mod flow_dark {
+    use super::st;
+    use crate::borg_flow_dark as d;
+
+    pub unsafe extern "C" fn borg_flow_dark(neer: bool) -> bool {
+        d::borg_flow_dark(st(), neer)
+    }
+}
+
 /// C-ABI shims with the borg-fight-perm.c names, for c2rust callers
 /// (borg_think_dungeon).
 pub mod fight_perm {

@@ -1354,6 +1354,13 @@ pub fn panel_contains(y: i32, x: i32) -> bool {
     unsafe { headers::game_input_h::panel_contains(y as u32, x as u32) }
 }
 
+/// `feat_is_trap_holding(feat)` (cave.c): can the terrain feature hold a
+/// trap?
+pub fn feat_is_trap_holding(feat: i32) -> bool {
+    // SAFETY: plain call; reads the constant feature table `f_info`.
+    unsafe { headers::cave_h::feat_is_trap_holding(feat) }
+}
+
 /// `ddx_ddd[i]` (cave.c): the x offsets of the 8 directions (and 0).
 pub fn ddx_ddd(i: usize) -> i16 {
     // SAFETY: a constant table of the engine; nothing writes it.

@@ -526,3 +526,25 @@ Format: file, function, (seed, turn when observed), explanation.
   comment ("use MM"), every class tries every attack type except
   `BF_REST` and `BF_THRUST` (ties go to the later type, `dam >= b_dam`).
 * Rust (`borg_attack_munchkin.rs`): all kept.
+
+## 31. Exploration flow quirks (flow dark)
+
+* `borg-flow-dark.c`, found by code reading.
+* `borg_flow_dark()`: the "nearest up stairs" scan skips a stair when
+  `b_j >= j`, so it keeps the *farthest* up staircase (the first of
+  equally far ones), as in borg-flow-take.c (section 19). Every method's
+  "too far from the stairs" test uses that one.
+* `borg_flow_dark_interesting()`: the "Explore visible traps" branch is
+  dead. It is only reached for features from `FEAT_SECRET` up (closed
+  doors return earlier), and in 4.2 only the open floor has the `TRAP`
+  terrain flag, so `feat_is_trap_holding()` is always false there (the
+  Borg keeps known traps in `ag->trap`, not in the feature). Visible traps
+  are never "interesting" for exploration.
+* `borg_flow_dark_4()`: "Clear the edges" sets `borg_data_know` and
+  `borg_data_icky` of the whole border rectangle to false, so danger marks
+  set on those grids before the call (they persist until the next
+  `borg_danger_wipe`) are forgotten as well.
+* `borg_flow_dark_5()`: the `clevel <= 5` and `clevel <= 30` spread
+  branches are identical (short leash).
+* Rust (`borg_flow_dark.rs`): all kept (the two identical branches are one
+  test, `(a && b) || (c && b)`, without side effects).
