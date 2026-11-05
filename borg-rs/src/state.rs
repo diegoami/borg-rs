@@ -30,6 +30,7 @@ use crate::borg_messages_react::MsgState;
 use crate::borg_prepared::PreparedState;
 use crate::borg_projection::ProjectionState;
 use crate::borg_store::StoreState;
+use crate::borg_store_sell::StoreSellState;
 
 #[derive(Default)]
 pub struct BorgState {
@@ -92,4 +93,6 @@ pub struct BorgState {
     pub projection: ProjectionState,
     /// borg-store.c: `borg_shops`, `borg_safe_shops`
     pub store: StoreState,
+    /// borg-store-sell.c: `sold_item_*`, `test_item`, `best_item`
+    pub store_sell: StoreSellState,
 }

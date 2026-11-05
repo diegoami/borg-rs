@@ -334,6 +334,18 @@ pub fn k_info() -> &'static [ObjectKind] {
     unsafe { std::slice::from_raw_parts(crate::headers::object_h::k_info, n) }
 }
 
+/// `k_info[kind].base->max_stack`: how many objects of this kind fit in
+/// one stack (panics past `k_max` or for a kind without a base, where C
+/// would read out of bounds or through NULL).
+pub fn kind_max_stack(kind: usize) -> i32 {
+    let base = k_info()[kind].base;
+    assert!(!base.is_null(), "k_info[{}] has no base", kind);
+    // SAFETY: a kind's base points into kb_info, which is allocated with
+    // the game data before any Borg code runs and lives for the game
+    // (checked non-NULL above).
+    unsafe { (*base).max_stack }
+}
+
 /// An object base (`struct object_base`).
 pub type ObjectBase = crate::headers::object_h::object_base;
 

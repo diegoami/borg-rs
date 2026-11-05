@@ -499,15 +499,6 @@ c2r_void! {
     borg_free_flow_misc => crate::c2rust::borg_flow_misc::borg_free_flow_misc;
 }
 
-/// `borg_count_sell()` (still c2rust, borg-store-sell.c).
-pub fn borg_count_sell(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_store_sell::borg_count_sell() };
-    escape(st);
-    r
-}
-
 /// `borg_takes_nxt` (borg-flow-take.c, converted).
 pub fn borg_takes_nxt(st: &mut BorgState) -> i16 {
     st.takes.nxt
@@ -1242,20 +1233,93 @@ pub fn store_first_empty_inventory_slot(st: &mut BorgState) -> i32 {
     r
 }
 
-/// `borg_init_store_sell()` (still c2rust, borg-store-sell.c).
+/// `borg_init_store_sell()` (borg-store-sell.c, converted).
 pub fn borg_init_store_sell(st: &mut BorgState) {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::headers::borg_store_sell_h::borg_init_store_sell() }
-    escape(st);
+    crate::borg_store_sell::borg_init_store_sell(st)
 }
 
-/// `borg_free_store_sell()` (still c2rust, borg-store-sell.c).
+/// `borg_free_store_sell()` (borg-store-sell.c, converted).
 pub fn borg_free_store_sell(st: &mut BorgState) {
+    crate::borg_store_sell::borg_free_store_sell(st)
+}
+
+/// One entry of the "just bought" list of borg-store-buy.c (still
+/// c2rust): `bought_item_tval/sval/pval/store[i]`.
+#[derive(Clone, Copy, Debug)]
+pub struct BoughtItem {
+    pub tval: i32,
+    pub sval: i32,
+    pub pval: i32,
+    pub store: i32,
+}
+
+/// `bought_item_num` (still c2rust, borg-store-buy.c).
+pub fn bought_item_num(st: &mut BorgState) -> i32 {
     escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    unsafe { crate::headers::borg_store_sell_h::borg_free_store_sell() }
+    // SAFETY: plain read of an int global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_store_buy::bought_item_num };
     escape(st);
+    r
+}
+
+/// `bought_item_*[i]` (still c2rust, borg-store-buy.c); panics past the
+/// 10 entries.
+pub fn bought_item(st: &mut BorgState, i: usize) -> BoughtItem {
+    escape(st);
+    // SAFETY: plain reads of fixed-size int array globals (bounds
+    // checked); Borg thread.
+    let r = unsafe {
+        use crate::c2rust::borg_store_buy as b;
+        BoughtItem {
+            tval: (*(&raw const b::bought_item_tval))[i],
+            sval: (*(&raw const b::bought_item_sval))[i],
+            pval: (*(&raw const b::bought_item_pval))[i],
+            store: (*(&raw const b::bought_item_store))[i],
+        }
+    };
+    escape(st);
+    r
+}
+
+/// C-ABI shims with the borg-store-sell.c names, for c2rust callers
+/// (borg_think_store, borg_store_buy, borg_think_dungeon,
+/// borg_think_dungeon_util, borg_caution).
+pub mod store_sell {
+    use super::st;
+    use crate::borg_store_sell as s;
+    use crate::headers::borg_item_h::borg_item;
+    use core::ffi::c_int;
+
+    /// `item` is only read (copied first; it may be one of the Borg's
+    /// items or wares).
+    pub unsafe extern "C" fn borg_min_item_quantity(item: *mut borg_item) -> c_int {
+        let copy = *item;
+        s::borg_min_item_quantity(st(), &copy)
+    }
+    /// `best_home_power` points to the caller's variable; it is written
+    /// only where C writes it (not on the early "home and pack full"
+    /// return).
+    pub unsafe extern "C" fn borg_think_home_sell_useful(best_home_power: *mut i32) -> bool {
+        let mut v = *best_home_power;
+        let r = s::borg_think_home_sell_useful(st(), &mut v);
+        *best_home_power = v;
+        r
+    }
+    pub unsafe extern "C" fn borg_think_shop_sell_useless() -> bool {
+        s::borg_think_shop_sell_useless(st())
+    }
+    pub unsafe extern "C" fn borg_think_shop_sell() -> bool {
+        s::borg_think_shop_sell(st())
+    }
+    pub unsafe extern "C" fn borg_count_sell() -> c_int {
+        s::borg_count_sell(st())
+    }
+    pub unsafe extern "C" fn borg_init_store_sell() {
+        s::borg_init_store_sell(st())
+    }
+    pub unsafe extern "C" fn borg_free_store_sell() {
+        s::borg_free_store_sell(st())
+    }
 }
 
 /// `borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`

@@ -62,6 +62,7 @@ pub mod borg_projection;
 pub mod borg_recover;
 pub mod borg_reincarnate;
 pub mod borg_store;
+pub mod borg_store_sell;
 pub mod borg_util;
 pub mod engine;
 pub mod state;

@@ -37,9 +37,6 @@ use crate::headers::borg_store_buy_h::{
     bought_item_tval,
 };
 
-use crate::headers::borg_store_sell_h::{
-    sold_item_num, sold_item_nxt, sold_item_pval, sold_item_store, sold_item_sval, sold_item_tval,
-};
 use crate::headers::borg_think_dungeon_h::{borg_feeling_danger, borg_feeling_stuff};
 use crate::headers::borg_think_h::{borg_do_spell, borg_oops};
 pub use crate::headers::borg_trait_h::{
@@ -1909,16 +1906,16 @@ pub unsafe extern "C" fn borg_update() {
         successful_target = 0 as ::core::ffi::c_int;
         crate::bridge::st().borg.avoidance = crate::bridge::st().borg.trait_[(BI_CURHP as ::core::ffi::c_int) as usize] as int16_t;
         crate::bridge::st().danger.wipe = true_0 != 0;
-        sold_item_num = 0 as ::core::ffi::c_int;
-        sold_item_nxt = 1 as ::core::ffi::c_int;
+        crate::bridge::st().store_sell.sold_item_num = 0 as ::core::ffi::c_int;
+        crate::bridge::st().store_sell.sold_item_nxt = 1 as ::core::ffi::c_int;
         bought_item_nxt = 1 as ::core::ffi::c_int;
         bought_item_num = 0 as ::core::ffi::c_int;
         i = 0 as ::core::ffi::c_int;
         while i < 10 as ::core::ffi::c_int {
-            sold_item_tval[i as usize] = 0 as ::core::ffi::c_int;
-            sold_item_sval[i as usize] = 0 as ::core::ffi::c_int;
-            sold_item_pval[i as usize] = 0 as ::core::ffi::c_int;
-            sold_item_store[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().store_sell.sold_item_tval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().store_sell.sold_item_sval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().store_sell.sold_item_pval[i as usize] = 0 as ::core::ffi::c_int;
+            crate::bridge::st().store_sell.sold_item_store[i as usize] = 0 as ::core::ffi::c_int;
             bought_item_tval[i as usize] = 0 as ::core::ffi::c_int;
             bought_item_sval[i as usize] = 0 as ::core::ffi::c_int;
             bought_item_pval[i as usize] = 0 as ::core::ffi::c_int;

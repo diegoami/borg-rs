@@ -27,10 +27,7 @@ use crate::headers::borg_magic_h::{
 };
 use crate::headers::borg_power_h::borg_power;
 
-use crate::headers::borg_store_sell_h::{
-    borg_min_item_quantity, borg_think_home_sell_useful, sold_item_num, sold_item_store,
-    sold_item_sval, sold_item_tval,
-};
+use crate::headers::borg_store_sell_h::{borg_min_item_quantity, borg_think_home_sell_useful};
 use crate::headers::borg_think_h::shop_num;
 pub use crate::headers::borg_trait_h::{
     borg_notice, C2RustUnnamedH_8, BI_ABRAND, BI_ACCW, BI_ACLW, BI_ACON, BI_ACSW, BI_ACUREPOIS,
@@ -269,10 +266,10 @@ unsafe extern "C" fn borg_good_buy(
         }
     }
     let mut p: ::core::ffi::c_int = 0 as ::core::ffi::c_int;
-    while p < sold_item_num {
-        if sold_item_tval[p as usize] == (*item).tval as ::core::ffi::c_int
-            && sold_item_sval[p as usize] == (*item).sval as ::core::ffi::c_int
-            && sold_item_store[p as usize] == who
+    while p < crate::bridge::st().store_sell.sold_item_num {
+        if crate::bridge::st().store_sell.sold_item_tval[p as usize] == (*item).tval as ::core::ffi::c_int
+            && crate::bridge::st().store_sell.sold_item_sval[p as usize] == (*item).sval as ::core::ffi::c_int
+            && crate::bridge::st().store_sell.sold_item_store[p as usize] == who
         {
             if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                 borg_note(format(
@@ -594,9 +591,9 @@ pub unsafe extern "C" fn borg_think_home_buy_useful() -> bool {
         if !((*item).iqty == 0) {
             skip_it = false_0 != 0;
             i = 0 as ::core::ffi::c_int;
-            while i < sold_item_num {
-                if sold_item_tval[i as usize] == (*item).tval as ::core::ffi::c_int
-                    && sold_item_sval[i as usize] == (*item).sval as ::core::ffi::c_int
+            while i < crate::bridge::st().store_sell.sold_item_num {
+                if crate::bridge::st().store_sell.sold_item_tval[i as usize] == (*item).tval as ::core::ffi::c_int
+                    && crate::bridge::st().store_sell.sold_item_sval[i as usize] == (*item).sval as ::core::ffi::c_int
                 {
                     if crate::bridge::st().core.cfg[(BORG_VERBOSE as ::core::ffi::c_int) as usize] != 0 {
                         borg_note(format(
@@ -1001,10 +998,10 @@ pub unsafe extern "C" fn borg_think_home_grab_useless() -> bool {
         let mut item: *mut borg_item = (&raw mut crate::bridge::st().store.shops[BORG_HOME as usize].ware[n as usize]) as *mut borg_item;
         if !((*item).iqty == 0) {
             p = 0 as ::core::ffi::c_int;
-            while p < sold_item_num {
-                if sold_item_tval[p as usize] == (*item).tval as ::core::ffi::c_int
-                    && sold_item_sval[p as usize] == (*item).sval as ::core::ffi::c_int
-                    && sold_item_store[p as usize] == BORG_HOME
+            while p < crate::bridge::st().store_sell.sold_item_num {
+                if crate::bridge::st().store_sell.sold_item_tval[p as usize] == (*item).tval as ::core::ffi::c_int
+                    && crate::bridge::st().store_sell.sold_item_sval[p as usize] == (*item).sval as ::core::ffi::c_int
+                    && crate::bridge::st().store_sell.sold_item_store[p as usize] == BORG_HOME
                 {
                     skip_it = true_0 != 0;
                 }

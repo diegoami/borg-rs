@@ -574,3 +574,33 @@ Format: file, function, (seed, turn when observed), explanation.
   cost).
 * Rust (`borg_flow.rs`): all kept (the index -1 read panics; the dead
   event code and the double free are left out, as they have no effect).
+
+## 33. Selling and stashing slips (store sell)
+
+* `borg-store-sell.c`, found by code reading.
+* `borg_think_home_sell_useful()`: the two `memset`s that "clear out our
+  initial best/test objects" pass
+  `sizeof(z_info->store_inven_max * sizeof(uint8_t))`, the size of a
+  `size_t` (8 bytes), not `store_inven_max` bytes. No effect: both arrays
+  are rewritten before they are read.
+* `borg_think_home_sell_best()`: for a staff or wand, each trial takes
+  `charge_each` charges off the pack item, but the restore after the
+  trial only puts the quantity back (`item->iqty++`). The pack item loses
+  charges with every trial of the scan, so later trials (and
+  `borg_think_home_sell_bad()`) see fewer charges. The caller restores all
+  items from `safe_items` afterwards.
+* `borg_good_sell()`: the "ego item not fully identified" test asks
+  `borg_ego_has_random_power()` about the ego of the cloak slot
+  (`borg_items[INVEN_OUTER].ego_idx`), not about the item being sold.
+* The sale list: `borg_think_shop_sell()` sets `sold_item_num` to the
+  index just written (not a count), and every reader (here and in
+  borg-store-buy.c) scans `p < sold_item_num`, so the most recent sale is
+  never seen. `sold_item_nxt` wraps at 9, so slot 9 is never used.
+  borg-store-buy.c does the same with its `bought_item_*` list.
+* `borg_count_sell()`: an unidentified item that is not part of a pile
+  makes the function `return false` (0) at once. That return skips the
+  final `borg_notice(true)` ("reset the results"), so the traits stay as
+  computed for the last "what if" (the pack without an earlier sellable
+  item).
+* Rust (`borg_store_sell.rs`): all kept (`test_item`/`best_item` clear
+  their first 8 bytes; a shorter array would panic where C overruns).

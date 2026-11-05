@@ -252,7 +252,7 @@ pub fn borg_flow_stair_more(st: &mut BorgState, why: i32, sneak: bool, brave: bo
         if st.borg.tr(BI_CDEPTH) != 0
             && st.borg.tr(BI_CLEVEL) < 25
             && st.borg.tr(BI_GOLD) < 25000
-            && bridge::borg_count_sell(st) >= 13
+            && crate::borg_store_sell::borg_count_sell(st) >= 13
             && !st.borg.munchkin_mode
         {
             return false;
