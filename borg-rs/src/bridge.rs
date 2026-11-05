@@ -391,6 +391,18 @@ pub fn set_borg_attacking(_st: &mut BorgState, v: bool) {
     unsafe { crate::c2rust::borg_trait::borg_attacking = v };
 }
 
+/// `borg_on_glyph = v` (global of borg-trait.c, still c2rust).
+pub fn set_borg_on_glyph(_st: &mut BorgState, v: bool) {
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait::borg_on_glyph = v };
+}
+
+/// `borg_create_door = v` (global of borg-trait.c, still c2rust).
+pub fn set_borg_create_door(_st: &mut BorgState, v: bool) {
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait::borg_create_door = v };
+}
+
 /// `borg_calculate_attack_effectiveness(attack_type)` (still c2rust,
 /// borg-fight-attack.c).
 pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32) -> i32 {
@@ -418,6 +430,61 @@ pub fn borg_tp_other_index(st: &mut BorgState, i: usize) -> i32 {
     escape(st);
     // SAFETY: plain read of a fixed-size int array global; Borg thread.
     let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_index[i] };
+    escape(st);
+    r
+}
+
+/// `borg_tp_other_n = v` (still c2rust, borg-fight-attack.c).
+pub fn set_borg_tp_other_n(st: &mut BorgState, v: i16) {
+    escape(st);
+    // SAFETY: plain write of an int16_t global; Borg thread.
+    unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_n = v };
+    escape(st);
+}
+
+/// `borg_tp_other_x[i]` (still c2rust, borg-fight-attack.c); panics past
+/// the 255 entries.
+pub fn borg_tp_other_x(st: &mut BorgState, i: usize) -> u8 {
+    escape(st);
+    // SAFETY: plain read of a fixed-size uint8_t array global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_x[i] };
+    escape(st);
+    r
+}
+
+/// `borg_tp_other_y[i]` (still c2rust, borg-fight-attack.c); panics past
+/// the 255 entries.
+pub fn borg_tp_other_y(st: &mut BorgState, i: usize) -> u8 {
+    escape(st);
+    // SAFETY: plain read of a fixed-size uint8_t array global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_y[i] };
+    escape(st);
+    r
+}
+
+/// `successful_target = v` (still c2rust, borg-fight-attack.c).
+pub fn set_successful_target(st: &mut BorgState, v: i32) {
+    escape(st);
+    // SAFETY: plain write of an int global; Borg thread.
+    unsafe { crate::c2rust::borg_fight_attack::successful_target = v };
+    escape(st);
+}
+
+/// `borg_launch_bolt(rad, dam, typ, max, ammo_location)` (still c2rust,
+/// borg-fight-attack.c).
+pub fn borg_launch_bolt(
+    st: &mut BorgState,
+    rad: i32,
+    dam: i32,
+    typ: i32,
+    max: i32,
+    ammo_location: i32,
+) -> i32 {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe {
+        crate::c2rust::borg_fight_attack::borg_launch_bolt(rad, dam, typ, max, ammo_location)
+    };
     escape(st);
     r
 }
@@ -1981,15 +2048,6 @@ pub mod junk {
 // ---------------------------------------------------------------------------
 // borg-caution.c (converted): calls into still-c2rust code.
 
-/// `borg_defend(p)` (still c2rust, borg-fight-defend.c).
-pub fn borg_defend(st: &mut BorgState, p: i32) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_fight_defend::borg_defend(p) };
-    escape(st);
-    r
-}
-
 /// `borg_game_ratio` (still c2rust, borg-trait.c).
 pub fn borg_game_ratio(st: &mut BorgState) -> i16 {
     escape(st);
@@ -2016,6 +2074,15 @@ pub fn borg_restock_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
 
 /// C-ABI shim with the borg-caution.c name, for the c2rust caller
 /// (borg_think_dungeon).
+/// C-ABI shims with the borg-fight-defend.c names, for c2rust callers.
+pub mod fight_defend {
+    use super::st;
+
+    pub unsafe extern "C" fn borg_defend(p1: core::ffi::c_int) -> bool {
+        crate::borg_fight_defend::borg_defend(st(), p1)
+    }
+}
+
 pub mod caution {
     use super::st;
 

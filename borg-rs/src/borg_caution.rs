@@ -18,6 +18,7 @@
 use crate::borg::BorgTime;
 use crate::borg_cave_util::{borg_cave_floor_bold, borg_cave_floor_grid};
 use crate::borg_danger::borg_danger;
+use crate::borg_fight_defend::borg_defend;
 use crate::borg_escape::{
     borg_caution_phase, borg_escape, borg_freedom, borg_recall, borg_surrounded,
 };
@@ -1528,7 +1529,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
             && st.borg.tr(BI_ISCONFUSED) == 0
         {
             // do some defense before running away
-            if bridge::borg_defend(st, pos_danger) {
+            if borg_defend(st, pos_danger) {
                 return true;
             }
 
@@ -1543,7 +1544,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
             }
 
             // do some defense before running away!
-            if bridge::borg_defend(st, pos_danger) {
+            if borg_defend(st, pos_danger) {
                 return true;
             }
         }

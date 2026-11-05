@@ -17,8 +17,8 @@ Format: file, function, (seed, turn when observed), explanation.
   k_idx. The test reads how many of some unrelated object kind the Borg
   carries, when the intended check is surely "current HP > 100" (as the
   comment-free sibling checks elsewhere do with `borg.trait[BI_CURHP]`).
-* Rust: `crate::bridge::st().borg.has[BI_CURHP as usize]` (same index into the
-  same table).
+* Rust (`borg_fight_defend.rs`): `st.borg.has[BI_CURHP as usize]` (same
+  index into the same table).
 
 ## 2. Copy-and-paste slips in sval lookups
 
@@ -851,3 +851,38 @@ Format: file, function, (seed, turn when observed), explanation.
   prompt is escaped, and `borg_cmd_target()` (`G`, `I`, `D`) starts with a
   `Term_load()` whether or not it was reached from the help.
 * Rust (`borg_commands.rs`): all kept; the out-of-bounds reads are panics.
+
+## 42. Defence slips (fight defend)
+
+* `borg-fight-defend.c`, found by code reading (the banishment slip is #1).
+* `borg_defend()` sets `borg_simulate = true` and returns with it still
+  set when it refreshes Resistance or finds nothing worth doing; only a
+  performed defence clears it.
+* `borg_defend_aux_resist_e()` notes "# Attempting to cast RAcid".
+* `borg_defend_aux_grim_purpose()` keeps `BI_RCONF`/`BI_FRACT` in `bool`s
+  and writes them back as 0/1, not the saved values.
+* `borg_defend_aux_tele_away()`: the third fail-rate branch
+  (`p1 > avoidance * 5 / 2`) is dead (`p1 > avoidance * 2` comes first).
+  `borg_defend_aux_tele_away_morgoth()` resets `borg_tp_other_n` before
+  its debug loop, and `borg_launch_bolt()` already resets it before it
+  returns, so neither function ever writes its "# T.O. %d, index %d" /
+  "# %d, index %d" notes.
+* `borg_defend_aux_earthquake()`, real call: sets `borg_needs_new_sea`
+  before trying, and a cast Tremor (keys `*5` queued) falls through to the
+  checks and returns 0 instead of a value. `borg_defend_aux_destruction()`
+  returns 500 whether or not anything was cast;
+  `borg_defend_aux_teleportlevel()` falls through to the landing-zone
+  simulations (`borg_caution_teleport`) when the spell fails.
+* `borg_defend_aux_banishment()`: the notes give the danger of
+  `ag->kill` (the kill index on the monster's grid, not always `i`); on a
+  real call the booted monster is deleted before `p2 -=` reads its danger,
+  so the real call returns 0 even when it banished monsters.
+* `borg_defend_aux_genocide()`: the per-character arrays have `UCHAR_MAX`
+  (255) entries but are indexed by `(unsigned char)d_char`, so a race
+  character 255 would write one past the end (Rust panics; no race uses
+  it); `tmp_genocide_target` is a signed `char`. The genocide removal
+  loops (also `..._genocide_nasties()`) read `r_info[0]` for dead slots.
+* `borg_defend_aux_light_morgoth()` reads `best` uninitialised if Morgoth
+  is not found on the real call (not reachable: the real call follows a
+  simulation of the same state that found him). Rust starts it at (0, 0).
+* Rust (`borg_fight_defend.rs`): all kept.

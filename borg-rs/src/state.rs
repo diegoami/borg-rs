@@ -10,6 +10,7 @@ use crate::borg_cave::CaveState;
 use crate::borg_cave_light::LightState;
 use crate::borg_cave_view::ViewState;
 use crate::borg_danger::DangerState;
+use crate::borg_fight_defend::FightDefendState;
 use crate::borg_flow::FlowState;
 use crate::borg_flow_glyph::GlyphState;
 use crate::borg_flow_take::TakeState;
@@ -50,6 +51,8 @@ pub struct BorgState {
     /// borg-danger.c: `borg_fear_region`, `borg_fear_monsters`,
     /// `borg_danger_wipe`
     pub danger: DangerState,
+    /// borg-fight-defend.c: `borg_attempting_refresh_resist`
+    pub fight_defend: FightDefendState,
     /// borg-flow.c: the flow data (`borg_data_*`), the flow queue,
     /// `borg_temp_*` and `track_step`/`track_door`/`track_closed`
     pub flow: FlowState,
