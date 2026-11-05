@@ -358,6 +358,24 @@ pub fn set_borg_simulate(_st: &mut BorgState, v: bool) {
     unsafe { crate::c2rust::borg_trait::borg_simulate = v };
 }
 
+/// `borg_attacking = v` (global of borg-trait.c, still c2rust).
+pub fn set_borg_attacking(_st: &mut BorgState, v: bool) {
+    // SAFETY: plain write of a bool global; Borg thread.
+    unsafe { crate::c2rust::borg_trait::borg_attacking = v };
+}
+
+/// `borg_calculate_attack_effectiveness(attack_type)` (still c2rust,
+/// borg-fight-attack.c).
+pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32) -> i32 {
+    escape(st);
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe {
+        crate::c2rust::borg_fight_attack::borg_calculate_attack_effectiveness(attack_type)
+    };
+    escape(st);
+    r
+}
+
 /// `borg_tp_other_n` (still c2rust, borg-fight-attack.c).
 pub fn borg_tp_other_n(st: &mut BorgState) -> i16 {
     escape(st);
@@ -1822,5 +1840,18 @@ pub mod flow_glyph {
     }
     pub unsafe extern "C" fn borg_free_flow_glyph() {
         fg::borg_free_flow_glyph(st())
+    }
+}
+
+/// C-ABI shims with the borg-attack-munchkin.c names, for c2rust callers.
+pub mod attack_munchkin {
+    use super::st;
+    use crate::borg_attack_munchkin as m;
+
+    pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
+        m::borg_munchkin_mage(st())
+    }
+    pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
+        m::borg_munchkin_melee(st())
     }
 }

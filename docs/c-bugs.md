@@ -509,3 +509,20 @@ Format: file, function, (seed, turn when observed), explanation.
   written at index -1.
 * Rust (`borg_flow_glyph.rs`): all kept; an index of -1 panics instead
   of reading or writing outside the arrays.
+
+## 30. Munchkin attacks leave the attack flags set (attack munchkin)
+
+* `borg-attack-munchkin.c`, found by code reading.
+* `borg_munchkin_mage()` sets `borg_attacking = true` before its monster
+  scan, but the two `return false` inside the scan (a monster adjacent,
+  or within 2 grids and faster than the Borg; `borg.mon.scary`) do not
+  clear it. `borg_munchkin_melee()` has the same leak on its
+  `borg.mon.scary` return. While the flag stays set, `borg_danger()`
+  ignores Protection from Evil (`pfe && !borg_attacking`), until the
+  next `borg_attack()` (borg-fight-attack.c) clears it.
+* Both functions set `borg_simulate = true` and, when no attack scores
+  above 0, return without setting it back to false.
+* `borg_munchkin_mage()` has no class check: despite the name and the
+  comment ("use MM"), every class tries every attack type except
+  `BF_REST` and `BF_THRUST` (ties go to the later type, `dam >= b_dam`).
+* Rust (`borg_attack_munchkin.rs`): all kept.
