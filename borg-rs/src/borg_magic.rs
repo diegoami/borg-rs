@@ -33,6 +33,7 @@ use crate::state::BorgState;
 use crate::engine;
 
 /// Spell status values (borg-magic.h)
+#[allow(dead_code)] // the default 0 of a zeroed entry; never named, as in C
 pub const BORG_MAGIC_ICKY: u8 = 0; // Spell is illegible
 pub const BORG_MAGIC_LOST: u8 = 1; // Spell is forgotten
 pub const BORG_MAGIC_HIGH: u8 = 2; // Spell is high level

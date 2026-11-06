@@ -49,7 +49,6 @@ pub struct IoState {
     pub confirm_target: bool,
 }
 
-
 /// Read `n` characters of screen text at (x, y) (`borg_what_text`).
 ///
 /// Reading stops at the first character whose attribute differs from the
@@ -174,11 +173,6 @@ pub fn borg_note(st: &mut BorgState, what: &str) {
 /// `borg_note` for text that may not be UTF-8 (bytes from the screen).
 pub fn borg_note_bytes(st: &mut BorgState, what: &[u8]) {
     borg_note_internal(st, false, what);
-}
-
-/// `borg_warning` for raw bytes.
-pub fn borg_warning_bytes(st: &mut BorgState, what: &[u8]) {
-    borg_note_internal(st, true, what);
 }
 
 /// Add a keypress to the queue (`borg_keypress`).

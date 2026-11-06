@@ -46,11 +46,6 @@ pub struct CaveState {
 }
 
 impl CaveState {
-    /// True once `borg_init_cave()` has allocated the map.
-    pub fn is_allocated(&self) -> bool {
-        !self.grids.is_empty()
-    }
-
     fn index(x: i32, y: i32) -> usize {
         assert!((0..AUTO_MAX_X).contains(&x) && (0..AUTO_MAX_Y).contains(&y));
         (y * AUTO_MAX_X + x) as usize

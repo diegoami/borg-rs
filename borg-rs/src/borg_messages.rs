@@ -1697,7 +1697,7 @@ mod tests {
         for (row, (msg, kind)) in rows.iter().zip(MON_MSG_REPOSITORY.iter()) {
             let q1 = row.find('"').unwrap();
             let q2 = row.rfind('"').unwrap();
-            assert_eq!(&row[q1 + 1..q2].as_bytes(), msg, "{row}");
+            assert_eq!(&&row.as_bytes()[q1 + 1..q2], msg, "{row}");
             let k = match *kind {
                 MSG_GENERIC => "MSG_GENERIC",
                 MSG_KILL => "MSG_KILL",

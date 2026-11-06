@@ -93,7 +93,8 @@ pub struct FlowState {
     pub head: i32,
     /// `flow_tail`: next entry to dequeue
     pub tail: i32,
-    /// `borg_flow_n` (never used)
+    /// `borg_flow_n` (never read, in C either)
+    #[allow(dead_code)]
     pub n: i16,
     /// `borg_flow_x`: the queue (`AUTO_FLOW_MAX` entries)
     pub flow_x: Vec<u8>,

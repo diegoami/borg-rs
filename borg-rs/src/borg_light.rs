@@ -53,6 +53,7 @@ const BORG_IGNORE_MAP: u16 = 0x100;
 /// The result of `borg_maintain_light` (`enum borg_need`, same values).
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[repr(u32)]
+#[allow(clippy::enum_variant_names)] // C's BORG_NO_NEED / BORG_MET_NEED / BORG_UNMET_NEED
 pub enum BorgNeed {
     /// `BORG_NO_NEED`
     NoNeed = 0,

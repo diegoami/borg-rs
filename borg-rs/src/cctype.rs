@@ -20,34 +20,9 @@ pub fn c_isalpha(c: u8) -> bool {
     c.is_ascii_alphabetic()
 }
 
-/// `isupper()`.
-pub fn c_isupper(c: u8) -> bool {
-    c.is_ascii_uppercase()
-}
-
-/// `islower()`.
-pub fn c_islower(c: u8) -> bool {
-    c.is_ascii_lowercase()
-}
-
-/// `ispunct()`.
-pub fn c_ispunct(c: u8) -> bool {
-    c.is_ascii_punctuation()
-}
-
-/// `isalnum()`.
-pub fn c_isalnum(c: u8) -> bool {
-    c.is_ascii_alphanumeric()
-}
-
 /// `iscntrl()`: 0x00-0x1F and 0x7F.
 pub fn c_iscntrl(c: u8) -> bool {
     c.is_ascii_control()
-}
-
-/// `tolower()`.
-pub fn c_tolower(c: u8) -> u8 {
-    c.to_ascii_lowercase()
 }
 
 /// `toupper()`.

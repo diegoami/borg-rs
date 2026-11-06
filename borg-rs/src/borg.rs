@@ -92,7 +92,10 @@ pub struct BorgBest {
 
 #[derive(Copy, Clone, Default)]
 pub struct BorgTemp {
+    // C fields that no C code reads either (kept as in `borg_temp`).
+    #[allow(dead_code)]
     pub need_see_invis: i16,
+    #[allow(dead_code)]
     pub see_inv: i16,
     pub res_fire: bool,
     pub res_cold: bool,

@@ -371,17 +371,6 @@ fn formula_error_format<E: FormulaEnv>(
     formula_error(env, section, full_line, section_label, Some(&last_format))
 }
 
-/// `borg_formula_error(section, full_line, section_label, error)`
-pub fn borg_formula_error(
-    st: &mut BorgState,
-    section: &[u8],
-    full_line: &[u8],
-    section_label: &str,
-    error: Option<&[u8]>,
-) {
-    formula_error(&mut StEnv(st), section, full_line, section_label, error)
-}
-
 // ---------------------------------------------------------------------------
 // Parsing
 
@@ -694,11 +683,6 @@ pub fn calculate_from_value(st: &BorgState, value: &ValueSec, range_index: i32) 
         VT_RANGE_INDEX => range_index,
         _ => st.borg.has[index],
     }
-}
-
-/// `parse_value(line, full_line)`: see [`parse_value_in`].
-pub fn parse_value(st: &mut BorgState, line: &[u8], full_line: &[u8]) -> Option<ValueSec> {
-    parse_value_in(&mut StEnv(st), line, full_line)
 }
 
 /// `parse_value()`: the line looks like `value(v1, v2)`. The possible
@@ -1347,13 +1331,6 @@ enum Section {
     Power,
     Depth,
     Restock,
-}
-
-/// `borg_load_formulas(fp)`: read the formula section of the borg.txt
-/// file (after its `[BEGIN FORMULA SECTION]` line). Returns true if the
-/// formulas are off.
-pub fn borg_load_formulas(st: &mut BorgState, fp: engine::AngFile) -> bool {
-    borg_load_formulas_from(st, |buf, len| engine::file_getl(fp, buf, len))
 }
 
 /// `borg_load_formulas(fp)` reading the lines with `getl(buf, len)`

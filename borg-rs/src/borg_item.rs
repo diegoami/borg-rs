@@ -32,6 +32,8 @@ pub struct BorgItem {
     pub ident: bool,
     pub needs_ident: bool,
     pub aware: bool,
+    /// `xxxx` (never read, in C either)
+    #[allow(dead_code)]
     pub xxxx: bool,
     pub tval: u8,
     pub sval: u8,

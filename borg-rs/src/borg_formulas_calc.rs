@@ -20,8 +20,7 @@
 //! borg_formulas, and `borg_note`) go through the [`CalcEnv`] trait so the
 //! calculator itself can be unit tested.
 
-use crate::borg_formulas::{self, ValueSec};
-use crate::borg_io;
+use crate::borg_formulas::ValueSec;
 use crate::cctype::c_isdigit;
 use crate::state::BorgState;
 
@@ -87,24 +86,6 @@ pub trait CalcEnv {
     fn formula_error(&mut self, section: &[u8], full_line: &[u8], label: &str, error: &str);
     /// `borg_note(what)`
     fn note(&mut self, what: &str);
-}
-
-/// The real environment: the rest of the Borg through `BorgState`.
-struct StEnv<'a>(&'a mut BorgState);
-
-impl CalcEnv for StEnv<'_> {
-    fn parse_value(&mut self, value: &[u8], full_line: &[u8]) -> Option<ValueSec> {
-        borg_formulas::parse_value(self.0, value, full_line)
-    }
-    fn calculate_from_value(&mut self, value: &ValueSec, range_index: i32) -> i32 {
-        borg_formulas::calculate_from_value(self.0, value, range_index)
-    }
-    fn formula_error(&mut self, section: &[u8], full_line: &[u8], label: &str, error: &str) {
-        borg_formulas::borg_formula_error(self.0, section, full_line, label, Some(error.as_bytes()))
-    }
-    fn note(&mut self, what: &str) {
-        borg_io::borg_note(self.0, what)
-    }
 }
 
 /// `*(s + i)` on a C string held as a slice without its NUL.
@@ -556,15 +537,6 @@ pub(crate) fn parse_calculation_line_in(
     (calculations.len() - 1) as i32
 }
 
-/// `parse_calculation_line(line, full_line)`: parse the formula and add it
-/// to the formula list. Returns its index, or -1 on failure.
-pub fn parse_calculation_line(st: &mut BorgState, line: &[u8], full_line: &[u8]) -> i32 {
-    let mut calculations = std::mem::take(&mut st.formulas_calc.calculations);
-    let r = parse_calculation_line_in(&mut StEnv(st), &mut calculations, line, full_line);
-    st.formulas_calc.calculations = calculations;
-    r
-}
-
 /// The value of a single (non-operator) operand token.
 fn operand_value(env: &mut impl CalcEnv, t: &Token, range_index: i32) -> i32 {
     let mut v = 0;
@@ -676,17 +648,6 @@ pub(crate) fn calculate_dynamic_in(
     let mut i = 0;
     let f = &calculations[formula as usize];
     calculate_value_from_formula_depth(env, &f.tokens, &mut i, 0, range_index)
-}
-
-/// `borg_calculate_dynamic(formula, range_index)`: the value of a formula
-/// read earlier with `parse_calculation_line`.
-pub fn borg_calculate_dynamic(st: &mut BorgState, formula: i32, range_index: i32) -> i32 {
-    // Moved out while evaluating: the callees need `st` and never touch
-    // the calculations.
-    let calculations = std::mem::take(&mut st.formulas_calc.calculations);
-    let r = calculate_dynamic_in(&mut StEnv(st), &calculations, formula, range_index);
-    st.formulas_calc.calculations = calculations;
-    r
 }
 
 /// `calculations_free()`: free up all memory used in calculations.

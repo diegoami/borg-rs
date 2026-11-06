@@ -207,10 +207,18 @@ pub fn square_in_bounds_fully(x: i32, y: i32) -> bool {
     unsafe { headers::cave_h::square_in_bounds_fully(headers::cave_h::cave, loc { x, y }) }
 }
 
-/// `distance(grid1, grid2)` (cave.c): the game's approximate distance.
+/// `distance(grid1, grid2)` (cave-view.c): the game's approximate
+/// distance, `max(ay, ax) + min(ay, ax) / 2`. Computed here exactly as C
+/// does; panics where C's `int` arithmetic would overflow (`grid2 - grid1`
+/// or `abs` of `INT_MIN`, or the final sum), which C leaves undefined.
 pub fn distance(grid1: loc, grid2: loc) -> i32 {
-    // SAFETY: pure arithmetic on two values.
-    unsafe { headers::cave_h::distance(grid1, grid2) }
+    let abs_diff = |a: i32, b: i32| {
+        b.checked_sub(a).and_then(i32::checked_abs).expect("distance: coordinate difference overflows int")
+    };
+    let ay = abs_diff(grid1.y, grid2.y);
+    let ax = abs_diff(grid1.x, grid2.x);
+    let r = if ay > ax { ay.checked_add(ax >> 1) } else { ax.checked_add(ay >> 1) };
+    r.expect("distance: result overflows int")
 }
 
 /// Panel geometry of the current terminal (`Term`), as read by
@@ -1517,15 +1525,31 @@ impl StoreObject<'_> {
         unsafe { crate::headers::obj_tval_h::tval_can_have_charges(self.0) }
     }
 
-    /// `object_value_real(obj, qty)`
+    /// C computes `value * qty`, `pval * qty` and divides by
+    /// `obj->number` in plain `int` (obj-power.c): panics outside the domain
+    /// where that is defined for any item value. The Borg only prices one
+    /// item (`qty` 1) of a ware, which always has `number >= 1`.
+    fn check_value_qty(self, qty: i32) {
+        assert!((0..=1).contains(&qty), "object value of {qty} items: C's value * qty may overflow");
+        // SAFETY: self is a live store object (lifetime-bound handle); a
+        // plain field read.
+        let number = unsafe { (*self.0).number };
+        assert!(number > 0, "object value of an empty stack: C divides by obj->number");
+    }
+
+    /// `object_value_real(obj, qty)`; `qty` 0 or 1 (see `check_value_qty`).
     pub fn value_real(self, qty: i32) -> i32 {
-        // SAFETY: self is a live store object; the call only reads it.
+        self.check_value_qty(qty);
+        // SAFETY: self is a live store object; the call only reads it; qty
+        // and number are in the domain checked above.
         unsafe { crate::headers::obj_power_h::object_value_real(self.0, qty) }
     }
 
-    /// `object_value(obj, qty)`
+    /// `object_value(obj, qty)`; `qty` 0 or 1 (see `check_value_qty`).
     pub fn value(self, qty: i32) -> i32 {
-        // SAFETY: self is a live store object; the call only reads it.
+        self.check_value_qty(qty);
+        // SAFETY: self is a live store object; the call only reads it; qty
+        // and number are in the domain checked above.
         unsafe { crate::headers::obj_power_h::object_value(self.0, qty) }
     }
 }
@@ -2813,7 +2837,9 @@ pub struct MapGrid {
     /// `first_kind`: `(kidx, d_attr, d_char)` of the first visible object
     /// kind, `None` for NULL
     pub first_kind: Option<(u32, u8, wchar_t)>,
-    /// `lighting` (`LIGHTING_*`)
+    /// `lighting` (`LIGHTING_*`). Never read: the only reader in C is the
+    /// "Floors" branch of `borg_update_map`, which is dead (C bug 46).
+    #[allow(dead_code)]
     pub lighting: u32,
     pub in_view: bool,
     pub is_player: bool,
@@ -3103,8 +3129,32 @@ pub fn player_notice() -> PlayerNotice {
 /// `modify_stat_value(value, amount)` (player-util.c): a stat value
 /// raised or lowered by `amount` points.
 pub fn modify_stat_value(value: i32, amount: i32) -> i16 {
-    // SAFETY: pure arithmetic on two values.
-    unsafe { crate::headers::player_util_h::modify_stat_value(value, amount) }
+    // player-util.c, step by step as C does it; panics where C's `int`
+    // arithmetic would overflow (`value += 10` past INT_MAX, `0 - amount`
+    // for INT_MIN), which C leaves undefined.
+    let mut value = value;
+    if amount > 0 {
+        for _ in 0..amount {
+            if value < 18 {
+                value += 1;
+            } else {
+                value = value.checked_add(10).expect("modify_stat_value: value overflows int");
+            }
+        }
+    } else if amount < 0 {
+        let n = 0i32.checked_sub(amount).expect("modify_stat_value: -amount overflows int");
+        for _ in 0..n {
+            if value >= 18 + 10 {
+                value -= 10;
+            } else if value > 18 {
+                value = 18;
+            } else if value > 3 {
+                value -= 1;
+            }
+        }
+    }
+    // `return (value);` from an int to `int16_t`: gcc keeps the low 16 bits
+    value as i16
 }
 
 /// `adj_str_blow[i]` (player-calcs.c); panics out of range.
@@ -3200,5 +3250,43 @@ mod tests {
         // anything of the engine)
         let st = BorgState::default();
         check_access(&st.access);
+    }
+}
+
+#[cfg(test)]
+mod arith_tests {
+    //! `distance` and `modify_stat_value` are computed in Rust, as C does
+    //! (checked against the C functions on 547,157 inputs, see
+    //! docs/REVIEW-RESPONSE-821cad310.md); the inputs where C's `int`
+    //! arithmetic overflows panic (second review of 821cad310, finding 2).
+    use super::{distance, loc, modify_stat_value};
+
+    #[test]
+    fn values_as_c() {
+        assert_eq!(distance(loc { x: 0, y: 0 }, loc { x: 3, y: 4 }), 5);
+        assert_eq!(distance(loc { x: 10, y: -2 }, loc { x: -10, y: -2 }), 20);
+        assert_eq!(modify_stat_value(17, 2), 28);
+        assert_eq!(modify_stat_value(28, -1), 18);
+        assert_eq!(modify_stat_value(20, -1), 18);
+        assert_eq!(modify_stat_value(5, -3), 3);
+        assert_eq!(modify_stat_value(32760, 1), 32770i32 as i16); // C's int16_t
+    }
+
+    #[test]
+    #[should_panic(expected = "overflows int")]
+    fn distance_min_int() {
+        distance(loc { x: i32::MIN, y: 0 }, loc { x: 1, y: 0 });
+    }
+
+    #[test]
+    #[should_panic(expected = "overflows int")]
+    fn stat_max_int() {
+        modify_stat_value(i32::MAX, 1);
+    }
+
+    #[test]
+    #[should_panic(expected = "overflows int")]
+    fn stat_min_amount() {
+        modify_stat_value(18, i32::MIN);
     }
 }

@@ -27,7 +27,6 @@ use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_INT, STAT_STR, STAT_
 use crate::headers::list_tvals_h::*;
 use crate::headers::obj_properties_h::OBJ_MOD_MAX;
 use crate::headers::object_h::ELEM_MAX;
-use crate::state::BorgState;
 
 /// `MAX_BLOWS` (player-calcs.h)
 const MAX_BLOWS: i32 = 5;
@@ -591,26 +590,6 @@ pub fn borg_item_analyze(
     if item.cursed && !item.one_ring {
         item.value = 0;
     }
-}
-
-/// `borg_item_analyze(&borg_items[i], real_item, desc, in_store)`.
-pub fn borg_item_analyze_slot(
-    st: &mut BorgState,
-    i: usize,
-    real_item: GameObject,
-    desc: &[u8],
-    in_store: bool,
-) {
-    let BorgState { items, act, item_val, .. } = st;
-    borg_item_analyze(
-        &mut items.items[i],
-        crate::borg_item::NoteOrigin::Item(i as u16),
-        real_item,
-        desc,
-        in_store,
-        act,
-        item_val,
-    );
 }
 
 /// Helper to see if an object kind does a certain thing
