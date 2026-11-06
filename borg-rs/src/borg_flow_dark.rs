@@ -15,8 +15,8 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
 //! No module state. The flow arrays (`borg_data_cost/know/icky`) and
-//! `track_door` (borg-flow.c) are reached through `bridge` accessors; the
-//! stair distance tests are in `borg_flow_misc`.
+//! `track_door` of borg-flow.c (`st.flow`) are read through the small
+//! accessors below; the stair distance tests are in `borg_flow_misc`.
 //! C bugs kept are listed in `docs/c-bugs.md` (section 29).
 
 use std::ffi::CStr;
@@ -26,7 +26,6 @@ use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_cave_util::borg_cave_floor_grid;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::borg_danger;
-use crate::bridge::{self, FlowData};
 use crate::{borg_flow_misc, engine};
 use crate::headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_DISM, BI_DISP, BI_FOOD, BI_GOLD, BI_IFIRE, BI_ISBLIND,
@@ -38,6 +37,49 @@ use crate::headers::list_terrain_h::{
 };
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
+
+
+/// One of the flow arrays of borg-flow.c (`st.flow`).
+#[derive(Clone, Copy)]
+enum FlowData {
+    /// `borg_data_cost`
+    Cost,
+    /// `borg_data_know`
+    Know,
+    /// `borg_data_icky`
+    Icky,
+}
+
+/// `borg_data_<which>->data[y][x]`.
+fn borg_data_at(st: &BorgState, which: FlowData, y: i32, x: i32) -> u8 {
+    let f = &st.flow;
+    let d = match which {
+        FlowData::Cost => &f.data_cost,
+        FlowData::Know => &f.data_know,
+        FlowData::Icky => &f.data_icky,
+    };
+    assert!(!d.is_empty(), "flow array not allocated");
+    d[y as usize][x as usize]
+}
+
+/// `borg_data_<which>->data[y][x] = v`.
+fn set_borg_data(st: &mut BorgState, which: FlowData, y: i32, x: i32, v: u8) {
+    let f = &mut st.flow;
+    let d = match which {
+        FlowData::Cost => &mut f.data_cost,
+        FlowData::Know => &mut f.data_know,
+        FlowData::Icky => &mut f.data_icky,
+    };
+    assert!(!d.is_empty(), "flow array not allocated");
+    d[y as usize][x as usize] = v;
+}
+
+/// `(track_door.y[i], track_door.x[i])`, for `i < track_door.size`.
+fn track_door_at(st: &BorgState, i: usize) -> (i32, i32) {
+    let t = &st.flow.track_door;
+    assert!(i < t.size.max(0) as usize, "track_door index past the list");
+    (t.y[i], t.x[i])
+}
 
 /// `GOAL_DARK` (borg-flow.h)
 const GOAL_DARK: i32 = 4;
@@ -142,9 +184,9 @@ fn borg_flow_dark_interesting(st: &mut BorgState, y: i32, x: i32) -> bool {
         if st.borg.near.breeder {
             /* Did I close this one */
             let mut i = 0;
-            while i < i32::from(bridge::track_door_num(st)) {
+            while i < i32::from(st.flow.track_door.num) {
                 /* mark as icky if I closed this one */
-                if bridge::track_door_at(st, i as usize) == (y, x) {
+                if track_door_at(st, i as usize) == (y, x) {
                     /* not interesting */
                     return false;
                 }
@@ -290,9 +332,9 @@ fn direct_fear(st: &BorgState) -> i32 {
 /// visit of a grid, mark it known and, if it is too dangerous, icky.
 /// Returns false when the grid is (now) icky and the path must stop.
 fn analyze_once(st: &mut BorgState, y: i32, x: i32) -> bool {
-    if bridge::borg_data_at(st, FlowData::Know, y, x) == 0 {
+    if borg_data_at(st, FlowData::Know, y, x) == 0 {
         /* Mark as known */
-        bridge::set_borg_data(st, FlowData::Know, y, x, 1);
+        set_borg_data(st, FlowData::Know, y, x, 1);
 
         /* Get the danger */
         let p = borg_danger(st, y, x, 1, true, false);
@@ -302,7 +344,7 @@ fn analyze_once(st: &mut BorgState, y: i32, x: i32) -> bool {
         /* Avoid dangerous grids (forever) */
         if p > fear {
             /* Mark as icky */
-            bridge::set_borg_data(st, FlowData::Icky, y, x, 1);
+            set_borg_data(st, FlowData::Icky, y, x, 1);
 
             /* Abort */
             return false;
@@ -325,7 +367,7 @@ fn borg_flow_direct(st: &mut BorgState, mut y: i32, mut x: i32) {
     let mut n: i32 = 0;
 
     /* Avoid icky grids */
-    if bridge::borg_data_at(st, FlowData::Icky, y, x) != 0 {
+    if borg_data_at(st, FlowData::Icky, y, x) != 0 {
         return;
     }
 
@@ -335,7 +377,7 @@ fn borg_flow_direct(st: &mut BorgState, mut y: i32, mut x: i32) {
     }
 
     /* Save the flow cost (zero) */
-    bridge::set_borg_data(st, FlowData::Cost, y, x, 0);
+    set_borg_data(st, FlowData::Cost, y, x, 0);
 
     /* Save "origin" */
     let y1 = y;
@@ -412,7 +454,7 @@ fn borg_flow_direct(st: &mut BorgState, mut y: i32, mut x: i32) {
         }
 
         /* Abort at "icky" grids */
-        if bridge::borg_data_at(st, FlowData::Icky, y, x) != 0 {
+        if borg_data_at(st, FlowData::Icky, y, x) != 0 {
             return;
         }
 
@@ -422,12 +464,12 @@ fn borg_flow_direct(st: &mut BorgState, mut y: i32, mut x: i32) {
         }
 
         /* Abort "pointless" paths if possible */
-        if i32::from(bridge::borg_data_at(st, FlowData::Cost, y, x)) <= n {
+        if i32::from(borg_data_at(st, FlowData::Cost, y, x)) <= n {
             break;
         }
 
         /* Save the new flow cost (uint8_t, truncated as in C) */
-        bridge::set_borg_data(st, FlowData::Cost, y, x, n as u8);
+        set_borg_data(st, FlowData::Cost, y, x, n as u8);
     }
 }
 
@@ -438,23 +480,23 @@ fn borg_flow_border(st: &mut BorgState, y1: i32, x1: i32, y2: i32, x2: i32, stop
     /* Scan west/east edges */
     for y in y1..=y2 {
         /* Avoid/Clear west edge */
-        bridge::set_borg_data(st, FlowData::Know, y, x1, v);
-        bridge::set_borg_data(st, FlowData::Icky, y, x1, v);
+        set_borg_data(st, FlowData::Know, y, x1, v);
+        set_borg_data(st, FlowData::Icky, y, x1, v);
 
         /* Avoid/Clear east edge */
-        bridge::set_borg_data(st, FlowData::Know, y, x2, v);
-        bridge::set_borg_data(st, FlowData::Icky, y, x2, v);
+        set_borg_data(st, FlowData::Know, y, x2, v);
+        set_borg_data(st, FlowData::Icky, y, x2, v);
     }
 
     /* Scan north/south edges */
     for x in x1..=x2 {
         /* Avoid/Clear north edge */
-        bridge::set_borg_data(st, FlowData::Know, y1, x, v);
-        bridge::set_borg_data(st, FlowData::Icky, y1, x, v);
+        set_borg_data(st, FlowData::Know, y1, x, v);
+        set_borg_data(st, FlowData::Icky, y1, x, v);
 
         /* Avoid/Clear south edge */
-        bridge::set_borg_data(st, FlowData::Know, y2, x, v);
-        bridge::set_borg_data(st, FlowData::Icky, y2, x, v);
+        set_borg_data(st, FlowData::Know, y2, x, v);
+        set_borg_data(st, FlowData::Icky, y2, x, v);
     }
 }
 

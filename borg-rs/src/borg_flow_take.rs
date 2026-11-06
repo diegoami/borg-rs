@@ -15,10 +15,9 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
 //! The object list (`borg_takes`, 256 entries, entry 0 unused) lives in
-//! `TakeState`. A grid's `take` field indexes it. Code that is still c2rust
-//! holds raw pointers into the `Vec`, which is only reallocated by
-//! `borg_init_flow_take` / `borg_free_flow_take`. The flow itself is
-//! `borg_flow`.
+//! `TakeState`. A grid's `take` field indexes it. The `Vec` is only
+//! reallocated by `borg_init_flow_take` / `borg_free_flow_take`. The flow
+//! itself is `borg_flow`.
 
 use crate::borg::BorgTime;
 use crate::borg_cave_view::BORG_VIEW;
@@ -48,9 +47,7 @@ const BORG_OKAY: u16 = 0x08;
 /// The number of entries of the object list.
 const MAX_TAKES: usize = 256;
 
-/// An object the Borg has seen on the floor (`borg_take`). The C layout is
-/// kept: c2rust code still reads and writes entries through pointers.
-#[repr(C)]
+/// An object the Borg has seen on the floor (`borg_take`).
 #[derive(Clone, Copy, Default, Debug, PartialEq, Eq)]
 pub struct BorgTake {
     /// Kind index (0 = a dead entry)
@@ -936,14 +933,6 @@ pub fn borg_free_flow_take(st: &mut BorgState) {
 mod tests {
     use super::*;
 
-    #[test]
-    fn take_layout_matches_c() {
-        /* uint32_t, 4 bools, 2 uint8_t, int32_t, 2 ints */
-        assert_eq!(core::mem::size_of::<BorgTake>(), 24);
-        assert_eq!(core::mem::offset_of!(BorgTake, x), 8);
-        assert_eq!(core::mem::offset_of!(BorgTake, when), 12);
-        assert_eq!(core::mem::offset_of!(BorgTake, tval), 20);
-    }
 
     #[test]
     fn init_and_free() {

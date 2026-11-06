@@ -38,7 +38,6 @@ use crate::borg_item_wear::borg_backup_swap;
 use crate::borg_light::{borg_maintain_light, BorgNeed};
 use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_legal};
 use crate::borg_store_sell::borg_count_sell;
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::BORG_PLAYS_RISKY;
 use crate::headers::borg_magic_h::{
@@ -1595,12 +1594,12 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     // if you have just left town.
     if st.borg.near.unique == 0
         && borg_timer(st, st.borg.time.town) > 200
-        && bridge::borg_restock_c(st, st.borg.tr(BI_CDEPTH)).is_some()
+        && crate::borg_prepared::borg_restock_c(st, st.borg.tr(BI_CDEPTH)).is_some()
     {
         // Start leaving
         if !st.borg.goal.leaving {
             // Note
-            let r = bridge::borg_restock_c(st, st.borg.tr(BI_CDEPTH));
+            let r = crate::borg_prepared::borg_restock_c(st, st.borg.tr(BI_CDEPTH));
             note_with_reason(st, b"# Leaving (restock) ", r);
 
             // Start leaving
@@ -1614,7 +1613,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
             && borg_timer(st, st.borg.time.level) > 400
         {
             // Flee
-            let r = bridge::borg_restock_c(st, st.borg.tr(BI_CDEPTH));
+            let r = crate::borg_prepared::borg_restock_c(st, st.borg.tr(BI_CDEPTH));
             note_with_reason(st, b"# Fleeing (restock) ", r);
 
             // Start fleeing
@@ -1972,7 +1971,7 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
         st.borg.stair_more = true;
     }
 
-    if bridge::borg_prepared_c(st, st.borg.tr(BI_CDEPTH) + 1).is_none() {
+    if crate::borg_prepared::borg_prepared_c(st, st.borg.tr(BI_CDEPTH) + 1).is_none() {
         st.borg.stair_more = true;
     }
 

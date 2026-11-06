@@ -84,7 +84,7 @@ impl Default for DangerState {
     }
 }
 
-/// The still-c2rust globals of borg-trait.c the danger code reads (they do
+/// The borg-trait.c globals the danger code reads (they do
 /// not change during a danger calculation).
 #[derive(Clone, Copy)]
 struct SpellFlags {

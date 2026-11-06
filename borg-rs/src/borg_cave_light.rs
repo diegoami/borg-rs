@@ -19,7 +19,7 @@ use crate::borg_cave_util::borg_cave_floor_bold;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::headers::borg_trait_h::BI_LIGHT;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// Size of the light/glow arrays (`AUTO_LIGHT_MAX`).
 pub const AUTO_LIGHT_MAX: usize = 1536;
@@ -101,7 +101,7 @@ pub fn borg_update_light(st: &mut BorgState) {
     st.light.light_n = 0;
 
     /* Player has no lite */
-    if bridge::item(st, inven_light()).iqty == 0 {
+    if st.items.items[inven_light()].iqty == 0 {
         return;
     }
 

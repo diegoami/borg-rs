@@ -27,7 +27,7 @@ use crate::headers::borg_trait_h::{
 };
 use crate::headers::list_options_h::OPT_birth_force_descend;
 use crate::state::BorgState;
-use crate::{borg_flow, borg_io, borg_magic, bridge, engine};
+use crate::{borg_flow, borg_io, borg_magic, engine};
 
 /// A list of known stairs (`struct borg_track` as used for `track_less`
 /// and `track_more`). C semantics: `size` entries are allocated (zeroed),
@@ -232,7 +232,7 @@ pub fn borg_flow_stair_more(st: &mut BorgState, why: i32, sneak: bool, brave: bo
         /* not unless safe or munchkin/Lunal Mode or brave */
         if !st.borg.lunal_mode && !st.borg.munchkin_mode && !brave {
             let depth = st.borg.tr(BI_CDEPTH) + 1;
-            if bridge::borg_prepared_c(st, depth).is_some() {
+            if crate::borg_prepared::borg_prepared_c(st, depth).is_some() {
                 return false;
             }
         }

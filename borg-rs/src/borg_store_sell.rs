@@ -72,6 +72,13 @@ pub struct StoreSellState {
     pub best_item: Vec<u8>,
 }
 
+/// `(sold_item_tval[p], sold_item_sval[p], sold_item_store[p])`; panics
+/// past the 10 entries.
+pub fn sold_item(st: &BorgState, p: usize) -> (i32, i32, i32) {
+    let s = &st.store_sell;
+    (s.sold_item_tval[p], s.sold_item_sval[p], s.sold_item_store[p])
+}
+
 impl Default for StoreSellState {
     fn default() -> Self {
         StoreSellState {
@@ -414,9 +421,9 @@ fn borg_think_home_sell_bad(st: &mut BorgState, i: i32, borg_empty_home_power: i
 
     // If this item was just bought a the house, don't tell it back to
     // the house
-    let bought_num = bridge::bought_item_num(st);
+    let bought_num = st.buy.bought_item_num;
     for p in 0..bought_num {
-        let b = bridge::bought_item(st, p as usize);
+        let b = crate::borg_store_buy::bought_item(st, p as usize);
         let item = pack_item(st, i);
         if b.tval == i32::from(item.tval)
             && b.sval == i32::from(item.sval)
@@ -924,9 +931,9 @@ fn borg_good_sell(st: &mut BorgState, i: i32, who: i32) -> bool {
 
     // Do not sell it if I just bought one
     // do not buy the item if I just sold it.
-    let bought_num = bridge::bought_item_num(st);
+    let bought_num = st.buy.bought_item_num;
     for p in 0..bought_num {
-        let b = bridge::bought_item(st, p as usize);
+        let b = crate::borg_store_buy::bought_item(st, p as usize);
         if b.tval == i32::from(item.tval)
             && b.sval == i32::from(item.sval)
             && (b.store == who || who != BORG_HOME as i32)

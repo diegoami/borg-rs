@@ -1094,14 +1094,14 @@ fn borg_cmd_prepare(st: &mut BorgState) {
     let mut i = 1;
     while i <= 101 {
         // Dump fear code
-        if bridge::borg_prepared_c(st, i).is_some() {
+        if crate::borg_prepared::borg_prepared_c(st, i).is_some() {
             break;
         }
         i += 1;
     }
     let max_depth = st.borg.tr(BI_MAXDEPTH);
     // NULL prints as "" (vstrnfmt)
-    let reason = bridge::borg_prepared_c(st, i).unwrap_or_default();
+    let reason = crate::borg_prepared::borg_prepared_c(st, i).unwrap_or_default();
     let mut text = format!("Max Level: {}  Prep'd For: {}  Reason: ", max_depth, i - 1).into_bytes();
     text.extend_from_slice(&reason);
     msg(st, text);

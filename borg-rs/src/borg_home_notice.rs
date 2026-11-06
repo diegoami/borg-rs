@@ -51,7 +51,7 @@ use crate::headers::list_tvals_h::{
 use crate::state::BorgState;
 use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_use::borg_equips_item;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `BORG_HOME` (borg-store.h): the home's index in `borg_shops`.
 pub const BORG_HOME: usize = 7;
@@ -204,9 +204,9 @@ fn inven_light() -> usize {
 /// Item `i` of the home scan: the home's wares, then the equipment.
 fn home_item(st: &mut BorgState, i: i32) -> borg_item {
     if i < store_inven_max() {
-        bridge::shop_item(st, BORG_HOME, i as usize)
+        st.store.shops[BORG_HOME].ware[i as usize]
     } else {
-        bridge::item(st, (i - store_inven_max() + inven_wield()) as usize)
+        st.items.items[(i - store_inven_max() + inven_wield()) as usize]
     }
 }
 
@@ -638,14 +638,14 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
 
             TV_FLASK => {
                 // Use as fuel if we equip a lantern
-                if i32::from(bridge::item(st, inven_light()).sval) == st.item_val.sv_light_lantern {
+                if i32::from(st.items.items[inven_light()].sval) == st.item_val.sv_light_lantern {
                     add(&mut st.home.num_fuel, iqty);
                 }
             }
 
             TV_LIGHT => {
                 // Fuel
-                if i32::from(bridge::item(st, inven_light()).sval) == st.item_val.sv_light_torch {
+                if i32::from(st.items.items[inven_light()].sval) == st.item_val.sv_light_torch {
                     add(&mut st.home.num_fuel, iqty);
                 }
 

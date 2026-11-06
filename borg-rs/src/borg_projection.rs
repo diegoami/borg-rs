@@ -22,7 +22,7 @@ use crate::headers::list_mon_race_flags_h::RF_PASS_WALL;
 use crate::headers::list_terrain_h::{FEAT_FLOOR, FEAT_GRANITE, FEAT_NONE, FEAT_PASS_RUBBLE};
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// The module's globals.
 #[derive(Default)]
@@ -248,7 +248,7 @@ fn max_range() -> i32 {
 /// `borg_fear_region[borg.c.y / 11][borg.c.x / 11] >= borg.avoidance / 20`
 fn fear_region_scary(st: &mut BorgState) -> bool {
     let (cy, cx) = (st.borg.c.y, st.borg.c.x);
-    i32::from(bridge::borg_fear_region(st, cy / 11, cx / 11)) >= i32::from(st.borg.avoidance) / 20
+    i32::from(st.danger.fear_region[(cy / 11) as usize][(cx / 11) as usize]) >= i32::from(st.borg.avoidance) / 20
 }
 
 /// Check the projection from (x1,y1) to (x2,y2) (`borg_projectable`).

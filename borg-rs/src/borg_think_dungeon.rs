@@ -18,8 +18,7 @@
 //! `borg_think_dungeon` is the ordered list of things the Borg tries each
 //! turn in the dungeon; the order of every step and every early return is
 //! C's. The level feelings (`borg_feeling_danger`, `borg_feeling_stuff`)
-//! live in `ThinkDungeonState`. `borg_attack` (borg-fight-attack.c) is
-//! still c2rust and is reached through `bridge`. C bugs kept are listed in
+//! live in `ThinkDungeonState`. C bugs kept are listed in
 //! `docs/c-bugs.md` (section 49).
 
 use crate::borg::BorgTime;
@@ -67,7 +66,6 @@ use crate::borg_think_dungeon_util::{
 };
 use crate::borg_think_store::borg_choose_shop;
 use crate::borg_trait::borg_notice;
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{
     BORG_DELAY_FACTOR, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_START,
@@ -162,10 +160,10 @@ fn force_descend() -> bool {
 }
 
 /// `(char *)NULL == borg_prepared(depth)`. Goes through
-/// `bridge::borg_prepared_buf`, so a formatted reason is written into
+/// `borg_prepared::borg_prepared_buf`, so a formatted reason is written into
 /// `borg_prepared_buffer` as in C.
 fn prepared_null(st: &mut BorgState, depth: i32) -> bool {
-    bridge::borg_prepared_buf(st, depth).is_none()
+    crate::borg_prepared::borg_prepared_buf(st, depth).is_none()
 }
 
 /// `track_more` or `track_less` (borg-flow-stairs.c).

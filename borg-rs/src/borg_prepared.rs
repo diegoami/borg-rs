@@ -17,8 +17,9 @@
 //! In C the functions return a `const char *` reason (NULL when prepared).
 //! Here they return `Option<Reason>`: a fixed text (a C string literal), a
 //! formatted text (C: written into the one static `borg_prepared_buffer`,
-//! so a later call overwrites it; the C-ABI shim keeps that) or the reason
-//! of a depth/restock formula line (C: a pointer into the formulas).
+//! so a later call overwrites it; `borg_prepared_c`/`borg_prepared_buf`
+//! keep that, with the buffer in `PreparedState`) or the reason of a
+//! depth/restock formula line (C: a pointer into the formulas).
 
 use std::ffi::CStr;
 
@@ -59,6 +60,73 @@ pub struct PreparedState {
     pub first_living_unique: u32,
     /// `borg_depth_hunted_unique`
     pub depth_hunted_unique: i32,
+    /// `borg_prepared_buffer`: the text up to its NUL (empty at start, as
+    /// the zeroed C static)
+    pub buffer: Vec<u8>,
+}
+
+/// `MAX_REASON`: the size of `borg_prepared_buffer`
+const MAX_REASON: usize = 1024;
+
+/// `strnfmt(borg_prepared_buffer, MAX_REASON, "%s", s)`: at most
+/// `MAX_REASON - 1` bytes; a reader sees the text up to the first NUL.
+fn write_buffer(st: &mut BorgState, s: &[u8]) {
+    let s = &s[..s.len().min(MAX_REASON - 1)];
+    let n = s.iter().position(|&c| c == 0).unwrap_or(s.len());
+    st.prepared.buffer = s[..n].to_vec();
+}
+
+/// The text C's `borg_prepared()`/`borg_restock()` return, copied out at
+/// once: a formatted reason goes through `borg_prepared_buffer` as in C.
+fn reason_c(st: &mut BorgState, r: Option<Reason>) -> Option<Vec<u8>> {
+    Some(match r? {
+        Reason::Formatted(s) => {
+            write_buffer(st, &s);
+            st.prepared.buffer.clone()
+        }
+        r => r.text(st).to_vec(),
+    })
+}
+
+/// `borg_prepared(depth)` as C returns it (`None` for NULL), writing
+/// `borg_prepared_buffer` as C does.
+pub fn borg_prepared_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
+    let r = borg_prepared(st, depth);
+    reason_c(st, r)
+}
+
+/// `borg_restock(depth)` as C returns it (as `borg_prepared_c`).
+pub fn borg_restock_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
+    let r = borg_restock(st, depth);
+    reason_c(st, r)
+}
+
+/// What C's `borg_prepared()` returned (when not NULL): a text that stays
+/// as it is, or the static `borg_prepared_buffer`, whose text the next
+/// formatted reason overwrites (read it with `prepared_buffer`).
+pub enum PreparedC {
+    /// A fixed text (literal or formula reason)
+    Text(Vec<u8>),
+    /// `borg_prepared_buffer`
+    Buffer,
+}
+
+/// `borg_prepared(depth)`, keeping C's pointer semantics (see
+/// `PreparedC`). Writes `borg_prepared_buffer` as C does.
+pub fn borg_prepared_buf(st: &mut BorgState, depth: i32) -> Option<PreparedC> {
+    let r = borg_prepared(st, depth)?;
+    Some(match r {
+        Reason::Formatted(s) => {
+            write_buffer(st, &s);
+            PreparedC::Buffer
+        }
+        r => PreparedC::Text(r.text(st).to_vec()),
+    })
+}
+
+/// The text `borg_prepared_buffer` holds now.
+pub fn prepared_buffer(st: &BorgState) -> Vec<u8> {
+    st.prepared.buffer.clone()
 }
 
 /// Why the Borg is not prepared (or must restock).

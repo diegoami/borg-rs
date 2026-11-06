@@ -64,7 +64,7 @@ use crate::headers::list_terrain_h::{
 };
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow, borg_flow_misc, bridge};
+use crate::{borg_flow, borg_flow_misc};
 
 /// `GOAL_KILL`, `GOAL_TAKE`, `GOAL_DIGGING` (borg-flow.h)
 const GOAL_KILL: i16 = 1;
@@ -90,10 +90,6 @@ const SHRT_MAX: i16 = i16::MAX;
 pub const KILLS_MAX: usize = 256;
 
 /// One tracked monster (`borg_kill`).
-///
-/// TRANSITIONAL: kept in the C layout, because c2rust code holds
-/// `*mut borg_kill` pointers into `KillState::kills`.
-#[repr(C)]
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct BorgKill {
     /// Race index
@@ -184,8 +180,7 @@ impl Default for BorgKill {
 #[derive(Clone)]
 pub struct KillState {
     /// `borg_kills`: the monster list (256 entries, empty = NULL). Only
-    /// `borg_init_flow_kill` / `borg_free_flow_kill` (re)allocate it, so
-    /// c2rust pointers into it stay valid.
+    /// `borg_init_flow_kill` / `borg_free_flow_kill` (re)allocate it.
     pub kills: Vec<BorgKill>,
     /// `borg_kills_cnt`
     pub cnt: i16,
@@ -1439,8 +1434,8 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
     let mut b_d: i32 = 999;
 
     // Scan the objects
-    for i in 1..i32::from(bridge::borg_takes_nxt(st)) {
-        let take = bridge::borg_take(st, i as usize);
+    for i in 1..i32::from(st.takes.nxt) {
+        let take = st.takes.takes[i as usize];
 
         // Skip "dead" objects
         if take.kidx == 0 {
@@ -1480,7 +1475,7 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
 
     // Found one
     if b_i >= 0 {
-        let take = bridge::borg_take(st, b_i as usize);
+        let take = st.takes.takes[b_i as usize];
 
         // Note
         note(
@@ -1497,7 +1492,7 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
         c.y = i32::from(take.y);
 
         // Delete the object
-        bridge::borg_delete_take(st, b_i);
+        crate::borg_flow_take::borg_delete_take(st, b_i);
 
         // Make a new monster
         let b_i = borg_new_kill(st, r_idx, c.y, c.x);
@@ -2346,8 +2341,8 @@ pub fn borg_flow_kill_corridor(st: &mut BorgState) -> bool {
     // Must have Stone to Mud spell
     if !borg_spell_okay(st, TURN_STONE_TO_MUD)
         && !borg_spell_okay(st, SHATTER_STONE)
-        && !bridge::borg_equips_ring(st, st.item_val.sv_ring_digging)
-        && !bridge::borg_equips_item(st, st.act.stone_to_mud, true)
+        && !crate::borg_item_use::borg_equips_ring(st, st.item_val.sv_ring_digging)
+        && !crate::borg_item_use::borg_equips_item(st, st.act.stone_to_mud, true)
     {
         return false;
     }
@@ -3319,8 +3314,4 @@ mod tests {
         assert_eq!((WEST.dy[11], WEST.dx[11]), (0, -3));
     }
 
-    #[test]
-    fn kill_layout_is_c() {
-        assert_eq!(std::mem::size_of::<BorgKill>(), 476);
-    }
 }

@@ -15,7 +15,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// Dungeon size the Borg was written for (must match the game).
 pub const DUNGEON_WID: i32 = 198;
@@ -78,7 +78,7 @@ pub fn borg_init_cave(st: &mut BorgState) {
     borg_free_cave(st);
     let z = engine::z_info();
     if DUNGEON_WID != i32::from(z.dungeon_wid) || DUNGEON_HGT != i32::from(z.dungeon_hgt) {
-        bridge::borg_note(st, "**STARTUP FAILURE** dungeon size miss match");
+        crate::borg_io::borg_note(st, "**STARTUP FAILURE** dungeon size miss match");
         st.init.init_failure = true;
     }
     st.cave.grids = vec![BorgGrid::default(); (AUTO_MAX_X * AUTO_MAX_Y) as usize];

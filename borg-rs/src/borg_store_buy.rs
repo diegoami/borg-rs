@@ -30,7 +30,6 @@ use crate::borg_item::inven_wield;
 use crate::borg_magic::{borg_get_book_num, borg_is_dungeon_book, borg_primarily_caster};
 use crate::borg_power::borg_power;
 use crate::borg_store::{BORG_HOME, SHOP_MENU_ITEMS};
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM, BORG_VERBOSE};
 use crate::headers::borg_item_h::borg_item;
@@ -71,6 +70,26 @@ pub struct BuyState {
     pub bought_item_num: i32,
     /// `bought_item_nxt`: the next entry to write.
     pub bought_item_nxt: i32,
+}
+
+/// One entry of the "just bought" list: `bought_item_tval/sval/pval/store[i]`.
+#[derive(Clone, Copy, Debug)]
+pub struct BoughtItem {
+    pub tval: i32,
+    pub sval: i32,
+    pub pval: i32,
+    pub store: i32,
+}
+
+/// `bought_item_*[i]`; panics past the 10 entries.
+pub fn bought_item(st: &BorgState, i: usize) -> BoughtItem {
+    let b = &st.buy;
+    BoughtItem {
+        tval: b.bought_item_tval[i],
+        sval: b.bought_item_sval[i],
+        pval: b.bought_item_pval[i],
+        store: b.bought_item_store[i],
+    }
 }
 
 impl Default for BuyState {
@@ -172,11 +191,11 @@ fn note_desc(st: &mut BorgState, before: &str, item: &borg_item, after: &str) {
     borg_note_bytes(st, &s);
 }
 
-/// `borg_min_item_quantity(&borg_shops[k].ware[n])` (borg-store-sell.c,
-/// still c2rust), on the ware as it is now.
+/// `borg_min_item_quantity(&borg_shops[k].ware[n])` (borg-store-sell.c),
+/// on the ware as it is now.
 fn min_quantity(st: &mut BorgState, k: i32, n: i32) -> i32 {
     let w = *ware(st, k, n);
-    bridge::borg_min_item_quantity(st, &w)
+    crate::borg_store_sell::borg_min_item_quantity(st, &w)
 }
 
 /// Help decide if an item should be bought from a real store
@@ -294,8 +313,8 @@ fn borg_good_buy(st: &mut BorgState, who: i32, ware_n: i32) -> bool {
 
     /* do not buy the item if I just sold it. */
     let mut p = 0;
-    while p < bridge::sold_item_num(st) {
-        let (s_tval, s_sval, s_store) = bridge::sold_item(st, p as usize);
+    while p < st.store_sell.sold_item_num {
+        let (s_tval, s_sval, s_store) = crate::borg_store_sell::sold_item(st, p as usize);
         if s_tval == tval as i32 && s_sval == sval && s_store == who {
             if st.core.cfg[BORG_VERBOSE as usize] != 0 {
                 note_desc(st, "# Choosing not to buy back ", &item, "");
@@ -594,8 +613,8 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
         /* Skip it if I just sold it */
         let mut skip_it = false;
         let mut i = 0;
-        while i < bridge::sold_item_num(st) {
-            let (s_tval, s_sval, _) = bridge::sold_item(st, i as usize);
+        while i < st.store_sell.sold_item_num {
+            let (s_tval, s_sval, _) = crate::borg_store_sell::sold_item(st, i as usize);
             if s_tval == i32::from(tval) && s_sval == i32::from(sval) {
                 if st.core.cfg[BORG_VERBOSE as usize] != 0 {
                     let w = *ware(st, home, n);
@@ -920,7 +939,7 @@ pub fn borg_think_shop_grab_interesting(st: &mut BorgState) -> bool {
             }
 
             /* optimize the home inventory */
-            if !bridge::borg_think_home_sell_useful(st, &mut s) {
+            if !crate::borg_store_sell::borg_think_home_sell_useful(st, &mut s) {
                 continue;
             }
 
@@ -1015,8 +1034,8 @@ pub fn borg_think_home_grab_useless(st: &mut BorgState) -> bool {
 
         /* skip stuff if we sold bought it */
         let mut p = 0;
-        while p < bridge::sold_item_num(st) {
-            let (s_tval, s_sval, s_store) = bridge::sold_item(st, p as usize);
+        while p < st.store_sell.sold_item_num {
+            let (s_tval, s_sval, s_store) = crate::borg_store_sell::sold_item(st, p as usize);
             let w = ware(st, home, n);
             if s_tval == i32::from(w.tval) && s_sval == i32::from(w.sval) && s_store == home {
                 skip_it = true;

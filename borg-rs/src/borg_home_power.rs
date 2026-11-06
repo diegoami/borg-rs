@@ -26,7 +26,7 @@ use crate::headers::borg_trait_h::{
 use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_STR};
 use crate::headers::list_tvals_h::{TV_FOOD, TV_POTION, TV_SCROLL, TV_STAFF};
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `CLASS_WARRIOR` (borg-trait.h).
 const CLASS_WARRIOR: i32 = 0;
@@ -155,7 +155,7 @@ fn borg_power_home_aux1(st: &mut BorgState) -> i32 {
     value = stat_tiers(value, s, 15, 21, 300, 15 * 300, 200, 15 * 300 + 6 * 200, 1);
 
     // spell stat is only bonused for spell casters.
-    let spell_stat = bridge::borg_spell_stat(st);
+    let spell_stat = crate::borg_magic::borg_spell_stat();
     if spell_stat >= 0 {
         let s = i32::from(st.home.home_stat_add[spell_stat as usize]);
         // C bug 8: the last tier starts from 20 * 100, not 20 * 400.

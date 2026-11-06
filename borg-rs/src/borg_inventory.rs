@@ -199,8 +199,8 @@ pub fn borg_first_empty_inventory_slot(st: &mut BorgState) -> i32 {
 
 /// Is it worth using ID on an item (`borg_item_worth_id`)? Also a general
 /// test for whether an unidentified item is worth keeping.
-pub fn borg_item_worth_id(st: &mut BorgState, item: &borg_item) -> bool {
-    if !bridge::borg_item_note_needs_id(st, item) {
+pub fn borg_item_worth_id(_st: &mut BorgState, item: &borg_item) -> bool {
+    if !crate::borg_item_id::borg_item_note_needs_id(item) {
         return false;
     }
 

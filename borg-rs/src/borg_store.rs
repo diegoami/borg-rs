@@ -32,9 +32,7 @@ pub const SHOP_MENU_ITEMS: &[u8] = b"acfhjmnoqruvyzABDFGHJKLMNOPQRSTUVWXYZ\0";
 
 /// One store as the Borg sees it (`borg_shop`).
 ///
-/// TRANSITIONAL: the wares are the C `borg_item` struct, and c2rust code
-/// holds `*mut borg_item` pointers into `ware`, so the `Vec` is only
-/// (re)allocated by `borg_init_store` / `borg_free_store`.
+/// The `Vec` is only (re)allocated by `borg_init_store` / `borg_free_store`.
 #[derive(Default)]
 pub struct BorgShop {
     /// `z_info->store_inven_max` wares.
@@ -58,10 +56,32 @@ pub fn borg_home_full(st: &mut BorgState) -> bool {
 
 /// check for the a full inventory
 pub fn borg_inventory_full(st: &mut BorgState) -> bool {
-    bridge::store_first_empty_inventory_slot(st) == -1
+    crate::borg_inventory::borg_first_empty_inventory_slot(st) == -1
 }
 
 /// `f_info[feat].shopnum - 1`: the store index of a shop feature.
+/// `borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`:
+/// the ware and the two tables the analyzer reads are borrowed as
+/// separate fields of the state.
+fn analyze_ware(
+    st: &mut BorgState,
+    shop: usize,
+    slot: usize,
+    obj: StoreObject,
+    desc: &[u8],
+    in_store: bool,
+) {
+    let BorgState { store, act, item_val, .. } = st;
+    crate::borg_item_analyze::borg_item_analyze(
+        &mut store.shops[shop].ware[slot],
+        obj.into(),
+        desc,
+        in_store,
+        act,
+        item_val,
+    );
+}
+
 fn feat_store(feat: u32) -> i32 {
     i32::from(engine::feat_shopnum(feat as usize)) - 1
 }
@@ -176,7 +196,7 @@ pub fn borg_notice_store(st: &mut BorgState) {
             }
 
             // Analyze the item
-            bridge::borg_item_analyze_ware(st, store_num, slot, o_ptr, &buf, store_num != BORG_HOME);
+            analyze_ware(st, store_num, slot, o_ptr, &buf, store_num != BORG_HOME);
 
             // Save the declared cost
             st.store.shops[store_num].ware[slot].cost =
@@ -218,12 +238,12 @@ pub fn borg_init_store(st: &mut BorgState) {
     // Make the "safe" stores in the town
     st.store.safe_shops = shops();
 
-    bridge::borg_init_store_sell(st);
+    crate::borg_store_sell::borg_init_store_sell(st);
 }
 
 /// Free the shops (`borg_free_store`).
 pub fn borg_free_store(st: &mut BorgState) {
-    bridge::borg_free_store_sell(st);
+    crate::borg_store_sell::borg_free_store_sell(st);
 
     st.store.safe_shops = Vec::new();
     st.store.shops = Vec::new();

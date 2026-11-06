@@ -38,7 +38,7 @@ use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_INT, STAT_STR, STAT_
 use crate::headers::list_tvals_h::{TV_ARROW, TV_DIGGING, TV_POTION, TV_SCROLL};
 use crate::headers::player_h::STAT_MAX;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 const CLASS_WARRIOR: i32 = 0;
 const CLASS_MAGE: i32 = 1;
@@ -1843,11 +1843,11 @@ pub fn borg_power(st: &mut BorgState) -> i32 {
     // Add a bonus for deep level prep
     // Dump prep codes
     // Scan from surface to deep , stop when not preped
-    // (through the C-ABI shim, so `borg_prepared_buffer` is written as in C)
+    // (`borg_prepared_c`, so `borg_prepared_buffer` is written as in C)
     let mut i = 1;
     while i <= st.borg.tr(BI_MAXDEPTH) + 50 {
         // Dump fear code
-        if bridge::borg_prepared_c(st, i).is_some() {
+        if crate::borg_prepared::borg_prepared_c(st, i).is_some() {
             break;
         }
         i += 1;

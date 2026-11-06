@@ -279,7 +279,7 @@ pub fn borg_test_stuff(st: &mut BorgState) -> bool {
     if b_i >= 0 {
         /* Use an item to identify */
         let sv = st.item_val.sv_scroll_identify;
-        if borg_spell(st, IDENTIFY_RUNE) || bridge::borg_read_scroll(st, sv) {
+        if borg_spell(st, IDENTIFY_RUNE) || crate::borg_item_use::borg_read_scroll(st, sv) {
             /* Log -- may be cancelled */
             let item = st.items.items[b_i as usize];
             note_desc(st, "# Identifying ", &item, ".");

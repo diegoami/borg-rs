@@ -30,7 +30,7 @@ use crate::headers::list_tvals_h::{
 };
 use crate::headers::ui_event_h::keycode_t;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// Spell status values (borg-magic.h)
 pub const BORG_MAGIC_ICKY: u8 = 0; // Spell is illegible
@@ -58,8 +58,7 @@ const CLASS_ROGUE: i32 = 6;
 const CLASS_RANGER: i32 = 7;
 const CLASS_BLACKGUARD: i32 = 8;
 
-/// A spell/prayer in a book (`struct borg_magic`). The field names are the
-/// C ones (c2rust code still reads them).
+/// A spell/prayer in a book (`struct borg_magic`), with the C field names.
 #[derive(Clone, Copy, Debug)]
 pub struct BorgMagic {
     /// Textual name (C: `const char *`, from the rating table; an entry
@@ -717,6 +716,13 @@ fn borg_cheat_spell(st: &mut BorgState, book_num: i32) {
     }
 }
 
+/// `(borg_items[i].tval, borg_items[i].sval)` for a pack slot.
+fn item_tval_sval(st: &BorgState, i: i32) -> (u8, u8) {
+    assert!(i >= 0 && i < i32::from(engine::z_info().pack_size));
+    let it = &st.items.items[i as usize];
+    (it.tval, it.sval)
+}
+
 /// Cheat the "spell" info (`borg_cheat_spells`)
 pub fn borg_cheat_spells(st: &mut BorgState) {
     // Assume no books
@@ -726,7 +732,7 @@ pub fn borg_cheat_spells(st: &mut BorgState) {
 
     // Scan the pack
     for i in 0..i32::from(engine::z_info().pack_size) {
-        let (tval, sval) = bridge::borg_item_tval_sval(st, i);
+        let (tval, sval) = item_tval_sval(st, i);
 
         let mut book_num = 0;
         while book_num < engine::class_num_books() {

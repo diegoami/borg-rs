@@ -42,7 +42,7 @@ use crate::headers::list_player_flags_h::PF_ZERO_FAIL;
 use crate::headers::list_tvals_h::{TV_DIGGING, TV_POTION, TV_SCROLL, VT_NULL};
 use crate::state::BorgState;
 use crate::borg_item_analyze::borg_ego_has_random_power;
-use crate::{borg_io, bridge, engine};
+use crate::{borg_io, engine};
 
 /// `struct value_sec`: a parsed `value(type, name)`.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -1090,6 +1090,15 @@ fn used_immediately(st: &BorgState, item: &crate::headers::borg_item_h::borg_ite
 }
 
 /// `total - (n * k)` computed in `long` and stored back in an `int32_t`.
+/// `borg_get_spell_entry(book, entry)` (borg-magic.c): the spell's
+/// `(level, power)`, or `None` for NULL.
+fn spell_entry(st: &mut BorgState, book: i32, entry: i32) -> Option<(u8, u8)> {
+    crate::borg_magic::borg_get_spell_entry(st, book, entry).map(|i| {
+        let m = &st.magic.magics[i];
+        (m.level, m.power)
+    })
+}
+
 fn sub_long(total: i32, n: i32, k: i64) -> i32 {
     (i64::from(total) - i64::from(n) * k) as i32
 }
@@ -1104,7 +1113,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
     }
 
     // HUGE HACK need some extra stuff that is hard to make dynamic
-    if bridge::borg_spell_stat(st) > 0 {
+    if crate::borg_magic::borg_spell_stat() > 0 {
         let chance = i32::from(engine::spell_chance(0));
         total = total.wrapping_add((100 - chance).wrapping_mul(100));
     }
@@ -1128,7 +1137,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
 
     // Hack-- Reward the borg for carrying a NON-ID items that have random
     // powers
-    let outer = bridge::borg_item(st, inven_outer);
+    let outer = st.items.items[inven_outer as usize];
     if outer.iqty != 0 && borg_ego_has_random_power(usize::from(outer.ego_idx)) && !outer.ident {
         total = total.wrapping_add(999999);
     }
@@ -1167,7 +1176,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
     let max_wgt = engine::class_spell_weight();
 
     // HACK: Heavy armor hurts magic
-    if bridge::borg_can_cast(st) && (cur_wgt - max_wgt) / 10 > 0 {
+    if crate::borg_magic::borg_can_cast() && (cur_wgt - max_wgt) / 10 > 0 {
         let lost = (cur_wgt - max_wgt) / 10;
         // max sp must be calculated in case it changed with the armor
         let mut max_sp = st.borg.tr(BI_SP_ADJ) / 100 + 1;
@@ -1193,7 +1202,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
     if st.borg.tr(BI_MAXDEPTH) <= 40
         && st.borg.tr(BI_MAXDEPTH) >= 25
         && st.borg.tr(BI_GOLD) < 100000
-        && u32::from(bridge::borg_item(st, inven_wield).tval) != TV_DIGGING
+        && u32::from(st.items.items[inven_wield as usize].tval) != TV_DIGGING
         && st.borg.tr(BI_ADIGGER) == 1
     {
         total = total.wrapping_add(5000);
@@ -1210,7 +1219,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
         if engine::class_book_dungeon(book) {
             // The "hard" books: scan the spells
             for what in 0..9 {
-                let Some((level, power)) = bridge::borg_get_spell_entry(st, book, what) else {
+                let Some((level, power)) = spell_entry(st, book, what) else {
                     break;
                 };
 
@@ -1231,7 +1240,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
             // The "easy" books: scan the spells
             let mut when: i32 = 99;
             for what in 0..9 {
-                let Some((level, _power)) = bridge::borg_get_spell_entry(st, book, what) else {
+                let Some((level, _power)) = spell_entry(st, book, what) else {
                     break;
                 };
 
@@ -1268,7 +1277,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
         let mut item = None;
         let mut i = pack_size - st.borg.tr(BI_QUIVER_SLOTS);
         while i >= 0 {
-            let it = bridge::borg_item(st, i);
+            let it = st.items.items[i as usize];
             if it.iqty != 0 {
                 item = Some(it);
                 break;

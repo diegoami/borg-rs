@@ -448,7 +448,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
     // Dump the inventory
     putf(f, b"  [Character Inventory]\n\n");
     for i in 0..i32::from(engine::z_info().pack_size) {
-        let item = bridge::item(st, i as usize);
+        let item = st.items.items[i as usize];
         let desc = c_chars(&item.desc);
 
         if item.iqty != 0 {
@@ -495,14 +495,14 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
         putf(f, b"  [Swap info]\n\n");
         let weapon_swap = st.trait_swap.weapon_swap;
         if weapon_swap != 0 {
-            let item = bridge::item(st, (weapon_swap - 1) as usize);
+            let item = st.items.items[(weapon_swap - 1) as usize];
             putf(f, &cat(&[b"Swap Weapon:  ", &c_chars(&item.desc), b"\n"]));
         } else {
             put(f, b"Swap Weapon:  NONE\n");
         }
         let armour_swap = st.trait_swap.armour_swap;
         if armour_swap != 0 {
-            let item = bridge::item(st, (armour_swap - 1) as usize);
+            let item = st.items.items[(armour_swap - 1) as usize];
             putf(f, &cat(&[b"Swap Armour:  ", &c_chars(&item.desc), b"\n"]));
         } else {
             put(f, b"Swap Armour:  NONE\n");
@@ -757,7 +757,7 @@ fn borg_prt_binary(flags: u32, row: i32, mut col: i32) {
 pub fn borg_display_item(st: &mut BorgState, f: &[u8; OF_SIZE], n: i32) {
     let j = 0;
 
-    let item = bridge::item(st, n as usize);
+    let item = st.items.items[n as usize];
 
     // Clear screen
     engine::term_clear();
@@ -1124,7 +1124,7 @@ fn display_status_window(st: &mut BorgState) {
     // level preparedness
     put_at(42, 6, COLOUR_SLATE, b"Reason for not diving:");
     let depth = st.borg.tr(BI_MAXDEPTH) + 1;
-    let reason = bridge::borg_prepared_c(st, depth).unwrap_or_default();
+    let reason = crate::borg_prepared::borg_prepared_c(st, depth).unwrap_or_default();
     put_at(
         64,
         6,

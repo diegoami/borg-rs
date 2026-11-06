@@ -38,7 +38,7 @@ use crate::borg_messages_react::borg_react;
 use crate::borg_prepared::{borg_must_return_to_town, borg_restock};
 use crate::borg_projection::{borg_los, borg_target};
 use crate::borg_store_sell::borg_count_sell;
-use crate::bridge::{self, PreparedC};
+use crate::borg_prepared::PreparedC;
 use crate::engine;
 use crate::headers::borg_h::{
     BORG_MONEY_SCUM_AMOUNT, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_WORSHIPS_GOLD,
@@ -685,14 +685,14 @@ fn borg_time_to_stay_on_level(st: &mut BorgState, bored: bool) -> i32 {
 /// `borg_prepared(depth)`, keeping C's pointer: a formatted reason is the
 /// one static buffer, which later formatted reasons overwrite.
 fn prepared(st: &mut BorgState, depth: i32) -> Option<PreparedC> {
-    bridge::borg_prepared_buf(st, depth)
+    crate::borg_prepared::borg_prepared_buf(st, depth)
 }
 
 /// The text a `borg_prepared()` pointer reads now.
 fn prep_text(st: &mut BorgState, p: &PreparedC) -> Vec<u8> {
     match p {
         PreparedC::Text(t) => t.clone(),
-        PreparedC::Buffer => bridge::prepared_buffer(st),
+        PreparedC::Buffer => crate::borg_prepared::prepared_buffer(st),
     }
 }
 
