@@ -6,7 +6,7 @@
 |-----------|-------|
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
-| M3 safe idiomatic Rust | in progress: all 59 modules converted and the transitional bridge removed (`unsafe` only in `engine.rs` and the engine declarations in `headers/`); waiting for the final checkpoint (see PROGRESS.md) |
+| M3 safe idiomatic Rust | done (tag `m3` to be created by the owner on `dd885b6dd`): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270, from 848 at M2), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md) |
 
 ## Machine
 
@@ -173,6 +173,30 @@ $ harness/diff harness/out/c/full harness/reference/full | tail -1      # C buil
 ```
 
 Rust timing: `suite=full impl=rust jobs=4 wall_seconds=138.822782034` (C: about 133 s).
+
+## M3: safe, idiomatic Rust
+
+Done on `dd885b6dd` (2026-11-06). Check, run on that commit (suite
+manifests name it):
+
+```
+smoke    3/3 runs identical (expected 3)
+full    45/45 runs identical (expected 45)
+deep     9/9 runs identical (expected 9)
+classes 16/16 runs identical (expected 16)
+nested Borg entries: 0
+check-no-c-borg.sh: OK (154/154 engine objects byte-identical)
+cargo clippy --release -- -D warnings: clean (whole crate)
+unsafe: 270, all in engine.rs (242) and the engine declarations in headers/ (28)
+```
+
+Every module was converted with a temporary cross-check against the old
+c2rust code (real calls plus fuzz; numbers in each PROGRESS row) and a
+checkpoint every few merges. 51 sections of C bugs are kept on purpose
+(`docs/c-bugs.md`); from section 42 on each slip is also filed in
+diegoami/neo-angband-tracker (`CLAUDE.md`). Open items for the external
+review are in `docs/REVIEW.md` and `docs/SELF-REVIEW.md` (L4, L5, the
+nested-entry panic, the never-exercised paths listed per module).
 
 ## Extra suite: deep (added during M3)
 
