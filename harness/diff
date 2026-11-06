@@ -2,7 +2,8 @@
 """Compare Borg keypress logs and print the first divergence.
 
 Usage:
-  harness/diff [--suite NAME] [--allow-incomplete] A B
+  harness/diff [--suite NAME] [--expect-impl c|rust] [--allow-incomplete]
+              [--allow-unverified] A B
 
   A and B are either two key logs (keys.log or keys.log.xz) or two
   directories of runs (each run is a subdirectory holding keys.log[.xz]
@@ -23,6 +24,17 @@ Directory mode:
     that harness/suite.sh writes last; otherwise the diff refuses it
     (exit 2). --allow-incomplete turns that into a warning. Reference dirs
     (keys.log.xz only) need no marker.
+  * Each side's build identity is printed from its manifest (written by
+    harness/suite.sh): the binary's implementation, its BUILD_ID (git
+    revision, dirty flags, source hash) and any overrides. A dir with
+    plain key logs and no manifest, or a manifest without build identity
+    (older suite.sh), is refused (exit 2). The diff fails (exit 1) if a
+    manifest shows BORG_IMPL different from the binary's implementation,
+    a recorded override (ALLOW_UNKNOWN_IMPL, ALLOW_STALE_BUILD), a binary
+    changed during the suite, or, with --expect-impl c|rust, another
+    implementation. --allow-unverified turns all of these into warnings.
+    A dir with neither plain key logs nor a manifest is a reference (the
+    C oracle) and is accepted as before.
 
 For a key-log divergence it prints the run name, seed, game turn and key
 index of the first differing line and 20 lines of context from each side.
@@ -191,16 +203,94 @@ def check_done(d, allow):
     return False
 
 
+def read_manifest(path):
+    m = {}
+    with open(path) as f:
+        for line in f:
+            k, sep, v = line.rstrip("\n").partition("=")
+            if sep and k not in m:
+                m[k] = v
+    return m
+
+
+def check_manifest(label, d, expect_impl, allow):
+    """Print a suite output dir's build identity and check it.
+
+    Returns 0 if verified, 1 on a mismatch or a recorded override, 2 if
+    the dir has no manifest of the current format. A dir with neither
+    plain key logs nor a manifest is a reference (C oracle): 0.
+    """
+    mpath = os.path.join(d, "manifest")
+    plain = any(os.path.isfile(os.path.join(d, r, "keys.log"))
+                for r in run_dirs(d))
+    if not os.path.isfile(mpath):
+        if not plain:
+            print("%s: %s: reference (no manifest)" % (label, d))
+            return 0
+        msg = "%s has no manifest (not written by harness/suite.sh)" % d
+        if allow:
+            print("WARNING: " + msg)
+            return 0
+        print("REFUSED: " + msg + "; use --allow-unverified to compare anyway")
+        return 2
+    m = read_manifest(mpath)
+    g = lambda k: m.get(k, "?")
+    print("%s: %s: impl=%s (BORG_IMPL=%s; executable %s, CMakeCache %s, "
+          "BUILD_ID %s) binary_sha256=%s" % (
+              label, d, g("binary_impl"), g("borg_impl_env"),
+              g("binary_elf_impl"), g("binary_cmake_borg_impl"),
+              g("build_id_impl"), g("binary_sha256")[:16]))
+    print("%s:   built from %s (dirty=%s, inputs dirty=%s) source_sha256=%s;"
+          " run at %s (dirty=%s) overrides=%s" % (
+              label, g("build_id_git_rev")[:12], g("build_id_git_dirty"),
+              g("build_id_inputs_dirty"), g("build_id_source_sha256")[:16],
+              g("git_rev")[:12], g("git_dirty"), g("overrides")))
+    if "overrides" not in m or "binary_impl" not in m:
+        msg = ("%s: manifest has no build identity (written by an older "
+               "harness/suite.sh)" % d)
+        if allow:
+            print("WARNING: " + msg)
+            return 0
+        print("REFUSED: " + msg + "; use --allow-unverified to compare anyway")
+        return 2
+    probs = []
+    env, impl = m.get("borg_impl_env"), m.get("binary_impl")
+    if env != impl:
+        probs.append("implementation mismatch: BORG_IMPL=%s, binary %s"
+                     % (env, impl))
+    if expect_impl is not None and (env != expect_impl or impl != expect_impl):
+        probs.append("expected implementation %s, manifest says BORG_IMPL=%s,"
+                     " binary %s" % (expect_impl, env, impl))
+    if m.get("overrides") != "none":
+        probs.append("suite ran with override(s) %s" % m.get("overrides"))
+    for k in ("impl_check", "build_check"):
+        if m.get(k) != "ok":
+            probs.append("%s: %s" % (k, m.get(k)))
+    if m.get("binary_sha256_end", m.get("binary_sha256")) != m.get("binary_sha256"):
+        probs.append("binary changed while the suite ran")
+    if not probs:
+        return 0
+    for p in probs:
+        print("%s %s: %s" % ("WARNING:" if allow else "UNVERIFIED:", label, p))
+    return 0 if allow else 1
+
+
 def main(argv):
     args = argv[1:]
     suite = None
     allow = False
+    allow_unverified = False
+    expect_impl = None
     while args and args[0].startswith("--"):
         opt = args.pop(0)
         if opt == "--suite" and args:
             suite = args.pop(0)
         elif opt == "--allow-incomplete":
             allow = True
+        elif opt == "--allow-unverified":
+            allow_unverified = True
+        elif opt == "--expect-impl" and args and args[0] in ("c", "rust"):
+            expect_impl = args.pop(0)
         else:
             print(__doc__)
             return 2
@@ -211,6 +301,11 @@ def main(argv):
     if os.path.isdir(A) and os.path.isdir(B):
         if not (check_done(A, allow) & check_done(B, allow)):
             return 2
+        mrc = [check_manifest(label, d, expect_impl, allow_unverified)
+               for label, d in (("A", A), ("B", B))]
+        if 2 in mrc:
+            return 2
+        unverified = 1 in mrc
         na, nb = run_dirs(A), run_dirs(B)
         ok = True
         if suite is not None:
@@ -247,6 +342,10 @@ def main(argv):
         print("%d/%d runs identical (expected %d)"
               % (same, len(names), len(expected)))
         if same != len(expected):
+            ok = False
+        if unverified:
+            print("FAIL: build identity not verified (see UNVERIFIED above);"
+                  " --allow-unverified to ignore")
             ok = False
     else:
         a, b = read_log(A), read_log(B)
