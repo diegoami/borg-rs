@@ -1,6 +1,6 @@
    Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
-    Finished `release` profile [optimized + debuginfo] target(s) in 9.05s
-     Running `harness/out/native-checker.5Cu56t/fault-target/release/borg-native-checker 1000 1511464998 --fault-control`
+    Finished `release` profile [optimized + debuginfo] target(s) in 8.00s
+     Running `harness/out/native-checker.HyqGro/fault-target/release/borg-native-checker 1000 1511464998 --fault-control`
 MISMATCH case=1 seed=1511464998 range=-8 expression="((((!value(7) < (!value(9) + 5)))))"
 C:
 R 1 1

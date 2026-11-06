@@ -34,7 +34,7 @@ See [latest validation](validation/2026-11-06-melee/README.md).
 
 M4 remains unfinished while F's complete coverage run is active. E now has
 persistent native C/Rust checks for calculator30k, spatial/flow/melee4k,
-glyph900 and lunal1,024 states, with logical private-state comparisons,
+glyph1,600 and lunal1,280 states, with logical private-state comparisons,
 seven rejected source faults, non-recovering C UBSan and clean clippy.
 See [expanded native checks](validation/2026-11-06-native-expanded/README.md)
 and the checker README for exact environment boundaries. This does not

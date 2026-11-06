@@ -29,8 +29,8 @@ CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" -
 CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 2000 305441741 \
     >"$OUT/spatial-second.log" 2>&1
 python3 "$ROOT/harness/native-checker/spatial_controls.py" "$ROOT" "$OUT"
-CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 900 --glyph >"$OUT/glyph.log" 2>&1
-CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1024 --lunal >"$OUT/lunal.log" 2>&1
+CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1600 --glyph >"$OUT/glyph.log" 2>&1
+CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1280 --lunal >"$OUT/lunal.log" 2>&1
 for control in flow projection combat damage glyph lunal; do
     case "$control" in
         flow) override_name=BORG_XCHECK_FLOW_SOURCE;;
@@ -57,8 +57,8 @@ if [ "${CHECK_UBSAN:-0}" = 1 ]; then
         cargo run --release --manifest-path "$MANIFEST" -- 30000 >"$OUT/ubsan.log" 2>&1
     BORG_XCHECK_UBSAN=1 CARGO_TARGET_DIR="$OUT/ubsan-target" \
         cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 2000 >"$OUT/spatial-ubsan.log" 2>&1
-    BORG_XCHECK_UBSAN=1 CARGO_TARGET_DIR="$OUT/ubsan-target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 900 --glyph >"$OUT/glyph-ubsan.log" 2>&1
-    BORG_XCHECK_UBSAN=1 CARGO_TARGET_DIR="$OUT/ubsan-target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1024 --lunal >"$OUT/lunal-ubsan.log" 2>&1
+    BORG_XCHECK_UBSAN=1 CARGO_TARGET_DIR="$OUT/ubsan-target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1600 --glyph >"$OUT/glyph-ubsan.log" 2>&1
+    BORG_XCHECK_UBSAN=1 CARGO_TARGET_DIR="$OUT/ubsan-target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1280 --lunal >"$OUT/lunal-ubsan.log" 2>&1
 fi
 CARGO_TARGET_DIR="$OUT/target" cargo clippy --release --manifest-path "$MANIFEST" --all-targets -- -D warnings \
     >"$OUT/clippy.log" 2>&1

@@ -1,0 +1,2 @@
+PASS 30000 native C/Rust cases, seed=1511464998; result, diagnostics and complete calculation/token state identical
+Rust source: /home/diego/projects/borg-rs/borg-rs/src/borg_formulas_calc.rs

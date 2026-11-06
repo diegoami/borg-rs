@@ -1,0 +1,77 @@
+[
+  {
+    "entry_count": 1280,
+    "kernel": "lunal thinker",
+    "lines": {
+      "count": 157,
+      "covered": 154,
+      "percent": 98.09
+    },
+    "regions": {
+      "count": 284,
+      "covered": 269,
+      "percent": 94.72
+    },
+    "symbol": "_RNvNtCskfwRlZND5xx_7spatial5lunal24borg_think_dungeon_lunal"
+  },
+  {
+    "entry_count": 85616,
+    "kernel": "physical melee",
+    "lines": {
+      "count": 84,
+      "covered": 84,
+      "percent": 100.0
+    },
+    "regions": {
+      "count": 134,
+      "covered": 134,
+      "percent": 100.0
+    },
+    "symbol": "_RNvNtCskfwRlZND5xx_7spatial6combat19physical_damage_one"
+  },
+  {
+    "entry_count": 16000,
+    "kernel": "thrust selector",
+    "lines": {
+      "count": 52,
+      "covered": 52,
+      "percent": 100.0
+    },
+    "regions": {
+      "count": 116,
+      "covered": 116,
+      "percent": 100.0
+    },
+    "symbol": "_RNvNtCskfwRlZND5xx_7spatial6combat22borg_attack_aux_thrust"
+  },
+  {
+    "entry_count": 5800,
+    "kernel": "flow spread",
+    "lines": {
+      "count": 73,
+      "covered": 73,
+      "percent": 100.0
+    },
+    "regions": {
+      "count": 114,
+      "covered": 114,
+      "percent": 100.0
+    },
+    "symbol": "_RNvNtCskfwRlZND5xx_7spatial4flow16borg_flow_spread"
+  },
+  {
+    "entry_count": 1600,
+    "kernel": "glyph builder",
+    "lines": {
+      "count": 124,
+      "covered": 121,
+      "percent": 97.58
+    },
+    "regions": {
+      "count": 194,
+      "covered": 188,
+      "percent": 96.91
+    },
+    "symbol": "_RNvNtCskfwRlZND5xx_7spatial5glyph15borg_flow_glyph"
+  }
+]

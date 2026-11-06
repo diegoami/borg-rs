@@ -213,6 +213,8 @@
 
 | 68 | M4 persistent native C checks | `harness/native-checker`; receipts `docs/validation/2026-11-06-native-expanded/` | Real renamed C beside unchanged/verbatim production Rust: calculator30k, spatial/cave/projection/flow/melee4k over two seeds, glyph900 and lunal1,024 controlled states. Full declared map/flow/queue/tracking state, ordered boundary callbacks, notes/keys and decisions compare. Seven deliberate actual-source faults rejected, including private-state-only mutations; non-recovering C UBSan and all-target release clippy pass. Shared environment boundaries and unshadowed whole-Borg state are explicit. New tactical reverse-flow lead section56 filed as tracker#345; no gameplay change. Production inputs unchanged from28b8170. F collection continues; main/tags unchanged. |
 
+| 69 | M4 native measured-gap cases | expanded native receipt, `native-coverage/` | Separate positive native Rust coverage identified missing glyph/lunal cases. Added outlying/failed creation/failed commit/failed follow-step and goal-specific lunal flow outcomes: glyph1,600 over16 scenarios, lunal1,280 over40. Full parity, seven actual-source faults, C UBSan and clippy pass. Extracted physical melee84/84 lines, thrust52/52, spread73/73; glyph121/124 (97.58%), lunal154/157 (98.09%). Five positive profiles retained; build/fault profiles excluded. Fixture/adapters and game-corpus coverage stay separate; no C/branch coverage or completed live-tactic claim. Production source unchanged from28b8170. |
+
 ## Unsafe count
 
 `borg-rs/tools/count-unsafe.sh` counts the token `unsafe` (fns, blocks,

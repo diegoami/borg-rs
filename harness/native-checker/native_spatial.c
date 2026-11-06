@@ -92,7 +92,7 @@ static bool lrest(int y,int x){return lcall(3,y,x,0,lunal_params[12]);}
 static bool lrecover(void){return lbool(4,0,0,0);}
 static bool luse(void){return lbool(5,0,0,0);}
 static bool ldrop(void){return lbool(6,0,0,0);}
-static bool lold(int why){return lbool(7,why,0,0);}
+static bool lold(int why){return lcall(7,why,0,0,(lunal_params[18]&(1<<(why==2?7:12)))!=0);}
 static bool ltake(bool view,int distance){return lbool(8,view,distance,0);}
 static bool lless(int why,bool sneak){return lbool(9,why,sneak,0);}
 static bool lmore(int why,bool sneak,bool brave){return lbool(10,why,sneak,brave);}
@@ -172,10 +172,10 @@ size_t spatial_snapshot(const uint8_t *packet,size_t packet_size,uint8_t *result
     }
     if(glyph_mode){
         uint32_t n=read32();for(uint32_t i=0;i<n;i++){read8();read8();}
-        int scenario=f[28];borg_needs_new_sea=scenario==0||scenario==2||scenario==5||scenario==6||scenario==7;
-        if((scenario<=1||scenario==6||scenario==7)){glyph_x=px;glyph_y=py;}
-        if(scenario==1||scenario==3||scenario==4){glyph_x_center=px;glyph_y_center=py;glyph_xs[0]=px;glyph_ys[0]=py;track_glyph.num=1;}
-        if(scenario==4){for(int i=0;i<24;i++){glyph_xs[i+1]=px+borg_ddx_ddd[i];glyph_ys[i+1]=py+borg_ddy_ddd[i];}track_glyph.num=25;}
+        int scenario=f[28];borg_needs_new_sea=scenario==0||scenario==2||scenario==5||scenario==6||scenario==7||scenario==11||scenario==12||scenario==13||scenario==15;
+        if((scenario<=1||scenario==6||scenario==7||scenario==13)){glyph_x=px;glyph_y=py;}
+        if(scenario==1||scenario==3||scenario==4||scenario==9||scenario==10||scenario==14){glyph_x_center=px+(scenario==9||scenario==10?-1:scenario==14?10:0);glyph_y_center=py;glyph_xs[0]=glyph_x_center;glyph_ys[0]=py;track_glyph.num=1;}
+        if(scenario==4||scenario==14){for(int i=0;i<24;i++){glyph_xs[i+1]=glyph_x_center+borg_ddx_ddd[i];glyph_ys[i+1]=py+borg_ddy_ddd[i];}track_glyph.num=25;}
         if(scenario==6||scenario==7){track_glyph.num=scenario==6?200:199;for(int i=0;i<track_glyph.num;i++){glyph_xs[i]=1+i%196;glyph_ys[i]=1+i/196;}}
         if(scenario==8){glyph_x_center=10;glyph_y_center=10;borg_needs_new_sea=false;}
         put32(borg_flow_glyph());goto serialize_state;

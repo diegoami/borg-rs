@@ -14,14 +14,15 @@ Completed controls (`DONE`, logs and SHA256SUMS retained here):
   all grid fields, staged cost/hard/known/icky/current-flow arrays, full
   circular queues, targeting, physical melee scores, chosen goals,
   simulation/apply behavior and ordered callbacks/notes/keys.
-* 900 glyph-builder states over nine creation/duplicate/pattern/no-room/
+* 1,600 glyph-builder states over16 creation/duplicate/pattern/no-room/
   distant-center/capacity scenarios, with complete tracking/map/flow state.
-* 1,024 lunal-thinker states over32 exit/recovery/stair/flag scenarios,
-  including track capacity/duplicates and forced descent.
+* 1,280 lunal-thinker states over40 exit/recovery/stair/flag scenarios,
+  including track capacity/duplicates, forced descent and distinct
+  object/fleeing flow results.
 * Seven actual Rust source faults detected: arithmetic, LOS result, unused
   border-map flag, same-square eligibility, physical multiplier and glyph
   bookkeeping and lunal exit flags. Overrides cannot produce valid PASS evidence.
-* Non-recovering C UBSan:30,000 calculator,2,000 spatial,900 glyph and1,024 lunal states.
+* Non-recovering C UBSan:30,000 calculator,2,000 spatial,1,600 glyph and1,280 lunal states.
 * All-target release clippy with warnings denied passes.
 
 The logical engine environment is shared: dimensions/predicates, race/item
@@ -34,3 +35,11 @@ optimized reverse flow is reported in c-bugs section56, without changing
 C or Rust gameplay. Production inputs remain unchanged from28b8170.
 
 Reproduce: `CHECK_UBSAN=1 harness/native-checker/run.sh`.
+
+Supplemental native Rust coverage: physical melee84/84 lines, thrust52/52,
+spread73/73, glyph121/124 (97.58%) and lunal154/157 (98.09%). Measured gaps
+prompted the additional outlying/failed creation/failed commit/failed step
+and lunal fleeing-flow scenarios. The previous glyph/lunal measurements
+were101/124 and146/157 lines. See `native-coverage/README.md` for scope,
+raw LLVM export, five retained positive profiles and function counts.
+These numbers are not merged with game-corpus F coverage.

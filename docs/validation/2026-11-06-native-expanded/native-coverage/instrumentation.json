@@ -1,0 +1,51 @@
+{
+  "C_native_code_instrumented": false,
+  "binaries": {
+    "borg-native-checker": "2bcb0b6e09796174e0a273d40e23366f9697856d991989339097183dcea90393",
+    "spatial": "f3fd65f60eb419b77089b3a45839ffbf5a2aa8868dfafea08919eeef29d5bb7a"
+  },
+  "branch_coverage": "not measured",
+  "cc_version": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "fault_control_profiles_merged": false,
+  "llvm_version": "LLVM (http://llvm.org/):\n  LLVM version 22.1.8-rust-1.98.1-stable\n  Optimized build.",
+  "positive_case_counts": {
+    "calculator": 30000,
+    "glyph": 1600,
+    "lunal": 1280,
+    "spatial": 4000
+  },
+  "production_input_sha256": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f",
+  "profiles": [
+    {
+      "bytes": 4528,
+      "file": "/tmp/borg-native-coverage-final/run-profiles/14794040484819296331_0-1104055.profraw",
+      "sha256": "7d705297a4cf10cb4b3c951a989fba4b1c7da5c19e78bb29d73744fda9496622"
+    },
+    {
+      "bytes": 20992,
+      "file": "/tmp/borg-native-coverage-final/run-profiles/17544995386889842224_0-1104210.profraw",
+      "sha256": "0c6485855cc5c55554924432409d03630f0fe160af6dbe088781372610e3757d"
+    },
+    {
+      "bytes": 20992,
+      "file": "/tmp/borg-native-coverage-final/run-profiles/17544995386889842224_0-1105973.profraw",
+      "sha256": "e80a9c07b59b6fc463eeb010a5e4a1642e3766a5dac0ae872bade8ac21e2f70e"
+    },
+    {
+      "bytes": 20992,
+      "file": "/tmp/borg-native-coverage-final/run-profiles/17544995386889842224_0-1107122.profraw",
+      "sha256": "52434ac22ffa0d91e8a1ef39878b1a5e0008088daae634b2bb9f25fbefa3deed"
+    },
+    {
+      "bytes": 20992,
+      "file": "/tmp/borg-native-coverage-final/run-profiles/17544995386889842224_0-1107633.profraw",
+      "sha256": "2671aefce287b6fc3618f78e19e797dedb6ce11269b4fb7d8b3fa5b905abb768"
+    }
+  ],
+  "rustc_version": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "rustflags": [
+    "-C",
+    "instrument-coverage"
+  ],
+  "scope": "supplemental Rust coverage of selected verbatim/extracted native checker bodies; separate from game-corpus F"
+}

@@ -47,12 +47,14 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   monsters, health/fear/status thresholds, stairs, optimization/tunneling/
   avoidance/sneaking, and queue wrap/overflow. Snapshots include all map
   cells and queue slots, including inactive ones and intermediate stages.
-* Rune builder:900 controlled states over nine creation, duplicate,
-  pattern, no-room, distant-center and capacity scenarios.
-* Lunal thinker:1,024 controlled states over32 exit, recovery, self-scumming,
+* Rune builder:1,600 controlled states over16 creation, duplicate,
+  pattern, no-room, distant-center, outlying-cell, capacity and failed
+  creation/commit/follow-step scenarios.
+* Lunal thinker:1,280 controlled states over40 exit, recovery, self-scumming,
   stair capacity/duplicate, climb/dive and forced-descend scenarios. Shared
   environment callbacks supply preparedness, light, rest, recovery and flow
-  outcomes; the production decision/state-transition code is unchanged.
+  outcomes (including separate object/fleeing flow results); the production
+  decision/state-transition code is unchanged.
 * Source faults must be rejected: actual Rust calculator addition,
   projection adjacency result, unused border-map flag, same-square melee
   guard, damage multiplier, glyph target bookkeeping and self-lunal flag reset are changed in
@@ -70,3 +72,10 @@ Allocator leads #323–#325 and the separately documented glyph reverse-flow
 lead remain reported findings. This checker establishes C/Rust equivalence
 for the stated kernels/domain, not correctness of every inherited C tactic. The controlled lunal entry does
 not claim that an ordinary-game source trace entered self-lunal mode.
+
+Supplemental native-body coverage in the expanded validation receipt reports
+physical melee84/84 lines, thrust52/52, spread73/73, glyph121/124 and
+lunal154/157. It uses the same positive C/Rust comparisons under Rust
+instrumentation. This is separate from the game-corpus F measurement;
+C coverage and branch coverage are unmeasured. The raw LLVM export and
+selected-body counts make remaining gaps reviewable.

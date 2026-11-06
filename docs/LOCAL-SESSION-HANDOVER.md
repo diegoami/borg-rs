@@ -67,7 +67,7 @@ explicitly preserves Warrior2000's early stop, not a5M-turn success.
 ## E and F progress, with limits
 
 The persistent native checker now covers actual C/Rust calculator30k,
-cave/projection/direction/flow/physical-melee4k, glyph900 and lunal1,024
+cave/projection/direction/flow/physical-melee4k, glyph1,600 and lunal1,280
 states. It compares the declared complete logical maps, flow matrices,
 queues, tracking, decisions and ordered callbacks/notes/keys. Seven
 actual-source faults are rejected, including private-state-only mutations.

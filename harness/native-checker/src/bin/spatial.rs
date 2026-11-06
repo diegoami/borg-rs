@@ -853,23 +853,27 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
     let (mut st, f, _) = load(packet);
     let (px, py) = (f[0], f[1]);
     let scenario = f[28];
-    st.glyph.needs_new_sea =
-        scenario == 0 || scenario == 2 || scenario == 5 || scenario == 6 || scenario == 7;
-    if scenario <= 1 || scenario == 6 || scenario == 7 {
+    st.glyph.needs_new_sea = matches!(scenario, 0 | 2 | 5 | 6 | 7 | 11 | 12 | 13 | 15);
+    if scenario <= 1 || scenario == 6 || scenario == 7 || scenario == 13 {
         st.glyph.glyph_x = px as u8;
         st.glyph.glyph_y = py as u8;
     }
-    if scenario == 1 || scenario == 3 || scenario == 4 {
-        st.glyph.center_x = px as u8;
+    if matches!(scenario, 1 | 3 | 4 | 9 | 10 | 14) {
+        st.glyph.center_x = (px
+            + match scenario {
+                9 | 10 => -1,
+                14 => 10,
+                _ => 0,
+            }) as u8;
         st.glyph.center_y = py as u8;
-        st.glyph.track.x[0] = px;
+        st.glyph.track.x[0] = i32::from(st.glyph.center_x);
         st.glyph.track.y[0] = py;
         st.glyph.track.num = 1;
     }
-    if scenario == 4 {
+    if scenario == 4 || scenario == 14 {
         for i in 0..24 {
             let (dx, dy) = flow::borg_ddxy_ddd(i);
-            st.glyph.track.x[i + 1] = px + dx;
+            st.glyph.track.x[i + 1] = i32::from(st.glyph.center_x) + dx;
             st.glyph.track.y[i + 1] = py + dy;
         }
         st.glyph.track.num = 25;
@@ -910,9 +914,9 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
     f[20] = 33;
     f[24] = 100;
     f[25] = 33;
-    f[28] = (i % 9) as i32;
+    f[28] = (i % 16) as i32;
     f[30] = 2;
-    f[29] = match i % 9 {
+    f[29] = match i % 16 {
         0 => 9,
         1 => 10,
         2 => 8,
@@ -920,7 +924,7 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
         4 => 8,
         6 => 9,
         7 => 12,
-        8 => 8,
+        8 | 9 | 10 | 11 | 14 | 15 => 8,
         _ => 0,
     };
     for (k, n) in f.into_iter().enumerate() {
@@ -934,14 +938,31 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
             let room = (85..=115).contains(&x) && (20..=46).contains(&y);
             b[at] = if border {
                 22
-            } else if room && i % 9 != 5 {
+            } else if room && i % 16 != 5 {
                 1
             } else {
                 21
             };
             b[at + 3] = 0;
-            b[at + 4] = ((i % 9 == 1 || i % 9 == 3 || i % 9 == 4) && x == 100 && y == 33) as u8;
-            if i % 9 == 4 && ((x - 100).abs() <= 2 && (y - 33).abs() <= 2) {
+            b[at + 4] =
+                ((i % 16 == 1 || i % 16 == 3 || i % 16 == 4 || i % 16 == 10 || i % 16 == 11)
+                    && x == 100
+                    && y == 33) as u8;
+            if (i % 16 == 4 || i % 16 == 12) && ((x - 100).abs() <= 2 && (y - 33).abs() <= 2) {
+                b[at + 4] = 1;
+            }
+            if (i % 16 == 9 || i % 16 == 10) && x == 99 && y == 33 {
+                b[at + 4] = 1;
+            }
+            if i % 16 == 14 {
+                if x == 105 {
+                    b[at] = 21;
+                }
+                if (x - 110).abs() <= 2 && (y - 33).abs() <= 2 && (x != 110 || y != 33) {
+                    b[at + 4] = 1;
+                }
+            }
+            if i % 16 == 15 && x == 50 && y == 15 {
                 b[at + 4] = 1;
             }
             b[at + 8] = 0;
@@ -1007,7 +1028,9 @@ fn borg_drop_junk(st: &mut BorgState) -> bool {
     lbool(st, 6, 0, 0, 0)
 }
 fn borg_flow_old(st: &mut BorgState, why: i32) -> bool {
-    lbool(st, 7, why, 0, 0)
+    let bit = if why == 2 { 7 } else { 12 };
+    let result = (st.lunal_params[18] & (1 << bit) != 0) as i32;
+    lcall(st, 7, why, 0, 0, result) != 0
 }
 fn borg_flow_take_lunal(st: &mut BorgState, view: bool, d: i32) -> bool {
     lbool(st, 8, view as i32, d, 0)
@@ -1082,7 +1105,7 @@ fn lunal_result(packet: &[u8]) -> Vec<u8> {
 fn lunal_packet(r: &mut Rng, i: usize) -> Vec<u8> {
     let mut b = glyph_packet(r, i);
     let mut p = [20, 99, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 2, 3, 0, 0];
-    let scenario = i % 32;
+    let scenario = i % 40;
     match scenario {
         0 => p[0] = 0,
         1 => p[2] = 1,
@@ -1198,10 +1221,44 @@ fn lunal_packet(r: &mut Rng, i: usize) -> Vec<u8> {
             p[15] = 0;
             p[16] = 20;
         }
-        _ => {
+        31 => {
             p[0] = 35;
             p[9] = 1;
             p[18] = 1 << 11;
+        }
+        32 => {
+            p[6] = 1;
+            p[18] = 1 << 12;
+        }
+        33 => {
+            p[13] = 0;
+            p[18] = 1 << 12;
+        }
+        34 => {
+            p[14] = 0;
+            p[18] = 1 << 12;
+        }
+        35 => {
+            p[0] = 40;
+            p[12] = 0;
+            p[18] = 1 << 12;
+        }
+        36 => {
+            p[0] = 1;
+            p[6] = 1;
+        }
+        37 => {
+            p[12] = 0;
+            p[7] = 6;
+            p[8] = 6;
+        }
+        38 => {
+            p[12] = 0;
+        }
+        _ => {
+            p[0] = 1;
+            p[6] = 1;
+            p[18] = 1 << 12;
         }
     }
     for n in p {
@@ -1482,12 +1539,12 @@ fn main() {
             }
         };
         let native = &output[..n];
-        if glyph_mode && i < 9 {
+        if glyph_mode && i < 16 {
             let at = bindings().len() * 4;
             let result = i32::from_le_bytes(native[at..at + 4].try_into().unwrap());
             println!(
                 "glyph scenario={} native_result={} tracked={}",
-                i % 9,
+                i % 16,
                 result,
                 glyph_track_count(native)
             );

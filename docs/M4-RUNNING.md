@@ -16,7 +16,7 @@ unchanged crash-fixes suite. Current corrected references are crash-fixes,
 extended and natural; originals and source-qualified historical refs remain.
 
 E now has persistent real native C/Rust checks: calculator30k,
-spatial/flow/melee4k, glyph900, lunal1,024, seven actual-source fault
+spatial/flow/melee4k, glyph1,600, lunal1,280, seven actual-source fault
 controls, non-recovering C UBSan, clippy and cache invalidation controls.
 Exact environment/private-state boundaries are in the checker README;
 receipts are in `validation/2026-11-06-native-expanded`.

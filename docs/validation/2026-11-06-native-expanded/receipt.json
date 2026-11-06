@@ -1,19 +1,19 @@
 {
-  "artifacts_source": "harness/out/native-checker.5Cu56t",
+  "artifacts_source": "harness/out/native-checker.HyqGro",
   "c_ubsan": {
     "calculator": 30000,
-    "glyph": 900,
-    "lunal": 1024,
+    "glyph": 1600,
+    "lunal": 1280,
     "passed": true,
     "spatial": 2000
   },
   "cache_invalidation_control": "engine.rs timestamp-only change triggers recompilation; 100 spatial cases pass; all source/item hashes unchanged",
   "calculator_cases": 30000,
   "clippy_all_targets_warnings_denied": true,
-  "glyph_scenarios": 9,
-  "glyph_states": 900,
-  "lunal_cases": 1024,
-  "lunal_scenarios": 32,
+  "glyph_scenarios": 16,
+  "glyph_states": 1600,
+  "lunal_cases": 1280,
+  "lunal_scenarios": 40,
   "not_claimed": "whole-Borg state shadow execution, every tactic or engine callback implementation",
   "production_input_sha256": {
     "c": "3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46",
