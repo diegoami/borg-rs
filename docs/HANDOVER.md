@@ -1,5 +1,10 @@
 # Handover
 
+Active C/D work has started (2026-11-06), with strict parity still pending.
+Read `docs/M4-RUNNING.md` for the running extended passes, endgame fixtures,
+Rust NULL-note correction and C bugs 52-53 (tracker #287 for 52). Neither C nor D is
+a passed checkpoint; main and tags have not moved.
+
 For the next session working on borg-rs. Read this first, then
 `CLAUDE.md`, `docs/REVIEW.md` and `docs/M4-PLAN.md`.
 

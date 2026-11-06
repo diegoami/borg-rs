@@ -1,0 +1,32 @@
+suite=endgame
+suite_sha256=8f976663052299cef0d0c7b880f9aafed2c15ef5777c73a76cecf3cd2e70e214
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/tmp/borg-d-savefiles/build/c/game/angband
+binary_sha256=814d7bb76b391795d0589e3aad769cf370d19cfd54d8d072434ed7400a2c00f8
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=af523ebd715b5747761eca32742a94d5fa0f6ae9
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=3c664cbfd8c685b5845d30af9530eb76bfc724dc2a9f55cc47b2fa2752492834
+build_id_binary_sha256=814d7bb76b391795d0589e3aad769cf370d19cfd54d8d072434ed7400a2c00f8
+build_id_cc=cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0
+build_id_built_utc=2026-11-06T15:20:27Z
+checkout_source_sha256=3c664cbfd8c685b5845d30af9530eb76bfc724dc2a9f55cc47b2fa2752492834
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=af523ebd715b5747761eca32742a94d5fa0f6ae9
+git_dirty=yes
+jobs=1
+started_utc=2026-11-06T15:22:32Z
+run_config.end-depth50=menu,cheat,save=depth50.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth98=menu,cheat,save=depth98.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth99=menu,cheat,save=depth99.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth100=menu,cheat,save=depth100.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-near-morgoth=menu,cheat,save=morgoth.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+binary_sha256_end=814d7bb76b391795d0589e3aad769cf370d19cfd54d8d072434ed7400a2c00f8
+finished_utc=2026-11-06T15:28:08Z result=OK

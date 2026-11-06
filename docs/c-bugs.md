@@ -1293,4 +1293,33 @@ with its issues.
   stack contents are not reproducible safe state. No C correction, Rust
   special case, reference filtering or fixture/seed change is applied.
   This remains a strict message-parity blocker for step D.
+* Tracker: diegoami/neo-angband-tracker#287 (reported lead).
+
+## 53. Queued detection can address a panel outside resized arrays (update)
+
+* M4 C, natural Hobbit Rogue seed 4006, `menu,cheat`, 2M-turn limit:
+  both unmodified C Borg runs segfault (exit 139), and Rust aborts on a
+  bounds check (exit 134). No complete summary exists for this scenario;
+  it is a failed run, not an accepted reference.
+* A separate Rust replay with `RUST_BACKTRACE=1` reproduces
+  `borg_update.rs:202`, outer detection-array length 2, index 2. The trace
+  is `set_detect -> mark4` (the `q_y + 1` write) `-> borg_handle_self ->
+  handle_messages -> borg_update`. This is the natural run behind the
+  generic detection-panel bounds warning in section 46.
+* C `borg_handle_self()` derives a panel from the **old** offsets
+  `o_w_x`/`o_w_y` and writes four detection cells without checking their
+  bounds. `borg_update()` first resizes the arrays for the current cave.
+  Its stale-offset check only resets offsets **greater than** the cave
+  width/height; equality is not reset. For a 22-row town and old offset
+  22, `q_y = 1` survives, while the two-row detection array has indices
+  0 and 1; the `q_y + 1` write uses 2. The guard is copied faithfully.
+* This source path and the matching Rust backtrace are evidence for a C
+  bounds-write lead. A native C crash backtrace and the actual failing C
+  panel coordinates have not been captured; attribution of the two C
+  segfaults to this exact write remains a reported lead, not independent
+  C verification. Raw failed logs are buffered/incomplete and do not
+  establish an exact final game turn.
+* No clamp, enlarged array, changed reset guard, seed removal or shorter
+  accepted run is applied. C stays unchanged; Rust's bounds panic stays.
+  The `extended` suite cannot pass its full scenario set with this fault.
 * Tracker: pending publication and duplicate check.

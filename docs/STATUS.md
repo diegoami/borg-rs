@@ -1,5 +1,27 @@
 # borg-rs status
 
+## Current M4 work (2026-11-06)
+
+Work remains on `claude/serene-ramanujan-8hzsfm`; main and tags have not
+moved. Step C's `extended` suite (12 runs, 33M turns per pass) is running
+twice with C and once with the pre-correction Rust build; incomplete
+outputs are not accepted evidence. Step D has five deterministic
+wizard-created saves at depths 50, 98, 99, 100 and adjacent to Morgoth,
+with a saved-character replay path and fixture-hash checks. C/C is 5/5
+identical in all three logs. Initial Rust keys/state match all five, but
+messages initially matched only two: two cases revealed Rust's incorrect `(null)`
+formatting (Angband formats NULL as empty), and depth98 exposes C reading
+stale stack bytes after an unterminated multibyte screen conversion.
+The Rust formatting correction is committed and its replay is complete:
+4/5 runs match all logs, all five match keys and player state. Step C's
+Rogue seed 4006 segfaults in both C passes and panics in Rust's detection
+array (`set_detect -> mark4 -> borg_handle_self`); see C bug 53.
+C bug 52 / tracker #287 remains a strict message-parity blocker, with no
+C fix or oracle filtering. Post-correction smoke, saved-character
+regression, release tests (100 passed, 1 existing ignored) and clippy
+with warnings denied pass. No C/D milestone or full checkpoint is claimed.
+See `docs/M4-RUNNING.md` for commands and the active run locations.
+
 ## Milestones
 
 | milestone | state |

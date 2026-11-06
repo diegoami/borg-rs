@@ -1,0 +1,3 @@
+flags=menu,cheat,save=depth100.save
+borg_txt_sha256=576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+save_sha256=d10a369510ad195eeb029c8d84f5a477b7e0dd753f8496ee3f23c99575b4c6f5
