@@ -1345,3 +1345,47 @@ At `26a96bee4570`, corrected seed4006 finishes 2,000,352 turns in C twice and Ru
 with identical keys/messages/state. See
 `validation/2026-11-06-capacity/README.md`. The original-source description
 above is historical; independent tracker verification remains explicit.
+
+## 54. A stale monster on the player's square can stop melee play (fight-attack)
+
+* `borg_attack_aux_thrust()` requires distance at most one, accepting zero.
+  If a stale tracked monster occupies the player's coordinates after a
+  teleport/blindness transition, scoring can select it and queue `+5`.
+  Five is the center square, not an attack direction; the empty queue then
+  trips `borg_react_prompted`'s unexpected-direction abort.
+* Observed in both corrected-C passes and Rust at `26a96bee4570`, unchanged
+  `ext-long-warrior-2000`, seed2000, `menu,cheat`, 5M-turn limit: teleport
+  to (11,70), blindness, a tracked giant tarantula still at (11,70), then
+  `+5` and `borg_stopped` at game turn1,887,392/key456,028. Both strict
+  extended comparisons are 12/12 identical, but that early stop does not
+  establish a completed 5M-turn Warrior run.
+* The native regression compiles the actual C thrust body unchanged into
+  a controlled scoring/engine fixture. Before: center target scores10 and
+  queues `+5`, assertion fails. After the narrow C/Rust correction (distance
+  exactly one): center/distant targets are rejected and all eight adjacent
+  grids remain valid, in apply and simulation modes. The prompt-abort guard
+  remains intact. Full corrected replay validation is pending.
+* Tracker: pending publication/intake. This is supplied consumer evidence,
+  not independent tracker verification or upstream source resolution.
+
+## 55. Calculator pointer-array allocations are not released (reported leads)
+
+These are source-reading leads found while building the native calculator
+checker, not measured leaks in a game and not independent tracker validation.
+The C source is unchanged; no correction is proposed in this pass.
+
+* `calc_free()` frees every token and the `token_array` struct, but not
+  `token_array->items`, which `borg_array_add()` allocated separately.
+  Releasing a parsed calculation loses its backing pointer array.
+* `adjust_order_ops_depth_block()` frees the temporary operator tokens and
+  the `operators` struct, but not its separately allocated `items` array.
+  Each populated temporary operator list loses that allocation.
+* `calculations_free()` resets `calculations.count` to zero but retains
+  `calculations.items`; `borg_array_add()` allocates a new `items` whenever
+  count is zero, overwriting that retained pointer on the next parse.
+  Clearing and reloading calculations therefore loses the prior backing
+  allocation. This is a separate reset/reuse slip from the two destructors.
+* Rust vectors free/reuse their own storage. Allocator lifetimes are not a
+  claimed key/message/state parity property. No arbitrary malformed-input,
+  out-of-memory or gameplay-consequence claim is made.
+* Tracker: one finding per distinct slip, pending publication/intake.

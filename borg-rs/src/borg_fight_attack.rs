@@ -514,8 +514,9 @@ fn borg_attack_aux_thrust(st: &mut BorgState) -> i32 {
         let (y, x) = st.flow.temp_at(i as usize);
         i += 1;
 
-        /* Require "adjacent" */
-        if borg_distance(st.borg.c.y, st.borg.c.x, y, x) > 1 {
+        // FORK: reject stale targets on the player's square, matching C.
+        // Queuing +5 there aborts play (docs/c-bugs.md section 54).
+        if borg_distance(st.borg.c.y, st.borg.c.x, y, x) != 1 {
             continue;
         }
 
