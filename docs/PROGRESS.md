@@ -249,7 +249,7 @@ when a big c2rust module goes away.
 | borg_think_dungeon_util (`bd7bb0418`) | 560 | 4 |
 | borg_trait (`70f155d17`) | 545 | 3 |
 | borg_think_dungeon (`f43ccc2b6`) | 478 | 2 |
-| borg_think (M3 commit) | 462 | 1 |
+| borg_think (`5d1e1071e`) | 462 | 1 |
 
 ## Suite timings
 
