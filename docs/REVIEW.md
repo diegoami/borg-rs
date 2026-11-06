@@ -145,7 +145,7 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   boundary: 241 in `engine.rs` and 28 in `headers/` (the
   `unsafe extern "C" fn` pointer types of engine structs and callbacks).
   `#![deny(unsafe_code)]` allows it only in those two modules. After the
-  external review of `4c06cec08` (SELF-REVIEW section 5): every safe
+  external review of `4c06cec08` (SELF-REVIEW section 6): every safe
   wrapper checks the index/flag/grid preconditions C only `assert`s
   (`-DNDEBUG`); engine object handles borrow the state's `access` token,
   so the compiler rejects keeping one across an engine call that lends the

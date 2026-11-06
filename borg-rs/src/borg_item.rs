@@ -70,7 +70,9 @@ pub struct BorgItem {
 /// Slots: `0..pack_size` the pack, `pack_size..pack_size + 12` the
 /// equipment (`INVEN_WIELD` = `pack_size`), then the quiver.
 ///
-/// An item's `note` is an offset into its `desc` (see `item_note`).
+/// An item's `note` is a `NoteRef`: the live origin element (pack/equipment
+/// slot or shop ware) plus an offset into *that* element's `desc`, read at
+/// each use, as C's pointer is (see `NoteRef`, `item_note`).
 #[derive(Default)]
 pub struct ItemState {
     pub items: Vec<borg_item>,

@@ -125,7 +125,15 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   dir it prints the build identity from the manifest and fails (exit 1)
   if the manifest shows `BORG_IMPL` different from the binary's
   implementation, a recorded override, a failed check, a binary changed
-  during the suite, or, with `--expect-impl`, another implementation. A
+  during the suite. The role of a dir comes from its manifest, not from
+  the log format: a dir whose manifest has the build identity is a suite
+  output even if its logs are compressed (so compressing an output does not
+  drop its checks); a reference is a dir without such a manifest and
+  without plain logs, and if it keeps the manifest of its C run (as
+  `reference/classes` does), that manifest must record a C build.
+  `--expect-impl X` requires that a verified suite output of X takes part
+  (either operand); otherwise the diff is refused (exit 2), e.g. two
+  references, or a C output compressed to look like one. A
   suite output dir without a manifest, or with a manifest from before the
   build identity (no `overrides=` line), is refused (exit 2).
   `--allow-unverified` turns all of these into warnings. Reference dirs
