@@ -1414,3 +1414,9 @@ The C source is unchanged; no correction is proposed in this pass.
   No ordinary-play reproduction or independent tracker verification is
   claimed. Existing section29 slips and tracker#118 concern other defects.
 * Tracker: diegoami/neo-angband-tracker#345 (reported lead).
+  [Additional fixture evidence](https://github.com/diegoami/neo-angband-tracker/issues/345#issuecomment-6698804562)
+  links881764e and was read back: a character placed one cell off the
+  center selects that outlying cell (controlled follow-step success),
+  while the existing-center case still returns false. The1600-state
+  corpus matches C/Rust, including already-glyphed/outlying and failed
+  creation/commit/step controls. This is not an ordinary-play reproduction.
