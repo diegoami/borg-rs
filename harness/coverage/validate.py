@@ -20,6 +20,7 @@ def values(path):
 def validate_group(matrix, suite, build_id):
     assert suite in ALL_SUITES, suite
     directory = matrix / suite
+    profile_directory = directory.resolve().parent / 'profiles' / suite
     assert (directory / 'DONE').exists() and not (directory / 'FAILED').exists(), suite
     recipe = ROOT / 'harness' / 'suites' / suite
     names = [line.split('#', 1)[0].split()[0] for line in recipe.read_text().splitlines()
@@ -49,8 +50,10 @@ def validate_group(matrix, suite, build_id):
         assert process['executable_sha256_before'] == process['executable_sha256_after'] == build_id['binary_sha256'], (suite, name)
         assert process['child_pid'] == item['child_pid'], (suite, name)
         profile = Path(item['profile'])
+        assert profile.parent.resolve() == profile_directory.resolve(), (suite, name, 'profile group')
         assert profile.name.endswith('-%d.profraw' % process['child_pid']), (suite, name)
         assert profile.stat().st_size == item['bytes'] > 0 and sha256(profile) == item['sha256'], (suite, name)
         profiles.append(profile)
     assert len(set(profiles)) == len(names), suite
+    assert {p.resolve() for p in profile_directory.glob('*.profraw')} == {p.resolve() for p in profiles}, (suite, 'unexpected or missing process profile')
     return profiles
