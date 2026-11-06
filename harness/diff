@@ -19,7 +19,18 @@ Directory mode:
       - the key logs are byte-identical,
       - on each side the key log has summary.keys lines and its last line's
         game turn equals summary.game_turns,
-      - the two summary.json files are equal apart from wall_seconds.
+      - the two summary.json files are equal apart from wall_seconds,
+      - the message logs (messages.log[.xz]) and the engine-state logs
+        (state.log[.xz]) are byte-identical, when compared (below); a
+        state log has summary.keys lines, and line i is at the game turn
+        of key i.
+  * Message and state logs: if both sides have one, it is compared. If
+    only one side has it, the run fails, unless the side without it is a
+    stored dir (no plain keys.log: a reference, or a compressed output)
+    made before these logs existed; then that log is not compared and a
+    note says so. So a reference that has them requires them on the
+    output side, and an output without them passes only against a
+    reference without them. Neither side having it is a note too.
   * Roles come from the manifest, not the log format. A dir whose
     manifest has the build identity (written by harness/suite.sh) is a
     suite output, plain or compressed: it must hold the DONE marker
@@ -45,7 +56,9 @@ Directory mode:
   * --allow-unverified turns the manifest checks into warnings.
 
 For a key-log divergence it prints the run name, seed, game turn and key
-index of the first differing line and 20 lines of context from each side.
+index of the first differing line and 20 lines of context from each side;
+for a message or state divergence, the line index, the game turn and key
+index of that line, and context the same way.
 Exit status: 0 if everything matches, 1 on any difference, 2 on bad input.
 """
 import json
@@ -126,7 +139,21 @@ def consistency(label, data, summary):
     return probs
 
 
-def show_divergence(name, a, b, seed):
+# Extra logs compared beside keys.log: file name -> label
+EXTRA_LOGS = (("messages.log", "messages"), ("state.log", "state"))
+
+
+def where(kind, line, i):
+    """(game turn, key index) of line i of a log of this kind."""
+    f = line.split()
+    if kind == "messages":
+        # "<keys logged so far> <game turn> <type> <text>"
+        return (f[1] if len(f) > 1 else "?", f[0] if f else "?")
+    # keys and state: "<game turn> ..."; line i is key i
+    return (f[0] if f else "?", str(i))
+
+
+def show_divergence(name, a, b, seed, kind="keys"):
     la = a.decode("utf-8", "replace").split("\n")
     lb = b.decode("utf-8", "replace").split("\n")
     n = min(len(la), len(lb))
@@ -137,9 +164,14 @@ def show_divergence(name, a, b, seed):
         ref = la[i] if i < len(la) else lb[i]
     else:
         ref = ""
-    turn = ref.split()[0] if ref.split() else "?"
-    print("== %s: DIVERGES  seed=%s  game_turn=%s  key_index=%d"
-          "  (bytes %d vs %d)" % (name, seed, turn, i, len(a), len(b)))
+    turn, kidx = where(kind, ref, i)
+    if kind == "keys":
+        print("== %s: DIVERGES  seed=%s  game_turn=%s  key_index=%d"
+              "  (bytes %d vs %d)" % (name, seed, turn, i, len(a), len(b)))
+    else:
+        print("== %s: %s.log DIVERGES  seed=%s  line=%d  game_turn=%s"
+              "  key_index=%s  (bytes %d vs %d)"
+              % (name, kind, seed, i, turn, kidx, len(a), len(b)))
     if la[:n] == lb[:n] and len(la) == len(lb):
         # same lines, different bytes (e.g. line endings)
         print("   (same lines, different bytes)")
@@ -150,7 +182,71 @@ def show_divergence(name, a, b, seed):
         print("--- %s lines %d..%d" % (label, lo, hi - 1))
         for j in range(lo, hi):
             mark = ">>" if j == i else "  "
-            print("%s %7d  %-20s %s" % (mark, j, lines[j], describe(lines[j])))
+            if kind == "keys":
+                print("%s %7d  %-20s %s" % (mark, j, lines[j], describe(lines[j])))
+            else:
+                print("%s %7d  %s" % (mark, j, lines[j]))
+
+
+def state_consistency(label, state, keys, summary):
+    """A state log has one line per key, at that key's game turn."""
+    if summary is None:
+        return []
+    sl = state.split(b"\n")
+    if sl and sl[-1] == b"":
+        sl.pop()
+    if len(sl) != summary.get("keys"):
+        return ["%s: state log has %d lines, summary keys=%s"
+                % (label, len(sl), summary.get("keys"))]
+    kl = keys.split(b"\n")
+    for i, (s_, k_) in enumerate(zip(sl, kl)):
+        if s_.split(b" ", 1)[0] != k_.split(b" ", 1)[0]:
+            return ["%s: state log line %d at game turn %s, key %d at %s"
+                    % (label, i, s_.split(b" ", 1)[0].decode("utf-8", "replace"),
+                       i, k_.split(b" ", 1)[0].decode("utf-8", "replace"))]
+    return []
+
+
+def is_stored(run_dir):
+    """A stored run (reference or compressed output): no plain keys.log."""
+    return not os.path.isfile(os.path.join(run_dir, "keys.log"))
+
+
+# Per-diff tallies of the extra logs: label -> {"compared": n, "skipped": n}
+EXTRA_TALLY = {}
+
+
+def compare_extra(name, da, db, seed, ka, kb, sa, sb):
+    """Compare messages.log and state.log of one run. Returns the problems
+    (a divergence is printed, not returned) and whether all compared logs
+    were identical."""
+    probs = []
+    same = True
+    for fname, kind in EXTRA_LOGS:
+        tally = EXTRA_TALLY.setdefault(kind, {"compared": 0, "skipped": 0})
+        xa = read_log(os.path.join(da, fname))
+        xb = read_log(os.path.join(db, fname))
+        if xa is None and xb is None:
+            tally["skipped"] += 1
+            continue
+        if xa is None or xb is None:
+            lack, ldir, have = (("A", da, "B") if xa is None else ("B", db, "A"))
+            if is_stored(ldir):
+                # a reference (or compressed output) from before these logs
+                tally["skipped"] += 1
+                continue
+            probs.append("%s.log present in %s only (%s, a run with a plain "
+                         "keys.log, has none)" % (kind, have, lack))
+            same = False
+            continue
+        tally["compared"] += 1
+        if xa != xb:
+            show_divergence(name, xa, xb, seed, kind)
+            same = False
+        if kind == "state":
+            probs += state_consistency("A", xa, ka, sa)
+            probs += state_consistency("B", xb, kb, sb)
+    return probs, same
 
 
 def compare_run(name, da, db):
@@ -167,6 +263,10 @@ def compare_run(name, da, db):
         show_divergence(name, a, b, seed)
         ok = False
     probs = consistency("A", a, sa) + consistency("B", b, sb)
+    xprobs, xsame = compare_extra(name, da, db, seed, a, b, sa, sb)
+    probs += xprobs
+    if not xsame:
+        ok = False
     if sa is not None and sb is not None:
         keys = sorted(set(sa) | set(sb))
         for k in keys:
@@ -465,6 +565,14 @@ def main(argv):
             ok &= r
         print("%d/%d runs identical (expected %d)"
               % (same, len(names), len(expected)))
+        for _, kind in EXTRA_LOGS:
+            t = EXTRA_TALLY.get(kind, {"compared": 0, "skipped": 0})
+            note = ""
+            if t["skipped"]:
+                note = ("; NOTE: not compared in %d run(s): no %s.log on a "
+                        "stored side (made before it existed) or on either side"
+                        % (t["skipped"], kind))
+            print("%s.log compared in %d run(s)%s" % (kind, t["compared"], note))
         if same != len(expected):
             ok = False
         if unverified:
