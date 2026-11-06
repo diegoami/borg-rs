@@ -6,7 +6,7 @@
 |-----------|-------|
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
-| M3 safe idiomatic Rust | in progress (see PROGRESS.md) |
+| M3 safe idiomatic Rust | in progress: all 59 modules converted and the transitional bridge removed (`unsafe` only in `engine.rs` and the engine declarations in `headers/`); waiting for the final checkpoint (see PROGRESS.md) |
 
 ## Machine
 

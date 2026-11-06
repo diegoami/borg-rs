@@ -29,11 +29,11 @@ harness/             build.sh, run.sh, suite.sh, diff, check-no-c-borg.sh,
                      suites/{smoke,full,deep,classes}, reference/ (C oracle
                      logs, xz)
 borg-rs/src/         the Rust Borg (staticlib linked into the engine)
-  <module>.rs        converted modules: safe Rust, one per original .c file
-  c2rust/            modules not converted yet (unsafe c2rust output)
+  <module>.rs        safe Rust, one per original .c file (all 59 converted)
+  engine.rs          the FFI boundary: safe wrappers over the engine, the
+                     engine's callbacks into the Borg, the root of the state
   headers/           C declarations of the engine (raw FFI types)
-  engine.rs          the permanent FFI boundary: safe wrappers over the engine
-  bridge.rs          TRANSITIONAL glue between converted and c2rust code
+  borg_headers/      declarations of the Borg's own headers (not FFI)
   state.rs           BorgState: all former C globals, one sub-struct per module
 docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
 ```
@@ -98,16 +98,19 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   after the turn limit; and config-dependent paths (all suites use the
   stock `borg.txt`; munchkin, dynamic calcs, money scum, respawn etc. are
   off, only `borg_cheat_death` changes).
-* **`bridge.rs`.** This is transitional unsafe code. It holds C-ABI shims under
-  the old names (so unconverted c2rust code can call converted code), and
-  wrappers that let converted code call c2rust code. The wrappers call
-  `escape(st)` (a `black_box`) around each call, because without it LLVM's
-  `noalias` assumptions on `&mut BorgState` caused real divergences (see the
-  PROGRESS conventions). It shrinks as modules convert and goes away at the
-  end of M3.
-* **`borg_item.note`** is still a raw pointer into the item's own `desc`
-  buffer, because copies of items keep pointing at the original, as in C. It
-  becomes safe once the last c2rust readers are converted.
+* **The state root and nested entry.** `engine::enter` is the only place
+  that hands out `&mut BorgState` (to the four engine callbacks). An engine
+  call that waits for a key can run the Borg again inside the outer Borg
+  call, as in C; the engine wrappers that can do that take the caller's
+  state and lend it to the nested entry (`engine::lend`), so the nested
+  Borg works on a reborrow, never on an alias. The suites never nest
+  (`stderr.log` would say so). The transitional `bridge.rs` (a global
+  `st()`, C-ABI shims and `escape(st)` around calls into c2rust code) is
+  gone with the last c2rust module.
+* **`borg_item.note`** is an offset into the item's `desc`. In C it is a
+  pointer, and a copy of an item points into the *original's* `desc`; the
+  offset reads the copy's own `desc`. Why that gives the same bytes, and the
+  differential check behind it, is in PROGRESS ("bridge removal").
 * **Panics vs. undefined behaviour.** Where the C code would read out of
   bounds or divide by zero on impossible inputs, the Rust code panics. Each
   case is listed in PROGRESS or c-bugs.
@@ -117,6 +120,11 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   are Warriors, their "blackguard" runs are Rangers). This does not affect
   C/Rust equivalence, but it limits coverage; the `classes` suite fills the
   gap (`docs/harness.md`, `docs/STATUS.md`).
-* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`. It has not fallen yet,
-  because the bridge grows while modules convert. The M3 target is `unsafe`
-  only in `engine.rs` (the FFI boundary).
+* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 270, all at the FFI
+  boundary: 242 in `engine.rs` and 28 in `headers/` (the
+  `unsafe extern "C" fn` pointer types of engine structs and callbacks).
+  `#![deny(unsafe_code)]` allows it only in those two modules. Engine
+  object handles carry no lifetime and some accessors return `&'static`
+  references into engine tables that the game can change (SELF-REVIEW L4,
+  L5): the rule is never to keep either across an engine call or in the
+  state, which holds today.

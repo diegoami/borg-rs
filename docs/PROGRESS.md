@@ -2,37 +2,42 @@
 
 ## Conventions
 
-* One original `src/borg/<x>.c` maps to `borg-rs/src/<x>.rs` once converted.
-  Until then it lives in `borg-rs/src/c2rust/<x>.rs` (unsafe c2rust code).
-  Converted modules contain **no `unsafe`**.
-* `engine.rs` is the permanent FFI boundary: safe accessors for engine
-  globals and functions. `headers/` holds the raw C declarations.
-* `bridge.rs` is transitional and goes away at the end. It holds:
-  * `st()`: the single `BorgState` for c2rust code;
-  * raw-pointer views into converted state (e.g. `grid(x, y)`);
-  * safe wrappers that converted code uses to call still-c2rust functions
-    (e.g. `borg_note`).
-* State: each converted module owns a sub-struct of `state::BorgState`
-  (e.g. `CaveState`). Converted functions take `st: &mut BorgState`.
-* Bridge wrappers that call into c2rust code take the caller's
-  `&mut BorgState` (even if unused), so the borrow visibly escapes into the call.
-  Otherwise LLVM's `noalias` on `&mut` could cache state that the c2rust code
-  changes through the global pointer. An *unused* parameter is not enough
-  once the wrapper is inlined: the wrapper must call `escape(st)` (a
-  `black_box` of the pointer) before and after the c2rust call. Seen in
-  borg_flow_kill: `borg_flow_kill_aim` moves `borg.c` around calls that read
-  it, and without the escape the stores were dropped (4/45 `full` runs
-  diverged). All bridge wrappers that call c2rust code (or a C-ABI shim
-  that uses `st()`) were retrofitted with `escape` after module 32. Plain
-  reads of static tables or of c2rust-owned globals do not need it.
+* One original `src/borg/<x>.c` maps to `borg-rs/src/<x>.rs`. All 59 are
+  converted; they contain **no `unsafe`** (`#![deny(unsafe_code)]`, allowed
+  only on `engine` and `headers`).
+* `engine.rs` is the FFI boundary: safe wrappers for engine globals and
+  functions, the engine's callbacks into the Borg, and the root of the
+  Borg state. `headers/` holds the engine's raw C declarations only; the
+  declarations of the Borg's own headers (constants, enums, C type names)
+  are in `borg_headers/` (not FFI, no `unsafe`).
+* State: each module owns a sub-struct of `state::BorgState` (e.g.
+  `CaveState`). Borg functions take `st: &mut BorgState`; nothing reaches
+  the state any other way. The one instance is created and handed out by
+  `engine::enter`, which the four engine callbacks use (the `inkey_hack`
+  hook in borg.rs, the bell and leave-game event handlers, `do_cmd_borg`).
+* Nested entry (SELF-REVIEW U1): an engine call that can wait for a key,
+  ring the bell or show a message can run the Borg again while the
+  caller holds its `&mut BorgState`. As in C this is kept. Every engine
+  wrapper that can get there takes the caller's `st` and lends it to the
+  nested entry for the duration of the call (`engine::lend`), so the
+  nested Borg works on a reborrow of the caller's reference. A nested
+  entry is reported on stderr (`stderr.log` per run); one from an engine
+  call that does not lend panics after the report (it could only alias).
+* History: until the end of M3, unconverted modules lived in
+  `borg-rs/src/c2rust/` and a transitional `bridge.rs` connected them to
+  converted code (a global `st()`, C-ABI shims under the old names, and
+  wrappers that called `escape(st)`, a `black_box`, around c2rust calls so
+  LLVM's `noalias` on `&mut` could not cache state the c2rust code changed
+  through the global; without it 4/45 `full` runs diverged at
+  borg_flow_kill). Both are gone (row "bridge removal").
 * C ctype classes come from `cctype.rs` (as measured under `C.UTF-8`).
 * Behaviour stays exact: the Borg's own algorithms (e.g. its quicksort,
   whose tie order matters) are kept, not replaced with std equivalents.
 * `tools/transpile.sh` / `tools/reorganize.py` produced the starting point.
   **Do not re-run them**: they would overwrite hand-converted code.
 * Checks: smoke after every module commit, full after every 5 and at the
-  end. `cargo clippy` must be clean for converted files (c2rust, headers
-  and bridge are exempt with `#[allow(clippy::all)]`).
+  end. `cargo clippy --release -- -D warnings` is clean on the whole crate
+  (no module is exempt any more).
 
 ## Modules
 
@@ -182,14 +187,18 @@
 
 **Checkpoint after module 59, all modules converted** (`f7bf140eb`): `full` 45/45, `deep` 9/9 and `classes` 16/16 identical, no nested Borg entry, `check-no-c-borg.sh` OK. `bridge.rs` is still there (removed next).
 
+| # | step | commits | notes |
+|---|------|---------|-------|
+| 60 | bridge removal | 5 (`1223f25a1`, `4b841c1b0`, `82d8cd47b`, `55148e5b7`, `c87b7bed2`) | **What moved.** (1) Deleted: every C-ABI shim of bridge.rs and its re-export in `headers/borg_*_h.rs`, the empty `c2rust/`, the bridge helpers only shims used (`grid`, `trim_c_buf`, `msg_buf`, `CInt`) and the engine accessors kept for c2rust (`as_ptr`, `from_raw`, `cave_ptr`). (2) The plain helpers became direct code: item/ware/take copies are `st.items.items[i]`, `st.store.shops[s].ware[i]`, `st.takes.takes[i]` (still copies); forwards to converted functions are direct calls; `borg_prepared_buffer` (a `static mut` in bridge) is `PreparedState::buffer` with `borg_prepared_c`/`borg_restock_c`/`borg_prepared_buf`/`PreparedC` in borg_prepared; small accessors moved to their users (`spell_entry` borg_formulas, `item_tval_sval` borg_magic, `analyze_ware` borg_store, `sold_item` borg_store_sell, `BoughtItem` borg_store_buy, flow array accessors borg_flow_dark); `BorgKill`/`BorgTake` lost `#[repr(C)]` and their layout tests. (3) **State root:** `engine::enter` creates the one `BorgState` and hands it to the four engine callbacks (inkey hook, bell and leave-game handlers, `do_cmd_borg`, which moved to engine.rs because `#[no_mangle]` is unsafe code); `st()`, `state_ptr()`, `with_entry_state` and `escape` are gone. **Nested entry** (U1) is kept and sound: `msg`, `event_signal`, `event_signal_message_null`, `get_string`, `get_com`, `get_com_ex`, `get_quantity`, `target_set_interactive`, `screen_save`/`screen_load`, `Menu::select`, `project_from_player`, `do_cmd_wiz_cure_all`, `do_cmd_redraw` take the caller's `st` and lend it (`engine::lend`, a raw pointer derived from the caller's reference, restored after the call); a nested `enter` reborrows it, so the outer reference is never aliased, only suspended (borrowck forbids the caller to touch `st` during the call). A nested entry is reported on stderr as before; one from a non-lending call panics after the report. `borg_lookup_kind` takes `st` for its `msg`. (4) **`borg_item.note`** is `Option<u8>`, the offset of the inscription in `desc` (U7); helpers in borg_item.rs (`set_item_note`, `item_note`, `borg_get_note`, the `note[0]` read of `borg_deinscribe`), `blank_item` built field by field (no `mem::zeroed`); bridge.rs deleted. (5) `headers/` keeps only engine and libc declarations; the Borg's own header declarations are in `borg_headers/` (no `unsafe`); `borg_item` is `borg_item::BorgItem` (re-exported under its C name); `inkey_hack` is declared in `headers/ui_input_h.rs`; lib.rs allows `unsafe_code` only on `engine` and `headers`, drops `allow(dead_code/unused_mut/static_mut_refs)` and the clippy exemption of headers. **Note argument.** In C only `borg_item_analyze` sets `note`, always to `desc + offset` of the element it fills, and it fills only live elements (`borg_items[i]` in borg_inventory/borg_equipment/borg_cheat_quiver, `borg_shops[s].ware[j]` in borg_notice_store); struct copies carry the pointer, so every note points into the `desc` of a live element E, and a copy V reads the same bytes as the offset iff `E.desc` (from the offset on) has not changed since V was copied from it. `E.desc` changes only by (a) re-analysis or (b) a struct copy written over E. (a) Items are re-analyzed only in `borg_find_all_items`, which ends with `safe_items = borg_items`, and in the `^Z` map dump (`borg_cmd_dump`), after which nothing reads a note before the next `borg_find_all_items` (first thing in `borg_think`); a store's wares are re-analyzed only in `borg_notice_store`, which ends with `borg_safe_shops[s] = borg_shops[s]`; so right after either, every array value is equal in content to its origin. (b) The what-if trials (wear/swap/junk/buy/sell, the ring "hole" moves, the home-sell substitutions) write over live elements and restore them from the snapshots before the trial ends; inside a trial the reads of a modified origin are: the hole copy of a ring (its origin is only changed in `iqty`, then restored from `safe_items`), and `borg_object_similar` on `borg_safe_shops[HOME].ware[k]` (origin `borg_shops[HOME].ware[k]`, which in that loop is written only after the read and restored before the next iteration). So the bytes agree on every read. **Checks.** Temporary differential check (not committed): both representations kept, every note read (`item_note`, `borg_get_note`, `note[0]`, the NULL tests of `borg_object_similar`) compared the old pointer's bytes with the offset's, the offset driving behaviour; and the root counted entries, nested entries, lends, and checked that every lend lends the root state inside an entry and that no lend is pending at a top-level entry. full: 12,743,969 note reads + 1,072 NULL tests, 349,133 entries, 379,060 lends; deep: 27,852,083 + 27,646, 1,331,839 entries, 944,553 lends; classes: 8,540,058 + 2,170, 298,983 entries, 294,928 lends; **0 mismatches, 0 root errors, 0 nested entries**, key logs identical (full 45/45, deep 9/9, classes 16/16). Planted bug (offset + 1) caught on smoke (`{unseen}` vs `unseen}`). Nested entry exercised on a local smoke run with a forced pair of 70-byte `msg`s every 500 turns (7 nested entries over 3 runs, all complete); with the lend removed from `msg` the nested entry panics as designed. Final (instrumentation removed): `cargo build/test/clippy -D warnings` clean (whole crate), smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical (`harness/diff --suite`), no nested entry, `check-no-c-borg.sh` OK. Unsafe count 270: engine.rs 242, headers 28 (`unsafe extern "C" fn` pointer types). Open: L4/L5 documented, not changed (SELF-REVIEW) |
 
 ## Unsafe count
 
 `borg-rs/tools/count-unsafe.sh` counts the token `unsafe` (fns, blocks,
 impls), comments excluded.
 Recomputed at every M3 commit from git history (`git archive` of each
-commit, then the script). The total rises while the bridge grows and falls
-when a big c2rust module goes away.
+commit, then the script). The total rose while the bridge grew and fell
+when a big c2rust module went away. After the bridge removal all of it is
+at the FFI boundary (engine.rs and the engine declarations in headers/).
 
 | after (commit) | total unsafe | c2rust modules left |
 |----------------|--------------|---------------------|
@@ -255,6 +264,11 @@ when a big c2rust module goes away.
 | borg_think_dungeon (`f43ccc2b6`) | 478 | 2 |
 | borg_think (`5d1e1071e`) | 462 | 1 |
 | borg_fight_attack (`94cbbf9fd`) | 419 | 0 |
+| bridge removal 1: shims, c2rust/ (`1223f25a1`) | 282 | 0 |
+| bridge removal 2: helpers moved (`4b841c1b0`) | 275 | 0 |
+| bridge removal 3: state root in engine (`82d8cd47b`) | 275 | 0 |
+| bridge removal 4: note offset, bridge.rs gone (`55148e5b7`) | 270 | 0 |
+| bridge removal 5: borg_headers (`c87b7bed2`) | 270 | 0 |
 
 ## Suite timings
 
