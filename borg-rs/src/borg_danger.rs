@@ -49,7 +49,7 @@ use crate::headers::list_terrain_h::{
     FEAT_RUBBLE,
 };
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `CLASS_MAGE`
 const CLASS_MAGE: i32 = 1;
@@ -197,7 +197,7 @@ fn borg_danger_physical(
         let mut power: i32 = 0;
 
         // Analyze the attack
-        let effect = bridge::borg_mon_blow_effect(st, blow.effect_name) as u32;
+        let effect = crate::borg_fight_attack::borg_mon_blow_effect(blow.effect_name.to_bytes()) as u32;
         match effect {
             MONBLOW_HURT => {
                 z = d_dice * d_side;
@@ -2047,12 +2047,12 @@ fn danger_one_kill(
     // Skip certain monster indexes.
     // These have been listed mainly in Teleport Other
     // checks in borg6.c in the defense maneuvers.
-    let tp_other_n = bridge::borg_tp_other_n(st);
+    let tp_other_n = st.fight_attack.tp_other_n;
     if tp_other_n != 0 {
         // C reads one entry past the count (`<=`)
         for ii in 0..=i32::from(tp_other_n) {
             // Is the current danger check same as a saved monster index?
-            if i == bridge::borg_tp_other_index(st, ii as usize) {
+            if i == st.fight_attack.tp_other_index[ii as usize] {
                 return 0;
             }
         }

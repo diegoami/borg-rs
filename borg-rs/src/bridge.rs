@@ -268,101 +268,6 @@ pub fn borg_fear_region(st: &mut BorgState, y: i32, x: i32) -> u16 {
     st.danger.fear_region[y as usize][x as usize]
 }
 
-/// `borg_calculate_attack_effectiveness(attack_type)` (still c2rust,
-/// borg-fight-attack.c).
-pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe {
-        crate::c2rust::borg_fight_attack::borg_calculate_attack_effectiveness(attack_type)
-    };
-    escape(st);
-    r
-}
-
-/// `borg_tp_other_n` (still c2rust, borg-fight-attack.c).
-pub fn borg_tp_other_n(st: &mut BorgState) -> i16 {
-    escape(st);
-    // SAFETY: plain read of an int16_t global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_n };
-    escape(st);
-    r
-}
-
-/// `borg_tp_other_index[i]` (still c2rust, borg-fight-attack.c); panics
-/// past the 255 entries.
-pub fn borg_tp_other_index(st: &mut BorgState, i: usize) -> i32 {
-    escape(st);
-    // SAFETY: plain read of a fixed-size int array global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_index[i] };
-    escape(st);
-    r
-}
-
-/// `borg_tp_other_n = v` (still c2rust, borg-fight-attack.c).
-pub fn set_borg_tp_other_n(st: &mut BorgState, v: i16) {
-    escape(st);
-    // SAFETY: plain write of an int16_t global; Borg thread.
-    unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_n = v };
-    escape(st);
-}
-
-/// `borg_tp_other_x[i]` (still c2rust, borg-fight-attack.c); panics past
-/// the 255 entries.
-pub fn borg_tp_other_x(st: &mut BorgState, i: usize) -> u8 {
-    escape(st);
-    // SAFETY: plain read of a fixed-size uint8_t array global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_x[i] };
-    escape(st);
-    r
-}
-
-/// `borg_tp_other_y[i]` (still c2rust, borg-fight-attack.c); panics past
-/// the 255 entries.
-pub fn borg_tp_other_y(st: &mut BorgState, i: usize) -> u8 {
-    escape(st);
-    // SAFETY: plain read of a fixed-size uint8_t array global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_tp_other_y[i] };
-    escape(st);
-    r
-}
-
-/// `successful_target = v` (still c2rust, borg-fight-attack.c).
-pub fn set_successful_target(st: &mut BorgState, v: i32) {
-    escape(st);
-    // SAFETY: plain write of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_fight_attack::successful_target = v };
-    escape(st);
-}
-
-/// `borg_launch_bolt(rad, dam, typ, max, ammo_location)` (still c2rust,
-/// borg-fight-attack.c).
-pub fn borg_launch_bolt(
-    st: &mut BorgState,
-    rad: i32,
-    dam: i32,
-    typ: i32,
-    max: i32,
-    ammo_location: i32,
-) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe {
-        crate::c2rust::borg_fight_attack::borg_launch_bolt(rad, dam, typ, max, ammo_location)
-    };
-    escape(st);
-    r
-}
-
-/// `borg_mon_blow_effect(name)` (still c2rust, borg-fight-attack.c).
-pub fn borg_mon_blow_effect(st: &mut BorgState, name: &std::ffi::CStr) -> i32 {
-    escape(st);
-    // SAFETY: the callee only compares the C string with its table.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_mon_blow_effect(name.as_ptr()) };
-    escape(st);
-    r
-}
-
 /// C-ABI shims with the borg-danger.c names, for c2rust callers.
 pub mod danger {
     use super::st;
@@ -446,36 +351,6 @@ pub fn borg_take(st: &mut BorgState, i: usize) -> crate::headers::borg_flow_take
 /// `borg_delete_take(i)` (borg-flow-take.c, converted).
 pub fn borg_delete_take(st: &mut BorgState, i: i32) {
     crate::borg_flow_take::borg_delete_take(st, i)
-}
-
-/// `borg_attack_aux_spell_bolt(...)` (still c2rust, borg-fight-attack.c).
-pub fn borg_attack_aux_spell_bolt(
-    st: &mut BorgState,
-    spell: crate::headers::borg_magic_h::borg_spells,
-    rad: i32,
-    dam: i32,
-    typ: i32,
-    max_range: i32,
-    is_arc: bool,
-) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe {
-        crate::c2rust::borg_fight_attack::borg_attack_aux_spell_bolt(
-            spell, rad, dam, typ, max_range, is_arc,
-        )
-    };
-    escape(st);
-    r
-}
-
-/// `borg_attack_aux_launch()` (still c2rust, borg-fight-attack.c).
-pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_attack_aux_launch() };
-    escape(st);
-    r
 }
 
 /// `borg_equips_ring(ring_sval)` (borg-item-use.c, converted).
@@ -1109,27 +984,6 @@ pub fn borg_item_analyze_ware(
     );
 }
 
-// ---------------------------------------------------------------------------
-// borg-update.c (converted): calls into still-c2rust code, and its shim.
-
-/// `successful_target` (still c2rust, borg-fight-attack.c).
-pub fn successful_target(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_fight_attack::successful_target };
-    escape(st);
-    r
-}
-
-/// `borg_attack(boosted_bravery)` (still c2rust, borg-fight-attack.c).
-pub fn borg_attack(st: &mut BorgState, boosted_bravery: bool) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_fight_attack::borg_attack(boosted_bravery) };
-    escape(st);
-    r
-}
-
 /// C-ABI shims with the borg-store.c names.
 pub mod store {
     use super::st;
@@ -1599,8 +1453,3 @@ pub fn project_from_player(
     r
 }
 
-/// `target_closest = v` (global of borg-fight-attack.c, still c2rust).
-pub fn set_target_closest(_st: &mut BorgState, v: i32) {
-    // SAFETY: plain write of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_fight_attack::target_closest = v };
-}

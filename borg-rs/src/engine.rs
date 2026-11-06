@@ -1832,6 +1832,60 @@ pub fn slay_race_flag_multiplier(i: usize) -> (i32, i32) {
     (s.race_flag, s.multiplier)
 }
 
+/// `r_info[r_idx].blow[k].effect->name` (bytes), or `None` when the blow
+/// has no effect (`effect == NULL`), for `k < z_info->mon_blows_max`. Unlike
+/// `race_blow` this does not look at the method (borg-fight-attack.c tests
+/// only the effect).
+pub fn race_blow_effect_name(r_idx: usize, k: usize) -> Option<&'static [u8]> {
+    assert!(k < usize::from(z_info().mon_blows_max));
+    let blows = r_info()[r_idx].blow;
+    assert!(!blows.is_null(), "race {r_idx} has no blow array");
+    // SAFETY: a race's blow array has z_info->mon_blows_max entries
+    // (checked above), allocated when the game data is loaded and kept for
+    // the game; a non-NULL effect points into the blow effect list, whose
+    // names are C strings kept for the game (checked non-NULL: C would
+    // pass NULL to strcmp).
+    unsafe {
+        let b = &*blows.add(k);
+        if b.effect.is_null() {
+            return None;
+        }
+        let name = (*b.effect).name;
+        assert!(!name.is_null(), "race {r_idx} blow {k} effect has no name");
+        Some(CStr::from_ptr(name).to_bytes())
+    }
+}
+
+/// `(brands[i].resist_flag, brands[i].vuln_flag, brands[i].multiplier)`
+/// (i < brand_max).
+pub fn brand_resist_vuln_multiplier(i: usize) -> (i32, i32, i32) {
+    assert!(i < usize::from(z_info().brand_max), "brand index out of range");
+    // SAFETY: brands has z_info->brand_max entries (index checked), loaded
+    // at startup and kept for the game.
+    let b = unsafe { &*crate::headers::obj_slays_h::brands.add(i) };
+    (b.resist_flag, b.vuln_flag, b.multiplier)
+}
+
+/// `player_has_temporary_brand(player, idx)` (obj-slays.c).
+pub fn player_has_temporary_brand(idx: i32) -> bool {
+    // SAFETY: `player` lives for the game; the callee only reads the
+    // player's timed effects and the brand list.
+    unsafe { crate::headers::obj_slays_h::player_has_temporary_brand(crate::headers::player_h::player, idx) }
+}
+
+/// `player_has_temporary_slay(player, idx)` (obj-slays.c).
+pub fn player_has_temporary_slay(idx: i32) -> bool {
+    // SAFETY: as player_has_temporary_brand.
+    unsafe { crate::headers::obj_slays_h::player_has_temporary_slay(crate::headers::player_h::player, idx) }
+}
+
+/// `get_angle_to_grid[y][x]` (generate.c, 41x41); panics out of range.
+pub fn get_angle_to_grid(y: usize, x: usize) -> u8 {
+    // SAFETY: a constant table of the engine (declared with its C size);
+    // nothing writes it.
+    unsafe { headers::generate_h::get_angle_to_grid[y][x] }
+}
+
 /// `lookup_obj_property(OBJ_PROPERTY_FLAG, flag)->power`, or `None` where
 /// the lookup gives NULL.
 pub fn obj_flag_power(flag: i32) -> Option<i32> {

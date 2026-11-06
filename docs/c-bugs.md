@@ -1202,3 +1202,62 @@ with its issues.
 * Rust (`borg_think.rs`): kept (the reset and the warning are converted
   exactly; the cross-check reached them only by fuzzing the clock).
 * Tracker: diegoami/neo-angband-tracker#246.
+
+## 51. Attack slips (fight attack)
+
+* `borg-fight-attack.c`, found by code reading and the cross-check.
+* `borg_mon_blow_effect()` compares the name with every entry of its table,
+  including the `{ NULL, MONBLOW_NONE }` end entry, so a name that is not in
+  the table would reach `strcmp(name, NULL)` (every name in
+  blow_effects.txt is in the table). Rust panics there.
+* `borg_launch_damage_one()`:
+  * `BORG_ATTACK_DRAIN_LIFE` (Dispel Life) zeroes the damage for monsters
+    that are not `NONLIVING` and again for those that are not `UNDEAD`, so
+    only monsters that are both take damage (the spell hurts the living).
+  * `BORG_ATTACK_TAP_UNLIFE`: `sp_drain = CURSP - CURSP` is always 0.
+  * The Teleport Other list (`borg_tp_other_*`, 255 entries) is filled
+    without a bound check (C writes past the arrays on the 256th monster in
+    one scan; Rust panics), as its reader in borg-danger.c (C bug 17).
+* `borg_launch_bolt_aux_hack()`: for a `PASS_WALL` monster the wall scan
+  leaves `x`/`y` at the monster's grid + (1, 1), and the "hard sleeping
+  monster" danger is taken there, not at the monster's grid.
+* `borg_launch_bolt_at_location()` and `borg_launch_arc_at_location()`:
+  the blast loops run `y2 - rad <= ry < y2 + rad` (likewise `rx`, and
+  `y1 - max .. y1 + max` for arcs), so the south and east edges of the
+  radius are never counted.
+* `borg_launch_arc_at_location()`: the angle test uses the end of the
+  spell's path (`y - y1 + 20`, `x - x1 + 20`) for every grid instead of the
+  grid looked at (`ry`, `rx`), so it gives the same answer for every grid:
+  an arc counts every monster in range (and line of sight) or none.
+* `borg_attack_aux_launch()`: when no missile finds a target (every
+  `borg_launch_bolt` returns -1), `b_n` stays 0 and `b_k` -1, which passes
+  the `b_n < 0` test; a real (not simulated) call then reads
+  `borg_items[-1].desc` for its note and sends the quiver key
+  `'0' - 1 - QUIVER_START`. Rust panics on the read. Seen only in the
+  fuzz check (a real call is preceded by a simulation that found a target,
+  except when `borg_has_distance_attack()` in borg-flow-kill.c runs with
+  `borg_simulate` off).
+* `borg_attack_aux_object()` has no `return` after its keys, so a real call
+  returns whatever is in the return register (no caller uses the value of
+  a real call; Rust returns `b_n`, as the c2rust translation did). The
+  throwing range `b_r` is computed and never used.
+* `borg_attack_aux_maim_foe()`: a real call returns `d`, the score of the
+  last monster looked at, not the best one's `b_d`; its second
+  `if (borg_simulate) return d;` is dead.
+* `borg_attack_aux_vampire_strike()`: "require relatively close"
+  (`dist >= 20`) tests the distance of the last monster in the list, not of
+  the closest one it picked.
+* `borg_attack_aux_spell_bolt_reserve()`: the monster loop `break`s at the
+  first live monster, so `near_monsters` is at most 1 and "should only be
+  1 near monster" never fails; only that monster's hit points are checked.
+* `borg_attack_aux_spell_dispel()` applies the "mana needed for the final
+  teleport" penalty (`spell_power * 750`) twice, once with the class's
+  reserve and once with 6 (both for a Mage).
+* `borg_calculate_attack_effectiveness()`: `BF_ACT_ACID_BOLT3` looks for
+  `act_acid_bolt2`, `BF_ACT_DISPEL_ALL` for `act_dispel_undead`;
+  `BF_SPELL_BLIND_CREATURE` casts Frighten scored as confusion;
+  `BF_ACT_WONDER` and `BF_ACT_STAFF_HOLY` keep `rad` 0 (bolts);
+  `BF_DRAGON_RED` uses an arc of 2 degrees where the other dragon armours
+  use 20.
+* Rust (`borg_fight_attack.rs`): all kept; the out-of-bounds reads and
+  writes are panics.

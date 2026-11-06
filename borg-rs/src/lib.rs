@@ -39,6 +39,7 @@ pub mod borg_cave_util;
 pub mod borg_commands;
 pub mod borg_danger;
 pub mod borg_escape;
+pub mod borg_fight_attack;
 pub mod borg_fight_defend;
 pub mod borg_fight_perm;
 pub mod borg_flow;

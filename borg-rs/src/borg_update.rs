@@ -41,7 +41,6 @@ use crate::borg_flow_take::{
 use crate::borg_io::{borg_note, borg_note_bytes};
 use crate::borg_item_wear::borg_clear_best;
 use crate::borg_projection::{borg_los, borg_target_unknown_wall};
-use crate::bridge;
 use crate::engine;
 use crate::headers::__stddef_wchar_t_h::wchar_t;
 use crate::headers::borg_h::BORG_AUTOSAVE;
@@ -1104,8 +1103,8 @@ fn set_msg_use(st: &mut BorgState, i: i32, v: i16) {
 /// "Shooting through darkness worked": `if (successful_target < 0)
 /// successful_target = 2;`
 fn target_worked(st: &mut BorgState) {
-    if bridge::successful_target(st) < 0 {
-        bridge::set_successful_target(st, 2);
+    if st.fight_attack.successful_target < 0 {
+        st.fight_attack.successful_target = 2;
     }
 }
 
@@ -1275,7 +1274,7 @@ pub fn borg_update(st: &mut BorgState) {
         st.update.do_update_lite = true;
 
         // Assume I can shoot here
-        bridge::set_successful_target(st, 0);
+        st.fight_attack.successful_target = 0;
     }
 
     // Update the view
@@ -1680,11 +1679,10 @@ fn handle_messages(st: &mut BorgState) -> i32 {
     // borg can try it again. If no unknown grid is found, then allow the
     // borg to attempt another shot. A low number on successful_target
     // prohibits a ranged attack.
-    if bridge::successful_target(st) < 0 && bridge::successful_target(st) > -10 {
-        let v = bridge::successful_target(st) - 10;
-        bridge::set_successful_target(st, v);
+    if st.fight_attack.successful_target < 0 && st.fight_attack.successful_target > -10 {
+        st.fight_attack.successful_target -= 10;
         if borg_target_unknown_wall(st, st.borg.goal.g.y, st.borg.goal.g.x) {
-            bridge::set_successful_target(st, 2);
+            st.fight_attack.successful_target = 2;
         }
     }
 
@@ -1765,8 +1763,8 @@ fn old_location_message(st: &mut BorgState, i: i32, msg: &[u8], hit_dist: i32) -
             kill_found(st, k, i, 3, false);
         }
         // Shooting through darkness worked
-        if bridge::successful_target(st) == -1 {
-            bridge::set_successful_target(st, 2);
+        if st.fight_attack.successful_target == -1 {
+            st.fight_attack.successful_target = 2;
         }
     } else if msg.starts_with(b"DIED:") {
         // Handle "xxx dies."
@@ -1867,7 +1865,7 @@ fn new_level(st: &mut BorgState) {
     b.need_see_invis = 0;
 
     // reset our 'shoot in the dark' flag
-    bridge::set_successful_target(st, 0);
+    st.fight_attack.successful_target = 0;
 
     // New danger thresh-hold
     st.borg.avoidance = st.borg.tr(BI_CURHP) as i16;

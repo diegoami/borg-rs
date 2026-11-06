@@ -1,4 +1,9 @@
 //! `/home/user/borg-rs/angband/src/borg/borg-fight-attack.h`
+//!
+//! borg-fight-attack.c is converted (`crate::borg_fight_attack`); no c2rust
+//! caller is left, so there are no C-ABI shims.
+//! (`successful_target`, `target_closest` and `borg_tp_other_*` live in
+//! `BorgState::fight_attack`.)
 pub use super::borg_magic_h::borg_spells;
 pub use super::borg_magic_h::MAGIC_MISSILE;
 pub use super::stdint_intn_h::int16_t;
@@ -177,10 +182,6 @@ pub const BF_SPELL_MAGIC_MISSILE: C2RustUnnamedH_19 = 4;
 pub const BF_LAUNCH: C2RustUnnamedH_19 = 3;
 pub const BF_OBJECT: C2RustUnnamedH_19 = 2;
 pub const BF_REST: C2RustUnnamedH_19 = 0;
-pub use crate::c2rust::borg_fight_attack::borg_calculate_attack_effectiveness;
-pub use crate::c2rust::borg_fight_attack::borg_mon_blow_effect;
-pub use crate::c2rust::borg_fight_attack::borg_tp_other_index;
-pub use crate::c2rust::borg_fight_attack::borg_tp_other_n;
 pub type C2RustUnnamedH_32 = ::core::ffi::c_uint;
 pub const BORG_ATTACK_CURSE: C2RustUnnamedH_32 = 58;
 pub const BORG_ATTACK_ELEC_STRIKE: C2RustUnnamedH_32 = 57;
@@ -241,11 +242,3 @@ pub const BORG_ATTACK_METEOR: C2RustUnnamedH_32 = 3;
 pub const BORG_ATTACK_MANA: C2RustUnnamedH_32 = 2;
 pub const BORG_ATTACK_ARROW: C2RustUnnamedH_32 = 1;
 pub const BORG_ATTACK_MISSILE: C2RustUnnamedH_32 = 0;
-pub use crate::c2rust::borg_fight_attack::borg_attack;
-pub use crate::c2rust::borg_fight_attack::borg_attack_aux_launch;
-pub use crate::c2rust::borg_fight_attack::borg_attack_aux_spell_bolt;
-pub use crate::c2rust::borg_fight_attack::borg_launch_bolt;
-pub use crate::c2rust::borg_fight_attack::borg_tp_other_x;
-pub use crate::c2rust::borg_fight_attack::borg_tp_other_y;
-pub use crate::c2rust::borg_fight_attack::successful_target;
-pub use crate::c2rust::borg_fight_attack::target_closest;

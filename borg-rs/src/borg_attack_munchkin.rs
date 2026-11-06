@@ -18,6 +18,7 @@
 use crate::borg::BorgTime;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::borg_danger;
+use crate::borg_fight_attack::borg_calculate_attack_effectiveness;
 use crate::borg_io::borg_note;
 use crate::headers::borg_fight_attack_h::{BF_MAX, BF_THRUST};
 use crate::headers::borg_trait_h::{
@@ -25,7 +26,7 @@ use crate::headers::borg_trait_h::{
 };
 use crate::headers::list_terrain_h::{FEAT_LESS, FEAT_MORE};
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `CLASS_MAGE`, `CLASS_NECROMANCER` (player-class indexes)
 const CLASS_MAGE: i32 = 1;
@@ -172,7 +173,7 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
             continue;
         }
 
-        let dam = bridge::borg_calculate_attack_effectiveness(st, i);
+        let dam = borg_calculate_attack_effectiveness(st, i);
 
         /* Track the best attack method */
         if dam >= b_dam && dam > 0 {
@@ -195,7 +196,7 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
     st.traits.simulate = false;
 
     /* Instantiate */
-    bridge::borg_calculate_attack_effectiveness(st, b_n);
+    borg_calculate_attack_effectiveness(st, b_n);
 
     st.traits.attacking = false;
 
@@ -303,7 +304,7 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
     st.traits.simulate = true;
 
     /* Simulated */
-    let n = bridge::borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
+    let n = borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
 
     /* Nothing good */
     if n <= 0 {
@@ -319,7 +320,7 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
     st.traits.simulate = false;
 
     /* Instantiate */
-    bridge::borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
+    borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
 
     st.traits.attacking = false;
 

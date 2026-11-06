@@ -45,7 +45,7 @@ use crate::headers::list_terrain_h::{
 use crate::headers::ui_event_h::keypress;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{borg_flow_kill, bridge, engine};
+use crate::{borg_flow_kill, engine};
 
 /// `GOAL_KILL` (borg-flow.h): the goal is a monster.
 const GOAL_KILL: i32 = 1;
@@ -658,7 +658,7 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
 
         // If we were casting a targetted spell and failed
         // it does not mean we can't target that location
-        bridge::set_successful_target(st, 0);
+        st.fight_attack.successful_target = 0;
 
         // In case we failed our emergency use of MM
         st.io.confirm_target = false;
@@ -751,23 +751,23 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
     if prefix(msg, b"You bite ") {
         let who = who_after(b"You bite ".len());
         borg_react(st, msg, &tagged(b"HIT:", &who));
-        bridge::set_target_closest(st, 1);
+        st.fight_attack.target_closest = 1;
         return;
     }
     if prefix(msg, b"You draw power from") {
-        bridge::set_target_closest(st, 1);
+        st.fight_attack.target_closest = 1;
         return;
     }
     if prefix(msg, b"No Available Target.") {
-        bridge::set_target_closest(st, -12);
+        st.fight_attack.target_closest = -12;
         return;
     }
     if prefix(msg, b"This spell must target a monster.") {
-        bridge::set_target_closest(st, -12);
+        st.fight_attack.target_closest = -12;
         return;
     }
     if prefix(msg, b"Not enough room next to ") {
-        bridge::set_target_closest(st, -12);
+        st.fight_attack.target_closest = -12;
         return;
     }
 

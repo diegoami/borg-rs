@@ -28,6 +28,7 @@ use crate::borg_cave_util::{
 };
 use crate::borg_danger::{borg_danger, borg_danger_one_kill};
 use crate::borg_escape::{borg_caution_teleport, borg_surrounded};
+use crate::borg_fight_attack::borg_launch_bolt;
 use crate::borg_flow_kill::{borg_delete_kill, borg_race_name};
 use crate::borg_inventory::borg_slot;
 use crate::borg_io::{borg_keypress, borg_note, borg_note_bytes, ESCAPE};
@@ -42,7 +43,6 @@ use crate::borg_projection::{
     borg_inc_motion, borg_los, borg_projectable, borg_projectable_dark, borg_projectable_pure,
     borg_target,
 };
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_fight_attack_h::{BORG_ATTACK_AWAY_ALL, BORG_ATTACK_AWAY_ALL_MORGOTH};
 use crate::headers::borg_h::BORG_MONEY_SCUM_AMOUNT;
@@ -236,7 +236,7 @@ fn unique_is(st: &BorgState, name: &[u8]) -> bool {
 /// `borg_temp_n = 0; borg_tp_other_n = 0;` ("Reset list").
 fn reset_lists(st: &mut BorgState) {
     st.flow.temp_n = 0;
-    bridge::set_borg_tp_other_n(st, 0);
+    st.fight_attack.tp_other_n = 0;
 }
 
 /// Log the pathway and feature of the spell pathway
@@ -1277,7 +1277,7 @@ fn borg_defend_aux_tele_away(st: &mut BorgState, p1: i32) -> i32 {
      * end up 500, since p1 - his danger is 500-0. If we are fighting two guys
      * each creating 500 danger, then p2 will be 500, since 1000-500 = 500.
      */
-    let p2 = bridge::borg_launch_bolt(st, 0, p1, BORG_ATTACK_AWAY_ALL as i32, max_range(), 0);
+    let p2 = borg_launch_bolt(st, 0, p1, BORG_ATTACK_AWAY_ALL as i32, max_range(), 0);
     if p2 <= 0 {
         return 0;
     }
@@ -1300,10 +1300,10 @@ fn borg_defend_aux_tele_away(st: &mut BorgState, p1: i32) -> i32 {
 
     /* Log additional info for debug */
     let mut i = 0;
-    while i < i32::from(bridge::borg_tp_other_n(st)) {
-        let n = bridge::borg_tp_other_n(st);
-        let idx = bridge::borg_tp_other_index(st, i as usize);
-        let (ty, tx) = (bridge::borg_tp_other_y(st, i as usize), bridge::borg_tp_other_x(st, i as usize));
+    while i < i32::from(st.fight_attack.tp_other_n) {
+        let n = st.fight_attack.tp_other_n;
+        let idx = st.fight_attack.tp_other_index[i as usize];
+        let (ty, tx) = (st.fight_attack.tp_other_y[i as usize], st.fight_attack.tp_other_x[i as usize]);
         borg_note(st, &format!("# T.O. {}, index {} ({},{})", n, idx, ty, tx));
         i += 1;
     }
@@ -1320,7 +1320,7 @@ fn borg_defend_aux_tele_away(st: &mut BorgState, p1: i32) -> i32 {
         borg_keypress(st, key(b'5'));
 
         /* Set our shooting flag */
-        bridge::set_successful_target(st, -1);
+        st.fight_attack.successful_target = -1;
 
         /* Value */
         return p2;
@@ -3194,7 +3194,7 @@ fn borg_defend_aux_tele_away_morgoth(st: &mut BorgState) -> i32 {
      * If left as beam, he targets the collection of monsters.
      */
     let mut p2 =
-        bridge::borg_launch_bolt(st, 0, 50, BORG_ATTACK_AWAY_ALL_MORGOTH as i32, max_range(), 0);
+        borg_launch_bolt(st, 0, 50, BORG_ATTACK_AWAY_ALL_MORGOTH as i32, max_range(), 0);
 
     /* Normalize the value a bit */
     if p2 > 1000 {
@@ -3214,10 +3214,10 @@ fn borg_defend_aux_tele_away_morgoth(st: &mut BorgState) -> i32 {
 
     /* Log additional info for debug (the list was just reset, as in C) */
     let mut i = 0;
-    while i < i32::from(bridge::borg_tp_other_n(st)) {
-        let n = bridge::borg_tp_other_n(st);
-        let idx = bridge::borg_tp_other_index(st, i as usize);
-        let (ty, tx) = (bridge::borg_tp_other_y(st, i as usize), bridge::borg_tp_other_x(st, i as usize));
+    while i < i32::from(st.fight_attack.tp_other_n) {
+        let n = st.fight_attack.tp_other_n;
+        let idx = st.fight_attack.tp_other_index[i as usize];
+        let (ty, tx) = (st.fight_attack.tp_other_y[i as usize], st.fight_attack.tp_other_x[i as usize]);
         borg_note(st, &format!("# {}, index {} ({},{})", n, idx, ty, tx));
         i += 1;
     }
@@ -3233,7 +3233,7 @@ fn borg_defend_aux_tele_away_morgoth(st: &mut BorgState) -> i32 {
         borg_keypress(st, key(b'5'));
 
         /* Set our shooting flag */
-        bridge::set_successful_target(st, -1);
+        st.fight_attack.successful_target = -1;
 
         /* Value */
         return p2;

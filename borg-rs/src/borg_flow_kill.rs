@@ -29,6 +29,7 @@ use crate::borg_cave_util::{
 use crate::borg_cave_light::BORG_LIGHT;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::{borg_danger, borg_danger_one_kill};
+use crate::borg_fight_attack::{borg_attack_aux_launch, borg_attack_aux_spell_bolt};
 use crate::borg_io::borg_note_bytes;
 use crate::borg_magic::{borg_primarily_caster, borg_spell_okay};
 use crate::borg_projection::{borg_distance, borg_los, borg_projectable};
@@ -2034,7 +2035,7 @@ fn borg_has_distance_attack(st: &mut BorgState) -> bool {
     let max_range = i32::from(engine::z_info().max_range);
 
     // line up Magic Missile shots (covers Mages)
-    if bridge::borg_attack_aux_spell_bolt(
+    if borg_attack_aux_spell_bolt(
         st,
         MAGIC_MISSILE,
         0,
@@ -2048,7 +2049,7 @@ fn borg_has_distance_attack(st: &mut BorgState) -> bool {
     }
 
     // line up Nether Bolt shots (covers Necromancers)
-    if bridge::borg_attack_aux_spell_bolt(
+    if borg_attack_aux_spell_bolt(
         st,
         NETHER_BOLT,
         0,
@@ -2062,7 +2063,7 @@ fn borg_has_distance_attack(st: &mut BorgState) -> bool {
     }
 
     // or arrows (covers warrior/ranger/paladins/rogues)
-    if bridge::borg_attack_aux_launch(st) > 0 {
+    if borg_attack_aux_launch(st) > 0 {
         return true;
     }
 

@@ -913,7 +913,7 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
                     }
                 } else {
                     /* Try to kill it */
-                    if bridge::borg_attack(st, false) {
+                    if crate::borg_fight_attack::borg_attack(st, false) {
                         return true;
                     }
                 }
@@ -959,7 +959,7 @@ fn borg_think_dungeon_brave(st: &mut BorgState) -> bool {
     }
 
     /* Attack monsters */
-    if bridge::borg_attack(st, true) {
+    if crate::borg_fight_attack::borg_attack(st, true) {
         return true;
     }
 
@@ -1588,7 +1588,7 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
     }
 
     /* Attack monsters */
-    if bridge::borg_attack(st, false) {
+    if crate::borg_fight_attack::borg_attack(st, false) {
         return true;
     }
 
