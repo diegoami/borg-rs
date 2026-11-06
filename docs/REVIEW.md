@@ -129,11 +129,16 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   are Warriors, their "blackguard" runs are Rangers). This does not affect
   C/Rust equivalence, but it limits coverage; the `classes` suite fills the
   gap (`docs/harness.md`, `docs/STATUS.md`).
-* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 270, all at the FFI
-  boundary: 242 in `engine.rs` and 28 in `headers/` (the
+* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 269, all at the FFI
+  boundary: 241 in `engine.rs` and 28 in `headers/` (the
   `unsafe extern "C" fn` pointer types of engine structs and callbacks).
-  `#![deny(unsafe_code)]` allows it only in those two modules. Engine
-  object handles carry no lifetime and some accessors return `&'static`
-  references into engine tables that the game can change (SELF-REVIEW L4,
-  L5): the rule is never to keep either across an engine call or in the
-  state, which holds today.
+  `#![deny(unsafe_code)]` allows it only in those two modules. After the
+  external review of `4c06cec08` (SELF-REVIEW section 5): every safe
+  wrapper checks the index/flag/grid preconditions C only `assert`s
+  (`-DNDEBUG`); engine object handles borrow the state's `access` token,
+  so the compiler rejects keeping one across an engine call that lends the
+  state (L4); engine tables the game writes are read through copies, not
+  `&'static` references (L5); `engine::enter` is `pub(crate)` and checks
+  the engine is set up and on one thread. Not enforced by the compiler:
+  the other wrappers assume they run inside an entry (true for all Borg
+  code; an external crate could call them before the engine is set up).

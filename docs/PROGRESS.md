@@ -193,6 +193,10 @@
 
 **Final M3 checkpoint** (`dd885b6dd`): smoke 3/3, `full` 45/45, `deep` 9/9, `classes` 16/16 identical, no nested Borg entry, `check-no-c-borg.sh` OK, clippy `-D warnings` clean. M3 done.
 
+| # | step | commits | notes |
+|---|------|---------|-------|
+| 61 | review fixes: FFI preconditions, L4/L5 | `6afee5ab9` | After the external review of `4c06cec08` (findings 2 and 3; SELF-REVIEW section 5 lists every wrapper). **FFI preconditions:** each safe engine wrapper checks in Rust what C only `assert`s (`-DNDEBUG`) and panics instead of reading out of bounds: `flag_has` (FLAG_END false as in C) and `flag_next` (start >= FLAG_START) are Rust transcriptions of z-bitflag.c (differential check against the real C, 875,000 inputs: identical), `race_flag_has`, `player_has`, `player_of_has`, `square_trap_is_glyph` use the checked domain, `spell_okay_to_cast` (index < total_spells), `randint0` (`m <= 0x10000000`), the event functions (type < N_GAME_EVENTS, safe handler type), `set_inkey_hack` (safe fn type), `term_xtra` (noise/delay only), `project_from_player` (the Borg's two fixed shapes, target in bounds), `ignore_level` declared with its C length. **L5:** `k_info()`/`r_info()`/`a_info()`/`e_info()` replaced by copies `kind(i)`/`race(i)`/`artifact(i)`/`ego(i)` (+ `k_max()`/`r_max()`), `FloorObject::kind()` a copy; 46 call sites. **L4:** `CarriedObject`/`StoreObject`/`GameObject`/`FloorObject` carry the lifetime of a borrow of `st.access` (new token field of `BorgState`), so a handle cannot cross a call that takes `&mut st` (every lending call does); constructors check the token is the root's; borg_inventory and borg_store use split borrows, borg_flow_take looks the floor object up where it reads it. **Root:** `enter` is `pub(crate)`, `do_cmd_borg` private; entries assert engine set up and one thread; `lend` asserts the root state. No behaviour change: smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, no nested entry, `check-no-c-borg.sh` OK; `cargo test` 94 passed, clippy `-D warnings` clean (Rust 1.97). Unsafe 269 (engine.rs 241, headers 28) |
+
 
 ## Unsafe count
 
@@ -272,6 +276,7 @@ at the FFI boundary (engine.rs and the engine declarations in headers/).
 | bridge removal 3: state root in engine (`65c94bacb`) | 275 | 0 |
 | bridge removal 4: note offset, bridge.rs gone (`52be848af`) | 270 | 0 |
 | bridge removal 5: borg_headers (`ae76c6564`) | 270 | 0 |
+| review fixes: FFI preconditions, L4/L5 (`6afee5ab9`) | 269 | 0 |
 
 ## Suite timings
 
