@@ -1148,3 +1148,5 @@ with its issues.
   (same byte). Out-of-range table indexes (a negative stat index, a book
   number of -1, level 0 for `player_hp[lev - 1]`) panic where C would
   read or write out of bounds; none is reachable with valid game data.
+* Tracker: one lead per slip, in the order above:
+  diegoami/neo-angband-tracker#237 to diegoami/neo-angband-tracker#241.
