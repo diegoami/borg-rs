@@ -130,7 +130,8 @@ Current builds used GCC15.2.0 and rustc1.98.1. No cloud dependency paths or
 identity overrides are needed.
 
 Tracker #287/#290 updates link26a96be/0861e3f. #322 links the observed stop
-and28b8170; the final full-replay receipt update follows publication.
+and28b8170; its [final full-replay receipt update](https://github.com/diegoami/neo-angband-tracker/issues/322#issuecomment-6695689265)
+is published and was read back.
 No independent tracker verification or upstream/source resolution is claimed.
 The previous session's native detection-crash observer raw trace was not
 transferred; current receipts do not claim to recapture it.

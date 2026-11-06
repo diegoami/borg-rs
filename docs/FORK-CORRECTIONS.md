@@ -60,8 +60,9 @@ Earlier interrupted cloud batches remain incomplete, not passes.
 Published #287/#290 updates:
 [#287 comment](https://github.com/diegoami/neo-angband-tracker/issues/287#issuecomment-6693735109),
 [#290 comment](https://github.com/diegoami/neo-angband-tracker/issues/290#issuecomment-6693741157).
-#322 records the observed stop and narrow correction; the final receipt
-update follows publication. Independent tracker verification and upstream
+#322 records the observed stop and narrow correction; its [final receipt
+update](https://github.com/diegoami/neo-angband-tracker/issues/322#issuecomment-6695689265)
+links the completed75d6ced checkpoint and was read back. Independent tracker verification and upstream
 source resolution remain explicit, not inferred from consumer validation.
 
 Allocator code-reading leads #323–#325 are separate reported findings in
