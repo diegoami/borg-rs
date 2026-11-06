@@ -94,7 +94,15 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   `harness/borg.txt` with `borg_respawn_race/class` set to the run's race
   and class. `TZ=UTC`, `LC_ALL=C.UTF-8`. FLAGS (comma-separated, `-` for
   none): `cheat` sets `borg_cheat_death = TRUE`; `menu` passes
-  `-menu-letters`. Unknown flags are an error. A non-zero exit code or a
+  `-menu-letters`. Config flags each set one more option of the run's
+  `borg.txt` to `TRUE`: `munchkin` (`borg_munchkin_start`), `lunal`
+  (`borg_lunal_mode`), `selflunal` (`borg_self_lunal`); the run fails if
+  the option's line is not in `harness/borg.txt`. Without config flags the
+  run's `borg.txt` is the same as before they existed, byte for byte, so
+  the stock suites are unchanged. Unknown flags are an error. Each run
+  writes `config.txt` (its flags and the sha256 of its `borg.txt`); the
+  suite manifest copies it as `run_config.<run>=<flags> <sha256>`.
+  `harness/diff` reads neither. A non-zero exit code or a
   missing summary fails the run. It does not check the build identity:
   a single run is a debugging tool, suite outputs are the evidence.
 * `harness/suite.sh SUITE [OUTDIR]`: runs `harness/suites/SUITE` in
