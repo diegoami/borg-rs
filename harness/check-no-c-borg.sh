@@ -145,5 +145,64 @@ if [ -s "$TMP/objdiff" ]; then
     echo "   FAIL:"; cat "$TMP/objdiff"; fail=1
 fi
 
+# 5. actual link inputs of the rust binary
+# Re-run the build's own link command with ld's --trace given twice (it
+# then also names the archive members it pulls in) into a temporary file.
+# The result must be byte-identical to $BIN, so the trace describes the
+# binary that is checked. Every input must be an engine object of the
+# build tree (listed in 4, so byte-identical to build/c), a member of the
+# Rust staticlib that passed 2 (a rustc object or a known compiler-builtins
+# object), or a system file (crt objects, libc/libm/libgcc, X11 libraries)
+# under /usr/lib, /lib or /lib64. Anything else fails.
+LINK="$R/CMakeFiles/OurExecutable.dir/link.txt"
+if [ ! -f "$LINK" ] || ! grep -q ' -o game/angband ' "$LINK"; then
+    echo "5. FAIL: no usable link command in $LINK"; fail=1
+else
+    lcmd=$(sed "s| -o game/angband | -Wl,--trace,--trace -o $TMP/relink |" "$LINK")
+    if ! ( cd "$R" && eval "$lcmd" ) > "$TMP/trace" 2> "$TMP/linkerr"; then
+        echo "5. FAIL: relinking failed:"; sed 's/^/     /' "$TMP/linkerr"; fail=1
+    elif ! cmp -s "$TMP/relink" "$BIN"; then
+        echo "5. FAIL: relinking does not reproduce $BIN byte for byte (stale or modified binary?)"; fail=1
+    else
+        ( cd "$R/CMakeFiles" && sed 's|^\./||' "$TMP/robj" ) > "$TMP/robjrel"
+        ar t "$LIB" | sort > "$TMP/members"
+        sed 's/ (.*$//' "$TMP/badmem" > "$TMP/badnames"
+        realLIB=$(realpath "$LIB")
+        : > "$TMP/badlink"; neng=0; nlib=0; nsys=0
+        while IFS= read -r l; do
+            [ -z "$l" ] && continue
+            case "$l" in
+                CMakeFiles/*.o)
+                    o="${l#CMakeFiles/}"
+                    if [[ "$o" == */src/borg/* ]] || ! grep -qxF "$o" "$TMP/robjrel"; then
+                        echo "$l (not an engine object of $R)" >> "$TMP/badlink"
+                    else neng=$((neng + 1)); fi;;
+                \(*\)*)
+                    a="${l#(}"; a="${a%%)*}"; m="${l#*)}"
+                    case "$a" in
+                        /usr/lib/*|/lib/*|/lib64/*) nsys=$((nsys + 1));;
+                        *)
+                            if [ "$(cd "$R" && realpath "$a")" != "$realLIB" ]; then
+                                echo "$l (archive is not $LIB)" >> "$TMP/badlink"
+                            elif ! grep -qxF "$m" "$TMP/members" || grep -qxF "$m" "$TMP/badnames"; then
+                                echo "$l (not an accepted staticlib member, see 2)" >> "$TMP/badlink"
+                            else nlib=$((nlib + 1)); fi;;
+                    esac;;
+                /usr/lib/*|/lib/*|/lib64/*) nsys=$((nsys + 1));;
+                *)
+                    if [ "$(cd "$R" && realpath "$l" 2>/dev/null)" = "$realLIB" ]; then :
+                    else echo "$l (unknown link input)" >> "$TMP/badlink"; fi;;
+            esac
+        done < "$TMP/trace"
+        echo "5. link inputs (ld --trace of a relink identical to the binary): engine objects: $neng;" \
+             "staticlib members pulled in: $nlib; system files and members: $nsys"
+        [ "$neng" -ge 100 ] || { echo "   FAIL: too few engine objects linked"; fail=1; }
+        [ "$nlib" -gt 0 ] || { echo "   FAIL: no staticlib members linked"; fail=1; }
+        if [ -s "$TMP/badlink" ]; then
+            echo "   FAIL: unexpected link inputs:"; sed 's/^/     /' "$TMP/badlink"; fail=1
+        fi
+    fi
+fi
+
 if [ $fail = 0 ]; then echo "OK: no C Borg code in $BIN"; else echo "FAIL"; fi
 exit $fail
