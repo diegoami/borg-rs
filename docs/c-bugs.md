@@ -1365,7 +1365,7 @@ above is historical; independent tracker verification remains explicit.
   exactly one): center/distant targets are rejected and all eight adjacent
   grids remain valid, in apply and simulation modes. The prompt-abort guard
   remains intact. Full corrected replay validation is pending.
-* Tracker: pending publication/intake. This is supplied consumer evidence,
+* Tracker: diegoami/neo-angband-tracker#322. This is supplied consumer evidence,
   not independent tracker verification or upstream source resolution.
 
 ## 55. Calculator pointer-array allocations are not released (reported leads)
@@ -1388,4 +1388,5 @@ The C source is unchanged; no correction is proposed in this pass.
 * Rust vectors free/reuse their own storage. Allocator lifetimes are not a
   claimed key/message/state parity property. No arbitrary malformed-input,
   out-of-memory or gameplay-consequence claim is made.
-* Tracker: one finding per distinct slip, pending publication/intake.
+* Tracker: one finding per distinct slip, in the order above:
+  diegoami/neo-angband-tracker#323, #324 and #325.

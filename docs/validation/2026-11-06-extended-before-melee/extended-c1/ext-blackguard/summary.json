@@ -1,0 +1,19 @@
+{
+  "seed": 4008,
+  "race": "Half-Troll",
+  "race_idx": 7,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 2000005,
+  "player_turns": 201126,
+  "resting_turns": 4938,
+  "clevel": 25,
+  "max_depth": 19,
+  "depth": 3,
+  "dead": false,
+  "death_cause": "",
+  "keys": 415260,
+  "wall_seconds": 314.850
+}

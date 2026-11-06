@@ -1,0 +1,20 @@
+{
+  "smoke-mage-2": {
+    "bytes": 257248,
+    "child_pid": 850233,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/matrix/profiles/smoke/11212204227228682092_0-850233.profraw",
+    "sha256": "66c88ec20cb434b2548772d151131e7e0fe5918dea1cdc55c55eb9989afe68c1"
+  },
+  "smoke-priest-3": {
+    "bytes": 257248,
+    "child_pid": 850232,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/matrix/profiles/smoke/11212204227228682092_0-850232.profraw",
+    "sha256": "d3acca7d307390abc0766a3423aadf7974cdfd695cbe1200abed1caf4aec5930"
+  },
+  "smoke-warrior-1": {
+    "bytes": 257248,
+    "child_pid": 850234,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/matrix/profiles/smoke/11212204227228682092_0-850234.profraw",
+    "sha256": "20a9f4051cfad12b8e40995be766b541136b66a7439d602334ee8efeaeed3511"
+  }
+}

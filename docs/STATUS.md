@@ -2,6 +2,32 @@
 
 ## Current M4 work (2026-11-06)
 
+Latest source: `28b8170` fixes the newly observed same-square melee play
+blocker (#322), requiring distance exactly one in C/Rust. The native body
+regression fails before (`+5`) and passes after while retaining all eight
+neighbors. Tests100/one ignored, clippy and linkage checks pass. Fresh
+baseline and extended C/C/Rust validation is ACTIVE under
+`harness/out/local/{baseline-melee-*,melee-extended-*}`; the extended runs
+capture engine state every1M turns. The current full replay result is not
+yet established. Main/tags remain unchanged.
+
+The preceding `26a96be` extended matrix has strict C/C and Rust/C12/12
+parity and natural depths99/51, but Warrior2000 aborts at1,887,392 turns.
+Its historical receipt/reference explicitly retain that play blocker:
+`validation/2026-11-06-extended-before-melee/`,
+`harness/reference/extended-26a96be`.
+
+M4 E foundation: native calculator checker30,000 cases, full token/state
+comparisons, actual-source fault rejection, C UBSan and clippy pass
+(`validation/2026-11-06-native-checker/`). Other private combat/map state
+remains unchecked. M4 F pilot: source26a96be smoke/full48, logic lines61.40%
+and LLVM function instances77.03%; incomplete deep profiles excluded.
+Full coverage and coverage of the newer melee correction remain open
+(`validation/2026-11-06-coverage-pilot/`).
+
+### Prior verified checkpoint at26a96be
+
+
 Matching C/Rust corrections for tracker #290 (panel-offset equality) and
 #287 (capacity-aware UTF-8 conversion with NUL termination) pass the
 unchanged six-case `crash-fixes` suite at `26a96bee4570`: C twice, then

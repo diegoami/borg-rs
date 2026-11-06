@@ -1,0 +1,13 @@
+START smoke 2026-11-06T19:54:13Z
+smoke: 3 successful engine PIDs, 3 nonempty profiles
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)
+PASS smoke 2026-11-06T19:54:40Z
+START full 2026-11-06T19:54:40Z
+full: 45 successful engine PIDs, 45 nonempty profiles
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)
+PASS full 2026-11-06T20:03:32Z
+START deep 2026-11-06T20:03:32Z

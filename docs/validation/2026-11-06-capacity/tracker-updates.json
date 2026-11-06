@@ -1,0 +1,19 @@
+{
+  "patch_commit": "26a96bee4570",
+  "validation_commit": "0861e3f",
+  "status": "published and read back through connected GitHub tools",
+  "independent_tracker_verification_claimed": false,
+  "upstream_source_resolution_claimed": false,
+  "comments": [
+    {
+      "issue": 287,
+      "comment_id": 6693735109,
+      "url": "https://github.com/diegoami/neo-angband-tracker/issues/287#issuecomment-6693735109"
+    },
+    {
+      "issue": 290,
+      "comment_id": 6693741157,
+      "url": "https://github.com/diegoami/neo-angband-tracker/issues/290#issuecomment-6693741157"
+    }
+  ]
+}

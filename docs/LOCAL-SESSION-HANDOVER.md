@@ -5,6 +5,65 @@ tags are unchanged; the owner creates tags. Read this file, `CLAUDE.md`,
 `FORK-CORRECTIONS.md`, `M4-PLAN.md`, `REVIEW.md`, `harness.md` and
 `checkpoints.md`. Give frequent concrete progress updates.
 
+## Latest continuation checkpoint (source `28b8170`)
+
+The original requested six-case corrected C/C/Rust matrix passed at
+`26a96bee4570`, followed by both builds matching all 105 original baseline
+cases and all eight captured Rogue replays. Full extended C/C and Rust/C
+also pass 12/12 at that source, reaching natural depth99 (Warrior2007)
+and51 (Blackguard3100). But Warrior2000 stops at1,887,392: stale same-square
+melee queues `+5` after teleport/blindness. This is a play blocker, not a
+completed 5M-turn scenario.
+
+`28b8170` narrowly requires thrust targets at distance exactly one in C
+and Rust. The real-C-body fixture fails before (score10, `+5`) and passes
+after, retaining all eight neighbors in apply/simulate modes. Tests100/one
+ignored, clippy and linkage checks pass. Fresh full revalidation is ACTIVE:
+
+* `harness/out/local/melee-extended-{c1,c2,rust}` plus `.log` files:
+  unchanged extended suite, four jobs per pass, 3,600-second per-scenario
+  bound, fork-isolated captures every1M turns.
+* `harness/out/local/baseline-melee-{c,rust}` plus `.log` files:
+  baseline105, captured-Rogue8, then crash-fixes6. Smoke/full have already
+  passed at this source; the remainder must be checked live.
+* `harness/out/local/melee-crash-c2` plus `.log`: second fresh C six-case
+  pass, two jobs. Compare with baseline-melee-c/crash-fixes when both finish.
+
+Do not rebuild or edit production inputs while these binaries run. Do not
+start duplicate jobs. Require DONE and strict comparisons; capture inventories
+need completed provenance and byte/hash checks before accepting saved states.
+The previous extended source26 receipt/reference is historical, under
+`docs/validation/2026-11-06-extended-before-melee/` and
+`harness/reference/extended-26a96be`, including the explicit early stop.
+The current melee correction still needs full replay validation.
+
+Native E foundation: `harness/native-checker/` compiles the real renamed C
+calculator beside the unchanged Rust module with a shared explicit environment.
+30,000 cases compare results, diagnostics and complete token/calculation
+state; actual Rust addition-to-subtraction fault injection is detected;
+30,000 C UBSan cases and clippy pass. Latest full controls:
+`harness/out/native-checker.N7BKWW`. This does not replace all historical
+combat/map/private-state checks. Tooling/evidence publication is still pending.
+
+Coverage F pilot: `harness/coverage/` builds no production code by default.
+An isolated worktree `/tmp/borg-rs-m4-coverage` at26a96be used coverage flags,
+matching LLVM22.1.8 and a coverage-only _exit flush shim. Smoke/full48 match
+their oracles and emit one profile per successful process. The pilot report
+is `harness/out/local/coverage-pilot`: logic lines61.40%, LLVM function
+instances77.03%. Only those48 are merged; the deep group was interrupted to
+prioritize the play blocker and is excluded. No live profile child remains.
+Full M4 F and coverage of the newer melee correction remain unestablished.
+
+Tracker updates are published: #287/#290 comments link26a96be/0861e3f;
+new observed play-blocker lead#322 and three separate allocator code leads
+#323–#325 link28b8170. All152 finding JSON files and open/closed issue
+searches were checked; #39 is a different parser slip. Independent tracker
+verification and upstream/source resolution are not claimed. New links are
+recorded in `docs/c-bugs.md` sections54–55.
+
+The sections below retain the prior checkpoint details and policy; the
+latest source/active paths above supersede the older active-matrix wording.
+
 ## Owner policy
 
 Crash-causing C behavior and blatant bugs that prevent play may be
@@ -104,9 +163,11 @@ or mismatch; do not exempt it automatically or change seeds/limits/oracles.
    checkpoint, update documentation and tracker receipts, and present the
    verified milestone to the owner for tagging. No main/tag move is automatic.
 
-Both correction tracker issues (#287/#290) still need published patch and
-validation links from this continuation; do not claim that update until
-it exists. Local binaries were built with GCC15.2.0 and rustc1.98.1.
+Both tracker updates are published and read back: [#287](https://github.com/diegoami/neo-angband-tracker/issues/287#issuecomment-6693735109)
+and [#290](https://github.com/diegoami/neo-angband-tracker/issues/290#issuecomment-6693741157).
+They link the published patch and validation checkpoint, explicitly retain
+reported consumer evidence status and make no independent/upstream-resolution
+claim. Local binaries were built with GCC15.2.0 and rustc1.98.1.
 Use the repository build scripts, without cloud `/tmp` dependency paths or
 stale-build overrides. The complete local outputs remain under
 `harness/out/local/`; durable validation evidence is committed in `docs/`.

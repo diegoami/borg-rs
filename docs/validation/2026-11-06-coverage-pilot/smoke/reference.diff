@@ -1,0 +1,6 @@
+A: /tmp/borg-rs-m4-coverage/harness/out/coverage/matrix/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=da4f6b6ac979d926
+A:   built from 26a96bee4570 (dirty=no, inputs dirty=no) source_sha256=fb0df18248a87c78; run at 26a96bee4570 (dirty=no) overrides=none
+B: /home/diego/projects/borg-rs/harness/reference/smoke: reference (no manifest)
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

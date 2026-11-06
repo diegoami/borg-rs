@@ -1,0 +1,4 @@
+C body source: /home/diego/projects/borg-rs/angband/src/borg/borg-fight-attack.c sha256=b0fa2d454dffe48a53e06bc7ed6176647ddc10d8e5c422e0fc769ae2d76f38c1
+non-adjacent (0,0): score=10 keys='+5'
+probe: /home/diego/projects/borg-rs/harness/regress/melee-adjacent/probe.c:46: check: Assertion `result==(adjacent?10:0)' failed.
+harness/regress/melee-adjacent/run.sh: line 16: 860238 Aborted                    "$OUT/probe"

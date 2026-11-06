@@ -2,6 +2,24 @@
 
 ## Current corrected validation
 
+Current production source is `28b8170`: exact-adjacency thrust correction
+for #322. Native before/after body fixture, release tests and clippy pass.
+Fresh extended C/C/Rust runs with1M forked captures are under
+`harness/out/local/melee-extended-{c1,c2,rust}`, jobs4, scenario timeout3600.
+Baseline/Captured-Rogue/crash-fixes rechecks are under
+`baseline-melee-{c,rust}`; a second C six-case pass is `melee-crash-c2`.
+Inspect live DONE/process receipts before starting anything new.
+
+The earlier extended26a96be runs finished and both strict comparisons
+pass12/12. Warrior2007 reaches99 and Blackguard3100 reaches51, while
+Warrior2000's same-square `+5` abort ends it at1,887,392. This is historical
+parity, not acceptance of the play blocker. The source26 reference is
+`harness/reference/extended-26a96be`; receipts include its explicit stop.
+The native calculator checker and48-run coverage pilot are recorded in
+`validation/2026-11-06-{native-checker,coverage-pilot}`. E/F remain broader
+open work. The following source26 details precede the latest melee fix.
+
+
 The unchanged six-case `crash-fixes` suite passes corrected C/C/Rust at
 `26a96bee4570`: all three passes have `DONE`, and both strict comparisons
 report 6/6 identical in keys/messages/state. Rogue finishes 2,000,352 turns;

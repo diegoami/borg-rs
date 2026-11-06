@@ -1,0 +1,11 @@
+[package]
+name = "borg-native-checker"
+version = "0.1.0"
+edition = "2021"
+publish = false
+build = "build.rs"
+
+[workspace]
+
+[profile.release]
+debug = 1

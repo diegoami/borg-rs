@@ -72,3 +72,27 @@ confirmed crash. See `harness/saves/captured-rogue-SOURCES.json`.
 
 M4 E (native differential checker) and F (coverage measurement) remain
 separate steps. C/D fixes alone do not complete the entire M4 milestone.
+
+## Tracker receipts
+
+Published correction/validation updates were read back on
+[#287](https://github.com/diegoami/neo-angband-tracker/issues/287#issuecomment-6693735109)
+and [#290](https://github.com/diegoami/neo-angband-tracker/issues/290#issuecomment-6693741157).
+They link `26a96bee4570` and validation checkpoint `0861e3f`, keep consumer
+correction separate from independent tracker verification and make no
+upstream/source-resolution claim. IDs are retained in
+`validation/2026-11-06-capacity/tracker-updates.json`.
+
+## Same-square melee play blocker (#322)
+
+The source26a96be extended matrix matches C/C/Rust12/12, but Warrior2000
+stops at1,887,392 turns after teleport/blindness leaves a stale monster on
+the player's square. Thrust accepts distance zero, queues `+5` and hits the
+unexpected-direction abort. Commit28b8170 narrowly requires distance exactly
+one in C/Rust. The actual C body fixture fails before and passes after for
+center/distant rejection and all eight adjacent targets in both modes.
+The prompt-abort safeguard is unchanged. Full new-source replay validation
+is running; the source26 historical reference is separately identified.
+Tracker: https://github.com/diegoami/neo-angband-tracker/issues/322.
+The three calculator allocation leads (#323–#325) are source-reading leads
+only; their C implementations have not been changed.

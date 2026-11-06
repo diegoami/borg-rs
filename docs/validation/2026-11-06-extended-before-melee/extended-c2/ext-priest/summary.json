@@ -1,0 +1,19 @@
+{
+  "seed": 4003,
+  "race": "Dwarf",
+  "race_idx": 5,
+  "class": "Priest",
+  "class_idx": 3,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 2000006,
+  "player_turns": 200082,
+  "resting_turns": 137537,
+  "clevel": 13,
+  "max_depth": 4,
+  "depth": 2,
+  "dead": false,
+  "death_cause": "",
+  "keys": 186188,
+  "wall_seconds": 88.198
+}

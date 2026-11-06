@@ -1,0 +1,120 @@
+455984 1887321 0 # Forgetting a monster 'ogre' at (12,65)
+455984 1887321 0 # HIT:the ogre (2)
+455984 1887321 0 # KILL:the ogre (2)
+455984 1887321 0 # Flowing toward item at cost 1
+455984 1887321 0 # Walking onto and deleting a 'silver' at (12,65)
+455985 1887331 84 You have found 670 gold pieces worth of silver.
+455986 1887331 0 # Flowing toward item at cost 0
+455986 1887331 0 # Activating item Phial of Galadriel <+4>.
+455986 1887331 0 # Illuminating the dungeon
+455988 1887331 31 You activate it.
+455988 1887331 0 The Phial wells with clear light...
+455988 1887331 0 You are surrounded by a white light.
+455990 1887341 0 # SELF:lite (+)
+455990 1887341 0 # Called lite at (12,65)
+455990 1887341 0 # SELF:lite (1)
+455990 1887341 0 # Flowing toward item at cost 2
+455991 1887351 0 # Walking onto and deleting a '& Bolt~' at (10,67)
+455992 1887351 0 You have found a trap.
+455992 1887361 0 You have 21 Bolts (1d5) (+0,+0) (0).
+455993 1887362 0 # Creating a monster 'eastern dwarf' at (12,73), HP: 39, Index: 113
+455993 1887362 0 # Removing Regional Fear (12,73) because of a LOS eastern dwarf
+455993 1887362 0 # Creating a monster 'ogre' at (12,72), HP: 18, Index: 181
+455993 1887362 0 # Removing Regional Fear (12,72) because of a LOS ogre
+455993 1887362 0 # Creating a monster 'eastern dwarf' at (11,70), HP: 34, Index: 113
+455993 1887362 0 # Removing Regional Fear (11,70) because of a LOS eastern dwarf
+455993 1887362 0 # Loc:10,67 Dep:26 Lev:31 HP:389/389 SP:0/0 Danger:p=10
+455993 1887362 0 # Performing attack type 109 with value 82.
+455993 1887362 0 # Targeting eastern dwarf who has 34 Hit Points (11,70).
+455993 1887362 0 # Activating item Set of Gauntlets 'Paurhach' [3,+14].
+455999 1887362 0 Target Selected.
+456003 1887362 31 You activate it.
+456003 1887362 0 Your Set of Gauntlets is covered in fire...
+456003 1887362 6 The eastern dwarf dies.
+456004 1887369 0 The dark dwarven lord tries to cast a spell, but fails.
+456006 1887372 0 # DIED:The eastern dwarf (+)
+456006 1887372 0 # Forgetting a monster 'eastern dwarf' at (11,70)
+456006 1887372 0 # Tracking a monster 'eastern dwarf' at (12,72) from (12,73)
+456006 1887372 0 # Tracking a monster 'ogre' at (11,71) from (12,72)
+456006 1887372 0 # Creating a monster 'dark dwarven lord' at (13,74), HP: 134, Index: 249
+456006 1887372 0 # Removing Regional Fear (13,74) because of a LOS dark dwarven lord
+456006 1887372 0 # Creating a monster 'phase spider' at (12,74), HP: 30, Index: 265
+456006 1887372 0 # Removing Regional Fear (12,74) because of a LOS phase spider
+456006 1887372 0 # Creating a monster 'eastern dwarf' at (11,70), HP: 43, Index: 113
+456006 1887372 0 # Removing Regional Fear (11,70) because of a LOS eastern dwarf
+456006 1887372 0 # DIED:The eastern dwarf (2)
+456006 1887372 0 # Loc:10,67 Dep:26 Lev:31 HP:389/389 SP:0/0 Danger:p=257
+456006 1887372 0 # Retreating to 15,63 (distance 5) via 11,67 (257 > 0)
+456007 1887382 0 # Tracking a monster 'eastern dwarf' at (11,69) from (11,70)
+456007 1887382 0 # Tracking a monster 'ogre' at (10,70) from (11,71)
+456007 1887382 0 # Flickering monster 'phase spider' at (11,72)
+456007 1887382 0 # Converting a monster 'phase spider' at (12,74)
+456007 1887382 0 # Tracking a monster 'phase spider' at (11,72) from (12,74)
+456007 1887382 0 # Creating a monster 'giant tarantula' at (11,70), HP: 95, Index: 199
+456007 1887382 0 # Removing Regional Fear (11,70) because of a LOS giant tarantula
+456007 1887382 0 # There was a monster 'eastern dwarf' at (12,72)
+456007 1887382 0 # Forgetting a monster 'eastern dwarf' at (12,72)
+456007 1887382 0 # Loc:11,67 Dep:26 Lev:31 HP:389/389 SP:0/0 Danger:p=105
+456007 1887382 0 # Performing attack type 3 with value 32.
+456007 1887382 0 # Targeting eastern dwarf who has 43 Hit Points (11,69).
+456007 1887382 0 # Firing missile 'Bolts (1d5) (+0,+0)'
+456012 1887382 0 Target Selected.
+456016 1887382 85 Your Bolt (1d5) (+0,+0) hits the eastern dwarf.
+456016 1887382 0 You have 20 Bolts (1d5) (+0,+0) (0).
+456017 1887382 0 The eastern dwarf writhes in agony.
+456017 1887382 4 The eastern dwarf flees in terror!
+456018 1887388 10 The phase spider commands you to return.
+456019 1887389 0 The giant tarantula misses you.
+456019 1887389 0 The giant tarantula misses you.
+456020 1887389 0 The giant tarantula misses you.
+456020 1887391 10 The phase spider blinks toward you.
+456021 1887392 0 The eastern dwarf surrounds you in darkness.
+456022 1887392 0 Darkness surrounds you.
+456022 1887392 54 You are blind.
+456024 1887392 0 # PAIN:The eastern dwarf (+)
+456024 1887392 0 # PAIN:The eastern dwarf (+)
+456024 1887392 0 # SPELL_068:The phase spider (+)
+456024 1887392 0 # MISS_BY:The giant tarantula (+)
+456024 1887392 0 # MISS_BY:The giant tarantula (+)
+456024 1887392 0 # MISS_BY:The giant tarantula (+)
+456024 1887392 0 # SPELL_069:The phase spider (+)
+456024 1887392 0 # SPELL_072:The eastern dwarf (+)
+456024 1887392 0 # Creating an object '& Bolt~' at (69,11)
+456024 1887392 0 # PAIN:The eastern dwarf (2)
+456024 1887392 0 # PAIN:The eastern dwarf (2)
+456024 1887392 0 # SPELL_068:The phase spider (3)
+456024 1887392 0 # MISS_BY:The giant tarantula (3)
+456024 1887392 0 # MISS_BY:The giant tarantula (3)
+456024 1887392 0 # MISS_BY:The giant tarantula (3)
+456024 1887392 0 # SPELL_069:The phase spider (3)
+456024 1887392 0 # SPELL_072:The eastern dwarf (3)
+456024 1887392 0 # Loc:11,70 Dep:26 Lev:31 HP:379/389 SP:0/0 Danger:p=369
+456024 1887392 0 # No Phase. scary squares: 30
+456024 1887392 0 # Leaving (failed to teleport)
+456024 1887392 0 # Performing attack type 1 with value 18.
+456024 1887392 0 # Facing giant tarantula at (11,70) who has 95 Hit Points.
+456024 1887392 0 # Attacking with weapon 'Bastard Sword of *Slay Dragon* (3d4) (+7,+5) <+2>'
+456026 1887392 0 ** UNEXPECTED REQUEST FOR DIRECTION Dumping keypress history ***
+456026 1887392 0 ** line starting <Direction or <click> (Escape to cancel)?> ***
+456026 1887392 0 & Key history <2> (0x32)
+456026 1887392 0 & Key history <*> (0x2A)
+456026 1887392 0 & Key history <p> (0x70)
+456026 1887392 0 & Key history <6> (0x36)
+456026 1887392 0 & Key history <6> (0x36)
+456026 1887392 0 & Key history <5> (0x35)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history <f> (0x66)
+456026 1887392 0 & Key history <0> (0x30)
+456026 1887392 0 & Key history <5> (0x35)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history < > (0x20)
+456026 1887392 0 & Key history <+> (0x2B)
+456026 1887392 0 & Key history <5> (0x35)
+456026 1887392 0 # Aborting (unexpected request for direction).
+456027 1887392 0 # Removing keypress hook

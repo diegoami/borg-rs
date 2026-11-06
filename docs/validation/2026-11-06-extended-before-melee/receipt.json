@@ -1,0 +1,948 @@
+{
+  "passes": {
+    "extended-c1": {
+      "ext-blackguard": {
+        "logs_sha256": {
+          "keys.log": "2b44a505fe4d49292fad74e8410d7f8beb3083fb8ff51d583320f511841886b6",
+          "messages.log": "712a01b22f73dafa3a13110cd50106530bddd350e1c91daca50af578529d00b1",
+          "state.log": "c424820fe03cb9a7806bc4ee0fcbc4626cf0d09c10c5d2345660029b70a6e5b7"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 25,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000005,
+          "keys": 415260,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 201126,
+          "race": "Half-Troll",
+          "race_idx": 7,
+          "resting_turns": 4938,
+          "seed": 4008,
+          "stop_reason": "turns",
+          "wall_seconds": 314.85
+        }
+      },
+      "ext-druid": {
+        "logs_sha256": {
+          "keys.log": "24e41483302c46c6dcc830419e4af9513302a1c2ed5a40582a7f2d2e7fc9d066",
+          "messages.log": "eae62ff1b1d672e812eaa3bd251e1024268b417e8fa067b9bfd2219b8898f3dd",
+          "state.log": "1a6cf466ffac2190113ac47ab79165014ab11e21da1c7813be3eb3b314d879f8"
+        },
+        "summary": {
+          "class": "Druid",
+          "class_idx": 2,
+          "clevel": 22,
+          "dead": false,
+          "death_cause": "",
+          "depth": 7,
+          "game_turns": 2000008,
+          "keys": 233981,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 199711,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 94793,
+          "seed": 4002,
+          "stop_reason": "turns",
+          "wall_seconds": 171.875
+        }
+      },
+      "ext-long-blackguard-3100": {
+        "logs_sha256": {
+          "keys.log": "f0d01b162b975257957a5d4753957a76c251710311f4ff47847f09c83e674cb4",
+          "messages.log": "7aaadcf5d4974931227a953fe1890cf672d3e149a1e40adb4139429d9b7705bc",
+          "state.log": "850e81584b605b62141a3bffbec0cfe3697862d28280a290059e2825be5e1d41"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 43,
+          "dead": false,
+          "death_cause": "",
+          "depth": 10,
+          "game_turns": 5000002,
+          "keys": 1365649,
+          "max_depth": 51,
+          "menu_letters": true,
+          "player_turns": 598125,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 119405,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 670.584
+        }
+      },
+      "ext-long-warrior-2000": {
+        "logs_sha256": {
+          "keys.log": "e3bb36e62d857babcddd3a564d7456375215282b7db0a7a802b6cad602984f95",
+          "messages.log": "19c77b7d6aa36df24d16501bf397847d69df671eb7bb71a638b27539a4c86409",
+          "state.log": "fd4a8c0639c3393397cb0f9dd55a14db739777d95db3c5e6410fe549d9bdfc92"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 31,
+          "dead": false,
+          "death_cause": "",
+          "depth": 26,
+          "game_turns": 1887392,
+          "keys": 456028,
+          "max_depth": 26,
+          "menu_letters": true,
+          "player_turns": 189000,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 13409,
+          "seed": 2000,
+          "stop_reason": "borg_stopped",
+          "wall_seconds": 304.853
+        }
+      },
+      "ext-long-warrior-2007": {
+        "logs_sha256": {
+          "keys.log": "9ee414da8406e02176c3b5318d680de99fe73e8f8e7a04faa3a72653b7dbbd85",
+          "messages.log": "e7916a8e6b396b3108891640faa720ec4970c6962753ec11eb13c1b8d250aa5c",
+          "state.log": "5767cfd525fc2d3626fb88eadb5ac474acd3f1d87bbe6195cb41d187892eab3d"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 97,
+          "game_turns": 5000192,
+          "keys": 3239292,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 1333034,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 347720,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 1159.966
+        }
+      },
+      "ext-mage": {
+        "logs_sha256": {
+          "keys.log": "fd2986d3b3ef84f53c55f59f2e28aee74ac2c3057e7fae49e2eb586017801360",
+          "messages.log": "64c044010230fef112fccba4ac3a37bff9ce644703c397b19c153c22ade85be5",
+          "state.log": "6a867492762da7908954a00ec6c54178888060615d945aae5088b8c77fdff2eb"
+        },
+        "summary": {
+          "class": "Mage",
+          "class_idx": 1,
+          "clevel": 26,
+          "dead": false,
+          "death_cause": "",
+          "depth": 22,
+          "game_turns": 2000006,
+          "keys": 282144,
+          "max_depth": 23,
+          "menu_letters": true,
+          "player_turns": 197280,
+          "race": "High-Elf",
+          "race_idx": 9,
+          "resting_turns": 84318,
+          "seed": 4001,
+          "stop_reason": "turns",
+          "wall_seconds": 244.588
+        }
+      },
+      "ext-necro": {
+        "logs_sha256": {
+          "keys.log": "029989ae9dd02d37a49ade15626792bc3cebfa442c118483e4bbfcd4223c67d1",
+          "messages.log": "68651e2555da890de79647470cd639a4405824eecd45b9331cf1a9f489ef1674",
+          "state.log": "fe7baf974b3e993c30a8b73409cbb03e13c41ef6b15cdac5d88e47881c887535"
+        },
+        "summary": {
+          "class": "Necromancer",
+          "class_idx": 4,
+          "clevel": 11,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000693,
+          "keys": 132416,
+          "max_depth": 3,
+          "menu_letters": true,
+          "player_turns": 200891,
+          "race": "Kobold",
+          "race_idx": 10,
+          "resting_turns": 144751,
+          "seed": 4004,
+          "stop_reason": "turns",
+          "wall_seconds": 91.556
+        }
+      },
+      "ext-paladin": {
+        "logs_sha256": {
+          "keys.log": "c7d08a9666e0069816612773ead0a2e0a004a0c0713600a74b33c2bc000be916",
+          "messages.log": "01a191d03e00326a44e0dc58b7ad416a19ca640a9c6ab1ac335b81336961edeb",
+          "state.log": "829c86765cb78b9c585797fe61524107405dc5a63758419874e0023b72e9d0b9"
+        },
+        "summary": {
+          "class": "Paladin",
+          "class_idx": 5,
+          "clevel": 23,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000007,
+          "keys": 265250,
+          "max_depth": 31,
+          "menu_letters": true,
+          "player_turns": 200255,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 87898,
+          "seed": 4005,
+          "stop_reason": "turns",
+          "wall_seconds": 181.38
+        }
+      },
+      "ext-priest": {
+        "logs_sha256": {
+          "keys.log": "306068f8fd1d134981e67a7342e25887f230d66f864494f4ca53a3b9701137c0",
+          "messages.log": "546e75c9959ca51e684db4db0a80180606b0ba8510c0d40f015739f6e8059f06",
+          "state.log": "72909e51cb4a532d7cfcdfcb078096d5eaf288096249fa533bd022e908ec6c5b"
+        },
+        "summary": {
+          "class": "Priest",
+          "class_idx": 3,
+          "clevel": 13,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000006,
+          "keys": 186188,
+          "max_depth": 4,
+          "menu_letters": true,
+          "player_turns": 200082,
+          "race": "Dwarf",
+          "race_idx": 5,
+          "resting_turns": 137537,
+          "seed": 4003,
+          "stop_reason": "turns",
+          "wall_seconds": 91.273
+        }
+      },
+      "ext-ranger": {
+        "logs_sha256": {
+          "keys.log": "b2f943f8a2c197e878332d8558c16720f12d4ab321fed4e4c4cb6724de21766e",
+          "messages.log": "1df251595bf2a4116349927119293256634451c71449b8f47313821475c2234e",
+          "state.log": "8a1da49fafccd5aae32afda3e9534900529bf50bcb4f6b50db89dd159cbf0e06"
+        },
+        "summary": {
+          "class": "Ranger",
+          "class_idx": 7,
+          "clevel": 29,
+          "dead": false,
+          "death_cause": "",
+          "depth": 36,
+          "game_turns": 2000004,
+          "keys": 357366,
+          "max_depth": 36,
+          "menu_letters": true,
+          "player_turns": 199645,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 66388,
+          "seed": 4007,
+          "stop_reason": "turns",
+          "wall_seconds": 246.871
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 269.107
+        }
+      },
+      "ext-warrior": {
+        "logs_sha256": {
+          "keys.log": "fbf2ff6ac06bdf795026b53133484552e51344757979dafa08577f1628f6c29c",
+          "messages.log": "bf58cd10c8e4d5d09cb01f0444059097b9239f30e51a9f0f24854abfeabce1bd",
+          "state.log": "df955b6f5f4de6a9c0625c593fc8fdca7b15a741a69c8e34536ab507d08315dc"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 34,
+          "dead": false,
+          "death_cause": "",
+          "depth": 32,
+          "game_turns": 2000005,
+          "keys": 600749,
+          "max_depth": 34,
+          "menu_letters": true,
+          "player_turns": 214554,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 22477,
+          "seed": 4000,
+          "stop_reason": "turns",
+          "wall_seconds": 364.768
+        }
+      }
+    },
+    "extended-c2": {
+      "ext-blackguard": {
+        "logs_sha256": {
+          "keys.log": "2b44a505fe4d49292fad74e8410d7f8beb3083fb8ff51d583320f511841886b6",
+          "messages.log": "712a01b22f73dafa3a13110cd50106530bddd350e1c91daca50af578529d00b1",
+          "state.log": "c424820fe03cb9a7806bc4ee0fcbc4626cf0d09c10c5d2345660029b70a6e5b7"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 25,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000005,
+          "keys": 415260,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 201126,
+          "race": "Half-Troll",
+          "race_idx": 7,
+          "resting_turns": 4938,
+          "seed": 4008,
+          "stop_reason": "turns",
+          "wall_seconds": 316.414
+        }
+      },
+      "ext-druid": {
+        "logs_sha256": {
+          "keys.log": "24e41483302c46c6dcc830419e4af9513302a1c2ed5a40582a7f2d2e7fc9d066",
+          "messages.log": "eae62ff1b1d672e812eaa3bd251e1024268b417e8fa067b9bfd2219b8898f3dd",
+          "state.log": "1a6cf466ffac2190113ac47ab79165014ab11e21da1c7813be3eb3b314d879f8"
+        },
+        "summary": {
+          "class": "Druid",
+          "class_idx": 2,
+          "clevel": 22,
+          "dead": false,
+          "death_cause": "",
+          "depth": 7,
+          "game_turns": 2000008,
+          "keys": 233981,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 199711,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 94793,
+          "seed": 4002,
+          "stop_reason": "turns",
+          "wall_seconds": 172.486
+        }
+      },
+      "ext-long-blackguard-3100": {
+        "logs_sha256": {
+          "keys.log": "f0d01b162b975257957a5d4753957a76c251710311f4ff47847f09c83e674cb4",
+          "messages.log": "7aaadcf5d4974931227a953fe1890cf672d3e149a1e40adb4139429d9b7705bc",
+          "state.log": "850e81584b605b62141a3bffbec0cfe3697862d28280a290059e2825be5e1d41"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 43,
+          "dead": false,
+          "death_cause": "",
+          "depth": 10,
+          "game_turns": 5000002,
+          "keys": 1365649,
+          "max_depth": 51,
+          "menu_letters": true,
+          "player_turns": 598125,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 119405,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 669.216
+        }
+      },
+      "ext-long-warrior-2000": {
+        "logs_sha256": {
+          "keys.log": "e3bb36e62d857babcddd3a564d7456375215282b7db0a7a802b6cad602984f95",
+          "messages.log": "19c77b7d6aa36df24d16501bf397847d69df671eb7bb71a638b27539a4c86409",
+          "state.log": "fd4a8c0639c3393397cb0f9dd55a14db739777d95db3c5e6410fe549d9bdfc92"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 31,
+          "dead": false,
+          "death_cause": "",
+          "depth": 26,
+          "game_turns": 1887392,
+          "keys": 456028,
+          "max_depth": 26,
+          "menu_letters": true,
+          "player_turns": 189000,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 13409,
+          "seed": 2000,
+          "stop_reason": "borg_stopped",
+          "wall_seconds": 302.361
+        }
+      },
+      "ext-long-warrior-2007": {
+        "logs_sha256": {
+          "keys.log": "9ee414da8406e02176c3b5318d680de99fe73e8f8e7a04faa3a72653b7dbbd85",
+          "messages.log": "e7916a8e6b396b3108891640faa720ec4970c6962753ec11eb13c1b8d250aa5c",
+          "state.log": "5767cfd525fc2d3626fb88eadb5ac474acd3f1d87bbe6195cb41d187892eab3d"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 97,
+          "game_turns": 5000192,
+          "keys": 3239292,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 1333034,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 347720,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 1166.619
+        }
+      },
+      "ext-mage": {
+        "logs_sha256": {
+          "keys.log": "fd2986d3b3ef84f53c55f59f2e28aee74ac2c3057e7fae49e2eb586017801360",
+          "messages.log": "64c044010230fef112fccba4ac3a37bff9ce644703c397b19c153c22ade85be5",
+          "state.log": "6a867492762da7908954a00ec6c54178888060615d945aae5088b8c77fdff2eb"
+        },
+        "summary": {
+          "class": "Mage",
+          "class_idx": 1,
+          "clevel": 26,
+          "dead": false,
+          "death_cause": "",
+          "depth": 22,
+          "game_turns": 2000006,
+          "keys": 282144,
+          "max_depth": 23,
+          "menu_letters": true,
+          "player_turns": 197280,
+          "race": "High-Elf",
+          "race_idx": 9,
+          "resting_turns": 84318,
+          "seed": 4001,
+          "stop_reason": "turns",
+          "wall_seconds": 245.698
+        }
+      },
+      "ext-necro": {
+        "logs_sha256": {
+          "keys.log": "029989ae9dd02d37a49ade15626792bc3cebfa442c118483e4bbfcd4223c67d1",
+          "messages.log": "68651e2555da890de79647470cd639a4405824eecd45b9331cf1a9f489ef1674",
+          "state.log": "fe7baf974b3e993c30a8b73409cbb03e13c41ef6b15cdac5d88e47881c887535"
+        },
+        "summary": {
+          "class": "Necromancer",
+          "class_idx": 4,
+          "clevel": 11,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000693,
+          "keys": 132416,
+          "max_depth": 3,
+          "menu_letters": true,
+          "player_turns": 200891,
+          "race": "Kobold",
+          "race_idx": 10,
+          "resting_turns": 144751,
+          "seed": 4004,
+          "stop_reason": "turns",
+          "wall_seconds": 91.559
+        }
+      },
+      "ext-paladin": {
+        "logs_sha256": {
+          "keys.log": "c7d08a9666e0069816612773ead0a2e0a004a0c0713600a74b33c2bc000be916",
+          "messages.log": "01a191d03e00326a44e0dc58b7ad416a19ca640a9c6ab1ac335b81336961edeb",
+          "state.log": "829c86765cb78b9c585797fe61524107405dc5a63758419874e0023b72e9d0b9"
+        },
+        "summary": {
+          "class": "Paladin",
+          "class_idx": 5,
+          "clevel": 23,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000007,
+          "keys": 265250,
+          "max_depth": 31,
+          "menu_letters": true,
+          "player_turns": 200255,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 87898,
+          "seed": 4005,
+          "stop_reason": "turns",
+          "wall_seconds": 183.977
+        }
+      },
+      "ext-priest": {
+        "logs_sha256": {
+          "keys.log": "306068f8fd1d134981e67a7342e25887f230d66f864494f4ca53a3b9701137c0",
+          "messages.log": "546e75c9959ca51e684db4db0a80180606b0ba8510c0d40f015739f6e8059f06",
+          "state.log": "72909e51cb4a532d7cfcdfcb078096d5eaf288096249fa533bd022e908ec6c5b"
+        },
+        "summary": {
+          "class": "Priest",
+          "class_idx": 3,
+          "clevel": 13,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000006,
+          "keys": 186188,
+          "max_depth": 4,
+          "menu_letters": true,
+          "player_turns": 200082,
+          "race": "Dwarf",
+          "race_idx": 5,
+          "resting_turns": 137537,
+          "seed": 4003,
+          "stop_reason": "turns",
+          "wall_seconds": 88.198
+        }
+      },
+      "ext-ranger": {
+        "logs_sha256": {
+          "keys.log": "b2f943f8a2c197e878332d8558c16720f12d4ab321fed4e4c4cb6724de21766e",
+          "messages.log": "1df251595bf2a4116349927119293256634451c71449b8f47313821475c2234e",
+          "state.log": "8a1da49fafccd5aae32afda3e9534900529bf50bcb4f6b50db89dd159cbf0e06"
+        },
+        "summary": {
+          "class": "Ranger",
+          "class_idx": 7,
+          "clevel": 29,
+          "dead": false,
+          "death_cause": "",
+          "depth": 36,
+          "game_turns": 2000004,
+          "keys": 357366,
+          "max_depth": 36,
+          "menu_letters": true,
+          "player_turns": 199645,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 66388,
+          "seed": 4007,
+          "stop_reason": "turns",
+          "wall_seconds": 248.427
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 269.35
+        }
+      },
+      "ext-warrior": {
+        "logs_sha256": {
+          "keys.log": "fbf2ff6ac06bdf795026b53133484552e51344757979dafa08577f1628f6c29c",
+          "messages.log": "bf58cd10c8e4d5d09cb01f0444059097b9239f30e51a9f0f24854abfeabce1bd",
+          "state.log": "df955b6f5f4de6a9c0625c593fc8fdca7b15a741a69c8e34536ab507d08315dc"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 34,
+          "dead": false,
+          "death_cause": "",
+          "depth": 32,
+          "game_turns": 2000005,
+          "keys": 600749,
+          "max_depth": 34,
+          "menu_letters": true,
+          "player_turns": 214554,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 22477,
+          "seed": 4000,
+          "stop_reason": "turns",
+          "wall_seconds": 369.519
+        }
+      }
+    },
+    "extended-rust": {
+      "ext-blackguard": {
+        "logs_sha256": {
+          "keys.log": "2b44a505fe4d49292fad74e8410d7f8beb3083fb8ff51d583320f511841886b6",
+          "messages.log": "712a01b22f73dafa3a13110cd50106530bddd350e1c91daca50af578529d00b1",
+          "state.log": "c424820fe03cb9a7806bc4ee0fcbc4626cf0d09c10c5d2345660029b70a6e5b7"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 25,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000005,
+          "keys": 415260,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 201126,
+          "race": "Half-Troll",
+          "race_idx": 7,
+          "resting_turns": 4938,
+          "seed": 4008,
+          "stop_reason": "turns",
+          "wall_seconds": 318.213
+        }
+      },
+      "ext-druid": {
+        "logs_sha256": {
+          "keys.log": "24e41483302c46c6dcc830419e4af9513302a1c2ed5a40582a7f2d2e7fc9d066",
+          "messages.log": "eae62ff1b1d672e812eaa3bd251e1024268b417e8fa067b9bfd2219b8898f3dd",
+          "state.log": "1a6cf466ffac2190113ac47ab79165014ab11e21da1c7813be3eb3b314d879f8"
+        },
+        "summary": {
+          "class": "Druid",
+          "class_idx": 2,
+          "clevel": 22,
+          "dead": false,
+          "death_cause": "",
+          "depth": 7,
+          "game_turns": 2000008,
+          "keys": 233981,
+          "max_depth": 19,
+          "menu_letters": true,
+          "player_turns": 199711,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 94793,
+          "seed": 4002,
+          "stop_reason": "turns",
+          "wall_seconds": 174.23
+        }
+      },
+      "ext-long-blackguard-3100": {
+        "logs_sha256": {
+          "keys.log": "f0d01b162b975257957a5d4753957a76c251710311f4ff47847f09c83e674cb4",
+          "messages.log": "7aaadcf5d4974931227a953fe1890cf672d3e149a1e40adb4139429d9b7705bc",
+          "state.log": "850e81584b605b62141a3bffbec0cfe3697862d28280a290059e2825be5e1d41"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 43,
+          "dead": false,
+          "death_cause": "",
+          "depth": 10,
+          "game_turns": 5000002,
+          "keys": 1365649,
+          "max_depth": 51,
+          "menu_letters": true,
+          "player_turns": 598125,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 119405,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 687.2
+        }
+      },
+      "ext-long-warrior-2000": {
+        "logs_sha256": {
+          "keys.log": "e3bb36e62d857babcddd3a564d7456375215282b7db0a7a802b6cad602984f95",
+          "messages.log": "19c77b7d6aa36df24d16501bf397847d69df671eb7bb71a638b27539a4c86409",
+          "state.log": "fd4a8c0639c3393397cb0f9dd55a14db739777d95db3c5e6410fe549d9bdfc92"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 31,
+          "dead": false,
+          "death_cause": "",
+          "depth": 26,
+          "game_turns": 1887392,
+          "keys": 456028,
+          "max_depth": 26,
+          "menu_letters": true,
+          "player_turns": 189000,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 13409,
+          "seed": 2000,
+          "stop_reason": "borg_stopped",
+          "wall_seconds": 303.125
+        }
+      },
+      "ext-long-warrior-2007": {
+        "logs_sha256": {
+          "keys.log": "9ee414da8406e02176c3b5318d680de99fe73e8f8e7a04faa3a72653b7dbbd85",
+          "messages.log": "e7916a8e6b396b3108891640faa720ec4970c6962753ec11eb13c1b8d250aa5c",
+          "state.log": "5767cfd525fc2d3626fb88eadb5ac474acd3f1d87bbe6195cb41d187892eab3d"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 97,
+          "game_turns": 5000192,
+          "keys": 3239292,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 1333034,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 347720,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 1198.316
+        }
+      },
+      "ext-mage": {
+        "logs_sha256": {
+          "keys.log": "fd2986d3b3ef84f53c55f59f2e28aee74ac2c3057e7fae49e2eb586017801360",
+          "messages.log": "64c044010230fef112fccba4ac3a37bff9ce644703c397b19c153c22ade85be5",
+          "state.log": "6a867492762da7908954a00ec6c54178888060615d945aae5088b8c77fdff2eb"
+        },
+        "summary": {
+          "class": "Mage",
+          "class_idx": 1,
+          "clevel": 26,
+          "dead": false,
+          "death_cause": "",
+          "depth": 22,
+          "game_turns": 2000006,
+          "keys": 282144,
+          "max_depth": 23,
+          "menu_letters": true,
+          "player_turns": 197280,
+          "race": "High-Elf",
+          "race_idx": 9,
+          "resting_turns": 84318,
+          "seed": 4001,
+          "stop_reason": "turns",
+          "wall_seconds": 244.492
+        }
+      },
+      "ext-necro": {
+        "logs_sha256": {
+          "keys.log": "029989ae9dd02d37a49ade15626792bc3cebfa442c118483e4bbfcd4223c67d1",
+          "messages.log": "68651e2555da890de79647470cd639a4405824eecd45b9331cf1a9f489ef1674",
+          "state.log": "fe7baf974b3e993c30a8b73409cbb03e13c41ef6b15cdac5d88e47881c887535"
+        },
+        "summary": {
+          "class": "Necromancer",
+          "class_idx": 4,
+          "clevel": 11,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000693,
+          "keys": 132416,
+          "max_depth": 3,
+          "menu_letters": true,
+          "player_turns": 200891,
+          "race": "Kobold",
+          "race_idx": 10,
+          "resting_turns": 144751,
+          "seed": 4004,
+          "stop_reason": "turns",
+          "wall_seconds": 95.669
+        }
+      },
+      "ext-paladin": {
+        "logs_sha256": {
+          "keys.log": "c7d08a9666e0069816612773ead0a2e0a004a0c0713600a74b33c2bc000be916",
+          "messages.log": "01a191d03e00326a44e0dc58b7ad416a19ca640a9c6ab1ac335b81336961edeb",
+          "state.log": "829c86765cb78b9c585797fe61524107405dc5a63758419874e0023b72e9d0b9"
+        },
+        "summary": {
+          "class": "Paladin",
+          "class_idx": 5,
+          "clevel": 23,
+          "dead": false,
+          "death_cause": "",
+          "depth": 3,
+          "game_turns": 2000007,
+          "keys": 265250,
+          "max_depth": 31,
+          "menu_letters": true,
+          "player_turns": 200255,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 87898,
+          "seed": 4005,
+          "stop_reason": "turns",
+          "wall_seconds": 183.569
+        }
+      },
+      "ext-priest": {
+        "logs_sha256": {
+          "keys.log": "306068f8fd1d134981e67a7342e25887f230d66f864494f4ca53a3b9701137c0",
+          "messages.log": "546e75c9959ca51e684db4db0a80180606b0ba8510c0d40f015739f6e8059f06",
+          "state.log": "72909e51cb4a532d7cfcdfcb078096d5eaf288096249fa533bd022e908ec6c5b"
+        },
+        "summary": {
+          "class": "Priest",
+          "class_idx": 3,
+          "clevel": 13,
+          "dead": false,
+          "death_cause": "",
+          "depth": 2,
+          "game_turns": 2000006,
+          "keys": 186188,
+          "max_depth": 4,
+          "menu_letters": true,
+          "player_turns": 200082,
+          "race": "Dwarf",
+          "race_idx": 5,
+          "resting_turns": 137537,
+          "seed": 4003,
+          "stop_reason": "turns",
+          "wall_seconds": 92.451
+        }
+      },
+      "ext-ranger": {
+        "logs_sha256": {
+          "keys.log": "b2f943f8a2c197e878332d8558c16720f12d4ab321fed4e4c4cb6724de21766e",
+          "messages.log": "1df251595bf2a4116349927119293256634451c71449b8f47313821475c2234e",
+          "state.log": "8a1da49fafccd5aae32afda3e9534900529bf50bcb4f6b50db89dd159cbf0e06"
+        },
+        "summary": {
+          "class": "Ranger",
+          "class_idx": 7,
+          "clevel": 29,
+          "dead": false,
+          "death_cause": "",
+          "depth": 36,
+          "game_turns": 2000004,
+          "keys": 357366,
+          "max_depth": 36,
+          "menu_letters": true,
+          "player_turns": 199645,
+          "race": "Half-Elf",
+          "race_idx": 1,
+          "resting_turns": 66388,
+          "seed": 4007,
+          "stop_reason": "turns",
+          "wall_seconds": 253.639
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 273.402
+        }
+      },
+      "ext-warrior": {
+        "logs_sha256": {
+          "keys.log": "fbf2ff6ac06bdf795026b53133484552e51344757979dafa08577f1628f6c29c",
+          "messages.log": "bf58cd10c8e4d5d09cb01f0444059097b9239f30e51a9f0f24854abfeabce1bd",
+          "state.log": "df955b6f5f4de6a9c0625c593fc8fdca7b15a741a69c8e34536ab507d08315dc"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 34,
+          "dead": false,
+          "death_cause": "",
+          "depth": 32,
+          "game_turns": 2000005,
+          "keys": 600749,
+          "max_depth": 34,
+          "menu_letters": true,
+          "player_turns": 214554,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 22477,
+          "seed": 4000,
+          "stop_reason": "turns",
+          "wall_seconds": 380.843
+        }
+      }
+    }
+  },
+  "scope": "Historical 12-case parity; Warrior2000 stops early with same-square melee defect, not a passed 5M-turn play requirement",
+  "source_commit": "26a96bee4570496dceee5f9f6407a91036c55891"
+}

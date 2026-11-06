@@ -1,0 +1,2 @@
+C body source: /home/diego/projects/borg-rs/angband/src/borg/borg-fight-attack.c sha256=94735d6d110db5feb9d2ad5a31a8be3c077a6a2d5ccd49f629fd3aa593b180e6
+actual C thrust body: center/distant rejected; all eight adjacent grids retained in apply/simulate modes

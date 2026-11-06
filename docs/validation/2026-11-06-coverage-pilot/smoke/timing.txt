@@ -1,0 +1,4 @@
+suite=smoke impl=rust jobs=4 wall_seconds=25.963382475 result=OK
+smoke-warrior-1 turns turns=20004 pturns=2086 clev=3 maxdepth=1 keys=2705 wall=25.8 Human Warrior
+smoke-mage-2 turns turns=20005 pturns=2045 clev=2 maxdepth=1 keys=1978 wall=6.6 Elf Mage
+smoke-priest-3 turns turns=20005 pturns=2049 clev=1 maxdepth=2 keys=2567 wall=5.1 Dwarf Priest
