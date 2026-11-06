@@ -21,9 +21,3 @@ pub use super::z_type_h::loc;
 use super::*;
 /// `borg_take` (borg-flow-take.c, converted; same C layout).
 pub type borg_take = crate::borg_flow_take::BorgTake;
-pub use crate::bridge::flow_take::borg_follow_take;
-pub use crate::bridge::flow_take::borg_free_flow_take;
-pub use crate::bridge::flow_take::borg_get_top_object;
-pub use crate::bridge::flow_take::borg_init_flow_take;
-pub use crate::bridge::flow_take::observe_take_diff;
-pub use crate::bridge::flow_take::observe_take_move;

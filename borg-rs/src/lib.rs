@@ -21,9 +21,6 @@ extern crate libc;
 #[allow(clippy::all)]
 #[allow(unsafe_code)]
 pub mod bridge;
-#[allow(clippy::all)]
-#[allow(unsafe_code)]
-pub mod c2rust;
 pub mod cctype;
 #[allow(clippy::all)]
 #[allow(unsafe_code)]

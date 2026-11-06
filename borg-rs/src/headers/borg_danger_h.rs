@@ -2,7 +2,6 @@
 pub use super::stdint_uintn_h::uint16_t;
 #[allow(unused_imports)]
 use super::*;
-pub use crate::bridge::danger::borg_danger;
 pub type BORG_MONBLOW = ::core::ffi::c_uint;
 pub const MONBLOW_UNDEFINED: BORG_MONBLOW = 30;
 pub const MONBLOW_BLACK_BREATH: BORG_MONBLOW = 29;
@@ -35,4 +34,3 @@ pub const MONBLOW_DISENCHANT: BORG_MONBLOW = 3;
 pub const MONBLOW_POISON: BORG_MONBLOW = 2;
 pub const MONBLOW_HURT: BORG_MONBLOW = 1;
 pub const MONBLOW_NONE: BORG_MONBLOW = 0;
-pub use crate::bridge::danger::borg_danger_one_kill;

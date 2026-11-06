@@ -823,14 +823,6 @@ pub fn spell_chance(spell_index: i32) -> i16 {
 pub struct AngFile(*mut crate::headers::z_file_h::ang_file);
 
 impl AngFile {
-    /// Wrap an open file.
-    ///
-    /// # Safety
-    /// `f` must be an open `ang_file` that stays open while the handle is
-    /// used.
-    pub unsafe fn from_raw(f: *mut crate::headers::z_file_h::ang_file) -> Self {
-        AngFile(f)
-    }
 }
 
 /// `file_getl(f, buf, len)`: read a line into `buf` (at most `len - 1`
@@ -1204,10 +1196,6 @@ pub fn store_stock(store: usize) -> Vec<StoreObject> {
 }
 
 impl StoreObject {
-    /// The raw object, for transitional bridge calls into c2rust code.
-    pub fn as_ptr(self) -> *const crate::headers::object_h::object {
-        self.0
-    }
 
     /// `object_desc(buf, 120, obj, mode, player)` (bytes up to the NUL).
     pub fn desc120(self, mode: u32) -> Vec<u8> {
@@ -1375,10 +1363,6 @@ pub fn prt(s: &[u8], row: i32, col: i32) {
 pub struct CarriedObject(*const crate::headers::object_h::object);
 
 impl CarriedObject {
-    /// The raw object, for transitional c2rust calls (bridge).
-    pub fn as_ptr(self) -> *const crate::headers::object_h::object {
-        self.0
-    }
 
     /// `obj && obj->kind`
     fn with_kind(obj: *const crate::headers::object_h::object) -> Option<Self> {
@@ -1602,15 +1586,6 @@ impl From<CarriedObject> for GameObject {
 }
 
 impl GameObject {
-    /// Wrap a raw object pointer (C-ABI shims of c2rust callers).
-    ///
-    /// # Safety
-    /// `p` must point at a live game object that stays alive, and is not
-    /// written, while the handle is used (one Borg call).
-    pub unsafe fn from_raw(p: *const object) -> Self {
-        assert!(!p.is_null(), "NULL object");
-        GameObject(p)
-    }
 
     fn obj(&self) -> &object {
         // SAFETY: the handle was made from a live object (CarriedObject or
@@ -1944,17 +1919,12 @@ pub fn tval_is_book_k(kidx: usize) -> bool {
 
 /// An object lying on the floor of the current level (an entry of a
 /// grid's object pile). Opaque: the pointer stays on the FFI side
-/// (`engine`, `bridge`). Only valid until the game changes the pile, so
+/// (`engine`). Only valid until the game changes the pile, so
 /// it is used within one Borg call.
 #[derive(Clone, Copy)]
 pub struct FloorObject(*mut crate::headers::object_h::object);
 
 impl FloorObject {
-    /// The raw object, for transitional c2rust callers (bridge).
-    pub fn as_ptr(self) -> *mut crate::headers::object_h::object {
-        self.0
-    }
-
     /// `*obj->kind` (a floor object always has a kind; it points into
     /// `k_info`).
     pub fn kind(self) -> &'static ObjectKind {
@@ -2027,12 +1997,6 @@ pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
     }
 }
 
-/// `cave` (the current level), for transitional c2rust callers that pass
-/// it on (bridge).
-pub fn cave_ptr() -> *mut crate::headers::cave_h::chunk {
-    // SAFETY: plain read of the engine global.
-    unsafe { headers::cave_h::cave }
-}
 
 // ---------------------------------------------------------------------------
 // Borg start-up (borg-init.c)

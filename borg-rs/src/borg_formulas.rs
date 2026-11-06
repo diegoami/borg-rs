@@ -1135,17 +1135,17 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
 
     // Penalize armor weight
     if st.borg.tr(BI_STR_INDEX) < 15 {
-        let body = i32::from(bridge::borg_item_weight(st, inven_body));
+        let body = i32::from(crate::borg_item::borg_item_weight(&st.items.items[inven_body as usize]));
         if body > 200 {
             total = total.wrapping_sub((body - 200) * 15);
         }
-        if i32::from(bridge::borg_item_weight(st, inven_head)) > 30 {
+        if i32::from(crate::borg_item::borg_item_weight(&st.items.items[inven_head as usize])) > 30 {
             total = total.wrapping_sub(250);
         }
-        if i32::from(bridge::borg_item_weight(st, inven_arm)) > 10 {
+        if i32::from(crate::borg_item::borg_item_weight(&st.items.items[inven_arm as usize])) > 10 {
             total = total.wrapping_sub(250);
         }
-        if i32::from(bridge::borg_item_weight(st, inven_feet)) > 50 {
+        if i32::from(crate::borg_item::borg_item_weight(&st.items.items[inven_feet as usize])) > 50 {
             total = total.wrapping_sub(250);
         }
     }
@@ -1160,7 +1160,7 @@ pub fn borg_power_dynamic(st: &mut BorgState) -> i32 {
         inven_hands,
         inven_feet,
     ] {
-        cur_wgt += i32::from(bridge::borg_item_weight(st, slot));
+        cur_wgt += i32::from(crate::borg_item::borg_item_weight(&st.items.items[slot as usize]));
     }
 
     // Determine the weight allowance

@@ -45,10 +45,6 @@ pub struct borg_item {
     pub brands: [bool; 254],
     pub slays: [::core::ffi::c_int; 85],
 }
-pub use crate::bridge::item_fns::borg_deinscribe;
-pub use crate::bridge::item_fns::borg_free_item;
-pub use crate::bridge::item_fns::borg_init_item;
-pub use crate::bridge::item_fns::borg_item_weight;
 pub type C2RustUnnamedH_44 = ::core::ffi::c_uint;
 pub const BORG_CURSE_MAX: C2RustUnnamedH_44 = 28;
 pub const BORG_CURSE_AIR_SWING: C2RustUnnamedH_44 = 27;
@@ -79,4 +75,3 @@ pub const BORG_CURSE_DULLNESS: C2RustUnnamedH_44 = 3;
 pub const BORG_CURSE_TELEPORTATION: C2RustUnnamedH_44 = 2;
 pub const BORG_CURSE_VULNERABILITY: C2RustUnnamedH_44 = 1;
 pub const BORG_CURSE_UNKNOWN: C2RustUnnamedH_44 = 0;
-pub use crate::bridge::item_fns::borg_get_note;
