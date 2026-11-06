@@ -20,21 +20,29 @@ Directory mode:
       - on each side the key log has summary.keys lines and its last line's
         game turn equals summary.game_turns,
       - the two summary.json files are equal apart from wall_seconds.
-  * A suite output dir (plain keys.log files) must hold the DONE marker
-    that harness/suite.sh writes last; otherwise the diff refuses it
-    (exit 2). --allow-incomplete turns that into a warning. Reference dirs
-    (keys.log.xz only) need no marker.
-  * Each side's build identity is printed from its manifest (written by
-    harness/suite.sh): the binary's implementation, its BUILD_ID (git
-    revision, dirty flags, source hash) and any overrides. A dir with
-    plain key logs and no manifest, or a manifest without build identity
-    (older suite.sh), is refused (exit 2). The diff fails (exit 1) if a
-    manifest shows BORG_IMPL different from the binary's implementation,
-    a recorded override (ALLOW_UNKNOWN_IMPL, ALLOW_STALE_BUILD), a binary
-    changed during the suite, or, with --expect-impl c|rust, another
-    implementation. --allow-unverified turns all of these into warnings.
-    A dir with neither plain key logs nor a manifest is a reference (the
-    C oracle) and is accepted as before.
+  * Roles come from the manifest, not the log format. A dir whose
+    manifest has the build identity (written by harness/suite.sh) is a
+    suite output, plain or compressed: it must hold the DONE marker
+    (--allow-incomplete makes that a warning), its build identity is
+    printed, and it fails (exit 1) if the manifest shows BORG_IMPL
+    different from the binary's implementation, a recorded override
+    (ALLOW_UNKNOWN_IMPL, ALLOW_STALE_BUILD), a failed check or a binary
+    changed during the suite. A dir with plain key logs and no manifest,
+    or with a manifest without build identity, is refused (exit 2). A dir
+    without such a manifest and without plain logs is a reference (the C
+    oracle); a manifest it keeps must record a C build.
+  * --expect-impl c|rust: a verified suite output of that implementation
+    must be one of the operands (exit 2 otherwise).
+  * --suite NAME|PATH: the runs must be the suite's scenarios, not just
+    its names: a suite output's manifest must record this suite file
+    (suite_sha256), and on both sides every run's summary must show the
+    suite's seed, race and class indices and menu-letter flag, a stop on
+    turns at or after the turn limit (an early stop before it), and a
+    config run's config.txt the suite's flags (exit 1 otherwise). Limits:
+    references do not record the cheat-death flag or an exact upper turn
+    bound (a run stops at the first key at or past the limit; up to 1191
+    game turns later in the stored references).
+  * --allow-unverified turns the manifest checks into warnings.
 
 For a key-log divergence it prints the run name, seed, game turn and key
 index of the first differing line and 20 lines of context from each side.
@@ -42,6 +50,7 @@ Exit status: 0 if everything matches, 1 on any difference, 2 on bad input.
 """
 import json
 import lzma
+import hashlib
 import os
 import sys
 
@@ -181,6 +190,75 @@ def suite_names(suite):
             if line:
                 names.append(line[0])
     return names
+
+
+def suite_path(suite):
+    return suite if "/" in suite else os.path.join(ROOT, "harness", "suites", suite)
+
+
+def suite_spec(suite):
+    """name -> (seed, race, class, turns, flags) from the suite file."""
+    spec = {}
+    with open(suite_path(suite)) as f:
+        for line in f:
+            fl = line.split("#", 1)[0].split()
+            if fl:
+                flags = set(fl[5].split(",")) - {"-", ""} if len(fl) > 5 else set()
+                spec[fl[0]] = (int(fl[1]), int(fl[2]), int(fl[3]), int(fl[4]), flags)
+    return spec
+
+
+CONFIG_FLAGS = {"munchkin", "lunal", "selflunal"}
+
+
+def check_suite_params(label, d, suite):
+    """The runs in d are the suite's scenarios, not just its run names:
+    a suite output's manifest must record this suite file (suite_sha256);
+    every run's summary must show the suite's seed, race and class
+    indices, menu-letter flag and a final turn consistent with its turn
+    limit, and a config run's config.txt the suite's flags. Returns the
+    problems found."""
+    probs = []
+    spec = suite_spec(suite)
+    mpath = os.path.join(d, "manifest")
+    if os.path.isfile(mpath) and has_build_identity(d):
+        with open(suite_path(suite), "rb") as f:
+            want = hashlib.sha256(f.read()).hexdigest()
+        got = read_manifest(mpath).get("suite_sha256")
+        if got != want:
+            probs.append("%s: manifest suite_sha256 %s is not the sha256 of %s (%s): "
+                         "the output was made from another suite file"
+                         % (label, (got or "?")[:16], suite_path(suite), want[:16]))
+    for name, (seed, race, cls, turns, flags) in sorted(spec.items()):
+        sp = os.path.join(d, name, "summary.json")
+        if not os.path.isfile(sp):
+            continue  # reported as missing elsewhere
+        with open(sp) as f:
+            sm = json.load(f)
+        bad = []
+        for key, want in (("seed", seed), ("race_idx", race), ("class_idx", cls)):
+            if sm.get(key) != want:
+                bad.append("%s %s, suite says %s" % (key, sm.get(key), want))
+        if bool(sm.get("menu_letters", False)) != ("menu" in flags):
+            bad.append("menu_letters %s, suite flags %s" % (sm.get("menu_letters", False), sorted(flags)))
+        g = sm.get("game_turns", -1)
+        if sm.get("stop_reason") == "turns" and g < turns:
+            bad.append("stopped on turns at %s, below the suite limit %s" % (g, turns))
+        if sm.get("stop_reason") != "turns" and g >= turns:
+            bad.append("stopped (%s) at %s, at or past the suite limit %s" % (sm.get("stop_reason"), g, turns))
+        cp = os.path.join(d, name, "config.txt")
+        want_cfg = flags & CONFIG_FLAGS
+        if os.path.isfile(cp):
+            with open(cp) as f:
+                rec = dict(l.rstrip("\n").split("=", 1) for l in f if "=" in l)
+            have = set(rec.get("flags", "").split(",")) - {"-", ""}
+            if have != flags:
+                bad.append("config.txt flags %s, suite flags %s" % (sorted(have), sorted(flags)))
+        elif want_cfg:
+            bad.append("no config.txt for config flags %s" % sorted(want_cfg))
+        if bad:
+            probs.append("%s: %s: %s" % (label, name, "; ".join(bad)))
+    return probs
 
 
 def run_dirs(d):
@@ -361,6 +439,10 @@ def main(argv):
                     print("== %s: not in suite %s, present in %s (%s)"
                           % (r, suite, label, d))
                 ok &= not missing and not extra
+            for label, d in (("A", A), ("B", B)):
+                for p in check_suite_params(label, d, suite):
+                    print("== SUITE MISMATCH " + p)
+                    ok = False
             names = sorted(set(expected) | na | nb)
         else:
             names = sorted(na | nb)

@@ -123,7 +123,13 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   directories (`.xz` is accepted). In directory mode it compares the union
   of the run names (a run on one side only fails) and prints
   `N/M runs identical (expected M)`; `--suite NAME` also requires exactly
-  the suite's runs on both sides. Per run it checks that the key logs are
+  the suite's runs on both sides, and that they are the suite's
+  scenarios: a suite output's manifest must record this suite file
+  (`suite_sha256`), and every run's `summary.json` (both sides) must show
+  the suite's seed, race and class indices, menu-letter flag and a final
+  turn consistent with its turn limit, and a config run's `config.txt`
+  the suite's flags. (References do not record cheat death or an exact
+  upper turn bound; see `harness/diff`'s help.) Per run it checks that the key logs are
   byte-identical, that on each side the log has `summary.keys` lines and
   ends at `summary.game_turns`, and that the two `summary.json` match apart
   from `wall_seconds`. It refuses a suite output dir without `DONE`
@@ -213,8 +219,11 @@ Limits: make and cargo decide what to rebuild from timestamps and
 fingerprints, so `BUILD_ID` trusts the build system that the binary was
 rebuilt from the inputs it hashes; the toolchain is recorded but not
 part of the source hash; the checks protect against mistakes, not against
-someone forging a manifest or a `BUILD_ID`. The references carry no
-manifest (they predate it); they are made from the C build.
+someone forging a manifest or a `BUILD_ID`. The references are made from
+the C build; `smoke`, `full` and `deep` carry no manifest (they predate
+it); `classes` keeps the manifest of the C run that made it (no build
+identity), and `config` the full manifest of its C run (checked like a C
+suite output).
 
 ## Suites and reference logs
 

@@ -112,8 +112,10 @@ A self-review (three independent read-only reviews) was done before the
 external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
 
 * **Coverage.** The keypress oracle only covers what the suites reach.
-  Deep-dungeon code (below level 26), rare items and the Morgoth endgame are
-  checked only by the per-module fuzz cross-checks and by reading the code.
+  Deep-dungeon code (below level 27, the deepest any suite run reaches:
+  `config`'s long lunal run), rare items, the Morgoth endgame and the
+  self-lunal thinker are checked only by the per-module fuzz cross-checks
+  and by reading the code.
   `docs/PROGRESS.md` lists the never-exercised paths for each module.
 * **What the key oracle cannot see.** It compares only the keys the Borg
   returns, up to the turn limit. It does not cover Borg notes, screen output
@@ -132,8 +134,10 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   call that waits for a key can run the Borg again inside the outer Borg
   call, as in C; the engine wrappers that can do that take the caller's
   state and lend it to the nested entry (`engine::lend`), so the nested
-  Borg works on a reborrow, never on an alias. The suites never nest
-  (`stderr.log` would say so). The transitional `bridge.rs` (a global
+  Borg works on a reborrow, never on an alias. This happens in real play:
+  two runs of the `config` suite (lunal mode) each report one nested entry
+  in their `stderr.log`, and both match C's keys; `harness/regress/nested`
+  forces it in the smoke games. The transitional `bridge.rs` (a global
   `st()`, C-ABI shims and `escape(st)` around calls into c2rust code) is
   gone with the last c2rust module.
 * **`borg_item.note`** is a `NoteRef`: the live element it points into
@@ -152,8 +156,8 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   are Warriors, their "blackguard" runs are Rangers). This does not affect
   C/Rust equivalence, but it limits coverage; the `classes` suite fills the
   gap (`docs/harness.md`, `docs/STATUS.md`).
-* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 269, all at the FFI
-  boundary: 241 in `engine.rs` and 28 in `headers/` (the
+* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 268, all at the FFI
+  boundary: 240 in `engine.rs` and 28 in `headers/` (the
   `unsafe extern "C" fn` pointer types of engine structs and callbacks).
   `#![deny(unsafe_code)]` allows it only in those two modules. After the
   external review of `4c06cec08` (SELF-REVIEW section 6): every safe
@@ -162,6 +166,10 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   so the compiler rejects keeping one across an engine call that lends the
   state (L4); engine tables the game writes are read through copies, not
   `&'static` references (L5); `engine::enter` is `pub(crate)` and checks
-  the engine is set up and on one thread. Not enforced by the compiler:
-  the other wrappers assume they run inside an entry (true for all Borg
-  code; an external crate could call them before the engine is set up).
+  the engine is set up and on one thread. After the second review
+  (`821cad310`) every module is crate-private: no safe Rust outside the
+  crate can reach an engine wrapper (the only public item is the pure
+  `regress::note_alias_report`); the engine enters the Borg only through
+  its C-ABI symbols. Not enforced by the compiler: inside the crate the
+  wrappers assume they run inside an entry (true for all Borg code, which
+  runs only from those callbacks).
