@@ -1,0 +1,15 @@
+# M4 C: new seeds for all nine actual classes, plus longer known seeds.
+# All indices use the real birth-menu letters; stock config, cheat death.
+# NAME                      SEED RACE CLASS TURNS   FLAGS
+ext-warrior                 4000 0    0     2000000 menu,cheat
+ext-mage                    4001 9    1     2000000 menu,cheat
+ext-druid                   4002 1    2     2000000 menu,cheat
+ext-priest                  4003 5    3     2000000 menu,cheat
+ext-necro                   4004 10   4     2000000 menu,cheat
+ext-paladin                 4005 8    5     2000000 menu,cheat
+ext-rogue                   4006 3    6     2000000 menu,cheat
+ext-ranger                  4007 1    7     2000000 menu,cheat
+ext-blackguard              4008 7    8     2000000 menu,cheat
+ext-long-warrior-2000        2000 0    0     5000000 menu,cheat
+ext-long-warrior-2007        2007 0    0     5000000 menu,cheat
+ext-long-blackguard-3100     3100 8    8     5000000 menu,cheat
