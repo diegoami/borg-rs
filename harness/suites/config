@@ -18,4 +18,4 @@ cfg-lunal-dunadan-bg      1080   8    8     20000   menu,cheat,lunal
 # lunal mode over a long game (not from the review): 1M turns, reaches
 # max depth 27, deeper than any other suite. Self-lunal is not tried here:
 # with borg_self_lunal = TRUE as well, no 1M run we tried passed its gate.
-cfg-lunal-deep-warrior    2000   0    0     1000000 menu,cheat,lunal
+cfg-lunal-deep-warrior    2007   0    0     1000000 menu,cheat,lunal
