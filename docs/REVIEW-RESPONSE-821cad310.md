@@ -106,4 +106,12 @@ where C leaves its defined domain.
 
 ## Checks after the fixes
 
-CHECKS-PENDING
+On `c20622542` (binaries built by `harness/build.sh`, `impl_check` and
+`build_check` ok): C smoke 3/3; Rust smoke 3/3, `full` 45/45, `deep` 9/9,
+`classes` 16/16 identical (`harness/diff --expect-impl`); no nested entry
+and no panic in any run; `check-no-c-borg.sh` OK including the link-input
+step (154 engine objects, 31 staticlib members, 28 system files);
+`harness/regress/note-alias` identical (11 lines); `harness/regress/nested`
+OK (7 nested entries, all games completed); `cargo test` 100 passed;
+clippy `-D warnings` clean (also `--all-targets`) on Rust 1.97.0 and
+1.98.1; unsafe 268.
