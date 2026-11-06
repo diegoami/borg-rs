@@ -481,29 +481,12 @@ pub fn borg_projectable_dark(st: &BorgState, y1: i32, x1: i32, y2: i32, x2: i32)
 /// changing this to be more like project_path
 /// note that this is much slower but much more accurate
 pub fn borg_inc_motion(py: &mut i32, px: &mut i32, y1: i32, x1: i32, y2: i32, x2: i32) {
-    let dy;
-    let dx;
-    let sy;
-    let sx;
-
     /* Extract the distance travelled */
     /* Analyze "dy" */
-    if y2 < y1 {
-        dy = y1 - y2;
-        sy = -1;
-    } else {
-        dy = y2 - y1;
-        sy = 1;
-    }
+    let (dy, sy) = if y2 < y1 { (y1 - y2, -1) } else { (y2 - y1, 1) };
 
     /* Analyze "dx" */
-    if x2 < x1 {
-        dx = x1 - x2;
-        sx = -1;
-    } else {
-        dx = x2 - x1;
-        sx = 1;
-    }
+    let (dx, sx) = if x2 < x1 { (x1 - x2, -1) } else { (x2 - x1, 1) };
 
     /* Paranoia -- no motion */
     if dy == 0 && dx == 0 {

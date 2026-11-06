@@ -180,7 +180,7 @@ fn is_swap(st: &mut BorgState, i: i32) -> bool {
 ///
 /// Ego items may stack as long as they have the same ego-item type.
 /// This is primarily to allow ego-missiles to stack.
-fn borg_object_similar(o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
+fn borg_object_similar(st: &BorgState, o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
     // NOTE: This assumes the giving of one item at a time
     let total = i32::from(o_ptr.iqty) + 1;
 
@@ -329,8 +329,8 @@ fn borg_object_similar(o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
     }
 
     if o_note && j_note {
-        let a = crate::borg_item::item_note(o_ptr);
-        let b = crate::borg_item::item_note(j_ptr);
+        let a = crate::borg_item::item_note(st, o_ptr);
+        let b = crate::borg_item::item_note(st, j_ptr);
         if !a.is_empty() && !b.is_empty() && a != b {
             return false;
         }
@@ -525,7 +525,7 @@ fn borg_think_home_sell_best(st: &mut BorgState, best_home_power: &mut i32) {
 
             // stacking?
             let item = st.items.items[i as usize];
-            if borg_object_similar(&st.store.shops[BORG_HOME].ware[n as usize], &item) {
+            if borg_object_similar(st, &st.store.shops[BORG_HOME].ware[n as usize], &item) {
                 // if this stacks with what was previously here
                 let item2 = home_ware(st, n);
                 item2.iqty = item2.iqty.wrapping_add(1);
@@ -536,7 +536,7 @@ fn borg_think_home_sell_best(st: &mut BorgState, best_home_power: &mut i32) {
                 // eliminate items that would stack else where in the list.
                 let mut found_match = false;
                 for k in 0..sim {
-                    if borg_object_similar(&st.store.safe_shops[BORG_HOME].ware[k as usize], &item) {
+                    if borg_object_similar(st, &st.store.safe_shops[BORG_HOME].ware[k as usize], &item) {
                         found_match = true;
                         break;
                     }
@@ -651,7 +651,7 @@ pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32
 
             // if this item is not the same as what was
             // there before take it.
-            if !borg_object_similar(&item2, &item) {
+            if !borg_object_similar(st, &item2, &item) {
                 continue;
             }
 
@@ -681,7 +681,7 @@ pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32
 
                 // if this item is not the same as what was
                 // there before take it.
-                if borg_object_similar(&item, &item2) {
+                if borg_object_similar(st, &item, &item2) {
                     continue;
                 }
 
@@ -853,7 +853,7 @@ fn borg_good_sell(st: &mut BorgState, i: i32, who: i32) -> bool {
 
     // Never sell valuable non-id'd items
     // unless you have a stack, in which case, sell one to ID them
-    if borg_item_note_needs_id(&item) {
+    if borg_item_note_needs_id(st, &item) {
         // note if we have more than one
         multiple = borg_has_mutiple(st, i);
         if !multiple {
@@ -1253,7 +1253,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
 
         // Never sell valuable non-id'd items
         // unless you have a stack, in which case, sell one to ID them
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             // note if we have more than one
             if !borg_has_mutiple(st, i) {
                 return 0;
@@ -1279,7 +1279,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
         let price = capped_value(&item);
 
         // Skip cheap "known" (or "average") items
-        if price * i32::from(item.iqty) < greed && !borg_item_note_needs_id(&item) {
+        if price * i32::from(item.iqty) < greed && !borg_item_note_needs_id(st, &item) {
             continue;
         }
 

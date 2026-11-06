@@ -59,7 +59,7 @@ pub fn borg_object_fully_id(st: &mut BorgState) -> bool {
         let item = st.items.items[i as usize];
 
         // inscribe certain objects
-        let note = crate::borg_item::item_note(&item);
+        let note = crate::borg_item::item_note(st, &item);
         if st.borg.tr(BI_CDEPTH) != 0
             && u32::from(item.tval) >= TV_BOW
             && u32::from(item.tval) <= TV_RING
@@ -154,7 +154,7 @@ pub fn borg_object_fully_id(st: &mut BorgState) -> bool {
 /// The code currently inscribes items with {??} if they have unknown
 /// powers. This helper keeps the check isolated in case this ever changes
 /// (`borg_item_note_needs_id`).
-pub fn borg_item_note_needs_id(item: &borg_item) -> bool {
+pub fn borg_item_note_needs_id(st: &BorgState, item: &borg_item) -> bool {
     if item.ident {
         return false;
     }
@@ -164,7 +164,7 @@ pub fn borg_item_note_needs_id(item: &borg_item) -> bool {
         return true;
     }
 
-    contains(&crate::borg_item::item_note(item), b"{??}")
+    contains(&crate::borg_item::item_note(st, item), b"{??}")
 }
 
 #[cfg(test)]

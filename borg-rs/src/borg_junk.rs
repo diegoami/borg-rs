@@ -602,7 +602,7 @@ pub fn borg_drop_junk(st: &mut BorgState) -> bool {
         }
 
         /* Skip good un-id'd "artifacts" */
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             continue;
         }
 
@@ -890,7 +890,7 @@ pub fn borg_drop_hole(st: &mut BorgState, desperate: bool) -> bool {
         }
 
         /* things with unknown runes */
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             if desperate {
                 value_boost = 5000;
             } else {
@@ -1164,7 +1164,7 @@ pub fn borg_drop_slow(st: &mut BorgState) -> bool {
         if randarts() && item.art_idx != 0 && !item.ident {
             continue;
         }
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             continue;
         }
 
@@ -1330,7 +1330,7 @@ pub fn borg_dump_quiver(st: &mut BorgState) -> bool {
             if item.to_d > 0 && item.to_h > 0 {
                 continue;
             }
-            if borg_item_note_needs_id(item) {
+            if borg_item_note_needs_id(st, item) {
                 continue;
             }
 
@@ -1431,7 +1431,7 @@ pub fn borg_remove_stuff(st: &mut BorgState) -> bool {
         }
 
         /* Require "known" (or needs id) unless we know it is cursed */
-        if borg_item_note_needs_id(item) && !item.cursed {
+        if borg_item_note_needs_id(st, item) && !item.cursed {
             continue;
         }
 

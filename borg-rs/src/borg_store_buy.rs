@@ -18,8 +18,9 @@
 //! The "what if" evaluations change `st.items.items` and the shop wares in
 //! place, call `borg_notice` / `borg_power` / `borg_notice_home` /
 //! `borg_power_home`, and restore the slots exactly as C does (struct
-//! copies: a copied item's `note` keeps pointing into the original's
-//! `desc`, as with `memcpy`). C's pointer `item` into a ware is read again
+//! copies copy the `note` reference (`borg_item::NoteRef`), so a copied
+//! item's note reads the live origin's current `desc`, as C's copied
+//! pointer does). C's pointer `item` into a ware is read again
 //! at each use (`ware`), never cached across a call.
 
 use crate::borg_home_notice::borg_notice_home;

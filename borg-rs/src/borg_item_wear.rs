@@ -16,8 +16,11 @@
 //!
 //! The "what if" evaluations change `st.items.items` in place, call
 //! `borg_notice` / `borg_power` / `borg_danger`, and restore the slots
-//! from `safe_items` exactly as C does (struct copies: a copied item's
-//! `note` keeps pointing into the original's `desc`, as with `memcpy`).
+//! from `safe_items` exactly as C does. Struct copies copy the `note`
+//! reference (`borg_item::NoteRef`), so a copied item's note reads the
+//! *live origin's* current `desc`, as C's copied pointer does: e.g. the
+//! pack hole holding the old equipment reads the candidate's `desc` while
+//! the candidate is worn (review of 4c06cec08, finding 1).
 
 use crate::borg::BorgBest;
 use crate::borg_danger::borg_danger;
@@ -192,7 +195,7 @@ pub fn borg_test_stuff(st: &mut BorgState) -> bool {
         }
 
         /* Prioritize the ID */
-        if borg_item_note_needs_id(item) {
+        if borg_item_note_needs_id(st, item) {
             v = add_long(item.value, 20000);
         }
 
@@ -234,7 +237,7 @@ pub fn borg_test_stuff(st: &mut BorgState) -> bool {
         }
 
         /* Identify "good" items */
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             v = add_long(item.value, 20000);
         } else if free_id || borg_item_worth_id(st, &item) {
             v = item.value;

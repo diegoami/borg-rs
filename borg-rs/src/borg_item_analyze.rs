@@ -372,9 +372,11 @@ fn borg_item_has_negative_flag(item: &borg_item) -> bool {
 ///
 /// `desc` is the description (C string semantics: it ends at the first
 /// NUL, if any); at most 79 bytes of it are kept. The item's `note` is
-/// pointed at its inscription (or the end) within the item's own `desc`.
+/// pointed at its inscription (or the end) within the item's own `desc`;
+/// `origin` names the live element `item` is (C's pointer target).
 pub fn borg_item_analyze(
     item: &mut borg_item,
+    origin: crate::borg_item::NoteOrigin,
     real_item: GameObject,
     desc: &[u8],
     in_store: bool,
@@ -411,7 +413,7 @@ pub fn borg_item_analyze(
 
     /* Advance to the "inscription" or end of string and save */
     let scan = item.desc.iter().position(|&c| c == 0 || c as u8 == b'{').expect("NUL-terminated");
-    crate::borg_item::set_item_note(item, scan);
+    crate::borg_item::set_item_note(item, origin, scan);
 
     /* Get various info */
     item.tval = real_item.tval();
@@ -600,7 +602,15 @@ pub fn borg_item_analyze_slot(
     in_store: bool,
 ) {
     let BorgState { items, act, item_val, .. } = st;
-    borg_item_analyze(&mut items.items[i], real_item, desc, in_store, act, item_val);
+    borg_item_analyze(
+        &mut items.items[i],
+        crate::borg_item::NoteOrigin::Item(i as u16),
+        real_item,
+        desc,
+        in_store,
+        act,
+        item_val,
+    );
 }
 
 /// Helper to see if an object kind does a certain thing

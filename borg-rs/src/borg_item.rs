@@ -24,9 +24,10 @@ use crate::engine;
 #[derive(Copy, Clone)]
 pub struct BorgItem {
     pub desc: [core::ffi::c_char; 80],
-    /// `note`: where the inscription starts in `desc` (C: `char *note =
-    /// desc + offset`, NULL = `None`). See `borg_item::item_note`.
-    pub note: Option<u8>,
+    /// `note` (C: `char *note`, NULL = `None`): where the inscription
+    /// starts, as the live element whose `desc` C's pointer points into
+    /// plus the offset in it. See `borg_item::item_note`.
+    pub note: Option<NoteRef>,
     pub kind: u32,
     pub ident: bool,
     pub needs_ident: bool,
@@ -137,40 +138,77 @@ pub fn blank_item() -> borg_item {
     }
 }
 
-/// `item->note = item->desc + offset` (borg-item-analyze.c).
-///
-/// C's `note` is a pointer into the item's own `desc`, and a struct copy
-/// of the item keeps pointing into the *original's* `desc`. Here `note`
-/// is the offset, and a copy reads its own `desc` at that offset. The two
-/// agree because whenever a copy's note is read, the original's `desc` is
-/// unchanged since the copy was made (see docs/PROGRESS.md, "bridge
-/// removal").
-pub fn set_item_note(item: &mut borg_item, offset: usize) {
-    assert!(offset < item.desc.len(), "note offset outside desc");
-    item.note = Some(offset as u8);
+/// The live element a note points into. C sets `note` only in
+/// `borg_item_analyze`, and only on `borg_items[i]` (borg-inventory.c) or
+/// `borg_shops[shop].ware[slot]` (borg-store.c), as a pointer into that
+/// element's own `desc`.
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+pub enum NoteOrigin {
+    /// `borg_items[i]`
+    Item(u16),
+    /// `borg_shops[shop].ware[slot]`
+    Ware { shop: u8, slot: u8 },
 }
 
-/// The bytes of `borg_get_note(item)`: the inscription part of `desc` up
-/// to its NUL, or "" when `note` is NULL.
-pub fn item_note(item: &borg_item) -> Vec<u8> {
+/// C's `note` pointer: `origin->desc + offset`.
+///
+/// A struct copy of an item (the `safe_items`/`safe_shops` snapshots, the
+/// what-if trials that copy items between slots) copies the pointer, so a
+/// copy's note still reads the *origin's* `desc` as it is when the note is
+/// read, not the copy's own bytes. Example (a wear trial): the old
+/// equipment is copied from `safe_items[slot]` into the pack hole, then the
+/// candidate is copied over `borg_items[slot]`; the hole's note now reads
+/// the candidate's `desc` at the old offset. Resolving the note against the
+/// live origin at every read reproduces this exactly (see
+/// `tests::wear_trial_hole_reads_live_origin`).
+#[derive(Copy, Clone, PartialEq, Eq, Debug)]
+pub struct NoteRef {
+    pub origin: NoteOrigin,
+    pub offset: u8,
+}
+
+/// `item->note = item->desc + offset` (borg-item-analyze.c), where `item`
+/// is the live element `origin`.
+pub fn set_item_note(item: &mut borg_item, origin: NoteOrigin, offset: usize) {
+    assert!(offset < item.desc.len(), "note offset outside desc");
+    item.note = Some(NoteRef { origin, offset: offset as u8 });
+}
+
+/// The `desc` buffer a note points into, as it is now.
+fn note_origin_desc(st: &BorgState, origin: NoteOrigin) -> &[core::ffi::c_char; 80] {
+    match origin {
+        NoteOrigin::Item(i) => &st.items.items[usize::from(i)].desc,
+        NoteOrigin::Ware { shop, slot } => &st.store.shops[usize::from(shop)].ware[usize::from(slot)].desc,
+    }
+}
+
+/// The bytes of `borg_get_note(item)` for any item (a live one or a copy):
+/// the bytes from the note pointer up to the next NUL, read from the
+/// origin's current `desc`; "" when `note` is NULL. Panics when the buffer
+/// has no NUL after the offset (C would read past `desc`).
+pub fn item_note(st: &BorgState, item: &borg_item) -> Vec<u8> {
     match item.note {
         None => Vec::new(),
-        Some(o) => item.desc[usize::from(o)..].iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect(),
+        Some(n) => {
+            let desc = note_origin_desc(st, n.origin);
+            let tail = &desc[usize::from(n.offset)..];
+            let len = tail.iter().position(|&c| c == 0).expect("note runs past desc without a NUL");
+            tail[..len].iter().map(|&c| c as u8).collect()
+        }
     }
 }
 
 /// `borg_get_note(&borg_items[i])`, as bytes.
 pub fn borg_get_note(st: &BorgState, i: usize) -> Vec<u8> {
-    item_note(&st.items.items[i])
+    item_note(st, &st.items.items[i])
 }
 
 /// Does the note of slot `j` start with `{` (an inscription)? C reads
 /// `borg_items[j].note[0]` without a check; a NULL note would crash C, so
 /// it panics here.
 fn note_starts_with_brace(st: &mut BorgState, j: i32) -> bool {
-    let it = &st.items.items[j as usize];
-    let o = it.note.unwrap_or_else(|| panic!("borg_items[{j}].note is NULL"));
-    it.desc[usize::from(o)] as u8 == b'{'
+    let n = st.items.items[j as usize].note.unwrap_or_else(|| panic!("borg_items[{j}].note is NULL"));
+    note_origin_desc(st, n.origin)[usize::from(n.offset)] as u8 == b'{'
 }
 
 /// Remove the inscription of slot `i` (`borg_deinscribe`).
@@ -235,4 +273,53 @@ pub fn borg_init_item(st: &mut BorgState) {
 pub fn borg_free_item(st: &mut BorgState) {
     st.items.safe_items = Vec::new();
     st.items.items = Vec::new();
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn put(it: &mut borg_item, desc: &str, origin: NoteOrigin, off: usize) {
+        *it = blank_item();
+        it.iqty = 1;
+        for (d, c) in it.desc.iter_mut().zip(desc.bytes()) {
+            *d = c as core::ffi::c_char;
+        }
+        set_item_note(it, origin, off);
+    }
+
+    /// Review of 4c06cec08, finding 1: in a wear trial the old equipment is
+    /// copied from the snapshot into the pack hole and the candidate over the
+    /// equipment slot; C's hole note then reads the candidate's `desc` at the
+    /// old offset (expected values from the C side of
+    /// harness/regress/note-alias, linked against the original C code).
+    #[test]
+    fn wear_trial_hole_reads_live_origin() {
+        let mut st = BorgState::default();
+        st.items.items = vec![blank_item(); 3];
+        put(&mut st.items.items[0], "Old", NoteOrigin::Item(0), 3);
+        put(&mut st.items.items[1], "New longer {??}", NoteOrigin::Item(1), 11);
+        st.items.safe_items = st.items.items.clone();
+        st.items.items[2] = st.items.safe_items[0];
+        st.items.items[0] = st.items.safe_items[1];
+        let hole = st.items.items[2];
+        assert_eq!(item_note(&st, &hole), b" longer {??}");
+        assert!(crate::borg_item_id::borg_item_note_needs_id(&st, &hole));
+        // restored: the slot's own note again
+        st.items.items[0] = st.items.safe_items[0];
+        assert_eq!(item_note(&st, &st.items.items[0]), b"");
+    }
+
+    /// A ware copied into the pack keeps reading the live ware.
+    #[test]
+    fn ware_copy_reads_live_ware() {
+        let mut st = BorgState::default();
+        st.items.items = vec![blank_item(); 1];
+        st.store.shops = vec![crate::borg_store::BorgShop { ware: vec![blank_item(); 1] }];
+        let w = NoteOrigin::Ware { shop: 0, slot: 0 };
+        put(&mut st.store.shops[0].ware[0], "A ware {??}", w, 7);
+        st.items.items[0] = st.store.shops[0].ware[0];
+        put(&mut st.store.shops[0].ware[0], "Changed {magical}", w, 8);
+        assert_eq!(item_note(&st, &st.items.items[0]), b" {magical}");
+    }
 }

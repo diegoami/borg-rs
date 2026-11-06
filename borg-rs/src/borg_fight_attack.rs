@@ -2189,7 +2189,7 @@ pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
 
         /* Boost the perceived damage on unID'd ones so he can get a quick
          * pseudoID on it */
-        if borg_item_note_needs_id(&item) {
+        if borg_item_note_needs_id(st, &item) {
             d *= 99;
         }
 

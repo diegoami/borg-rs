@@ -889,6 +889,10 @@ fn borg_notice_equipment(st: &mut BorgState) {
     /* Scan the usable inventory */
     let class = t(st, BI_CLASS);
     for i in wield..total {
+        // A pure read of the note (it may point into another slot's
+        // `desc`, as C's pointer does), taken before the field borrows;
+        // nothing below changes an item before C's test.
+        let needs_id = borg_item_note_needs_id(st, &st.items.items[i as usize]);
         let BorgState { borg, items, .. } = &mut *st;
         let item = &mut items.items[i as usize];
         let mut t = Traits(&mut borg.trait_);
@@ -914,7 +918,7 @@ fn borg_notice_equipment(st: &mut BorgState) {
         /* total up the weight of the items */
         t[BI_WEIGHT] += i32::from(borg_item_weight(item));
 
-        if borg_item_note_needs_id(item) {
+        if needs_id {
             t[BI_ALL_NEED_ID] += 1;
             t[BI_WORN_NEED_ID] += 1;
         }
@@ -2148,13 +2152,14 @@ fn borg_notice_inventory(st: &mut BorgState) {
         }
 
         {
+            let needs_id = borg_item_note_needs_id(st, &item);
             let mut t = tr(st);
 
             /* total up the weight of the items */
             t[BI_WEIGHT] += i32::from(borg_item_weight(&item));
 
             /* Does the borg need to get an ID for it? */
-            if borg_item_note_needs_id(&item) {
+            if needs_id {
                 t[BI_ALL_NEED_ID] += 1;
             }
 

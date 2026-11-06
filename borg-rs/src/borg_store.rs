@@ -73,6 +73,7 @@ fn analyze_ware(
     let BorgState { store, act, item_val, .. } = st;
     crate::borg_item_analyze::borg_item_analyze(
         &mut store.shops[shop].ware[slot],
+        crate::borg_item::NoteOrigin::Ware { shop: shop as u8, slot: slot as u8 },
         obj.into(),
         desc,
         in_store,
