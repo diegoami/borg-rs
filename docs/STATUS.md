@@ -362,3 +362,31 @@ fails (exit 1) on outputs with an override, an edited `borg_impl_env`, and
 a manifest or with an old manifest. `check-no-c-borg.sh` step 5 fails on an
 extra C object in the link, a binary the link command does not reproduce,
 and a gcc object in the staticlib under a rustc member name.
+
+## Config suite (second external review, finding 4, 2026-11-06)
+
+The review of `821cad310` noted that every suite used the stock
+`borg.txt`, and ran munchkin start and lunal mode by hand. `harness/run.sh`
+now has config flags `munchkin`, `lunal` and `selflunal`. Each sets one
+option of the run's `borg.txt` to `TRUE`; with none of them the file is
+unchanged, byte for byte. Each run records its flags and the sha256 of its
+`borg.txt` in `config.txt`, and the suite manifest copies them as
+`run_config.<run>`. `harness/suites/config` has the review's six runs
+(munchkin and lunal, each on Human Warrior 42, Half-Elf Mage 12345,
+Dunadan Blackguard 1080, flags `menu,cheat`, 100k/100k/20k turns) and one
+1M-turn lunal run (Human Warrior 2007, clevel 24, max depth 27). It takes
+about 4 minutes with `JOBS=2`.
+
+The munchkin thinker runs in all three munchkin runs; lunal mode stays on
+in all four lunal runs, but the lunal thinker is never entered. Self-lunal
+was not reached by configuration alone: eight 1M cheat-death runs with
+`selflunal` (with and without `lunal`) never passed its gate, so no suite
+run uses that flag. Details in `docs/harness.md` ("The config suite").
+
+Evidence (`JOBS=2`):
+
+```
+C config, twice (C build of c20622542)    7/7 runs identical; reference/config
+Rust config --expect-impl rust            7/7 runs identical, exit 0
+Rust smoke, C smoke (stock suites)        3/3 each against reference/smoke, exit 0
+```

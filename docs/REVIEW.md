@@ -8,10 +8,11 @@ seed. It is not a redesign: no new tactics and no fixes to Borg behaviour.
 Known C bugs are kept on purpose (see `docs/c-bugs.md`).
 
 What is shown is narrower than that goal: the key streams are identical on
-the suites' seeds (smoke, full, deep, classes), with the stock `borg.txt`
-and the suites' turn limits (no run deeper than dungeon level 26). Code the
-suites do not reach (depth 50+, Morgoth, munchkin and lunal mode, most
-debug commands) rests on reading, the per-module cross-checks (not
+the suites' seeds (smoke, full, deep, classes with the stock `borg.txt`;
+config with munchkin start or lunal mode on) and the suites' turn limits
+(no run deeper than dungeon level 27). Code the
+suites do not reach (depth 50+, Morgoth, self-lunal and the lunal thinker,
+most other config options, most debug commands) rests on reading, the per-module cross-checks (not
 committed, numbers in PROGRESS) and the committed regressions in
 `harness/regress/`. See also the external review and the response to it
 (`docs/REVIEW-RESPONSE-4c06cec08.md`).
@@ -35,7 +36,7 @@ converted module.
 angband/             upstream Angband e473720ed (git subtree), plus small
                      #ifdef BORG_HARNESS hooks (see docs/harness.md)
 harness/             build.sh, run.sh, suite.sh, diff, check-no-c-borg.sh,
-                     suites/{smoke,full,deep,classes}, reference/ (C oracle
+                     suites/{smoke,full,deep,classes,config}, reference/ (C oracle
                      logs, xz)
 borg-rs/src/         the Rust Borg (staticlib linked into the engine)
   <module>.rs        safe Rust, one per original .c file (all 59 converted)
@@ -79,6 +80,11 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
    * `classes`: 15 runs × 100k and one 1M cheat-death run, with the correct
      menu letters: Blackguard, Dunadan, High-Elf and Kobold, which `full`
      and `deep` never play. Added after the harness review.
+   * `config`: the same harness with one Borg option changed (flags
+     `munchkin`, `lunal`): munchkin start and lunal mode, each on Human
+     Warrior, Half-Elf Mage and Dunadan Blackguard (the runs of the second
+     external review), plus one 1M-turn lunal run that reaches dungeon
+     level 27. See "Coverage" below and `docs/harness.md`.
    * The C references are in `harness/reference/`. They were made from the
      unmodified C build and checked deterministic (two C runs, identical, for
      every suite; for `smoke` this was first recorded after the review).
@@ -93,7 +99,7 @@ To reproduce:
 
 ```
 harness/build.sh && BORG_IMPL=rust harness/build.sh
-for s in smoke full deep classes; do
+for s in smoke full deep classes config; do
     BORG_IMPL=rust harness/suite.sh $s
     harness/diff --suite $s --expect-impl rust harness/out/rust/$s harness/reference/$s
 done
@@ -113,9 +119,14 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   returns, up to the turn limit. It does not cover Borg notes, screen output
   or the death files; Borg-side direct writes to game state (cheat-death
   cure, `option_set`, the RNG swap) except through later keys; anything
-  after the turn limit; and config-dependent paths (all suites use the
-  stock `borg.txt`; munchkin, dynamic calcs, money scum, respawn etc. are
-  off, only `borg_cheat_death` changes).
+  after the turn limit; and most config-dependent paths. The `config`
+  suite turns on `borg_munchkin_start` (the munchkin thinker runs) or
+  `borg_lunal_mode` (lunal mode changes the stair and rest choices in the
+  flow code). It does not reach `borg_think_dungeon_lunal`: that needs
+  `borg_self_lunal` and a deep character well above its max depth, and
+  eight 1M-turn tries with `borg_self_lunal` on never got there. Dynamic
+  calcs, money scum, respawn, worships, risky play etc. stay off in every
+  suite.
 * **The state root and nested entry.** `engine::enter` is the only place
   that hands out `&mut BorgState` (to the four engine callbacks). An engine
   call that waits for a key can run the Borg again inside the outer Borg
