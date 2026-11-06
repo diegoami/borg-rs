@@ -23,7 +23,7 @@ committed, numbers in PROGRESS) and the committed regressions in
 |-----------|-------|----------|
 | M1 deterministic C harness | done (tag `m1-harness`) | `full` run twice, 45/45 logs identical; `docs/STATUS.md` |
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
-| M3 safe, idiomatic Rust | done (`dd885b6dd`; tag `m3` by the owner) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
+| M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
 
 `main` is moved forward only to commits that passed a full checkpoint (`full` 45/45
 and `deep` 9/9 identical to the C references). The work branch
