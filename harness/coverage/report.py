@@ -7,13 +7,16 @@ import lzma
 from pathlib import Path
 import subprocess
 
+from validate import ALL_SUITES, validate_group
+
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('matrix', type=Path)
 p.add_argument('output', type=Path)
 p.add_argument('--llvm-bin', type=Path, required=True)
 p.add_argument('--suites', nargs='+', help='Explicit pilot subset; otherwise require the full matrix DONE')
 a = p.parse_args()
-suites = a.suites or ['smoke','full','deep','classes','config','options','captured-rogue','crash-fixes','extended']
+suites = a.suites or ALL_SUITES
+assert len(suites) == len(set(suites)), "duplicate suite"
 if not a.suites:
     assert (a.matrix/'DONE').exists(), 'full matrix is incomplete'
 assert not a.output.exists(), 'refusing existing report output'
@@ -22,17 +25,10 @@ image = Path(bid['binary'])
 assert hashlib.sha256(image.read_bytes()).hexdigest() == bid['binary_sha256']
 profiles, count = [], 0
 for suite in suites:
-    directory = a.matrix/suite
-    assert (directory/'DONE').exists() and not (directory/'FAILED').exists(), suite
-    entries = json.loads((directory/'profiles.json').read_text())
-    diff = (a.matrix/(suite+'.diff')).read_text()
-    for text in [f'{len(entries)}/{len(entries)} runs identical', f'messages.log compared in {len(entries)} run(s)', f'state.log compared in {len(entries)} run(s)']:
-        assert text in diff, (suite, text)
-    for item in entries.values():
-        f = Path(item['profile'])
-        assert f.stat().st_size == item['bytes'] and hashlib.sha256(f.read_bytes()).hexdigest() == item['sha256']
-        profiles.append(str(f))
-    count += len(entries)
+    group_profiles = validate_group(a.matrix, suite, bid)
+    profiles.extend(str(f) for f in group_profiles)
+    count += len(group_profiles)
+assert len(set(profiles)) == len(profiles), 'profile reused across groups'
 a.output.mkdir(parents=True)
 profdata = a.output/'coverage.profdata'
 subprocess.run([str(a.llvm_bin/'llvm-profdata'),'merge','-sparse',*profiles,'-o',str(profdata)],check=True)

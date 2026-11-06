@@ -57,13 +57,37 @@ harness/coverage/run.sh /tmp/borg-coverage /ABS/REPO/harness/reference /tmp/borg
 python3 harness/coverage/report.py /tmp/borg-coverage/harness/out/coverage/matrix NEW_REPORT --llvm-bin /PATH/TO/MATCHING/LLVM/BIN
 ```
 
-Collection uses the six baseline suites, captured-Rogue, crash-fixes and
-extended. The five endgame scenarios are represented in crash-fixes.
+Collection uses the six baseline suites, captured-Rogue, crash-fixes,
+extended and natural:133 suite executions. The five endgame scenarios are
+represented in crash-fixes; the Rogue crash case also occurs in extended.
+Natural uses its explicit captured-extended save root for collection and diff.
 Every suite must have `DONE`, strict key/message/state parity and exactly
 one nonempty profile tied to each successful engine PID. The full matrix
 gets its own `DONE` only after all groups pass. No stale-build override is
 used; preserve `BUILD_ID`, actual RUSTFLAGS, linker flags and shim/runtime
 hashes in the validation receipt.
+
+Independent groups can use `COVERAGE_SUITES='extended natural'` with a fresh
+output directory. Selected collection writes `GROUPS_DONE`; only the full
+default list writes matrix `DONE`. To assemble independent collections:
+
+```sh
+python3 harness/coverage/join.py NEW_MATRIX COLLECTION_ONE COLLECTION_TWO
+```
+
+Joining requires exactly one complete accepted copy of every group and an
+identical BUILD_ID/image across collections. Partial groups are excluded.
+Both joining and reporting verify the expected recipe/run names, manifests,
+binary/source hashes, no overrides/captures, successful process outcomes,
+profile-to-PID identity and profile hashes. They reject reused profiles.
+Joined groups are symlinks to retained collections, recorded in COLLECTIONS.json;
+keep those collections while reporting or exporting the result.
+
+The current measurement retains `link-dead-code` for one consistent image.
+A separate instrument-coverage-only build retained the same36,184 mapped
+project lines and1,709 LLVM function instances, passed smoke3/3, and matched
+all three C oracles in four serial A/B benchmark runs. That flag is not
+required for future collections; do not mix their profiles with this image.
 
 For an explicitly bounded pilot, reporting accepts `--suites smoke full`.
 It labels the result `pilot_subset`, requires those complete validated

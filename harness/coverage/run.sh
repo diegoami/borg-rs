@@ -11,14 +11,28 @@ OUT=$(realpath -m "$3")
 mkdir -p "$OUT/profiles"
 cp "$WORKTREE/build/rust/BUILD_ID" "$OUT/BUILD_ID"
 cd "$WORKTREE"
-for suite in smoke full deep classes config options captured-rogue crash-fixes extended; do
+ALL_SUITES='smoke full deep classes config options captured-rogue crash-fixes extended natural'
+SELECTED_SUITES=${COVERAGE_SUITES:-$ALL_SUITES}
+for suite in $SELECTED_SUITES; do
+    case " $ALL_SUITES " in
+        *" $suite "*) ;;
+        *) echo "unknown coverage suite: $suite" >&2; exit 2;;
+    esac
+done
+for suite in $SELECTED_SUITES; do
     echo "START $suite $(date -u +%FT%TZ)"
     mkdir "$OUT/profiles/$suite"
-    LLVM_PROFILE_FILE="$OUT/profiles/$suite/%m-%p.profraw" CHECKPOINT_EVERY=0 \
+    SAVE_ROOT="$WORKTREE/harness/saves"
+    DIFF_SAVE_ARGS=()
+    if [ "$suite" = natural ]; then
+        SAVE_ROOT="$WORKTREE/harness/saves/captured-extended"
+        DIFF_SAVE_ARGS=(--save-root "$SAVE_ROOT")
+    fi
+    SAVE_ROOT="$SAVE_ROOT" LLVM_PROFILE_FILE="$OUT/profiles/$suite/%m-%p.profraw" CHECKPOINT_EVERY=0 \
       BORG_IMPL=rust JOBS="${JOBS:-4}" RUN_TIMEOUT_SECONDS="${RUN_TIMEOUT_SECONDS:-1800}" \
       harness/suite.sh "$suite" "$OUT/$suite" >"$OUT/$suite.log" 2>&1
     test -f "$OUT/$suite/DONE"
-    harness/diff --suite "$suite" --expect-impl rust "$OUT/$suite" "$REFERENCES/$suite" \
+    harness/diff --suite "$suite" "${DIFF_SAVE_ARGS[@]}" --expect-impl rust "$OUT/$suite" "$REFERENCES/$suite" \
       >"$OUT/$suite.diff" 2>&1
     python3 - "$OUT" "$suite" <<'PY'
 import hashlib, json, sys
@@ -45,4 +59,7 @@ PY
     tail -3 "$OUT/$suite.diff"
     echo "PASS $suite $(date -u +%FT%TZ)"
 done
-date -u +%FT%TZ > "$OUT/DONE"
+date -u +%FT%TZ > "$OUT/GROUPS_DONE"
+if [ "$SELECTED_SUITES" = "$ALL_SUITES" ]; then
+    cp "$OUT/GROUPS_DONE" "$OUT/DONE"
+fi
