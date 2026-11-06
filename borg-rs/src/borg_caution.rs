@@ -1930,11 +1930,11 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
 }
 
 /// `borg_note(format("<prefix>%s", reason))` for a `borg_restock()` reason.
-/// A NULL reason prints as `(null)` like glibc's `%s` (it cannot be NULL
+/// A NULL reason prints as empty in Angband's `format()` (it cannot be NULL
 /// here: the caller has just seen a non-NULL one for the same depth).
 fn note_with_reason(st: &mut BorgState, prefix: &[u8], reason: Option<Vec<u8>>) {
     let mut note = prefix.to_vec();
-    note.extend_from_slice(reason.as_deref().unwrap_or(b"(null)"));
+    note.extend_from_slice(reason.as_deref().unwrap_or(b""));
     borg_note_bytes(st, &note);
 }
 

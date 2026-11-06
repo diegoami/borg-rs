@@ -1264,3 +1264,33 @@ with its issues.
 * Tracker: one lead per slip, in the order above (the last bullet is
   four):
   diegoami/neo-angband-tracker#247 to diegoami/neo-angband-tracker#263.
+
+## 52. Multibyte screen text can be unterminated (io/messages)
+
+* `borg-io.c`, `borg_what_text()`, observed in M4 D's synthetic saved-character
+  replay and checked against the source at `e473720ed`.
+* `wcstombs(s, screen_str, ABS(n) + 1)` limits **bytes**, although `n` is
+  the number of wide screen characters. A 79-column line containing one
+  two-byte UTF-8 character needs 81 bytes including its NUL. With the
+  limit 80, `wcstombs` writes 80 bytes and no NUL. The function ignores the
+  conversion result and still reports success. `borg_get_messages()` uses
+  an uninitialised `char buffer[1024]`, then `borg_trim`/`strlen` treat the
+  converted prefix as a terminated string and can read stale stack bytes.
+* Observed: `end-depth98`, fixture `depth98.save`, replay seed 6001,
+  `menu,cheat`, at turn 27899/key 34102. The two C passes are identical,
+  but C produces an extra `PAIN:)` and "Assuming player ghost ())" note.
+  A `borg_verbose=TRUE` diagnostic shows C parsing
+  `The lord of Carn Dûm (offscreen) wakes up.` followed by spaces and the
+  stale suffix `) wakes up.`; Rust parses just the real message. Keys and
+  player-state logs remain identical for this entire 100k-turn scenario;
+  no gameplay consequence beyond the spurious parsing is claimed.
+* `harness/regress/wcstombs/run.sh` is a native libc-only control: 79 ASCII
+  columns terminate; replacing one with `û` fills the 80-byte limit without
+  a NUL and `strlen` reads a deliberately initialised stale tail. The probe
+  avoids undefined reads itself; it does not reproduce arbitrary stack
+  contents or establish an independently verified native game defect.
+* Rust zero-initialises its scratch buffer. Arbitrary uninitialised C
+  stack contents are not reproducible safe state. No C correction, Rust
+  special case, reference filtering or fixture/seed change is applied.
+  This remains a strict message-parity blocker for step D.
+* Tracker: pending publication and duplicate check.

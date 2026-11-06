@@ -824,7 +824,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
         if borg_must_return_to_town(st).is_some() {
             let t = match borg_must_return_to_town(st) {
                 Some(r) => r.text(st).to_vec(),
-                None => b"(null)".to_vec(),
+                None => Vec::new(), // Angband format("%s", NULL) is empty.
             };
             note_with(st, b"# returning to town to restock(too deep: ", &t, b")");
             st.borg.goal.rising = true;
@@ -1089,7 +1089,7 @@ fn leave_town(st: &mut BorgState, bored: bool) -> bool {
         /* recall unless way out of our league */
         let t = match prepared(st, st.borg.tr(BI_MAXDEPTH)) {
             Some(p) => prep_text(st, &p),
-            None => b"(null)".to_vec(),
+            None => Vec::new(), // Angband format("%s", NULL) is empty.
         };
         note_with(st, b"# Way too scary to recall down there!   ", &t, b"");
     } else {
