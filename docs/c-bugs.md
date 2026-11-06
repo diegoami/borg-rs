@@ -1393,3 +1393,24 @@ The C source is unchanged; no correction is proposed in this pass.
   out-of-memory or gameplay-consequence claim is made.
 * Tracker: one finding per distinct slip, in the order above:
   diegoami/neo-angband-tracker#323, #324 and #325.
+
+## 56. Glyph reverse flow can stop at the origin (reported lead)
+
+* `borg_flow_glyph()` calls `borg_flow_reverse(250, true, false, false,
+  -1, false)`. The reverse helper clears costs, enqueues the player's grid
+  at cost0, and passes `optimize=true` to `borg_flow_spread` despite its
+  "do NOT optimize" comment. Spread's first cost is1; optimization compares
+  that against the origin's0 and breaks before processing neighbors.
+* The glyph scan consequently sees only the player's grid below cost75.
+  Once the center is glyphed and the old-center branch skips that tile,
+  nearby unglyphed floor candidates can remain unreachable to this search.
+  This can prevent progress on outlying runes until some external action
+  moves the character. It is not a demonstrated whole-game halt or win-loss
+  consequence, and no tactic correction is applied here.
+* Evidence: source reading plus the native C/Rust builder fixture. The
+  controlled open-room case with an existing one-glyph center returns
+  false and retains one tracked glyph in both implementations. Creation,
+  completed rings, duplicate tracking and full-capacity controls match too.
+  No ordinary-play reproduction or independent tracker verification is
+  claimed. Existing section29 slips and tracker#118 concern other defects.
+* Tracker: pending published discovery/intake, one distinct finding.

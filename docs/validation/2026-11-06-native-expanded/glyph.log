@@ -1,0 +1,12 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.01s
+     Running `harness/out/native-checker.X0O7iQ/target/release/spatial 900 --glyph`
+glyph scenario=0 native_result=1 tracked=1
+glyph scenario=1 native_result=0 tracked=1
+glyph scenario=2 native_result=1 tracked=0
+glyph scenario=3 native_result=0 tracked=1
+glyph scenario=4 native_result=1 tracked=25
+glyph scenario=5 native_result=0 tracked=0
+glyph scenario=6 native_result=1 tracked=200
+glyph scenario=7 native_result=1 tracked=200
+glyph scenario=8 native_result=1 tracked=0
+PASS 900 native C/Rust glyph-builder states: pattern/flow decisions, creation/duplicate/capacity bookkeeping, callbacks and complete private maps/queues

@@ -1,49 +1,66 @@
-# Native calculator differential checker (M4 E foundation)
-
-Run from the repository root:
+# Native C/Rust differential checks (M4 E)
 
 ```sh
 harness/native-checker/run.sh
 CHECK_UBSAN=1 harness/native-checker/run.sh
 ```
 
-The runner records logs and source SHA-256 hashes under a new
-`harness/out/native-checker.*` directory and writes `DONE` only after all
-requested controls pass. It needs a native C compiler, stable Rust and,
-for `CHECK_UBSAN=1`, the C compiler's UBSan runtime.
+The standalone checker links original native C code beside production Rust
+items, compares logical state and outputs, and retains source SHA-256
+ledgers. It needs a native C compiler and stable Rust; optional C UBSan
+requires the compiler's runtime. It has its own Cargo workspace and never
+links C Borg code into the production Rust Borg.
 
-The checker compiles the actual `borg-formulas-calc.c` under renamed
-symbols beside the unchanged Rust `borg_formulas_calc.rs` module. C uses
-the real `borg_array_add` implementation. The Rust module is imported
-by path, not copied or translated into another implementation.
+| kernel | native code and Rust code | comparison |
+|---|---|---|
+| Calculator | actual renamed C calculator, real C array helper, unchanged Rust module by path | results/index, diagnostic order/text, complete logical calculation list and every token kind/negation/depth/payload |
+| Projection/cave/directions | original C projection/cave helpers, verbatim Rust items and distance helper | LOS/projection decisions, incremental paths, direction choice, wall guesses, target state and emitted keys/notes |
+| Flow | original renamed C flow functions, verbatim Rust flow state/helpers | full cost/hard/known/icky/current-flow matrices, circular queue bytes/head/tail, goal type and wipe flag after clear, enqueue and spread/commit; ordered danger calls |
+| Melee | actual C/Rust physical-damage and thrust-selection bodies | slays/brands/immunities, armor/hit chance, HP cap, class/mana and unique/summoner/questor arithmetic; scores, chosen goals, simulation/apply behavior, callbacks and actions |
+| Rune builder | actual C/Rust glyph-builder bodies with real flow calculations | center/outlying decisions, creation/duplicate/full-capacity tracking, centers/goals, complete maps/queues and ordered spell/item/step boundary calls |
 
-Both sides receive the same explicit calculator environment: `value(0..9)`
-is `index * 7 - 10`, `value(99)` is the supplied range index. The C value
-lookup and diagnostic callbacks are stubs; Rust uses the module's existing
-`CalcEnv` boundary. The small `ValueSec`/`BorgState` records satisfy that
-module's type dependencies, not a complete game-state model.
+C modules are compiled with renamed entry points. The static C melee bodies
+and Rust items are selected verbatim by the source extractor; only a fixture
+entry name is changed to keep the physical scorer distinct from the shared
+score-input control. The ledger binds each item and original file to hashes.
+Fixture-only constructors and type/environment adapters supply dimensions,
+engine predicates, item/race data and callback outcomes. Numerical engine
+flag bindings are also compared directly. Production algorithms are not
+reimplemented as expected-value functions.
 
-For every case the checker compares result/index, diagnostic order/text,
-the entire retained calculation list, maximum depths and every token's
-kind, negation, depth and payload. Batches of 47 calculations exercise
-array growth and clear/reuse. Thirty thousand deterministic expressions
-(seed1511464998) cover all operators, negative/negated operands, precedence,
-redundant parentheses, range values and divide-by-zero diagnostics.
-Expressions have at most four operands with absolute value at most53, so
-intermediate signed arithmetic remains within int32. Arbitrary malformed
-input and C undefined arithmetic are outside this corpus.
+The environment boundary is explicit. Flow receives a shared danger grid;
+selection is tested with shared damage inputs and with the actual physical
+scorer. Rune spell/item/step calls receive controlled outcomes; their
+bookkeeping does not establish that a tactic completed inside the engine.
+The checker does not shadow every private field of an entire running Borg.
+Game-corpus oracles and serialized capture equality remain separate evidence.
 
-The negative control makes a temporary copy of the actual Rust source,
-changes its addition operation to subtraction, compiles that source and
-requires a mismatch. Source overrides are explicitly marked and can never
-produce valid `PASS` evidence. Optional UBSan runs the native C side with
-non-recovering undefined-behavior checks. The ordinary runner also checks
-clippy with warnings denied.
+## Corpus and controls
 
-This is a committed, reproducible native checker for one selected kernel.
-It does not compare the entire Borg's private game state, combat scoring,
-map or monster models, nor the production value-name resolver. It is an
-M4 E foundation rather than a claim that all historical conversion checks
-have been replaced. The original C allocator leads discovered during this
-work are recorded in `docs/c-bugs.md` section55 and tracker #323–#325;
-the checker does not change their C implementations.
+* Calculator:30,000 deterministic cases, seed1511464998; batches of47
+  exercise array growth/reuse. At most four bounded operands avoid int32
+  overflow. Operators, precedence, negative/negated values, parentheses,
+  ranges and divide-by-zero diagnostics are compared.
+* Spatial/combat:2,000 states each for seeds1832132646 and305441741;
+  dungeon/town bounds, open/sparse/corridor/unknown terrain, traps, glyphs,
+  monsters, health/fear/status thresholds, stairs, optimization/tunneling/
+  avoidance/sneaking, and queue wrap/overflow. Snapshots include all map
+  cells and queue slots, including inactive ones and intermediate stages.
+* Rune builder:900 controlled states over nine creation, duplicate,
+  pattern, no-room, distant-center and capacity scenarios.
+* Source faults must be rejected: actual Rust calculator addition,
+  projection adjacency result, unused border-map flag, same-square melee
+  guard, damage multiplier and glyph target bookkeeping are changed in
+  temporary copies. Overrides cannot produce valid PASS evidence.
+* Optional non-recovering C UBSan runs calculator, spatial/combat and
+  glyph corpora. All-target clippy runs with warnings denied.
+
+A fresh `harness/out/native-checker.*` directory records logs, hashes and
+ledgers. DONE is written only after all requested checks and controls pass.
+No production input is changed. Arbitrary malformed states and undefined
+C arithmetic are outside the declared domain; valid tracked counts are
+0..200 and all map accesses use allocated pinned-size storage.
+
+Allocator leads #323–#325 and the separately documented glyph reverse-flow
+lead remain reported findings. This checker establishes C/Rust equivalence
+for the stated kernels/domain, not correctness of every inherited C tactic.
