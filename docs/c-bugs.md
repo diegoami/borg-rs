@@ -1261,3 +1261,6 @@ with its issues.
   use 20.
 * Rust (`borg_fight_attack.rs`): all kept; the out-of-bounds reads and
   writes are panics.
+* Tracker: one lead per slip, in the order above (the last bullet is
+  four):
+  diegoami/neo-angband-tracker#247 to diegoami/neo-angband-tracker#263.
