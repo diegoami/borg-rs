@@ -74,7 +74,7 @@ IMPL_ELF=$("$ID" binary-impl "$BIN")
 CACHE_IMPL=$(sed -n 's/^BORG_IMPL:[A-Z]*=//p' "$BUILD_DIR/CMakeCache.txt" 2>/dev/null || true)
 CACHE_IMPL=${CACHE_IMPL:-unknown}
 BID="$BUILD_DIR/BUILD_ID"
-bid() { sed -n "s/^$1=//p" "$BID" 2>/dev/null | head -1; }
+bid() { [ -f "$BID" ] && sed -n "s/^$1=//p" "$BID" | head -1 || true; }
 BID_IMPL=$(bid impl); BID_IMPL=${BID_IMPL:-unknown}
 OVERRIDES=()
 
@@ -145,7 +145,7 @@ if [ -n "$(git -C "$ROOT" status --porcelain 2>/dev/null)" ]; then DIRTY=yes; el
     echo "binary_cmake_borg_impl=$CACHE_IMPL"
     echo "build_id_impl=$BID_IMPL"
     for k in git_rev git_dirty inputs_dirty source_sha256 binary_sha256 cc rustc built_utc; do
-        v=$(bid "$k"); [ -n "$v" ] && echo "build_id_$k=$v"
+        v=$(bid "$k"); if [ -n "$v" ]; then echo "build_id_$k=$v"; fi
     done
     echo "checkout_source_sha256=$CUR_SRC"
     echo "impl_check=$IMPL_CHECK"
