@@ -23,7 +23,7 @@ use crate::headers::borg_trait_h::{BI_CDEPTH, BI_CLEVEL, BI_GOLD, BI_KING};
 use crate::headers::ui_event_h::{keypress, EVT_DISCONNECT, EVT_KBRD, EVT_NONE};
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// A Borg game-turn counter (`borg_time`).
 pub type BorgTime = i32;
@@ -288,7 +288,7 @@ impl BorgState {
 /// The `inkey_hack` callback: capture control from the game and feed it
 /// keypresses (`borg_entry_point`).
 extern "C" fn borg_entry_point(flush_first: core::ffi::c_int) -> keypress {
-    bridge::with_entry_state(|st| {
+    crate::engine::enter(|st| {
         let k = generate_keypress(st, flush_first != 0);
         crate::borg_io::borg_save_keypress(st, k)
     })

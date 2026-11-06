@@ -283,7 +283,7 @@ impl FormulaEnv for StEnv<'_> {
         engine::lookup_sval_bytes(tval, name)
     }
     fn lookup_kind(&mut self, tval: i32, sval: i32) -> i32 {
-        borg_lookup_kind(tval, sval)
+        borg_lookup_kind(self.0, tval, sval)
     }
 }
 

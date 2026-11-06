@@ -21,7 +21,7 @@ use crate::headers::game_event_h::{game_event_data, game_event_type, EVENT_BELL,
 use crate::headers::list_message_h::MSG_GENERIC;
 use crate::headers::ui_event_h::{keycode_t, keypress, EVT_KBRD};
 use crate::state::BorgState;
-use crate::{bridge, headers};
+use crate::headers;
 
 /// Size of the keypress queue and history (`KEY_SIZE`).
 pub const KEY_SIZE: usize = 8192;
@@ -100,10 +100,10 @@ fn borg_info(_what: &[u8]) {}
 fn borg_note_internal(st: &mut BorgState, warning: bool, what: &[u8]) {
     let old = engine::term_current();
     if warning {
-        bridge::msg(st, what);
+        engine::msg(st, what);
     } else {
         engine::message_add(what, MSG_GENERIC as u16);
-        engine::event_signal_message_null(EVENT_MESSAGE, MSG_GENERIC as i32);
+        engine::event_signal_message_null(st, EVENT_MESSAGE, MSG_GENERIC as i32);
     }
     borg_info(what);
 
@@ -334,7 +334,7 @@ extern "C" fn borg_bell(
     _data: *mut game_event_data,
     _user: *mut core::ffi::c_void,
 ) {
-    bridge::with_entry_state(borg_bell_impl);
+    crate::engine::enter(borg_bell_impl);
 }
 
 /// Set up the key queue and history (`borg_init_io`).

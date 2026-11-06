@@ -20,7 +20,6 @@ use crate::headers::list_options_h::OPT_birth_no_selling;
 use crate::headers::list_terrain_h::{FEAT_HOME, FEAT_STORE_BLACK};
 use crate::headers::obj_desc_h::{ODESC_FULL, ODESC_STORE};
 use crate::state::BorgState;
-use crate::bridge;
 use crate::borg_item::blank_item;
 
 /// `BORG_HOME` (borg-store.h): the home's index in the shops.
@@ -219,7 +218,7 @@ pub fn borg_init_store(st: &mut BorgState) {
             "borg thinks home is {}, game thinks home is {}.  aborting. ",
             home, BORG_HOME
         );
-        bridge::msg(st, text.as_bytes());
+        engine::msg(st, text.as_bytes());
         st.init.init_failure = true;
     }
 

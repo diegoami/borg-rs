@@ -188,7 +188,7 @@ pub fn borg_react_prompted(st: &mut BorgState, buf: &[u8], cursor: loc) -> Optio
                 crate::borg_reincarnate::borg_reincarnate_start(st);
                 return Some(b'y'.into());
             } else {
-                engine::do_cmd_wiz_cure_all();
+                engine::do_cmd_wiz_cure_all(st);
                 st.borg.time.now = 100;
                 return Some(b'n'.into());
             }

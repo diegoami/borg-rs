@@ -1,9 +1,8 @@
 //! All Borg state in one place (the C globals of `angband/src/borg/*.c`).
 //!
-//! Each converted module adds its own sub-struct here. During the
-//! conversion, code that is still c2rust reaches the single instance
-//! through `crate::bridge::st()`. Converted code receives `&mut BorgState`
-//! explicitly.
+//! Each module owns a sub-struct here. The one instance is created and
+//! handed out by `engine::enter` (the engine's callbacks into the Borg);
+//! Borg code receives `&mut BorgState` explicitly.
 
 use crate::borg::{Borg, CoreState};
 use crate::borg_cave::CaveState;

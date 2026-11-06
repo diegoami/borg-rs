@@ -273,7 +273,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
     let mut borg_map_file: Option<OpenFile> = None;
 
     // XXX XXX XXX Get the name and open the map file
-    if ask && bridge::get_string(st, c"Borg map File: ", &mut buf2, 70) {
+    if ask && engine::get_string(st, c"Borg map File: ", &mut buf2, 70) {
         let n = buf2.iter().position(|&b| b == 0).unwrap_or(buf2.len());
 
         // Open a new file
@@ -281,7 +281,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
 
         // Failure
         if borg_map_file.is_none() {
-            bridge::msg(st, b"Cannot open that file.");
+            engine::msg(st, b"Cannot open that file.");
         }
     } else if !ask {
         borg_map_file = engine::file_open(&path, WriteMode::Write);

@@ -14,12 +14,12 @@
 //!    and not for profit purposes provided that this copyright and statement
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
-//! The engine calls `do_cmd_borg` (through `bridge::commands`) when the
+//! The engine calls `do_cmd_borg` (through `engine::do_cmd_borg`) when the
 //! player presses `^Z`. It asks for a command key and runs the matching
 //! entry of `BORG_COMMANDS`. Every engine call here that can wait for a
-//! key (prompts, menus, targeting, messages and message flushes) goes
-//! through a `bridge` wrapper that lets the state escape, as the engine
-//! may run a Borg turn while it waits. C's `msg(fmt, ...)` calls are
+//! key (prompts, menus, targeting, messages and message flushes) takes the
+//! state and lends it to the engine call, as the engine may run a Borg
+//! turn while it waits (`engine::enter`). C's `msg(fmt, ...)` calls are
 //! formatted here and passed as one `%s` argument (same text: no argument
 //! is longer than the 1023 bytes `vstrnfmt` keeps). The module has no
 //! state of its own. C bugs kept are listed in `docs/c-bugs.md`
@@ -45,7 +45,7 @@ use crate::headers::project_h::{PROJECT_ARC, PROJECT_BEAM};
 use crate::headers::ui_event_h::{EVT_ESCAPE, EVT_SELECT};
 use crate::headers::ui_output_h::region;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 const COLOUR_WHITE: u8 = 1;
 const COLOUR_ORANGE: u8 = 3;
@@ -114,18 +114,18 @@ const MENU_AREA: region = region { col: 21, row: 5, width: 1, page_rows: 10 };
 
 /// `msg("%s", text)` for a text built here.
 fn msg(st: &mut BorgState, text: impl AsRef<[u8]>) {
-    bridge::msg(st, text.as_ref());
+    engine::msg(st, text.as_ref());
 }
 
 /// `event_signal(EVENT_MESSAGE_FLUSH)`
 fn message_flush(st: &mut BorgState) {
-    bridge::event_signal(st, EVENT_MESSAGE_FLUSH);
+    engine::event_signal(st, EVENT_MESSAGE_FLUSH);
 }
 
 /// `get_com(prompt, &cmd)` with a prompt built here.
 fn get_com_text(st: &mut BorgState, prompt: &[u8]) -> (bool, u8) {
     let prompt = CString::new(prompt).expect("no NUL in prompt");
-    bridge::get_com(st, &prompt)
+    engine::get_com(st, &prompt)
 }
 
 /// The text of a C char array up to its NUL.
@@ -148,7 +148,7 @@ fn borg_cmd_target(st: &mut BorgState) -> bool {
 
     // Check for use of current target
     if engine::target_okay() {
-        let (ok, c) = bridge::get_com(st, c"Use current target? (y/n) ");
+        let (ok, c) = engine::get_com(st, c"Use current target? (y/n) ");
         cmd = c;
         if !ok {
             borg_note(st, "command aborted");
@@ -159,13 +159,13 @@ fn borg_cmd_target(st: &mut BorgState) -> bool {
     if cmd != b'y' && cmd != b'Y' {
         // Get a command (or Cancel). This forces an extra keypress to
         // start looking around, which lets the message be printed.
-        if !bridge::get_com_ex(st, c"Select grid location (t to target): ") {
+        if !engine::get_com_ex(st, c"Select grid location (t to target): ") {
             borg_note(st, "targeting aborted");
             return false;
         }
 
         let (cx, cy) = (st.borg.c.x, st.borg.c.y);
-        if !bridge::target_set_interactive(st, TARGET_LOOK, cx, cy, true) {
+        if !engine::target_set_interactive(st, TARGET_LOOK, cx, cy, true) {
             borg_note(st, "targeting aborted");
             return false;
         }
@@ -316,7 +316,7 @@ fn borg_cmd_step(st: &mut BorgState) {
     st.borg.status.cancel = false;
 
     // Step N times (the int is truncated to borg_step's uint16_t)
-    st.core.step = bridge::get_quantity(st, c"Step how many times? ", 1000) as u16;
+    st.core.step = engine::get_quantity(st, c"Step how many times? ", 1000) as u16;
     if st.core.step < 1 {
         st.core.step = 1;
     }
@@ -408,7 +408,7 @@ fn borg_cfg_get_quantity(st: &mut BorgState, config: usize) -> i32 {
     prompt.extend_from_slice(BORG_SETTINGS[config].name.to_bytes());
     prompt.extend_from_slice(b": ");
     let prompt = CString::new(prompt).expect("no NUL in prompt");
-    if !bridge::get_string(st, &prompt, &mut buf, 7) {
+    if !engine::get_string(st, &prompt, &mut buf, 7) {
         return 0;
     }
 
@@ -433,13 +433,13 @@ fn borg_cmd_flags(st: &mut BorgState) {
     m.layout(MENU_AREA);
 
     // Set up the screen
-    bridge::screen_save(st);
+    engine::screen_save(st);
     engine::window_make(19, 4, 58, 15);
 
     let cfg = st.core.cfg.clone();
-    let result = bridge::menu_select(st, &mut m, 0, true, &mut |r| get_cfg_display(&cfg, r));
+    let result = m.select(st, 0, true, &mut |r| get_cfg_display(&cfg, r));
 
-    bridge::screen_load(st);
+    engine::screen_load(st);
 
     if result == EVT_ESCAPE {
         return;
@@ -507,7 +507,7 @@ fn borg_cmd_search_string(st: &mut BorgState) {
     // Get the new search string (or cancel the matching); edited in a
     // copy of all of borg_match, written back as a whole
     let mut buf = st.messages.match_;
-    let ok = bridge::get_string(st, c"Borg Match String: ", &mut buf, 70);
+    let ok = engine::get_string(st, c"Borg Match String: ", &mut buf, 70);
     if !ok {
         // Cancel it (`my_strcpy(borg_match, "", ...)`)
         buf[0] = 0;
@@ -598,12 +598,12 @@ fn borg_cmd_grid_feature(st: &mut BorgState) {
     m.layout(MENU_AREA);
 
     // Set up the screen
-    bridge::screen_save(st);
+    engine::screen_save(st);
     engine::window_make(19, 4, 58, 15);
 
-    let result = bridge::menu_select(st, &mut m, 0, true, &mut get_feature_display);
+    let result = m.select(st, 0, true, &mut get_feature_display);
 
-    bridge::screen_load(st);
+    engine::screen_load(st);
 
     if result == EVT_ESCAPE {
         return;
@@ -693,7 +693,7 @@ fn borg_cmd_grid_target_danger(st: &mut BorgState) {
     let l = engine::target_get();
 
     // Turns
-    let n = bridge::get_quantity(st, c"Time on square? ", 1000);
+    let n = engine::get_quantity(st, c"Time on square? ", 1000);
 
     // Danger of grid
     let p = borg_danger(st, l.y, l.x, n, true, false);
@@ -809,7 +809,7 @@ fn borg_cmd_targeting(st: &mut BorgState) {
     let (x, y) = (l.x, l.y);
 
     // Get a "Borg command", or abort (C bug 41: the delay is not restored)
-    let (ok, ch) = bridge::get_com(st, c"Borg command: Show Arc (Y/y): ");
+    let (ok, ch) = engine::get_com(st, c"Borg command: Show Arc (Y/y): ");
     if !ok {
         return;
     }
@@ -819,10 +819,10 @@ fn borg_cmd_targeting(st: &mut BorgState) {
 
     if ch != b'Y' && ch != b'y' {
         // Real LOS - beam
-        bridge::project_from_player(st, 0, x, y, 1, PROJ_MISSILE as i32, PROJECT_BEAM as i32, 0, 0);
+        engine::project_from_player(st, 0, x, y, 1, PROJ_MISSILE as i32, PROJECT_BEAM as i32, 0, 0);
     } else {
         // Real LOS - arc
-        bridge::project_from_player(st, 10, x, y, 50, PROJ_MISSILE as i32, PROJECT_ARC as i32, 60, 4);
+        engine::project_from_player(st, 10, x, y, 50, PROJ_MISSILE as i32, PROJECT_ARC as i32, 60, 4);
     }
 
     engine::set_player_delay_factor(sv_delay);
@@ -1241,7 +1241,7 @@ enum HasWhat {
 /// (`borg_cmd_has`).
 fn borg_cmd_has(st: &mut BorgState) {
     // Get a "Borg command", or abort
-    let (ok, cmd) = bridge::get_com(st, c"Dynamic Borg Has What: ((a)ny/(i)nv/(w)orn/a(r)tifact/(s)kill) ");
+    let (ok, cmd) = engine::get_com(st, c"Dynamic Borg Has What: ((a)ny/(i)nv/(w)orn/a(r)tifact/(s)kill) ");
     if !ok {
         return;
     }
@@ -1320,7 +1320,7 @@ fn borg_cmd_version(st: &mut BorgState) {
 /// (`borg_cmd_object_desc`).
 fn borg_cmd_object_desc(st: &mut BorgState) {
     // use this item
-    let n = bridge::get_quantity(st, c"Which item?", i32::from(engine::z_info().pack_size));
+    let n = engine::get_quantity(st, c"Which item?", i32::from(engine::z_info().pack_size));
 
     // find all items currently in use
     crate::borg_item::borg_find_all_items(st);
@@ -1355,7 +1355,7 @@ fn borg_cmd_object_desc(st: &mut BorgState) {
 /// Respawn (reincarnate) the Borg (`borg_cmd_respawn`).
 fn borg_cmd_respawn(st: &mut BorgState) {
     // Confirm it
-    let (_, cmd) = bridge::get_com(st, c"Are you sure you want to Respawn this borg? (y or n)? ");
+    let (_, cmd) = engine::get_com(st, c"Are you sure you want to Respawn this borg? (y or n)? ");
 
     if cmd == b'y' || cmd == b'Y' {
         crate::borg_reincarnate::borg_force_reincarnate(st);
@@ -1381,7 +1381,7 @@ fn borg_cmd_grid_glyphs(st: &mut BorgState) {
 /// Map information (`borg_cmd_map`).
 fn borg_cmd_map(st: &mut BorgState) {
     let (ok, option) =
-        bridge::get_com(st, c"What to show ((a)voidances, (f)eatures, (g)lyphs, (m)onsters, (o)bjects): ");
+        engine::get_com(st, c"What to show ((a)voidances, (f)eatures, (g)lyphs, (m)onsters, (o)bjects): ");
     if !ok {
         return;
     }
@@ -1403,7 +1403,7 @@ pub fn do_cmd_borg(st: &mut BorgState) {
     st.borg.c = engine::player_grid();
 
     // Get a "Borg command", or abort
-    let (ok, cmd) = bridge::get_com(st, c"Borg command (? for help): ");
+    let (ok, cmd) = engine::get_com(st, c"Borg command (? for help): ");
     if !ok {
         // Restore the screen
         engine::term_load();

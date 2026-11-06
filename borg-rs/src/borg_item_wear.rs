@@ -29,7 +29,7 @@ use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_magic::{borg_spell, borg_spell_legal};
 use crate::borg_power::borg_power;
 use crate::borg_store::{borg_home_full, borg_inventory_full, BORG_HOME, SHOP_MENU_ITEMS};
-use crate::{borg_flow_misc, bridge};
+use crate::borg_flow_misc;
 use crate::engine;
 use crate::headers::borg_h::BORG_VERBOSE;
 use crate::headers::borg_item_h::borg_item;
@@ -1565,7 +1565,7 @@ pub fn borg_init_item_wear(st: &mut BorgState) {
 
     let z = engine::z_info();
     if i32::from(z.equip_slots_max) + i32::from(z.pack_size) >= 100 {
-        bridge::msg(st, b"pack size plus equipment slots exceeds 100.  Need a rewrite of best_item code");
+        engine::msg(st, b"pack size plus equipment slots exceeds 100.  Need a rewrite of best_item code");
         st.init.init_failure = true;
     }
 }

@@ -217,7 +217,7 @@ pub fn borg_think(st: &mut BorgState) -> bool {
     /* If the clock overflowed, fix that (C bug 50: never reached in play) */
     if st.borg.time.now > BORG_TIME_MAX - 100 {
         st.borg.time.now = 1;
-        /* `msg` may wait for a key: it escapes the state (bridge::msg) */
+        /* `msg` may wait for a key: it lends the state (engine::msg) */
         borg_warning(st, "*****WARNING***** Borg Clock Overflow");
     }
 

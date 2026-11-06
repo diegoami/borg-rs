@@ -330,11 +330,11 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
             || (stats_needing_fix >= 5 && borg_quaff_potion(st, st.item_val.sv_potion_life))
             // Choose Life over Healing if way down on pts
             || (hp_down > 500
-                && st.borg.has[borg_lookup_kind(
-                    TV_POTION as i32,
-                    st.item_val.sv_potion_star_healing,
-                ) as usize]
-                    <= 0
+                && {
+                    let sv = st.item_val.sv_potion_star_healing;
+                    let k = borg_lookup_kind(st, TV_POTION as i32, sv);
+                    st.borg.has[k as usize]
+                } <= 0
                 && borg_quaff_potion(st, st.item_val.sv_potion_life))
             || borg_quaff_potion(st, st.item_val.sv_potion_star_healing)
             || borg_quaff_potion(st, st.item_val.sv_potion_healing)

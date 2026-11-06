@@ -262,7 +262,7 @@ pub fn borg_init_item_val(st: &mut BorgState) {
     st.item_val.sv_mush_emergency = borg_lookup_sval_fail(st, tval, "Emergency");
     st.item_val.sv_mush_terror = borg_lookup_sval_fail(st, tval, "Terror");
     st.item_val.sv_mush_stoneskin = borg_lookup_sval_fail(st, tval, "Stoneskin");
-    st.item_val.kv_mush_stoneskin = borg_lookup_kind(tval, st.item_val.sv_mush_stoneskin);
+    st.item_val.kv_mush_stoneskin = borg_lookup_kind(st, tval, st.item_val.sv_mush_stoneskin);
     st.item_val.sv_mush_debility = borg_lookup_sval_fail(st, tval, "Debility");
     st.item_val.sv_mush_sprinting = borg_lookup_sval_fail(st, tval, "Sprinting");
     st.item_val.sv_mush_cure_mind = borg_lookup_sval_fail(st, tval, "Clear Mind");
@@ -274,18 +274,18 @@ pub fn borg_init_item_val(st: &mut BorgState) {
 
     tval = engine::tval_find_idx("flask");
     st.item_val.sv_flask_oil = borg_lookup_sval_fail(st, tval, "Flask of Oil");
-    st.item_val.kv_flask_oil = borg_lookup_kind(tval, st.item_val.sv_flask_oil);
+    st.item_val.kv_flask_oil = borg_lookup_kind(st, tval, st.item_val.sv_flask_oil);
 
     tval = engine::tval_find_idx("potion");
     st.item_val.sv_potion_cure_critical = borg_lookup_sval_fail(st, tval, "Cure Critical Wounds");
     st.item_val.sv_potion_cure_serious = borg_lookup_sval_fail(st, tval, "Cure Serious Wounds");
     st.item_val.sv_potion_cure_light = borg_lookup_sval_fail(st, tval, "Cure Light Wounds");
     st.item_val.sv_potion_healing = borg_lookup_sval_fail(st, tval, "Healing");
-    st.item_val.kv_potion_healing = borg_lookup_kind(tval, st.item_val.sv_potion_healing);
+    st.item_val.kv_potion_healing = borg_lookup_kind(st, tval, st.item_val.sv_potion_healing);
     st.item_val.sv_potion_star_healing = borg_lookup_sval_fail(st, tval, "*Healing*");
     st.item_val.sv_potion_life = borg_lookup_sval_fail(st, tval, "Life");
     st.item_val.sv_potion_restore_mana = borg_lookup_sval_fail(st, tval, "Restore Mana");
-    st.item_val.kv_potion_restore_mana = borg_lookup_kind(tval, st.item_val.sv_potion_restore_mana);
+    st.item_val.kv_potion_restore_mana = borg_lookup_kind(st, tval, st.item_val.sv_potion_restore_mana);
     st.item_val.sv_potion_cure_poison = borg_lookup_sval_fail(st, tval, "Neutralize Poison");
     st.item_val.sv_potion_resist_heat = borg_lookup_sval_fail(st, tval, "Resist Heat");
     st.item_val.sv_potion_resist_cold = borg_lookup_sval_fail(st, tval, "Resist Cold");
@@ -335,7 +335,7 @@ pub fn borg_init_item_val(st: &mut BorgState) {
     st.item_val.sv_scroll_recharging = borg_lookup_sval_fail(st, tval, "Recharging");
     st.item_val.sv_scroll_banishment = borg_lookup_sval_fail(st, tval, "Banishment");
     st.item_val.sv_scroll_mass_banishment = borg_lookup_sval_fail(st, tval, "Mass Banishment");
-    st.item_val.kv_scroll_mass_banishment = borg_lookup_kind(tval, st.item_val.sv_scroll_mass_banishment);
+    st.item_val.kv_scroll_mass_banishment = borg_lookup_kind(st, tval, st.item_val.sv_scroll_mass_banishment);
     st.item_val.sv_scroll_blessing = borg_lookup_sval_fail(st, tval, "Blessing");
     st.item_val.sv_scroll_holy_chant = borg_lookup_sval_fail(st, tval, "Holy Chant");
     st.item_val.sv_scroll_holy_prayer = borg_lookup_sval_fail(st, tval, "Holy Prayer");
@@ -346,9 +346,9 @@ pub fn borg_init_item_val(st: &mut BorgState) {
     st.item_val.sv_scroll_acquirement = borg_lookup_sval_fail(st, tval, "Acquirement");
     st.item_val.sv_scroll_star_acquirement = borg_lookup_sval_fail(st, tval, "*Acquirement*");
     st.item_val.sv_scroll_remove_curse = borg_lookup_sval_fail(st, tval, "Remove Curse");
-    st.item_val.kv_scroll_remove_curse = borg_lookup_kind(tval, st.item_val.sv_scroll_remove_curse);
+    st.item_val.kv_scroll_remove_curse = borg_lookup_kind(st, tval, st.item_val.sv_scroll_remove_curse);
     st.item_val.sv_scroll_star_remove_curse = borg_lookup_sval_fail(st, tval, "*Remove Curse*");
-    st.item_val.kv_scroll_star_remove_curse = borg_lookup_kind(tval, st.item_val.sv_scroll_star_remove_curse);
+    st.item_val.kv_scroll_star_remove_curse = borg_lookup_kind(st, tval, st.item_val.sv_scroll_star_remove_curse);
     st.item_val.sv_scroll_monster_confusion = borg_lookup_sval_fail(st, tval, "Monster Confusion");
     st.item_val.sv_scroll_trap_door_destruction = borg_lookup_sval_fail(st, tval, "Door Destruction");
     st.item_val.sv_scroll_dispel_undead = borg_lookup_sval_fail(st, tval, "Dispel Undead");
@@ -368,13 +368,13 @@ pub fn borg_init_item_val(st: &mut BorgState) {
 
     tval = engine::tval_find_idx("rod");
     st.item_val.sv_rod_recall = borg_lookup_sval_fail(st, tval, "Recall");
-    st.item_val.kv_rod_recall = borg_lookup_kind(tval, st.item_val.sv_rod_recall);
+    st.item_val.kv_rod_recall = borg_lookup_kind(st, tval, st.item_val.sv_rod_recall);
     st.item_val.sv_rod_detection = borg_lookup_sval_fail(st, tval, "Detection");
     st.item_val.sv_rod_illumination = borg_lookup_sval_fail(st, tval, "Illumination");
     st.item_val.sv_rod_speed = borg_lookup_sval_fail(st, tval, "Speed");
     st.item_val.sv_rod_mapping = borg_lookup_sval_fail(st, tval, "Magic Mapping");
     st.item_val.sv_rod_healing = borg_lookup_sval_fail(st, tval, "Healing");
-    st.item_val.kv_rod_healing = borg_lookup_kind(tval, st.item_val.sv_rod_healing);
+    st.item_val.kv_rod_healing = borg_lookup_kind(st, tval, st.item_val.sv_rod_healing);
     st.item_val.sv_rod_light = borg_lookup_sval_fail(st, tval, "Light");
     st.item_val.sv_rod_fire_bolt = borg_lookup_sval_fail(st, tval, "Fire Bolts");
     st.item_val.sv_rod_elec_bolt = borg_lookup_sval_fail(st, tval, "Lightning Bolts");
@@ -398,7 +398,7 @@ pub fn borg_init_item_val(st: &mut BorgState) {
     st.item_val.sv_staff_the_magi = borg_lookup_sval_fail(st, tval, "the Magi");
     st.item_val.sv_staff_power = borg_lookup_sval_fail(st, tval, "Power");
     st.item_val.sv_staff_holiness = borg_lookup_sval_fail(st, tval, "Holiness");
-    st.item_val.kv_staff_holiness = borg_lookup_kind(tval, st.item_val.sv_staff_holiness);
+    st.item_val.kv_staff_holiness = borg_lookup_kind(st, tval, st.item_val.sv_staff_holiness);
     st.item_val.sv_staff_curing = borg_lookup_sval_fail(st, tval, "Curing");
     st.item_val.sv_staff_sleep_monsters = borg_lookup_sval_fail(st, tval, "Sleep Monsters");
     st.item_val.sv_staff_slow_monsters = borg_lookup_sval_fail(st, tval, "Slow Monsters");
@@ -414,11 +414,11 @@ pub fn borg_init_item_val(st: &mut BorgState) {
     st.item_val.sv_wand_light = borg_lookup_sval_fail(st, tval, "Light");
     st.item_val.sv_wand_teleport_away = borg_lookup_sval_fail(st, tval, "Teleport Other");
     st.item_val.sv_wand_stinking_cloud = borg_lookup_sval_fail(st, tval, "Stinking Cloud");
-    st.item_val.kv_wand_stinking_cloud = borg_lookup_kind(tval, st.item_val.sv_wand_stinking_cloud);
+    st.item_val.kv_wand_stinking_cloud = borg_lookup_kind(st, tval, st.item_val.sv_wand_stinking_cloud);
     st.item_val.sv_wand_magic_missile = borg_lookup_sval_fail(st, tval, "Magic Missile");
-    st.item_val.kv_wand_magic_missile = borg_lookup_kind(tval, st.item_val.sv_wand_magic_missile);
+    st.item_val.kv_wand_magic_missile = borg_lookup_kind(st, tval, st.item_val.sv_wand_magic_missile);
     st.item_val.sv_wand_annihilation = borg_lookup_sval_fail(st, tval, "Annihilation");
-    st.item_val.kv_wand_annihilation = borg_lookup_kind(tval, st.item_val.sv_wand_annihilation);
+    st.item_val.kv_wand_annihilation = borg_lookup_kind(st, tval, st.item_val.sv_wand_annihilation);
     st.item_val.sv_wand_stone_to_mud = borg_lookup_sval_fail(st, tval, "Stone to Mud");
     st.item_val.sv_wand_wonder = borg_lookup_sval_fail(st, tval, "Wonder");
     st.item_val.sv_wand_hold_monster = borg_lookup_sval_fail(st, tval, "Hold Monster");
@@ -484,13 +484,13 @@ pub fn borg_init_item_val(st: &mut BorgState) {
 
 /// The k_idx of the object kind with the given `tval` and `sval`, or 0
 /// (with a message) when there is none (`borg_lookup_kind`).
-pub fn borg_lookup_kind(tval: i32, sval: i32) -> i32 {
+pub fn borg_lookup_kind(st: &mut BorgState, tval: i32, sval: i32) -> i32 {
     if let Some(k) = find_kind(engine::k_info(), tval, sval) {
         return k;
     }
 
     /* Failure */
-    engine::msg(&no_object_message(engine::tval_find_name(tval), tval, sval));
+    engine::msg(st, &no_object_message(engine::tval_find_name(tval), tval, sval));
     0
 }
 

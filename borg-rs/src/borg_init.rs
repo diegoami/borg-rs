@@ -33,7 +33,7 @@ use crate::headers::list_options_h::{
 };
 use crate::headers::ui_keymap_h::{KEYMAP_MODE_ORIG, KEYMAP_MODE_ROGUE};
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `MAX_RACES` (borg-trait.h).
 const MAX_RACES: i32 = 11;
@@ -432,7 +432,7 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     if BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name != c"borg_munchkin_level"
         || BORG_SETTINGS[BORG_RESPAWN_RACE as usize].name != c"borg_respawn_race"
     {
-        bridge::msg(st, b"borg settings structures not correct.  aborting. ");
+        engine::msg(st, b"borg settings structures not correct.  aborting. ");
         st.init.init_failure = true;
     }
 
@@ -444,10 +444,10 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     // No file, use defaults
     if fp.is_none() {
         // Complain
-        bridge::msg(st, b"*****WARNING***** You do not have a proper BORG.TXT file!");
-        bridge::msg(st, b"writing borg.txt to the \\user\\ subdirectory with default values");
-        bridge::msg(st, &[b"Which is: ".as_slice(), &path].concat());
-        bridge::event_signal(st, EVENT_MESSAGE_FLUSH);
+        engine::msg(st, b"*****WARNING***** You do not have a proper BORG.TXT file!");
+        engine::msg(st, b"writing borg.txt to the \\user\\ subdirectory with default values");
+        engine::msg(st, &[b"Which is: ".as_slice(), &path].concat());
+        engine::event_signal(st, EVENT_MESSAGE_FLUSH);
 
         let Some(mut out) = engine::file_open(&path, engine::WriteMode::Write) else {
             borg_warning(
@@ -602,7 +602,7 @@ extern "C" fn borg_leave_game(
 ) {
     // (a C assert; the C build has NDEBUG)
     debug_assert!(ev_type == EVENT_LEAVE_GAME && ev_data.is_null() && user.is_null());
-    bridge::with_entry_state(|st| st.init.game_closed = true);
+    crate::engine::enter(|st| st.init.game_closed = true);
 }
 
 /// Prepare some stuff based on the player race and class
@@ -623,7 +623,7 @@ pub fn borg_prepare_race_class_info(st: &mut BorgState) {
 pub fn borg_init(st: &mut BorgState) {
     // Verify system
     // Redraw everything
-    engine::do_cmd_redraw();
+    engine::do_cmd_redraw(st);
 
     // Message
     borg_note(st, "Initializing the Borg... (memory)");

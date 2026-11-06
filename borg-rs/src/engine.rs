@@ -6,6 +6,107 @@
 
 use crate::headers;
 
+// ---------------------------------------------------------------------------
+// The Borg state and the engine's entries into the Borg
+//
+// All Borg state is one `BorgState` (the C globals of borg/*.c). It is
+// allocated on the first entry and never freed (the C globals lived for
+// the whole process too), and it is reached only here: the engine calls
+// into the Borg through four callbacks (the `inkey_hack` hook in borg.rs,
+// the `EVENT_BELL` handler in borg_io.rs, the `EVENT_LEAVE_GAME` handler in
+// borg_init.rs, and `do_cmd_borg` below), each of which goes through
+// `enter`. `enter` hands the callback a `&mut BorgState`, and Borg code
+// passes it down explicitly; no Borg code holds the state any other way.
+//
+// Nested entry (docs/SELF-REVIEW.md U1). A Borg call into the engine that
+// waits for a key (a long `msg()` with `auto_more` off goes through
+// `msg_flush` -> `anykey` -> `inkey_ex` -> the hook), rings the bell, or
+// shows a message can run the Borg again while the outer Borg call is
+// still running and holds its `&mut BorgState`. C has the same nesting (no
+// guard in `inkey_ex`), so it is kept. To make it sound, every engine
+// wrapper that can get there takes the caller's `&mut BorgState` and
+// *lends* it for the duration of the engine call (`lend`): the nested
+// entry then works on a reborrow of the caller's reference, which the
+// caller cannot use until the engine call returns. A nested entry is
+// reported on stderr (the harness keeps `stderr.log` per run). A nested
+// entry from an engine call that does not lend the state would alias the
+// outer reference; it cannot be made sound, so it panics (abort) after the
+// report. The lending wrappers are: `msg`, `event_signal`,
+// `event_signal_message_null`, `get_string`, `get_com`, `get_com_ex`,
+// `get_quantity`, `target_set_interactive`, `screen_save`, `screen_load`,
+// `Menu::select`, `project_from_player`, `do_cmd_wiz_cure_all` and
+// `do_cmd_redraw`.
+
+use crate::state::BorgState;
+
+/// The root of the Borg state and the entry bookkeeping.
+struct Root {
+    /// The one `BorgState` (NULL until the first entry).
+    state: *mut BorgState,
+    /// How many engine callbacks into the Borg are running.
+    depth: u32,
+    /// The state lent to the engine call running now (NULL if none).
+    lent: *mut BorgState,
+}
+
+/// Engine thread only (the Borg never runs on another thread).
+static mut ROOT: Root = Root { state: core::ptr::null_mut(), depth: 0, lent: core::ptr::null_mut() };
+
+/// The root, as a raw pointer (no reference to the static is kept).
+fn root() -> *mut Root {
+    &raw mut ROOT
+}
+
+/// Run an engine callback into the Borg with the state (see above).
+pub fn enter<R>(f: impl FnOnce(&mut BorgState) -> R) -> R {
+    // SAFETY: engine thread only; ROOT is only touched in this function
+    // and in `lend`, and no reference to it is kept.
+    let (depth, p, saved_lent) = unsafe {
+        let root = &mut *root();
+        if root.state.is_null() {
+            root.state = Box::into_raw(Box::default());
+        }
+        root.depth += 1;
+        let p = if root.depth == 1 { root.state } else { root.lent };
+        (root.depth, p, core::mem::replace(&mut root.lent, core::ptr::null_mut()))
+    };
+    if depth > 1 {
+        eprintln!("borg-rs: nested Borg entry (depth {depth})");
+        assert!(!p.is_null(), "borg-rs: nested Borg entry from an engine call that does not lend the state");
+    }
+    // SAFETY: at depth 1 no Borg code is running, so no other reference
+    // into the state exists. At depth > 1 `p` is the reference the running
+    // Borg code lent to the engine call that led here (`lend`); that code
+    // cannot use it until the call returns, which is after `f` returns.
+    let r = f(unsafe { &mut *p });
+    // SAFETY: as above.
+    unsafe {
+        let root = &mut *root();
+        root.depth -= 1;
+        root.lent = saved_lent;
+    }
+    r
+}
+
+/// Run an engine call that may enter the Borg again (see above) with the
+/// caller's state lent to that entry.
+fn lend<R>(st: &mut BorgState, f: impl FnOnce() -> R) -> R {
+    let p: *mut BorgState = st;
+    // SAFETY: engine thread only; see `enter`.
+    let saved = unsafe { core::mem::replace(&mut (*root()).lent, p) };
+    let r = f();
+    // SAFETY: as above.
+    unsafe { (*root()).lent = saved };
+    r
+}
+
+/// The engine's call into the Borg commands (`do_cmd_borg`, called by
+/// `do_cmd_try_borg` in cmd-misc.c for `^Z`).
+#[no_mangle]
+pub extern "C" fn do_cmd_borg() {
+    enter(crate::borg_commands::do_cmd_borg)
+}
+
 /// The game's constants (`z_info`), set up by the engine before the Borg
 /// can be started.
 pub fn z_info() -> &'static headers::init_h::angband_constants {
@@ -196,11 +297,11 @@ pub fn text_mbstowcs(dst: &mut [wchar_t], src: &[u8], n: i32) -> usize {
 // ---------------------------------------------------------------------------
 // Messages and events
 
-/// `msg("%s", text)`.
-pub fn msg(text: &[u8]) {
+/// `msg("%s", text)`. May wait for a key (lends the state).
+pub fn msg(st: &mut BorgState, text: &[u8]) {
     let c = CString::new(text).expect("no NUL in message");
     // SAFETY: format string and argument are valid C strings.
-    unsafe { crate::headers::message_h::msg(c"%s".as_ptr(), c.as_ptr()) }
+    lend(st, || unsafe { crate::headers::message_h::msg(c"%s".as_ptr(), c.as_ptr()) })
 }
 
 /// `message_add(text, type)`.
@@ -210,10 +311,11 @@ pub fn message_add(text: &[u8], kind: u16) {
     unsafe { crate::headers::message_h::message_add(c.as_ptr(), kind) }
 }
 
-/// `event_signal_message(type, t, NULL)`.
-pub fn event_signal_message_null(kind: game_event_type, t: i32) {
+/// `event_signal_message(type, t, NULL)` (runs event handlers: lends the
+/// state).
+pub fn event_signal_message_null(st: &mut BorgState, kind: game_event_type, t: i32) {
     // SAFETY: NULL message text is allowed by the engine.
-    unsafe { crate::headers::game_event_h::event_signal_message(kind, t, core::ptr::null()) }
+    lend(st, || unsafe { crate::headers::game_event_h::event_signal_message(kind, t, core::ptr::null()) })
 }
 
 /// `event_add_handler(type, fn, NULL)`.
@@ -757,11 +859,12 @@ pub fn set_player_noscore(v: u16) {
     unsafe { (*crate::headers::player_h::player).noscore = v }
 }
 
-/// `do_cmd_wiz_cure_all(NULL)` (cmd-wizard.c): heal the player fully.
-pub fn do_cmd_wiz_cure_all() {
+/// `do_cmd_wiz_cure_all(NULL)` (cmd-wizard.c): heal the player fully
+/// (shows messages: lends the state).
+pub fn do_cmd_wiz_cure_all(st: &mut BorgState) {
     // SAFETY: the command argument is unused by this wizard command (the
     // C Borg passes NULL); it only changes the player on the engine thread.
-    unsafe { crate::headers::cmds_h::do_cmd_wiz_cure_all(core::ptr::null_mut()) }
+    lend(st, || unsafe { crate::headers::cmds_h::do_cmd_wiz_cure_all(core::ptr::null_mut()) })
 }
 
 /// `option_set(name, val)` (option.c): returns whether the option exists.
@@ -1014,17 +1117,18 @@ pub fn quit(text: &[u8]) -> ! {
 
 /// `get_string(prompt, buf, len)`: let the player edit the NUL-terminated
 /// text in `buf` (at most `len` bytes, NUL included). False on escape.
-pub fn get_string(prompt: &CStr, buf: &mut [u8], len: usize) -> bool {
+/// Waits for keys (lends the state).
+pub fn get_string(st: &mut BorgState, prompt: &CStr, buf: &mut [u8], len: usize) -> bool {
     assert!(len >= 1 && len <= buf.len() && buf.contains(&0));
     // SAFETY: buf is NUL-terminated and has at least len bytes; get_string
     // writes at most len bytes.
-    unsafe {
+    lend(st, || unsafe {
         crate::headers::game_input_h::get_string(
             prompt.as_ptr(),
             buf.as_mut_ptr() as *mut c_char,
             len,
         )
-    }
+    })
 }
 
 // ---------------------------------------------------------------------------
@@ -2001,16 +2105,18 @@ pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
 // ---------------------------------------------------------------------------
 // Borg start-up (borg-init.c)
 
-/// `do_cmd_redraw()`: redraw the whole screen.
-pub fn do_cmd_redraw() {
+/// `do_cmd_redraw()`: redraw the whole screen (signals events: lends the
+/// state).
+pub fn do_cmd_redraw(st: &mut BorgState) {
     // SAFETY: plain call on the engine thread.
-    unsafe { crate::headers::ui_command_h::do_cmd_redraw() }
+    lend(st, || unsafe { crate::headers::ui_command_h::do_cmd_redraw() })
 }
 
-/// `event_signal(type)`.
-pub fn event_signal(kind: game_event_type) {
+/// `event_signal(type)` (a message flush can wait for a key: lends the
+/// state).
+pub fn event_signal(st: &mut BorgState, kind: game_event_type) {
     // SAFETY: plain call; handlers get no data, as in C.
-    unsafe { crate::headers::game_event_h::event_signal(kind) }
+    lend(st, || unsafe { crate::headers::game_event_h::event_signal(kind) })
 }
 
 /// `screensaver` (option.c).
@@ -2109,8 +2215,7 @@ pub fn ignore_birth_init() {
 // The Borg's ^Z command interface (borg-commands.c). The calls that can
 // wait for a key (`get_com`, `get_com_ex`, `get_quantity`, `menu_select`,
 // `target_set_interactive`, `screen_save`/`screen_load` (message flush),
-// `project` (display events)) are called from Borg code through the
-// `bridge` wrappers that `escape` the state.
+// `project` (display events)) lend the caller's state (see `enter`).
 
 /// `player->grid`
 pub fn player_grid() -> loc {
@@ -2179,36 +2284,36 @@ pub fn target_get() -> loc {
 }
 
 /// `get_com(prompt, &cmd)`: the result and the key as the C `char`
-/// (byte). Waits for a key.
-pub fn get_com(prompt: &CStr) -> (bool, u8) {
+/// (byte). Waits for a key (lends the state).
+pub fn get_com(st: &mut BorgState, prompt: &CStr) -> (bool, u8) {
     let mut cmd: c_char = 0;
     // SAFETY: valid prompt and out-pointer to a local.
-    let r = unsafe { crate::headers::game_input_h::get_com(prompt.as_ptr(), &mut cmd) };
+    let r = lend(st, || unsafe { crate::headers::game_input_h::get_com(prompt.as_ptr(), &mut cmd) });
     (r, cmd as u8)
 }
 
 /// `get_com_ex(prompt, &ke)`; the event itself is dropped. Waits for a
-/// key.
-pub fn get_com_ex(prompt: &CStr) -> bool {
+/// key (lends the state).
+pub fn get_com_ex(st: &mut BorgState, prompt: &CStr) -> bool {
     // SAFETY: ui_event is plain data (zeroed = EVT_NONE); valid prompt and
     // out-pointer to a local.
-    unsafe {
+    lend(st, || unsafe {
         let mut ke: crate::headers::ui_event_h::ui_event = core::mem::zeroed();
         crate::headers::ui_input_h::get_com_ex(prompt.as_ptr(), &mut ke)
-    }
+    })
 }
 
-/// `get_quantity(prompt, max)`. Waits for keys.
-pub fn get_quantity(prompt: &CStr, max: i32) -> i32 {
+/// `get_quantity(prompt, max)`. Waits for keys (lends the state).
+pub fn get_quantity(st: &mut BorgState, prompt: &CStr, max: i32) -> i32 {
     // SAFETY: valid prompt.
-    unsafe { crate::headers::game_input_h::get_quantity(prompt.as_ptr(), max) }
+    lend(st, || unsafe { crate::headers::game_input_h::get_quantity(prompt.as_ptr(), max) })
 }
 
 /// `target_set_interactive(mode, x, y, allow_pathfinding)`. Waits for
-/// keys.
-pub fn target_set_interactive(mode: i32, x: i32, y: i32, allow_pathfinding: bool) -> bool {
+/// keys (lends the state).
+pub fn target_set_interactive(st: &mut BorgState, mode: i32, x: i32, y: i32, allow_pathfinding: bool) -> bool {
     // SAFETY: plain call on the engine thread.
-    unsafe { crate::headers::ui_target_h::target_set_interactive(mode, x, y, allow_pathfinding) }
+    lend(st, || unsafe { crate::headers::ui_target_h::target_set_interactive(mode, x, y, allow_pathfinding) })
 }
 
 /// `print_rel(c, a, y, x)`: draw a character at a map grid (if it is on
@@ -2231,16 +2336,18 @@ pub fn c_put_str(attr: u8, s: &[u8], row: i32, col: i32) {
     unsafe { crate::headers::ui_output_h::c_put_str(attr, c.as_ptr(), row, col) }
 }
 
-/// `screen_save()` (flushes messages, which can wait for a key).
-pub fn screen_save() {
+/// `screen_save()` (flushes messages, which can wait for a key: lends
+/// the state).
+pub fn screen_save(st: &mut BorgState) {
     // SAFETY: plain call on the engine thread.
-    unsafe { crate::headers::ui_output_h::screen_save() }
+    lend(st, || unsafe { crate::headers::ui_output_h::screen_save() })
 }
 
-/// `screen_load()` (flushes messages, which can wait for a key).
-pub fn screen_load() {
+/// `screen_load()` (flushes messages, which can wait for a key: lends
+/// the state).
+pub fn screen_load(st: &mut BorgState) {
     // SAFETY: plain call on the engine thread.
-    unsafe { crate::headers::ui_output_h::screen_load() }
+    lend(st, || unsafe { crate::headers::ui_output_h::screen_load() })
 }
 
 /// `window_make(origin_x, origin_y, end_x, end_y)`
@@ -2322,13 +2429,19 @@ impl Menu {
 
     /// `menu_select(m, notify, popup)`: the type of the returned event.
     /// `display` draws a row (the `display_row` of the C iterator).
-    /// Waits for keys.
-    pub fn select(&mut self, notify: i32, popup: bool, display: &mut dyn FnMut(MenuRow)) -> ui_event_type {
+    /// Waits for keys (lends the state; `display` cannot use it).
+    pub fn select(
+        &mut self,
+        st: &mut BorgState,
+        notify: i32,
+        popup: bool,
+        display: &mut dyn FnMut(MenuRow),
+    ) -> ui_event_type {
         let p: *mut (dyn FnMut(MenuRow) + '_) = display;
         // SAFETY: the pointer is only used by menu_display_row while this
         // call runs (restored before returning), so the erased lifetime is
         // never outlived; engine thread only.
-        unsafe {
+        lend(st, || unsafe {
             let saved = MENU_DISPLAY;
             MENU_DISPLAY = Some(core::mem::transmute::<
                 *mut (dyn FnMut(MenuRow) + '_),
@@ -2337,7 +2450,7 @@ impl Menu {
             let ev = crate::headers::ui_menu_h::menu_select(self.0, notify, popup);
             MENU_DISPLAY = saved;
             ev.type_0
-        }
+        })
     }
 
     /// `m->cursor`
@@ -2348,9 +2461,10 @@ impl Menu {
 }
 
 /// `project(source_player(), rad, loc(x, y), dam, typ, flg, arc,
-/// diameter, NULL)`.
+/// diameter, NULL)`. Signals display events (lends the state).
 #[allow(clippy::too_many_arguments)]
 pub fn project_from_player(
+    st: &mut BorgState,
     rad: i32,
     x: i32,
     y: i32,
@@ -2361,7 +2475,7 @@ pub fn project_from_player(
     diameter_of_source: u8,
 ) -> bool {
     // SAFETY: plain call; a NULL object is allowed.
-    unsafe {
+    lend(st, || unsafe {
         crate::headers::project_h::project(
             crate::headers::source_h::source_player(),
             rad,
@@ -2373,7 +2487,7 @@ pub fn project_from_player(
             diameter_of_source,
             core::ptr::null(),
         )
-    }
+    })
 }
 
 /// `SQUARE_SIZE`: bytes in a square's info flags.

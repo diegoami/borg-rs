@@ -1346,7 +1346,7 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
     /* redraw the screen if we need to */
     if st.borg.status.redraw {
         borg_note(st, "#  Redrawing screen.");
-        engine::do_cmd_redraw();
+        engine::do_cmd_redraw(st);
         st.borg.status.redraw = false;
     }
 
