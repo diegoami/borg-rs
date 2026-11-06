@@ -1118,3 +1118,5 @@ with its issues.
   `borg_feeling_stuff` outside 0..11 panics in
   `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
   grid outside the map panics (C reads outside `borg_grids`).
+* Tracker: one lead per slip, in the order above:
+  diegoami/neo-angband-tracker#229 to diegoami/neo-angband-tracker#236.
