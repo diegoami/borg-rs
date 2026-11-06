@@ -19,9 +19,10 @@
 #   and harness/diff then fails on this output dir.
 # The suite runs into a fresh OUTDIR.partial.<pid> and replaces OUTDIR when
 # it ends, so OUTDIR never mixes results of two passes. It writes
-#   OUTDIR/<NAME>/{keys.log,summary.json,stderr.log}
+#   OUTDIR/<NAME>/{keys.log,summary.json,stderr.log,config.txt}
 #   OUTDIR/manifest    implementation and build identity of the binary,
-#                      checkout revision, suite sha256, overrides
+#                      checkout revision, suite sha256, overrides, and per
+#                      run run_config.<NAME>=<FLAGS> <sha256 of its borg.txt>
 #   OUTDIR/timing.txt  one line per run (FAILED/MISSING marked)
 #   OUTDIR/DONE        last, only if every run succeeded (harness/diff
 #                      refuses an output dir without it)
@@ -185,6 +186,17 @@ if [ $FAIL = 0 ]; then RESULT=OK; else RESULT=FAILED; fi
     python3 -c 'import json,sys; s=json.load(open(sys.argv[1])); print(sys.argv[2], s["stop_reason"], "turns=%d"%s["game_turns"], "pturns=%d"%s["player_turns"], "clev=%d"%s["clevel"], "maxdepth=%d"%s["max_depth"], "keys=%d"%s["keys"], "wall=%.1f"%s["wall_seconds"], s["race"], s["class"])' "$WORK/$d/summary.json" "$d" 2>/dev/null || echo "$d MISSING/FAILED"
   done
 } > "$WORK/timing.txt"
+# Effective config of each run: its flags and the sha256 of its borg.txt
+# (stock suites: borg_txt_sha256 differs from the manifest's stock hash
+# only in the respawn race/class lines).
+for d in "${NAMES[@]}"; do
+    f="$WORK/$d/config.txt"
+    if [ -f "$f" ]; then
+        echo "run_config.$d=$(sed -n 's/^flags=//p' "$f") $(sed -n 's/^borg_txt_sha256=//p' "$f")"
+    else
+        echo "run_config.$d=missing"
+    fi
+done >> "$WORK/manifest"
 echo "binary_sha256_end=$BIN_SHA_END" >> "$WORK/manifest"
 echo "finished_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ) result=$RESULT" >> "$WORK/manifest"
 
