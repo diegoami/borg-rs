@@ -464,6 +464,9 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     let (rand_quick, rand_value) = engine::rand_state();
     engine::set_rand_state(true, st.core.rand_local);
 
+    #[cfg(feature = "test-force-nested")]
+    force_nested_entry(st);
+
     while !crate::borg_think::borg_think(st) {}
 
     crate::borg_log::borg_display_status(st);
@@ -488,4 +491,19 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     crate::borg_think::borg_oops(st, "normal abort");
     key.code = ESCAPE;
     key
+}
+
+/// Test only (`test-force-nested`, harness/regress/nested): every 500th
+/// think step shows two 70-byte messages. With `auto_more` off the second
+/// one makes the engine flush and wait for a key, which calls the Borg's
+/// input hook again while this turn runs: a nested entry (see
+/// `engine::enter` and docs/SELF-REVIEW.md U1).
+#[cfg(feature = "test-force-nested")]
+fn force_nested_entry(st: &mut BorgState) {
+    use std::sync::atomic::{AtomicU32, Ordering};
+    static STEPS: AtomicU32 = AtomicU32::new(0);
+    if STEPS.fetch_add(1, Ordering::Relaxed) % 500 == 499 {
+        engine::msg(st, &[b'x'; 70]);
+        engine::msg(st, &[b'y'; 70]);
+    }
 }
