@@ -238,7 +238,7 @@ when a big c2rust module goes away.
 | borg_messages (`4ff0eb3a4`) | 580 | 7 |
 | borg_trait_swap (`ec3443a5a`) | 567 | 6 |
 | borg_update (`51cc5eb7a`) | 561 | 5 |
-| borg_think_dungeon_util (this commit) | 560 | 4 |
+| borg_think_dungeon_util (`bd7bb0418`) | 560 | 4 |
 
 ## Suite timings
 
