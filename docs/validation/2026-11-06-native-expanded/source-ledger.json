@@ -426,6 +426,108 @@
     "item_sha256": "83bb248499690444109f16b06ff5f35d4a17a551d38d09b5a6f084867facd9ea"
   },
   {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "GOAL_TAKE",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "ec1ef7dc51625187cf874df21775732203288ce2acb6af1adbf3c2b592b1db50"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "GOAL_FLEE",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "c874efb3eff1190502c0f595da254e690cbb097516fee999a58d43c3b5439f01"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_headers/borg_h.rs",
+    "item": "BORG_SELF_LUNAL",
+    "source_sha256": "0432eb9a78fb758484314daea0b2558f37c581b09c7e4d0bf930b8b39254cfee",
+    "item_sha256": "267f72d2c2034111f52343cee40fc307d2d6939a49f604ac65869077bf48dc68"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/headers/list_options_h.rs",
+    "item": "OPT_birth_force_descend",
+    "source_sha256": "2583ccce9e976764afd6f41640f793103fc6f3a08ec25950a7284a0dd3d7354a",
+    "item_sha256": "65874adaab25d8f6a2ad96b4e85903a30138cf51ebd4a9e9be90775dac270747"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_light.rs",
+    "item": "pub enum BorgNeed {",
+    "source_sha256": "e5287142c7803095933ed35decdd77826bc353a731463d1d497b14ae117db91d",
+    "item_sha256": "e823c635daa3c0856b0d264621c2406004acdbfda3e08df6f809f2fa0264defe"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "enum Stairs {",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "c6a6c4844fc12bed6ecab51e2606314481fa38a568fcc0b77525818d132f4944"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn inven_light(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "1071114fd55c18fcef9fedb9361fd83556a7de89bcbe504f5e87e204fe579af6"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn pack_slot_iqty(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "fb7e8e43a052f95d63c6b1fe56fadf87ba26a898d71f67ca330ed1df384beb55"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn feat_at(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "0a48ff8c4abdb4fea87776a0ee3fc91757efdb209c8d6cf6dd50d78177a0e77c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn force_descend(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "891980b39bae3ac578fc2977e975a1fc39a7c81ece45eee39a46450f77edcbdb"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn prepared_null(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "a42e304020e70001a8fb6c6ddb53cca13eaed7ea66a902e7d567bb2e8489819f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn stairs(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "e6c37fa7629207c909853575ea35bec4016b49019328cb16e1872a56322c5494"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn stairs_mut(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "62efa6c18b5d7104f85cbc585e849f733c819da75b1ee917fe94dd5d8fd76381"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn track_stairs_under(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "86a7187260f98ef5bd47a9fd2d483207aa6f7faf81e35ca21b7be320c55ea0e8"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn track_stair(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "0146a646f1d696782e33523a38fe10d99fafe3298657c4eb124c2490fe0cd896"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn nearest_stair(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "30349580218577bd10b1d08367ea88845389863a37e70d511b1c7fe0fff2b291"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn borg_think_dungeon_lunal(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "8721a47f2014cfdfb40b6fd00735afe1bef88addd75ffa4154fbd4562675d7ec"
+  },
+  {
     "source": "/home/diego/projects/borg-rs/borg-rs/src/engine.rs",
     "item": "pub fn distance(",
     "source_sha256": "7d553e3b10b8fa8c627dae295dfc8681df5a40e59635a46f3b247ce26808c3b3",
@@ -442,5 +544,11 @@
     "item": "borg_attack_aux_thrust",
     "source_sha256": "94735d6d110db5feb9d2ad5a31a8be3c077a6a2d5ccd49f629fd3aa593b180e6",
     "item_sha256": "b41ce889d7d671e394a34bc25cd6159c8754b9c05f7761737de2006aaa778e58"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/angband/src/borg/borg-think-dungeon.c",
+    "item": "borg_think_dungeon_lunal",
+    "source_sha256": "3151fb508ca305a107438cad89d2c5d0ea9c78151f4ba8904f3a3972aeb2e453",
+    "item_sha256": "9768cb9fe12e9faa8fa1ecbd4c81d695a502ac61b8a93156a814c7f089c9183a"
   }
 ]

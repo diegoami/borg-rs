@@ -1,7 +1,9 @@
 {
+  "artifacts_source": "harness/out/native-checker.OVzeux",
   "c_ubsan": {
     "calculator": 30000,
     "glyph": 900,
+    "lunal": 1024,
     "passed": true,
     "spatial": 2000
   },
@@ -9,17 +11,19 @@
   "clippy_all_targets_warnings_denied": true,
   "glyph_scenarios": 9,
   "glyph_states": 900,
+  "lunal_cases": 1024,
+  "lunal_scenarios": 32,
   "not_claimed": "whole-Borg state shadow execution, every tactic or engine callback implementation",
   "production_inputs_unchanged_from": "28b8170",
-  "scope": "native calculator, cave/projection/direction, mutable flow, physical melee and target selection, glyph builder; shared explicit engine environment",
+  "scope": "native calculator, cave/projection/direction, mutable flow, physical melee and target selection, glyph builder; shared explicit engine environment; lunal thinker and stair helpers",
   "source_fault_controls": {
     "combat-fault": {
       "expected_exit": 1,
-      "mismatch_line": "MISMATCH spatial case=0 byte=304 native_len=342704 rust_len=342928 native=[205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0] rust=[255, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 3, 0, 0]"
+      "mismatch_line": "MISMATCH spatial case=0 byte=304 native_len=342812 rust_len=343036 native=[205, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0] rust=[255, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 3, 0, 0]"
     },
     "damage-fault": {
       "expected_exit": 1,
-      "mismatch_line": "MISMATCH spatial case=0 byte=296 native_len=342704 rust_len=342704 native=[87, 3, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0] rust=[132, 3, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0]"
+      "mismatch_line": "MISMATCH spatial case=0 byte=296 native_len=342812 rust_len=342812 native=[87, 3, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0] rust=[132, 3, 0, 0, 0, 0, 0, 0, 205, 0, 0, 0, 0, 0, 0, 0]"
     },
     "fault": {
       "expected_exit": 1,
@@ -27,15 +31,19 @@
     },
     "flow-fault": {
       "expected_exit": 1,
-      "mismatch_line": "MISMATCH spatial case=0 byte=366 native_len=342704 rust_len=342704 native=[0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255] rust=[1, 1, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255]"
+      "mismatch_line": "MISMATCH spatial case=0 byte=366 native_len=342812 rust_len=342812 native=[0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255] rust=[1, 1, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255, 0, 0, 255, 255]"
     },
     "glyph-fault": {
       "expected_exit": 1,
-      "mismatch_line": "MISMATCH spatial case=0 byte=140 native_len=200979 rust_len=200979 native=[0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0] rust=[1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0]"
+      "mismatch_line": "MISMATCH spatial case=0 byte=248 native_len=201087 rust_len=201087 native=[0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0] rust=[1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0]"
+    },
+    "lunal-fault": {
+      "expected_exit": 1,
+      "mismatch_line": "MISMATCH spatial case=5 byte=144 native_len=201123 rust_len=201123 native=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0] rust=[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0]"
     },
     "projection-fault": {
       "expected_exit": 1,
-      "mismatch_line": "MISMATCH spatial case=0 byte=136 native_len=342704 rust_len=342704 native=[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0] rust=[0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]"
+      "mismatch_line": "MISMATCH spatial case=0 byte=136 native_len=342812 rust_len=342812 native=[1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0] rust=[0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0]"
     }
   },
   "spatial_seeds": [

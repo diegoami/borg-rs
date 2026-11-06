@@ -2,7 +2,7 @@
 
 `harness/native-checker/run.sh` now verifies real C/Rust calculator,
 cave/projection/direction, flow, physical melee, target selection and
-rune-builder code. Production items are compiled with source/item hash
+rune-builder and lunal-thinker code. Production items are compiled with source/item hash
 ledgers; C entry points are renamed and linked beside Rust. Fixture
 constructors and engine callback data are explicit adapters. See the
 checker README for the precise state footprint and bounded input domain.
@@ -16,18 +16,20 @@ Completed controls (`DONE`, logs and SHA256SUMS retained here):
   simulation/apply behavior and ordered callbacks/notes/keys.
 * 900 glyph-builder states over nine creation/duplicate/pattern/no-room/
   distant-center/capacity scenarios, with complete tracking/map/flow state.
-* Six actual Rust source faults detected: arithmetic, LOS result, unused
+* 1,024 lunal-thinker states over32 exit/recovery/stair/flag scenarios,
+  including track capacity/duplicates and forced descent.
+* Seven actual Rust source faults detected: arithmetic, LOS result, unused
   border-map flag, same-square eligibility, physical multiplier and glyph
-  bookkeeping. Overrides cannot produce valid PASS evidence.
-* Non-recovering C UBSan:30,000 calculator,2,000 spatial and900 glyph states.
+  bookkeeping and lunal exit flags. Overrides cannot produce valid PASS evidence.
+* Non-recovering C UBSan:30,000 calculator,2,000 spatial,900 glyph and1,024 lunal states.
 * All-target release clippy with warnings denied passes.
 
 The logical engine environment is shared: dimensions/predicates, race/item
 inputs, danger data, and controlled glyph item/spell/follow-step outcomes.
 This is not whole-Borg shadow execution or proof of every engine callback.
 Direct engine/game evidence remains the separately checked full corpus and
-serialized capture equality. The glyph fixture does not establish a live
-Sea of Runes/Morgoth strategy or a win. The separate source lead about
+serialized capture equality. The glyph and lunal fixtures do not establish live
+Sea of Runes/Morgoth strategy, actual-game self-lunal entry or a win. The separate source lead about
 optimized reverse flow is reported in c-bugs section56, without changing
 C or Rust gameplay. Production inputs remain unchanged from28b8170.
 

@@ -32,14 +32,20 @@ historical references are separately named `crash-fixes-26a96be` and
 `extended-26a96be`; its Warrior2000 early stop is explicitly recorded.
 See [latest validation](validation/2026-11-06-melee/README.md).
 
-M4 remains unfinished. E's committed native calculator checker passes
-30,000 cases, actual-source mutation rejection, C UBSan and clippy, but
-other private combat/map state is not compared. F's bounded smoke/full48
-pilot at26a96be measures61.40% logic lines and77.03% LLVM function instances;
-interrupted deep profiles are excluded. Full/new-source coverage remains
-open. Declared synthetic endgame starting points and two Borg-played
-cheat-death replay inputs pass; Sea of Runes, self-lunal and a win remain
-unestablished. No active validation jobs remain. Main/tags are unchanged;
+M4 remains unfinished while F's complete coverage run is active. E now has
+persistent native C/Rust checks for calculator30k, spatial/flow/melee4k,
+glyph900 and lunal1,024 states, with logical private-state comparisons,
+seven rejected source faults, non-recovering C UBSan and clean clippy.
+See [expanded native checks](validation/2026-11-06-native-expanded/README.md)
+and the checker README for exact environment boundaries. This does not
+replace whole-Borg shadow execution or prove every tactic.
+
+The current-source coverage build has accepted119 runs through crash-fixes;
+extended and natural collection continues using the same frozen image.
+A completed113-run subset measures77.56% logic lines and90.14% LLVM function
+instances. This is provisional subset evidence, not completed F. The older
+48-run26a96be pilot remains separately identified. Sea of Runes, actual-game
+self-lunal entry and a win remain unestablished. Main/tags are unchanged;
 the owner creates tags. Policy: `FORK-CORRECTIONS.md`.
 
 ## Milestones

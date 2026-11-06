@@ -1413,4 +1413,4 @@ The C source is unchanged; no correction is proposed in this pass.
   completed rings, duplicate tracking and full-capacity controls match too.
   No ordinary-play reproduction or independent tracker verification is
   claimed. Existing section29 slips and tracker#118 concern other defects.
-* Tracker: pending published discovery/intake, one distinct finding.
+* Tracker: diegoami/neo-angband-tracker#345 (reported lead).

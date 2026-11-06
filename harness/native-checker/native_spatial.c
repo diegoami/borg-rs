@@ -48,7 +48,7 @@ static struct monster_race fixture_races[10];
 struct monster_race *r_info=fixture_races;
 static borg_grid grids[AUTO_MAX_Y][AUTO_MAX_X];
 static borg_kill kills[10];
-borg_item *borg_items;static borg_item fixture_items[1];bool borg_simulate;
+borg_item *borg_items;static borg_item fixture_items[32];bool borg_simulate;
 static uint16_t dangers[AUTO_MAX_Y][AUTO_MAX_X];
 static bool physical_mode;
 #include "physical_damage.inc"
@@ -77,6 +77,56 @@ int borg_danger(int y,int x,int n,bool a,bool b){if(danger_calls==16384)abort();
 const char *borg_race_name(int index){(void)index;return "fixture";}
 errr borg_keypress(keycode_t key){if(key_count==1024)abort();keys[key_count++]=key;return 0;}
 void borg_note(const char *text){size_t n=strlen(text);if(note_count+n+1>=sizeof(notes))abort();memcpy(notes+note_count,text,n);note_count+=n;notes[note_count++]='\n';}
+static bool fixture_lunal_mode;
+static int lunal_params[19],lunal_trace[128][5];static size_t lunal_calls;
+static int cfg[BORG_MAX_SETTINGS];int *borg_cfg=cfg;
+static int less_xs[8],less_ys[8],more_xs[8],more_ys[8];struct borg_track track_more;
+static struct square observed_square;
+static int lcall(int kind,int a,int b,int c,int result){if(lunal_calls==128)abort();int*t=lunal_trace[lunal_calls++];t[0]=kind;t[1]=a;t[2]=b;t[3]=c;t[4]=result;return result;}
+static int lbool(int kind,int a,int b,int c){return lcall(kind,a,b,c,(lunal_params[18]&(1<<kind))!=0);}
+static struct square* lsquare(struct chunk*c,struct loc g){(void)c;(void)g;return &observed_square;}
+static void lnotice(bool swap){lcall(0,swap,0,0,0);}
+static const char*lprepared(int d){return lcall(1,d,0,0,lunal_params[10])?NULL:"not ready";}
+static enum borg_need llight(void){return lcall(2,0,0,0,lunal_params[11]);}
+static bool lrest(int y,int x){return lcall(3,y,x,0,lunal_params[12]);}
+static bool lrecover(void){return lbool(4,0,0,0);}
+static bool luse(void){return lbool(5,0,0,0);}
+static bool ldrop(void){return lbool(6,0,0,0);}
+static bool lold(int why){return lbool(7,why,0,0);}
+static bool ltake(bool view,int distance){return lbool(8,view,distance,0);}
+static bool lless(int why,bool sneak){return lbool(9,why,sneak,0);}
+static bool lmore(int why,bool sneak,bool brave){return lbool(10,why,sneak,brave);}
+static bool lboth(int why,bool sneak){return lbool(11,why,sneak,0);}
+#define square lsquare
+#define borg_notice lnotice
+#define borg_prepared lprepared
+#define borg_maintain_light llight
+#define borg_check_rest lrest
+#define borg_recover lrecover
+#define borg_use_things luse
+#define borg_drop_junk ldrop
+#define borg_flow_old lold
+#define borg_flow_take_lunal ltake
+#define borg_flow_stair_less lless
+#define borg_flow_stair_more lmore
+#define borg_flow_stair_both lboth
+#undef OPT
+#define OPT(p,o) (lunal_params[17]!=0)
+#include "lunal.inc"
+#undef square
+#undef borg_notice
+#undef borg_prepared
+#undef borg_maintain_light
+#undef borg_check_rest
+#undef borg_recover
+#undef borg_use_things
+#undef borg_drop_junk
+#undef borg_flow_old
+#undef borg_flow_take_lunal
+#undef borg_flow_stair_less
+#undef borg_flow_stair_more
+#undef borg_flow_stair_both
+
 size_t spatial_snapshot(const uint8_t *packet,size_t packet_size,uint8_t *result,size_t result_size)
 {
     input=packet;input_size=packet_size;input_at=0;output=result;output_size=result_size;output_at=0;
@@ -108,6 +158,18 @@ size_t spatial_snapshot(const uint8_t *packet,size_t packet_size,uint8_t *result
     key_count=note_count=danger_calls=combat_calls=0;borg_target_loc=loc(0,0);
     int px=f[0],py=f[1],tx=f[19],ty=f[20];
     glyph_x=glyph_y=glyph_x_center=glyph_y_center=0;borg_needs_new_sea=false;track_glyph.num=0;track_glyph.size=200;track_glyph.x=glyph_xs;track_glyph.y=glyph_ys;memset(glyph_xs,0,sizeof(glyph_xs));memset(glyph_ys,0,sizeof(glyph_ys));glyph_calls=0;glyph_flags=f[29]&15;
+    lunal_calls=0;track_more.num=0;track_more.size=8;track_more.x=more_xs;track_more.y=more_ys;memset(more_xs,0,sizeof(more_xs));memset(more_ys,0,sizeof(more_ys));
+    if(fixture_lunal_mode){
+        uint32_t n=read32();for(uint32_t i=0;i<n;i++){read8();read8();}
+        for(int i=0;i<19;i++)lunal_params[i]=(int32_t)read32();
+        settings.pack_size=20;borg.lunal_mode=true;borg.goal.fleeing=borg.goal.fleeing_lunal=true;
+        traits[BI_CDEPTH]=lunal_params[0];traits[BI_MAXDEPTH]=lunal_params[1];traits[BI_ISWEAK]=lunal_params[2];traits[BI_ISHUNGRY]=lunal_params[3];traits[BI_LIGHT]=lunal_params[4];fixture_items[25].tval=lunal_params[5];fixture_items[18].iqty=lunal_params[6];
+        observed_square.feat=lunal_params[7];grids[py][px].feat=lunal_params[8];memset(cfg,0,sizeof(cfg));cfg[BORG_SELF_LUNAL]=lunal_params[9];
+        track_less.num=lunal_params[13];track_less.size=8;track_less.x=less_xs;track_less.y=less_ys;
+        track_more.num=lunal_params[14];memset(less_xs,0,sizeof(less_xs));memset(less_ys,0,sizeof(less_ys));
+        for(int i=0;i<8;i++){less_xs[i]=px+lunal_params[15]+i;less_ys[i]=py;more_xs[i]=px+lunal_params[16]+i;more_ys[i]=py;}
+        put32(borg_think_dungeon_lunal());goto serialize_state;
+    }
     if(glyph_mode){
         uint32_t n=read32();for(uint32_t i=0;i<n;i++){read8();read8();}
         int scenario=f[28];borg_needs_new_sea=scenario==0||scenario==2||scenario==5||scenario==6||scenario==7;
@@ -144,6 +206,10 @@ size_t spatial_snapshot(const uint8_t *packet,size_t packet_size,uint8_t *result
     xc_borg_flow_spread(f[21],f[22]&1,f[22]&2,f[22]&4,f[23],f[22]&8);
     put32(xc_borg_flow_commit("fixture",f[26]));
 serialize_state:
+    put32(borg.lunal_mode);put32(borg.goal.fleeing);put32(borg.goal.fleeing_lunal);put32(borg.goal.less);
+    put32(track_less.num);put32(track_less.size);for(int i=0;i<track_less.size;i++){put32(track_less.x[i]);put32(track_less.y[i]);}
+    put32(track_more.num);put32(track_more.size);for(int i=0;i<track_more.size;i++){put32(track_more.x[i]);put32(track_more.y[i]);}
+    put32(lunal_calls);for(size_t i=0;i<lunal_calls;i++)for(int j=0;j<5;j++)put32(lunal_trace[i][j]);
     if(input_at!=input_size)abort();
     put32(borg_needs_new_sea);put32(glyph_x);put32(glyph_y);put32(glyph_x_center);put32(glyph_y_center);put32(track_glyph.num);put32(track_glyph.size);for(int i=0;i<200;i++){put32(glyph_xs[i]);put32(glyph_ys[i]);}put32(glyph_calls);for(size_t i=0;i<glyph_calls;i++)for(int j=0;j<4;j++)put32(glyph_trace[i][j]);
     put32(flow_head);put32(flow_tail);put32(borg.goal.type);put32(borg_danger_wipe);put32(borg_target_loc.x);put32(borg_target_loc.y);
@@ -159,3 +225,5 @@ serialize_state:
 }
 
 size_t glyph_snapshot(const uint8_t *packet,size_t n,uint8_t *output,size_t capacity){glyph_mode=true;size_t result=spatial_snapshot(packet,n,output,capacity);glyph_mode=false;return result;}
+
+size_t lunal_snapshot(const uint8_t*p,size_t n,uint8_t*out,size_t cap){fixture_lunal_mode=true;size_t result=spatial_snapshot(p,n,out,cap);fixture_lunal_mode=false;return result;}

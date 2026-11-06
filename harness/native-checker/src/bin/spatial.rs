@@ -1,5 +1,10 @@
 //! Complete logical map/flow snapshots beside original native C functions.
-#![allow(dead_code, non_camel_case_types, unused_imports)]
+#![allow(
+    dead_code,
+    non_camel_case_types,
+    non_upper_case_globals,
+    unused_imports
+)]
 use std::{cell::RefCell, ffi::CStr};
 include!(concat!(env!("OUT_DIR"), "/spatial_items.rs"));
 use cave::{BorgGrid, CaveState};
@@ -27,6 +32,9 @@ struct Goal {
     ignoring: bool,
     type_0: i16,
     g: loc,
+    less: bool,
+    fleeing: bool,
+    fleeing_lunal: bool,
 }
 #[derive(Default)]
 struct Time {
@@ -81,6 +89,7 @@ struct Kills {
     kills: Vec<Kill>,
 }
 struct Stairs {
+    more: flow::StairTrack,
     less: flow::StairTrack,
 }
 struct Traits {
@@ -100,6 +109,8 @@ struct Activations {
     glyph: i32,
 }
 pub struct BorgState {
+    lunal_params: [i32; 19],
+    lunal_trace: Vec<[i32; 5]>,
     glyph: glyph::GlyphState,
     glyph_flags: i32,
     glyph_trace: Vec<[i32; 4]>,
@@ -129,24 +140,35 @@ struct Race {
     spell_flags: Vec<bool>,
 }
 struct Env {
+    pack_size: u16,
+    observed: u8,
+    forced: bool,
     races: Vec<Race>,
     max_range: i16,
     pass_walls: u32,
     width: i32,
     height: i32,
 }
-thread_local! {static ENGINE:RefCell<Env>=const {RefCell::new(Env{races:vec![],max_range:18,pass_walls:0,width:198,height:66})};}
+thread_local! {static ENGINE:RefCell<Env>=const {RefCell::new(Env{pack_size:0,observed:0,forced:false,races:vec![],max_range:18,pass_walls:0,width:198,height:66})};}
 mod engine {
     use super::*;
     pub struct Z {
         pub max_range: i16,
         pub r_max: i16,
+        pub pack_size: u16,
     }
     pub fn z_info() -> Z {
         ENGINE.with(|e| Z {
             max_range: e.borrow().max_range,
             r_max: 10,
+            pack_size: e.borrow().pack_size,
         })
+    }
+    pub fn square_feat(_: i32, _: i32) -> u8 {
+        ENGINE.with(|e| e.borrow().observed)
+    }
+    pub fn player_opt(_: u32) -> bool {
+        ENGINE.with(|e| e.borrow().forced)
     }
     pub fn square_in_bounds_fully(x: i32, y: i32) -> bool {
         ENGINE.with(|e| {
@@ -315,6 +337,8 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
         races.push(race);
     }
     let mut st = BorgState {
+        lunal_params: [0; 19],
+        lunal_trace: vec![],
         glyph: glyph::GlyphState::default(),
         glyph_flags: f[29] & 15,
         glyph_trace: vec![],
@@ -331,6 +355,8 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
                 ds: d[1] as u8,
                 to_d: d[2] as i16,
                 to_h: d[3] as i16,
+                tval: 0,
+                iqty: 0,
             }],
         },
         damage_scores: std::array::from_fn(|i| {
@@ -360,6 +386,12 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
                 .collect(),
         },
         stairs: Stairs {
+            more: flow::StairTrack {
+                num: 0,
+                size: 8,
+                x: vec![0; 8],
+                y: vec![0; 8],
+            },
             less: flow::StairTrack {
                 num: 1,
                 size: 1,
@@ -437,6 +469,9 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
         ignoring: mask & 16 != 0,
         type_0: 0,
         g: loc::default(),
+        less: false,
+        fleeing: false,
+        fleeing_lunal: false,
     };
     st.borg.time = Time {
         now: f[14],
@@ -449,6 +484,9 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
     st.danger.fear_region = [[f[17] as u16; 19]; 7];
     ENGINE.with(|e| {
         *e.borrow_mut() = Env {
+            pack_size: 0,
+            observed: 0,
+            forced: false,
             races,
             max_range: f[18] as i16,
             pass_walls: f[31] as u32,
@@ -494,6 +532,9 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
     }
     let n = r.i32();
     let origins = (0..n).map(|_| (r.u8() as i32, r.u8() as i32)).collect();
+    if r.at < packet.len() {
+        st.lunal_params = std::array::from_fn(|_| r.i32());
+    }
     assert_eq!(r.at, packet.len());
     (st, f, origins)
 }
@@ -679,6 +720,29 @@ fn snapshot(packet: &[u8]) -> Vec<u8> {
     serialize(st, out)
 }
 fn serialize(st: BorgState, mut out: Vec<u8>) -> Vec<u8> {
+    for n in [
+        st.borg.lunal_mode as i32,
+        st.borg.goal.fleeing as i32,
+        st.borg.goal.fleeing_lunal as i32,
+        st.borg.goal.less as i32,
+    ] {
+        put32(&mut out, n);
+    }
+    for t in [&st.stairs.less, &st.stairs.more] {
+        put32(&mut out, t.num as i32);
+        put32(&mut out, t.size as i32);
+        for i in 0..t.size as usize {
+            put32(&mut out, t.x[i]);
+            put32(&mut out, t.y[i]);
+        }
+    }
+    put32(&mut out, st.lunal_trace.len() as i32);
+    for row in st.lunal_trace {
+        for n in row {
+            put32(&mut out, n);
+        }
+    }
+
     for n in [
         st.glyph.needs_new_sea as i32,
         st.glyph.glyph_x as i32,
@@ -890,6 +954,261 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
     b
 }
 
+impl BorgState {
+    fn cfg(&self, _: u32) -> i32 {
+        self.lunal_params[9]
+    }
+}
+mod borg_flow_stairs {
+    pub use crate::flow::StairTrack;
+}
+fn lcall(st: &mut BorgState, kind: i32, a: i32, b: i32, c: i32, result: i32) -> i32 {
+    st.lunal_trace.push([kind, a, b, c, result]);
+    result
+}
+fn lbool(st: &mut BorgState, kind: i32, a: i32, b: i32, c: i32) -> bool {
+    let value = (st.lunal_params[18] & (1 << kind) != 0) as i32;
+    lcall(st, kind, a, b, c, value) != 0
+}
+fn borg_notice(st: &mut BorgState, swap: bool) {
+    lcall(st, 0, swap as i32, 0, 0, 0);
+}
+mod borg_prepared {
+    use super::*;
+    pub fn borg_prepared_buf(st: &mut BorgState, d: i32) -> Option<()> {
+        let ready = st.lunal_params[10];
+        if lcall(st, 1, d, 0, 0, ready) != 0 {
+            None
+        } else {
+            Some(())
+        }
+    }
+}
+fn borg_maintain_light(st: &mut BorgState) -> lunal::BorgNeed {
+    let n = st.lunal_params[11];
+    match lcall(st, 2, 0, 0, 0, n) {
+        0 => lunal::BorgNeed::NoNeed,
+        1 => lunal::BorgNeed::MetNeed,
+        2 => lunal::BorgNeed::UnmetNeed,
+        _ => panic!("need"),
+    }
+}
+fn borg_check_rest(st: &mut BorgState, y: i32, x: i32) -> bool {
+    let safe = st.lunal_params[12];
+    lcall(st, 3, y, x, 0, safe) != 0
+}
+fn borg_recover(st: &mut BorgState) -> bool {
+    lbool(st, 4, 0, 0, 0)
+}
+fn borg_use_things(st: &mut BorgState) -> bool {
+    lbool(st, 5, 0, 0, 0)
+}
+fn borg_drop_junk(st: &mut BorgState) -> bool {
+    lbool(st, 6, 0, 0, 0)
+}
+fn borg_flow_old(st: &mut BorgState, why: i32) -> bool {
+    lbool(st, 7, why, 0, 0)
+}
+fn borg_flow_take_lunal(st: &mut BorgState, view: bool, d: i32) -> bool {
+    lbool(st, 8, view as i32, d, 0)
+}
+fn borg_flow_stair_less(st: &mut BorgState, why: i32, sneak: bool) -> bool {
+    lbool(st, 9, why, sneak as i32, 0)
+}
+fn borg_flow_stair_more(st: &mut BorgState, why: i32, sneak: bool, brave: bool) -> bool {
+    lbool(st, 10, why, sneak as i32, brave as i32)
+}
+fn borg_flow_stair_both(st: &mut BorgState, why: i32, sneak: bool) -> bool {
+    lbool(st, 11, why, sneak as i32, 0)
+}
+fn key(c: u8) -> u32 {
+    c as u32
+}
+fn lunal_result(packet: &[u8]) -> Vec<u8> {
+    let (mut st, _, _) = load(packet);
+    let p = st.lunal_params;
+    let c = st.borg.c;
+    st.borg.lunal_mode = true;
+    st.borg.goal.fleeing = true;
+    st.borg.goal.fleeing_lunal = true;
+    for (k, v) in [
+        (BI_CDEPTH, p[0]),
+        (BI_MAXDEPTH, p[1]),
+        (BI_ISWEAK, p[2]),
+        (BI_ISHUNGRY, p[3]),
+        (BI_LIGHT, p[4]),
+    ] {
+        st.borg.traits[k as usize] = v;
+    }
+    st.items.items = (0..32)
+        .map(|_| borg_item_h::borg_item {
+            desc: vec![0],
+            dd: 1,
+            ds: 1,
+            to_d: 0,
+            to_h: 0,
+            tval: 0,
+            iqty: 0,
+        })
+        .collect();
+    st.items.items[25].tval = p[5] as u8;
+    st.items.items[18].iqty = p[6] as u8;
+    st.cave.grid_mut(c.x, c.y).feat = p[8] as u8;
+    st.stairs.less = flow::StairTrack {
+        num: p[13] as i16,
+        size: 8,
+        x: (0..8).map(|i| c.x + p[15] + i).collect(),
+        y: vec![c.y; 8],
+    };
+    st.stairs.more = flow::StairTrack {
+        num: p[14] as i16,
+        size: 8,
+        x: (0..8).map(|i| c.x + p[16] + i).collect(),
+        y: vec![c.y; 8],
+    };
+    ENGINE.with(|e| {
+        let mut e = e.borrow_mut();
+        e.pack_size = 20;
+        e.observed = p[7] as u8;
+        e.forced = p[17] != 0;
+    });
+    let mut out = vec![];
+    for n in bindings() {
+        put32(&mut out, n as i32);
+    }
+    put32(&mut out, lunal::borg_think_dungeon_lunal(&mut st) as i32);
+    serialize(st, out)
+}
+fn lunal_packet(r: &mut Rng, i: usize) -> Vec<u8> {
+    let mut b = glyph_packet(r, i);
+    let mut p = [20, 99, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 2, 3, 0, 0];
+    let scenario = i % 32;
+    match scenario {
+        0 => p[0] = 0,
+        1 => p[2] = 1,
+        2 => {
+            p[0] = 1;
+            p[13] = 0;
+            p[14] = 0;
+            p[7] = 6;
+            p[11] = 1;
+        }
+        3 => {
+            p[0] = 1;
+            p[14] = 0;
+        }
+        4 => {
+            p[13] = 0;
+            p[14] = 0;
+        }
+        5 => {
+            p[9] = 1;
+            p[1] = p[0] + 15;
+        }
+        6 => {
+            p[9] = 1;
+            p[10] = 0;
+        }
+        7 => {
+            p[9] = 1;
+            p[0] = 50;
+        }
+        8 => {
+            p[9] = 1;
+            p[11] = 1;
+        }
+        9 => {
+            p[11] = 2;
+            p[4] = 0;
+            p[5] = 0;
+        }
+        10 => p[18] = 1 << 4,
+        11 => p[18] = 1 << 5,
+        12 => {
+            p[12] = 0;
+            p[3] = 1;
+            p[18] = 1 << 5;
+        }
+        13 => p[18] = 1 << 6,
+        14 => p[18] = 1 << 7,
+        15 => p[18] = 1 << 8,
+        16 => {
+            p[6] = 1;
+            p[18] = 1 << 7;
+        }
+        17 => {
+            p[6] = 1;
+            p[18] = 1 << 9;
+        }
+        18 => {
+            p[6] = 1;
+            p[7] = 5;
+            p[8] = 5;
+        }
+        19 => {
+            p[6] = 1;
+            p[7] = 5;
+            p[8] = 5;
+            p[17] = 1;
+        }
+        20 => {
+            p[14] = 2;
+            p[18] = 1 << 7;
+        }
+        21 => p[18] = 1 << 10,
+        22 => {
+            p[7] = 6;
+            p[8] = 6;
+        }
+        23 => {
+            p[14] = 0;
+            p[18] = 1 << 9;
+        }
+        24 => {
+            p[0] = 40;
+            p[12] = 0;
+            p[15] = 20;
+            p[16] = 20;
+            p[18] = 1 << 11;
+        }
+        25 => {
+            p[0] = 99;
+            p[12] = 0;
+            p[15] = 20;
+            p[16] = 20;
+        }
+        26 => {
+            p[7] = 5;
+            p[15] = 0;
+        }
+        27 => {
+            p[7] = 6;
+            p[16] = 0;
+        }
+        28 => {
+            p[7] = 5;
+            p[13] = 8;
+        }
+        29 => {
+            p[7] = 6;
+            p[14] = 8;
+        }
+        30 => {
+            p[6] = 1;
+            p[15] = 0;
+            p[16] = 20;
+        }
+        _ => {
+            p[0] = 35;
+            p[9] = 1;
+            p[18] = 1 << 11;
+        }
+    }
+    for n in p {
+        put32(&mut b, n);
+    }
+    b
+}
 struct Rng(u64);
 impl Rng {
     fn n(&mut self, n: u64) -> u64 {
@@ -1103,8 +1422,20 @@ fn packet(r: &mut Rng, i: usize) -> Vec<u8> {
     b
 }
 unsafe extern "C" {
+    fn lunal_snapshot(input: *const u8, len: usize, out: *mut u8, capacity: usize) -> usize;
     fn glyph_snapshot(input: *const u8, len: usize, out: *mut u8, capacity: usize) -> usize;
     fn spatial_snapshot(input: *const u8, len: usize, out: *mut u8, capacity: usize) -> usize;
+}
+fn glyph_track_count(bytes: &[u8]) -> i32 {
+    let read = |at: usize| i32::from_le_bytes(bytes[at..at + 4].try_into().unwrap());
+    let mut at = bindings().len() * 4 + 4 + 4 * 4;
+    for _ in 0..2 {
+        let size = read(at + 4) as usize;
+        at += 8 + size * 8;
+    }
+    let callbacks = read(at) as usize;
+    at += 4 + callbacks * 5 * 4;
+    read(at + 5 * 4)
 }
 fn main() {
     let args: Vec<_> = std::env::args().collect();
@@ -1124,20 +1455,27 @@ fn main() {
         .unwrap_or(0x6d34_2026);
     let mut rng = Rng(seed);
     let mut output = vec![0u8; 1048576];
+    let lunal_mode = args.iter().any(|s| s == "--lunal");
     let glyph_mode = args.iter().any(|s| s == "--glyph");
     for i in 0..count {
-        let data = if glyph_mode {
+        let data = if lunal_mode {
+            lunal_packet(&mut rng, i)
+        } else if glyph_mode {
             glyph_packet(&mut rng, i)
         } else {
             packet(&mut rng, i)
         };
-        let rust = if glyph_mode {
+        let rust = if lunal_mode {
+            lunal_result(&data)
+        } else if glyph_mode {
             glyph_result(&data)
         } else {
             snapshot(&data)
         };
         let n = unsafe {
-            if glyph_mode {
+            if lunal_mode {
+                lunal_snapshot(data.as_ptr(), data.len(), output.as_mut_ptr(), output.len())
+            } else if glyph_mode {
                 glyph_snapshot(data.as_ptr(), data.len(), output.as_mut_ptr(), output.len())
             } else {
                 spatial_snapshot(data.as_ptr(), data.len(), output.as_mut_ptr(), output.len())
@@ -1151,7 +1489,7 @@ fn main() {
                 "glyph scenario={} native_result={} tracked={}",
                 i % 9,
                 result,
-                i32::from_le_bytes(native[at + 24..at + 28].try_into().unwrap())
+                glyph_track_count(native)
             );
         }
         if native != rust {
@@ -1168,7 +1506,9 @@ fn main() {
         eprintln!("fault source unexpectedly matched");
         std::process::exit(2);
     }
-    if glyph_mode {
+    if lunal_mode {
+        println!("PASS {count} native C/Rust lunal thinker states: exits, recovery gates, stair tracking/choice, flags, callbacks, notes and keys");
+    } else if glyph_mode {
         println!("PASS {count} native C/Rust glyph-builder states: pattern/flow decisions, creation/duplicate/capacity bookkeeping, callbacks and complete private maps/queues");
     } else {
         println!("PASS {count} native C/Rust spatial states seed={seed}: projection/motion/directions, physical melee damage and combat scores/goals, complete staged map/flow/queue state, callbacks, notes and keys");

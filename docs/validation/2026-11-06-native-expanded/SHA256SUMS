@@ -4,10 +4,10 @@ e13000c95cae6f5f1b9785f53dc6494005a770f1943e47356d1ccb1a92405685  /home/diego/pr
 b3138c80a8e4ef8336de2b502e42b325743f53a965c7f77ac814b8816b8a65b3  /home/diego/projects/borg-rs/angband/src/borg/borg-formulas.c
 c9b14a20dd32adafe75eee18948e6a3f028fe7cf95d61e3f093499175475e72a  /home/diego/projects/borg-rs/harness/native-checker/native.c
 dba288ed5fed836d7692bf42598c7245ec964ed36af9a4755c5c1b232779bd09  /home/diego/projects/borg-rs/harness/native-checker/src/main.rs
-448b05c71dde5a411d26116ed55f6b766cb92b97323c5fd6838b5157a8162504  /home/diego/projects/borg-rs/harness/native-checker/build.rs
-0ed64112fe5103ff86553272d4bb87635aef28e575f1f62fb848a6341de5826e  /home/diego/projects/borg-rs/harness/native-checker/native_spatial.c
-c03e554eee465b91a762918ceb349c56e4a2ae5d63495533068954dab6ed6aa6  /home/diego/projects/borg-rs/harness/native-checker/src/bin/spatial.rs
-0d49f4be413ae8b4a670f8e52f165fdff50634bf638c0ea19b5c8d799a69df36  /home/diego/projects/borg-rs/harness/native-checker/extract_spatial.py
+3ab73abe8af5bfe4cc046e3785353ec8db3df23096677086170c289694802df8  /home/diego/projects/borg-rs/harness/native-checker/build.rs
+1e5fef9709e3c6339a884a44c413e2ba2e69bfbfd355a5781da0e619e5f9d2e7  /home/diego/projects/borg-rs/harness/native-checker/native_spatial.c
+57b3e58d90e1946f9ac68045344f143d85484be9e1bfe5cbb414588d6ff709b7  /home/diego/projects/borg-rs/harness/native-checker/src/bin/spatial.rs
+c09399c54ea72e8ab4f2951766f8c568f8257e18175a236cde08b023b3fceb6a  /home/diego/projects/borg-rs/harness/native-checker/extract_spatial.py
 0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae  /home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs
 739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1  /home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs
 753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f  /home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs

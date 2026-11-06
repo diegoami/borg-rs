@@ -1,4 +1,4 @@
    Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
-    Finished `release` profile [optimized + debuginfo] target(s) in 4.01s
-     Running `harness/out/native-checker.X0O7iQ/ubsan-target/release/spatial 2000`
+    Finished `release` profile [optimized + debuginfo] target(s) in 3.03s
+     Running `harness/out/native-checker.OVzeux/ubsan-target/release/spatial 2000`
 PASS 2000 native C/Rust spatial states seed=1832132646: projection/motion/directions, physical melee damage and combat scores/goals, complete staged map/flow/queue state, callbacks, notes and keys

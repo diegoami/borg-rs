@@ -17,6 +17,7 @@ links C Borg code into the production Rust Borg.
 | Projection/cave/directions | original C projection/cave helpers, verbatim Rust items and distance helper | LOS/projection decisions, incremental paths, direction choice, wall guesses, target state and emitted keys/notes |
 | Flow | original renamed C flow functions, verbatim Rust flow state/helpers | full cost/hard/known/icky/current-flow matrices, circular queue bytes/head/tail, goal type and wipe flag after clear, enqueue and spread/commit; ordered danger calls |
 | Melee | actual C/Rust physical-damage and thrust-selection bodies | slays/brands/immunities, armor/hit chance, HP cap, class/mana and unique/summoner/questor arithmetic; scores, chosen goals, simulation/apply behavior, callbacks and actions |
+| Lunal thinker | original C/Rust thinker bodies and stair helpers | town/weak/self-lunal exits, recovery gates, stair tracking and choice, fleeing/less/lunal flags, forced descent, callbacks/notes/keys |
 | Rune builder | actual C/Rust glyph-builder bodies with real flow calculations | center/outlying decisions, creation/duplicate/full-capacity tracking, centers/goals, complete maps/queues and ordered spell/item/step boundary calls |
 
 C modules are compiled with renamed entry points. The static C melee bodies
@@ -48,12 +49,16 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   cells and queue slots, including inactive ones and intermediate stages.
 * Rune builder:900 controlled states over nine creation, duplicate,
   pattern, no-room, distant-center and capacity scenarios.
+* Lunal thinker:1,024 controlled states over32 exit, recovery, self-scumming,
+  stair capacity/duplicate, climb/dive and forced-descend scenarios. Shared
+  environment callbacks supply preparedness, light, rest, recovery and flow
+  outcomes; the production decision/state-transition code is unchanged.
 * Source faults must be rejected: actual Rust calculator addition,
   projection adjacency result, unused border-map flag, same-square melee
-  guard, damage multiplier and glyph target bookkeeping are changed in
+  guard, damage multiplier, glyph target bookkeeping and self-lunal flag reset are changed in
   temporary copies. Overrides cannot produce valid PASS evidence.
 * Optional non-recovering C UBSan runs calculator, spatial/combat and
-  glyph corpora. All-target clippy runs with warnings denied.
+  glyph and lunal corpora. All-target clippy runs with warnings denied.
 
 A fresh `harness/out/native-checker.*` directory records logs, hashes and
 ledgers. DONE is written only after all requested checks and controls pass.
@@ -63,4 +68,5 @@ C arithmetic are outside the declared domain; valid tracked counts are
 
 Allocator leads #323–#325 and the separately documented glyph reverse-flow
 lead remain reported findings. This checker establishes C/Rust equivalence
-for the stated kernels/domain, not correctness of every inherited C tactic.
+for the stated kernels/domain, not correctness of every inherited C tactic. The controlled lunal entry does
+not claim that an ordinary-game source trace entered self-lunal mode.
