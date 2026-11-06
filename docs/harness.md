@@ -82,23 +82,36 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
 ## Scripts
 
 * `harness/build.sh`: builds into `build/$BORG_IMPL` (`c` by default,
-  `rust` for the Rust Borg). It always passes `-DBORG_IMPL`.
+  `rust` for the Rust Borg). It always passes `-DBORG_IMPL`. After a
+  successful build it writes `build/<impl>/BUILD_ID` (see "Build identity"
+  below); it deletes the old one first, so a failed build leaves none. It
+  fails if the build inputs changed during the build or if the linked
+  binary does not read as the requested implementation.
+* `harness/identity.sh`: the helpers behind the build identity:
+  `source-hash IMPL`, `inputs IMPL`, `inputs-dirty IMPL`, `binary-impl BIN`.
 * `harness/run.sh OUTDIR SEED RACE CLASS TURNS [FLAGS]`: one isolated run.
   It gets its own user, save, archive, panic and scores dirs, and a copy of
   `harness/borg.txt` with `borg_respawn_race/class` set to the run's race
   and class. `TZ=UTC`, `LC_ALL=C.UTF-8`. FLAGS (comma-separated, `-` for
   none): `cheat` sets `borg_cheat_death = TRUE`; `menu` passes
   `-menu-letters`. Unknown flags are an error. A non-zero exit code or a
-  missing summary fails the run.
+  missing summary fails the run. It does not check the build identity:
+  a single run is a debugging tool, suite outputs are the evidence.
 * `harness/suite.sh SUITE [OUTDIR]`: runs `harness/suites/SUITE` in
   parallel (`JOBS`, default nproc). It runs into `OUTDIR.partial.<pid>` and
   replaces `OUTDIR` at the end, so an output dir never mixes two passes.
-  It writes `manifest` (git revision and dirty flag, binary sha256, the
-  binary's CMake `BORG_IMPL`, suite file sha256), `timing.txt` (always;
+  Before any run it checks the binary's implementation and build identity
+  and refuses (exit 2, no output dir) on a mismatch; see "Build identity".
+  It writes `manifest` (the binary's implementation as each source sees
+  it, its sha256 and `BUILD_ID` fields, the checkout's source hash, the
+  result of both checks, `overrides=`, the checkout's git revision and
+  dirty flag, suite file and `borg.txt` sha256), `timing.txt` (always;
   failed runs are marked), and last `DONE` if every run succeeded or
   `FAILED` otherwise. A failed run does not stop the others; the suite
-  then exits 1 and reports the missing runs as `MISSING`.
-* `harness/diff [--suite NAME] A B`: compares two logs or two suite
+  then exits 1 and reports the missing runs as `MISSING`. The binary is
+  hashed again at the end; if it changed during the suite, the output is
+  marked `FAILED`.
+* `harness/diff [--suite NAME] [--expect-impl c|rust] A B`: compares two logs or two suite
   directories (`.xz` is accepted). In directory mode it compares the union
   of the run names (a run on one side only fails) and prints
   `N/M runs identical (expected M)`; `--suite NAME` also requires exactly
@@ -108,18 +121,84 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   from `wall_seconds`. It refuses a suite output dir without `DONE`
   (`--allow-incomplete` turns that into a warning; reference dirs hold only
   `.xz` logs and need no marker). For a divergence it prints run, seed,
-  game turn, key index, and 20 lines of context.
+  game turn, key index, and 20 lines of context. For each suite output
+  dir it prints the build identity from the manifest and fails (exit 1)
+  if the manifest shows `BORG_IMPL` different from the binary's
+  implementation, a recorded override, a failed check, a binary changed
+  during the suite, or, with `--expect-impl`, another implementation. A
+  suite output dir without a manifest, or with a manifest from before the
+  build identity (no `overrides=` line), is refused (exit 2).
+  `--allow-unverified` turns all of these into warnings. Reference dirs
+  (no manifest, `.xz` logs only) are accepted as before; they are the C
+  oracle by definition.
 * `harness/check-no-c-borg.sh`: checks that the Rust binary has no C Borg
   code: no `src/borg/*.c` compiled; every staticlib member is a rustc
   object or one of 35 known compiler-builtins C objects; no C-compiled
   symbol with a C Borg name in the binary; every engine object
   byte-identical between `build/c` and `build/rust` (only `buildid.c.o`
-  may differ). It fails on empty or implausibly small inputs (no C Borg
-  objects, stripped binary). It matches by name and member, so C code
-  renamed on purpose would not be caught.
+  may differ); and (step 5) the actual link inputs: it re-runs the build's
+  own link command (`CMakeFiles/OurExecutable.dir/link.txt`) with ld's
+  `--trace` given twice into a temporary file, requires the result to be
+  byte-identical to the binary, and then requires every input file and
+  archive member to be one of the engine objects of step 4, a staticlib
+  member accepted by step 2, or a system file under `/usr/lib`, `/lib` or
+  `/lib64` (crt objects, libc, libm, libgcc, X11). It fails on empty or
+  implausibly small inputs (no C Borg objects, stripped binary). It
+  matches by name and member, so C code renamed on purpose would not be
+  caught, and system libraries are trusted as a class.
 
 `harness/borg.txt` is the stock `src/borg/borg.txt` (cheat death off,
 `borg_delay_factor = 0`).
+
+## Build identity
+
+The key oracle only proves something about the binary that produced the
+logs. Since review finding 4 of the external review (`REVIEW-4c06cec08`),
+the harness ties a suite output to a binary and the binary to the sources:
+
+* **`BUILD_ID`.** `harness/build.sh` writes `build/<impl>/BUILD_ID` next to
+  the binary: `impl`, `git_rev`, `git_dirty` (whole checkout),
+  `inputs_dirty`, `source_sha256`, `binary`, `binary_sha256` (after
+  linking), the C compiler and `rustc` versions and the build time.
+* **Source hash.** `harness/identity.sh source-hash IMPL` is sha256 over
+  `<git blob id> <path>` of every build input as it is in the working
+  tree: the files git tracks plus untracked files not ignored, under
+  `angband/` for `c`, and under `angband/`, `borg-rs/`, `Cargo.toml` and
+  `Cargo.lock` for `rust`. It depends only on contents and names, so
+  committing a change or editing `docs/` or `harness/` does not change it,
+  and a Rust change does not make the C binary stale. (The binary itself
+  embeds `git describe` of the checkout through Angband's `version.sh`,
+  so the binary's sha256 does change with every commit after a rebuild.)
+* **Implementation.** `harness/identity.sh binary-impl BIN` reads the
+  executable: `rust` if its `.comment` section names rustc (the Rust
+  staticlib is linked in), `c` if not and it defines `do_cmd_borg` (the C
+  Borg is linked in), `unknown` otherwise.
+
+`harness/suite.sh` checks, before any run, and refuses with exit 2:
+
+| check | refused when | override (recorded in the manifest) |
+|---|---|---|
+| implementation | the executable, `CMakeCache.txt` and `BUILD_ID` of the binary's build dir disagree, or the implementation they give is not `BORG_IMPL` (default `c`) | none |
+| implementation | none of the three knows the implementation (e.g. a stripped external binary) | `ALLOW_UNKNOWN_IMPL=1` |
+| build identity | no `BUILD_ID`; the binary's sha256 differs from `BUILD_ID`'s (binary changed after the build); `BUILD_ID`'s `source_sha256` differs from the checkout's (stale binary: rebuild) | `ALLOW_STALE_BUILD=1` |
+
+An override that was needed is recorded as `overrides=...` and in
+`impl_check=` / `build_check=` of the manifest, and `harness/diff` then
+fails on that output unless given `--allow-unverified`. So the wrong-binary
+command of the review,
+`BORG_IMPL=rust ANGBAND_BIN=build/c/game/angband harness/suite.sh smoke`,
+now stops before running, and an output dir made with an override cannot
+pass the diff by default. To check a Rust build:
+
+    BORG_IMPL=rust harness/suite.sh full
+    harness/diff --suite full --expect-impl rust harness/out/rust/full harness/reference/full
+
+Limits: make and cargo decide what to rebuild from timestamps and
+fingerprints, so `BUILD_ID` trusts the build system that the binary was
+rebuilt from the inputs it hashes; the toolchain is recorded but not
+part of the source hash; the checks protect against mistakes, not against
+someone forging a manifest or a `BUILD_ID`. The references carry no
+manifest (they predate it); they are made from the C build.
 
 ## Suites and reference logs
 
@@ -134,7 +213,7 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
 Borg's logs for each suite, made from the C build. Check a build with:
 
     BORG_IMPL=rust harness/suite.sh full
-    harness/diff --suite full harness/out/rust/full harness/reference/full
+    harness/diff --suite full --expect-impl rust harness/out/rust/full harness/reference/full
 
 The key oracle does not see Borg notes or screen output, Borg-side direct
 writes to game state (they count only through later keys), anything after

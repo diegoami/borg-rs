@@ -87,3 +87,44 @@ the new `check-no-c-borg.sh` passes (309 rustc members, 35 known
 compiler-builtins members, 153/154 engine objects byte-identical plus
 `buildid.c.o`), `smoke` 3/3 and the new `classes` suite 16/16 identical to
 the C references, no nested Borg entry.
+
+## 5. External review `REVIEW-4c06cec08`, finding 4
+
+**Finding:** a Rust-labelled suite passed with the C binary
+(`BORG_IMPL=rust ANGBAND_BIN=build/c/game/angband harness/suite.sh smoke`,
+then `harness/diff`: 3/3, exit 0), although the manifest said
+`borg_impl_env=rust` and `binary_cmake_borg_impl=c`; `harness/diff` never
+read the manifest, and nothing tied the binary to the recorded source
+revision.
+
+**Verdict:** confirmed. Reproduced on `4c06cec08` in this worktree: suite
+exit 0 with `DONE`, diff `3/3 runs identical (expected 3)`, exit 0.
+
+**Fix** (`docs/harness.md`, "Build identity"):
+
+* `harness/build.sh` writes `build/<impl>/BUILD_ID`: implementation, git
+  revision and dirty flags, sha256 of the build inputs as they are in the
+  working tree (`harness/identity.sh source-hash`: `angband/` for C, plus
+  `borg-rs/`, `Cargo.toml`, `Cargo.lock` for Rust), and the linked
+  binary's sha256.
+* `harness/suite.sh` refuses before any run (exit 2, no output dir) when
+  the implementation read from the executable (`.comment` names rustc, or
+  `do_cmd_borg` without rustc), its `CMakeCache.txt` and its `BUILD_ID`
+  disagree or differ from `BORG_IMPL`; when none knows it
+  (`ALLOW_UNKNOWN_IMPL=1` overrides); and when `BUILD_ID` is missing, does
+  not match the binary's sha256, or records other sources than the
+  checkout's (`ALLOW_STALE_BUILD=1` overrides). Overrides are recorded in
+  the manifest. The binary is hashed again after the runs.
+* `harness/diff` prints each suite output's implementation and build
+  identity, fails on an implementation mismatch, a recorded override or
+  (with `--expect-impl c|rust`) another implementation, and refuses an
+  output dir without a manifest or with one from before this change.
+  `--allow-unverified` makes these warnings. References stay accepted.
+* `harness/check-no-c-borg.sh` step 5 (the review's link-provenance
+  remark): it re-runs the build's link command with `ld --trace --trace`,
+  requires the result to be byte-identical to the binary, and requires
+  every link input to be an engine object of step 4, a staticlib member
+  accepted by step 2, or a system file.
+
+No key stream, reference, seed, suite file or `summary.json` field
+changed; nothing was added to the binary.

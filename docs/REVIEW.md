@@ -42,13 +42,22 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
 
 1. `harness/build.sh` builds the engine with the C Borg (`build/c`).
    `BORG_IMPL=rust harness/build.sh` builds it with the Rust Borg (`build/rust`).
+   Each build writes a `BUILD_ID` next to the binary: implementation, git
+   revision, a hash of the source inputs and the binary's sha256.
 2. `harness/suite.sh <suite>` runs a seed suite headless and in parallel. Each
-   run logs every key the Borg returns to the game (the oracle). See
-   `docs/harness.md`.
-3. `harness/diff --suite <suite> A B` compares logs. It requires every run of
+   run logs every key the Borg returns to the game (the oracle). Before
+   running it refuses a binary whose implementation (read from the
+   executable, its CMake cache and its `BUILD_ID`) is not `BORG_IMPL`, or
+   whose `BUILD_ID` does not match the binary or the current sources
+   (overrides are recorded in the manifest). See `docs/harness.md`
+   ("Build identity").
+3. `harness/diff --suite <suite> [--expect-impl rust] A B` compares logs. It
+   requires every run of
    the suite on both sides, byte-identical key logs, logs consistent with
    their `summary.json`, and equal summaries (except wall time). It prints
-   the first divergence with seed, game turn, key index and context.
+   the first divergence with seed, game turn, key index and context. It
+   prints each output's build identity from its manifest and fails on an
+   implementation mismatch or a recorded override.
 4. Suites (the birth-script quirk below means `full` and `deep` play 8
    classes and fewer races than their names say):
    * `smoke`: 3 runs × 20k game turns, run after every module.
@@ -77,7 +86,7 @@ To reproduce:
 harness/build.sh && BORG_IMPL=rust harness/build.sh
 for s in smoke full deep classes; do
     BORG_IMPL=rust harness/suite.sh $s
-    harness/diff --suite $s harness/out/rust/$s harness/reference/$s
+    harness/diff --suite $s --expect-impl rust harness/out/rust/$s harness/reference/$s
 done
 harness/check-no-c-borg.sh
 ```
