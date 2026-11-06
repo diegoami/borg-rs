@@ -20,9 +20,10 @@ spatial/flow/melee4k, glyph1,600, lunal1,280, seven actual-source fault
 controls, non-recovering C UBSan, clippy and cache invalidation controls.
 Exact environment/private-state boundaries are in the checker README;
 receipts are in `validation/2026-11-06-native-expanded`.
-F has119 accepted current-source runs through crash-fixes; extended and
-natural remain active/pending. The completed113-run subset measures77.56%
-logic lines and90.14% LLVM function instances; it is not the final report.
+F has121 accepted current-source runs through crash-fixes and natural2/2;
+extended has nine successful2M processes and three active5M cases. The
+completed121-run subset measures82.58% logic lines and91.09% LLVM function
+instances; it is not the final report.
 Sea of Runes, actual-game self-lunal and a win remain unestablished.
 Main/tags unchanged. Read LOCAL-SESSION-HANDOVER for active paths and next work.
 

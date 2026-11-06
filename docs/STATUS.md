@@ -40,9 +40,10 @@ See [expanded native checks](validation/2026-11-06-native-expanded/README.md)
 and the checker README for exact environment boundaries. This does not
 replace whole-Borg shadow execution or prove every tactic.
 
-The current-source coverage build has accepted119 runs through crash-fixes;
-extended and natural collection continues using the same frozen image.
-A completed113-run subset measures77.56% logic lines and90.14% LLVM function
+The current-source coverage build has accepted121 runs through crash-fixes
+and natural, using one frozen image. All nine2M extended processes succeed
+and match C; the three5M cases remain active, so extended is not accepted yet.
+The completed121-run subset measures82.58% logic lines and91.09% LLVM function
 instances. This is provisional subset evidence, not completed F. The older
 48-run26a96be pilot remains separately identified. Sea of Runes, actual-game
 self-lunal entry and a win remain unestablished. Main/tags are unchanged;

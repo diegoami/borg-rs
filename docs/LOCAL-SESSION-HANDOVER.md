@@ -88,14 +88,20 @@ as the earlier pilot is used. Current full collection:
 
 * `harness/out/local/coverage-current.log` and isolated
   `harness/out/coverage/current-matrix`:119 accepted oracle-checked runs
-  through crash-fixes; extended then natural are running/pending.
+  through crash-fixes; all nine2M extended scenarios have successful
+  process outcomes and exact early C-prefix/full-case observations, but
+  the three5M cases are still running. No extended acceptance yet.
 * `harness/out/local/coverage-current-long.log` and isolated
   `harness/out/coverage/current-long`: independent extended/natural
   collection from the same image. An automatic approval review rejected
   interrupting the first collector after crash-fixes, so both remain active.
-* The completed113-run subset report is local only at
-  `harness/out/local/coverage-accepted-baseline`:77.56% logic lines,
-  90.14% LLVM function instances. It is not full F.
+* `harness/out/local/coverage-current-natural.log` and isolated
+  `harness/out/coverage/current-natural`: natural2/2 accepted, with all
+  three C oracles and two successful process profiles. This independent
+  collection uses the already validated saves and same frozen image.
+* The completed121-run subset report is local only at
+  `harness/out/local/coverage-121-report`:82.58% logic lines,
+  91.09% LLVM function instances. It is not full F.
 
 The coverage runner supports `COVERAGE_SUITES` for independent groups;
 only all ten default groups create full matrix DONE. Shared validation
@@ -113,13 +119,19 @@ use instrument-coverage/link-dead-code. Branch coverage is unmeasured.
 
 ## Next work
 
-1. Let the active full collection finish extended/natural and require its
-   own DONE. Keep the duplicate collector's provenance separate.
+1. Let extended finish all12 cases and pass its strict diff/profile receipt.
+   Then use the full original matrix if ready, or join its completed
+   groups with current-natural (exactly one accepted copy per group).
+   Keep duplicate collectors' provenance separate; no partial cases count.
 2. Run `harness/coverage/report.py` with no subset flag against the complete
    matrix, retaining the133 successful process/profile receipts and exact
    instrumentation metadata. Review measured gaps; never infer completed
-   tactics from nonzero function entries. A prepared local export helper
-   is `/tmp/export-borg-m4-coverage.py` (requires complete report/matrix).
+   tactics from nonzero function entries. Prepared local helpers are `/tmp/export-borg-m4-coverage.py`
+   (requires complete report/matrix), `/tmp/borg-coverage-status.py`,
+   `/tmp/check-borg-completed.py`, `/tmp/borg-coverage-controls.py` and
+   `/tmp/borg-m4-coverage-gap-notes.md`. Actual Cargo fingerprint flags and
+   shim/runtime hashes were checked; fingerprint is in
+   `harness/out/local/coverage-actual-fingerprint.json`.
 3. Update final milestone/status/receipt documentation from the actual
    full report. Production source has not changed, so the completed
    corrected C/C and Rust/C corpus remains the same source28 checkpoint.
