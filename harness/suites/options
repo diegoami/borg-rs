@@ -1,0 +1,43 @@
+# options: the borg.txt options no other suite changes. Each run sets one
+# option (or two that work together) with a NAME=VALUE flag of
+# harness/run.sh, plays with the birth menu's letters (menu) and, except
+# the respawn runs, with Borg cheat death (cheat). What each run reaches
+# (checked with a temporarily instrumented C build, not committed) is in
+# docs/harness.md, "The options suite". The characters are those of
+# config/smoke (seeds 42, 12345, 103) and deep (2000, 2006), so a run can
+# be compared with the same character on the stock borg.txt.
+# NAME                     SEED   RACE CLASS TURNS   FLAGS
+# Money scumming (borg_money_scum_amount), with and without borg_self_scum
+opt-scum-war               42     0    0     100000  menu,cheat,borg_money_scum_amount=5000
+opt-scum-mage              12345  1    1     100000  menu,cheat,borg_money_scum_amount=5000
+opt-scum-noself-mage       12345  1    1     100000  menu,cheat,borg_money_scum_amount=1000,borg_self_scum=FALSE
+# gold already above the amount: "Money Scum complete", the Borg stops
+opt-scum-done-mage         12345  1    1     100000  menu,cheat,borg_money_scum_amount=300,borg_self_scum=FALSE
+# Dynamic calculations with the stock formulas (start-up -more- answered
+# by the frontend, see docs/harness.md)
+opt-dyn-war                42     0    0     100000  menu,cheat,borg_uses_dynamic_calcs=TRUE
+opt-dyn-mage               12345  1    1     100000  menu,cheat,borg_uses_dynamic_calcs=TRUE
+opt-dyn-priest             103    5    3     100000  menu,cheat,borg_uses_dynamic_calcs=TRUE
+# Worships
+opt-wdam-war               42     0    0     100000  menu,cheat,borg_worships_damage=TRUE
+opt-wspeed-war             42     0    0     100000  menu,cheat,borg_worships_speed=TRUE
+opt-whp-war                42     0    0     100000  menu,cheat,borg_worships_hp=TRUE
+opt-wmana-rogue            2006   3    6     1000000 menu,cheat,borg_worships_mana=TRUE
+opt-wac-war                2000   0    0     100000  menu,cheat,borg_worships_ac=TRUE
+opt-wgold-war              2000   0    0     200000  menu,cheat,borg_worships_gold=TRUE
+# Risky play, unique hunting, swaps off
+opt-risky-war              42     0    0     100000  menu,cheat,borg_plays_risky=TRUE
+opt-uniques-war            42     0    0     100000  menu,cheat,borg_kills_uniques=TRUE
+opt-noswap-war             42     0    0     100000  menu,cheat,borg_uses_swaps=FALSE
+# Depth and level limits, autosave, verbose notes, chests, munchkin limits
+opt-nodeeper-war           42     0    0     100000  menu,cheat,borg_no_deeper=3
+opt-stopdlevel-war         42     0    0     100000  menu,cheat,borg_stop_dlevel=2
+opt-stopclevel-war         42     0    0     100000  menu,cheat,borg_stop_clevel=5
+opt-autosave-war           42     0    0     100000  menu,cheat,borg_autosave=TRUE
+opt-verbose-war            42     0    0     100000  menu,cheat,borg_verbose=TRUE
+opt-chest-war              2000   0    0     400000  menu,cheat,borg_chest_fail_tolerance=0
+opt-munchkin-limits-war    42     0    0     100000  menu,cheat,munchkin,borg_munchkin_level=5,borg_munchkin_depth=4
+# Respawn: game option cheat_live on, Borg cheat death off; the Borg
+# reincarnates at each death (seed 1021 dies at turn 5865 in reference/full)
+opt-respawn-druid          1021   3    2     100000  menu,cheatlive
+opt-respawn-random-druid   1021   3    2     100000  menu,cheatlive,borg_respawn_race=-1,borg_respawn_class=-1
