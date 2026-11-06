@@ -1,5 +1,5 @@
 {
-  "artifacts_source": "harness/out/native-checker.OVzeux",
+  "artifacts_source": "harness/out/native-checker.5Cu56t",
   "c_ubsan": {
     "calculator": 30000,
     "glyph": 900,
@@ -7,6 +7,7 @@
     "passed": true,
     "spatial": 2000
   },
+  "cache_invalidation_control": "engine.rs timestamp-only change triggers recompilation; 100 spatial cases pass; all source/item hashes unchanged",
   "calculator_cases": 30000,
   "clippy_all_targets_warnings_denied": true,
   "glyph_scenarios": 9,
@@ -14,6 +15,10 @@
   "lunal_cases": 1024,
   "lunal_scenarios": 32,
   "not_claimed": "whole-Borg state shadow execution, every tactic or engine callback implementation",
+  "production_input_sha256": {
+    "c": "3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46",
+    "rust": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f"
+  },
   "production_inputs_unchanged_from": "28b8170",
   "scope": "native calculator, cave/projection/direction, mutable flow, physical melee and target selection, glyph builder; shared explicit engine environment; lunal thinker and stair helpers",
   "source_fault_controls": {

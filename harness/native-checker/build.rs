@@ -114,19 +114,12 @@ fn main() {
     }
     println!("cargo:rerun-if-changed=extract_spatial.py");
     println!("cargo:rerun-if-changed=native_spatial.c");
-    for source in [
-        "borg_projection.rs",
-        "borg_flow.rs",
-        "borg_cave.rs",
-        "borg_fight_attack.rs",
-        "borg_flow_glyph.rs",
-        "borg_think_dungeon.rs",
-    ] {
-        println!(
-            "cargo:rerun-if-changed={}",
-            root.join("borg-rs/src").join(source).display()
-        );
-    }
+    // Extracted items do not become rustc dependencies on their original files.
+    // Track the complete input tree, including helpers and header constants.
+    println!(
+        "cargo:rerun-if-changed={}",
+        root.join("borg-rs/src").display()
+    );
     for (i, source) in [
         "harness/native-checker/native_spatial.c",
         "angband/src/borg/borg-cave-util.c",

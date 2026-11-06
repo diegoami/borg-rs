@@ -4,10 +4,16 @@ e13000c95cae6f5f1b9785f53dc6494005a770f1943e47356d1ccb1a92405685  /home/diego/pr
 b3138c80a8e4ef8336de2b502e42b325743f53a965c7f77ac814b8816b8a65b3  /home/diego/projects/borg-rs/angband/src/borg/borg-formulas.c
 c9b14a20dd32adafe75eee18948e6a3f028fe7cf95d61e3f093499175475e72a  /home/diego/projects/borg-rs/harness/native-checker/native.c
 dba288ed5fed836d7692bf42598c7245ec964ed36af9a4755c5c1b232779bd09  /home/diego/projects/borg-rs/harness/native-checker/src/main.rs
-3ab73abe8af5bfe4cc046e3785353ec8db3df23096677086170c289694802df8  /home/diego/projects/borg-rs/harness/native-checker/build.rs
+03982781d8dc5e96546d870655b7b689f79c6a760002fb2fc36475187fbcf05b  /home/diego/projects/borg-rs/harness/native-checker/build.rs
 1e5fef9709e3c6339a884a44c413e2ba2e69bfbfd355a5781da0e619e5f9d2e7  /home/diego/projects/borg-rs/harness/native-checker/native_spatial.c
 57b3e58d90e1946f9ac68045344f143d85484be9e1bfe5cbb414588d6ff709b7  /home/diego/projects/borg-rs/harness/native-checker/src/bin/spatial.rs
 c09399c54ea72e8ab4f2951766f8c568f8257e18175a236cde08b023b3fceb6a  /home/diego/projects/borg-rs/harness/native-checker/extract_spatial.py
 0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae  /home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs
 739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1  /home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs
 753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f  /home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs
+da2eecd3a5e275b9d80340f86e85e80d6a60027e7792f12acebccc0daf8ff798  /home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs
+6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae  /home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs
+c82d65aca517b70da576e37bbfc3b588df7ae86b477728a726737c9529deef13  /home/diego/projects/borg-rs/harness/native-checker/run.sh
+3c01c82557823009b24ff670059cbd0899823116cb1e74bbee04fd5f95a26a5b  /home/diego/projects/borg-rs/harness/native-checker/spatial_controls.py
+6fd8da9ad1a9905af3adbba86ad911e53f73bc5abc55981ac25aabb91d5143e3  /home/diego/projects/borg-rs/harness/native-checker/Cargo.toml
+caffde252c9a0db6c67ca6024fff9d3092a01d1f47c1586c2e5c8d128047b718  /home/diego/projects/borg-rs/harness/native-checker/Cargo.lock

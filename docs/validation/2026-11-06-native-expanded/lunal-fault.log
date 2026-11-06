@@ -1,4 +1,4 @@
    Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
-    Finished `release` profile [optimized + debuginfo] target(s) in 8.49s
-     Running `harness/out/native-checker.OVzeux/spatial-fault-target/release/spatial 100 --lunal --fault-control`
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.09s
+     Running `harness/out/native-checker.5Cu56t/spatial-fault-target/release/spatial 100 --lunal --fault-control`
 MISMATCH spatial case=5 byte=144 native_len=201123 rust_len=201123 native=[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0] rust=[1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 8, 0, 0, 0]

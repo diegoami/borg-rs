@@ -1,5 +1,5 @@
-    Finished `release` profile [optimized + debuginfo] target(s) in 0.02s
-     Running `harness/out/native-checker.OVzeux/target/release/spatial 900 --glyph`
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.03s
+     Running `harness/out/native-checker.5Cu56t/target/release/spatial 900 --glyph`
 glyph scenario=0 native_result=1 tracked=1
 glyph scenario=1 native_result=0 tracked=1
 glyph scenario=2 native_result=1 tracked=0

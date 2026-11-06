@@ -68,7 +68,12 @@ sha256sum "$ROOT/borg-rs/src/borg_formulas_calc.rs" "$ROOT/borg-rs/src/cctype.rs
     "$ROOT/harness/native-checker/build.rs" "$ROOT/harness/native-checker/native_spatial.c" \
     "$ROOT/harness/native-checker/src/bin/spatial.rs" "$ROOT/harness/native-checker/extract_spatial.py" \
     "$ROOT/borg-rs/src/borg_flow.rs" "$ROOT/borg-rs/src/borg_projection.rs" \
-    "$ROOT/borg-rs/src/borg_fight_attack.rs" >"$OUT/SHA256SUMS"
+    "$ROOT/borg-rs/src/borg_fight_attack.rs" "$ROOT/borg-rs/src/borg_flow_glyph.rs" \
+    "$ROOT/borg-rs/src/borg_think_dungeon.rs" "$ROOT/harness/native-checker/run.sh" \
+    "$ROOT/harness/native-checker/spatial_controls.py" \
+    "$ROOT/harness/native-checker/Cargo.toml" "$ROOT/harness/native-checker/Cargo.lock" >"$OUT/SHA256SUMS"
+"$ROOT/harness/identity.sh" source-hash rust >"$OUT/RUST_INPUT_SHA256"
+"$ROOT/harness/identity.sh" source-hash c >"$OUT/C_INPUT_SHA256"
 find "$OUT/target/release/build" -name spatial-source-ledger.json -exec cp '{}' "$OUT/source-ledger.json" \;
 touch "$OUT/DONE"
 cat "$OUT/parity.log" "$OUT/spatial.log" "$OUT/spatial-second.log" "$OUT/glyph.log" "$OUT/lunal.log"
