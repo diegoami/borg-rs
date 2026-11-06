@@ -1,0 +1,8 @@
+suite=config impl=c jobs=4 wall_seconds=143.357642288 result=OK
+cfg-munchkin-human-war turns turns=100002 pturns=25993 clev=12 maxdepth=7 keys=75420 wall=69.0 Human Warrior
+cfg-munchkin-halfelf-mage turns turns=100000 pturns=13213 clev=8 maxdepth=8 keys=17597 wall=14.1 Half-Elf Mage
+cfg-munchkin-dunadan-bg turns turns=20011 pturns=46377 clev=9 maxdepth=2 keys=137311 wall=143.3 Dunadan Blackguard
+cfg-lunal-human-war turns turns=100000 pturns=10146 clev=9 maxdepth=8 keys=12868 wall=12.0 Human Warrior
+cfg-lunal-halfelf-mage turns turns=100224 pturns=10236 clev=4 maxdepth=2 keys=7652 wall=5.0 Half-Elf Mage
+cfg-lunal-dunadan-bg turns turns=20352 pturns=2085 clev=2 maxdepth=1 keys=1234 wall=1.1 Dunadan Blackguard
+cfg-lunal-deep-warrior turns turns=1000004 pturns=100277 clev=24 maxdepth=27 keys=206413 wall=92.7 Human Warrior

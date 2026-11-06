@@ -1,0 +1,339 @@
+A: harness/out/local/baseline-c/full: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=d59e03b08dfd9cb5
+A:   built from bd184cc48035 (dirty=no, inputs dirty=no) source_sha256=07cc4471bc2c3261; run at bd184cc48035 (dirty=yes) overrides=none
+B: harness/reference/full: reference (no manifest)
+== full-0-warrior-1: messages.log DIVERGES  seed=1001  line=16298  game_turn=99440  key_index=13690  (bytes 861528 vs 861332)
+--- A lines 16278..16317
+     16278  13673 99309 0 # Creating an object '& Rounded Pebble~' at (106,22)
+     16279  13673 99309 0 # DIED:The white jelly (2)
+     16280  13673 99309 0 # Flowing toward item at cost 3
+     16281  13675 99329 0 # Walking onto and deleting a '& Rounded Pebble~' at (22,106)
+     16282  13676 99339 0 You have 11 Rounded Pebbles (1d2) (+4,+5) (0).
+     16283  13677 99340 0 # Resting to recover HP/SP...
+     16284  13680 99370 0 # Flowing toward dark-3 at cost 3
+     16285  13682 99390 0 # Flowing toward dark-3 at cost 3
+     16286  13684 99410 0 # Flowing toward dark-3 at cost 3
+     16287  13686 99430 0 # Creating a monster 'Sméagol' at (22,99), HP: 400, Index: 53
+     16288  13686 99430 0 # Loc:22,100 Dep:4 Lev:9 HP:102/102 SP:0/0 Danger:p=18
+     16289  13686 99430 0 # Performing attack type 1 with value 111.
+     16290  13686 99430 0 # Facing Sméagol at (22,99) who has 400 Hit Points.
+     16291  13686 99430 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+     16292  13688 99430 2 You hit Sméagol.
+     16293  13688 99430 2 You hit Sméagol.
+     16294  13688 99430 2 You hit Sméagol.
+     16295  13688 99431 0 Sméagol misses you.
+     16296  13690 99440 0 # HIT:Sméagol (+)
+     16297  13690 99440 0 # HIT:Sméagol (+)
+>>   16298  13690 99440 0 # HIT:Sméag (+)
+     16299  13690 99440 0 # MISS_BY:Sméagol (+)
+     16300  13690 99440 0 # Assuming player ghost (Sméag) (a)
+     16301  13690 99440 0 # Assuming player ghost (Sméag) (a)
+     16302  13690 99440 0 # HIT:Sméagol (2)
+     16303  13690 99440 0 # HIT:Sméagol (2)
+     16304  13690 99440 0 # HIT:Sméag (0)
+     16305  13690 99440 0 # MISS_BY:Sméagol (3)
+     16306  13690 99440 0 # There was a monster 'Sméagol' at (22,99)
+     16307  13690 99440 0 # Forgetting a monster 'Sméagol' at (22,99)
+     16308  13690 99440 0 # Flowing toward dark-1 at cost 4
+     16309  13691 99450 0 # Creating a monster 'Sméagol' at (22,98), HP: 384, Index: 53
+     16310  13691 99450 0 # Loc:22,99 Dep:4 Lev:9 HP:102/102 SP:0/0 Danger:p=18
+     16311  13691 99450 0 # Performing attack type 1 with value 111.
+     16312  13691 99450 0 # Facing Sméagol at (22,98) who has 384 Hit Points.
+     16313  13691 99450 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+     16314  13693 99450 2 You hit Sméagol.
+     16315  13693 99450 2 You hit Sméagol.
+     16316  13693 99450 2 You hit Sméagol.
+     16317  13694 99460 0 # HIT:Sméagol (+)
+--- B lines 16278..16317
+     16278  13673 99309 0 # Creating an object '& Rounded Pebble~' at (106,22)
+     16279  13673 99309 0 # DIED:The white jelly (2)
+     16280  13673 99309 0 # Flowing toward item at cost 3
+     16281  13675 99329 0 # Walking onto and deleting a '& Rounded Pebble~' at (22,106)
+     16282  13676 99339 0 You have 11 Rounded Pebbles (1d2) (+4,+5) (0).
+     16283  13677 99340 0 # Resting to recover HP/SP...
+     16284  13680 99370 0 # Flowing toward dark-3 at cost 3
+     16285  13682 99390 0 # Flowing toward dark-3 at cost 3
+     16286  13684 99410 0 # Flowing toward dark-3 at cost 3
+     16287  13686 99430 0 # Creating a monster 'Sméagol' at (22,99), HP: 400, Index: 53
+     16288  13686 99430 0 # Loc:22,100 Dep:4 Lev:9 HP:102/102 SP:0/0 Danger:p=18
+     16289  13686 99430 0 # Performing attack type 1 with value 111.
+     16290  13686 99430 0 # Facing Sméagol at (22,99) who has 400 Hit Points.
+     16291  13686 99430 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+     16292  13688 99430 2 You hit Sméagol.
+     16293  13688 99430 2 You hit Sméagol.
+     16294  13688 99430 2 You hit Sméagol.
+     16295  13688 99431 0 Sméagol misses you.
+     16296  13690 99440 0 # HIT:Sméagol (+)
+     16297  13690 99440 0 # HIT:Sméagol (+)
+>>   16298  13690 99440 0 # HIT:Sméagol (+)
+     16299  13690 99440 0 # MISS_BY:Sméagol (+)
+     16300  13690 99440 0 # HIT:Sméagol (2)
+     16301  13690 99440 0 # HIT:Sméagol (2)
+     16302  13690 99440 0 # HIT:Sméagol (2)
+     16303  13690 99440 0 # MISS_BY:Sméagol (3)
+     16304  13690 99440 0 # There was a monster 'Sméagol' at (22,99)
+     16305  13690 99440 0 # Forgetting a monster 'Sméagol' at (22,99)
+     16306  13690 99440 0 # Flowing toward dark-1 at cost 4
+     16307  13691 99450 0 # Creating a monster 'Sméagol' at (22,98), HP: 384, Index: 53
+     16308  13691 99450 0 # Loc:22,99 Dep:4 Lev:9 HP:102/102 SP:0/0 Danger:p=18
+     16309  13691 99450 0 # Performing attack type 1 with value 111.
+     16310  13691 99450 0 # Facing Sméagol at (22,98) who has 384 Hit Points.
+     16311  13691 99450 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+     16312  13693 99450 2 You hit Sméagol.
+     16313  13693 99450 2 You hit Sméagol.
+     16314  13693 99450 2 You hit Sméagol.
+     16315  13694 99460 0 # HIT:Sméagol (+)
+     16316  13694 99460 0 # HIT:Sméagol (+)
+     16317  13694 99460 0 # HIT:Sméagol (+)
+== full-0-warrior-3: DIVERGES  seed=1003  game_turn=97734  key_index=13872  (bytes 183723 vs 183682)
+--- A lines 13852..13891
+     13852  97672 1 20 0         turn 97672 type 1 key  
+     13853  97682 1 20 0         turn 97682 type 1 key  
+     13854  97682 1 2a 0         turn 97682 type 1 key *
+     13855  97682 1 70 0         turn 97682 type 1 key p
+     13856  97682 1 34 0         turn 97682 type 1 key 4
+     13857  97682 1 35 0         turn 97682 type 1 key 5
+     13858  97682 1 20 0         turn 97682 type 1 key  
+     13859  97682 1 66 0         turn 97682 type 1 key f
+     13860  97682 1 30 0         turn 97682 type 1 key 0
+     13861  97682 1 35 0         turn 97682 type 1 key 5
+     13862  97682 1 20 0         turn 97682 type 1 key  
+     13863  97689 1 20 0         turn 97689 type 1 key  
+     13864  97689 1 20 0         turn 97689 type 1 key  
+     13865  97692 1 20 0         turn 97692 type 1 key  
+     13866  97692 1 34 0         turn 97692 type 1 key 4
+     13867  97703 1 20 0         turn 97703 type 1 key  
+     13868  97703 1 36 0         turn 97703 type 1 key 6
+     13869  97713 1 36 0         turn 97713 type 1 key 6
+     13870  97723 1 39 0         turn 97723 type 1 key 9
+     13871  97734 1 20 0         turn 97734 type 1 key  
+>>   13872  97734 1 4c 0         turn 97734 type 1 key L
+     13873  97734 1 38 0         turn 97734 type 1 key 8
+     13874  97734 1 e000 0       turn 97734 type 1 key 0xe000
+     13875  97734 1 37 0         turn 97734 type 1 key 7
+     13876  97744 1 39 0         turn 97744 type 1 key 9
+     13877  97754 1 36 0         turn 97754 type 1 key 6
+     13878  97764 1 6f 0         turn 97764 type 1 key o
+     13879  97774 1 36 0         turn 97774 type 1 key 6
+     13880  97784 1 37 0         turn 97784 type 1 key 7
+     13881  97794 1 34 0         turn 97794 type 1 key 4
+     13882  97804 1 31 0         turn 97804 type 1 key 1
+     13883  97814 1 36 0         turn 97814 type 1 key 6
+     13884  97824 1 36 0         turn 97824 type 1 key 6
+     13885  97834 1 36 0         turn 97834 type 1 key 6
+     13886  97844 1 36 0         turn 97844 type 1 key 6
+     13887  97854 1 36 0         turn 97854 type 1 key 6
+     13888  97864 1 20 0         turn 97864 type 1 key  
+     13889  97864 1 38 0         turn 97864 type 1 key 8
+     13890  97874 1 38 0         turn 97874 type 1 key 8
+     13891  97884 1 38 0         turn 97884 type 1 key 8
+--- B lines 13852..13891
+     13852  97672 1 20 0         turn 97672 type 1 key  
+     13853  97682 1 20 0         turn 97682 type 1 key  
+     13854  97682 1 2a 0         turn 97682 type 1 key *
+     13855  97682 1 70 0         turn 97682 type 1 key p
+     13856  97682 1 34 0         turn 97682 type 1 key 4
+     13857  97682 1 35 0         turn 97682 type 1 key 5
+     13858  97682 1 20 0         turn 97682 type 1 key  
+     13859  97682 1 66 0         turn 97682 type 1 key f
+     13860  97682 1 30 0         turn 97682 type 1 key 0
+     13861  97682 1 35 0         turn 97682 type 1 key 5
+     13862  97682 1 20 0         turn 97682 type 1 key  
+     13863  97689 1 20 0         turn 97689 type 1 key  
+     13864  97689 1 20 0         turn 97689 type 1 key  
+     13865  97692 1 20 0         turn 97692 type 1 key  
+     13866  97692 1 34 0         turn 97692 type 1 key 4
+     13867  97703 1 20 0         turn 97703 type 1 key  
+     13868  97703 1 36 0         turn 97703 type 1 key 6
+     13869  97713 1 36 0         turn 97713 type 1 key 6
+     13870  97723 1 39 0         turn 97723 type 1 key 9
+     13871  97734 1 20 0         turn 97734 type 1 key  
+>>   13872  97734 1 37 0         turn 97734 type 1 key 7
+     13873  97744 1 39 0         turn 97744 type 1 key 9
+     13874  97754 1 36 0         turn 97754 type 1 key 6
+     13875  97764 1 6f 0         turn 97764 type 1 key o
+     13876  97774 1 36 0         turn 97774 type 1 key 6
+     13877  97784 1 37 0         turn 97784 type 1 key 7
+     13878  97794 1 34 0         turn 97794 type 1 key 4
+     13879  97804 1 31 0         turn 97804 type 1 key 1
+     13880  97814 1 36 0         turn 97814 type 1 key 6
+     13881  97824 1 36 0         turn 97824 type 1 key 6
+     13882  97834 1 36 0         turn 97834 type 1 key 6
+     13883  97844 1 36 0         turn 97844 type 1 key 6
+     13884  97854 1 36 0         turn 97854 type 1 key 6
+     13885  97864 1 20 0         turn 97864 type 1 key  
+     13886  97864 1 38 0         turn 97864 type 1 key 8
+     13887  97874 1 38 0         turn 97874 type 1 key 8
+     13888  97884 1 38 0         turn 97884 type 1 key 8
+     13889  97894 1 20 0         turn 97894 type 1 key  
+     13890  97894 1 2a 0         turn 97894 type 1 key *
+     13891  97894 1 70 0         turn 97894 type 1 key p
+== full-0-warrior-3: messages.log DIVERGES  seed=1003  line=19048  game_turn=97672  key_index=13850  (bytes 1031862 vs 1031105)
+--- A lines 19028..19067
+     19028  13798 97282 0 # Flowing toward dark-2 at cost 3
+     19029  13801 97312 0 # Flowing toward dark-2 at cost 3
+     19030  13804 97342 0 # Flowing toward dark-5 at cost 31
+     19031  13831 97609 0 Something slams against the door.
+     19032  13831 97612 0 Something fiddles with the lock.
+     19033  13833 97616 0 Something slams against the door.
+     19034  13833 97619 0 Something slams against the door.
+     19035  13837 97652 0 # Flowing toward dark-3 at cost 4
+     19036  13838 97662 0 # Creating a monster 'Sméagol' at (46,166), HP: 400, Index: 53
+     19037  13838 97662 0 # Removing Regional Fear (46,166) because of a LOS Sméagol
+     19038  13838 97662 0 # Loc:47,164 Dep:4 Lev:9 HP:112/112 SP:0/0 Danger:p=9
+     19039  13838 97662 0 # Performing attack type 3 with value 120.
+     19040  13838 97662 0 # Targeting Sméagol who has 400 Hit Points (46,166).
+     19041  13838 97662 0 # Firing missile 'Rounded Pebbles (1d2) (+2,+4)'
+     19042  13843 97662 0 Target Selected.
+     19043  13847 97662 85 Your Rounded Pebble (1d2) (+2,+4) hits Sméagol.
+     19044  13847 97662 0 You have 5 Rounded Pebbles (1d2) (+2,+4) (0).
+     19045  13848 97662 0 Sméagol grunts with pain.
+     19046  13848 97669 0 Sméagol misses you.
+     19047  13849 97672 0 Sméagol misses you.
+>>   19048  13850 97672 0 # MISS_BY:Sméagol grunts with pain  Sméagol (+)
+     19049  13850 97672 0 # MISS_BY:Sméagol (+)
+     19050  13850 97672 0 # Assuming player ghost (Sméagol grunts with pain  Sméagol) (a)
+     19051  13850 97672 0 # Perhaps wall near targetted location (46,166)
+     19052  13850 97672 0 # Guessing wall (46,165) near target (46,166)
+     19053  13850 97672 0 # Tracking a monster 'Sméagol' at (46,165) from (46,166)
+     19054  13850 97672 0 # Creating an object '& Rounded Pebble~' at (166,46)
+     19055  13850 97672 0 # Assuming player ghost (Sméagol grunts with pain  Sméagol) (a)
+     19056  13850 97672 0 # Fearing region (47,164) value 2 because of a non-LOS Sméagol grunts with pain  Sméagol
+     19057  13850 97672 0 # MISS_BY:Sméagol grunts with pain  Sméagol (5)
+     19058  13850 97672 0 # MISS_BY:Sméagol (3)
+     19059  13850 97672 0 # Loc:47,164 Dep:4 Lev:9 HP:112/112 SP:0/0 Danger:p=21
+     19060  13850 97672 0 # Performing defense type 13 with value 5
+     19061  13850 97672 0 # Quaffing Potions of Berserk Strength.
+     19062  13852 97672 65 You feel like a killing machine!
+     19063  13852 97672 0 You have a Potion of Berserk Strength (f).
+     19064  13853 97676 0 Sméagol misses you.
+     19065  13854 97682 0 # MISS_BY:Sméagol (+)
+     19066  13854 97682 0 # Tracking a monster 'Sméagol' at (47,163) from (46,165)
+     19067  13854 97682 0 # MISS_BY:Sméagol (3)
+--- B lines 19028..19067
+     19028  13798 97282 0 # Flowing toward dark-2 at cost 3
+     19029  13801 97312 0 # Flowing toward dark-2 at cost 3
+     19030  13804 97342 0 # Flowing toward dark-5 at cost 31
+     19031  13831 97609 0 Something slams against the door.
+     19032  13831 97612 0 Something fiddles with the lock.
+     19033  13833 97616 0 Something slams against the door.
+     19034  13833 97619 0 Something slams against the door.
+     19035  13837 97652 0 # Flowing toward dark-3 at cost 4
+     19036  13838 97662 0 # Creating a monster 'Sméagol' at (46,166), HP: 400, Index: 53
+     19037  13838 97662 0 # Removing Regional Fear (46,166) because of a LOS Sméagol
+     19038  13838 97662 0 # Loc:47,164 Dep:4 Lev:9 HP:112/112 SP:0/0 Danger:p=9
+     19039  13838 97662 0 # Performing attack type 3 with value 120.
+     19040  13838 97662 0 # Targeting Sméagol who has 400 Hit Points (46,166).
+     19041  13838 97662 0 # Firing missile 'Rounded Pebbles (1d2) (+2,+4)'
+     19042  13843 97662 0 Target Selected.
+     19043  13847 97662 85 Your Rounded Pebble (1d2) (+2,+4) hits Sméagol.
+     19044  13847 97662 0 You have 5 Rounded Pebbles (1d2) (+2,+4) (0).
+     19045  13848 97662 0 Sméagol grunts with pain.
+     19046  13848 97669 0 Sméagol misses you.
+     19047  13849 97672 0 Sméagol misses you.
+>>   19048  13850 97672 0 # PAIN:Sméagol (+)
+     19049  13850 97672 0 # MISS_BY:Sméagol (+)
+     19050  13850 97672 0 # MISS_BY:Sméagol (+)
+     19051  13850 97672 0 # Tracking a monster 'Sméagol' at (46,165) from (46,166)
+     19052  13850 97672 0 # Creating an object '& Rounded Pebble~' at (166,46)
+     19053  13850 97672 0 # PAIN:Sméagol (2)
+     19054  13850 97672 0 # MISS_BY:Sméagol (3)
+     19055  13850 97672 0 # MISS_BY:Sméagol (3)
+     19056  13850 97672 0 # Loc:47,164 Dep:4 Lev:9 HP:112/112 SP:0/0 Danger:p=18
+     19057  13850 97672 0 # Performing defense type 13 with value 5
+     19058  13850 97672 0 # Quaffing Potions of Berserk Strength.
+     19059  13852 97672 65 You feel like a killing machine!
+     19060  13852 97672 0 You have a Potion of Berserk Strength (f).
+     19061  13853 97676 0 Sméagol misses you.
+     19062  13854 97682 0 # MISS_BY:Sméagol (+)
+     19063  13854 97682 0 # Tracking a monster 'Sméagol' at (47,163) from (46,165)
+     19064  13854 97682 0 # MISS_BY:Sméagol (3)
+     19065  13854 97682 0 # Loc:47,164 Dep:4 Lev:9 HP:112/112 SP:0/0 Danger:p=18
+     19066  13854 97682 0 # Performing attack type 3 with value 120.
+     19067  13854 97682 0 # Targeting Sméagol who has 360 Hit Points (47,163).
+== full-0-warrior-3: state.log DIVERGES  seed=1003  line=13873  game_turn=97734  key_index=13873  (bytes 1791648 vs 1791252)
+--- A lines 13853..13892
+     13853  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13854  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13855  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13856  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13857  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13858  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13859  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13860  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13861  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13862  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13863  97689 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13864  97689 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13865  97692 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:39 o2:5000,3:837 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13866  97692 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:39 o2:5000,3:837 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13867  97703 163,47 d4/4 hp110/112 sp0/0 f2699 au1795 xp409 lv9 t14:38 o2:5000,3:836 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13868  97703 163,47 d4/4 hp110/112 sp0/0 f2699 au1795 xp409 lv9 t14:38 o2:5000,3:836 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13869  97713 164,47 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:37 o2:5000,3:835 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13870  97723 165,47 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:36 o2:5000,3:834 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13871  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13872  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+>>   13873  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13874  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13875  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13876  97744 165,45 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:34 o2:5000,3:832 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13877  97754 166,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:33 o2:5000,3:831 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13878  97764 167,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:32 o2:5000,3:830 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13879  97774 167,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:31 o2:5000,3:829 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13880  97784 168,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:30 o2:5000,3:828 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13881  97794 167,43 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:29 o2:5000,3:827 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13882  97804 166,43 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:28 o2:5000,3:826 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13883  97814 165,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:27 o2:5000,3:825 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13884  97824 166,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:26 o2:5000,3:824 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13885  97834 167,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:25 o2:5000,3:823 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13886  97844 168,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:24 o2:5000,3:822 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13887  97854 169,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:23 o2:5000,3:821 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13888  97864 170,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:22 o2:5000,3:820 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13889  97864 170,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:22 o2:5000,3:820 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13890  97874 170,43 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:21 o2:5000,3:819 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13891  97884 170,42 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:20 o2:5000,3:818 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13892  97894 170,41 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:19 o2:5000,3:817 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+--- B lines 13853..13892
+     13853  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13854  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13855  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13856  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13857  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13858  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13859  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13860  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13861  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13862  97682 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13863  97689 164,47 d4/4 hp112/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13864  97689 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:40 o2:5000,3:838 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13865  97692 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:39 o2:5000,3:837 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13866  97692 164,47 d4/4 hp110/112 sp0/0 f2709 au1795 xp409 lv9 t14:39 o2:5000,3:837 p2d7b61a5e494ca8c e6e9543fe421b15f2 rdb9faae30a805c45
+     13867  97703 163,47 d4/4 hp110/112 sp0/0 f2699 au1795 xp409 lv9 t14:38 o2:5000,3:836 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13868  97703 163,47 d4/4 hp110/112 sp0/0 f2699 au1795 xp409 lv9 t14:38 o2:5000,3:836 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13869  97713 164,47 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:37 o2:5000,3:835 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13870  97723 165,47 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:36 o2:5000,3:834 p2c93154e44b0db6c e6e9543fe421b15f2 rdb9faae30a805c45
+     13871  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13872  97734 166,46 d4/4 hp111/112 sp0/0 f2699 au1795 xp409 lv9 t14:35 o2:5000,3:833 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+>>   13873  97744 165,45 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:34 o2:5000,3:832 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13874  97754 166,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:33 o2:5000,3:831 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13875  97764 167,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:32 o2:5000,3:830 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13876  97774 167,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:31 o2:5000,3:829 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13877  97784 168,44 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:30 o2:5000,3:828 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13878  97794 167,43 d4/4 hp112/112 sp0/0 f2699 au1795 xp409 lv9 t14:29 o2:5000,3:827 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13879  97804 166,43 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:28 o2:5000,3:826 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13880  97814 165,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:27 o2:5000,3:825 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13881  97824 166,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:26 o2:5000,3:824 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13882  97834 167,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:25 o2:5000,3:823 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13883  97844 168,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:24 o2:5000,3:822 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13884  97854 169,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:23 o2:5000,3:821 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13885  97864 170,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:22 o2:5000,3:820 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13886  97864 170,44 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:22 o2:5000,3:820 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13887  97874 170,43 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:21 o2:5000,3:819 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13888  97884 170,42 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:20 o2:5000,3:818 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13889  97894 170,41 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:19 o2:5000,3:817 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13890  97894 170,41 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:19 o2:5000,3:817 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13891  97894 170,41 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:19 o2:5000,3:817 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+     13892  97894 170,41 d4/4 hp112/112 sp0/0 f2689 au1795 xp409 lv9 t14:19 o2:5000,3:817 pbcd91c1360864dcc e6e9543fe421b15f2 rdb9faae30a805c45
+== full-0-warrior-3: summary keys: A=14229 B=14226
+43/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

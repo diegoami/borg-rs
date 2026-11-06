@@ -1,0 +1,5 @@
+done full-0-warrior-3
+done full-0-warrior-1
+suite=borg-utf8-recheck-suite impl=c jobs=2 wall_seconds=17.953467132 result=OK
+full-0-warrior-1 turns turns=100001 pturns=10167 clev=9 maxdepth=5 keys=13790 wall=17.9 Half-Elf Warrior
+full-0-warrior-3 turns turns=100001 pturns=10155 clev=9 maxdepth=4 keys=14226 wall=12.7 Hobbit Warrior

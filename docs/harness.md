@@ -55,8 +55,11 @@ the default `BORG_IMPL=c` it compiles the same files) and, in `mon-make.c`,
 | `src/message.c` | `borgh_message_hook` is called by `message_add()` for every message, before the log is changed (repeats included) |
 | `CMakeLists.txt` | option `SUPPORT_BORG_HARNESS`; `BORG_IMPL` (`c` or `rust`) |
 
-No file in `src/borg/` is touched. `borg_rand_local` is initialised from
-`randint1()` in `borg_init()`, so it follows the game seed.
+The harness hooks do not change Borg tactics. Separate owner-authorized
+crash/play-blocker corrections in C and Rust are marked `FORK` and listed
+in `docs/FORK-CORRECTIONS.md`; original references remain separate from
+corrected-C references. `borg_rand_local` is initialised from `randint1()`
+in `borg_init()`, so it follows the game seed.
 
 ## The borgh frontend
 

@@ -10,8 +10,10 @@ This repository ports the Angband Borg (the game's built-in automatic player,
 about 64k lines of C in `angband/src/borg/`) to Rust. It is a faithful port:
 the Rust Borg must produce the same keypress stream as the C Borg,
 byte for byte, while driving the same unmodified C game engine with the same
-seed. It is not a redesign: no new tactics and no fixes to Borg behaviour.
-Known C bugs are kept on purpose (see `docs/c-bugs.md`).
+seed. New tactics remain outside this milestone. Narrow owner-authorized
+crash/play-blocker corrections are mirrored in C/Rust and documented in
+`docs/FORK-CORRECTIONS.md`, with corrected C run twice and original
+references preserved. Other known C bugs remain recorded in `docs/c-bugs.md`.
 
 What is shown is narrower than that goal: the key streams are identical on
 the suites' seeds (smoke, full, deep, classes with the stock `borg.txt`;

@@ -1,0 +1,7 @@
+A: harness/out/local/baseline-capacity-c/options: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=a202a7d195f5d1b1
+A:   built from 26a96bee4570 (dirty=yes, inputs dirty=no) source_sha256=aa4f69dc2508fd81; run at 26a96bee4570 (dirty=yes) overrides=none
+B: harness/reference/options: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=4c05f3b40c686a9f
+B:   built from fd6f6b120206 (dirty=no, inputs dirty=no) source_sha256=231e064ac61d375b; run at fd6f6b120206 (dirty=no) overrides=none
+25/25 runs identical (expected 25)
+messages.log compared in 25 run(s)
+state.log compared in 25 run(s)

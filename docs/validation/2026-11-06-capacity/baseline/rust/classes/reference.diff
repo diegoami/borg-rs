@@ -1,0 +1,6 @@
+A: harness/out/local/baseline-capacity-rust/classes: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=9aa2531c5ce4f732
+A:   built from 26a96bee4570 (dirty=yes, inputs dirty=no) source_sha256=fb0df18248a87c78; run at 26a96bee4570 (dirty=yes) overrides=none
+B: harness/reference/classes: reference (manifest of its C run: impl=c, rev 7bf674cf728d)
+16/16 runs identical (expected 16)
+messages.log compared in 16 run(s)
+state.log compared in 16 run(s)

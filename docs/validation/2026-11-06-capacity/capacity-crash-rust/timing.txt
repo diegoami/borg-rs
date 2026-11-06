@@ -1,0 +1,7 @@
+suite=crash-fixes impl=rust jobs=2 wall_seconds=137.877953626 result=OK
+ext-rogue turns turns=2000352 pturns=201110 clev=21 maxdepth=6 keys=308698 wall=137.8 Hobbit Rogue
+end-depth50 turns turns=100002 pturns=34561 clev=50 maxdepth=69 keys=75309 wall=17.5 Human Warrior
+end-depth98 turns turns=100003 pturns=41523 clev=50 maxdepth=98 keys=107789 wall=22.1 Human Warrior
+end-depth99 turns turns=100079 pturns=39736 clev=50 maxdepth=99 keys=103602 wall=24.7 Human Warrior
+end-depth100 turns turns=50043 pturns=18998 clev=50 maxdepth=100 keys=52257 wall=9.7 Human Warrior
+end-near-morgoth turns turns=20001 pturns=8023 clev=50 maxdepth=100 keys=15553 wall=3.7 Human Warrior

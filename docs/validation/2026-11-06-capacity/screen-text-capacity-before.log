@@ -1,0 +1,2 @@
+probe: /home/diego/projects/borg-rs/harness/regress/screen-text/probe.c:37: main: Assertion `strcmp(out, "Sm\xc3\xa9" "agol hits you.") == 0' failed.
+harness/regress/screen-text/run.sh: line 9: 807340 Aborted                    "$OUT/probe"

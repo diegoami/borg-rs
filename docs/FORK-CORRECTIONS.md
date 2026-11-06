@@ -14,20 +14,51 @@ issues, and tested before/after. Original references are not silently
 replaced. New corrected-C references require two identical C runs.
 Do not post to angband/angband. No tag or main movement is automatic.
 
-## Corrections under validation
+## Validated corrections
 
 | issue | correction | evidence |
 |---|---|---|
-| [#290](https://github.com/diegoami/neo-angband-tracker/issues/290) | reset stale panel offsets at equality with cave width/height, before allocating and writing detection arrays; same guard in C/Rust | original seed4006 crashes in both C passes and Rust; separate unchanged-C signal observer locates the fault in borg_update's borg_detect_wall write, q_y=1, q_x=0, next-row pointer NULL; full 2M-turn corrected replay pending |
-| [#287](https://github.com/diegoami/neo-angband-tracker/issues/287) | reserve one byte for NUL in multibyte screen conversion; return empty text/error on invalid encoding; same conversion contract in C/Rust | native regression links the real C function: fails before and passes after for ASCII, UTF-8, output boundary and invalid character; full five-case endgame replay pending |
+| [#290](https://github.com/diegoami/neo-angband-tracker/issues/290) | reset stale panel offsets at equality with cave width/height before queued detection writes; same guard in C/Rust | original seed4006 crashes in both C passes and Rust. Current corrected C twice and Rust once finish the unchanged 2M-turn scenario at 2,000,352 turns, with identical keys/messages/state |
+| [#287](https://github.com/diegoami/neo-angband-tracker/issues/287) | convert using the caller's actual byte capacity, reserve NUL and return empty text/error on invalid encoding; same contract in C/Rust | actual-function regression fails before and passes after; all five unchanged endgame cases match corrected C/C/Rust in all three logs |
 
-`harness/suites/crash-fixes` contains the exact original Rogue and five
-endgame scenarios, including the original seeds, saves and turn limits.
-Validation uses corrected C twice and corrected Rust once, with full
-key/message/state comparisons. The 105-case baseline checkpoint follows. Earlier background six-case
-batches were interrupted without completed receipts; rerun in bounded
-batches rather than treating their partial outputs as completed tests.
-Any new failure is investigated rather than exempted automatically.
+Fresh builds of `26a96bee4570` have clean build inputs; uncommitted docs
+and evidence account for `git_dirty=yes`. All three six-case passes have
+`DONE`, all 18 processes exit 0, and strict C/C and Rust/C comparisons each
+report **6/6 identical**, with no overrides. The compressed corrected-C
+reference `harness/reference/crash-fixes` also matches C2. Original
+references, including `endgame`, retain their original bytes. See the
+[current receipt](validation/2026-11-06-capacity/README.md).
+
+The suite keeps the exact original Rogue seed, five endgame seeds/saves,
+configuration and turn limits. Earlier interrupted cloud batches remain
+incomplete, not passes. The prior session describes an unchanged-C signal
+observer locating a NULL next-row detection write (`q_y=1`, `q_x=0`), but
+its raw trace was not transferred; the current receipt does not claim a
+new native crash trace or independent tracker verification.
+
+## UTF-8 capacity refinement
+
+The initial `bd184cc` correction passed six-case C/C/Rust, but matched only
+43/45 original `full` cases in both builds (while C/Rust matched each other
+45/45). Seeds1001/1003 parsed phantom Sméagol names, and seed1003 changed
+keys and state: limiting conversion to `n` bytes still truncated UTF-8,
+because `n` counts screen columns. A native regression against the real
+function reproduces the truncation.
+
+Commit `26a96bee4570` supplies actual output capacity (`sizeof` every C
+caller's buffer; Rust's slice length). It preserves complete UTF-8 when it
+fits without changing parser logic or tactics. The expanded regression
+passes, and both implementations now match all 45 original `full` cases
+in keys/messages/state. The separate initial reference
+`harness/reference/crash-fixes-bd184cc` and
+[its receipt](validation/2026-11-06-corrected/README.md) retain the exact
+source identity and strict baseline failures. They are historical evidence,
+not acceptance of the latest sources.
+
+Both builds now match all 105 original baseline cases and all eight
+captured Rogue replays in all three logs (see the current receipt). The
+full extended matrix is running; the native differential checker and
+coverage measurement remain separate M4 work.
 
 ## Independent saved-character coverage
 

@@ -1,0 +1,7 @@
+A: harness/out/local/baseline-rust/full: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=9b7aace7cf3a8853
+A:   built from bd184cc48035 (dirty=no, inputs dirty=no) source_sha256=1fedbbac3dc6bbd5; run at bd184cc48035 (dirty=yes) overrides=none
+B: harness/out/local/baseline-c/full: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=d59e03b08dfd9cb5
+B:   built from bd184cc48035 (dirty=no, inputs dirty=no) source_sha256=07cc4471bc2c3261; run at bd184cc48035 (dirty=yes) overrides=none
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

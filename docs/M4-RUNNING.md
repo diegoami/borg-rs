@@ -1,5 +1,39 @@
 # M4 C/D working record, 2026-11-06
 
+## Current corrected validation
+
+The unchanged six-case `crash-fixes` suite passes corrected C/C/Rust at
+`26a96bee4570`: all three passes have `DONE`, and both strict comparisons
+report 6/6 identical in keys/messages/state. Rogue finishes 2,000,352 turns;
+all five synthetic endgame cases finish. See
+[the receipt](validation/2026-11-06-capacity/README.md) and the separately
+identified `harness/reference/crash-fixes` reference. Original references
+remain unchanged. Both builds pass all 105 original baseline cases and eight captured Rogue
+replays in all three logs, with completed receipts under the validation
+directory. Local outputs: `harness/out/local/baseline-capacity-{c,rust}/`.
+
+The corrected extended matrix is running in
+`harness/out/local/extended-{c1,c2,rust}` with four jobs per pass and
+a 1,800-second per-scenario wall-time bound. Each pass uses the unchanged
+12-case/33M-turn suite. No extended reference has been accepted. Compare
+only after all three `DONE` markers exist: C/C first, then Rust/C, with
+`harness/diff --suite extended --expect-impl c|rust`.
+
+The initial byte-limited correction at `bd184cc` passed six cases but
+truncated valid UTF-8 and failed the original full reference on two seeds.
+Its reference and receipts remain separately identified historical evidence
+(`crash-fixes-bd184cc`, `validation/2026-11-06-corrected/`). The refinement
+passes the native full-message regression and restores full 45/45 parity.
+
+The sections below describe earlier, pre-correction cloud work. Their
+processes and paths are historical, not active local jobs; their absolute
+no-C-correction restrictions are superseded by `FORK-CORRECTIONS.md`.
+The raw native crash-observer trace mentioned in the handover was not
+transferred. M4 C-F still need their remaining work; main and tags have
+not moved.
+
+## Historical cloud work
+
 This is WIP evidence, not a completed milestone or a replacement for the
 checkpoint rules in HANDOVER. Main stays at `af523ebd715b`; no tags made.
 

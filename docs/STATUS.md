@@ -2,33 +2,44 @@
 
 ## Current M4 work (2026-11-06)
 
-Owner update: crash/play-blocker corrections are authorized. Matching C/Rust
-fixes for tracker #290 (panel-offset equality) and #287 (multibyte NUL) are
-implemented and compile. The actual C screen-text regression fails before
-and passes after. Earlier background validation batches have incomplete
-receipts and unavailable sessions; they are not counted as passes. Restart
-in bounded batches. See `docs/FORK-CORRECTIONS.md`; older blocker wording
-below describes the pre-correction baseline.
+Matching C/Rust corrections for tracker #290 (panel-offset equality) and
+#287 (capacity-aware UTF-8 conversion with NUL termination) pass the
+unchanged six-case `crash-fixes` suite at `26a96bee4570`: C twice, then
+Rust, **6/6 identical** in keys/messages/state for both strict comparisons.
+All three passes have `DONE`, successful process receipts and no overrides.
+Rogue seed4006 reaches 2,000,352 turns, clevel21, depth6. All five original
+endgame cases finish; depth50 reaches 69. The new C reference is
+`harness/reference/crash-fixes`. Original references, including `endgame`,
+are unchanged. See the [receipt](validation/2026-11-06-capacity/README.md).
 
-Work remains on `claude/serene-ramanujan-8hzsfm`; main and tags have not
-moved. Step C's `extended` suite (12 runs, 33M turns per pass) is running
-twice with C and once with the pre-correction Rust build; incomplete
-outputs are not accepted evidence. Step D has five deterministic
-wizard-created saves at depths 50, 98, 99, 100 and adjacent to Morgoth,
-with a saved-character replay path and fixture-hash checks. C/C is 5/5
-identical in all three logs. Initial Rust keys/state match all five, but
-messages initially matched only two: two cases revealed Rust's incorrect `(null)`
-formatting (Angband formats NULL as empty), and depth98 exposes C reading
-stale stack bytes after an unterminated multibyte screen conversion.
-The Rust formatting correction is committed and its replay is complete:
-4/5 runs match all logs, all five match keys and player state. Step C's
-Rogue seed 4006 segfaults in both C passes and panics in Rust's detection
-array (`set_detect -> mark4 -> borg_handle_self`); see C bug 53.
-C bug 52 / tracker #287 remains a strict message-parity blocker, with no
-C fix or oracle filtering. Post-correction smoke, saved-character
-regression, release tests (100 passed, 1 existing ignored) and clippy
-with warnings denied pass. No C/D milestone or full checkpoint is claimed.
-See `docs/M4-RUNNING.md` for commands and the active run locations.
+The transferred fix used a screen-column count as its byte limit and
+truncated valid UTF-8, producing phantom monster names on baseline
+seeds1001/1003. The capacity refinement fixes that native regression and
+restores original `full` parity, 45/45 in both C and Rust. Both builds now
+pass all 105 original baseline cases: smoke 3/3, full
+45/45, deep 9/9, classes 16/16, config 7/7 and options 25/25. Both also
+pass captured-Rogue 8/8. Every comparison checks all three logs, with
+`DONE`, no overrides and successful process receipts. Baseline manifests,
+comparisons and log hashes are retained under the current validation
+receipt. The initial
+six-case result and baseline failures are retained separately at
+`validation/2026-11-06-corrected/` and `reference/crash-fixes-bd184cc`.
+
+Release Rust tests pass (100 passed, one existing ignored), release
+all-target clippy with warnings denied passes, and all seven supervisor
+tests pass. The link check confirms 154 identical engine objects and no
+C Borg code in the Rust executable. Build inputs match `26a96bee4570`;
+uncommitted documentation/evidence accounts for dirty checkout flags.
+
+M4 remains unfinished. The complete corrected `extended` matrix is running
+as C1/C2/Rust with four jobs per pass and a 1,800-second scenario timeout,
+under `harness/out/local/extended-{c1,c2,rust}`. No extended reference is
+accepted yet. Additional targeted endgame coverage, a committed native differential
+checker and Rust coverage measurement are still open. Synthetic Warrior
+fixtures demonstrate deep play and Morgoth melee, not Sea of Runes,
+self-lunal or a win. Work stays on `claude/serene-ramanujan-8hzsfm`;
+main and tags are unchanged. Owner policy: `FORK-CORRECTIONS.md`.
+Older blocker descriptions below are historical.
 
 ## Milestones
 

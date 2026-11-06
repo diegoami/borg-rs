@@ -1296,11 +1296,17 @@ with its issues.
 * Tracker: diegoami/neo-angband-tracker#287 (reported lead).
 
 
-Owner-authorized correction (2026-11-06): C and Rust now reserve one byte
-for NUL and return empty text/error on failed conversion. The native
-actual-function regression fails before and passes after. Full endgame
-C/C/Rust validation remains pending. The description above records the
-pinned original C defect; see `docs/FORK-CORRECTIONS.md`.
+Owner-authorized correction (2026-11-06): both implementations reserve NUL
+and return empty text/error on invalid encoding. The initial byte limit
+still used screen columns and truncated valid UTF-8; seeds1001/1003 then
+parsed phantom Sméagol names. Commit `26a96bee4570` uses actual caller
+byte capacity (explicit size in C, slice length in Rust). The real-function
+full-message regression fails before and passes after. Both builds again
+match all 45 original full cases, and all five unchanged endgame cases
+match current corrected C/C/Rust in keys/messages/state within the six-case
+`crash-fixes` suite. See `validation/2026-11-06-capacity/README.md`.
+The original-source description above is historical; original references
+are preserved and independent tracker verification remains explicit.
 
 ## 53. Queued detection can address a panel outside resized arrays (update)
 
@@ -1334,6 +1340,8 @@ pinned original C defect; see `docs/FORK-CORRECTIONS.md`.
 Owner-authorized correction (2026-11-06): C and Rust now reset old offsets
 at equality with cave dimensions. The original C signal observer faults
 in `borg_update`, at `borg_detect_wall`'s next-row write (q_y=1, q_x=0,
-NULL next-row pointer). Full seed4006 2M-turn corrected validation is
-pending. The original-source description above is historical; the tracker
-has not yet received this correction receipt.
+NULL next-row pointer); its raw trace was not transferred to this checkout.
+At `26a96bee4570`, corrected seed4006 finishes 2,000,352 turns in C twice and Rust once,
+with identical keys/messages/state. See
+`validation/2026-11-06-capacity/README.md`. The original-source description
+above is historical; independent tracker verification remains explicit.

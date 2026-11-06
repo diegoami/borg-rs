@@ -1,134 +1,112 @@
 # Local-session handover — 2026-11-06
 
 Continue on `claude/serene-ramanujan-8hzsfm`. M4 is unfinished. Main and
-tags have not moved. This is a WIP transfer, not a passed milestone.
+tags are unchanged; the owner creates tags. Read this file, `CLAUDE.md`,
+`FORK-CORRECTIONS.md`, `M4-PLAN.md`, `REVIEW.md`, `harness.md` and
+`checkpoints.md`. Give frequent concrete progress updates.
 
-## Owner policy — authoritative update
+## Owner policy
 
-Crash-causing C behavior and blatant bugs that prevent play **may be
-corrected now**. Match the narrow correction in C and Rust where applicable.
-Other conflicts are decided case by case. Do not insist on preserving
-crashes, undefined bytes, or known failures as milestone requirements.
-Broader divergence follows a verified milestone and owner-created tag.
-See `FORK-CORRECTIONS.md`; this overrides older absolute fidelity wording.
+Crash-causing C behavior and blatant bugs that prevent play may be
+corrected now. Mirror the narrow correction in C/Rust where applicable,
+mark it `FORK` and link the tracker. Other conflicts are case by case.
+Do not preserve crashes, undefined bytes or known failures as milestone
+requirements. Broader divergence follows a verified milestone and an
+owner-created tag. Original references remain separate; corrected-C
+references require two identical C runs. File C findings/updates in
+`diegoami/neo-angband-tracker`, never `angband/angband`.
 
-Keep original references separate. New corrected-C references require two
-identical C runs. File C findings/updates in `diegoami/neo-angband-tracker`;
-never post to `angband/angband`. The owner creates tags.
+## Current code and completed validation
 
-## Read first
+`bd184cc48035` corrected stale panel-offset equality (#290) and screen-text
+termination (#287). Its six-case C/C/Rust matrix passed, but the next full
+baseline check exposed UTF-8 truncation on seeds1001/1003: both builds
+matched each other 45/45 but only 43/45 original references, with phantom
+Sméagol names and changed keys/state on seed1003.
 
-1. This file, then `docs/HANDOVER.md` and `CLAUDE.md`.
-2. `docs/FORK-CORRECTIONS.md`, `docs/M4-PLAN.md`, `docs/REVIEW.md`.
-3. `docs/harness.md` and `docs/checkpoints.md`.
+`26a96bee4570` refines #287: C takes actual caller byte capacity (all five
+call sites supply `sizeof` their output buffer); Rust uses its slice
+length. Both reserve NUL, preserve full UTF-8 when it fits and return
+empty text/error on invalid encoding. The real-C-function full-message
+regression fails before and passes after; zero/one-byte capacity,
+multibyte-boundary and invalid-encoding controls pass.
 
-Give the owner frequent concrete progress updates. Do not say a long run
-passed until its `DONE` marker and strict comparison exist. The cloud UI
-stopped rounds during automatic review without providing this worker a
-specific rejected action/reason; background process handles also became
-unavailable. Prefer foreground, logged, bounded local batches.
+Fresh builds at `26a96bee4570`, with clean build inputs, pass:
 
-## Committed implementation
+* Unchanged six-case `crash-fixes`: corrected C twice, then Rust; C/C and
+  Rust/C each **6/6 identical** in keys/messages/player state. All three
+  have `DONE`, no overrides, unchanged executable hashes and 18 successful
+  process receipts. Rogue4006 finishes 2,000,352 turns, clevel21, depth6;
+  all five original endgame cases finish, depth50 reaching 69.
+* Both C and Rust vs original baseline references: smoke3, full45, deep9,
+  classes16, config7, options25: **105/105 each**, all three logs compared.
+* Both builds vs original `captured-rogue`: **8/8 each**. These fresh-Borg
+  replays do not restore private Borg state or form a continuous trace.
+* Release Rust tests: 100 passed, one existing ignored; release all-target
+  clippy with warnings denied; linkage check: 154 engine objects identical,
+  actual link inputs prove no C Borg code in Rust. Seven supervisor tests
+  passed before the capacity refinement; no supervisor code changed.
 
-* `angband/src/borg/borg-update.c` and `borg-rs/src/borg_update.rs`:
-  stale offsets reset at `>=` cave size rather than only `>`.
-  Tracker: https://github.com/diegoami/neo-angband-tracker/issues/290.
-* `angband/src/borg/borg-io.c` and `borg-rs/src/borg_io.rs`:
-  multibyte screen conversion reserves NUL space and returns empty text/error
-  on invalid encoding. Tracker:
-  https://github.com/diegoami/neo-angband-tracker/issues/287.
-* Both corrections are marked `FORK`. The actual C-function regression is
-  `harness/regress/screen-text/run.sh`.
-* `harness/suites/crash-fixes` contains the original Rogue seed4006 at its
-  full 2M-turn limit plus all five original endgame scenarios, unchanged.
-* Eight natural Rogue savefiles, source provenance and the
-  `captured-rogue` suite/reference are committed. Two C capture passes
-  produced identical save bytes; every fresh replay matched C/C/Rust in
-  keys, messages and player state before the new corrections. These are
-  fresh Borgs, not a resumed uninterrupted 2M-turn trace. Recheck them with
-  the corrected builds.
-* Previous commit `e0f93e7` added one-shot process supervision, timeouts,
-  fork-isolated engine checkpoints and `harness/replay-checkpoint.py`.
+Receipts, manifests, summaries, log hashes, process outcomes and strict
+comparisons: `docs/validation/2026-11-06-capacity/`. Current corrected C
+reference: `harness/reference/crash-fixes`, rechecked against C2 after
+compression. Original references (including `endgame`) are unchanged.
+Initial `bd184cc` results and strict baseline failures remain separately
+identified at `docs/validation/2026-11-06-corrected/` and
+`harness/reference/crash-fixes-bd184cc`; they are historical evidence,
+not acceptance of the latest sources.
 
-## What actually passed
+The prior session described an unchanged-C crash observer at the detection
+next-row write (`q_y=1`, `q_x=0`, NULL next-row pointer). Its raw trace was
+not transferred. Current receipts do not claim a newly captured native
+trace, tracker-independent verification or upstream/source resolution.
 
-Corrected builds compile. C smoke 3/3 and Rust smoke 3/3 match the original
-references in all three logs. Release Rust tests: 100 passed, 1 existing
-ignored. Release clippy with warnings denied passed. The real C screen-text
-regression failed before the correction and passes afterward, including
-UTF-8, output-boundary and invalid-character controls.
+## Active extended matrix
 
-Saved logs and source/binary hashes are under
-`docs/validation/2026-11-06-preflight/`. They were built from dirty sources
-at `e0f93e7` before committing the corrections; the receipt records that
-honestly. Rebuild locally to bind validation to the transferred commit.
+The unchanged `extended` suite has nine actual classes on seeds4000–4008
+at 2M turns and seeds2000/2007/3100 at 5M turns: 12 cases, 33M turns per
+pass. Corrected C1, C2 and Rust are running concurrently, each with four
+jobs and `RUN_TIMEOUT_SECONDS=1800` per scenario. Build inputs stay frozen.
 
-**Not established:** a completed corrected Rogue 2M run, full corrected
-endgame C/C/Rust parity, the post-change 105-case checkpoint, a full
-extended-suite pass, or M4 completion. Cloud `.partial.*` directories and
-isolated completed cases do not establish those results. No corrected-C
-six-case reference has been promoted.
+Local output targets and logs:
 
-## Start locally (Linux or WSL)
+* `harness/out/local/extended-c1`, `extended-c1.log`
+* `harness/out/local/extended-c2`, `extended-c2.log`
+* `harness/out/local/extended-rust`, `extended-rust.log`
 
-Use a normal clone with GCC/make, CMake, X11 development headers, Python3,
-`bc`, `xz`, and Rust/cargo/clippy available. The harness is POSIX-based;
-native Windows execution is not validated. Rust 1.97.0 was used here.
-Do not copy cloud `/tmp` dependency paths into the local setup.
-
-```sh
-git fetch origin
-git switch claude/serene-ramanujan-8hzsfm
-git pull --ff-only origin claude/serene-ramanujan-8hzsfm
-
-mkdir -p harness/out/local
-harness/build.sh >harness/out/local/build-c.log 2>&1
-BORG_IMPL=rust harness/build.sh >harness/out/local/build-rust.log 2>&1
-harness/regress/screen-text/run.sh
-harness/check-no-c-borg.sh
-```
-
-Use separate shell commands and inspect each exit code. Do not run a later
-step if the preceding build/check fails.
-
-Run the targeted full scenarios first, sequentially, with logs:
+Recheck live process receipts before starting another pass; do not duplicate
+active jobs. A `.partial.*` directory is not a completed suite. Inspect
+`process.json` and signal only exact PIDs started for this work. Require
+all three `DONE` markers, then run separately and inspect each exit code:
 
 ```sh
-BORG_IMPL=c JOBS=2 harness/suite.sh crash-fixes harness/out/local/crash-c1 >harness/out/local/crash-c1.log 2>&1
-BORG_IMPL=c JOBS=2 harness/suite.sh crash-fixes harness/out/local/crash-c2 >harness/out/local/crash-c2.log 2>&1
-harness/diff --suite crash-fixes --expect-impl c harness/out/local/crash-c1 harness/out/local/crash-c2
-
-BORG_IMPL=rust JOBS=2 harness/suite.sh crash-fixes harness/out/local/crash-rust >harness/out/local/crash-rust.log 2>&1
-harness/diff --suite crash-fixes --expect-impl rust harness/out/local/crash-rust harness/out/local/crash-c1
+harness/diff --suite extended --expect-impl c harness/out/local/extended-c1 harness/out/local/extended-c2
+harness/diff --suite extended --expect-impl rust harness/out/local/extended-rust harness/out/local/extended-c1
 ```
 
-The old `endgame` C reference contains the original depth98 phantom-message
-defect. Do not expect the corrected C message stream to reproduce it or
-overwrite it silently. Accept a new, separately identified corrected-C
-reference only after the two C runs match. Any remaining Rust/C mismatch
-must be investigated, not assumed to be the same known defect.
+No extended reference has been accepted. Promote a separately identified
+corrected-C reference only after C/C passes, then recheck it against C2.
+Record actual reached depths and stop reasons. Investigate any new failure
+or mismatch; do not exempt it automatically or change seeds/limits/oracles.
 
-## Remaining roadmap
+## Remaining M4 work
 
-1. Finish the six-case validation above; investigate any residual fault.
-2. Recheck the baseline suites `smoke full deep classes config options`
-   (105 cases) against their existing references. Run release tests and
-   clippy again after any code changes.
-3. Finish M4 C: `extended` has seeds4000–4008 at 2M turns, and seeds2000,
-   2007 and3100 at 5M turns. Run corrected C twice and Rust once. Early
-   runs reached depth34; no complete extended reference is accepted yet.
-4. Finish M4 D: five synthetic saves at depth50,98,99,100 and near Morgoth.
-   State which tactics actually execute; depth alone does not prove Sea
-   of Runes, self-lunal or other particular endgame behavior.
-5. M4 E: implement and commit a native C/Rust differential checker.
-   Historical `xcheck-wip`, `xcheck2`, `xcheck3` branches are mentioned in
-   older docs but were absent from this cloud checkout; locate them in
-   the owner's local repository, or build the checker anew.
-6. M4 F: measure Rust coverage, report gaps and add targeted checks.
-7. Complete the final checkpoint, update docs and tracker receipts, then
-   present the milestone for the owner to tag before broader divergence.
+1. Finish the extended matrix above (step C).
+2. Step D's declared five synthetic Warrior starting points now have
+   strict parity. Logs establish deep play and Morgoth melee, alongside
+   "Not ready for Morgoth now" and leaving; they do not prove Sea of Runes,
+   self-lunal, a win, other equipment kits or other endgame classes.
+3. Step E: implement/commit a native C/Rust differential checker. Historical
+   `xcheck-wip`, `xcheck2`, `xcheck3` branches are absent here; build anew
+   unless another local repository supplies them.
+4. Step F: measure Rust coverage, report gaps and add targeted checks.
+5. After further source changes, rebuild and run the appropriate final
+   checkpoint, update documentation and tracker receipts, and present the
+   verified milestone to the owner for tagging. No main/tag move is automatic.
 
-The two tracker issues were filed earlier, but have not yet received the
-new patch links/native crash trace and correction validation. Update them
-after the correction commit is published. Leave upstream/source resolution
-and independent tracker verification explicit; do not claim either.
+Both correction tracker issues (#287/#290) still need published patch and
+validation links from this continuation; do not claim that update until
+it exists. Local binaries were built with GCC15.2.0 and rustc1.98.1.
+Use the repository build scripts, without cloud `/tmp` dependency paths or
+stale-build overrides. The complete local outputs remain under
+`harness/out/local/`; durable validation evidence is committed in `docs/`.

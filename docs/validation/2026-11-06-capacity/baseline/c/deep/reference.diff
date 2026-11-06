@@ -1,0 +1,6 @@
+A: harness/out/local/baseline-capacity-c/deep: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=a202a7d195f5d1b1
+A:   built from 26a96bee4570 (dirty=yes, inputs dirty=no) source_sha256=aa4f69dc2508fd81; run at 26a96bee4570 (dirty=yes) overrides=none
+B: harness/reference/deep: reference (no manifest)
+9/9 runs identical (expected 9)
+messages.log compared in 9 run(s)
+state.log compared in 9 run(s)

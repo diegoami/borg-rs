@@ -1,0 +1,1 @@
+probe: docs/validation/2026-11-06-capacity/screen-text-before.c:37: main: Assertion `strcmp(out, "Sm\xc3\xa9" "agol hits you.") == 0' failed.
