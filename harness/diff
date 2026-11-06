@@ -242,6 +242,8 @@ def check_suite_params(label, d, suite):
                 bad.append("%s %s, suite says %s" % (key, sm.get(key), want))
         if bool(sm.get("menu_letters", False)) != ("menu" in flags):
             bad.append("menu_letters %s, suite flags %s" % (sm.get("menu_letters", False), sorted(flags)))
+        if bool(sm.get("cheat_live", False)) != ("cheatlive" in flags):
+            bad.append("cheat_live %s, suite flags %s" % (sm.get("cheat_live", False), sorted(flags)))
         g = sm.get("game_turns", -1)
         if sm.get("stop_reason") == "turns" and g < turns:
             bad.append("stopped on turns at %s, below the suite limit %s" % (g, turns))

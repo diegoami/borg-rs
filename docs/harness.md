@@ -51,6 +51,27 @@ No file in `src/borg/` is touched. `borg_rand_local` is initialised from
 5. `-screen` dumps the 80x24 screen to stderr on any stop that is not a
    turn-limit stop. `BORGH_DEBUG=1` dumps the screen before each scripted
    key.
+6. Start-up `-more-`: if, after `^Z` `z`, the game blocks on a `-more-`
+   prompt before the Borg has returned any key, the frontend answers it
+   with ESC (at most 16 times) and the summary gets
+   `"startup_acks": N`. This is the borg.txt warning that `borg_init()`
+   prints with `msg()` for `borg_uses_dynamic_calcs` ("Borg's dynamic
+   calculations enabled...") before the keypress hook is installed;
+   without the answer both Borgs stopped at turn 1 with zero keys. The ESC
+   is not a Borg key, so it is not in the key log; both builds get it at
+   the same point. A run without such a prompt never blocks there (it
+   would have stopped as `borg_stopped` with zero keys), so no other key
+   log changes.
+7. `-cheat-live` (suite flag `cheatlive`): the frontend turns on the
+   game option `cheat_live` just before `^Z`. With `borg_cheat_death`
+   off, `borg_init()` then sets the Borg's own cheat-death status from the
+   game option, and at death the Borg answers "Die?" with `y` and
+   reincarnates (`borg_reincarnate_start`: death menu, new game, birth
+   with `borg_respawn_race/class`). The frontend does not stop on death
+   with this option; it counts deaths (`"cheat_live": true`,
+   `"deaths": N` in the summary) and the run goes on with the new
+   character until the turn limit (the game turn restarts at 1 with each
+   new character, so `game_turns` is the last character's).
 
 ### Race and class letters (known quirk)
 
@@ -94,15 +115,32 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   `harness/borg.txt` with `borg_respawn_race/class` set to the run's race
   and class. `TZ=UTC`, `LC_ALL=C.UTF-8`. FLAGS (comma-separated, `-` for
   none): `cheat` sets `borg_cheat_death = TRUE`; `menu` passes
-  `-menu-letters`. Config flags each set one more option of the run's
-  `borg.txt` to `TRUE`: `munchkin` (`borg_munchkin_start`), `lunal`
-  (`borg_lunal_mode`), `selflunal` (`borg_self_lunal`); the run fails if
-  the option's line is not in `harness/borg.txt`. Without config flags the
-  run's `borg.txt` is the same as before they existed, byte for byte, so
-  the stock suites are unchanged. Unknown flags are an error. Each run
-  writes `config.txt` (its flags and the sha256 of its `borg.txt`); the
-  suite manifest copies it as `run_config.<run>=<flags> <sha256>`.
-  `harness/diff` reads neither. A non-zero exit code or a
+  `-menu-letters`; `cheatlive` passes `-cheat-live` (see "The borgh
+  frontend"). Config flags each set one more option of the run's
+  `borg.txt`:
+  * `munchkin` (`borg_munchkin_start = TRUE`), `lunal`
+    (`borg_lunal_mode = TRUE`), `selflunal` (`borg_self_lunal = TRUE`);
+  * `NAME=VALUE`, any option: the line `NAME = ...` becomes
+    `NAME = VALUE`, e.g. `borg_money_scum_amount=5000`,
+    `borg_uses_swaps=FALSE`, `borg_no_deeper=3`. `NAME` is the option's
+    full name as in `borg.txt`, `VALUE` is `TRUE`, `FALSE` or an integer
+    (the C parser reads a boolean from its first letter, an integer with
+    `atoi`). The run fails (exit 2) if `NAME` has not exactly one
+    `NAME = ` line in `harness/borg.txt` (an unknown or misspelt option),
+    if `VALUE` is not of that form, if two flags give one option
+    different values, or for `borg_cheat_death` (use `cheat`). These
+    lines are rewritten after the ones `run.sh` sets itself, so
+    `borg_respawn_race=-1` overrides the run's race.
+
+  The run fails if a config flag's line is not in `harness/borg.txt`.
+  Without config flags the run's `borg.txt` is the same as before they
+  existed, byte for byte, so the stock suites are unchanged. Unknown flags
+  are an error. Each run writes `config.txt` (its flags and the sha256 of
+  its `borg.txt`); the suite manifest copies it as
+  `run_config.<run>=<flags> <sha256>`. `harness/diff --suite` checks that
+  `config.txt` records exactly the suite line's flags (so a reference made
+  with other options fails); the key oracle itself does not read the
+  hash. A non-zero exit code or a
   missing summary fails the run. It does not check the build identity:
   a single run is a debugging tool, suite outputs are the evidence.
 * `harness/suite.sh SUITE [OUTDIR]`: runs `harness/suites/SUITE` in

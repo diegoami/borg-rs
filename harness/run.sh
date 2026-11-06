@@ -7,6 +7,9 @@
 #            menu's own letters, so the indices mean p_race.txt/class.txt
 #            order (without it, indices >= 7 pick other entries; see
 #            docs/harness.md)
+#     cheatlive  passes -cheat-live: the game option cheat_live is on, so with
+#            borg_cheat_death off (no cheat flag) the Borg reincarnates
+#            at death (borg_respawn_race/class) and the run goes on
 #   Config flags (each rewrites one line of the run's user/borg.txt; with
 #   none of them the file is the same as before, byte for byte):
 #     munchkin   sets borg_munchkin_start = TRUE
@@ -44,6 +47,7 @@ if [ "$FLAGS" != "-" ]; then
         case "$fl" in
             cheat) CHEAT=TRUE;;
             menu) BORGH_FLAGS+=(-menu-letters);;
+            cheatlive) BORGH_FLAGS+=(-cheat-live);;
             munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
             lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;
             selflunal) CONFIG_SED+=(-e "s/^borg_self_lunal = .*/borg_self_lunal = TRUE/");;
