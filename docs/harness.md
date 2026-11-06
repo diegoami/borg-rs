@@ -224,6 +224,7 @@ manifest (they predate it); they are made from the C build.
 | `full` | 45 x 100k | early game: clevel 1-10 (median 4), max depth 1-5 (median 2), 15/45 die (all by clevel 5); 8 classes, 8 races (see the quirk) |
 | `deep` | 9 x 1M, cheat death | clevel 8-30 (median 18), max depth 2-26 (median 7); 8 classes, 5 races |
 | `classes` | 15 x 100k + 1 x 1M cheat death, flag `menu` | Blackguard with 7 races, Dunadan, High-Elf and Kobold with 7 other classes, a real Half-Elf Ranger; the 1M Dunadan Blackguard reaches clevel 26, max depth 22 |
+| `config` | 6 runs of 100k/20k + 1 x 1M, flags `menu,cheat` plus `munchkin` or `lunal` | Borg config options: munchkin start and lunal mode (see below) |
 
 `harness/reference/<suite>/<run>/{keys.log.xz,summary.json}` are the C
 Borg's logs for each suite, made from the C build. Check a build with:
@@ -233,5 +234,52 @@ Borg's logs for each suite, made from the C build. Check a build with:
 
 The key oracle does not see Borg notes or screen output, Borg-side direct
 writes to game state (they count only through later keys), anything after
-the turn limit, or Borg config options other than `borg_cheat_death` (all
+the turn limit, or Borg config options other than `borg_cheat_death`,
+`borg_munchkin_start` and `borg_lunal_mode` (the `config` suite; all other
 suites run with the stock `borg.txt`).
+
+### The config suite
+
+`harness/suites/config` replays the runs the second external review
+(`REVIEW-821cad310`) made by hand, plus one long run. Every run uses
+`menu,cheat` and one config flag:
+
+| runs | config | characters | turns |
+|---|---|---|---|
+| `cfg-munchkin-*` | `borg_munchkin_start = TRUE` | Human Warrior seed 42, Half-Elf Mage 12345, Dunadan Blackguard 1080 | 100k, 100k, 20k |
+| `cfg-lunal-*` | `borg_lunal_mode = TRUE` | the same three | 100k, 100k, 20k |
+| `cfg-lunal-deep-warrior` | `borg_lunal_mode = TRUE` | Human Warrior seed 2007 | 1M |
+
+The Blackguard munchkin run stops at 20k game turns because it is slow:
+137k keys by turn 20,011. The suite takes about 4 minutes with `JOBS=2`.
+
+What it reaches (checked once with a temporarily instrumented C build, not
+committed):
+
+* Munchkin: `borg_think_dungeon_munchkin` runs in all three munchkin runs
+  from dungeon level 1 on, and `munchkin_mode` changes the stair choice.
+  The munchkin runs reach clevel 8-12, max depth 2-8.
+* Lunal: `borg.lunal_mode` is set from the config at start and stays on in
+  all these runs. It changes the flow code: down stairs are taken without
+  the prepared check, and resting is skipped. But the lunal thinker
+  `borg_think_dungeon_lunal` is never entered: its only caller is the
+  self-lunal check in `borg_think_dungeon` (C `borg-think-dungeon.c:1439`),
+  which needs `borg_self_lunal` and a borg standing at least 15 levels
+  above its max depth, prepared for 15 levels deeper, and below
+  clevel / 3.
+* Self-lunal: not covered. With `selflunal` added, eight 1M cheat-death
+  runs (seeds 2000, 2001, 2005, 2007 with and without `lunal`, and the
+  `classes` Dunadan Blackguard 3100) never passed that check; the five
+  without `lunal` have key logs identical to their `deep`/`classes`
+  references, since `borg_self_lunal` is read nowhere else. So the
+  `selflunal` flag exists, but no suite run uses it.
+
+`harness/reference/config` was made like the other references: the C build
+ran the suite twice, the two outputs were identical, and one of them was
+stored as `.xz` logs, `summary.json`, `config.txt`, `timing.txt`, its
+manifest (which records each run's flags and `borg.txt` hash as
+`run_config.<run>`) and its `DONE` marker. Because the manifest has the
+build identity, `harness/diff` treats this reference as a compressed C
+suite output: it prints the C build's identity and checks it (C, no
+override, `DONE`), unlike the older references, which have no such
+manifest.
