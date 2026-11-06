@@ -17,7 +17,8 @@ Rust with exit 134, so no `DONE`/passing suite is possible. The runners
 continue collecting the other scenarios and will mark the suite `FAILED`.
 Do not use `--allow-incomplete` to accept it. A separate corrected-Rust
 replay confirms the detection-array bounds panic and backtrace, documented
-in C bug 53. No native C crash stack has been captured.
+in C bug 53 / `diegoami/neo-angband-tracker#290`. No native C crash stack
+has been captured.
 
 In this environment the frozen checkout and outputs are at
 `/workspace/scratch/a48f4cbdbac3/borg-rs`. The active branch is checked out
@@ -81,6 +82,9 @@ fixture or additional class/equipment set has been tested yet.
   (existing ignored test). Clippy with `-D warnings` passes.
 * Post-correction smoke: 3/3 identical in all logs. The saved-character
   regression passes again, including all three rejection controls.
+* Post-correction `check-no-c-borg.sh` passes, including engine-object
+  and actual link-input checks. `angband/src/borg/` is unchanged from
+  the A+B checkpoint.
 * The pre-correction D build passed smoke 3/3 and full 45/45 against
   existing references. Its next suite correctly refused the now-stale
   build after the Rust source correction; no override was used. This

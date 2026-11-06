@@ -1322,4 +1322,4 @@ with its issues.
 * No clamp, enlarged array, changed reset guard, seed removal or shorter
   accepted run is applied. C stays unchanged; Rust's bounds panic stays.
   The `extended` suite cannot pass its full scenario set with this fault.
-* Tracker: pending publication and duplicate check.
+* Tracker: diegoami/neo-angband-tracker#290 (reported lead).
