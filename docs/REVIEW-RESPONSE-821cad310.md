@@ -87,7 +87,27 @@ reference pass. A forged manifest is still out of scope (documented).
 
 Agreed: the stored references stop at dungeon level 26, keys do not show
 every state change, and the per-module cross-check tooling was not
-committed. Added: CONFIG-SUITE-PENDING. Still missing: endgame saves
+committed. Added: a configuration suite, `harness/suites/config` with its
+C reference `harness/reference/config` (made with the C build, run twice:
+identical). `harness/run.sh` gained config flags (`munchkin`, `lunal`,
+`selflunal`) that set one line of the run's `borg.txt`; without them the
+generated `borg.txt` is unchanged byte for byte. The suite is the
+reviewer's six runs (munchkin start and lunal mode, each with a Human
+Warrior, a Half-Elf Mage and a Dunadan Blackguard) plus a 1M-turn lunal
+Warrior that reaches dungeon level 27, the deepest of any suite. Rust:
+7/7 identical. A temporary instrumented C build confirmed that
+`borg_think_dungeon_munchkin` runs in all three munchkin runs and that
+lunal mode changes the stair and rest choices in two lunal runs; the lunal
+thinker itself (`borg_think_dungeon_lunal`, behind the self-lunal gate)
+was not reached by any configuration tried (eight 1M-turn attempts with
+`selflunal`), so no suite run uses that flag.
+
+Two lunal runs also produced the first **natural nested Borg entries**
+seen in real play (`cfg-lunal-human-war`, `cfg-lunal-deep-warrior`: the
+game called the Borg's input hook inside a running Borg turn, as C
+allows). Both games completed and their keys are identical to C's, so the
+nested path (self-review U1) is reachable in gameplay and handled
+faithfully. Still missing: endgame saves
 (depth 50+, 99, 100, Morgoth), a state/note oracle, replayable cross-check
 drivers. The scope statement in `docs/REVIEW.md` stays.
 
