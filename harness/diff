@@ -217,16 +217,32 @@ def check_manifest(label, d, expect_impl, allow):
     """Print a suite output dir's build identity and check it.
 
     Returns 0 if verified, 1 on a mismatch or a recorded override, 2 if
-    the dir has no manifest of the current format. A dir with neither
-    plain key logs nor a manifest is a reference (C oracle): 0.
+    the dir has no manifest of the current format. A dir without plain key
+    logs is a reference (C oracle): 0, unless a manifest it keeps records a
+    non-C build (2).
     """
     mpath = os.path.join(d, "manifest")
     plain = any(os.path.isfile(os.path.join(d, r, "keys.log"))
                 for r in run_dirs(d))
-    if not os.path.isfile(mpath):
-        if not plain:
+    if not plain:
+        # A reference (C oracle): compressed logs only. harness/reference/
+        # classes also keeps the manifest of the C suite run that made it;
+        # if present it must record a C build. References carry no build
+        # identity (they predate it); they are checked by content.
+        if not os.path.isfile(mpath):
             print("%s: %s: reference (no manifest)" % (label, d))
             return 0
+        m = read_manifest(mpath)
+        impls = {m.get(k) for k in ("borg_impl_env", "binary_cmake_borg_impl",
+                                    "binary_impl") if m.get(k)}
+        if impls - {"c"}:
+            print("REFUSED: %s: reference manifest records a non-C build (%s)"
+                  % (d, ", ".join(sorted(impls))))
+            return 2
+        print("%s: %s: reference (manifest of its C run: impl=c, rev %s)"
+              % (label, d, m.get("git_rev", "?")[:12]))
+        return 0
+    if not os.path.isfile(mpath):
         msg = "%s has no manifest (not written by harness/suite.sh)" % d
         if allow:
             print("WARNING: " + msg)
