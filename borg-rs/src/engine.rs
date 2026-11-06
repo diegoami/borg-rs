@@ -2511,10 +2511,11 @@ pub fn player_wizard() -> bool {
 pub const TERM_XTRA_NOISE: i32 = 7;
 
 /// `Term_xtra(n, v)` on the current terminal (the Borg only uses
-/// `TERM_XTRA_NOISE`; the headless frontend ignores it).
+/// `TERM_XTRA_NOISE` and `TERM_XTRA_DELAY`; the headless frontend ignores
+/// the noise and does not sleep).
 pub fn term_xtra(n: i32, v: i32) -> i32 {
-    // SAFETY: the active terminal is set up by the frontend; a noise
-    // request never waits for a key.
+    // SAFETY: the active terminal is set up by the frontend; a noise or
+    // delay request never waits for a key.
     unsafe { crate::headers::ui_term_h::Term_xtra(n, v) }
 }
 

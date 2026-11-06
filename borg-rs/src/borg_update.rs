@@ -1606,11 +1606,11 @@ fn handle_messages(st: &mut BorgState) -> i32 {
                 set_msg_use(st, i, 1);
             } else if msg.starts_with(b"FEELING_DANGER:") {
                 // Handle "You feel..."
-                bridge::set_borg_feeling_danger(st, atoi(args(what)));
+                st.think_dungeon.feeling_danger = atoi(args(what));
                 set_msg_use(st, i, 1);
             } else if msg.starts_with(b"FEELING_STUFF:") {
                 // Handle "You feel..."
-                bridge::set_borg_feeling_stuff(st, atoi(args(what)));
+                st.think_dungeon.feeling_stuff = atoi(args(what));
                 set_msg_use(st, i, 1);
             }
         }
@@ -1968,7 +1968,7 @@ fn new_level(st: &mut BorgState) {
     b.goal.ignoring = false;
 
     // clear stuff feeling - danger feeling is automatic
-    bridge::set_borg_feeling_stuff(st, 0);
+    st.think_dungeon.feeling_stuff = 0;
 
     // clear our best shopping spree when entering town
     if st.borg.tr(BI_CDEPTH) == 0 {

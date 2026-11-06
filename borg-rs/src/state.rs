@@ -36,6 +36,7 @@ use crate::borg_projection::ProjectionState;
 use crate::borg_store::StoreState;
 use crate::borg_store_sell::StoreSellState;
 use crate::borg_store_buy::BuyState;
+use crate::borg_think_dungeon::ThinkDungeonState;
 use crate::borg_trait::TraitState;
 use crate::borg_trait_swap::TraitSwapState;
 use crate::borg_update::UpdateState;
@@ -117,6 +118,9 @@ pub struct BorgState {
     /// borg-store-buy.c: `bought_item_*` and the statics
     /// `borg_money_scum_who`/`borg_money_scum_ware`
     pub buy: BuyState,
+    /// borg-think-dungeon.c: the level feelings (`borg_feeling_danger`,
+    /// `borg_feeling_stuff`)
+    pub think_dungeon: ThinkDungeonState,
     /// borg-trait-swap.c: `weapon_swap`, `armour_swap`, their values,
     /// enchantment needs and flags (`weapon_swap_*`, `armour_swap_*`)
     pub trait_swap: TraitSwapState,

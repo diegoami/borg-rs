@@ -532,9 +532,6 @@ pub mod flow_kill {
     pub unsafe extern "C" fn borg_race_name(r_idx: c_int) -> *const c_char {
         fk::borg_race_name(r_idx).as_ptr()
     }
-    pub unsafe extern "C" fn borg_delete_kill(i: c_int) {
-        fk::borg_delete_kill(st(), i)
-    }
     pub unsafe extern "C" fn borg_sleep_kill(i: c_int) {
         fk::borg_sleep_kill(st(), i)
     }
@@ -563,21 +560,6 @@ pub mod flow_kill {
     pub unsafe extern "C" fn borg_count_death(i: c_int) {
         fk::borg_count_death(st(), i)
     }
-    pub unsafe extern "C" fn borg_flow_kill(viewable: bool, nearness: c_int) -> bool {
-        fk::borg_flow_kill(st(), viewable, nearness)
-    }
-    pub unsafe extern "C" fn borg_flow_kill_aim(viewable: bool) -> bool {
-        fk::borg_flow_kill_aim(st(), viewable)
-    }
-    pub unsafe extern "C" fn borg_flow_kill_corridor() -> bool {
-        fk::borg_flow_kill_corridor(st())
-    }
-    pub unsafe extern "C" fn borg_flow_kill_direct(twitchy: bool) -> bool {
-        fk::borg_flow_kill_direct(st(), twitchy)
-    }
-    pub unsafe extern "C" fn borg_near_monster_type(dist: c_int) {
-        fk::borg_near_monster_type(st(), dist)
-    }
     pub unsafe extern "C" fn borg_shoot_scoot_safe(emergency: c_int, turns: c_int, b_p: c_int) -> bool {
         fk::borg_shoot_scoot_safe(st(), emergency, turns, b_p)
     }
@@ -603,9 +585,6 @@ pub mod projection {
 
     pub unsafe extern "C" fn borg_los(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> bool {
         p::borg_los(st(), y1, x1, y2, x2)
-    }
-    pub unsafe extern "C" fn borg_projectable(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> bool {
-        p::borg_projectable(st(), y1, x1, y2, x2)
     }
     pub unsafe extern "C" fn borg_offset_projectable(
         y1: c_int,
@@ -760,15 +739,6 @@ pub mod home_notice {
     }
 }
 
-/// C-ABI shim for c2rust callers of borg-magic-play.c (borg_think_dungeon).
-pub mod magic_play {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_play_magic(bored: bool) -> bool {
-        crate::borg_magic_play::borg_play_magic(st(), bored)
-    }
-}
-
 /// C-ABI shims with the borg-prepared.c names.
 ///
 /// As in C, the returned string is a string literal (static), a formula
@@ -849,9 +819,6 @@ pub mod prepared {
     }
     pub unsafe extern "C" fn borg_restock(depth: c_int) -> *const c_char {
         c_reason(p::borg_restock(st(), depth))
-    }
-    pub unsafe extern "C" fn borg_must_return_to_town() -> *const c_char {
-        c_reason(p::borg_must_return_to_town(st()))
     }
 }
 
@@ -1095,7 +1062,6 @@ pub mod item_id {
     }
 }
 
-
 /// `borg_first_empty_inventory_slot()` (still c2rust, borg-inventory.c),
 /// for borg-store.c.
 pub fn store_first_empty_inventory_slot(st: &mut BorgState) -> i32 {
@@ -1144,8 +1110,7 @@ pub fn bought_item(st: &mut BorgState, i: usize) -> BoughtItem {
     }
 }
 
-/// C-ABI shims with the borg-store-sell.c names, for c2rust callers
-/// (borg_think_dungeon).
+/// C-ABI shims with the borg-store-sell.c names, for c2rust callers.
 pub mod store_sell {
     use super::st;
     use crate::borg_store_sell as s;
@@ -1157,9 +1122,6 @@ pub mod store_sell {
     pub unsafe extern "C" fn borg_min_item_quantity(item: *mut borg_item) -> c_int {
         let copy = *item;
         s::borg_min_item_quantity(st(), &copy)
-    }
-    pub unsafe extern "C" fn borg_count_sell() -> c_int {
-        s::borg_count_sell(st())
     }
     pub unsafe extern "C" fn borg_init_store_sell() {
         s::borg_init_store_sell(st())
@@ -1203,52 +1165,22 @@ pub fn successful_target(st: &mut BorgState) -> i32 {
     r
 }
 
-/// `borg_feeling_danger = v` (still c2rust, borg-think-dungeon.c).
-pub fn set_borg_feeling_danger(st: &mut BorgState, v: i32) {
+/// `borg_attack(boosted_bravery)` (still c2rust, borg-fight-attack.c).
+pub fn borg_attack(st: &mut BorgState, boosted_bravery: bool) -> bool {
     escape(st);
-    // SAFETY: plain write of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_danger = v };
-    escape(st);
-}
-
-/// `borg_feeling_stuff` (still c2rust, borg-think-dungeon.c).
-pub fn borg_feeling_stuff(st: &mut BorgState) -> i32 {
-    escape(st);
-    // SAFETY: plain read of an int global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_stuff };
+    // SAFETY: plain call into transitional c2rust code.
+    let r = unsafe { crate::c2rust::borg_fight_attack::borg_attack(boosted_bravery) };
     escape(st);
     r
 }
 
-/// `borg_feeling_stuff = v` (still c2rust, borg-think-dungeon.c).
-pub fn set_borg_feeling_stuff(st: &mut BorgState, v: i32) {
-    escape(st);
-    // SAFETY: plain write of an int global; Borg thread.
-    unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_stuff = v };
-    escape(st);
-}
-
-/// C-ABI shims with the borg-think-dungeon-util.c names, for the c2rust
-/// caller (borg_think_dungeon).
-pub mod think_dungeon_util {
+/// C-ABI shim with the borg-think-dungeon.c name, for the c2rust caller
+/// (borg_think).
+pub mod think_dungeon {
     use super::st;
-    use crate::borg_think_dungeon_util as u;
-    use core::ffi::c_int;
 
-    pub unsafe extern "C" fn borg_money_scum() -> bool {
-        u::borg_money_scum(st())
-    }
-    pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
-        u::borg_think_dungeon_light(st())
-    }
-    pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
-        u::borg_think_stair_scum(st())
-    }
-    pub unsafe extern "C" fn borg_leave_level(bored: bool) -> bool {
-        u::borg_leave_level(st(), bored)
-    }
-    pub unsafe extern "C" fn borg_excavate_vault(range: c_int) -> bool {
-        u::borg_excavate_vault(st(), range)
+    pub unsafe extern "C" fn borg_think_dungeon() -> bool {
+        crate::borg_think_dungeon::borg_think_dungeon(st())
     }
 }
 
@@ -1292,9 +1224,6 @@ pub mod flow_take {
         crate::engine::top_floor_object(grid.x, grid.y)
             .map_or(core::ptr::null_mut(), |o| o.as_ptr())
     }
-    pub unsafe extern "C" fn borg_delete_take(i: c_int) {
-        t::borg_delete_take(st(), i)
-    }
     pub unsafe extern "C" fn borg_follow_take(i: c_int) {
         t::borg_follow_take(st(), i)
     }
@@ -1310,12 +1239,6 @@ pub mod flow_take {
     ) -> bool {
         t::observe_take_move(st(), y, x, d, a, c)
     }
-    pub unsafe extern "C" fn borg_flow_take(viewable: bool, nearness: c_int) -> bool {
-        t::borg_flow_take(st(), viewable, nearness)
-    }
-    pub unsafe extern "C" fn borg_flow_take_lunal(viewable: bool, nearness: c_int) -> bool {
-        t::borg_flow_take_lunal(st(), viewable, nearness)
-    }
     pub unsafe extern "C" fn borg_init_flow_take() {
         t::borg_init_flow_take(st())
     }
@@ -1324,24 +1247,13 @@ pub mod flow_take {
     }
 }
 
-
 /// C-ABI shims with the borg-light.c names, for c2rust callers.
 pub mod light {
     use super::st;
     use crate::borg_light as l;
-    use crate::headers::borg_item_use_h::borg_need;
 
     pub unsafe extern "C" fn borg_check_light_only() -> bool {
         l::borg_check_light_only(st())
-    }
-    pub unsafe extern "C" fn borg_check_light() -> bool {
-        l::borg_check_light(st())
-    }
-    pub unsafe extern "C" fn borg_maintain_light() -> borg_need {
-        l::borg_maintain_light(st()) as borg_need
-    }
-    pub unsafe extern "C" fn borg_light_beam(simulation: bool) -> bool {
-        l::borg_light_beam(st(), simulation)
     }
 }
 
@@ -1353,9 +1265,6 @@ pub mod item_use {
 
     pub unsafe extern "C" fn borg_quaff_potion(sval: c_int) -> bool {
         u::borg_quaff_potion(st(), sval)
-    }
-    pub unsafe extern "C" fn borg_read_scroll(sval: c_int) -> bool {
-        u::borg_read_scroll(st(), sval)
     }
     pub unsafe extern "C" fn borg_eat(tval: c_int, sval: c_int) -> bool {
         u::borg_eat(st(), tval, sval)
@@ -1395,12 +1304,6 @@ pub mod item_use {
     }
     pub unsafe extern "C" fn borg_activate_failure(tval: c_int, sval: c_int) -> c_int {
         u::borg_activate_failure(st(), tval, sval)
-    }
-    pub unsafe extern "C" fn borg_use_things() -> bool {
-        u::borg_use_things(st())
-    }
-    pub unsafe extern "C" fn borg_recharging() -> bool {
-        u::borg_recharging(st())
     }
 }
 
@@ -1448,44 +1351,25 @@ pub fn set_borg_do_spell(st: &mut BorgState, v: bool) {
     escape(st);
 }
 
-/// C-ABI shims with the borg-think-store.c names, for c2rust callers
-/// (borg_think, borg_think_dungeon).
+/// C-ABI shim with the borg-think-store.c name, for the c2rust caller
+/// (borg_think).
 pub mod think_store {
     use super::st;
     use crate::borg_think_store as t;
 
-    pub unsafe extern "C" fn borg_choose_shop() -> bool {
-        t::borg_choose_shop(st())
-    }
     pub unsafe extern "C" fn borg_think_store() -> bool {
         t::borg_think_store(st())
     }
 }
 
-/// C-ABI shims with the borg-item-wear.c names, for c2rust callers
-/// (borg_think_dungeon, borg_trait, borg_update).
+/// C-ABI shims with the borg-item-wear.c names, for c2rust callers.
 pub mod item_wear {
     use super::st;
     use crate::borg_item_wear as w;
     use core::ffi::c_int;
 
-    pub unsafe extern "C" fn borg_test_stuff() -> bool {
-        w::borg_test_stuff(st())
-    }
-    pub unsafe extern "C" fn borg_swap_rings() -> bool {
-        w::borg_swap_rings(st())
-    }
-    pub unsafe extern "C" fn borg_wear_rings() -> bool {
-        w::borg_wear_rings(st())
-    }
-    pub unsafe extern "C" fn borg_wear_stuff() -> bool {
-        w::borg_wear_stuff(st())
-    }
     pub unsafe extern "C" fn borg_clear_best() {
         w::borg_clear_best(st())
-    }
-    pub unsafe extern "C" fn borg_wear_recharge() -> bool {
-        w::borg_wear_recharge(st())
     }
     pub unsafe extern "C" fn borg_is_ammo(tval: c_int) -> bool {
         w::borg_is_ammo(tval)
@@ -1501,28 +1385,6 @@ pub mod item_wear {
 // ---------------------------------------------------------------------------
 // borg-item-decurse.c (converted): calls into still-c2rust code.
 
-/// C-ABI shims with the borg-item-enchant.c names, for c2rust callers
-/// (borg_think_dungeon).
-pub mod item_enchant {
-    use super::st;
-    use crate::borg_item_enchant as e;
-
-    pub unsafe extern "C" fn borg_enchanting() -> bool {
-        e::borg_enchanting(st())
-    }
-}
-
-/// C-ABI shims with the borg-recover.c names, for c2rust callers
-/// (borg_think_dungeon).
-pub mod recover {
-    use super::st;
-    use crate::borg_recover as r;
-
-    pub unsafe extern "C" fn borg_recover() -> bool {
-        r::borg_recover(st())
-    }
-}
-
 /// C-ABI shims with the borg-flow-stairs.c names, for c2rust callers.
 pub mod flow_stairs {
     use super::st;
@@ -1531,15 +1393,6 @@ pub mod flow_stairs {
 
     pub unsafe extern "C" fn borg_flow_cost_stair(y: c_int, x: c_int, b_stair: c_int) -> c_int {
         fs::borg_flow_cost_stair(st(), y, x, b_stair)
-    }
-    pub unsafe extern "C" fn borg_flow_stair_both(why: c_int, sneak: bool) -> bool {
-        fs::borg_flow_stair_both(st(), why, sneak)
-    }
-    pub unsafe extern "C" fn borg_flow_stair_less(why: c_int, sneak: bool) -> bool {
-        fs::borg_flow_stair_less(st(), why, sneak)
-    }
-    pub unsafe extern "C" fn borg_flow_stair_more(why: c_int, sneak: bool, brave: bool) -> bool {
-        fs::borg_flow_stair_more(st(), why, sneak, brave)
     }
     pub unsafe extern "C" fn borg_init_flow_stairs() {
         fs::borg_init_flow_stairs(st())
@@ -1600,54 +1453,16 @@ pub fn track_door_at(st: &mut BorgState, i: usize) -> (i32, i32) {
     (t.y[i], t.x[i])
 }
 
-/// C-ABI shims with the borg-flow-dark.c names, for c2rust callers
-/// (borg_think_dungeon).
-pub mod flow_dark {
-    use super::st;
-    use crate::borg_flow_dark as d;
-
-    pub unsafe extern "C" fn borg_flow_dark(neer: bool) -> bool {
-        d::borg_flow_dark(st(), neer)
-    }
-}
-
-/// C-ABI shims with the borg-fight-perm.c names, for c2rust callers
-/// (borg_think_dungeon).
-pub mod fight_perm {
-    use super::st;
-    use crate::borg_fight_perm as p;
-
-    pub unsafe extern "C" fn borg_perma_spell() -> bool {
-        p::borg_perma_spell(st())
-    }
-}
-
 /// C-ABI shims with the borg-flow-glyph.c names, for c2rust callers.
 pub mod flow_glyph {
     use super::st;
     use crate::borg_flow_glyph as fg;
 
-    pub unsafe extern "C" fn borg_flow_glyph() -> bool {
-        fg::borg_flow_glyph(st())
-    }
     pub unsafe extern "C" fn borg_init_flow_glyph() {
         fg::borg_init_flow_glyph(st())
     }
     pub unsafe extern "C" fn borg_free_flow_glyph() {
         fg::borg_free_flow_glyph(st())
-    }
-}
-
-/// C-ABI shims with the borg-attack-munchkin.c names, for c2rust callers.
-pub mod attack_munchkin {
-    use super::st;
-    use crate::borg_attack_munchkin as m;
-
-    pub unsafe extern "C" fn borg_munchkin_mage() -> bool {
-        m::borg_munchkin_mage(st())
-    }
-    pub unsafe extern "C" fn borg_munchkin_melee() -> bool {
-        m::borg_munchkin_melee(st())
     }
 }
 
@@ -1660,32 +1475,11 @@ pub mod flow_misc {
     pub unsafe extern "C" fn borg_happy_grid_bold(y: c_int, x: c_int) -> bool {
         m::borg_happy_grid_bold(st(), y, x)
     }
-    pub unsafe extern "C" fn borg_flow_recover(dist: c_int) -> bool {
-        m::borg_flow_recover(st(), dist)
-    }
-    pub unsafe extern "C" fn borg_flow_vein(viewable: bool, nearness: c_int) -> bool {
-        m::borg_flow_vein(st(), viewable, nearness)
-    }
-    pub unsafe extern "C" fn borg_flow_spastic(bored: bool) -> bool {
-        m::borg_flow_spastic(st(), bored)
-    }
-    pub unsafe extern "C" fn borg_flow_shop_entry(i: c_int) -> bool {
-        m::borg_flow_shop_entry(st(), i)
-    }
-    pub unsafe extern "C" fn borg_flow_vault(nearness: c_int) -> bool {
-        m::borg_flow_vault(st(), nearness)
-    }
-    pub unsafe extern "C" fn borg_twitchy() -> bool {
-        m::borg_twitchy(st())
-    }
     pub unsafe extern "C" fn borg_extract_dir(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> c_int {
         m::borg_extract_dir(y1, x1, y2, x2)
     }
     pub unsafe extern "C" fn borg_goto_dir(y1: c_int, x1: c_int, y2: c_int, x2: c_int) -> c_int {
         m::borg_goto_dir(st(), y1, x1, y2, x2)
-    }
-    pub unsafe extern "C" fn borg_check_rest(y: c_int, x: c_int) -> bool {
-        m::borg_check_rest(st(), y, x)
     }
 }
 
@@ -1718,9 +1512,6 @@ pub mod flow {
     pub unsafe extern "C" fn borg_flow_commit(who: *const c_char, why: c_int) -> bool {
         let who = (!who.is_null()).then(|| cbytes(who));
         f::flow_commit(st(), who, why)
-    }
-    pub unsafe extern "C" fn borg_flow_old(why: c_int) -> bool {
-        f::borg_flow_old(st(), why)
     }
     pub unsafe extern "C" fn borg_init_flow() {
         f::borg_init_flow(st())
@@ -1767,9 +1558,6 @@ pub mod escape_fns {
     use crate::borg_escape as e;
     use core::ffi::c_int;
 
-    pub unsafe extern "C" fn borg_recall() -> bool {
-        e::borg_recall(st())
-    }
     pub unsafe extern "C" fn borg_surrounded() -> bool {
         e::borg_surrounded(st())
     }
@@ -1778,41 +1566,6 @@ pub mod escape_fns {
     }
     pub unsafe extern "C" fn borg_caution_teleport(emergency: c_int, turns: c_int) -> bool {
         e::borg_caution_teleport(st(), emergency, turns)
-    }
-    pub unsafe extern "C" fn borg_allow_teleport() -> bool {
-        e::borg_allow_teleport(st())
-    }
-    pub unsafe extern "C" fn borg_shadow_shift(allow_fail: c_int) -> bool {
-        e::borg_shadow_shift(st(), allow_fail)
-    }
-    pub unsafe extern "C" fn borg_dimension_door(allow_fail: c_int) -> bool {
-        e::borg_dimension_door(st(), allow_fail)
-    }
-}
-
-/// C-ABI shims with the borg-junk.c names, for c2rust callers
-/// (borg_think_dungeon).
-pub mod junk {
-    use super::st;
-    use crate::borg_junk as j;
-
-    pub unsafe extern "C" fn borg_destroy_floor() -> bool {
-        j::borg_destroy_floor(st())
-    }
-    pub unsafe extern "C" fn borg_drop_junk() -> bool {
-        j::borg_drop_junk(st())
-    }
-    pub unsafe extern "C" fn borg_drop_hole(desperate: bool) -> bool {
-        j::borg_drop_hole(st(), desperate)
-    }
-    pub unsafe extern "C" fn borg_drop_slow() -> bool {
-        j::borg_drop_slow(st())
-    }
-    pub unsafe extern "C" fn borg_dump_quiver() -> bool {
-        j::borg_dump_quiver(st())
-    }
-    pub unsafe extern "C" fn borg_remove_stuff() -> bool {
-        j::borg_remove_stuff(st())
     }
 }
 
@@ -1856,32 +1609,13 @@ pub fn borg_restock_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
     r
 }
 
-/// C-ABI shim with the borg-caution.c name, for the c2rust caller
-/// (borg_think_dungeon).
-/// C-ABI shims with the borg-fight-defend.c names, for c2rust callers.
-pub mod fight_defend {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_defend(p1: core::ffi::c_int) -> bool {
-        crate::borg_fight_defend::borg_defend(st(), p1)
-    }
-}
-
-/// C-ABI shim with the borg-trait.c name, for the c2rust callers
-/// (borg_think, borg_think_dungeon, borg_think_dungeon_util).
+/// C-ABI shim with the borg-trait.c name, for the c2rust caller
+/// (borg_think).
 pub mod trait_ {
     use super::st;
 
     pub unsafe extern "C" fn borg_notice(notice_swap: bool) {
         crate::borg_trait::borg_notice(st(), notice_swap)
-    }
-}
-
-pub mod caution {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_caution() -> bool {
-        crate::borg_caution::borg_caution(st())
     }
 }
 

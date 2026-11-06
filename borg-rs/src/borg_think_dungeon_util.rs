@@ -17,8 +17,8 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 //!
 //! The module has no state of its own (`borg_stuff_feeling` is a constant
-//! table). `borg_feeling_stuff` still lives in the c2rust
-//! borg-think-dungeon.c and is read through `bridge`.
+//! table). `borg_feeling_stuff` is `st.think_dungeon.feeling_stuff`
+//! (borg_think_dungeon).
 
 use crate::borg::BorgTime;
 use crate::borg_escape::borg_recall;
@@ -654,7 +654,7 @@ pub fn borg_think_stair_scum(st: &mut BorgState) -> bool {
 
 /// how long should the borg explore?
 fn borg_time_to_stay_on_level(st: &mut BorgState, bored: bool) -> i32 {
-    let feeling_stuff = bridge::borg_feeling_stuff(st);
+    let feeling_stuff = st.think_dungeon.feeling_stuff;
 
     if st.borg.tr(BI_CLEVEL) < 5 || feeling_stuff == 0 {
         /* at very low level, stay less time */

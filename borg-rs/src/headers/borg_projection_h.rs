@@ -18,7 +18,6 @@ pub use crate::bridge::projection::borg_distance;
 pub use crate::bridge::projection::borg_inc_motion;
 pub use crate::bridge::projection::borg_los;
 pub use crate::bridge::projection::borg_offset_projectable;
-pub use crate::bridge::projection::borg_projectable;
 pub use crate::bridge::projection::borg_projectable_dark;
 pub use crate::bridge::projection::borg_projectable_pure;
 pub use crate::bridge::projection::borg_target;

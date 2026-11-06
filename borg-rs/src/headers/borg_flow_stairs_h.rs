@@ -3,8 +3,5 @@
 #[allow(unused_imports)]
 use super::*;
 pub use crate::bridge::flow_stairs::borg_flow_cost_stair;
-pub use crate::bridge::flow_stairs::borg_flow_stair_both;
-pub use crate::bridge::flow_stairs::borg_flow_stair_less;
-pub use crate::bridge::flow_stairs::borg_flow_stair_more;
 pub use crate::bridge::flow_stairs::borg_free_flow_stairs;
 pub use crate::bridge::flow_stairs::borg_init_flow_stairs;

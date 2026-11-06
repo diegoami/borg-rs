@@ -1150,3 +1150,35 @@ with its issues.
   read or write out of bounds; none is reachable with valid game data.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#237 to diegoami/neo-angband-tracker#241.
+
+## 49. Dungeon-think slips (think dungeon)
+
+* `borg-think-dungeon.c`, found by code reading; all checked against the
+  c2rust code (see PROGRESS.md, module 57). Lunal and munchkin mode are
+  off in the stock `borg.txt`, so the suites never reach them.
+* `borg_think_dungeon_lunal()` (lines 132-136) and
+  `borg_think_dungeon_munchkin()` (lines 487-491): the same "do I already
+  know this up staircase" loop as `borg_think_stair_scum()`, with
+  `continue` for `break`. Not a new slip: it is the one in section 47.
+* `borg_think_dungeon_lunal()` (lines 241-363): `b_j`, the distance to
+  the nearest staircase, is set by the "full of items" up-stair scan and
+  is never reset before the down-stair scan or the second up-stair scan,
+  so a close staircase of one kind makes the "close enough" test
+  (`b_j < 8`) of the other kind pass. `borg_think_dungeon_munchkin()` has
+  the same carry-over into its last up-stair scan (lines 773-791) and
+  into the adjacent-monster scan (lines 848-886), where `b_j` also builds
+  up from one adjacent monster to the next. (The same kind of slip as the
+  `b_j` one in section 47.)
+* `borg_think_dungeon_munchkin()` (lines 844 and 904-913): the
+  adjacent-monster scan reuses `ag`, the pointer to the Borg's own grid,
+  for each neighbour. After the scan it points at the last neighbour in
+  bounds, so "Take the Up Stair" and "Take the Stair" test that
+  neighbour's feature: the Borg can press `<` or `>` when it is not on a
+  staircase, and does not take one it stands on.
+* Same function (lines 586-588): "Increase the range of the borg a bit"
+  adds `(clevel - 10) + (10 - depth)` to `closeness` (8). Below clevel 10
+  this shrinks the range instead (to -1 for a clevel 1 Borg on level
+  10), so no staircase counts as close.
+* Rust (`borg_think_dungeon.rs`): all kept. A grid outside the map
+  panics (C reads outside `borg_grids`), and so does a negative
+  `PACK_SLOTS - n` index (C reads before `borg_items`).

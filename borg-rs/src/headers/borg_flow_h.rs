@@ -7,7 +7,6 @@ pub use crate::bridge::flow::borg_can_dig;
 pub use crate::bridge::flow::borg_flow_clear;
 pub use crate::bridge::flow::borg_flow_commit;
 pub use crate::bridge::flow::borg_flow_enqueue_grid;
-pub use crate::bridge::flow::borg_flow_old;
 pub use crate::bridge::flow::borg_flow_spread;
 pub use crate::bridge::flow::borg_free_flow;
 pub use crate::bridge::flow::borg_init_flow;
