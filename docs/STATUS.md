@@ -321,3 +321,44 @@ the C build: 0 errors each, and the key logs are identical to the
 reference. Memcheck does not see reads past the end of a static array
 inside the same object (like the `all_letters_nohjkl[-1]` read in
 c-bugs #21), so that class of bug is not covered.
+
+## Build identity (external review finding 4, 2026-11-06)
+
+The external review of `4c06cec08` (finding 4) showed a Rust-labelled suite
+passing with the C binary: `BORG_IMPL=rust ANGBAND_BIN=build/c/game/angband
+harness/suite.sh smoke` wrote `DONE`, and `harness/diff` reported 3/3,
+exit 0. Reproduced here before the fix. Now `harness/build.sh` writes
+`build/<impl>/BUILD_ID`, `harness/suite.sh` refuses a binary of the wrong
+or an unknown implementation, or one that does not match its `BUILD_ID` or
+the current sources, before any run (overrides `ALLOW_UNKNOWN_IMPL=1`,
+`ALLOW_STALE_BUILD=1` are recorded in the manifest), and `harness/diff`
+prints each output's build identity and fails on a mismatch or override
+(`--expect-impl c|rust`). `check-no-c-borg.sh` gained step 5, the actual
+link inputs from `ld --trace` of a relink that reproduces the binary
+byte for byte. Details in `docs/harness.md` ("Build identity") and
+`docs/SELF-REVIEW.md` section 5.
+
+Evidence (worktree build of `4c06cec08`, harness changes on top, `JOBS=2`):
+
+```
+wrong-binary command                     suite: REFUSED, exit 2, no output dir
+                                         (before the fix: exit 0, diff 3/3 exit 0)
+C smoke   --expect-impl c                3/3 runs identical, exit 0
+Rust smoke --expect-impl rust            3/3 runs identical, exit 0
+Rust full  --expect-impl rust            45/45 runs identical, exit 0
+check-no-c-borg.sh                       OK; 5. link inputs: engine objects 154,
+                                         staticlib members pulled in 31, system 28
+```
+
+Negative checks (scratchpad, not committed): stale sources (an untracked
+file under `angband/src`, an edited tracked file) refused for C and Rust;
+a file added under `borg-rs/` makes only the Rust build stale; a binary
+changed after the build, a build dir without `BUILD_ID`, and a Rust
+executable in a C build dir refused (the last one also with both
+overrides); a stripped external binary is `unknown` and runs only with
+`ALLOW_UNKNOWN_IMPL=1 ALLOW_STALE_BUILD=1`, both recorded; `harness/diff`
+fails (exit 1) on outputs with an override, an edited `borg_impl_env`, and
+`--expect-impl rust` on a C output, and refuses (exit 2) an output without
+a manifest or with an old manifest. `check-no-c-borg.sh` step 5 fails on an
+extra C object in the link, a binary the link command does not reproduce,
+and a gcc object in the staticlib under a rustc member name.
