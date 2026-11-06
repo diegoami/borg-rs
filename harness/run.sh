@@ -24,7 +24,9 @@
 #                itself (respawn race/class); borg_cheat_death is set
 #                with the cheat flag only.
 #   Env: BORG_IMPL=c|rust (selects build/<impl>), ANGBAND_BIN (override binary)
-# Produces OUTDIR/keys.log (the oracle), OUTDIR/summary.json, OUTDIR/stderr.log,
+# Produces OUTDIR/keys.log (the oracle), OUTDIR/messages.log (every message
+# added to the message log, Borg notes included), OUTDIR/state.log (one
+# engine-state line per key), OUTDIR/summary.json, OUTDIR/stderr.log,
 # OUTDIR/config.txt (flags and sha256 of the run's user/borg.txt; not part of
 # the oracle, harness/diff does not read it)
 set -euo pipefail
@@ -102,7 +104,8 @@ TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 "$BIN" -mborgh -n -uBorg \
     -duser="$OUT/user" -dsave="$OUT/save" -darchive="$OUT/archive" \
     -dpanic="$OUT/panic" -dscores="$OUT/scores" -- \
     -seed "$SEED" -race "$RACE" -class "$CLASS" -turns "$TURNS" \
-    -keylog "$OUT/keys.log" -summary "$OUT/summary.json" -screen "${BORGH_FLAGS[@]}" "$@" \
+    -keylog "$OUT/keys.log" -msglog "$OUT/messages.log" -statelog "$OUT/state.log" \
+    -summary "$OUT/summary.json" -screen "${BORGH_FLAGS[@]}" "$@" \
     2>"$OUT/stderr.log"
 RC=$?
 set -e
