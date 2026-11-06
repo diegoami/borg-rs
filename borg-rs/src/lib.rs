@@ -18,9 +18,6 @@
 
 extern crate libc;
 
-#[allow(clippy::all)]
-#[allow(unsafe_code)]
-pub mod bridge;
 pub mod cctype;
 #[allow(clippy::all)]
 #[allow(unsafe_code)]

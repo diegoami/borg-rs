@@ -30,7 +30,6 @@ use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_power::borg_power;
 use crate::borg_store::BORG_HOME;
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
 use crate::headers::borg_item_h::{borg_item, BORG_CURSE_MAX};
@@ -323,15 +322,15 @@ fn borg_object_similar(o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
     // is alright, it just causes him to take a bit more time to do
     // some exchanges.
     // Require semi-matching "inscriptions"
-    let o_note = !o_ptr.note.is_null();
-    let j_note = !j_ptr.note.is_null();
+    let o_note = o_ptr.note.is_some();
+    let j_note = j_ptr.note.is_some();
     if (o_note && !j_note) || (!o_note && j_note) {
         return false;
     }
 
     if o_note && j_note {
-        let a = bridge::item_note(o_ptr);
-        let b = bridge::item_note(j_ptr);
+        let a = crate::borg_item::item_note(o_ptr);
+        let b = crate::borg_item::item_note(j_ptr);
         if !a.is_empty() && !b.is_empty() && a != b {
             return false;
         }

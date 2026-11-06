@@ -17,7 +17,6 @@
 
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
-use crate::bridge;
 use crate::engine::{self, GameObject};
 use crate::headers::borg_item_h::*;
 use crate::headers::list_kind_flags_h::{
@@ -383,7 +382,7 @@ pub fn borg_item_analyze(
     iv: &ItemValState,
 ) {
     /* Wipe the item */
-    *item = bridge::blank_borg_item();
+    *item = crate::borg_item::blank_item();
 
     /* Non-item */
     if !real_item.has_kind() || real_item.number() == 0 {
@@ -412,7 +411,7 @@ pub fn borg_item_analyze(
 
     /* Advance to the "inscription" or end of string and save */
     let scan = item.desc.iter().position(|&c| c == 0 || c as u8 == b'{').expect("NUL-terminated");
-    bridge::set_item_note(item, scan);
+    crate::borg_item::set_item_note(item, scan);
 
     /* Get various info */
     item.tval = real_item.tval();
@@ -645,7 +644,7 @@ mod tests {
 
     #[test]
     fn value_guess() {
-        let mut it = bridge::blank_borg_item();
+        let mut it = crate::borg_item::blank_item();
         it.tval = TV_ROD as u8;
         assert_eq!(borg_object_value_guess(&it), 90);
         it.tval = TV_RING as u8;

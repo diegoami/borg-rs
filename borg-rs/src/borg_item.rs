@@ -18,7 +18,7 @@ use crate::borg_io::borg_keypress;
 use crate::headers::borg_item_h::borg_item;
 use crate::headers::list_tvals_h::TV_FOOD;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// The items (`borg_items`) and the snapshot taken after each full read
 /// (`safe_items`, the "safety inventory").
@@ -26,9 +26,7 @@ use crate::{bridge, engine};
 /// Slots: `0..pack_size` the pack, `pack_size..pack_size + 12` the
 /// equipment (`INVEN_WIELD` = `pack_size`), then the quiver.
 ///
-/// TRANSITIONAL: `borg_item` is still the C struct. Its `note` field points
-/// into the item's own `desc` (set by borg_item_analyze, still c2rust);
-/// safe code reads it only through `bridge::item_note_first_byte`.
+/// An item's `note` is an offset into its `desc` (see `item_note`).
 #[derive(Default)]
 pub struct ItemState {
     pub items: Vec<borg_item>,
@@ -56,14 +54,82 @@ pub fn quiver_end() -> i32 {
     i32::from(z.pack_size) + 12 + i32::from(z.quiver_size)
 }
 
-/// A zeroed item (as `mem_zalloc` makes them).
+/// A zeroed item (as `mem_zalloc` makes them): every field 0, `note`
+/// NULL.
 pub fn blank_item() -> borg_item {
-    bridge::blank_borg_item()
+    use crate::headers::object_h::element_info;
+    borg_item {
+        desc: [0; 80],
+        note: None,
+        kind: 0,
+        ident: false,
+        needs_ident: false,
+        aware: false,
+        xxxx: false,
+        tval: 0,
+        sval: 0,
+        pval: 0,
+        iqty: 0,
+        weight: 0,
+        art_idx: 0,
+        ego_idx: 0,
+        activ_idx: 0,
+        one_ring: false,
+        timeout: 0,
+        to_h: 0,
+        to_d: 0,
+        to_a: 0,
+        ac: 0,
+        dd: 0,
+        ds: 0,
+        level: 0,
+        cost: 0,
+        value: 0,
+        cursed: false,
+        uncursable: false,
+        curses: [false; 28],
+        flags: [0; 5],
+        modifiers: [0; 16],
+        el_info: [element_info { res_level: 0, flags: 0 }; 25],
+        brands: [false; 254],
+        slays: [0; 85],
+    }
 }
 
-/// Does the note of slot `j` start with `{` (an inscription)?
+/// `item->note = item->desc + offset` (borg-item-analyze.c).
+///
+/// C's `note` is a pointer into the item's own `desc`, and a struct copy
+/// of the item keeps pointing into the *original's* `desc`. Here `note`
+/// is the offset, and a copy reads its own `desc` at that offset. The two
+/// agree because whenever a copy's note is read, the original's `desc` is
+/// unchanged since the copy was made (see docs/PROGRESS.md, "bridge
+/// removal").
+pub fn set_item_note(item: &mut borg_item, offset: usize) {
+    assert!(offset < item.desc.len(), "note offset outside desc");
+    item.note = Some(offset as u8);
+}
+
+/// The bytes of `borg_get_note(item)`: the inscription part of `desc` up
+/// to its NUL, or "" when `note` is NULL.
+pub fn item_note(item: &borg_item) -> Vec<u8> {
+    match item.note {
+        None => Vec::new(),
+        Some(o) => item.desc[usize::from(o)..].iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect(),
+    }
+}
+
+/// `borg_get_note(&borg_items[i])`, as bytes.
+pub fn borg_get_note(st: &BorgState, i: usize) -> Vec<u8> {
+    item_note(&st.items.items[i])
+}
+
+/// Does the note of slot `j` start with `{` (an inscription)? C reads
+/// `borg_items[j].note[0]` without a check; a NULL note would crash C, so
+/// it panics here.
 fn note_starts_with_brace(st: &mut BorgState, j: i32) -> bool {
-    bridge::item_note_first_byte(st, j as usize) == b'{'
+    let it = &st.items.items[j as usize];
+    let o = it.note.unwrap_or_else(|| panic!("borg_items[{j}].note is NULL"));
+    it.desc[usize::from(o)] as u8 == b'{'
 }
 
 /// Remove the inscription of slot `i` (`borg_deinscribe`).

@@ -29,7 +29,7 @@ use crate::headers::list_object_modifiers_h::OBJ_MOD_SPEED;
 use crate::headers::list_tvals_h::{TV_BOW, TV_RING};
 use crate::state::BorgState;
 use crate::borg_item_analyze::borg_ego_has_random_power;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `strstr(hay, needle) != NULL` on the bytes of a C string.
 fn contains(hay: &[u8], needle: &[u8]) -> bool {
@@ -59,7 +59,7 @@ pub fn borg_object_fully_id(st: &mut BorgState) -> bool {
         let item = st.items.items[i as usize];
 
         // inscribe certain objects
-        let note = bridge::item_note(&item);
+        let note = crate::borg_item::item_note(&item);
         if st.borg.tr(BI_CDEPTH) != 0
             && u32::from(item.tval) >= TV_BOW
             && u32::from(item.tval) <= TV_RING
@@ -164,7 +164,7 @@ pub fn borg_item_note_needs_id(item: &borg_item) -> bool {
         return true;
     }
 
-    contains(&bridge::item_note(item), b"{??}")
+    contains(&crate::borg_item::item_note(item), b"{??}")
 }
 
 #[cfg(test)]

@@ -11,7 +11,9 @@ use super::*;
 #[repr(C)]
 pub struct borg_item {
     pub desc: [::core::ffi::c_char; 80],
-    pub note: *mut ::core::ffi::c_char,
+    /// `note`: where the inscription starts in `desc` (C: `char *note =
+    /// desc + offset`, NULL = `None`). See `borg_item::item_note`.
+    pub note: Option<u8>,
     pub kind: uint32_t,
     pub ident: bool,
     pub needs_ident: bool,

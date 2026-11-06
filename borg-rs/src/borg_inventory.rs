@@ -22,7 +22,6 @@ use crate::headers::borg_item_h::borg_item;
 use crate::headers::borg_trait_h::BI_QUIVER_SLOTS;
 use crate::headers::list_tvals_h::*;
 use crate::state::BorgState;
-use crate::bridge;
 
 /// borg-inventory.c globals.
 #[derive(Default)]
@@ -111,7 +110,7 @@ fn analyze_and_deinscribe(st: &mut BorgState, i: i32, obj: CarriedObject, desc: 
 /// `if (borg_items[i].note && (strstr(note, "!") || strstr(note, "borg")))
 /// borg_deinscribe(i);` (a NULL note reads as "", which matches neither).
 fn deinscribe_if_marked(st: &mut BorgState, i: i32) {
-    let note = bridge::borg_get_note(st, i as usize);
+    let note = crate::borg_item::borg_get_note(st, i as usize);
     if note.contains(&b'!') || note.windows(4).any(|w| w == b"borg") {
         borg_deinscribe(st, i);
     }

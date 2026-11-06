@@ -36,7 +36,7 @@ use crate::headers::list_player_timed_h::{
 };
 use crate::headers::obj_desc_h::{ODESC_FULL, ODESC_PREFIX};
 use crate::state::BorgState;
-use crate::{bridge, cctype};
+use crate::cctype;
 
 /// `PW_BORG_2` (player-calcs.h): the Borg status window flag.
 const PW_BORG_2: u32 = 0x8000;
@@ -821,7 +821,7 @@ pub fn borg_display_item(st: &mut BorgState, f: &[u8; OF_SIZE], n: i32) {
     );
 
     // maybe print the inscription
-    let note = bridge::borg_get_note(st, n as usize);
+    let note = crate::borg_item::borg_get_note(st, n as usize);
     engine::prt(
         &cat(&[
             b"Inscription: ",

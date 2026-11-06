@@ -1462,7 +1462,7 @@ pub fn prt(s: &[u8], row: i32, col: i32) {
 // Carried objects (borg-inventory.c)
 
 /// A game object the player carries (pack, equipment or quiver) that has
-/// a kind. Opaque: the pointer stays on the FFI side (`engine`, `bridge`).
+/// a kind. Opaque: the pointer stays on the FFI side (`engine`).
 #[derive(Clone, Copy)]
 pub struct CarriedObject(*const crate::headers::object_h::object);
 
