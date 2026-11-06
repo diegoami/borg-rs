@@ -251,7 +251,7 @@ when a big c2rust module goes away.
 | borg_trait (`70f155d17`) | 545 | 3 |
 | borg_think_dungeon (`f43ccc2b6`) | 478 | 2 |
 | borg_think (`5d1e1071e`) | 462 | 1 |
-| borg_fight_attack | 419 | 0 |
+| borg_fight_attack (`94cbbf9fd`) | 419 | 0 |
 
 ## Suite timings
 
