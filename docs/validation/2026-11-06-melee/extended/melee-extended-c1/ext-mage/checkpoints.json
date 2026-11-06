@@ -1,0 +1,37 @@
+{
+  "captures": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 1,
+      "clevel": 19,
+      "depth": 12,
+      "due_turn": 1000000,
+      "file": "checkpoint-000001-t0001000167.save",
+      "game_turn": 1000167,
+      "keys": 167620,
+      "max_depth": 13,
+      "race_idx": 9,
+      "save_sha256": "18acce15a4843bdb1e59dd1bc76cc72077da459e16cde8abf14a7fdcf04a0cba",
+      "seed": 4001,
+      "size_bytes": 90892
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 1,
+      "clevel": 26,
+      "depth": 22,
+      "due_turn": 2000000,
+      "file": "checkpoint-000002-t0002000006.save",
+      "game_turn": 2000006,
+      "keys": 282143,
+      "max_depth": 23,
+      "race_idx": 9,
+      "save_sha256": "6f91cd4a53293eb1918d70f4fd2df5636a4845481ab071f44f2da52370bf5b32",
+      "seed": 4001,
+      "size_bytes": 86892
+    }
+  ],
+  "errors": [],
+  "replay": "fresh_borg_not_continuation",
+  "source_process_status": "success"
+}

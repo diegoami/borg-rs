@@ -1,0 +1,38 @@
+suite=captured-rogue
+suite_sha256=ddf62e62e83f364d32bff40b7ae75a732ecf89a9417de4a5317f97fe63621b37
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=28b8170a67bd34f9ee05589f567ff42aae65fef9
+build_id_git_dirty=yes
+build_id_inputs_dirty=no
+build_id_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+build_id_binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-06T20:11:20Z
+checkout_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=28b8170a67bd34f9ee05589f567ff42aae65fef9
+git_dirty=yes
+jobs=4
+checkpoint_every=0
+run_timeout_seconds=1800
+save_root=/home/diego/projects/borg-rs/harness/saves
+started_utc=2026-11-06T20:38:40Z
+run_config.captured-rogue-01=menu,cheat,save=rogue-4006-cp01-t0000100001.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-02=menu,cheat,save=rogue-4006-cp02-t0000200001.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-03=menu,cheat,save=rogue-4006-cp03-t0000300004.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-04=menu,cheat,save=rogue-4006-cp04-t0000400004.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-05=menu,cheat,save=rogue-4006-cp05-t0000500004.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-06=menu,cheat,save=rogue-4006-cp06-t0000600000.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-07=menu,cheat,save=rogue-4006-cp07-t0000700005.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.captured-rogue-08=menu,cheat,save=rogue-4006-cp08-t0000800001.save 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+binary_sha256_end=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+finished_utc=2026-11-06T20:39:20Z result=OK

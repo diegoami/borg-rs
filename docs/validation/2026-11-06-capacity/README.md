@@ -22,7 +22,7 @@ jobs per suite and a 1,800-second per-scenario timeout. None timed out.
 `receipt.json` records all 18 summaries and three-log SHA-256 hashes;
 the per-pass directories retain manifests, `DONE`, timing, configuration,
 process receipts and stderr. The separately identified current C reference
-is `harness/reference/crash-fixes`, compressed from C1 after C/C passed
+is `harness/reference/crash-fixes-26a96be`, compressed from C1 after C/C passed
 and strictly rechecked against C2 (`reference.diff`). All original
 references, including `endgame`, are unchanged.
 
@@ -68,7 +68,7 @@ BORG_IMPL=c JOBS=2 RUN_TIMEOUT_SECONDS=1800 harness/suite.sh crash-fixes harness
 harness/diff --suite crash-fixes --expect-impl c harness/out/reproduce/c1 harness/out/reproduce/c2
 BORG_IMPL=rust JOBS=2 RUN_TIMEOUT_SECONDS=1800 harness/suite.sh crash-fixes harness/out/reproduce/rust
 harness/diff --suite crash-fixes --expect-impl rust harness/out/reproduce/rust harness/out/reproduce/c1
-harness/diff --suite crash-fixes --expect-impl c harness/out/reproduce/c2 harness/reference/crash-fixes
+harness/diff --suite crash-fixes --expect-impl c harness/out/reproduce/c2 harness/reference/crash-fixes-26a96be
 ```
 
 Release Rust tests pass (100 passed, one existing ignored), and release

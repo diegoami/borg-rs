@@ -1,0 +1,524 @@
+{
+  "comparisons": {
+    "melee-crash-c-c.diff": {
+      "exit_code": 0,
+      "identical": 6
+    },
+    "melee-crash-c2-reference.diff": {
+      "exit_code": 0,
+      "identical": 6
+    },
+    "melee-crash-rust-c.diff": {
+      "exit_code": 0,
+      "identical": 6
+    }
+  },
+  "passes": {
+    "crash-c1": {
+      "end-depth100": {
+        "logs_sha256": {
+          "keys.log": "2a0916123755ff2adc50451b8b0de452346e9a9a0f26ca5fe86c062290e571bb",
+          "messages.log": "84e3aa304b9db731db4f494c1069496b2d450f3e835dadd1bfd87b9c1bb98e04",
+          "state.log": "13c7e866c28876e293d84b494c10668917f992d8ad58f6e1398c4ab4690219e2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 59,
+          "game_turns": 50043,
+          "keys": 52257,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 18998,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6164,
+          "seed": 6003,
+          "stop_reason": "turns",
+          "wall_seconds": 24.373
+        }
+      },
+      "end-depth50": {
+        "logs_sha256": {
+          "keys.log": "b34e2ba8e1dc7bc18baf0f4e76b7266dbd058781bf23fe12bb76385cd5a2a8e4",
+          "messages.log": "6553fe229dd3d89e797479b3ca1d107d053a3d27209f80fa391d1a7188127db3",
+          "state.log": "035ead5ccb850087e274749b328cfdfd27e5f986e6f5674c4856c02552c6fdc2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100002,
+          "keys": 75309,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 69,
+          "menu_letters": true,
+          "player_turns": 34561,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11141,
+          "seed": 6000,
+          "stop_reason": "turns",
+          "wall_seconds": 47.199
+        }
+      },
+      "end-depth98": {
+        "logs_sha256": {
+          "keys.log": "b3e9adb758d7708c461f921ebf14bbc8b8d246bc3d7907693e2c6285e9634b13",
+          "messages.log": "7b32423097dd72f4d1467cfd0cdfe9ed7233bc066b0d283a042a6b6fdf9bcfbd",
+          "state.log": "7bc544f0142e0ced56b11077fb7a4e83833f79318ed50916f6c6fd47e1258512"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 98,
+          "game_turns": 100003,
+          "keys": 107789,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 98,
+          "menu_letters": true,
+          "player_turns": 41523,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11985,
+          "seed": 6001,
+          "stop_reason": "turns",
+          "wall_seconds": 56.457
+        }
+      },
+      "end-depth99": {
+        "logs_sha256": {
+          "keys.log": "912e381f618d71101382bc8ce78f852646be7e032f6cfaabc8813576969d58dd",
+          "messages.log": "262c41c877550cf98897b2598af89a73ec981e280dd6838ed73de24a9dad9179",
+          "state.log": "d776cd4e943ccca9632b7344b6bf4da538c509cb6397994df8813c020dea35eb"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100079,
+          "keys": 103602,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 39736,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6590,
+          "seed": 6002,
+          "stop_reason": "turns",
+          "wall_seconds": 63.314
+        }
+      },
+      "end-near-morgoth": {
+        "logs_sha256": {
+          "keys.log": "8bc8023456d3b1eef8274ab0be232bc40a44c61bdcbbacbf739e1137f9e80c27",
+          "messages.log": "f84255fb8ae56bdb57c6ed5faccdde7d7e538c2816ba6607ec929b6e324aa578",
+          "state.log": "500f16e0bcb95b3e7bc578468628c9f5f489fb3ece62afbd1613b6714e73de52"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 21,
+          "game_turns": 20001,
+          "keys": 15553,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 8023,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 2449,
+          "seed": 6004,
+          "stop_reason": "turns",
+          "wall_seconds": 9.159
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 262.273
+        }
+      }
+    },
+    "crash-c2": {
+      "end-depth100": {
+        "logs_sha256": {
+          "keys.log": "2a0916123755ff2adc50451b8b0de452346e9a9a0f26ca5fe86c062290e571bb",
+          "messages.log": "84e3aa304b9db731db4f494c1069496b2d450f3e835dadd1bfd87b9c1bb98e04",
+          "state.log": "13c7e866c28876e293d84b494c10668917f992d8ad58f6e1398c4ab4690219e2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 59,
+          "game_turns": 50043,
+          "keys": 52257,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 18998,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6164,
+          "seed": 6003,
+          "stop_reason": "turns",
+          "wall_seconds": 30.759
+        }
+      },
+      "end-depth50": {
+        "logs_sha256": {
+          "keys.log": "b34e2ba8e1dc7bc18baf0f4e76b7266dbd058781bf23fe12bb76385cd5a2a8e4",
+          "messages.log": "6553fe229dd3d89e797479b3ca1d107d053a3d27209f80fa391d1a7188127db3",
+          "state.log": "035ead5ccb850087e274749b328cfdfd27e5f986e6f5674c4856c02552c6fdc2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100002,
+          "keys": 75309,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 69,
+          "menu_letters": true,
+          "player_turns": 34561,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11141,
+          "seed": 6000,
+          "stop_reason": "turns",
+          "wall_seconds": 57.686
+        }
+      },
+      "end-depth98": {
+        "logs_sha256": {
+          "keys.log": "b3e9adb758d7708c461f921ebf14bbc8b8d246bc3d7907693e2c6285e9634b13",
+          "messages.log": "7b32423097dd72f4d1467cfd0cdfe9ed7233bc066b0d283a042a6b6fdf9bcfbd",
+          "state.log": "7bc544f0142e0ced56b11077fb7a4e83833f79318ed50916f6c6fd47e1258512"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 98,
+          "game_turns": 100003,
+          "keys": 107789,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 98,
+          "menu_letters": true,
+          "player_turns": 41523,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11985,
+          "seed": 6001,
+          "stop_reason": "turns",
+          "wall_seconds": 57.532
+        }
+      },
+      "end-depth99": {
+        "logs_sha256": {
+          "keys.log": "912e381f618d71101382bc8ce78f852646be7e032f6cfaabc8813576969d58dd",
+          "messages.log": "262c41c877550cf98897b2598af89a73ec981e280dd6838ed73de24a9dad9179",
+          "state.log": "d776cd4e943ccca9632b7344b6bf4da538c509cb6397994df8813c020dea35eb"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100079,
+          "keys": 103602,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 39736,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6590,
+          "seed": 6002,
+          "stop_reason": "turns",
+          "wall_seconds": 60.953
+        }
+      },
+      "end-near-morgoth": {
+        "logs_sha256": {
+          "keys.log": "8bc8023456d3b1eef8274ab0be232bc40a44c61bdcbbacbf739e1137f9e80c27",
+          "messages.log": "f84255fb8ae56bdb57c6ed5faccdde7d7e538c2816ba6607ec929b6e324aa578",
+          "state.log": "500f16e0bcb95b3e7bc578468628c9f5f489fb3ece62afbd1613b6714e73de52"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 21,
+          "game_turns": 20001,
+          "keys": 15553,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 8023,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 2449,
+          "seed": 6004,
+          "stop_reason": "turns",
+          "wall_seconds": 11.795
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 396.722
+        }
+      }
+    },
+    "crash-rust": {
+      "end-depth100": {
+        "logs_sha256": {
+          "keys.log": "2a0916123755ff2adc50451b8b0de452346e9a9a0f26ca5fe86c062290e571bb",
+          "messages.log": "84e3aa304b9db731db4f494c1069496b2d450f3e835dadd1bfd87b9c1bb98e04",
+          "state.log": "13c7e866c28876e293d84b494c10668917f992d8ad58f6e1398c4ab4690219e2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 59,
+          "game_turns": 50043,
+          "keys": 52257,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 18998,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6164,
+          "seed": 6003,
+          "stop_reason": "turns",
+          "wall_seconds": 22.595
+        }
+      },
+      "end-depth50": {
+        "logs_sha256": {
+          "keys.log": "b34e2ba8e1dc7bc18baf0f4e76b7266dbd058781bf23fe12bb76385cd5a2a8e4",
+          "messages.log": "6553fe229dd3d89e797479b3ca1d107d053a3d27209f80fa391d1a7188127db3",
+          "state.log": "035ead5ccb850087e274749b328cfdfd27e5f986e6f5674c4856c02552c6fdc2"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100002,
+          "keys": 75309,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 69,
+          "menu_letters": true,
+          "player_turns": 34561,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11141,
+          "seed": 6000,
+          "stop_reason": "turns",
+          "wall_seconds": 46.814
+        }
+      },
+      "end-depth98": {
+        "logs_sha256": {
+          "keys.log": "b3e9adb758d7708c461f921ebf14bbc8b8d246bc3d7907693e2c6285e9634b13",
+          "messages.log": "7b32423097dd72f4d1467cfd0cdfe9ed7233bc066b0d283a042a6b6fdf9bcfbd",
+          "state.log": "7bc544f0142e0ced56b11077fb7a4e83833f79318ed50916f6c6fd47e1258512"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 98,
+          "game_turns": 100003,
+          "keys": 107789,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 98,
+          "menu_letters": true,
+          "player_turns": 41523,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 11985,
+          "seed": 6001,
+          "stop_reason": "turns",
+          "wall_seconds": 56.834
+        }
+      },
+      "end-depth99": {
+        "logs_sha256": {
+          "keys.log": "912e381f618d71101382bc8ce78f852646be7e032f6cfaabc8813576969d58dd",
+          "messages.log": "262c41c877550cf98897b2598af89a73ec981e280dd6838ed73de24a9dad9179",
+          "state.log": "d776cd4e943ccca9632b7344b6bf4da538c509cb6397994df8813c020dea35eb"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 100079,
+          "keys": 103602,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 99,
+          "menu_letters": true,
+          "player_turns": 39736,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 6590,
+          "seed": 6002,
+          "stop_reason": "turns",
+          "wall_seconds": 63.295
+        }
+      },
+      "end-near-morgoth": {
+        "logs_sha256": {
+          "keys.log": "8bc8023456d3b1eef8274ab0be232bc40a44c61bdcbbacbf739e1137f9e80c27",
+          "messages.log": "f84255fb8ae56bdb57c6ed5faccdde7d7e538c2816ba6607ec929b6e324aa578",
+          "state.log": "500f16e0bcb95b3e7bc578468628c9f5f489fb3ece62afbd1613b6714e73de52"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 21,
+          "game_turns": 20001,
+          "keys": 15553,
+          "loaded": true,
+          "loaded_turn": 1,
+          "max_depth": 100,
+          "menu_letters": true,
+          "player_turns": 8023,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 2449,
+          "seed": 6004,
+          "stop_reason": "turns",
+          "wall_seconds": 8.578
+        }
+      },
+      "ext-rogue": {
+        "logs_sha256": {
+          "keys.log": "215bea43bb790b546f06ed04b0d2bc19ab4f616057c549428033232e43a88053",
+          "messages.log": "ff34bd46940c703f8fd3c9ee2169b538bc3b65a6d00aa83286136f754624358d",
+          "state.log": "5262f2e4505047cfa5f7a56ddda569a12b9b90009ab7e1ed28f6c4a2a4d935e0"
+        },
+        "summary": {
+          "class": "Rogue",
+          "class_idx": 6,
+          "clevel": 21,
+          "dead": false,
+          "death_cause": "",
+          "depth": 1,
+          "game_turns": 2000352,
+          "keys": 308698,
+          "max_depth": 6,
+          "menu_letters": true,
+          "player_turns": 201110,
+          "race": "Hobbit",
+          "race_idx": 3,
+          "resting_turns": 49177,
+          "seed": 4006,
+          "stop_reason": "turns",
+          "wall_seconds": 248.348
+        }
+      }
+    }
+  },
+  "scope": "post-melee six-case C/C/Rust validation",
+  "source_commit": "28b8170"
+}

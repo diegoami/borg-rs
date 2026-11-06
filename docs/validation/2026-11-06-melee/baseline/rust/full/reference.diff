@@ -1,0 +1,6 @@
+A: harness/out/local/baseline-melee-rust/full: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=09ec046d3d47e7e5
+A:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at 28b8170a67bd (dirty=yes) overrides=none
+B: harness/reference/full: reference (no manifest)
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

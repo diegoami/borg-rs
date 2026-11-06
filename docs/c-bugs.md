@@ -1364,7 +1364,10 @@ above is historical; independent tracker verification remains explicit.
   queues `+5`, assertion fails. After the narrow C/Rust correction (distance
   exactly one): center/distant targets are rejected and all eight adjacent
   grids remain valid, in apply and simulation modes. The prompt-abort guard
-  remains intact. Full corrected replay validation is pending.
+  remains intact. Full corrected extended C/C and Rust/C now match12/12
+  with all original limits reached; Warrior2000 finishes5,000,001 turns
+  at clevel42/depth44 in all three passes. See
+  `validation/2026-11-06-melee/README.md`.
 * Tracker: diegoami/neo-angband-tracker#322. This is supplied consumer evidence,
   not independent tracker verification or upstream source resolution.
 

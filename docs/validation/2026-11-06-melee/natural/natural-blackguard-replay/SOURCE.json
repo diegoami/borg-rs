@@ -1,0 +1,24 @@
+{
+  "absolute_turn_limit": 3100387,
+  "capture": {
+    "capture_method": "fork_private_engine",
+    "class_idx": 8,
+    "clevel": 35,
+    "depth": 40,
+    "due_turn": 3000000,
+    "file": "checkpoint-000003-t0003000387.save",
+    "game_turn": 3000387,
+    "keys": 700232,
+    "max_depth": 40,
+    "race_idx": 8,
+    "save_sha256": "290bf6f9f36f172b8697682ed091ffe6b224edf02418417a18b29c61c589e829",
+    "seed": 3100,
+    "size_bytes": 133124
+  },
+  "replay_seed": 3100,
+  "scenario": "fresh_borg_not_continuation",
+  "source_manifest_sha256": "114f756a59c2044f015b0f204665804618e22efab78f6dbe1eb091f893390089",
+  "source_process_status": "success",
+  "source_run": "/home/diego/projects/borg-rs/harness/out/local/melee-extended-c1/ext-long-blackguard-3100",
+  "source_suite_failed": false
+}

@@ -1,0 +1,182 @@
+{
+  "passes": {
+    "natural-c1": {
+      "natural-blackguard-40": {
+        "logs_sha256": {
+          "keys.log": "2d1c7a20ff55467655ea5a77cabb04c248c9a94d0ff239ff7123f31f8027fe57",
+          "messages.log": "b698e1f82c0597eaa3099a666b87c673d8ac39e46b9c952bd34b1da17c3448df",
+          "state.log": "63026ad938b2b9958c763e99a17c03c0edae624a2ce6256da6c064d796419e3c"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 35,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 3100394,
+          "keys": 26939,
+          "loaded": true,
+          "loaded_turn": 3000387,
+          "max_depth": 41,
+          "menu_letters": true,
+          "player_turns": 324251,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 62854,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 9.305
+        }
+      },
+      "natural-warrior-78": {
+        "logs_sha256": {
+          "keys.log": "6d8a7e96ec189e1cc831759a4eeb0d237cc91f1232b413b81b2633ae2cafa9fc",
+          "messages.log": "abd5b0c0b9e2748ebbfa7d34bb3c5c06d82e583f6f4e5479dc9b5cc2a2745a99",
+          "state.log": "f4bff1954f788b3412e133fd40db94ae49e500fefcf2b1e4fa10958a767025dd"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 83,
+          "game_turns": 3100002,
+          "keys": 106813,
+          "loaded": true,
+          "loaded_turn": 3000001,
+          "max_depth": 84,
+          "menu_letters": true,
+          "player_turns": 621722,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 106120,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 25.316
+        }
+      }
+    },
+    "natural-c2": {
+      "natural-blackguard-40": {
+        "logs_sha256": {
+          "keys.log": "2d1c7a20ff55467655ea5a77cabb04c248c9a94d0ff239ff7123f31f8027fe57",
+          "messages.log": "b698e1f82c0597eaa3099a666b87c673d8ac39e46b9c952bd34b1da17c3448df",
+          "state.log": "63026ad938b2b9958c763e99a17c03c0edae624a2ce6256da6c064d796419e3c"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 35,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 3100394,
+          "keys": 26939,
+          "loaded": true,
+          "loaded_turn": 3000387,
+          "max_depth": 41,
+          "menu_letters": true,
+          "player_turns": 324251,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 62854,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 9.361
+        }
+      },
+      "natural-warrior-78": {
+        "logs_sha256": {
+          "keys.log": "6d8a7e96ec189e1cc831759a4eeb0d237cc91f1232b413b81b2633ae2cafa9fc",
+          "messages.log": "abd5b0c0b9e2748ebbfa7d34bb3c5c06d82e583f6f4e5479dc9b5cc2a2745a99",
+          "state.log": "f4bff1954f788b3412e133fd40db94ae49e500fefcf2b1e4fa10958a767025dd"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 83,
+          "game_turns": 3100002,
+          "keys": 106813,
+          "loaded": true,
+          "loaded_turn": 3000001,
+          "max_depth": 84,
+          "menu_letters": true,
+          "player_turns": 621722,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 106120,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 25.288
+        }
+      }
+    },
+    "natural-rust": {
+      "natural-blackguard-40": {
+        "logs_sha256": {
+          "keys.log": "2d1c7a20ff55467655ea5a77cabb04c248c9a94d0ff239ff7123f31f8027fe57",
+          "messages.log": "b698e1f82c0597eaa3099a666b87c673d8ac39e46b9c952bd34b1da17c3448df",
+          "state.log": "63026ad938b2b9958c763e99a17c03c0edae624a2ce6256da6c064d796419e3c"
+        },
+        "summary": {
+          "class": "Blackguard",
+          "class_idx": 8,
+          "clevel": 35,
+          "dead": false,
+          "death_cause": "",
+          "depth": 0,
+          "game_turns": 3100394,
+          "keys": 26939,
+          "loaded": true,
+          "loaded_turn": 3000387,
+          "max_depth": 41,
+          "menu_letters": true,
+          "player_turns": 324251,
+          "race": "Dunadan",
+          "race_idx": 8,
+          "resting_turns": 62854,
+          "seed": 3100,
+          "stop_reason": "turns",
+          "wall_seconds": 9.645
+        }
+      },
+      "natural-warrior-78": {
+        "logs_sha256": {
+          "keys.log": "6d8a7e96ec189e1cc831759a4eeb0d237cc91f1232b413b81b2633ae2cafa9fc",
+          "messages.log": "abd5b0c0b9e2748ebbfa7d34bb3c5c06d82e583f6f4e5479dc9b5cc2a2745a99",
+          "state.log": "f4bff1954f788b3412e133fd40db94ae49e500fefcf2b1e4fa10958a767025dd"
+        },
+        "summary": {
+          "class": "Warrior",
+          "class_idx": 0,
+          "clevel": 50,
+          "dead": false,
+          "death_cause": "",
+          "depth": 83,
+          "game_turns": 3100002,
+          "keys": 106813,
+          "loaded": true,
+          "loaded_turn": 3000001,
+          "max_depth": 84,
+          "menu_letters": true,
+          "player_turns": 621722,
+          "race": "Human",
+          "race_idx": 0,
+          "resting_turns": 106120,
+          "seed": 2007,
+          "stop_reason": "turns",
+          "wall_seconds": 26.362
+        }
+      }
+    }
+  },
+  "save_root": "harness/saves/captured-extended",
+  "scenario_suite": "harness/suites/natural",
+  "scope": "two independent fresh-Borg replays, not continuation of source traces",
+  "source_commit": "28b8170"
+}

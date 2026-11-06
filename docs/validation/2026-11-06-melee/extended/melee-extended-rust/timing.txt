@@ -1,0 +1,13 @@
+suite=extended impl=rust jobs=4 wall_seconds=2214.648286581 result=OK
+ext-warrior turns turns=2000005 pturns=214554 clev=34 maxdepth=34 keys=600749 wall=603.2 Human Warrior
+ext-mage turns turns=2000006 pturns=197280 clev=26 maxdepth=23 keys=282144 wall=390.3 High-Elf Mage
+ext-druid turns turns=2000008 pturns=199711 clev=22 maxdepth=19 keys=233981 wall=247.4 Half-Elf Druid
+ext-priest turns turns=2000006 pturns=200082 clev=13 maxdepth=4 keys=186188 wall=117.9 Dwarf Priest
+ext-necro turns turns=2000693 pturns=200891 clev=11 maxdepth=3 keys=132416 wall=140.7 Kobold Necromancer
+ext-paladin turns turns=2000007 pturns=200255 clev=23 maxdepth=31 keys=265250 wall=329.5 Dunadan Paladin
+ext-rogue turns turns=2000352 pturns=201110 clev=21 maxdepth=6 keys=308698 wall=481.8 Hobbit Rogue
+ext-ranger turns turns=2000004 pturns=199645 clev=29 maxdepth=36 keys=357366 wall=433.4 Half-Elf Ranger
+ext-blackguard turns turns=2000005 pturns=201126 clev=25 maxdepth=19 keys=415260 wall=483.2 Half-Troll Blackguard
+ext-long-warrior-2000 turns turns=5000001 pturns=631360 clev=42 maxdepth=44 keys=1511970 wall=1092.0 Human Warrior
+ext-long-warrior-2007 turns turns=5000192 pturns=1333034 clev=50 maxdepth=99 keys=3239292 wall=1473.2 Human Warrior
+ext-long-blackguard-3100 turns turns=5000002 pturns=598125 clev=43 maxdepth=51 keys=1365649 wall=992.5 Dunadan Blackguard

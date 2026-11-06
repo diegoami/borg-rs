@@ -1,0 +1,22 @@
+{
+  "captures": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 7,
+      "clevel": 19,
+      "depth": 11,
+      "due_turn": 1000000,
+      "file": "checkpoint-000001-t0001000559.save",
+      "game_turn": 1000559,
+      "keys": 177395,
+      "max_depth": 11,
+      "race_idx": 1,
+      "save_sha256": "23f6ad296b47eedc56a07a018f340e1f85265b6c8a9f77c1bee82645aff47fcf",
+      "seed": 4007,
+      "size_bytes": 77204
+    }
+  ],
+  "errors": [],
+  "replay": "fresh_borg_not_continuation",
+  "source_process_status": "success"
+}

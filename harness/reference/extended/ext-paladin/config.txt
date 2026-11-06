@@ -1,0 +1,3 @@
+flags=menu,cheat
+borg_txt_sha256=40221a8a916a1ac8b52287088b51cb9f077694c5bbd545a7d96e9d83b94db0c0
+checkpoint_every=1000000

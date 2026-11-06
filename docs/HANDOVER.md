@@ -23,7 +23,7 @@ player (59 C modules, about 64k lines in `angband/src/borg/`, Angband
 must produce the same keypress stream as the C Borg, byte for byte, when it
 drives the same C engine with the same seed. It is not a redesign: no new
 tactics. Targeted crash/play-blocker fixes are now authorized. C bugs are recorded and listed in
-`docs/c-bugs.md` (53 sections); from section 42 on each is also filed as a
+`docs/c-bugs.md` (55 sections); from section 42 on each is also filed as a
 lead in diegoami/neo-angband-tracker (`CLAUDE.md` has the rule and format).
 
 ## Where it stands

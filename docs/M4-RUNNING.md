@@ -1,54 +1,29 @@
 # M4 C/D working record, 2026-11-06
 
-## Current corrected validation
+## Completed local checkpoint, production source28b8170
 
-Current production source is `28b8170`: exact-adjacency thrust correction
-for #322. Native before/after body fixture, release tests and clippy pass.
-Fresh extended C/C/Rust runs with1M forked captures are under
-`harness/out/local/melee-extended-{c1,c2,rust}`, jobs4, scenario timeout3600.
-Baseline/Captured-Rogue/crash-fixes rechecks are under
-`baseline-melee-{c,rust}`; a second C six-case pass is `melee-crash-c2`.
-Inspect live DONE/process receipts before starting anything new.
+No validation jobs remain active. The latest receipt is
+[2026-11-06-melee/README.md](validation/2026-11-06-melee/README.md).
+Fresh crash-fixes C/C and Rust/C6/6; both builds baseline105/105 and
+captured-Rogue8/8; fresh extended C/C and Rust/C12/12, all original limits
+reached. Same-square melee (#322) no longer stops Warrior2000: all three
+finish5,000,001 turns, clevel42/depth44. Warrior2007 reaches natural99,
+Blackguard3100 reaches51. All30 captured engine saves match metadata and
+complete bytes across C/C/Rust. Natural fresh-Borg C/C and Rust/C2/2 start
+at78/40 and reach84/41. The synthetic five starts remain covered by the
+unchanged crash-fixes suite. Current corrected references are crash-fixes,
+extended and natural; originals and source-qualified historical refs remain.
 
-The earlier extended26a96be runs finished and both strict comparisons
-pass12/12. Warrior2007 reaches99 and Blackguard3100 reaches51, while
-Warrior2000's same-square `+5` abort ends it at1,887,392. This is historical
-parity, not acceptance of the play blocker. The source26 reference is
-`harness/reference/extended-26a96be`; receipts include its explicit stop.
-The native calculator checker and48-run coverage pilot are recorded in
-`validation/2026-11-06-{native-checker,coverage-pilot}`. E/F remain broader
-open work. The following source26 details precede the latest melee fix.
+E foundation: real native C/Rust calculator checker30k, real-source fault
+control, C UBSan and clippy pass. Wider private combat/map checks remain.
+F pilot: smoke/full48 at26a96be, logic lines61.40%, LLVM function instances
+77.03%; interrupted deep excluded, full/new-source coverage remains open.
+Sea of Runes/self-lunal/win remain unestablished. Main/tags unchanged.
+Read LOCAL-SESSION-HANDOVER for current next work and reproduction.
 
-
-The unchanged six-case `crash-fixes` suite passes corrected C/C/Rust at
-`26a96bee4570`: all three passes have `DONE`, and both strict comparisons
-report 6/6 identical in keys/messages/state. Rogue finishes 2,000,352 turns;
-all five synthetic endgame cases finish. See
-[the receipt](validation/2026-11-06-capacity/README.md) and the separately
-identified `harness/reference/crash-fixes` reference. Original references
-remain unchanged. Both builds pass all 105 original baseline cases and eight captured Rogue
-replays in all three logs, with completed receipts under the validation
-directory. Local outputs: `harness/out/local/baseline-capacity-{c,rust}/`.
-
-The corrected extended matrix is running in
-`harness/out/local/extended-{c1,c2,rust}` with four jobs per pass and
-a 1,800-second per-scenario wall-time bound. Each pass uses the unchanged
-12-case/33M-turn suite. No extended reference has been accepted. Compare
-only after all three `DONE` markers exist: C/C first, then Rust/C, with
-`harness/diff --suite extended --expect-impl c|rust`.
-
-The initial byte-limited correction at `bd184cc` passed six cases but
-truncated valid UTF-8 and failed the original full reference on two seeds.
-Its reference and receipts remain separately identified historical evidence
-(`crash-fixes-bd184cc`, `validation/2026-11-06-corrected/`). The refinement
-passes the native full-message regression and restores full 45/45 parity.
-
-The sections below describe earlier, pre-correction cloud work. Their
-processes and paths are historical, not active local jobs; their absolute
-no-C-correction restrictions are superseded by `FORK-CORRECTIONS.md`.
-The raw native crash-observer trace mentioned in the handover was not
-transferred. M4 C-F still need their remaining work; main and tags have
-not moved.
+The following cloud sections are historical. Their paths, active jobs and
+absolute C-fidelity restrictions are superseded by the owner policy and
+the completed local checkpoint above.
 
 ## Historical cloud work
 

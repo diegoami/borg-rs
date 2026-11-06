@@ -5,7 +5,8 @@ checking that, for the same seed and the same unmodified C engine, the Rust Borg
 produces a byte-identical keypress stream to the C Borg.
 
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
-  (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks
+  (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks and the documented
+  matching fork corrections in `docs/FORK-CORRECTIONS.md`
 * `harness/`: build/run/suite scripts, seed suites, diff tool, pinned
   `borg.txt`, C reference logs
 * `docs/`: `REVIEW.md` (start here), `STATUS.md`, `PROGRESS.md`, `c-bugs.md`, `harness.md`

@@ -1,0 +1,7 @@
+A: harness/out/local/melee-crash-c2: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=2e99ac86769d02c2
+A:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=3e9ac5743b149636; run at 28b8170a67bd (dirty=yes) overrides=none
+B: harness/reference/crash-fixes: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=a202a7d195f5d1b1
+B:   built from 26a96bee4570 (dirty=yes, inputs dirty=no) source_sha256=aa4f69dc2508fd81; run at 26a96bee4570 (dirty=yes) overrides=none
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)

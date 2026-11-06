@@ -1,0 +1,3 @@
+suite=natural impl=c jobs=2 wall_seconds=25.393236787 result=OK
+natural-warrior-78 turns turns=3100002 pturns=621722 clev=50 maxdepth=84 keys=106813 wall=25.3 Human Warrior
+natural-blackguard-40 turns turns=3100394 pturns=324251 clev=35 maxdepth=41 keys=26939 wall=9.3 Dunadan Blackguard

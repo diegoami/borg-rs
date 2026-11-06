@@ -1,0 +1,5 @@
+# Independent fresh-Borg replays of validated cheat-death extended captures.
+# Set SAVE_ROOT=harness/saves/captured-extended and pass --save-root to diff.
+# NAME                 SEED RACE CLASS TURNS   FLAGS
+natural-warrior-78      2007 0    0     3100001 menu,cheat,save=ext-long-warrior-2007-checkpoint-000003-t0003000001.save
+natural-blackguard-40   3100 8    8     3100387 menu,cheat,save=ext-long-blackguard-3100-checkpoint-000003-t0003000387.save

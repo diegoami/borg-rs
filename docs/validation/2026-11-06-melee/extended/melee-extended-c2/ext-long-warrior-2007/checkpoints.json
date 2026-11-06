@@ -1,0 +1,67 @@
+{
+  "captures": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 0,
+      "clevel": 30,
+      "depth": 24,
+      "due_turn": 1000000,
+      "file": "checkpoint-000001-t0001000005.save",
+      "game_turn": 1000005,
+      "keys": 274353,
+      "max_depth": 26,
+      "race_idx": 0,
+      "save_sha256": "943584d9648df63ade3e3bcd198ee13662d19d691ed4fc49995edef9485f2e80",
+      "seed": 2007,
+      "size_bytes": 93588
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 0,
+      "clevel": 41,
+      "depth": 40,
+      "due_turn": 2000000,
+      "file": "checkpoint-000002-t0002000004.save",
+      "game_turn": 2000004,
+      "keys": 778973,
+      "max_depth": 43,
+      "race_idx": 0,
+      "save_sha256": "24a7a3b14a6b1dedef97f9461acf849e975f3584601c4312c098781c4c0b4a9a",
+      "seed": 2007,
+      "size_bytes": 99968
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 0,
+      "clevel": 50,
+      "depth": 78,
+      "due_turn": 3000000,
+      "file": "checkpoint-000003-t0003000001.save",
+      "game_turn": 3000001,
+      "keys": 1570693,
+      "max_depth": 78,
+      "race_idx": 0,
+      "save_sha256": "004d869f8605b04729f15ad14bfa7e71278b244500709b82974cea741f1f702a",
+      "seed": 2007,
+      "size_bytes": 263000
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 0,
+      "clevel": 50,
+      "depth": 25,
+      "due_turn": 4000000,
+      "file": "checkpoint-000004-t0004000001.save",
+      "game_turn": 4000001,
+      "keys": 2469792,
+      "max_depth": 77,
+      "race_idx": 0,
+      "save_sha256": "d505e45f2ce31d863648dbbddcba36a6ef02d0057a9fe57780023e7bd100ccfb",
+      "seed": 2007,
+      "size_bytes": 139216
+    }
+  ],
+  "errors": [],
+  "replay": "fresh_borg_not_continuation",
+  "source_process_status": "success"
+}

@@ -1,0 +1,3 @@
+flags=menu,cheat,save=ext-long-blackguard-3100-checkpoint-000003-t0003000387.save
+borg_txt_sha256=cdfdc1568b849be520ae2d97f5962d49b46912fa167a975e1e23d2b8db9b1b2b
+save_sha256=290bf6f9f36f172b8697682ed091ffe6b224edf02418417a18b29c61c589e829

@@ -1,0 +1,19 @@
+{
+  "seed": 4002,
+  "race": "Half-Elf",
+  "race_idx": 1,
+  "class": "Druid",
+  "class_idx": 2,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 2000008,
+  "player_turns": 199711,
+  "resting_turns": 94793,
+  "clevel": 22,
+  "max_depth": 19,
+  "depth": 7,
+  "dead": false,
+  "death_cause": "",
+  "keys": 233981,
+  "wall_seconds": 246.177
+}

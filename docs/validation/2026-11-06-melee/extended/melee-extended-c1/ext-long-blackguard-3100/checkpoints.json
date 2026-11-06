@@ -1,0 +1,82 @@
+{
+  "captures": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 26,
+      "depth": 8,
+      "due_turn": 1000000,
+      "file": "checkpoint-000001-t0001000007.save",
+      "game_turn": 1000007,
+      "keys": 175336,
+      "max_depth": 22,
+      "race_idx": 8,
+      "save_sha256": "b2dc14d7b1a62f0b29044b4575f3e6bdcbfbe3c3a45067bd6822f60b18123b55",
+      "seed": 3100,
+      "size_bytes": 84832
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 31,
+      "depth": 0,
+      "due_turn": 2000000,
+      "file": "checkpoint-000002-t0002000001.save",
+      "game_turn": 2000001,
+      "keys": 416743,
+      "max_depth": 42,
+      "race_idx": 8,
+      "save_sha256": "e1b3d5d1aa2bb5bbff1698b0661e12797d9ffded066c4c73f8ec0ef1336e6889",
+      "seed": 3100,
+      "size_bytes": 73544
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 35,
+      "depth": 40,
+      "due_turn": 3000000,
+      "file": "checkpoint-000003-t0003000387.save",
+      "game_turn": 3000387,
+      "keys": 700232,
+      "max_depth": 40,
+      "race_idx": 8,
+      "save_sha256": "290bf6f9f36f172b8697682ed091ffe6b224edf02418417a18b29c61c589e829",
+      "seed": 3100,
+      "size_bytes": 133124
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 39,
+      "depth": 38,
+      "due_turn": 4000000,
+      "file": "checkpoint-000004-t0004000005.save",
+      "game_turn": 4000005,
+      "keys": 1002002,
+      "max_depth": 38,
+      "race_idx": 8,
+      "save_sha256": "db2023813340ece59c5552971b5838fab73ad79e6aa0de7c884a47b2ec9362ce",
+      "seed": 3100,
+      "size_bytes": 94956
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 43,
+      "depth": 10,
+      "due_turn": 5000000,
+      "file": "checkpoint-000005-t0005000002.save",
+      "game_turn": 5000002,
+      "keys": 1365648,
+      "max_depth": 51,
+      "race_idx": 8,
+      "save_sha256": "280f3095995f7e97b7925bdbf6135dcf43a3bf53e4d5daeb9d16c80647f18d0b",
+      "seed": 3100,
+      "size_bytes": 86252
+    }
+  ],
+  "errors": [],
+  "replay": "fresh_borg_not_continuation",
+  "source_process_status": "success"
+}

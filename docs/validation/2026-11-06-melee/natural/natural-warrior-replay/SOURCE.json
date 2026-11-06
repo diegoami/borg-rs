@@ -1,0 +1,24 @@
+{
+  "absolute_turn_limit": 3100001,
+  "capture": {
+    "capture_method": "fork_private_engine",
+    "class_idx": 0,
+    "clevel": 50,
+    "depth": 78,
+    "due_turn": 3000000,
+    "file": "checkpoint-000003-t0003000001.save",
+    "game_turn": 3000001,
+    "keys": 1570693,
+    "max_depth": 78,
+    "race_idx": 0,
+    "save_sha256": "004d869f8605b04729f15ad14bfa7e71278b244500709b82974cea741f1f702a",
+    "seed": 2007,
+    "size_bytes": 263000
+  },
+  "replay_seed": 2007,
+  "scenario": "fresh_borg_not_continuation",
+  "source_manifest_sha256": "114f756a59c2044f015b0f204665804618e22efab78f6dbe1eb091f893390089",
+  "source_process_status": "success",
+  "source_run": "/home/diego/projects/borg-rs/harness/out/local/melee-extended-c1/ext-long-warrior-2007",
+  "source_suite_failed": false
+}

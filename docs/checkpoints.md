@@ -128,3 +128,16 @@ crash and unterminated multibyte text are known C exceptions (tracker #290
 and #287). Eight natural Rogue captures now have matching C/C/Rust
 references in `harness/reference/captured-rogue`. The 105-case baseline
 recheck is in progress. Main and tags stay at their prior positions.
+
+## Corrected extended capture checkpoint (2026-11-06)
+
+At28b8170, corrected extended C/C and Rust/C pass12/12 with all original
+limits reached. Thirty fixed1M-cadence captures have identical metadata,
+sizes, SHA-256 and direct bytes across both C passes and Rust. C1 copies
+and full source provenance are committed in `harness/saves/captured-extended`.
+The deepest saved current depth is78; source maxdepth99 does not imply
+that every capture is at99. The named natural suite and separate helper
+matrices verify fresh-Borg C/C/Rust replays of Warrior78 and Blackguard40,
+reaching84/41 over100k additional turns. They are independent engine-state
+replays, not restored private Borg state or stitched source traces.
+See `validation/2026-11-06-melee/README.md` for exact receipts.

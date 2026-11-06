@@ -1,0 +1,7 @@
+A: harness/out/local/baseline-melee-rust/crash-fixes: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=09ec046d3d47e7e5
+A:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at f51082721e7d (dirty=no) overrides=none
+B: harness/out/local/baseline-melee-c/crash-fixes: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=2e99ac86769d02c2
+B:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=3e9ac5743b149636; run at f51082721e7d (dirty=no) overrides=none
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)

@@ -2,70 +2,45 @@
 
 ## Current M4 work (2026-11-06)
 
-Latest source: `28b8170` fixes the newly observed same-square melee play
-blocker (#322), requiring distance exactly one in C/Rust. The native body
-regression fails before (`+5`) and passes after while retaining all eight
-neighbors. Tests100/one ignored, clippy and linkage checks pass. Fresh
-baseline and extended C/C/Rust validation is ACTIVE under
-`harness/out/local/{baseline-melee-*,melee-extended-*}`; the extended runs
-capture engine state every1M turns. The current full replay result is not
-yet established. Main/tags remain unchanged.
+Latest production source: `28b8170`. Owner-authorized matching C/Rust
+corrections fix stale panel-offset equality (#290), UTF-8 output capacity
+and NUL termination (#287), and same-square melee targets (#322).
+The last fix changes the former `+5` abort into a valid adjacent attack;
+C2's first 456,025 keys match the pre-fix trace before that correction.
 
-The preceding `26a96be` extended matrix has strict C/C and Rust/C12/12
-parity and natural depths99/51, but Warrior2000 aborts at1,887,392 turns.
-Its historical receipt/reference explicitly retain that play blocker:
-`validation/2026-11-06-extended-before-melee/`,
-`harness/reference/extended-26a96be`.
+Verified at this source, with DONE, strict comparisons and no overrides:
 
-M4 E foundation: native calculator checker30,000 cases, full token/state
-comparisons, actual-source fault rejection, C UBSan and clippy pass
-(`validation/2026-11-06-native-checker/`). Other private combat/map state
-remains unchecked. M4 F pilot: source26a96be smoke/full48, logic lines61.40%
-and LLVM function instances77.03%; incomplete deep profiles excluded.
-Full coverage and coverage of the newer melee correction remain open
-(`validation/2026-11-06-coverage-pilot/`).
+* Fresh crash-fixes C/C and Rust/C: **6/6** keys/messages/player state.
+* Both builds vs all original baseline references: **105/105 each**;
+  captured-Rogue fresh replays: **8/8 each**.
+* Fresh extended C/C and Rust/C: **12/12**, every original turn limit
+  reached. Previously blocked Warrior2000 now finishes 5,000,001 turns,
+  clevel42/depth44; Warrior2007 reaches natural maximum depth99 and
+  Blackguard3100 depth51. The suite/seeds/limits are unchanged.
+* All **30** fork-isolated engine captures match metadata, SHA-256 and
+  direct saved bytes across both C passes and Rust. Installed in
+  `harness/saves/captured-extended`, with provenance.
+* New natural suite C/C and Rust/C: **2/2** independent 100k-turn replays
+  of the depth78 Warrior and depth40 Blackguard; they reach84/41.
+* Release tests100 passed/one existing ignored, all-target clippy with
+  warnings denied, linkage check:154 identical engine objects and no C
+  Borg code in Rust.
 
-### Prior verified checkpoint at26a96be
+Current corrected references are `crash-fixes`, `extended`, `natural`.
+Original references, including `endgame`, are preserved. Source26's
+historical references are separately named `crash-fixes-26a96be` and
+`extended-26a96be`; its Warrior2000 early stop is explicitly recorded.
+See [latest validation](validation/2026-11-06-melee/README.md).
 
-
-Matching C/Rust corrections for tracker #290 (panel-offset equality) and
-#287 (capacity-aware UTF-8 conversion with NUL termination) pass the
-unchanged six-case `crash-fixes` suite at `26a96bee4570`: C twice, then
-Rust, **6/6 identical** in keys/messages/state for both strict comparisons.
-All three passes have `DONE`, successful process receipts and no overrides.
-Rogue seed4006 reaches 2,000,352 turns, clevel21, depth6. All five original
-endgame cases finish; depth50 reaches 69. The new C reference is
-`harness/reference/crash-fixes`. Original references, including `endgame`,
-are unchanged. See the [receipt](validation/2026-11-06-capacity/README.md).
-
-The transferred fix used a screen-column count as its byte limit and
-truncated valid UTF-8, producing phantom monster names on baseline
-seeds1001/1003. The capacity refinement fixes that native regression and
-restores original `full` parity, 45/45 in both C and Rust. Both builds now
-pass all 105 original baseline cases: smoke 3/3, full
-45/45, deep 9/9, classes 16/16, config 7/7 and options 25/25. Both also
-pass captured-Rogue 8/8. Every comparison checks all three logs, with
-`DONE`, no overrides and successful process receipts. Baseline manifests,
-comparisons and log hashes are retained under the current validation
-receipt. The initial
-six-case result and baseline failures are retained separately at
-`validation/2026-11-06-corrected/` and `reference/crash-fixes-bd184cc`.
-
-Release Rust tests pass (100 passed, one existing ignored), release
-all-target clippy with warnings denied passes, and all seven supervisor
-tests pass. The link check confirms 154 identical engine objects and no
-C Borg code in the Rust executable. Build inputs match `26a96bee4570`;
-uncommitted documentation/evidence accounts for dirty checkout flags.
-
-M4 remains unfinished. The complete corrected `extended` matrix is running
-as C1/C2/Rust with four jobs per pass and a 1,800-second scenario timeout,
-under `harness/out/local/extended-{c1,c2,rust}`. No extended reference is
-accepted yet. Additional targeted endgame coverage, a committed native differential
-checker and Rust coverage measurement are still open. Synthetic Warrior
-fixtures demonstrate deep play and Morgoth melee, not Sea of Runes,
-self-lunal or a win. Work stays on `claude/serene-ramanujan-8hzsfm`;
-main and tags are unchanged. Owner policy: `FORK-CORRECTIONS.md`.
-Older blocker descriptions below are historical.
+M4 remains unfinished. E's committed native calculator checker passes
+30,000 cases, actual-source mutation rejection, C UBSan and clippy, but
+other private combat/map state is not compared. F's bounded smoke/full48
+pilot at26a96be measures61.40% logic lines and77.03% LLVM function instances;
+interrupted deep profiles are excluded. Full/new-source coverage remains
+open. Declared synthetic endgame starting points and two Borg-played
+cheat-death replay inputs pass; Sea of Runes, self-lunal and a win remain
+unestablished. No active validation jobs remain. Main/tags are unchanged;
+the owner creates tags. Policy: `FORK-CORRECTIONS.md`.
 
 ## Milestones
 

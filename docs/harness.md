@@ -488,3 +488,16 @@ stock ones.
 ran the suite twice with `JOBS=2`, the outputs were identical, and one was
 stored with `.xz` logs, `summary.json`, `config.txt`, `timing.txt`, the
 manifest and `DONE`.
+
+## Natural extended replay inputs
+
+`harness/saves/captured-extended` retains30 fork-isolated engine captures
+from the corrected28b8170 extended C/C/Rust matrix, with identical metadata
+and direct bytes in all three passes. SOURCES.json and SHA256SUMS preserve
+provenance. The named `natural` suite loads Warrior78/clevel50 and Dunadan
+Blackguard40/clevel35 for100k additional turns; strict C/C and Rust/C2/2,
+reaching84/41. Set `SAVE_ROOT=harness/saves/captured-extended` when running
+and pass the same `--save-root` to `harness/diff`. Both C passes establish
+the separately identified natural reference. These are fresh Borgs on
+Borg-played cheat-death engine states, not restored private Borg memory or
+stitched continuations. See the latest melee validation receipt.

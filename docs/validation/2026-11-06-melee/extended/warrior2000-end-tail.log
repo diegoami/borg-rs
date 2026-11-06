@@ -1,0 +1,120 @@
+1511770 4999931 6 The baby black dragon dies.
+1511771 4999933 0 # SPELL_007:The mature black dragon (+)
+1511771 4999933 0 # PAIN:The baby black dragon (+)
+1511771 4999933 0 # DIED:The baby black dragon (+)
+1511771 4999933 0 # Forgetting a monster 'baby black dragon' at (22,145)
+1511771 4999933 0 # Converting a monster 'baby black dragon' at (22,143)
+1511771 4999933 0 # Creating a monster 'baby black dragon' at (22,145), HP: 2, Index: 134
+1511771 4999933 0 # SPELL_007:The mature black dragon (3)
+1511771 4999933 0 # PAIN:The baby black dragon (2)
+1511771 4999933 0 # DIED:The baby black dragon (2)
+1511771 4999933 0 # There was a monster 'baby black dragon' at (22,144)
+1511771 4999933 0 # Forgetting a monster 'baby black dragon' at (22,144)
+1511771 4999933 0 # Junking 489163683 gold (full)
+1511771 4999933 0 # Dropping Ring of Dexterity <+3>.
+1511773 4999933 0 Inscribing a Ring of Dexterity <+3>.
+1511788 4999933 0 You drop a Ring of Dexterity <+3> {borg ignore} (y).
+1511788 4999933 0 You have no more Rings of Dexterity <+3> {borg ignore} (y).
+1511790 4999935 0 # Creating an object 'Dexterity' at (157,23)
+1511790 4999935 0 # Destroying floor item Ring~Dexterity
+1511794 4999935 0 # Flowing toward dark-1 at cost 4
+1511795 4999939 0 # Tracking a monster 'baby black dragon' at (22,144) from (22,145)
+1511795 4999939 0 # Performing attack type 60 with value 72.
+1511795 4999939 0 # Targeting mature black dragon who has 613 Hit Points (22,143).
+1511795 4999939 0 # Zapping Rods of Lightning Balls (1 charging).
+1511811 4999939 0 Target Selected.
+1511815 4999939 0 You failed to zap the rod properly.
+1511816 4999943 0 You failed to zap the rod properly.
+1511817 4999947 0 You failed to zap the rod properly.
+1511818 4999951 0 The mature black dragon grunts with pain.
+1511818 4999951 6 The baby black dragon dies.
+1511819 4999955 0 # PAIN:The mature black dragon (+)
+1511819 4999955 0 # DIED:The baby black dragon (+)
+1511819 4999955 0 # Converting a monster 'mature black dragon' at (22,143)
+1511819 4999955 0 # Forgetting a monster 'baby black dragon' at (22,143)
+1511819 4999955 0 # Creating a monster 'mature black dragon' at (22,143), HP: 549, Index: 448
+1511819 4999955 0 # PAIN:The mature black dragon (2)
+1511819 4999955 0 # DIED:The baby black dragon (2)
+1511819 4999955 0 # There was a monster 'baby black dragon' at (22,144)
+1511819 4999955 0 # Forgetting a monster 'baby black dragon' at (22,144)
+1511819 4999955 0 # Performing attack type 55 with value 54.
+1511819 4999955 0 # Targeting mature black dragon who has 549 Hit Points (22,143).
+1511819 4999955 0 # Zapping Rods of Frost Bolts (2 charging).
+1511835 4999955 0 Target Selected.
+1511839 4999955 0 The mature black dragon grunts with pain.
+1511840 4999960 0 # PAIN:The mature black dragon (+)
+1511840 4999960 0 # Tracking a monster 'mature black dragon' at (22,144) from (22,143)
+1511840 4999960 0 # PAIN:The mature black dragon (2)
+1511840 4999960 0 # Performing attack type 55 with value 54.
+1511840 4999960 0 # Targeting mature black dragon who has 492 Hit Points (22,144).
+1511840 4999960 0 # Zapping Rods of Frost Bolts (3 charging).
+1511855 4999960 0 Target Selected.
+1511859 4999960 0 The mature black dragon grunts with pain.
+1511860 4999964 0 # PAIN:The mature black dragon (+)
+1511860 4999964 0 # Tracking a monster 'mature black dragon' at (22,145) from (22,144)
+1511860 4999964 0 # PAIN:The mature black dragon (2)
+1511860 4999964 0 # Performing attack type 55 with value 54.
+1511860 4999964 0 # Targeting mature black dragon who has 440 Hit Points (22,145).
+1511860 4999964 0 # Zapping Rods of Frost Bolts (3 charging).
+1511874 4999964 0 Target Selected.
+1511878 4999964 0 The mature black dragon grunts with pain.
+1511879 4999968 0 # PAIN:The mature black dragon (+)
+1511879 4999968 0 # PAIN:The mature black dragon (2)
+1511879 4999968 0 # Performing attack type 55 with value 54.
+1511879 4999968 0 # Targeting mature black dragon who has 377 Hit Points (22,145).
+1511879 4999968 0 # Zapping Rods of Frost Bolts (4 charging).
+1511893 4999968 0 Target Selected.
+1511897 4999968 0 The mature black dragon grunts with pain.
+1511898 4999972 0 # PAIN:The mature black dragon (+)
+1511898 4999972 0 # Tracking a monster 'mature black dragon' at (22,146) from (22,145)
+1511898 4999972 0 # PAIN:The mature black dragon (2)
+1511898 4999972 0 # Performing attack type 57 with value 54.
+1511898 4999972 0 # Targeting mature black dragon who has 306 Hit Points (22,146).
+1511898 4999972 0 # Zapping Rod of Fire Bolts.
+1511911 4999972 0 Target Selected.
+1511915 4999972 0 The mature black dragon grunts with pain.
+1511916 4999976 0 # PAIN:The mature black dragon (+)
+1511916 4999976 0 # Tracking a monster 'mature black dragon' at (22,147) from (22,146)
+1511916 4999976 0 # PAIN:The mature black dragon (2)
+1511916 4999976 0 # Performing attack type 121 with value 7.
+1511916 4999976 0 # Targeting mature black dragon who has 249 Hit Points (22,147).
+1511916 4999976 0 # Activating item Set of Leather Gloves 'Cammithrim' (+5,+5) [1,+10] <+1>.
+1511928 4999976 0 Target Selected.
+1511932 4999976 31 You activate it.
+1511932 4999976 0 the Set of Leather Gloves 'Cammithrim' glows very brightly...
+1511933 4999976 0 The mature black dragon shrugs off the attack.
+1511935 4999980 0 # PAIN:The mature black dragon (+)
+1511935 4999980 0 # PAIN:The mature black dragon (2)
+1511935 4999980 0 # Activating item Phial of Galadriel <+4>.
+1511935 4999980 0 # Illuminating the dungeon
+1511937 4999980 31 You activate it.
+1511937 4999980 0 The Phial wells with clear light...
+1511937 4999980 0 You are surrounded by a white light.
+1511939 4999985 0 # SELF:lite (+)
+1511939 4999985 0 # Called lite at (22,156)
+1511939 4999985 0 # Tracking a monster 'mature black dragon' at (22,148) from (22,147)
+1511939 4999985 0 # SELF:lite (1)
+1511939 4999985 0 # Loc:22,156 Dep:42 Lev:42 HP:925/925 SP:0/0 Danger:p=10
+1511939 4999985 0 # Flowing toward kill at cost 8
+1511940 4999989 0 # Tracking a monster 'mature black dragon' at (22,149) from (22,148)
+1511940 4999989 0 # Loc:22,155 Dep:42 Lev:42 HP:925/925 SP:0/0 Danger:p=11
+1511941 4999993 0 # Loc:22,154 Dep:42 Lev:42 HP:925/925 SP:0/0 Danger:p=11
+1511941 4999993 0 # Performing attack type 55 with value 58.
+1511941 4999993 0 # Targeting mature black dragon who has 242 Hit Points (22,149).
+1511941 4999993 0 # Zapping Rods of Frost Bolts (4 charging).
+1511949 4999993 0 Target Selected.
+1511953 4999993 0 The mature black dragon cries out in pain.
+1511954 4999997 0 # PAIN:The mature black dragon (+)
+1511954 4999997 0 # Tracking a monster 'mature black dragon' at (22,150) from (22,149)
+1511954 4999997 0 # PAIN:The mature black dragon (2)
+1511954 4999997 0 # Loc:22,154 Dep:42 Lev:42 HP:925/925 SP:0/0 Danger:p=13
+1511954 4999997 0 # Performing attack type 121 with value 11.
+1511954 4999997 0 # Targeting mature black dragon who has 178 Hit Points (22,150).
+1511954 4999997 0 # Activating item Set of Leather Gloves 'Cammithrim' (+5,+5) [1,+10] <+1>.
+1511961 4999997 0 Target Selected.
+1511965 4999997 31 You activate it.
+1511965 4999997 0 the Set of Leather Gloves 'Cammithrim' glows very brightly...
+1511966 4999997 0 The mature black dragon grunts with pain.
+1511967 4999999 140 The mature black dragon conjures up scary horrors.
+1511968 4999999 0 You fight off a sense of dread.
+1511969 4999999 0 You resist the effect!

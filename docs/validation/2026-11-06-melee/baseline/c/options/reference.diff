@@ -1,0 +1,7 @@
+A: harness/out/local/baseline-melee-c/options: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=2e99ac86769d02c2
+A:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=3e9ac5743b149636; run at 28b8170a67bd (dirty=yes) overrides=none
+B: harness/reference/options: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=4c05f3b40c686a9f
+B:   built from fd6f6b120206 (dirty=no, inputs dirty=no) source_sha256=231e064ac61d375b; run at fd6f6b120206 (dirty=no) overrides=none
+25/25 runs identical (expected 25)
+messages.log compared in 25 run(s)
+state.log compared in 25 run(s)
