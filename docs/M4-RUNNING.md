@@ -98,3 +98,19 @@ fixture or additional class/equipment set has been tested yet.
 The CLI checkout has no push credential. WIP commits were published to
 the requested branch through the connected GitHub API; no upstream
 Angband issue, PR, comment or tag was created.
+
+## Supervisor and capture follow-up
+
+Implemented after the owner's request: one-shot engine supervision,
+optional fixed-cadence capture in forked private engine copies, completed
+capture hashes and an explicit fresh-Borg replay matrix. See
+`docs/checkpoints.md`. No source run is automatically retried or promoted.
+Both original blocking scenarios remain unchanged.
+
+The final capture regression output is
+`/tmp/borg-d-savefiles/harness/out/checkpoint-regress.71IORj`: C/Rust
+capture-on/off smoke comparisons, identical C/C/Rust saves, a depth50
+observer control and two matching fresh replay matrices (one from an
+interrupted source that stays FAILED). The timeout refusal control was
+also checked directly and returns 2. Seven supervisor unit tests pass;
+`check-no-c-borg.sh` passes after the new engine/frontend hook.

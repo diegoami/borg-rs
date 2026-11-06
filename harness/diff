@@ -2,7 +2,7 @@
 """Compare Borg keypress logs and print the first divergence.
 
 Usage:
-  harness/diff [--suite NAME] [--expect-impl c|rust] [--allow-incomplete]
+  harness/diff [--suite NAME] [--save-root DIR] [--expect-impl c|rust] [--allow-incomplete]
               [--allow-unverified] A B
 
   A and B are either two key logs (keys.log or keys.log.xz) or two
@@ -313,7 +313,7 @@ def suite_spec(suite):
 CONFIG_FLAGS = {"munchkin", "lunal", "selflunal"}
 
 
-def check_suite_params(label, d, suite):
+def check_suite_params(label, d, suite, save_root=None):
     """The runs in d are the suite's scenarios, not just its run names:
     a suite output's manifest must record this suite file (suite_sha256);
     every run's summary must show the suite's seed, race and class
@@ -367,7 +367,7 @@ def check_suite_params(label, d, suite):
             if len(saves) != 1 or not re.fullmatch(r"[a-zA-Z0-9_-]+\.save", saves[0]):
                 bad.append("invalid suite save filename")
             else:
-                fixture = os.path.join(os.path.dirname(__file__), "saves", saves[0])
+                fixture = os.path.join(save_root or os.path.join(ROOT, "harness", "saves"), saves[0])
                 if not os.path.isfile(fixture):
                     bad.append("suite savefile is missing")
                 else:
@@ -508,10 +508,13 @@ def main(argv):
     allow = False
     allow_unverified = False
     expect_impl = None
+    save_root = None
     while args and args[0].startswith("--"):
         opt = args.pop(0)
         if opt == "--suite" and args:
             suite = args.pop(0)
+        elif opt == "--save-root" and args:
+            save_root = os.path.abspath(args.pop(0))
         elif opt == "--allow-incomplete":
             allow = True
         elif opt == "--allow-unverified":
@@ -561,7 +564,7 @@ def main(argv):
                           % (r, suite, label, d))
                 ok &= not missing and not extra
             for label, d in (("A", A), ("B", B)):
-                for p in check_suite_params(label, d, suite):
+                for p in check_suite_params(label, d, suite, save_root):
                     print("== SUITE MISMATCH " + p)
                     ok = False
             names = sorted(set(expected) | na | nb)

@@ -155,6 +155,9 @@ if [ -n "$(git -C "$ROOT" status --porcelain 2>/dev/null)" ]; then DIRTY=yes; el
     echo "git_rev=$GIT_REV"
     echo "git_dirty=$DIRTY"
     echo "jobs=$JOBS"
+    echo "checkpoint_every=${CHECKPOINT_EVERY:-0}"
+    echo "run_timeout_seconds=${RUN_TIMEOUT_SECONDS:-0}"
+    echo "save_root=${SAVE_ROOT:-$ROOT/harness/saves}"
     echo "started_utc=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 } > "$WORK/manifest"
 

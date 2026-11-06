@@ -24,6 +24,10 @@
 #                itself (respawn race/class); borg_cheat_death is set
 #                with the cheat flag only.
 #   Env: BORG_IMPL=c|rust (selects build/<impl>), ANGBAND_BIN (override binary)
+#     CHECKPOINT_EVERY=N fixed game-turn capture cadence (0 = off).
+#     RUN_TIMEOUT_SECONDS=N optional wall timeout per child (0 = off).
+#     SAVE_ROOT=DIR fixture root for save=NAME (default harness/saves).
+#   process.json records the supervised child result, never a forged summary.
 # Produces OUTDIR/keys.log (the oracle), OUTDIR/messages.log (every message
 # added to the message log, Borg notes included), OUTDIR/state.log (one
 # engine-state line per key), OUTDIR/summary.json, OUTDIR/stderr.log,
@@ -32,6 +36,10 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMPL="${BORG_IMPL:-c}"
+SAVE_ROOT="${SAVE_ROOT:-$ROOT/harness/saves}"
+CHECKPOINT_EVERY="${CHECKPOINT_EVERY:-0}"
+[[ "$CHECKPOINT_EVERY" =~ ^(0|[1-9][0-9]{0,8}|1000000000)$ ]] || {
+    echo "run.sh: CHECKPOINT_EVERY must be 0..1000000000" >&2; exit 2; }
 BIN="${ANGBAND_BIN:-$ROOT/build/$IMPL/game/angband}"
 [ -x "$BIN" ] || { echo "missing $BIN (run harness/build.sh)" >&2; exit 2; }
 OUT="$(realpath -m "$1")"; SEED="$2"; RACE="$3"; CLASS="$4"; TURNS="$5"; shift 5
@@ -59,8 +67,8 @@ if [ "$FLAGS" != "-" ]; then
                 [ -z "$SAVE_NAME" ] || { echo "run.sh: duplicate save flag" >&2; exit 2; }
                 SAVE_NAME="${fl#save=}"
                 [[ "$SAVE_NAME" =~ ^[a-zA-Z0-9_-]+\.save$ ]] || {
-                    echo "run.sh: save must be a filename under harness/saves" >&2; exit 2; }
-                [ -s "$ROOT/harness/saves/$SAVE_NAME" ] || {
+                    echo "run.sh: save must be a filename under SAVE_ROOT" >&2; exit 2; }
+                [ -s "$SAVE_ROOT/$SAVE_NAME" ] || {
                     echo "run.sh: missing fixture $SAVE_NAME" >&2; exit 2; }
                 ;;
             *=*)
@@ -84,9 +92,13 @@ rm -rf "$OUT"
 mkdir -p "$OUT"/{user,save,archive,panic,scores}
 if [ -n "$SAVE_NAME" ]; then
     # The engine may autosave: never give it the committed fixture's path.
-    cp "$ROOT/harness/saves/$SAVE_NAME" "$OUT/save/input.save"
+    cp "$SAVE_ROOT/$SAVE_NAME" "$OUT/save/input.save"
     BIRTH_ARGS=()
     BORGH_FLAGS+=(-load "$OUT/save/input.save")
+fi
+if [ "$CHECKPOINT_EVERY" != 0 ]; then
+    mkdir -p "$OUT/checkpoints"
+    BORGH_FLAGS+=(-checkpoint-every "$CHECKPOINT_EVERY" -checkpoint-dir "$OUT/checkpoints")
 fi
 # Pinned config; respawn race/class follow the run (cheat death stays off)
 sed -e "s/^borg_respawn_race = .*/borg_respawn_race = $RACE/" \
@@ -116,10 +128,13 @@ done
     if [ -n "$SAVE_NAME" ]; then
         echo "save_sha256=$(sha256sum < "$OUT/save/input.save" | cut -d' ' -f1)"
     fi
+    if [ "$CHECKPOINT_EVERY" != 0 ]; then echo "checkpoint_every=$CHECKPOINT_EVERY"; fi
 } > "$OUT/config.txt"
 cd "$(dirname "$BIN")"   # the game finds ./lib relative to the cwd
 set +e
-TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 "$BIN" -mborgh "${BIRTH_ARGS[@]}" -uBorg \
+TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 python3 "$ROOT/harness/supervise.py" \
+    --receipt "$OUT/process.json" --diagnostics "$OUT" --timeout "${RUN_TIMEOUT_SECONDS:-0}" -- \
+    "$BIN" -mborgh "${BIRTH_ARGS[@]}" -uBorg \
     -duser="$OUT/user" -dsave="$OUT/save" -darchive="$OUT/archive" \
     -dpanic="$OUT/panic" -dscores="$OUT/scores" -- \
     -seed "$SEED" -race "$RACE" -class "$CLASS" -turns "$TURNS" \

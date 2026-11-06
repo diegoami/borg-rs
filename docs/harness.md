@@ -1,5 +1,12 @@
 # Deterministic Borg harness
 
+Every run now has a one-shot supervisor and a `process.json` outcome.
+Optional fixed-cadence engine capture and explicit fresh-Borg C/C/Rust
+replays are documented in [checkpoints.md](checkpoints.md). Captures are
+made in forked private copies so the stock saver's monster compaction
+cannot mutate the live run. Existing failure markers and strict oracles
+are preserved; no automatic restart or reference promotion occurs.
+
 ## Saved-character replay (M4 D)
 
 `harness/suites/endgame` uses `save=NAME.save` flags to load the fixtures

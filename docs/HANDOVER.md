@@ -1,6 +1,8 @@
 # Handover
 
 Active C/D work has started (2026-11-06), with strict parity still pending.
+The supervisor and periodic forked checkpoint capture are implemented;
+see `docs/checkpoints.md` for usage, fresh replay semantics and controls.
 Read `docs/M4-RUNNING.md` for the running extended passes, endgame fixtures,
 Rust NULL-note correction and C bugs 52-53 (tracker #287 and #290). Neither C nor D is
 a passed checkpoint; main and tags have not moved.
@@ -16,7 +18,7 @@ player (59 C modules, about 64k lines in `angband/src/borg/`, Angband
 must produce the same keypress stream as the C Borg, byte for byte, when it
 drives the same C engine with the same seed. It is not a redesign: no new
 tactics, no fixes. Known C bugs are kept on purpose and listed in
-`docs/c-bugs.md` (51 sections); from section 42 on each is also filed as a
+`docs/c-bugs.md` (53 sections); from section 42 on each is also filed as a
 lead in diegoami/neo-angband-tracker (`CLAUDE.md` has the rule and format).
 
 ## Where it stands
