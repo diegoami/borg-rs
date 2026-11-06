@@ -9,7 +9,7 @@ stays unmodified, existing references stay as they are).
 
 | step | what | evidence it adds | status |
 |------|------|------------------|--------|
-| A | messages and engine-state log beside the key log, in both builds | Borg notes, game messages and per-key engine state (position, HP, depth, gold, pack...) compared, not only keys | in progress |
+| A | messages and engine-state log beside the key log, in both builds | Borg notes, game messages and per-key engine state (position, HP, depth, gold, pack...) compared, not only keys | done: `messages.log` and `state.log` per run (engine-side hooks, both builds), checked by `harness/diff`; added to the smoke, full, deep, classes and config references (C twice identical, keys and summaries unchanged), Rust 80/80 identical on all three logs; see STATUS |
 | B | an `options` suite: one run per remaining `borg.txt` option (money scum, dynamic calcs, worships, risky play, swaps off, respawn...) | configuration-dependent code paths | done: `harness/suites/options` (25 runs, `NAME=VALUE` and `cheatlive` flags, start-up `-more-` answered), C twice identical, Rust 25/25; see STATUS |
 | C | more seeds and longer cheat-death runs | more of the mid game, deeper levels | planned |
 | D | endgame starting points: savefiles at depth 50+, 98-100 and next to Morgoth, loaded by both builds with the same seed | the endgame (Sea of Runes, Morgoth, deep swaps, self-lunal) | planned |

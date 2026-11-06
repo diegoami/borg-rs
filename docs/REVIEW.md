@@ -98,6 +98,9 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
    * The C references are in `harness/reference/`. They were made from the
      unmodified C build and checked deterministic (two C runs, identical, for
      every suite; for `smoke` this was first recorded after the review).
+     Since M4 step A each reference run also has `messages.log.xz` and
+     `state.log.xz`, made the same way (C twice, identical; the stored
+     keys and summaries reproduced byte for byte).
 5. Per module, the converting agent also ran a temporary cross-check. The old
    c2rust code ran next to the new code on every real call, and on fuzzed
    inputs that reach code the suites never touch, with state compared field by

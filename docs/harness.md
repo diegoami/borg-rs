@@ -320,14 +320,23 @@ suite output).
 | `options` | 25 runs (22 x 100k, 200k, 400k, 1M), flag `menu`, `cheat` or `cheatlive`, one `NAME=VALUE` option each | the other borg.txt options: money scum, self scum, dynamic calcs, worships, risky, uniques, swaps, depth/level stops, autosave, verbose, chests, munchkin limits, respawn (see below) |
 
 `harness/reference/<suite>/<run>/{keys.log.xz,summary.json}` are the C
-Borg's logs for each suite, made from the C build. Check a build with:
+Borg's logs for each suite, made from the C build. Each run dir also has
+`messages.log.xz` and `state.log.xz` (M4 step A), added later from the C
+build of `10303cba9`: that build ran every suite twice, both passes'
+`keys.log` and `summary.json` (apart from `wall_seconds`) were
+byte-identical to the stored ones, and the two passes' message and state
+logs were identical; the existing reference files were not changed. They
+add 10.9 MB (messages) and 6.9 MB (state) of xz to the 2.4 MB of key
+logs. Check a build with:
 
     BORG_IMPL=rust harness/suite.sh full
     harness/diff --suite full --expect-impl rust harness/out/rust/full harness/reference/full
 
-The key oracle does not see Borg notes or screen output, Borg-side direct
-writes to game state (they count only through later keys), anything after
-the turn limit, or a Borg config option in a way no suite run plays (the
+The oracle (keys, messages, state digest) does not see screen output,
+the Borg's internal state (only through keys and notes), engine state
+outside the digest such as the cave, monsters, floor objects and stores
+(only through later keys, messages or player state), anything after the
+turn limit, or a Borg config option in a way no suite run plays (the
 `config` and `options` suites change one option per run; all other
 suites run with the stock `borg.txt`; see "The options suite" for what
 each option reaches).

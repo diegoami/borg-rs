@@ -426,3 +426,54 @@ Rust options --expect-impl rust           25/25 runs identical, exit 0
 Rust config --expect-impl rust            7/7 runs identical, exit 0
 Rust smoke, C smoke (stock suites)        3/3 each against reference/smoke, exit 0
 ```
+
+## Messages and state log (M4 step A, 2026-11-06)
+
+Before, a difference in Borg notes or in game state that never changed a
+key was invisible. Each run now writes two more logs beside `keys.log`
+(details in `docs/harness.md`, "The borgh frontend"):
+
+* `messages.log`: every `message_add()` call (repeats included), with the
+  key count, game turn and message type. The hook is in the engine's
+  `message.c` (`#ifdef BORG_HARNESS`). Game messages and Borg notes both
+  go through `message_add()`: C `borg_note()` calls it directly,
+  `borg_warning()` through `msg()`, and the Rust `borg_io.rs` calls the
+  same engine functions, so the hook is the same code for both builds.
+* `state.log`: one line per key (line i is key i), written by the borgh
+  frontend: grid, depth and max depth, HP, SP, food, gold, exp, level,
+  the set timed effects, the gear timeouts, and FNV-1a hashes of the
+  pack/quiver and of the equipment (kind, number, pval, ac, to_h, to_d,
+  to_a, notice, flags, modifiers, element info, curses, and the same of
+  each object's known version: its learnt runes) and of the player's rune
+  knowledge. Read only: no RNG, no state-changing call.
+
+`harness/diff` compares both byte for byte (and checks the state log
+against the key log line by line). A log on one side only fails the run,
+unless that side is a stored dir made before the logs existed (then it is
+noted, not compared). The C Borg sources are untouched.
+
+Evidence (C build and Rust build of `10303cba9`, `JOBS=2`):
+
+```
+C pass 1 and pass 2, every suite      keys.log and summary.json (minus wall_seconds)
+                                      byte-identical to the stored references:
+                                      smoke 3/3, full 45/45, deep 9/9, classes 16/16, config 7/7
+C pass 1 vs C pass 2 (harness/diff)   80/80 runs identical, messages and state compared in all
+Rust vs reference (--expect-impl rust) smoke 3/3, full 45/45, deep 9/9, classes 16/16,
+                                      config 7/7: keys, messages and state identical, exit 0
+```
+
+So the new hooks did not change any key stream, and the Rust Borg writes
+the same notes and leaves the same per-key player state as the C Borg on
+all 80 runs. C pass 1's logs were added to the references as
+`messages.log.xz` and `state.log.xz` (xz -9): 10.9 MB and 6.9 MB, beside
+2.4 MB of key logs; the largest file is 1.4 MB
+(`deep/deep-7-ranger/messages.log.xz`). Keys, summaries, config files and
+manifests of the references are unchanged.
+
+Limits: the digest covers the player, not the cave, the monsters, floor
+objects or stores; the hashes are 64-bit (a collision could hide a gear
+difference on one line, not a lasting one); messages after the run's
+last key are not logged (the run exits on that key); the options suite
+(step B) reference predates these logs, so `harness/diff` notes and skips
+them there until its reference gets them.
