@@ -1201,3 +1201,4 @@ with its issues.
   stops at the overflow it was meant to fix.
 * Rust (`borg_think.rs`): kept (the reset and the warning are converted
   exactly; the cross-check reached them only by fuzzing the clock).
+* Tracker: diegoami/neo-angband-tracker#246.
