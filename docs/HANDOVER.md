@@ -21,19 +21,24 @@ lead in diegoami/neo-angband-tracker (`CLAUDE.md` has the rule and format).
 | M1 deterministic C harness | done, tag `m1-harness` |
 | M2 c2rust transpile behind the seam | done, tag `m2-c2rust` |
 | M3 safe, idiomatic Rust | done, tag `m3` = `74fc8793c`, after three external reviews |
-| M4 wider parity evidence | in progress, `docs/M4-PLAN.md` |
+| M4 wider parity evidence | in progress: steps A (messages/state log) and B (options suite) done; C-F open (`docs/M4-PLAN.md`) |
 
 - All 59 modules are safe Rust in `borg-rs/src/<module>.rs`. `unsafe` only
   in `engine.rs` (the FFI boundary, 240) and the engine's C declarations in
   `headers/` (28): `borg-rs/tools/count-unsafe.sh`. `lib.rs` denies unsafe
   elsewhere; every module is `pub(crate)` (no public safe facade; the only
   public item is `regress::note_alias_report`).
-- Equivalence: the Rust key stream is byte-identical to the C references on
-  every suite: smoke 3, full 45, deep 9, classes 16, config 7 runs (stock
-  borg.txt plus munchkin and lunal mode; no run deeper than dungeon level
-  27). Outside that (endgame, most options, state that does not change a
-  key) the evidence is reading and conversion-time cross-checks that were
-  not committed. That is what M4 is for.
+- Equivalence: on all 105 runs of the six suites (smoke 3, full 45, deep
+  9, classes 16, config 7, options 25) the Rust build is byte-identical to
+  the C references in its key stream, its message log (game messages and
+  the Borg's notes) and a per-key player-state digest. Configurations: the
+  stock borg.txt, munchkin and lunal mode, and 16 more options (money scum,
+  dynamic calcs, worships, risky, stop limits, respawn...). No run goes
+  deeper than dungeon level 27. Outside that (endgame, self-lunal, the
+  Borg's internal state, the map/monsters) the evidence is reading and
+  conversion-time cross-checks that were not committed: M4 steps C-F.
+- Natural nested Borg entries happen in 11 runs (config lunal, several
+  options runs); all identical to C.
 - Reviews: three external reviews, each with a record and a response in
   `docs/` (`REVIEW-*.md`, `REVIEW-RESPONSE-*.md`; the first review's
   report is on branch `review/m3-4c06cec08`). The owner asked to keep them
@@ -48,7 +53,7 @@ lead in diegoami/neo-angband-tracker (`CLAUDE.md` has the rule and format).
 ```
 harness/build.sh                    # C Borg   -> build/c   (+ BUILD_ID)
 BORG_IMPL=rust harness/build.sh     # Rust Borg -> build/rust (+ BUILD_ID)
-BORG_IMPL=rust JOBS=2 harness/suite.sh full
+BORG_IMPL=rust JOBS=2 harness/suite.sh full     # smoke full deep classes config options
 harness/diff --suite full --expect-impl rust harness/out/rust/full harness/reference/full
 harness/check-no-c-borg.sh
 harness/regress/note-alias/run.sh   # C vs Rust note aliasing
@@ -57,7 +62,9 @@ harness/regress/nested/run.sh       # forced nested Borg entries
 ```
 
 Suite wall times with `JOBS=2` on the 4-core container: smoke ~1 min,
-full ~10 min, deep ~25-40 min, classes ~10 min, config ~4 min. Details:
+full ~10 min, deep ~25-40 min, classes ~10 min, config ~4 min, options ~4 min.
+The last line of `harness/diff` output is a note about the logs; the verdict
+is the `N/M runs identical` line and the exit code (0 = identical). Details:
 `docs/harness.md` (build identity, roles, `--suite` scenario checks, config
 flags). Rust 1.97.0 is installed; 1.98.1 was used to check clippy.
 
@@ -93,9 +100,11 @@ flags). Rust 1.97.0 is installed; 1.98.1 was used to check clippy.
 
 ## Open items
 
-- M4 steps (see `docs/M4-PLAN.md` for status): A messages/state log,
-  B options suite, C more seeds and longer runs, D endgame savefiles,
-  E native-C differential checker, F coverage.
+- M4 steps C-F (`docs/M4-PLAN.md`): C more seeds and longer runs, D
+  endgame savefiles (the biggest remaining gap), E a committed native-C
+  differential checker (start from local branches `xcheck-wip`, `xcheck2`,
+  `xcheck3`), F coverage measurement. Options still not covered by a run
+  are listed in `docs/harness.md` ("The options suite").
 - Known latent items, documented: a few panics where C reads out of bounds
   on inputs no suite reaches (e.g. tracker #198); the engine handles and
   table copies are sound inside the crate but rely on all Borg code running

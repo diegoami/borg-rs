@@ -18,3 +18,6 @@ stays unmodified, existing references stay as they are).
 
 Each step lands with its own C references (made with the C build, twice,
 identical) and a checkpoint of all suites.
+
+Checkpoint after A and B (PROGRESS row 65): Rust = C on keys, messages
+and state in all 105 runs of the six suites.
