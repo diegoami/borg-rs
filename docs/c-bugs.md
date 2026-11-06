@@ -1295,6 +1295,13 @@ with its issues.
   This remains a strict message-parity blocker for step D.
 * Tracker: diegoami/neo-angband-tracker#287 (reported lead).
 
+
+Owner-authorized correction (2026-11-06): C and Rust now reserve one byte
+for NUL and return empty text/error on failed conversion. The native
+actual-function regression fails before and passes after. Full endgame
+C/C/Rust validation remains pending. The description above records the
+pinned original C defect; see `docs/FORK-CORRECTIONS.md`.
+
 ## 53. Queued detection can address a panel outside resized arrays (update)
 
 * M4 C, natural Hobbit Rogue seed 4006, `menu,cheat`, 2M-turn limit:
@@ -1323,3 +1330,10 @@ with its issues.
   accepted run is applied. C stays unchanged; Rust's bounds panic stays.
   The `extended` suite cannot pass its full scenario set with this fault.
 * Tracker: diegoami/neo-angband-tracker#290 (reported lead).
+
+Owner-authorized correction (2026-11-06): C and Rust now reset old offsets
+at equality with cave dimensions. The original C signal observer faults
+in `borg_update`, at `borg_detect_wall`'s next-row write (q_y=1, q_x=0,
+NULL next-row pointer). Full seed4006 2M-turn corrected validation is
+pending. The original-source description above is historical; the tracker
+has not yet received this correction receipt.

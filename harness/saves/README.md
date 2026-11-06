@@ -1,9 +1,11 @@
-# Synthetic endgame starting points
+# Saved-character starting points
+
+## Synthetic endgame fixtures
 
 These are wizard-created engine savefiles, not characters played to the
 endgame by the Borg. They isolate deep-dungeon starting states for M4 D.
 Only the engine/frontend under `BORG_HARNESS` creates them. Neither Borg
-implementation is changed. All fixtures are Human Warriors, level 50,
+implementation is changed. These five fixtures are Human Warriors, level 50,
 with maximum natural stats, known runes, an artifact kit and healing,
 speed, escape, banishment, recall and food supplies. There is no
 invulnerability. Depth 100 marks Sauron dead; Morgoth remains alive.
@@ -35,3 +37,25 @@ Limits: one class, one equipment kit, no naturally developed endgame
 character, no self-lunal starting point. A depth or a nearby monster alone
 does not establish that a particular tactic (for example Sea of Runes)
 ran. State such claims only when the replay logs provide evidence.
+
+
+## Captured Rogue fixtures
+
+The eight `rogue-4006-cp*.save` files are natural Hobbit Rogue engine states
+from seed 4006 with `menu,cheat`. Both C source runs used the unchanged
+2M-turn scenario and fixed 100k capture cadence. Both crashed, but all eight
+completed captures are byte-identical between the two passes. Provenance,
+source failure receipts and per-file hashes are in
+`captured-rogue-SOURCES.json` and `captured-rogue-SHA256SUMS`.
+
+`harness/suites/captured-rogue` uses every captured state, in order, with
+seed 4006 and the same flags. Each fresh Borg runs to the next fixed 100k
+threshold (200000 through 900000), stopping at the first key boundary.
+Two C passes match each other and Rust in keys, messages and player state
+for all eight cases. The C references are in `reference/captured-rogue`.
+
+These are independent fresh-Borg tests: loading reseeds the engine and
+does not restore the Borg's private memory. They provide useful coverage
+without requiring the long source run to survive C's detection-array bug.
+They are not pieces of an uninterrupted 2M-turn execution. See
+`docs/FORK-CORRECTIONS.md` for the current acceptance policy.

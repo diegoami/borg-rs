@@ -1,0 +1,21 @@
+{
+  "seed": 4006,
+  "loaded": true,
+  "loaded_turn": 800001,
+  "race": "Hobbit",
+  "race_idx": 3,
+  "class": "Rogue",
+  "class_idx": 6,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 900008,
+  "player_turns": 90624,
+  "resting_turns": 8824,
+  "clevel": 12,
+  "max_depth": 3,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 16173,
+  "wall_seconds": 30.567
+}

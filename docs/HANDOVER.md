@@ -1,6 +1,11 @@
 # Handover
 
-Active C/D work has started (2026-11-06), with strict parity still pending.
+Local continuation: read `docs/LOCAL-SESSION-HANDOVER.md` first. It records
+the owner's revised correction policy, transferred WIP and exact next checks.
+
+Owner-authorized crash/play-blocker corrections are now allowed in C and
+Rust; see `docs/FORK-CORRECTIONS.md`. Other behaviour conflicts are decided
+case by case. Broader divergence follows a milestone and owner-created tag.
 The supervisor and periodic forked checkpoint capture are implemented;
 see `docs/checkpoints.md` for usage, fresh replay semantics and controls.
 Read `docs/M4-RUNNING.md` for the running extended passes, endgame fixtures,
@@ -14,10 +19,10 @@ For the next session working on borg-rs. Read this first, then
 
 A faithful port to Rust of the Angband Borg, the game's built-in automatic
 player (59 C modules, about 64k lines in `angband/src/borg/`, Angband
-`e473720ed`, vendored as a git subtree and never updated). The Rust Borg
+`e473720ed`, vendored as a git subtree and locally corrected only under `docs/FORK-CORRECTIONS.md`). The Rust Borg
 must produce the same keypress stream as the C Borg, byte for byte, when it
 drives the same C engine with the same seed. It is not a redesign: no new
-tactics, no fixes. Known C bugs are kept on purpose and listed in
+tactics. Targeted crash/play-blocker fixes are now authorized. C bugs are recorded and listed in
 `docs/c-bugs.md` (53 sections); from section 42 on each is also filed as a
 lead in diegoami/neo-angband-tracker (`CLAUDE.md` has the rule and format).
 
@@ -78,10 +83,11 @@ flags). Rust 1.97.0 is installed; 1.98.1 was used to check clippy.
 ## Rules that are easy to break
 
 - Never make a diff pass by editing references, seeds or suites, or by
-  special-casing anything; never change Borg behaviour; never fix a C bug
-  (record it). Where C reads out of bounds, Rust panics (documented).
-- The C Borg sources stay unmodified; harness hooks only under
-  `#ifdef BORG_HARNESS` in engine/frontend files.
+  special-casing anything; only make authorized, documented corrections. Targeted crash/play-blocker
+  corrections are authorized under `docs/FORK-CORRECTIONS.md`; match C
+  and Rust corrections and validate against corrected C twice.
+- Mark authorized C/Rust crash corrections `FORK` and link tracker issues.
+  Unrelated harness hooks remain under `#ifdef BORG_HARNESS` in engine/frontend files.
 - New references are made with the C build, run twice, identical.
 - C bug leads go to diegoami/neo-angband-tracker after the module is merged
   and pushed (`CLAUDE.md`). Never post anything to angband/angband.

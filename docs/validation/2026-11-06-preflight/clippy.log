@@ -1,0 +1,3 @@
+    Checking libc v0.2.191
+    Checking borg-rs v0.1.0 (/tmp/borg-crash-fixes/borg-rs)
+    Finished `release` profile [optimized + debuginfo] target(s) in 8.06s

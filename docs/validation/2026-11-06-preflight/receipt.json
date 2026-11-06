@@ -1,0 +1,27 @@
+{
+  "scope": "Corrected C/Rust preflight only; not an M4 checkpoint",
+  "c_smoke": "3/3 keys/messages/state identical to original references",
+  "rust_smoke": "3/3 keys/messages/state identical to original references",
+  "rust_tests": {
+    "passed": 100,
+    "failed": 0,
+    "ignored": 1
+  },
+  "clippy": "release all-targets -D warnings passed",
+  "screen_text": "actual C function regression failed before correction, passed after",
+  "source_hashes": {
+    "c": {
+      "source_sha256": "07cc4471bc2c3261e294863a4bf90563b0f1e9c3ffdf3e226895ea52bc3f7339",
+      "binary_sha256": "e28d2b6ce8a66d047a8aeb0d79f616cc2304bfe57759b63155310db892ec1246",
+      "build_git_rev": "e0f93e797deea3d51ad192fd62548ac8b38778d4",
+      "inputs_dirty": "yes"
+    },
+    "rust": {
+      "source_sha256": "1fedbbac3dc6bbd5cd9555cf601c2d84a8b635567ec68c579d7263cd99c5b716",
+      "binary_sha256": "89065990fdb7570ed674cacafed6d310b3aad4022f094209bd205c8f21b9d009",
+      "build_git_rev": "e0f93e797deea3d51ad192fd62548ac8b38778d4",
+      "inputs_dirty": "yes"
+    }
+  },
+  "incomplete": "crash-fixes, endgame, and 105-case full checkpoint batches have no accepted completion receipts"
+}

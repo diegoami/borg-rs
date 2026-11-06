@@ -1,5 +1,11 @@
 # Guide for reviewers
 
+
+Owner update (2026-11-06): targeted C/Rust corrections for crashes and
+blatant play blockers are allowed; other conflicts are case by case.
+See `docs/FORK-CORRECTIONS.md`, which supersedes earlier absolute fidelity
+restrictions for those corrections. Broader divergence follows a milestone
+and owner-created tag.
 This repository ports the Angband Borg (the game's built-in automatic player,
 about 64k lines of C in `angband/src/borg/`) to Rust. It is a faithful port:
 the Rust Borg must produce the same keypress stream as the C Borg,

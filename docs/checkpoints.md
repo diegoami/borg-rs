@@ -87,7 +87,8 @@ private memory. Ordinary engine saving may renumber monsters in that
 saved copy. The loading frontend then reseeds at the pre-Borg boundary,
 as for the existing endgame suite. No traces may be stitched together,
 and a matching fresh replay does not turn its failed source into a pass.
-Original scenarios, crashes and message differences remain visible.
+Known C faults can receive targeted corrections under the owner
+policy in `docs/FORK-CORRECTIONS.md`; replay coverage remains independent.
 
 For manually declared replay suites, `SAVE_ROOT=DIR` selects the directory
 used for `save=NAME.save`. The verifier requires an explicit matching
@@ -119,10 +120,11 @@ Verified in this session:
   suite remains `FAILED`; strict diff refuses it.
 * A real C run interrupted after its first completed capture remains
   `FAILED`. The retained capture produces matching C/C/Rust fresh replays,
-  and the original failure marker remains unchanged.
+  and that independent coverage is accepted despite the interrupted source.
 
 These controls establish observation equivalence for the tested states,
 not a guarantee about arbitrary undefined C memory. The detection-array
-crash and unterminated multibyte text remain unmodified (tracker #290 and
-#287). C/D and the post-change full milestone checkpoint remain pending;
-main and tags stay at their prior positions.
+crash and unterminated multibyte text are known C exceptions (tracker #290
+and #287). Eight natural Rogue captures now have matching C/C/Rust
+references in `harness/reference/captured-rogue`. The 105-case baseline
+recheck is in progress. Main and tags stay at their prior positions.

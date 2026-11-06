@@ -1,0 +1,2 @@
+probe: /tmp/borg-crash-fixes/harness/regress/screen-text/probe.c:23: main: Assertion `memchr(out, 0, 80) != NULL && out[80] == '?'' failed.
+harness/regress/screen-text/run.sh: line 9:    19 Aborted                 "$OUT/probe"

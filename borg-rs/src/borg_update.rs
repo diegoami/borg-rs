@@ -1191,7 +1191,9 @@ pub fn borg_update(st: &mut BorgState) {
     // if the old panel info is larger than the cave, reset it. This can
     // happen if the player changes levels while there are messages
     // waiting to be processed
-    if st.update.o_w_x > width || st.update.o_w_y > height {
+    // FORK: equality is outside the cave, too (tracker #290).
+    // Match the crash correction in borg-update.c before queued detection.
+    if st.update.o_w_x >= width || st.update.o_w_y >= height {
         st.update.o_w_y = 0;
         st.update.o_w_x = 0;
     }

@@ -2,6 +2,14 @@
 
 ## Current M4 work (2026-11-06)
 
+Owner update: crash/play-blocker corrections are authorized. Matching C/Rust
+fixes for tracker #290 (panel-offset equality) and #287 (multibyte NUL) are
+implemented and compile. The actual C screen-text regression fails before
+and passes after. Earlier background validation batches have incomplete
+receipts and unavailable sessions; they are not counted as passes. Restart
+in bounded batches. See `docs/FORK-CORRECTIONS.md`; older blocker wording
+below describes the pre-correction baseline.
+
 Work remains on `claude/serene-ramanujan-8hzsfm`; main and tags have not
 moved. Step C's `extended` suite (12 runs, 33M turns per pass) is running
 twice with C and once with the pre-correction Rust build; incomplete

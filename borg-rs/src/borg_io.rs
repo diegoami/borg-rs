@@ -53,8 +53,9 @@ pub struct IoState {
 ///
 /// Reading stops at the first character whose attribute differs from the
 /// first non-space character's; the attribute goes to `a`. The text is
-/// converted with `wcstombs` into `s`, which has `|n| + 1` bytes. Returns 1
-/// if fewer than `n` (n > 0) characters were read, else 0.
+/// converted with `wcstombs` into `s`, which has `|n| + 1` bytes, reserving
+/// one byte for NUL. Returns 1 on conversion error or if fewer than `n`
+/// (n > 0) characters were read, else 0.
 pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
     let mut screen_str: [wchar_t; 1024] = [0; 1024];
     let mut d_a: i32 = 0;
@@ -83,7 +84,14 @@ pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
     screen_str[i.max(0) as usize] = 0;
     *a = d_a as u8;
     let len = (n.abs() + 1) as usize;
-    engine::wcstombs(&mut s[..len], &screen_str);
+    // FORK: match C's termination correction (tracker #287). wcstombs
+    // counts bytes, not screen columns, and need not write a NUL at capacity.
+    let converted = engine::wcstombs(&mut s[..len - 1], &screen_str);
+    if converted == usize::MAX {
+        s[0] = 0;
+        return 1;
+    }
+    s[converted] = 0;
     if n > 0 && i != n {
         return 1;
     }
