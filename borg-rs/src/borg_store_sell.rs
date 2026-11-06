@@ -1097,7 +1097,7 @@ pub fn borg_think_shop_sell_useless(st: &mut BorgState) -> bool {
 /// Sell items to the current shop, if desired
 pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
     // Sell something if requested
-    if st.borg.goal.shop == bridge::shop_num(st) && st.borg.goal.item >= 0 {
+    if st.borg.goal.shop == st.think.shop_num && st.borg.goal.item >= 0 {
         let idx = st.borg.goal.item as usize;
         let item = st.items.items[idx];
 

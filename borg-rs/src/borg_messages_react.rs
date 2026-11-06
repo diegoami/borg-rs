@@ -24,7 +24,7 @@ use crate::headers::borg_trait_h::{BI_CLEVEL, BI_ISPARALYZED};
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// The queue of parsed messages waiting for `borg_update()`, and
 /// `borg_dont_react`.
@@ -237,7 +237,7 @@ pub fn borg_react_prompted(st: &mut BorgState, buf: &[u8], cursor: loc) -> Optio
                 note.extend_from_slice(b"> ***");
                 borg_note_bytes(st, &note);
                 borg_dump_recent_keys(st, 20);
-                bridge::borg_oops(st, "unexpected request for direction");
+                crate::borg_think::borg_oops(st, "unexpected request for direction");
                 return Some(ESCAPE);
             }
         }
@@ -297,7 +297,7 @@ pub fn borg_react_prompted(st: &mut BorgState, buf: &[u8], cursor: loc) -> Optio
             // this shouldn't happen but can if the borg is "playing with"
             // and unknown rod
             if !st.borg.trying_unknown {
-                bridge::borg_oops(st, "unexpected double Word of Recall");
+                crate::borg_think::borg_oops(st, "unexpected double Word of Recall");
             }
 
             // no canceling it

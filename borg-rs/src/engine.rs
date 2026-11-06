@@ -251,6 +251,48 @@ pub fn player_died_from() -> Vec<u8> {
     d.iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect()
 }
 
+/// `player->full_name` (bytes up to the NUL).
+pub fn player_full_name() -> Vec<u8> {
+    c_array_bytes(&player_ref().full_name)
+}
+
+/// `player_is_shapechanged(player)`.
+pub fn player_is_shapechanged() -> bool {
+    let p: *const crate::headers::player_h::player = player_ref();
+    // SAFETY: p is the live player; the call only reads `p->shape`.
+    unsafe { crate::headers::player_util_h::player_is_shapechanged(p) }
+}
+
+/// A copy of the game's `savefile` buffer (ui-game.c, `char savefile[1024]`).
+pub fn savefile() -> [u8; 1024] {
+    // SAFETY: plain copy of a char array global; engine thread.
+    let s = unsafe { *core::ptr::addr_of!(crate::headers::ui_game_h::savefile) };
+    s.map(|c| c as u8)
+}
+
+/// `memcpy(savefile, v, sizeof(savefile))`.
+pub fn set_savefile(v: &[u8; 1024]) {
+    // SAFETY: plain write of a char array global; engine thread.
+    unsafe { *core::ptr::addr_of_mut!(crate::headers::ui_game_h::savefile) = v.map(|c| c as c_char) };
+}
+
+/// `path_build(savefile, sizeof(savefile), ANGBAND_DIR_ARCHIVE, leaf)`:
+/// builds the path in place (bytes after its NUL are left as they were).
+pub fn savefile_path_build_archive(leaf: &[u8]) {
+    let leaf = CString::new(leaf).expect("no NUL in file name");
+    // SAFETY: savefile has 1024 bytes and path_build writes at most that
+    // many; ANGBAND_DIR_ARCHIVE is a C string set up at startup (or NULL,
+    // which path_build accepts); leaf is a C string.
+    unsafe {
+        crate::headers::z_file_h::path_build(
+            core::ptr::addr_of_mut!(crate::headers::ui_game_h::savefile) as *mut c_char,
+            1024,
+            crate::headers::init_h::ANGBAND_DIR_ARCHIVE,
+            leaf.as_ptr(),
+        );
+    }
+}
+
 /// `player->upkeep->resting`
 pub fn player_resting() -> i32 {
     // SAFETY: upkeep is allocated with the player.

@@ -324,7 +324,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         borg_flush(st);
         crate::borg_messages::borg_parse(st, None);
         crate::borg_messages_react::borg_clear_reactions(st);
-        bridge::borg_oops(st, "player died");
+        crate::borg_think::borg_oops(st, "player died");
         key.code = ktrl(b'C');
         return true;
     }
@@ -332,7 +332,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
     if st.borg.tr(BI_KING) != 0 {
         if st.cfg(BORG_STOP_KING) != 0 {
             crate::borg_log::borg_write_map(st, false);
-            bridge::borg_oops(st, "retire");
+            crate::borg_think::borg_oops(st, "retire");
         }
         if st.cfg(BORG_RESPAWN_WINNERS) != 0 {
             crate::borg_log::borg_write_map(st, false);
@@ -345,13 +345,13 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
     }
 
     if st.borg.tr(BI_CDEPTH) == st.cfg(BORG_STOP_DLEVEL) {
-        bridge::borg_oops(st, "Auto-stop for user DLevel.");
+        crate::borg_think::borg_oops(st, "Auto-stop for user DLevel.");
         key.code = ktrl(b'C');
         return true;
     }
 
     if st.borg.tr(BI_CLEVEL) == st.cfg(BORG_STOP_CLEVEL) {
-        bridge::borg_oops(st, "Auto-stop for user CLevel.");
+        crate::borg_think::borg_oops(st, "Auto-stop for user CLevel.");
         key.code = ktrl(b'C');
         return true;
     }
@@ -362,7 +362,7 @@ fn check_for_deactivate_or_death(st: &mut BorgState, key: &mut keypress) -> bool
         && st.borg.tr(BI_CDEPTH) == 0
         && st.cfg(BORG_SELF_SCUM) == 0
     {
-        bridge::borg_oops(st, "Money Scum complete.");
+        crate::borg_think::borg_oops(st, "Money Scum complete.");
         key.code = ktrl(b'C');
         return true;
     }
@@ -378,7 +378,7 @@ fn user_abort(st: &mut BorgState) -> bool {
             || ev_type == EVT_DISCONNECT)
     {
         if ev_type == EVT_DISCONNECT {
-            bridge::borg_oops(st, "terminal disconnect abort");
+            crate::borg_think::borg_oops(st, "terminal disconnect abort");
         } else {
             let k = ev_key.code;
             if (32..=126).contains(&k) {
@@ -391,7 +391,7 @@ fn user_abort(st: &mut BorgState) -> bool {
             msg.push(ev_type as u8);
             msg.push(b'>');
             crate::borg_io::borg_note_bytes(st, &msg);
-            bridge::borg_oops(st, "user abort");
+            crate::borg_think::borg_oops(st, "user abort");
         }
         return true;
     }
@@ -464,7 +464,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     let (rand_quick, rand_value) = engine::rand_state();
     engine::set_rand_state(true, st.core.rand_local);
 
-    while !bridge::borg_think(st) {}
+    while !crate::borg_think::borg_think(st) {}
 
     crate::borg_log::borg_display_status(st);
 
@@ -485,7 +485,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
         return key;
     }
 
-    bridge::borg_oops(st, "normal abort");
+    crate::borg_think::borg_oops(st, "normal abort");
     key.code = ESCAPE;
     key
 }

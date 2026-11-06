@@ -2502,9 +2502,9 @@ pub fn borg_notice(st: &mut BorgState, notice_swap: bool) {
     borg_notice_player(st);
 
     /*** Process books/spells ***/
-    if crate::bridge::borg_do_spell(st) {
+    if st.think.do_spell {
         borg_cheat_spells(st);
-        crate::bridge::set_borg_do_spell(st, false);
+        st.think.do_spell = false;
     }
 
     /* Notice the equipment */

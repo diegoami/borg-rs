@@ -1185,3 +1185,19 @@ with its issues.
 * Tracker: the duplicated loop is a comment on
   diegoami/neo-angband-tracker#232; the other three slips are
   diegoami/neo-angband-tracker#243, #244, #245.
+
+## 50. Think slips (think)
+
+* `borg-think.c`, found by code reading; checked against the c2rust code
+  (see PROGRESS.md, module 58).
+* `borg_think()` (lines 238-245): the "clock overflow" fix (reset
+  `borg.time.now` to 1 and warn once it passes `BORG_TIME_MAX - 100`) is
+  dead in play. Every dungeon turn increments the clock and then calls
+  `borg_think_dungeon()`, which aborts the Borg with `borg_oops("clock
+  overflow")` as soon as the clock reaches `BORG_TIME_MAX - 3000`
+  (`borg-think-dungeon.c`, lines 1281-1288); a turn in a store returns
+  before the increment. The clock only reaches the reset if the user
+  restarts the aborted Borg about 2,900 times, so in practice the Borg
+  stops at the overflow it was meant to fix.
+* Rust (`borg_think.rs`): kept (the reset and the warning are converted
+  exactly; the cross-check reached them only by fuzzing the clock).

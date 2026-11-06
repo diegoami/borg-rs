@@ -1197,7 +1197,7 @@ fn borg_one_step_wearing_best(st: &mut BorgState, skip: i32) -> bool {
             st.borg.goal.best_item[item_num].home = false;
             return true;
         }
-        bridge::borg_oops(st, "unable to find item in home");
+        crate::borg_think::borg_oops(st, "unable to find item in home");
     } else {
         /* if wearing an item in that slot, take it off */
         if st.items.items[slot as usize].iqty != 0 {
@@ -1221,7 +1221,7 @@ fn borg_one_step_wearing_best(st: &mut BorgState, skip: i32) -> bool {
             st.borg.goal.best_item[item_num] = BorgBest::default();
             return true;
         }
-        bridge::borg_oops(st, "unable to find item in inventory");
+        crate::borg_think::borg_oops(st, "unable to find item in inventory");
     }
 
     false
@@ -1350,7 +1350,7 @@ fn borg_best_stuff_aux(st: &mut BorgState, n: i32, test: &mut [u16], best: &mut 
 /// one step at a time.
 pub fn borg_best_stuff(st: &mut BorgState) -> bool {
     /* only do this at home */
-    if i32::from(bridge::shop_num(st)) != BORG_HOME as i32 {
+    if i32::from(st.think.shop_num) != BORG_HOME as i32 {
         return false;
     }
 

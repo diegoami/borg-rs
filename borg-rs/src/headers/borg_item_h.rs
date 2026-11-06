@@ -46,7 +46,6 @@ pub struct borg_item {
     pub slays: [::core::ffi::c_int; 85],
 }
 pub use crate::bridge::item_fns::borg_deinscribe;
-pub use crate::bridge::item_fns::borg_find_all_items;
 pub use crate::bridge::item_fns::borg_free_item;
 pub use crate::bridge::item_fns::borg_init_item;
 pub use crate::bridge::item_fns::borg_item_weight;

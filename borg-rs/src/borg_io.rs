@@ -195,7 +195,7 @@ pub fn borg_keypress(st: &mut BorgState, k: keycode_t) -> i32 {
         io.key_head = 0;
     }
     if io.key_head == io.key_tail {
-        bridge::borg_oops(st, "overflow");
+        crate::borg_think::borg_oops(st, "overflow");
     }
     let io = &mut st.io;
     if io.key_tail as usize == KEY_SIZE {
@@ -324,7 +324,7 @@ fn borg_bell_impl(st: &mut BorgState) {
     borg_note(st, "** BELL SOUNDED Dumping keypress history ***");
     borg_dump_recent_keys(st, 20);
     if st.cfg(headers::borg_h::BORG_STOP_ON_BELL) != 0 {
-        bridge::borg_oops(st, "** BELL SOUNDED***");
+        crate::borg_think::borg_oops(st, "** BELL SOUNDED***");
     }
 }
 

@@ -153,6 +153,5 @@ pub use crate::bridge::magic::borg_spell_okay;
 pub use crate::bridge::magic::borg_spell_okay_fail;
 pub use crate::bridge::magic::borg_spell_stat;
 pub type borg_spell_rating = crate::borg_magic::SpellRating;
-pub use crate::bridge::magic::borg_cheat_spells;
 pub use crate::bridge::magic::borg_get_book_num;
 pub use crate::bridge::magic::borg_is_dungeon_book;

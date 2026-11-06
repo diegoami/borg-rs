@@ -1,8 +1,7 @@
 //! `/home/user/borg-rs/angband/src/borg/borg-trait.h`
 //!
 //! borg-trait.c is converted (`crate::borg_trait`); its globals live in
-//! `BorgState::traits`. `borg_notice` below is the C-ABI shim in
-//! `bridge::trait_` for the c2rust callers.
+//! `BorgState::traits`.
 pub use super::borg_item_h::borg_item;
 #[allow(unused_imports)]
 use super::*;
@@ -277,4 +276,3 @@ pub const BORG_EQUIP: borg_item_pos = 2;
 pub const BORG_INVEN: borg_item_pos = 1;
 pub type borg_item_pos = ::core::ffi::c_uint;
 pub const BORG_QUILL: borg_item_pos = 4;
-pub use crate::bridge::trait_::borg_notice;

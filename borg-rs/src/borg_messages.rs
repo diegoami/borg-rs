@@ -631,7 +631,7 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
             || st.borg.status.cheat_death)
         {
             // Abort
-            bridge::borg_oops(st, "death");
+            crate::borg_think::borg_oops(st, "death");
 
             // Abort right now if not reincarnating
             if st.borg.status.respawning == 0 {

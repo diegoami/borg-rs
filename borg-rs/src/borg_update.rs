@@ -477,7 +477,7 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
                 st.borg.c.x
             );
             borg_note(st, &note);
-            bridge::borg_oops(st, "too many objects...");
+            crate::borg_think::borg_oops(st, "too many objects...");
         }
 
         // Access next wank, advance
@@ -1896,7 +1896,7 @@ fn new_level(st: &mut BorgState) {
     st.update.do_update_lite = true;
 
     // Examine the world
-    bridge::set_borg_do_spell(st, true);
+    st.think.do_spell = true;
 
     // Enable some functions
     st.inventory.do_crush_junk = true;

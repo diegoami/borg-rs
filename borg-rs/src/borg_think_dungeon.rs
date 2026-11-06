@@ -1324,7 +1324,7 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
     /* Prevent clock wrapping Step 2 */
     if st.borg.time.now >= BORG_TIME_MAX - 3000 {
         /* Panic */
-        bridge::borg_oops(st, "clock overflow");
+        crate::borg_think::borg_oops(st, "clock overflow");
 
         /* Oops */
         return true;

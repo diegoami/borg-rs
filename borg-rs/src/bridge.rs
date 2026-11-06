@@ -97,15 +97,6 @@ pub fn borg_note(st: &mut BorgState, what: &str) {
     crate::borg_io::borg_note(st, what)
 }
 
-/// `borg_oops(what)` (still c2rust, borg-think.c).
-pub fn borg_oops(st: &mut BorgState, what: &str) {
-    let c = std::ffi::CString::new(what).expect("no NUL");
-    escape(st);
-    // SAFETY: borg_oops reads the string and copies it into a note.
-    unsafe { crate::c2rust::borg_think::borg_oops(c.as_ptr()) }
-    escape(st);
-}
-
 unsafe fn cbytes<'a>(p: *const c_char) -> &'a [u8] {
     std::ffi::CStr::from_ptr(p).to_bytes()
 }
@@ -117,25 +108,8 @@ pub mod io {
     use crate::headers::ui_event_h::{keycode_t, keypress};
     use core::ffi::{c_char, c_int};
 
-    pub unsafe extern "C" fn borg_what_text(
-        x: c_int,
-        y: c_int,
-        n: c_int,
-        a: *mut u8,
-        s: *mut c_char,
-    ) -> c_int {
-        let len = (n.abs() + 1) as usize;
-        let out = core::slice::from_raw_parts_mut(s as *mut u8, len);
-        borg_io::borg_what_text(x, y, n, &mut *a, out)
-    }
     pub unsafe extern "C" fn borg_note(what: *const c_char) {
         borg_io::borg_note_bytes(st(), cbytes(what))
-    }
-    pub unsafe extern "C" fn borg_warning(what: *const c_char) {
-        // Copied: the text may live in z-util's `format()` buffer, which a
-        // nested Borg turn (see `with_entry_state`) can reallocate.
-        let what = cbytes(what).to_vec();
-        borg_io::borg_warning_bytes(st(), &what)
     }
     pub unsafe extern "C" fn borg_keypress(k: keycode_t) -> c_int {
         borg_io::borg_keypress(st(), k)
@@ -148,9 +122,6 @@ pub mod io {
     }
     pub unsafe extern "C" fn borg_inkey(take: bool) -> keycode_t {
         borg_io::borg_inkey(st(), take)
-    }
-    pub unsafe extern "C" fn borg_flush() {
-        borg_io::borg_flush(st())
     }
     pub unsafe extern "C" fn borg_queue_direction(k: keycode_t) {
         borg_io::borg_queue_direction(st(), k)
@@ -180,15 +151,6 @@ pub mod io {
 // Calls from converted code into still-c2rust functions. Each takes the
 // caller's `&mut BorgState` so the borrow visibly escapes into the call (the
 // c2rust code mutates the same state through `st()`).
-
-/// `borg_think()`
-pub fn borg_think(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code.
-    let r = unsafe { crate::c2rust::borg_think::borg_think() };
-    escape(st);
-    r
-}
 
 /// C-ABI shims with the borg-item-activation.c names.
 pub mod item_activation {
@@ -706,9 +668,6 @@ pub mod magic {
     pub unsafe extern "C" fn borg_spell(spell: borg_spells) -> bool {
         m::borg_spell(st(), spell)
     }
-    pub unsafe extern "C" fn borg_cheat_spells() {
-        m::borg_cheat_spells(st())
-    }
     pub unsafe extern "C" fn borg_prepare_book_info() {
         m::borg_prepare_book_info(st())
     }
@@ -989,9 +948,6 @@ pub mod item_fns {
     pub unsafe extern "C" fn borg_item_weight(item: *mut BorgItemC) -> i16 {
         borg_item::borg_item_weight(&*item)
     }
-    pub unsafe extern "C" fn borg_find_all_items() {
-        borg_item::borg_find_all_items(st())
-    }
     pub unsafe extern "C" fn borg_init_item() {
         borg_item::borg_init_item(st())
     }
@@ -1174,25 +1130,6 @@ pub fn borg_attack(st: &mut BorgState, boosted_bravery: bool) -> bool {
     r
 }
 
-/// C-ABI shim with the borg-think-dungeon.c name, for the c2rust caller
-/// (borg_think).
-pub mod think_dungeon {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_think_dungeon() -> bool {
-        crate::borg_think_dungeon::borg_think_dungeon(st())
-    }
-}
-
-/// C-ABI shim with the borg-update.c name (borg_think).
-pub mod update {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_update() {
-        crate::borg_update::borg_update(st())
-    }
-}
-
 /// C-ABI shims with the borg-store.c names.
 pub mod store {
     use super::st;
@@ -1313,53 +1250,6 @@ pub mod item_use {
 /// `borg_read_scroll(sval)` (borg-item-use.c, converted).
 pub fn borg_read_scroll(st: &mut BorgState, sval: i32) -> bool {
     crate::borg_item_use::borg_read_scroll(st, sval)
-}
-
-/// `shop_num` (still c2rust, borg-think.c): the store the Borg is in, or -1.
-pub fn shop_num(st: &mut BorgState) -> i16 {
-    escape(st);
-    // SAFETY: plain read of an int16_t global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_think::shop_num };
-    escape(st);
-    r
-}
-
-/// `shop_num = v` (still c2rust, borg-think.c).
-pub fn set_shop_num(st: &mut BorgState, v: i16) {
-    escape(st);
-    // SAFETY: plain write of an int16_t global; Borg thread.
-    unsafe { crate::c2rust::borg_think::shop_num = v };
-    escape(st);
-}
-
-/// `borg_do_spell` (still c2rust, borg-think.c): recheck the spells at the
-/// next `borg_notice`.
-pub fn borg_do_spell(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain read of a bool global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_think::borg_do_spell };
-    escape(st);
-    r
-}
-
-/// `borg_do_spell = v` (still c2rust, borg-think.c): recheck the spells
-/// at the next `borg_notice`.
-pub fn set_borg_do_spell(st: &mut BorgState, v: bool) {
-    escape(st);
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_think::borg_do_spell = v };
-    escape(st);
-}
-
-/// C-ABI shim with the borg-think-store.c name, for the c2rust caller
-/// (borg_think).
-pub mod think_store {
-    use super::st;
-    use crate::borg_think_store as t;
-
-    pub unsafe extern "C" fn borg_think_store() -> bool {
-        t::borg_think_store(st())
-    }
 }
 
 /// C-ABI shims with the borg-item-wear.c names, for c2rust callers.
@@ -1607,25 +1497,6 @@ pub fn borg_restock_c(st: &mut BorgState, depth: i32) -> Option<Vec<u8>> {
     };
     escape(st);
     r
-}
-
-/// C-ABI shim with the borg-trait.c name, for the c2rust caller
-/// (borg_think).
-pub mod trait_ {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_notice(notice_swap: bool) {
-        crate::borg_trait::borg_notice(st(), notice_swap)
-    }
-}
-
-/// C-ABI shim with the borg-power.c name (caller in borg_think).
-pub mod power {
-    use super::st;
-
-    pub unsafe extern "C" fn borg_power() -> i32 {
-        crate::borg_power::borg_power(st())
-    }
 }
 
 // ---------------------------------------------------------------------------

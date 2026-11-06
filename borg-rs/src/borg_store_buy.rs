@@ -1263,7 +1263,7 @@ fn purchase_done(st: &mut BorgState) {
 /// Buy items from the current shop, if desired (`borg_think_shop_buy`).
 pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
     /* Buy something if requested */
-    if i32::from(st.borg.goal.shop) == i32::from(bridge::shop_num(st)) && st.borg.goal.ware >= 0 {
+    if i32::from(st.borg.goal.shop) == i32::from(st.think.shop_num) && st.borg.goal.ware >= 0 {
         let shop = st.borg.goal.shop as i32;
         let w = st.borg.goal.ware as i32;
         // the ware does not change in here

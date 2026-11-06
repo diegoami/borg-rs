@@ -58,7 +58,6 @@ use crate::borg_store_buy::{
 use crate::borg_store_sell::{
     borg_think_home_sell_useful, borg_think_shop_sell, borg_think_shop_sell_useless,
 };
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM};
 use crate::headers::borg_trait_h::{
@@ -333,13 +332,13 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
 /// Deal with being in a store (`borg_think_store`).
 pub fn borg_think_store(st: &mut BorgState) -> bool {
     /* Cheat the store number */
-    bridge::set_shop_num(st, engine::player_square_shopnum() as i16);
+    st.think.shop_num = engine::player_square_shopnum() as i16;
 
     /* Clear the goal (the goal was probably going to a shop number) */
     st.borg.goal.type_0 = 0;
 
     /* Recheck spells */
-    bridge::set_borg_do_spell(st, true);
+    st.think.do_spell = true;
 
     /* Allow user abort */
     if st.borg.status.cancel {
@@ -375,7 +374,7 @@ pub fn borg_think_store(st: &mut BorgState) -> bool {
      * something somewhere. */
     if borg_choose_shop(st) {
         /* Note Pref. */
-        let shop_num = bridge::shop_num(st);
+        let shop_num = st.think.shop_num;
         if shop_num != st.borg.goal.shop {
             let s = format!(
                 "# Currently in store '{}' would prefer '{}'.",

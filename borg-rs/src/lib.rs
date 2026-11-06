@@ -79,6 +79,7 @@ pub mod borg_reincarnate;
 pub mod borg_store;
 pub mod borg_store_sell;
 pub mod borg_store_buy;
+pub mod borg_think;
 pub mod borg_think_dungeon;
 pub mod borg_think_dungeon_util;
 pub mod borg_think_store;
