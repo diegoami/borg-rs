@@ -39,9 +39,7 @@ use crate::borg_headers::borg_h::BORG_MAX_SETTINGS;
 use crate::borg_headers::borg_trait_h::{BI_CDEPTH, BI_CSTR, BI_MAX, BI_MAXDEPTH, BI_STR};
 use crate::headers::cave_h::{FEAT_MAX, SQUARE_MAX};
 use crate::headers::game_event_h::EVENT_MESSAGE_FLUSH;
-use crate::headers::list_elements_h::PROJ_MISSILE;
 use crate::headers::player_h::STAT_MAX;
-use crate::headers::project_h::{PROJECT_ARC, PROJECT_BEAM};
 use crate::headers::ui_event_h::{EVT_ESCAPE, EVT_SELECT};
 use crate::headers::ui_output_h::region;
 use crate::state::BorgState;
@@ -819,10 +817,10 @@ fn borg_cmd_targeting(st: &mut BorgState) {
 
     if ch != b'Y' && ch != b'y' {
         // Real LOS - beam
-        engine::project_from_player(st, 0, x, y, 1, PROJ_MISSILE as i32, PROJECT_BEAM as i32, 0, 0);
+        engine::project_from_player(st, engine::Projection::Beam, x, y);
     } else {
         // Real LOS - arc
-        engine::project_from_player(st, 10, x, y, 50, PROJ_MISSILE as i32, PROJECT_ARC as i32, 60, 4);
+        engine::project_from_player(st, engine::Projection::Arc, x, y);
     }
 
     engine::set_player_delay_factor(sv_delay);

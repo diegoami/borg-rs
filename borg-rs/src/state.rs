@@ -44,6 +44,10 @@ use crate::borg_update::UpdateState;
 
 #[derive(Default)]
 pub struct BorgState {
+    /// The token engine object handles borrow (`engine::Access`): a handle
+    /// made from `&st.access` cannot be kept across an engine call that
+    /// takes `&mut BorgState` (docs/SELF-REVIEW.md L4).
+    pub access: crate::engine::Access,
     /// borg.c: `borg` (what the Borg knows about itself)
     pub borg: Borg,
     /// borg.c: the other globals (`borg_cfg`, `borg_rand_local`, ...)

@@ -165,12 +165,12 @@ fn rf(r_idx: u16, flag: u32) -> bool {
 
 /// `rsf_has(r_info[r_idx].spell_flags, flag)`
 fn rsf(r_idx: u16, flag: u32) -> bool {
-    engine::flag_has(&engine::r_info()[usize::from(r_idx)].spell_flags, flag as i32)
+    engine::flag_has(&engine::race(usize::from(r_idx)).spell_flags, flag as i32)
 }
 
 /// `r_ptr->friends || r_ptr->friends_base`
 fn has_friends(r_idx: u16) -> bool {
-    let r = &engine::r_info()[usize::from(r_idx)];
+    let r = engine::race(usize::from(r_idx));
     !r.friends.is_null() || !r.friends_base.is_null()
 }
 
@@ -325,7 +325,7 @@ fn borg_thrust_damage_one(st: &BorgState, i: i32) -> i32 {
     if is_ghost(r) {
         return 0;
     }
-    let r_ptr = &engine::r_info()[usize::from(r)];
+    let r_ptr = engine::race(usize::from(r));
 
     /* Damage */
     let mut dam = i32::from(item.dd) * (i32::from(item.ds) + 1) / 2;
@@ -592,7 +592,7 @@ fn borg_attack_aux_thrust(st: &mut BorgState) -> i32 {
 /// temporary brands and slays for an empty slot) against a race
 /// (`borg_best_mult`, adapted from player_attack.c make_ranged_shot()).
 fn borg_best_mult(obj: &borg_item, r_idx: u16) -> i32 {
-    let flags = &engine::r_info()[usize::from(r_idx)].flags;
+    let flags = &engine::race(usize::from(r_idx)).flags;
     let mut max_mult = 1;
 
     /* Brands */
@@ -725,7 +725,7 @@ fn borg_launch_damage_one(st: &mut BorgState, i: i32, mut dam: i32, typ: i32, am
     }
 
     /* Monster race */
-    let r_ptr = &engine::r_info()[usize::from(r)];
+    let r_ptr = engine::race(usize::from(r));
 
     /* How far away is the target? */
     let cur_dis = engine::distance(st.borg.c, kill.pos);
@@ -1438,7 +1438,7 @@ fn borg_launch_bolt_aux_hack(st: &mut BorgState, i: i32, dam: i32, typ: i32, amm
 /// (`borg_launch_destroy_stuff`).
 fn borg_launch_destroy_stuff(st: &BorgState, ag: &BorgGrid, typ: i32) -> i32 {
     let take = &st.takes.takes[usize::from(ag.take)];
-    let k_ptr = &engine::k_info()[take.kidx as usize];
+    let k_ptr = engine::kind(take.kidx as usize);
     let iv = &st.item_val;
 
     match typ as u32 {
@@ -1578,7 +1578,7 @@ fn borg_launch_bolt_at_location(
     if is_ghost(kill_r) {
         return 0;
     }
-    let r_light = engine::r_info()[usize::from(kill_r)].light;
+    let r_light = engine::race(usize::from(kill_r)).light;
 
     /* Simulate the spell/missile path */
     let mut dist = 1;
@@ -1930,7 +1930,7 @@ fn borg_launch_arc_at_location(st: &mut BorgState, y: i32, x: i32, degrees: i32,
     if is_ghost(kill_r) {
         return 0;
     }
-    let r_light = engine::r_info()[usize::from(kill_r)].light;
+    let r_light = engine::race(usize::from(kill_r)).light;
 
     /* starting square is always good */
     path_grids[0].x = x;
@@ -2400,7 +2400,7 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
         }
 
         /* Determine average damage from object */
-        let kind = &engine::k_info()[item.kind as usize];
+        let kind = engine::kind(item.kind as usize);
         let d = kind.dd * (kind.ds + 1) / 2;
 
         /* Skip things that are worth money unless they do a lot of damage */

@@ -1975,7 +1975,7 @@ fn borg_defend_aux_genocide(st: &mut BorgState, mut p1: i32) -> i32 {
 
         /* Our char of the monster.  This is used because genocide uses a */
         /* single char designation for selecting the kill */
-        let kill_char = engine::r_info()[usize::from(kill.r_idx)].d_char as u8 as usize;
+        let kill_char = engine::race(usize::from(kill.r_idx)).d_char as u8 as usize;
 
         /* total danger to me */
         total_danger_to_me += p;
@@ -2168,7 +2168,7 @@ fn borg_defend_aux_genocide(st: &mut BorgState, mut p1: i32) -> i32 {
                 let r_idx = usize::from(st.kills.kills[i as usize].r_idx);
 
                 /* Our char of the monster */
-                if engine::r_info()[r_idx].d_char != i32::from(tmp_genocide_target) {
+                if engine::race(r_idx).d_char != i32::from(tmp_genocide_target) {
                     continue;
                 }
 
@@ -2274,7 +2274,7 @@ fn borg_defend_aux_genocide_nasties(st: &mut BorgState, p1: i32) -> i32 {
             let r_idx = usize::from(st.kills.kills[i as usize].r_idx);
 
             /* Our char of the monster */
-            if engine::r_info()[r_idx].d_char != i32::from(st.kills.nasties[b]) {
+            if engine::race(r_idx).d_char != i32::from(st.kills.nasties[b]) {
                 continue;
             }
 

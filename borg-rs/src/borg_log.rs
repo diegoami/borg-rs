@@ -339,7 +339,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
             if ag.take != 0 {
                 let kidx = st.takes.takes[usize::from(ag.take)].kidx;
                 if kidx != 0 {
-                    ch = engine::k_info()[kidx as usize].d_char;
+                    ch = engine::kind(kidx as usize).d_char;
                 }
             }
 
@@ -351,7 +351,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
             // Known Monsters
             if ag.kill != 0 {
                 let kill = st.kills.kills[usize::from(ag.kill)];
-                ch = engine::r_info()[usize::from(kill.r_idx)].d_char;
+                ch = engine::race(usize::from(kill.r_idx)).d_char;
             }
 
             // The Player

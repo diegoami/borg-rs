@@ -59,29 +59,6 @@ pub fn borg_inventory_full(st: &mut BorgState) -> bool {
 }
 
 /// `f_info[feat].shopnum - 1`: the store index of a shop feature.
-/// `borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`:
-/// the ware and the two tables the analyzer reads are borrowed as
-/// separate fields of the state.
-fn analyze_ware(
-    st: &mut BorgState,
-    shop: usize,
-    slot: usize,
-    obj: StoreObject,
-    desc: &[u8],
-    in_store: bool,
-) {
-    let BorgState { store, act, item_val, .. } = st;
-    crate::borg_item_analyze::borg_item_analyze(
-        &mut store.shops[shop].ware[slot],
-        crate::borg_item::NoteOrigin::Ware { shop: shop as u8, slot: slot as u8 },
-        obj.into(),
-        desc,
-        in_store,
-        act,
-        item_val,
-    );
-}
-
 fn feat_store(feat: u32) -> i32 {
     i32::from(engine::feat_shopnum(feat as usize)) - 1
 }
@@ -182,10 +159,15 @@ fn borg_price_item(obj: StoreObject, store_buying: bool, qty: i32, this_store: i
 pub fn borg_notice_store(st: &mut BorgState) {
     // Scan each store
     for store_num in 0..usize::from(engine::z_info().store_max) {
-        // Clear the Inventory from memory
-        st.store.shops[store_num].ware.fill(blank_item());
+        // The store's wares and the two tables the analyzer reads are
+        // borrowed as separate fields of the state, next to the access
+        // token the store objects borrow (docs/SELF-REVIEW.md L4).
+        let BorgState { access, store, act, item_val, .. } = &mut *st;
 
-        let list = engine::store_stock(store_num);
+        // Clear the Inventory from memory
+        store.shops[store_num].ware.fill(blank_item());
+
+        let list = engine::store_stock(access, store_num);
 
         // Check each existing object in this store
         for (slot, o_ptr) in list.into_iter().enumerate() {
@@ -196,11 +178,19 @@ pub fn borg_notice_store(st: &mut BorgState) {
             }
 
             // Analyze the item
-            analyze_ware(st, store_num, slot, o_ptr, &buf, store_num != BORG_HOME);
+            // (`borg_item_analyze(&borg_shops[shop].ware[slot], obj, desc, in_store)`)
+            crate::borg_item_analyze::borg_item_analyze(
+                &mut store.shops[store_num].ware[slot],
+                crate::borg_item::NoteOrigin::Ware { shop: store_num as u8, slot: slot as u8 },
+                o_ptr.into(),
+                &buf,
+                store_num != BORG_HOME,
+                act,
+                item_val,
+            );
 
             // Save the declared cost
-            st.store.shops[store_num].ware[slot].cost =
-                borg_price_item(o_ptr, false, 1, store_num as i32);
+            store.shops[store_num].ware[slot].cost = borg_price_item(o_ptr, false, 1, store_num as i32);
         }
 
         // save a backup copy of the store.  This list should never change

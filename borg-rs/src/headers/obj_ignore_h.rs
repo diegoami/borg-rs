@@ -11,5 +11,7 @@ extern "C" {
     pub fn ignore_birth_init();
 }
 extern "C" {
-    pub static mut ignore_level: [uint8_t; 0];
+    /// `uint8_t ignore_level[ITYPE_MAX]` (obj-ignore.c), declared with its C
+    /// length (`extern` in obj-ignore.h has none).
+    pub static mut ignore_level: [uint8_t; ITYPE_MAX as usize];
 }

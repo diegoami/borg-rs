@@ -213,7 +213,7 @@ pub fn borg_destroy_floor(st: &mut BorgState) -> bool {
 
     /* double check that there is an object here.  This is simulating doing */
     /* "look" so it is okay */
-    if engine::top_floor_object(x, y).is_none() {
+    if engine::top_floor_object(&st.access, x, y).is_none() {
         return false;
     }
 

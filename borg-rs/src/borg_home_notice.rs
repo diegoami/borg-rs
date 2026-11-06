@@ -716,7 +716,7 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
                 // Skip incorrect books (if we can browse this book, it is
                 // good), only ever store non-dungeon books
                 if engine::obj_kind_can_browse(kind)
-                    && !engine::flag_has(&engine::k_info()[kind].kind_flags, KF_GOOD as i32)
+                    && !engine::flag_has(&engine::kind(kind).kind_flags, KF_GOOD as i32)
                 {
                     // Count the books
                     add(&mut st.home.num_book[usize::from(item.sval)], iqty);

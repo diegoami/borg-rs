@@ -16,7 +16,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::borg_item::{blank_item, borg_deinscribe, inven_wield, quiver_start};
-use crate::borg_item_analyze::borg_item_analyze_slot;
+use crate::borg_item_analyze::borg_item_analyze;
 use crate::engine::{self, CarriedObject};
 use crate::borg_headers::borg_item_h::borg_item;
 use crate::borg_headers::borg_trait_h::BI_QUIVER_SLOTS;
@@ -101,9 +101,29 @@ pub fn borg_slot(st: &mut BorgState, tval: i32, sval: i32) -> i32 {
 
 /// Analyze one carried object into slot `i` (no price), then remove a `!`
 /// or `borg` inscription (the equipment and quiver readers).
-fn analyze_and_deinscribe(st: &mut BorgState, i: i32, obj: CarriedObject, desc: &[u8]) {
+/// The engine object comes from `get(&st.access)` (its handle borrows the
+/// state's access token, so it is made here, next to the split borrows of
+/// the analyzed slot: docs/SELF-REVIEW.md L4).
+fn analyze_and_deinscribe(
+    st: &mut BorgState,
+    i: i32,
+    get: impl for<'a> Fn(&'a engine::Access) -> Option<CarriedObject<'a>>,
+) {
+    let BorgState { access, items, act, item_val, .. } = st;
+    /* skip non items */
+    let Some(obj) = get(access) else { return };
+    /* Describe it */
+    let desc = engine::object_desc_full(obj);
     /* Analyze the item (no price) */
-    borg_item_analyze_slot(st, i as usize, obj.into(), desc, false);
+    borg_item_analyze(
+        &mut items.items[i as usize],
+        crate::borg_item::NoteOrigin::Item(i as u16),
+        obj.into(),
+        &desc,
+        false,
+        act,
+        item_val,
+    );
     deinscribe_if_marked(st, i);
 }
 
@@ -123,12 +143,7 @@ fn borg_cheat_quiver(st: &mut BorgState) {
         let i = quiver_start() + j;
         st.items.items[i as usize] = blank_item();
 
-        /* skip non items */
-        if let Some(obj) = engine::quiver_object(j as usize) {
-            /* Describe it */
-            let desc = engine::object_desc_full(obj);
-            analyze_and_deinscribe(st, i, obj, &desc);
-        }
+        analyze_and_deinscribe(st, i, |a| engine::quiver_object(a, j as usize));
     }
 }
 
@@ -139,12 +154,7 @@ pub fn borg_equipment(st: &mut BorgState) {
     for (j, i) in (pack_size..count).enumerate() {
         st.items.items[i as usize] = blank_item();
 
-        /* skip non items */
-        if let Some(obj) = engine::equip_object(j) {
-            /* Describe it */
-            let desc = engine::object_desc_full(obj);
-            analyze_and_deinscribe(st, i, obj, &desc);
-        }
+        analyze_and_deinscribe(st, i, |a| engine::equip_object(a, j));
     }
     borg_cheat_quiver(st);
 }
@@ -152,8 +162,9 @@ pub fn borg_equipment(st: &mut BorgState) {
 /// Cheat the "inven" screen (`borg_inventory`).
 pub fn borg_inventory(st: &mut BorgState) {
     for i in 0..i32::from(engine::z_info().pack_size) {
-        let obj = engine::inven_object(i as usize);
-        st.items.items[i as usize] = blank_item();
+        let BorgState { access, items, act, item_val, .. } = &mut *st;
+        let obj = engine::inven_object(access, i as usize);
+        items.items[i as usize] = blank_item();
 
         /* Skip non-items */
         let Some(obj) = obj else { continue };
@@ -167,7 +178,15 @@ pub fn borg_inventory(st: &mut BorgState) {
         }
 
         /* Analyze the item (no price) */
-        borg_item_analyze_slot(st, i as usize, obj.into(), &desc, false);
+        borg_item_analyze(
+        &mut items.items[i as usize],
+        crate::borg_item::NoteOrigin::Item(i as u16),
+        obj.into(),
+        &desc,
+        false,
+        act,
+        item_val,
+    );
 
         /* Note changed inventory */
         st.inventory.do_crush_junk = true;

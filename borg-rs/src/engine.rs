@@ -5,6 +5,7 @@
 //! stable for the duration of such a call.
 
 use crate::headers;
+use core::marker::PhantomData;
 
 // ---------------------------------------------------------------------------
 // The Borg state and the engine's entries into the Borg
@@ -37,6 +38,18 @@ use crate::headers;
 // `Menu::select`, `project_from_player`, `do_cmd_wiz_cure_all` and
 // `do_cmd_redraw`.
 
+// Single thread (docs/SELF-REVIEW.md, review finding 3). The engine is
+// single-threaded and calls the Borg only from its own thread. `enter` is
+// `pub(crate)` and only the four callbacks call it; three of them are
+// private `extern "C"` functions the Borg registers with the engine and
+// `do_cmd_borg` is a private `#[no_mangle]` symbol, so no Rust code outside
+// the crate can enter. `enter` also checks, on every entry, that the
+// engine is set up (`z_info` and `player` allocated: every callback comes
+// after `init_angband` and character creation) and that it runs on the
+// thread of the first entry (a `ThreadId` compare). The safe wrappers
+// below read engine globals; they are meant for Borg code, which only
+// runs inside an entry, on the engine thread.
+
 use crate::state::BorgState;
 
 /// The root of the Borg state and the entry bookkeeping.
@@ -47,22 +60,39 @@ struct Root {
     depth: u32,
     /// The state lent to the engine call running now (NULL if none).
     lent: *mut BorgState,
+    /// The engine thread (the thread of the first entry).
+    thread: Option<std::thread::ThreadId>,
 }
 
-/// Engine thread only (the Borg never runs on another thread).
-static mut ROOT: Root = Root { state: core::ptr::null_mut(), depth: 0, lent: core::ptr::null_mut() };
+/// Engine thread only (the Borg never runs on another thread; `enter`
+/// checks it).
+static mut ROOT: Root =
+    Root { state: core::ptr::null_mut(), depth: 0, lent: core::ptr::null_mut(), thread: None };
 
 /// The root, as a raw pointer (no reference to the static is kept).
 fn root() -> *mut Root {
     &raw mut ROOT
 }
 
-/// Run an engine callback into the Borg with the state (see above).
-pub fn enter<R>(f: impl FnOnce(&mut BorgState) -> R) -> R {
-    // SAFETY: engine thread only; ROOT is only touched in this function
-    // and in `lend`, and no reference to it is kept.
+/// Run an engine callback into the Borg with the state (see above). Only
+/// the engine's callbacks call it.
+pub(crate) fn enter<R>(f: impl FnOnce(&mut BorgState) -> R) -> R {
+    // The engine is set up before it calls the Borg (plain pointer reads).
+    // SAFETY: plain reads of two pointer globals.
+    let ready = unsafe { !headers::init_h::z_info.is_null() && !headers::player_h::player.is_null() };
+    assert!(ready, "borg-rs: Borg entered before the engine was set up");
+    let me = std::thread::current().id();
+    // SAFETY: ROOT is only touched in this function, `lend` and
+    // `check_access`, never through a kept reference. The thread check
+    // below runs before anything else in ROOT is touched; the first entry
+    // records the thread (the engine calls the Borg from one thread only,
+    // so the first entry is on the engine thread).
     let (depth, p, saved_lent) = unsafe {
         let root = &mut *root();
+        match root.thread {
+            None => root.thread = Some(me),
+            Some(t) => assert!(t == me, "borg-rs: Borg entered from a second thread"),
+        }
         if root.state.is_null() {
             root.state = Box::into_raw(Box::default());
         }
@@ -93,7 +123,13 @@ pub fn enter<R>(f: impl FnOnce(&mut BorgState) -> R) -> R {
 fn lend<R>(st: &mut BorgState, f: impl FnOnce() -> R) -> R {
     let p: *mut BorgState = st;
     // SAFETY: engine thread only; see `enter`.
-    let saved = unsafe { core::mem::replace(&mut (*root()).lent, p) };
+    let saved = unsafe {
+        // Only the root state can be lent (a `BorgState` made elsewhere
+        // would hand a nested entry an unrelated state, and its `access`
+        // token would not bind the caller's object handles).
+        assert!(core::ptr::eq(p, (*root()).state), "borg-rs: lending a state that is not the Borg's");
+        core::mem::replace(&mut (*root()).lent, p)
+    };
     let r = f();
     // SAFETY: as above.
     unsafe { (*root()).lent = saved };
@@ -101,17 +137,65 @@ fn lend<R>(st: &mut BorgState, f: impl FnOnce() -> R) -> R {
 }
 
 /// The engine's call into the Borg commands (`do_cmd_borg`, called by
-/// `do_cmd_try_borg` in cmd-misc.c for `^Z`).
+/// `do_cmd_try_borg` in cmd-misc.c for `^Z`). Private: only the engine
+/// calls it (the `#[no_mangle]` symbol is exported all the same).
 #[no_mangle]
-pub extern "C" fn do_cmd_borg() {
+extern "C" fn do_cmd_borg() {
     enter(crate::borg_commands::do_cmd_borg)
+}
+
+// ---------------------------------------------------------------------------
+// Engine object handles (docs/SELF-REVIEW.md L4)
+//
+// A handle (`CarriedObject`, `StoreObject`, `GameObject`, `FloorObject`)
+// is a raw pointer to an engine object plus a lifetime `'a`: the borrow of
+// the state's `access` token it was made from (`inven_object(&st.access,
+// i)`). Engine objects are freed or replaced only while the game runs,
+// i.e. after the Borg returns a key, or inside an engine call that can run
+// the game or the Borg again: exactly the calls that lend the state
+// (`lend`, they take `&mut BorgState`). So:
+//
+// * a handle cannot be kept across a lending call: that call needs
+//   `&mut st`, which conflicts with the shared borrow of `st.access` the
+//   handle holds (a compile error, not a convention);
+// * a handle cannot outlive the entry it was made in, nor be stored in
+//   `BorgState` (which has no lifetime parameter): `st` itself is only
+//   borrowed for the callback (`enter`);
+// * the token must be the root state's own field: the constructors check
+//   its address at run time (`check_access`), so a token of another
+//   `BorgState` (or one moved out with `mem::swap`) panics instead of
+//   making a handle that is not tied to the lent state.
+//
+// Handles stay `Copy` (copies share the lifetime). Mutating other fields
+// of the state while a handle is alive is allowed (split borrows, e.g.
+// `let BorgState { access, items, .. } = st;`).
+
+/// The token that object handles borrow (`BorgState::access`).
+#[derive(Default)]
+pub struct Access {
+    /// Not zero-sized, so its address identifies the root state's field.
+    _addr: u8,
+}
+
+/// Panics unless `a` is the `access` field of the root state, inside an
+/// entry.
+fn check_access(a: &Access) {
+    // SAFETY: engine thread only (see `enter`); plain reads of the root,
+    // and the field address is computed without making a reference.
+    let ok = unsafe {
+        let root = &*root();
+        root.depth > 0 && !root.state.is_null() && core::ptr::eq(a, core::ptr::addr_of!((*root.state).access))
+    };
+    assert!(ok, "borg-rs: object handle requested without the Borg state's access token");
 }
 
 /// The game's constants (`z_info`), set up by the engine before the Borg
 /// can be started.
 pub fn z_info() -> &'static headers::init_h::angband_constants {
     // SAFETY: z_info is allocated by init_angband() before any Borg code
-    // runs and is never freed while the game runs.
+    // runs (`enter` checks it) and is never freed while the game runs. It
+    // is only written while the game data is parsed, so a `'static` shared
+    // reference never overlaps a write.
     unsafe { &*headers::init_h::z_info }
 }
 
@@ -230,7 +314,8 @@ pub fn term_locate() -> (i32, i32) {
 
 /// `Term_erase(x, y, n)`.
 pub fn term_erase(x: i32, y: i32, n: i32) {
-    // SAFETY: plain call on the active term.
+    // SAFETY: plain call on the active term; the engine checks the
+    // position (`Term_gotoxy`) and clips `n` to the row.
     unsafe {
         crate::headers::ui_term_h::Term_erase(x, y, n);
     }
@@ -311,22 +396,46 @@ pub fn message_add(text: &[u8], kind: u16) {
     unsafe { crate::headers::message_h::message_add(c.as_ptr(), kind) }
 }
 
+/// `N_GAME_EVENTS` (game-event.h): the size of the engine's handler table,
+/// which every event function indexes by the event type without a check.
+const N_GAME_EVENTS: game_event_type = crate::headers::game_event_h::EVENT_END + 1;
+
+/// Panics unless `kind` indexes the engine's handler table.
+fn check_event(kind: game_event_type) {
+    assert!(kind < N_GAME_EVENTS, "game event type {kind} out of range");
+}
+
+/// A game event handler (`game_event_handler`), as a safe function: the
+/// engine calls it with an event type, the event data (or NULL) and the
+/// NULL user pointer registered here.
+pub type EventHandler =
+    extern "C" fn(game_event_type, *mut crate::headers::game_event_h::game_event_data, *mut core::ffi::c_void);
+
 /// `event_signal_message(type, t, NULL)` (runs event handlers: lends the
 /// state).
 pub fn event_signal_message_null(st: &mut BorgState, kind: game_event_type, t: i32) {
-    // SAFETY: NULL message text is allowed by the engine.
+    check_event(kind);
+    // SAFETY: NULL message text is allowed by the engine; the type indexes
+    // the handler table (checked).
     lend(st, || unsafe { crate::headers::game_event_h::event_signal_message(kind, t, core::ptr::null()) })
 }
 
 /// `event_add_handler(type, fn, NULL)`.
-pub fn event_add_handler(kind: game_event_type, f: game_event_handler) {
-    // SAFETY: registers a function pointer with a NULL user pointer.
+pub fn event_add_handler(kind: game_event_type, f: EventHandler) {
+    check_event(kind);
+    let f: game_event_handler = f;
+    // SAFETY: registers a safe function pointer (no precondition for the
+    // engine to meet) with a NULL user pointer; the type indexes the
+    // handler table (checked).
     unsafe { crate::headers::game_event_h::event_add_handler(kind, Some(f), core::ptr::null_mut()) }
 }
 
 /// `event_remove_handler(type, fn, NULL)`.
-pub fn event_remove_handler(kind: game_event_type, f: game_event_handler) {
-    // SAFETY: unregisters a function pointer registered above.
+pub fn event_remove_handler(kind: game_event_type, f: EventHandler) {
+    check_event(kind);
+    let f: game_event_handler = f;
+    // SAFETY: unregisters a function pointer (a no-op if it is not
+    // registered); the type indexes the handler table (checked).
     unsafe {
         crate::headers::game_event_h::event_remove_handler(kind, Some(f), core::ptr::null_mut())
     }
@@ -337,8 +446,13 @@ pub fn event_remove_handler(kind: game_event_type, f: game_event_handler) {
 
 use crate::headers::ui_event_h::{keypress, ui_event_type};
 
+/// `*player`. Private: the engine writes the player all the time, so the
+/// reference is only used for the field reads at hand inside one wrapper,
+/// never across an engine call (the compiler does not check this; it is
+/// confined to this file).
 fn player_ref() -> &'static crate::headers::player_h::player {
-    // SAFETY: `player` is allocated at startup and lives for the game.
+    // SAFETY: `player` is allocated at startup and lives for the game
+    // (`enter` checks it is set up before any Borg code runs).
     unsafe { &*crate::headers::player_h::player }
 }
 
@@ -446,11 +560,13 @@ pub fn set_rand_state(quick: bool, value: u32) {
     }
 }
 
-/// The `inkey_hack` callback type.
-pub type InkeyHack = unsafe extern "C" fn(core::ffi::c_int) -> keypress;
+/// The `inkey_hack` callback type (a safe function: the engine has no
+/// precondition to meet when it calls it).
+pub type InkeyHack = extern "C" fn(core::ffi::c_int) -> keypress;
 
 /// Set or clear `inkey_hack` (ui-input.c).
 pub fn set_inkey_hack(f: Option<InkeyHack>) {
+    let f: Option<unsafe extern "C" fn(core::ffi::c_int) -> keypress> = f.map(|f| f as _);
     // SAFETY: plain global, engine thread.
     unsafe { crate::headers::ui_input_h::inkey_hack = f }
 }
@@ -479,19 +595,46 @@ pub fn find_activation(name: &str) -> Option<i32> {
 /// An object kind (`struct object_kind`).
 pub type ObjectKind = crate::headers::object_h::object_kind;
 
-/// `k_info[0 .. z_info->k_max]`, the object kinds.
-pub fn k_info() -> &'static [ObjectKind] {
-    let n = usize::from(z_info().k_max);
-    // SAFETY: k_info is allocated with z_info->k_max entries when the game
-    // data is loaded, before any Borg code runs, and lives for the game.
-    unsafe { std::slice::from_raw_parts(crate::headers::object_h::k_info, n) }
+// Engine tables (docs/SELF-REVIEW.md L5). `k_info`, `r_info`, `a_info`
+// and `e_info` are written while the game runs (`aware`, `tried`,
+// `everseen` and `ignore` of a kind, `everseen` of an ego -- `object_desc`
+// itself sets them --, `cur_num` and `max_num` of a race, randarts at
+// birth), so no reference into them is handed out: the accessors return
+// a copy of one entry, read at the moment of the call (C reads through a
+// pointer at the moment of each field access; the Borg makes no engine
+// call that writes an entry between taking a copy and reading it, the
+// same argument as for the old reference). `&'static` stays for data
+// that nothing writes after the game data is loaded: `z_info`, `kb_info`
+// (object bases), the race/class lists and the name strings.
+
+/// `z_info->k_max`: the number of object kinds.
+pub fn k_max() -> usize {
+    usize::from(z_info().k_max)
+}
+
+/// `&k_info[kind]` (panics for `kind >= k_max`). No reference is made.
+fn kind_ptr(kind: usize) -> *const ObjectKind {
+    assert!(kind < k_max(), "object kind {kind} out of range");
+    // SAFETY: plain read of the k_info pointer global (set when the game
+    // data is loaded). k_info has k_max entries (index checked), so the
+    // offset stays inside the allocation.
+    unsafe { crate::headers::object_h::k_info.add(kind) }
+}
+
+/// A copy of `k_info[kind]` (panics for `kind >= k_max`).
+#[inline]
+pub fn kind(kind: usize) -> ObjectKind {
+    let p = kind_ptr(kind);
+    // SAFETY: p points at a live entry of k_info (see kind_ptr); copied at
+    // once, no reference is kept.
+    unsafe { *p }
 }
 
 /// `k_info[kind].base->max_stack`: how many objects of this kind fit in
 /// one stack (panics past `k_max` or for a kind without a base, where C
 /// would read out of bounds or through NULL).
 pub fn kind_max_stack(kind: usize) -> i32 {
-    let base = k_info()[kind].base;
+    let base = self::kind(kind).base;
     assert!(!base.is_null(), "k_info[{}] has no base", kind);
     // SAFETY: a kind's base points into kb_info, which is allocated with
     // the game data before any Borg code runs and lives for the game
@@ -507,7 +650,9 @@ pub fn kb_info() -> &'static [ObjectBase] {
     let n = crate::headers::obj_properties_h::TV_MAX as usize;
     // SAFETY: kb_info is allocated with TV_MAX entries (obj-init.c) when
     // the game data is loaded, before any Borg code runs, and lives for the
-    // game.
+    // game. Nothing writes it after loading (no engine code assigns to an
+    // object base outside the parser), so a shared `'static` slice never
+    // overlaps a write.
     unsafe { std::slice::from_raw_parts(crate::headers::object_h::kb_info, n) }
 }
 
@@ -543,12 +688,20 @@ pub fn lookup_sval_bytes(tval: i32, name: &[u8]) -> i32 {
 /// A monster race (`struct monster_race`).
 pub type MonsterRace = crate::headers::monster_h::monster_race;
 
-/// `r_info[0 .. z_info->r_max]`, the monster races.
-pub fn r_info() -> &'static [MonsterRace] {
-    let n = usize::from(z_info().r_max);
+/// `z_info->r_max`: the number of monster races.
+pub fn r_max() -> usize {
+    usize::from(z_info().r_max)
+}
+
+/// A copy of `r_info[r_idx]` (panics for `r_idx >= r_max`; see "Engine
+/// tables": `cur_num`/`max_num` change while the game runs).
+#[inline]
+pub fn race(r_idx: usize) -> MonsterRace {
+    assert!(r_idx < r_max(), "monster race {r_idx} out of range");
     // SAFETY: r_info is allocated with z_info->r_max entries when the game
-    // data is loaded, before any Borg code runs, and lives for the game.
-    unsafe { std::slice::from_raw_parts(crate::headers::monster_h::r_info, n) }
+    // data is loaded, before any Borg code runs, and lives for the game
+    // (index checked); copied at once, no reference is kept.
+    unsafe { *crate::headers::monster_h::r_info.add(r_idx) }
 }
 
 /// `r_info[r_idx].name` (bytes up to the NUL).
@@ -558,7 +711,7 @@ pub fn race_name(r_idx: usize) -> &'static [u8] {
 
 /// `r_info[r_idx].name` as a C string.
 pub fn race_name_cstr(r_idx: usize) -> &'static CStr {
-    let name = r_info()[r_idx].name;
+    let name = race(r_idx).name;
     assert!(!name.is_null(), "race {r_idx} has no name");
     // SAFETY: a race's name is a C string allocated when the game data is
     // loaded and kept for the game; checked non-null.
@@ -567,7 +720,7 @@ pub fn race_name_cstr(r_idx: usize) -> &'static CStr {
 
 /// `r_info[r_idx].plural` (bytes up to the NUL), `None` for NULL.
 pub fn race_plural(r_idx: usize) -> Option<&'static [u8]> {
-    let p = r_info()[r_idx].plural;
+    let p = race(r_idx).plural;
     // SAFETY: a non-NULL plural is a C string allocated when the game data
     // is loaded and kept for the game.
     (!p.is_null()).then(|| unsafe { CStr::from_ptr(p).to_bytes() })
@@ -575,7 +728,7 @@ pub fn race_plural(r_idx: usize) -> Option<&'static [u8]> {
 
 /// `r_info[r_idx].base->name` (bytes up to the NUL).
 pub fn race_base_name(r_idx: usize) -> &'static [u8] {
-    let base = r_info()[r_idx].base;
+    let base = race(r_idx).base;
     assert!(!base.is_null(), "race {r_idx} has no base");
     // SAFETY: a race's base points into rb_info, loaded with the game data
     // and kept for the game (checked non-null); its name is checked too.
@@ -588,7 +741,7 @@ pub fn race_base_name(r_idx: usize) -> &'static [u8] {
 
 /// `k_info[kidx].name` (bytes up to the NUL).
 pub fn kind_name(kidx: usize) -> &'static [u8] {
-    let name = k_info()[kidx].name;
+    let name = self::kind(kidx).name;
     assert!(!name.is_null(), "kind {kidx} has no name");
     // SAFETY: a kind's name is a C string allocated when the game data is
     // loaded and kept for the game; checked non-null.
@@ -630,11 +783,13 @@ unsafe fn monster_view(m: *const crate::headers::monster_h::monster) -> MonsterV
     }
 }
 
-/// `square_monster(cave, loc(x, y))`, `None` for no monster. The grid must
-/// be in bounds (the engine asserts it, as for C callers).
+/// `square_monster(cave, loc(x, y))`, `None` for no monster (or a grid
+/// out of bounds: `square_monster` checks it itself, with or without
+/// NDEBUG).
 pub fn square_monster(x: i32, y: i32) -> Option<MonsterView> {
-    // SAFETY: `cave` is the current level; the result is NULL or a live
-    // monster of it, whose race (if any) points into r_info.
+    // SAFETY: `cave` is the current level; square_monster returns NULL for
+    // a grid out of bounds (its own check), else NULL or a live monster of
+    // the level, whose race (if any) points into r_info.
     unsafe {
         let m = crate::headers::cave_h::square_monster(crate::headers::cave_h::cave, loc { x, y });
         (!m.is_null()).then(|| monster_view(m))
@@ -656,10 +811,10 @@ pub fn cave_monster(m_idx: i32) -> MonsterView {
 
 /// `rf_has(r_info[r_idx].flags, flag)`.
 pub fn race_flag_has(r_idx: usize, flag: u32) -> bool {
-    let flags = &r_info()[r_idx].flags;
-    // SAFETY: flags is the race's RF_SIZE-byte flag array; flag_has only
-    // reads within the size given.
-    unsafe { crate::headers::z_bitflag_h::flag_has(flags.as_ptr(), flags.len(), flag as i32) }
+    // The flag is checked against the RF_SIZE-byte array by `flag_has`
+    // (as the `int` C gets: a value past `i32::MAX` is negative and
+    // panics).
+    flag_has(&race(r_idx).flags, flag as i32)
 }
 
 // ---------------------------------------------------------------------------
@@ -789,9 +944,12 @@ pub fn spell_effect_indices(index: i32) -> Vec<u16> {
     out
 }
 
-/// `spell_okay_to_cast(player, index)`.
+/// `spell_okay_to_cast(player, index)` (0 <= index < total_spells; C reads
+/// `p->spell_flags[index]` without a check).
 pub fn spell_okay_to_cast(index: i32) -> bool {
-    // SAFETY: reads the player's spell flags and class data only.
+    assert!(index >= 0 && index < class_total_spells(), "spell index out of range");
+    // SAFETY: reads `player->spell_flags[index]`; spell_flags is allocated
+    // with total_spells entries at birth (index checked above).
     unsafe {
         crate::headers::player_spell_h::spell_okay_to_cast(crate::headers::player_h::player, index)
     }
@@ -806,9 +964,9 @@ pub fn player_spell_flags(sidx: i32) -> u8 {
 
 /// `player_has(player, flag)`: a player flag in `player->state.pflags`.
 pub fn player_has(flag: u32) -> bool {
-    let f = &player_ref().state.pflags;
-    // SAFETY: flag_has reads within the size given (the array length).
-    unsafe { crate::headers::z_bitflag_h::flag_has(f.as_ptr(), f.len(), flag as i32) }
+    // A copy of the PF_SIZE-byte array; `flag_has` checks the flag.
+    let f = player_ref().state.pflags;
+    flag_has(&f, flag as i32)
 }
 
 /// `no_light(player)`: the player's grid is not lit.
@@ -835,8 +993,12 @@ pub fn all_letters(i: usize) -> u8 {
 
 /// `randint0(m)` (z-rand.h): `(int32_t) Rand_div(m)` from the game RNG
 /// (the Borg's own RNG while it thinks, see `borg::generate_keypress`).
+/// Panics for `m > 0x10000000`, where `Rand_div` divides by zero (its
+/// `assert` is compiled out).
 pub fn randint0(m: u32) -> i32 {
-    // SAFETY: plain call; the RNG state is engine-thread global.
+    assert!(m <= 0x1000_0000, "randint0({m}): Rand_div would divide by zero");
+    // SAFETY: plain call (m in Rand_div's domain, checked); the RNG state
+    // is engine-thread global.
     unsafe { crate::headers::z_rand_h::Rand_div(m) as i32 }
 }
 
@@ -921,7 +1083,9 @@ pub fn spell_chance(spell_index: i32) -> i16 {
 // ---------------------------------------------------------------------------
 // Files
 
-/// An engine file (`ang_file *`) opened by someone else.
+/// An engine file (`ang_file *`) opened by someone else. It has no public
+/// constructor: the only one is made by `ReadFile::getl` for one call,
+/// from an open `ReadFile`.
 #[derive(Clone, Copy)]
 pub struct AngFile(*mut crate::headers::z_file_h::ang_file);
 
@@ -933,20 +1097,45 @@ impl AngFile {
 /// spaces). Returns false at the end of the file.
 pub fn file_getl(f: AngFile, buf: &mut [u8], len: usize) -> bool {
     assert!(len >= 1 && len <= buf.len());
-    // SAFETY: f is open (AngFile::from_raw); file_getl writes at most
-    // `len` bytes into buf.
+    // SAFETY: f is open (an AngFile only comes from an open ReadFile, see
+    // the type); file_getl writes at most `len` bytes into buf (len checked).
     unsafe { crate::headers::z_file_h::file_getl(f.0, buf.as_mut_ptr() as *mut c_char, len) }
 }
 
 // ---------------------------------------------------------------------------
 // Flags, player flags and race resistances
 
+/// `FLAG_END` (z-bitflag.h): no flag.
+pub const FLAG_END: i32 = 0;
+/// `FLAG_START` (z-bitflag.h): the first flag.
+pub const FLAG_START: i32 = 1;
+
+/// The precondition of C's `flag_has(flags, size, flag)` with
+/// `size = size_bytes`: `flag` is `FLAG_END` (C returns false before it
+/// reads anything) or a flag whose byte `FLAG_OFFSET(flag)` is below the
+/// size. C only `assert`s the upper bound, and the engine is built with
+/// `-DNDEBUG`; a negative flag gives a huge `size_t` offset. Panics
+/// otherwise (C would read outside the array).
+fn check_flag_has(size_bytes: usize, flag: i32) {
+    assert!(
+        flag == FLAG_END || (flag >= FLAG_START && ((flag - FLAG_START) as usize) / 8 < size_bytes),
+        "flag {flag} out of range for a {size_bytes}-byte flag set"
+    );
+}
+
 /// `flag_has(flags, size, flag)` (z-bitflag.c) on a whole flag array; the
-/// function behind `of_has`, `kf_has`, `rf_has` and friends.
+/// function behind `of_has`, `kf_has`, `rf_has` and friends. `FLAG_END`
+/// (0) gives false, as in C; a flag outside the array panics (see
+/// `check_flag_has`). A transcription of the C function (no FFI call, so
+/// it is testable without the engine): for a checked flag it reads the
+/// same byte and bit (`FLAG_OFFSET`, `FLAG_BINARY`).
 pub fn flag_has(flags: &[u8], flag: i32) -> bool {
-    // SAFETY: flag_has reads one byte below the size given (it asserts the
-    // flag's offset is in range), and the size is the slice length.
-    unsafe { crate::headers::z_bitflag_h::flag_has(flags.as_ptr(), flags.len(), flag) }
+    check_flag_has(flags.len(), flag);
+    if flag == FLAG_END {
+        return false;
+    }
+    let f = (flag - FLAG_START) as usize;
+    flags[f / 8] & (1 << (f % 8)) != 0
 }
 
 /// `OF_SIZE`: bytes in an object flag set.
@@ -974,8 +1163,8 @@ pub fn player_race_res_level(elem: u32) -> i16 {
 /// `obj_kind_can_browse(&k_info[kind])`: the player's class can browse
 /// books of this kind.
 pub fn obj_kind_can_browse(kind: usize) -> bool {
-    let k: *const ObjectKind = &k_info()[kind];
-    // SAFETY: k points into k_info (index checked above); the callee only
+    let k = kind_ptr(kind);
+    // SAFETY: k points into k_info (index checked by kind_ptr); the callee only
     // reads the kind and the player's class.
     unsafe { crate::headers::obj_util_h::obj_kind_can_browse(k) }
 }
@@ -1200,7 +1389,10 @@ pub fn player_timed(idx: u32) -> i16 {
 
 /// `player_of_has(player, flag)`: an object flag on the player.
 pub fn player_of_has(flag: u32) -> bool {
-    // SAFETY: reads the player's state only.
+    // C: `of_has(p->state.flags, flag)`, i.e. `flag_has` on OF_SIZE bytes.
+    check_flag_has(player_ref().state.flags.len(), flag as i32);
+    // SAFETY: reads the player's state only; the flag is FLAG_END or inside
+    // the OF_SIZE-byte array (checked above).
     unsafe {
         crate::headers::player_util_h::player_of_has(crate::headers::player_h::player, flag as i32)
     }
@@ -1274,16 +1466,16 @@ pub fn store_stock_descs(store: usize, mode: u32) -> Vec<Vec<u8>> {
 // ---------------------------------------------------------------------------
 // Store stock (borg-store.c)
 
-/// An object in a store's stock (an entry of `store_stock_list`).
-///
-/// Only valid while the store's stock does not change, i.e. within the
-/// Borg call that got it; callers do not keep it.
+/// An object in a store's stock (an entry of `store_stock_list`). Bound
+/// to the borrow of the state's `access` token (see "Engine object
+/// handles"): the stock only changes while the game runs.
 #[derive(Clone, Copy)]
-pub struct StoreObject(*const crate::headers::object_h::object);
+pub struct StoreObject<'a>(*const crate::headers::object_h::object, PhantomData<&'a Access>);
 
 /// `store_stock_list(&stores[store], list, z_info->store_inven_max)`: the
 /// entries before the first NULL, in order.
-pub fn store_stock(store: usize) -> Vec<StoreObject> {
+pub fn store_stock(access: &Access, store: usize) -> Vec<StoreObject<'_>> {
+    check_access(access);
     let n = usize::from(z_info().store_inven_max);
     assert!(store < usize::from(z_info().store_max), "store index out of range");
     let mut list: Vec<*mut crate::headers::object_h::object> = vec![core::ptr::null_mut(); n];
@@ -1296,10 +1488,10 @@ pub fn store_stock(store: usize) -> Vec<StoreObject> {
             n as i32,
         );
     }
-    list.iter().take_while(|o| !o.is_null()).map(|&o| StoreObject(o)).collect()
+    list.iter().take_while(|o| !o.is_null()).map(|&o| StoreObject(o, PhantomData)).collect()
 }
 
-impl StoreObject {
+impl StoreObject<'_> {
 
     /// `object_desc(buf, 120, obj, mode, player)` (bytes up to the NUL).
     pub fn desc120(self, mode: u32) -> Vec<u8> {
@@ -1394,8 +1586,8 @@ pub fn player_opt(opt: u32) -> bool {
 
 /// `square_monster(cave, loc(x, y))->midx`, or `None` for no monster.
 pub fn square_monster_midx(x: i32, y: i32) -> Option<i32> {
-    // SAFETY: `cave` is the current level; callers stay inside the
-    // dungeon bounds; the result is NULL or a live monster.
+    // SAFETY: `cave` is the current level; square_monster checks the
+    // bounds itself (NULL outside); the result is NULL or a live monster.
     unsafe {
         let m = crate::headers::cave_h::square_monster(crate::headers::cave_h::cave, loc { x, y });
         (!m.is_null()).then(|| (*m).midx)
@@ -1437,7 +1629,8 @@ pub fn term_putstr(x: i32, y: i32, n: i32, a: i32, s: &[u8]) {
 
 /// `Term_putch(x, y, a, c)`.
 pub fn term_putch(x: i32, y: i32, a: i32, c: wchar_t) {
-    // SAFETY: plain call on the active term.
+    // SAFETY: plain call on the active term; the engine checks the
+    // position (`Term_gotoxy`).
     unsafe {
         crate::headers::ui_term_h::Term_putch(x, y, a, c);
     }
@@ -1462,55 +1655,61 @@ pub fn prt(s: &[u8], row: i32, col: i32) {
 // Carried objects (borg-inventory.c)
 
 /// A game object the player carries (pack, equipment or quiver) that has
-/// a kind. Opaque: the pointer stays on the FFI side (`engine`).
+/// a kind. Opaque: the pointer stays on the FFI side (`engine`). Bound to
+/// the borrow of the state's `access` token (see "Engine object handles").
 #[derive(Clone, Copy)]
-pub struct CarriedObject(*const crate::headers::object_h::object);
+pub struct CarriedObject<'a>(*const crate::headers::object_h::object, PhantomData<&'a Access>);
 
-impl CarriedObject {
+impl CarriedObject<'_> {
 
     /// `obj && obj->kind`
-    fn with_kind(obj: *const crate::headers::object_h::object) -> Option<Self> {
+    /// (`access` is checked by the caller, before it reads the slot.)
+    fn with_kind<'a>(_access: &'a Access, obj: *const crate::headers::object_h::object) -> Option<CarriedObject<'a>> {
         if obj.is_null() {
             return None;
         }
         // SAFETY: a non-NULL slot of the player's pack, body or quiver
         // points at a live object.
         let kind = unsafe { (*obj).kind };
-        (!kind.is_null()).then_some(CarriedObject(obj))
+        (!kind.is_null()).then_some(CarriedObject(obj, PhantomData))
     }
 }
 
 /// `player->upkeep->inven[i]` (i < pack_size), if it is an object with a
 /// kind.
-pub fn inven_object(i: usize) -> Option<CarriedObject> {
+pub fn inven_object(access: &Access, i: usize) -> Option<CarriedObject<'_>> {
+    check_access(access);
     assert!(i < usize::from(z_info().pack_size), "pack slot out of range");
     // SAFETY: inven is allocated with pack_size + 1 entries with the
     // player's upkeep (index checked).
-    CarriedObject::with_kind(unsafe { *(*player_ref().upkeep).inven.add(i) })
+    CarriedObject::with_kind(access, unsafe { *(*player_ref().upkeep).inven.add(i) })
 }
 
 /// `player->body.slots[i].obj` (i < body.count), if it is an object with a
 /// kind.
-pub fn equip_object(i: usize) -> Option<CarriedObject> {
+pub fn equip_object(access: &Access, i: usize) -> Option<CarriedObject<'_>> {
+    check_access(access);
     let body = &player_ref().body;
     assert!(i < usize::from(body.count), "equipment slot out of range");
     // SAFETY: slots has body.count entries (checked).
-    CarriedObject::with_kind(unsafe { (*body.slots.add(i)).obj })
+    CarriedObject::with_kind(access, unsafe { (*body.slots.add(i)).obj })
 }
 
 /// `player->upkeep->quiver[i]` (i < quiver_size), if it is an object with
 /// a kind.
-pub fn quiver_object(i: usize) -> Option<CarriedObject> {
+pub fn quiver_object(access: &Access, i: usize) -> Option<CarriedObject<'_>> {
+    check_access(access);
     assert!(i < usize::from(z_info().quiver_size), "quiver slot out of range");
     // SAFETY: the quiver is allocated with z_info->quiver_size entries
     // with the player's upkeep (index checked).
-    CarriedObject::with_kind(unsafe { *(*player_ref().upkeep).quiver.add(i) })
+    CarriedObject::with_kind(access, unsafe { *(*player_ref().upkeep).quiver.add(i) })
 }
 
 /// `object_desc(buf, 256, obj, ODESC_FULL, player)` (bytes up to the NUL).
-pub fn object_desc_full(obj: CarriedObject) -> Vec<u8> {
+pub fn object_desc_full(obj: CarriedObject<'_>) -> Vec<u8> {
     let mut buf = [0u8; 256];
-    // SAFETY: obj is a live carried object; object_desc writes at most
+    // SAFETY: obj is a live carried object (its lifetime keeps it from
+    // crossing a call that runs the game); object_desc writes at most
     // 256 bytes, NUL included.
     unsafe {
         crate::headers::obj_desc_h::object_desc(
@@ -1648,7 +1847,7 @@ pub struct RaceBlow {
 /// the blow has no method (the end of the race's blows).
 pub fn race_blow(r_idx: usize, k: usize) -> Option<RaceBlow> {
     assert!(k < usize::from(z_info().mon_blows_max));
-    let blows = r_info()[r_idx].blow;
+    let blows = race(r_idx).blow;
     assert!(!blows.is_null(), "race {r_idx} has no blow array");
     // SAFETY: a race's blow array has z_info->mon_blows_max entries
     // (checked above), allocated when the game data is loaded and kept
@@ -1673,32 +1872,38 @@ use crate::headers::object_h::{element_info, object, object_kind};
 
 /// A live game object (`const struct object *`): a carried object, a
 /// store ware, or the player's knowledge of one (`obj->known`). Opaque:
-/// the pointer stays on the FFI side.
+/// the pointer stays on the FFI side. Made only from a `CarriedObject` or
+/// a `StoreObject` (or as their `known`), with the same lifetime (see
+/// "Engine object handles").
 #[derive(Clone, Copy)]
-pub struct GameObject(*const object);
+pub struct GameObject<'a>(*const object, PhantomData<&'a Access>);
 
-impl From<StoreObject> for GameObject {
-    fn from(o: StoreObject) -> Self {
-        GameObject(o.0)
+impl<'a> From<StoreObject<'a>> for GameObject<'a> {
+    fn from(o: StoreObject<'a>) -> Self {
+        GameObject(o.0, PhantomData)
     }
 }
 
-impl From<CarriedObject> for GameObject {
-    fn from(o: CarriedObject) -> Self {
-        GameObject(o.0)
+impl<'a> From<CarriedObject<'a>> for GameObject<'a> {
+    fn from(o: CarriedObject<'a>) -> Self {
+        GameObject(o.0, PhantomData)
     }
 }
 
-impl GameObject {
+impl<'a> GameObject<'a> {
 
     fn obj(&self) -> &object {
-        // SAFETY: the handle was made from a live object (CarriedObject or
-        // from_raw), which the engine does not change or free while the
-        // Borg thinks.
+        // SAFETY: the handle was made from a live object (a CarriedObject
+        // or StoreObject, or its `known`), and its lifetime keeps it from
+        // crossing an engine call that runs the game (the only place
+        // objects are freed). The reference is only used for the field
+        // read at hand, never across an engine call.
         unsafe { &*self.0 }
     }
 
-    /// The object's kind (panics where C would dereference NULL).
+    /// The object's kind (panics where C would dereference NULL). Private:
+    /// the reference into k_info (which the engine writes, L5) is only used
+    /// for one field read, never across an engine call.
     fn kind(&self) -> &object_kind {
         let k = self.obj().kind;
         assert!(!k.is_null(), "object without a kind");
@@ -1764,9 +1969,9 @@ impl GameObject {
     }
 
     /// `obj->known`, if not NULL.
-    pub fn known(self) -> Option<GameObject> {
+    pub fn known(self) -> Option<GameObject<'a>> {
         let k = self.obj().known;
-        (!k.is_null()).then_some(GameObject(k))
+        (!k.is_null()).then_some(GameObject(k, PhantomData))
     }
 
     /// `object_fully_known(obj)`
@@ -1872,23 +2077,27 @@ impl GameObject {
 /// An artifact (`struct artifact`).
 pub type Artifact = crate::headers::object_h::artifact;
 
-/// `a_info[0 .. z_info->a_max]`, the artifacts.
-pub fn a_info() -> &'static [Artifact] {
-    let n = usize::from(z_info().a_max);
+/// A copy of `a_info[aidx]` (panics for `aidx >= a_max`; see "Engine
+/// tables": randart generation rewrites the table).
+pub fn artifact(aidx: usize) -> Artifact {
+    assert!(aidx < usize::from(z_info().a_max), "artifact {aidx} out of range");
     // SAFETY: a_info is allocated with z_info->a_max entries when the game
-    // data is loaded, before any Borg code runs, and lives for the game.
-    unsafe { std::slice::from_raw_parts(crate::headers::object_h::a_info, n) }
+    // data is loaded, before any Borg code runs, and lives for the game
+    // (index checked); copied at once, no reference is kept.
+    unsafe { *crate::headers::object_h::a_info.add(aidx) }
 }
 
 /// An ego item type (`struct ego_item`).
 pub type EgoItem = crate::headers::object_h::ego_item;
 
-/// `e_info[0 .. z_info->e_max]`, the ego item types.
-pub fn e_info() -> &'static [EgoItem] {
-    let n = usize::from(z_info().e_max);
+/// A copy of `e_info[eidx]` (panics for `eidx >= e_max`; see "Engine
+/// tables": `everseen` changes while the game runs).
+pub fn ego(eidx: usize) -> EgoItem {
+    assert!(eidx < usize::from(z_info().e_max), "ego item {eidx} out of range");
     // SAFETY: e_info is allocated with z_info->e_max entries when the game
-    // data is loaded, before any Borg code runs, and lives for the game.
-    unsafe { std::slice::from_raw_parts(crate::headers::object_h::e_info, n) }
+    // data is loaded, before any Borg code runs, and lives for the game
+    // (index checked); copied at once, no reference is kept.
+    unsafe { *crate::headers::object_h::e_info.add(eidx) }
 }
 
 /// `curses[i].name` (i < curse_max; panics where C would read NULL).
@@ -1917,7 +2126,7 @@ pub fn slay_race_flag_multiplier(i: usize) -> (i32, i32) {
 /// only the effect).
 pub fn race_blow_effect_name(r_idx: usize, k: usize) -> Option<&'static [u8]> {
     assert!(k < usize::from(z_info().mon_blows_max));
-    let blows = r_info()[r_idx].blow;
+    let blows = race(r_idx).blow;
     assert!(!blows.is_null(), "race {r_idx} has no blow array");
     // SAFETY: a race's blow array has z_info->mon_blows_max entries
     // (checked above), allocated when the game data is loaded and kept for
@@ -1980,17 +2189,33 @@ pub fn obj_flag_power(flag: i32) -> Option<i32> {
 }
 
 /// `flag_next(flags, size, flag)` (z-bitflag.c) on a whole flag array: the
-/// first set flag from `flag` on, or `FLAG_END` (0).
+/// first set flag from `flag` on, or `FLAG_END` (0). Panics for
+/// `flag < FLAG_START`: C reads before the array there (for `FLAG_END`,
+/// which its comment says starts at the beginning, `FLAG_OFFSET(0)` is
+/// `SIZE_MAX / 8` stored in an `int`, i.e. -1). A start past the last flag
+/// reads nothing and gives `FLAG_END`, as in C.
+///
+/// A transcription of the C loop (no FFI call): `for (f = flag; f <
+/// FLAG_MAX(size); f++) if (flags[FLAG_OFFSET(f)] & FLAG_BINARY(f)) return
+/// f;`. From `flag >= FLAG_START` every offset is inside the array.
 pub fn flag_next(flags: &[u8], flag: i32) -> i32 {
-    // SAFETY: flag_next reads only below the size given (the slice length).
-    unsafe { crate::headers::z_bitflag_h::flag_next(flags.as_ptr(), flags.len(), flag) }
+    assert!(flag >= FLAG_START, "flag_next from flag {flag} (before FLAG_START)");
+    // C's `FLAG_MAX(size)` is an `int`.
+    assert!(flags.len() <= (i32::MAX as usize - 1) / 8, "flag set too large");
+    let max_flags = (flags.len() * 8) as i32 + FLAG_START;
+    (flag..max_flags)
+        .find(|&f| {
+            let f0 = (f - FLAG_START) as usize;
+            flags[f0 / 8] & (1 << (f0 % 8)) != 0
+        })
+        .unwrap_or(FLAG_END)
 }
 
 /// The effects of `k_info[kind]` as `(index, subtype)`, in list order
 /// (following `next` until NULL).
 pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
     let mut out = Vec::new();
-    let mut e = k_info()[kind].effect;
+    let mut e = self::kind(kind).effect;
     while !e.is_null() {
         // SAFETY: effects form a NULL-terminated list loaded at startup.
         unsafe {
@@ -2007,7 +2232,7 @@ pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
 /// `k_info[kidx].base->name` (bytes up to the NUL), or `None` when the
 /// kind has no base (`base` is NULL). Panics for `kidx >= z_info->k_max`.
 pub fn kind_base_name(kidx: usize) -> Option<&'static [u8]> {
-    let base = k_info()[kidx].base;
+    let base = self::kind(kidx).base;
     // SAFETY: a non-NULL kind base points into kb_info, which (with its
     // names) lives for the game.
     (!base.is_null()).then(|| c_bytes(unsafe { (*base).name }))
@@ -2015,29 +2240,30 @@ pub fn kind_base_name(kidx: usize) -> Option<&'static [u8]> {
 
 /// `tval_is_book_k(&k_info[kidx])`.
 pub fn tval_is_book_k(kidx: usize) -> bool {
-    let k: *const ObjectKind = &k_info()[kidx];
-    // SAFETY: k points into k_info (index checked above); the callee only
+    let k = kind_ptr(kidx);
+    // SAFETY: k points into k_info (index checked by kind_ptr); the callee only
     // reads the kind's tval.
     unsafe { crate::headers::obj_tval_h::tval_is_book_k(k) }
 }
 
 /// An object lying on the floor of the current level (an entry of a
 /// grid's object pile). Opaque: the pointer stays on the FFI side
-/// (`engine`). Only valid until the game changes the pile, so
-/// it is used within one Borg call.
+/// (`engine`). The pile only changes while the game runs; the handle is
+/// bound to the borrow of the state's `access` token (see "Engine object
+/// handles").
 #[derive(Clone, Copy)]
-pub struct FloorObject(*mut crate::headers::object_h::object);
+pub struct FloorObject<'a>(*mut crate::headers::object_h::object, PhantomData<&'a Access>);
 
-impl FloorObject {
-    /// `*obj->kind` (a floor object always has a kind; it points into
-    /// `k_info`).
-    pub fn kind(self) -> &'static ObjectKind {
+impl FloorObject<'_> {
+    /// A copy of `*obj->kind` (a floor object always has a kind; it points
+    /// into `k_info`, which the engine writes at run time: L5).
+    pub fn kind(self) -> ObjectKind {
         // SAFETY: a live floor object; its kind points into k_info, which
-        // lives for the game (checked non-NULL).
+        // lives for the game (checked non-NULL); copied at once.
         unsafe {
             let k = (*self.0).kind;
             assert!(!k.is_null(), "floor object without a kind");
-            &*k
+            *k
         }
     }
 
@@ -2057,7 +2283,9 @@ impl FloorObject {
     /// non-zero), as bytes.
     pub fn note(self) -> Option<&'static [u8]> {
         // SAFETY: a live floor object; a non-zero quark is a valid index
-        // into the quark table, whose strings live for the game.
+        // into the quark table. Quark strings are never written or freed
+        // while the game runs (the table only grows; a string keeps its
+        // address), so a `'static` slice is sound.
         unsafe {
             let q = (*self.0).note;
             (q != 0).then(|| c_bytes(crate::headers::z_quark_h::quark_str(q)))
@@ -2080,13 +2308,15 @@ impl FloorObject {
 /// `borg_get_top_object(cave, loc(x, y))` (borg-flow-take.c): the first
 /// object of the grid's pile that is neither ignored by the player
 /// (`known->notice & OBJ_NOTICE_IGNORE`) nor of an ignored kind, or `None`.
-/// The grid must be in bounds (`square_object` asserts it).
-pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
+/// An out-of-bounds grid has no pile (`square_object` checks it).
+pub fn top_floor_object(access: &Access, x: i32, y: i32) -> Option<FloorObject<'_>> {
     use crate::headers::object_h::OBJ_NOTICE_IGNORE;
+    check_access(access);
     // SAFETY: `cave` is the current level, valid while the game runs;
-    // square_object asserts the grid is in bounds and returns the head of
-    // its pile (or NULL). Each object of a pile is live and has a kind,
-    // and its `next` and `known` pointers are NULL or live objects.
+    // square_object returns NULL for a grid out of bounds (its own check,
+    // kept with NDEBUG), else the head of the grid's pile (or NULL). Each
+    // object of a pile is live and has a kind, and its `next` and `known`
+    // pointers are NULL or live objects.
     unsafe {
         let mut o = headers::cave_h::square_object(headers::cave_h::cave, loc { x, y });
         while !o.is_null() {
@@ -2097,7 +2327,7 @@ pub fn top_floor_object(x: i32, y: i32) -> Option<FloorObject> {
             }
             o = (*o).next;
         }
-        (!o.is_null()).then_some(FloorObject(o))
+        (!o.is_null()).then_some(FloorObject(o, PhantomData))
     }
 }
 
@@ -2115,7 +2345,9 @@ pub fn do_cmd_redraw(st: &mut BorgState) {
 /// `event_signal(type)` (a message flush can wait for a key: lends the
 /// state).
 pub fn event_signal(st: &mut BorgState, kind: game_event_type) {
-    // SAFETY: plain call; handlers get no data, as in C.
+    check_event(kind);
+    // SAFETY: plain call; handlers get no data, as in C; the type indexes
+    // the handler table (checked).
     lend(st, || unsafe { crate::headers::game_event_h::event_signal(kind) })
 }
 
@@ -2168,21 +2400,16 @@ pub fn set_kind_ignore(kind: usize, v: u8) {
 
 /// `ignore_level[0 .. ITYPE_MAX]` (obj-ignore.c).
 pub fn ignore_level() -> [u8; ITYPE_MAX] {
-    // SAFETY: ignore_level is a static array of ITYPE_MAX bytes (declared
-    // with length 0 in the header).
-    unsafe {
-        let p = core::ptr::addr_of!(crate::headers::obj_ignore_h::ignore_level) as *const u8;
-        *(p as *const [u8; ITYPE_MAX])
-    }
+    // SAFETY: ignore_level is a static array of ITYPE_MAX bytes, declared
+    // with its C length in the header (so the read stays inside the
+    // static); plain copy on the engine thread.
+    unsafe { *core::ptr::addr_of!(crate::headers::obj_ignore_h::ignore_level) }
 }
 
 /// `ignore_level[i] = levels[i]` for all ignore types.
 pub fn set_ignore_level(levels: &[u8; ITYPE_MAX]) {
     // SAFETY: as ignore_level(); single-threaded write.
-    unsafe {
-        let p = core::ptr::addr_of_mut!(crate::headers::obj_ignore_h::ignore_level) as *mut u8;
-        *(p as *mut [u8; ITYPE_MAX]) = *levels;
-    }
+    unsafe { *core::ptr::addr_of_mut!(crate::headers::obj_ignore_h::ignore_level) = *levels }
 }
 
 /// `ego_ignore_types[ego][0 .. ITYPE_MAX]` (obj-ignore.c).
@@ -2319,7 +2546,8 @@ pub fn target_set_interactive(st: &mut BorgState, mode: i32, x: i32, y: i32, all
 /// `print_rel(c, a, y, x)`: draw a character at a map grid (if it is on
 /// the panel).
 pub fn print_rel(c: u8, a: u8, y: i32, x: i32) {
-    // SAFETY: plain call; the function only draws grids on the panel.
+    // SAFETY: plain call; the function checks the grid against the panel
+    // and each map window before it draws (any x, y).
     unsafe { crate::headers::ui_map_h::print_rel(wchar_t::from(c), a, y, x) }
 }
 
@@ -2460,21 +2688,34 @@ impl Menu {
     }
 }
 
+/// The projections the Borg's `^Z` targeting display draws (borg-commands.c).
+#[derive(Clone, Copy, PartialEq, Eq, Debug)]
+pub enum Projection {
+    /// `project(source_player(), 0, grid, 1, PROJ_MISSILE, PROJECT_BEAM, 0, 0, NULL)`
+    Beam,
+    /// `project(source_player(), 10, grid, 50, PROJ_MISSILE, PROJECT_ARC, 60, 4, NULL)`
+    Arc,
+}
+
 /// `project(source_player(), rad, loc(x, y), dam, typ, flg, arc,
-/// diameter, NULL)`. Signals display events (lends the state).
-#[allow(clippy::too_many_arguments)]
-pub fn project_from_player(
-    st: &mut BorgState,
-    rad: i32,
-    x: i32,
-    y: i32,
-    dam: i32,
-    typ: i32,
-    flg: i32,
-    degrees_of_arc: i32,
-    diameter_of_source: u8,
-) -> bool {
-    // SAFETY: plain call; a NULL object is allowed.
+/// diameter, NULL)` with the arguments of one of the Borg's projections.
+/// `project` has preconditions it does not check (`typ` indexes the
+/// projection table, the blast fits its 256-grid arrays, the path stays
+/// on the level), so only these two fixed shapes are offered, at a grid in
+/// bounds (panics otherwise). Signals display events (lends the state).
+pub fn project_from_player(st: &mut BorgState, shape: Projection, x: i32, y: i32) -> bool {
+    use crate::headers::list_elements_h::PROJ_MISSILE;
+    use crate::headers::project_h::{PROJECT_ARC, PROJECT_BEAM};
+    let (rad, dam, flg, degrees_of_arc, diameter_of_source) = match shape {
+        Projection::Beam => (0, 1, PROJECT_BEAM as i32, 0, 0),
+        Projection::Arc => (10, 50, PROJECT_ARC as i32, 60, 4),
+    };
+    let typ = PROJ_MISSILE as i32;
+    assert!(square_in_bounds(x, y), "projection target out of bounds");
+    // SAFETY: a NULL object is allowed; the type is a projection, the
+    // radius and arc are the Borg's (an arc of radius 10 and 60 degrees,
+    // or a beam: within the 256 grids), and the path runs between two
+    // grids of the level (the player's and the checked target).
     lend(st, || unsafe {
         crate::headers::project_h::project(
             crate::headers::source_h::source_player(),
@@ -2527,12 +2768,12 @@ pub fn feat_name(feat: i32) -> &'static [u8] {
 
 /// `k_info[kidx].name` as `%s` prints it (NULL prints as "").
 pub fn kind_name_or_empty(kidx: usize) -> &'static [u8] {
-    c_bytes(k_info()[kidx].name)
+    c_bytes(self::kind(kidx).name)
 }
 
 /// `a_info[aidx].name` as `%s` prints it (NULL prints as "").
 pub fn artifact_name_or_empty(aidx: usize) -> &'static [u8] {
-    c_bytes(a_info()[aidx].name)
+    c_bytes(artifact(aidx).name)
 }
 
 /// `object_flags(player->upkeep->inven[n], f)` (all zero for an empty
@@ -2637,20 +2878,16 @@ pub fn square_trap_is_glyph(x: i32, y: i32) -> bool {
     assert!(square_in_bounds(x, y), "grid out of bounds");
     // SAFETY: `cave` is the current level; the grid is in bounds; the trap
     // pointer is checked; trap_info has z_info->trap_max entries (index
-    // checked); flag_has reads within the flag array's size.
-    unsafe {
+    // checked); the trap's flag array is copied.
+    let flags = unsafe {
         let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
         let trap = (*sq).trap;
         assert!(!trap.is_null(), "no trap on the grid");
         let t_idx = usize::from((*trap).t_idx);
         assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
-        let flags = &(*headers::trap_h::trap_info.add(t_idx)).flags;
-        headers::z_bitflag_h::flag_has(
-            flags.as_ptr(),
-            flags.len(),
-            headers::list_trap_flags_h::TRF_GLYPH as i32,
-        )
-    }
+        (*headers::trap_h::trap_info.add(t_idx)).flags
+    };
+    flag_has(&flags, headers::list_trap_flags_h::TRF_GLYPH as i32)
 }
 
 /// `square_iswebbed(cave, loc(x, y))`. Panics out of bounds.
@@ -2683,13 +2920,17 @@ pub fn player_wizard() -> bool {
 
 /// `TERM_XTRA_NOISE` (ui-term.h): make a noise.
 pub const TERM_XTRA_NOISE: i32 = 7;
+/// `TERM_XTRA_DELAY` (ui-term.h): wait some milliseconds.
+pub const TERM_XTRA_DELAY: i32 = 13;
 
-/// `Term_xtra(n, v)` on the current terminal (the Borg only uses
-/// `TERM_XTRA_NOISE` and `TERM_XTRA_DELAY`; the headless frontend ignores
-/// the noise and does not sleep).
+/// `Term_xtra(n, v)` on the current terminal, for `TERM_XTRA_NOISE` and
+/// `TERM_XTRA_DELAY` only (the ones the Borg uses; other actions, such as
+/// `TERM_XTRA_EVENT`, process input; panics). The headless frontend
+/// ignores the noise and does not sleep.
 pub fn term_xtra(n: i32, v: i32) -> i32 {
+    assert!(n == TERM_XTRA_NOISE || n == TERM_XTRA_DELAY, "Term_xtra action {n} not supported");
     // SAFETY: the active terminal is set up by the frontend; a noise or
-    // delay request never waits for a key.
+    // delay request (checked) never waits for a key.
     unsafe { crate::headers::ui_term_h::Term_xtra(n, v) }
 }
 
@@ -2786,7 +3027,9 @@ pub fn player_race_info() -> &'static crate::headers::player_h::player_race {
     let r = player_ref().race;
     assert!(!r.is_null(), "player has no race");
     // SAFETY: `player->race` points into the race list loaded at startup
-    // (set at birth, lives for the game); non-NULL (checked above).
+    // (set at birth, lives for the game); non-NULL (checked above). The
+    // race list is only written while it is parsed (no runtime field),
+    // so a `'static` shared reference never overlaps a write.
     unsafe { &*r }
 }
 
@@ -2796,6 +3039,8 @@ pub fn player_class_info() -> &'static crate::headers::player_h::player_class {
     assert!(!c.is_null(), "player has no class");
     // SAFETY: `player->class` points into the class list loaded at
     // startup (set at birth, lives for the game); non-NULL (checked above).
+    // The class list (with its magic) is only written while it is parsed,
+    // so a `'static` shared reference never overlaps a write.
     unsafe { &*c }
 }
 
@@ -2875,4 +3120,85 @@ pub fn py_food_levels() -> (i32, i32, i32, i32) {
     // SAFETY: plain reads of int globals the game sets at init and never
     // changes afterwards.
     unsafe { (t::PY_FOOD_WEAK, t::PY_FOOD_HUNGRY, t::PY_FOOD_FULL, t::PY_FOOD_MAX) }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // `flag_has`/`flag_next` need no engine: these are the boundaries of
+    // review finding 2 (docs/SELF-REVIEW.md F2).
+
+    #[test]
+    fn flag_has_end_is_false_even_on_an_empty_set() {
+        assert!(!flag_has(&[], FLAG_END));
+        assert!(!flag_has(&[0xff], FLAG_END));
+    }
+
+    #[test]
+    fn flag_has_matches_the_c_macros() {
+        // FLAG_OFFSET(2) = 0, FLAG_BINARY(2) = 1 << 1
+        assert!(flag_has(&[0x02], 2));
+        assert!(!flag_has(&[0x02], 1));
+        assert!(flag_has(&[0x01], 1));
+        assert!(flag_has(&[0x80], 8));
+        assert!(flag_has(&[0x00, 0x01], 9));
+        assert!(flag_has(&[0x00, 0x80], 16));
+        assert!(!flag_has(&[0xff, 0x7f], 16));
+    }
+
+    #[test]
+    #[should_panic(expected = "out of range")]
+    fn flag_has_past_an_empty_set_panics() {
+        // the reviewer's reproducer: C read address 0x2
+        flag_has(&[], 9);
+    }
+
+    #[test]
+    #[should_panic(expected = "out of range")]
+    fn flag_has_past_the_last_byte_panics() {
+        // C read the byte after a one-byte allocation
+        flag_has(&[0], 9);
+    }
+
+    #[test]
+    #[should_panic(expected = "out of range")]
+    fn flag_has_negative_panics() {
+        flag_has(&[0xff; 8], -1);
+    }
+
+    #[test]
+    fn flag_next_matches_the_c_loop() {
+        let f = [0b0000_0101u8, 0, 0b1000_0000];
+        assert_eq!(flag_next(&f, FLAG_START), 1);
+        assert_eq!(flag_next(&f, 2), 3);
+        assert_eq!(flag_next(&f, 4), 24);
+        assert_eq!(flag_next(&f, 25), FLAG_END);
+        // a start past FLAG_MAX reads nothing
+        assert_eq!(flag_next(&f, 1000), FLAG_END);
+        assert_eq!(flag_next(&[], FLAG_START), FLAG_END);
+    }
+
+    #[test]
+    #[should_panic(expected = "before FLAG_START")]
+    fn flag_next_from_flag_end_panics() {
+        // C reads flags[-1]
+        flag_next(&[0xff], FLAG_END);
+    }
+
+    #[test]
+    #[should_panic(expected = "before FLAG_START")]
+    fn flag_next_negative_panics() {
+        flag_next(&[0xff], -5);
+    }
+
+    #[test]
+    #[should_panic(expected = "without the Borg state's access token")]
+    fn handle_outside_an_entry_panics() {
+        // no entry is running in a unit test: a token of a fresh state is
+        // refused (every handle constructor checks it before it reads
+        // anything of the engine)
+        let st = BorgState::default();
+        check_access(&st.access);
+    }
 }

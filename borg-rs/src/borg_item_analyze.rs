@@ -46,7 +46,7 @@ const DESC_SIZE: usize = 80;
 /// The `long` sums are done in `i64` and truncated to `int32_t` as in C;
 /// the stat bonus test checks `STAT_*` as object flags (docs/c-bugs.md).
 fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
-    let k_ptr = &engine::k_info()[item.kind as usize];
+    let k_ptr = engine::kind(item.kind as usize);
 
     /* Worthless items */
     if k_ptr.cost == 0 {
@@ -58,7 +58,7 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
 
     /* Use artifact base costs Cheat */
     if item.art_idx != 0 {
-        let a_ptr = &engine::a_info()[usize::from(item.art_idx)];
+        let a_ptr = engine::artifact(usize::from(item.art_idx));
 
         /* Worthless artifacts */
         if a_ptr.cost == 0 {
@@ -71,7 +71,7 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
 
     /* Add in ego-item bonus cost Cheat */
     if item.ego_idx != 0 {
-        let e_ptr = &engine::e_info()[usize::from(item.ego_idx)];
+        let e_ptr = engine::ego(usize::from(item.ego_idx));
 
         /* Worthless ego-items */
         if e_ptr.cost == 0 {
@@ -633,7 +633,7 @@ pub fn ego_kind_flags_have_random_power(kind_flags: &[u8]) -> bool {
 /// This checks if an item has a random power or sustain
 /// (`borg_ego_has_random_power(&e_info[ego_idx])`).
 pub fn borg_ego_has_random_power(ego_idx: usize) -> bool {
-    ego_kind_flags_have_random_power(&engine::e_info()[ego_idx].kind_flags)
+    ego_kind_flags_have_random_power(&engine::ego(ego_idx).kind_flags)
 }
 
 #[cfg(test)]

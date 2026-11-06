@@ -495,7 +495,7 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
             let ridx = m
                 .ridx
                 .expect("visible monster without a race (C NULL dereference)");
-            wank.t_c = engine::r_info()[ridx as usize].d_char;
+            wank.t_c = engine::race(ridx as usize).d_char;
 
             // HACK Check if the monster is a mimic. The borg shouldn't
             // auto-know what is and isn't a mimic
@@ -1564,7 +1564,7 @@ fn expire_takes(st: &mut BorgState) {
                 let mut note = b"# Expiring an object '".to_vec();
                 note.extend_from_slice(pct_s(engine::kind_name_or_empty(kidx)));
                 note.extend_from_slice(
-                    format!("' ({}) at ({},{})", engine::k_info()[kidx].kidx, ty, tx).as_bytes(),
+                    format!("' ({}) at ({},{})", engine::kind(kidx).kidx, ty, tx).as_bytes(),
                 );
                 borg_note_bytes(st, &note);
 
@@ -2059,7 +2059,7 @@ fn count_live_uniques(st: &mut BorgState) {
     while u_i < (r_max - 1) as u32 {
         let u = u_i as usize;
         u_i += 1;
-        let r = &engine::r_info()[u];
+        let r = engine::race(u);
 
         // Skip non-monsters
         if r.name.is_null() {

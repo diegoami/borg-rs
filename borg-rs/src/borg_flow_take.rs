@@ -204,7 +204,9 @@ pub fn borg_follow_take(st: &mut BorgState, i: i32) {
 
 /// Obtain a new "take" index (`borg_new_take`).
 fn borg_new_take(st: &mut BorgState, kind: &engine::ObjectKind, y: i32, x: i32) -> i32 {
-    let o = engine::top_floor_object(x, y);
+    /* (C gets the top object here, `o_ptr`; it is looked up below, where it
+     * is read: the engine object handle cannot be kept across the `&mut st`
+     * calls in between, and nothing in between changes the floor) */
 
     /* Look for a "dead" object */
     let mut n: i32 = -1;
@@ -274,6 +276,7 @@ fn borg_new_take(st: &mut BorgState, kind: &engine::ObjectKind, y: i32, x: i32) 
      * avoid dumping an item which we know to be bad then turning around and
      * picking it up again. (C dereferences the object without a check.)
      */
+    let o = engine::top_floor_object(&st.access, x, y);
     let o = o.expect("borg_new_take: no object on the grid");
     let (to_a, to_h, to_d) = o.to_ahd();
     if o.fully_known() && (to_a < 0 || to_d < 0 || to_h < 0) {
@@ -313,7 +316,7 @@ fn borg_new_take(st: &mut BorgState, kind: &engine::ObjectKind, y: i32, x: i32) 
 /// Attempt to notice a changing "take" (`observe_take_diff`).
 pub fn observe_take_diff(st: &mut BorgState, y: i32, x: i32, _a: u8, _c: wchar_t) -> bool {
     /* Guess the kind (borg_guess_kind: the actual top object, a cheat) */
-    let Some(o) = engine::top_floor_object(x, y) else {
+    let Some(o) = engine::top_floor_object(&st.access, x, y) else {
         /* Oops */
         return false;
     };
@@ -325,7 +328,7 @@ pub fn observe_take_diff(st: &mut BorgState, y: i32, x: i32, _a: u8, _c: wchar_t
     }
 
     /* Make a new object */
-    let i = borg_new_take(st, kind, y, x);
+    let i = borg_new_take(st, &kind, y, x);
 
     /* Timestamp */
     st.takes.takes[i as usize].when = st.borg.time.now;
@@ -368,7 +371,7 @@ pub fn observe_take_move(st: &mut BorgState, y: i32, x: i32, d: i32, a: u8, c: w
         }
 
         /* Access the kind */
-        let k = &engine::k_info()[take.kidx as usize];
+        let k = engine::kind(take.kidx as usize);
         let image = st.borg.tr(BI_ISIMAGE) != 0;
 
         /* Require matching char if not hallucinating*/
@@ -753,7 +756,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
         i += 1;
         let kidx = take.kidx as usize;
         /* (C skips the entry when `&k_info[kidx]` is NULL: never) */
-        let k = &engine::k_info()[kidx];
+        let k = engine::kind(kidx);
 
         /* Access the location */
         let x = i32::from(take.x);

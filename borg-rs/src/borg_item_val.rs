@@ -485,7 +485,11 @@ pub fn borg_init_item_val(st: &mut BorgState) {
 /// The k_idx of the object kind with the given `tval` and `sval`, or 0
 /// (with a message) when there is none (`borg_lookup_kind`).
 pub fn borg_lookup_kind(st: &mut BorgState, tval: i32, sval: i32) -> i32 {
-    if let Some(k) = find_kind(engine::k_info(), tval, sval) {
+    let tval_sval = |k: usize| {
+        let kind = engine::kind(k);
+        (kind.tval, kind.sval)
+    };
+    if let Some(k) = find_kind(engine::k_max(), tval_sval, tval, sval) {
         return k;
     }
 
@@ -495,11 +499,10 @@ pub fn borg_lookup_kind(st: &mut BorgState, tval: i32, sval: i32) -> i32 {
 }
 
 /// The first index from 1 (index 0 is skipped, as in C) whose kind has
-/// this `tval` and `sval`.
-fn find_kind(kinds: &[engine::ObjectKind], tval: i32, sval: i32) -> Option<i32> {
-    (1..kinds.len())
-        .find(|&k| kinds[k].tval == tval && kinds[k].sval == sval)
-        .map(|k| k as i32)
+/// this `tval` and `sval`, among `k_max` kinds (`tval_sval(k)` gives a
+/// kind's pair).
+fn find_kind(k_max: usize, tval_sval: impl Fn(usize) -> (i32, i32), tval: i32, sval: i32) -> Option<i32> {
+    (1..k_max).find(|&k| tval_sval(k) == (tval, sval)).map(|k| k as i32)
 }
 
 /// `format("No object (%s,%d,%d)", name, tval, sval)`.

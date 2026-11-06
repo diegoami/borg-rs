@@ -136,7 +136,7 @@ fn inven_light() -> usize {
 
 /// Does protection from evil work against this monster?
 fn pfe_applies(st: &BorgState, kill: &BorgKill) -> bool {
-    let r_ptr = &engine::r_info()[usize::from(kill.r_idx)];
+    let r_ptr = engine::race(usize::from(kill.r_idx));
     st.borg.temp.prot_from_evil && rf(kill, RF_EVIL) && st.borg.tr(BI_CLEVEL) >= r_ptr.level
 }
 
@@ -179,7 +179,7 @@ fn borg_danger_physical(
     }
 
     let r_idx = usize::from(kill.r_idx);
-    let level = engine::r_info()[r_idx].level;
+    let level = engine::race(r_idx).level;
     let half = !flags.attacking && pfe;
 
     // Analyze each physical attack
@@ -780,7 +780,7 @@ fn borg_danger_spell(
         return 0;
     }
 
-    let spell_power = engine::r_info()[usize::from(kill.r_idx)].spell_power;
+    let spell_power = engine::race(usize::from(kill.r_idx)).spell_power;
     let unique = rf(kill, RF_UNIQUE);
     let near_unique = st.borg.near.unique != 0;
     let create_door = flags.create_door;
@@ -2041,7 +2041,7 @@ fn danger_one_kill(
         return 100;
     }
 
-    let r_ptr = &engine::r_info()[usize::from(kill.r_idx)];
+    let r_ptr = engine::race(usize::from(kill.r_idx));
     let flags = SpellFlags::read(st);
 
     // Skip certain monster indexes.

@@ -863,7 +863,7 @@ fn step_take(st: &mut BorgState, ag: &BorgGrid, dir: i32, y2: i32, x2: i32) -> b
      */
 
     if contains(name, b"chest") && !contains(name, b"Ruined") {
-        let Some(o) = engine::top_floor_object(x2, y2) else {
+        let Some(o) = engine::top_floor_object(&st.access, x2, y2) else {
             /* this should only happen when something picks up the chest */
             /* outside the borgs view.  */
             borg_flow_take::borg_delete_take(st, i32::from(ag.take));

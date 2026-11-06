@@ -242,7 +242,7 @@ fn rf_has(r_idx: impl Into<u32>, flag: u32) -> bool {
 
 /// `rsf_has(r_info[r_idx].spell_flags, flag)`
 fn rsf_has(r_idx: impl Into<u32>, flag: u32) -> bool {
-    let r = &engine::r_info()[r_idx.into() as usize];
+    let r = engine::race(r_idx.into() as usize);
     engine::flag_has(&r.spell_flags, flag as i32)
 }
 
@@ -379,7 +379,7 @@ fn set_health(kill: &mut BorgKill, m: &MonsterView) {
 
 /// Preload the spells from the race into this individual monster.
 fn load_spells(kill: &mut BorgKill) {
-    let r = &engine::r_info()[usize::from(kill.r_idx)];
+    let r = engine::race(usize::from(kill.r_idx));
     kill.spell_flags[0] = u32::from(r.spell_flags[0]);
     kill.spell_flags[1] = u32::from(r.spell_flags[1]);
     kill.spell_flags[2] = u32::from(r.spell_flags[2]);
@@ -447,7 +447,7 @@ fn borg_update_kill_new(st: &mut BorgState, i: usize) {
     set_health(&mut kill, &m);
 
     // Extract the Level
-    kill.level = engine::r_info()[r_idx].level as i16;
+    kill.level = engine::race(r_idx).level as i16;
 
     // Some monsters never move
     if rf_has(kill.r_idx, RF_NEVER_MOVE) {
@@ -504,7 +504,7 @@ fn borg_update_kill_old(st: &mut BorgState, i: usize) {
     // Special check on uniques, sometimes the death
     // is not caught so he thinks they are still running
     // around (C bug 24: indexed by the kill, not the race)
-    let r = &engine::r_info()[usize::from(kill.r_idx)];
+    let r = engine::race(usize::from(kill.r_idx));
     if rf_has(kill.r_idx, RF_UNIQUE) && r.max_num == 0 {
         st.kills.race_death[i] = 1;
     }
@@ -989,7 +989,7 @@ fn borg_new_kill(st: &mut BorgState, r_idx: u32, y: i32, x: i32) -> i32 {
     }
 
     // Count up out list of Nasties
-    let d_char = engine::r_info()[usize::from(kill.r_idx)].d_char;
+    let d_char = engine::race(usize::from(kill.r_idx)).d_char;
     for k in 0..usize::from(st.kills.nasties_num) {
         // Count them up
         if d_char == i32::from(st.kills.nasties[k]) {
@@ -1083,7 +1083,7 @@ pub fn observe_kill_move(
         let z = borg_distance(oy, ox, y, x);
 
         // Access the monster race
-        let r = &engine::r_info()[usize::from(kill.r_idx)];
+        let r = engine::race(usize::from(kill.r_idx));
 
         // Double the distance for uniques so the borg does not create 2 of
         // the same unique monster on the level (C bug 24: it stays doubled
@@ -1266,7 +1266,7 @@ fn search_last_le(text: &[Vec<u8>], who: &[u8]) -> usize {
 fn borg_guess_race_name(st: &mut BorgState, who: &[u8]) -> u32 {
     let ghost = u32::from(engine::z_info().r_max) - 1;
     let cdepth = st.borg.tr(BI_CDEPTH);
-    let score = |i: u32| 1000 - (engine::r_info()[i as usize].level - cdepth).abs();
+    let score = |i: u32| 1000 - (engine::race(i as usize).level - cdepth).abs();
     let (r_idx, notes) = guess_race_name(&st.kills, who, ghost, &score);
     for n in notes {
         borg_note_bytes(st, &n);
@@ -1400,7 +1400,7 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
     let r_idx = borg_guess_race_name(st, who);
 
     // Access the monster race
-    let rr = &engine::r_info()[r_idx as usize];
+    let rr = engine::race(r_idx as usize);
 
     // Note
     if st.cfg(BORG_VERBOSE) != 0 {
@@ -1443,7 +1443,7 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
         }
 
         // Access kind
-        let k_ptr = &engine::k_info()[take.kidx as usize];
+        let k_ptr = engine::kind(take.kidx as usize);
 
         // Verify char
         if k_ptr.d_char != rr.d_char {
@@ -1547,7 +1547,7 @@ pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i
             continue;
         }
 
-        let kr = &engine::r_info()[usize::from(kill.r_idx)];
+        let kr = engine::race(usize::from(kill.r_idx));
 
         // Verify char
         if kr.d_char != rr.d_char {
@@ -2625,7 +2625,7 @@ pub fn borg_near_monster_type(st: &mut BorgState, dist: i32) {
         }
 
         let r_idx = kill.r_idx;
-        let ridx = engine::r_info()[usize::from(r_idx)].ridx;
+        let ridx = engine::race(usize::from(r_idx)).ridx;
         let id = st.borg.id;
         let b = &st.borg;
         let clevel = b.tr(BI_CLEVEL);
@@ -2891,8 +2891,8 @@ pub fn borg_shoot_scoot_safe(st: &mut BorgState, emergency: i32, turns: i32, b_p
                 || borg_spell_okay(st, NETHER_BOLT)
                 || borg_danger_one_kill(st, kill.pos.y, kill.pos.x, 1, i as i32, true, false)
                 > i32::from(st.borg.avoidance) * 3 / 10
-                || ((!engine::r_info()[r].friends.is_null()
-                    || !engine::r_info()[r].friends_base.is_null()) // monster has friends
+                || ((!engine::race(r).friends.is_null()
+                    || !engine::race(r).friends_base.is_null()) // monster has friends
                     && i32::from(kill.level) >= st.borg.tr(BI_CLEVEL) - 5) // close levels
                 || kill.ranged_attack != 0 // monster has a ranged attack
                 || rf_has(kill.r_idx, RF_UNIQUE)
@@ -3119,7 +3119,7 @@ fn borg_init_monster_names(st: &mut BorgState) {
 
     // Collect "unique" monsters
     for i in 1..r_max {
-        let r = &engine::r_info()[i as usize];
+        let r = engine::race(i as usize);
 
         // Skip non-monsters
         if r.name.is_null() {
@@ -3150,7 +3150,7 @@ fn borg_init_monster_names(st: &mut BorgState) {
 
     // Collect "normal" monsters
     for i in 1..r_max {
-        let r = &engine::r_info()[i as usize];
+        let r = engine::race(i as usize);
 
         // Skip non-monsters
         if r.name.is_null() {
@@ -3212,7 +3212,7 @@ pub fn borg_init_flow_kill(st: &mut BorgState) {
     // Extract dead uniques (C bug 24: the test is inverted, so this marks
     // non-uniques with max_num 0)
     for i in 1..(r_max as i32 - 1) {
-        let r = &engine::r_info()[i as usize];
+        let r = engine::race(i as usize);
 
         // Skip non-monsters
         if r.name.is_null() {

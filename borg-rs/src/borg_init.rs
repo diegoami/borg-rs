@@ -520,7 +520,7 @@ fn borg_init_ignore(st: &mut BorgState) {
 
     // (C allocates new arrays here; a previous copy is leaked)
     // Reset ignore bits
-    save.kinfo_ignore = engine::k_info().iter().map(|k| k.ignore).collect();
+    save.kinfo_ignore = (0..engine::k_max()).map(|k| engine::kind(k).ignore).collect();
 
     // Clear the ignore bytes
     save.ignore_level = engine::ignore_level();
