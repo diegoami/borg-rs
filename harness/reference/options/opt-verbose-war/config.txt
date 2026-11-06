@@ -1,0 +1,2 @@
+flags=menu,cheat,borg_verbose=TRUE
+borg_txt_sha256=5304663eb216e7224c187cdd9739dc1ce3b633751869edfdc6a3e29a86d7bfa7

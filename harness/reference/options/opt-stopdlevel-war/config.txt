@@ -1,0 +1,2 @@
+flags=menu,cheat,borg_stop_dlevel=2
+borg_txt_sha256=681bacb1cb1e81ddd935ad8416a27846cddb723b47e75ec449a3b5241dd22c19
