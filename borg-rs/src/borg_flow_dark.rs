@@ -27,7 +27,7 @@ use crate::borg_cave_util::borg_cave_floor_grid;
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::borg_danger;
 use crate::{borg_flow_misc, engine};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_DISM, BI_DISP, BI_FOOD, BI_GOLD, BI_IFIRE, BI_ISBLIND,
     BI_ISCONFUSED, BI_ISIMAGE, BI_ISWEAK, BI_LIGHT, BI_MAXCLEVEL,
 };

@@ -24,12 +24,12 @@ use crate::borg_item_decurse::{borg_decurse_any, borg_decurse_armour, borg_decur
 use crate::borg_item_use::{borg_activate_item, borg_read_scroll};
 use crate::borg_magic::{borg_spell_fail, borg_spell_okay_fail};
 use crate::engine;
-use crate::headers::borg_h::BORG_ENCHANT_LIMIT;
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_h::BORG_ENCHANT_LIMIT;
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_magic_h::{
     borg_spells, BRAND_AMMUNITION, ENCHANT_ARMOUR, ENCHANT_WEAPON,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_ABRAND, BI_AENCH_ARM, BI_AENCH_SARM, BI_AENCH_SWEP, BI_AENCH_TOD, BI_AENCH_TOH,
     BI_AMMO_POWER, BI_AMMO_TVAL, BI_CDEPTH, BI_ISBLIND, BI_ISCONFUSED, BI_NEED_BRAND_WEAPON,
     BI_NEED_ENCHANT_TO_A, BI_NEED_ENCHANT_TO_D, BI_NEED_ENCHANT_TO_H,

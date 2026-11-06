@@ -18,8 +18,8 @@
 use core::ffi::CStr;
 
 use crate::borg_io::{borg_keypress, borg_note_bytes};
-use crate::headers::borg_magic_h::*;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::*;
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLASS, BI_CLEVEL, BI_CURSP, BI_FAIL1, BI_FAIL2, BI_ISAFRAID, BI_ISBLIND,
     BI_ISCONFUSED, BI_ISFORGET, BI_ISHEAVYSTUN, BI_ISSTUN, BI_MAXSP,
 };

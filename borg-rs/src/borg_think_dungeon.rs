@@ -67,12 +67,12 @@ use crate::borg_think_dungeon_util::{
 use crate::borg_think_store::borg_choose_shop;
 use crate::borg_trait::borg_notice;
 use crate::engine;
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_DELAY_FACTOR, BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_START,
     BORG_PLAYS_RISKY, BORG_SELF_LUNAL,
 };
-use crate::headers::borg_magic_h::{PHASE_DOOR, PORTAL, TELEPORT_SELF};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::{PHASE_DOOR, PORTAL, TELEPORT_SELF};
+use crate::borg_headers::borg_trait_h::{
     BI_AGLYPH, BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD, BI_ISBLIND,
     BI_ISCONFUSED, BI_ISCUT, BI_ISHUNGRY, BI_ISPOISONED, BI_ISWEAK, BI_KING, BI_LIGHT,
     BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXHP, BI_MAXSP, BI_QUIVER_SLOTS, BI_RECALL,

@@ -44,16 +44,16 @@ use crate::borg_projection::{
     borg_target,
 };
 use crate::engine;
-use crate::headers::borg_fight_attack_h::{BORG_ATTACK_AWAY_ALL, BORG_ATTACK_AWAY_ALL_MORGOTH};
-use crate::headers::borg_h::BORG_MONEY_SCUM_AMOUNT;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_fight_attack_h::{BORG_ATTACK_AWAY_ALL, BORG_ATTACK_AWAY_ALL_MORGOTH};
+use crate::borg_headers::borg_h::BORG_MONEY_SCUM_AMOUNT;
+use crate::borg_headers::borg_magic_h::{
     BANISHMENT, BANISH_EVIL, BERSERK_STRENGTH, BLESS, CLAIRVOYANCE, DETECTION, DOOR_CREATION,
     FUME_OF_MORDOR, GLYPH_OF_WARDING, GRIM_PURPOSE, GRONDS_BLOW, HASTE_SELF, HEROISM,
     MASS_BANISHMENT, PROTECTION_FROM_EVIL, QUAKE, RAPID_REGENERATION, RESISTANCE, RESIST_POISON,
     REVEAL_MONSTERS, SENSE_INVISIBLE, SMITE_EVIL, SPEAR_OF_LIGHT, TELEPORT_LEVEL, TELEPORT_OTHER,
     TREMOR, WORD_OF_DESTRUCTION,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AESCAPE, BI_AGLYPH, BI_AMASSBAN, BI_ATELEPORT, BI_ATELEPORTLVL, BI_CDEPTH, BI_CLEVEL,
     BI_CURHP, BI_CURSP, BI_FRACT, BI_ISBLIND, BI_ISCONFUSED, BI_ISFORGET, BI_ISIMAGE, BI_LIGHT,
     BI_MAXHP, BI_RCONF, BI_WS_EVIL,

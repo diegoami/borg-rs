@@ -17,12 +17,12 @@
 use crate::borg_io::{borg_keypress, borg_note, borg_note_bytes};
 use crate::borg_magic::{borg_spell, BorgMagic, BORG_MAGIC_OKAY, BORG_MAGIC_TEST};
 use crate::engine;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_magic_h::{
     BLESS, COMMAND, CURSE, DECOY, FORCEFUL_BLOW, GLYPH_OF_WARDING, GRONDS_BLOW, LIGHTNING_STRIKE,
     MAGIC_MISSILE, MAIM_FOE, REMOVE_CURSE, SINGLE_COMBAT, TAP_MAGICAL_ENERGY, TAP_UNLIFE, TREMOR,
     VAMPIRE_STRIKE, WORD_OF_DESTRUCTION,
 };
-use crate::headers::borg_trait_h::{BI_CDEPTH, BI_ISBLIND, BI_ISCONFUSED, BI_ISSTUDY, BI_LIGHT};
+use crate::borg_headers::borg_trait_h::{BI_CDEPTH, BI_ISBLIND, BI_ISCONFUSED, BI_ISSTUDY, BI_LIGHT};
 use crate::headers::list_effects_h::{
     EF_ALTER, EF_ARC, EF_BALL, EF_BANISH, EF_BEAM, EF_BIZARRE, EF_BOLT, EF_BOLT_AWARE,
     EF_BOLT_OR_BEAM, EF_BOLT_STATUS, EF_BOLT_STATUS_DAM, EF_BRAND_AMMO, EF_BRAND_BOLTS,

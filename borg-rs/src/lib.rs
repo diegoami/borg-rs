@@ -1,25 +1,25 @@
 //! Rust port of the Angband Borg.
 //!
-//! `c2rust` is the unsafe transpilation (one module per C file) and
-//! `headers` the deduplicated C header declarations of `angband/src/borg/*.c`
-//! (upstream copyright: Ben Harrison, James E. Wilson, Robert A. Koeneke,
-//! Andi Sidwell, Chris Carr, Ed Graham, Erik Osheim and other Angband/Borg
-//! contributors; GPLv2 / Angband licence).
-#![allow(dead_code)]
+//! One module per C file of `angband/src/borg/` (upstream copyright: Ben
+//! Harrison, James E. Wilson, Robert A. Koeneke, Andi Sidwell, Chris Carr,
+//! Ed Graham, Erik Osheim and other Angband/Borg contributors; GPLv2 /
+//! Angband licence). `engine` is the FFI boundary to the C game engine,
+//! `headers` the engine's raw C declarations, `borg_headers` the
+//! declarations of the Borg's own headers (not FFI), and `state` the
+//! Borg's state (its former C globals).
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
+// C's dead stores are kept as they are (faithful port).
 #![allow(unused_assignments)]
-#![allow(unused_mut)]
-#![allow(static_mut_refs)]
-// Converted modules contain no `unsafe`: only the FFI boundary (`engine`,
-// `headers`) and the transitional code (`bridge`, `c2rust`) may.
+// No `unsafe` outside the FFI boundary: `engine` and the engine's
+// declarations in `headers`.
 #![deny(unsafe_code)]
 
 extern crate libc;
 
+pub mod borg_headers;
 pub mod cctype;
-#[allow(clippy::all)]
 #[allow(unsafe_code)]
 pub mod headers;
 

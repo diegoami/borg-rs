@@ -18,8 +18,8 @@
 use crate::borg_item::{blank_item, borg_deinscribe, inven_wield, quiver_start};
 use crate::borg_item_analyze::borg_item_analyze_slot;
 use crate::engine::{self, CarriedObject};
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_trait_h::BI_QUIVER_SLOTS;
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_trait_h::BI_QUIVER_SLOTS;
 use crate::headers::list_tvals_h::*;
 use crate::state::BorgState;
 

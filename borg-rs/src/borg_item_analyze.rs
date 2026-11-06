@@ -18,7 +18,7 @@
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_val::ItemValState;
 use crate::engine::{self, GameObject};
-use crate::headers::borg_item_h::*;
+use crate::borg_headers::borg_item_h::*;
 use crate::headers::list_kind_flags_h::{
     KF_RAND_BASE_RES, KF_RAND_HI_RES, KF_RAND_POWER, KF_RAND_RES_POWER, KF_RAND_SUSTAIN,
 };

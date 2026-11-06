@@ -28,8 +28,8 @@ use crate::borg::BorgTemp;
 use crate::borg_io::{borg_flush, borg_keypress, borg_note, borg_note_bytes, borg_what_text, ESCAPE};
 use crate::borg_messages_react::{borg_react, borg_react_prompted};
 use crate::borg_util::borg_trim;
-use crate::headers::borg_h::BORG_VERBOSE;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::BORG_VERBOSE;
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_ISCONFUSED, BI_ISFORGET, BI_ISIMAGE, BI_LIGHT,
 };
 use crate::headers::list_message_h::{MSG_FLEE, MSG_GENERIC, MSG_KILL};

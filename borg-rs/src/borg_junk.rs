@@ -32,9 +32,9 @@ use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_item_use::{borg_eat, borg_quaff_potion, borg_read_scroll};
 use crate::borg_power::borg_power;
 use crate::engine;
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_trait_h::{
     BI_AMISSILES, BI_AMMO_TVAL, BI_ASTFDEST, BI_ATELEPORTLVL, BI_ATPORTOTHER, BI_CCON, BI_CDEPTH,
     BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR, BI_CURHP, BI_CWIS, BI_FOOD, BI_GOLD,
     BI_GOOD_S_CHG, BI_ISFULL, BI_ISHUNGRY, BI_ISWEAK, BI_LIGHT, BI_MAXCLEVEL, BI_MAXDEPTH,

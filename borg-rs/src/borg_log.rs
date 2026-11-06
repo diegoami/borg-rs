@@ -22,12 +22,12 @@
 
 use crate::engine::{self, OpenFile, WriteMode};
 use crate::headers::__stddef_wchar_t_h::wchar_t;
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_MONEY_SCUM_AMOUNT, BORG_PLAYS_RISKY, BORG_SAVE_DEATH, BORG_USES_SWAPS, BORG_WORSHIPS_AC,
     BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_GOLD, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA,
     BORG_WORSHIPS_SPEED,
 };
-use crate::headers::borg_trait_h::*;
+use crate::borg_headers::borg_trait_h::*;
 use crate::headers::list_object_flags_h::OF_AGGRAVATE;
 use crate::headers::list_player_timed_h::{
     TMD_AFRAID, TMD_BLESSED, TMD_BLIND, TMD_CONFUSED, TMD_CUT, TMD_HERO, TMD_IMAGE, TMD_INVULN,

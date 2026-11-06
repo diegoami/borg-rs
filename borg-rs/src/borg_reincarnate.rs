@@ -15,7 +15,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::borg_io::{borg_keypress, borg_keypresses, borg_note};
-use crate::headers::borg_h::{BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE};
+use crate::borg_headers::borg_h::{BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE};
 use crate::headers::ui_event_h::keycode_t;
 use crate::state::BorgState;
 use crate::engine;

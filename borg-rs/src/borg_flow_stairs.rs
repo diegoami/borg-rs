@@ -17,11 +17,11 @@
 //! The known up and down staircases (`track_less`, `track_more`) live in
 //! `StairsState`. The flow itself is `borg_flow`.
 
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_magic_h::{
     BERSERK_STRENGTH, BLESS, DEMON_BANE, HASTE_SELF, HEROISM, MANA_CHANNEL, PROTECTION_FROM_EVIL,
     RAPID_REGENERATION, RESISTANCE, SMITE_EVIL, VENOM,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD, BI_ISHUNGRY, BI_ISWEAK, BI_LIGHT,
     BI_MAXSP, BI_WB_POIS, BI_WS_EVIL,
 };

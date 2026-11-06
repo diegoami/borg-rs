@@ -22,11 +22,11 @@ use crate::borg_item::inven_wield;
 use crate::borg_item_analyze::borg_obj_has_effect;
 use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_okay_fail};
 use crate::engine;
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_magic_h::{
     HERBAL_CURING, RECHARGING, REMEMBRANCE, REMOVE_HUNGER, REVITALIZE, UNHOLY_REPRIEVE,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_ACCW, BI_CDEPTH, BI_CURHP, BI_DEV, BI_FRACT, BI_ISBLIND, BI_ISCONFUSED, BI_ISFIXCON,
     BI_ISFIXDEX, BI_ISFIXEXP, BI_ISFIXINT, BI_ISFIXSTR, BI_ISFIXWIS, BI_ISFORGET, BI_ISHUNGRY,
     BI_MAXHP, BI_RBLIND, BI_RCONF,

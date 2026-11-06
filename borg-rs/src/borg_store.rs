@@ -15,7 +15,7 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::engine::{self, StoreObject};
-use crate::headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_item_h::borg_item;
 use crate::headers::list_options_h::OPT_birth_no_selling;
 use crate::headers::list_terrain_h::{FEAT_HOME, FEAT_STORE_BLACK};
 use crate::headers::obj_desc_h::{ODESC_FULL, ODESC_STORE};

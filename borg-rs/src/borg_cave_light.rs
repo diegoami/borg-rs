@@ -17,7 +17,7 @@
 use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_cave_util::borg_cave_floor_bold;
 use crate::borg_cave_view::BORG_VIEW;
-use crate::headers::borg_trait_h::BI_LIGHT;
+use crate::borg_headers::borg_trait_h::BI_LIGHT;
 use crate::state::BorgState;
 use crate::engine;
 

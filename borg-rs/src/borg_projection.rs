@@ -17,7 +17,7 @@
 use crate::borg_cave::BorgGrid;
 use crate::borg_cave_util::{borg_cave_floor_bold, borg_cave_floor_grid};
 use crate::borg_io::{borg_keypress, borg_note, borg_note_bytes};
-use crate::headers::borg_trait_h::{BI_CURHP, BI_MAXHP};
+use crate::borg_headers::borg_trait_h::{BI_CURHP, BI_MAXHP};
 use crate::headers::list_mon_race_flags_h::RF_PASS_WALL;
 use crate::headers::list_terrain_h::{FEAT_FLOOR, FEAT_GRANITE, FEAT_NONE, FEAT_PASS_RUBBLE};
 use crate::headers::z_type_h::loc;

@@ -29,12 +29,12 @@ use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_okay_fail};
 use crate::borg_projection::{borg_distance, borg_los, borg_target};
 use crate::borg_update::Detect;
 use crate::engine;
-use crate::headers::borg_h::BORG_PLAYS_RISKY;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_h::BORG_PLAYS_RISKY;
+use crate::borg_headers::borg_magic_h::{
     DIMENSION_DOOR, PHASE_DOOR, PORTAL, SHADOW_SHIFT, TELEPORT_LEVEL, TELEPORT_SELF,
     WORD_OF_RECALL,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AESCAPE, BI_AMISSILES, BI_APHASE, BI_ATELEPORT, BI_CDEPTH, BI_CLASS, BI_CLEVEL,
     BI_CRSNOTEL, BI_CURHP, BI_CURSP, BI_ISAFRAID, BI_ISCUT, BI_ISHEAVYSTUN, BI_ISPOISONED,
     BI_ISWEAK, BI_KING, BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXHP, BI_MAXSP,

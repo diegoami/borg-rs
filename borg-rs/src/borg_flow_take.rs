@@ -24,8 +24,8 @@ use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_item::{quiver_end, quiver_start};
 use crate::borg_projection::borg_distance;
 use crate::headers::__stddef_wchar_t_h::wchar_t;
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_START, BORG_VERBOSE};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_MUNCHKIN_START, BORG_VERBOSE};
+use crate::borg_headers::borg_trait_h::{
     BI_AMISSILES, BI_AMMO_TVAL, BI_CLEVEL, BI_FAST_SHOTS, BI_GOLD, BI_ISIMAGE, BI_LIGHT,
     BI_QUIVER_SLOTS,
 };

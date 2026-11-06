@@ -24,8 +24,8 @@ use crate::borg::BorgTime;
 use crate::borg_io::{borg_flush, borg_keypress, borg_note, borg_warning, borg_what_text, ESCAPE};
 use crate::cctype::{c_isalpha, c_iscntrl, c_isdigit};
 use crate::engine;
-use crate::headers::borg_h::BORG_DUMP_LEVEL;
-use crate::headers::borg_trait_h::{BI_CDEPTH, BI_CLEVEL, BI_MAXCLEVEL, BI_MAXDEPTH};
+use crate::borg_headers::borg_h::BORG_DUMP_LEVEL;
+use crate::borg_headers::borg_trait_h::{BI_CDEPTH, BI_CLEVEL, BI_MAXCLEVEL, BI_MAXDEPTH};
 use crate::state::BorgState;
 
 /// `BORG_TIME_MAX` (borg.h: `INT32_MAX`)

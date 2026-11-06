@@ -26,8 +26,8 @@ use crate::borg_item_use::{
 };
 use crate::borg_magic::{borg_spell, borg_spell_okay_fail};
 use crate::engine;
-use crate::headers::borg_magic_h::REMOVE_CURSE;
-use crate::headers::borg_trait_h::{BI_FIRST_CURSED, BI_WHERE_CURSED, BORG_EQUIP, BORG_INVEN};
+use crate::borg_headers::borg_magic_h::REMOVE_CURSE;
+use crate::borg_headers::borg_trait_h::{BI_FIRST_CURSED, BI_WHERE_CURSED, BORG_EQUIP, BORG_INVEN};
 use crate::headers::list_tvals_h::TV_SCROLL;
 use crate::headers::ui_event_h::keycode_t;
 use crate::state::BorgState;

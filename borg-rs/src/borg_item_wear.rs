@@ -31,10 +31,10 @@ use crate::borg_power::borg_power;
 use crate::borg_store::{borg_home_full, borg_inventory_full, BORG_HOME, SHOP_MENU_ITEMS};
 use crate::borg_flow_misc;
 use crate::engine;
-use crate::headers::borg_h::BORG_VERBOSE;
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_magic_h::IDENTIFY_RUNE;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::BORG_VERBOSE;
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_magic_h::IDENTIFY_RUNE;
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CURSP, BI_FRACT, BI_ISENCUMB, BI_ISHUNGRY, BI_ISWEAK, BI_MAXDEPTH,
     BI_QUIVER_SLOTS, BI_RBLIND, BI_RCONF, BI_RDARK, BI_RLITE, BI_SAV,
 };

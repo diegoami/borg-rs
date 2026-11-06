@@ -29,12 +29,12 @@ use crate::borg_magic::{borg_spell, borg_spell_fail, borg_spell_okay_fail};
 use crate::borg_messages_react::borg_react;
 use crate::borg_update::Detect;
 use crate::engine;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_magic_h::{
     CALL_LIGHT, CLAIRVOYANCE, CREATE_DARKNESS, DETECTION, DETECT_EVIL, DETECT_MONSTERS,
     DETECT_STAIRS, FIND_TRAPS_DOORS_STAIRS, FUME_OF_MORDOR, LIGHT_ROOM, OBJECT_DETECTION,
     READ_MINDS, SEEK_BATTLE, SENSE_SURROUNDINGS, SPEAR_OF_LIGHT,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLASS, BI_ESP, BI_ISBLIND, BI_ISCONFUSED, BI_ISCUT, BI_ISIMAGE, BI_ISPOISONED,
     BI_ISWEAK, BI_LIGHT, BI_MAXCLEVEL,
 };

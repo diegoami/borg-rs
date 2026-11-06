@@ -28,11 +28,11 @@ use crate::borg_item::borg_item_weight;
 use crate::borg_item_activation::ActivationIds;
 use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_magic::{borg_get_spell_entry, borg_spell_stat};
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_USES_DYNAMIC_CALCS, BORG_WORSHIPS_AC,
     BORG_WORSHIPS_DAMAGE, BORG_WORSHIPS_HP, BORG_WORSHIPS_MANA, BORG_WORSHIPS_SPEED,
 };
-use crate::headers::borg_trait_h::*;
+use crate::borg_headers::borg_trait_h::*;
 use crate::headers::list_player_flags_h::PF_ZERO_FAIL;
 use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_INT, STAT_STR, STAT_WIS};
 use crate::headers::list_tvals_h::{TV_ARROW, TV_DIGGING, TV_POTION, TV_SCROLL};

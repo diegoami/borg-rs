@@ -45,11 +45,11 @@ use crate::borg_projection::{
 };
 use crate::borg_update::Detect;
 use crate::engine;
-use crate::headers::borg_danger_h::*;
-use crate::headers::borg_fight_attack_h::*;
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_magic_h::*;
-use crate::headers::borg_trait_h::*;
+use crate::borg_headers::borg_danger_h::*;
+use crate::borg_headers::borg_fight_attack_h::*;
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_magic_h::*;
+use crate::borg_headers::borg_trait_h::*;
 use crate::headers::list_mon_race_flags_h::*;
 use crate::headers::list_mon_spells_h::*;
 use crate::headers::list_options_h::OPT_birth_randarts;

@@ -15,10 +15,51 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::borg_io::borg_keypress;
-use crate::headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_item_h::borg_item;
 use crate::headers::list_tvals_h::TV_FOOD;
 use crate::state::BorgState;
 use crate::engine;
+
+/// One item as the Borg sees it (`borg_item`), with the C field names.
+#[derive(Copy, Clone)]
+pub struct BorgItem {
+    pub desc: [core::ffi::c_char; 80],
+    /// `note`: where the inscription starts in `desc` (C: `char *note =
+    /// desc + offset`, NULL = `None`). See `borg_item::item_note`.
+    pub note: Option<u8>,
+    pub kind: u32,
+    pub ident: bool,
+    pub needs_ident: bool,
+    pub aware: bool,
+    pub xxxx: bool,
+    pub tval: u8,
+    pub sval: u8,
+    pub pval: i16,
+    pub iqty: u8,
+    pub weight: i16,
+    pub art_idx: u8,
+    pub ego_idx: u8,
+    pub activ_idx: i32,
+    pub one_ring: bool,
+    pub timeout: i16,
+    pub to_h: i16,
+    pub to_d: i16,
+    pub to_a: i16,
+    pub ac: i16,
+    pub dd: u8,
+    pub ds: u8,
+    pub level: u8,
+    pub cost: i32,
+    pub value: i32,
+    pub cursed: bool,
+    pub uncursable: bool,
+    pub curses: [bool; 28],
+    pub flags: [u8; 5],
+    pub modifiers: [i16; 16],
+    pub el_info: [crate::headers::object_h::element_info; 25],
+    pub brands: [bool; 254],
+    pub slays: [i32; 85],
+}
 
 /// The items (`borg_items`) and the snapshot taken after each full read
 /// (`safe_items`, the "safety inventory").

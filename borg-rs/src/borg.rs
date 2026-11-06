@@ -15,11 +15,11 @@
 //!    are included in all such copies.  Other copyrights may also apply.
 
 use crate::borg_io::{borg_flush, borg_inkey, borg_note, ESCAPE};
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_DUMP_LEVEL, BORG_MONEY_SCUM_AMOUNT, BORG_RESPAWN_WINNERS, BORG_SELF_SCUM,
     BORG_STOP_CLEVEL, BORG_STOP_DLEVEL, BORG_STOP_KING,
 };
-use crate::headers::borg_trait_h::{BI_CDEPTH, BI_CLEVEL, BI_GOLD, BI_KING};
+use crate::borg_headers::borg_trait_h::{BI_CDEPTH, BI_CLEVEL, BI_GOLD, BI_KING};
 use crate::headers::ui_event_h::{keypress, EVT_DISCONNECT, EVT_KBRD, EVT_NONE};
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;

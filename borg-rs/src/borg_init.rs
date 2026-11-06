@@ -18,7 +18,7 @@ use std::ffi::CStr;
 
 use crate::borg_io::{borg_note, borg_warning};
 use crate::cctype::{c_isdigit, c_toupper};
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_ALLOW_STRANGE_OPTS, BORG_CHEAT_DEATH, BORG_ENCHANT_LIMIT, BORG_LUNAL_MODE,
     BORG_MAX_SETTINGS, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_RESPAWN_CLASS,
     BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_STOP_KING,
@@ -919,7 +919,7 @@ mod tests {
 
     #[test]
     fn table_matches_enum() {
-        use crate::headers::borg_h::*;
+        use crate::borg_headers::borg_h::*;
         assert_eq!(BORG_SETTINGS[BORG_VERBOSE as usize].name, c"borg_verbose");
         assert_eq!(BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name, c"borg_munchkin_level");
         assert_eq!(BORG_SETTINGS[BORG_RESPAWN_RACE as usize].name, c"borg_respawn_race");
@@ -932,7 +932,7 @@ mod tests {
     /// Expected values from the C parser (borg-init.c with stubs).
     #[test]
     fn parses_like_c() {
-        use crate::headers::borg_h::*;
+        use crate::borg_headers::borg_h::*;
         let (cfg, out) = cfg_of(b"");
         let defaults: Vec<i32> = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
         assert_eq!(cfg, defaults);

@@ -38,12 +38,12 @@ use crate::borg_magic::{
     borg_cheat_spells, borg_get_book_num, borg_spell_legal, borg_spell_legal_fail, borg_spell_stat,
 };
 use crate::borg_trait_swap::{borg_notice_armour_swap, borg_notice_weapon_swap};
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_ENCHANT_LIMIT, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_USES_SWAPS,
 };
-use crate::headers::borg_item_h::*;
-use crate::headers::borg_magic_h::*;
-use crate::headers::borg_trait_h::*;
+use crate::borg_headers::borg_item_h::*;
+use crate::borg_headers::borg_magic_h::*;
+use crate::borg_headers::borg_trait_h::*;
 use crate::headers::list_effects_h::{EF_CRUNCH, EF_CURE, EF_NOURISH, EF_TIMED_INC};
 use crate::headers::list_elements_h::{
     ELEM_ACID, ELEM_CHAOS, ELEM_COLD, ELEM_DARK, ELEM_DISEN, ELEM_ELEC, ELEM_FIRE, ELEM_LIGHT,

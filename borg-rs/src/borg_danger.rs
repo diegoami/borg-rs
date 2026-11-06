@@ -25,10 +25,10 @@ use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_magic::{borg_spell_legal, borg_spell_stat};
 use crate::borg_projection::{borg_distance, borg_projectable, borg_projectable_pure};
 // the MONBLOW_* blow effects (borg-danger.h)
-use crate::headers::borg_danger_h::*;
+use crate::borg_headers::borg_danger_h::*;
 use crate::borg_flow_kill::BorgKill;
-use crate::headers::borg_magic_h::{REMEMBRANCE, RESTORATION, REVITALIZE, UNHOLY_REPRIEVE};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::{REMEMBRANCE, RESTORATION, REVITALIZE, UNHOLY_REPRIEVE};
+use crate::borg_headers::borg_trait_h::{
     BI_AFUEL, BI_ARMOR, BI_CCON, BI_CDEPTH, BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR,
     BI_CURHP, BI_CURSP, BI_CWIS, BI_DAM_RED, BI_DEX_INDEX, BI_FOOD, BI_FRACT, BI_GOLD, BI_HLIFE,
     BI_IACID, BI_ICOLD, BI_IELEC, BI_IFIRE, BI_IPOIS, BI_ISHEAVYSTUN, BI_ISSTUN, BI_MAXDEPTH,

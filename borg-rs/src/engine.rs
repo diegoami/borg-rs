@@ -452,7 +452,7 @@ pub type InkeyHack = unsafe extern "C" fn(core::ffi::c_int) -> keypress;
 /// Set or clear `inkey_hack` (ui-input.c).
 pub fn set_inkey_hack(f: Option<InkeyHack>) {
     // SAFETY: plain global, engine thread.
-    unsafe { crate::headers::borg_h::inkey_hack = f }
+    unsafe { crate::headers::ui_input_h::inkey_hack = f }
 }
 
 // ---------------------------------------------------------------------------

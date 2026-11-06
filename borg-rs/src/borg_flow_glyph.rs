@@ -21,7 +21,7 @@
 
 use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg_flow_stairs::StairTrack;
-use crate::headers::borg_magic_h::GLYPH_OF_WARDING;
+use crate::borg_headers::borg_magic_h::GLYPH_OF_WARDING;
 use crate::headers::list_terrain_h::FEAT_FLOOR;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;

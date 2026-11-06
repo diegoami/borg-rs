@@ -8,6 +8,8 @@ pub use super::ui_event_h::ui_event;
 #[allow(unused_imports)]
 use super::*;
 extern "C" {
+    /// The Borg's key hook (ui-input.c; declared in borg.h).
+    pub static mut inkey_hack: Option<unsafe extern "C" fn(::core::ffi::c_int) -> super::ui_event_h::keypress>;
     pub fn flush(
         unused: game_event_type,
         data: *mut game_event_data,

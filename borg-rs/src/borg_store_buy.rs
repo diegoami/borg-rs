@@ -31,9 +31,9 @@ use crate::borg_magic::{borg_get_book_num, borg_is_dungeon_book, borg_primarily_
 use crate::borg_power::borg_power;
 use crate::borg_store::{BORG_HOME, SHOP_MENU_ITEMS};
 use crate::engine;
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM, BORG_VERBOSE};
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM, BORG_VERBOSE};
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_trait_h::{
     BI_ALITE, BI_CCON, BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR, BI_CWIS, BI_DEX_INDEX,
     BI_FIRST_CURSED, BI_FOOD, BI_GOLD, BI_GOOD_W_CHG, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
     BI_MAXCLEVEL, BI_QUIVER_SLOTS, BI_SAURON_DEAD,

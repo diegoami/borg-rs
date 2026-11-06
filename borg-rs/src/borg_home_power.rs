@@ -20,7 +20,7 @@
 //! counters are the `int16_t` `st.home` fields (borg_home_notice), promoted
 //! to `int`.
 
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AID, BI_CLASS, BI_CLEVEL, BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXSP,
 };
 use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_STR};

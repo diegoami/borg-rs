@@ -1,14 +1,5 @@
 //! `/home/user/borg-rs/angband/src/cave.h`
 pub use super::__stddef_wchar_t_h::wchar_t;
-pub use super::borg_h::borg_time;
-pub use super::borg_h::C2RustUnnamedH_10;
-pub use super::borg_h::C2RustUnnamedH_11;
-pub use super::borg_h::C2RustUnnamedH_12;
-pub use super::borg_h::C2RustUnnamedH_13;
-pub use super::borg_h::C2RustUnnamedH_14;
-pub use super::borg_h::C2RustUnnamedH_15;
-pub use super::borg_h::C2RustUnnamedH_16;
-pub use super::borg_h::C2RustUnnamedH_17;
 pub use super::monster_h::monster;
 pub use super::object_h::object;
 pub use super::object_h::object_kind;

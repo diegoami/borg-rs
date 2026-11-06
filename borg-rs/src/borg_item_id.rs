@@ -16,8 +16,8 @@
 
 use crate::borg_io::{borg_keypress, borg_keypresses, KC_ENTER};
 use crate::borg_item::{inven_wield, quiver_end};
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_trait_h::BI_CDEPTH;
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_trait_h::BI_CDEPTH;
 use crate::headers::list_elements_h::{
     ELEM_ACID, ELEM_CHAOS, ELEM_COLD, ELEM_DARK, ELEM_DISEN, ELEM_ELEC, ELEM_FIRE, ELEM_LIGHT,
     ELEM_NETHER, ELEM_NEXUS, ELEM_POIS, ELEM_SHARD, ELEM_SOUND,

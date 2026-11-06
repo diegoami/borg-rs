@@ -35,8 +35,8 @@ use crate::borg_item_use::{borg_activate_item, borg_read_scroll};
 use crate::borg_magic::{borg_primarily_caster, borg_spell_fail};
 use crate::borg_projection::{borg_distance, borg_los};
 use crate::borg_update::Detect;
-use crate::headers::borg_magic_h::{PHASE_DOOR, PORTAL};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::{PHASE_DOOR, PORTAL};
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD, BI_IFIRE, BI_ISAFRAID, BI_ISCUT,
     BI_ISHEAVYSTUN, BI_ISHUNGRY, BI_ISSTUN, BI_ISWEAK, BI_LIGHT, BI_MAXHP, BI_MAXSP,
 };

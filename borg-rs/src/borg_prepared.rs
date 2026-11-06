@@ -25,11 +25,11 @@ use std::ffi::CStr;
 
 use crate::borg_formulas::{borg_prepared_dynamic, borg_restock_dynamic, DepthLine};
 use crate::borg_magic::{borg_spell_legal_fail, borg_spell_stat};
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_KILLS_UNIQUES, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_USES_DYNAMIC_CALCS,
 };
-use crate::headers::borg_magic_h::TELEPORT_LEVEL;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::TELEPORT_LEVEL;
+use crate::borg_headers::borg_trait_h::{
     BI_ACCW, BI_ACLW, BI_ACSW, BI_AESCAPE, BI_AEZHEAL, BI_AFUEL, BI_AHEAL, BI_ALIFE, BI_APHASE,
     BI_ASPEED, BI_ATELEPORT, BI_ATELEPORTLVL, BI_CDEPTH, BI_CLASS, BI_CON, BI_DEX, BI_DINV,
     BI_ESP, BI_FOOD, BI_FRACT, BI_KING, BI_LIGHT, BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXHP, BI_MAXSP,

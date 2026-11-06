@@ -40,14 +40,14 @@ use crate::borg_projection::{borg_los, borg_target};
 use crate::borg_store_sell::borg_count_sell;
 use crate::borg_prepared::PreparedC;
 use crate::engine;
-use crate::headers::borg_h::{
+use crate::borg_headers::borg_h::{
     BORG_MONEY_SCUM_AMOUNT, BORG_NO_DEEPER, BORG_PLAYS_RISKY, BORG_WORSHIPS_GOLD,
 };
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_magic_h::{
     CALL_LIGHT, CREATE_DARKNESS, HERBAL_CURING, LIGHT_ROOM, REMOVE_HUNGER, SHATTER_STONE,
     TURN_STONE_TO_MUD,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AEZHEAL, BI_ALIFE, BI_CDEPTH, BI_CLASS, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD,
     BI_ISFIXEXP, BI_ISFIXLEV, BI_ISHUNGRY, BI_ISWEAK, BI_KING, BI_LIGHT, BI_MAXCLEVEL,
     BI_MAXDEPTH, BI_MAXSP, BI_PREP_BIG_FIGHT, BI_QUIVER_SLOTS, BI_RECALL, BI_REG,

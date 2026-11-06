@@ -19,8 +19,8 @@ use crate::borg_io::{
     borg_dump_recent_keys, borg_flush, borg_get_queued_direction, borg_inkey, borg_note,
     borg_note_bytes, ESCAPE,
 };
-use crate::headers::borg_h::{BORG_CHEAT_DEATH, BORG_DUMP_LEVEL, BORG_VERBOSE};
-use crate::headers::borg_trait_h::{BI_CLEVEL, BI_ISPARALYZED};
+use crate::borg_headers::borg_h::{BORG_CHEAT_DEATH, BORG_DUMP_LEVEL, BORG_VERBOSE};
+use crate::borg_headers::borg_trait_h::{BI_CLEVEL, BI_ISPARALYZED};
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;

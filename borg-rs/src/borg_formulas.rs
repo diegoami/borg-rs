@@ -29,11 +29,11 @@ use crate::borg_item_activation::borg_findact;
 use crate::borg_item_val::borg_lookup_kind;
 use crate::borg_util::borg_trim;
 use crate::cctype::{c_isdigit, c_isspace};
-use crate::headers::borg_formulas_h::{
+use crate::borg_headers::borg_formulas_h::{
     value_type, VT_ACTIVATION, VT_CLASS, VT_CONFIG, VT_MAX, VT_NONE, VT_RANGE_INDEX, VT_TRAIT,
 };
-use crate::headers::borg_h::BORG_USES_DYNAMIC_CALCS;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::BORG_USES_DYNAMIC_CALCS;
+use crate::borg_headers::borg_trait_h::{
     BI_ADIGGER, BI_AENCH_ARM, BI_AENCH_TOD, BI_AENCH_TOH, BI_CARRY, BI_CLASS, BI_GOLD, BI_MAX,
     BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXSP, BI_NEED_ENCHANT_TO_A, BI_NEED_ENCHANT_TO_D,
     BI_NEED_ENCHANT_TO_H, BI_QUIVER_SLOTS, BI_SP_ADJ, BI_STR, BI_STR_INDEX, BI_WEIGHT,
@@ -1062,7 +1062,7 @@ fn calc_power<E: FormulaEnv>(env: &mut E, p: &PowerLine) -> i32 {
 
 /// Is this (the last item in the pack) one that will be used right away,
 /// so it should not count towards encumbrance?
-fn used_immediately(st: &BorgState, item: &crate::headers::borg_item_h::borg_item) -> bool {
+fn used_immediately(st: &BorgState, item: &crate::borg_headers::borg_item_h::borg_item) -> bool {
     let iv = &st.item_val;
     let sval = i32::from(item.sval);
     let tval = u32::from(item.tval);
@@ -1540,7 +1540,7 @@ pub(crate) mod tests {
     impl TestEnv {
         pub(crate) fn new(dynamic: bool) -> TestEnv {
             let mut st = BorgState::default();
-            st.core.cfg = vec![0; crate::headers::borg_h::BORG_MAX_SETTINGS as usize];
+            st.core.cfg = vec![0; crate::borg_headers::borg_h::BORG_MAX_SETTINGS as usize];
             st.core.cfg[BORG_USES_DYNAMIC_CALCS as usize] = dynamic as i32;
             st.borg.trait_ = vec![0; BI_MAX as usize];
             TestEnv {
@@ -1720,7 +1720,7 @@ pub(crate) mod tests {
             env.st.formulas.power[2].value,
             Some(ValueSec {
                 vtype: VT_TRAIT,
-                index: crate::headers::borg_trait_h::BI_INT as i32
+                index: crate::borg_headers::borg_trait_h::BI_INT as i32
             })
         );
         assert_eq!(
@@ -1731,7 +1731,7 @@ pub(crate) mod tests {
 
         // str 5, int 3: 50 + 7 + (range 2..=3: (1 + 100) + (2 + 100))
         env.st.borg.trait_[BI_STR as usize] = 5;
-        env.st.borg.trait_[crate::headers::borg_trait_h::BI_INT as usize] = 3;
+        env.st.borg.trait_[crate::borg_headers::borg_trait_h::BI_INT as usize] = 3;
         let mut total = 0;
         for i in 0..env.st.formulas.power.len() {
             let p = env.st.formulas.power[i];

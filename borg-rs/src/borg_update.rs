@@ -43,8 +43,8 @@ use crate::borg_item_wear::borg_clear_best;
 use crate::borg_projection::{borg_los, borg_target_unknown_wall};
 use crate::engine;
 use crate::headers::__stddef_wchar_t_h::wchar_t;
-use crate::headers::borg_h::BORG_AUTOSAVE;
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::BORG_AUTOSAVE;
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_HLIFE, BI_IACID, BI_ICOLD, BI_IELEC, BI_IFIRE,
     BI_IPOIS, BI_ISAFRAID, BI_ISBLIND, BI_ISCONFUSED, BI_ISCUT, BI_ISHEAVYSTUN, BI_ISIMAGE,
     BI_ISPOISONED, BI_ISSTUN, BI_ISWEAK, BI_KING, BI_LIGHT, BI_MAXSP, BI_RBLIND, BI_RCONF,

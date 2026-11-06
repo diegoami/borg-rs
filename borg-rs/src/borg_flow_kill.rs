@@ -37,12 +37,12 @@ use crate::borg_update::Detect;
 use crate::borg_util::{borg_sort, TextWhat};
 use crate::cctype::c_toupper;
 use crate::engine::{self, MonsterView};
-use crate::headers::borg_fight_attack_h::{BORG_ATTACK_MISSILE, BORG_ATTACK_NETHER};
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_VERBOSE};
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_fight_attack_h::{BORG_ATTACK_MISSILE, BORG_ATTACK_NETHER};
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_VERBOSE};
+use crate::borg_headers::borg_magic_h::{
     MAGIC_MISSILE, NETHER_BOLT, ORB_OF_DRAINING, SHATTER_STONE, TURN_STONE_TO_MUD,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AMISSILES, BI_APHASE, BI_CDEPTH, BI_CLASS, BI_CLEVEL, BI_CRSFEAR, BI_CURSP, BI_ESP,
     BI_FOOD, BI_INFRA, BI_ISAFRAID, BI_ISCONFUSED, BI_ISHUNGRY, BI_ISIMAGE, BI_ISWEAK, BI_LIGHT,
     BI_MAXCLEVEL, BI_RPOIS, BI_SINV, BI_SPEED, BI_SRBLIND, BI_SRCONF, BI_SRDARK, BI_SRKAOS,

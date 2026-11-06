@@ -21,11 +21,11 @@ use crate::borg_item_use::{borg_activate_item, borg_equips_item, borg_quaff_poti
 use crate::borg_magic::{
     borg_get_spell_power, borg_heroism_level, borg_spell, borg_spell_fail, borg_spell_okay_fail,
 };
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_magic_h::{
     BERSERK_STRENGTH, BLESS, HASTE_SELF, HEROISM, MANA_CHANNEL, PROTECTION_FROM_EVIL,
     RAPID_REGENERATION, RESISTANCE, RESIST_POISON, SENSE_INVISIBLE, SMITE_EVIL, VENOM,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CURSP, BI_ISBLIND, BI_ISCONFUSED, BI_ISFORGET, BI_LIGHT, BI_MAXHP,
     BI_MAXSP, BI_SINV, BI_WB_POIS, BI_WS_EVIL,
 };

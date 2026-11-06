@@ -29,14 +29,14 @@ use crate::borg_inventory::borg_wield_slot;
 use crate::borg_item::inven_wield;
 use crate::borg_magic::borg_spell_legal_fail;
 use crate::engine;
-use crate::headers::borg_item_h::{
+use crate::borg_headers::borg_item_h::{
     borg_item, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON,
     BORG_CURSE_HALLUCINATION, BORG_CURSE_PARALYSIS, BORG_CURSE_POISON, BORG_CURSE_SIREN,
     BORG_CURSE_STONE, BORG_CURSE_TELEPORTATION, BORG_CURSE_TREACHEROUS_WEAPON,
     BORG_CURSE_UNDEAD_SUMMON, BORG_CURSE_UNKNOWN,
 };
-use crate::headers::borg_magic_h::{ENCHANT_ARMOUR, ENCHANT_WEAPON, TURN_STONE_TO_MUD};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_magic_h::{ENCHANT_ARMOUR, ENCHANT_WEAPON, TURN_STONE_TO_MUD};
+use crate::borg_headers::borg_trait_h::{
     BI_AENCH_SARM, BI_AENCH_SWEP, BI_BLOWS, BI_ESP, BI_FEATH, BI_FRACT, BI_GOLD, BI_HLIFE,
     BI_IACID, BI_ICOLD, BI_IELEC, BI_IFIRE, BI_LIGHT, BI_MAXCLEVEL, BI_MAXDEPTH, BI_RACID,
     BI_RBLIND, BI_RCOLD, BI_RCONF, BI_RDARK, BI_RDIS, BI_REG, BI_RELEC, BI_RFEAR, BI_RFIRE,

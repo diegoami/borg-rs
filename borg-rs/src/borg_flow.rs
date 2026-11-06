@@ -28,11 +28,11 @@ use crate::borg_io::{borg_keypress, borg_note, borg_note_bytes, borg_queue_direc
 use crate::borg_item_use::{borg_activate_item, borg_activate_ring, borg_equips_item, borg_equips_ring};
 use crate::borg_magic::{borg_spell, borg_spell_okay, borg_spell_okay_fail};
 use crate::borg_projection::borg_target;
-use crate::headers::borg_h::BORG_CHEST_FAIL_TOLERANCE;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_h::BORG_CHEST_FAIL_TOLERANCE;
+use crate::borg_headers::borg_magic_h::{
     DISABLE_TRAPS_DESTROY_DOORS, ORB_OF_DRAINING, SHATTER_STONE, TURN_STONE_TO_MUD,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_CRSFEAR, BI_CURHP, BI_CURSP, BI_DEV, BI_DIG, BI_DISM, BI_DISP,
     BI_FOOD, BI_IFIRE, BI_ISAFRAID, BI_ISBLIND, BI_ISCONFUSED, BI_ISHUNGRY, BI_ISWEAK, BI_LIGHT,
     BI_MAXCLEVEL, BI_MAXSP,

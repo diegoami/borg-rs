@@ -20,8 +20,8 @@ use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::borg_danger;
 use crate::borg_fight_attack::borg_calculate_attack_effectiveness;
 use crate::borg_io::borg_note;
-use crate::headers::borg_fight_attack_h::{BF_MAX, BF_THRUST};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_fight_attack_h::{BF_MAX, BF_THRUST};
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLASS, BI_CURHP, BI_ISCONFUSED, BI_MAXHP, BI_SPEED,
 };
 use crate::headers::list_terrain_h::{FEAT_LESS, FEAT_MORE};

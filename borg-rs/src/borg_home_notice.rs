@@ -18,12 +18,12 @@
 //! `n += x` is done in `int` and truncated back to `int16_t` (`add`).
 
 use crate::borg_magic::{borg_spell_legal, borg_spell_legal_fail};
-use crate::headers::borg_item_h::borg_item;
-use crate::headers::borg_magic_h::{
+use crate::borg_headers::borg_item_h::borg_item;
+use crate::borg_headers::borg_magic_h::{
     ENCHANT_WEAPON, GLYPH_OF_WARDING, HERBAL_CURING, IDENTIFY_RUNE, PROTECTION_FROM_EVIL,
     RECHARGING, REMOVE_HUNGER, TELEPORT_LEVEL, WORD_OF_RECALL,
 };
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_trait_h::{
     BI_AMMO_TVAL, BI_CLEVEL, BI_SCON, BI_SDEX, BI_SINT, BI_SSTR, BI_SWIS, BI_TODAM,
 };
 use crate::headers::list_elements_h::{

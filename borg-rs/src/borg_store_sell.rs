@@ -31,9 +31,9 @@ use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_power::borg_power;
 use crate::borg_store::BORG_HOME;
 use crate::engine;
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
-use crate::headers::borg_item_h::{borg_item, BORG_CURSE_MAX};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
+use crate::borg_headers::borg_item_h::{borg_item, BORG_CURSE_MAX};
+use crate::borg_headers::borg_trait_h::{
     BI_AMISSILES, BI_AMMO_TVAL, BI_CLASS, BI_CLEVEL, BI_GOLD, BI_MAXCLEVEL, BI_MAXDEPTH,
     BI_MAXSP, BI_QUIVER_SLOTS,
 };

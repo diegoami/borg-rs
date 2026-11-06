@@ -59,8 +59,8 @@ use crate::borg_store_sell::{
     borg_think_home_sell_useful, borg_think_shop_sell, borg_think_shop_sell_useless,
 };
 use crate::engine;
-use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM};
-use crate::headers::borg_trait_h::{
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM};
+use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_FOOD, BI_GOLD, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
 };
 use crate::headers::list_tvals_h::TV_DIGGING;

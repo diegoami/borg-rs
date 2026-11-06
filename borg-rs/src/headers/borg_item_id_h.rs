@@ -1,4 +1,0 @@
-//! `/home/user/borg-rs/angband/src/borg/borg-item-id.h`
-pub use super::borg_item_h::borg_item;
-#[allow(unused_imports)]
-use super::*;

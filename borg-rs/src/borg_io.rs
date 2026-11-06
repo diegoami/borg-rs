@@ -21,7 +21,6 @@ use crate::headers::game_event_h::{game_event_data, game_event_type, EVENT_BELL,
 use crate::headers::list_message_h::MSG_GENERIC;
 use crate::headers::ui_event_h::{keycode_t, keypress, EVT_KBRD};
 use crate::state::BorgState;
-use crate::headers;
 
 /// Size of the keypress queue and history (`KEY_SIZE`).
 pub const KEY_SIZE: usize = 8192;
@@ -206,7 +205,7 @@ pub fn borg_keypress(st: &mut BorgState, k: keycode_t) -> i32 {
 
 /// Record a keypress returned to the game (`borg_save_keypress`).
 pub fn borg_save_keypress(st: &mut BorgState, kp: keypress) -> keypress {
-    if st.cfg(headers::borg_h::BORG_VERBOSE) != 0 {
+    if st.cfg(crate::borg_headers::borg_h::BORG_VERBOSE) != 0 {
         if kp.type_0 == EVT_KBRD {
             let k = kp.code;
             let msg = if (32..=126).contains(&k) {
@@ -323,7 +322,7 @@ pub fn borg_dump_recent_keys(st: &mut BorgState, num: i32) {
 fn borg_bell_impl(st: &mut BorgState) {
     borg_note(st, "** BELL SOUNDED Dumping keypress history ***");
     borg_dump_recent_keys(st, 20);
-    if st.cfg(headers::borg_h::BORG_STOP_ON_BELL) != 0 {
+    if st.cfg(crate::borg_headers::borg_h::BORG_STOP_ON_BELL) != 0 {
         crate::borg_think::borg_oops(st, "** BELL SOUNDED***");
     }
 }
