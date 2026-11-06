@@ -272,6 +272,7 @@ suite output).
 | `deep` | 9 x 1M, cheat death | clevel 8-30 (median 18), max depth 2-26 (median 7); 8 classes, 5 races |
 | `classes` | 15 x 100k + 1 x 1M cheat death, flag `menu` | Blackguard with 7 races, Dunadan, High-Elf and Kobold with 7 other classes, a real Half-Elf Ranger; the 1M Dunadan Blackguard reaches clevel 26, max depth 22 |
 | `config` | 6 runs of 100k/20k + 1 x 1M, flags `menu,cheat` plus `munchkin` or `lunal` | Borg config options: munchkin start and lunal mode (see below) |
+| `options` | 25 runs (22 x 100k, 200k, 400k, 1M), flag `menu`, `cheat` or `cheatlive`, one `NAME=VALUE` option each | the other borg.txt options: money scum, self scum, dynamic calcs, worships, risky, uniques, swaps, depth/level stops, autosave, verbose, chests, munchkin limits, respawn (see below) |
 
 `harness/reference/<suite>/<run>/{keys.log.xz,summary.json}` are the C
 Borg's logs for each suite, made from the C build. Check a build with:
@@ -281,9 +282,10 @@ Borg's logs for each suite, made from the C build. Check a build with:
 
 The key oracle does not see Borg notes or screen output, Borg-side direct
 writes to game state (they count only through later keys), anything after
-the turn limit, or Borg config options other than `borg_cheat_death`,
-`borg_munchkin_start` and `borg_lunal_mode` (the `config` suite; all other
-suites run with the stock `borg.txt`).
+the turn limit, or a Borg config option in a way no suite run plays (the
+`config` and `options` suites change one option per run; all other
+suites run with the stock `borg.txt`; see "The options suite" for what
+each option reaches).
 
 ### The config suite
 
@@ -330,3 +332,74 @@ build identity, `harness/diff` treats this reference as a compressed C
 suite output: it prints the C build's identity and checks it (C, no
 override, `DONE`), unlike the older references, which have no such
 manifest.
+
+### The options suite
+
+`harness/suites/options` sets, per run, one `borg.txt` option (two for
+the money-scum and munchkin-limit runs) with a `NAME=VALUE` flag; all
+runs use `menu`, all but the respawn runs `cheat`. Characters are those
+of `config`/`smoke` (Human Warrior 42, Half-Elf Mage 12345, Dwarf Priest
+103) and of `deep` (Human Warrior 2000, Hobbit Rogue 2006; their indices
+are below 7, so `menu` picks the same characters as in `deep`), so each
+run can be set beside the same character on the stock `borg.txt`.
+
+What the runs reach was checked once with a temporarily instrumented C
+build (not committed): every read of a `borg_cfg[...]` option and a few
+sites (`borg_money_scum`, "Money Scum complete", the dynamic branch of
+`borg_power`, `borg_reincarnate_start/end`) printed to stderr. "Keys
+change" compares the key log with the same character and the stock
+`borg.txt` (same flags otherwise): the first differing key's game turn,
+or "same" if the whole log is identical.
+
+| run | option(s) | reached (instrumented C) | keys change |
+|---|---|---|---|
+| `opt-scum-war`, `opt-scum-mage` | `borg_money_scum_amount=5000` | the "stay in town" branches (`borg-think-dungeon.c` 1984, 2032) and `borg_money_scum()` (waits for townspeople) from turn 542 / 201 on; both stay in town at clevel 1 for 100k turns | turn 1 / 181 |
+| `opt-scum-noself-mage` | `borg_money_scum_amount=1000`, `borg_self_scum=FALSE` | as above, and the `!borg_self_scum` store branch (`borg-think-store.c` 167) | turn 111 |
+| `opt-scum-done-mage` | `borg_money_scum_amount=300`, `borg_self_scum=FALSE` | gold is already above 300: "Money Scum complete" (`borg.c` 192), the Borg stops (`borg_stopped`, 2 keys) | turn 1 |
+| `opt-dyn-war`, `-mage`, `-priest` | `borg_uses_dynamic_calcs=TRUE` (stock formulas) | the start-up warning (answered by the frontend, `startup_acks: 1`), formula loading, the dynamic branch of `borg_power` and of `borg_prepared` (`borg-prepared.c` 546, 701) throughout | warrior: turn 1, then a different game (clevel 14 instead of 8); mage, priest: one extra first key (the Borg clears the warning message), then the stock key stream |
+| `opt-wdam-war` | `borg_worships_damage=TRUE` | the six damage bonuses in `borg_power` | turn 33439 |
+| `opt-wspeed-war` | `borg_worships_speed=TRUE` | the speed check in `borg_power`; its bonus needs speed +25 or more, never reached | same |
+| `opt-whp-war` | `borg_worships_hp=TRUE` | the CON/HP bonus in `borg_power` | same |
+| `opt-wmana-rogue` (1M) | `borg_worships_mana=TRUE` | the SP bonus in `borg_power` | turn 964861 |
+| `opt-wac-war` | `borg_worships_ac=TRUE` | the AC bonus in `borg_power` | turn 6498 |
+| `opt-wgold-war` (200k) | `borg_worships_gold=TRUE` | `borg-junk.c` 387, `borg-store-sell.c` 847, `borg-think-dungeon-util.c` 660, 674, 802 | turn 168184 |
+| `opt-risky-war` | `borg_plays_risky=TRUE` | caution, escape, preparedness and stair checks | turn 6334 |
+| `opt-uniques-war` | `borg_kills_uniques=TRUE` | the living-uniques depth check (`borg-prepared.c` 631) | turn 40274 |
+| `opt-noswap-war` | `borg_uses_swaps=FALSE` | `borg_uses_swaps()` returns false (swap scans skipped) | same |
+| `opt-nodeeper-war` | `borg_no_deeper=3` | "No deeper" in `borg_prepared` and the climb in `borg-think-dungeon-util.c` 874 | turn 31194 (max depth 2 instead of 8) |
+| `opt-stopdlevel-war` | `borg_stop_dlevel=2` | "Auto-stop for user DLevel" (`borg.c` 174): stops at turn 20833 | at the stop |
+| `opt-stopclevel-war` | `borg_stop_clevel=5` | "Auto-stop for user CLevel" (`borg.c` 183): stops at turn 27889 | at the stop |
+| `opt-autosave-war` | `borg_autosave=TRUE` | a save on each new level (`borg-update.c` 2347) | turn 11 |
+| `opt-verbose-war` | `borg_verbose=TRUE` | the verbose notes (`borg-io.c`, `borg-messages.c`, `borg-flow-*`, `borg-store-buy.c`, ...) | same (notes only) |
+| `opt-chest-war` (400k) | `borg_chest_fail_tolerance=0` | the chest check in `borg-flow.c` 789, once, at turn 307489 | same |
+| `opt-munchkin-limits-war` | `munchkin`, `borg_munchkin_level=5`, `borg_munchkin_depth=4` | the munchkin level in `borg_power` and the munchkin depth in `borg_think_dungeon` | turn 7608 against the stock run, turn 10018 against `config`'s `cfg-munchkin-human-war` (munchkin with the stock limits 12 and 16) |
+| `opt-respawn-druid` | `cheatlive` (game `cheat_live` on, `borg_cheat_death` off), stock `borg_respawn_race/class` (the run's race and class, set by `run.sh`) | five deaths, each `borg_reincarnate_start` (race 3, class 2 from `borg_respawn_race/class`) and `borg_reincarnate_end`; death menu, new game and birth through the Borg's keys | the first 880 keys are those of `full-2-druid-1` (no cheat death), which stops at its death at turn 5865; here the Borg answers "Die?" with `y` and goes on |
+| `opt-respawn-random-druid` | `cheatlive`, `borg_respawn_race=-1`, `borg_respawn_class=-1` | one death; random race and class (`randint0`) give a Hobbit Rogue; both indices are below 7, so the wrong letters of C bug #11 do not show | as above up to the death |
+
+So 19 of the 25 runs play a different key stream from the stock
+`borg.txt`; `opt-wspeed-war`, `opt-whp-war`, `opt-noswap-war`,
+`opt-verbose-war` and `opt-chest-war` read their option where it matters
+but keep the stock key stream (the option's branch is evaluated with the
+new value, but no choice changes within these runs). Longer tries did no
+better: `borg_worships_speed` and `borg_worships_hp` on 1M `deep` runs
+(Human Warriors 2000, 2007; Dunadan Paladin 2005; Half-Troll Blackguard
+2008), `borg_worships_hp` on the `classes` Paladin and Blackguard,
+`borg_uses_swaps=FALSE` on 1M runs 2000, 2005, 2007 and
+`borg_self_scum=FALSE` alone on 1M runs 2000 and 2007 all kept the
+reference key logs. `borg_enchant_limit=9` on 1M run 2000 was never read
+(no enchanting) and is not in the suite.
+
+Not covered: `borg_respawn_winners` and `borg_stop_king` (need a win),
+`borg_allow_strange_opts` (only matters with birth options the harness
+does not set), `borg_delay_factor` (only sleeps), `borg_stop_on_bell`
+(no bell in these games), `borg_restore_ignore_settings` (read when the
+Borg is stopped by the user), `borg_dump_level` and `borg_save_death`
+other than their stock values (they decide which files are written at a
+death; the respawn runs read `borg_dump_level` with its stock value), `borg_self_lunal`
+(see the config suite), and the dynamic-calcs formulas other than the
+stock ones.
+
+`harness/reference/options` was made like `reference/config`: the C build
+ran the suite twice with `JOBS=2`, the outputs were identical, and one was
+stored with `.xz` logs, `summary.json`, `config.txt`, `timing.txt`, the
+manifest and `DONE`.
