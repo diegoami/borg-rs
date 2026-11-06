@@ -39,6 +39,8 @@ FLAGS="-"
 if [ $# -gt 0 ] && [ "$1" != "--" ]; then FLAGS="$1"; shift; fi
 [ "${1:-}" = "--" ] && shift
 CHEAT=FALSE
+SAVE_NAME=""
+BIRTH_ARGS=(-n)
 BORGH_FLAGS=()
 CONFIG_SED=()   # extra borg.txt rewrites from config flags
 SET_SED=()      # NAME=VALUE flags, applied last
@@ -53,6 +55,14 @@ if [ "$FLAGS" != "-" ]; then
             munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
             lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;
             selflunal) CONFIG_SED+=(-e "s/^borg_self_lunal = .*/borg_self_lunal = TRUE/");;
+            save=*)
+                [ -z "$SAVE_NAME" ] || { echo "run.sh: duplicate save flag" >&2; exit 2; }
+                SAVE_NAME="${fl#save=}"
+                [[ "$SAVE_NAME" =~ ^[a-zA-Z0-9_-]+\.save$ ]] || {
+                    echo "run.sh: save must be a filename under harness/saves" >&2; exit 2; }
+                [ -s "$ROOT/harness/saves/$SAVE_NAME" ] || {
+                    echo "run.sh: missing fixture $SAVE_NAME" >&2; exit 2; }
+                ;;
             *=*)
                 name="${fl%%=*}"; val="${fl#*=}"
                 [[ "$name" =~ ^borg_[a-z_]+$ ]] || {
@@ -72,6 +82,12 @@ if [ "$FLAGS" != "-" ]; then
 fi
 rm -rf "$OUT"
 mkdir -p "$OUT"/{user,save,archive,panic,scores}
+if [ -n "$SAVE_NAME" ]; then
+    # The engine may autosave: never give it the committed fixture's path.
+    cp "$ROOT/harness/saves/$SAVE_NAME" "$OUT/save/input.save"
+    BIRTH_ARGS=()
+    BORGH_FLAGS+=(-load "$OUT/save/input.save")
+fi
 # Pinned config; respawn race/class follow the run (cheat death stays off)
 sed -e "s/^borg_respawn_race = .*/borg_respawn_race = $RACE/" \
     -e "s/^borg_respawn_class = .*/borg_respawn_class = $CLASS/" \
@@ -97,10 +113,13 @@ done
 {
     echo "flags=$FLAGS"
     echo "borg_txt_sha256=$(sha256sum < "$OUT/user/borg.txt" | cut -d' ' -f1)"
+    if [ -n "$SAVE_NAME" ]; then
+        echo "save_sha256=$(sha256sum < "$OUT/save/input.save" | cut -d' ' -f1)"
+    fi
 } > "$OUT/config.txt"
 cd "$(dirname "$BIN")"   # the game finds ./lib relative to the cwd
 set +e
-TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 "$BIN" -mborgh -n -uBorg \
+TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 "$BIN" -mborgh "${BIRTH_ARGS[@]}" -uBorg \
     -duser="$OUT/user" -dsave="$OUT/save" -darchive="$OUT/archive" \
     -dpanic="$OUT/panic" -dscores="$OUT/scores" -- \
     -seed "$SEED" -race "$RACE" -class "$CLASS" -turns "$TURNS" \

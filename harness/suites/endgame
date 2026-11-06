@@ -1,0 +1,8 @@
+# M4 D: synthetic wizard-created fixtures; same save and seed in both builds.
+# Turn limits are absolute engine turns (fixtures start at turn 1).
+# NAME             SEED RACE CLASS TURNS  FLAGS
+end-depth50        6000 0    0     100000 menu,cheat,save=depth50.save
+end-depth98        6001 0    0     100000 menu,cheat,save=depth98.save
+end-depth99        6002 0    0     100000 menu,cheat,save=depth99.save
+end-depth100       6003 0    0     50000  menu,cheat,save=depth100.save
+end-near-morgoth   6004 0    0     20000  menu,cheat,save=morgoth.save

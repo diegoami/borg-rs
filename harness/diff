@@ -65,6 +65,7 @@ import json
 import lzma
 import hashlib
 import os
+import re
 import sys
 
 CONTEXT = 20
@@ -359,6 +360,23 @@ def check_suite_params(label, d, suite):
                 bad.append("config.txt flags %s, suite flags %s" % (sorted(have), sorted(flags)))
         elif want_cfg:
             bad.append("no config.txt for config flags %s" % sorted(want_cfg))
+        saves = [f[5:] for f in flags if f.startswith("save=")]
+        if bool(sm.get("loaded", False)) != bool(saves):
+            bad.append("loaded status does not match suite save flag")
+        if saves and os.path.isfile(cp):
+            if len(saves) != 1 or not re.fullmatch(r"[a-zA-Z0-9_-]+\.save", saves[0]):
+                bad.append("invalid suite save filename")
+            else:
+                fixture = os.path.join(os.path.dirname(__file__), "saves", saves[0])
+                if not os.path.isfile(fixture):
+                    bad.append("suite savefile is missing")
+                else:
+                    with open(fixture, "rb") as f:
+                        expected_hash = hashlib.sha256(f.read()).hexdigest()
+                    if rec.get("save_sha256") != expected_hash:
+                        bad.append("config.txt save_sha256 does not match suite fixture")
+            if not isinstance(sm.get("loaded_turn"), int) or sm["loaded_turn"] >= turns:
+                bad.append("invalid loaded_turn")
         if bad:
             probs.append("%s: %s: %s" % (label, name, "; ".join(bad)))
     return probs

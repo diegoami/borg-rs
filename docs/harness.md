@@ -1,5 +1,25 @@
 # Deterministic Borg harness
 
+## Saved-character replay (M4 D)
+
+`harness/suites/endgame` uses `save=NAME.save` flags to load the fixtures
+under `harness/saves/`. Each run copies its input and records its SHA-256;
+`harness/diff --suite endgame` checks that hash against the fixture. The
+frontend accepts `-load FILE` (omit `-n`), checks the living character's
+race/class, and reseeds at the pre-Borg boundary. `loaded_turn` in the
+summary is the initial engine turn; `-turns` is an absolute limit.
+
+`-save-on-stop FILE` can capture a living engine state, including from a
+natural run. `-make-fixture DEPTH` plus `-save-on-stop FILE` creates a
+wizard-equipped level-50 character and an engine-generated level without
+starting the Borg. `-near-morgoth` additionally places it next to Morgoth
+at depth 100. These switches exist only in the harness frontend. Ordinary
+birth runs do not use this setup. `harness/make-fixtures.sh OUTDIR` makes
+each fixture twice with a verified C build and refuses differing saves,
+logs or summaries. See `harness/saves/README.md` for recipes and limits.
+`harness/regress/save-load/run.sh` checks C/C and C/Rust replay and rejects
+missing saves, wrong races and mismatched fixture hashes.
+
 The harness runs the unmodified Angband engine (pinned upstream
 `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`, in `angband/`) with a Borg
 behind the `inkey_hack` seam. It records every key the Borg returns, every
