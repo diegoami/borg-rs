@@ -2,9 +2,11 @@
 
 The harness runs the unmodified Angband engine (pinned upstream
 `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`, in `angband/`) with a Borg
-behind the `inkey_hack` seam. It records every key the Borg returns. Two
-Borg implementations (C and Rust) are equivalent when their key logs are
-byte-identical for the same seeds.
+behind the `inkey_hack` seam. It records every key the Borg returns, every
+message added to the game's message log (Borg notes included) and, per
+key, a digest of the engine state. Two Borg implementations (C and Rust)
+are equivalent when these three logs are byte-identical for the same
+seeds.
 
 ## Engine changes
 
@@ -23,6 +25,7 @@ the default `BORG_IMPL=c` it compiles the same files) and, in `mon-make.c`,
 | `src/z-rand.c` | `Rand_init()` uses `borgh_seed` when it is set, instead of `time()`/`getpid()` |
 | `src/mon-make.c` | `get_mon_num()` uses a fixed date when the seed is fixed (no Christmas monsters) |
 | `src/ui-input.c` | `borgh_key_hook` is called with every key returned by `inkey_hack` |
+| `src/message.c` | `borgh_message_hook` is called by `message_add()` for every message, before the log is changed (repeats included) |
 | `CMakeLists.txt` | option `SUPPORT_BORG_HARNESS`; `BORG_IMPL` (`c` or `rust`) |
 
 No file in `src/borg/` is touched. `borg_rand_local` is initialised from
@@ -30,7 +33,7 @@ No file in `src/borg/` is touched. `borg_rand_local` is initialised from
 
 ## The borgh frontend
 
-`angband -mborgh -n -uBorg -d... -- -seed N -race R -class C -turns T -keylog F -summary J [-menu-letters]`
+`angband -mborgh -n -uBorg -d... -- -seed N -race R -class C -turns T -keylog F [-msglog M] [-statelog S] -summary J [-menu-letters]`
 
 1. It feeds a scripted key sequence, and only on blocking waits:
    splash ESC, race letter + Enter, class letter + Enter, Enter (point
@@ -43,12 +46,42 @@ No file in `src/borg/` is touched. `borg_rand_local` is initialised from
    `<game turn> <event type> <keycode hex> <mods hex>`.
    `EVT_NONE` returns (the Borg idling while resting or repeating) are
    logged too.
-4. Stops when, after a key, `turn >= -turns`, the player is dead,
+4. Message log (`-msglog`, `messages.log`): one line per `message_add()`
+   call, `<keys logged so far> <game turn> <message type> <text>`, text
+   bytes below 0x20, 0x7f and `\` written as `\xNN`. Repeats are logged
+   each time (the message log only counts them). Game messages (`msg`,
+   `msgt`) and the Borg's notes go through `message_add()` in both builds:
+   C `borg_note()` calls `message_add(what, MSG_GENERIC)` and
+   `borg_warning()` calls `msg("%s", what)` (`borg-io.c`); the Rust
+   `borg_io.rs` calls the same engine functions through `engine.rs`. So
+   the hook is engine side, the same for both builds, and the C Borg is
+   untouched. Messages before the Borg starts (birth) have key count 0.
+5. State log (`-statelog`, `state.log`): one line per logged key (line i
+   belongs to line i of `keys.log`), written right after the key line,
+   before the stop checks:
+   `<turn> <x>,<y> d<depth>/<max depth> hp<chp>/<mhp> sp<csp>/<msp>
+   f<food> au<gold> xp<exp> lv<level> t<i>:<v>,... o<g>:<timeout>,...
+   p<hash> e<hash> r<hash>`. `t` lists the set timed effects by index
+   (`list-player-timed.h` order, food excluded), `o` the gear objects
+   (gear-list position) with a non-zero timeout (light fuel, recharge),
+   `-` for none. `p` and `e` are FNV-1a 64 hashes over the objects in
+   the pack and quiver, and the equipped ones with their slot, in gear
+   order: kind index, tval, sval, number, pval, ac, to_h, to_d, to_a,
+   notice, flags, modifiers, element info, curses, and the same fields of
+   the object's known version (what the player has learnt of it: its
+   runes); `r` hashes which runes the player knows at all
+   (`player_knows_rune`). The digest only reads: no RNG call, no engine
+   function that changes state.
+   A run ends at the key that meets a stop condition, so neither log has
+   anything after the last key, except on a stop while the game waits for
+   a real key (`death`, `blocked`, `borg_stopped`), where the messages up
+   to that wait are logged.
+6. Stops when, after a key, `turn >= -turns`, the player is dead,
    `lev >= -clev` or `max_depth >= -depth`. It also stops when the game
    blocks for a real key (`death`, `borg_stopped` or `blocked`). It then
-   writes the summary JSON and calls `_exit(0)` (no save). If writing the
-   key log or the summary fails it exits with 3.
-5. `-screen` dumps the 80x24 screen to stderr on any stop that is not a
+   writes the summary JSON and calls `_exit(0)` (no save). If writing a
+   log or the summary fails it exits with 3.
+7. `-screen` dumps the 80x24 screen to stderr on any stop that is not a
    turn-limit stop. `BORGH_DEBUG=1` dumps the screen before each scripted
    key.
 6. Start-up `-more-`: if, after `^Z` `z`, the game blocks on a `-more-`
@@ -113,7 +146,8 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
 * `harness/run.sh OUTDIR SEED RACE CLASS TURNS [FLAGS]`: one isolated run.
   It gets its own user, save, archive, panic and scores dirs, and a copy of
   `harness/borg.txt` with `borg_respawn_race/class` set to the run's race
-  and class. `TZ=UTC`, `LC_ALL=C.UTF-8`. FLAGS (comma-separated, `-` for
+  and class. It writes `keys.log`, `messages.log`, `state.log`,
+  `summary.json`, `stderr.log` and `config.txt`. `TZ=UTC`, `LC_ALL=C.UTF-8`. FLAGS (comma-separated, `-` for
   none): `cheat` sets `borg_cheat_death = TRUE`; `menu` passes
   `-menu-letters`; `cheatlive` passes `-cheat-live` (see "The borgh
   frontend"). Config flags each set one more option of the run's
@@ -169,8 +203,19 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   the suite's flags. (References do not record cheat death or an exact
   upper turn bound; see `harness/diff`'s help.) Per run it checks that the key logs are
   byte-identical, that on each side the log has `summary.keys` lines and
-  ends at `summary.game_turns`, and that the two `summary.json` match apart
-  from `wall_seconds`. It refuses a suite output dir without `DONE`
+  ends at `summary.game_turns`, that the two `summary.json` match apart
+  from `wall_seconds`, and that the message logs and the state logs
+  (`messages.log[.xz]`, `state.log[.xz]`) are byte-identical; a state log
+  must also have `summary.keys` lines, line i at the game turn of key i.
+  A log present on one side only fails the run, unless the side without
+  it is a stored dir (no plain `keys.log`: a reference or a compressed
+  output) made before these logs existed; then that log is not compared,
+  and the diff prints how many runs it compared each log in and how many
+  it skipped. So a reference with these logs requires them on the output
+  side, and an output without them (made before them) passes only
+  against a reference without them. A message or state divergence is
+  printed like a key divergence: run, seed, line, game turn, key index
+  and 20 lines of context. It refuses a suite output dir without `DONE`
   (`--allow-incomplete` turns that into a warning; reference dirs hold only
   `.xz` logs and need no marker). For a divergence it prints run, seed,
   game turn, key index, and 20 lines of context. For each suite output

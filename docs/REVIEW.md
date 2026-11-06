@@ -56,7 +56,11 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
    Each build writes a `BUILD_ID` next to the binary: implementation, git
    revision, a hash of the source inputs and the binary's sha256.
 2. `harness/suite.sh <suite>` runs a seed suite headless and in parallel. Each
-   run logs every key the Borg returns to the game (the oracle). Before
+   run logs every key the Borg returns to the game (the oracle), every
+   message added to the game's message log, Borg notes included
+   (`messages.log`), and per key a digest of the engine state: position,
+   depth, HP, SP, food, gold, exp, level, timed effects, gear timeouts and
+   hashes of pack, equipment and rune knowledge (`state.log`). Before
    running it refuses a binary whose implementation (read from the
    executable, its CMake cache and its `BUILD_ID`) is not `BORG_IMPL`, or
    whose `BUILD_ID` does not match the binary or the current sources
@@ -64,9 +68,10 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
    ("Build identity").
 3. `harness/diff --suite <suite> [--expect-impl rust] A B` compares logs. It
    requires every run of
-   the suite on both sides, byte-identical key logs, logs consistent with
-   their `summary.json`, and equal summaries (except wall time). It prints
-   the first divergence with seed, game turn, key index and context. It
+   the suite on both sides, byte-identical key, message and state logs,
+   logs consistent with their `summary.json`, and equal summaries (except
+   wall time). It prints the first divergence of each log with seed, game
+   turn, key index and context. It
    prints each output's build identity from its manifest and fails on an
    implementation mismatch or a recorded override.
 4. Suites (the birth-script quirk below means `full` and `deep` play 8
@@ -122,10 +127,16 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   self-lunal thinker are checked only by the per-module fuzz cross-checks
   and by reading the code.
   `docs/PROGRESS.md` lists the never-exercised paths for each module.
-* **What the key oracle cannot see.** It compares only the keys the Borg
-  returns, up to the turn limit. It does not cover Borg notes, screen output
-  or the death files; Borg-side direct writes to game state (cheat-death
-  cure, `option_set`, the RNG swap) except through later keys; anything
+* **What the oracle cannot see.** It compares the keys the Borg returns,
+  the messages (game messages and Borg notes) and a per-key digest of
+  player state, up to the turn limit (M4 step A; see `docs/harness.md`).
+  It does not cover screen output, the Borg's own windows or the death
+  files; the Borg's internal state (its map, its idea of the monsters and
+  items) except through keys and notes; engine state outside the digest
+  (the cave, monsters, objects on the floor, stores) except through later
+  keys, messages or player state; Borg-side direct writes to game state
+  (cheat-death cure, `option_set`, the RNG swap) except through the digest
+  or later keys; anything
   after the turn limit; and most config-dependent paths. The `config`
   suite turns on `borg_munchkin_start` (the munchkin thinker runs) or
   `borg_lunal_mode` (lunal mode changes the stair and rest choices in the
