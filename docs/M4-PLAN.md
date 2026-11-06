@@ -10,7 +10,7 @@ stays unmodified, existing references stay as they are).
 | step | what | evidence it adds | status |
 |------|------|------------------|--------|
 | A | messages and engine-state log beside the key log, in both builds | Borg notes, game messages and per-key engine state (position, HP, depth, gold, pack...) compared, not only keys | in progress |
-| B | an `options` suite: one run per remaining `borg.txt` option (money scum, dynamic calcs, worships, risky play, swaps off, respawn...) | configuration-dependent code paths | in progress |
+| B | an `options` suite: one run per remaining `borg.txt` option (money scum, dynamic calcs, worships, risky play, swaps off, respawn...) | configuration-dependent code paths | done: `harness/suites/options` (25 runs, `NAME=VALUE` and `cheatlive` flags, start-up `-more-` answered), C twice identical, Rust 25/25; see STATUS |
 | C | more seeds and longer cheat-death runs | more of the mid game, deeper levels | planned |
 | D | endgame starting points: savefiles at depth 50+, 98-100 and next to Morgoth, loaded by both builds with the same seed | the endgame (Sea of Runes, Morgoth, deep swaps, self-lunal) | planned |
 | E | a committed native-C differential checker (the original C Borg linked with renamed symbols beside the Rust one, called on the same state, with fuzzed inputs) | replaces the uncommitted conversion cross-checks; reaches code no game reaches | planned |

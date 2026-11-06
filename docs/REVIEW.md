@@ -9,10 +9,11 @@ Known C bugs are kept on purpose (see `docs/c-bugs.md`).
 
 What is shown is narrower than that goal: the key streams are identical on
 the suites' seeds (smoke, full, deep, classes with the stock `borg.txt`;
-config with munchkin start or lunal mode on) and the suites' turn limits
+config with munchkin start or lunal mode on; options with one other
+borg.txt option per run) and the suites' turn limits
 (no run deeper than dungeon level 27). Code the
 suites do not reach (depth 50+, Morgoth, self-lunal and the lunal thinker,
-most other config options, most debug commands) rests on reading, the per-module cross-checks (not
+config options or values no suite run plays (see the `options` suite), most debug commands) rests on reading, the per-module cross-checks (not
 committed, numbers in PROGRESS) and the committed regressions in
 `harness/regress/`. See also the external review and the response to it
 (`docs/REVIEW-RESPONSE-4c06cec08.md`).
@@ -36,7 +37,7 @@ converted module.
 angband/             upstream Angband e473720ed (git subtree), plus small
                      #ifdef BORG_HARNESS hooks (see docs/harness.md)
 harness/             build.sh, run.sh, suite.sh, diff, check-no-c-borg.sh,
-                     suites/{smoke,full,deep,classes,config}, reference/ (C oracle
+                     suites/{smoke,full,deep,classes,config,options}, reference/ (C oracle
                      logs, xz)
 borg-rs/src/         the Rust Borg (staticlib linked into the engine)
   <module>.rs        safe Rust, one per original .c file (all 59 converted)
@@ -85,6 +86,10 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
      Warrior, Half-Elf Mage and Dunadan Blackguard (the runs of the second
      external review), plus one 1M-turn lunal run that reaches dungeon
      level 27. See "Coverage" below and `docs/harness.md`.
+   * `options`: 25 runs, each with one other `borg.txt` option set
+     (`NAME=VALUE` flags): money scum, dynamic calcs, worships, risky,
+     uniques, swaps off, stops, autosave, verbose, chests, munchkin
+     limits, respawn. Added in M4 (step B).
    * The C references are in `harness/reference/`. They were made from the
      unmodified C build and checked deterministic (two C runs, identical, for
      every suite; for `smoke` this was first recorded after the review).
@@ -99,7 +104,7 @@ To reproduce:
 
 ```
 harness/build.sh && BORG_IMPL=rust harness/build.sh
-for s in smoke full deep classes config; do
+for s in smoke full deep classes config options; do
     BORG_IMPL=rust harness/suite.sh $s
     harness/diff --suite $s --expect-impl rust harness/out/rust/$s harness/reference/$s
 done
@@ -126,9 +131,17 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   `borg_lunal_mode` (lunal mode changes the stair and rest choices in the
   flow code). It does not reach `borg_think_dungeon_lunal`: that needs
   `borg_self_lunal` and a deep character well above its max depth, and
-  eight 1M-turn tries with `borg_self_lunal` on never got there. Dynamic
-  calcs, money scum, respawn, worships, risky play etc. stay off in every
-  suite.
+  eight 1M-turn tries with `borg_self_lunal` on never got there. The
+  `options` suite (M4 step B) sets the other options one per run: money
+  scum and self scum, dynamic calcs (stock formulas), the six worships,
+  risky play, unique hunting, swaps off, depth/level stops, autosave,
+  verbose, chest tolerance, munchkin limits and respawn (game
+  `cheat_live` with Borg cheat death off). 20 of its 25 runs change the
+  key stream; worships speed and hp, swaps off, verbose and chest
+  tolerance are read but change no key in these games, so their
+  effective branches rest on reading. Not covered: respawn winners,
+  stop king, strange options, bell, ignore-settings restore, non-stock
+  formulas (`docs/harness.md`, "The options suite").
 * **The state root and nested entry.** `engine::enter` is the only place
   that hands out `&mut BorgState` (to the four engine callbacks). An engine
   call that waits for a key can run the Borg again inside the outer Borg

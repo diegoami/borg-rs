@@ -376,8 +376,9 @@ or "same" if the whole log is identical.
 | `opt-respawn-druid` | `cheatlive` (game `cheat_live` on, `borg_cheat_death` off), stock `borg_respawn_race/class` (the run's race and class, set by `run.sh`) | five deaths, each `borg_reincarnate_start` (race 3, class 2 from `borg_respawn_race/class`) and `borg_reincarnate_end`; death menu, new game and birth through the Borg's keys | the first 880 keys are those of `full-2-druid-1` (no cheat death), which stops at its death at turn 5865; here the Borg answers "Die?" with `y` and goes on |
 | `opt-respawn-random-druid` | `cheatlive`, `borg_respawn_race=-1`, `borg_respawn_class=-1` | one death; random race and class (`randint0`) give a Hobbit Rogue; both indices are below 7, so the wrong letters of C bug #11 do not show | as above up to the death |
 
-So 19 of the 25 runs play a different key stream from the stock
-`borg.txt`; `opt-wspeed-war`, `opt-whp-war`, `opt-noswap-war`,
+So 20 of the 25 runs play a different key stream from the stock
+`borg.txt` (for `opt-dyn-mage` and `opt-dyn-priest` only by one extra
+first key); `opt-wspeed-war`, `opt-whp-war`, `opt-noswap-war`,
 `opt-verbose-war` and `opt-chest-war` read their option where it matters
 but keep the stock key stream (the option's branch is evaluated with the
 new value, but no choice changes within these runs). Longer tries did no

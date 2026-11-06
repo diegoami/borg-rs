@@ -390,3 +390,39 @@ C config, twice (C build of c20622542)    7/7 runs identical; reference/config
 Rust config --expect-impl rust            7/7 runs identical, exit 0
 Rust smoke, C smoke (stock suites)        3/3 each against reference/smoke, exit 0
 ```
+
+## Options suite (M4 step B, 2026-11-06)
+
+`harness/run.sh` takes a config flag `NAME=VALUE` for any `borg.txt`
+option (`TRUE`, `FALSE` or an integer; an option without exactly one line
+in `harness/borg.txt` fails the run), and `cheatlive` (frontend
+`-cheat-live`: game option `cheat_live` on, no stop at death, so with Borg
+cheat death off the Borg reincarnates). The borgh frontend answers, with
+ESC, a `-more-` shown before the Borg's first key: the start-up warning
+of `borg_uses_dynamic_calcs`, which made both Borgs stop at turn 1 with
+zero keys. Stock runs are unchanged: their generated `borg.txt` has the
+same sha256 as with the previous `run.sh`, and C and Rust smoke pass.
+`harness/diff --suite` checks the new flags against `config.txt` and
+`cheat_live` against the summary.
+
+`harness/suites/options` has 25 runs (22 x 100k, 200k, 400k, 1M; about
+4 minutes with `JOBS=2`): money scum with and without self scum, including
+the "Money Scum complete" stop; dynamic calcs with the stock formulas on
+three classes; the six worships; risky play; unique hunting; swaps off;
+`borg_no_deeper`, `borg_stop_dlevel`, `borg_stop_clevel`; autosave;
+verbose; chest tolerance; munchkin level/depth limits; respawn with fixed
+and random race/class (five and one reincarnations). A temporarily
+instrumented C build showed each option read where it is used; 20 of
+the 25 runs change the key stream against the same character with the
+stock `borg.txt`. Worships speed and hp, swaps off, verbose and chest
+tolerance are read but change no key in any game tried. Details and the
+options not covered in `docs/harness.md` ("The options suite").
+
+Evidence (`JOBS=2`):
+
+```
+C options, twice (C build of fd6f6b120)   25/25 runs identical; reference/options
+Rust options --expect-impl rust           25/25 runs identical, exit 0
+Rust config --expect-impl rust            7/7 runs identical, exit 0
+Rust smoke, C smoke (stock suites)        3/3 each against reference/smoke, exit 0
+```
