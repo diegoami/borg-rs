@@ -12,6 +12,14 @@
 #     munchkin   sets borg_munchkin_start = TRUE
 #     lunal      sets borg_lunal_mode = TRUE
 #     selflunal  sets borg_self_lunal = TRUE
+#     NAME=VALUE sets any option of borg.txt: the line "NAME = ..." becomes
+#                "NAME = VALUE", e.g. borg_money_scum_amount=5000 or
+#                borg_uses_swaps=FALSE. NAME must be the option's full
+#                name and have exactly one "NAME = " line in
+#                harness/borg.txt (else the run fails); VALUE is TRUE,
+#                FALSE or an integer. Applied after the lines run.sh sets
+#                itself (respawn race/class); borg_cheat_death is set
+#                with the cheat flag only.
 #   Env: BORG_IMPL=c|rust (selects build/<impl>), ANGBAND_BIN (override binary)
 # Produces OUTDIR/keys.log (the oracle), OUTDIR/summary.json, OUTDIR/stderr.log,
 # OUTDIR/config.txt (flags and sha256 of the run's user/borg.txt; not part of
@@ -28,6 +36,8 @@ if [ $# -gt 0 ] && [ "$1" != "--" ]; then FLAGS="$1"; shift; fi
 CHEAT=FALSE
 BORGH_FLAGS=()
 CONFIG_SED=()   # extra borg.txt rewrites from config flags
+SET_SED=()      # NAME=VALUE flags, applied last
+SET_CHECK=()    # the lines they must produce
 if [ "$FLAGS" != "-" ]; then
     IFS=, read -r -a FL <<< "$FLAGS"
     for fl in "${FL[@]}"; do
@@ -37,6 +47,19 @@ if [ "$FLAGS" != "-" ]; then
             munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
             lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;
             selflunal) CONFIG_SED+=(-e "s/^borg_self_lunal = .*/borg_self_lunal = TRUE/");;
+            *=*)
+                name="${fl%%=*}"; val="${fl#*=}"
+                [[ "$name" =~ ^borg_[a-z_]+$ ]] || {
+                    echo "run.sh: flag '$fl': bad option name '$name'" >&2; exit 2; }
+                [[ "$val" =~ ^(TRUE|FALSE|-?[0-9]+)$ ]] || {
+                    echo "run.sh: flag '$fl': value must be TRUE, FALSE or an integer" >&2; exit 2; }
+                [ "$name" != borg_cheat_death ] || {
+                    echo "run.sh: flag '$fl': use the cheat flag for borg_cheat_death" >&2; exit 2; }
+                n=$(grep -c "^$name = " "$ROOT/harness/borg.txt" || true)
+                [ "$n" = 1 ] || {
+                    echo "run.sh: flag '$fl': $n lines '$name = ' in harness/borg.txt (unknown option?)" >&2; exit 2; }
+                SET_SED+=(-e "s/^$name = .*/$name = $val/")
+                SET_CHECK+=("$name = $val");;
             *) echo "run.sh: unknown flag '$fl'" >&2; exit 2;;
         esac
     done
@@ -49,6 +72,13 @@ sed -e "s/^borg_respawn_race = .*/borg_respawn_race = $RACE/" \
     -e "s/^borg_cheat_death = .*/borg_cheat_death = $CHEAT/" \
     "${CONFIG_SED[@]}" \
     "$ROOT/harness/borg.txt" > "$OUT/user/borg.txt"
+if [ ${#SET_SED[@]} -gt 0 ]; then
+    sed -i "${SET_SED[@]}" "$OUT/user/borg.txt"
+    for line in "${SET_CHECK[@]}"; do
+        grep -qx "$line" "$OUT/user/borg.txt" || {
+            echo "run.sh: no '$line' line in the run's borg.txt" >&2; exit 2; }
+    done
+fi
 # Each config flag must have changed its line (a renamed option would
 # otherwise be silently ignored).
 for fl in munchkin:borg_munchkin_start lunal:borg_lunal_mode selflunal:borg_self_lunal; do

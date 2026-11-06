@@ -208,6 +208,7 @@ def suite_spec(suite):
     return spec
 
 
+# config flags: these names plus any NAME=VALUE option setting (run.sh)
 CONFIG_FLAGS = {"munchkin", "lunal", "selflunal"}
 
 
@@ -247,7 +248,7 @@ def check_suite_params(label, d, suite):
         if sm.get("stop_reason") != "turns" and g >= turns:
             bad.append("stopped (%s) at %s, at or past the suite limit %s" % (sm.get("stop_reason"), g, turns))
         cp = os.path.join(d, name, "config.txt")
-        want_cfg = flags & CONFIG_FLAGS
+        want_cfg = set(f for f in flags if f in CONFIG_FLAGS or "=" in f)
         if os.path.isfile(cp):
             with open(cp) as f:
                 rec = dict(l.rstrip("\n").split("=", 1) for l in f if "=" in l)
