@@ -1067,3 +1067,54 @@ with its issues.
 * Tracker: one lead per slip, in the order above (the `created_traps` /
   `BLINK:` bullet is two):
   diegoami/neo-angband-tracker#212 to diegoami/neo-angband-tracker#221.
+
+## 47. Dungeon-think helper slips (think dungeon util)
+
+* `borg-think-dungeon-util.c`, found by code reading; all checked against
+  the c2rust code (see PROGRESS.md, module 55).
+* `borg_think_dungeon_light()` (lines 152-154): the entry test is
+  `!borg.trait[BI_LIGHT] && (borg.trait[BI_LIGHT] <= 0 ||
+  borg_items[INVEN_LIGHT].timeout <= 3)`. The second part is always true
+  once the first holds, so a light that is about to burn out (timeout
+  `<= 3`) never starts the maneuvers on its own.
+* Same function, "Test for stairs" (lines 186-195): on an up staircase it
+  queues `<` with the note "# Testing for stairs ." and does not return, so
+  the code below may queue a rest, a light spell or a flow step behind the
+  `<` in the same turn.
+* Same function, the Call Light scan (lines 268-275): the open/broken door
+  case requires `y == borg.c.y && x == borg.c.x`, but the scan only visits
+  the 8 neighbours, so the case is never taken and the "is the door lit"
+  cheat (`square_isglow`) never runs; an open door next to the Borg is
+  treated like any other grid.
+* `borg_think_stair_scum()` (lines 400-404): the "do I already know this up
+  staircase" loop `continue`s where the down-stair loop above it `break`s,
+  so it always ends at `track_less.num` and the staircase under the Borg
+  is appended to `track_less` again (while there is room) every time the
+  map does not show it as `FEAT_LESS`. (`borg-think-dungeon.c` has the
+  same loop twice.)
+* Same function (lines 451-513): `b_j`, the distance to the nearest down
+  staircase, is not reset before the up-stair scan, so a close down
+  staircase makes the "upstair is close" test (`b_j < 8`) pass even when
+  every up staircase is far away.
+* `borg_leave_level()` (lines 705-788): `prep_cur_depth` keeps the pointer
+  `borg_prepared()` returned. A formatted reason ("No deeper N.", "Scumming
+  *Heal* potions (N to go).", "Collect from house (N potions).", "Must kill
+  X.", "X still alive!") lives in the one static `borg_prepared_buffer`,
+  which the later calls `borg_prepared(depth + 1)`, `(depth + 5)` and
+  `(max_depth * 5 / 10)` overwrite. The notes "heading up, not prep for
+  current level", "Returning to town (too deep)", "Climbing (too deep)"
+  and the "Collect from house" test then read the reason of the later
+  depth, not the current one.
+* Same function (line 723): "Do not dive when drained" is `if (g &&
+  borg.trait[BI_ISFIXEXP])`, and `g` is only non-zero here when the Borg
+  is already heading up, so a drained Borg is not kept from diving.
+* `borg_excavate_vault()` (lines 1086-1089): after a cast it clears
+  `BORG_GLOW` ("Not Lit") and then sets `BORG_GLOW` again under the
+  comment "Dark" (surely meant `BORG_DARK`), so the excavated grid is
+  remembered as glowing.
+* Rust (`borg_think_dungeon_util.rs`): all kept. The `borg_prepared_buffer`
+  aliasing is kept through `bridge::borg_prepared_buf`/`prepared_buffer`
+  (the reason is read from the buffer at each use, as C does). A
+  `borg_feeling_stuff` outside 0..11 panics in
+  `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
+  grid outside the map panics (C reads outside `borg_grids`).

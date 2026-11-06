@@ -882,19 +882,48 @@ pub mod prepared {
                 map.entry(s).or_insert_with(|| CString::new(s).expect("no NUL")).as_ptr()
             }
             Some(Reason::Formatted(s)) => {
-                // strnfmt(borg_prepared_buffer, MAX_REASON, ...)
-                let buf = &mut *(&raw mut PREPARED_BUFFER);
-                let bytes = &s[..];
-                let n = bytes.len().min(MAX_REASON - 1);
-                for (d, &b) in buf.iter_mut().zip(&bytes[..n]) {
-                    *d = b as c_char;
-                }
-                buf[n] = 0;
-                buf.as_ptr()
+                write_buffer(&s);
+                (&raw const PREPARED_BUFFER).cast()
             }
             Some(Reason::Depth(i)) => st().formulas.depth[i].reason.as_ptr(),
             Some(Reason::Restock(i)) => st().formulas.restock[i].reason.as_ptr(),
         }
+    }
+
+    /// `strnfmt(borg_prepared_buffer, MAX_REASON, ...)` of a formatted
+    /// reason.
+    fn write_buffer(s: &[u8]) {
+        // SAFETY: engine thread only; no reference to the buffer is live.
+        let buf = unsafe { &mut *(&raw mut PREPARED_BUFFER) };
+        let n = s.len().min(MAX_REASON - 1);
+        for (d, &b) in buf.iter_mut().zip(&s[..n]) {
+            *d = b as c_char;
+        }
+        buf[n] = 0;
+    }
+
+    /// The text in `borg_prepared_buffer` now (up to its NUL).
+    pub(crate) fn buffer_text() -> Vec<u8> {
+        // SAFETY: engine thread only; a plain read of the static.
+        let buf = unsafe { &*(&raw const PREPARED_BUFFER) };
+        buf.iter().take_while(|&&c| c != 0).map(|&c| c as u8).collect()
+    }
+
+    /// `borg_prepared(depth)` for converted code, keeping C's pointer:
+    /// a formatted reason is written into `borg_prepared_buffer` (as C
+    /// does) and returned as `PreparedC::Buffer`.
+    pub(crate) fn borg_prepared_buf(
+        st: &mut crate::state::BorgState,
+        depth: c_int,
+    ) -> Option<super::PreparedC> {
+        let r = p::borg_prepared(st, depth)?;
+        Some(match r {
+            Reason::Formatted(s) => {
+                write_buffer(&s);
+                super::PreparedC::Buffer
+            }
+            r => super::PreparedC::Text(r.text(st).to_vec()),
+        })
     }
 
     pub unsafe extern "C" fn borg_prepared(depth: c_int) -> *const c_char {
@@ -1126,26 +1155,6 @@ pub mod log {
     }
 }
 
-/// C-ABI shim with the borg-messages-react.c name (caller in
-/// borg_think_dungeon_util).
-pub mod messages_react {
-    use super::{cbytes, st};
-    use crate::borg_messages_react as r;
-    use core::ffi::c_char;
-
-    /// As in C, a trailing ',' of `buf` is cut in the caller's buffer
-    /// (C casts away the `const`; the callers that pass string literals
-    /// pass none ending in ',').
-    pub unsafe extern "C" fn borg_react(msg: *const c_char, buf: *const c_char) {
-        // Copied: the texts must not alias the state while it is borrowed.
-        let (msg, text) = (cbytes(msg).to_vec(), cbytes(buf).to_vec());
-        let n = text.len();
-        if r::borg_react(st(), &msg, &text) {
-            *(buf as *mut c_char).add(n - 1) = 0;
-        }
-    }
-}
-
 /// `borg_msg_buf` as a C pointer, for c2rust readers of the message queue
 /// (`borg_msg_buf + borg_msg_pos[i]`). `borg_init_messages` allocates the
 /// buffer once and it never grows, so the pointer stays valid until
@@ -1218,7 +1227,7 @@ pub fn bought_item(st: &mut BorgState, i: usize) -> BoughtItem {
 }
 
 /// C-ABI shims with the borg-store-sell.c names, for c2rust callers
-/// (borg_think_dungeon, borg_think_dungeon_util).
+/// (borg_think_dungeon).
 pub mod store_sell {
     use super::st;
     use crate::borg_store_sell as s;
@@ -1290,12 +1299,45 @@ pub fn set_borg_feeling_danger(st: &mut BorgState, v: i32) {
     escape(st);
 }
 
+/// `borg_feeling_stuff` (still c2rust, borg-think-dungeon.c).
+pub fn borg_feeling_stuff(st: &mut BorgState) -> i32 {
+    escape(st);
+    // SAFETY: plain read of an int global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_stuff };
+    escape(st);
+    r
+}
+
 /// `borg_feeling_stuff = v` (still c2rust, borg-think-dungeon.c).
 pub fn set_borg_feeling_stuff(st: &mut BorgState, v: i32) {
     escape(st);
     // SAFETY: plain write of an int global; Borg thread.
     unsafe { crate::c2rust::borg_think_dungeon::borg_feeling_stuff = v };
     escape(st);
+}
+
+/// C-ABI shims with the borg-think-dungeon-util.c names, for the c2rust
+/// caller (borg_think_dungeon).
+pub mod think_dungeon_util {
+    use super::st;
+    use crate::borg_think_dungeon_util as u;
+    use core::ffi::c_int;
+
+    pub unsafe extern "C" fn borg_money_scum() -> bool {
+        u::borg_money_scum(st())
+    }
+    pub unsafe extern "C" fn borg_think_dungeon_light() -> bool {
+        u::borg_think_dungeon_light(st())
+    }
+    pub unsafe extern "C" fn borg_think_stair_scum() -> bool {
+        u::borg_think_stair_scum(st())
+    }
+    pub unsafe extern "C" fn borg_leave_level(bored: bool) -> bool {
+        u::borg_leave_level(st(), bored)
+    }
+    pub unsafe extern "C" fn borg_excavate_vault(range: c_int) -> bool {
+        u::borg_excavate_vault(st(), range)
+    }
 }
 
 /// C-ABI shim with the borg-update.c name (borg_think).
@@ -1358,9 +1400,6 @@ pub mod flow_take {
     }
     pub unsafe extern "C" fn borg_flow_take(viewable: bool, nearness: c_int) -> bool {
         t::borg_flow_take(st(), viewable, nearness)
-    }
-    pub unsafe extern "C" fn borg_flow_take_scum(viewable: bool, nearness: c_int) -> bool {
-        t::borg_flow_take_scum(st(), viewable, nearness)
     }
     pub unsafe extern "C" fn borg_flow_take_lunal(viewable: bool, nearness: c_int) -> bool {
         t::borg_flow_take_lunal(st(), viewable, nearness)
@@ -1511,8 +1550,7 @@ pub mod think_store {
 }
 
 /// C-ABI shims with the borg-item-wear.c names, for c2rust callers
-/// (borg_think_dungeon, borg_think_dungeon_util,
-/// borg_trait, borg_update).
+/// (borg_think_dungeon, borg_trait, borg_update).
 pub mod item_wear {
     use super::st;
     use crate::borg_item_wear as w;
@@ -1731,9 +1769,6 @@ pub mod flow_misc {
     pub unsafe extern "C" fn borg_flow_shop_entry(i: c_int) -> bool {
         m::borg_flow_shop_entry(st(), i)
     }
-    pub unsafe extern "C" fn borg_flow_light(why: c_int) -> bool {
-        m::borg_flow_light(st(), why)
-    }
     pub unsafe extern "C" fn borg_flow_vault(nearness: c_int) -> bool {
         m::borg_flow_vault(st(), nearness)
     }
@@ -1888,6 +1923,28 @@ pub fn borg_game_ratio(st: &mut BorgState) -> i16 {
     let r = unsafe { crate::c2rust::borg_trait::borg_game_ratio };
     escape(st);
     r
+}
+
+/// What C's `borg_prepared()` returned (when not NULL): a text that stays
+/// as it is, or the static `borg_prepared_buffer`, whose text the next
+/// formatted reason overwrites (read it with `prepared_buffer`).
+pub enum PreparedC {
+    /// A fixed text (literal or formula reason)
+    Text(Vec<u8>),
+    /// `borg_prepared_buffer`
+    Buffer,
+}
+
+/// `borg_prepared(depth)` (borg-prepared.c, converted), keeping C's
+/// pointer semantics (see `PreparedC`). Writes `borg_prepared_buffer` as C
+/// does.
+pub fn borg_prepared_buf(st: &mut BorgState, depth: i32) -> Option<PreparedC> {
+    prepared::borg_prepared_buf(st, depth)
+}
+
+/// The text `borg_prepared_buffer` holds now.
+pub fn prepared_buffer(_st: &mut BorgState) -> Vec<u8> {
+    prepared::buffer_text()
 }
 
 /// `borg_restock(depth)` through the C-ABI shim, so the static
