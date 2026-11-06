@@ -2,8 +2,9 @@
 
 Continue on `claude/serene-ramanujan-8hzsfm`. Production Borg inputs are
 source `28b8170`; later commits add tooling, fixtures, receipts and docs.
-All local validation jobs are finished. Main/tags are unchanged; the owner
-creates tags. M4 remains open for wider E checks and full F measurement.
+Expanded native E checks are complete for their declared kernels. Full F
+coverage collection is active. Main/tags are unchanged; the owner creates
+tags. M4 remains open until the complete coverage matrix and report finish.
 
 Read `CLAUDE.md`, `FORK-CORRECTIONS.md`, `M4-PLAN.md`, `REVIEW.md`,
 `harness.md`, `checkpoints.md`, and the latest receipt:
@@ -65,49 +66,65 @@ explicitly preserves Warrior2000's early stop, not a5M-turn success.
 
 ## E and F progress, with limits
 
-`harness/native-checker/` compiles the real renamed C calculator beside
-the unchanged Rust module in a shared explicit environment.30,000 cases
-compare results, diagnostics and logical calculation/token contents.
-Batches of47 exercise growth/reuse; bounded operands avoid signed overflow.
-A temporary actual Rust addition-to-subtraction mutation is detected.
-C UBSan30,000 and clippy pass. Reproduce:
+The persistent native checker now covers actual C/Rust calculator30k,
+cave/projection/direction/flow/physical-melee4k, glyph900 and lunal1,024
+states. It compares the declared complete logical maps, flow matrices,
+queues, tracking, decisions and ordered callbacks/notes/keys. Seven
+actual-source faults are rejected, including private-state-only mutations.
+Non-recovering C UBSan, all-target release clippy and a real dependency
+cache invalidation control pass. Source and item ledgers bind the code;
+production input hashes still match the frozen coverage image (source28).
+See `harness/native-checker/README.md` and
+`docs/validation/2026-11-06-native-expanded/`. Shared engine/environment
+boundaries are explicit; this is not whole-Borg shadow execution or proof
+of every inherited tactic. Actual-game self-lunal/Sea of Runes/win remain
+unestablished. Calculator allocator leads #323–#325 and glyph reverse-flow
+lead #345 are filed; no gameplay change for these leads.
 
-```sh
-CHECK_UBSAN=1 harness/native-checker/run.sh
-```
+F's isolated source28 image is frozen at build revisionf987c07 in
+`/tmp/borg-rs-m4-coverage`, with matching LLVM22.1.8 tools under
+`/tmp/borg-llvm-tools`. The same coverage-only runtime/_exit flush recipe
+as the earlier pilot is used. Current full collection:
 
-Receipts: `docs/validation/2026-11-06-native-checker/`. This is an E
-foundation for one kernel, not replacement of every historical private
-combat/map/game-state cross-check. No local xcheck-wip/xcheck2/xcheck3
-branches were found. Allocator source-reading leads #323–#325 are filed
-separately; C is unchanged and no leak-sanitizer/game-exhaustion claim is made.
+* `harness/out/local/coverage-current.log` and isolated
+  `harness/out/coverage/current-matrix`:119 accepted oracle-checked runs
+  through crash-fixes; extended then natural are running/pending.
+* `harness/out/local/coverage-current-long.log` and isolated
+  `harness/out/coverage/current-long`: independent extended/natural
+  collection from the same image. An automatic approval review rejected
+  interrupting the first collector after crash-fixes, so both remain active.
+* The completed113-run subset report is local only at
+  `harness/out/local/coverage-accepted-baseline`:77.56% logic lines,
+  90.14% LLVM function instances. It is not full F.
 
-F pilot tooling is in `harness/coverage/`. An isolated source26a96be build
-uses instrument-coverage/link-dead-code, matching LLVM22.1.8 and an explicit
-profiling runtime plus coverage-only _exit flush shim. Smoke/full48 pass
-their oracles and produce one profile per engine PID. Logic coverage:
-**61.40% lines,77.03% LLVM function instances**; closures/monomorphizations
-count separately, branch coverage is not measured. The interrupted deep
-collection is excluded. The pilot does not cover the later melee change
-or the whole corpus. Raw/local image: `/tmp/borg-rs-m4-coverage`; durable
-export, merged profdata and ledgers: `docs/validation/2026-11-06-coverage-pilot/`.
-Do not reuse partial groups or call this full M4 F.
+The coverage runner supports `COVERAGE_SUITES` for independent groups;
+only all ten default groups create full matrix DONE. Shared validation
+checks recipe names/hashes, no overrides/captures, every successful engine
+PID, exact frozen binary/source hashes and profile bytes. `join.py` can
+join exactly one complete copy of each group from the same image, but
+rejects duplicates and partial groups. Never accept an interrupted run.
+The previous source26 smoke/full48 pilot remains historical and separate.
+
+A separate instrument-coverage-only image retained the same36,184 mapped
+lines/1,709 LLVM functions and strict smoke parity. Four serial A/B runs
+all matched the C oracles; the modest variable speed gain did not justify
+mixing images during this collection. Current full profiles consistently
+use instrument-coverage/link-dead-code. Branch coverage is unmeasured.
 
 ## Next work
 
-1. Extend the committed native checker to additional priority kernels and
-   private combat/map state; use the reported gaps rather than claim all
-   conversion-time checks are replaced.
-2. Measure the latest complete corpus with the isolated coverage recipe.
-   Natural is a new two-case suite with explicit SAVE_ROOT. The existing
-   coverage runner covers the older nine groups (including five endgame
-   cases via crash-fixes); add natural deliberately when extending F.
-3. Add targeted coverage where measured gaps warrant it. Sea of Runes,
-   self-lunal and a win are not established. Deep starts/function entries
-   alone are not proof of completed tactics.
-4. After further production-source changes, rebuild and checkpoint the
-   affected corpus, update receipts, then present a verified milestone for
-   the owner to tag. Do not automatically move main or create a tag.
+1. Let the active full collection finish extended/natural and require its
+   own DONE. Keep the duplicate collector's provenance separate.
+2. Run `harness/coverage/report.py` with no subset flag against the complete
+   matrix, retaining the133 successful process/profile receipts and exact
+   instrumentation metadata. Review measured gaps; never infer completed
+   tactics from nonzero function entries. A prepared local export helper
+   is `/tmp/export-borg-m4-coverage.py` (requires complete report/matrix).
+3. Update final milestone/status/receipt documentation from the actual
+   full report. Production source has not changed, so the completed
+   corrected C/C and Rust/C corpus remains the same source28 checkpoint.
+4. Present the verified declared M4 scope for the owner to tag. Do not
+   automatically move main or create a tag.
 
 Useful current reproduction commands (run separately; inspect exit codes):
 
@@ -124,8 +141,8 @@ harness/diff --suite natural --save-root harness/saves/captured-extended --expec
 ```
 
 Local source28 outputs remain under `harness/out/local/melee-extended-*`,
-`baseline-melee-*`, `melee-crash-c2`, `natural-*`. No jobs should be resumed
-from their completed/partial predecessors. Read DONE/strict comparisons.
+`baseline-melee-*`, `melee-crash-c2`, `natural-*`. No old gameplay jobs should be resumed
+from their completed/partial predecessors; the coverage jobs above are new. Read DONE/strict comparisons.
 Current builds used GCC15.2.0 and rustc1.98.1. No cloud dependency paths or
 identity overrides are needed.
 

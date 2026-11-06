@@ -2,7 +2,8 @@
 
 ## Completed local checkpoint, production source28b8170
 
-No validation jobs remain active. The latest receipt is
+Production-game validation is complete; current-source coverage collection
+is active (see LOCAL-SESSION-HANDOVER). The latest gameplay receipt is
 [2026-11-06-melee/README.md](validation/2026-11-06-melee/README.md).
 Fresh crash-fixes C/C and Rust/C6/6; both builds baseline105/105 and
 captured-Rogue8/8; fresh extended C/C and Rust/C12/12, all original limits
@@ -14,12 +15,16 @@ at78/40 and reach84/41. The synthetic five starts remain covered by the
 unchanged crash-fixes suite. Current corrected references are crash-fixes,
 extended and natural; originals and source-qualified historical refs remain.
 
-E foundation: real native C/Rust calculator checker30k, real-source fault
-control, C UBSan and clippy pass. Wider private combat/map checks remain.
-F pilot: smoke/full48 at26a96be, logic lines61.40%, LLVM function instances
-77.03%; interrupted deep excluded, full/new-source coverage remains open.
-Sea of Runes/self-lunal/win remain unestablished. Main/tags unchanged.
-Read LOCAL-SESSION-HANDOVER for current next work and reproduction.
+E now has persistent real native C/Rust checks: calculator30k,
+spatial/flow/melee4k, glyph900, lunal1,024, seven actual-source fault
+controls, non-recovering C UBSan, clippy and cache invalidation controls.
+Exact environment/private-state boundaries are in the checker README;
+receipts are in `validation/2026-11-06-native-expanded`.
+F has119 accepted current-source runs through crash-fixes; extended and
+natural remain active/pending. The completed113-run subset measures77.56%
+logic lines and90.14% LLVM function instances; it is not the final report.
+Sea of Runes, actual-game self-lunal and a win remain unestablished.
+Main/tags unchanged. Read LOCAL-SESSION-HANDOVER for active paths and next work.
 
 The following cloud sections are historical. Their paths, active jobs and
 absolute C-fidelity restrictions are superseded by the owner policy and
