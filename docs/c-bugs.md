@@ -1182,3 +1182,6 @@ with its issues.
 * Rust (`borg_think_dungeon.rs`): all kept. A grid outside the map
   panics (C reads outside `borg_grids`), and so does a negative
   `PACK_SLOTS - n` index (C reads before `borg_items`).
+* Tracker: the duplicated loop is a comment on
+  diegoami/neo-angband-tracker#232; the other three slips are
+  diegoami/neo-angband-tracker#243, #244, #245.
