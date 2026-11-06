@@ -407,7 +407,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     engine::term_fresh();
 
     // Analyze the player's current stats (before any check that uses them)
-    bridge::borg_notice_player(st);
+    crate::borg_trait::borg_notice_player(st);
 
     if check_for_deactivate_or_death(st, &mut key) {
         return key;

@@ -2602,3 +2602,102 @@ pub fn blow_method_texts() -> Vec<(i32, Vec<Option<Vec<u8>>>)> {
     }
     out
 }
+
+// ---------------------------------------------------------------------------
+// The player as borg-trait.c reads it
+
+/// `player->race`: the player's race (race list entry, set at birth).
+pub fn player_race_info() -> &'static crate::headers::player_h::player_race {
+    let r = player_ref().race;
+    assert!(!r.is_null(), "player has no race");
+    // SAFETY: `player->race` points into the race list loaded at startup
+    // (set at birth, lives for the game); non-NULL (checked above).
+    unsafe { &*r }
+}
+
+/// `player->class`: the player's class (class list entry, set at birth).
+pub fn player_class_info() -> &'static crate::headers::player_h::player_class {
+    let c = player_ref().class;
+    assert!(!c.is_null(), "player has no class");
+    // SAFETY: `player->class` points into the class list loaded at
+    // startup (set at birth, lives for the game); non-NULL (checked above).
+    unsafe { &*c }
+}
+
+/// The player fields that borg-trait.c reads (`borg_notice_player`,
+/// `borg_notice_equipment`), copied.
+#[derive(Clone, Copy, Debug)]
+pub struct PlayerNotice {
+    pub lev: i16,
+    pub max_lev: i16,
+    pub total_winner: u16,
+    pub exp: i32,
+    pub max_exp: i32,
+    pub depth: i16,
+    pub max_depth: i16,
+    pub au: i32,
+    pub word_recall: i16,
+    pub chp: i16,
+    pub mhp: i16,
+    pub csp: i16,
+    pub msp: i16,
+    pub stat_cur: [i16; 5],
+    pub stat_max: [i16; 5],
+    /// `player->player_hp` (hit points per level)
+    pub player_hp: [i16; 50],
+    /// `player->upkeep->new_spells`
+    pub new_spells: i32,
+    /// `player->obj_k->modifiers` (the modifier runes the player knows)
+    pub obj_k_modifiers: [i16; 16],
+}
+
+/// Read the player fields of `PlayerNotice`.
+pub fn player_notice() -> PlayerNotice {
+    let p = player_ref();
+    assert!(!p.upkeep.is_null() && !p.obj_k.is_null(), "player not set up");
+    // SAFETY: `upkeep` and `obj_k` are allocated with the player (checked
+    // non-NULL above) and live for the game.
+    let (new_spells, obj_k_modifiers) = unsafe { ((*p.upkeep).new_spells, (*p.obj_k).modifiers) };
+    PlayerNotice {
+        lev: p.lev,
+        max_lev: p.max_lev,
+        total_winner: p.total_winner,
+        exp: p.exp,
+        max_exp: p.max_exp,
+        depth: p.depth,
+        max_depth: p.max_depth,
+        au: p.au,
+        word_recall: p.word_recall,
+        chp: p.chp,
+        mhp: p.mhp,
+        csp: p.csp,
+        msp: p.msp,
+        stat_cur: p.stat_cur,
+        stat_max: p.stat_max,
+        player_hp: p.player_hp,
+        new_spells,
+        obj_k_modifiers,
+    }
+}
+
+/// `modify_stat_value(value, amount)` (player-util.c): a stat value
+/// raised or lowered by `amount` points.
+pub fn modify_stat_value(value: i32, amount: i32) -> i16 {
+    // SAFETY: pure arithmetic on two values.
+    unsafe { crate::headers::player_util_h::modify_stat_value(value, amount) }
+}
+
+/// `adj_str_blow[i]` (player-calcs.c); panics out of range.
+pub fn adj_str_blow(i: usize) -> i32 {
+    // SAFETY: a constant table of the engine; nothing writes it.
+    unsafe { headers::player_calcs_h::adj_str_blow[i] }
+}
+
+/// The food levels of player-timed.c: (`PY_FOOD_WEAK`, `PY_FOOD_HUNGRY`,
+/// `PY_FOOD_FULL`, `PY_FOOD_MAX`).
+pub fn py_food_levels() -> (i32, i32, i32, i32) {
+    use crate::headers::player_timed_h as t;
+    // SAFETY: plain reads of int globals the game sets at init and never
+    // changes afterwards.
+    unsafe { (t::PY_FOOD_WEAK, t::PY_FOOD_HUNGRY, t::PY_FOOD_FULL, t::PY_FOOD_MAX) }
+}

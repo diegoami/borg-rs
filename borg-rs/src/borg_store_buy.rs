@@ -489,7 +489,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
                 fix = true;
 
                 /* Examine the inventory */
-                bridge::borg_notice(st, true);
+                crate::borg_trait::borg_notice(st, true);
 
                 /* Evaluate the inventory */
                 p = borg_power(st);
@@ -512,7 +512,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
                 fix = true;
 
                 /* Examine the inventory */
-                bridge::borg_notice(st, true);
+                crate::borg_trait::borg_notice(st, true);
 
                 /* Evaluate the equipment */
                 p = borg_power(st);
@@ -547,7 +547,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
 
     /* Examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* Buy something */
@@ -668,7 +668,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                     fix = true;
 
                     /* Examine the inventory */
-                    bridge::borg_notice(st, true);
+                    crate::borg_trait::borg_notice(st, true);
 
                     /* Evaluate the inventory */
                     p_left = borg_power(st);
@@ -693,7 +693,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                     fix = true;
 
                     /* Examine the inventory */
-                    bridge::borg_notice(st, true);
+                    crate::borg_trait::borg_notice(st, true);
 
                     /* Evaluate the inventory */
                     p_right = borg_power(st);
@@ -723,7 +723,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
                 fix = true;
 
                 /* Examine the inventory */
-                bridge::borg_notice(st, true);
+                crate::borg_trait::borg_notice(st, true);
 
                 /* Evaluate the inventory */
                 p = borg_power(st);
@@ -783,7 +783,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
             fix = true;
 
             /* Examine the inventory */
-            bridge::borg_notice(st, true);
+            crate::borg_trait::borg_notice(st, true);
 
             /* Evaluate the equipment */
             p = borg_power(st);
@@ -807,7 +807,7 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
 
     /* Examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* Buy something */
@@ -1188,7 +1188,7 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
         fix = true;
 
         /* Examine the inventory and swap value*/
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the new equipment */
         p = swap_value(st, which);
@@ -1211,7 +1211,7 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
 
     /* Examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* Buy something */

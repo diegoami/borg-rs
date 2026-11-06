@@ -703,7 +703,7 @@ pub fn borg_write_map(st: &mut BorgState, ask: bool) {
 
     // Dump the borg.trait[] information
     for itemm in 0..BI_MAX as usize {
-        let name = bridge::trait_name(st, itemm);
+        let name = crate::borg_trait::trait_name(itemm);
         putf(
             f,
             &cat(&[

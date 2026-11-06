@@ -1491,7 +1491,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
         borg_note(st, &note);
         if st.borg.resistance != 0 {
             // Divides by borg_game_ratio like C (0 panics where C traps).
-            let ratio = i32::from(bridge::borg_game_ratio(st));
+            let ratio = i32::from(st.traits.game_ratio);
             let note = format!(
                 "# Protected by Resistance (borg turns:{}; game turns:{})",
                 i32::from(st.borg.resistance) / ratio,
@@ -1551,7 +1551,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     }
 
     // do some swapping before running away!
-    if bridge::borg_uses_swaps(st)
+    if crate::borg_trait::borg_uses_swaps(st)
         && pos_danger > i32::from(st.borg.avoidance) / 3
         && borg_backup_swap(st, pos_danger)
     {
@@ -1580,7 +1580,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
 
     // If I am waiting for recall in town
     if st.borg.goal.recalling != 0
-        && st.borg.goal.recalling <= i32::from(bridge::borg_game_ratio(st)) * 2
+        && st.borg.goal.recalling <= i32::from(st.traits.game_ratio) * 2
         && st.borg.tr(BI_CDEPTH) == 0
         && borg_prep_leave_level_spells(st)
     {

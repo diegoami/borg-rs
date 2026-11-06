@@ -204,7 +204,7 @@ fn borg_proc_setting(
 /// Release resources allocated by `borg_init_txt_file()`
 /// (`borg_free_txt_file`).
 fn borg_free_txt_file(st: &mut BorgState) {
-    bridge::borg_trait_free(st);
+    crate::borg_trait::borg_trait_free(st);
     crate::borg_formulas::borg_free_formulas(st);
 
     st.core.cfg = Vec::new();
@@ -426,7 +426,7 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
 /// (C bug 38); here the first `cfg` read panics.
 pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     borg_free_txt_file(st);
-    bridge::borg_trait_init(st);
+    crate::borg_trait::borg_trait_init(st);
 
     // a couple of spot checks on settings definitions
     if BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name != c"borg_munchkin_level"

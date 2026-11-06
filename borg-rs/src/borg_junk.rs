@@ -31,7 +31,6 @@ use crate::borg_item_analyze::borg_ego_has_random_power;
 use crate::borg_item_id::borg_item_note_needs_id;
 use crate::borg_item_use::{borg_eat, borg_quaff_potion, borg_read_scroll};
 use crate::borg_power::borg_power;
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_WORSHIPS_GOLD};
 use crate::headers::borg_item_h::borg_item;
@@ -619,7 +618,7 @@ pub fn borg_drop_junk(st: &mut BorgState) -> bool {
         fix = true;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let p = borg_power(st);
@@ -661,7 +660,7 @@ pub fn borg_drop_junk(st: &mut BorgState) -> bool {
 
     /* re-examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* No need */
@@ -933,7 +932,7 @@ pub fn borg_drop_hole(st: &mut BorgState, desperate: bool) -> bool {
         fix = true;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let mut p = borg_power(st);
@@ -1035,7 +1034,7 @@ pub fn borg_drop_hole(st: &mut BorgState, desperate: bool) -> bool {
 
     /* Examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* Attempt to destroy it */
@@ -1194,7 +1193,7 @@ pub fn borg_drop_slow(st: &mut BorgState) -> bool {
         fix = true;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let mut p = borg_power(st);
@@ -1234,7 +1233,7 @@ pub fn borg_drop_slow(st: &mut BorgState) -> bool {
 
     /* Examine the inventory */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* Destroy "useless" things */
@@ -1452,7 +1451,7 @@ pub fn borg_remove_stuff(st: &mut BorgState) -> bool {
         fix = true;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let p = borg_power(st);
@@ -1474,7 +1473,7 @@ pub fn borg_remove_stuff(st: &mut BorgState) -> bool {
 
     /* Restore bonuses */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* No item */

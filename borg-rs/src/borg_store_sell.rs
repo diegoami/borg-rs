@@ -450,7 +450,7 @@ fn borg_think_home_sell_bad(st: &mut BorgState, i: i32, borg_empty_home_power: i
     }
 
     // Examine borg
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // if this reduces the borgs power, it is a bad transaction
     if borg_power(st) < st.borg.power {
@@ -632,7 +632,7 @@ pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32
         st.items.items[i] = st.items.safe_items[i];
     }
 
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // Drop stuff that will stack in the home
     for i in 0..sim {
@@ -1040,7 +1040,7 @@ pub fn borg_think_shop_sell_useless(st: &mut BorgState) -> bool {
             fix = true;
 
             // Examine the inventory
-            bridge::borg_notice(st, true);
+            crate::borg_trait::borg_notice(st, true);
 
             // Evaluate the inventory
             let p = borg_power(st);
@@ -1075,7 +1075,7 @@ pub fn borg_think_shop_sell_useless(st: &mut BorgState) -> bool {
 
     // Examine the inventory
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     // Sell something (if useless)
@@ -1281,7 +1281,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
         // our power much
         let sv_qty = item.iqty;
         pack_item(st, i).iqty = 0;
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
         let p = borg_power(st);
         pack_item(st, i).iqty = sv_qty;
 
@@ -1293,7 +1293,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
         k += 1;
     }
     // reset the results
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // Result
     k

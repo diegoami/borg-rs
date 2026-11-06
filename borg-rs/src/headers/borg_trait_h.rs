@@ -1,6 +1,9 @@
 //! `/home/user/borg-rs/angband/src/borg/borg-trait.h`
+//!
+//! borg-trait.c is converted (`crate::borg_trait`); its globals live in
+//! `BorgState::traits`. `borg_notice` below is the C-ABI shim in
+//! `bridge::trait_` for the c2rust callers.
 pub use super::borg_item_h::borg_item;
-pub use super::stdint_intn_h::int16_t;
 #[allow(unused_imports)]
 use super::*;
 pub type C2RustUnnamedH_8 = ::core::ffi::c_uint;
@@ -270,25 +273,8 @@ pub const BI_DEX: C2RustUnnamedH_8 = 3;
 pub const BI_WIS: C2RustUnnamedH_8 = 2;
 pub const BI_INT: C2RustUnnamedH_8 = 1;
 pub const BI_STR: C2RustUnnamedH_8 = 0;
-pub use crate::c2rust::borg_trait::borg_attacking;
-pub use crate::c2rust::borg_trait::borg_calc_blows;
-pub use crate::c2rust::borg_trait::borg_confuse_spell;
-pub use crate::c2rust::borg_trait::borg_create_door;
-pub use crate::c2rust::borg_trait::borg_crush_spell;
-pub use crate::c2rust::borg_trait::borg_fear_mon_spell;
-pub use crate::c2rust::borg_trait::borg_game_ratio;
-pub use crate::c2rust::borg_trait::borg_notice;
-pub use crate::c2rust::borg_trait::borg_notice_player;
-pub use crate::c2rust::borg_trait::borg_on_glyph;
-pub use crate::c2rust::borg_trait::borg_simulate;
-pub use crate::c2rust::borg_trait::borg_sleep_spell;
-pub use crate::c2rust::borg_trait::borg_sleep_spell_ii;
-pub use crate::c2rust::borg_trait::borg_slow_spell;
-pub use crate::c2rust::borg_trait::borg_trait_free;
-pub use crate::c2rust::borg_trait::borg_trait_init;
-pub use crate::c2rust::borg_trait::borg_uses_swaps;
-pub use crate::c2rust::borg_trait::prefix_pref;
 pub const BORG_EQUIP: borg_item_pos = 2;
 pub const BORG_INVEN: borg_item_pos = 1;
 pub type borg_item_pos = ::core::ffi::c_uint;
 pub const BORG_QUILL: borg_item_pos = 4;
+pub use crate::bridge::trait_::borg_notice;

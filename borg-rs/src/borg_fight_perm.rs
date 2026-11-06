@@ -21,7 +21,6 @@ use crate::borg_item_use::{borg_activate_item, borg_equips_item, borg_quaff_poti
 use crate::borg_magic::{
     borg_get_spell_power, borg_heroism_level, borg_spell, borg_spell_fail, borg_spell_okay_fail,
 };
-use crate::bridge;
 use crate::headers::borg_magic_h::{
     BERSERK_STRENGTH, BLESS, HASTE_SELF, HEROISM, MANA_CHANNEL, PROTECTION_FROM_EVIL,
     RAPID_REGENERATION, RESISTANCE, RESIST_POISON, SENSE_INVISIBLE, SMITE_EVIL, VENOM,
@@ -130,7 +129,7 @@ fn borg_perma_aux_bless(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* bless is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 1;
     }
 
@@ -168,7 +167,7 @@ fn borg_perma_aux_resist(st: &mut BorgState) -> i32 {
     }
 
     /* Simulation */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 2;
     }
 
@@ -207,7 +206,7 @@ fn borg_perma_aux_resist_colluin(st: &mut BorgState) -> i32 {
     }
 
     /* Simulation */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 2;
     }
 
@@ -244,7 +243,7 @@ fn borg_perma_aux_resist_p(st: &mut BorgState) -> i32 {
     }
 
     /* Simulation */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 1;
     }
 
@@ -284,7 +283,7 @@ fn borg_perma_aux_speed(st: &mut BorgState) -> i32 {
     }
 
     /* Simulation */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 5;
     }
 
@@ -321,7 +320,7 @@ fn borg_perma_aux_prot_evil(st: &mut BorgState) -> i32 {
     }
 
     /* Simulation */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 3;
     }
 
@@ -366,7 +365,7 @@ fn borg_perma_aux_fastcast(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* fastcast is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 5;
     }
 
@@ -415,7 +414,7 @@ fn borg_perma_aux_hero(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* hero is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 1;
     }
 
@@ -501,7 +500,7 @@ fn borg_perma_aux_smite_evil(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* smite evil is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 3;
     }
 
@@ -545,7 +544,7 @@ fn borg_perma_aux_venom(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* smite evil is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 3;
     }
 
@@ -587,7 +586,7 @@ fn borg_perma_aux_berserk(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* Berserk is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 2;
     }
 
@@ -620,7 +619,7 @@ fn borg_perma_aux_berserk_potion(st: &mut BorgState) -> i32 {
 
     /* Simulation */
     /* Berserk is a low priority */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 2;
     }
 
@@ -654,7 +653,7 @@ fn borg_perma_aux_see_inv(st: &mut BorgState) -> i32 {
     }
 
     /* No real value known, but lets cast it to find the bad guys. */
-    if bridge::borg_simulate(st) {
+    if st.traits.simulate {
         return 10;
     }
 
@@ -700,7 +699,7 @@ pub fn borg_perma_spell(st: &mut BorgState) -> bool {
     let mut b_g = -1;
 
     /* Simulate */
-    bridge::set_borg_simulate(st, true);
+    st.traits.simulate = true;
 
     /* Not in town */
     if st.borg.tr(BI_CDEPTH) == 0 {
@@ -746,7 +745,7 @@ pub fn borg_perma_spell(st: &mut BorgState) -> bool {
     borg_note(st, &format!("# Performing perma-spell type {b_g} with value {b_n}"));
 
     /* Instantiate */
-    bridge::set_borg_simulate(st, false);
+    st.traits.simulate = false;
 
     /* Instantiate */
     borg_perma_aux(st, b_g);

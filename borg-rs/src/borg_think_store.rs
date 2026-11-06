@@ -310,7 +310,7 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
     }
 
     /* Step 7A -- Buy weapons from the home (as a backup item) */
-    if bridge::borg_uses_swaps(st) && borg_think_home_buy_swap_weapon(st) {
+    if crate::borg_trait::borg_uses_swaps(st) && borg_think_home_buy_swap_weapon(st) {
         /* Message */
         note_ware(st, "# Buying", " from the home as a backup");
 
@@ -318,7 +318,7 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
         return true;
     }
     /* Step 7B -- Buy armour from the home (as a backup item) */
-    if bridge::borg_uses_swaps(st) && borg_think_home_buy_swap_armour(st) {
+    if crate::borg_trait::borg_uses_swaps(st) && borg_think_home_buy_swap_armour(st) {
         /* Message */
         note_ware(st, "# Buying", " from the home as a backup");
 

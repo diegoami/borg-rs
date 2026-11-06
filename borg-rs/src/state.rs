@@ -36,6 +36,7 @@ use crate::borg_projection::ProjectionState;
 use crate::borg_store::StoreState;
 use crate::borg_store_sell::StoreSellState;
 use crate::borg_store_buy::BuyState;
+use crate::borg_trait::TraitState;
 use crate::borg_trait_swap::TraitSwapState;
 use crate::borg_update::UpdateState;
 
@@ -123,4 +124,8 @@ pub struct BorgState {
     /// `borg_failure`, `borg_do_update_view/lite`, the monster/object
     /// tracking list (`borg_wanks`) and the old panel and location
     pub update: UpdateState,
+    /// borg-trait.c: `borg_simulate`, `borg_attacking`, the defence flags
+    /// (`borg_on_glyph`, `borg_create_door`, the `borg_*_spell` flags) and
+    /// `borg_game_ratio`
+    pub traits: TraitState,
 }

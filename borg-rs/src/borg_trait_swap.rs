@@ -28,7 +28,6 @@
 use crate::borg_inventory::borg_wield_slot;
 use crate::borg_item::inven_wield;
 use crate::borg_magic::borg_spell_legal_fail;
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_item_h::{
     borg_item, BORG_CURSE_ANTI_TELEPORTATION, BORG_CURSE_DEMON_SUMMON, BORG_CURSE_DRAGON_SUMMON,
@@ -597,7 +596,7 @@ pub fn borg_notice_weapon_swap(st: &mut BorgState) {
         }
 
         /* borg option to not use swaps (again, except diggers) */
-        if !bridge::borg_uses_swaps(st) && !digging {
+        if !crate::borg_trait::borg_uses_swaps(st) && !digging {
             return;
         }
         let item = st.items.items[i as usize];
@@ -707,7 +706,7 @@ pub fn borg_notice_armour_swap(st: &mut BorgState) {
     st.trait_swap.armour_swap_value = -1;
 
     /* borg option to not use them */
-    if !bridge::borg_uses_swaps(st) {
+    if !crate::borg_trait::borg_uses_swaps(st) {
         return;
     }
 

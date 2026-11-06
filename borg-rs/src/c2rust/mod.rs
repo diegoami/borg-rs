@@ -3,4 +3,3 @@
 pub mod borg_fight_attack;
 pub mod borg_think;
 pub mod borg_think_dungeon;
-pub mod borg_trait;

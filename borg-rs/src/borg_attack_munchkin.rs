@@ -88,7 +88,7 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
 
     /* Set the attacking flag so that danger is boosted for monsters */
     /* we want to attack first. */
-    bridge::set_borg_attacking(st, true);
+    st.traits.attacking = true;
 
     /* Reset list */
     st.flow.temp_n = 0;
@@ -158,12 +158,12 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
 
     /* No destinations */
     if st.flow.temp_n == 0 {
-        bridge::set_borg_attacking(st, false);
+        st.traits.attacking = false;
         return false;
     }
 
     /* Simulate */
-    bridge::set_borg_simulate(st, true);
+    st.traits.simulate = true;
 
     /* Simulated */
     for i in 0..BF_MAX as i32 {
@@ -184,7 +184,7 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
     /* Nothing good */
     if b_n < 0 || b_dam <= 0 {
         /* (borg_simulate stays set, as in C) */
-        bridge::set_borg_attacking(st, false);
+        st.traits.attacking = false;
         return false;
     }
 
@@ -192,12 +192,12 @@ pub fn borg_munchkin_mage(st: &mut BorgState) -> bool {
     borg_note(st, &format!("# Performing munchkin attack with value {b_dam}."));
 
     /* Instantiate */
-    bridge::set_borg_simulate(st, false);
+    st.traits.simulate = false;
 
     /* Instantiate */
     bridge::borg_calculate_attack_effectiveness(st, b_n);
 
-    bridge::set_borg_attacking(st, false);
+    st.traits.attacking = false;
 
     /* Success */
     true
@@ -238,7 +238,7 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
 
     /* Set the attacking flag so that danger is boosted for monsters */
     /* we want to attack first. */
-    bridge::set_borg_attacking(st, true);
+    st.traits.attacking = true;
 
     /* Reset list */
     st.flow.temp_n = 0;
@@ -295,12 +295,12 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
 
     /* No destinations */
     if st.flow.temp_n == 0 {
-        bridge::set_borg_attacking(st, false);
+        st.traits.attacking = false;
         return false;
     }
 
     /* Simulate */
-    bridge::set_borg_simulate(st, true);
+    st.traits.simulate = true;
 
     /* Simulated */
     let n = bridge::borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
@@ -308,7 +308,7 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
     /* Nothing good */
     if n <= 0 {
         /* (borg_simulate stays set, as in C) */
-        bridge::set_borg_attacking(st, false);
+        st.traits.attacking = false;
         return false;
     }
 
@@ -316,12 +316,12 @@ pub fn borg_munchkin_melee(st: &mut BorgState) -> bool {
     borg_note(st, &format!("# Performing munchkin attack with value {n}."));
 
     /* Instantiate */
-    bridge::set_borg_simulate(st, false);
+    st.traits.simulate = false;
 
     /* Instantiate */
     bridge::borg_calculate_attack_effectiveness(st, BF_THRUST as i32);
 
-    bridge::set_borg_attacking(st, false);
+    st.traits.attacking = false;
 
     /* Success */
     true

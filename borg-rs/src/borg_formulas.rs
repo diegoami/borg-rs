@@ -614,7 +614,7 @@ fn get_value_index<E: FormulaEnv>(
         }
         VT_TRAIT => {
             for i in 0..BI_MAX as usize {
-                if stricmp_eq(bridge::trait_name(env.st(), i), name) {
+                if stricmp_eq(crate::borg_trait::trait_name(i), name) {
                     return i as i32;
                 }
             }

@@ -1120,3 +1120,31 @@ with its issues.
   grid outside the map panics (C reads outside `borg_grids`).
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#229 to diegoami/neo-angband-tracker#236.
+
+
+## 48. Trait slips (trait)
+
+* `borg-trait.c`, found by code reading.
+* `borg_notice_equipment()`, racial resistances: `BI_RACID` is set when
+  the *race* resists fire (`el_info[ELEM_FIRE]`, tested twice, once for
+  `BI_RACID` and once for `BI_RFIRE`); a race's acid resistance is never
+  counted.
+* `borg_notice_equipment()`: an item's light modifier
+  (`modifiers[OBJ_MOD_LIGHT]`) is added to `BI_LIGHT` twice, before and
+  after the `LIGHT_2`/`LIGHT_3` and Necromancer "unlight" adjustments.
+* `borg_notice_equipment()`: the slay traits (`BI_WS_ANIMAL` ...
+  `BI_WS_DRAGON`) are assigned, not or-ed, for every equipment slot, so
+  they end up holding the slays of the last occupied, non-cursed slot
+  (usually the boots, i.e. 0): the weapon's slays are lost. The
+  `BI_WK_*` ("kill") traits are never set.
+* `borg_notice_ammo()`: the "brand the ammo" test is copied twice (once
+  inside `if (BI_AMMO_POWER >= 3)`, once after the `< 3` return), so each
+  qualifying stack adds 20 to `BI_NEED_BRAND_WEAPON` instead of 10.
+* `borg_notice_equipment()` tests `OF_PROT_FEAR`, `OF_PROT_BLIND`,
+  `OF_PROT_CONF` and the sustains of the player flags with `rf_has` (size
+  `RF_SIZE`) on an `OF_SIZE` array. Harmless: the object flags are below
+  `8 * OF_SIZE`, so the same byte is read as with `of_has`.
+* Rust (`borg_trait.rs`): all kept; the `rf_has` tests use `of_has`
+  (same byte). Out-of-range table indexes (a negative stat index, a book
+  number of -1, level 0 for `player_hp[lev - 1]`) panic where C would
+  read or write out of bounds; none is reachable with valid game data.

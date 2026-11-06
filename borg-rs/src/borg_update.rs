@@ -2142,19 +2142,19 @@ fn old_level(st: &mut BorgState) {
     // reduce Resistance count. NOTE: do not reduce below 1. That is done
     // when the spell is cast.
     if st.borg.resistance >= 1 {
-        let r = bridge::borg_game_ratio(st);
+        let r = st.traits.game_ratio;
         st.borg.resistance = (i32::from(st.borg.resistance) - i32::from(r)) as i16;
     }
 
     // reduce the No-resting-because-I-just-did-a-prep-spell
     if st.borg.no_rest_prep >= 1 {
-        let r = bridge::borg_game_ratio(st);
+        let r = st.traits.game_ratio;
         st.borg.no_rest_prep = (i32::from(st.borg.no_rest_prep) - i32::from(r)) as i16;
     }
 
     // Count down to blast off
     if st.borg.goal.recalling >= 1 {
-        let r = bridge::borg_game_ratio(st);
+        let r = st.traits.game_ratio;
         st.borg.goal.recalling -= i32::from(r);
 
         // dont let it get to 0 or borg will recast the spell
@@ -2165,7 +2165,7 @@ fn old_level(st: &mut BorgState) {
 
     // when we need to cast this spell again
     if st.borg.see_inv >= 1 {
-        let r = bridge::borg_game_ratio(st);
+        let r = st.traits.game_ratio;
         st.borg.see_inv = (i32::from(st.borg.see_inv) - i32::from(r)) as i16;
     }
 

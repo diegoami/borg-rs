@@ -384,7 +384,7 @@ pub fn borg_swap_rings(st: &mut BorgState) -> bool {
         st.items.items[left as usize].iqty = 0;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let v1 = borg_power(st);
@@ -408,7 +408,7 @@ pub fn borg_swap_rings(st: &mut BorgState) -> bool {
     st.items.items[right as usize].iqty = 0;
 
     /* Examine the inventory */
-    bridge::borg_notice(st, false);
+    crate::borg_trait::borg_notice(st, false);
 
     /* Evaluate the inventory */
     let v2 = borg_power(st);
@@ -444,7 +444,7 @@ pub fn borg_swap_rings(st: &mut BorgState) -> bool {
     }
 
     /* fix the inventory */
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     /* Nope */
     false
@@ -536,7 +536,7 @@ pub fn borg_wear_rings(st: &mut BorgState) -> bool {
         fix = true;
 
         /* Examine the inventory */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate the inventory */
         let mut p = borg_power(st);
@@ -564,7 +564,7 @@ pub fn borg_wear_rings(st: &mut BorgState) -> bool {
 
     /* Restore bonuses */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* No item */
@@ -614,7 +614,7 @@ fn backup_try(st: &mut BorgState, i: i32) -> Option<(i32, i32)> {
     add_iqty(st, i, -1);
 
     /* Examine the benefits of the swap item */
-    bridge::borg_notice(st, false);
+    crate::borg_trait::borg_notice(st, false);
 
     /* Evaluate the power with the new item worn */
     Some((slot, danger_here(st)))
@@ -708,7 +708,7 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
 
         /* Restore bonuses */
         if fix {
-            bridge::borg_notice(st, true);
+            crate::borg_trait::borg_notice(st, true);
         }
 
         /*  skip random artifact not star id'd  */
@@ -752,7 +752,7 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
 
         /* Restore bonuses */
         if fix {
-            bridge::borg_notice(st, true);
+            crate::borg_trait::borg_notice(st, true);
         }
 
         /*  skip random artifact not star id'd  */
@@ -806,7 +806,7 @@ fn wear_trial(st: &mut BorgState, hole: i32, slot: i32, i: i32) -> (i32, i32) {
     add_iqty(st, i, -1);
 
     /* Examine the inventory */
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     /* Evaluate the inventory */
     let p = borg_power(st);
@@ -1012,7 +1012,7 @@ pub fn borg_wear_stuff(st: &mut BorgState) -> bool {
 
     /* Restore bonuses */
     if fix {
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
     }
 
     /* item */
@@ -1236,7 +1236,7 @@ fn borg_best_stuff_aux(st: &mut BorgState, n: i32, test: &mut [u16], best: &mut 
     /* All done */
     if order == NO_SLOT {
         /* Examine */
-        bridge::borg_notice(st, true);
+        crate::borg_trait::borg_notice(st, true);
 
         /* Evaluate */
         let p = borg_power(st);
@@ -1380,7 +1380,7 @@ pub fn borg_best_stuff(st: &mut BorgState) -> bool {
     borg_best_stuff_aux(st, 0, &mut test, &mut best, &mut value);
 
     /* Restore bonuses */
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     /* convert the list into a list of items we can find even if they */
     /* change locations due to picking up and dropping items */

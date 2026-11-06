@@ -673,7 +673,7 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
                     add(&mut st.home.num_edged_weapon, iqty);
                 }
 
-                let num_blow = bridge::borg_calc_blows(st, item) as i16;
+                let num_blow = crate::borg_trait::borg_calc_blows(st, item) as i16;
                 let dice = i32::from(item.dd) * i32::from(item.ds);
                 if item.to_d > 8 || st.borg.tr(BI_CLEVEL) < 15 {
                     let x = i32::from(num_blow)

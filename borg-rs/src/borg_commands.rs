@@ -321,7 +321,7 @@ fn borg_cmd_step(st: &mut BorgState) {
         st.core.step = 1;
     }
 
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // Message
     borg_note(st, "# Installing keypress hook");
@@ -346,7 +346,7 @@ fn borg_cmd_update(st: &mut BorgState) {
     // Step forever
     st.core.step = 0;
 
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // Message
     borg_note(st, "# Installing keypress hook");
@@ -1058,7 +1058,7 @@ fn find_notice_update(st: &mut BorgState) {
     crate::borg_item::borg_find_all_items(st);
 
     // Examine the screen
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     // Examine the screen
     crate::borg_update::borg_update(st);
@@ -1120,7 +1120,7 @@ fn borg_cmd_prepare(st: &mut BorgState) {
 fn borg_cmd_stats(st: &mut BorgState) {
     for i in 0..STAT_MAX {
         let mut text = b"stat # ".to_vec();
-        text.extend_from_slice(bridge::trait_name(st, (BI_STR + i) as usize));
+        text.extend_from_slice(crate::borg_trait::trait_name((BI_STR + i) as usize));
         text.extend_from_slice(
             format!(", is: cur {}, used {}", st.borg.tr(BI_CSTR + i), st.borg.tr(BI_STR + i)).as_bytes(),
         );
@@ -1147,7 +1147,7 @@ fn borg_cmd_swaps(st: &mut BorgState) {
     crate::borg_item::borg_find_all_items(st);
 
     // Examine the inventory
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
     crate::borg_home_notice::borg_notice_home(st, None, false);
 
     // Check the power
@@ -1290,7 +1290,7 @@ fn borg_cmd_has(st: &mut BorgState) {
             }
             HasWhat::Trait => {
                 let mut text = format!("trait {item} (").into_bytes();
-                text.extend_from_slice(bridge::trait_name(st, i));
+                text.extend_from_slice(crate::borg_trait::trait_name(i));
                 text.extend_from_slice(format!(") value= {}.", st.borg.trait_[i]).as_bytes());
                 borg_note_bytes(st, &text);
             }
@@ -1326,7 +1326,7 @@ fn borg_cmd_object_desc(st: &mut BorgState) {
     crate::borg_item::borg_find_all_items(st);
 
     // Examine the inventory
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
     crate::borg_home_notice::borg_notice_home(st, None, false);
 
     // Check the power

@@ -18,7 +18,7 @@ use crate::borg_io::{borg_keypress, borg_keypresses, borg_note};
 use crate::headers::borg_h::{BORG_RESPAWN_CLASS, BORG_RESPAWN_RACE};
 use crate::headers::ui_event_h::keycode_t;
 use crate::state::BorgState;
-use crate::{bridge, engine};
+use crate::engine;
 
 /// `KC_ENTER` (ui-event.h)
 const KC_ENTER: keycode_t = 0x9c;
@@ -204,7 +204,7 @@ pub fn borg_reincarnate_end(st: &mut BorgState) {
     // Notice the new race and class
     crate::borg_init::borg_prepare_race_class_info(st);
 
-    bridge::borg_notice_player(st);
+    crate::borg_trait::borg_notice_player(st);
 
     // clear out the old reactions again in case more messages came after
     // the borg died

@@ -181,22 +181,6 @@ pub mod io {
 // caller's `&mut BorgState` so the borrow visibly escapes into the call (the
 // c2rust code mutates the same state through `st()`).
 
-macro_rules! c2r_void {
-    ($($name:ident => $path:path;)*) => {$(
-        pub fn $name(st: &mut BorgState) {
-            escape(st);
-            // SAFETY: plain call into transitional c2rust code.
-            unsafe { $path() }
-            escape(st);
-        }
-    )*};
-}
-c2r_void! {
-    borg_notice_player => crate::c2rust::borg_trait::borg_notice_player;
-    borg_trait_init => crate::c2rust::borg_trait::borg_trait_init;
-    borg_trait_free => crate::c2rust::borg_trait::borg_trait_free;
-}
-
 /// `borg_think()`
 pub fn borg_think(st: &mut BorgState) -> bool {
     escape(st);
@@ -239,15 +223,6 @@ pub mod item_val {
     pub unsafe extern "C" fn borg_init_item_val() {
         crate::borg_item_val::borg_init_item_val(st())
     }
-}
-
-/// The name of trait `i` (`prefix_pref[i]`, still c2rust, borg-trait.c),
-/// for `i < BI_MAX`.
-pub fn trait_name(_st: &mut BorgState, i: usize) -> &'static [u8] {
-    assert!(i < crate::headers::borg_trait_h::BI_MAX as usize);
-    // SAFETY: prefix_pref is a static table of string literals with a
-    // non-NULL entry for every trait below BI_MAX; nothing writes it.
-    unsafe { cbytes(crate::c2rust::borg_trait::prefix_pref[i]) }
 }
 
 /// A copy of `borg_items[i]` (borg-item.c, converted).
@@ -329,52 +304,6 @@ pub mod formulas_calc {
 /// `borg_fear_region[y][x]` (borg-danger.c, converted).
 pub fn borg_fear_region(st: &mut BorgState, y: i32, x: i32) -> u16 {
     st.danger.fear_region[y as usize][x as usize]
-}
-
-macro_rules! c2r_bool_global {
-    ($($name:ident => $path:path;)*) => {$(
-        #[doc = concat!("`", stringify!($name), "` (still c2rust).")]
-        pub fn $name(_st: &mut BorgState) -> bool {
-            // SAFETY: plain read of a bool global; Borg thread.
-            unsafe { $path }
-        }
-    )*};
-}
-c2r_bool_global! {
-    borg_attacking => crate::c2rust::borg_trait::borg_attacking;
-    borg_on_glyph => crate::c2rust::borg_trait::borg_on_glyph;
-    borg_create_door => crate::c2rust::borg_trait::borg_create_door;
-    borg_sleep_spell => crate::c2rust::borg_trait::borg_sleep_spell;
-    borg_sleep_spell_ii => crate::c2rust::borg_trait::borg_sleep_spell_ii;
-    borg_crush_spell => crate::c2rust::borg_trait::borg_crush_spell;
-    borg_slow_spell => crate::c2rust::borg_trait::borg_slow_spell;
-    borg_confuse_spell => crate::c2rust::borg_trait::borg_confuse_spell;
-    borg_fear_mon_spell => crate::c2rust::borg_trait::borg_fear_mon_spell;
-    borg_simulate => crate::c2rust::borg_trait::borg_simulate;
-}
-
-/// `borg_simulate = v` (global of borg-trait.c, still c2rust).
-pub fn set_borg_simulate(_st: &mut BorgState, v: bool) {
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_trait::borg_simulate = v };
-}
-
-/// `borg_attacking = v` (global of borg-trait.c, still c2rust).
-pub fn set_borg_attacking(_st: &mut BorgState, v: bool) {
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_trait::borg_attacking = v };
-}
-
-/// `borg_on_glyph = v` (global of borg-trait.c, still c2rust).
-pub fn set_borg_on_glyph(_st: &mut BorgState, v: bool) {
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_trait::borg_on_glyph = v };
-}
-
-/// `borg_create_door = v` (global of borg-trait.c, still c2rust).
-pub fn set_borg_create_door(_st: &mut BorgState, v: bool) {
-    // SAFETY: plain write of a bool global; Borg thread.
-    unsafe { crate::c2rust::borg_trait::borg_create_door = v };
 }
 
 /// `borg_calculate_attack_effectiveness(attack_type)` (still c2rust,
@@ -811,17 +740,6 @@ pub mod magic {
 /// dereference.
 pub fn shop_item(st: &mut BorgState, shop: usize, i: usize) -> crate::headers::borg_item_h::borg_item {
     st.store.shops[shop].ware[i]
-}
-
-/// `borg_calc_blows(item)` (still c2rust, borg-trait.c).
-pub fn borg_calc_blows(st: &mut BorgState, item: &crate::headers::borg_item_h::borg_item) -> i32 {
-    let mut copy = *item;
-    escape(st);
-    // SAFETY: the callee only reads the item (a local copy), the player
-    // and the Borg's traits.
-    let r = unsafe { crate::c2rust::borg_trait::borg_calc_blows(&mut copy) };
-    escape(st);
-    r
 }
 
 /// `borg_equips_item(activation, check_charge)`: forwards to the safe
@@ -1274,12 +1192,6 @@ pub fn borg_item_analyze_ware(
 }
 
 // ---------------------------------------------------------------------------
-// borg-flow-take.c (converted): calls into still-c2rust flow code.
-
-c2r_void! {
-}
-
-// ---------------------------------------------------------------------------
 // borg-update.c (converted): calls into still-c2rust code, and its shim.
 
 /// `successful_target` (still c2rust, borg-fight-attack.c).
@@ -1495,15 +1407,6 @@ pub mod item_use {
 // ---------------------------------------------------------------------------
 // borg-item-wear.c (converted): calls into still-c2rust code.
 
-/// `borg_notice(notice_swap)` (still c2rust, borg-trait.c).
-pub fn borg_notice(st: &mut BorgState, notice_swap: bool) {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code (reads the items,
-    // writes the traits).
-    unsafe { crate::c2rust::borg_trait::borg_notice(notice_swap) }
-    escape(st);
-}
-
 /// `borg_read_scroll(sval)` (borg-item-use.c, converted).
 pub fn borg_read_scroll(st: &mut BorgState, sval: i32) -> bool {
     crate::borg_item_use::borg_read_scroll(st, sval)
@@ -1524,6 +1427,16 @@ pub fn set_shop_num(st: &mut BorgState, v: i16) {
     // SAFETY: plain write of an int16_t global; Borg thread.
     unsafe { crate::c2rust::borg_think::shop_num = v };
     escape(st);
+}
+
+/// `borg_do_spell` (still c2rust, borg-think.c): recheck the spells at the
+/// next `borg_notice`.
+pub fn borg_do_spell(st: &mut BorgState) -> bool {
+    escape(st);
+    // SAFETY: plain read of a bool global; Borg thread.
+    let r = unsafe { crate::c2rust::borg_think::borg_do_spell };
+    escape(st);
+    r
 }
 
 /// `borg_do_spell = v` (still c2rust, borg-think.c): recheck the spells
@@ -1587,16 +1500,6 @@ pub mod item_wear {
 
 // ---------------------------------------------------------------------------
 // borg-item-decurse.c (converted): calls into still-c2rust code.
-
-/// `borg_uses_swaps()` (still c2rust, borg-trait.c).
-pub fn borg_uses_swaps(st: &mut BorgState) -> bool {
-    escape(st);
-    // SAFETY: plain call into transitional c2rust code (reads the config
-    // and traits).
-    let r = unsafe { crate::c2rust::borg_trait::borg_uses_swaps() };
-    escape(st);
-    r
-}
 
 /// C-ABI shims with the borg-item-enchant.c names, for c2rust callers
 /// (borg_think_dungeon).
@@ -1916,15 +1819,6 @@ pub mod junk {
 // ---------------------------------------------------------------------------
 // borg-caution.c (converted): calls into still-c2rust code.
 
-/// `borg_game_ratio` (still c2rust, borg-trait.c).
-pub fn borg_game_ratio(st: &mut BorgState) -> i16 {
-    escape(st);
-    // SAFETY: plain read of an int16_t global; Borg thread.
-    let r = unsafe { crate::c2rust::borg_trait::borg_game_ratio };
-    escape(st);
-    r
-}
-
 /// What C's `borg_prepared()` returned (when not NULL): a text that stays
 /// as it is, or the static `borg_prepared_buffer`, whose text the next
 /// formatted reason overwrites (read it with `prepared_buffer`).
@@ -1973,16 +1867,13 @@ pub mod fight_defend {
     }
 }
 
-/// C-ABI shims with the borg-trait-swap.c names, for the c2rust caller
-/// (`borg_notice` in borg_trait).
-pub mod trait_swap {
+/// C-ABI shim with the borg-trait.c name, for the c2rust callers
+/// (borg_think, borg_think_dungeon, borg_think_dungeon_util).
+pub mod trait_ {
     use super::st;
 
-    pub unsafe extern "C" fn borg_notice_weapon_swap() {
-        crate::borg_trait_swap::borg_notice_weapon_swap(st())
-    }
-    pub unsafe extern "C" fn borg_notice_armour_swap() {
-        crate::borg_trait_swap::borg_notice_armour_swap(st())
+    pub unsafe extern "C" fn borg_notice(notice_swap: bool) {
+        crate::borg_trait::borg_notice(st(), notice_swap)
     }
 }
 

@@ -472,7 +472,7 @@ pub fn borg_think_stair_scum(st: &mut BorgState) -> bool {
     let feat = u32::from(engine::square_feat(st.borg.c.x, st.borg.c.y));
 
     /* examine equipment and swaps */
-    bridge::borg_notice(st, true);
+    crate::borg_trait::borg_notice(st, true);
 
     /* No scumming mode if starving or in town */
     if st.borg.tr(BI_CDEPTH) == 0 || st.borg.tr(BI_ISWEAK) != 0 {

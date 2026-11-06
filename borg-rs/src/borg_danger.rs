@@ -111,15 +111,15 @@ struct SpellFlags {
 impl SpellFlags {
     fn read(st: &mut BorgState) -> Self {
         SpellFlags {
-            attacking: bridge::borg_attacking(st),
-            on_glyph: bridge::borg_on_glyph(st),
-            create_door: bridge::borg_create_door(st),
-            sleep_spell: bridge::borg_sleep_spell(st),
-            sleep_spell_ii: bridge::borg_sleep_spell_ii(st),
-            crush_spell: bridge::borg_crush_spell(st),
-            slow_spell: bridge::borg_slow_spell(st),
-            confuse_spell: bridge::borg_confuse_spell(st),
-            fear_mon_spell: bridge::borg_fear_mon_spell(st),
+            attacking: st.traits.attacking,
+            on_glyph: st.traits.on_glyph,
+            create_door: st.traits.create_door,
+            sleep_spell: st.traits.sleep_spell,
+            sleep_spell_ii: st.traits.sleep_spell_ii,
+            crush_spell: st.traits.crush_spell,
+            slow_spell: st.traits.slow_spell,
+            confuse_spell: st.traits.confuse_spell,
+            fear_mon_spell: st.traits.fear_mon_spell,
         }
     }
 }

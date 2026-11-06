@@ -25,7 +25,6 @@ use crate::borg_item_use::{
     borg_activate_item, borg_equips_item, borg_equips_staff_fail, borg_read_scroll, borg_use_staff,
 };
 use crate::borg_magic::{borg_spell, borg_spell_okay_fail};
-use crate::bridge;
 use crate::engine;
 use crate::headers::borg_magic_h::REMOVE_CURSE;
 use crate::headers::borg_trait_h::{BI_FIRST_CURSED, BI_WHERE_CURSED, BORG_EQUIP, BORG_INVEN};
@@ -109,7 +108,7 @@ fn decurse_swap(st: &mut BorgState, swap: fn(&BorgState) -> i32) -> bool {
 /// Remove Curse swap armour
 pub fn borg_decurse_armour(st: &mut BorgState) -> bool {
     /* Nothing to decurse */
-    if !bridge::borg_uses_swaps(st) || !st.trait_swap.armour.decurse {
+    if !crate::borg_trait::borg_uses_swaps(st) || !st.trait_swap.armour.decurse {
         return false;
     }
 
@@ -119,7 +118,7 @@ pub fn borg_decurse_armour(st: &mut BorgState) -> bool {
 /// Remove Curse swap weapon
 pub fn borg_decurse_weapon(st: &mut BorgState) -> bool {
     /* Nothing to decurse */
-    if !bridge::borg_uses_swaps(st) || !st.trait_swap.weapon.decurse {
+    if !crate::borg_trait::borg_uses_swaps(st) || !st.trait_swap.weapon.decurse {
         return false;
     }
 

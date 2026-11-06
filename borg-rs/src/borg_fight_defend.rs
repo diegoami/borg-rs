@@ -148,7 +148,7 @@ fn avoid(st: &BorgState) -> i32 {
 
 /// `borg_simulate` (still a borg-trait.c global).
 fn simulating(st: &mut BorgState) -> bool {
-    bridge::borg_simulate(st)
+    st.traits.simulate
 }
 
 /// A copy of `borg_grids[y][x]`.
@@ -1611,9 +1611,9 @@ fn borg_defend_aux_glyph(st: &mut BorgState, p1: i32) -> i32 {
     }
 
     /* pretend we are protected and look again */
-    bridge::set_borg_on_glyph(st, true);
+    st.traits.on_glyph = true;
     let p2 = danger_here(st, true);
-    bridge::set_borg_on_glyph(st, false);
+    st.traits.on_glyph = false;
 
     /* if this is an improvement and we may not avoid monster now and */
     /* we may have before */
@@ -1714,9 +1714,9 @@ fn borg_defend_aux_create_door(st: &mut BorgState, p1: i32) -> i32 {
     }
 
     /* pretend we are protected and look again */
-    bridge::set_borg_create_door(st, true);
+    st.traits.create_door = true;
     let p2 = danger_here(st, true);
-    bridge::set_borg_create_door(st, false);
+    st.traits.create_door = false;
 
     /* if this is an improvement and we may not avoid monster now and */
     /* we may have before */
@@ -3525,22 +3525,22 @@ pub fn borg_defend(st: &mut BorgState, p1: i32) -> bool {
     }
 
     /* Simulate */
-    bridge::set_borg_simulate(st, true);
+    st.traits.simulate = true;
 
     /* if you have Resist All and it is about to drop, */
     /* refresh it (if you can) */
-    let ratio = i32::from(bridge::borg_game_ratio(st));
+    let ratio = i32::from(st.traits.game_ratio);
     if st.borg.resistance != 0 && i32::from(st.borg.resistance) < ratio * 2 {
         /* check 'true' danger. This will make sure we do not */
         /* refresh our Resistance if no-one is around */
-        bridge::set_borg_attacking(st, true);
+        st.traits.attacking = true;
         let p = danger_here(st, false); /* Note false for danger!! */
-        bridge::set_borg_attacking(st, false);
+        st.traits.attacking = false;
         let (cy, cx) = (st.borg.c.y as usize, st.borg.c.x as usize);
         if (p > i32::from(st.danger.fear_region[cy / 11][cx / 11]) || st.borg.near.unique != 0)
             && borg_spell(st, RESISTANCE)
         {
-            let ratio = bridge::borg_game_ratio(st);
+            let ratio = st.traits.game_ratio;
             borg_note(
                 st,
                 &format!(
@@ -3580,7 +3580,7 @@ pub fn borg_defend(st: &mut BorgState, p1: i32) -> bool {
     borg_note(st, &format!("# Performing defense type {} with value {}", b_g, b_n));
 
     /* Instantiate */
-    bridge::set_borg_simulate(st, false);
+    st.traits.simulate = false;
 
     /* Instantiate */
     let _ = borg_calculate_defense_effectiveness(st, b_g, p1);
