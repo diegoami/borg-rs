@@ -1,0 +1,11 @@
+suite=deep
+suite_sha256=e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca
+borg_impl_env=rust
+binary=/home/diego/projects/borg-rs/build/rust/game/angband
+binary_sha256=6d918814ca4aadf3d886cc8f937a592bbef590df0cf9728b6b66314732efa356
+binary_cmake_borg_impl=rust
+git_rev=4c06cec087c11ef03696c8e62fdbc7b854b84d4f
+git_dirty=no
+jobs=2
+started_utc=2026-11-06T08:15:47Z
+finished_utc=2026-11-06T08:25:29Z result=OK

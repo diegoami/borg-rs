@@ -1,0 +1,61 @@
+    Checking libc v0.2.191
+    Checking borg-rs v0.1.0 (/home/diego/projects/borg-rs/borg-rs)
+error: unneeded late initialization
+   --> borg-rs/src/borg_projection.rs:491:5
+    |
+491 | /     if y2 < y1 {
+492 | |         dy = y1 - y2;
+493 | |         sy = -1;
+494 | |     } else {
+495 | |         dy = y2 - y1;
+496 | |         sy = 1;
+497 | |     }
+    | |_____^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#needless_late_init
+    = note: `-D clippy::needless-late-init` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(clippy::needless_late_init)]`
+help: move the declarations here and remove the assignments from the branches
+    |
+484 ~     
+485 |     let dx;
+486 ~     
+487 |     let sx;
+...
+490 |     /* Analyze "dy" */
+491 ~     let (dy, sy) = if y2 < y1 {
+492 ~         (y1 - y2, -1)
+493 |     } else {
+494 ~         (y2 - y1, 1)
+495 ~     };
+    |
+
+error: unneeded late initialization
+   --> borg-rs/src/borg_projection.rs:500:5
+    |
+500 | /     if x2 < x1 {
+501 | |         dx = x1 - x2;
+502 | |         sx = -1;
+503 | |     } else {
+504 | |         dx = x2 - x1;
+505 | |         sx = 1;
+506 | |     }
+    | |_____^
+    |
+    = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#needless_late_init
+help: move the declarations here and remove the assignments from the branches
+    |
+485 ~     
+486 |     let sy;
+487 ~     
+488 |
+...
+499 |     /* Analyze "dx" */
+500 ~     let (dx, sx) = if x2 < x1 {
+501 ~         (x1 - x2, -1)
+502 |     } else {
+503 ~         (x2 - x1, 1)
+504 ~     };
+    |
+
+error: could not compile `borg-rs` (lib) due to 2 previous errors

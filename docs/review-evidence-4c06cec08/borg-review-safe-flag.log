@@ -1,0 +1,33 @@
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==16859==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000002 (pc 0x63856e779ade bp 0x7ffc3ab58eb0 sp 0x7ffc3ab58e80 T0)
+==16859==The signal is caused by a READ memory access.
+==16859==Hint: address points to the zero page.
+    #0 0x63856e779ade in flag_has (/tmp/borg-review-safe-flag+0x55ade) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #1 0x63856e73bdf7 in _RNvCs1eOnGw4c1wI_16borg_review_flag4main (/tmp/borg-review-safe-flag+0x17df7) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #2 0x63856e73be62 in _RNvYFEuINtNtNtCsgxBkk5gSRhY_4core3ops8function6FnOnceuE9call_onceCs1eOnGw4c1wI_16borg_review_flag (/tmp/borg-review-safe-flag+0x17e62) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #3 0x63856e73bda5 in _RINvNtNtCs9k3SxhrAWiO_3std3sys9backtrace28___rust_begin_short_backtraceFEuuECs1eOnGw4c1wI_16borg_review_flag (/tmp/borg-review-safe-flag+0x17da5) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #4 0x63856e73bdb8 in _RNCINvNtCs9k3SxhrAWiO_3std2rt10lang_startuE0Cs1eOnGw4c1wI_16borg_review_flag (/tmp/borg-review-safe-flag+0x17db8) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #5 0x63856e7615d6 in _RNvXs0_NtNtNtCsgxBkk5gSRhY_4core3ops8function5implsRDINtB7_2FnuEp6OutputlNtNtNtBb_5panic11unwind_safe13RefUnwindSafeNtNtBb_6marker4SyncEL_INtB7_6FnOnceuE9call_onceCs9k3SxhrAWiO_3std library/core/src/ops/function.rs:287
+    #6 0x63856e7615d6 in _RINvNvNtCs9k3SxhrAWiO_3std9panicking12catch_unwind7do_callRDINtNtNtCsgxBkk5gSRhY_4core3ops8function2FnuEp6OutputlNtNtNtB13_5panic11unwind_safe13RefUnwindSafeNtNtB13_6marker4SyncEL_lEB6_ library/std/src/panicking.rs:576
+    #7 0x63856e7615d6 in _RINvNtCs9k3SxhrAWiO_3std9panicking12catch_unwindlRDINtNtNtCsgxBkk5gSRhY_4core3ops8function2FnuEp6OutputlNtNtNtBU_5panic11unwind_safe13RefUnwindSafeNtNtBU_6marker4SyncEL_EB4_ library/std/src/panicking.rs:544
+    #8 0x63856e7615d6 in _RINvNtCs9k3SxhrAWiO_3std5panic12catch_unwindRDINtNtNtCsgxBkk5gSRhY_4core3ops8function2FnuEp6OutputlNtNtNtBP_5panic11unwind_safe13RefUnwindSafeNtNtBP_6marker4SyncEL_lEB4_ library/std/src/panic.rs:359
+    #9 0x63856e7615d6 in _RNCNvNtCs9k3SxhrAWiO_3std2rt19lang_start_internal0B5_ library/std/src/rt.rs:175
+    #10 0x63856e7615d6 in _RINvNvNtCs9k3SxhrAWiO_3std9panicking12catch_unwind7do_callNCNvNtB6_2rt19lang_start_internal0iEB6_ library/std/src/panicking.rs:576
+    #11 0x63856e7615d6 in _RINvNtCs9k3SxhrAWiO_3std9panicking12catch_unwindiNCNvNtB4_2rt19lang_start_internal0EB4_ library/std/src/panicking.rs:544
+    #12 0x63856e7615d6 in _RINvNtCs9k3SxhrAWiO_3std5panic12catch_unwindNCNvNtB4_2rt19lang_start_internal0iEB4_ library/std/src/panic.rs:359
+    #13 0x63856e7615d6 in _RNvNtCs9k3SxhrAWiO_3std2rt19lang_start_internal library/std/src/rt.rs:171
+    #14 0x63856e73bd90 in _RINvNtCs9k3SxhrAWiO_3std2rt10lang_startuECs1eOnGw4c1wI_16borg_review_flag (/tmp/borg-review-safe-flag+0x17d90) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #15 0x63856e73bec4 in main (/tmp/borg-review-safe-flag+0x17ec4) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+    #16 0x7360c422a600  (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a600) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #17 0x7360c422a717 in __libc_start_main (/usr/lib/x86_64-linux-gnu/libc.so.6+0x2a717) (BuildId: 066527e430a32768d82741e00b81eebb1a872294)
+    #18 0x63856e73bc64 in _start (/tmp/borg-review-safe-flag+0x17c64) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be)
+
+==16859==Register values:
+rax = 0x0000000000000002  rbx = 0x0000000000000000  rcx = 0x0000000000000002  rdx = 0x0000000000000000  
+rdi = 0x0000000000000002  rsi = 0x0000000000000000  rbp = 0x00007ffc3ab58eb0  rsp = 0x00007ffc3ab58e80  
+ r8 = 0x00007ffc3ab58f20   r9 = 0x10e654a7d6bf8f19  r10 = 0x0000000000000008  r11 = 0x0000000000000202  
+r12 = 0x0000000000001000  r13 = 0x00007ffc3a35c000  r14 = 0x00007ffc3a35b000  r15 = 0x00007360c4327901  
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV (/tmp/borg-review-safe-flag+0x55ade) (BuildId: fd496bcace23773a99912310670cd4092f4ce4be) in flag_has
+==16859==ABORTING

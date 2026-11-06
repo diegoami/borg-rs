@@ -1,0 +1,44 @@
+== smoke-warrior-1: DIVERGES  seed=101  game_turn=1  key_index=0  (bytes 33392 vs 33392)
+--- A lines 0..19
+>>       0  1	1 32 0             turn 1 type 1 key 2
+         1  11 1 33 0            turn 11 type 1 key 3
+         2  21 1 32 0            turn 21 type 1 key 2
+         3  31 1 31 0            turn 31 type 1 key 1
+         4  41 1 32 0            turn 41 type 1 key 2
+         5  51 1 33 0            turn 51 type 1 key 3
+         6  61 1 33 0            turn 61 type 1 key 3
+         7  71 1 31 0            turn 71 type 1 key 1
+         8  81 1 31 0            turn 81 type 1 key 1
+         9  91 1 33 0            turn 91 type 1 key 3
+        10  101 1 32 0           turn 101 type 1 key 2
+        11  111 1 37 0           turn 111 type 1 key 7
+        12  121 1 37 0           turn 121 type 1 key 7
+        13  131 1 37 0           turn 131 type 1 key 7
+        14  141 1 38 0           turn 141 type 1 key 8
+        15  151 1 39 0           turn 151 type 1 key 9
+        16  161 1 38 0           turn 161 type 1 key 8
+        17  171 1 39 0           turn 171 type 1 key 9
+        18  181 1 39 0           turn 181 type 1 key 9
+        19  191 1 38 0           turn 191 type 1 key 8
+--- B lines 0..19
+>>       0  1 1 32 0             turn 1 type 1 key 2
+         1  11 1 33 0            turn 11 type 1 key 3
+         2  21 1 32 0            turn 21 type 1 key 2
+         3  31 1 31 0            turn 31 type 1 key 1
+         4  41 1 32 0            turn 41 type 1 key 2
+         5  51 1 33 0            turn 51 type 1 key 3
+         6  61 1 33 0            turn 61 type 1 key 3
+         7  71 1 31 0            turn 71 type 1 key 1
+         8  81 1 31 0            turn 81 type 1 key 1
+         9  91 1 33 0            turn 91 type 1 key 3
+        10  101 1 32 0           turn 101 type 1 key 2
+        11  111 1 37 0           turn 111 type 1 key 7
+        12  121 1 37 0           turn 121 type 1 key 7
+        13  131 1 37 0           turn 131 type 1 key 7
+        14  141 1 38 0           turn 141 type 1 key 8
+        15  151 1 39 0           turn 151 type 1 key 9
+        16  161 1 38 0           turn 161 type 1 key 8
+        17  171 1 39 0           turn 171 type 1 key 9
+        18  181 1 39 0           turn 181 type 1 key 9
+        19  191 1 38 0           turn 191 type 1 key 8
+2/3 runs identical (expected 3)

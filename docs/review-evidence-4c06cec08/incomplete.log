@@ -1,0 +1,1 @@
+REFUSED: /tmp/borg-review-oracle-negative/incomplete has no DONE marker (incomplete, failed or stale suite output); use --allow-incomplete to compare anyway

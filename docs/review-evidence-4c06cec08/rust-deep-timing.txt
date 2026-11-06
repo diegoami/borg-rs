@@ -1,0 +1,10 @@
+suite=deep impl=rust jobs=2 wall_seconds=582.151280998 result=OK
+deep-0-warrior turns turns=1000002 pturns=100404 clev=26 maxdepth=21 keys=218205 wall=135.4 Human Warrior
+deep-1-mage turns turns=1000001 pturns=101107 clev=12 maxdepth=18 keys=118243 wall=91.9 Elf Mage
+deep-2-druid turns turns=1000000 pturns=99970 clev=16 maxdepth=6 keys=123124 wall=106.3 Hobbit Druid
+deep-3-priest turns turns=1000064 pturns=100480 clev=8 maxdepth=2 keys=69400 wall=53.8 Dwarf Priest
+deep-4-necro turns turns=1000137 pturns=100322 clev=9 maxdepth=3 keys=48035 wall=45.3 Human Necromancer
+deep-5-paladin turns turns=1000000 pturns=104487 clev=21 maxdepth=17 keys=152119 wall=141.6 Half-Troll Paladin
+deep-6-rogue turns turns=1000326 pturns=100538 clev=20 maxdepth=7 keys=163532 wall=182.2 Hobbit Rogue
+deep-7-ranger turns turns=1000005 pturns=113961 clev=30 maxdepth=26 keys=274354 wall=196.9 Human Warrior
+deep-8-blackguard turns turns=1000249 pturns=100503 clev=18 maxdepth=6 keys=164818 wall=165.2 Human Ranger

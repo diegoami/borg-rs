@@ -1,0 +1,8 @@
+   242  engine.rs
+    12  headers/ui_menu_h.rs
+    10  headers/ui_term_h.rs
+     3  headers/ui_input_h.rs
+     1  headers/stdlib_h.rs
+     1  headers/game_event_h.rs
+     1  headers/effect_handler_h.rs
+total unsafe: 270   (c2rust modules left: 0, converted files: 62)
