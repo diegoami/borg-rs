@@ -7,6 +7,15 @@ byte for byte, while driving the same unmodified C game engine with the same
 seed. It is not a redesign: no new tactics and no fixes to Borg behaviour.
 Known C bugs are kept on purpose (see `docs/c-bugs.md`).
 
+What is shown is narrower than that goal: the key streams are identical on
+the suites' seeds (smoke, full, deep, classes), with the stock `borg.txt`
+and the suites' turn limits (no run deeper than dungeon level 26). Code the
+suites do not reach (depth 50+, Morgoth, munchkin and lunal mode, most
+debug commands) rests on reading, the per-module cross-checks (not
+committed, numbers in PROGRESS) and the committed regressions in
+`harness/regress/`. See also the external review and the response to it
+(`docs/REVIEW-RESPONSE-4c06cec08.md`).
+
 ## Where things stand
 
 | milestone | state | evidence |
@@ -116,10 +125,13 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   (`stderr.log` would say so). The transitional `bridge.rs` (a global
   `st()`, C-ABI shims and `escape(st)` around calls into c2rust code) is
   gone with the last c2rust module.
-* **`borg_item.note`** is an offset into the item's `desc`. In C it is a
-  pointer, and a copy of an item points into the *original's* `desc`; the
-  offset reads the copy's own `desc`. Why that gives the same bytes, and the
-  differential check behind it, is in PROGRESS ("bridge removal").
+* **`borg_item.note`** is a `NoteRef`: the live element it points into
+  (`borg_items[i]` or a shop ware) plus an offset, resolved against that
+  element's current `desc` at every read, as C's pointer is (struct copies
+  copy the pointer, so a copy reads the origin's bytes, e.g. in wear
+  trials). The bridge removal had used a plain offset into the copy's own
+  `desc`; the external review showed that differs in a wear trial (fixed,
+  PROGRESS row 62; C-vs-Rust differential `harness/regress/note-alias`).
 * **Panics vs. undefined behaviour.** Where the C code would read out of
   bounds or divide by zero on impossible inputs, the Rust code panics. Each
   case is listed in PROGRESS or c-bugs.

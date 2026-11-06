@@ -11,8 +11,8 @@ counterexample; "gameplay" means it happened in a real seeded game.
 | # | finding | verdict | change |
 |---|---------|---------|--------|
 | 1 | note offsets lose pointer aliasing in wear trials | **confirmed** (synthetic reproduced; not hit in any suite game) | fixed: notes reference their live origin |
-| 2 | safe flag wrappers trust compiled-out C asserts | see section 2 | see section 2 |
-| 3 | L4/L5 unenforced lifetime preconditions | see section 3 | see section 3 |
+| 2 | safe flag wrappers trust compiled-out C asserts | **confirmed** (ASan reproduced; no gameplay caller passes a bad flag) | fixed: preconditions checked in Rust for every audited wrapper |
+| 3 | L4/L5 unenforced lifetime preconditions | **confirmed** as unsound contracts (no UB execution in the Borg's own callers) | fixed: table copies, lifetime-bound handles, `pub(crate) enter` |
 | 4 | a Rust-labelled suite passes with the C binary | **confirmed** (reproduced) | fixed: build identity checks |
 | 5 | untested domains have no replayable oracle | **confirmed** (evidence gap) | partly addressed: committed note and nested-entry regressions; equivalence claims scoped |
 | 6 | clippy fails on Rust 1.98.1 | **confirmed** (reproduced on 1.98.1) | fixed; clean on 1.97.0 and 1.98.1 |
@@ -66,6 +66,59 @@ principle (a worn item replaced in a trial by a candidate whose `{??}` lies
 beyond the old note offset, with `ident` and `needs_ident` both false), but
 no game in the suites reached it; the M3 suite results stand, and the fix
 removes the difference.
+
+## 2. Unchecked FFI inputs — confirmed, fixed
+
+**Reproduced.** The reviewer's `borg-review-flag.rs` against the old rlib:
+`AddressSanitizer: SEGV on unknown address 0x000000000002 ... in flag_has`
+(here ASan needs `LD_PRELOAD` of `libasan.so`; with `-lasan` alone ASan
+aborts at start). The C one-byte variant: `heap-buffer-overflow`. No Borg
+caller passes an invalid flag (the suites and the cross-checks never hit
+it), so this is unsoundness of a safe API, not a gameplay divergence.
+
+**Fix** (`44bf5a210`). Every safe wrapper in `engine.rs` that passes an
+index, flag, count or grid to C was audited (list in
+`docs/SELF-REVIEW.md` section 6). `flag_has` and `flag_next` are now Rust
+copies of `z-bitflag.c` (flag 0 is false as in C; a flag outside the slice,
+a negative flag or a start below 1 panics), checked against the C routine
+on 875,000 valid inputs: identical. `race_flag_has`, `player_has`,
+`square_trap_is_glyph` go through it; `player_of_has`,
+`spell_okay_to_cast` (`[0, total_spells)`), `randint0` (`m <= 0x10000000`,
+C divides by zero above), the event functions (type inside the handler
+table), `term_xtra` (noise and delay only), `project_from_player` (the
+Borg's two fixed argument sets, target in bounds) check their inputs;
+`set_inkey_hack` and the event handlers take safe functions only. After
+the fix the reviewer's program panics in Rust (`flag 9 out of range for a
+0-byte flag set`) and ASan reports nothing. Nine new boundary unit tests.
+Not a Borg finding but noted: the engine's own `flag_next(flags, size,
+FLAG_END)` reads `flags[-1]`; no Borg caller passes it.
+
+## 3. L4/L5 and the state root — confirmed, fixed
+
+The review is right that these were unsound safe APIs kept by convention.
+- **L5:** `k_info()`, `r_info()`, `a_info()`, `e_info()` are gone;
+  `engine::kind(i)`, `race(i)`, `artifact(i)`, `ego(i)` return a copy of one
+  entry (these tables really are written at run time: `object_desc` sets
+  `kind->everseen`, races' `cur_num` change, ...). Each copy is taken where
+  the old reference was taken and nothing writes the entry before it is
+  read, so the values are the same (46 call sites). `&'static` remains only
+  for data never written after loading, each with a SAFETY note.
+- **L4:** the object handles carry the lifetime of a borrow of a new field
+  `BorgState::access`; the compiler now rejects holding a handle across any
+  call that takes `&mut BorgState` (every call that lends the state to the
+  engine, the only place objects can be freed), past the engine callback,
+  or in the state. The constructors check at run time that the token is the
+  real state's.
+- **Root:** `engine::enter` is `pub(crate)`; `do_cmd_borg` is private (the
+  symbol stays exported); every entry asserts the engine is initialised and
+  runs on the thread of the first entry; lending asserts the root state.
+
+Still not compiler-enforced: the other safe wrappers read engine globals
+without a capability token, so an *external* crate linking the rlib could
+call one before the engine is set up or from another thread (all Borg code
+runs inside an entry); the private `player_ref()` returns `&'static` for
+immediate reads inside `engine.rs`; the thread check cannot see two threads
+racing on the very first entry.
 
 ## 4. Wrong binary accepted — confirmed, fixed
 
