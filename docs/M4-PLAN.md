@@ -50,9 +50,11 @@ The owner narrowed the current task to an independent review of M4 only.
 `3923a21e75dfb94053d4cc787d81c5baf638d62e`, with the scope and evidence.
 The independent review is complete: qualified pass with no acceptance
 blockers ([final review](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707067352)).
-The author agrees with all five findings and has prepared tested tooling/
-documentation follow-ups; independent verification of those changes is
-pending. Both parties must post progress,
+The reviewer verified c2b52d9's fixes, recording only a new low cost75 test
+gap and an oracle-test portability note. Tested author follow-ups now cover
+cost74/75/76 and use M4-only oracle fixtures; see the residual receipt.
+Their independent verification and owner acceptance remain pending.
+Both parties must post progress,
 questions, finding dispositions and follow-up verification in that issue.
 M1-M3 supply background only; post-M4 #295 is excluded from this verdict.
 The previous technical sequence below remains queued for later work.

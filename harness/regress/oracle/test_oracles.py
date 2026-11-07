@@ -22,13 +22,13 @@ class MissingLogs(unittest.TestCase):
         self.base = Path(self.tmp.name)
         self.output = self.base / 'output'
         self.reference = self.base / 'reference'
-        shutil.copytree(ROOT / 'docs/validation/2026-11-07-glyph-recognition/rust', self.output)
-        shutil.copytree(ROOT / 'harness/reference/glyph-recognition', self.reference)
-        self.case = 'glyph-known-rune'
+        shutil.copytree(ROOT / 'docs/validation/2026-11-07-synthetic-tactics/rust', self.output)
+        shutil.copytree(ROOT / 'harness/reference/synthetic-tactics', self.reference)
+        self.case = 'synth-glyph-ready'
 
     def compare(self, legacy=False):
-        return subprocess.run([str(ROOT / 'harness/diff'), '--suite', 'glyph-recognition',
-                               '--save-root', str(ROOT / 'harness/saves/glyph-recognition'),
+        return subprocess.run([str(ROOT / 'harness/diff'), '--suite', 'synthetic-tactics',
+                               '--save-root', str(ROOT / 'harness/saves/synthetic-tactics'),
                                '--expect-impl', 'rust',
                                *(['--allow-legacy-logs'] if legacy else []),
                                str(self.output), str(self.reference)], capture_output=True, text=True)

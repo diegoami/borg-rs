@@ -31,7 +31,7 @@ bool borg_spell_fail(enum borg_spells spell,int fail){return glyph_call(1,spell,
 bool borg_read_scroll(int sval){return glyph_call(2,sval,0);}
 bool borg_activate_item(int act){return glyph_call(3,act,0);}
 static bool fixture_glyph_flow_old(int why){return glyph_call(4,why,0);}
-/* Ranking-only adapter; #345's optimized reverse flow blocks outlying ties. */
+/* Candidate-cost adapter; #345 otherwise blocks outlying ties/cutoff cases. */
 #include "borg/borg-flow-misc.h"
 static int glyph_scenario;
 static void fixture_glyph_reverse(int depth,bool optimize,bool avoid,bool tunneling,int stair_idx,bool sneak){
@@ -40,6 +40,8 @@ static void fixture_glyph_reverse(int depth,bool optimize,bool avoid,bool tunnel
         borg_data_cost->data[33][99]=1;
         borg_data_cost->data[33][101]=glyph_scenario>=21?2:1;
     }
+    if(glyph_scenario>=23 && glyph_scenario<=25)
+        borg_data_cost->data[33][101]=74+glyph_scenario-23;
 }
 #define borg_flow_reverse fixture_glyph_reverse
 #define borg_flow_old fixture_glyph_flow_old
@@ -191,7 +193,7 @@ size_t spatial_snapshot(const uint8_t *packet,size_t packet_size,uint8_t *result
         if(scenario==6||scenario==7){track_glyph.num=scenario==6?200:199;for(int i=0;i<track_glyph.num;i++){glyph_xs[i]=1+i%196;glyph_ys[i]=1+i/196;}}
         if(scenario==8){glyph_x_center=10;glyph_y_center=10;borg_needs_new_sea=false;}
         if(scenario>=16&&scenario<=18){glyph_x_center=px-(49+scenario-16);glyph_y_center=py;glyph_xs[0]=glyph_x_center;glyph_ys[0]=py;track_glyph.num=1;}
-        if(scenario==20||scenario==22){glyph_x_center=px;glyph_y_center=py;glyph_xs[0]=px;glyph_ys[0]=py;track_glyph.num=1;}
+        if(scenario==20||scenario==22||(scenario>=23&&scenario<=25)){glyph_x_center=px;glyph_y_center=py;glyph_xs[0]=px;glyph_ys[0]=py;track_glyph.num=1;}
         put32(borg_flow_glyph());goto serialize_state;
     }
     put32(xc_borg_los(0,0,py,px));put32(xc_borg_los(py,px,ty,tx));put32(xc_borg_projectable(py,px,ty,tx));put32(xc_borg_offset_projectable(py,px,ty,tx));put32(xc_borg_projectable_pure(py,px,ty,tx));put32(xc_borg_projectable_dark(py,px,ty,tx));

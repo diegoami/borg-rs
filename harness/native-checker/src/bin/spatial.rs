@@ -842,11 +842,14 @@ mod glyph_environment {
         sneak: bool,
     ) {
         directions::borg_flow_reverse(st, depth, optimize, avoid, tunneling, stair_idx, sneak);
-        // Ranking-only adapter: #345 otherwise leaves only the origin reachable.
+        // Candidate-cost adapter: #345 otherwise leaves only the origin reachable.
         // Keep real reverse flow in all other cases; do not alter its algorithm.
         if (19..=22).contains(&st.glyph_scenario) {
             st.flow.data_cost[33][99] = 1;
             st.flow.data_cost[33][101] = if st.glyph_scenario >= 21 { 2 } else { 1 };
+        }
+        if (23..=25).contains(&st.glyph_scenario) {
+            st.flow.data_cost[33][101] = (74 + st.glyph_scenario - 23) as u8;
         }
     }
 }
@@ -924,7 +927,7 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
         st.glyph.track.y[0] = py;
         st.glyph.track.num = 1;
     }
-    if scenario == 20 || scenario == 22 {
+    if scenario == 20 || scenario == 22 || (23..=25).contains(&scenario) {
         st.glyph.center_x = px as u8;
         st.glyph.center_y = py as u8;
         st.glyph.track.x[0] = px;
@@ -938,7 +941,7 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
     put32(&mut out, glyph::borg_flow_glyph(&mut st) as i32);
     serialize(st, out)
 }
-const GLYPH_SCENARIOS: usize = 23;
+const GLYPH_SCENARIOS: usize = 26;
 fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
     glyph_packet_for(rng, i, i % GLYPH_SCENARIOS)
 }
@@ -970,7 +973,7 @@ fn glyph_packet_for(rng: &mut Rng, i: usize, scenario: usize) -> Vec<u8> {
         6 => 9,
         7 => 12,
         16..=18 => 9,
-        19..=22 => 8,
+        19..=25 => 8,
         8 | 9 | 10 | 11 | 14 | 15 => 8,
         _ => 0,
     };
@@ -992,7 +995,7 @@ fn glyph_packet_for(rng: &mut Rng, i: usize, scenario: usize) -> Vec<u8> {
             };
             b[at + 3] = 0;
             b[at + 4] =
-                ((matches!(scenario, 1 | 3 | 4 | 10 | 11 | 19..=22)) && x == 100 && y == 33) as u8;
+                ((matches!(scenario, 1 | 3 | 4 | 10 | 11 | 19..=25)) && x == 100 && y == 33) as u8;
             if (scenario == 4 || scenario == 12) && ((x - 100).abs() <= 2 && (y - 33).abs() <= 2) {
                 b[at + 4] = 1;
             }
@@ -1608,6 +1611,18 @@ fn main() {
                     field(1),
                     if scenario >= 21 { 99 } else { 101 },
                     "native rank/tie choice"
+                );
+            }
+            if (23..=25).contains(&scenario) {
+                assert_eq!(
+                    result,
+                    i32::from(scenario == 23),
+                    "native cost74/75/76 cutoff"
+                );
+                assert_eq!(
+                    field(1),
+                    if scenario == 23 { 101 } else { 0 },
+                    "native cutoff target"
                 );
             }
             println!(

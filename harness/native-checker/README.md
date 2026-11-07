@@ -47,13 +47,14 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   monsters, health/fear/status thresholds, stairs, optimization/tunneling/
   avoidance/sneaking, and queue wrap/overflow. Snapshots include all map
   cells and queue slots, including inactive ones and intermediate stages.
-* Rune builder after review#1:2,300 executions =23 hand-built layouts ×100
-  packet/environment variants per layout, not2,300 independently generated
+* Rune builder after review#1:2,600 executions =26 hand-built layouts ×100
+  packet/environment variants per layout, not2,600 independently generated
   layouts. M4 had16 layouts ×100. Added distance49/50/51 arrival boundaries,
   equal-score choices for both new-center/outlying ranking branches and
-  unequal-score controls. Whole declared state is compared in each execution.
-  Ranking-only cases19-22 use a shared, explicit adapter: after real reverse
-  flow, provide two candidate costs. Inherited #345 otherwise leaves only
+  unequal-score controls. Cases23-25 additionally exercise candidate costs
+  74/75/76: only74 is accepted. Whole declared state is compared in each execution.
+  Candidate-cost cases19-25 use a shared, explicit adapter: after real reverse
+  flow, provide the ranking/cutoff candidate costs. Inherited #345 otherwise leaves only
   the origin reachable, preventing the ties. Other cases keep real reverse
   flow unmodified. These cases test the production ranking body under a
   controlled environment, not naturally reachable engine tie outcomes.
@@ -67,7 +68,10 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   guard, damage multiplier, glyph target bookkeeping and self-lunal flag reset
   are changed in temporary copies. Three review follow-up controls additionally
   mutate the distance50 boundary, both tie comparisons and the old-center tie
-  comparison alone: ten controls total. Overrides cannot produce valid PASS evidence.
+  comparison alone. The cost75 cutoff mutant is an eleventh control. Glyph
+  controls request the full2,600-execution corpus (and fail as soon as a
+  mismatch is found); other controls retain their bounded subsets.
+  Overrides cannot produce valid PASS evidence.
 * Optional non-recovering C UBSan runs calculator, spatial/combat and
   glyph and lunal corpora. All-target clippy runs with warnings denied.
 

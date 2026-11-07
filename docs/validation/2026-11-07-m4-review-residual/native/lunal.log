@@ -1,0 +1,3 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.00s
+     Running `harness/out/native-checker.kLulgS/target/release/spatial 1280 --lunal`
+PASS 1280 native C/Rust lunal thinker states: exits, recovery gates, stair tracking/choice, flags, callbacks, notes and keys

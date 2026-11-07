@@ -1,0 +1,24 @@
+   Compiling borg-native-checker v0.1.0 (/tmp/borg-rs-m4-review-followup/harness/native-checker)
+    Finished `release` profile [optimized + debuginfo] target(s) in 4.37s
+     Running `harness/out/native-checker.kLulgS/spatial-fault-target/release/spatial 2600 --glyph --fault-control`
+glyph scenario=0 native_result=1 tracked=1 target_x=0 center_x=100
+glyph scenario=1 native_result=0 tracked=1 target_x=0 center_x=100
+glyph scenario=2 native_result=1 tracked=0 target_x=100 center_x=0
+glyph scenario=3 native_result=0 tracked=1 target_x=0 center_x=100
+glyph scenario=4 native_result=1 tracked=25 target_x=100 center_x=100
+glyph scenario=5 native_result=0 tracked=0 target_x=0 center_x=0
+glyph scenario=6 native_result=1 tracked=200 target_x=0 center_x=100
+glyph scenario=7 native_result=1 tracked=200 target_x=0 center_x=100
+glyph scenario=8 native_result=1 tracked=0 target_x=100 center_x=10
+glyph scenario=9 native_result=1 tracked=1 target_x=100 center_x=99
+glyph scenario=10 native_result=0 tracked=1 target_x=0 center_x=99
+glyph scenario=11 native_result=0 tracked=0 target_x=0 center_x=0
+glyph scenario=12 native_result=0 tracked=0 target_x=100 center_x=0
+glyph scenario=13 native_result=0 tracked=0 target_x=0 center_x=100
+glyph scenario=14 native_result=0 tracked=25 target_x=110 center_x=110
+glyph scenario=15 native_result=1 tracked=0 target_x=100 center_x=0
+glyph scenario=16 native_result=1 tracked=2 target_x=0 center_x=51
+glyph scenario=17 native_result=1 tracked=2 target_x=0 center_x=100
+glyph scenario=18 native_result=1 tracked=2 target_x=0 center_x=100
+glyph scenario=19 native_result=1 tracked=0 target_x=101 center_x=0
+MISMATCH spatial case=19 byte=248 native_len=201097 rust_len=201097 native=[101, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0] rust=[99, 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]

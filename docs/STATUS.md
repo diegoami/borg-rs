@@ -16,11 +16,17 @@ agrees with all five findings. Post-review follow-ups expand the native
 glyph cases/controls, document the historical endgame mismatch, require
 extra logs in compressed outputs, rerun coverage oracles and replace the
 racy GUI proof driver. See the [follow-up receipt](validation/2026-11-07-m4-review-followup/README.md).
-Author checks pass; independent verification of these follow-ups is pending.
+The [independent follow-up](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707651371)
+verifies findings2-5 and the originally reported glyph mutants as fixed.
+Its new low cost75 boundary gap and oracle-test portability note are addressed
+in a [second author follow-up](validation/2026-11-07-m4-review-residual/README.md):
+26 scenarios ×100 variants, eleven fault controls and nine oracle tests
+passing both on main and an exact-M4 tooling overlay. Verification of these
+two small follow-ups and owner acceptance remain pending.
 Fixes and receipts are published at `c2b52d9`; the [author follow-up](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707502737)
 was posted/read back and requests independent verification of that commit.
 The verdict is not self-promoted to an unqualified pass. The tag, old receipts,
-recipes/references and production source are preserved. Both reviewer
+recipes/references and production source are preserved. All three reviewer
 worktrees remain available. Current work stays on review follow-up rather
 than the tactical queue; discussion and finding dispositions belong in #1.
 
