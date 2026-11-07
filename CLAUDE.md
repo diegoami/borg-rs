@@ -3,8 +3,8 @@
 Owner-approved current direction (2026-11-07): prepare the focused M5 review
 at 28468aa, then follow verified better-borg-c bug-fixing milestones. Read
 [docs/M5-PLAN.md](docs/M5-PLAN.md), [docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md)
-and [review#2](https://github.com/diegoami/borg-rs/issues/2) first. M5 has an independent qualified pass at28468aa; author tooling follow-ups
-await reviewer verification and owner acceptance; no C target is selected and no new tag is created.
+and [review#2](https://github.com/diegoami/borg-rs/issues/2) first. M5 has an independent pass with no open findings for28468aa plus0203227
+(review comment6712010550). Owner acceptance and final tag/closure are pending; no C target is selected and no new tag is created.
 After acceptance, exact accepted C milestone pins drive Rust adoption. Existing
 neo-angband-tracker links stay source/history provenance; its queue does not
 independently schedule post-M5 work. That adoption contract supersedes older

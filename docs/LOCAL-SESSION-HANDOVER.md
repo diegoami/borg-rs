@@ -6,11 +6,10 @@ Prepare focused M5 review at **28468aa9fdc74cbb65d351349b973835d8c42af9**, then
 follow verified better-borg-c bug-fixing milestones. Review#2 is open:
 https://github.com/diegoami/borg-rs/issues/2. Read M5-PLAN.md,
 REVIEW-M5-PROMPT.md, C-CONSUMER-ADOPTION.md and adoption/status.json before
-continuing. M5 independent review is a qualified pass with no acceptance blockers at
-28468aa (review comment6711741153). Author disposition6711790956 agrees with
-M1/L1/L2, narrows I1 and documents I2/I3/Q1. Continuation seed normalization,
-validated backup preflight and portable real-bundle tests have author fixes;
-reviewer verification and owner acceptance are pending. No new tag,
+continuing. M5 independent follow-up6712010550 records PASS, no open findings,
+for28468aa plus020322749026418a666da3209c169f48ec9d608c. M1/L1/L2 are verified
+fixed; I1 narrowed and I2/I3/Q1 verified. Owner acceptance and final tag/closure
+are pending. No new tag,
 first C gameplay target or adoption batch is selected. The author handoff and
 reviewer start/progress/verdict/dispositions belong on #2; no absent reviewer
 comment is approval. No independent review is fabricated by the author.

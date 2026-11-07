@@ -1,0 +1,14 @@
+{
+  "schema": "borg-rs/independent-review-receipt@1",
+  "issue": "https://github.com/diegoami/borg-rs/issues/2",
+  "comment": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550",
+  "comment_id": 6712010550,
+  "reviewed_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
+  "verified_followup": "020322749026418a666da3209c169f48ec9d608c",
+  "verdict": "pass",
+  "open_findings": [],
+  "comment_file": "independent-followup.md",
+  "comment_sha256": "1abe16630835d0a0ad3b6013e9f3384b121eeb6dc661fe97b6fc811d39c083ef",
+  "owner_accepted": false,
+  "scope": "independent reviewer comment, not a new author test execution"
+}
