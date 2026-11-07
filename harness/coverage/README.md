@@ -108,3 +108,9 @@ are never mixed into this result. When reusing the historical frozen image,
 only new harness scripts/suite files/fixture data were copied into that checkout;
 production source hash and actual image hash stayed constant. A fresh checkout
 at the completed work-branch revision already includes those files.
+
+Post-M4 production corrections have separate oracles. In particular, #295's
+prelaid-ring outcome differs from the tagged M4 oracle. Reproduce the archived
+139-run measurement at tag m4; use synthetic-tactics-glyph-295 for corrected
+source parity checks. Do not assign the frozen image's percentages to later
+source or combine profiles across these builds.

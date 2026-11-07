@@ -378,18 +378,17 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
         // Save new information
         st.flow_misc.track_shop_x[idx(i)] = x;
         st.flow_misc.track_shop_y[idx(i)] = y;
-    } else if engine::square_isdisarmabletrap(x, y) {
-        // This checks that the trap is visible so it isn't really a cheat
-        // of any information the borg couldn't get another way. Minor
-        // cheat: in graphics mode he would mis-id the glyph of warding as
-        // a trap.
-        st.cave.grid_mut(x, y).trap = true;
-        if engine::square_trap_is_glyph(x, y) {
-            st.cave.grid_mut(x, y).glyph = true;
+    } else if g.glyph {
+        // FORK #295: use map_info's known glyph, independently of the
+        // disarmable-player-trap predicate. Unknown runes stay unknown.
+        let ag = st.cave.grid_mut(x, y);
+        ag.trap = false;
+        ag.glyph = true;
 
-            // Track the newly discovered glyph
-            track_add(&mut st.glyph.track, x, y);
-        }
+        // Track the newly discovered glyph
+        track_add(&mut st.glyph.track, x, y);
+    } else if engine::square_isdisarmabletrap(x, y) {
+        st.cave.grid_mut(x, y).trap = true;
     } else if g.f_idx == FEAT_NONE {
         // Darkness
         let ag = st.cave.grid_mut(x, y);

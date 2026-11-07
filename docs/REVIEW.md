@@ -15,11 +15,13 @@ crash/play-blocker corrections are mirrored in C/Rust and documented in
 `docs/FORK-CORRECTIONS.md`, with corrected C run twice and original
 references preserved. Other known C bugs remain recorded in `docs/c-bugs.md`.
 
-The declared M4 checkpoint is complete on main. The full coverage corpus
+The declared M4 checkpoint is complete at tag `m4`. The full coverage corpus
 contains 139 successful oracle-checked executions in 11 groups, comparing
-keys, messages and per-key player state. Production inputs remain at
+keys, messages and per-key player state. Production inputs at the M4 tag are
 `28b8170`; later commits add tooling, fixtures, receipts and the interactive
 launcher. Original references remain separate from corrected C references.
+The subsequent #295 recognition correction and its new-source checkpoint
+are recorded separately in STATUS; the M4 percentages belong to its tag.
 
 Extended games reach logged current depth 99; synthetic endgame starts
 include depth 100. Six targeted engine cases establish actual self-lunal
@@ -43,12 +45,13 @@ The earlier external review and response remain historical evidence
 | M1 deterministic C harness | done (tag `m1-harness`) | `full` run twice, 45/45 logs identical; `docs/STATUS.md` |
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
 | M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
-| M4 wider parity evidence | declared A-F scope verified on main; owner tag pending | 139 engine executions; persistent native checks; linked receipts above |
+| M4 wider parity evidence | done for declared A-F scope; tag `m4` = `3923a21` | 139 engine executions; persistent native checks; linked receipts above |
 
 The owner-authorized main integration includes the former work-branch tip
 `40194d8`; `claude/serene-ramanujan-8hzsfm` is historical. Continue from main.
-The recorded next-stage sequence puts an owner-created milestone tag before
-broader behavior changes; see M4-PLAN.md.
+The owner explicitly delegated creation of `m4` on resume; the pushed tag
+identifies reviewed main commit `3923a21`, before broader behavior changes.
+See M4-PLAN.md for the next-stage sequence.
 
 ## Layout
 
@@ -226,8 +229,8 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   are Warriors, their "blackguard" runs are Rangers). This does not affect
   C/Rust equivalence, but it limits coverage; the `classes` suite fills the
   gap (`docs/harness.md`, `docs/STATUS.md`).
-* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 268, all at the FFI
-  boundary: 240 in `engine.rs` and 28 in `headers/` (the
+* **Unsafe count.** `borg-rs/tools/count-unsafe.sh`: 267 after #295 (268
+  at M4), all at the FFI boundary: 239 in `engine.rs` and 28 in `headers/` (the
   `unsafe extern "C" fn` pointer types of engine structs and callbacks).
   `#![deny(unsafe_code)]` allows it only in those two modules. After the
   external review of `4c06cec08` (SELF-REVIEW section 6): every safe

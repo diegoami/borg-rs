@@ -1,7 +1,8 @@
 # Known C Borg bugs (reproduced faithfully)
 
-The Rust port keeps each of these exactly as the C behaves. They are recorded
-here so nobody "fixes" one by accident.
+Unless explicitly corrected under `docs/FORK-CORRECTIONS.md`, the Rust port
+keeps these as C behaves. Entries preserve the original findings and identify
+the owner-authorized exceptions so changes are deliberate and reviewable.
 
 Format: file, function, (seed, turn when observed), explanation.
 
@@ -1448,7 +1449,7 @@ The C source is unchanged; no correction is proposed in this pass.
   is nested under `square_isdisarmabletrap`. That predicate requires a
   visible TRAP; ordinary warding glyphs have GLYPH|VISIBLE|FLOOR, without
   TRAP. Thus ordinary glyph-only tiles do not enter that discovery branch.
-* New synthetic native-engine evidence: a level100 preparation case creates
+* M4 synthetic native-engine evidence: a depth100 preparation case creates
   a real glyph and consumes one scroll (20 to19). A prelaid24-glyph ring
   case finishes with25 engine glyphs,23 visible, but the native C Borg map
   has zero glyph tiles and tracks only its latest cast. The C observation
@@ -1457,10 +1458,22 @@ The C source is unchanged; no correction is proposed in this pass.
   is injected by the fixture constructor. Normal C/C and Rust/C all match.
 * The six-case scenario suite and receipts are under
   `harness/scenarios/` and `docs/validation/2026-11-07-synthetic-tactics/`.
-  This is consumer native evidence, not independent tracker verification
-  or a source correction. It is distinct from section56's reverse-flow
+  At that tag this is consumer native evidence, not independent tracker
+  verification or a source correction. It is distinct from section56's reverse-flow
   search and section29's rollback/counting slips. No full formation-building,
   combat improvement or win is claimed.
 * Tracker: diegoami/neo-angband-tracker#295 (existing source finding;
   [additional consumer native evidence](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6700494859)
   links184ed94 and was read back).
+
+* Post-M4 FORK correction: after the owner-authorized m4 tag at3923a21,
+  C/Rust recognize the GLYPH flag reported by map_info's remembered trap,
+  separately from harmful player traps. Real engine before/after controls
+  cover a known Rune, decoy, harmful pit, hidden Rune, empty floor and the
+  prelaid ring. The corrected ring has map24/tracked24, Morgoth position
+  true and all20 scrolls preserved. The hidden Rune remains unknown and
+  the harmful pit remains a trap. C/C/Rust match all six logs/final saves;
+  both C observers preserve all unobserved output/save bytes. Original M4
+  references remain intact; separate corrected references are retained.
+  See `docs/validation/2026-11-07-glyph-recognition/README.md`. This fixes
+  recognition, not section56's reverse flow or autonomous construction.

@@ -1,0 +1,33 @@
+suite=natural
+suite_sha256=d93d033b6ab561fe0cd40971893c724066841c46c409a491b9e591beac7d4f51
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=rust
+binary=/home/diego/projects/borg-rs/build/rust/game/angband
+binary_sha256=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+binary_impl=rust
+binary_elf_impl=rust
+binary_cmake_borg_impl=rust
+build_id_impl=rust
+build_id_git_rev=3923a21e75dfb94053d4cc787d81c5baf638d62e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=e4665bf1aec053879ed8f6f04f4c1429a9f71d562b6f6004d1031653f61f4a97
+build_id_binary_sha256=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_rustc=rustc 1.98.1 (48a229cea 2026-09-01)
+build_id_built_utc=2026-11-07T10:32:20Z
+checkout_source_sha256=e4665bf1aec053879ed8f6f04f4c1429a9f71d562b6f6004d1031653f61f4a97
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=3923a21e75dfb94053d4cc787d81c5baf638d62e
+git_dirty=yes
+jobs=4
+checkpoint_every=0
+run_timeout_seconds=900
+save_root=/home/diego/projects/borg-rs/harness/saves/captured-extended
+started_utc=2026-11-07T10:50:15Z
+run_config.natural-warrior-78=menu,cheat,save=ext-long-warrior-2007-checkpoint-000003-t0003000001.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.natural-blackguard-40=menu,cheat,save=ext-long-blackguard-3100-checkpoint-000003-t0003000387.save cdfdc1568b849be520ae2d97f5962d49b46912fa167a975e1e23d2b8db9b1b2b
+binary_sha256_end=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+finished_utc=2026-11-07T10:50:51Z result=OK

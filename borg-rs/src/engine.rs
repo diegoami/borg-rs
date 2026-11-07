@@ -2843,6 +2843,8 @@ pub struct MapGrid {
     pub lighting: u32,
     pub in_view: bool,
     pub is_player: bool,
+    /// FORK #295: a glyph reported through the engine's known trap list.
+    pub glyph: bool,
 }
 
 /// `map_info(loc(x, y), &g)` (cave-map.c). It also memorizes the grid
@@ -2865,7 +2867,9 @@ pub fn map_info(x: i32, y: i32) -> MapGrid {
     };
     // SAFETY: the grid is in bounds (checked); map_info fills every field
     // the Borg reads; first_kind is NULL or an object kind of the game
-    // data, which lives for the game.
+    // data, which lives for the game. g.trap is NULL or an engine-owned
+    // remembered trap, valid until the next engine mutation; copy its flag
+    // before returning, without retaining any reference.
     unsafe {
         headers::cave_h::map_info(loc { x, y }, &mut g);
         MapGrid {
@@ -2878,6 +2882,8 @@ pub fn map_info(x: i32, y: i32) -> MapGrid {
             lighting: g.lighting,
             in_view: g.in_view,
             is_player: g.is_player,
+            glyph: !g.trap.is_null()
+                && flag_has(&(*g.trap).flags, headers::list_trap_flags_h::TRF_GLYPH as i32),
         }
     }
 }
@@ -2895,25 +2901,6 @@ pub fn square_isdisarmabletrap(x: i32, y: i32) -> bool {
     assert!(square_in_bounds(x, y), "grid out of bounds");
     // SAFETY: `cave` is the current level; the grid is in bounds.
     unsafe { headers::cave_h::square_isdisarmabletrap(headers::cave_h::cave, loc { x, y }) }
-}
-
-/// `trf_has(trap_info[square(cave, loc(x, y))->trap->t_idx].flags,
-/// TRF_GLYPH)`: the (first) trap on the grid is a glyph. Panics out of
-/// bounds, without a trap (C reads through NULL) or for a bad trap index.
-pub fn square_trap_is_glyph(x: i32, y: i32) -> bool {
-    assert!(square_in_bounds(x, y), "grid out of bounds");
-    // SAFETY: `cave` is the current level; the grid is in bounds; the trap
-    // pointer is checked; trap_info has z_info->trap_max entries (index
-    // checked); the trap's flag array is copied.
-    let flags = unsafe {
-        let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
-        let trap = (*sq).trap;
-        assert!(!trap.is_null(), "no trap on the grid");
-        let t_idx = usize::from((*trap).t_idx);
-        assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
-        (*headers::trap_h::trap_info.add(t_idx)).flags
-    };
-    flag_has(&flags, headers::list_trap_flags_h::TRF_GLYPH as i32)
 }
 
 /// `square_iswebbed(cave, loc(x, y))`. Panics out of bounds.

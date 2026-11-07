@@ -1,0 +1,1 @@
+FORK #295: six real recognition controls and six synthetic tactics pass C/C/Rust with exact saves; both implementations pass121 existing references; targeted native, release/clippy, linkage and playable build checks complete

@@ -1,0 +1,8 @@
+# Real engine recognition controls: use SAVE_ROOT with generate.py --glyph-recognition.
+# No cheat death; low supply prevents casting in the isolated perception controls.
+glyph-known-rune      7201 0 0 15 menu,finalsave,save=glyph-visible-rune.save
+glyph-known-decoy     7201 0 0 15 menu,finalsave,save=glyph-decoy.save
+glyph-known-trap      7201 0 0 15 menu,finalsave,save=glyph-visible-trap.save
+glyph-hidden-rune     7201 0 0 15 menu,finalsave,save=glyph-hidden-rune.save
+glyph-empty-floor     7201 0 0 15 menu,finalsave,save=glyph-low-supply.save
+glyph-prelaid-ring    7201 0 0 15 menu,finalsave,save=glyph-complete.save

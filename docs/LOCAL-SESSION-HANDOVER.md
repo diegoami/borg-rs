@@ -1,13 +1,24 @@
 # Local checkpoint — 2026-11-07
 
-Current branch: `main`. The owner explicitly requested integration, and
-main was fast-forwarded to40194d8 (the previous work-branch tip). Production
-inputs remain at `28b8170`; later work is tooling, fixtures, references,
-receipts and the requested root launcher. Declared M4 A-F validation is
-complete, including the owner's additional synthetic engine scenarios.
-Tags are unchanged; the owner creates the milestone tag. No validation
-jobs remain active. Start future work from main; the old claude-named
-branch is historical, not a required workflow.
+Current branch: `main`. The owner resumed work and explicitly delegated
+creation/push of milestone tag `m4`; it identifies reviewed main commit
+`3923a21`. The old claude-named branch is historical. The tagged production
+inputs are `28b8170`; M4 A-F and the added synthetic scenarios are complete
+for their declared scope. The main review rechecked 874 artifact-hash entries,
+all139 retained coverage profiles and the targeted strict comparisons.
+
+First post-M4 task #295 now has a mirrored C/Rust correction and six new
+engine recognition controls. It reads known glyphs from map_info, independently
+of harmful traps. C/C/Rust and before/after native C observer comparisons pass;
+the hidden Rune stays unknown, the pit stays a trap, and the prelaid ring
+is recognized without another cast. Both implementations match121 existing
+references:105 baseline,8 captured-Rogue,6 crash-fixes and2 natural. New
+recognition6 and original synthetic6 pass C twice and Rust, with full final
+saves. Tests100/one existing ignored, clippy, native glyph1,600 and154
+engine-object/link checks pass. No validation jobs remain active. Full local
+outputs are under harness/out/glyph-295; durable receipts and log hashes are
+in docs/validation/2026-11-07-glyph-recognition. Original M4 inputs,
+references and measured percentages are not claims about this later source.
 
 Read CLAUDE.md, docs/FORK-CORRECTIONS.md, M4-PLAN.md, STATUS.md and receipts:
 
@@ -21,11 +32,12 @@ Read CLAUDE.md, docs/FORK-CORRECTIONS.md, M4-PLAN.md, STATUS.md and receipts:
 Crash-causing inherited C behavior and blatant play blockers may be fixed
 narrowly in C/Rust, marked FORK, linked to the tracker and validated. Other
 conflicts are case by case; broader divergence follows the verified milestone
-and owner-created tag. Original references are preserved; corrected C references
+and owner-created tag. That gate was fulfilled by the explicitly delegated
+`m4` tag before #295 changes. Original references are preserved; corrected C references
 require two identical C passes. Findings/updates go to
 `diegoami/neo-angband-tracker`, never `angband/angband`.
 
-## Verified production checkpoint
+## Tagged M4 production checkpoint
 
 * #290: stale panel offsets reset at equality with cave bounds.
 * #287: actual UTF-8 output byte capacity, reserve NUL and deterministic
@@ -92,7 +104,7 @@ The original133 baseline (84.65%/91.59%) is retained under original-133;
 source26's48-run pilot remains historical. Native checker profiles are separate.
 
 The frozen image/source checkout is `/tmp/borg-rs-m4-coverage` at build revision
-f987c07, production input bytes identical to28b8170/current work branch.
+f987c07, production input bytes identical to28b8170/tag m4.
 It uses instrument-coverage/link-dead-code, LLVM22.1.8 and an explicit profiler
 runtime/_exit flush shim. Actual flags and runtime/shim/image hashes are retained.
 Only harness/data files were added for the new scenarios; no image rebuild or
@@ -142,7 +154,10 @@ the owner's save is never used in that test or committed.
 
 ## Next work
 
-The owner requested wind-down and accepted the next-session sequence recorded
-in `docs/M4-PLAN.md` (Agreed next-session order). Read that decision before
-starting another task. The requested main merge is complete; M4 review
-and an owner-created tag still precede the tactical work. No new development should auto-start during this wind-down.
+The owner explicitly resumed the agreed sequence in docs/M4-PLAN.md.
+Main integration, M4 review and the delegated milestone tag are complete.
+Recognition #295 is complete and checkpointed; next is reverse-flow #345
+and actual autonomous rune construction, followed by
+self-lunal cycling and bounded normal games with cheat death off.
+The game-start scripts remain an additional owner topic; no further requested
+script behavior was specified. Preserve existing character saves/settings.

@@ -6,6 +6,20 @@ and Rust on keys, messages, player state and complete final engine-save bytes.
 No cheat-death flag is enabled. Characters/history/resources are constructed
 wizard states; this is bounded path validation, not an unassisted win.
 
+The results below describe tag `m4`. The post-M4 #295 correction recognizes
+the prelaid ring and preserves its 20 scrolls/24 glyphs; use the separate
+`synthetic-tactics-glyph-295` C reference and pass `--recognition-fixed` to
+verify.py for current-source runs. The M4 oracle remains unchanged.
+
+For the new six-case perception suite, generate with `--glyph-recognition`
+or use SAVE_ROOT=harness/saves/glyph-recognition with suite glyph-recognition.
+It covers a known Rune, known decoy, harmful trap, hidden Rune, empty floor
+and prelaid ring. observe.py accepts `--suite` and `--save-root`; its probe
+remains a separate diagnostic executable and must preserve normal C bytes.
+verify_recognition.py checks both before/after observations and complete
+C/C/Rust outputs; it accepts raw logs or the retained compressed copies.
+See docs/validation/2026-11-07-glyph-recognition/README.md for reproduction.
+
 From the project root, build the usual C/Rust harnesses, then run separately:
 
 ```sh
@@ -16,10 +30,12 @@ SAVE_ROOT=harness/saves/synthetic-tactics BORG_IMPL=c JOBS=3 harness/suite.sh sy
 SAVE_ROOT=harness/saves/synthetic-tactics BORG_IMPL=rust JOBS=3 harness/suite.sh synthetic-tactics NEW_RUST
 harness/diff --suite synthetic-tactics --save-root harness/saves/synthetic-tactics --expect-impl c NEW_C1 NEW_C2
 harness/diff --suite synthetic-tactics --save-root harness/saves/synthetic-tactics --expect-impl rust NEW_RUST NEW_C1
-python3 harness/scenarios/verify.py NEW_GENERATOR_DIRECTORY/angband NEW_C1 NEW_C2 NEW_RUST NEW_RESULTS.json
+python3 harness/scenarios/verify.py NEW_GENERATOR_DIRECTORY/angband NEW_C1 NEW_C2 NEW_RUST NEW_RESULTS.json --recognition-fixed
 ```
 
 The generator relinks original native C objects with a test-only save hook.
+When reproducing tag m4 instead, omit --recognition-fixed for its original
+prelaid-ring outcome.
 Its construction runs after the existing wizard fixture setup and before
 serialization; no Borg algorithm is replaced or private Borg field forced.
 The generator is never used as the production replay executable. Build identity

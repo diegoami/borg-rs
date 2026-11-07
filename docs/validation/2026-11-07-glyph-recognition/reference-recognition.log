@@ -1,0 +1,7 @@
+A: harness/out/glyph-295/c1: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=6784bffb22c5583c
+A:   built from 3923a21e75df (dirty=yes, inputs dirty=yes) source_sha256=314767864376aa65; run at 3923a21e75df (dirty=yes) overrides=none
+B: harness/reference/glyph-recognition: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=6784bffb22c5583c
+B:   built from 3923a21e75df (dirty=yes, inputs dirty=yes) source_sha256=314767864376aa65; run at 3923a21e75df (dirty=yes) overrides=none
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)

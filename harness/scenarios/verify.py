@@ -11,6 +11,8 @@ p.add_argument("c1", type=Path)
 p.add_argument("c2", type=Path)
 p.add_argument("rust", type=Path)
 p.add_argument("output", type=Path)
+p.add_argument("--recognition-fixed", action="store_true",
+               help="expect the post-M4 #295 prelaid ring outcome (24 glyphs, no new cast)")
 a = p.parse_args()
 assert not a.output.exists()
 binary = a.generator.resolve()
@@ -64,7 +66,8 @@ with tempfile.TemporaryDirectory(prefix="borg-scenario-verify-") as tmp:
         elif name == "synth-glyph-low-supply":
             assert (engine["engine_glyphs"], engine["rune_scrolls"]) == (0, 9)
         elif name == "synth-glyph-prelaid":
-            assert (engine["engine_glyphs"], engine["rune_scrolls"]) == (25, 19)
+            expected = (24, 20) if a.recognition_fixed else (25, 19)
+            assert (engine["engine_glyphs"], engine["rune_scrolls"]) == expected
         results[name] = {
             "engine": engine,
             "final_save_sha256": hashlib.sha256(blobs[0]).hexdigest(),

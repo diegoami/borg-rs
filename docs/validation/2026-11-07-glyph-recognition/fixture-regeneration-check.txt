@@ -1,0 +1,1 @@
+PASS all nine fixtures generated twice at corrected C inputs; every complete save matches tagged M4 generation byte for byte

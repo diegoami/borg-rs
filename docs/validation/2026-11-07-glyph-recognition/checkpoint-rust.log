@@ -1,0 +1,9 @@
+PASS rust smoke
+PASS rust full
+PASS rust deep
+PASS rust classes
+PASS rust config
+PASS rust options
+PASS rust captured-rogue
+PASS rust crash-fixes
+PASS rust natural

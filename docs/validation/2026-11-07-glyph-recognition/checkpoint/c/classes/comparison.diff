@@ -1,0 +1,6 @@
+A: harness/out/glyph-295/checkpoint-c/classes: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=6784bffb22c5583c
+A:   built from 3923a21e75df (dirty=yes, inputs dirty=yes) source_sha256=314767864376aa65; run at 3923a21e75df (dirty=yes) overrides=none
+B: harness/reference/classes: reference (manifest of its C run: impl=c, rev 7bf674cf728d)
+16/16 runs identical (expected 16)
+messages.log compared in 16 run(s)
+state.log compared in 16 run(s)

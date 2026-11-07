@@ -1,0 +1,37 @@
+suite=crash-fixes
+suite_sha256=dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=rust
+binary=/home/diego/projects/borg-rs/build/rust/game/angband
+binary_sha256=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+binary_impl=rust
+binary_elf_impl=rust
+binary_cmake_borg_impl=rust
+build_id_impl=rust
+build_id_git_rev=3923a21e75dfb94053d4cc787d81c5baf638d62e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=e4665bf1aec053879ed8f6f04f4c1429a9f71d562b6f6004d1031653f61f4a97
+build_id_binary_sha256=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_rustc=rustc 1.98.1 (48a229cea 2026-09-01)
+build_id_built_utc=2026-11-07T10:32:20Z
+checkout_source_sha256=e4665bf1aec053879ed8f6f04f4c1429a9f71d562b6f6004d1031653f61f4a97
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=3923a21e75dfb94053d4cc787d81c5baf638d62e
+git_dirty=yes
+jobs=4
+checkpoint_every=0
+run_timeout_seconds=900
+save_root=/home/diego/projects/borg-rs/harness/saves
+started_utc=2026-11-07T10:46:57Z
+run_config.ext-rogue=menu,cheat 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.end-depth50=menu,cheat,save=depth50.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth98=menu,cheat,save=depth98.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth99=menu,cheat,save=depth99.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth100=menu,cheat,save=depth100.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-near-morgoth=menu,cheat,save=morgoth.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+binary_sha256_end=3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a
+finished_utc=2026-11-07T10:50:14Z result=OK

@@ -1,0 +1,236 @@
+{
+  "glyph-empty-floor": {
+    "after": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39",
+      "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+      "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+      "state.log": "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad"
+    }
+  },
+  "glyph-hidden-rune": {
+    "after": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0",
+      "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+      "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+      "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    }
+  },
+  "glyph-known-decoy": {
+    "after": {
+      "borg_map_glyphs": 1,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7",
+      "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+      "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+      "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    }
+  },
+  "glyph-known-rune": {
+    "after": {
+      "borg_map_glyphs": 1,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 1,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8",
+      "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+      "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+      "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    }
+  },
+  "glyph-known-trap": {
+    "after": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 1,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 1,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 17,
+      "visible_engine_glyphs": 0
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166",
+      "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+      "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+      "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    }
+  },
+  "glyph-prelaid-ring": {
+    "after": {
+      "borg_map_glyphs": 24,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 1,
+      "borg_tracked_glyphs": 24,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 20,
+      "turn": 16,
+      "visible_engine_glyphs": 24
+    },
+    "before": {
+      "borg_map_glyphs": 0,
+      "borg_map_traps": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 25,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 19,
+      "turn": 16,
+      "visible_engine_glyphs": 23
+    },
+    "both_observers_preserve_normal_streams": true,
+    "c1_c2_rust_streams_identical": {
+      "final.save": "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e",
+      "keys.log": "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020",
+      "messages.log": "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306",
+      "state.log": "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb"
+    }
+  }
+}

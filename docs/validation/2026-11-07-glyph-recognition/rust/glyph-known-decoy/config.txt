@@ -1,0 +1,3 @@
+flags=menu,finalsave,save=glyph-decoy.save
+borg_txt_sha256=f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+save_sha256=dcb34e971a615e473984b0e45bb0240ad0e9dbea12e2a86591362445b971a6cb

@@ -1,0 +1,17 @@
+done captured-rogue-02
+done captured-rogue-03
+done captured-rogue-01
+done captured-rogue-04
+done captured-rogue-05
+done captured-rogue-06
+done captured-rogue-07
+done captured-rogue-08
+suite=captured-rogue impl=rust jobs=4 wall_seconds=29.702711137 result=OK
+captured-rogue-01 turns turns=200009 pturns=20419 clev=8 maxdepth=7 keys=13834 wall=14.4 Hobbit Rogue
+captured-rogue-02 turns turns=300001 pturns=30603 clev=8 maxdepth=7 keys=12093 wall=10.3 Hobbit Rogue
+captured-rogue-03 turns turns=400006 pturns=40688 clev=9 maxdepth=7 keys=15317 wall=12.7 Hobbit Rogue
+captured-rogue-04 turns turns=500007 pturns=50553 clev=10 maxdepth=12 keys=18824 wall=16.2 Hobbit Rogue
+captured-rogue-05 turns turns=600001 pturns=60603 clev=11 maxdepth=17 keys=17771 wall=12.8 Hobbit Rogue
+captured-rogue-06 turns turns=700000 pturns=70634 clev=11 maxdepth=3 keys=16202 wall=12.1 Hobbit Rogue
+captured-rogue-07 turns turns=800007 pturns=80596 clev=11 maxdepth=3 keys=20514 wall=12.2 Hobbit Rogue
+captured-rogue-08 turns turns=900008 pturns=90624 clev=12 maxdepth=3 keys=16173 wall=13.1 Hobbit Rogue

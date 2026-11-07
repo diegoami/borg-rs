@@ -1,0 +1,124 @@
+{
+  "c": {
+    "binary_sha256": "6784bffb22c5583cdcbc534654416b2accba7679e9c61d81a04cbc4e5a099d30",
+    "source_sha256": "314767864376aa65da925e21e83a620454abed6bc2d082515e9863951c85a5cb",
+    "suites": {
+      "captured-rogue": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/captured-rogue",
+        "runs": 8,
+        "strict_three_log_parity": true
+      },
+      "classes": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/classes",
+        "runs": 16,
+        "strict_three_log_parity": true
+      },
+      "config": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/config",
+        "runs": 7,
+        "strict_three_log_parity": true
+      },
+      "crash-fixes": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/crash-fixes",
+        "runs": 6,
+        "strict_three_log_parity": true
+      },
+      "deep": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/deep",
+        "runs": 9,
+        "strict_three_log_parity": true
+      },
+      "full": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/full",
+        "runs": 45,
+        "strict_three_log_parity": true
+      },
+      "natural": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/natural",
+        "runs": 2,
+        "strict_three_log_parity": true
+      },
+      "options": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/options",
+        "runs": 25,
+        "strict_three_log_parity": true
+      },
+      "smoke": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/smoke",
+        "runs": 3,
+        "strict_three_log_parity": true
+      }
+    },
+    "total_runs": 121
+  },
+  "rust": {
+    "binary_sha256": "3f55dfed093e97a66aeecfa68e93e5274ac1bae3a0a592d4f8a8a0b2446b4b1a",
+    "source_sha256": "e4665bf1aec053879ed8f6f04f4c1429a9f71d562b6f6004d1031653f61f4a97",
+    "suites": {
+      "captured-rogue": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/captured-rogue",
+        "runs": 8,
+        "strict_three_log_parity": true
+      },
+      "classes": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/classes",
+        "runs": 16,
+        "strict_three_log_parity": true
+      },
+      "config": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/config",
+        "runs": 7,
+        "strict_three_log_parity": true
+      },
+      "crash-fixes": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/crash-fixes",
+        "runs": 6,
+        "strict_three_log_parity": true
+      },
+      "deep": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/deep",
+        "runs": 9,
+        "strict_three_log_parity": true
+      },
+      "full": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/full",
+        "runs": 45,
+        "strict_three_log_parity": true
+      },
+      "natural": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/natural",
+        "runs": 2,
+        "strict_three_log_parity": true
+      },
+      "options": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/options",
+        "runs": 25,
+        "strict_three_log_parity": true
+      },
+      "smoke": {
+        "all_processes_success": true,
+        "reference": "/home/diego/projects/borg-rs/harness/reference/smoke",
+        "runs": 3,
+        "strict_three_log_parity": true
+      }
+    },
+    "total_runs": 121
+  }
+}

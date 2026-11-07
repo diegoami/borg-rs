@@ -1,0 +1,115 @@
+   Compiling borg-rs v0.1.0 (/home/diego/projects/borg-rs/borg-rs)
+    Finished `release` profile [optimized + debuginfo] target(s) in 4.87s
+     Running unittests src/lib.rs (target/release/deps/borg_rs-e4e3d966bed16cea)
+
+running 101 tests
+test borg_flow::tests::temp_list_truncates_like_c ... ok
+test borg_danger::tests::fear_map_sizes_match_c ... ok
+test borg_flow::tests::ddd_tables_match_c ... ok
+test borg_flow_glyph::tests::init_and_free_keep_c_sizes ... ok
+test borg_flow_kill::tests::corridor_patterns_match_c ... ok
+test borg_flow::tests::contains_is_strstr ... ok
+test borg_flow_kill::tests::guess_race_name_matches_c_search ... ok
+test borg_flow_kill::tests::search_finds_last_le ... ok
+test borg_flow::tests::queue_wraps_and_drops_on_overflow ... ok
+test borg_flow_kill::tests::string_helpers_match_z_util ... ok
+test borg_danger::tests::wall_tests_differ_as_in_c ... ok
+test borg_flow::tests::data_helpers ... ok
+test borg_flow_misc::tests::extract_dir_matches_c ... ok
+test borg_flow_misc::tests::init_free ... ok
+test borg_flow_misc::tests::leash ... ok
+test borg_flow_stairs::tests::init_and_free_keep_c_sizes ... ok
+test borg_flow_stairs::tests::at_past_num_panics - should panic ... ok
+test borg_flow_take::tests::init_and_free ... ok
+test borg_formulas::tests::helpers ... ok
+test borg_formulas::tests::get_section_cuts_at_colon_and_semicolon ... ok
+test borg_formulas::tests::loads_and_evaluates ... ok
+test borg_formulas::tests::strtol_and_depth ... ok
+test borg_formulas::tests::value_type_table_matches_header ... ok
+test borg_formulas::tests::off_when_not_dynamic ... ok
+test borg_formulas_calc::tests::arithmetic_and_precedence ... ok
+test borg_formulas::tests::errors_match_c ... ok
+test borg_formulas_calc::tests::atol_matches_glibc ... ok
+test borg_formulas_calc::tests::block_end_is_exclusive ... ok
+test borg_formulas_calc::tests::depths_follow_order_of_operations ... ok
+test borg_formulas_calc::tests::divide_by_zero_notes_and_keeps_left ... ok
+test borg_formulas_calc::tests::indexes_and_free ... ok
+test borg_formulas_calc::tests::mixed_levels_quirks ... ok
+test borg_formulas_calc::tests::not_error_stops_at_next_value ... ok
+test borg_formulas_calc::tests::number_followed_by_minus ... ok
+test borg_formulas_calc::tests::parse_errors ... ok
+test borg_formulas_calc::tests::pinned_c_results ... ok
+test borg_formulas_calc::tests::single_values ... ok
+test borg_formulas_calc::tests::unknown_bytes_are_skipped ... ok
+test borg_formulas_calc::tests::values_and_negation ... ok
+test borg_home_notice::tests::add_truncates_like_int16 ... ok
+test borg_home_power::tests::long_arithmetic_truncates ... ok
+test borg_home_notice::tests::clear_keeps_true_counts_for_pretend_calls ... ok
+test borg_home_power::tests::spare_tiers ... ok
+test borg_home_power::tests::spell_stat_tiers_keep_c_bug ... ok
+test borg_home_power::tests::stack_loops ... ok
+test borg_init::tests::dump_txt_dir ... ignored
+test borg_init::tests::default_file_matches_c ... ok
+test borg_init::tests::table_matches_enum ... ok
+test borg_init::tests::parses_like_c ... ok
+test borg_item_analyze::tests::curse_names ... ok
+test borg_item::tests::wear_trial_hole_reads_live_origin ... ok
+test borg_item::tests::ware_copy_reads_live_ware ... ok
+test borg_item_analyze::tests::value_guess ... ok
+test borg_item_id::tests::contains_is_strstr ... ok
+test borg_item_val::tests::no_object_message_matches_c_format ... ok
+test borg_item_wear::tests::ammo_tvals ... ok
+test borg_log::tests::chr_skips_nul ... ok
+test borg_log::tests::pad_right_matches_printf ... ok
+test borg_magic::tests::rating_tables_match_the_c_source ... ok
+test borg_magic_play::tests::aim_table_matches_list_effects ... ok
+test borg_messages::tests::parsed_pain ... ok
+test borg_messages::tests::read_message_parts ... ok
+test borg_messages::tests::repository_matches_header ... ok
+test borg_messages::tests::strnfmt_like_c ... ok
+test borg_messages_react::tests::cut ... ok
+test borg_messages_react::tests::limits ... ok
+test borg_power::tests::activation_chain_first_match ... ok
+test borg_messages_react::tests::push_and_clear ... ok
+test borg_power::tests::count_loops_carry_k ... ok
+test borg_power::tests::long_and_int_adds ... ok
+test borg_projection::tests::inc_motion_slopes ... ok
+test borg_projection::tests::inc_motion_straight_and_diagonal ... ok
+test borg_projection::tests::los_on_hand_made_map ... ok
+test borg_reincarnate::tests::longest_names_fit ... ok
+test borg_reincarnate::tests::strcat_truncates_like_my_strcat ... ok
+test borg_reincarnate::tests::table_sizes_match_c ... ok
+test borg_store::tests::shop_menu_items_match_c ... ok
+test borg_store_buy::tests::buy_state_starts_like_c ... ok
+test borg_store_buy::tests::iqty_subtraction_wraps_like_uint8 ... ok
+test borg_store_sell::tests::default_state_matches_c_initialisers ... ok
+test borg_store_sell::tests::store_buys_tables ... ok
+test borg_trait::tests::prefix_pref_matches_the_enum ... ok
+test borg_trait::tests::stat_tables_have_38_entries_ending_as_in_c ... ok
+test borg_trait_swap::tests::clear_keeps_resist_fear_only ... ok
+test borg_util::tests::sort_orders_by_text_then_what ... ok
+test borg_trait_swap::tests::tvals ... ok
+test borg_util::tests::trim_keeps_buffer_tail ... ok
+test cctype::tests::space_set_matches_glibc_c_utf8 ... ok
+test engine::arith_tests::distance_min_int - should panic ... ok
+test engine::arith_tests::stat_max_int - should panic ... ok
+test engine::arith_tests::stat_min_amount - should panic ... ok
+test engine::arith_tests::values_as_c ... ok
+test engine::tests::flag_has_end_is_false_even_on_an_empty_set ... ok
+test engine::tests::flag_has_matches_the_c_macros ... ok
+test engine::tests::flag_has_negative_panics - should panic ... ok
+test engine::tests::flag_has_past_an_empty_set_panics - should panic ... ok
+test engine::tests::flag_has_past_the_last_byte_panics - should panic ... ok
+test engine::tests::flag_next_from_flag_end_panics - should panic ... ok
+test engine::tests::flag_next_matches_the_c_loop ... ok
+test engine::tests::flag_next_negative_panics - should panic ... ok
+test engine::tests::handle_outside_an_entry_panics - should panic ... ok
+
+test result: ok. 100 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests borg_rs
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

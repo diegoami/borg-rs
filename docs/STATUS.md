@@ -1,13 +1,40 @@
 # borg-rs status
 
+## Post-M4 glyph recognition corrected (2026-11-07)
+
+After the explicitly delegated `m4` tag, the agreed #295 correction is
+mirrored in C/Rust: map_info's known glyph is recognized independently of
+harmful player traps. Six real engine before/after controls cover a known
+Rune, decoy, harmful pit, hidden Rune, empty floor and prelaid24-rune ring.
+The corrected native C ring has map24/tracked24, Morgoth position true and
+20 scrolls preserved; M4 had map0/tracked1 and19 scrolls. The hidden Rune
+stays unknown and the pit stays a trap. Both C observers preserve all normal
+key/message/state/save bytes. Running private-map counts are sampled in C;
+Rust matches all three public logs and complete final engine saves.
+
+New recognition6 and original synthetic6 pass corrected C twice and Rust.
+Separate C2 references preserve the original M4 oracle. Both implementations
+also match all105 original baseline cases, captured-Rogue8, crash-fixes6 and
+natural2:121 existing-reference replays each. Tests100/one existing ignored,
+clippy, native glyph1,600 and154 engine-object/actual-link-input checks pass.
+The interactive Rust build is refreshed; existing game data is untouched.
+
+See the [recognition receipt](validation/2026-11-07-glyph-recognition/README.md).
+The extended12 long games and coverage were not recollected for this fix;
+their completed M4 results below belong to the tag's production inputs.
+Recognition of a prebuilt ring does not establish autonomous construction.
+Next is reverse-flow #345, then actual full rune construction, self-lunal
+cycling and bounded normal games without cheat death.
+
 ## M4 verified for the declared corpus (2026-11-07)
 
-Production Borg/engine inputs remain at `28b8170`. The owner-authorized
+At the M4 tag, production Borg/engine inputs are `28b8170`. The owner-authorized
 matching C/Rust corrections address panel-offset equality (#290), UTF-8
 output capacity/NUL termination (#287), and same-square melee targets (#322).
 The owner explicitly requested main integration: the verified work was
-fast-forwarded to main at40194d8. Tags remain unchanged; the owner creates
-the milestone tag.
+fast-forwarded to main at40194d8. On resume the owner explicitly delegated
+tag creation: annotated tag `m4` = `3923a21` is pushed and verified, before
+post-M4 tactical changes. See the [main review](validation/2026-11-07-main-review.md).
 
 Verified evidence, with strict build/process checks and no overrides:
 
@@ -59,10 +86,10 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 
 | milestone | state |
 |-----------|-------|
-| M4 wider parity evidence | verified for the declared A-F scope;139 engine executions plus persistent native checks; owner tag pending |
+| M4 wider parity evidence | done for the declared A-F scope; tag `m4` = `3923a21`;139 engine executions plus persistent native checks |
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
-| M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 now, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
+| M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
 
 ## Original M1-M3 machine
 

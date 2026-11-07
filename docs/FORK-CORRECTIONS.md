@@ -11,6 +11,8 @@ This supersedes older absolute no-C-changes/no-behavior-changes wording
 for these corrections. Pinned upstream stays e473720ed. Original references
 remain separate; new corrected-C references require two identical C runs.
 No official Angband issue/PR/comment or automatic main/tag move is authorized.
+The owner subsequently requested main integration and explicitly delegated
+creation/push of tag `m4` at reviewed commit `3923a21`; both are complete.
 
 ## Validated production corrections at28b8170
 
@@ -79,4 +81,31 @@ recognition finding#295 and reverse-flow lead#345 are recorded, without a
 broader tactic correction. Full formation-building, unbounded scumming and
 an unassisted win remain unestablished. See the2026-11-07 coverage/synthetic
 receipts. The owner explicitly requested the main fast-forward to40194d8;
-it is complete. Tag creation remains the owner's action.
+it is complete. On resume the owner explicitly delegated tag creation;
+`m4` = `3923a21` is pushed and verified.
+
+## Post-M4 glyph recognition (#295)
+
+The agreed first post-tag correction separates remembered glyph recognition
+from the harmful-player-trap predicate. Both C and Rust use map_info's known
+trap GLYPH flag; unseen live Rune locations are not consulted. A Rune is
+marked as a glyph rather than a harmful trap, and existing duplicate/capacity
+checks remain intact. The old Rust first-live-trap FFI helper is removed.
+
+Six real engine before/after cases cover known Rune/decoy, revealed pit,
+hidden Rune, empty floor and a prelaid24-rune ring. Corrected C twice and
+Rust match all three logs and full final-save bytes. Native C recognizes
+24/tracks24 in the ring, sets Morgoth position and preserves all20 scrolls;
+M4 had map0/tracked1 and cast another Rune. Harmful-trap and hidden-Rune
+controls pass, and both separate C observers preserve all unobserved output
+and save bytes. Existing M4 references stay unchanged; corrected C2 oracles
+are glyph-recognition and synthetic-tactics-glyph-295. This is consumer
+fork validation, not independent source-tracker verification or a claim of
+autonomous construction/combat benefit. See the
+[recognition receipt](validation/2026-11-07-glyph-recognition/README.md).
+Both implementations also match121 existing references (105 baseline,
+8 captured-Rogue,6 crash-fixes and2 natural). New recognition6 and existing
+synthetic6 pass C twice and Rust, including complete final saves. Tests100/
+one existing ignored, clippy, native glyph1,600 and154 engine-object/link
+checks pass. Extended12 and coverage are retained M4 results, not recollected
+for this correction. No later source inherits the tag's measured percentages.

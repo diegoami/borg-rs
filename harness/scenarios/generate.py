@@ -8,6 +8,8 @@ root = Path(__file__).resolve().parents[2]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("generator", type=Path)
 p.add_argument("output", type=Path)
+p.add_argument("--glyph-recognition", action="store_true",
+               help="also generate Rune, decoy, harmful-trap and hidden-Rune controls")
 a = p.parse_args()
 binary = a.generator.resolve()
 out = a.output.resolve()
@@ -21,13 +23,17 @@ assert (
 out.mkdir(parents=True)
 shutil.copy2(binary.parent / "generator.json", out / "generator.json")
 sources = {}
-for name, depth, maximum in [
+cases = [
     ("lunal-ready", 20, 99),
     ("lunal-shallow-history", 20, 34),
     ("glyph-ready", 100, 100),
     ("glyph-low-supply", 100, 100),
     ("glyph-complete", 100, 100),
-]:
+]
+if a.glyph_recognition:
+    cases += [(name, 100, 100) for name in (
+        "glyph-visible-rune", "glyph-visible-trap", "glyph-hidden-rune", "glyph-decoy")]
+for name, depth, maximum in cases:
     states = []
     for number in (1, 2):
         run = out / f"pass{number}" / name
@@ -94,4 +100,4 @@ for name, depth, maximum in [
 (out / "SHA256SUMS").write_text(
     "".join(v["sha256"] + "  " + k + ".save\n" for k, v in sources.items())
 )
-(out / "DONE").write_text("all five engine fixtures generated twice identically\n")
+(out / "DONE").write_text(f"all {len(cases)} engine fixtures generated twice identically\n")

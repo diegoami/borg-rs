@@ -46,14 +46,15 @@ until a checkpoint; tags are created by the owner.
 ## Agreed next-session order
 
 The owner accepted this sequence and deferred new development until the next
-session. Resume only when requested; no automatic task or tag creation.
+session, then explicitly resumed and delegated milestone tag creation.
 
-1. Main integration is complete by explicit owner request (fast-forward
-   to40194d8). Review the declared M4 checkpoint on main and let the owner
-   create its tag before broader behavior changes.
-2. Address existing glyph-recognition finding#295 using the new real-engine
-   scenarios, then reverse-flow finding#345; require a complete rune-building
-   outcome before claiming the full tactic works.
+1. Main integration and checkpoint review are complete. The owner explicitly
+   delegated tag creation on resume: `m4` = `3923a21` is pushed and verified,
+   before broader behavior changes. See validation/2026-11-07-main-review.md.
+2. Glyph-recognition #295 is corrected and checkpointed after the tag;
+   see validation/2026-11-07-glyph-recognition. Next address reverse-flow
+   finding#345; require autonomous complete rune building before claiming
+   the full tactic works. Recognition of a prelaid ring is a separate result.
 3. Investigate self-lunal stair cycling. Current evidence establishes entry
    and first descent; failed longer clock-bound pilots remain excluded.
 4. Run bounded normal games with cheat death off and analyze natural deaths.
@@ -65,4 +66,5 @@ session. Resume only when requested; no automatic task or tag creation.
 These are next-stage tasks, not additional evidence claimed for the completed
 bounded M4 corpus. Continue to apply the owner's correction policy, preserve
 original references, and establish any corrected C reference with two identical
-C runs before checkpointing Rust. The first technical priority after the tag is#295.
+C runs before checkpointing Rust. The first post-tag correction #295 is complete;
+the next technical priority is #345.

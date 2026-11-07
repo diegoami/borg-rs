@@ -1,0 +1,7 @@
+A: harness/out/glyph-295/checkpoint-c/captured-rogue: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=6784bffb22c5583c
+A:   built from 3923a21e75df (dirty=yes, inputs dirty=yes) source_sha256=314767864376aa65; run at 3923a21e75df (dirty=yes) overrides=none
+B: harness/reference/captured-rogue: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=c64879cf33730ac2
+B:   built from b5783ec14346 (dirty=yes, inputs dirty=yes) source_sha256=9ca6c9f8fa13c2d7; run at e0f93e797dee (dirty=no) overrides=none
+8/8 runs identical (expected 8)
+messages.log compared in 8 run(s)
+state.log compared in 8 run(s)

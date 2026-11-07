@@ -1,0 +1,5 @@
+done natural-blackguard-40
+done natural-warrior-78
+suite=natural impl=c jobs=4 wall_seconds=34.474882723 result=OK
+natural-warrior-78 turns turns=3100002 pturns=621722 clev=50 maxdepth=84 keys=106813 wall=34.4 Human Warrior
+natural-blackguard-40 turns turns=3100394 pturns=324251 clev=35 maxdepth=41 keys=26939 wall=12.4 Dunadan Blackguard

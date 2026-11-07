@@ -3,7 +3,10 @@
 ## Completed declared M4 checkpoint, production source28b8170
 
 Required validation is complete. The owner-requested main merge is complete
-(fast-forward to40194d8); tags remain unchanged for the owner.
+(fast-forward to40194d8). The owner later resumed and explicitly delegated
+tag creation: `m4` = `3923a21` is pushed and verified. The following summary
+is the tagged M4 result. Post-M4 #295 recognition work is recorded separately
+in STATUS and validation/2026-11-07-glyph-recognition.
 Ordinary source28 C/C and Rust/C pass crash-fixes6/6, extended12/12 and
 natural2/2, all original extended limits reached; both builds match105
 baseline and8 captured-Rogue cases. All30 engine captures match complete

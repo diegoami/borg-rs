@@ -1,0 +1,9 @@
+PASS c smoke
+PASS c full
+PASS c deep
+PASS c classes
+PASS c config
+PASS c options
+PASS c captured-rogue
+PASS c crash-fixes
+PASS c natural

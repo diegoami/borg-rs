@@ -1,0 +1,7 @@
+suite=glyph-recognition impl=rust jobs=3 wall_seconds=.312188312 result=OK
+glyph-known-rune turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.1 Human Warrior
+glyph-known-decoy turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.1 Human Warrior
+glyph-known-trap turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.1 Human Warrior
+glyph-hidden-rune turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.0 Human Warrior
+glyph-empty-floor turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.0 Human Warrior
+glyph-prelaid-ring turns turns=16 pturns=6 clev=50 maxdepth=100 keys=7 wall=0.0 Human Warrior

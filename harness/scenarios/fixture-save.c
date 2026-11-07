@@ -28,7 +28,7 @@ extern bool __real_savefile_load(const char *path, bool cheat_death);
 
 static void describe(const char *phase)
 {
-    int x,y,glyphs=0,disarmable=0,runes=0,visible=0,known=-1;
+    int x,y,glyphs=0,disarmable=0,runes=0,visible=0,known=-1,traps=-1;
     struct object *obj;
     for(y=0;y<cave->height;y++)for(x=0;x<cave->width;x++) {
         struct trap *t=square_trap(cave,loc(x,y));
@@ -41,11 +41,16 @@ static void describe(const char *phase)
     for(obj=player->gear;obj;obj=obj->next)
         if(obj->tval==TV_SCROLL && obj->sval==lookup_sval(TV_SCROLL,"Rune of Protection"))runes+=obj->number;
     if(getenv("BORG_SYNTHETIC_OBSERVE") && borg_grids) {
-        known=0;
-        for(y=0;y<AUTO_MAX_Y;y++)for(x=0;x<AUTO_MAX_X;x++)if(borg_grids[y][x].glyph)known++;
+        known=traps=0;
+        for(y=0;y<AUTO_MAX_Y;y++)for(x=0;x<AUTO_MAX_X;x++) {
+            if(borg_grids[y][x].glyph)known++;
+            if(borg_grids[y][x].trap)traps++;
+        }
     }
     fprintf(stderr,"SYNTH_STATE {\"phase\":\"%s\",\"turn\":%ld,\"depth\":%d,\"max_depth\":%d,\"level\":%d,\"engine_glyphs\":%d,\"visible_engine_glyphs\":%d,\"disarmable_glyphs\":%d,\"rune_scrolls\":%d,\"borg_map_glyphs\":%d,\"borg_tracked_glyphs\":%d,\"borg_morgoth_position\":%d}\n",phase,(long)turn,player->depth,player->max_depth,player->lev,glyphs,visible,disarmable,runes,known,getenv("BORG_SYNTHETIC_OBSERVE")?track_glyph.num:-1,getenv("BORG_SYNTHETIC_OBSERVE")?borg.morgoth_position:-1);
     fflush(stderr);
+    if(getenv("BORG_SYNTHETIC_OBSERVE"))
+        fprintf(stderr,"SYNTH_TRAPS {\"borg_map_traps\":%d}\n",traps);
 }
 
 bool __wrap_savefile_load(const char *path, bool cheat_death)
@@ -112,11 +117,22 @@ bool __wrap_savefile_save(const char *path)
         for(y=20;y<=46;y++)for(x=85;x<=115;x++)
             square_set_feat(cave,loc(x,y),FEAT_FLOOR);
         monster_swap(player->grid,center);
-        carry(TV_SCROLL,"Rune of Protection",!strcmp(mode,"glyph-low-supply")?9:20);
+        carry(TV_SCROLL,"Rune of Protection",
+            (!strcmp(mode,"glyph-ready") || !strcmp(mode,"glyph-complete"))?20:9);
         carry(TV_POTION,"*Healing*",20);
         if(!strcmp(mode,"glyph-complete")) {
             for(y=-2;y<=2;y++)for(x=-2;x<=2;x++)
                 if(x || y)square_add_glyph(cave,loc(center.x+x,center.y+y),GLYPH_WARDING);
+        } else if(!strcmp(mode,"glyph-visible-rune")) {
+            square_add_glyph(cave,loc(102,33),GLYPH_WARDING);
+        } else if(!strcmp(mode,"glyph-decoy")) {
+            square_add_glyph(cave,loc(102,33),GLYPH_DECOY);
+        } else if(!strcmp(mode,"glyph-visible-trap")) {
+            place_trap(cave,loc(102,33),lookup_trap("pit")->tidx,100);
+            square_reveal_trap(cave,loc(102,33),true,false);
+        } else if(!strcmp(mode,"glyph-hidden-rune")) {
+            for(y=20;y<=46;y++)square_set_feat(cave,loc(105,y),FEAT_GRANITE);
+            square_add_glyph(cave,loc(110,33),GLYPH_WARDING);
         }
     } else quit_fmt("unknown synthetic fixture: %s",mode);
     player->upkeep->update|=PU_BONUS|PU_HP|PU_MANA|PU_INVEN|PU_UPDATE_VIEW|PU_MONSTERS;

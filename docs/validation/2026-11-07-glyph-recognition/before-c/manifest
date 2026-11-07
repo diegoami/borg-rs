@@ -1,0 +1,36 @@
+suite=glyph-recognition
+suite_sha256=88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/tmp/borg-rs-m4-before-295/build/c/game/angband
+binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=28b8170a67bd34f9ee05589f567ff42aae65fef9
+build_id_git_dirty=yes
+build_id_inputs_dirty=no
+build_id_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+build_id_binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-06T20:11:20Z
+checkout_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=3923a21e75dfb94053d4cc787d81c5baf638d62e
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=/tmp/borg-rs-glyph-recognition-fixtures
+started_utc=2026-11-07T10:31:49Z
+run_config.glyph-known-rune=menu,finalsave,save=glyph-visible-rune.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-known-decoy=menu,finalsave,save=glyph-decoy.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-known-trap=menu,finalsave,save=glyph-visible-trap.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-hidden-rune=menu,finalsave,save=glyph-hidden-rune.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-empty-floor=menu,finalsave,save=glyph-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-prelaid-ring=menu,finalsave,save=glyph-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+finished_utc=2026-11-07T10:31:50Z result=OK
