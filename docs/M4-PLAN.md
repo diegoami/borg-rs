@@ -43,12 +43,23 @@ references. Record reached depths and stop reasons rather than assuming
 that more turns guarantee more coverage. Main and tags stay unchanged
 until a checkpoint; tags are created by the owner.
 
+## Current review request
+
+The owner narrowed the current task to an independent review of M4 only.
+[borg-rs#1](https://github.com/diegoami/borg-rs/issues/1) pins `m4` at
+`3923a21e75dfb94053d4cc787d81c5baf638d62e`, with the scope and evidence.
+The implementation agent's handoff is posted; the reviewer start/findings
+and independent verdict are pending. Both parties must post progress,
+questions, finding dispositions and follow-up verification in that issue.
+M1-M3 supply background only; post-M4 #295 is excluded from this verdict.
+The previous technical sequence below remains queued for later work.
+
 ## Agreed next-session order
 
 The owner accepted this sequence and deferred new development until the next
 session, then explicitly resumed and delegated milestone tag creation.
 
-1. Main integration and checkpoint review are complete. The owner explicitly
+1. Main integration and the author checkpoint audit are complete. The owner explicitly
    delegated tag creation on resume: `m4` = `3923a21` is pushed and verified,
    before broader behavior changes. See validation/2026-11-07-main-review.md.
 2. Glyph-recognition #295 is corrected and checkpointed after the tag;

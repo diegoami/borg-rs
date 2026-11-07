@@ -2,10 +2,20 @@
 
 Current branch: `main`. The owner resumed work and explicitly delegated
 creation/push of milestone tag `m4`; it identifies reviewed main commit
-`3923a21`. The old claude-named branch is historical. The tagged production
+`3923a21`. This was an author checkpoint audit, not independent signoff.
+The old claude-named branch is historical. The tagged production
 inputs are `28b8170`; M4 A-F and the added synthetic scenarios are complete
 for their declared scope. The main review rechecked 874 artifact-hash entries,
 all139 retained coverage profiles and the targeted strict comparisons.
+
+Current owner request: **independent M4 review only**, in
+[borg-rs#1](https://github.com/diegoami/borg-rs/issues/1). The implementation
+handoff comment6706484036 is posted/read back. The reviewer must post a
+start comment, progress/questions, findings and an A-F verdict there; the
+implementation agent must respond to findings in the same issue. Independent
+review is pending. M1-M3 are background only, and post-M4 #295 is excluded.
+Read the live issue before further review work; do not auto-start the
+remaining tactical queue while the current request is M4 review.
 
 First post-M4 task #295 now has a mirrored C/Rust correction and six new
 engine recognition controls, published at `da39bf5`. Tracker295 update
@@ -157,8 +167,9 @@ the owner's save is never used in that test or committed.
 ## Next work
 
 The owner explicitly resumed the agreed sequence in docs/M4-PLAN.md.
-Main integration, M4 review and the delegated milestone tag are complete.
-Recognition #295 is complete and checkpointed; next is reverse-flow #345
+Main integration, the M4 author audit and the delegated tag are complete.
+Independent M4 review is pending in issue#1 and is the current owner focus.
+Recognition #295 is complete and checkpointed; the later queue is reverse-flow #345
 and actual autonomous rune construction, followed by
 self-lunal cycling and bounded normal games with cheat death off.
 The game-start scripts remain an additional owner topic; no further requested

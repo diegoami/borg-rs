@@ -1,5 +1,13 @@
 # Guide for reviewers
 
+The owner's current request is **independent M4 review only**, coordinated
+in [borg-rs#1](https://github.com/diegoami/borg-rs/issues/1). Review pinned
+tag `m4` / `3923a21e75dfb94053d4cc787d81c5baf638d62e`, using isolated
+builds. The issue contains the scope, pinned evidence and required comment
+workflow for both reviewer and implementation agent. Independent signoff
+is pending; the corpus results below and the checkpoint audit are author-run
+evidence to assess. Do not include the later #295 correction in this verdict.
+
 
 Owner update (2026-11-06): targeted C/Rust corrections for crashes and
 blatant play blockers are allowed; other conflicts are case by case.
@@ -45,12 +53,12 @@ The earlier external review and response remain historical evidence
 | M1 deterministic C harness | done (tag `m1-harness`) | `full` run twice, 45/45 logs identical; `docs/STATUS.md` |
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
 | M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
-| M4 wider parity evidence | done for declared A-F scope; tag `m4` = `3923a21` | 139 engine executions; persistent native checks; linked receipts above |
+| M4 wider parity evidence | author validation complete; tag `m4` = `3923a21`; independent review pending in #1 | 139 engine executions; persistent native checks; linked receipts above |
 
 The owner-authorized main integration includes the former work-branch tip
 `40194d8`; `claude/serene-ramanujan-8hzsfm` is historical. Continue from main.
 The owner explicitly delegated creation of `m4` on resume; the pushed tag
-identifies reviewed main commit `3923a21`, before broader behavior changes.
+identifies author-audited main commit `3923a21`, before broader behavior changes.
 See M4-PLAN.md for the next-stage sequence.
 
 ## Layout
