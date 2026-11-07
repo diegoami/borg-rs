@@ -1,0 +1,116 @@
+[
+  {
+    "case": "load-save",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221339.593974Z-GuiHero",
+    "verified": true,
+    "origin_sha256": "3484f59f37c2bb305c9601ef229af74953b7631f11b335f904106b120987c180",
+    "final_sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "first": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "last": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "frames": 7,
+    "borg_actions": 0
+  },
+  {
+    "case": "reload-save",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221341.657321Z-GuiHero",
+    "verified": true,
+    "origin_sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "final_sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "first": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "last": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "frames": 7,
+    "borg_actions": 0
+  },
+  {
+    "case": "restore-save",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221343.691990Z-GuiHero",
+    "verified": true,
+    "origin_sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "final_sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "first": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "last": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "frames": 7,
+    "borg_actions": 0
+  },
+  {
+    "case": "borg-intervene-reload-resize",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221345.639720Z-GuiHero",
+    "verified": true,
+    "origin_sha256": "3484f59f37c2bb305c9601ef229af74953b7631f11b335f904106b120987c180",
+    "final_sha256": "28ff8473b0e3cd3cfdb68630935a306ea21c41e3bf0f507732ce1ab7dfa8ce15",
+    "first": {
+      "turn": 1,
+      "level": 50,
+      "depth": 50
+    },
+    "last": {
+      "turn": 10,
+      "level": 50,
+      "depth": 50
+    },
+    "frames": 43,
+    "borg_actions": 10
+  },
+  {
+    "case": "loaded-rogue",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221353.332984Z-RogueHero",
+    "verified": true,
+    "origin_sha256": "0eba437bb23478084cb41ee4f9a93c108b70fe8b7c5f89a38b0ca6abd539490f",
+    "final_sha256": "5b1e4d92a8a385dd62e553d95f2cd70fbc2d1e6be6ec6eede71237608746b630",
+    "first": {
+      "turn": 100001,
+      "level": 6,
+      "depth": 1
+    },
+    "last": {
+      "turn": 100001,
+      "level": 6,
+      "depth": 1
+    },
+    "frames": 7,
+    "borg_actions": 0
+  },
+  {
+    "case": "fresh-birth",
+    "bundle": "/home/diego/projects/borg-rs/harness/out/player-observations/gui-final/profile/recordings/20261107T221355.125101Z-NewHero",
+    "verified": true,
+    "origin_sha256": null,
+    "final_sha256": "cb7c322cc03e75754651f51e5f573edb5c03654af0ab09b20028c305a4d9b462",
+    "first": {
+      "turn": 1,
+      "level": 1,
+      "depth": 0
+    },
+    "last": {
+      "turn": 11,
+      "level": 1,
+      "depth": 0
+    },
+    "frames": 11,
+    "borg_actions": 0
+  }
+]

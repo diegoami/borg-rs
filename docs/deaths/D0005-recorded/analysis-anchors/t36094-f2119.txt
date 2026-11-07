@@ -1,0 +1,29 @@
+SUPPLEMENTAL MATCHED HISTORICAL OBSERVATION — D0005
+Actual frame 2119, world turn 36094, phase key; BEFORE this frame’s queued key applies.
+Known inventory/native spells: see matching JSON; readiness is not Borg eligibility.
+Right-padding spaces omitted here; JSON screen retains all columns.
+
+
+Elf
+Acolyte
+Necromancer                                                          ###
+LEVEL      2                                                         #<#
+NXT        7                                                         #.#
+AU         0                                                         #.#
+|     ( )]]]                                                         #.#
+STR:      13                                                         ..#
+INT:   18/30                                                   #######C##
+WIS:       9                                                   #........#
+DEX:      11                                                   #........#
+CON:      13                                                   #......@.#
+                                                               #........#
+Cur AC    30                                                   #.......?#
+HP   15/  15                                                   ##########
+SP    4/   4
+
+
+
+
+
+50' (L1)
+             LF:2-? Light 1  Fed 53 % Open floor

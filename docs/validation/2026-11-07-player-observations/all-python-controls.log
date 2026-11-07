@@ -1,0 +1,36 @@
+......turns: level1, depth1, dead=False
+Save: /tmp/borg-record-test-2m3zbcey/save/Recorded
+Recording: /tmp/borg-record-test-2m3zbcey/recordings/20261107T221340.333891Z-Recorded
+Replay: /home/diego/projects/borg-rs/replay-borg.py /tmp/borg-record-test-2m3zbcey/recordings/20261107T221340.333891Z-Recorded
+Preserved current save: /tmp/borg-save-test-yn64i0q1/backups/Hero/before-restore-20261107T221341.591809Z.save
+Restored backup slot 3: /tmp/borg-save-test-yn64i0q1/Hero
+.....Preparing the pinned Rust recording runtime...
+Game 1/3; seed 3; Human Warrior; cap 100
+.Preparing the pinned Rust recording runtime...
+Game 1/3; seed 3; Human Warrior; cap 100
+Game 2/3; seed 4; Human Warrior; cap 100
+Natural death: /tmp/borg-collect-control-_vc1v6ai/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+..Preparing the pinned Rust recording runtime...
+Game 1/3; seed 3; Human Warrior; cap 100
+Game 2/3; seed 4; Human Warrior; cap 100
+Game 3/3; seed 5; Human Warrior; cap 100
+No natural death within declared games/limits. No extra games or larger caps were added.
+.....Preparing the pinned Rust recording runtime...
+Game 1/3; seed 3; Human Warrior; cap 100
+...No unreviewed encounter with an available full recording.
+Use --list for legacy/missing/reviewed cases; ./produce_death.py collects new recorded games.
+Replay D0001: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0001
+Closing the viewer does not mark a review complete.
+...Replay D0002: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0002
+Closing the viewer does not mark a review complete.
+.Replay D0001: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0001
+Closing the viewer does not mark a review complete.
+..............
+----------------------------------------------------------------------
+Ran 40 tests in 2.633s
+
+OK

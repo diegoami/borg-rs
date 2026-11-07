@@ -251,3 +251,64 @@ The committed docs/deaths/owner-reviews.json is a baseline; local overrides in
 harness/out/death-workflow/owner-reviews.json take precedence. No C owner-review
 marks are copied. BORG_DEATH_WORKFLOW_DIR isolates the ledger and replay output
 for tests/private workflows. Existing dossier and assessment bytes stay intact.
+
+
+## Updated player-known replay views and historical recovery
+
+The C tooling comparison is pinned at85b6ba8e3748e061db1ff1206163c27272d2de31.
+Only observation/viewer/analysis scaffolding is adapted; that C commit's game
+fixes are not imported or selected as a gameplay milestone. M5 stays0203227.
+
+**i** shows native player-known inventory; **e** equipment/quiver and burden;
+**s** learned/forgotten spells/prayers, native cost/failure/book/current status;
+**p** the Borg-action/all-note/game-message log (Tab source, k older/j newer).
+These panels pause playback on entry. Escape returns to the screen; q exits.
+**d** remains clearly labeled actual/spoiler gear diagnostics and **m** actual
+monster diagnostics. Inventory is never inferred from those hidden kinds.
+The footer flags a stale HP/SP sidebar separately from recorded actual state;
+it does not edit the original screen or call it a gameplay discrepancy.
+
+Spells use the historical engine's player flags, spell_chance, book knowledge,
+visibility/confusion and current mana. Ready means native prerequisites for an
+attempt, not Borg admission/selection or guaranteed success. Low mana can still
+allow an overexertion attempt, as in the game. No book, forgotten, blindness/
+confusion, death and noncaster states are distinct. Descriptions preserve
+knowledge: no ODESC_SPOIL, and temporary kind/ego seen flags are restored.
+All these getters are observation output, never additional input to Borg.
+
+New headless and GUI captures store these fields as full/delta observations.
+GUI also records exact native message events with frame boundaries; capture
+metadata declares that stream and deletion fails validation. Headless logs use
+the existing key-count boundaries. Notes/game events emitted after a frame are
+not exposed at that frame, even if their world turn is the same. The older C
+trace format uses conservative completed-turn visibility; old GUI movies fall
+back to recorded visible message-line changes when no native stream exists.
+Logs can include intent and simulation notes; verify actual movement/action
+results from keys/native state, not a note substring alone.
+
+Old original recordings and dossier identities are immutable. For a normal
+interactive replay of a reconstructible old headless recording, the adapter
+rebuilds its **historical Rust/engine source**, adds only the declared known-
+view observer headers/calls, and verifies every original frame value/channel,
+final save and scheduled save. Only previously absent inventory/spells/vitals/
+caster fields may be added; old values, extra unknown keys and row-count changes
+fail. An observer-disabled rerun must also match original channels exactly.
+The qualified extension lives separately under harness/out/death-workflow/
+observations, with original manifest/image/new image/helper hashes and proof.
+The display explicitly labels recovered observations. These are supplemental
+matched historical observations, not an original capture or another life.
+
+--view-only never builds an extension; it can use a previously qualified cache
+with its UNVERIFIED badge. --verify-only/dumps retain the original channel
+semantics. If the historical source cannot be qualified, the verified original
+movie still opens with missing-view labels; no spell or item state is guessed.
+Old GUI originals remain available, while new GUI recordings have native views.
+No arbitrary mid-run private Borg memory restoration is introduced.
+
+[Death-review hub #3](https://github.com/diegoami/borg-rs/issues/3) is the default
+for this registry; a private registry without discussion.json stays unassigned.
+The owner can comment with case/actual turn/phase. The structured review template
+requires overall picture, timeline, brainstorm/candidate fit and next evidence;
+observational review can be complete while exact private gates/rescue remain
+provisional. Detailed D0005 assessment and follow-up are in its dossier and
+[focused investigation #4](https://github.com/diegoami/borg-rs/issues/4).

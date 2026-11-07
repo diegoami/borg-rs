@@ -96,6 +96,29 @@ class GuiRecordingControls(unittest.TestCase):
             gui.verify(self.bundle)
         self.assertEqual(gui.validate(self.bundle, require_complete=False)['status'], 'incomplete')
 
+    def test_declared_native_message_stream_cannot_be_removed_with_its_hash(self):
+        path = self.bundle / 'recording.json'
+        record = json.loads(path.read_text())
+        stream = self.bundle / 'run/native-messages.jsonl'
+        if not stream.exists():
+            self.skipTest('Use a new GUI recording with the native message stream')
+        stream.unlink()
+        record.setdefault('captured_views', {})['native_messages'] = True
+        record['files_sha256'].pop('run/native-messages.jsonl')
+        runtime.write(path, record)
+        with self.assertRaisesRegex(ValueError, 'missing required'):
+            gui.verify(self.bundle)
+
+    def test_native_message_mutation_after_rehash_is_rejected(self):
+        stream = self.bundle / 'run/native-messages.jsonl'
+        if not stream.exists():
+            self.skipTest('Use a new GUI recording with the native message stream')
+        with stream.open('a') as output:
+            output.write('{"frame":99999,"turn":99999,"type":0,"text":"invented"}\n')
+        self.rehash('run/native-messages.jsonl')
+        with self.assertRaisesRegex(ValueError, 'native-messages.jsonl'):
+            gui.verify(self.bundle)
+
     def test_manifest_cannot_omit_required_or_add_untracked_input(self):
         path = self.bundle / 'recording.json'
         record = json.loads(path.read_text())

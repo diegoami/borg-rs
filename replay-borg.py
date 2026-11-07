@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools'))
 import borg_runtime
 import borg_gui
 import borg_replay_viewer
+import replay_observations
 
 
 def resolve_recording(path):
@@ -61,8 +62,20 @@ def main(argv=None):
             print('VERIFIED frozen-origin rerun: ' + proof['model'], flush=True)
         if not args.verify_only:
             frames = directory if (directory / 'frames.jsonl.gz').exists() else directory / 'run'
-            borg_replay_viewer.show(frames, turn=args.dump_turn if args.dump_turn is not None else args.turn,
-                                   verified=verified, dump=args.dump or args.dump_turn is not None)
+            display = frames
+            dump = args.dump or args.dump_turn is not None
+            if schema == borg_runtime.SCHEMA and not dump and replay_observations.needed(directory):
+                display = replay_observations.cached(directory) or frames
+                if display == frames and verified:
+                    try:
+                        display = replay_observations.prepare(directory, timeout=args.timeout or 600)
+                    except replay_observations.ObservationUnavailable as error:
+                        print(str(error) + '; showing the verified original movie without guessed fields.', flush=True)
+            supplemental = display != frames
+            if supplemental:
+                print('VERIFIED historical native observations; original recording unchanged.' if verified else 'View-only: using the previously qualified native-observation cache.', flush=True)
+            borg_replay_viewer.show(display, turn=args.dump_turn if args.dump_turn is not None else args.turn,
+                                   verified=verified, dump=dump, caster=replay_observations.caster(directory), supplemental=supplemental)
         return 0
     except (ValueError, OSError, KeyError, AssertionError, subprocess.SubprocessError) as error:
         if args.output and not existed and args.output.exists():

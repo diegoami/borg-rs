@@ -22,7 +22,7 @@ import borg_deaths as deaths
 ROOT = runtime.ROOT
 TOOLS = ('produce_death.py', 'replay_next_death.py', 'replay-borg.py',
          'tools/death_workflow.py', 'tools/borg_runtime.py', 'tools/borg_deaths.py',
-         'tools/borg_saves.py', 'tools/borg_gui.py', 'tools/borg_replay_viewer.py',
+         'tools/borg_saves.py', 'tools/borg_gui.py', 'tools/borg_replay_viewer.py', 'tools/replay_observations.py',
          'harness/run.sh', 'harness/supervise.py', 'harness/identity.sh')
 LOADED_TOOLS = {name: runtime.sha(ROOT / name) for name in TOOLS}
 

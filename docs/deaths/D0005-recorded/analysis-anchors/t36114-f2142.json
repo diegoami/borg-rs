@@ -1,0 +1,277 @@
+{
+  "schema": "borg-rs/death-analysis-anchor@1",
+  "provenance": "Supplemental matched historical-source native observation; original screen/base state retained exactly; not original inventory/spell capture or a new life",
+  "source_commit": "9881301ceaad91d0c68a61bed1a8ccdde100e660",
+  "observation_qualification": "../analysis-evidence.json",
+  "frame": {
+    "index": 2142,
+    "turn": 36114,
+    "phase": "key",
+    "width": 80,
+    "height": 24,
+    "level": 2,
+    "depth": 1,
+    "hp": 15,
+    "max_hp": 15,
+    "sp": 2,
+    "max_sp": 4,
+    "x": 189,
+    "y": 37
+  },
+  "player_known_inventory": {
+    "pack": [
+      {
+        "label": "a",
+        "description": "a Necromantic Tome [Into the Shadows]",
+        "slot": "",
+        "attr": 10,
+        "weight": 30
+      },
+      {
+        "label": "b",
+        "description": "7 Rations of Food",
+        "slot": "",
+        "attr": 15,
+        "weight": 56
+      },
+      {
+        "label": "c",
+        "description": "a Potion of Cure Light Wounds",
+        "slot": "",
+        "attr": 2,
+        "weight": 4
+      },
+      {
+        "label": "d",
+        "description": "2 Potions of Sleep",
+        "slot": "",
+        "attr": 12,
+        "weight": 8
+      },
+      {
+        "label": "e",
+        "description": "a Scroll of Phase Door",
+        "slot": "",
+        "attr": 1,
+        "weight": 5
+      }
+    ],
+    "equipment": [
+      {
+        "label": "a",
+        "description": "a Main Gauche (1d5) (+0,+0)",
+        "slot": "weapon",
+        "attr": 9,
+        "weight": 30
+      },
+      {
+        "label": "b",
+        "description": "(nothing)",
+        "slot": "shooting",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "c",
+        "description": "(nothing)",
+        "slot": "right hand",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "d",
+        "description": "(nothing)",
+        "slot": "left hand",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "e",
+        "description": "(nothing)",
+        "slot": "neck",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "f",
+        "description": "(nothing)",
+        "slot": "light",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "g",
+        "description": "Hard Leather Armour (-1) [16,+0]",
+        "slot": "body",
+        "attr": 15,
+        "weight": 120
+      },
+      {
+        "label": "i",
+        "description": "(nothing)",
+        "slot": "back",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "m",
+        "description": "a Leather Shield [8,+0]",
+        "slot": "arm",
+        "attr": 15,
+        "weight": 90
+      },
+      {
+        "label": "n",
+        "description": "a Metal Cap [3,+0]",
+        "slot": "head",
+        "attr": 2,
+        "weight": 25
+      },
+      {
+        "label": "o",
+        "description": "a Set of Leather Gloves [1,+0]",
+        "slot": "hands",
+        "attr": 15,
+        "weight": 10
+      },
+      {
+        "label": "p",
+        "description": "a Pair of Leather Boots [2,+0]",
+        "slot": "feet",
+        "attr": 15,
+        "weight": 20
+      }
+    ],
+    "quiver": [],
+    "total_weight": 398,
+    "remaining_weight": 501
+  },
+  "native_learned_spells": {
+    "class": "Necromancer",
+    "mana": 2,
+    "max_mana": 4,
+    "caster": 1,
+    "learned": [
+      {
+        "name": "Nether Bolt",
+        "label": "a",
+        "book": "a Necromantic Tome [Into the Shadows]",
+        "book_label": "a",
+        "level": 1,
+        "mana": 1,
+        "fail": 36,
+        "castable": 1,
+        "status": "Ready"
+      },
+      {
+        "name": "Sense Invisible",
+        "label": "b",
+        "book": "a Necromantic Tome [Into the Shadows]",
+        "book_label": "a",
+        "level": 2,
+        "mana": 4,
+        "fail": 50,
+        "castable": 1,
+        "status": "Low mana"
+      }
+    ]
+  },
+  "native_readiness_limit": "Native Ready/Low mana does not establish Borg eligibility, action priority, a guaranteed cast or survival",
+  "visible_native_monsters_only": [
+    {
+      "id": 2,
+      "name": "Fang, Farmer Maggot's Dog",
+      "x": 190,
+      "y": 36,
+      "hp": 21,
+      "max_hp": 25,
+      "speed": 120,
+      "visible": 1
+    }
+  ],
+  "timed_native_state": {
+    "FOOD": 5389
+  },
+  "screen_lines": [
+    "You failed to concentrate hard enough!                                          ",
+    "Elf                                                                             ",
+    "Acolyte                                                                         ",
+    "Necromancer                                                          ###        ",
+    "LEVEL      2                                                         #<#        ",
+    "NXT        7                                                         #.#        ",
+    "AU         0                                                         #.#        ",
+    "|     ( )]]]                                                         #.#        ",
+    "STR:      13                                                         ..#        ",
+    "INT:   18/30                                                   #######.##       ",
+    "WIS:       9                                                   #........#       ",
+    "DEX:      11                                                   #.......C#       ",
+    "CON:      13                                                   #......@.#       ",
+    "                                                               #........#       ",
+    "Cur AC    30                                                   #.......?#       ",
+    "HP   15/  15                                                   ##########       ",
+    "SP    2/   4                                                                    ",
+    "                                                                                ",
+    "[*********-]                                                                    ",
+    "                                                                                ",
+    "                                                                                ",
+    "                                                                                ",
+    "50' (L1)                                                                        ",
+    "             LF:2-? Light 1  Fed 53 % Open floor                                "
+  ],
+  "screen_world_offset": {
+    "x": 119,
+    "y": 25
+  },
+  "local_terrain_check": {
+    "scope": "Captured terminal map only; unknown cells blocked; all nonblank nonwall glyphs including doors/objects/monsters allowed to overapproximate underlying passable terrain; eight-neighbor geometry ignores enemy turns and private Borg flow",
+    "upstairs": [
+      [
+        189,
+        29
+      ]
+    ],
+    "captured_upstairs_reachable": true,
+    "neighbors": [
+      {
+        "x": 188,
+        "y": 36,
+        "glyph": "."
+      },
+      {
+        "x": 189,
+        "y": 36,
+        "glyph": "."
+      },
+      {
+        "x": 190,
+        "y": 36,
+        "glyph": "C"
+      },
+      {
+        "x": 188,
+        "y": 37,
+        "glyph": "."
+      },
+      {
+        "x": 190,
+        "y": 37,
+        "glyph": "."
+      },
+      {
+        "x": 188,
+        "y": 38,
+        "glyph": "."
+      },
+      {
+        "x": 189,
+        "y": 38,
+        "glyph": "."
+      },
+      {
+        "x": 190,
+        "y": 38,
+        "glyph": "."
+      }
+    ]
+  }
+}

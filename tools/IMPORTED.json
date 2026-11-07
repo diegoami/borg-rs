@@ -7,9 +7,10 @@
   },
   "tools/borg_replay_viewer.py": {
     "repository": "diegoami/better-borg-c",
-    "commit": "f3ced6219768aca6382381236c7d938718f492d5",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
     "path": "tools/borg-replay-viewer.py",
-    "original_sha256": "34af21b7a8c1993be01daa22cdda90b586836affc641f92ef2ea4ecbae0ac6b2"
+    "original_sha256": "238be316f5d996f05823db580f01ca548b2b59122b9e4ab9758ab208c5c7fd6e",
+    "adaptation": "inventory/equipment/spells/log/vitals panes; Rust exact event-boundary logs and supplemental provenance"
   },
   "angband/src/main-borgh.c recording diagnostics": {
     "repository": "diegoami/better-borg-c",
@@ -94,5 +95,40 @@
     "path": "tools/test_death_workflow.py",
     "original_sha256": "ac2e4f7a247322faa4f7f267d0169645d4b1b1958521d68258ee98bd1a22a48d",
     "adaptation": "adapted queue/collection controls plus real owned-child stall controls"
+  },
+  "angband/src/replay-native-inventory.h": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+    "path": "tools/native-inventory.h",
+    "original_sha256": "7126f4b7747dea270d0f72e8abb36371afc1c96f6ab2cd1f983d64f6ddf575cd",
+    "adaptation": "engine player-known descriptions, labels/equipment/quiver/weight; transient seen flags restored"
+  },
+  "angband/src/replay-native-spells.h": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+    "path": "tools/native-spells.h",
+    "original_sha256": "c9c10f54c2baa118fe08777495d61c6e505b3125735e32dc03963f84e618d249",
+    "adaptation": "native learned/forgotten spells, current book/mana/failure and availability; no C Borg state"
+  },
+  "tools/replay_observations.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+    "path": "tools/replay-inventory.py",
+    "original_sha256": "94ebc834a190dc900a3ffeba6a3e383f0fb99ceba4ec41a0e104f11647aee6ca",
+    "adaptation": "strict historical Rust source observation-only rebuild and independent observer-off control; originals immutable"
+  },
+  "tools/test_replay_log.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+    "path": "tools/test_replay_log.py",
+    "original_sha256": "c3705d415abe77d08e0ed0602eb55f6864c410f6ca6c410ae8ba44a810999c8f",
+    "adaptation": "ported log visibility/delta/history controls"
+  },
+  "docs/deaths/REVIEW-TEMPLATE.md": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+    "path": "docs/deaths/REVIEW-TEMPLATE.md",
+    "original_sha256": "5b270b2168c07c762304a27ef15786a028c508dac5a18b1a5a39c2cb2c5a3804",
+    "adaptation": "structured death assessment with Rust adoption boundary"
   }
 }

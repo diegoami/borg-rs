@@ -74,8 +74,9 @@ settings. The recorder is Linux/X11 text mode; headless replay needs no display.
 Recordings include a frozen executable and can grow during long sessions.
 
 Replay verifies a rerun from the original start before showing actual frames;
-use left/right to step, space to play, g to jump, i/m for recorded engine
-inventory/monster diagnostics, and q to quit. Diagnostic hidden information
+use left/right to step, space to play, g to jump, **i/e** for player-known
+inventory/equipment, **s** for native spell readiness, **p** for action/message
+history (Tab changes source), **d/m** for diagnostic gear/monsters, and q to quit. Diagnostic hidden information
 is never supplied to the Borg. Both new GUI and headless recordings work.
 C-only private Borg diagnostic fields are omitted. Historical runs without
 a recording cannot claim exact replay; interrupted recordings can be viewed
@@ -91,6 +92,7 @@ Completed natural deaths automatically create a dossier in `docs/deaths/`,
 with native maps/death logs, build/input hashes, actual pre-death observations,
 checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a
 dossier directory too. [Registry and existing cases](docs/deaths/README.md).
+[Add owner feedback on death-review hub #3](https://github.com/diegoami/borg-rs/issues/3).
 Set `BORG_DEATH_RECORDS_DIR` for a separate registry; attach a discussion with
 headless `--death-issue URL` or GUI `BORG_DEATH_ISSUE`. No issue is posted
 automatically, and replays/backup branches do not inflate independent deaths.

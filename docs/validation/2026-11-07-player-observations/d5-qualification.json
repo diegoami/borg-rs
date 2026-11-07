@@ -1,0 +1,14 @@
+{
+  "frames_sha256": "ffb45b9461e2168c4305393d56ccb6260ee5307a7cdf10cc214237708e747e51",
+  "helpers": {
+    "adapter": "084e0d125d76bd697a30ebbb36a901a9d48869686b2624da6e351b4ed33ade69",
+    "replay-native-inventory.h": "f4e8bf4e48b976c9f6c4c24b27313a10267e9470063aa10554ed7366e2a676f4",
+    "replay-native-spells.h": "834ad8f6be0e9d84d378d21b67dcaadd6bc2d1485a316fddb013ba9309a13b18",
+    "replay-observations.h": "2ef7cbf3f9c09a5b99c2765a0f5d56492dc4a38646dcaecf9c5d85074beedaee",
+    "verifier": "d20e8877f0586b36d18621a442fb51c392d7eb8defb2130ad233e962d1c74ef3"
+  },
+  "original_manifest_sha256": "efb763e6934a910a8c39b588ea2dc0a061de096b45fb48a841a29b95275a0070",
+  "output": "/home/diego/projects/borg-rs/harness/out/death-workflow/observations/13af0f0babd0d8d33047e598958e9cd11ae919205b671fb948afaf2098660d9e/run-2026-11-07T22-04-51.610485+00-00",
+  "scope": "historical source; all original channels/values and native saves match; declared read-only fields added separately",
+  "verification_sha256": "8bd5fb599d5f41596326547ec0a5fe227bf6efe14b4e3c63f1f543b77c0e6f80"
+}

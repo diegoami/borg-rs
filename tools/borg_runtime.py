@@ -9,6 +9,7 @@ import fcntl
 import gzip
 import hashlib
 import json
+import itertools
 import os
 from pathlib import Path
 import re
@@ -100,17 +101,19 @@ def inspect_save(save, directory, binary):
         return json.loads(result.stdout)
 
 
-def frozen_run(bundle, output, timeout=None):
+def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=True):
     bundle = bundle.resolve()
     record = json.loads((bundle / 'recording.json').read_text())
     profile = record['profile']
     runtime = bundle / 'runtime'
     env = {k: v for k, v in os.environ.items() if not k.startswith(('BORG_', 'ANGBAND_', 'LLVM_PROFILE'))}
-    env.update(BORG_IMPL='rust', ANGBAND_BIN=str(runtime / 'game/angband'),
+    env.update(BORG_IMPL='rust', ANGBAND_BIN=str(Path(engine).resolve() if engine is not None else runtime / 'game/angband'),
                SAVE_ROOT=str(runtime / 'harness/saves'), BORGH_DATA_ROOT=str(runtime / 'game/lib'),
                RUN_TIMEOUT_SECONDS=str(min(profile['wall_seconds'], timeout) if timeout is not None else profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
                STALL_TIMEOUT_SECONDS=str(profile.get('stall_seconds', 0)),
                LC_ALL='C.UTF-8', LANG='C.UTF-8', TZ='UTC')
+    if not extra_observations:
+        env['BORG_NO_EXTRA_OBSERVATIONS'] = '1'
     return subprocess.run([str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
                            str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']],
                           env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
@@ -271,19 +274,39 @@ def replay_workspace(output):
             shutil.rmtree(workspace)
 
 
-def verify(bundle, output=None, timeout=None):
+
+OBSERVATION_FIELDS = frozenset(('inventory', 'spells', 'max_hp', 'max_sp', 'caster'))
+
+
+def compare_observation_extension(original, extended):
+    """Only absent new observation fields may be added; every old value stays."""
+    with original.open() as before, extended.open() as after:
+        for number, (left, right) in enumerate(itertools.zip_longest(before, after), 1):
+            if left is None or right is None:
+                raise ValueError(f'Observation replay frame count diverges at row {number}')
+            expected, actual = json.loads(left), json.loads(right)
+            for field in OBSERVATION_FIELDS - expected.keys():
+                actual.pop(field, None)
+            if expected != actual:
+                fields = sorted(key for key in expected.keys() | actual.keys() if expected.get(key) != actual.get(key))
+                raise ValueError(f'Observation replay original frame diverges at row {number}: {fields}')
+
+
+def verify(bundle, output=None, timeout=None, *, engine=None, observation_extension=False):
+    if (engine is not None) != observation_extension or (observation_extension and output is None):
+        raise ValueError('Observation rebuild verification requires its engine and retained output')
     bundle = bundle.resolve()
     record = validate(bundle)
     source_hash = sha(Path(__file__))
     manifest_hash = sha(bundle / 'recording.json')
     cached = bundle / 'verification.json'
-    if output is None and timeout is None and cached.exists():
+    if engine is None and output is None and timeout is None and cached.exists():
         prior = json.loads(cached.read_text())
         if prior.get('verified') is True and prior.get('manifest_sha256') == manifest_hash and prior.get('verifier_sha256') == source_hash:
             return prior
     with replay_workspace(output) as workspace:
         output_run = workspace / 'run'
-        result = frozen_run(bundle, output_run, timeout=timeout)
+        result = frozen_run(bundle, output_run, timeout=timeout, **({"engine": engine} if engine is not None else {}))
         output_run_path = output_run
         if result.returncode:
             raise ValueError('Replay failed; original evidence preserved: ' + result.stdout[-1500:])
@@ -291,6 +314,9 @@ def verify(bundle, output=None, timeout=None):
         if process['status'] != 'success' or process['engine_returncode'] != 0:
             raise ValueError('Replay process did not complete successfully')
         for filename in ('keys.log', 'messages.log', 'state.log', 'frames.jsonl', 'final.save', 'config.txt'):
+            if filename == 'frames.jsonl' and observation_extension:
+                compare_observation_extension(bundle / 'run' / filename, output_run_path / filename)
+                continue
             if sha(output_run_path / filename) != sha(bundle / 'run' / filename):
                 raise ValueError('Replay diverges: ' + filename)
         native_original = {str(p.relative_to(bundle / 'run/archive')): p for p in (bundle / 'run/archive').rglob('*') if p.is_file()}
@@ -330,7 +356,10 @@ def verify(bundle, output=None, timeout=None):
     proof = {'verified': True, 'manifest_sha256': manifest_hash, 'verifier_sha256': source_hash,
              'model': record['verification_model'], 'original_death_not_new_sample': record['summary']['dead'],
              'native_archive_body_verified': True, 'native_death_log_wall_clock_differences': native_clock_differences}
-    write(cached, proof)
+    if observation_extension:
+        proof['observation_extension'] = {'fields': sorted(OBSERVATION_FIELDS), 'engine_sha256': sha(Path(engine)), 'original_engine_sha256': sha(bundle / 'runtime/game/angband'), 'scope': 'historical-source observation-only rebuild; every original channel/value and native save matches'}
+    else:
+        write(cached, proof)
     if output is not None:
         write(output.resolve() / 'verification.json', proof)
     return proof

@@ -1,0 +1,9 @@
+{
+  "exit_code": 0,
+  "spell_panel": true,
+  "known_inventory": true,
+  "equipment": true,
+  "action_log": true,
+  "supplemental_provenance_badge": true,
+  "original_dossier": "D0005"
+}

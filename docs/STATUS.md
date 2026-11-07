@@ -16,6 +16,23 @@ milestones with a patch inventory, linked local issues, controlled evidence,
 C twice/Rust parity and distinct references. neo-angband-tracker remains source/
 historical provenance and stops independently scheduling Rust adoption.
 
+## Updated death-analysis and replay views
+
+Owner feedback hub#3 and D0005 focused investigation#4 are open. D0005's
+original dossier is published; its full structured observational assessment,
+24-boundary timeline and16 matched-native anchors answer owner feedback while
+private gate/causal rescue questions remain provisional. Original identity/
+evidence and owner-review marks are not replaced by technical analysis.
+
+New recording/viewer adapters add player-known inventory/equipment, native
+spell/prayer readiness, event-boundary logs and sidebar-staleness indication.
+D0005 old observations are a separately qualified historical-source extension:
+all original channels/frame values/final and scheduled native saves match,
+with observer-off confirmation. New GUI/headless captures store native views;
+GUI message capture is exact and required when declared. Tooling source pin85b6
+is provenance, not adopted C gameplay. M5 and the pending first C milestone
+selection remain unchanged.
+
 ## Post-M5 requested workflow tools
 
 Root produce_death.py now freezes a bounded prospective seed/birth plan and

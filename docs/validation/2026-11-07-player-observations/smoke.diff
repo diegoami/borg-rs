@@ -1,0 +1,6 @@
+A: harness/reference/smoke: reference (no manifest)
+B: harness/out/player-observations/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=ca5a6f7c3ef980bc
+B:   built from 9b1007cad204 (dirty=yes, inputs dirty=yes) source_sha256=91874dd5bf2cd831; run at 9b1007cad204 (dirty=yes) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

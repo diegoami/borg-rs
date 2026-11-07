@@ -150,6 +150,10 @@ def start(binary, profile, character, arguments):
         raise ValueError(f'GUI exited without a complete game recording (status {code}); evidence retained at {bundle}; ' + (output / 'engine.log').read_text()[-800:])
     with (output / 'frames.jsonl').open('rb') as src, gzip.open(bundle / 'frames.jsonl.gz', 'wb') as dst:
         shutil.copyfileobj(src, dst)
+    with (output / 'frames.jsonl').open() as stream:
+        first_frame = json.loads(next(stream))
+    record['captured_views'] = {'inventory': 'inventory' in first_frame, 'spells': 'spells' in first_frame,
+                                'native_messages': (output / 'native-messages.jsonl').is_file()}
     record.update(status='complete')
     record['files_sha256'] = {str(p.relative_to(bundle)): runtime.sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
     runtime.write(bundle / 'recording.json', record)
@@ -171,6 +175,8 @@ def validate(bundle, require_complete=True):
         raise ValueError('GUI recording has no finalized file hashes')
     required = {'runtime/game/angband', 'run/' + STREAMS[0], 'run/record-complete.json', 'frames.jsonl.gz'}
     required.update('run/' + name for name in STREAMS)
+    if record.get('captured_views', {}).get('native_messages'):
+        required.add('run/native-messages.jsonl')
     if record.get('final_sha256'):
         required.add('final.save')
     if not required.issubset(hashes):
@@ -216,7 +222,8 @@ def verify(bundle, output=None, timeout=None):
                                 timeout=timeout if timeout is not None else max(30, record['duration_seconds'] * 2 + 30), stdin=subprocess.DEVNULL)
         if result.returncode:
             raise ValueError('GUI replay failed; original preserved: ' + result.stdout[-1500:])
-        for name in STREAMS:
+        streams = (*STREAMS, 'native-messages.jsonl') if (bundle / 'run/native-messages.jsonl').exists() else STREAMS
+        for name in streams:
             if not (output_run / name).exists() or runtime.sha(output_run / name) != runtime.sha(bundle / 'run' / name):
                 # Save only a useful first divergence, never overwrite originals.
                 if name == 'frames.jsonl' and (output_run / name).exists():

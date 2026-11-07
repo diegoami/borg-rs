@@ -23,6 +23,32 @@ ABI/config, run controlled cases and C twice/Rust comparisons, and retain
 separate target references and historical death identities. The material below
 records the completed work leading to this checkpoint.
 
+## Current owner feedback / native views
+
+Owner requested a death-review issue analogous to C163 and the updated C
+available-spell views. Rust hub#3 is open; D0005's original collected death
+is published unchanged. Owner comment6713459074 is answered by the analysis
+agent in6713687354; focused next-evidence investigation is Rust#4. D5 has a
+full overall-assessment,24-row timeline,16 supplemental exact-frame anchors
+and feedback/actions. It used a Phase scroll and did attempt stair/walking
+retreat; a known CLW remains unused; legal NW does not prove safe complete
+escape. Native-vs-terminal-Borg fail discrepancy is source-consistent with
+existing296, not a new C bug/carry or proved rescue. Exact private gates remain
+provisional. Case/start/process counts remain5/5/13. Owner-review status is not
+automatically marked by analysis. Check hub#3/#4 feedback before further work.
+
+C observation/viewer tooling pin85b6ba8 adds i/e known gear, s native magic,
+p event logs and stale-sidebar indication. New native headers/GUI message hook
+are read-only output, no new AI input. D5's missing fields are separately
+qualified historical-source observations with exact original channel/base-frame/
+full-save equality and observer-off control. Original recording is immutable.
+Raw original and final display pointers: harness/out/player-observations/
+d5-display-final.json. i/e/s/p are functional in terminal replay; new GUI and
+headless captures include fields directly. Unsupported historical sources show
+original views without guesses; old GUI enrichment is not qualified. Source
+Cpp/Rust gameplay remains the old baseline, m5 fixed at0203227; no C game fix
+is imported just by this newer observation-tool pin.
+
 ## Post-M5 tooling addition
 
 The owner explicitly requested produce_death.py and replay_next_death.py.

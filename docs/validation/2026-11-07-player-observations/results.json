@@ -1,0 +1,12 @@
+{
+  "donor_tooling_pin": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+  "original_manifest_sha256": "efb763e6934a910a8c39b588ea2dc0a061de096b45fb48a841a29b95275a0070",
+  "original_source": "9881301ceaad91d0c68a61bed1a8ccdde100e660",
+  "original_image_sha256": "9c2b69ef98ff8324677c036b78ce7fdb8ae626ee4b7db6492fc0845321d6cc36",
+  "display": "/home/diego/projects/borg-rs/harness/out/death-workflow/observations/13af0f0babd0d8d33047e598958e9cd11ae919205b671fb948afaf2098660d9e/run-2026-11-07T22-04-51.610485+00-00/run",
+  "frames_sha256": "ffb45b9461e2168c4305393d56ccb6260ee5307a7cdf10cc214237708e747e51",
+  "old_analysis_frames_equal_final": true,
+  "observer_off_original_channels_match": true,
+  "m5_unchanged": "020322749026418a666da3209c169f48ec9d608c",
+  "scope": "supplemental native observations and source-qualified observational analysis; no game fix/carry/causal rescue/coverage"
+}

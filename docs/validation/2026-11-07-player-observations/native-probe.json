@@ -1,0 +1,1236 @@
+[
+  {
+    "case": "ready",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 1,
+          "status": "Ready"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "low_mana",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 0,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 1,
+          "status": "Low mana"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "blind",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 0,
+          "status": "Cannot see"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "confused",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 0,
+          "status": "Confused"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "no_book",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "",
+          "book_label": "",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 0,
+          "status": "No book"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 0
+  },
+  {
+    "case": "forgotten",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 0,
+          "status": "Forgotten"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "dead",
+    "max_hp": 12,
+    "max_sp": 100,
+    "caster": true,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "7 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 56
+        },
+        {
+          "label": "c",
+          "description": "an Ochre Potion",
+          "slot": "",
+          "attr": 7,
+          "weight": 4
+        },
+        {
+          "label": "d",
+          "description": "6 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 132
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Whip (1d3) (+0,+0)",
+          "slot": "weapon",
+          "attr": 8,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Feather Falling",
+          "slot": "right hand",
+          "attr": 9,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (4689 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "a Robe of Resist Acid [2,+1]",
+          "slot": "body",
+          "attr": 6,
+          "weight": 20
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "a Leather Shield [8,+0]",
+          "slot": "arm",
+          "attr": 15,
+          "weight": 90
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [],
+      "total_weight": 386,
+      "remaining_weight": -87
+    },
+    "spells": {
+      "class": "Druid",
+      "mana": 100,
+      "max_mana": 100,
+      "caster": 1,
+      "learned": [
+        {
+          "name": "Detect Life",
+          "label": "a",
+          "book": "a Book of Nature Magics [Lesser Charms]",
+          "book_label": "a",
+          "level": 1,
+          "mana": 1,
+          "fail": 50,
+          "castable": 0,
+          "status": "Dead"
+        }
+      ]
+    },
+    "unknown_descriptions_checked": 1
+  },
+  {
+    "case": "noncaster",
+    "max_hp": 1145,
+    "max_sp": 0,
+    "caster": false,
+    "inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "12 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 96
+        },
+        {
+          "label": "b",
+          "description": "30 Potions of Healing",
+          "slot": "",
+          "attr": 19,
+          "weight": 120
+        },
+        {
+          "label": "c",
+          "description": "20 Potions of *Healing*",
+          "slot": "",
+          "attr": 11,
+          "weight": 80
+        },
+        {
+          "label": "d",
+          "description": "5 Potions of Life",
+          "slot": "",
+          "attr": 4,
+          "weight": 20
+        },
+        {
+          "label": "e",
+          "description": "20 Potions of Speed",
+          "slot": "",
+          "attr": 5,
+          "weight": 80
+        },
+        {
+          "label": "f",
+          "description": "a Potion of Berserk Strength",
+          "slot": "",
+          "attr": 14,
+          "weight": 4
+        },
+        {
+          "label": "g",
+          "description": "30 Scrolls of Phase Door",
+          "slot": "",
+          "attr": 1,
+          "weight": 150
+        },
+        {
+          "label": "i",
+          "description": "20 Scrolls of Teleportation",
+          "slot": "",
+          "attr": 1,
+          "weight": 100
+        },
+        {
+          "label": "m",
+          "description": "10 Scrolls of Banishment",
+          "slot": "",
+          "attr": 1,
+          "weight": 50
+        },
+        {
+          "label": "n",
+          "description": "5 Scrolls of Mass Banishment",
+          "slot": "",
+          "attr": 1,
+          "weight": 25
+        },
+        {
+          "label": "o",
+          "description": "6 Scrolls of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 30
+        },
+        {
+          "label": "p",
+          "description": "3 Wooden Torches (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 66
+        },
+        {
+          "label": "q",
+          "description": "Soft Leather Armour [8,+0]",
+          "slot": "",
+          "attr": 15,
+          "weight": 80
+        },
+        {
+          "label": "r",
+          "description": "a Dagger (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 9,
+          "weight": 12
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Long Sword (4d5) (+22,+25) <+10, +1>",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 130
+        },
+        {
+          "label": "b",
+          "description": "(nothing)",
+          "slot": "shooting",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "c",
+          "description": "a Ring of Fire (+2,+2) <+1, +5>",
+          "slot": "right hand",
+          "attr": 4,
+          "weight": 2
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "an Elfstone [+10] <+2>",
+          "slot": "neck",
+          "attr": 5,
+          "weight": 3
+        },
+        {
+          "label": "f",
+          "description": "a Star <+4>",
+          "slot": "light",
+          "attr": 11,
+          "weight": 5
+        },
+        {
+          "label": "g",
+          "description": "Mithril Plate Mail (-3) [65,+25] <+3>",
+          "slot": "body",
+          "attr": 14,
+          "weight": 250
+        },
+        {
+          "label": "i",
+          "description": "an Elven Cloak [6,+20] <+4, +3, +2>",
+          "slot": "back",
+          "attr": 8,
+          "weight": 5
+        },
+        {
+          "label": "m",
+          "description": "a Small Metal Shield [5,+25] <+3, +4, -1>",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 65
+        },
+        {
+          "label": "n",
+          "description": "an Iron Helm [7,+20] <+4, +2, -1>",
+          "slot": "head",
+          "attr": 2,
+          "weight": 50
+        },
+        {
+          "label": "o",
+          "description": "a Set of Caestus (+10,+10) [5,+20] <+4>",
+          "slot": "hands",
+          "attr": 15,
+          "weight": 40
+        },
+        {
+          "label": "p",
+          "description": "a Pair of Leather Boots [2,+20] <+15>",
+          "slot": "feet",
+          "attr": 15,
+          "weight": 20
+        }
+      ],
+      "quiver": [],
+      "total_weight": 1483,
+      "remaining_weight": -1184
+    },
+    "spells": {
+      "class": "Warrior",
+      "mana": 0,
+      "max_mana": 0,
+      "caster": 0,
+      "learned": []
+    },
+    "unknown_descriptions_checked": 0
+  }
+]

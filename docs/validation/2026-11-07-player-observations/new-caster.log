@@ -1,0 +1,7 @@
+Building verified Rust headless engine...
+/home/diego/projects/borg-rs/build/rust/game/angband
+death: level1, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/player-observations/new-caster/save/Caster
+Recording: /home/diego/projects/borg-rs/harness/out/player-observations/new-caster/recordings/20261107T220005.721768Z-Caster
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/player-observations/new-caster/recordings/20261107T220005.721768Z-Caster
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/player-observations/new-caster-registry/D0001-recorded (unassessed; replay/diagnosis pending)

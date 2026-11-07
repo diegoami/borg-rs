@@ -79,3 +79,13 @@ backup branches as independent lives. Source findings follow the active mileston
 links remain preserved. Logging alone never authorizes tactical changes
 or automatic issue creation. Check linked owner feedback during active case
 work; no unattended monitoring or deletion of unique evidence.
+
+
+Updated death-analysis workflow: shared owner feedback hub is borg-rs#3;
+D0005 focused investigation is#4. Use docs/deaths/REVIEW-TEMPLATE.md for the
+whole trajectory, native/player-known resources, competing explanations and
+ranked next evidence. Missing private gates or rescue evidence stays provisional;
+source reasoning is not runtime branch proof. Player-known inventory/spells
+and diagnostic hidden fields must remain distinct. Historical replay extensions
+add only declared read-only observations after all original channels/saves match;
+never rewrite original capture/identity or silently use newer game algorithms.
