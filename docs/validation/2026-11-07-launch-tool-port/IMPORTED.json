@@ -1,0 +1,21 @@
+{
+  "tools/borg_saves.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/borg-saves.py",
+    "original_sha256": "8fa820bee781e6ca7fdcfa255f0f54a96a37d685186676fadf620115451e66ec"
+  },
+  "tools/borg_replay_viewer.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/borg-replay-viewer.py",
+    "original_sha256": "beeeda6ae809fd701f608c74d5626bde5844239087c97225969a52f3a595b4fe"
+  },
+  "angband/src/main-borgh.c recording diagnostics": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/native-replay.c",
+    "original_sha256": "b3124d9f18ffba871a4785af10d97380ebdbd0a746b24f03b30baceef15355dd",
+    "adaptation": "engine-only diagnostic helpers; omit C Borg fields; opt-in headless frames"
+  }
+}

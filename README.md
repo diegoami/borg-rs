@@ -25,6 +25,35 @@ From this project root:
 
 Named saves use `.angband-rust/save/NAME`; settings are in `.angband-rust/user/`.
 
+Named launch, backup restore, headless play and replay (adapted from
+`better-borg-c`):
+
+```sh
+./start-borg.sh MyCharacter
+./start-borg.sh MyCharacter --from-backup=1
+./run-borg-headless.py MyCharacter --turns 100000
+./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
+./replay-borg.py .angband-rust/recordings/RUN --turn 5000
+./replay-borg.py .angband-rust/recordings/RUN --turn 5000 --dump
+```
+
+GUI/headless launchers share a per-character lock and five rolling backups
+under `.angband-rust/save/backups/NAME/save.1` through `save.5`. Restore keeps
+the current save as `before-restore-TIMESTAMP.save`. Headless play preserves
+the saved engine RNG, starts a fresh Borg, and records its origin, frozen
+Rust executable/data/config, inputs, frames and engine saves. It uses world-
+turn, key and wall budgets; a death publishes a dead native save and retains
+the latest living checkpoint in backup1 when available. Resume a dead character
+only with explicit backup restore or `--new`.
+
+Replay verifies a rerun from the original start before showing actual frames;
+use left/right to step, space to play, g to jump, i/m for recorded engine
+inventory/monster diagnostics, and q to quit. Diagnostic hidden information
+is never supplied to the Borg. This is **new headless recordings only**:
+interactive GUI input recording and C-only private Borg diagnostic fields
+are not ported. Historical runs without a recording cannot claim exact replay.
+See [tools/README.md](tools/README.md) for verification scope and provenance.
+
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
   (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks and the documented
   matching fork corrections in `docs/FORK-CORRECTIONS.md`

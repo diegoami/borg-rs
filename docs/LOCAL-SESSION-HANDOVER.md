@@ -16,6 +16,22 @@ import of launch/backup/headless/replay tooling from the better-borg project.
 No better-borg-t directory was found; matching tools exist in better-borg-c,
 which is the likely intended source (an optional clarification was asked).
 
+Investigation source/receipts are published at d0803c6. Existing C tracker345
+update6709066618 was posted/read back; independent source-board adoption is
+separate. Requested tools are adapted from committed donor feature08a5cd019
+in better-borg-c (merged PR147), with source hashes/licence in tools/IMPORTED.json.
+Commands: start-borg.sh NAME [--from-backup=1], run-borg-headless.py NAME
+[--new|--from-backup=1] --turns N, replay-borg.py RECORDING --turn N.
+Default saves/backups/recordings remain under .angband-rust. Shared locks
+and atomic checked publication protect named saves. Headless continuation
+detects actual race/class and preserves saved engine RNG; Borg memory starts
+fresh. Replay reruns the frozen Rust executable/origin/data/config and checks
+actual logs/frames/native saves. Engine spoiler diagnostics are never AI input.
+GUI input recording and private C Borg diagnostics are not ported; only new
+headless recordings get verified replay. All tests use isolated profiles,
+private display/build, never owner saves/display. Tool-test and integration
+receipt: validation/2026-11-07-launch-tool-port.
+
 Current post-M4 investigation results:
 - #345 mirrored caller-only reverse-flow correction now constructs25 actual
   Runes,24 around the player, with40 scrolls dropping to15, by turn177 in

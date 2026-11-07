@@ -1434,6 +1434,8 @@ The C source is unchanged; no correction is proposed in this pass.
   it is not a naturally earned setup, combat/survival improvement or a win.
   See validation/2026-11-07-post-m4-investigation. Independent source-tracker
   qualification remains separate.
+  [Published consumer correction/evidence](https://github.com/diegoami/neo-angband-tracker/issues/345#issuecomment-6709066618)
+  links d0803c6 and was read back.
 
 ## 57. Explicit X11 window count can bypass saved preferences (reported lead)
 

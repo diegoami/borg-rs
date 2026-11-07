@@ -1,0 +1,3 @@
+XGetInputFocus returned the focused window of 1. This is likely a bug in the X server.
+XGetInputFocus returned the focused window of 1. This is likely a bug in the X server.
+PASS actual named GUI restore, preserved prior save, shared headless/GUI lock and save exit0

@@ -1,0 +1,6 @@
+Preserved current save: /home/diego/projects/borg-rs/harness/out/tools-death/save/backups/DeadRogue/before-restore-20261107T154430.100413Z.save
+Restored backup slot 1: /home/diego/projects/borg-rs/harness/out/tools-death/save/DeadRogue
+turns: level1, depth0, dead=False
+Save: /home/diego/projects/borg-rs/harness/out/tools-death/save/DeadRogue
+Recording: /home/diego/projects/borg-rs/harness/out/tools-death/recordings/20261107T154430.275285Z-DeadRogue
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/tools-death/recordings/20261107T154430.275285Z-DeadRogue

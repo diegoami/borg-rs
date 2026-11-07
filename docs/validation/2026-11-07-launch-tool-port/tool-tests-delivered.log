@@ -1,0 +1,11 @@
+......turns: level1, depth1, dead=False
+Save: /tmp/borg-record-test-vg_zzmoa/save/Recorded
+Recording: /tmp/borg-record-test-vg_zzmoa/recordings/20261107T160341.777795Z-Recorded
+Replay: /home/diego/projects/borg-rs/replay-borg.py /tmp/borg-record-test-vg_zzmoa/recordings/20261107T160341.777795Z-Recorded
+Preserved current save: /tmp/borg-save-test-0frbku4l/backups/Hero/before-restore-20261107T160342.538234Z.save
+Restored backup slot 3: /tmp/borg-save-test-0frbku4l/Hero
+....
+----------------------------------------------------------------------
+Ran 10 tests in 1.130s
+
+OK

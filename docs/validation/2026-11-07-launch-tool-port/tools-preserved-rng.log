@@ -1,0 +1,4 @@
+turns: level1, depth1, dead=False
+Save: /home/diego/projects/borg-rs/harness/out/tools-diagnostics/save/OtherClass
+Recording: /home/diego/projects/borg-rs/harness/out/tools-diagnostics/recordings/20261107T155340.360541Z-OtherClass
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/tools-diagnostics/recordings/20261107T155340.360541Z-OtherClass

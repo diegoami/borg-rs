@@ -6,6 +6,15 @@ The owner accepted the qualified M4 outcome and requested closure of
 [review#1](https://github.com/diegoami/borg-rs/issues/1); it is closed as
 completed. The qualifications and tag m4/3923a21 remain unchanged.
 
+The post-M4 investigation is published at d0803c6, with the #345 source
+tracker update posted/read back. Requested native workflow tooling is now
+adapted for Rust: root start-borg.sh, run-borg-headless.py and replay-borg.py,
+shared name locks, five backups/restore preservation, frozen headless origins
+and verified reruns plus actual terminal/engine diagnostic inspection.
+See tools/README.md and the launch-tool-port receipt. Replay covers new
+headless recordings; GUI human-input recording and C Borg private state are
+explicitly outside this port. Original saves/data are preserved in testing.
+
 Post-M4 #345 now builds a complete25-Rune formation autonomously in a
 constructed preparation room by turn177; C twice and Rust match3/3 logs
 and full final saves. Self-lunal's repeated connected-stair rerolls are

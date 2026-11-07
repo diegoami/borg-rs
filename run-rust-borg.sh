@@ -6,6 +6,8 @@ PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PLAY_BUILD="$PROJECT_ROOT/build/play-rust"
 PLAY_DATA="${BORG_PLAY_DATA_DIR:-$PROJECT_ROOT/.angband-rust}"
 BUILD_ONLY=0
+PLAY_CHARACTER="${BORG_PLAY_CHARACTER:-RustBorg}"
+RESTORE_SLOT=""
 
 case "${1:-}" in
     -h|--help)
@@ -25,6 +27,8 @@ Uses the same 28-pixel Courier main-window font as better-borg-c/start-borg.sh.
 Set BORG_PLAY_FONT to override it.
 Opens one main window by default; arguments after -- override frontend options.
 Set BORG_PLAY_DATA_DIR to use a separate save/settings directory.
+Use ./start-borg.sh NAME to select a named character.
+--from-backup[=1..5] restores a rolling backup, preserving the current save.
 
 Requires CMake, a C compiler, Cargo/Rust, and X11 development libraries.
 EOF
@@ -72,8 +76,30 @@ if [ "$BUILD_ONLY" = 1 ]; then
     exit 0
 fi
 
+GAME_ARGS=()
+FRONTEND_ARGS=0
+for argument in "$@"; do
+    if [ "$FRONTEND_ARGS" = 1 ]; then GAME_ARGS+=("$argument"); continue; fi
+    case "$argument" in
+        --from-backup) RESTORE_SLOT=1;;
+        --from-backup=*) RESTORE_SLOT="${argument#--from-backup=}";;
+        -u?*) PLAY_CHARACTER="${argument#-u}";;
+        --) FRONTEND_ARGS=1; GAME_ARGS+=("$argument");;
+        *) GAME_ARGS+=("$argument");;
+    esac
+done
+[[ "$PLAY_CHARACTER" =~ ^[A-Za-z0-9][A-Za-z0-9_.-]{0,63}$ ]] || { echo 'Invalid character name' >&2; exit 2; }
+[[ -z "$RESTORE_SLOT" || "$RESTORE_SLOT" =~ ^[1-5]$ ]] || { echo 'Backup slot must be 1..5' >&2; exit 2; }
+set -- "${GAME_ARGS[@]}"
 mkdir -p "$PLAY_DATA"/{user,save,archive,panic,scores}
 PLAY_DATA="$(cd -- "$PLAY_DATA" && pwd)"
+mkdir -p "$PLAY_DATA/save/.locks"
+exec 9>"$PLAY_DATA/save/.locks/$PLAY_CHARACTER.lock"
+flock -n 9 || { echo "Character '$PLAY_CHARACTER' is already open through a launcher" >&2; exit 1; }
+if [ -n "$RESTORE_SLOT" ]; then
+    python3 "$PROJECT_ROOT/tools/borg_saves.py" restore "$PLAY_DATA/save/$PLAY_CHARACTER" "$RESTORE_SLOT"
+fi
+python3 "$PROJECT_ROOT/tools/borg_saves.py" backup "$PLAY_DATA/save/$PLAY_CHARACTER"
 if [ ! -e "$PLAY_DATA/user/borg.txt" ]; then
     cp "$PROJECT_ROOT/angband/src/borg/borg.txt" "$PLAY_DATA/user/borg.txt"
 fi
@@ -93,4 +119,4 @@ cd "$PLAY_BUILD/game"
 exec ./angband -mx11 \
     "-duser=$PLAY_DATA/user" "-dsave=$PLAY_DATA/save" \
     "-darchive=$PLAY_DATA/archive" "-dpanic=$PLAY_DATA/panic" \
-    "-dscores=$PLAY_DATA/scores" -uRustBorg "$@"
+    "-dscores=$PLAY_DATA/scores" "-u$PLAY_CHARACTER" "$@"

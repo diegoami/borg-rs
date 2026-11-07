@@ -1,0 +1,4 @@
+death: level2, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/tools-death/save/DeadRogue
+Recording: /home/diego/projects/borg-rs/harness/out/tools-death/recordings/20261107T154044.181005Z-DeadRogue
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/tools-death/recordings/20261107T154044.181005Z-DeadRogue

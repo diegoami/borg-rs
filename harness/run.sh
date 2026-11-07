@@ -62,6 +62,9 @@ if [ "$FLAGS" != "-" ]; then
             menu) BORGH_FLAGS+=(-menu-letters);;
             finalsave) BORGH_FLAGS+=(-save-on-stop "$OUT/final.save");;
             living-save) BORGH_FLAGS+=(-save-living-on-stop "$OUT/final.save");;
+            terminal-save) BORGH_FLAGS+=(-save-final-state "$OUT/final.save");;
+            frames) BORGH_FLAGS+=(-frames "$OUT/frames.jsonl");;
+            keep-load-rng) BORGH_FLAGS+=(-keep-load-rng);;
             rune-pattern) BORGH_FLAGS+=(-stop-rune-pattern);;
             key-limit=*)
                 key_limit="${fl#key-limit=}"
@@ -139,12 +142,16 @@ done
     if [ "$CHECKPOINT_EVERY" != 0 ]; then echo "checkpoint_every=$CHECKPOINT_EVERY"; fi
 } > "$OUT/config.txt"
 cd "$(dirname "$BIN")"   # the game finds ./lib relative to the cwd
+DATA_ARGS=()
+if [ -n "${BORGH_DATA_ROOT:-}" ]; then
+    DATA_ARGS=(-dgamedata="$BORGH_DATA_ROOT/gamedata" -dpref="$BORGH_DATA_ROOT/customize" -dhelp="$BORGH_DATA_ROOT/help" -dscreens="$BORGH_DATA_ROOT/screens")
+fi
 set +e
 TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 python3 "$ROOT/harness/supervise.py" \
     --receipt "$OUT/process.json" --diagnostics "$OUT" --timeout "${RUN_TIMEOUT_SECONDS:-0}" -- \
     "$BIN" -mborgh "${BIRTH_ARGS[@]}" -uBorg \
     -duser="$OUT/user" -dsave="$OUT/save" -darchive="$OUT/archive" \
-    -dpanic="$OUT/panic" -dscores="$OUT/scores" -- \
+    -dpanic="$OUT/panic" -dscores="$OUT/scores" "${DATA_ARGS[@]}" -- \
     -seed "$SEED" -race "$RACE" -class "$CLASS" -turns "$TURNS" \
     -keylog "$OUT/keys.log" -msglog "$OUT/messages.log" -statelog "$OUT/state.log" \
     -summary "$OUT/summary.json" -screen "${BORGH_FLAGS[@]}" "$@" \
