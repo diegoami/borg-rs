@@ -1,5 +1,26 @@
 # Local checkpoint — 2026-11-07
 
+## Current owner-approved direction
+
+Prepare focused M5 review at **28468aa9fdc74cbb65d351349b973835d8c42af9**, then
+follow verified better-borg-c bug-fixing milestones. Review#2 is open:
+https://github.com/diegoami/borg-rs/issues/2. Read M5-PLAN.md,
+REVIEW-M5-PROMPT.md, C-CONSUMER-ADOPTION.md and adoption/status.json before
+continuing. M5 independent review/owner acceptance are pending; no new tag,
+first C gameplay target or adoption batch is selected. The author handoff and
+reviewer start/progress/verdict/dispositions belong on #2; no absent reviewer
+comment is approval. No independent review is fabricated by the author.
+M4 remains accepted and #1 closed. Preserve all earlier review worktrees.
+
+After acceptance, exact accepted better-borg-c milestones schedule Rust work;
+neo links remain historical/source provenance and not a parallel Rust queue.
+Reconcile local corrections against the C patch ledger, qualify engine/data/
+ABI/config, run controlled cases and C twice/Rust comparisons, and retain
+separate target references and historical death identities. The material below
+records the completed work leading to this checkpoint.
+
+## Completed work and retained evidence
+
 Current branch: `main`. The owner resumed work and explicitly delegated
 creation/push of milestone tag `m4`; it identifies reviewed main commit
 `3923a21`. This was an author checkpoint audit, not independent signoff.
@@ -70,8 +91,8 @@ Current post-M4 investigation results:
   pass. Primary receipts: validation/2026-11-07-post-m4-investigation.
 
 The user's three reviewer worktrees remain preserved. Do not delete unique
-review evidence. Further source findings use the canonical C tracker, never
-angband/angband. Tool imports must not pull C Borg code into the Rust build;
+review evidence. Source findings follow the active milestone/consumer-ownership policy above;
+existing canonical links stay preserved. Never post to angband/angband. Tool imports must not pull C Borg code into the Rust build;
 use pinned donor commits and preserve licences and existing character data.
 
 First post-M4 task #295 now has a mirrored C/Rust correction and six new
@@ -221,7 +242,7 @@ running session, and the retry created the57KB save. A separate two-profile
 real GUI load/save/reload/save cycle passes with a synthetic level50 fixture;
 the owner's save is never used in that test or committed.
 
-## Next work
+## Earlier technical queue (completed; superseded by current M5 review)
 
 The owner explicitly resumed the agreed sequence in docs/M4-PLAN.md.
 Main integration, the M4 author audit and the delegated tag are complete.

@@ -1,5 +1,10 @@
 # borg-rs
 
+Current checkpoint: [M5 focused review](docs/M5-PLAN.md) at `28468aa`,
+tracked in [issue#2](https://github.com/diegoami/borg-rs/issues/2). After owner
+acceptance, development follows [verified better-borg-c milestones](docs/C-CONSUMER-ADOPTION.md).
+M4 remains accepted; no new C gameplay baseline is selected yet.
+
 A faithful Rust port of the Angband Borg (`angband/src/borg/`). It is verified by
 checking that, for the same seed and the same unmodified C engine, the Rust Borg
 produces a byte-identical keypress stream to the C Borg.

@@ -1,22 +1,33 @@
 # Rules for work on borg-rs
 
+Owner-approved current direction (2026-11-07): prepare the focused M5 review
+at 28468aa, then follow verified better-borg-c bug-fixing milestones. Read
+[docs/M5-PLAN.md](docs/M5-PLAN.md), [docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md)
+and [review#2](https://github.com/diegoami/borg-rs/issues/2) first. M5 review and
+owner acceptance are pending; no C target is selected and no new tag is created.
+After acceptance, exact accepted C milestone pins drive Rust adoption. Existing
+neo-angband-tracker links stay source/history provenance; its queue does not
+independently schedule post-M5 work. That adoption contract supersedes older
+routing/fidelity wording for the new lane; preserve old reports and references.
+
 
 Owner update (2026-11-06): targeted C/Rust corrections for crashes and
 blatant play blockers are allowed; other conflicts are case by case.
 See `docs/FORK-CORRECTIONS.md`, which supersedes earlier absolute fidelity
 restrictions for those corrections. Broader divergence follows a milestone
 and owner-created tag.
-Read `docs/REVIEW.md` first, then `docs/STATUS.md` and `docs/M4-PLAN.md`
-for the current checkpoint and owner-agreed next-session order. In short: this is a faithful Rust port of the
+Read `docs/REVIEW.md` and `docs/STATUS.md`; `docs/M4-PLAN.md` records the earlier completed sequence. In short: this is a faithful Rust port of the
 Angband C Borg. The Rust Borg must produce the same keypress stream as the C
 Borg. Known C bugs are kept on purpose and listed in `docs/c-bugs.md`.
 
-## C bug leads are filed in the tracker
+## Historical source-report routing (M1-M4)
 
-Every C bug found here is also filed as an issue in
+The original lane filed every C bug as an issue in
 [diegoami/neo-angband-tracker](https://github.com/diegoami/neo-angband-tracker),
-following that repository's conventions. This applies even to bugs that are
-only leads, found by reading the code and never seen in a game.
+following that repository's conventions, including code-reading leads.
+The rules below preserve existing report provenance. Current M5 work coordinates
+on issue#2; post-M5 findings/adoption follow C-CONSUMER-ADOPTION.md and the
+C consumer's ownership/source links, rather than a second direct tracker queue.
 
 * **When:** after the module commit that adds the entry to `docs/c-bugs.md`
   is merged and pushed to the work branch, so the discovery link points at a
@@ -60,7 +71,7 @@ full raw bundles/saves/builds stay outside Git. Use tools/record-death.py and
 aggregate-deaths.py for qualified manual exports; historical cases without
 movies retain their weaker evidence. Keep assessment/actions/authorized feedback
 durable, distinguish native facts from hypotheses, and never count reruns or
-backup branches as independent lives. New C defect leads still follow the
-canonical tracker rules above. Logging alone never authorizes tactical changes
+backup branches as independent lives. Source findings follow the active milestone policy above; existing canonical
+links remain preserved. Logging alone never authorizes tactical changes
 or automatic issue creation. Check linked owner feedback during active case
 work; no unattended monitoring or deletion of unique evidence.

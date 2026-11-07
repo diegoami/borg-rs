@@ -1,0 +1,57 @@
+{
+  "schema": "borg-rs/m5-preparation-audit@1",
+  "candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
+  "comparison_base": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
+  "scope": "read-only artifact integrity and source-pin audit, not independent review or a fresh game/test/coverage execution",
+  "receipts": [
+    {
+      "receipt": "docs/validation/2026-11-07-glyph-recognition",
+      "ledger": "SHA256SUMS",
+      "entries": 581,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-m4-review-followup",
+      "ledger": "SHA256SUMS",
+      "entries": 79,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-m4-review-residual",
+      "ledger": "SHA256SUMS",
+      "entries": 35,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-post-m4-investigation",
+      "ledger": "SHA256SUMS",
+      "entries": 577,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-launch-tool-port",
+      "ledger": "SHA256SUMS",
+      "entries": 23,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-gui-recording",
+      "ledger": "ARTIFACT_SHA256SUMS",
+      "entries": 86,
+      "errors": []
+    },
+    {
+      "receipt": "docs/validation/2026-11-07-death-recording",
+      "ledger": "ARTIFACT_SHA256SUMS",
+      "entries": 76,
+      "errors": []
+    }
+  ],
+  "artifact_hashes_checked": 1457,
+  "production_paths_changed_since_candidate": [],
+  "rust_inputs_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+  "c_inputs_sha256": "78704cd9db6ce8b488ff23716abb570b2dd0102fc0ac9a132a982fd912e65a8e",
+  "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
+  "m5_acceptance": "pending",
+  "c_target": null
+}

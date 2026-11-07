@@ -1,4 +1,14 @@
-# Narrow fork corrections before the divergence milestone
+# Narrow fork corrections and milestone transition
+
+Owner update (2026-11-07): [M5-PLAN.md](M5-PLAN.md) freezes 28468aa for focused
+review, then [C-CONSUMER-ADOPTION.md](C-CONSUMER-ADOPTION.md) governs the new
+lane. After M5 acceptance, accepted better-borg-c milestones become the pinned
+adoption baseline; neo source links stay provenance. This supersedes treating
+the old source-tracker queue or pristine version as the automatic post-M5 target.
+No C gameplay target or tag is selected by this documentation. The narrow
+crash/play-blocker policy remains, with explicit coordination and evidence.
+
+The sections below record the original M4 and post-M4 correction history.
 
 Owner direction, 2026-11-06: inherited C behavior may be corrected when
 it crashes or is a blatant play blocker. Mirror the narrow correction

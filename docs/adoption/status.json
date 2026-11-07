@@ -1,0 +1,16 @@
+{
+  "schema": "borg-rs/c-consumer-adoption@1",
+  "phase": "m5_review_pending",
+  "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
+  "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
+  "m5_accepted_source": null,
+  "m5_tag": null,
+  "historical_m4": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
+  "post_m5_delivery_source": "https://github.com/diegoami/better-borg-c",
+  "source_tracker_role": "historical/source provenance; no independent post-M5 Rust adoption queue",
+  "accepted_c_target": null,
+  "adopted_batches": [],
+  "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "policy": "docs/C-CONSUMER-ADOPTION.md",
+  "next_action": "Independent M5 review and findings disposition; explicit owner acceptance, then select/pin an accepted C bug-fixing milestone"
+}

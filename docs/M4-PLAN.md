@@ -1,5 +1,11 @@
 # M4: wider parity evidence
 
+Historical plan: M4 is owner-accepted and review#1 is closed. The approved
+successor is [M5-PLAN.md](M5-PLAN.md), review#2 at source28468aa, followed by
+[C-consumer milestone adoption](C-CONSUMER-ADOPTION.md). The sequence below
+retains the original evidence/order; it does not reopen M4 or start another
+investigation before the current focused review.
+
 M3 shows C/Rust key equivalence on the suites' seeds, the stock `borg.txt`
 plus munchkin and lunal mode, up to dungeon level 27. All three external
 reviews name the same open gap: the endgame, most configuration options,
@@ -43,7 +49,7 @@ references. Record reached depths and stop reasons rather than assuming
 that more turns guarantee more coverage. Main and tags stay unchanged
 until a checkpoint; tags are created by the owner.
 
-## Current review request
+## Completed M4 review request
 
 The owner narrowed the current task to an independent review of M4 only.
 [borg-rs#1](https://github.com/diegoami/borg-rs/issues/1) pins `m4` at
@@ -86,4 +92,5 @@ These are next-stage tasks, not additional evidence claimed for the completed
 bounded M4 corpus. Continue to apply the owner's correction policy, preserve
 original references, and establish any corrected C reference with two identical
 C runs before checkpointing Rust. The first post-tag correction #295 is complete;
-the next technical priority is #345.
+the later #345 investigation and requested tooling are complete; current work
+is the focused M5 review and subsequent accepted-C-milestone cutover.

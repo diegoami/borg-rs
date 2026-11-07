@@ -1,6 +1,22 @@
 # Guide for reviewers
 
-The owner's current request is **independent M4 review only**, coordinated
+Current request: **focused M5 cutover review**, coordinated on
+[borg-rs#2](https://github.com/diegoami/borg-rs/issues/2), at frozen source
+**28468aa9fdc74cbb65d351349b973835d8c42af9**. Read [M5-PLAN](M5-PLAN.md),
+[reviewer prompt](REVIEW-M5-PROMPT.md) and [C consumer adoption contract](C-CONSUMER-ADOPTION.md).
+The later documentation explains current owner policy without changing the
+reviewed source. Independent M5 review/owner acceptance are pending. No M5
+tag or first accepted C milestone has been selected. Both author and reviewer
+post handoff/progress/findings/dispositions on issue#2. Preserve owner data,
+source/references and previous review evidence; use isolated builds/displays.
+
+The rest of this guide retains the original M4 scope/evidence. M4 is accepted
+with its documented qualifications and review#1 remains closed. It is background
+for the new delta review, not a requirement to repeat the whole old milestone.
+
+## Accepted M4 background
+
+The owner's earlier request was **independent M4 review only**, coordinated
 in [borg-rs#1](https://github.com/diegoami/borg-rs/issues/1). Review pinned
 tag `m4` / `3923a21e75dfb94053d4cc787d81c5baf638d62e`, using isolated
 builds. The issue contains the scope, pinned evidence and required comment
@@ -58,7 +74,8 @@ The earlier external review and response remain historical evidence
 | M1 deterministic C harness | done (tag `m1-harness`) | `full` run twice, 45/45 logs identical; `docs/STATUS.md` |
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
 | M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
-| M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; follow-up verification pending in #1 | 139 engine executions; persistent native checks; linked receipts above |
+| M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; owner accepted, #1 closed | 139 engine executions; persistent native checks; linked receipts above |
+| M5 post-M4 fixes/tooling and C-consumer cutover | review pending at `28468aa`; #2 | M5-PLAN.md; later validation receipts and reviewer prompt |
 
 The owner-authorized main integration includes the former work-branch tip
 `40194d8`; `claude/serene-ramanujan-8hzsfm` is historical. Continue from main.
