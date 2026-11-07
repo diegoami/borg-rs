@@ -48,8 +48,9 @@ until a checkpoint; tags are created by the owner.
 The owner accepted this sequence and deferred new development until the next
 session. Resume only when requested; no automatic task or tag creation.
 
-1. Review the declared M4 checkpoint and let the owner create its tag. This
-   preserves the verified parity baseline before broader behavior changes.
+1. Main integration is complete by explicit owner request (fast-forward
+   to40194d8). Review the declared M4 checkpoint on main and let the owner
+   create its tag before broader behavior changes.
 2. Address existing glyph-recognition finding#295 using the new real-engine
    scenarios, then reverse-flow finding#345; require a complete rune-building
    outcome before claiming the full tactic works.

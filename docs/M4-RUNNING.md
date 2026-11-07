@@ -2,7 +2,8 @@
 
 ## Completed declared M4 checkpoint, production source28b8170
 
-Required validation is complete. Main/tags remain unchanged for the owner.
+Required validation is complete. The owner-requested main merge is complete
+(fast-forward to40194d8); tags remain unchanged for the owner.
 Ordinary source28 C/C and Rust/C pass crash-fixes6/6, extended12/12 and
 natural2/2, all original extended limits reached; both builds match105
 baseline and8 captured-Rogue cases. All30 engine captures match complete

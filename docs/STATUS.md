@@ -5,7 +5,9 @@
 Production Borg/engine inputs remain at `28b8170`. The owner-authorized
 matching C/Rust corrections address panel-offset equality (#290), UTF-8
 output capacity/NUL termination (#287), and same-square melee targets (#322).
-Main and tags are unchanged; the owner creates the milestone tag.
+The owner explicitly requested main integration: the verified work was
+fast-forwarded to main at40194d8. Tags remain unchanged; the owner creates
+the milestone tag.
 
 Verified evidence, with strict build/process checks and no overrides:
 

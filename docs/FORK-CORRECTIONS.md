@@ -78,4 +78,5 @@ byte equality. Their wizard setup and finite stops are explicit. Existing
 recognition finding#295 and reverse-flow lead#345 are recorded, without a
 broader tactic correction. Full formation-building, unbounded scumming and
 an unassisted win remain unestablished. See the2026-11-07 coverage/synthetic
-receipts. Main/tag movement remains the owner's action.
+receipts. The owner explicitly requested the main fast-forward to40194d8;
+it is complete. Tag creation remains the owner's action.

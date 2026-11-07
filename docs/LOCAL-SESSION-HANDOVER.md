@@ -1,10 +1,13 @@
 # Local checkpoint — 2026-11-07
 
-Work branch: `claude/serene-ramanujan-8hzsfm`. Production inputs remain at
-`28b8170`; later work is tooling, fixtures, references, receipts and the
-requested root launcher. Declared M4 A-F validation is complete, including
-the owner's additional synthetic engine scenarios. Main/tags are unchanged;
-the owner creates the milestone tag. No validation jobs remain active.
+Current branch: `main`. The owner explicitly requested integration, and
+main was fast-forwarded to40194d8 (the previous work-branch tip). Production
+inputs remain at `28b8170`; later work is tooling, fixtures, references,
+receipts and the requested root launcher. Declared M4 A-F validation is
+complete, including the owner's additional synthetic engine scenarios.
+Tags are unchanged; the owner creates the milestone tag. No validation
+jobs remain active. Start future work from main; the old claude-named
+branch is historical, not a required workflow.
 
 Read CLAUDE.md, docs/FORK-CORRECTIONS.md, M4-PLAN.md, STATUS.md and receipts:
 
@@ -141,5 +144,5 @@ the owner's save is never used in that test or committed.
 
 The owner requested wind-down and accepted the next-session sequence recorded
 in `docs/M4-PLAN.md` (Agreed next-session order). Read that decision before
-starting another task. M4 review and an owner-created tag precede the tactical
-work. No new development should auto-start during this wind-down.
+starting another task. The requested main merge is complete; M4 review
+and an owner-created tag still precede the tactical work. No new development should auto-start during this wind-down.
