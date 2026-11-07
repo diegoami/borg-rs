@@ -129,8 +129,7 @@ the owner's save is never used in that test or committed.
 
 ## Next work
 
-Present the verified bounded M4 scope for the owner to tag; do not move main or
-tag automatically. If the owner asks for a tactical correction, use the linked
-source findings and existing scenario controls, then rebuild/checkpoint affected
-inputs and update references only after two corrected C passes agree. Do not
-infer a win or correct C strategy from parity or a nonzero function entry.
+The owner requested wind-down and accepted the next-session sequence recorded
+in `docs/M4-PLAN.md` (Agreed next-session order). Read that decision before
+starting another task. M4 review and an owner-created tag precede the tactical
+work. No new development should auto-start during this wind-down.

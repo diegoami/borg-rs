@@ -23,7 +23,7 @@ identical) and a checkpoint of all suites.
 Checkpoint after A and B (PROGRESS row 65): Rust = C on keys, messages
 and state in all 105 runs of the six suites.
 
-## Step C run plan (2026-11-06)
+## Historical Step C run plan (2026-11-06)
 
 `harness/suites/extended` uses `menu,cheat` throughout, with the stock
 configuration. Seeds 4000-4008 play all nine actual classes for 2M turns
@@ -42,3 +42,22 @@ completed suites with `DONE`, then compare C/C before storing any new
 references. Record reached depths and stop reasons rather than assuming
 that more turns guarantee more coverage. Main and tags stay unchanged
 until a checkpoint; tags are created by the owner.
+
+## Agreed next-session order
+
+The owner accepted this sequence and deferred new development until the next
+session. Resume only when requested; no automatic task or tag creation.
+
+1. Review the declared M4 checkpoint and let the owner create its tag. This
+   preserves the verified parity baseline before broader behavior changes.
+2. Address existing glyph-recognition finding#295 using the new real-engine
+   scenarios, then reverse-flow finding#345; require a complete rune-building
+   outcome before claiming the full tactic works.
+3. Investigate self-lunal stair cycling. Current evidence establishes entry
+   and first descent; failed longer clock-bound pilots remain excluded.
+4. Run bounded normal games with cheat death off and analyze natural deaths.
+
+These are next-stage tasks, not additional evidence claimed for the completed
+bounded M4 corpus. Continue to apply the owner's correction policy, preserve
+original references, and establish any corrected C reference with two identical
+C runs before checkpointing Rust. The first technical priority after the tag is#295.

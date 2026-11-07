@@ -6,7 +6,8 @@ blatant play blockers are allowed; other conflicts are case by case.
 See `docs/FORK-CORRECTIONS.md`, which supersedes earlier absolute fidelity
 restrictions for those corrections. Broader divergence follows a milestone
 and owner-created tag.
-Read `docs/REVIEW.md` first. In short: this is a faithful Rust port of the
+Read `docs/REVIEW.md` first, then `docs/STATUS.md` and `docs/M4-PLAN.md`
+for the current checkpoint and owner-agreed next-session order. In short: this is a faithful Rust port of the
 Angband C Borg. The Rust Borg must produce the same keypress stream as the C
 Borg. Known C bugs are kept on purpose and listed in `docs/c-bugs.md`.
 
