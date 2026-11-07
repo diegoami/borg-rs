@@ -1441,3 +1441,25 @@ The C source is unchanged; no correction is proposed in this pass.
 * Tracker: diegoami/neo-angband-tracker#357 (reported lead).
   This concerns window preferences only; the separate launcher save failure
   was an argument-order error fixed in the wrapper, not a C savefile defect.
+
+## 58. Ordinary engine glyphs fail the map-discovery predicate (existing finding)
+
+* Existing tracker#295 identifies `borg-update.c:330-338`: glyph assignment
+  is nested under `square_isdisarmabletrap`. That predicate requires a
+  visible TRAP; ordinary warding glyphs have GLYPH|VISIBLE|FLOOR, without
+  TRAP. Thus ordinary glyph-only tiles do not enter that discovery branch.
+* New synthetic native-engine evidence: a level100 preparation case creates
+  a real glyph and consumes one scroll (20 to19). A prelaid24-glyph ring
+  case finishes with25 engine glyphs,23 visible, but the native C Borg map
+  has zero glyph tiles and tracks only its latest cast. The C observation
+  reads fields only at stop; keys/messages/player state and complete saved
+  bytes match the unobserved native C run. No TRAP flag or Borg glyph field
+  is injected by the fixture constructor. Normal C/C and Rust/C all match.
+* The six-case scenario suite and receipts are under
+  `harness/scenarios/` and `docs/validation/2026-11-07-synthetic-tactics/`.
+  This is consumer native evidence, not independent tracker verification
+  or a source correction. It is distinct from section56's reverse-flow
+  search and section29's rollback/counting slips. No full formation-building,
+  combat improvement or win is claimed.
+* Tracker: diegoami/neo-angband-tracker#295 (existing source finding;
+  additional consumer evidence pending published module commit).

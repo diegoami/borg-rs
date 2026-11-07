@@ -1,0 +1,36 @@
+suite=synthetic-tactics
+suite_sha256=bc2ed1690ffd796f491a09827548502431317a7015665573b71b699bce3fee46
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=28b8170a67bd34f9ee05589f567ff42aae65fef9
+build_id_git_dirty=yes
+build_id_inputs_dirty=no
+build_id_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+build_id_binary_sha256=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-06T20:11:20Z
+checkout_source_sha256=3e9ac5743b149636107135dd323ca2f2f96799be73121abcf4812f31dccffa46
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=91dece5da4fe9b3dc744b3f41bbef03787a75041
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=120
+save_root=/home/diego/projects/borg-rs/harness/out/local/synthetic-generate/pass1
+started_utc=2026-11-07T00:58:55Z
+run_config.synth-lunal-ready=menu,selflunal,save=lunal-ready.save c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+run_config.synth-lunal-disabled=menu,borg_self_lunal=FALSE,save=lunal-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-lunal-history=menu,selflunal,save=lunal-shallow-history.save c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+run_config.synth-glyph-ready=menu,save=glyph-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-low-supply=menu,save=glyph-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-complete=menu,save=glyph-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=2e99ac86769d02c248f20303397c2c40c1b00d42d07b288838506c11a4bb2090
+finished_utc=2026-11-07T01:00:56Z result=FAILED

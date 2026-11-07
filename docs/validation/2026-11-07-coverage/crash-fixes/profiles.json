@@ -1,0 +1,38 @@
+{
+  "end-depth100": {
+    "bytes": 257248,
+    "child_pid": 1013215,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013215.profraw",
+    "sha256": "30329a201ac29a8aaff57afbb6141b4d022f05e5cf5dd9738732fc85926c078e"
+  },
+  "end-depth50": {
+    "bytes": 257248,
+    "child_pid": 1013211,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013211.profraw",
+    "sha256": "624f338e634fa1d5e0d677f8897590afee82c5a2f21a1583bea80af7c0389c6b"
+  },
+  "end-depth98": {
+    "bytes": 257248,
+    "child_pid": 1013214,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013214.profraw",
+    "sha256": "545d5dd6a21364a17c8537335228c9a7e9426e541d0ccbbd5ace2199ac1de419"
+  },
+  "end-depth99": {
+    "bytes": 257248,
+    "child_pid": 1013210,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013210.profraw",
+    "sha256": "05fbc8dc0ed14ca639796d1aa09a8daaa40a7e9342aefa6861cde5a2a2c26bae"
+  },
+  "end-near-morgoth": {
+    "bytes": 257248,
+    "child_pid": 1013212,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013212.profraw",
+    "sha256": "1e26e25e8b8cdd4ac887162adf0f9f04668bc3a397b3679e23643111b9ca515f"
+  },
+  "ext-rogue": {
+    "bytes": 257248,
+    "child_pid": 1013213,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/crash-fixes/11212204227228682092_0-1013213.profraw",
+    "sha256": "629719cd019b2bd601c55e6c4840f4c7f0436c683aee679e4de92230c3473624"
+  }
+}

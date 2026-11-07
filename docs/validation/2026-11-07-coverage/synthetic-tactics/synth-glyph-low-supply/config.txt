@@ -1,0 +1,3 @@
+flags=menu,finalsave,save=glyph-low-supply.save
+borg_txt_sha256=f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+save_sha256=1db90931df679ed7d58990bf96e734a34e87f0291cf050250c5f39dc9afb417c

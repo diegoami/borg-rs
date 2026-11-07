@@ -1,0 +1,3 @@
+PASS missing declared final.save rejected
+== synth-glyph-ready: final engine saves differ
+PASS changed final engine save rejected with unchanged keys/messages/state

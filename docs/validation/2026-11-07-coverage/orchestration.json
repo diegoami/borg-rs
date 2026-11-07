@@ -1,0 +1,11 @@
+{
+  "original_coordinator_exit": 2,
+  "original_coordinator_error": "unexpected EOF while looking for matching quote after natural PASS",
+  "cause": "on-disk coordinator edited during its long parsed loop",
+  "original_global_DONE_accepted": false,
+  "all_original_group_runs_and_oracles_passed": true,
+  "assembly": "strict independently validated completed groups; no partial engine groups",
+  "final_groups": 11,
+  "final_process_profiles": 139,
+  "script_snapshot_live_edit_smoke_control": "passed 3/3; immutable startup source"
+}

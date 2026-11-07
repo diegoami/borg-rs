@@ -1,0 +1,3 @@
+flags=menu,finalsave,selflunal,borg_stop_dlevel=22,save=lunal-ready.save
+borg_txt_sha256=e6d709f600df3de177e445157c1a274551060a2fce21245bdd484503b5493001
+save_sha256=73c9ef72337ce037ca107b4a0b160dcc39704746b661f333cb3dadff71512ccd

@@ -1,0 +1,21 @@
+{
+  "seed": 1021,
+  "race": "Hobbit",
+  "race_idx": 3,
+  "class": "Druid",
+  "class_idx": 2,
+  "menu_letters": true,
+  "cheat_live": true,
+  "deaths": 5,
+  "stop_reason": "turns",
+  "game_turns": 100001,
+  "player_turns": 10316,
+  "resting_turns": 2344,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 20734,
+  "wall_seconds": 252.966
+}

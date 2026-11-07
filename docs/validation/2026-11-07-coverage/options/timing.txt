@@ -1,0 +1,26 @@
+suite=options impl=rust jobs=8 wall_seconds=1449.340902331 result=OK
+opt-scum-war turns turns=100009 pturns=10000 clev=1 maxdepth=0 keys=2967 wall=2.2 Human Warrior
+opt-scum-mage turns turns=100001 pturns=10006 clev=1 maxdepth=1 keys=2674 wall=2.4 Half-Elf Mage
+opt-scum-noself-mage turns turns=100001 pturns=10006 clev=1 maxdepth=1 keys=2673 wall=2.0 Half-Elf Mage
+opt-scum-done-mage borg_stopped turns=1 pturns=0 clev=1 maxdepth=0 keys=2 wall=0.1 Half-Elf Mage
+opt-dyn-war turns turns=100001 pturns=10192 clev=14 maxdepth=4 keys=15027 wall=179.2 Human Warrior
+opt-dyn-mage turns turns=100096 pturns=10282 clev=5 maxdepth=2 keys=8218 wall=65.4 Half-Elf Mage
+opt-dyn-priest turns turns=100005 pturns=10049 clev=2 maxdepth=2 keys=10877 wall=17.6 Dwarf Priest
+opt-wdam-war turns turns=100006 pturns=10227 clev=11 maxdepth=4 keys=14156 wall=106.0 Human Warrior
+opt-wspeed-war turns turns=100007 pturns=10182 clev=8 maxdepth=8 keys=13707 wall=139.8 Human Warrior
+opt-whp-war turns turns=100007 pturns=10182 clev=8 maxdepth=8 keys=13707 wall=137.7 Human Warrior
+opt-wmana-rogue turns turns=1000001 pturns=100548 clev=20 maxdepth=7 keys=164809 wall=1446.5 Hobbit Rogue
+opt-wac-war turns turns=100004 pturns=10213 clev=7 maxdepth=3 keys=14050 wall=177.2 Human Warrior
+opt-wgold-war turns turns=200009 pturns=20272 clev=11 maxdepth=13 keys=29683 wall=334.5 Human Warrior
+opt-risky-war turns turns=100008 pturns=10207 clev=7 maxdepth=3 keys=13866 wall=286.5 Human Warrior
+opt-uniques-war turns turns=100004 pturns=10234 clev=7 maxdepth=2 keys=14455 wall=140.3 Human Warrior
+opt-noswap-war turns turns=100007 pturns=10182 clev=8 maxdepth=8 keys=13707 wall=177.6 Human Warrior
+opt-nodeeper-war turns turns=100007 pturns=10237 clev=8 maxdepth=2 keys=13980 wall=157.3 Human Warrior
+opt-stopdlevel-war borg_stopped turns=20833 pturns=2166 clev=4 maxdepth=2 keys=2746 wall=40.4 Human Warrior
+opt-stopclevel-war borg_stopped turns=27889 pturns=2882 clev=5 maxdepth=8 keys=3722 wall=50.1 Human Warrior
+opt-autosave-war turns turns=100007 pturns=10182 clev=8 maxdepth=8 keys=16325 wall=177.5 Human Warrior
+opt-verbose-war turns turns=100007 pturns=10182 clev=8 maxdepth=8 keys=13707 wall=161.4 Human Warrior
+opt-chest-war turns turns=400006 pturns=40336 clev=16 maxdepth=11 keys=73616 wall=519.9 Human Warrior
+opt-munchkin-limits-war turns turns=100004 pturns=12811 clev=8 maxdepth=4 keys=24321 wall=112.9 Human Warrior
+opt-respawn-druid turns turns=100001 pturns=10316 clev=4 maxdepth=2 keys=20734 wall=253.0 Hobbit Druid
+opt-respawn-random-druid turns turns=100004 pturns=10406 clev=3 maxdepth=2 keys=14332 wall=266.1 Hobbit Rogue

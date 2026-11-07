@@ -1,0 +1,3 @@
+flags=menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-shallow-history.save
+borg_txt_sha256=76520d020db3eff72ac80e720bc0063083b88002bf35049bb775aff144f58396
+save_sha256=ca2ca8ccf3d2cbefd2fbc54e7bc2bccfe20cc61cac512462189085c0d461f25c

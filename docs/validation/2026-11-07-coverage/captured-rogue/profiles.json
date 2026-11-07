@@ -1,0 +1,50 @@
+{
+  "captured-rogue-01": {
+    "bytes": 257248,
+    "child_pid": 1007994,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007994.profraw",
+    "sha256": "0cf6b214b90cce2ecf72d2fe9e33849bfd91d64a8f0dd6ae1df6a7dcf4785c0a"
+  },
+  "captured-rogue-02": {
+    "bytes": 257248,
+    "child_pid": 1007991,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007991.profraw",
+    "sha256": "0cba2d5daf3d662593d71f2d1d22946dc7d2e2cbd321cd034fd68e9a4d21122e"
+  },
+  "captured-rogue-03": {
+    "bytes": 257248,
+    "child_pid": 1007993,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007993.profraw",
+    "sha256": "0a1d92171ab4cdd0fb6ad3fddbc5dadd00ef4a77b4cde99b9003cfeab58f314a"
+  },
+  "captured-rogue-04": {
+    "bytes": 257248,
+    "child_pid": 1007990,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007990.profraw",
+    "sha256": "f07523cd558ce8b4a45af480de0902f580a96c5f48373ee8159b474387333b10"
+  },
+  "captured-rogue-05": {
+    "bytes": 257248,
+    "child_pid": 1007995,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007995.profraw",
+    "sha256": "e50610256d3cd65a9dd84f960cce99eda58914ea02e62fbae1fdf61ea6c190ca"
+  },
+  "captured-rogue-06": {
+    "bytes": 257248,
+    "child_pid": 1007987,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007987.profraw",
+    "sha256": "1510e149b74929ffaa69f4d5554583b5c16ccfd2f5af0435ee24f911e79db364"
+  },
+  "captured-rogue-07": {
+    "bytes": 257248,
+    "child_pid": 1007986,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007986.profraw",
+    "sha256": "f2848c82fe8f85a4bfbde759b432997798824cd3397eb0a6cbdd39773456399d"
+  },
+  "captured-rogue-08": {
+    "bytes": 257248,
+    "child_pid": 1007985,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/captured-rogue/11212204227228682092_0-1007985.profraw",
+    "sha256": "29abbec32c6f21643dfc70d218a0296afe0508a11d443e09328d6f2d95337017"
+  }
+}

@@ -398,7 +398,7 @@ committed):
   `borg_think_dungeon_lunal` is never entered: its only caller is the
   self-lunal check in `borg_think_dungeon` (C `borg-think-dungeon.c:1439`),
   which needs `borg_self_lunal` and a borg standing at least 15 levels
-  above its max depth, prepared for 15 levels deeper, and below
+  above its max depth, prepared for 15 levels deeper, and deeper than
   clevel / 3.
 * Self-lunal: not covered. With `selflunal` added, eight 1M cheat-death
   runs (seeds 2000, 2001, 2005, 2007 with and without `lunal`, and the
@@ -501,3 +501,15 @@ and pass the same `--save-root` to `harness/diff`. Both C passes establish
 the separately identified natural reference. These are fresh Borgs on
 Borg-played cheat-death engine states, not restored private Borg memory or
 stitched continuations. See the latest melee validation receipt.
+
+### Synthetic engine tactic cases
+
+The new six-case synthetic-tactics suite reaches the real self-lunal and
+glyph callers with unchanged production code. C/C and Rust/C6/6 compare all
+three logs plus complete final engine-save bytes (finalsave flag). The lunal
+fixture has depth20/max99/clevel50 and stops at its first descent to21;
+option-off and max34 controls have zero thinker entries. The glyph preparation
+case consumes a real Rune scroll and adds an engine glyph; supply9 controls
+have zero builder entries. A prelaid24-glyph case exposes existing#295's
+recognition predicate. These are wizard states and bounded actions, not an
+unassisted win or completed full rune tactic. See harness/scenarios/README.md.

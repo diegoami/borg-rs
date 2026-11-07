@@ -1,0 +1,11 @@
+ACCEPTED original smoke group:3 exact process/profile pairs
+REJECTED mismatched coverage binary
+ACCEPTED relocated complete profile group
+REJECTED incorrect profile pid
+REJECTED incorrect profile hash
+REJECTED unexpected process profile
+REJECTED profile assigned to a different group directory
+REJECTED missing group
+REJECTED incomplete join before creating output
+REJECTED full report without matrix DONE
+PASS acceptance refusal controls

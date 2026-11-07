@@ -1,0 +1,2 @@
+flags=menu,cheat,lunal
+borg_txt_sha256=eb03f4813ef2c89b2c46832b8d21348840b193099abfd36a616172850f4aca84

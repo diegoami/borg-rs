@@ -1,0 +1,181 @@
+f a LOS black ogre
+101319 382 0 # Creating a monster 'sabre-tooth tiger' at (10,181), HP: 151, Index: 243
+101319 382 0 # Removing Regional Fear (10,181) because of a LOS sabre-tooth tiger
+101319 382 0 # Creating a monster 'ogre' at (10,165), HP: 69, Index: 181
+101319 382 0 # Removing Regional Fear (10,165) because of a LOS ogre
+101319 382 0 # Creating a monster 'ogre' at (10,164), HP: 69, Index: 181
+101319 382 0 # Removing Regional Fear (10,164) because of a LOS ogre
+101319 382 0 # Creating a monster 'ogre' at (10,163), HP: 47, Index: 181
+101319 382 0 # Removing Regional Fear (10,163) because of a LOS ogre
+101319 382 0 # Creating a monster 'ogre' at (9,164), HP: 65, Index: 181
+101319 382 0 # Removing Regional Fear (9,164) because of a LOS ogre
+101319 382 0 # FEELING_DANGER:5 (1)
+101319 382 0 # Fleeing level. Lunal Mode
+101319 382 0 # Lunal Mode.  Power Diving. 
+101319 382 0 # Flowing toward down-stairs at cost 0
+101320 382 29 You enter a maze of down staircases.
+101321 382 0 This place seems terribly dangerous.
+101322 382 0 # FEELING_DANGER:3 (+)
+101322 382 0 # Creating a monster 'Ufthak of Cirith Ungol' at (30,98), HP: 320, Index: 187
+101322 382 0 # Removing Regional Fear (30,98) because of a LOS Ufthak of Cirith Ungol
+101322 382 0 # Creating a monster 'cave orc' at (29,100), HP: 55, Index: 104
+101322 382 0 # Removing Regional Fear (29,100) because of a LOS cave orc
+101322 382 0 # Creating a monster 'cave orc' at (28,100), HP: 57, Index: 104
+101322 382 0 # Removing Regional Fear (28,100) because of a LOS cave orc
+101322 382 0 # Creating a monster 'orc archer' at (28,95), HP: 78, Index: 185
+101322 382 0 # Removing Regional Fear (28,95) because of a LOS orc archer
+101322 382 0 # Creating a monster 'cave orc' at (27,100), HP: 35, Index: 104
+101322 382 0 # Removing Regional Fear (27,100) because of a LOS cave orc
+101322 382 0 # Creating a monster 'snaga' at (27,99), HP: 39, Index: 99
+101322 382 0 # Removing Regional Fear (27,99) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (27,98), HP: 27, Index: 99
+101322 382 0 # Removing Regional Fear (27,98) because of a LOS snaga
+101322 382 0 # Creating a monster 'orc archer' at (27,95), HP: 67, Index: 185
+101322 382 0 # Removing Regional Fear (27,95) because of a LOS orc archer
+101322 382 0 # Creating a monster 'snaga' at (26,101), HP: 36, Index: 99
+101322 382 0 # Removing Regional Fear (26,101) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (26,100), HP: 43, Index: 99
+101322 382 0 # Removing Regional Fear (26,100) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (26,99), HP: 41, Index: 99
+101322 382 0 # Removing Regional Fear (26,99) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (26,98), HP: 40, Index: 99
+101322 382 0 # Removing Regional Fear (26,98) because of a LOS snaga
+101322 382 0 # Creating a monster 'orc archer' at (26,95), HP: 67, Index: 185
+101322 382 0 # Removing Regional Fear (26,95) because of a LOS orc archer
+101322 382 0 # Creating a monster 'snaga' at (25,100), HP: 38, Index: 99
+101322 382 0 # Removing Regional Fear (25,100) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (25,99), HP: 33, Index: 99
+101322 382 0 # Removing Regional Fear (25,99) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (25,98), HP: 43, Index: 99
+101322 382 0 # Removing Regional Fear (25,98) because of a LOS snaga
+101322 382 0 # Creating a monster 'snaga' at (25,97), HP: 46, Index: 99
+101322 382 0 # Removing Regional Fear (25,97) because of a LOS snaga
+101322 382 0 # Creating a monster 'warg' at (24,100), HP: 38, Index: 190
+101322 382 0 # Removing Regional Fear (24,100) because of a LOS warg
+101322 382 0 # Creating a monster 'warg' at (24,99), HP: 37, Index: 190
+101322 382 0 # Removing Regional Fear (24,99) because of a LOS warg
+101322 382 0 # Creating a monster 'warg' at (24,98), HP: 42, Index: 190
+101322 382 0 # Removing Regional Fear (24,98) because of a LOS warg
+101322 382 0 # Creating a monster 'tamer' at (23,120), HP: 9, Index: 73
+101322 382 0 # Removing Regional Fear (23,120) because of a LOS tamer
+101322 382 0 # Creating a monster 'warg' at (23,100), HP: 38, Index: 190
+101322 382 0 # Removing Regional Fear (23,100) because of a LOS warg
+101322 382 0 # Creating a monster 'warg' at (23,99), HP: 27, Index: 190
+101322 382 0 # Removing Regional Fear (23,99) because of a LOS warg
+101322 382 0 # Creating a monster 'warg' at (23,98), HP: 34, Index: 190
+101322 382 0 # Removing Regional Fear (23,98) because of a LOS warg
+101322 382 0 # Creating a monster 'tamer' at (22,120), HP: 25, Index: 73
+101322 382 0 # Removing Regional Fear (22,120) because of a LOS tamer
+101322 382 0 # Creating a monster 'uruk' at (21,100), HP: 57, Index: 211
+101322 382 0 # Removing Regional Fear (21,100) because of a LOS uruk
+101322 382 0 # Creating a monster 'uruk' at (20,100), HP: 92, Index: 211
+101322 382 0 # Removing Regional Fear (20,100) because of a LOS uruk
+101322 382 0 # Creating a monster 'orc tracker' at (20,95), HP: 51, Index: 123
+101322 382 0 # Removing Regional Fear (20,95) because of a LOS orc tracker
+101322 382 0 # Creating a monster 'uruk' at (19,100), HP: 45, Index: 211
+101322 382 0 # Removing Regional Fear (19,100) because of a LOS uruk
+101322 382 0 # Creating a monster 'orc archer' at (19,96), HP: 72, Index: 185
+101322 382 0 # Removing Regional Fear (19,96) because of a LOS orc archer
+101322 382 0 # Creating a monster 'uruk' at (18,103), HP: 61, Index: 211
+101322 382 0 # Removing Regional Fear (18,103) because of a LOS uruk
+101322 382 0 # Creating a monster 'uruk' at (18,102), HP: 66, Index: 211
+101322 382 0 # Removing Regional Fear (18,102) because of a LOS uruk
+101322 382 0 # Creating a monster 'uruk' at (18,101), HP: 63, Index: 211
+101322 382 0 # Removing Regional Fear (18,101) because of a LOS uruk
+101322 382 0 # Creating a monster 'orc archer' at (18,96), HP: 56, Index: 185
+101322 382 0 # Removing Regional Fear (18,96) because of a LOS orc archer
+101322 382 0 # Creating a monster 'warg' at (18,95), HP: 36, Index: 190
+101322 382 0 # Removing Regional Fear (18,95) because of a LOS warg
+101322 382 0 # Creating a monster 'orc tracker' at (18,94), HP: 65, Index: 123
+101322 382 0 # Removing Regional Fear (18,94) because of a LOS orc tracker
+101322 382 0 # Creating a monster 'orc archer' at (17,96), HP: 64, Index: 185
+101322 382 0 # Removing Regional Fear (17,96) because of a LOS orc archer
+101322 382 0 # Creating a monster 'orc tracker' at (17,94), HP: 44, Index: 123
+101322 382 0 # Removing Regional Fear (17,94) because of a LOS orc tracker
+101322 382 0 # Creating a monster 'orc captain' at (16,97), HP: 97, Index: 222
+101322 382 0 # Removing Regional Fear (16,97) because of a LOS orc captain
+101322 382 0 # Creating a monster 'orc archer' at (16,96), HP: 64, Index: 185
+101322 382 0 # Removing Regional Fear (16,96) because of a LOS orc archer
+101322 382 0 # Creating a monster 'terrified yeek' at (15,106), HP: 16, Index: 118
+101322 382 0 # Removing Regional Fear (15,106) because of a LOS terrified yeek
+101322 382 0 # Creating a monster 'tiger' at (15,102), HP: 80, Index: 173
+101322 382 0 # Removing Regional Fear (15,102) because of a LOS tiger
+101322 382 0 # Creating a monster 'snaga' at (15,97), HP: 36, Index: 99
+101322 382 0 # Removing Regional Fear (15,97) because of a LOS snaga
+101322 382 0 # Creating a monster 'orc archer' at (15,96), HP: 73, Index: 185
+101322 382 0 # Removing Regional Fear (15,96) because of a LOS orc archer
+101322 382 0 # Creating a monster 'snaga' at (14,97), HP: 43, Index: 99
+101322 382 0 # Removing Regional Fear (14,97) because of a LOS snaga
+101322 382 0 # FEELING_DANGER:3 (1)
+101322 382 0 # Fleeing level. Lunal Mode
+101322 382 0 # Lunal Mode.  Power Climb. 
+101322 382 0 # Flowing toward up-stairs at cost 0
+101323 382 78 You enter a maze of up staircases.
+101324 382 0 You feel nervous about this place.
+101325 382 0 # FEELING_DANGER:5 (+)
+101325 382 0 # Creating a monster 'white wolf' at (20,6), HP: 27, Index: 163
+101325 382 0 # Removing Regional Fear (20,6) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (19,6), HP: 25, Index: 163
+101325 382 0 # Removing Regional Fear (19,6) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (18,9), HP: 30, Index: 163
+101325 382 0 # Removing Regional Fear (18,9) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (18,7), HP: 28, Index: 163
+101325 382 0 # Removing Regional Fear (18,7) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (18,6), HP: 32, Index: 163
+101325 382 0 # Removing Regional Fear (18,6) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (17,9), HP: 37, Index: 163
+101325 382 0 # Removing Regional Fear (17,9) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (17,8), HP: 28, Index: 163
+101325 382 0 # Removing Regional Fear (17,8) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (17,7), HP: 29, Index: 163
+101325 382 0 # Removing Regional Fear (17,7) because of a LOS white wolf
+101325 382 0 # Creating a monster 'white wolf' at (16,6), HP: 28, Index: 163
+101325 382 0 # Removing Regional Fear (16,6) because of a LOS white wolf
+101325 382 0 # FEELING_DANGER:5 (1)
+101325 382 0 # Fleeing level. Lunal Mode
+101325 382 0 # Lunal Mode.  Power Diving. 
+101325 382 0 # Flowing toward down-stairs at cost 0
+101326 382 29 You enter a maze of down staircases.
+101327 382 0 You feel nervous about this place.
+101328 382 0 # FEELING_DANGER:5 (+)
+101328 382 0 # Creating a monster '3-headed hydra' at (37,133), HP: 299, Index: 240
+101328 382 0 # Removing Regional Fear (37,133) because of a LOS 3-headed hydra
+101328 382 0 # Creating a monster 'giant green frog' at (31,136), HP: 7, Index: 42
+101328 382 0 # Removing Regional Fear (31,136) because of a LOS giant green frog
+101328 382 0 # FEELING_DANGER:5 (1)
+101328 382 0 # Fleeing level. Lunal Mode
+101328 382 0 # Lunal Mode.  Power Climb. 
+101328 382 0 # Flowing toward up-stairs at cost 0
+101329 382 78 You enter a maze of up staircases.
+101330 382 0 This place does not seem too risky.
+101330 382 0 You have found a secret door.
+101331 382 0 # FEELING_DANGER:6 (+)
+101331 382 0 # Creating a monster 'small kobold' at (21,81), HP: 11, Index: 25
+101331 382 0 # Removing Regional Fear (21,81) because of a LOS small kobold
+101331 382 0 # Creating a monster 'tamer' at (14,88), HP: 17, Index: 73
+101331 382 0 # Removing Regional Fear (14,88) because of a LOS tamer
+101331 382 0 # Creating a monster 'sabre-tooth tiger' at (12,110), HP: 200, Index: 243
+101331 382 0 # Removing Regional Fear (12,110) because of a LOS sabre-tooth tiger
+101331 382 0 # Creating a monster 'imp' at (11,102), HP: 29, Index: 214
+101331 382 0 # Removing Regional Fear (11,102) because of a LOS imp
+101331 382 0 # Creating a monster 'radiation eye' at (11,97), HP: 12, Index: 68
+101331 382 0 # Removing Regional Fear (11,97) because of a LOS radiation eye
+101331 382 0 # Creating a monster 'gallant' at (11,88), HP: 32, Index: 72
+101331 382 0 # Removing Regional Fear (11,88) because of a LOS gallant
+101331 382 0 # FEELING_DANGER:6 (1)
+101331 382 0 # Fleeing level. Lunal Mode
+101331 382 0 # Lunal Mode.  Power Diving. 
+101331 382 0 # Flowing toward down-stairs at cost 0
+101332 382 29 You enter a maze of down staircases.
+101333 382 0 You feel nervous about this place.
+101334 382 0 # FEELING_DANGER:5 (+)
+101334 382 0 # Creating a monster 'sasquatch' at (15,33), HP: 194, Index: 247
+101334 382 0 # Removing Regional Fear (15,33) because of a LOS sasquatch
+101334 382 0 # FEELING_DANGER:5 (1)
+101334 382 0 # Fleeing level. Lunal Mode
+101334 382 0 # Lunal Mode.  Power Climb. 
+101334 382 0 # Flowing toward up-stairs at cost 0
+101335 382 78 You enter a maze of up staircases.
+101336 382 0 This place seems reasonably safe.
+101337 382 0 # Aborting (terminal disconnect abort).
+101338 382 0 # Removing keypress hook

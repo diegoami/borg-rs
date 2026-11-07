@@ -1,0 +1,37 @@
+suite=crash-fixes
+suite_sha256=dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=rust
+binary=/tmp/borg-rs-m4-coverage/build/rust/game/angband
+binary_sha256=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+binary_impl=rust
+binary_elf_impl=rust
+binary_cmake_borg_impl=rust
+build_id_impl=rust
+build_id_git_rev=f987c077c77360a537c5d6c45fab02b8ad651d91
+build_id_git_dirty=no
+build_id_inputs_dirty=no
+build_id_source_sha256=8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f
+build_id_binary_sha256=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_rustc=rustc 1.98.1 (48a229cea 2026-09-01)
+build_id_built_utc=2026-11-06T21:45:31Z
+checkout_source_sha256=8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f987c077c77360a537c5d6c45fab02b8ad651d91
+git_dirty=no
+jobs=8
+checkpoint_every=0
+run_timeout_seconds=14400
+save_root=/tmp/borg-rs-m4-coverage/harness/saves
+started_utc=2026-11-06T22:46:40Z
+run_config.ext-rogue=menu,cheat 88e2703fe309ddbf9c96aa48ab915667346cf18c1704c6db777b7c0f5de622e5
+run_config.end-depth50=menu,cheat,save=depth50.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth98=menu,cheat,save=depth98.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth99=menu,cheat,save=depth99.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-depth100=menu,cheat,save=depth100.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+run_config.end-near-morgoth=menu,cheat,save=morgoth.save 576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+binary_sha256_end=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+finished_utc=2026-11-06T23:14:41Z result=OK

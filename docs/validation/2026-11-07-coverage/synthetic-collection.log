@@ -1,0 +1,6 @@
+START synthetic-tactics 2026-11-07T01:20:15Z
+synthetic-tactics: 6 successful engine PIDs, 6 nonempty profiles
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)
+PASS synthetic-tactics 2026-11-07T01:20:16Z

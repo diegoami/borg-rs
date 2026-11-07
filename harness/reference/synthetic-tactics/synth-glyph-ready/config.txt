@@ -1,0 +1,3 @@
+flags=menu,finalsave,save=glyph-ready.save
+borg_txt_sha256=f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+save_sha256=322a0698f807b218f92aa058e6de6e4a5e90d7c3e89f99ad8921604596cab70b

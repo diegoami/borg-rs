@@ -58,9 +58,10 @@ python3 harness/coverage/report.py /tmp/borg-coverage/harness/out/coverage/matri
 ```
 
 Collection uses the six baseline suites, captured-Rogue, crash-fixes,
-extended and natural:133 suite executions. The five endgame scenarios are
+extended, natural and synthetic-tactics:139 suite executions. The five endgame scenarios are
 represented in crash-fixes; the Rogue crash case also occurs in extended.
-Natural uses its explicit captured-extended save root for collection and diff.
+Natural uses its explicit captured-extended save root; synthetic-tactics uses
+its generated fixture root. Both are passed explicitly for collection and diff.
 Every suite must have `DONE`, strict key/message/state parity and exactly
 one nonempty profile tied to each successful engine PID. The full matrix
 gets its own `DONE` only after all groups pass. No stale-build override is
@@ -69,7 +70,8 @@ hashes in the validation receipt.
 
 Independent groups can use `COVERAGE_SUITES='extended natural'` with a fresh
 output directory. Selected collection writes `GROUPS_DONE`; only the full
-default list writes matrix `DONE`. To assemble independent collections:
+default list writes matrix `DONE`. The coordinator snapshots its script at
+startup so live source edits cannot corrupt its final completion step. To assemble independent collections:
 
 ```sh
 python3 harness/coverage/join.py NEW_MATRIX COLLECTION_ONE COLLECTION_TWO
@@ -96,3 +98,12 @@ Reports include compressed raw LLVM export, per-file metrics and function
 counts/gaps. Borg-logic totals exclude FFI/generated/regression modules.
 LLVM function instances include monomorphizations/closures; branch coverage
 is not measured. An entered function alone does not prove a tactic executed.
+
+The final source28 measurement is in docs/validation/2026-11-07-coverage:
+139 engine executions, logic85.38% lines/91.96% LLVM function instances.
+The original133 baseline remains under original-133. Synthetic cases add actual
+lunal155/glyph8 entries with zero-entry controls; native-body checker profiles
+are never mixed into this result. When reusing the historical frozen image,
+only new harness scripts/suite files/fixture data were copied into that checkout;
+production source hash and actual image hash stayed constant. A fresh checkout
+at the completed work-branch revision already includes those files.

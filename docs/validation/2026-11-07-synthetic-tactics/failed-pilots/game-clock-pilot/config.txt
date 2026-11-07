@@ -1,0 +1,3 @@
+flags=menu,selflunal,save=lunal-ready.save
+borg_txt_sha256=c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+save_sha256=73c9ef72337ce037ca107b4a0b160dcc39704746b661f333cb3dadff71512ccd

@@ -1,0 +1,5 @@
+legacy 67.981 2705
+modern 56.23 2705
+legacy2 59.759 2705
+modern2 58.082 2705
+All four serial benchmark runs match original C keys/messages/state

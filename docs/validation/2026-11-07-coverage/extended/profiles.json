@@ -1,0 +1,74 @@
+{
+  "ext-blackguard": {
+    "bytes": 257248,
+    "child_pid": 1091281,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1091281.profraw",
+    "sha256": "b245e9bfe41f2fa65b4dab330e42123a52a2ffacc5a397f47baccf43c022f463"
+  },
+  "ext-druid": {
+    "bytes": 257248,
+    "child_pid": 1077184,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077184.profraw",
+    "sha256": "8f767173dd1687f9ec7deb4d6680e771536065d40204ad4b9b3e8718acaf70e7"
+  },
+  "ext-long-blackguard-3100": {
+    "bytes": 257248,
+    "child_pid": 1099982,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1099982.profraw",
+    "sha256": "ff2c793cf89ccf1f287d229f76183c562fda259184a61f581dcb1aea7666bba7"
+  },
+  "ext-long-warrior-2000": {
+    "bytes": 257248,
+    "child_pid": 1091839,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1091839.profraw",
+    "sha256": "0bc328984314fa8aea210e7a1f92b5f43aeb337cf44b7f62f11fd2309029edbb"
+  },
+  "ext-long-warrior-2007": {
+    "bytes": 257248,
+    "child_pid": 1099967,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1099967.profraw",
+    "sha256": "cd5c95dd27f187e61bae4c60bb1204921ef0cfbfd4a1dc92114f7590d289c42d"
+  },
+  "ext-mage": {
+    "bytes": 257248,
+    "child_pid": 1077188,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077188.profraw",
+    "sha256": "74848ac1230fcd02e8d0f3008769011d7de0668e1b66745ecb3ba5e5d577564c"
+  },
+  "ext-necro": {
+    "bytes": 257248,
+    "child_pid": 1077187,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077187.profraw",
+    "sha256": "543ad9326863b814c99c199080452d06fa3bf98cf06095daeff30452b116ef9f"
+  },
+  "ext-paladin": {
+    "bytes": 257248,
+    "child_pid": 1077186,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077186.profraw",
+    "sha256": "e5ab597cc27050b5f96a8b4e423f87cfe996983346f6c73675989b91edd3c8f9"
+  },
+  "ext-priest": {
+    "bytes": 257248,
+    "child_pid": 1077191,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077191.profraw",
+    "sha256": "55aecfacff2c61028a6006eda551a21141839292fc1c74a5216fbb9574f7d278"
+  },
+  "ext-ranger": {
+    "bytes": 257248,
+    "child_pid": 1077190,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077190.profraw",
+    "sha256": "f4a4810ec6f45f2b2ef358a157216f5a8a9cd20035bf33515977e26dbd988f43"
+  },
+  "ext-rogue": {
+    "bytes": 257248,
+    "child_pid": 1077189,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077189.profraw",
+    "sha256": "828528d4a7e91692e98bc736a1b90dd6db3854d6706e847110aeb3f65ef581c6"
+  },
+  "ext-warrior": {
+    "bytes": 257248,
+    "child_pid": 1077185,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/extended/11212204227228682092_0-1077185.profraw",
+    "sha256": "0a42b7b482c3cc0d0e0af32588cc4f13acabb2857ac8f83d2454c2ddddeb838b"
+  }
+}

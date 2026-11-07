@@ -1,0 +1,19 @@
+{
+  "seed": 3011,
+  "race": "Dunadan",
+  "race_idx": 8,
+  "class": "Paladin",
+  "class_idx": 5,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100447,
+  "player_turns": 10157,
+  "resting_turns": 5726,
+  "clevel": 5,
+  "max_depth": 2,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 6737,
+  "wall_seconds": 19.934
+}

@@ -1,0 +1,6 @@
+synth-glyph-low-supply {'self_lunal': 0, 'glyph_builder': 0}
+synth-glyph-prelaid {'self_lunal': 0, 'glyph_builder': 4}
+synth-glyph-ready {'self_lunal': 0, 'glyph_builder': 4}
+synth-lunal-disabled {'self_lunal': 0, 'glyph_builder': 0}
+synth-lunal-history {'self_lunal': 0, 'glyph_builder': 0}
+synth-lunal-ready {'self_lunal': 155, 'glyph_builder': 0}

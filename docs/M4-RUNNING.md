@@ -1,32 +1,30 @@
 # M4 C/D working record, 2026-11-06
 
-## Completed local checkpoint, production source28b8170
+## Completed declared M4 checkpoint, production source28b8170
 
-Production-game validation is complete; current-source coverage collection
-is active (see LOCAL-SESSION-HANDOVER). The latest gameplay receipt is
-[2026-11-06-melee/README.md](validation/2026-11-06-melee/README.md).
-Fresh crash-fixes C/C and Rust/C6/6; both builds baseline105/105 and
-captured-Rogue8/8; fresh extended C/C and Rust/C12/12, all original limits
-reached. Same-square melee (#322) no longer stops Warrior2000: all three
-finish5,000,001 turns, clevel42/final max_depth44. Deepest logged current
-depths are52/99/59 for the three long cases; recall can reset max_depth
-(see the2026-11-07 depth audit). All30 captured engine saves match metadata and
-complete bytes across C/C/Rust. Natural fresh-Borg C/C and Rust/C2/2 start
-at78/40 and reach84/41. The synthetic five starts remain covered by the
-unchanged crash-fixes suite. Current corrected references are crash-fixes,
-extended and natural; originals and source-qualified historical refs remain.
+Required validation is complete. Main/tags remain unchanged for the owner.
+Ordinary source28 C/C and Rust/C pass crash-fixes6/6, extended12/12 and
+natural2/2, all original extended limits reached; both builds match105
+baseline and8 captured-Rogue cases. All30 engine captures match complete
+C/C/Rust bytes. Audited logged depth peaks52/99/59 are distinct from final
+resettable max_depth fields44/99/51.
 
-E now has persistent real native C/Rust checks: calculator30k,
-spatial/flow/melee4k, glyph1,600, lunal1,280, seven actual-source fault
-controls, non-recovering C UBSan, clippy and cache invalidation controls.
-Exact environment/private-state boundaries are in the checker README;
-receipts are in `validation/2026-11-06-native-expanded`.
-F has121 accepted current-source runs through crash-fixes and natural2/2;
-extended has nine successful2M processes and three active5M cases. The
-completed121-run subset measures82.58% logic lines and91.09% LLVM function
-instances; it is not the final report.
-Sea of Runes, actual-game self-lunal and a win remain unestablished.
-Main/tags unchanged. Read LOCAL-SESSION-HANDOVER for active paths and next work.
+Native E checks cover calculator30k, spatial/flow/melee4k, glyph1,600 and
+lunal1,280 states, with seven rejected source faults, C UBSan, clippy and
+cache controls. Separate body coverage/boundaries are retained.
+
+Six synthetic engine cases now reach the actual glyph/self-lunal callers:
+C/C and Rust/C6/6, including full engine-save bytes;155 lunal/8 glyph entries,
+real descent and one engine glyph creation, with zero-entry controls.
+Existing#295's recognition failure is observed, not corrected. Full139-run
+coverage measures85.38% logic lines and91.96% LLVM function instances;
+branch coverage is unmeasured. A strict group join validates complete data
+following one original coordinator-footer error; the script snapshot control
+now passes. Failed pilots and partial groups are excluded.
+
+See STATUS and receipts2026-11-07-coverage/synthetic-tactics. Wizard states,
+cheat-death runs, bounded scumming/creation and remaining tactic/private-state
+limits are explicit. No unassisted win or completed Sea of Runes is claimed.
 
 The following cloud sections are historical. Their paths, active jobs and
 absolute C-fidelity restrictions are superseded by the owner policy and

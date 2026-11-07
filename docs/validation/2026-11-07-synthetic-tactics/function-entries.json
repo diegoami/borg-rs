@@ -1,0 +1,26 @@
+{
+  "synth-glyph-low-supply": {
+    "glyph_builder": 0,
+    "self_lunal": 0
+  },
+  "synth-glyph-prelaid": {
+    "glyph_builder": 4,
+    "self_lunal": 0
+  },
+  "synth-glyph-ready": {
+    "glyph_builder": 4,
+    "self_lunal": 0
+  },
+  "synth-lunal-disabled": {
+    "glyph_builder": 0,
+    "self_lunal": 0
+  },
+  "synth-lunal-history": {
+    "glyph_builder": 0,
+    "self_lunal": 0
+  },
+  "synth-lunal-ready": {
+    "glyph_builder": 0,
+    "self_lunal": 155
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "seed": 3017,
+  "race": "Half-Elf",
+  "race_idx": 1,
+  "class": "Ranger",
+  "class_idx": 7,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100002,
+  "player_turns": 10237,
+  "resting_turns": 338,
+  "clevel": 5,
+  "max_depth": 2,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 14416,
+  "wall_seconds": 104.937
+}

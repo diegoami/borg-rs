@@ -1,0 +1,202 @@
+ Index: 175
+26380 371 0 # Removing Regional Fear (36,126) because of a LOS warrior
+26380 371 0 # Creating a monster 'dark hound' at (35,140), HP: 23, Index: 197
+26380 371 0 # Removing Regional Fear (35,140) because of a LOS dark hound
+26380 371 0 # Creating a monster 'dark hound' at (34,140), HP: 24, Index: 197
+26380 371 0 # Removing Regional Fear (34,140) because of a LOS dark hound
+26380 371 0 # Creating a monster 'ironfist priest' at (34,132), HP: 36, Index: 169
+26380 371 0 # Removing Regional Fear (34,132) because of a LOS ironfist priest
+26380 371 0 # FEELING_DANGER:6 (1)
+26380 371 0 # Fleeing level. Lunal Mode
+26380 371 0 # Lunal Mode.  Power Diving. 
+26380 371 0 # Flowing toward down-stairs at cost 0
+26381 371 29 You enter a maze of down staircases.
+26382 371 0 This place seems terribly dangerous.
+26383 371 0 # FEELING_DANGER:3 (+)
+26383 371 0 # Creating a monster 'forest troll' at (32,96), HP: 103, Index: 215
+26383 371 0 # Removing Regional Fear (32,96) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (32,95), HP: 124, Index: 215
+26383 371 0 # Removing Regional Fear (32,95) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (32,94), HP: 110, Index: 215
+26383 371 0 # Removing Regional Fear (32,94) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (31,96), HP: 111, Index: 215
+26383 371 0 # Removing Regional Fear (31,96) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (31,95), HP: 130, Index: 215
+26383 371 0 # Removing Regional Fear (31,95) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (31,94), HP: 109, Index: 215
+26383 371 0 # Removing Regional Fear (31,94) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (30,96), HP: 91, Index: 215
+26383 371 0 # Removing Regional Fear (30,96) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (30,95), HP: 123, Index: 215
+26383 371 0 # Removing Regional Fear (30,95) because of a LOS forest troll
+26383 371 0 # Creating a monster 'forest troll' at (30,94), HP: 109, Index: 215
+26383 371 0 # Removing Regional Fear (30,94) because of a LOS forest troll
+26383 371 0 # FEELING_DANGER:3 (1)
+26383 371 0 # Fleeing level. Lunal Mode
+26383 371 0 # Lunal Mode.  Power Climb. 
+26383 371 0 # Flowing toward up-stairs at cost 0
+26384 371 78 You enter a maze of up staircases.
+26385 371 0 You feel anxious about this place.
+26386 371 0 # FEELING_DANGER:4 (+)
+26386 371 0 # Creating a monster 'illusionist' at (45,27), HP: 56, Index: 183
+26386 371 0 # Removing Regional Fear (45,27) because of a LOS illusionist
+26386 371 0 # Creating a monster 'illusionist' at (44,27), HP: 48, Index: 183
+26386 371 0 # Removing Regional Fear (44,27) because of a LOS illusionist
+26386 371 0 # Creating a monster '3-headed hydra' at (42,17), HP: 356, Index: 240
+26386 371 0 # Removing Regional Fear (42,17) because of a LOS 3-headed hydra
+26386 371 0 # Creating a monster 'paladin' at (41,23), HP: 93, Index: 251
+26386 371 0 # Removing Regional Fear (41,23) because of a LOS paladin
+26386 371 0 # Creating a monster 'eastern dwarf' at (31,29), HP: 34, Index: 113
+26386 371 0 # Removing Regional Fear (31,29) because of a LOS eastern dwarf
+26386 371 0 # FEELING_DANGER:4 (1)
+26386 371 0 # Fleeing level. Lunal Mode
+26386 371 0 # Lunal Mode.  Power Diving. 
+26386 371 0 # Flowing toward down-stairs at cost 0
+26387 371 29 You enter a maze of down staircases.
+26388 371 0 This place does not seem too risky.
+26389 371 0 # FEELING_DANGER:6 (+)
+26389 371 0 # Creating a monster 'air hound' at (11,8), HP: 80, Index: 242
+26389 371 0 # Removing Regional Fear (11,8) because of a LOS air hound
+26389 371 0 # Creating a monster 'air hound' at (11,7), HP: 47, Index: 242
+26389 371 0 # Removing Regional Fear (11,7) because of a LOS air hound
+26389 371 0 # Creating a monster 'air hound' at (11,5), HP: 73, Index: 242
+26389 371 0 # Removing Regional Fear (11,5) because of a LOS air hound
+26389 371 0 # Creating a monster 'orc archer' at (11,3), HP: 60, Index: 185
+26389 371 0 # Removing Regional Fear (11,3) because of a LOS orc archer
+26389 371 0 # Creating a monster 'air hound' at (10,7), HP: 80, Index: 242
+26389 371 0 # Removing Regional Fear (10,7) because of a LOS air hound
+26389 371 0 # Creating a monster 'air hound' at (10,5), HP: 69, Index: 242
+26389 371 0 # Removing Regional Fear (10,5) because of a LOS air hound
+26389 371 0 # Creating a monster 'orc archer' at (10,3), HP: 70, Index: 185
+26389 371 0 # Removing Regional Fear (10,3) because of a LOS orc archer
+26389 371 0 # Creating a monster 'air hound' at (9,7), HP: 66, Index: 242
+26389 371 0 # Removing Regional Fear (9,7) because of a LOS air hound
+26389 371 0 # Creating a monster 'air hound' at (9,6), HP: 81, Index: 242
+26389 371 0 # Removing Regional Fear (9,6) because of a LOS air hound
+26389 371 0 # Creating a monster 'air hound' at (9,5), HP: 61, Index: 242
+26389 371 0 # Removing Regional Fear (9,5) because of a LOS air hound
+26389 371 0 # Creating a monster 'orc archer' at (9,3), HP: 77, Index: 185
+26389 371 0 # Removing Regional Fear (9,3) because of a LOS orc archer
+26389 371 0 # Creating a monster 'witch' at (1,13), HP: 44, Index: 156
+26389 371 0 # Removing Regional Fear (1,13) because of a LOS witch
+26389 371 0 # Creating a monster 'illusionist' at (1,11), HP: 64, Index: 183
+26389 371 0 # Removing Regional Fear (1,11) because of a LOS illusionist
+26389 371 0 # FEELING_DANGER:6 (1)
+26389 371 0 # Fleeing level. Lunal Mode
+26389 371 0 # Lunal Mode.  Power Climb. 
+26389 371 0 # Flowing toward up-stairs at cost 0
+26390 371 78 You enter a maze of up staircases.
+26391 371 0 You feel nervous about this place.
+26392 371 0 # FEELING_DANGER:5 (+)
+26392 371 0 # FEELING_DANGER:5 (1)
+26392 371 0 # Fleeing level. Lunal Mode
+26392 371 0 # Lunal Mode.  Power Diving. 
+26392 371 0 # Flowing toward down-stairs at cost 0
+26393 371 29 You enter a maze of down staircases.
+26394 371 0 You feel nervous about this place.
+26395 371 0 # FEELING_DANGER:5 (+)
+26395 371 0 # Creating a monster 'orc archer' at (29,136), HP: 61, Index: 185
+26395 371 0 # Removing Regional Fear (29,136) because of a LOS orc archer
+26395 371 0 # Creating a monster 'orc archer' at (28,137), HP: 52, Index: 185
+26395 371 0 # Removing Regional Fear (28,137) because of a LOS orc archer
+26395 371 0 # Creating a monster 'orc archer' at (28,136), HP: 67, Index: 185
+26395 371 0 # Removing Regional Fear (28,136) because of a LOS orc archer
+26395 371 0 # Creating a monster 'ogre' at (28,135), HP: 69, Index: 181
+26395 371 0 # Removing Regional Fear (28,135) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (28,134), HP: 56, Index: 181
+26395 371 0 # Removing Regional Fear (28,134) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (28,133), HP: 76, Index: 181
+26395 371 0 # Removing Regional Fear (28,133) because of a LOS ogre
+26395 371 0 # Creating a monster 'orc archer' at (27,136), HP: 74, Index: 185
+26395 371 0 # Removing Regional Fear (27,136) because of a LOS orc archer
+26395 371 0 # Creating a monster 'ogre' at (27,135), HP: 59, Index: 181
+26395 371 0 # Removing Regional Fear (27,135) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (27,134), HP: 66, Index: 181
+26395 371 0 # Removing Regional Fear (27,134) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (27,133), HP: 81, Index: 181
+26395 371 0 # Removing Regional Fear (27,133) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (26,134), HP: 76, Index: 181
+26395 371 0 # Removing Regional Fear (26,134) because of a LOS ogre
+26395 371 0 # Creating a monster 'ogre' at (26,133), HP: 53, Index: 181
+26395 371 0 # Removing Regional Fear (26,133) because of a LOS ogre
+26395 371 0 # FEELING_DANGER:5 (1)
+26395 371 0 # Fleeing level. Lunal Mode
+26395 371 0 # Lunal Mode.  Power Climb. 
+26395 371 0 # Flowing toward up-stairs at cost 0
+26396 371 78 You enter a maze of up staircases.
+26397 371 0 You feel nervous about this place.
+26398 371 0 # FEELING_DANGER:5 (+)
+26398 371 0 # Creating a monster 'werewolf' at (50,172), HP: 250, Index: 248
+26398 371 0 # Removing Regional Fear (50,172) because of a LOS werewolf
+26398 371 0 # FEELING_DANGER:5 (1)
+26398 371 0 # Fleeing level. Lunal Mode
+26398 371 0 # Lunal Mode.  Power Diving. 
+26398 371 0 # Flowing toward down-stairs at cost 0
+26399 371 29 You enter a maze of down staircases.
+26400 371 0 You feel nervous about this place.
+26401 371 0 # FEELING_DANGER:5 (+)
+26401 371 0 # Creating a monster 'ranger' at (44,64), HP: 101, Index: 250
+26401 371 0 # Removing Regional Fear (44,64) because of a LOS ranger
+26401 371 0 # Creating a monster 'rogue' at (44,62), HP: 68, Index: 208
+26401 371 0 # Removing Regional Fear (44,62) because of a LOS rogue
+26401 371 0 # Creating a monster 'moaning spirit' at (44,58), HP: 28, Index: 174
+26401 371 0 # Removing Regional Fear (44,58) because of a LOS moaning spirit
+26401 371 0 # Creating a monster 'priest' at (41,67), HP: 65, Index: 168
+26401 371 0 # Removing Regional Fear (41,67) because of a LOS priest
+26401 371 0 # Creating a monster 'priest' at (41,66), HP: 74, Index: 168
+26401 371 0 # Removing Regional Fear (41,66) because of a LOS priest
+26401 371 0 # Creating a monster 'Easterling champion' at (41,62), HP: 99, Index: 267
+26401 371 0 # Removing Regional Fear (41,62) because of a LOS Easterling champion
+26401 371 0 # Creating a monster 'illusionist' at (39,64), HP: 56, Index: 183
+26401 371 0 # Removing Regional Fear (39,64) because of a LOS illusionist
+26401 371 0 # Creating a monster 'black mamba' at (32,55), HP: 50, Index: 162
+26401 371 0 # Removing Regional Fear (32,55) because of a LOS black mamba
+26401 371 0 # FEELING_DANGER:5 (1)
+26401 371 0 # Fleeing level. Lunal Mode
+26401 371 0 # Lunal Mode.  Power Climb. 
+26401 371 0 # Flowing toward up-stairs at cost 0
+26402 371 78 You enter a maze of up staircases.
+26403 371 0 You feel nervous about this place.
+26404 371 0 # FEELING_DANGER:5 (+)
+26404 371 0 # FEELING_DANGER:5 (1)
+26404 371 0 # Fleeing level. Lunal Mode
+26404 371 0 # Lunal Mode.  Power Diving. 
+26404 371 0 # Flowing toward down-stairs at cost 0
+26405 371 29 You enter a maze of down staircases.
+26406 371 0 You feel nervous about this place.
+26407 371 0 # FEELING_DANGER:5 (+)
+26407 371 0 # FEELING_DANGER:5 (1)
+26407 371 0 # Fleeing level. Lunal Mode
+26407 371 0 # Lunal Mode.  Power Diving. 
+26407 371 0 # Flowing toward down-stairs at cost 3
+26408 371 78 You enter a maze of up staircases.
+26409 371 0 This place does not seem too risky.
+26410 371 0 # FEELING_DANGER:6 (+)
+26410 371 0 # Creating a monster 'hippogriff' at (51,51), HP: 114, Index: 158
+26410 371 0 # Removing Regional Fear (51,51) because of a LOS hippogriff
+26410 371 0 # Creating a monster '2-headed hydra' at (47,74), HP: 236, Index: 217
+26410 371 0 # Removing Regional Fear (47,74) because of a LOS 2-headed hydra
+26410 371 0 # FEELING_DANGER:6 (1)
+26410 371 0 # Fleeing level. Lunal Mode
+26410 371 0 # Lunal Mode.  Power Diving. 
+26410 371 0 # Flowing toward down-stairs at cost 0
+26411 371 29 You enter a maze of down staircases.
+26412 371 0 This place does not seem too risky.
+26413 371 0 # FEELING_DANGER:6 (+)
+26413 371 0 # FEELING_DANGER:6 (1)
+26413 371 0 # Fleeing level. Lunal Mode
+26413 371 0 # Lunal Mode.  Power Diving. 
+26413 371 0 # Flowing toward down-stairs at cost 4
+26414 374 0 # Fleeing level. Lunal Mode
+26414 374 0 # Lunal Mode.  Power Diving. 
+26415 377 0 # Fleeing level. Lunal Mode
+26415 377 0 # Lunal Mode.  Power Diving. 
+26416 379 0 # Fleeing level. Lunal Mode
+26416 379 0 # Lunal Mode.  Power Diving. 
+26417 382 0 # Fleeing level. Lunal Mode
+26417 382 0 # Lunal Mode.  Power Diving. 
+26417 382 0 # Flowing toward down-stairs at cost 0
+26418 382 29 You enter a maze of down staircases.
+26418 382 0 # Aborting (Auto-stop for user DLevel.).
+26419 382 0 This place does not seem too risky.
+26419 382 0 # Removing keypress hook

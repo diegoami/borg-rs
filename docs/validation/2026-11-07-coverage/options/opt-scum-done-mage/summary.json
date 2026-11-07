@@ -1,0 +1,19 @@
+{
+  "seed": 12345,
+  "race": "Half-Elf",
+  "race_idx": 1,
+  "class": "Mage",
+  "class_idx": 1,
+  "menu_letters": true,
+  "stop_reason": "borg_stopped",
+  "game_turns": 1,
+  "player_turns": 0,
+  "resting_turns": 0,
+  "clevel": 1,
+  "max_depth": 0,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 2,
+  "wall_seconds": 0.073
+}

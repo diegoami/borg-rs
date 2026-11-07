@@ -1,0 +1,13 @@
+{
+  "smoke": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "full": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "deep": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "classes": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "config": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "options": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "captured-rogue": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "crash-fixes": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "extended": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "natural": "/tmp/borg-rs-m4-coverage/harness/out/coverage/complete-133",
+  "synthetic-tactics": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection"
+}

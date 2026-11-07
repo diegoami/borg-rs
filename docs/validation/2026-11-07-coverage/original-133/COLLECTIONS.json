@@ -1,0 +1,12 @@
+{
+  "smoke": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "full": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "deep": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "classes": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "config": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "options": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "captured-rogue": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "crash-fixes": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "extended": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix",
+  "natural": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-natural"
+}

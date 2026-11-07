@@ -1,0 +1,19 @@
+{
+  "seed": 12345,
+  "race": "Half-Elf",
+  "race_idx": 1,
+  "class": "Mage",
+  "class_idx": 1,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100224,
+  "player_turns": 10236,
+  "resting_turns": 6562,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 7652,
+  "wall_seconds": 56.245
+}

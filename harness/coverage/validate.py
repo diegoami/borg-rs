@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ALL_SUITES = ('smoke', 'full', 'deep', 'classes', 'config', 'options',
-              'captured-rogue', 'crash-fixes', 'extended', 'natural')
+              'captured-rogue', 'crash-fixes', 'extended', 'natural', 'synthetic-tactics')
 ROOT = Path(__file__).resolve().parents[2]
 
 

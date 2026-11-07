@@ -1,0 +1,12 @@
+START extended 2026-11-06T23:13:45Z
+extended: 12 successful engine PIDs, 12 nonempty profiles
+12/12 runs identical (expected 12)
+messages.log compared in 12 run(s)
+state.log compared in 12 run(s)
+PASS extended 2026-11-07T00:52:02Z
+START natural 2026-11-07T00:52:02Z
+natural: 2 successful engine PIDs, 2 nonempty profiles
+2/2 runs identical (expected 2)
+messages.log compared in 2 run(s)
+state.log compared in 2 run(s)
+PASS natural 2026-11-07T00:53:56Z

@@ -1,0 +1,37 @@
+suite=synthetic-tactics
+suite_sha256=ad05106d47aa928ebde793170a55543e87b149933bfd42635b47e633ab0919f5
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=rust
+binary=/tmp/borg-rs-m4-coverage/build/rust/game/angband
+binary_sha256=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+binary_impl=rust
+binary_elf_impl=rust
+binary_cmake_borg_impl=rust
+build_id_impl=rust
+build_id_git_rev=f987c077c77360a537c5d6c45fab02b8ad651d91
+build_id_git_dirty=no
+build_id_inputs_dirty=no
+build_id_source_sha256=8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f
+build_id_binary_sha256=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_rustc=rustc 1.98.1 (48a229cea 2026-09-01)
+build_id_built_utc=2026-11-06T21:45:31Z
+checkout_source_sha256=8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f987c077c77360a537c5d6c45fab02b8ad651d91
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=/tmp/borg-rs-m4-coverage/harness/saves/synthetic-tactics
+started_utc=2026-11-07T01:20:15Z
+run_config.synth-lunal-ready=menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-ready.save 76520d020db3eff72ac80e720bc0063083b88002bf35049bb775aff144f58396
+run_config.synth-lunal-disabled=menu,finalsave,borg_self_lunal=FALSE,borg_stop_dlevel=21,save=lunal-ready.save c78d09d4bfa5f02042c14b8e926881bbc691b04b82b0d29e3da49f2fb0d1bb8f
+run_config.synth-lunal-history=menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-shallow-history.save 76520d020db3eff72ac80e720bc0063083b88002bf35049bb775aff144f58396
+run_config.synth-glyph-ready=menu,finalsave,save=glyph-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-low-supply=menu,finalsave,save=glyph-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-prelaid=menu,finalsave,save=glyph-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e
+finished_utc=2026-11-07T01:20:16Z result=OK

@@ -1,0 +1,98 @@
+{
+  "cls-bg-dunadan": {
+    "bytes": 257248,
+    "child_pid": 926658,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926658.profraw",
+    "sha256": "e28d8fe7ecbe3a4727167877bb37fa9363a5bc807bfde52ac3fc148963b8f124"
+  },
+  "cls-bg-dwarf": {
+    "bytes": 257248,
+    "child_pid": 926661,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926661.profraw",
+    "sha256": "cec31ab979856fbb0b7ecf8cff548b108111d079289493598495c239af69518d"
+  },
+  "cls-bg-halforc": {
+    "bytes": 257248,
+    "child_pid": 926665,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926665.profraw",
+    "sha256": "b43d26f2f9dfd5acd800e51447b472049a56e4b42c7fc24b30666538b5df32fd"
+  },
+  "cls-bg-halftroll": {
+    "bytes": 257248,
+    "child_pid": 926659,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926659.profraw",
+    "sha256": "fdd6c206906ab4550430e385700b21fb7be184665a84ed43652909ae383ffd6a"
+  },
+  "cls-bg-highelf": {
+    "bytes": 257248,
+    "child_pid": 926662,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926662.profraw",
+    "sha256": "0dede98f52baf863ea9a4027f820c4d1223d0eb46b4ec9467f57d2e6185388b2"
+  },
+  "cls-bg-human": {
+    "bytes": 257248,
+    "child_pid": 926663,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926663.profraw",
+    "sha256": "71388ec31fe5fa8c43591581422a701f192a274c6209b108cce71f1e7f852876"
+  },
+  "cls-bg-kobold": {
+    "bytes": 257248,
+    "child_pid": 926664,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926664.profraw",
+    "sha256": "fa9327f48679f8e2409ec24630178dd8e8c58e496591f3ea0764acad317f9d34"
+  },
+  "cls-deep-bg-dunadan": {
+    "bytes": 257248,
+    "child_pid": 926660,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926660.profraw",
+    "sha256": "3b11715bafb16ea17484cf960220b16cc8ab680d1385ff486a439fcb523318e9"
+  },
+  "cls-dunadan-paladin": {
+    "bytes": 257248,
+    "child_pid": 927106,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927106.profraw",
+    "sha256": "73c5abf09d010668a3a88d9a298d97679e02ebc54c6928825ea7ebc864dee9bb"
+  },
+  "cls-dunadan-ranger": {
+    "bytes": 257248,
+    "child_pid": 926897,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-926897.profraw",
+    "sha256": "976650660803c4521b6aaaf00b25cb55816fd382e922e4d74b810fcf6558ea8b"
+  },
+  "cls-halfelf-ranger": {
+    "bytes": 257248,
+    "child_pid": 927957,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927957.profraw",
+    "sha256": "fd7d78d0da9783006677c4bac24c6222ad6313ed061ffcb87a4f5c73dc48328b"
+  },
+  "cls-highelf-mage": {
+    "bytes": 257248,
+    "child_pid": 927504,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927504.profraw",
+    "sha256": "1aa8a2d6f7efabf9291fdbb264217ea45d4f2fcac81a22d47ac457e3462eb0cc"
+  },
+  "cls-highelf-priest": {
+    "bytes": 257248,
+    "child_pid": 927518,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927518.profraw",
+    "sha256": "d5515625874ea380c1403d6e4665cbc3a5594560621779e3ca48c87fc04babb0"
+  },
+  "cls-kobold-necro": {
+    "bytes": 257248,
+    "child_pid": 927564,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927564.profraw",
+    "sha256": "d6aa502baf5f9a7715f36c395e1979ba3d5a08109eabe73668d70eab8cd2294a"
+  },
+  "cls-kobold-rogue": {
+    "bytes": 257248,
+    "child_pid": 927540,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927540.profraw",
+    "sha256": "dd5d633b90b8d16f3fe7dbce564d0dacf4f66e221290a7a664e7b36dae7ab79a"
+  },
+  "cls-kobold-warrior": {
+    "bytes": 257248,
+    "child_pid": 927725,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/classes/11212204227228682092_0-927725.profraw",
+    "sha256": "c7e828fd8ce17ec9d014baff4b045b6471966df5deea10ee8cab6dd67d69b1e6"
+  }
+}

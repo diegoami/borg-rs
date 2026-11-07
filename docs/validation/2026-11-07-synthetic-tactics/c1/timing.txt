@@ -1,0 +1,7 @@
+suite=synthetic-tactics impl=c jobs=3 wall_seconds=.302645891 result=OK
+synth-lunal-ready borg_stopped turns=371 pturns=146 clev=50 maxdepth=99 keys=264 wall=0.1 Human Warrior
+synth-lunal-disabled borg_stopped turns=355 pturns=139 clev=50 maxdepth=99 keys=258 wall=0.1 Human Warrior
+synth-lunal-history borg_stopped turns=355 pturns=139 clev=50 maxdepth=34 keys=258 wall=0.1 Human Warrior
+synth-glyph-ready turns turns=16 pturns=5 clev=50 maxdepth=100 keys=39 wall=0.0 Human Warrior
+synth-glyph-low-supply turns turns=17 pturns=6 clev=50 maxdepth=100 keys=13 wall=0.0 Human Warrior
+synth-glyph-prelaid turns turns=16 pturns=5 clev=50 maxdepth=100 keys=35 wall=0.0 Human Warrior

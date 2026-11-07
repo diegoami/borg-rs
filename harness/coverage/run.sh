@@ -3,6 +3,13 @@
 # Usage: run.sh COVERAGE_CHECKOUT REFERENCE_ROOT NEW_OUTPUT_DIRECTORY
 # See README.md for the instrumentation/runtime/exit-flush build recipe.
 set -euo pipefail
+# Keep the coordinator immutable while long groups run. Bash can otherwise read
+# a changed on-disk footer after completing an already-parsed loop.
+if [ "${1:-}" != --internal-script-snapshot ]; then
+    COVERAGE_SCRIPT_SOURCE=$(cat -- "$0")
+    exec bash -c "$COVERAGE_SCRIPT_SOURCE" "$0" --internal-script-snapshot "$@"
+fi
+shift
 WORKTREE=$(realpath "$1")
 REFERENCES=$(realpath "$2")
 OUT=$(realpath -m "$3")
@@ -11,7 +18,7 @@ OUT=$(realpath -m "$3")
 mkdir -p "$OUT/profiles"
 cp "$WORKTREE/build/rust/BUILD_ID" "$OUT/BUILD_ID"
 cd "$WORKTREE"
-ALL_SUITES='smoke full deep classes config options captured-rogue crash-fixes extended natural'
+ALL_SUITES='smoke full deep classes config options captured-rogue crash-fixes extended natural synthetic-tactics'
 SELECTED_SUITES=${COVERAGE_SUITES:-$ALL_SUITES}
 for suite in $SELECTED_SUITES; do
     case " $ALL_SUITES " in
@@ -26,6 +33,10 @@ for suite in $SELECTED_SUITES; do
     DIFF_SAVE_ARGS=()
     if [ "$suite" = natural ]; then
         SAVE_ROOT="$WORKTREE/harness/saves/captured-extended"
+        DIFF_SAVE_ARGS=(--save-root "$SAVE_ROOT")
+    fi
+    if [ "$suite" = synthetic-tactics ]; then
+        SAVE_ROOT="$WORKTREE/harness/saves/synthetic-tactics"
         DIFF_SAVE_ARGS=(--save-root "$SAVE_ROOT")
     fi
     SAVE_ROOT="$SAVE_ROOT" LLVM_PROFILE_FILE="$OUT/profiles/$suite/%m-%p.profraw" CHECKPOINT_EVERY=0 \

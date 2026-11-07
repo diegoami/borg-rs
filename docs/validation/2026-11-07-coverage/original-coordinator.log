@@ -1,0 +1,61 @@
+START smoke 2026-11-06T21:45:49Z
+smoke: 3 successful engine PIDs, 3 nonempty profiles
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)
+PASS smoke 2026-11-06T21:46:08Z
+START full 2026-11-06T21:46:08Z
+full: 45 successful engine PIDs, 45 nonempty profiles
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)
+PASS full 2026-11-06T21:50:53Z
+START deep 2026-11-06T21:50:53Z
+deep: 9 successful engine PIDs, 9 nonempty profiles
+9/9 runs identical (expected 9)
+messages.log compared in 9 run(s)
+state.log compared in 9 run(s)
+PASS deep 2026-11-06T22:00:01Z
+START classes 2026-11-06T22:00:01Z
+classes: 16 successful engine PIDs, 16 nonempty profiles
+16/16 runs identical (expected 16)
+messages.log compared in 16 run(s)
+state.log compared in 16 run(s)
+PASS classes 2026-11-06T22:09:48Z
+START config 2026-11-06T22:09:48Z
+config: 7 successful engine PIDs, 7 nonempty profiles
+7/7 runs identical (expected 7)
+messages.log compared in 7 run(s)
+state.log compared in 7 run(s)
+PASS config 2026-11-06T22:20:00Z
+START options 2026-11-06T22:20:00Z
+options: 25 successful engine PIDs, 25 nonempty profiles
+25/25 runs identical (expected 25)
+messages.log compared in 25 run(s)
+state.log compared in 25 run(s)
+PASS options 2026-11-06T22:44:15Z
+START captured-rogue 2026-11-06T22:44:15Z
+captured-rogue: 8 successful engine PIDs, 8 nonempty profiles
+8/8 runs identical (expected 8)
+messages.log compared in 8 run(s)
+state.log compared in 8 run(s)
+PASS captured-rogue 2026-11-06T22:46:39Z
+START crash-fixes 2026-11-06T22:46:39Z
+crash-fixes: 6 successful engine PIDs, 6 nonempty profiles
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)
+PASS crash-fixes 2026-11-06T23:14:44Z
+START extended 2026-11-06T23:14:44Z
+extended: 12 successful engine PIDs, 12 nonempty profiles
+12/12 runs identical (expected 12)
+messages.log compared in 12 run(s)
+state.log compared in 12 run(s)
+PASS extended 2026-11-07T00:46:35Z
+START natural 2026-11-07T00:46:35Z
+natural: 2 successful engine PIDs, 2 nonempty profiles
+2/2 runs identical (expected 2)
+messages.log compared in 2 run(s)
+state.log compared in 2 run(s)
+PASS natural 2026-11-07T00:48:36Z
+harness/coverage/run.sh: line 55: unexpected EOF while looking for matching `''

@@ -1,0 +1,21 @@
+{
+  "binary_sha256": "883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e",
+  "build_revision": "f987c077c77360a537c5d6c45fab02b8ad651d91",
+  "linker_flags": "-Wl,-u,__llvm_profile_runtime -Wl,--wrap=_exit /tmp/borg-rs-m4-coverage/harness/out/coverage/exit-flush.o /home/diego/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/x86_64-unknown-linux-gnu/lib/libprofiler_builtins-c32d328e982fa0b5.rlib",
+  "llvm_component_sha256": "56d58ca2dfa848359ab23c872791509c6f592448d2f6c146ed530ec50ee45371",
+  "llvm_component_url": "https://static.rust-lang.org/dist/2026-09-03/llvm-tools-1.98.1-x86_64-unknown-linux-gnu.tar.xz",
+  "production_source": "28b8170",
+  "profiler_runtime_sha256": "d45f3cda78a7c97c30d725291aa19bed5c6b685956c6893090455c926b232160",
+  "rustflags": [
+    "-C",
+    "instrument-coverage",
+    "-C",
+    "link-dead-code"
+  ],
+  "scope": "complete source28 matrix: eleven groups,139 successful suite executions",
+  "scope_limits": "LLVM lines/functions/regions only; branch coverage unmeasured; closures and monomorphizations count separately; game corpus does not establish every tactic",
+  "shim_object_sha256": "deff36b4756648da38b02a6aa0f0dd983415ba6c8d297bfe1735f95d24db095d",
+  "shim_source_sha256": "39ddf84ec9e7d28584539b031b5e80f49d5e9e5e907240d18df189c33947ee47",
+  "source_sha256": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f",
+  "successful_runs": 139
+}

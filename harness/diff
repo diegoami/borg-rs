@@ -268,6 +268,13 @@ def compare_run(name, da, db):
     probs += xprobs
     if not xsame:
         ok = False
+    fa = read_log(os.path.join(da, "final.save"))
+    fb = read_log(os.path.join(db, "final.save"))
+    if fa is not None or fb is not None:
+        if not fa or not fb:
+            probs.append("missing or empty final engine save")
+        elif fa != fb:
+            probs.append("final engine saves differ")
     if sa is not None and sb is not None:
         keys = sorted(set(sa) | set(sb))
         for k in keys:
@@ -351,6 +358,8 @@ def check_suite_params(label, d, suite, save_root=None):
         if sm.get("stop_reason") != "turns" and g >= turns:
             bad.append("stopped (%s) at %s, at or past the suite limit %s" % (sm.get("stop_reason"), g, turns))
         cp = os.path.join(d, name, "config.txt")
+        if "finalsave" in flags and find_log(os.path.join(d, name, "final.save")) is None:
+            bad.append("missing final engine save required by finalsave flag")
         want_cfg = set(f for f in flags if f in CONFIG_FLAGS or "=" in f)
         if os.path.isfile(cp):
             with open(cp) as f:

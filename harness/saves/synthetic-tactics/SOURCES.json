@@ -1,0 +1,92 @@
+{
+  "glyph-complete": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-complete",
+      "rune_scrolls": 20,
+      "turn": 1,
+      "visible_engine_glyphs": 24
+    },
+    "seed": 7100,
+    "sha256": "5f3d1f3412d90d14957b964c2d22e678f2d14494333e9450e15b21a5ef96c0ab"
+  },
+  "glyph-low-supply": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-low-supply",
+      "rune_scrolls": 9,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "1db90931df679ed7d58990bf96e734a34e87f0291cf050250c5f39dc9afb417c"
+  },
+  "glyph-ready": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-ready",
+      "rune_scrolls": 20,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "322a0698f807b218f92aa058e6de6e4a5e90d7c3e89f99ad8921604596cab70b"
+  },
+  "lunal-ready": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 20,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 99,
+      "phase": "lunal-ready",
+      "rune_scrolls": 0,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "73c9ef72337ce037ca107b4a0b160dcc39704746b661f333cb3dadff71512ccd"
+  },
+  "lunal-shallow-history": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 20,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 34,
+      "phase": "lunal-shallow-history",
+      "rune_scrolls": 0,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "ca2ca8ccf3d2cbefd2fbc54e7bc2bccfe20cc61cac512462189085c0d461f25c"
+  }
+}

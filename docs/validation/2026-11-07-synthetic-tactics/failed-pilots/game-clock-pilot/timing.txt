@@ -1,0 +1,7 @@
+suite=synthetic-tactics impl=c jobs=3 wall_seconds=120.146920288 result=FAILED
+synth-lunal-ready MISSING/FAILED
+synth-lunal-disabled turns turns=1001 pturns=392 clev=50 maxdepth=99 keys=777 wall=0.3 Human Warrior
+synth-lunal-history turns turns=1000 pturns=401 clev=50 maxdepth=34 keys=787 wall=0.3 Human Warrior
+synth-glyph-ready turns turns=200 pturns=83 clev=50 maxdepth=100 keys=221 wall=0.1 Human Warrior
+synth-glyph-low-supply turns turns=200 pturns=81 clev=50 maxdepth=100 keys=238 wall=0.1 Human Warrior
+synth-glyph-complete turns turns=201 pturns=80 clev=50 maxdepth=100 keys=237 wall=0.1 Human Warrior

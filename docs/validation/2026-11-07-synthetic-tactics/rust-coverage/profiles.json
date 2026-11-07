@@ -1,0 +1,38 @@
+{
+  "synth-glyph-low-supply": {
+    "bytes": 257248,
+    "child_pid": 1213388,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213388.profraw",
+    "sha256": "2e55b56eced59bc2d1f8d6b80c7922a2313e17ad9314760acd9485fab662c250"
+  },
+  "synth-glyph-prelaid": {
+    "bytes": 257248,
+    "child_pid": 1213389,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213389.profraw",
+    "sha256": "ab8f16904fa6ab6c4f2532e34ac3142b8212cc7cf77fffc4ea72fc3e4c1c1a3d"
+  },
+  "synth-glyph-ready": {
+    "bytes": 257248,
+    "child_pid": 1213377,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213377.profraw",
+    "sha256": "6f8bf9fe10177f2e6e2d7ddba8a253bb4c6a7267a58cb6022bffab7ecc430309"
+  },
+  "synth-lunal-disabled": {
+    "bytes": 257248,
+    "child_pid": 1213335,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213335.profraw",
+    "sha256": "548df18324b32f9bdf7587141359e4c978802b54aea6137ebc8c849662b2a8e8"
+  },
+  "synth-lunal-history": {
+    "bytes": 257248,
+    "child_pid": 1213334,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213334.profraw",
+    "sha256": "691931523a82b278ec33a8c048223c4284e9eefbcb5ee48dd467edacea26fbc5"
+  },
+  "synth-lunal-ready": {
+    "bytes": 257248,
+    "child_pid": 1213333,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/profiles/synthetic-tactics/11212204227228682092_0-1213333.profraw",
+    "sha256": "d77b5d6fdea72216147a1a4cf669262b6d0dc586cd9b35122e09ab111b8657ba"
+  }
+}

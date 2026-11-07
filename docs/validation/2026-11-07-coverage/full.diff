@@ -1,0 +1,6 @@
+A: /tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/full: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=883414624b1cc353
+A:   built from f987c077c773 (dirty=no, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at f987c077c773 (dirty=no) overrides=none
+B: /home/diego/projects/borg-rs/harness/reference/full: reference (no manifest)
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

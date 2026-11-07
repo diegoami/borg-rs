@@ -1,0 +1,19 @@
+{
+  "seed": 3012,
+  "race": "High-Elf",
+  "race_idx": 9,
+  "class": "Mage",
+  "class_idx": 1,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100001,
+  "player_turns": 10189,
+  "resting_turns": 6573,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 6826,
+  "wall_seconds": 41.089
+}

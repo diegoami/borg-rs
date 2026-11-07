@@ -10,6 +10,7 @@
 #     cheatlive  passes -cheat-live: the game option cheat_live is on, so with
 #            borg_cheat_death off (no cheat flag) the Borg reincarnates
 #            at death (borg_respawn_race/class) and the run goes on
+#     finalsave writes final.save using the engine at the normal stop boundary.
 #   Config flags (each rewrites one line of the run's user/borg.txt; with
 #   none of them the file is the same as before, byte for byte):
 #     munchkin   sets borg_munchkin_start = TRUE
@@ -59,6 +60,7 @@ if [ "$FLAGS" != "-" ]; then
         case "$fl" in
             cheat) CHEAT=TRUE;;
             menu) BORGH_FLAGS+=(-menu-letters);;
+            finalsave) BORGH_FLAGS+=(-save-on-stop "$OUT/final.save");;
             cheatlive) BORGH_FLAGS+=(-cheat-live);;
             munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
             lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;

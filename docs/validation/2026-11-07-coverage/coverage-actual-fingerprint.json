@@ -1,0 +1,32 @@
+{
+  "compile_kind": 0,
+  "config": 9396254390672932401,
+  "declared_features": "[\"test-force-nested\"]",
+  "deps": [
+    [
+      18070707816531966863,
+      "libc",
+      false,
+      9637041199819594798
+    ]
+  ],
+  "features": "[]",
+  "local": [
+    {
+      "CheckDepInfo": {
+        "checksum": false,
+        "dep_info": "release/.fingerprint/borg-rs-2c7d26d6b3c19914/dep-lib-borg_rs"
+      }
+    }
+  ],
+  "path": 16049412923483222855,
+  "profile": 7957257165553115599,
+  "rustc": 1625334936438085654,
+  "rustflags": [
+    "-C",
+    "instrument-coverage",
+    "-C",
+    "link-dead-code"
+  ],
+  "target": 9372455743429412387
+}

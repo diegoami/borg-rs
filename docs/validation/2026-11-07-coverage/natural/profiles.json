@@ -1,0 +1,14 @@
+{
+  "natural-blackguard-40": {
+    "bytes": 257248,
+    "child_pid": 1114802,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-natural/profiles/natural/11212204227228682092_0-1114802.profraw",
+    "sha256": "1bf4e363659a9060641d7c80b1ebbc6acebf3a3a92f861c758f3371f431cdd5b"
+  },
+  "natural-warrior-78": {
+    "bytes": 257248,
+    "child_pid": 1114803,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-natural/profiles/natural/11212204227228682092_0-1114803.profraw",
+    "sha256": "4028cad8a118dbfb34874d62117738385e17197dd855005083124a2aa8d0de09"
+  }
+}

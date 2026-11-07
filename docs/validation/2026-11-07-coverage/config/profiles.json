@@ -1,0 +1,44 @@
+{
+  "cfg-lunal-deep-warrior": {
+    "bytes": 257248,
+    "child_pid": 939869,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939869.profraw",
+    "sha256": "a9774fc5c014195d102351677d68335f449d12d07926595f103b5ad89d78c46b"
+  },
+  "cfg-lunal-dunadan-bg": {
+    "bytes": 257248,
+    "child_pid": 939868,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939868.profraw",
+    "sha256": "2caa6e7245ef60ab2c21af1e9cc799b4130fa523061ffde52c2a92ac1514f474"
+  },
+  "cfg-lunal-halfelf-mage": {
+    "bytes": 257248,
+    "child_pid": 939866,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939866.profraw",
+    "sha256": "3f70ed9e69066867ad6ddd24fe1002e13558f484471a0ec3478313e59db9a008"
+  },
+  "cfg-lunal-human-war": {
+    "bytes": 257248,
+    "child_pid": 939865,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939865.profraw",
+    "sha256": "05fb5378e055407fc29628407c50da722da574a78392fac77449697571d49b43"
+  },
+  "cfg-munchkin-dunadan-bg": {
+    "bytes": 257248,
+    "child_pid": 939871,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939871.profraw",
+    "sha256": "0fa53a58e28e61e245f29e34346c3ab241bd3684afba08a9a5224b80361d277e"
+  },
+  "cfg-munchkin-halfelf-mage": {
+    "bytes": 257248,
+    "child_pid": 939867,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939867.profraw",
+    "sha256": "7566d9f4128fed49b92657e6c9ddc6d7271bf74a8e2a5fe72dd74c41f55fd643"
+  },
+  "cfg-munchkin-human-war": {
+    "bytes": 257248,
+    "child_pid": 939870,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/config/11212204227228682092_0-939870.profraw",
+    "sha256": "58f85b70397eac4a376443740f554961bd9583a2163e36be6c8a9f35d387716b"
+  }
+}

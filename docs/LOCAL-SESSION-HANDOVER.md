@@ -1,188 +1,136 @@
-# Local-session handover — 2026-11-06
+# Local checkpoint — 2026-11-07
 
-Continue on `claude/serene-ramanujan-8hzsfm`. Production Borg inputs are
-source `28b8170`; later commits add tooling, fixtures, receipts and docs.
-Expanded native E checks are complete for their declared kernels. Full F
-coverage collection is active. Main/tags are unchanged; the owner creates
-tags. M4 remains open until the complete coverage matrix and report finish.
+Work branch: `claude/serene-ramanujan-8hzsfm`. Production inputs remain at
+`28b8170`; later work is tooling, fixtures, references, receipts and the
+requested root launcher. Declared M4 A-F validation is complete, including
+the owner's additional synthetic engine scenarios. Main/tags are unchanged;
+the owner creates the milestone tag. No validation jobs remain active.
 
-Read `CLAUDE.md`, `FORK-CORRECTIONS.md`, `M4-PLAN.md`, `REVIEW.md`,
-`harness.md`, `checkpoints.md`, and the latest receipt:
-`docs/validation/2026-11-06-melee/README.md`. Give frequent concrete updates.
+Read CLAUDE.md, docs/FORK-CORRECTIONS.md, M4-PLAN.md, STATUS.md and receipts:
 
-## Authoritative owner policy
+* `docs/validation/2026-11-07-coverage/README.md`
+* `docs/validation/2026-11-07-synthetic-tactics/README.md`
+* `docs/validation/2026-11-06-native-expanded/README.md`
+* `docs/validation/2026-11-07-launcher/README.md`
+
+## Owner policy
 
 Crash-causing inherited C behavior and blatant play blockers may be fixed
-now. Mirror narrow corrections in C/Rust, mark FORK, link the tracker and
-validate. Other conflicts are case by case. Do not preserve crashes,
-undefined bytes or known failures as milestone requirements. Broader
-changes follow a verified milestone and owner-created tag. Preserve
-original references; corrected-C references require two identical C runs.
-File findings/updates in `diegoami/neo-angband-tracker`, never `angband/angband`.
+narrowly in C/Rust, marked FORK, linked to the tracker and validated. Other
+conflicts are case by case; broader divergence follows the verified milestone
+and owner-created tag. Original references are preserved; corrected C references
+require two identical C passes. Findings/updates go to
+`diegoami/neo-angband-tracker`, never `angband/angband`.
 
-## Corrections and verified outcome
+## Verified production checkpoint
 
-* #290, `bd184cc`: reset stale offsets at equality with cave dimensions.
-* #287, `26a96be`: use actual output byte capacity, reserve NUL and return
-  empty text/error on invalid encoding. The transferred byte-limited fix
-  had passed six cases but truncated UTF-8 in baseline seeds1001/1003;
-  native failure/after controls and the restored baseline are retained.
-* #322, `28b8170`: thrust requires distance exactly one. A stale monster on
-  the player's square after teleport/blindness previously queued `+5` and
-  stopped Warrior2000 at1,887,392. The real C body fixture fails before and
-  passes after for center/distant rejection and all eight real neighbors,
-  in simulation/apply modes. C2's first456,025 keys match the prior trace;
-  the invalid direction5 becomes4 at the same turn. The abort guard stays.
+* #290: stale panel offsets reset at equality with cave bounds.
+* #287: actual UTF-8 output byte capacity, reserve NUL and deterministic
+  invalid-encoding behavior. The initial byte-limited fix truncated Sméagol;
+  the actual-capacity refinement restored all original baseline parity.
+* #322: thrust targets require distance exactly one. Warrior2000's former
+  `+5` abort at1,887,392 is corrected; all three runs finish5,000,001 turns.
 
-At `28b8170`, no stale/unknown-implementation override is used:
+At source28, ordinary C/C and Rust/C pass crash-fixes6/6, extended12/12 and
+natural2/2; both builds match105 baseline and8 captured-Rogue references.
+All extended original2M/5M limits are reached. Thirty fork-private engine
+captures match metadata and complete C/C/Rust bytes. Saved current depth78
+is distinct from source observed depth99; fresh natural replays reach84/41.
+The audited deepest logged current depths for longWarrior2000/Warrior2007/
+Blackguard3100 are52/99/59. The final max_depth summary fields44/99/51 can
+reset with recall and are not lifetime peaks. Depth-audit inputs are hashed.
+Release tests100 passed/one existing ignored, clippy and154 identical engine
+object/actual link-input no-C-Borg checks pass at these unchanged inputs.
 
-* Fresh crash-fixes C/C and Rust/C: **6/6** keys/messages/player state.
-* Both C and Rust vs original baseline references: **105/105 each**
-  (smoke3, full45, deep9, classes16, config7, options25).
-* Both builds vs original captured-Rogue references: **8/8 each**.
-* Fresh extended C/C and Rust/C: **12/12**, all original turn limits
-  reached. Warrior2000 finishes5,000,001 turns, clevel42/final max_depth44.
-  Audited deepest logged current depths are52/99/59 for Warrior2000/
-  Warrior2007/Blackguard3100; recall can reset the summary max_depth field.
-  See `docs/validation/2026-11-07-depth-audit/README.md`.
-* All30 fork-isolated captures match metadata, SHA-256 and direct bytes
-  across C1/C2/Rust; retained in `harness/saves/captured-extended`.
-* Named natural suite C/C and Rust/C: **2/2**, 100k-turn fresh-Borg replays
-  from Warrior78 and Blackguard40, reaching84/41. Separate helper replay
-  matrices also have MATCHED. These are independent scenarios, not stitched
-  continuations; engine saves do not contain private Borg memory.
-* Release tests100 passed/one existing ignored; release all-target clippy
-  with warnings denied; linkage check154 identical engine objects and
-  actual link inputs proving no C Borg code in Rust. Native regressions pass.
+## Persistent native checks
 
-Every accepted suite has DONE and successful process receipts. Captures
-were every1M turns in private forked engine copies. Their deepest saved
-current depth is78; source maxdepth99 is a separate fact. Characters are
-Borg-played with cheat death, not unassisted-play or wizard-kit claims.
+Actual C/Rust calculator30k, spatial/flow/physical-melee4k, glyph1,600 and
+lunal1,280 states compare the declared logical maps/queues/tracking and ordered
+callbacks/notes/keys. Seven actual-source faults, including private-state-only
+changes, are rejected. Non-recovering C UBSan, clippy and real dependency-cache
+invalidation controls pass. Separate Rust body coverage: melee84/84 lines,
+thrust52/52, spread73/73, glyph121/124, lunal154/157. Engine/environment adapters
+are explicit; whole-Borg private state and all historical checks are not claimed.
 
-Current corrected C references: `crash-fixes`, `extended`, `natural`.
-Historical source26 references: `crash-fixes-26a96be`, `extended-26a96be`;
-initial byte-limited reference: `crash-fixes-bd184cc`. Original baseline and
-endgame references retain their bytes. The source26 extended receipt
-explicitly preserves Warrior2000's early stop, not a5M-turn success.
+## Real engine synthetic scenarios
 
-## E and F progress, with limits
+`harness/scenarios/` relinks unchanged native C objects with a fixture-only save
+constructor/inspector. It never replaces a Borg algorithm. Five canonical engine
+saves were generated twice identically; actual replay uses verified normal C,
+normal Rust and the frozen Rust coverage image. Six cases pass all three logs
+and complete final engine saves. The finalsave flag makes missing/changed saves
+fail diff; negative controls are retained.
 
-The persistent native checker now covers actual C/Rust calculator30k,
-cave/projection/direction/flow/physical-melee4k, glyph1,600 and lunal1,280
-states. It compares the declared complete logical maps, flow matrices,
-queues, tracking, decisions and ordered callbacks/notes/keys. Seven
-actual-source faults are rejected, including private-state-only mutations.
-Non-recovering C UBSan, all-target release clippy and a real dependency
-cache invalidation control pass. Source and item ledgers bind the code;
-production input hashes still match the frozen coverage image (source28).
-See `harness/native-checker/README.md` and
-`docs/validation/2026-11-06-native-expanded/`. Shared engine/environment
-boundaries are explicit; this is not whole-Borg shadow execution or proof
-of every inherited tactic. Actual-game self-lunal/Sea of Runes/win remain
-unestablished. Calculator allocator leads #323–#325 and glyph reverse-flow
-lead #345 are filed; no gameplay change for these leads.
+Ready self-lunal starts depth20/max99/clevel50 with the option on:155 real thinker
+entries and descent to21; option-off and max34 controls have zero entries. The
+accepted case stops at its first descent. Earlier game-clock/later-depth pilots
+timed out during zero-clock stair cycling; their FAILED receipts are excluded.
 
-F's isolated source28 image is frozen at build revisionf987c07 in
-`/tmp/borg-rs-m4-coverage`, with matching LLVM22.1.8 tools under
-`/tmp/borg-llvm-tools`. The same coverage-only runtime/_exit flush recipe
-as the earlier pilot is used. Current full collection:
+Glyph-ready starts at100 with20 known Rune scrolls and a safe preparation room:
+4 builder entries, one engine glyph, scrolls20 to19. Supply9 gives0 entries/no
+glyph. Prelaid24-glyph ring gives4 entries and25 engine glyphs/19 scrolls,
+exposing existing#295. A read-only native C stop observer sees23 visible engine
+glyphs but Borg map0/tracked1; all normal-C output/save bytes remain unchanged.
+No TRAP bit or private Borg field is forced. Full rune formation/scumming/win
+are not established; no tactical source correction is applied.
 
-* `harness/out/local/coverage-current.log` and isolated
-  `harness/out/coverage/current-matrix`:119 accepted oracle-checked runs
-  through crash-fixes; all nine2M extended scenarios have successful
-  process outcomes and exact early C-prefix/full-case observations, but
-  the three5M cases are still running. No extended acceptance yet.
-* `harness/out/local/coverage-current-long.log` and isolated
-  `harness/out/coverage/current-long`: independent extended/natural
-  collection from the same image. An automatic approval review rejected
-  interrupting the first collector after crash-fixes, so both remain active.
-* `harness/out/local/coverage-current-natural.log` and isolated
-  `harness/out/coverage/current-natural`: natural2/2 accepted, with all
-  three C oracles and two successful process profiles. This independent
-  collection uses the already validated saves and same frozen image.
-* The completed121-run subset report is local only at
-  `harness/out/local/coverage-121-report`:82.58% logic lines,
-  91.09% LLVM function instances. It is not full F.
+Canonical data/ref: `harness/saves/synthetic-tactics`,
+`harness/reference/synthetic-tactics`; suite `harness/suites/synthetic-tactics`.
+Reproduction is in `harness/scenarios/README.md`. Native finding#295 is separate
+from reverse-flow lead#345 and counter/rollback#118. Source lead#357 concerns
+X11 preferences only, not the repaired wrapper save-path issue.
 
-The coverage runner supports `COVERAGE_SUITES` for independent groups;
-only all ten default groups create full matrix DONE. Shared validation
-checks recipe names/hashes, no overrides/captures, every successful engine
-PID, exact frozen binary/source hashes and profile bytes. `join.py` can
-join exactly one complete copy of each group from the same image, but
-rejects duplicates and partial groups. Never accept an interrupted run.
-The previous source26 smoke/full48 pilot remains historical and separate.
+## Full F measurement
 
-A separate instrument-coverage-only image retained the same36,184 mapped
-lines/1,709 LLVM functions and strict smoke parity. Four serial A/B runs
-all matched the C oracles; the modest variable speed gain did not justify
-mixing images during this collection. Current full profiles consistently
-use instrument-coverage/link-dead-code. Branch coverage is unmeasured.
+All11 groups/139 successful oracle-checked executions use one frozen image:
+logic29550/34610 lines (85.38%),1269/1380 LLVM function instances (91.96%).
+Branch coverage is unmeasured; closures/monomorphizations count separately.
+The original133 baseline (84.65%/91.59%) is retained under original-133;
+source26's48-run pilot remains historical. Native checker profiles are separate.
 
-## Interactive Rust launcher
+The frozen image/source checkout is `/tmp/borg-rs-m4-coverage` at build revision
+f987c07, production input bytes identical to28b8170/current work branch.
+It uses instrument-coverage/link-dead-code, LLVM22.1.8 and an explicit profiler
+runtime/_exit flush shim. Actual flags and runtime/shim/image hashes are retained.
+Only harness/data files were added for the new scenarios; no image rebuild or
+identity override was used. Original profiles plus six new profiles form139.
+Matching tools remain under `/tmp/borg-llvm-tools`.
 
-Owner-requested `./run-rust-borg.sh` builds the ordinary X11 game in
-`build/play-rust` with BORG_IMPL=rust and harness hooks off, verifies the
-executable's Rust identity, and starts it from the correct data directory.
-Persistent saves/settings are in ignored `.angband-rust/`; an existing
-borg.txt is preserved and the first copy has stock cheat death FALSE.
-Ctrl-Z then z starts the Borg after character creation/load; any key stops
-it. The owner requested the larger better-borg-c launcher appearance: main
-font28-pixel Courier (BORG_PLAY_FONT override), explicit one-window frontend
-argument,1362x722 verified. Auxiliary fonts default to fixed. Build/rebuild, actual
-Xvfb startup from /tmp, and config-byte preservation checks passed.
-The save-directory flags now precede -u (ordinary engine freezes the path
-at -u). A generated legacy lib/save symlink repaired the already-running
-owner session; the retry created .angband-rust/save/RustBorg. The corrected
-launcher passed a two-profile real GUI save/reload roundtrip using a synthetic
-level50 fixture. BORG_PLAY_DATA_DIR supports isolated profiles. Window-prefs
-source lead#357 is separate from this wrapper bug. No production input changed;
-coverage jobs remain isolated and active.
+One original collector's shell footer failed after all groups passed because its
+script was edited live. It did not get full DONE. Strict join independently
+validated every accepted group, process, recipe/source/binary/profile hash and
+created the assembled full DONE. Current coordinator runs an immutable startup
+script snapshot; a deliberate disposable live-edit smoke control passes3/3.
+Duplicate complete extended/natural collections passed and are excluded from the
+merge. The original attempted interruption was rejected by automatic approval
+review, so the collectors were left to finish; no required engine run was lost.
+
+Full local data: `harness/out/coverage/{complete-133,complete-139,current-matrix,
+current-natural,synthetic-collection,current-long}` in the isolated checkout.
+Durable export retains all139 raw profiles, merged profdata, raw LLVM JSON,
+process/config/summary ledgers and all three full-log hashes. Keep the local
+image for re-exporting these exact profiles; fresh source can recollect them.
+
+## Owner-requested interactive launcher
+
+`./run-rust-borg.sh` builds ordinary X11/Rust in `build/play-rust` with harness
+hooks off and verifies the binary's Rust identity. Main font is the C launcher's
+28-pixel Courier (BORG_PLAY_FONT override); explicit one-window layout verified
+1362x722. Ctrl-Z, confirm if needed, then z starts Borg; Ctrl-X saves/exits.
+
+Default save: `/home/diego/projects/borg-rs/.angband-rust/save/RustBorg`.
+Existing borg.txt is preserved; first stock copy has cheat death FALSE.
+BORG_PLAY_DATA_DIR supports isolated profiles. Directory overrides must precede
+-u because the engine freezes the filename at -u. This wrapper ordering bug
+was fixed. A generated legacy lib/save symlink repaired the owner's already-
+running session, and the retry created the57KB save. A separate two-profile
+real GUI load/save/reload/save cycle passes with a synthetic level50 fixture;
+the owner's save is never used in that test or committed.
 
 ## Next work
 
-1. Let extended finish all12 cases and pass its strict diff/profile receipt.
-   Then use the full original matrix if ready, or join its completed
-   groups with current-natural (exactly one accepted copy per group).
-   Keep duplicate collectors' provenance separate; no partial cases count.
-2. Run `harness/coverage/report.py` with no subset flag against the complete
-   matrix, retaining the133 successful process/profile receipts and exact
-   instrumentation metadata. Review measured gaps; never infer completed
-   tactics from nonzero function entries. Prepared local helpers are `/tmp/export-borg-m4-coverage.py`
-   (requires complete report/matrix), `/tmp/borg-coverage-status.py`,
-   `/tmp/check-borg-completed.py`, `/tmp/borg-coverage-controls.py` and
-   `/tmp/borg-m4-coverage-gap-notes.md`. Actual Cargo fingerprint flags and
-   shim/runtime hashes were checked; fingerprint is in
-   `harness/out/local/coverage-actual-fingerprint.json`.
-3. Update final milestone/status/receipt documentation from the actual
-   full report. Production source has not changed, so the completed
-   corrected C/C and Rust/C corpus remains the same source28 checkpoint.
-4. Present the verified declared M4 scope for the owner to tag. Do not
-   automatically move main or create a tag.
-
-Useful current reproduction commands (run separately; inspect exit codes):
-
-```sh
-harness/build.sh
-BORG_IMPL=rust harness/build.sh
-harness/regress/screen-text/run.sh
-harness/regress/melee-adjacent/run.sh
-harness/check-no-c-borg.sh
-BORG_IMPL=rust JOBS=4 harness/suite.sh extended harness/out/reproduce/extended
-harness/diff --suite extended --expect-impl rust harness/out/reproduce/extended harness/reference/extended
-SAVE_ROOT=harness/saves/captured-extended BORG_IMPL=rust JOBS=2 harness/suite.sh natural harness/out/reproduce/natural
-harness/diff --suite natural --save-root harness/saves/captured-extended --expect-impl rust harness/out/reproduce/natural harness/reference/natural
-```
-
-Local source28 outputs remain under `harness/out/local/melee-extended-*`,
-`baseline-melee-*`, `melee-crash-c2`, `natural-*`. No old gameplay jobs should be resumed
-from their completed/partial predecessors; the coverage jobs above are new. Read DONE/strict comparisons.
-Current builds used GCC15.2.0 and rustc1.98.1. No cloud dependency paths or
-identity overrides are needed.
-
-Tracker #287/#290 updates link26a96be/0861e3f. #322 links the observed stop
-and28b8170; its [final full-replay receipt update](https://github.com/diegoami/neo-angband-tracker/issues/322#issuecomment-6695689265)
-is published and was read back.
-No independent tracker verification or upstream/source resolution is claimed.
-The previous session's native detection-crash observer raw trace was not
-transferred; current receipts do not claim to recapture it.
+Present the verified bounded M4 scope for the owner to tag; do not move main or
+tag automatically. If the owner asks for a tactical correction, use the linked
+source findings and existing scenario controls, then rebuild/checkpoint affected
+inputs and update references only after two corrected C passes agree. Do not
+infer a win or correct C strategy from parity or a nonzero function entry.

@@ -1,0 +1,56 @@
+{
+  "deep-0-warrior": {
+    "bytes": 257248,
+    "child_pid": 920445,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920445.profraw",
+    "sha256": "6ba7c93f2288f45d965f8fb7299f585640bcf2789b44fc4bb8a57697a30aabbd"
+  },
+  "deep-1-mage": {
+    "bytes": 257248,
+    "child_pid": 920447,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920447.profraw",
+    "sha256": "e875f2ad5c71aa6654a7f661f18d7dc726738079ddd6a17468afd5f59dd99af6"
+  },
+  "deep-2-druid": {
+    "bytes": 257248,
+    "child_pid": 920444,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920444.profraw",
+    "sha256": "5e53aa389efe3a52504e88830301f9b08aaca477d29be01cbfdb72b9733d00f8"
+  },
+  "deep-3-priest": {
+    "bytes": 257248,
+    "child_pid": 920446,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920446.profraw",
+    "sha256": "cfa9eb95e8cfac44be473b474aa3d168c10a499d16136f47f43c0db3a0200c33"
+  },
+  "deep-4-necro": {
+    "bytes": 257248,
+    "child_pid": 920448,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920448.profraw",
+    "sha256": "ca9ae76d590ee060d25ff928287a24c1bacce53969b3970684c6afdef551a9b9"
+  },
+  "deep-5-paladin": {
+    "bytes": 257248,
+    "child_pid": 920451,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920451.profraw",
+    "sha256": "b08b6fd20fd6784dd86faab2aee3f81036945f736532e5fd46f59123bb68597a"
+  },
+  "deep-6-rogue": {
+    "bytes": 257248,
+    "child_pid": 920449,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920449.profraw",
+    "sha256": "b836dcbf7b05b115ff86f315d757bd16c6a136ba05721f887eb59b6340649fb4"
+  },
+  "deep-7-ranger": {
+    "bytes": 257248,
+    "child_pid": 920450,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920450.profraw",
+    "sha256": "160de5d6ef523f40e51fa05f3d8ea34a03beaa3fc5d75fc679d2ff49107222f5"
+  },
+  "deep-8-blackguard": {
+    "bytes": 257248,
+    "child_pid": 920886,
+    "profile": "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/profiles/deep/11212204227228682092_0-920886.profraw",
+    "sha256": "bbaae3dbea2bf20d8c6ccc806d2089e074bccbafdd9b46be366863fa6bfa25e1"
+  }
+}

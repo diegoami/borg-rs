@@ -1,0 +1,7 @@
+A: /tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/captured-rogue: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=883414624b1cc353
+A:   built from f987c077c773 (dirty=no, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at f987c077c773 (dirty=no) overrides=none
+B: /home/diego/projects/borg-rs/harness/reference/captured-rogue: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=c64879cf33730ac2
+B:   built from b5783ec14346 (dirty=yes, inputs dirty=yes) source_sha256=9ca6c9f8fa13c2d7; run at e0f93e797dee (dirty=no) overrides=none
+8/8 runs identical (expected 8)
+messages.log compared in 8 run(s)
+state.log compared in 8 run(s)

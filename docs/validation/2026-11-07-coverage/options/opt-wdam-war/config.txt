@@ -1,0 +1,2 @@
+flags=menu,cheat,borg_worships_damage=TRUE
+borg_txt_sha256=b02ee879ce8523e9084bb0c3e553f6baa5492dacf62d914edad4c3193e82f822

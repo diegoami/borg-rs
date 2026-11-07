@@ -65,8 +65,17 @@ update](https://github.com/diegoami/neo-angband-tracker/issues/322#issuecomment-
 links the completed75d6ced checkpoint and was read back. Independent tracker verification and upstream
 source resolution remain explicit, not inferred from consumer validation.
 
-Allocator code-reading leads #323–#325 are separate reported findings in
-c-bugs section55; their C implementations are unchanged. The committed
-native calculator checker is an E foundation. The48-run coverage pilot is
-not full F or coverage of the latest melee correction. M4 remains open;
-Sea of Runes, self-lunal and a win are not established by a depth alone.
+Allocator code-reading leads #323-#325 remain separate reported findings;
+no leak-freedom/game-exhaustion claim is made. Persistent native checks now
+cover declared calculator/map/flow/melee/glyph/lunal kernels, with seven
+actual-source fault controls, C UBSan and measured body coverage.
+
+The declared M4 corpus is verified at the unchanged28b8170 production inputs:
+139 successful oracle-checked engine executions in11 groups, logic lines85.38%
+and LLVM function instances91.96%. Six synthetic cases reach real self-lunal
+entry/first descent and glyph creation with complete C/C/Rust engine-save
+byte equality. Their wizard setup and finite stops are explicit. Existing
+recognition finding#295 and reverse-flow lead#345 are recorded, without a
+broader tactic correction. Full formation-building, unbounded scumming and
+an unassisted win remain unestablished. See the2026-11-07 coverage/synthetic
+receipts. Main/tag movement remains the owner's action.

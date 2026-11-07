@@ -1,0 +1,19 @@
+{
+  "seed": 3000,
+  "race": "Dunadan",
+  "race_idx": 8,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "death",
+  "game_turns": 58868,
+  "player_turns": 5968,
+  "resting_turns": 3076,
+  "clevel": 5,
+  "max_depth": 2,
+  "depth": 2,
+  "dead": true,
+  "death_cause": "a cave spider",
+  "keys": 4013,
+  "wall_seconds": 50.733
+}

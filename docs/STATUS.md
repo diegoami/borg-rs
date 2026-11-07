@@ -1,65 +1,68 @@
 # borg-rs status
 
-## Current M4 work (2026-11-06)
+## M4 verified for the declared corpus (2026-11-07)
 
-Latest production source: `28b8170`. Owner-authorized matching C/Rust
-corrections fix stale panel-offset equality (#290), UTF-8 output capacity
-and NUL termination (#287), and same-square melee targets (#322).
-The last fix changes the former `+5` abort into a valid adjacent attack;
-C2's first 456,025 keys match the pre-fix trace before that correction.
+Production Borg/engine inputs remain at `28b8170`. The owner-authorized
+matching C/Rust corrections address panel-offset equality (#290), UTF-8
+output capacity/NUL termination (#287), and same-square melee targets (#322).
+Main and tags are unchanged; the owner creates the milestone tag.
 
-Verified at this source, with DONE, strict comparisons and no overrides:
+Verified evidence, with strict build/process checks and no overrides:
 
-* Fresh crash-fixes C/C and Rust/C: **6/6** keys/messages/player state.
-* Both builds vs all original baseline references: **105/105 each**;
-  captured-Rogue fresh replays: **8/8 each**.
-* Fresh extended C/C and Rust/C: **12/12**, every original turn limit
-  reached. Previously blocked Warrior2000 now finishes 5,000,001 turns,
-  clevel42 and final max_depth44. Audited deepest logged current depths
-  are52/99/59 for Warrior2000/Warrior2007/Blackguard3100. Recall can reset
-  the summary field; see the [depth audit](validation/2026-11-07-depth-audit/README.md).
-  The suite/seeds/limits are unchanged.
-* All **30** fork-isolated engine captures match metadata, SHA-256 and
-  direct saved bytes across both C passes and Rust. Installed in
-  `harness/saves/captured-extended`, with provenance.
-* New natural suite C/C and Rust/C: **2/2** independent 100k-turn replays
-  of the depth78 Warrior and depth40 Blackguard; they reach84/41.
-* Release tests100 passed/one existing ignored, all-target clippy with
-  warnings denied, linkage check:154 identical engine objects and no C
-  Borg code in Rust.
+* Ordinary C/C and Rust/C crash-fixes6/6, extended12/12 and natural2/2;
+  both builds also match105 original baseline and8 captured-Rogue cases.
+  All extended2M/5M limits are reached. Warrior2000 finishes5,000,001 turns.
+* All30 fork-private engine captures have identical metadata and complete
+  C/C/Rust saved bytes. Natural fresh replays start at78/40 and reach84/41.
+  Deepest logged current depths in the three long cases are52/99/59;
+  resettable final max_depth fields44/99/51 are separately labelled.
+* Persistent native C/Rust checker:30k calculator,4k spatial/flow/melee,
+  1,600 glyph and1,280 lunal states. Seven actual-source faults rejected;
+  non-recovering C UBSan, clippy and dependency-cache controls pass.
+* Six new synthetic engine cases pass C/C and normal/coverage Rust/C,
+  including complete final engine saves. Real self-lunal entry/first descent
+  and one real glyph creation are verified with zero-entry controls.
+  Per-case profiles record155 lunal thinker and8 glyph-builder entries.
+* Full11-group coverage:139 successful oracle-checked executions from one
+  frozen image. Logic29296/34610 lines was84.65% before the new scenarios;
+  the combined result is **29550/34610 (85.38%) lines** and
+  **1269/1380 (91.96%) LLVM function instances**. Branch coverage is unmeasured.
+* Release tests100 passed/one pre-existing ignored, all-target clippy and
+ 154 identical engine-object/actual-link-input checks pass at the unchanged
+  production source. New harness/launcher checks are recorded separately.
 
-Current corrected references are `crash-fixes`, `extended`, `natural`.
-Original references, including `endgame`, are preserved. Source26's
-historical references are separately named `crash-fixes-26a96be` and
-`extended-26a96be`; its Warrior2000 early stop is explicitly recorded.
-See [latest validation](validation/2026-11-06-melee/README.md).
+The synthetic cases are wizard states, not naturally attained characters.
+They establish bounded entry/actions, not unbounded scumming, autonomous
+completion of a Sea of Runes, or an unassisted win. Existing glyph recognition
+finding#295 and reverse-flow lead#345 remain explicit; no tactical source
+correction is inferred. The native checker does not shadow every private
+field of an entire running Borg or replace all historical temporary checks.
 
-M4 remains unfinished while F's complete coverage run is active. E now has
-persistent native C/Rust checks for calculator30k, spatial/flow/melee4k,
-glyph1,600 and lunal1,280 states, with logical private-state comparisons,
-seven rejected source faults, non-recovering C UBSan and clean clippy.
-See [expanded native checks](validation/2026-11-06-native-expanded/README.md)
-and the checker README for exact environment boundaries. This does not
-replace whole-Borg shadow execution or prove every tactic.
+Receipts: [full coverage](validation/2026-11-07-coverage/README.md),
+[synthetic cases](validation/2026-11-07-synthetic-tactics/README.md),
+[native checks](validation/2026-11-06-native-expanded/README.md),
+[ordinary checkpoint](validation/2026-11-06-melee/README.md),
+[depth audit](validation/2026-11-07-depth-audit/README.md).
+One original collector footer failed after its completed groups passed;
+strict independent group validation/join supplied the final assembled DONE.
+The coordinator now snapshots its script and its live-edit control passes.
+No failed/partial engine group is accepted.
 
-The current-source coverage build has accepted121 runs through crash-fixes
-and natural, using one frozen image. All nine2M extended processes succeed
-and match C; the three5M cases remain active, so extended is not accepted yet.
-The completed121-run subset measures82.58% logic lines and91.09% LLVM function
-instances. This is provisional subset evidence, not completed F. The older
-48-run26a96be pilot remains separately identified. Sea of Runes, actual-game
-self-lunal entry and a win remain unestablished. Main/tags are unchanged;
-the owner creates tags. Policy: `FORK-CORRECTIONS.md`.
+Interactive use: `./run-rust-borg.sh` opens one X11 window with28-pixel
+Courier; Ctrl-Z then z starts the Rust Borg, Ctrl-X saves/exits. Initial
+cheat death is off. The default save is `.angband-rust/save/RustBorg`.
+The save-path ordering fix and real GUI save/reload roundtrip are verified.
 
 ## Milestones
 
 | milestone | state |
 |-----------|-------|
+| M4 wider parity evidence | verified for the declared A-F scope;139 engine executions plus persistent native checks; owner tag pending |
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 now, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
 
-## Machine
+## Original M1-M3 machine
 
 4 cores, 15 GB RAM. gcc 13, clang/LLVM 18, rustc/cargo 1.97.
 
