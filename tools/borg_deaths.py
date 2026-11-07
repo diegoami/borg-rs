@@ -41,6 +41,14 @@ def registry_root():
     return Path(os.environ.get('BORG_DEATH_RECORDS_DIR', ROOT / 'docs/deaths')).resolve()
 
 
+def discussion_issue():
+    explicit = os.environ.get('BORG_DEATH_ISSUE')
+    if explicit:
+        return explicit
+    path = registry_root() / 'discussion.json'
+    return read(path).get('issue') if path.exists() else None
+
+
 @contextmanager
 def registry_lock(root):
     root.mkdir(parents=True, exist_ok=True)
@@ -313,6 +321,7 @@ def update_index(root):
 
 
 def maybe_register(bundle, issue=None):
+    issue = issue or discussion_issue()
     description = describe(bundle)
     if description is None:
         return None

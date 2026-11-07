@@ -1,0 +1,27 @@
+Original frame 2196; engine turn 36264; phase key; HP 4, SP 0, depth 1
+Logical cells; diagnostics are actual engine state, not extra Borg knowledge.
+
+You failed to concentrate hard enough! -more-                                   
+Elf                                                                             
+Acolyte                                                                         
+Necromancer                                                                     
+LEVEL      2                                                                    
+NXT        7                                                         #    ##    
+AU         0                                                   # ##  #.###.#    
+|     ( )]]]                                                    .... #.....#    
+STR:      13                                                      ...'.....#    
+INT:   18/30                                                         #.....#    
+WIS:       9                                                         #.###.#    
+DEX:      11                                                          #.#C##    
+CON:      13                                                         ###@##     
+                                                                     #<###      
+Cur AC    30                                                         #.#        
+HP    4/  15                                                         #.#        
+SP    0/   4                                                         #.#        
+                                                                     ..#        
+[********--]                                                   #######.##       
+                                                               #........#       
+                                                               #........#       
+                                                               #........#       
+50' (L1)                                                       #........#       
+             LF:2-? Light 1  Fed 53 % Open floor                                

@@ -53,3 +53,18 @@ viewer exit, verification and issue closure never imply that the owner watched
 or accepted the encounter. Marks are local and do not rewrite assessment.json.
 ./produce_death.py collects a bounded prospective set of new recorded games
 when another death is needed. No automatic cohort expansion or issue posting.
+
+
+## Shared discussion and required analysis
+
+[Death review hub #3](https://github.com/diegoami/borg-rs/issues/3) is the
+default owner-feedback thread for this Rust registry. Each new collected case
+links it unless --death-issue/BORG_DEATH_ISSUE overrides it. Registry overrides
+without their own discussion.json remain unassigned; no C thread is borrowed.
+Collection/export does not complete analysis. On processing feedback, use
+[REVIEW-TEMPLATE.md](REVIEW-TEMPLATE.md): overall picture, actual decision
+timeline, brainstorming/candidate fit, prioritized next evidence and explicit
+limits. Mark provisional sections and missing evidence honestly. Preserve
+original run/build/identity, and distinguish player-known information, native
+spell readiness and actual Borg decision eligibility. No tactic or promised
+rescue follows automatically from filling the template.

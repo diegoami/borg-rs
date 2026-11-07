@@ -1,0 +1,27 @@
+Original frame 2206; engine turn 36284; phase key; HP 0, SP 0, depth 1
+Logical cells; diagnostics are actual engine state, not extra Borg knowledge.
+
+You hit Fang, Farmer Maggot's Dog. -more-                                       
+Elf                                                                             
+Acolyte                                                                         
+Necromancer                                                                     
+LEVEL      2                                                                    
+NXT        7                                                         #    ##    
+AU         0                                                   # ##  #.###.#    
+|     ( )]]]                                                    .... #.....#    
+STR:      13                                                      ...'.....#    
+INT:   18/30                                                         #.....#    
+WIS:       9                                                         #.###k#    
+DEX:      11                                                          #.#C##    
+CON:      13                                                         ###@##     
+                                                                     #<###      
+Cur AC    30                                                         #.#        
+HP    0/  15                                                         #.#        
+SP    0/   4                                                         #.#        
+                                                                     ..#        
+[*******---]                                                   #######.##       
+                                                               #........#       
+                                                               #........#       
+                                                               #........#       
+50' (L1)                                                       #........#       
+             LF:2-? Light 1  Fed 53 % Open floor                                

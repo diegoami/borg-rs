@@ -37,18 +37,20 @@
       "summary": "Prioritize a controlled healing-versus-finishing-attack counterfactual. Last-checkpoint stock alone is not proof a particular alternative would survive; no tactical change is made from this observation."
     }
   ],
-  "cases": 4,
+  "cases": 5,
   "causes_by_distinct_start": {
+    "Fang, Farmer Maggot's Dog": 1,
     "a cutpurse": 1,
     "a giant yellow centipede": 1,
     "a pseudo-dragon": 1,
     "a wild cat": 1
   },
-  "death_process_attempts": 12,
-  "distinct_starting_conditions": 4,
+  "death_process_attempts": 13,
+  "distinct_starting_conditions": 5,
   "limit": "Selected cases; repeats/reference variants and backup branches are not independent lives or a mortality-rate estimate",
   "schema": "borg-rs/death-index@1",
   "versions": {
+    "9881301ceaad91d0c68a61bed1a8ccdde100e660": 1,
     "f772eb6dcb93dc8d53cfc0167496d6122133f42e": 12
   }
 }

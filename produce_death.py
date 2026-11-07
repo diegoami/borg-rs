@@ -67,6 +67,7 @@ def outcome(bundle):
 
 def collect(args, output, births, commit):
     hashes = workflow.tool_hashes()
+    args.death_issue = args.death_issue or deaths.discussion_issue()
     plan = {'schema': 'borg-rs/death-collection@1', 'created_at': workflow.now(), 'source_commit': commit,
             'seeds': [entry['seed'] for entry in births], 'prospective_births': births,
             'turn_cap': args.turns, 'key_cap': args.keys, 'wall_limit_per_game_seconds': args.timeout,

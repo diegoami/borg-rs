@@ -2,7 +2,7 @@
 
 Every confirmed natural death gets an immutable source/build/input identity, original observations, an assessment and linked actions. Full raw runs/saves/builds stay outside Git. Death alone does not establish a bug.
 
-Dossiers: 4; distinct starting conditions: 4; retained process attempts: 12 (including repeats). This registry is not a survival-rate estimate.
+Dossiers: 5; distinct starting conditions: 5; retained process attempts: 13 (including repeats). This registry is not a survival-rate estimate.
 
 | Case | Discussion | Actual source | Seed | Raw cause | Death turn | Diagnosis |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -10,6 +10,7 @@ Dossiers: 4; distinct starting conditions: 4; retained process attempts: 12 (inc
 | [D0002](D0002-seed8402-druid/report.md) | unassigned | `f772eb6dcb93` | 8402 | a cutpurse | 5590 | C/Rust parity observed; defect not established |
 | [D0003](D0003-seed8406-rogue/report.md) | unassigned | `f772eb6dcb93` | 8406 | a giant yellow centipede | 5600 | C/Rust parity observed; defect not established |
 | [D0004](D0004-seed8408-blackguard/report.md) | unassigned | `f772eb6dcb93` | 8408 | a wild cat | 6231 | C/Rust parity observed; defect not established |
+| [D0005](D0005-recorded/report.md) | [Discuss](https://github.com/diegoami/borg-rs/issues/3) | `9881301ceaad` | 1532917772 | Fang, Farmer Maggot's Dog | 36289 | unassessed |
 
 ## Aggregated actions
 
