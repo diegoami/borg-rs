@@ -101,7 +101,7 @@ def inspect_save(save, directory, binary):
         return json.loads(result.stdout)
 
 
-def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=True):
+def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=True, takeover=None):
     bundle = bundle.resolve()
     record = json.loads((bundle / 'recording.json').read_text())
     profile = record['profile']
@@ -114,6 +114,8 @@ def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=
                LC_ALL='C.UTF-8', LANG='C.UTF-8', TZ='UTC')
     if not extra_observations:
         env['BORG_NO_EXTRA_OBSERVATIONS'] = '1'
+    if takeover is not None:
+        env.update(BORG_TAKEOVER_TURN=str(takeover['turn']), BORG_TAKEOVER_DIR=str(takeover['directory']))
     return subprocess.run([str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
                            str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']],
                           env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)

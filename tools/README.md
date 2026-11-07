@@ -100,6 +100,52 @@ Verification timeouts stop the replay engine, preserve
 the original and never publish a named save. Death dossier paths and record.json
 resolve to their original bundle only when its manifest hash still matches.
 
+### Playing from a recorded turn
+
+```sh
+./replay_next_death.py --case D0006 --play-from-turn 22794
+./replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094 --prepare-only --output .angband-rust/my-attempt
+./play-branch.py .angband-rust/my-attempt
+```
+
+`--from-turn` continues to select viewing. `--play-from-turn` creates a
+separate human-controlled native save at the first living top-level command
+boundary at or after N. Multiple decisions can share a world turn; the receipt
+also records the number of preceding keys and `before_game_command` phase.
+The actual turn/position/HP/SP are printed. A skipped turn rounds forward
+(D5 request36095 captures36104); death/no later living boundary is refused.
+`--prepare-only` does not require a display; the default opens Linux/X11.
+`--timeout` bounds each preparation build/replay, never human playing time.
+Viewing/dump/verification modes cannot be combined with takeover.
+
+The tool rebuilds the recording's exact committed Rust/engine source with
+declared capture and manual-start hooks, original data and version stamp.
+It refuses unreconstructable/dirty historical source and currently supports
+headless origins only. A complete control rerun must match all original
+channels, raw frames, full final/checkpoint saves and archive bodies (with the
+existing declared headless clock-header exception). The selected run must
+match the original key/state/frame and message prefixes; native capture saves
+use a fork so saving cannot compact the live replay's monster indices.
+
+The copy has its own frozen engine/data, settings, native save, lock, five
+rolling backups and GUI recordings. On opening/resuming, a historical native
+reader and GUI handshake check the serialized player fields and full complex
+game RNG before input is accepted, and require Borg off. Headless epoch-based
+nonholiday monster availability is retained. Quick RNG used for flavor setup,
+private Borg memory and exact future equivalence to an uninterrupted engine
+are not claimed: native load can compact/rebuild engine structures. This is
+a serialized game counterfactual, not a proven rescue or a Git branch.
+
+Default paths are `.angband-rust/human-branches/TIMESTAMP-tN/`, or under
+`BORG_PLAY_DATA_DIR`. The printed `play-branch.py DIRECTORY` command resumes
+the same human character; running `--play-from-turn` again creates another
+attempt. Existing output directories are never replaced. Failed preparation
+is retained but cannot be launched as a ready branch. Ctrl-X saves; Escape
+closes the native exit screen (Return opens scores). Counterfactual GUI
+recordings can themselves be verified/replayed, carry original provenance,
+and are excluded from automatic death-dossier registration and owner-review
+marks. They do not add independent lives to the original death cohort.
+
 Headless --timeout aliases --wall-seconds, and --death-issue links an exported
 case. Rust keeps its own defaults (seed42, optional100k-turn budget) and extra
 race/class/new/key/checkpoint controls. Rust additionally supports --stall-timeout

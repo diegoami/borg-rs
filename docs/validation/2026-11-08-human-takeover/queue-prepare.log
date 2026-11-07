@@ -1,0 +1,7 @@
+Replay D0006: a grey mold at turn 22841.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0006
+Closing the viewer does not mark a review complete.
+Capturing first living command boundary at/after turn 22795
+Human save ready at turn 22804, depth 1, position (33,48), HP 8, SP 3.
+Save: /home/diego/projects/borg-rs/harness/out/human-takeover/queue-profile/human-branches/2026-11-07T23-17-48.927891+00-00-t22795/profile/save/HumanBorg
+Launch/resume: /home/diego/projects/borg-rs/play-branch.py /home/diego/projects/borg-rs/harness/out/human-takeover/queue-profile/human-branches/2026-11-07T23-17-48.927891+00-00-t22795

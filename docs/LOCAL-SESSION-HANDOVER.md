@@ -1,4 +1,33 @@
-# Local checkpoint — 2026-11-07
+# Local checkpoint — 2026-11-08
+
+## Human takeover tooling
+
+Owner authorized playing from a recorded turn, then explicitly delegated D6
+analysis. `replay-borg.py RECORDING --play-from-turn N` and
+`replay_next_death.py --case D0006 --play-from-turn N` create independent human
+save sessions; `--prepare-only` prepares without X11, `--output NEW_DIR` selects
+the destination. `play-branch.py DIRECTORY` resumes the private native save.
+This is a game/session branch, not Git. Viewing `--from-turn` is unchanged.
+
+Takeover rebuilds exact historical committed Rust/engine code with declared
+capture/manual-start hooks; the entire original run/raw frames/full native
+saves/checkpoints must match before capture is used. Capture occurs before
+the first living top-level command at/after N, with exact original prefixes
+and fork-private native saving. New copies have frozen engine/data, profile,
+lock, five backups and replayable GUI recordings. The GUI validates serialized
+player state and complex game RNG and requires Borg off before accepting input.
+Originals are preserved; native serialization/private Borg memory and future
+counterfactual survival are not uninterrupted replay equivalence. GUI-origin
+movies are viewable but currently unsupported for takeover. Human attempts
+do not auto-register death dossiers or mark the original owner review complete.
+
+Qualified D5 captures:36004(town),36094,request36095->36104. Terminal36289
+refused (no living boundary). D6:22794 at refuge/downstairs(33,49),HP9/SP3;
+queue request22795->22804. Raw local evidence: harness/out/human-takeover;
+ready D6 private save: d6-final-22794. Tests/receipt are in
+docs/validation/2026-11-08-human-takeover. Use private displays/profiles for
+further validation. Ctrl-X saves; Escape closes the native exit screen.
+M4/M5 tags and gameplay algorithms are unchanged.
 
 ## Current owner-approved direction
 

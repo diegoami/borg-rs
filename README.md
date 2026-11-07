@@ -88,6 +88,22 @@ Replay accepts better-borg-c's `--from-turn`, `--dump-turn`, `--view-only`,
 and `--recording-only` forms remain supported. The turn selects **viewing**;
 verification reruns the full original session, preserving private Borg history.
 
+To try your own choices from a recorded headless game:
+
+```sh
+./replay_next_death.py --case D0006 --play-from-turn 22794
+# Or: ./replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094
+```
+
+This verifies the historical run, copies a living native save at the first
+command boundary **at or after** your requested turn, and opens it with the
+Borg off. It prints the actual turn, save path and `play-branch.py` resume
+command. These are separate game sessions/saves, with originals preserved.
+Default copies live in `.angband-rust/human-branches/`; use `--output NEW_DIR`
+to choose a directory, or `--prepare-only` to create the save without opening
+X11. Ctrl-X saves; Escape closes the native exit screen. See
+[human takeover scope](tools/README.md#playing-from-a-recorded-turn).
+
 Completed natural deaths automatically create a dossier in `docs/deaths/`,
 with native maps/death logs, build/input hashes, actual pre-death observations,
 checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a

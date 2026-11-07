@@ -39,16 +39,17 @@ def command(binary, data, profile, character, arguments, frontend='x11', archive
             '-u' + character, *arguments]
 
 
-def start(binary, profile, character, arguments):
+def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
+          build_identity=None, session_context=None, on_start=None):
     """The shell owns fd9; this parent retains it until its sole child exits."""
     character = runtime.character_name(character)
     binary, profile = binary.resolve(), profile.resolve()
     lock = profile / 'save/.locks' / (character + '.lock')
-    held = os.fstat(9)
+    held = os.fstat(lock_fd)
     expected = lock.stat()
     if (held.st_dev, held.st_ino) != (expected.st_dev, expected.st_ino):
         raise ValueError('Launch GUI recording through start-borg.sh or run-rust-borg.sh')
-    fcntl.flock(9, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     before_frontend = arguments[:arguments.index('--')] if '--' in arguments else arguments
     if any(arg.startswith(('-d', '-m', '-u')) for arg in before_frontend):
         raise ValueError('Use BORG_PLAY_DATA_DIR and start-borg.sh NAME to select the recorded profile')
@@ -58,7 +59,7 @@ def start(binary, profile, character, arguments):
     frozen.mkdir(parents=True)
     shutil.copy2(binary, frozen / 'angband')
     for name in ('gamedata', 'customize', 'screens', 'help'):
-        shutil.copytree(ROOT / 'angband/lib' / name, frozen / 'lib' / name)
+        shutil.copytree((data_source or ROOT / 'angband/lib') / name, frozen / 'lib' / name)
     # Freeze local timezone rules, including a TZ file selected by the owner.
     zone = os.environ.get('TZ')
     zone_file = None
@@ -97,11 +98,16 @@ def start(binary, profile, character, arguments):
                            'source_sha256': subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'source-hash', 'rust'], text=True).strip(),
                            'binary_sha256': runtime.sha(frozen / 'angband')},
               'started': stamp, 'timezone': zone, 'origin_sha256': runtime.sha(initial / 'save' / character) if (initial / 'save' / character).exists() else None}
+    if build_identity is not None:
+        record['build_id'] = {**build_identity, 'binary_sha256': runtime.sha(frozen / 'angband')}
+    if session_context is not None:
+        record['session_context'] = session_context
     runtime.write(bundle / 'recording.json', record)
     immutable = {str(p.relative_to(bundle)): runtime.sha(p) for folder in (bundle / 'runtime', initial) for p in folder.rglob('*') if p.is_file()}
     env = environment()
     env.update({k: v for k, v in os.environ.items() if k.startswith('ANGBAND_X11_')})
     env['BORG_RECORD_DIR'] = str(output)
+    human_environment(record, env, output)
     env['TZ'] = ':' + str(bundle / 'runtime/timezone') if zone == 'frozen-file' else zone
     if env['TZ'] is None:
         raise ValueError('No timezone context recorded')
@@ -110,8 +116,10 @@ def start(binary, profile, character, arguments):
     started = time.monotonic()
     with (output / 'engine.log').open('w') as log:
         child = subprocess.Popen(command(frozen / 'angband', frozen / 'lib', profile, character, arguments, archive=session_archive),
-                                 cwd=frozen, env=env, stdout=log, stderr=subprocess.STDOUT, pass_fds=(9,))
+                                 cwd=frozen, env=env, stdout=log, stderr=subprocess.STDOUT, pass_fds=(lock_fd,))
         try:
+            if on_start is not None:
+                on_start(child, output)
             code = child.wait()
         except BaseException:
             # Keep the character lock until our child has actually stopped.
@@ -158,9 +166,17 @@ def start(binary, profile, character, arguments):
     record['files_sha256'] = {str(p.relative_to(bundle)): runtime.sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
     runtime.write(bundle / 'recording.json', record)
     print(f'GUI recording complete: {bundle}', flush=True)
-    import borg_deaths
-    borg_deaths.maybe_register(bundle, issue=os.environ.get('BORG_DEATH_ISSUE'))
+    if not session_context or session_context.get('kind') != 'human_takeover':
+        import borg_deaths
+        borg_deaths.maybe_register(bundle, issue=os.environ.get('BORG_DEATH_ISSUE'))
     return bundle
+
+
+def human_environment(record, env, output):
+    context = record.get('session_context', {})
+    if context.get('kind') == 'human_takeover':
+        env.update(BORG_HUMAN_SEED=str(context['seed']), BORG_HUMAN_READY=str(output / 'human-ready.json'),
+                   BORG_HUMAN_APPROVE=str(output / 'human-approved'))
 
 
 def validate(bundle, require_complete=True):
@@ -212,6 +228,7 @@ def verify(bundle, output=None, timeout=None):
         env.update(BORG_RECORD_DIR=str(output_run), BORG_REPLAY_DIR=str(bundle / 'run'), BORG_REPLAY_SYS=record['frontend'],
                    BORG_REPLAY_WIDTH=str(geometry['width']), BORG_REPLAY_HEIGHT=str(geometry['height']), BORG_REPLAY_KEY_SIZE=str(geometry['key_size']),
                    BORG_REPLAY_SOFT_CURSOR=str(geometry['soft_cursor']), BORG_REPLAY_COMPLEX_INPUT=str(geometry['complex_input']))
+        human_environment(record, env, output_run)
         frozen = bundle / 'runtime/game'
         args = record['arguments']
         # X11-only options do not apply to the dummy display, whose input calls
@@ -232,6 +249,9 @@ def verify(bundle, output=None, timeout=None):
                             if a != b:
                                 raise ValueError(f'GUI replay diverges: frames.jsonl row {n}')
                 raise ValueError('GUI replay diverges or did not consume complete input: ' + name)
+        if record.get('session_context', {}).get('kind') == 'human_takeover':
+            if runtime.sha(output_run / 'human-ready.json') != runtime.sha(bundle / 'run/human-ready.json'):
+                raise ValueError('Human session initial state diverges')
         originals = {p.name for p in (bundle / 'run').glob('file-input-*.bin')}
         repeated = {p.name for p in output_run.glob('file-input-*.bin')}
         if originals != repeated:
