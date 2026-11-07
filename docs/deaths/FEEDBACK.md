@@ -42,3 +42,14 @@ Full raw bundles, executables and saves stay outside Git. Dossiers contain
 curated observations, input/build hashes, checkpoint metadata and load-validation
 status. Original older cohort reports remain linked and do not acquire a movie
 or stronger replay claim merely by entering the registry.
+
+
+## Explicit owner replay queue
+
+Use ./replay_next_death.py --list, then the default command or --case D0005
+with optional --from-turn. Only --mark-reviewed D0005 or --mark-unreviewed
+D0005 changes the family-level owner review ledger. Technical assessments,
+viewer exit, verification and issue closure never imply that the owner watched
+or accepted the encounter. Marks are local and do not rewrite assessment.json.
+./produce_death.py collects a bounded prospective set of new recorded games
+when another death is needed. No automatic cohort expansion or issue posting.

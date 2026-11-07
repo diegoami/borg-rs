@@ -1,0 +1,46 @@
+{
+  "birth_policy": "fixed",
+  "character_selection": "prospective SHA-256 race/class selection; ordinary explicit menus/default point buy",
+  "checkpoint_every": 1000,
+  "counts": {},
+  "created_at": "2026-11-07T20:47:39.873757+00:00",
+  "error": "Build identity/binary must match the committed Rust source pin",
+  "issue": null,
+  "key_cap": 50000,
+  "limit": "Death collection, not a survival-rate cohort; no retrospective seed/budget enlargement",
+  "prospective_births": [
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 42
+    }
+  ],
+  "runs": [],
+  "safety": "cheat death/live and winner respawn off; native death evidence on",
+  "schema": "borg-rs/death-collection@1",
+  "seeds": [
+    42
+  ],
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "stall_timeout_seconds": 30,
+  "status": "failed",
+  "stop_rule": "first natural death, operational failure, or listed seeds exhausted",
+  "tools_sha256": {
+    "harness/identity.sh": "1f779a14c73475925e52285b34aa331c4d5ac86519f53a3da62933b3b688ff48",
+    "harness/run.sh": "8c852e5f7a36eac5ceebde1270d0c0f91a0d851ad8d9509b939a1e5540e2ed5d",
+    "harness/supervise.py": "3d2b36ba0db134883e5ae0826492ac666ab4a3b9927ffe5c601a9ca6281f62ac",
+    "produce_death.py": "fcc8ad054d3a54541c7fe4819e88a9e9ff0ef1e6552aa02349dc68291714b366",
+    "replay-borg.py": "5d6ece0cc978c012639e97b9425a1bf72b935068df6ba2d5d1edd6990bd8f0d4",
+    "replay_next_death.py": "95f4a2e4f8ff9304dbd365ec64daddea55283cef3f1cc1392dd90ff4f517eaf9",
+    "tools/borg_deaths.py": "99031be7793bc6e1db3a58227cb4fabb69d2d820392fba1a5f7b350ca8b0a2d1",
+    "tools/borg_gui.py": "e3245e3a7cb45890b7aaee7a1df034481e05b420d5b5a40133b216d8efb84cf1",
+    "tools/borg_replay_viewer.py": "07f6b266bf71600eba5e8dd4d20f11ec4fbf1f9a577f9099b11da376ac463444",
+    "tools/borg_runtime.py": "37221441344034f9331044820a573037644ec8e1cf45c143d08198370732e0c8",
+    "tools/borg_saves.py": "fafc79e0467f0f04fc216fc227c90d54de3e427fda7f021c1a87effd444053c2",
+    "tools/death_workflow.py": "cca628b63ebe167b42f9cf5e89b32133e72005e3bb7ea7718316d78231618674"
+  },
+  "turn_cap": 200000,
+  "wall_limit_per_game_seconds": 120
+}

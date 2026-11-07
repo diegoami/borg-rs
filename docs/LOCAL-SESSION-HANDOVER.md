@@ -23,6 +23,26 @@ ABI/config, run controlled cases and C twice/Rust comparisons, and retain
 separate target references and historical death identities. The material below
 records the completed work leading to this checkpoint.
 
+## Post-M5 tooling addition
+
+The owner explicitly requested produce_death.py and replay_next_death.py.
+Both root commands now exist with Rust adapters for the donor22f817c96843
+bounded collector and owner replay queue. Source/ref, seed/character choices,
+configuration and budgets freeze before outcomes; no hidden seed/budget growth.
+The queue groups canonical families, skips missing/legacy/corrupt recordings
+and never marks owner review complete on viewer exit or technical verification.
+Use --mark-reviewed/--mark-unreviewed explicitly. Local owner state/replay proofs
+live under primary harness/out/death-workflow; BORG_DEATH_WORKFLOW_DIR and
+BORG_DEATH_RECORDS_DIR isolate tests. Committed owner baseline starts empty;
+no C owner marks are copied. Collector random selections use a prospective
+SHA-256 policy plus explicit native menus, so C random-birth seed outcomes are
+not asserted equal. --stall-timeout now works for collection and named headless
+(default30/off respectively), watching flushed key-log world-turn advancement.
+Prepared builds pin a committed Rust source and data snapshot; current runners
+are frozen/fingerprinted separately. Tests/real receipts are under
+harness/out/death-workflow-validation and docs/validation/2026-11-07-death-workflow.
+This is tooling after accepted m5, with no C gameplay target selected/imported.
+
 ## Completed work and retained evidence
 
 Current branch: `main`. The owner resumed work and explicitly delegated
@@ -67,8 +87,8 @@ receipts: validation/2026-11-07-launch-tool-port and validation/2026-11-07-gui-r
 The owner additionally requested C-compatible replay parameters and adoption
 of death logging. Replay supports --from-turn/--dump-turn/--view-only/
 --verify-only/--output/--timeout, retaining Rust aliases; turn means viewing,
-not mid-run restoration. Headless --timeout aliases its wall budget; donor
---stall-timeout remains unported. Both launchers auto-export completed natural
+not mid-run restoration. Headless --timeout aliases its wall budget; --stall-timeout was unported at
+M5 and is added by the post-M5 workflow tools above. Both launchers auto-export completed natural
 deaths to docs/deaths (BORG_DEATH_RECORDS_DIR override), with immutable identity,
 curated native artifacts, actual windows/nearby anchors, checkpoint metadata,
 unassessed assessment/actions and deduplicated aggregate. GUI native archives

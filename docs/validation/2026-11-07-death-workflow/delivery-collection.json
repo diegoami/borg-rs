@@ -1,0 +1,95 @@
+{
+  "birth_policy": "fixed",
+  "character_selection": "prospective SHA-256 race/class selection; ordinary explicit menus/default point buy",
+  "checkpoint_every": 1000,
+  "counts": {
+    "death": 1
+  },
+  "created_at": "2026-11-07T20:59:24.684215+00:00",
+  "issue": null,
+  "key_cap": 50000,
+  "limit": "Death collection, not a survival-rate cohort; no retrospective seed/budget enlargement",
+  "plan_sha256": "628d97204d3d8e842d16ceb6a3508bf824b7c49acbd42ef5f012a64eb3248d23",
+  "prepared_manifest": "/home/diego/projects/borg-rs/build/death-workflow/77a5d3bac07a5a10c5f1/prepared.json",
+  "prepared_manifest_sha256": "26c716e9b4c8e867bec31ae8d601c00094ca8ab37d3badf5f1c991d968b14a2c",
+  "prospective_births": [
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 8400
+    },
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 8401
+    }
+  ],
+  "runs": [
+    {
+      "assessment": "unassessed; owner replay and causal investigation pending",
+      "cause": "a pseudo-dragon",
+      "character": "Human Warrior",
+      "class": 0,
+      "class_name": "Warrior",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400",
+      "dossier": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery-registry/D0001-recorded",
+      "final": {
+        "class": "Warrior",
+        "class_idx": 0,
+        "clevel": 8,
+        "dead": true,
+        "death_cause": "a pseudo-dragon",
+        "depth": 13,
+        "game_turns": 37680,
+        "keys": 4563,
+        "max_depth": 14,
+        "menu_letters": true,
+        "player_turns": 3819,
+        "race": "Human",
+        "race_idx": 0,
+        "resting_turns": 320,
+        "seed": 8400,
+        "stop_reason": "death",
+        "wall_seconds": 3.119
+      },
+      "outcome": "death",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 0,
+      "race_name": "Human",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400/recordings/20261107T205925.306723Z-CollectedBorg",
+      "recording_manifest_sha256": "2dd2ff28eb8255d46b92a0c657a1877d0772c8744c2eb472e66a7aa3f8e90657",
+      "seed": 8400
+    }
+  ],
+  "safety": "cheat death/live and winner respawn off; native death evidence on",
+  "schema": "borg-rs/death-collection@1",
+  "seeds": [
+    8400,
+    8401
+  ],
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "stall_timeout_seconds": 30,
+  "status": "natural_death_recorded",
+  "stop_rule": "first natural death, operational failure, or listed seeds exhausted",
+  "tools_sha256": {
+    "harness/identity.sh": "1f779a14c73475925e52285b34aa331c4d5ac86519f53a3da62933b3b688ff48",
+    "harness/run.sh": "8c852e5f7a36eac5ceebde1270d0c0f91a0d851ad8d9509b939a1e5540e2ed5d",
+    "harness/supervise.py": "3d2b36ba0db134883e5ae0826492ac666ab4a3b9927ffe5c601a9ca6281f62ac",
+    "produce_death.py": "b8a8b18bc21acec191dc704b6efbc253799f1dddfe924470340ce82c736727f4",
+    "replay-borg.py": "5d6ece0cc978c012639e97b9425a1bf72b935068df6ba2d5d1edd6990bd8f0d4",
+    "replay_next_death.py": "95f4a2e4f8ff9304dbd365ec64daddea55283cef3f1cc1392dd90ff4f517eaf9",
+    "tools/borg_deaths.py": "99031be7793bc6e1db3a58227cb4fabb69d2d820392fba1a5f7b350ca8b0a2d1",
+    "tools/borg_gui.py": "e3245e3a7cb45890b7aaee7a1df034481e05b420d5b5a40133b216d8efb84cf1",
+    "tools/borg_replay_viewer.py": "07f6b266bf71600eba5e8dd4d20f11ec4fbf1f9a577f9099b11da376ac463444",
+    "tools/borg_runtime.py": "2ff322d3b7129e7b741e12271f86aef4271bf8fad6029823f51076c98cf265f8",
+    "tools/borg_saves.py": "fafc79e0467f0f04fc216fc227c90d54de3e427fda7f021c1a87effd444053c2",
+    "tools/death_workflow.py": "3c6ee814967c6afc1102c3cfce7fe7caf6cff4e6e277578bf72f92f0407f47b6"
+  },
+  "turn_cap": 100000,
+  "wall_limit_per_game_seconds": 60
+}

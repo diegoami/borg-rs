@@ -109,16 +109,25 @@ def frozen_run(bundle, output, timeout=None):
     env.update(BORG_IMPL='rust', ANGBAND_BIN=str(runtime / 'game/angband'),
                SAVE_ROOT=str(runtime / 'harness/saves'), BORGH_DATA_ROOT=str(runtime / 'game/lib'),
                RUN_TIMEOUT_SECONDS=str(min(profile['wall_seconds'], timeout) if timeout is not None else profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
+               STALL_TIMEOUT_SECONDS=str(profile.get('stall_seconds', 0)),
                LC_ALL='C.UTF-8', LANG='C.UTF-8', TZ='UTC')
     return subprocess.run([str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
                            str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']],
                           env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 
 
-def record_run(args):
-    save = data_root() / 'save' / character_name(args.character)
+def record_run(args, *, prepared=None, profile_root=None, export_death=True):
+    data_directory = Path(profile_root).resolve() if profile_root is not None else data_root()
+    source_root = Path(prepared['source_root']) if prepared else ROOT
+    runner_root = Path(prepared['runner_root']) if prepared else ROOT / 'harness'
+    save = data_directory / 'save' / character_name(args.character)
     with character_lock(save):
-        directory, binary, identity = build()
+        if prepared is None:
+            directory, binary, identity = build()
+        else:
+            if not args.new or args.from_backup is not None:
+                raise ValueError('Prepared collection runtimes only support fresh births')
+            directory, binary, identity = Path(prepared['build_directory']), Path(prepared['binary']), prepared['build_id']
         if args.from_backup is not None and args.from_backup not in range(1, 6):
             raise ValueError('Backup slot must be 1 through 5')
         candidate = save.parent / 'backups' / save.name / f'save.{args.from_backup}' if args.from_backup is not None else save
@@ -142,17 +151,19 @@ def record_run(args):
             if origin['dead']:
                 raise ValueError('Character changed to a dead save; named file preserved')
         stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
-        bundle = data_root() / 'recordings' / (stamp + '-' + args.character)
+        bundle = data_directory / 'recordings' / (stamp + '-' + args.character)
         runtime = bundle / 'runtime'
         (runtime / 'harness/saves').mkdir(parents=True)
         (runtime / 'game/lib').mkdir(parents=True)
         shutil.copy2(binary, runtime / 'game/angband')
         for name in ('gamedata', 'customize', 'screens', 'help'):
-            shutil.copytree(ROOT / 'angband/lib' / name, runtime / 'game/lib' / name)
+            shutil.copytree(source_root / 'angband/lib' / name, runtime / 'game/lib' / name)
         for name in ('run.sh', 'supervise.py'):
-            shutil.copy2(ROOT / 'harness' / name, runtime / 'harness' / name)
-        config = data_root() / 'user/borg.txt'
-        shutil.copy2(config if config.exists() else ROOT / 'harness/borg.txt', runtime / 'harness/borg.txt')
+            shutil.copy2(runner_root / name, runtime / 'harness' / name)
+        if prepared:
+            shutil.copytree(Path(prepared['tool_source_root']), runtime / 'tool-source')
+        config = data_directory / 'user/borg.txt'
+        shutil.copy2(Path(prepared['config']) if prepared else config if config.exists() else ROOT / 'harness/borg.txt', runtime / 'harness/borg.txt')
         cfg = runtime / 'harness/borg.txt'
         cfg.write_text(re.sub(r'^borg_delay_factor = .*$', 'borg_delay_factor = 0', cfg.read_text(), flags=re.M))
         flags = f'menu,terminal-save,frames,key-limit={args.keys}'
@@ -165,6 +176,8 @@ def record_run(args):
                    'class': origin['class'] if origin else (args.cls or 0),
                    'turn_limit': (origin['turn'] if origin else 0) + args.turns,
                    'flags': flags, 'wall_seconds': args.wall_seconds, 'checkpoint_every': args.checkpoint_every}
+        if getattr(args, 'stall_seconds', 0):
+            profile['stall_seconds'] = args.stall_seconds
         record = {'schema': SCHEMA, 'status': 'running', 'character': args.character,
                   'profile': profile, 'build_id': identity, 'origin': origin,
                   'original_named_sha256': initial, 'run_kind': 'backup branch' if args.from_backup is not None else 'save continuation; fresh Borg' if origin else 'new birth',
@@ -172,6 +185,8 @@ def record_run(args):
                   'calendar': 'seeded headless harness holiday context pinned to epoch',
                   'verification_model': 'rerun original Rust Borg from original origin; exact keys/messages/player-state/terminal frames/final save and scheduled world saves; not whole-Borg private-state shadow',
                   'runtime_sha256': {str(p.relative_to(bundle)): sha(p) for p in runtime.rglob('*') if p.is_file()}}
+        if prepared:
+            record['collection_context'] = prepared['context']
         write(bundle / 'recording.json', record)
         result = frozen_run(bundle, bundle / 'run')
         (bundle / 'console.log').write_text(result.stdout)
@@ -216,8 +231,9 @@ def record_run(args):
         print('Save:', save)
         print('Recording:', bundle)
         print('Replay:', ROOT / 'replay-borg.py', bundle)
-        import borg_deaths
-        borg_deaths.maybe_register(bundle, issue=getattr(args, 'death_issue', None) or os.environ.get('BORG_DEATH_ISSUE'))
+        if export_death:
+            import borg_deaths
+            borg_deaths.maybe_register(bundle, issue=getattr(args, 'death_issue', None) or os.environ.get('BORG_DEATH_ISSUE'))
         return bundle
 
 

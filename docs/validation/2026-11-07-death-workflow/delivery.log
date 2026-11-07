@@ -1,0 +1,12 @@
+Pinned source: 08eaa13100b67a110d5afc1595f0e9586e38613d
+Prospective seeds: [8400, 8401]
+Evidence: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery
+Preparing the pinned Rust recording runtime...
+Game 1/2; seed 8400; Human Warrior; cap 100000
+death: level8, depth13, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400/save/CollectedBorg
+Recording: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400/recordings/20261107T205925.306723Z-CollectedBorg
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400/recordings/20261107T205925.306723Z-CollectedBorg
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery-registry/D0001-recorded (unassessed; replay/diagnosis pending)
+Natural death: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery-registry/D0001-recorded
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.

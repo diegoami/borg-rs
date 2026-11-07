@@ -1,0 +1,30 @@
+{
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "natural_death_attempts": 1,
+  "natural_death_final": {
+    "class": "Warrior",
+    "class_idx": 0,
+    "clevel": 8,
+    "dead": true,
+    "death_cause": "a pseudo-dragon",
+    "depth": 13,
+    "game_turns": 37680,
+    "keys": 4563,
+    "max_depth": 14,
+    "menu_letters": true,
+    "player_turns": 3819,
+    "race": "Human",
+    "race_idx": 0,
+    "resting_turns": 320,
+    "seed": 8400,
+    "stop_reason": "death",
+    "wall_seconds": 3.119
+  },
+  "full_bundle": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/delivery/game-001-seed-8400/recordings/20261107T205925.306723Z-CollectedBorg",
+  "prospective_plan_sha256": "628d97204d3d8e842d16ceb6a3508bf824b7c49acbd42ef5f012a64eb3248d23",
+  "frozen_tool_sources_match": true,
+  "frozen_config_sha256": "f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419",
+  "m5_tag_unchanged": "020322749026418a666da3209c169f48ec9d608c",
+  "production_paths_changed": [],
+  "workflow_scope": "post-M5 tools; no C gameplay milestone selected/imported"
+}

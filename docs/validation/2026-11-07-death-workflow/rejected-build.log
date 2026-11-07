@@ -1,0 +1,5 @@
+Pinned source: 08eaa13100b67a110d5afc1595f0e9586e38613d
+Prospective seeds: [42]
+Evidence: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/rejected-build
+Preparing the pinned Rust recording runtime...
+Build identity/binary must match the committed Rust source pin

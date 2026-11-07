@@ -1,0 +1,126 @@
+{
+  "birth_policy": "random",
+  "character_selection": "prospective SHA-256 race/class selection; ordinary explicit menus/default point buy",
+  "checkpoint_every": 1000,
+  "counts": {
+    "turn_cap": 2
+  },
+  "created_at": "2026-11-07T20:44:20.579909+00:00",
+  "issue": null,
+  "key_cap": 10000,
+  "limit": "Death collection, not a survival-rate cohort; no retrospective seed/budget enlargement",
+  "prepared_manifest": "/home/diego/projects/borg-rs/build/death-workflow/e771646da07501887bf2/prepared.json",
+  "prepared_manifest_sha256": "9134202a496063df30c63ab03b0e2a630da99717d3da9a9b2ec229bd6a151d24",
+  "prospective_births": [
+    {
+      "class": 8,
+      "class_name": "Blackguard",
+      "race": 9,
+      "race_name": "High-Elf",
+      "seed": 123
+    },
+    {
+      "class": 1,
+      "class_name": "Mage",
+      "race": 10,
+      "race_name": "Kobold",
+      "seed": 124
+    }
+  ],
+  "runs": [
+    {
+      "cause": "",
+      "character": "High-Elf Blackguard",
+      "class": 8,
+      "class_name": "Blackguard",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-001-seed-123",
+      "final": {
+        "class": "Blackguard",
+        "class_idx": 8,
+        "clevel": 1,
+        "dead": false,
+        "death_cause": "",
+        "depth": 0,
+        "game_turns": 1003,
+        "keys": 253,
+        "max_depth": 1,
+        "menu_letters": true,
+        "player_turns": 108,
+        "race": "High-Elf",
+        "race_idx": 9,
+        "resting_turns": 0,
+        "seed": 123,
+        "stop_reason": "turns",
+        "wall_seconds": 0.097
+      },
+      "outcome": "turn_cap",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 9,
+      "race_name": "High-Elf",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-001-seed-123/recordings/20261107T204421.242764Z-CollectedBorg",
+      "recording_manifest_sha256": "b01a2e7cdcf0c070d1ff51cd063594fcea237b71034cb78bb6c04f841fae88f6",
+      "seed": 123
+    },
+    {
+      "cause": "",
+      "character": "Kobold Mage",
+      "class": 1,
+      "class_name": "Mage",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-002-seed-124",
+      "final": {
+        "class": "Mage",
+        "class_idx": 1,
+        "clevel": 1,
+        "dead": false,
+        "death_cause": "",
+        "depth": 1,
+        "game_turns": 1001,
+        "keys": 249,
+        "max_depth": 1,
+        "menu_letters": true,
+        "player_turns": 103,
+        "race": "Kobold",
+        "race_idx": 10,
+        "resting_turns": 0,
+        "seed": 124,
+        "stop_reason": "turns",
+        "wall_seconds": 0.139
+      },
+      "outcome": "turn_cap",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 10,
+      "race_name": "Kobold",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-002-seed-124/recordings/20261107T204421.854036Z-CollectedBorg",
+      "recording_manifest_sha256": "9973128b5e9ad454205b531e45a9b77d74c300919676cfd7b6e9c887b7f9aa60",
+      "seed": 124
+    }
+  ],
+  "safety": "cheat death/live and winner respawn off; native death evidence on",
+  "schema": "borg-rs/death-collection@1",
+  "seeds": [
+    123,
+    124
+  ],
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "stall_timeout_seconds": 10,
+  "status": "limits_reached_without_death",
+  "stop_rule": "first natural death, operational failure, or listed seeds exhausted",
+  "tools_sha256": {
+    "harness/identity.sh": "1f779a14c73475925e52285b34aa331c4d5ac86519f53a3da62933b3b688ff48",
+    "harness/run.sh": "8c852e5f7a36eac5ceebde1270d0c0f91a0d851ad8d9509b939a1e5540e2ed5d",
+    "harness/supervise.py": "3d2b36ba0db134883e5ae0826492ac666ab4a3b9927ffe5c601a9ca6281f62ac",
+    "produce_death.py": "fcc8ad054d3a54541c7fe4819e88a9e9ff0ef1e6552aa02349dc68291714b366",
+    "replay-borg.py": "5d6ece0cc978c012639e97b9425a1bf72b935068df6ba2d5d1edd6990bd8f0d4",
+    "replay_next_death.py": "95f4a2e4f8ff9304dbd365ec64daddea55283cef3f1cc1392dd90ff4f517eaf9",
+    "tools/borg_deaths.py": "99031be7793bc6e1db3a58227cb4fabb69d2d820392fba1a5f7b350ca8b0a2d1",
+    "tools/borg_gui.py": "e3245e3a7cb45890b7aaee7a1df034481e05b420d5b5a40133b216d8efb84cf1",
+    "tools/borg_replay_viewer.py": "07f6b266bf71600eba5e8dd4d20f11ec4fbf1f9a577f9099b11da376ac463444",
+    "tools/borg_runtime.py": "37221441344034f9331044820a573037644ec8e1cf45c143d08198370732e0c8",
+    "tools/borg_saves.py": "fafc79e0467f0f04fc216fc227c90d54de3e427fda7f021c1a87effd444053c2",
+    "tools/death_workflow.py": "a1de8a59d650e62a4b8100b4aacc1d6614ed6f199fa2594482a7b245a1094026"
+  },
+  "turn_cap": 1000,
+  "wall_limit_per_game_seconds": 30
+}

@@ -102,9 +102,10 @@ resolve to their original bundle only when its manifest hash still matches.
 
 Headless --timeout aliases --wall-seconds, and --death-issue links an exported
 case. Rust keeps its own defaults (seed42, optional100k-turn budget) and extra
-race/class/new/key/checkpoint controls. Donor --stall-timeout is not ported;
-Rust uses independent world-turn/key/wall limits. These launchers are not fully
-identical argument sets. Donor death-issue defaults are not copied across repos.
+race/class/new/key/checkpoint controls. Rust additionally supports --stall-timeout
+(default off for the named launcher,30seconds in the collector), alongside
+independent world-turn/key/wall limits. These launchers are not fully identical
+argument sets. Donor death-issue defaults are not copied across repos.
 
 Both launchers export each confirmed natural terminal death after the session
 completes. The registry defaults to docs/deaths; BORG_DEATH_RECORDS_DIR overrides
@@ -170,3 +171,83 @@ game execution. Use --output NEW_DIRECTORY or --timeout SECONDS to force an
 actual frozen-origin rerun. The manifest/runtime hash checks still run before
 cache acceptance. Death/CLI controls derive expected cause/turn/frame from the
 supplied original bundle and can be rerun on a separately generated death.
+
+## Collecting a death and reviewing the next encounter
+
+`produce_death.py` and `replay_next_death.py` adapt the committed C workflow
+at22f817c96843 (source hashes/licences in IMPORTED.json). These are post-M5
+operational tools; the accepted m5 tag stays fixed, and no newer C Borg gameplay
+fixes or C milestone are imported by these commands.
+
+```
+./produce_death.py
+./produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
+./replay_next_death.py --list
+./replay_next_death.py --verify-only
+./replay_next_death.py --from-turn 37000
+./replay_next_death.py --mark-reviewed D0005
+./replay_next_death.py --mark-unreviewed D0005
+```
+
+The collector freezes the committed Rust `--ref` (default HEAD), prospective
+seeds/race/class choices and all budgets before building/running. Defaults:
+3games, random first uint32 seed/consecutive subsequent seeds, varied race/class,
+200000world turns,120wall seconds and30seconds without observed world-turn
+advance per game. Rust adds independent --keys (default50000) and checkpoint
+interval controls. --seeds excludes --games/--seed; limits/seeds are never
+expanded after results. --birth fixed selects Human Warrior. With random birth,
+Rust freezes SHA-256-derived race/class choices before play and uses ordinary
+explicit native menus/point buy. The C donor uses native random menu keys;
+identical seeds do not assert identical cross-project choices/RNG trajectories.
+Neither selector changes or supplies decisions to a playing Borg.
+
+The pinned source snapshot/data and its own Rust recording build are prepared
+in ignored primary build/death-workflow caches. --build can reuse an ordinary
+Rust harness directory only when source hash/binary/implementation/features
+match the committed pin. Game inputs come from the pinned snapshot, not edited
+working-tree data. Current observation runners and their exact source files are frozen separately,
+fingerprinted and checked across games. An immutable plan.json and its hash bind
+the prospective contract; each game recording retains that contract and a tool-
+source snapshot, even when the tools were being developed outside the selected ref. A changed input/binary/tool fails collection. Build,
+configuration, source/archive hashes and logs stay available; incomplete builds
+are retained for inspection rather than silently retried or treated as valid.
+
+Each game uses a new private profile, with cheat death/live and winner respawn
+off and death evidence on. Collection stops at the first confirmed natural
+death, operational failure or exhaustion of the prospective games. A world-turn
+cap, key cap, stall, timeout, crash or unexpected Borg stop retains its own label;
+none is relabeled a death/survivor. A death gets an ordinary unassessed dossier;
+failed capture/export retains the death/failure evidence and does not start
+another game. The collector is a selected-death search, not a mortality cohort.
+A cap can overshoot at the next observable native key boundary.
+
+--stall-timeout watches complete flushed key-log world turns, independently of
+wall time and output activity; zero-clock cycling cannot reset it. Trace buffering
+means it observes key boundaries, not every internal tick. The supervisor sends
+signals only to its own child and retains process/checkpoint failure receipts.
+The optional stall limit defaults off for older ordinary headless launches;
+frozen legacy recordings keep their original supervisor and semantics.
+
+Collections default to primary-checkout harness/out/death-workflow/collections;
+--output must be a new ignored path under primary harness/out or the explicit
+BORG_DEATH_WORKFLOW_DIR override. All games and recordings remain outside Git.
+BORG_DEATH_RECORDS_DIR chooses the dossier registry; --death-issue optionally
+links discussion (no borrowed C issue default and no automatic issue creation).
+Build wait is separate from each native game's wall budget.
+
+The replay queue groups canonical encounter families, including pre-fix saved-
+origin seed aliases and explicitly verified reference-family qualifications.
+It lists/skips legacy, missing or corrupt full recordings and chooses the first
+unreviewed playable family. --case overrides that selection, including reviewed
+cases. Default replay forces a fresh verified run and retains evidence under
+harness/out/death-workflow/replays; --view-only opens UNVERIFIED original frames
+without creating verification output. --from-turn/--timeout are passed through.
+
+Owner review is separate from assessment/classification/actions. Closing a
+viewer, passing verification, technical analysis or a later fix never marks a
+family reviewed. Only explicit --mark-reviewed/--mark-unreviewed changes the
+local atomic locked ledger, and it applies to the whole qualified family.
+The committed docs/deaths/owner-reviews.json is a baseline; local overrides in
+harness/out/death-workflow/owner-reviews.json take precedence. No C owner-review
+marks are copied. BORG_DEATH_WORKFLOW_DIR isolates the ledger and replay output
+for tests/private workflows. Existing dossier and assessment bytes stay intact.

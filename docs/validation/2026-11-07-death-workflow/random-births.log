@@ -1,0 +1,15 @@
+Pinned source: 08eaa13100b67a110d5afc1595f0e9586e38613d
+Prospective seeds: [123, 124]
+Evidence: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births
+Preparing the pinned Rust recording runtime...
+Game 1/2; seed 123; High-Elf Blackguard; cap 1000
+turns: level1, depth0, dead=False
+Save: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-001-seed-123/save/CollectedBorg
+Recording: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-001-seed-123/recordings/20261107T204421.242764Z-CollectedBorg
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-001-seed-123/recordings/20261107T204421.242764Z-CollectedBorg
+Game 2/2; seed 124; Kobold Mage; cap 1000
+turns: level1, depth1, dead=False
+Save: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-002-seed-124/save/CollectedBorg
+Recording: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-002-seed-124/recordings/20261107T204421.854036Z-CollectedBorg
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/death-workflow-validation/random-births/game-002-seed-124/recordings/20261107T204421.854036Z-CollectedBorg
+No natural death within declared games/limits. No extra games or larger caps were added.

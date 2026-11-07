@@ -1,0 +1,10 @@
+Pinned source: 08eaa13100b67a110d5afc1595f0e9586e38613d
+Prospective seeds: [42]
+Evidence: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/key-cap
+Preparing the pinned Rust recording runtime...
+Game 1/1; seed 42; Human Warrior; cap 100000
+keys: level1, depth0, dead=False
+Save: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/key-cap/game-001-seed-42/save/CollectedBorg
+Recording: /home/diego/projects/borg-rs/harness/out/death-workflow-validation/key-cap/game-001-seed-42/recordings/20261107T204739.546813Z-CollectedBorg
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/death-workflow-validation/key-cap/game-001-seed-42/recordings/20261107T204739.546813Z-CollectedBorg
+No natural death within declared games/limits. No extra games or larger caps were added.

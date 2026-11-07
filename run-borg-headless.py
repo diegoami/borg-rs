@@ -18,6 +18,7 @@ parser.add_argument('--class', dest='cls', type=int, choices=range(9))
 parser.add_argument('--turns', type=int, default=100000, help='additional world turns (not player actions)')
 parser.add_argument('--keys', type=int, default=50000, help='independent Borg event budget, including zero-clock stair cycling')
 parser.add_argument('--wall-seconds', '--timeout', dest='wall_seconds', type=int, default=300)
+parser.add_argument('--stall-timeout', dest='stall_seconds', type=int, default=0, help='seconds without observed world-turn progress; 0 disables')
 parser.add_argument('--death-issue', help='discussion/investigation URL to attach to a natural death dossier')
 parser.add_argument('--checkpoint-every', type=int, default=1000)
 args = parser.parse_args()
@@ -26,6 +27,8 @@ try:
         raise ValueError('Choose --new or --from-backup')
     if min(args.turns, args.keys, args.wall_seconds, args.checkpoint_every) <= 0:
         raise ValueError('Budgets and checkpoint interval must be positive')
+    if args.stall_seconds < 0:
+        raise ValueError('Stall timeout must be nonnegative')
     if args.keys > 999999999 or not 0 <= args.seed <= 4294967295:
         raise ValueError('Key budget or seed is outside the supported range')
     borg_runtime.record_run(args)

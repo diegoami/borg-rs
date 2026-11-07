@@ -85,19 +85,41 @@ def file_hash(path):
     return digest.hexdigest()
 
 
+
+def observed_turn(directory):
+    """Latest complete, flushed key-log boundary; no game input or RNG access."""
+    path = directory / 'keys.log'
+    try:
+        with path.open('rb') as stream:
+            stream.seek(0, os.SEEK_END)
+            end = stream.tell()
+            stream.seek(max(0, end - 8192))
+            data = stream.read()
+        lines = data.split(b'\n')[:-1]
+        for line in reversed(lines):
+            fields = line.split()
+            if len(fields) == 4 and fields[0].isdigit():
+                return int(fields[0])
+    except FileNotFoundError:
+        pass
+    return None
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--receipt", required=True, type=Path)
     parser.add_argument("--diagnostics", required=True, type=Path)
     parser.add_argument("--timeout", type=float, default=0)
+    parser.add_argument("--stall-timeout", type=float, default=0)
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args(argv)
     command = args.command[1:] if args.command[:1] == ["--"] else args.command
-    if not command or not math.isfinite(args.timeout) or args.timeout < 0:
+    if not command or not all(math.isfinite(value) and value >= 0 for value in (args.timeout, args.stall_timeout)):
         parser.error("supply a command and a finite timeout >= 0 (0 disables it)")
     started = time.monotonic()
     record = {"status": "starting", "command": command, "timeout_seconds": args.timeout,
-              "started_unix": time.time(), "supervisor_pid": os.getpid()}
+              "started_unix": time.time(), "supervisor_pid": os.getpid(),
+              "stall_timeout_seconds": args.stall_timeout, "progress_scope": "latest complete flushed key-log world turn"}
     child = None
     reserved = False
     interrupted = []
@@ -123,10 +145,18 @@ def main(argv=None):
         child = subprocess.Popen(command, env=env)
         record.update(status="running", child_pid=child.pid)
         atomic_json(args.receipt, record)
-        timed_out, grace = False, None
+        timed_out, stalled, grace = False, False, None
+        last_turn, last_progress = None, time.monotonic()
         while child.poll() is None:
             now = time.monotonic()
-            if args.timeout and now - started >= args.timeout and not timed_out:
+            current_turn = observed_turn(args.diagnostics) if args.stall_timeout else None
+            if current_turn is not None and (last_turn is None or current_turn > last_turn):
+                last_turn, last_progress = current_turn, now
+            if args.stall_timeout and now - last_progress >= args.stall_timeout and grace is None:
+                stalled = True
+                child.terminate()
+                grace = now + 2
+            if args.timeout and now - started >= args.timeout and grace is None:
                 timed_out = True
                 child.terminate()
                 grace = now + 2
@@ -141,7 +171,9 @@ def main(argv=None):
             except subprocess.TimeoutExpired:
                 pass
         rc = child.returncode
-        if timed_out:
+        if stalled:
+            status, exit_code = "stall", 125
+        elif timed_out:
             status, exit_code = "timeout", 124
         elif interrupted:
             status, exit_code = "interrupted", 128 + interrupted[0]
@@ -160,7 +192,8 @@ def main(argv=None):
         if errors and not exit_code:
             status, exit_code = "checkpoint_error", 3
         record.update(status=status, engine_returncode=rc, exit_code=exit_code,
-                      signal=(-rc if rc < 0 else None), timed_out=timed_out,
+                      signal=(-rc if rc < 0 else None), timed_out=timed_out, stalled=stalled,
+                      last_observed_turn=last_turn,
                       interrupted_signal=(interrupted[0] if interrupted else None),
                       checkpoint_count=len(captures), checkpoint_errors=errors,
                       elapsed_seconds=time.monotonic() - started,

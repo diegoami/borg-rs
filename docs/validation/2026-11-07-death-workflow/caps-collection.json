@@ -1,0 +1,126 @@
+{
+  "birth_policy": "fixed",
+  "character_selection": "prospective SHA-256 race/class selection; ordinary explicit menus/default point buy",
+  "checkpoint_every": 1000,
+  "counts": {
+    "turn_cap": 2
+  },
+  "created_at": "2026-11-07T20:36:17.945112+00:00",
+  "issue": null,
+  "key_cap": 50000,
+  "limit": "Death collection, not a survival-rate cohort; no retrospective seed/budget enlargement",
+  "prepared_manifest": "/home/diego/projects/borg-rs/build/death-workflow/1835a576d59da6db885a/prepared.json",
+  "prepared_manifest_sha256": "488b336c992aea9ff0a999fd6bd191934fd5ea21b5436c1c8b2f4d463e35dfff",
+  "prospective_births": [
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 42
+    },
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 43
+    }
+  ],
+  "runs": [
+    {
+      "cause": "",
+      "character": "Human Warrior",
+      "class": 0,
+      "class_name": "Warrior",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/caps/game-001-seed-42",
+      "final": {
+        "class": "Warrior",
+        "class_idx": 0,
+        "clevel": 1,
+        "dead": false,
+        "death_cause": "",
+        "depth": 1,
+        "game_turns": 1002,
+        "keys": 257,
+        "max_depth": 1,
+        "menu_letters": true,
+        "player_turns": 101,
+        "race": "Human",
+        "race_idx": 0,
+        "resting_turns": 0,
+        "seed": 42,
+        "stop_reason": "turns",
+        "wall_seconds": 0.094
+      },
+      "outcome": "turn_cap",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 0,
+      "race_name": "Human",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/caps/game-001-seed-42/recordings/20261107T203618.633309Z-CollectedBorg",
+      "recording_manifest_sha256": "7a363a6b775fff85244020467ae02f378a92e3c4954ffabd7537a8703f4ad192",
+      "seed": 42
+    },
+    {
+      "cause": "",
+      "character": "Human Warrior",
+      "class": 0,
+      "class_name": "Warrior",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/caps/game-002-seed-43",
+      "final": {
+        "class": "Warrior",
+        "class_idx": 0,
+        "clevel": 1,
+        "dead": false,
+        "death_cause": "",
+        "depth": 1,
+        "game_turns": 1005,
+        "keys": 244,
+        "max_depth": 1,
+        "menu_letters": true,
+        "player_turns": 103,
+        "race": "Human",
+        "race_idx": 0,
+        "resting_turns": 0,
+        "seed": 43,
+        "stop_reason": "turns",
+        "wall_seconds": 0.092
+      },
+      "outcome": "turn_cap",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 0,
+      "race_name": "Human",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/caps/game-002-seed-43/recordings/20261107T203619.109997Z-CollectedBorg",
+      "recording_manifest_sha256": "ac1ec2a99a4f558a2d025824cd19e8c15dc17717c9114eb5ac314199ade796b3",
+      "seed": 43
+    }
+  ],
+  "safety": "cheat death/live and winner respawn off; native death evidence on",
+  "schema": "borg-rs/death-collection@1",
+  "seeds": [
+    42,
+    43
+  ],
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "stall_timeout_seconds": 10,
+  "status": "limits_reached_without_death",
+  "stop_rule": "first natural death, operational failure, or listed seeds exhausted",
+  "tools_sha256": {
+    "harness/identity.sh": "1f779a14c73475925e52285b34aa331c4d5ac86519f53a3da62933b3b688ff48",
+    "harness/run.sh": "8c852e5f7a36eac5ceebde1270d0c0f91a0d851ad8d9509b939a1e5540e2ed5d",
+    "harness/supervise.py": "3d2b36ba0db134883e5ae0826492ac666ab4a3b9927ffe5c601a9ca6281f62ac",
+    "produce_death.py": "fcc8ad054d3a54541c7fe4819e88a9e9ff0ef1e6552aa02349dc68291714b366",
+    "replay-borg.py": "5d6ece0cc978c012639e97b9425a1bf72b935068df6ba2d5d1edd6990bd8f0d4",
+    "replay_next_death.py": "95f4a2e4f8ff9304dbd365ec64daddea55283cef3f1cc1392dd90ff4f517eaf9",
+    "tools/borg_deaths.py": "99031be7793bc6e1db3a58227cb4fabb69d2d820392fba1a5f7b350ca8b0a2d1",
+    "tools/borg_gui.py": "e3245e3a7cb45890b7aaee7a1df034481e05b420d5b5a40133b216d8efb84cf1",
+    "tools/borg_replay_viewer.py": "07f6b266bf71600eba5e8dd4d20f11ec4fbf1f9a577f9099b11da376ac463444",
+    "tools/borg_runtime.py": "37221441344034f9331044820a573037644ec8e1cf45c143d08198370732e0c8",
+    "tools/borg_saves.py": "fafc79e0467f0f04fc216fc227c90d54de3e427fda7f021c1a87effd444053c2",
+    "tools/death_workflow.py": "32b45ca37cf86fe858040c6c17249fecf9bf28b35e8c8e1d1a5ddf035ce5117d"
+  },
+  "turn_cap": 1000,
+  "wall_limit_per_game_seconds": 30
+}

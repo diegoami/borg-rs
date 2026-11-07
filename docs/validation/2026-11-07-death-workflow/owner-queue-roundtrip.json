@@ -1,0 +1,9 @@
+{
+  "actual_view_only_exit": 0,
+  "unverified_badge_observed": true,
+  "viewer_exit_did_not_mark_reviewed": true,
+  "explicit_mark_reviewed": true,
+  "all_reviewed_selects_no_next": true,
+  "explicit_unmark_requeues": true,
+  "assessment_unchanged": true
+}

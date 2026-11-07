@@ -43,6 +43,20 @@ Named launch, backup restore, headless play and replay (adapted from
 ./replay-borg.py .angband-rust/recordings/RUN --dump-turn 5000
 ```
 
+Bounded death collection and an explicit owner-review queue:
+
+```sh
+./produce_death.py                      # Up to 3 planned games; first death/failure stops
+./produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
+./replay_next_death.py --list
+./replay_next_death.py --from-turn 37000 # Verify and view the next unreviewed recording
+./replay_next_death.py --mark-reviewed D0005
+```
+
+Closing replay does not mark it reviewed. Collection uses private fresh profiles
+and keeps every attempted outcome; it does not enlarge limits to force a death.
+See [workflow parameters and scope](tools/README.md#collecting-a-death-and-reviewing-the-next-encounter).
+
 GUI/headless launchers share a per-character lock and five rolling backups
 under `.angband-rust/save/backups/NAME/save.1` through `save.5`. Restore keeps
 the current save as `before-restore-TIMESTAMP.save`. Headless play preserves

@@ -126,7 +126,7 @@ def describe(bundle):
     return {'identity': identity, 'encounter_family': context, 'raw_cause': terminal['cause'],
             'terminal': terminal, 'build': build, 'limits': limits, 'character': raw['character'],
             'run_kind': run_kind, 'calendar_context': raw.get('calendar', raw.get('timezone')),
-            'recording_schema': raw['schema'], 'original': raw}
+            'recording_schema': raw['schema'], 'collection_context': raw.get('collection_context'), 'original': raw}
 
 
 def recorded_windows(bundle, out, death_turn):

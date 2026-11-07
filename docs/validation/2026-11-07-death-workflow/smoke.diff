@@ -1,0 +1,6 @@
+A: harness/reference/smoke: reference (no manifest)
+B: harness/out/death-workflow-validation/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=519385eeb1e3a498
+B:   built from 75fbcc6a79f5 (dirty=yes, inputs dirty=yes) source_sha256=d247f691a3f8a7db; run at 08eaa13100b6 (dirty=yes) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

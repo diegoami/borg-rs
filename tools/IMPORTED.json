@@ -66,5 +66,33 @@
     "path": "docs/deaths/FEEDBACK.md",
     "original_sha256": "8a8b91ac4e90c3595dbf3d027f7d063a81c0b83eece705489f3b3ab5b62070cf",
     "adaptation": "Rust repository ownership, feedback and no automatic posting"
+  },
+  "produce_death.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "path": "produce_death.py",
+    "original_sha256": "5b7e3632b23b95aed9f80c9170234e9a871d353d24c7e6320766f5e76976df0d",
+    "adaptation": "bounded prospective Rust collection; pinned source/data/build, explicit native menus and Rust runtime adapter"
+  },
+  "replay_next_death.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "path": "replay_next_death.py",
+    "original_sha256": "40614ef48e82b9d7b1d2d875608aac135edb0fbd87d10a1a255bcf10f44969be",
+    "adaptation": "Rust dossier schemas, canonical continuation families and verified replay/view-only routing"
+  },
+  "tools/death_workflow.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "path": "tools/death-workflow.py",
+    "original_sha256": "6085bf44f950e9c60dfaa30296e59dc63162879a935e94a0dd3ab5605b42084f",
+    "adaptation": "Rust queue/owner ledger and pinned Rust recording runtime preparation"
+  },
+  "tools/test_death_workflow.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "path": "tools/test_death_workflow.py",
+    "original_sha256": "ac2e4f7a247322faa4f7f267d0169645d4b1b1958521d68258ee98bd1a22a48d",
+    "adaptation": "adapted queue/collection controls plus real owned-child stall controls"
   }
 }

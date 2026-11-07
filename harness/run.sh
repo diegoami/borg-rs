@@ -148,7 +148,7 @@ if [ -n "${BORGH_DATA_ROOT:-}" ]; then
 fi
 set +e
 TZ=UTC LANG=C.UTF-8 LC_ALL=C.UTF-8 python3 "$ROOT/harness/supervise.py" \
-    --receipt "$OUT/process.json" --diagnostics "$OUT" --timeout "${RUN_TIMEOUT_SECONDS:-0}" -- \
+    --receipt "$OUT/process.json" --diagnostics "$OUT" --timeout "${RUN_TIMEOUT_SECONDS:-0}" --stall-timeout "${STALL_TIMEOUT_SECONDS:-0}" -- \
     "$BIN" -mborgh "${BIRTH_ARGS[@]}" -uBorg \
     -duser="$OUT/user" -dsave="$OUT/save" -darchive="$OUT/archive" \
     -dpanic="$OUT/panic" -dscores="$OUT/scores" "${DATA_ARGS[@]}" -- \

@@ -16,6 +16,21 @@ milestones with a patch inventory, linked local issues, controlled evidence,
 C twice/Rust parity and distinct references. neo-angband-tracker remains source/
 historical provenance and stops independently scheduling Rust adoption.
 
+## Post-M5 requested workflow tools
+
+Root produce_death.py now freezes a bounded prospective seed/birth plan and
+runs committed-source Rust recordings until the first natural death/failure or
+planned limits. Root replay_next_death.py selects an available unreviewed
+canonical family, verifies/replays it and stores review marks only on explicit
+owner commands. Personal review is separate from assessment/technical signoff.
+Both are adapted from pinned better-borg-c22f817c96843, with recorded provenance.
+Random choices are made prospectively and entered through explicit native
+menus; this differs from the donor's native random menu RNG draws. The optional
+flushed-key world-progress stall watchdog defaults off for named headless play
+and to30seconds for collection. These operational additions do not move m5 or
+adopt a new C gameplay milestone. See tools/README.md and the death-workflow
+validation receipt.
+
 ## Current owner-accepted milestone and post-M4 investigation
 
 The owner accepted the qualified M4 outcome and requested closure of

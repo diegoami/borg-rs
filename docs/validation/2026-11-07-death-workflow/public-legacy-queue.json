@@ -1,0 +1,62 @@
+[
+  {
+    "family": "start-9137edbc887c66b39ea7ade206c1117c8a3e1649247ccc516049b480b940b781",
+    "cases": [
+      {
+        "case": "D0001",
+        "directory": "/home/diego/projects/borg-rs/docs/deaths/D0001-seed8400-warrior",
+        "family": "start-9137edbc887c66b39ea7ade206c1117c8a3e1649247ccc516049b480b940b781",
+        "cause": "a pseudo-dragon",
+        "turn": 37680,
+        "recording": "legacy: no full recording"
+      }
+    ],
+    "reviewed": false,
+    "playable": null
+  },
+  {
+    "family": "start-4e799102dc00b5a5b85db356ecdcc56ef1d7b957f76e76c8ab89191b2bf4f923",
+    "cases": [
+      {
+        "case": "D0002",
+        "directory": "/home/diego/projects/borg-rs/docs/deaths/D0002-seed8402-druid",
+        "family": "start-4e799102dc00b5a5b85db356ecdcc56ef1d7b957f76e76c8ab89191b2bf4f923",
+        "cause": "a cutpurse",
+        "turn": 5590,
+        "recording": "legacy: no full recording"
+      }
+    ],
+    "reviewed": false,
+    "playable": null
+  },
+  {
+    "family": "start-170b8f642c8199ade5596968c51b6fb2f5ccb1c0eed70286e83dd3558a6a5479",
+    "cases": [
+      {
+        "case": "D0003",
+        "directory": "/home/diego/projects/borg-rs/docs/deaths/D0003-seed8406-rogue",
+        "family": "start-170b8f642c8199ade5596968c51b6fb2f5ccb1c0eed70286e83dd3558a6a5479",
+        "cause": "a giant yellow centipede",
+        "turn": 5600,
+        "recording": "legacy: no full recording"
+      }
+    ],
+    "reviewed": false,
+    "playable": null
+  },
+  {
+    "family": "start-eb6049d1b5144e265f601e492ae170d2a233db174f88d5d069ab03c63b9708b3",
+    "cases": [
+      {
+        "case": "D0004",
+        "directory": "/home/diego/projects/borg-rs/docs/deaths/D0004-seed8408-blackguard",
+        "family": "start-eb6049d1b5144e265f601e492ae170d2a233db174f88d5d069ab03c63b9708b3",
+        "cause": "a wild cat",
+        "turn": 6231,
+        "recording": "legacy: no full recording"
+      }
+    ],
+    "reviewed": false,
+    "playable": null
+  }
+]

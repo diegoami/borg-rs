@@ -1,0 +1,4 @@
+Replay D0001: a pseudo-dragon at turn 37680.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0001
+Closing the viewer does not mark a review complete.
+VERIFIED frozen-origin rerun: rerun original Rust Borg from original origin; exact keys/messages/player-state/terminal frames/final save and scheduled world saves; not whole-Borg private-state shadow

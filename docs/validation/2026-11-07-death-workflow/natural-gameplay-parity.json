@@ -1,0 +1,14 @@
+{
+  "keys.log": {
+    "sha256": "4be55b6fe149b202f4400983962fb050c8fb2fa380717debf0398bd9c5ad633f",
+    "matches_original_normal_live": true
+  },
+  "messages.log": {
+    "sha256": "9b60bbcb9a757fc29a869521fbc27850b77e9fa05af19eed16ef6850c38b5a30",
+    "matches_original_normal_live": true
+  },
+  "state.log": {
+    "sha256": "fdf143b506d85f5b92dffe343acd4c1f72f63eb96694535cca916ca81331ba13",
+    "matches_original_normal_live": true
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "birth_policy": "fixed",
+  "character_selection": "prospective SHA-256 race/class selection; ordinary explicit menus/default point buy",
+  "checkpoint_every": 1000,
+  "counts": {
+    "death": 1
+  },
+  "created_at": "2026-11-07T20:40:31.172111+00:00",
+  "issue": null,
+  "key_cap": 50000,
+  "limit": "Death collection, not a survival-rate cohort; no retrospective seed/budget enlargement",
+  "prepared_manifest": "/home/diego/projects/borg-rs/build/death-workflow/16d3d3dab88910a51cf7/prepared.json",
+  "prepared_manifest_sha256": "97d19866712201aa3949c39a39decb8efe1d3beba9e9d95b543d0fe804d17ff5",
+  "prospective_births": [
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 8400
+    },
+    {
+      "class": 0,
+      "class_name": "Warrior",
+      "race": 0,
+      "race_name": "Human",
+      "seed": 8401
+    }
+  ],
+  "runs": [
+    {
+      "assessment": "unassessed; owner replay and causal investigation pending",
+      "cause": "a pseudo-dragon",
+      "character": "Human Warrior",
+      "class": 0,
+      "class_name": "Warrior",
+      "directory": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/natural-death-final/game-001-seed-8400",
+      "dossier": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/death-registry/D0001-recorded",
+      "final": {
+        "class": "Warrior",
+        "class_idx": 0,
+        "clevel": 8,
+        "dead": true,
+        "death_cause": "a pseudo-dragon",
+        "depth": 13,
+        "game_turns": 37680,
+        "keys": 4563,
+        "max_depth": 14,
+        "menu_letters": true,
+        "player_turns": 3819,
+        "race": "Human",
+        "race_idx": 0,
+        "resting_turns": 320,
+        "seed": 8400,
+        "stop_reason": "death",
+        "wall_seconds": 3.541
+      },
+      "outcome": "death",
+      "process_status": "success",
+      "qualification": "complete frozen recording; rerun verification and assessment remain separate",
+      "race": 0,
+      "race_name": "Human",
+      "recording": "/home/diego/projects/borg-rs/harness/out/death-workflow-validation/natural-death-final/game-001-seed-8400/recordings/20261107T204137.571630Z-CollectedBorg",
+      "recording_manifest_sha256": "b52aadc9cfd3a6afb74063faa3d1f965e316bdd91434051ab8cf13ece9eb7a54",
+      "seed": 8400
+    }
+  ],
+  "safety": "cheat death/live and winner respawn off; native death evidence on",
+  "schema": "borg-rs/death-collection@1",
+  "seeds": [
+    8400,
+    8401
+  ],
+  "source_commit": "08eaa13100b67a110d5afc1595f0e9586e38613d",
+  "stall_timeout_seconds": 30,
+  "status": "natural_death_recorded",
+  "stop_rule": "first natural death, operational failure, or listed seeds exhausted",
+  "tools_sha256": {
+    "harness/identity.sh": "1f779a14c73475925e52285b34aa331c4d5ac86519f53a3da62933b3b688ff48",
+    "harness/run.sh": "8c852e5f7a36eac5ceebde1270d0c0f91a0d851ad8d9509b939a1e5540e2ed5d",
+    "harness/supervise.py": "3d2b36ba0db134883e5ae0826492ac666ab4a3b9927ffe5c601a9ca6281f62ac",
+    "produce_death.py": "fcc8ad054d3a54541c7fe4819e88a9e9ff0ef1e6552aa02349dc68291714b366",
+    "replay-borg.py": "5d6ece0cc978c012639e97b9425a1bf72b935068df6ba2d5d1edd6990bd8f0d4",
+    "replay_next_death.py": "95f4a2e4f8ff9304dbd365ec64daddea55283cef3f1cc1392dd90ff4f517eaf9",
+    "tools/borg_deaths.py": "99031be7793bc6e1db3a58227cb4fabb69d2d820392fba1a5f7b350ca8b0a2d1",
+    "tools/borg_gui.py": "e3245e3a7cb45890b7aaee7a1df034481e05b420d5b5a40133b216d8efb84cf1",
+    "tools/borg_replay_viewer.py": "07f6b266bf71600eba5e8dd4d20f11ec4fbf1f9a577f9099b11da376ac463444",
+    "tools/borg_runtime.py": "37221441344034f9331044820a573037644ec8e1cf45c143d08198370732e0c8",
+    "tools/borg_saves.py": "fafc79e0467f0f04fc216fc227c90d54de3e427fda7f021c1a87effd444053c2",
+    "tools/death_workflow.py": "480a96394ad9e0654a6c68ef68b7c83da1e347d55c54aa592f26ac7892fd99e1"
+  },
+  "turn_cap": 100000,
+  "wall_limit_per_game_seconds": 60
+}
