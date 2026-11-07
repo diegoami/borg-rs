@@ -109,3 +109,7 @@ synthetic6 pass C twice and Rust, including complete final saves. Tests100/
 one existing ignored, clippy, native glyph1,600 and154 engine-object/link
 checks pass. Extended12 and coverage are retained M4 results, not recollected
 for this correction. No later source inherits the tag's measured percentages.
+The correction and receipts are published at `da39bf5`; the
+[existing #295 update](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6705894975)
+was posted and read back. The tracker remains responsible for independent
+source qualification/adoption.

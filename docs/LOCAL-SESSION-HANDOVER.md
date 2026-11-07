@@ -8,7 +8,9 @@ for their declared scope. The main review rechecked 874 artifact-hash entries,
 all139 retained coverage profiles and the targeted strict comparisons.
 
 First post-M4 task #295 now has a mirrored C/Rust correction and six new
-engine recognition controls. It reads known glyphs from map_info, independently
+engine recognition controls, published at `da39bf5`. Tracker295 update
+6705894975 was posted/read back; independent tracker adoption is separate.
+It reads known glyphs from map_info, independently
 of harmful traps. C/C/Rust and before/after native C observer comparisons pass;
 the hidden Rune stays unknown, the pit stays a trap, and the prelaid ring
 is recognized without another cast. Both implementations match121 existing

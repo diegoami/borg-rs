@@ -1477,3 +1477,4 @@ The C source is unchanged; no correction is proposed in this pass.
   references remain intact; separate corrected references are retained.
   See `docs/validation/2026-11-07-glyph-recognition/README.md`. This fixes
   recognition, not section56's reverse flow or autonomous construction.
+  Published correction/evidence: `da39bf5`; [tracker update read back](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6705894975).
