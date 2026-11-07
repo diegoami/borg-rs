@@ -1,0 +1,24 @@
+You have no more Scrolls of Phase Door (c).
+Half-Elf                                     #<#
+Believer                                     #.#
+Priest
+LEVEL      1
+NXT        8
+AU         6
+\    ~    ]
+STR:      16
+INT:       8
+WIS:      18
+DEX:      10                                ###
+CON:      16                                #@#
+                                            ...
+Cur AC     3                               .....
+HP   12/  12                              .......
+SP    1/   2                             .!$......
+                                        ##.......%%
+                                          ...#...
+                                         ..%# ##..
+                                        ##       %%
+
+50' (L1)
+             LF:1-? Light 3  Fed 75 % Open floor

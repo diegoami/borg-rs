@@ -2,7 +2,7 @@
 
 Every confirmed natural death gets an immutable source/build/input identity, original observations, an assessment and linked actions. Full raw runs/saves/builds stay outside Git. Death alone does not establish a bug.
 
-Dossiers: 5; distinct starting conditions: 5; retained process attempts: 13 (including repeats). This registry is not a survival-rate estimate.
+Dossiers: 6; distinct starting conditions: 6; retained process attempts: 14 (including repeats). This registry is not a survival-rate estimate.
 
 | Case | Discussion | Actual source | Seed | Raw cause | Death turn | Diagnosis |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -11,6 +11,7 @@ Dossiers: 5; distinct starting conditions: 5; retained process attempts: 13 (inc
 | [D0003](D0003-seed8406-rogue/report.md) | unassigned | `f772eb6dcb93` | 8406 | a giant yellow centipede | 5600 | C/Rust parity observed; defect not established |
 | [D0004](D0004-seed8408-blackguard/report.md) | unassigned | `f772eb6dcb93` | 8408 | a wild cat | 6231 | C/Rust parity observed; defect not established |
 | [D0005](D0005-recorded/report.md) | [Discuss](https://github.com/diegoami/borg-rs/issues/3) | `9881301ceaad` | 1532917772 | Fang, Farmer Maggot's Dog | 36289 | Fang death assessed; recovery/retreat gates and spell-confidence causality unresolved |
+| [D0006](D0006-recorded/report.md) | [Discuss](https://github.com/diegoami/borg-rs/issues/3) | `aa4ad6cfeea2` | 2647001198 | a grey mold | 22841 | Grey-mold stair/exploration loop assessed; qualified private trace shows emergency movement and danger-cache reuse |
 
 ## Aggregated actions
 
@@ -21,6 +22,9 @@ Dossiers: 5; distinct starting conditions: 5; retained process attempts: 13 (inc
 - [D0005: observe exact recovery, retreat/stairs and competing attack gates on original source before any change](https://github.com/diegoami/borg-rs/issues/4) — open; next discriminating evidence, no gameplay change; cases D0005.
 - [D0005: compare separately a specified CLW and legal NW diagnostic branch after private-gate qualification](https://github.com/diegoami/borg-rs/issues/4) — provisional; not executed, depends on exact gate trace; cases D0005.
 - [D0005: qualify simultaneous native/Borg spell confidence and coordinate existing ambient-light296 through C consumer](https://github.com/diegoami/borg-rs/issues/4) — open; existing source lead, no duplicate C report or immediate adoption; cases D0005.
+- [D0006: construct legal native mode-transition cache scenario with emergency/safe/blocked controls; coordinate existing C ownership before any correction](https://github.com/diegoami/borg-rs/issues/5) — open; next discriminating evidence, no gameplay change; cases D0006.
+- [D0006: separately test stair descent/hold/door-close and one adjacent mace attempt with declared source/RNG/continuation limits](https://github.com/diegoami/borg-rs/issues/5) — provisional; no alternate-action branch run, distinguish serialized human branch from uninterrupted private-state continuation; cases D0006.
+- [D0006: explain actual CSW-sale and fuel/escape reserve choices from native inventory-power/shop score trace](https://github.com/diegoami/borg-rs/issues/5) — open; evidence before policy change; cases D0006.
 
 [Earlier nine-class cohort and assessments](cohort-2026-11-07.md) · [Feedback process](FEEDBACK.md).
 

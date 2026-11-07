@@ -29,6 +29,35 @@ docs/validation/2026-11-08-human-takeover. Use private displays/profiles for
 further validation. Ctrl-X saves; Escape closes the native exit screen.
 M4/M5 tags and gameplay algorithms are unchanged.
 
+## D0006 analysis completed
+
+Owner comment6714194885 explicitly requested the D6 case/analysis; delegated
+analysis is posted at borg-rs#3 comment6714363270, focused investigation#5.
+Original aa4ad6c Half-Elf Priest seed2647001198 dies to grey mold at22841.
+It repeatedly returns from the safe down stair(33,49) to adjacent doorway
+(33,48), never reaching attacks while adjacent. The stairs lead D1->D2,
+not town. No learned healing: initial cures sold, Recall stored at Home,
+one Phase scroll spent earlier; nine spare torches remain.
+
+Read-only historical Rust instrumentation in five files preserves every
+original key/message/state/raw frame/config/full final save and22 scheduled
+saves; only the existing archive clock-header exception applies. It observes
+danger16 in the doorway,0 at the stair; no durable flee/leave/descent intent;
+emergency flow seeds doorway know1/icky0 while skipping danger, then normal
+dark3 exploration reuses that cache without recomputing danger. Existing
+ready_morgoth guard lead neo156 also appears. This establishes selected private
+control flow, not a safe cure/attack/descent, a minimal fix or population benefit.
+No gameplay correction or C milestone adoption is authorized by this analysis.
+
+Dossier has overall-assessment,39-row timeline,21 original-frame anchors,
+42 private trace rows, complete observer patch, source/build qualification and
+analysis-validation. Root reran the7-check curator validation. Original
+record SHA7489569bad588aa75720e230150ac3f33b268cb8735d0917165e8aafd948faa8
+and24 declared immutable artifacts are preserved; raw manifest unchanged.
+Registry now6 cases/6 starting conditions/14 death processes. Analysis and
+human attempts do not mark owner reviewed. Raw qualification/source/curator
+remain under harness/out/d0006-analysis; preserve unique supporting evidence.
+
 ## Current owner-approved direction
 
 M5 is owner-accepted and tagged **m5** at **020322749026418a666da3209c169f48ec9d608c**.

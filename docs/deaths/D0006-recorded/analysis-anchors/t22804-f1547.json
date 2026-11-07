@@ -1,0 +1,209 @@
+{
+  "schema": "borg-rs/death-analysis-anchor@1",
+  "provenance": "Original native observations, reconstructed from original full/delta frames; no historical observer extension or new life",
+  "source_commit": "aa4ad6cfeea2cf19870e224219dfe66688175c6e",
+  "frame": {
+    "index": 1547,
+    "turn": 22804,
+    "phase": "key",
+    "width": 80,
+    "height": 24,
+    "level": 2,
+    "depth": 1,
+    "hp": 8,
+    "max_hp": 15,
+    "sp": 3,
+    "max_sp": 4,
+    "x": 33,
+    "y": 48
+  },
+  "inventory_provenance": "Player-known native pack/equipment at this living observation",
+  "player_known_inventory": {
+    "pack": [
+      {
+        "label": "a",
+        "description": "a Holy Book of Prayers [Novice's Handbook]",
+        "slot": "",
+        "attr": 13,
+        "weight": 30
+      },
+      {
+        "label": "b",
+        "description": "an Apple",
+        "slot": "",
+        "attr": 12,
+        "weight": 4
+      },
+      {
+        "label": "c",
+        "description": "7 Rations of Food",
+        "slot": "",
+        "attr": 15,
+        "weight": 56
+      },
+      {
+        "label": "d",
+        "description": "a Cloudy Potion",
+        "slot": "",
+        "attr": 1,
+        "weight": 4
+      },
+      {
+        "label": "e",
+        "description": "a Muddy Potion",
+        "slot": "",
+        "attr": 19,
+        "weight": 4
+      },
+      {
+        "label": "f",
+        "description": "8 Wooden Torches (5000 turns)",
+        "slot": "",
+        "attr": 7,
+        "weight": 176
+      },
+      {
+        "label": "g",
+        "description": "a Wooden Torch (3833 turns)",
+        "slot": "",
+        "attr": 7,
+        "weight": 22
+      }
+    ],
+    "equipment": [
+      {
+        "label": "a",
+        "description": "a Mace (2d4) (+0,+0)",
+        "slot": "weapon",
+        "attr": 8,
+        "weight": 120
+      },
+      {
+        "label": "b",
+        "description": "(nothing)",
+        "slot": "shooting",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "c",
+        "description": "(nothing)",
+        "slot": "right hand",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "d",
+        "description": "(nothing)",
+        "slot": "left hand",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "e",
+        "description": "(nothing)",
+        "slot": "neck",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "f",
+        "description": "a Wooden Torch (4828 turns)",
+        "slot": "light",
+        "attr": 7,
+        "weight": 22
+      },
+      {
+        "label": "g",
+        "description": "(nothing)",
+        "slot": "body",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "i",
+        "description": "(nothing)",
+        "slot": "back",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "m",
+        "description": "(nothing)",
+        "slot": "arm",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "n",
+        "description": "(nothing)",
+        "slot": "head",
+        "attr": 2,
+        "weight": 0
+      },
+      {
+        "label": "o",
+        "description": "a Set of Gauntlets [3,+0]",
+        "slot": "hands",
+        "attr": 2,
+        "weight": 25
+      },
+      {
+        "label": "p",
+        "description": "(nothing)",
+        "slot": "feet",
+        "attr": 2,
+        "weight": 0
+      }
+    ],
+    "quiver": [],
+    "total_weight": 463,
+    "remaining_weight": 616
+  },
+  "native_spells": {
+    "class": "Priest",
+    "mana": 3,
+    "max_mana": 4,
+    "caster": 1,
+    "learned": [
+      {
+        "name": "Call Light",
+        "label": "a",
+        "book": "a Holy Book of Prayers [Novice's Handbook]",
+        "book_label": "a",
+        "level": 1,
+        "mana": 1,
+        "fail": 6,
+        "castable": 1,
+        "status": "Ready"
+      },
+      {
+        "name": "Detect Evil",
+        "label": "b",
+        "book": "a Holy Book of Prayers [Novice's Handbook]",
+        "book_label": "a",
+        "level": 1,
+        "mana": 1,
+        "fail": 6,
+        "castable": 1,
+        "status": "Ready"
+      }
+    ]
+  },
+  "native_ready_scope": "Native readiness is not private Borg eligibility, selected action or success",
+  "visible_native_monsters": [
+    {
+      "id": 13,
+      "name": "grey mold",
+      "x": 34,
+      "y": 47,
+      "hp": 2,
+      "max_hp": 2,
+      "speed": 110,
+      "visible": 1
+    }
+  ],
+  "native_monster_scope": "Actual HP/position only for monsters native-visible at this frame; numeric HP is diagnostic, not a claim of exact Borg knowledge",
+  "terminal_screen": "\nHalf-Elf\nBeliever\nPriest\nLEVEL      2\nNXT       18\nAU        56\n\\    ~    ]\nSTR:      16\nINT:       8\nWIS:      18                                 ..m\nDEX:      10                                 #@#\nCON:      16                                 #>#\n                                             ###\nCur AC     3\nHP    8/  15\nSP    3/   4\n\n\n\n\n\n50' (L1)\n             LF:2-? Light 2  Fed 67 % Open door\n",
+  "source_frame_row_sha256": "fece417897315f4967acb4b75f8733dd13cfc07d76a403a4251eb4e99b3bc95a"
+}

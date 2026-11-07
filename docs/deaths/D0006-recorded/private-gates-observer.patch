@@ -1,0 +1,122 @@
+--- a/borg-rs/src/lib.rs
++++ b/borg-rs/src/lib.rs
+@@ -88,3 +88,15 @@
+ pub(crate) mod engine;
+ pub(crate) mod state;
+ pub mod regress;
++
++// D0006 observation only: read existing fields without evaluating new decisions.
++pub(crate) fn d6_trace(st: &crate::state::BorgState, label: &str) {
++    let turn = crate::engine::game_turn();
++    if !(22764..=22841).contains(&turn) { return; }
++    use crate::borg_headers::borg_trait_h::{BI_CURHP, BI_CLEVEL};
++    eprintln!("D6TRACE {{\"turn\":{},\"label\":\"{}\",\"x\":{},\"y\":{},\"hp\":{},\"level\":{},\"avoidance\":{},\"ready_morgoth\":{},\"fleeing\":{},\"leaving\":{},\"scary\":{},\"desperate\":{},\"stair_more\":{},\"stair_less\":{},\"stairs_down\":{},\"stairs_up\":{},\"goal_type\":{},\"feature\":{},\"door_know\":{},\"door_icky\":{},\"door_cost\":{},\"stair_know\":{},\"stair_icky\":{}}}",
++       turn,label,st.borg.c.x,st.borg.c.y,st.borg.tr(BI_CURHP),st.borg.tr(BI_CLEVEL),st.borg.avoidance,st.borg.ready_morgoth,
++       st.borg.goal.fleeing,st.borg.goal.leaving,st.borg.mon.scary,st.borg.status.desperate,st.borg.stair_more,st.borg.stair_less,
++       st.stairs.more.num,st.stairs.less.num,st.borg.goal.type_0,st.cave.grid(st.borg.c.x,st.borg.c.y).feat,
++       st.flow.data_know[48][33],st.flow.data_icky[48][33],st.flow.data_cost[48][33],st.flow.data_know[49][33],st.flow.data_icky[49][33]);
++}
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -838,17 +838,20 @@
+ /// `borg_flow_stair_less/more(GOAL_FLEE, ...)` with `borg.status.desperate`
+ /// set around the call; notes `why` when it worked.
+ fn desperate_flow(st: &mut BorgState, up: bool, why: &str) -> bool {
++    crate::d6_trace(st, "desperate-flow-before");
+     st.borg.status.desperate = true;
+     let ok = if up {
+         borg_flow_stair_less(st, GOAL_FLEE, false)
+     } else {
+         borg_flow_stair_more(st, GOAL_FLEE, false, false)
+     };
++    crate::d6_trace(st, "desperate-flow-after-step");
+     if ok {
+         // Note
+         borg_note(st, why);
+ 
+         st.borg.status.desperate = false;
++        crate::d6_trace(st, "desperate-flow-finished");
+         return true;
+     }
+     st.borg.status.desperate = false;
+@@ -1461,6 +1464,8 @@
+ 
+     // Look around
+     let pos_danger = borg_danger(st, st.borg.c.y, st.borg.c.x, 1, true, false);
++    crate::d6_trace(st, "caution-danger-computed");
++    if (22764..=22841).contains(&engine::game_turn()) { eprintln!("D6DANGER {} {}", engine::game_turn(), pos_danger); }
+ 
+     // Describe (briefly) the current situation
+     // Danger (ignore stupid "fear" danger)
+@@ -1942,6 +1947,7 @@
+ /// "Leaving or Fleeing, take stairs" test of `borg_caution`): sets
+ /// `borg.stair_less` / `borg.stair_more`.
+ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
++    crate::d6_trace(st, "choose-stairs-called");
+     let force_descend = engine::player_opt(OPT_birth_force_descend);
+     if st.borg.ready_morgoth == 0 && st.borg.tr(BI_KING) == 0 && !force_descend {
+         st.borg.stair_less = true;
+--- a/borg-rs/src/borg_think_dungeon.rs
++++ b/borg-rs/src/borg_think_dungeon.rs
+@@ -1518,8 +1518,10 @@
+ 
+     /* Try not to die */
+     if borg_caution(st) {
+-        return true;
+-    }
++        crate::d6_trace(st, "caution-acted");
++        return true;
++    }
++    crate::d6_trace(st, "caution-no-action");
+ 
+     /*** if returning from dungeon in bad shape...***/
+     if st.borg.tr(BI_LIGHT) == 0
+@@ -1586,6 +1588,7 @@
+     }
+ 
+     /* Attack monsters */
++    crate::d6_trace(st, "before-attack-selection");
+     if crate::borg_fight_attack::borg_attack(st, false) {
+         return true;
+     }
+--- a/borg-rs/src/borg_flow_dark.rs
++++ b/borg-rs/src/borg_flow_dark.rs
+@@ -749,6 +749,7 @@
+ ///
+ /// The "borg_temp" array is much larger than any "local region".
+ fn borg_flow_dark_3(st: &mut BorgState, b_stair: i32) -> bool {
++    crate::d6_trace(st, "dark3-start");
+     /* Not in town */
+     if st.borg.tr(BI_CDEPTH) == 0 {
+         return false;
+@@ -776,6 +777,7 @@
+     /* Spread the flow (limit depth) */
+     crate::borg_flow::borg_flow_spread(st, 5, false, true, false, -1, false);
+ 
++    crate::d6_trace(st, "dark3-after-spread");
+     commit_and_step(st, c"dark-3")
+ }
+ 
+--- a/borg-rs/src/borg_flow.rs
++++ b/borg-rs/src/borg_flow.rs
+@@ -632,6 +632,10 @@
+             }
+ 
+             /* Analyze every grid once */
++            if (22764..=22841).contains(&crate::engine::game_turn()) && x == 33 && y == 48 {
++                crate::d6_trace(st, "flow-examines-doorway");
++                eprintln!("D6FLOW {} depth={} optimize={} avoid={} sneak={} fear={}", crate::engine::game_turn(), depth, optimize, avoid, sneak, flow_fear(st));
++            }
+             if st.flow.data_know[y as usize][x as usize] == 0 {
+                 /* Mark as known */
+                 st.flow.data_know[y as usize][x as usize] = 1;
+@@ -643,6 +647,9 @@
+                 {
+                     /* Get the danger */
+                     let p = borg_danger(st, y, x, 1, true, false);
++                    if (22764..=22841).contains(&crate::engine::game_turn()) && x == 33 && y == 48 {
++                        eprintln!("D6DOORDANGER {} {}", crate::engine::game_turn(), p);
++                    }
+ 
+                     /* Increase bravery */
+                     let fear = flow_fear(st);

@@ -1,0 +1,9 @@
+{
+race: "Half-Elf",
+class: "Priest",
+mapName: "Angband",
+dLvl: "1",
+cLvl: "2",
+isDead: "1",
+killedBy: "a grey mold"
+}
