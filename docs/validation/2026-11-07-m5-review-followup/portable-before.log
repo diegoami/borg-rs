@@ -1,0 +1,28 @@
+.......FNatural death dossier: /tmp/borg-death-control-arqho6iz/registry/D0001-recorded (unassessed; replay/diagnosis pending)
+Death already recorded: /tmp/borg-death-control-arqho6iz/registry/D0001-recorded
+....F.....
+======================================================================
+FAIL: test_real_death_exports_native_identity_and_original_windows (tools.test_death_records.DeathRecords.test_real_death_exports_native_identity_and_original_windows)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/diego/projects/borg-rs/tools/test_death_records.py", line 39, in test_real_death_exports_native_identity_and_original_windows
+    self.assertEqual(record['raw_cause'], 'a giant yellow centipede')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'a cutpurse' != 'a giant yellow centipede'
+- a cutpurse
++ a giant yellow centipede
+
+
+======================================================================
+FAIL: test_from_turn_and_old_turn_choose_identical_original_frame (tools.test_replay_cli.CompatibleCli.test_from_turn_and_old_turn_choose_identical_original_frame)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/diego/projects/borg-rs/tools/test_replay_cli.py", line 41, in test_from_turn_and_old_turn_choose_identical_original_frame
+    self.assertIn('turn=5596', first.stdout)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'turn=5596' not found in "RECORDING ONLY / NOT RERUN-VERIFIED turn=5590 phase=death level=1 depth=1 HP=-5\nScore not registered for borgs. -more-                                          \nHalf-Elf                                                                        \nWanderer                                                                        \nDruid           ' .....                                                         \nLEVEL      1       ....                                                         \nNXT       10        ####                                                        \nAU        77                                                                    \n\\ =  ~( )                                                                       \nSTR:      15                                                                    \nINT:      11                                                                    \nWIS:      18                               #######                              \nDEX:       9                               #..@..#                              \nCON:      15               #####           #.##p##                              \n                         ###...%#               .                               \nCur AC    11 #############......%%               #                              \nHP   -5/  12 ..............###...%                                              \nSP    0/   2 #############.#....%%                                              \n                         #.#...%%                                               \n[*******---]             #.###%%                                                \n                         ###                                                    \n                                                                                \n                                                                                \n50' (L1)                                                                        \n             LF:3-1 Light 3  Fed 84 % Open floor                                \n"
+
+----------------------------------------------------------------------
+Ran 18 tests in 7.809s
+
+FAILED (failures=2)

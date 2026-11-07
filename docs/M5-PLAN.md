@@ -5,8 +5,10 @@ adoption path on 2026-11-07. Review: [borg-rs#2](https://github.com/diegoami/bor
 
 The candidate is frozen at **28468aa9fdc74cbb65d351349b973835d8c42af9**.
 The comparison base is accepted M4 **3923a21e75dfb94053d4cc787d81c5baf638d62e**.
-Current status: author validation complete for the declared receipts;
-independent M5 review and owner acceptance pending. Documentation added after
+Current status: [independent qualified pass, no acceptance blockers](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6711741153) at the frozen candidate.
+The author agrees with the tooling findings and supplies a separate follow-up
+for M1/L1/L2 plus the declared information/qualification points. Reviewer
+verification of those fixes and owner acceptance remain pending. Documentation added after
 the candidate explains the process; it does not silently change reviewed code.
 No M5 tag or first better-borg-c gameplay milestone is declared yet.
 

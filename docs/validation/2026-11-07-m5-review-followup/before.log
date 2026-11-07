@@ -1,0 +1,43 @@
+death: level1, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/Dr
+Recording: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191050.924879Z-Dr
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191050.924879Z-Dr
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/deaths/D0001-recorded (unassessed; replay/diagnosis pending)
+Preserved current save: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/backups/Dr/before-restore-20261107T191051.987561Z.save
+Restored backup slot 2: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/Dr
+death: level1, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/Dr
+Recording: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191052.227666Z-Dr
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191052.227666Z-Dr
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/deaths/D0002-recorded (unassessed; replay/diagnosis pending)
+Preserved current save: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/backups/Dr/before-restore-20261107T191053.341429Z.save
+Restored backup slot 2: /home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/save/Dr
+{
+  "first": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191050.924879Z-Dr",
+  "second": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/before/profile/recordings/20261107T191052.227666Z-Dr",
+  "same_origin": true,
+  "gameplay_equal": {
+    "keys.log": true,
+    "messages.log": true,
+    "state.log": true,
+    "frames.jsonl": true,
+    "final.save": true
+  },
+  "index": {
+    "actions": [],
+    "cases": 2,
+    "causes_by_distinct_start": {
+      "a giant yellow centipede": 2
+    },
+    "death_process_attempts": 2,
+    "distinct_starting_conditions": 2,
+    "limit": "Selected cases; repeats/reference variants and backup branches are not independent lives or a mortality-rate estimate",
+    "schema": "borg-rs/death-index@1",
+    "versions": {
+      "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588": 2
+    }
+  },
+  "refusal": "Requested race/class differs from the loaded character",
+  "refusal_preserved_save": false,
+  "refusal_preserved_backups": false
+}

@@ -5,7 +5,9 @@ Current request: **focused M5 cutover review**, coordinated on
 **28468aa9fdc74cbb65d351349b973835d8c42af9**. Read [M5-PLAN](M5-PLAN.md),
 [reviewer prompt](REVIEW-M5-PROMPT.md) and [C consumer adoption contract](C-CONSUMER-ADOPTION.md).
 The later documentation explains current owner policy without changing the
-reviewed source. Independent M5 review/owner acceptance are pending. No M5
+reviewed source. Independent M5 review is a qualified pass with no acceptance blockers at
+28468aa. Author tooling follow-ups await reviewer verification; owner acceptance
+is pending. No M5
 tag or first accepted C milestone has been selected. Both author and reviewer
 post handoff/progress/findings/dispositions on issue#2. Preserve owner data,
 source/references and previous review evidence; use isolated builds/displays.

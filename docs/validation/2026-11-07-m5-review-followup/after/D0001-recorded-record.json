@@ -1,0 +1,316 @@
+{
+  "attempts": [
+    {
+      "binary_sha256": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+      "outcome": "death",
+      "raw_directory": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/after/profile/recordings/20261107T191325.208526Z-Dr",
+      "requested_seed": 1,
+      "result_sha256": "f73965f93473cd993ef7d292f64de666a87bf501f5ee348b7c048ae907a17af8",
+      "role": "original",
+      "seed_role": "ignored on load; saved engine RNG",
+      "source_commit": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588"
+    },
+    {
+      "binary_sha256": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+      "outcome": "death",
+      "raw_directory": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/after/profile/recordings/20261107T191326.532939Z-Dr",
+      "requested_seed": 2,
+      "result_sha256": "94d1e93afd3cdc415969f8206c876475d212d7d6294c092f9b1ef8f192a89418",
+      "role": "repeat",
+      "seed_role": "ignored on load; saved engine RNG",
+      "source_commit": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588"
+    }
+  ],
+  "build": {
+    "binary": "/home/diego/projects/borg-rs/build/rust/game/angband",
+    "binary_sha256": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+    "built_utc": "2026-11-07T17:10:45Z",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "git_dirty": "yes",
+    "git_rev": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+    "impl": "rust",
+    "inputs_dirty": "yes",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794"
+  },
+  "calendar_context": "seeded headless harness holiday context pinned to epoch",
+  "character": "Dr",
+  "encounter_family": "start-7a1dcbe90f56c68d338eee539be313a8643b118f595474543b7b5814ad328262",
+  "files_sha256": {
+    "CharOutput.txt": "9a7a9e8709c8bff32df0ae9e7b36317906ca8dc84ab5dc741795d65c869f4fd4",
+    "build.json": "78a4859d100974cec65f7c7377adb275a686a81f70d7598e004cf7f65e88a3a9",
+    "input.json": "7d4e1acafb3a6a4cea6ef4ee1847677266443123054813bd26c767dea690b7bc",
+    "keys.log": "9b0e24f7367800d70965bdcb436bc054a39d59ef7aae6d443f2a97b77309a993",
+    "messages.log": "dda107cdd47daae459aec3ad1c734f9d4712bd3bfa1d9ec07340c0e70d48618d",
+    "native/Borg.map": "5fee9a6bcbad8d7963d93482efcda10f3b0624c56d68215a1014c0aadaf124ef",
+    "native/borg-log.txt": "9daafcb0830428eec0edd47dfa01bcb0ef803581759d6386980c036a9cc0126d",
+    "native/borg.dat": "f0cb82ec11768a2ea31775d94f94f4fa926be849a360fa7d32ac9beedc95c337",
+    "snapshots/recorded-anchor-t10560.json": "f804cb343ba5ee6fb61148e48c8bef9e3925f8a09ace5815cad008b38946bfd9",
+    "snapshots/recorded-anchor-t10560.txt": "a52ab791633d058de77dc595adcc3343896f8b81b67385435a36bb55a9b40ac6",
+    "snapshots/recorded-anchor-t10580.json": "4aba7c864d9060f2526e0c60f3a0bc2e7e00031a3103adc3859fcf2c81ff48b0",
+    "snapshots/recorded-anchor-t10580.txt": "f35e74127a2ec0882718dbd84d921044d436b8334e3e646636b960ab16c5b262",
+    "snapshots/recorded-anchor-t10600.json": "9df399571682fc34d741a1a5fa3e8e0f1bd19a0342c78dd42fafaab9239dfbc4",
+    "snapshots/recorded-anchor-t10600.txt": "e4c88b410382cb95ab6a8fe7091f56cf4064ef10602390c77292730399e1fd70",
+    "snapshots/recorded-anchor-t10620.json": "04b1831a67b0c6a435dc836913979cd2864a0a1d7c01bfa6466e87aec4e10d68",
+    "snapshots/recorded-anchor-t10620.txt": "732f0fd65026b5b040f812454270bf6674742cf3d3e40b50b859f32852956300",
+    "snapshots/recorded-anchor-t10640.json": "4a4ae6340f6838a524512898b55f35925c1f239de2d79b786f82f624180ede88",
+    "snapshots/recorded-anchor-t10640.txt": "8156ae483f08286f56f8b1deb789f62f60c572ec7bb8033fb78e0f03ac48755a",
+    "snapshots/recorded-anchor-t10650.json": "ec59068c3f1c718f8d965ba42de13ee76366f209ff9c1a3f00b733667569a95a",
+    "snapshots/recorded-anchor-t10650.txt": "207db9364897f67f1fd4866ca425f3daf40ad4d806bcf2a0a3ab436550cdffc2",
+    "snapshots/recorded-anchor-t10660.json": "1170c61ec5b74cb78b41a3fb6d22b085f0b5fc6e2be7532c70da0faf3e66c8f5",
+    "snapshots/recorded-anchor-t10660.txt": "7f1dd28260bf77ba6486d415b90d4c1e5a049cc8e426a378f87e38cd03ba10a4",
+    "state.log": "58fc7073355fdc3a7729fe8c4f51e0e2522100ba0a23d34860c53770eb264130",
+    "terminal.map.txt": "9a5dcbf27d679f6b94ac3a2460bace9920958e8e79feef8a05e3dfe7bac5b11a"
+  },
+  "id": "D0001",
+  "identity": {
+    "binary": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "8901575c8657411039f94e8b774bc82dde7d5398f51452a3d4eb6d9d3f2725cb",
+    "encounter_family": "start-7a1dcbe90f56c68d338eee539be313a8643b118f595474543b7b5814ad328262",
+    "seed": null,
+    "source": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+    "start_save": "9a05277fbb400aa736c2926fe3d4a2ee5b65e20a86d9e1db5e4d789e7fd7a653",
+    "turn": 10668
+  },
+  "independence_note": "Curated case; repeats, continuations, GUI intervention and backup branches are not an independent mortality cohort",
+  "investigation": null,
+  "issue": null,
+  "limits": {
+    "checkpoint_every": 1000,
+    "class": 2,
+    "flags": "menu,terminal-save,frames,key-limit=50000,save=origin.save,keep-load-rng",
+    "race": 1,
+    "seed": 1,
+    "turn_limit": 105002,
+    "wall_seconds": 60
+  },
+  "living_checkpoints": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 6000,
+      "file": "checkpoint-000001-t0000006133.save",
+      "game_turn": 6133,
+      "keys": 100,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 2,
+      "race_idx": 1,
+      "save_sha256": "f99bdebb658ac4356918047673d14f0ebe3fc84617cec3ec6f010038a5ec59cc",
+      "seed": 1,
+      "size_bytes": 57592
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 7000,
+      "file": "checkpoint-000002-t0000007656.save",
+      "game_turn": 7656,
+      "keys": 222,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 2,
+      "race_idx": 1,
+      "save_sha256": "eb22309230ba9771d86f0a234eb244cd8d9caba4ffe8c680a6f8b877931b6aa8",
+      "seed": 1,
+      "size_bytes": 50700
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 8000,
+      "file": "checkpoint-000003-t0000008006.save",
+      "game_turn": 8006,
+      "keys": 266,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 2,
+      "race_idx": 1,
+      "save_sha256": "59757f6410c434382ed1ccb9ac0a03fbf680487bb5219c9f893297eab013f98e",
+      "seed": 1,
+      "size_bytes": 56204
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 9000,
+      "file": "checkpoint-000004-t0000009008.save",
+      "game_turn": 9008,
+      "keys": 381,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 2,
+      "race_idx": 1,
+      "save_sha256": "6a18a30110c38246ef214dba5bc86f055d7914021991b331a3c90eb9b6af7c0f",
+      "seed": 1,
+      "size_bytes": 56708
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 10000,
+      "file": "checkpoint-000005-t0000010009.save",
+      "game_turn": 10009,
+      "keys": 499,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 2,
+      "race_idx": 1,
+      "save_sha256": "8c5505a20179c8a95fdd8024148d0c5831d6c39c32bb0ae173e0ed0bae3a6bc5",
+      "seed": 1,
+      "size_bytes": 55212
+    }
+  ],
+  "raw_cause": "a giant yellow centipede",
+  "recording": {
+    "frames_sha256": "a8eb4dc391c30ac3bb0fc184451ec4c99766f25385fe532d10242159bde4122d",
+    "manifest_sha256": "f73965f93473cd993ef7d292f64de666a87bf501f5ee348b7c048ae907a17af8",
+    "nearby_original_anchors": [
+      {
+        "frame_index": 596,
+        "json": "snapshots/recorded-anchor-t10660.json",
+        "offset_engine_turns": 8,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          5
+        ],
+        "text": "snapshots/recorded-anchor-t10660.txt",
+        "turn": 10660
+      },
+      {
+        "frame_index": 591,
+        "json": "snapshots/recorded-anchor-t10650.json",
+        "offset_engine_turns": 18,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          12
+        ],
+        "text": "snapshots/recorded-anchor-t10650.txt",
+        "turn": 10650
+      },
+      {
+        "frame_index": 586,
+        "json": "snapshots/recorded-anchor-t10640.json",
+        "offset_engine_turns": 28,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          25
+        ],
+        "text": "snapshots/recorded-anchor-t10640.txt",
+        "turn": 10640
+      },
+      {
+        "frame_index": 579,
+        "json": "snapshots/recorded-anchor-t10620.json",
+        "offset_engine_turns": 48,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          40
+        ],
+        "text": "snapshots/recorded-anchor-t10620.txt",
+        "turn": 10620
+      },
+      {
+        "frame_index": 577,
+        "json": "snapshots/recorded-anchor-t10600.json",
+        "offset_engine_turns": 68,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          60
+        ],
+        "text": "snapshots/recorded-anchor-t10600.txt",
+        "turn": 10600
+      },
+      {
+        "frame_index": 575,
+        "json": "snapshots/recorded-anchor-t10580.json",
+        "offset_engine_turns": 88,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          82
+        ],
+        "text": "snapshots/recorded-anchor-t10580.txt",
+        "turn": 10580
+      },
+      {
+        "frame_index": 573,
+        "json": "snapshots/recorded-anchor-t10560.json",
+        "offset_engine_turns": 108,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          105
+        ],
+        "text": "snapshots/recorded-anchor-t10560.txt",
+        "turn": 10560
+      }
+    ],
+    "qualification": "Original frames, not an assumed verified rerun or mid-run Borg-memory restore",
+    "raw_directory": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/after/profile/recordings/20261107T191325.208526Z-Dr",
+    "replay_command": "./replay-borg.py /home/diego/projects/borg-rs/harness/out/m5-review-followup/after/deaths/D0001-recorded --from-turn 10563",
+    "schema": "borg-rs-headless-recording@1",
+    "selected_original_frames": [],
+    "unavailable_offsets": [
+      {
+        "offset_engine_turns": 5,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10663
+      },
+      {
+        "offset_engine_turns": 12,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10656
+      },
+      {
+        "offset_engine_turns": 25,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10643
+      },
+      {
+        "offset_engine_turns": 40,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10628
+      },
+      {
+        "offset_engine_turns": 60,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10608
+      },
+      {
+        "offset_engine_turns": 82,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10586
+      },
+      {
+        "offset_engine_turns": 105,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10563
+      }
+    ]
+  },
+  "recording_schema": "borg-rs-headless-recording@1",
+  "run_kind": "save continuation; fresh Borg",
+  "schema": "borg-rs/death-record@1",
+  "terminal": {
+    "cause": "a giant yellow centipede",
+    "class_idx": 2,
+    "dead": true,
+    "depth": 1,
+    "level": 1,
+    "race_idx": 1,
+    "turn": 10668
+  }
+}

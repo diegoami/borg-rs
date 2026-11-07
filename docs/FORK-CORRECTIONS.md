@@ -142,3 +142,15 @@ loops and Rune-pattern stops observe engine glyphs only. Living-save skips
 dead characters while preserving real save errors; mandatory finalsave stays
 strict. These hooks do not change ordinary GUI behavior. Self-lunal strategy
 is diagnosed but not rewritten; the stock setting remains off.
+
+
+## Independent M5 qualification of recognition evidence
+
+The [M5 review](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6711741153)
+independently discriminates #295 through the native observer for known Rune/
+decoy and knowledge/trap controls. Of the six recognition scenarios, only the
+prelaid ring changes normal gameplay keys/messages/state/final-save bytes when
+#295 is reverted on the M5 source. The other five matching gameplay traces do
+not independently prove recognition; their discriminating evidence is the
+observer's map/tracking state and its verified noninterference. This clarifies
+the evidence channel without rewriting the original source-qualified receipts.

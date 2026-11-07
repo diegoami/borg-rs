@@ -1,0 +1,5 @@
+death: level1, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/m5-review-followup/fresh-druid/save/ReviewDruid
+Recording: /home/diego/projects/borg-rs/harness/out/m5-review-followup/fresh-druid/recordings/20261107T191106.221586Z-ReviewDruid
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/m5-review-followup/fresh-druid/recordings/20261107T191106.221586Z-ReviewDruid
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/m5-review-followup/fresh-druid-deaths/D0001-recorded (unassessed; replay/diagnosis pending)

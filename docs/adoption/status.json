@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "m5_review_pending",
+  "phase": "m5_followup_verification_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": null,
@@ -12,5 +12,13 @@
   "adopted_batches": [],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Independent M5 review and findings disposition; explicit owner acceptance, then select/pin an accepted C bug-fixing milestone"
+  "next_action": "Reviewer verification of the author follow-up, explicit owner acceptance, then tag/checkpoint decision and accepted C milestone selection",
+  "independent_review": {
+    "verdict": "qualified pass",
+    "acceptance_blockers": false,
+    "reviewed_source": "28468aa9fdc74cbb65d351349b973835d8c42af9",
+    "comment": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6711741153",
+    "author_disposition": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6711790956",
+    "author_fixes": "M1/L1/L2 and narrowed I1; separate follow-up source, reviewer verification pending"
+  }
 }

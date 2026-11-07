@@ -31,14 +31,20 @@ class CompatibleCli(unittest.TestCase):
         return subprocess.run([str(ROOT / 'replay-borg.py'), os.environ['BORG_DEATH_TEST_RECORDING'], *args], capture_output=True, text=True)
 
     def test_from_turn_and_old_turn_choose_identical_original_frame(self):
-        first = self.run_cli('--from-turn', '5596', '--view-only', '--dump')
-        old = self.run_cli('--turn', '5596', '--recording-only', '--dump')
-        dump = self.run_cli('--dump-turn', '5596', '--view-only')
+        import gzip
+        import json
+        with gzip.open(Path(os.environ['BORG_DEATH_TEST_RECORDING']) / 'frames.jsonl.gz', 'rt') as stream:
+            frames = [json.loads(line) for line in stream]
+        requested = frames[len(frames) // 2]['turn']
+        selected = [frame for frame in frames if frame['turn'] <= requested][-1]
+        first = self.run_cli('--from-turn', str(requested), '--view-only', '--dump')
+        old = self.run_cli('--turn', str(requested), '--recording-only', '--dump')
+        dump = self.run_cli('--dump-turn', str(requested), '--view-only')
         self.assertEqual(first.returncode, 0, first.stderr)
         self.assertEqual(first.stdout, old.stdout)
         self.assertEqual(first.stdout, dump.stdout)
         self.assertIn('NOT RERUN-VERIFIED', first.stdout)
-        self.assertIn('turn=5596', first.stdout)
+        self.assertIn(f"turn={selected['turn']} phase={selected['phase']}", first.stdout)
 
     def test_retained_output_is_real_verified_rerun_and_not_overwritten(self):
         with tempfile.TemporaryDirectory(prefix='borg-cli-control-') as temporary:
@@ -66,6 +72,34 @@ class CompatibleCli(unittest.TestCase):
             runtime.write(bundle / 'recording.json', record)
             with self.assertRaisesRegex(ValueError, 'native death log'):
                 runtime.verify(bundle)
+
+    def test_timestamp_shaped_body_changes_are_not_clock_exceptions(self):
+        import json
+        import shutil
+        from unittest.mock import patch
+        import borg_runtime as runtime
+        with tempfile.TemporaryDirectory(prefix='borg-native-date-control-') as temporary:
+            bundle = Path(temporary) / 'bundle'
+            shutil.copytree(os.environ['BORG_DEATH_TEST_RECORDING'], bundle)
+            log = bundle / 'run/archive/borg-log.txt'
+            lines = log.read_bytes().splitlines(keepends=True)
+            lines[1] = b'1999/01/01 00:00\n'
+            log.write_bytes(b''.join(lines))
+            record = json.loads((bundle / 'recording.json').read_text())
+            record['files_sha256']['run/archive/borg-log.txt'] = runtime.sha(log)
+            runtime.write(bundle / 'recording.json', record)
+            original_run = runtime.frozen_run
+            def altered_body(original, output, timeout=None):
+                result = original_run(original, output, timeout=timeout)
+                self.assertEqual(result.returncode, 0)
+                path = output / 'archive/borg-log.txt'
+                changed = path.read_bytes().splitlines(keepends=True)
+                changed[1] = b'2000/01/01 00:00\n'
+                path.write_bytes(b''.join(changed))
+                return result
+            with patch.object(runtime, 'frozen_run', side_effect=altered_body):
+                with self.assertRaisesRegex(ValueError, 'native death log body'):
+                    runtime.verify(bundle, timeout=30)
 
     def test_relative_bundle_path_replays_with_absolute_engine_path(self):
         import borg_runtime as runtime

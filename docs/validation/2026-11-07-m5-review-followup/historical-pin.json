@@ -1,0 +1,8 @@
+{
+  "source_commit": "c2b52d9d190c2238a9d18b4d97d37ab16f83f29c",
+  "ledger": "SOURCE_AT_C2B52D9.sha256",
+  "entries": 19,
+  "original_ledger": "docs/validation/2026-11-07-m4-review-followup/native/SHA256SUMS",
+  "original_ledger_sha256": "114d6cd0712be0e27620bdc4e32ed0f760327cbef00f9b13cf052c7df01305d6",
+  "semantics": "Hash git blobs at the pinned commit; do not compare against moving worktree paths"
+}

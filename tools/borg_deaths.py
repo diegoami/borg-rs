@@ -50,7 +50,18 @@ def registry_lock(root):
 
 
 def family(seed, race, cls, config, origin):
-    return 'start-' + fingerprint({'seed': seed, 'race': race, 'class': cls, 'config': config, 'origin': origin})
+    return 'start-' + fingerprint({'seed': None if origin is not None else seed, 'race': race, 'class': cls, 'config': config, 'origin': origin})
+
+
+def canonical_identity(record):
+    """Compare legacy continuation dossiers without rewriting their identity."""
+    identity = dict(record['identity'])
+    if record.get('recording_schema') == runtime.SCHEMA and identity.get('start_save') is not None:
+        terminal = record['terminal']
+        identity['seed'] = None
+        identity['encounter_family'] = family(None, terminal['race_idx'], terminal['class_idx'],
+                                               identity['config_sha256'], identity['start_save'])
+    return identity
 
 
 def describe(bundle):
@@ -70,8 +81,8 @@ def describe(bundle):
             raise ValueError('Cheat-enabled deaths are diagnostic, not natural death records')
         terminal = {'turn': summary['game_turns'], 'level': summary['clevel'], 'depth': summary['depth'],
                     'dead': True, 'cause': summary['death_cause'], 'race_idx': summary['race_idx'], 'class_idx': summary['class_idx']}
-        seed = summary['seed']
-        origin = raw.get('original_named_sha256') if raw.get('origin') else None
+        origin = raw.get('original_named_sha256') if raw.get('origin') is not None else None
+        seed = summary['seed'] if origin is None else None
         run_kind = raw.get('run_kind', 'unknown')
         context = family(seed, terminal['race_idx'], terminal['class_idx'], config_hash, origin)
         build = raw['build_id']
@@ -171,7 +182,7 @@ def write_dossier(bundle, output, case, issue=None, repeat=()):
         raise ValueError('Death id must be D followed by at least four digits')
     prior = read(output / 'record.json') if output.exists() else None
     if prior:
-        if prior['identity'] != description['identity'] or prior['id'] != case:
+        if canonical_identity(prior) != description['identity'] or prior['id'] != case:
             raise ValueError('Existing death identity is immutable; use a new dossier')
         for name, digest in prior.get('files_sha256', {}).items():
             path = (output / name).resolve()
@@ -194,7 +205,9 @@ def write_dossier(bundle, output, case, issue=None, repeat=()):
         attempts.append({'role': role, 'outcome': 'death', 'raw_directory': str(path),
                          'source_commit': desc['build'].get('git_rev', 'unknown'),
                          'binary_sha256': desc['build']['binary_sha256'],
-                         'result_sha256': runtime.sha(path / 'recording.json')})
+                         'result_sha256': runtime.sha(path / 'recording.json'),
+                         'requested_seed': desc['original'].get('profile', {}).get('seed'),
+                         'seed_role': 'recorded GUI inputs' if desc['recording_schema'] != runtime.SCHEMA else 'ignored on load; saved engine RNG' if desc['identity']['start_save'] is not None else 'birth input'})
     if prior:
         known = {attempt['result_sha256'] for attempt in prior['attempts']}
         for attempt in attempts:
@@ -260,7 +273,7 @@ def aggregate(root):
             raise ValueError('Unknown death record schema: ' + str(path))
         assessment = read(path.with_name('assessment.json'))
         records.append((path, record, assessment))
-        context = record['encounter_family']
+        context = canonical_identity(record)['encounter_family']
         if assessment.get('encounter_family_qualification', {}).get('status') == 'verified':
             context = assessment.get('encounter_family', context)
         causes[record['raw_cause']].add(context)
@@ -279,7 +292,9 @@ def aggregate(root):
     text += '| Case | Discussion | Actual source | Seed | Raw cause | Death turn | Diagnosis |\n| --- | --- | --- | --- | --- | --- | --- |\n'
     for path, record, assessment in records:
         discussion = f'[Discuss]({record["investigation"]})' if record.get('investigation') else 'unassigned'
-        text += f'| [{record["id"]}]({path.parent.name}/report.md) | {discussion} | `{record["identity"]["source"][:12]}` | {record["identity"].get("seed")} | {record["raw_cause"]} | {record["identity"]["turn"]} | {assessment["classification"]} |\n'
+        effective_seed = canonical_identity(record)['seed']
+        seed_label = effective_seed if effective_seed is not None else 'not used (saved RNG)' if record.get('recording_schema') == runtime.SCHEMA else 'recorded GUI inputs'
+        text += f'| [{record["id"]}]({path.parent.name}/report.md) | {discussion} | `{record["identity"]["source"][:12]}` | {seed_label} | {record["raw_cause"]} | {record["identity"]["turn"]} | {assessment["classification"]} |\n'
     text += '\n## Aggregated actions\n\n'
     for action in actions.values():
         link = f'[{action["summary"]}]({action["issue"]})' if action.get('issue') else action['summary']
@@ -305,7 +320,7 @@ def maybe_register(bundle, issue=None):
     with registry_lock(root):
         for path in root.glob('D*/record.json'):
             record = read(path)
-            if record['identity'] == description['identity']:
+            if canonical_identity(record) == description['identity']:
                 reference = record.get('recording')
                 if reference:
                     write_dossier(Path(reference['raw_directory']), path.parent, record['id'], issue=issue, repeat=[bundle])

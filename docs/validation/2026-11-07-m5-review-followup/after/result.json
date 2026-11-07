@@ -1,0 +1,29 @@
+{
+  "first": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/after/profile/recordings/20261107T191325.208526Z-Dr",
+  "second": "/home/diego/projects/borg-rs/harness/out/m5-review-followup/after/profile/recordings/20261107T191326.532939Z-Dr",
+  "same_origin": true,
+  "gameplay_equal": {
+    "keys.log": true,
+    "messages.log": true,
+    "state.log": true,
+    "frames.jsonl": true,
+    "final.save": true
+  },
+  "index": {
+    "actions": [],
+    "cases": 1,
+    "causes_by_distinct_start": {
+      "a giant yellow centipede": 1
+    },
+    "death_process_attempts": 2,
+    "distinct_starting_conditions": 1,
+    "limit": "Selected cases; repeats/reference variants and backup branches are not independent lives or a mortality-rate estimate",
+    "schema": "borg-rs/death-index@1",
+    "versions": {
+      "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588": 2
+    }
+  },
+  "refusal": "Requested race/class differs from the loaded character",
+  "refusal_preserved_save": true,
+  "refusal_preserved_backups": true
+}

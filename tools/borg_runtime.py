@@ -118,14 +118,24 @@ def frozen_run(bundle, output, timeout=None):
 def record_run(args):
     save = data_root() / 'save' / character_name(args.character)
     with character_lock(save):
-        if args.from_backup is not None:
-            saves.restore(save, args.from_backup)
         directory, binary, identity = build()
-        origin = inspect_save(save, directory, binary) if save.exists() and not args.new else None
-        if origin and origin['dead']:
-            raise ValueError('Character is dead; use --from-backup or --new')
-        if origin and ((args.race is not None and args.race != origin['race']) or (args.cls is not None and args.cls != origin['class'])):
-            raise ValueError('Requested race/class differs from the loaded character')
+        if args.from_backup is not None and args.from_backup not in range(1, 6):
+            raise ValueError('Backup slot must be 1 through 5')
+        candidate = save.parent / 'backups' / save.name / f'save.{args.from_backup}' if args.from_backup is not None else save
+        if args.from_backup is not None and not candidate.is_file():
+            raise ValueError('Backup does not exist: ' + str(candidate))
+        origin = None
+        with tempfile.TemporaryDirectory(prefix='borg-save-preflight-') as temporary:
+            snapshot = Path(temporary) / 'origin.save'
+            if candidate.exists() and not args.new:
+                shutil.copy2(candidate, snapshot)
+                origin = inspect_save(snapshot, directory, binary)
+                if origin['dead']:
+                    raise ValueError('Character is dead; use --from-backup or --new')
+                if (args.race is not None and args.race != origin['race']) or (args.cls is not None and args.cls != origin['class']):
+                    raise ValueError('Requested race/class differs from the loaded character')
+            if args.from_backup is not None:
+                saves.restore(save, args.from_backup, validated_source=snapshot)
         initial = saves.backup(save)
         if origin:
             origin = inspect_save(save.parent / 'backups' / save.name / 'save.1', directory, binary)
@@ -287,7 +297,7 @@ def verify(bundle, output=None, timeout=None):
             for number, (a, b) in enumerate(zip(left, right), 1):
                 if a == b:
                     continue
-                if not all(re.fullmatch(rb'[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}\n', value) for value in (a, b)):
+                if number != 1 or not all(re.fullmatch(rb'[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}\n', value) for value in (a, b)):
                     raise ValueError('Replay native death log body diverges')
                 native_clock_differences.append({'line': number, 'original': a.decode().strip(), 'rerun': b.decode().strip()})
         before, after = (json.loads((p / 'summary.json').read_text()) for p in (bundle / 'run', output_run_path))

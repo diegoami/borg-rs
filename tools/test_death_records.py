@@ -36,15 +36,19 @@ class DeathRecords(unittest.TestCase):
 
     def test_real_death_exports_native_identity_and_original_windows(self):
         record = self.capture()
-        self.assertEqual(record['raw_cause'], 'a giant yellow centipede')
-        self.assertEqual(record['identity']['turn'], 5600)
+        expected = json.loads((self.bundle / 'run/summary.json').read_text())
+        self.assertEqual(record['raw_cause'], expected['death_cause'])
+        death_turn = expected['game_turns']
+        self.assertEqual(record['identity']['turn'], death_turn)
         self.assertEqual(json.loads((self.output / 'assessment.json').read_text())['classification'], 'unassessed')
         for window in record['recording']['selected_original_frames']:
-            self.assertEqual(window['turn'], 5600 - window['offset_engine_turns'])
+            self.assertEqual(window['turn'], death_turn - window['offset_engine_turns'])
             self.assertTrue((self.output / window['text']).is_file())
-        self.assertTrue(record['recording']['unavailable_offsets'])
+        covered = {w['offset_engine_turns'] for w in record['recording']['selected_original_frames']}
+        covered.update(w['offset_engine_turns'] for w in record['recording']['unavailable_offsets'])
+        self.assertEqual(covered, set(deaths.OFFSETS))
         for anchor in record['recording']['nearby_original_anchors']:
-            self.assertEqual(anchor['offset_engine_turns'], 5600 - anchor['turn'])
+            self.assertEqual(anchor['offset_engine_turns'], death_turn - anchor['turn'])
             self.assertIn('not an exact', anchor['qualification'])
 
     def test_cap_cannot_be_exported_as_death(self):

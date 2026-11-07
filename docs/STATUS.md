@@ -4,7 +4,10 @@
 
 Owner approved preparing M5 at **28468aa9fdc74cbb65d351349b973835d8c42af9**
 and the subsequent tracking pivot. [Review#2](https://github.com/diegoami/borg-rs/issues/2)
-is open; independent review and owner acceptance are pending. The candidate
+is open; independent review is a qualified pass with no acceptance blockers
+at the frozen candidate. Author follow-up fixes for continuation counting,
+restore preflight and portable tests await reviewer verification; owner
+acceptance is pending. The candidate
 covers the post-M4 fixes and operational tooling below. M4 remains accepted.
 No M5 tag or first better-borg-c gameplay milestone is selected. See
 [M5 plan](M5-PLAN.md), [reviewer prompt](REVIEW-M5-PROMPT.md),

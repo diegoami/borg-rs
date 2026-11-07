@@ -51,11 +51,12 @@ def publish(save, final, original_digest):
             os.unlink(path)
 
 
-def restore(save, slot=1):
+def restore(save, slot=1, *, validated_source=None):
     if slot not in range(1, 6):
         raise ValueError('Backup slot must be 1 through 5')
     folder = save.parent / 'backups' / save.name
-    selected = folder / f'save.{slot}'
+    # Headless preflight supplies the exact frozen bytes it inspected.
+    selected = validated_source if validated_source is not None else folder / f'save.{slot}'
     if not selected.is_file():
         raise ValueError(f'Backup does not exist: {selected}')
     original = digest(save) if save.exists() else None

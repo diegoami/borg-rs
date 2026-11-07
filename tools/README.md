@@ -141,3 +141,32 @@ keeps source versions separate, and groups actions by canonical issue/key. This
 is a selected-case registry, not a mortality estimate. The four earlier cohort
 deaths keep their actual historical builds, twelve C/C/Rust attempts, original
 assessments and explicit absence of movies.
+
+
+## M5 review follow-up qualifications
+
+For a headless continuation, the requested --seed remains recorded provenance
+and the frozen replay still uses it to reproduce its summary. Gameplay resumes
+the saved engine RNG. Effective death identity/family therefore has seed null;
+different requested seeds on the same saved origin do not create another case
+or starting condition. Each actual run remains a separate process attempt with
+its requested seed recorded. Aggregation also derives this effective family
+for older continuation dossiers without rewriting their stored identity or
+artifacts. Fresh births still use seed as part of starting-condition identity.
+
+Headless --from-backup now builds and reads a private snapshot of the selected
+backup, validates living state and requested race/class, and only then restores
+those exact validated bytes and rotates backups. Rejected build/metadata/race/
+class/dead/corrupt requests leave the named save and backup set unchanged.
+
+The headless native death-log clock exception is restricted to **line 1** of
+borg-log.txt; later lines compare exactly even when both look like timestamps.
+The original first date is preserved/hashed and reported alongside the rerun
+value; that date is not authenticated by replay. GUI archives remain byte-exact.
+
+verification.json is a trusted local cache, not a signature or independent
+attestation. A matching cache may satisfy the default command without another
+game execution. Use --output NEW_DIRECTORY or --timeout SECONDS to force an
+actual frozen-origin rerun. The manifest/runtime hash checks still run before
+cache acceptance. Death/CLI controls derive expected cause/turn/frame from the
+supplied original bundle and can be rerun on a separately generated death.

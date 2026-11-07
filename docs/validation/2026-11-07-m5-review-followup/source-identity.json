@@ -1,0 +1,6 @@
+{
+  "base_commit": "a5107615813a1a0d11a4d093ff3e58cb929fe130",
+  "reviewed_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
+  "production_paths_changed": [],
+  "rust_inputs_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794"
+}
