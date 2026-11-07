@@ -1,10 +1,10 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "m5_owner_acceptance_pending",
+  "phase": "c_milestone_selection_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
-  "m5_accepted_source": null,
-  "m5_tag": null,
+  "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
+  "m5_tag": "m5",
   "historical_m4": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
   "post_m5_delivery_source": "https://github.com/diegoami/better-borg-c",
   "source_tracker_role": "historical/source provenance; no independent post-M5 Rust adoption queue",
@@ -12,7 +12,7 @@
   "adopted_batches": [],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Explicit owner acceptance and final tag/closure decision; then select an accepted better-borg-c milestone",
+  "next_action": "Select and pin an accepted better-borg-c milestone, reconcile the patch ledger and plan the first bounded C/Rust adoption batch",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -26,5 +26,13 @@
     "followup_status": "independently verified; no open findings",
     "open_findings": []
   },
-  "m5_verified_source": "020322749026418a666da3209c169f48ec9d608c"
+  "m5_verified_source": "020322749026418a666da3209c169f48ec9d608c",
+  "m5_tag_object": "f1cdf2167ef1f66fda15afc6aecbbffbb7553dc4",
+  "m5_review_closed": true,
+  "owner_acceptance": {
+    "instruction": "yes accepted, tag it",
+    "date": "2026-11-07",
+    "recorded_at": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628",
+    "tagging_delegated": true
+  }
 }

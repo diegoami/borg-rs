@@ -8,10 +8,10 @@ The comparison base is accepted M4 **3923a21e75dfb94053d4cc787d81c5baf638d62e**.
 Current status: [independent pass, no open findings](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550) for the frozen
 candidate plus tooling follow-up **020322749026418a666da3209c169f48ec9d608c**.
 The reviewer independently verified M1/L1/L2 fixes and I1/I2/I3/Q1 follow-ups.
-Owner acceptance and final tag/closure decisions remain pending. Later
+[Owner accepted and delegated tagging](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628) on2026-11-07. Annotated tag **m5** is pushed at the verified follow-up; review#2 is closed as completed. Later
 status/documentation commits do not change the verified source or inherit
 an independent verdict for new runtime behavior.
-No M5 tag or first better-borg-c gameplay milestone is declared yet.
+M5 is accepted/tagged. The first better-borg-c gameplay milestone remains unselected.
 
 M1-M4 remain historical accepted/recorded checkpoints. M4's qualified pass,
 closed review#1 and its D/E limits remain intact. This review assesses the
@@ -92,10 +92,10 @@ not visual recordings. No unassisted win or universal correctness is claimed.
 
 ## Cutover sequence
 
-1. Finish this focused independent review and dispositions; obtain explicit
-   owner acceptance of the actual M5 source. Do not infer it from silence.
-2. Record the owner's final tag/checkpoint decision without moving M4 or
-   changing historical references. No tag is created by this planning change.
+1. Completed: independent review/dispositions and explicit owner acceptance
+   of28468aa plus verified follow-up0203227.
+2. Completed: owner delegated tagging; m5 points to0203227 and review#2 is
+   closed. M4 and historical references remain unchanged.
 3. Follow [C-CONSUMER-ADOPTION.md](C-CONSUMER-ADOPTION.md): choose an accepted
    better-borg-c bug-fixing milestone and pin its exact source/engine/data/
    options/ABI and patch ledger. Leave the first target unselected until real
@@ -105,5 +105,5 @@ not visual recordings. No unassisted win or universal correctness is claimed.
    target-specific references. Existing neo links stay provenance; that
    tracker's queue no longer independently schedules Rust adoption.
 
-The cutover tracking record is adoption/status.json. It records a pending
-transition, not completed C adoption or a new gameplay implementation queue.
+The cutover tracking record is adoption/status.json. It records completed M5 acceptance and pending first-C-target selection,
+not completed C adoption or an automatic gameplay import.

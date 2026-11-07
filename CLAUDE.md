@@ -1,14 +1,18 @@
 # Rules for work on borg-rs
 
-Owner-approved current direction (2026-11-07): prepare the focused M5 review
-at 28468aa, then follow verified better-borg-c bug-fixing milestones. Read
-[docs/M5-PLAN.md](docs/M5-PLAN.md), [docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md)
-and [review#2](https://github.com/diegoami/borg-rs/issues/2) first. M5 has an independent pass with no open findings for28468aa plus0203227
-(review comment6712010550). Owner acceptance and final tag/closure are pending; no C target is selected and no new tag is created.
-After acceptance, exact accepted C milestone pins drive Rust adoption. Existing
-neo-angband-tracker links stay source/history provenance; its queue does not
-independently schedule post-M5 work. That adoption contract supersedes older
-routing/fidelity wording for the new lane; preserve old reports and references.
+Owner-approved current direction (2026-11-07): M5 is owner-accepted and
+annotated tag `m5` points to `0203227`, after independent pass with no open
+findings for candidate `28468aa` plus that follow-up. Review#2 is closed.
+Read [docs/M5-PLAN.md](docs/M5-PLAN.md),
+[docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md) and
+[review#2](https://github.com/diegoami/borg-rs/issues/2) first.
+
+The active next step is selecting the first accepted better-borg-c gameplay
+milestone; no target is selected yet. Exact accepted C milestone pins now
+drive Rust adoption. Existing neo-angband-tracker links stay source/history
+provenance; its queue does not independently schedule post-M5 work. The
+adoption contract supersedes older routing/fidelity wording for the new lane;
+preserve old reports and references.
 
 
 Owner update (2026-11-06): targeted C/Rust corrections for crashes and
@@ -25,8 +29,8 @@ Borg. Known C bugs are kept on purpose and listed in `docs/c-bugs.md`.
 The original lane filed every C bug as an issue in
 [diegoami/neo-angband-tracker](https://github.com/diegoami/neo-angband-tracker),
 following that repository's conventions, including code-reading leads.
-The rules below preserve existing report provenance. Current M5 work coordinates
-on issue#2; post-M5 findings/adoption follow C-CONSUMER-ADOPTION.md and the
+The rules below preserve existing report provenance. M5 review#2 is complete; post-M5 findings/adoption follow
+C-CONSUMER-ADOPTION.md and the
 C consumer's ownership/source links, rather than a second direct tracker queue.
 
 * **When:** after the module commit that adds the entry to `docs/c-bugs.md`

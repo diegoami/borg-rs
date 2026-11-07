@@ -4,7 +4,8 @@ Owner-approved direction, 2026-11-07: M5 freezes the completed port plus
 post-M4 corrections/tooling; subsequent Rust bug-fix work tracks the maintained
 C consumer's verified milestones. The current M5 candidate and review are in
 [M5-PLAN.md](M5-PLAN.md) and [review#2](https://github.com/diegoami/borg-rs/issues/2).
-Independent review/owner acceptance are pending. No first C target is selected.
+M5 has independent pass and [owner acceptance](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628); tag m5 points
+to `0203227` and review#2 is closed. No first C target is selected.
 This contract supersedes old direct neo-angband-tracker queue scheduling for
 the post-M5 lane; historical reports and their ownership remain preserved.
 

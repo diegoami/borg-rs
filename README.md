@@ -1,8 +1,8 @@
 # borg-rs
 
-Current checkpoint: [M5 independent pass](docs/M5-PLAN.md) for `28468aa` plus
-verified follow-up `0203227`, tracked in [issue#2](https://github.com/diegoami/borg-rs/issues/2).
-Owner acceptance/tagging remain pending. After acceptance, development follows [verified better-borg-c milestones](docs/C-CONSUMER-ADOPTION.md).
+Current checkpoint: owner-accepted [M5](docs/M5-PLAN.md), tag `m5` at
+`0203227`, with independent pass and [review#2 closed](https://github.com/diegoami/borg-rs/issues/2).
+Subsequent development follows [verified better-borg-c milestones](docs/C-CONSUMER-ADOPTION.md).
 M4 remains accepted; no new C gameplay baseline is selected yet.
 
 A faithful Rust port of the Angband Borg (`angband/src/borg/`). It is verified by

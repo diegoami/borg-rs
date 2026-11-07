@@ -1,18 +1,17 @@
 # borg-rs status
 
-## Current task: M5 review, then C-consumer milestone adoption
+## Current task: select the first accepted C-consumer milestone
 
 Owner approved preparing M5 at **28468aa9fdc74cbb65d351349b973835d8c42af9**
 and the subsequent tracking pivot. [Review#2](https://github.com/diegoami/borg-rs/issues/2)
-is open; the [independent follow-up](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550) records **pass with no open findings**
-for candidate28468aa plus tooling source0203227. All three findings are verified
-fixed and informational qualifications verified. Owner acceptance and final
-M5 tag/closure decisions are pending. M4 remains accepted.
-No M5 tag or first better-borg-c gameplay milestone is selected. See
+is closed as completed. The [independent follow-up](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550) records pass with no open findings for candidate28468aa plus source0203227.
+[Owner acceptance](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628) is explicit; annotated tag **m5** is pushed at **020322749026418a666da3209c169f48ec9d608c**.
+M4 remains accepted and unchanged. The first better-borg-c gameplay milestone
+is not selected. See
 [M5 plan](M5-PLAN.md), [reviewer prompt](REVIEW-M5-PROMPT.md),
 [adoption contract](C-CONSUMER-ADOPTION.md) and [tracking state](adoption/status.json).
 
-After M5 acceptance, Rust adopts exact accepted better-borg-c bug-fixing
+M5 acceptance activates the lane: Rust adopts exact accepted better-borg-c bug-fixing
 milestones with a patch inventory, linked local issues, controlled evidence,
 C twice/Rust parity and distinct references. neo-angband-tracker remains source/
 historical provenance and stops independently scheduling Rust adoption.
@@ -172,7 +171,7 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 
 | milestone | state |
 |-----------|-------|
-| M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; D/E limits explicit; follow-up verification pending in #1 |
+| M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; D/E limits explicit; owner accepted and #1 closed |
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |

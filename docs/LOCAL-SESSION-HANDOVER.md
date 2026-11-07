@@ -2,20 +2,21 @@
 
 ## Current owner-approved direction
 
-Prepare focused M5 review at **28468aa9fdc74cbb65d351349b973835d8c42af9**, then
-follow verified better-borg-c bug-fixing milestones. Review#2 is open:
-https://github.com/diegoami/borg-rs/issues/2. Read M5-PLAN.md,
-REVIEW-M5-PROMPT.md, C-CONSUMER-ADOPTION.md and adoption/status.json before
-continuing. M5 independent follow-up6712010550 records PASS, no open findings,
-for28468aa plus020322749026418a666da3209c169f48ec9d608c. M1/L1/L2 are verified
-fixed; I1 narrowed and I2/I3/Q1 verified. Owner acceptance and final tag/closure
-are pending. No new tag,
-first C gameplay target or adoption batch is selected. The author handoff and
-reviewer start/progress/verdict/dispositions belong on #2; no absent reviewer
-comment is approval. No independent review is fabricated by the author.
-M4 remains accepted and #1 closed. Preserve all earlier review worktrees.
+M5 is owner-accepted and tagged **m5** at **020322749026418a666da3209c169f48ec9d608c**.
+Original candidate28468aa plus follow-up0203227 received independent PASS,
+no open findings (comment6712010550). The owner said “yes accepted, tag it”;
+acceptance is recorded athttps://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628.
+Annotated tag objectf1cdf2167ef1f66fda15afc6aecbbffbb7553dc4 is pushed/verified; review#2 is closed as completed.
+M4 remains accepted/unchanged. Preserve earlier reviewer worktrees/evidence.
 
-After acceptance, exact accepted better-borg-c milestones schedule Rust work;
+Read M5-PLAN.md, C-CONSUMER-ADOPTION.md and adoption/status.json before
+continuing. The active next step is selection/pinning of an accepted
+better-borg-c bug-fixing milestone. No C gameplay target or adoption batch
+is selected yet; do not substitute a moving head or tooling pin. Author/
+reviewer evidence and dispositions remain on closed review#2. A later
+runtime change needs its own source-qualified validation, not inherited signoff.
+
+Exact accepted better-borg-c milestones now schedule Rust work;
 neo links remain historical/source provenance and not a parallel Rust queue.
 Reconcile local corrections against the C patch ledger, qualify engine/data/
 ABI/config, run controlled cases and C twice/Rust comparisons, and retain

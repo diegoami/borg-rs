@@ -1,0 +1,14 @@
+{
+  "schema": "borg-rs/milestone-acceptance@1",
+  "milestone": "m5",
+  "accepted_source": "020322749026418a666da3209c169f48ec9d608c",
+  "tag_object": "f1cdf2167ef1f66fda15afc6aecbbffbb7553dc4",
+  "owner_instruction": "yes accepted, tag it",
+  "acceptance_comment": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628",
+  "independent_review": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550",
+  "review_state": "closed",
+  "review_state_reason": "completed",
+  "m4_unchanged": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
+  "first_c_target": null,
+  "scope": "owner-accepted/tagged checkpoint; no new gameplay validation or C adoption"
+}

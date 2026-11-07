@@ -1,14 +1,15 @@
 # Guide for reviewers
 
-Current request: **focused M5 cutover review**, coordinated on
+Completed request: **focused M5 cutover review**, coordinated on
 [borg-rs#2](https://github.com/diegoami/borg-rs/issues/2), at frozen source
 **28468aa9fdc74cbb65d351349b973835d8c42af9**. Read [M5-PLAN](M5-PLAN.md),
 [reviewer prompt](REVIEW-M5-PROMPT.md) and [C consumer adoption contract](C-CONSUMER-ADOPTION.md).
 The later documentation explains current owner policy without changing the
 reviewed source. [Independent M5 follow-up](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712010550) is **pass, no open findings**
-for28468aa plus0203227. Owner acceptance and final M5 tag/closure decisions
-remain pending. No M5
-tag or first accepted C milestone has been selected. Both author and reviewer
+for `28468aa` plus `0203227`. Owner accepted and delegated tagging:
+**m5** points to `0203227`
+and review#2 is closed ([acceptance](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628)).
+The first accepted C milestone remains unselected. Both author and reviewer
 post handoff/progress/findings/dispositions on issue#2. Preserve owner data,
 source/references and previous review evidence; use isolated builds/displays.
 
@@ -77,7 +78,7 @@ The earlier external review and response remain historical evidence
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
 | M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
 | M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; owner accepted, #1 closed | 139 engine executions; persistent native checks; linked receipts above |
-| M5 post-M4 fixes/tooling and C-consumer cutover | independent pass at `28468aa` + `0203227`; owner acceptance pending in #2 | M5-PLAN.md; later validation receipts and reviewer prompt |
+| M5 post-M4 fixes/tooling and C-consumer cutover | owner-accepted independent pass; `m5` = `0203227`; #2 closed | M5-PLAN.md; later validation receipts and reviewer prompt |
 
 The owner-authorized main integration includes the former work-branch tip
 `40194d8`; `claude/serene-ramanujan-8hzsfm` is historical. Continue from main.
