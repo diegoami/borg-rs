@@ -56,6 +56,10 @@ session. Resume only when requested; no automatic task or tag creation.
 3. Investigate self-lunal stair cycling. Current evidence establishes entry
    and first descent; failed longer clock-bound pilots remain excluded.
 4. Run bounded normal games with cheat death off and analyze natural deaths.
+5. Review the game-start scripts too (owner's additional next-session topic).
+   Current Rust commands are in README; the local native C reference and its
+   save workflow are recorded in LOCAL-SESSION-HANDOVER. Further desired
+   script changes were not specified; preserve existing characters.
 
 These are next-stage tasks, not additional evidence claimed for the completed
 bounded M4 corpus. Continue to apply the owner's correction policy, preserve

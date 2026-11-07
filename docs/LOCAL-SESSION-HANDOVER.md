@@ -113,6 +113,16 @@ image for re-exporting these exact profiles; fresh source can recollect them.
 
 ## Owner-requested interactive launcher
 
+Rust launch commands and save/settings locations are in the project README.
+The local native C reference launcher is
+`/home/diego/projects/angband/better-borg-c/start-borg.sh [CHARACTER]`:
+it prompts when the name is omitted (default BorgPlay), stores saves under
+that project's `build/native/game/lib/save/CHARACTER`, and supports five rolling
+backups, save locks and `--from-backup[=SLOT]`. Both scripts exist and are
+executable. They use separate build/data directories. The owner also added
+game-start scripts to the next-session agenda; further requested changes were
+not specified, so clarify those when resuming and preserve existing saves.
+
 `./run-rust-borg.sh` builds ordinary X11/Rust in `build/play-rust` with harness
 hooks off and verifies the binary's Rust identity. Main font is the C launcher's
 28-pixel Courier (BORG_PLAY_FONT override); explicit one-window layout verified
