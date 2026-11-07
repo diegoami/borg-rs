@@ -113,6 +113,7 @@ pub struct BorgState {
     lunal_trace: Vec<[i32; 5]>,
     glyph: glyph::GlyphState,
     glyph_flags: i32,
+    glyph_scenario: i32,
     glyph_trace: Vec<[i32; 4]>,
     item_val: ItemValues,
     act: Activations,
@@ -341,6 +342,7 @@ fn load(packet: &[u8]) -> (BorgState, [i32; 32], Vec<(i32, i32)>) {
         lunal_trace: vec![],
         glyph: glyph::GlyphState::default(),
         glyph_flags: f[29] & 15,
+        glyph_scenario: f[28],
         glyph_trace: vec![],
         item_val: ItemValues {
             sv_scroll_rune_of_protection: 77,
@@ -828,6 +830,26 @@ fn glyph_callback(st: &mut BorgState, kind: i32, a: i32, b: i32) -> bool {
     st.glyph_trace.push([kind, a, b, result as i32]);
     result
 }
+mod glyph_environment {
+    use super::*;
+    pub fn borg_flow_reverse(
+        st: &mut BorgState,
+        depth: i32,
+        optimize: bool,
+        avoid: bool,
+        tunneling: bool,
+        stair_idx: i32,
+        sneak: bool,
+    ) {
+        directions::borg_flow_reverse(st, depth, optimize, avoid, tunneling, stair_idx, sneak);
+        // Ranking-only adapter: #345 otherwise leaves only the origin reachable.
+        // Keep real reverse flow in all other cases; do not alter its algorithm.
+        if (19..=22).contains(&st.glyph_scenario) {
+            st.flow.data_cost[33][99] = 1;
+            st.flow.data_cost[33][101] = if st.glyph_scenario >= 21 { 2 } else { 1 };
+        }
+    }
+}
 mod borg_io {
     use super::*;
     pub fn borg_note(st: &mut BorgState, s: &str) {
@@ -854,7 +876,12 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
     let (px, py) = (f[0], f[1]);
     let scenario = f[28];
     st.glyph.needs_new_sea = matches!(scenario, 0 | 2 | 5 | 6 | 7 | 11 | 12 | 13 | 15);
-    if scenario <= 1 || scenario == 6 || scenario == 7 || scenario == 13 {
+    if scenario <= 1
+        || scenario == 6
+        || scenario == 7
+        || scenario == 13
+        || (16..=18).contains(&scenario)
+    {
         st.glyph.glyph_x = px as u8;
         st.glyph.glyph_y = py as u8;
     }
@@ -890,6 +917,20 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
         st.glyph.center_y = 10;
         st.glyph.needs_new_sea = false;
     }
+    if (16..=18).contains(&scenario) {
+        st.glyph.center_x = (px - (49 + scenario - 16)) as u8;
+        st.glyph.center_y = py as u8;
+        st.glyph.track.x[0] = i32::from(st.glyph.center_x);
+        st.glyph.track.y[0] = py;
+        st.glyph.track.num = 1;
+    }
+    if scenario == 20 || scenario == 22 {
+        st.glyph.center_x = px as u8;
+        st.glyph.center_y = py as u8;
+        st.glyph.track.x[0] = px;
+        st.glyph.track.y[0] = py;
+        st.glyph.track.num = 1;
+    }
     let mut out = vec![];
     for n in bindings() {
         put32(&mut out, n as i32);
@@ -897,7 +938,11 @@ fn glyph_result(packet: &[u8]) -> Vec<u8> {
     put32(&mut out, glyph::borg_flow_glyph(&mut st) as i32);
     serialize(st, out)
 }
+const GLYPH_SCENARIOS: usize = 23;
 fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
+    glyph_packet_for(rng, i, i % GLYPH_SCENARIOS)
+}
+fn glyph_packet_for(rng: &mut Rng, i: usize, scenario: usize) -> Vec<u8> {
     let mut b = packet(rng, i);
     let mut f: [i32; 32] =
         std::array::from_fn(|k| i32::from_le_bytes(b[k * 4..k * 4 + 4].try_into().unwrap()));
@@ -914,9 +959,9 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
     f[20] = 33;
     f[24] = 100;
     f[25] = 33;
-    f[28] = (i % 16) as i32;
+    f[28] = scenario as i32;
     f[30] = 2;
-    f[29] = match i % 16 {
+    f[29] = match scenario {
         0 => 9,
         1 => 10,
         2 => 8,
@@ -924,6 +969,8 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
         4 => 8,
         6 => 9,
         7 => 12,
+        16..=18 => 9,
+        19..=22 => 8,
         8 | 9 | 10 | 11 | 14 | 15 => 8,
         _ => 0,
     };
@@ -938,23 +985,21 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
             let room = (85..=115).contains(&x) && (20..=46).contains(&y);
             b[at] = if border {
                 22
-            } else if room && i % 16 != 5 {
+            } else if room && scenario != 5 {
                 1
             } else {
                 21
             };
             b[at + 3] = 0;
             b[at + 4] =
-                ((i % 16 == 1 || i % 16 == 3 || i % 16 == 4 || i % 16 == 10 || i % 16 == 11)
-                    && x == 100
-                    && y == 33) as u8;
-            if (i % 16 == 4 || i % 16 == 12) && ((x - 100).abs() <= 2 && (y - 33).abs() <= 2) {
+                ((matches!(scenario, 1 | 3 | 4 | 10 | 11 | 19..=22)) && x == 100 && y == 33) as u8;
+            if (scenario == 4 || scenario == 12) && ((x - 100).abs() <= 2 && (y - 33).abs() <= 2) {
                 b[at + 4] = 1;
             }
-            if (i % 16 == 9 || i % 16 == 10) && x == 99 && y == 33 {
+            if (scenario == 9 || scenario == 10) && x == 99 && y == 33 {
                 b[at + 4] = 1;
             }
-            if i % 16 == 14 {
+            if scenario == 14 {
                 if x == 105 {
                     b[at] = 21;
                 }
@@ -962,7 +1007,7 @@ fn glyph_packet(rng: &mut Rng, i: usize) -> Vec<u8> {
                     b[at + 4] = 1;
                 }
             }
-            if i % 16 == 15 && x == 50 && y == 15 {
+            if scenario == 15 && x == 50 && y == 15 {
                 b[at + 4] = 1;
             }
             b[at + 8] = 0;
@@ -1103,7 +1148,7 @@ fn lunal_result(packet: &[u8]) -> Vec<u8> {
     serialize(st, out)
 }
 fn lunal_packet(r: &mut Rng, i: usize) -> Vec<u8> {
-    let mut b = glyph_packet(r, i);
+    let mut b = glyph_packet_for(r, i, i % 16);
     let mut p = [20, 99, 0, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 1, 1, 2, 3, 0, 0];
     let scenario = i % 40;
     match scenario {
@@ -1483,7 +1528,7 @@ unsafe extern "C" {
     fn glyph_snapshot(input: *const u8, len: usize, out: *mut u8, capacity: usize) -> usize;
     fn spatial_snapshot(input: *const u8, len: usize, out: *mut u8, capacity: usize) -> usize;
 }
-fn glyph_track_count(bytes: &[u8]) -> i32 {
+fn glyph_state_offset(bytes: &[u8]) -> usize {
     let read = |at: usize| i32::from_le_bytes(bytes[at..at + 4].try_into().unwrap());
     let mut at = bindings().len() * 4 + 4 + 4 * 4;
     for _ in 0..2 {
@@ -1492,7 +1537,7 @@ fn glyph_track_count(bytes: &[u8]) -> i32 {
     }
     let callbacks = read(at) as usize;
     at += 4 + callbacks * 5 * 4;
-    read(at + 5 * 4)
+    at
 }
 fn main() {
     let args: Vec<_> = std::env::args().collect();
@@ -1539,14 +1584,39 @@ fn main() {
             }
         };
         let native = &output[..n];
-        if glyph_mode && i < 16 {
+        if glyph_mode && i < GLYPH_SCENARIOS {
             let at = bindings().len() * 4;
             let result = i32::from_le_bytes(native[at..at + 4].try_into().unwrap());
+            let offset = glyph_state_offset(native);
+            let field = |n: usize| {
+                i32::from_le_bytes(
+                    native[offset + n * 4..offset + n * 4 + 4]
+                        .try_into()
+                        .unwrap(),
+                )
+            };
+            let scenario = i % GLYPH_SCENARIOS;
+            if (16..=18).contains(&scenario) {
+                assert_eq!(
+                    field(3),
+                    if scenario == 16 { 51 } else { 100 },
+                    "native distance boundary"
+                );
+            }
+            if (19..=22).contains(&scenario) {
+                assert_eq!(
+                    field(1),
+                    if scenario >= 21 { 99 } else { 101 },
+                    "native rank/tie choice"
+                );
+            }
             println!(
-                "glyph scenario={} native_result={} tracked={}",
-                i % 16,
+                "glyph scenario={} native_result={} tracked={} target_x={} center_x={}",
+                scenario,
                 result,
-                glyph_track_count(native)
+                field(5),
+                field(1),
+                field(3)
             );
         }
         if native != rust {
@@ -1566,7 +1636,8 @@ fn main() {
     if lunal_mode {
         println!("PASS {count} native C/Rust lunal thinker states: exits, recovery gates, stair tracking/choice, flags, callbacks, notes and keys");
     } else if glyph_mode {
-        println!("PASS {count} native C/Rust glyph-builder states: pattern/flow decisions, creation/duplicate/capacity bookkeeping, callbacks and complete private maps/queues");
+        let scenarios = count.min(GLYPH_SCENARIOS);
+        println!("PASS {count} native C/Rust glyph-builder executions over {scenarios}/{GLYPH_SCENARIOS} hand-built scenarios: distance boundaries, controlled ranking ties, pattern/flow/creation/capacity, callbacks and complete declared maps/queues");
     } else {
         println!("PASS {count} native C/Rust spatial states seed={seed}: projection/motion/directions, physical melee damage and combat scores/goals, complete staged map/flow/queue state, callbacks, notes and keys");
     }

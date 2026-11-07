@@ -17,6 +17,7 @@ OUT=$(realpath -m "$3")
 [ -f "$WORKTREE/build/rust/BUILD_ID" ] || { echo "missing coverage build" >&2; exit 2; }
 mkdir -p "$OUT/profiles"
 cp "$WORKTREE/build/rust/BUILD_ID" "$OUT/BUILD_ID"
+printf '%s\n' "$REFERENCES" > "$OUT/REFERENCE_ROOT"
 cd "$WORKTREE"
 ALL_SUITES='smoke full deep classes config options captured-rogue crash-fixes extended natural synthetic-tactics'
 SELECTED_SUITES=${COVERAGE_SUITES:-$ALL_SUITES}

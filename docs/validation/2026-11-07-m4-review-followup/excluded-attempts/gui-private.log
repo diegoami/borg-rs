@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/diego/projects/borg-rs/harness/regress/launcher-save/run.py", line 123, in <module>
+    main()
+    ~~~~^^
+  File "/home/diego/projects/borg-rs/harness/regress/launcher-save/run.py", line 100, in main
+    assert display.isdigit(), 'private X server failed to start'
+           ~~~~~~~~~~~~~~~^^
+AssertionError: private X server failed to start

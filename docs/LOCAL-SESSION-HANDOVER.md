@@ -12,8 +12,17 @@ Current owner request: **independent M4 review only**, in
 [borg-rs#1](https://github.com/diegoami/borg-rs/issues/1). The implementation
 handoff comment6706484036 is posted/read back. The reviewer must post a
 start comment, progress/questions, findings and an A-F verdict there; the
-implementation agent must respond to findings in the same issue. Independent
-review is pending. M1-M3 are background only, and post-M4 #295 is excluded.
+implementation agent must respond to findings in the same issue. The final
+independent verdict is qualified pass, no acceptance blockers (comment6707067352).
+The author agrees with all five findings (comment6707181455). Tested post-review
+tooling/doc follow-ups are recorded in validation/2026-11-07-m4-review-followup:
+23 native glyph scenarios ×100 variants with ten fault controls and C UBSan;
+strict compressed extra logs; fresh coverage diff against fingerprinted C
+oracles; historical endgame mismatch documentation; maintained GUI driver
+with four race controls and five successful isolated roundtrips at M4.
+Independent follow-up verification remains pending. Both reviewer worktrees
+must be preserved for that work; no cleanup is authorized before follow-up.
+M1-M3 are background only, and post-M4 #295 is excluded.
 Read the live issue before further review work; do not auto-start the
 remaining tactical queue while the current request is M4 review.
 
@@ -168,7 +177,8 @@ the owner's save is never used in that test or committed.
 
 The owner explicitly resumed the agreed sequence in docs/M4-PLAN.md.
 Main integration, the M4 author audit and the delegated tag are complete.
-Independent M4 review is pending in issue#1 and is the current owner focus.
+Independent M4 review is qualified pass; follow-up verification in issue#1
+is the current focus. Do not self-upgrade the verdict or close the issue.
 Recognition #295 is complete and checkpointed; the later queue is reverse-flow #345
 and actual autonomous rune construction, followed by
 self-lunal cycling and bounded normal games with cheat death off.

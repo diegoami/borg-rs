@@ -1,6 +1,7 @@
 """Strict validation shared by coverage reporting and independent-group joins."""
 import hashlib
 import json
+import subprocess
 from pathlib import Path
 
 ALL_SUITES = ('smoke', 'full', 'deep', 'classes', 'config', 'options',
@@ -17,7 +18,26 @@ def values(path):
                 if '=' in line)
 
 
-def validate_group(matrix, suite, build_id):
+def reference_root(matrix, explicit=None):
+    if explicit is not None:
+        return explicit.resolve()
+    recorded = matrix / 'REFERENCE_ROOT'
+    return (Path(recorded.read_text().strip()) if recorded.exists()
+            else ROOT / 'harness/reference').resolve()
+
+
+def tree_hash(directory):
+    """Bind the exact selected oracle bytes, including compressed streams."""
+    digest = hashlib.sha256()
+    assert directory.is_dir(), ('missing reference', directory)
+    for path in sorted(directory.rglob('*')):
+        if path.is_file():
+            digest.update(str(path.relative_to(directory)).encode() + b'\0')
+            digest.update(bytes.fromhex(sha256(path)))
+    return digest.hexdigest()
+
+
+def validate_group(matrix, suite, build_id, references=None, oracles=None):
     assert suite in ALL_SUITES, suite
     directory = matrix / suite
     profile_directory = directory.resolve().parent / 'profiles' / suite
@@ -36,11 +56,6 @@ def validate_group(matrix, suite, build_id):
     entries = json.loads((directory / 'profiles.json').read_text())
     assert len(names) == len(set(names)) and set(entries) == set(names), suite
     assert {p.name for p in directory.iterdir() if p.is_dir()} == set(names), suite
-    diff = (matrix / (suite + '.diff')).read_text()
-    for text in (f'{len(entries)}/{len(entries)} runs identical',
-                 f'messages.log compared in {len(entries)} run(s)',
-                 f'state.log compared in {len(entries)} run(s)'):
-        assert text in diff, (suite, text)
     profiles = []
     for name, item in entries.items():
         process = json.loads((directory / name / 'process.json').read_text())
@@ -56,4 +71,30 @@ def validate_group(matrix, suite, build_id):
         profiles.append(profile)
     assert len(set(profiles)) == len(names), suite
     assert {p.resolve() for p in profile_directory.glob('*.profraw')} == {p.resolve() for p in profiles}, (suite, 'unexpected or missing process profile')
+    # Saved PASS text does not establish parity. Recompare the actual streams
+    # against the explicitly selected oracle on every join/report validation.
+    reference = reference_root(matrix, references) / suite
+    before = tree_hash(reference)
+    tool = ROOT / 'harness/diff'
+    tool_hash = sha256(tool)
+    saves = ROOT / 'harness/saves'
+    if suite == 'natural':
+        saves /= 'captured-extended'
+    elif suite == 'synthetic-tactics':
+        saves /= 'synthetic-tactics'
+    argv = [str(tool), '--suite', str(recipe), '--save-root', str(saves),
+            '--expect-impl', 'rust', str(directory.resolve()), str(reference)]
+    result = subprocess.run(argv, capture_output=True, text=True)
+    assert result.returncode == 0, (suite, 'oracle comparison failed', result.stdout, result.stderr)
+    assert tree_hash(reference) == before, (suite, 'reference changed during comparison')
+    assert sha256(tool) == tool_hash, 'diff tool changed during comparison'
+    for text in (f'{len(entries)}/{len(entries)} runs identical',
+                 f'messages.log compared in {len(entries)} run(s)',
+                 f'state.log compared in {len(entries)} run(s)'):
+        assert text in result.stdout, (suite, text)
+    assert 'NOTE:' not in result.stdout, (suite, 'skipped oracle streams')
+    if oracles is not None:
+        oracles[suite] = {'reference': str(reference), 'reference_sha256': before,
+                         'diff_tool_sha256': tool_hash, 'argv': argv,
+                         'exit_code': result.returncode, 'stdout': result.stdout}
     return profiles

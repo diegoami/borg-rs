@@ -7,13 +7,14 @@ import lzma
 from pathlib import Path
 import subprocess
 
-from validate import ALL_SUITES, validate_group
+from validate import ALL_SUITES, reference_root, validate_group
 
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('matrix', type=Path)
 p.add_argument('output', type=Path)
 p.add_argument('--llvm-bin', type=Path, required=True)
 p.add_argument('--suites', nargs='+', help='Explicit pilot subset; otherwise require the full matrix DONE')
+p.add_argument('--reference-root', type=Path, help='C oracle root; defaults to the recorded root or harness/reference')
 a = p.parse_args()
 suites = a.suites or ALL_SUITES
 assert len(suites) == len(set(suites)), "duplicate suite"
@@ -23,13 +24,16 @@ assert not a.output.exists(), 'refusing existing report output'
 bid = dict(line.split('=', 1) for line in (a.matrix/'BUILD_ID').read_text().splitlines())
 image = Path(bid['binary'])
 assert hashlib.sha256(image.read_bytes()).hexdigest() == bid['binary_sha256']
-profiles, count = [], 0
+references = reference_root(a.matrix, a.reference_root)
+profiles, count, oracles = [], 0, {}
 for suite in suites:
-    group_profiles = validate_group(a.matrix, suite, bid)
+    group_profiles = validate_group(a.matrix, suite, bid, references, oracles)
     profiles.extend(str(f) for f in group_profiles)
     count += len(group_profiles)
 assert len(set(profiles)) == len(profiles), 'profile reused across groups'
 a.output.mkdir(parents=True)
+(a.output/'ORACLES.json').write_text(json.dumps(oracles, indent=2, sort_keys=True)+'\n')
+(a.output/'REFERENCE_ROOT').write_text(str(references)+'\n')
 profdata = a.output/'coverage.profdata'
 subprocess.run([str(a.llvm_bin/'llvm-profdata'),'merge','-sparse',*profiles,'-o',str(profdata)],check=True)
 raw = subprocess.check_output([str(a.llvm_bin/'llvm-cov'),'export','-instr-profile='+str(profdata),str(image)])

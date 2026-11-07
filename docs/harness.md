@@ -16,6 +16,16 @@ frontend accepts `-load FILE` (omit `-n`), checks the living character's
 race/class, and reseeds at the pre-Borg boundary. `loaded_turn` in the
 summary is the initial engine turn; `-turns` is an absolute limit.
 
+The original `harness/reference/endgame` is a historical pre-#287 oracle.
+With the corrected M4 build, suite endgame against that original reference
+is expected to report **4/5 identical and exit1**: end-depth98's messages
+contain the corrected offscreen-monster note rather than the old stray
+`# PAIN:) (+)` parse. Keys and player state still match all five cases.
+Use suite `crash-fixes` with `harness/reference/crash-fixes` for the corrected
+checkpoint (those five cases plus Rogue4006), or compare two corrected C
+endgame passes and Rust directly. Do not rewrite the original reference.
+Suite recipe bytes also stay unchanged to preserve existing receipt hashes.
+
 `-save-on-stop FILE` can capture a living engine state, including from a
 natural run. `-make-fixture DEPTH` plus `-save-on-stop FILE` creates a
 wizard-equipped level-50 character and an engine-generated level without
@@ -237,13 +247,11 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   from `wall_seconds`, and that the message logs and the state logs
   (`messages.log[.xz]`, `state.log[.xz]`) are byte-identical; a state log
   must also have `summary.keys` lines, line i at the game turn of key i.
-  A log present on one side only fails the run, unless the side without
-  it is a stored dir (no plain `keys.log`: a reference or a compressed
-  output) made before these logs existed; then that log is not compared,
-  and the diff prints how many runs it compared each log in and how many
-  it skipped. So a reference with these logs requires them on the output
-  side, and an output without them (made before them) passes only
-  against a reference without them. A message or state divergence is
+  Missing message/state logs fail directory comparisons, including compressed
+  outputs and both operands missing a log. `--allow-legacy-logs` explicitly
+  permits a historical reference without modern build identity to omit them;
+  it never excuses a suite output's missing logs. Skips are printed as NOTE
+  and are not full three-log validation. A message or state divergence is
   printed like a key divergence: run, seed, line, game turn, key index
   and 20 lines of context. It refuses a suite output dir without `DONE`
   (`--allow-incomplete` turns that into a warning; reference dirs hold only
@@ -513,3 +521,14 @@ case consumes a real Rune scroll and adds an engine glyph; supply9 controls
 have zero builder entries. A prelaid24-glyph case exposes existing#295's
 recognition predicate. These are wizard states and bounded actions, not an
 unassisted win or completed full rune tactic. See harness/scenarios/README.md.
+
+## Maintained GUI save/reload validation
+
+The archived M4 save-roundtrip.py preserves the original test, including its
+window-exit timing race. New runs use harness/regress/launcher-save/run.py
+with a required isolated --project-root and a private Xvfb display. The new
+driver confirms game exit0 before tolerating BadWindow, then checks save
+replacement, level50 and both exact archived save hashes. Four deterministic
+race controls and five complete real roundtrips pass; see
+[the driver README](../harness/regress/launcher-save/README.md) and
+[review follow-up](validation/2026-11-07-m4-review-followup/README.md).

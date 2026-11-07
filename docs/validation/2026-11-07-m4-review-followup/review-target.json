@@ -1,0 +1,15 @@
+{
+  "reviewed_sha": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
+  "review": "https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707067352",
+  "dispositions": "https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707181455",
+  "verdict": "qualified pass; no acceptance blockers",
+  "native_scenarios": 23,
+  "native_glyph_executions": 2300,
+  "native_fault_controls": 10,
+  "coverage_groups_rediffed": 11,
+  "coverage_executions_rediffed": 139,
+  "gui_roundtrips": 5,
+  "gui_stages": 10,
+  "oracle_regressions": 9,
+  "race_regressions": 4
+}

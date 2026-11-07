@@ -1,0 +1,1 @@
+1436 pre-existing artifact hash entries verified unchanged; production, recipe, reference and save trees unchanged from task-start e253cd5; tag m4 unchanged. The historical native SHA256SUMS is a live-source ledger, not an artifact ledger: intentional checker edits change those source hashes. Its snapshot bytes are still protected by ARTIFACT_SHA256SUMS.

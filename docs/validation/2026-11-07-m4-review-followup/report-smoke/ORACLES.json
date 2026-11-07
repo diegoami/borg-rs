@@ -1,0 +1,20 @@
+{
+  "smoke": {
+    "argv": [
+      "/home/diego/projects/borg-rs/harness/diff",
+      "--suite",
+      "/home/diego/projects/borg-rs/harness/suites/smoke",
+      "--save-root",
+      "/home/diego/projects/borg-rs/harness/saves",
+      "--expect-impl",
+      "rust",
+      "/tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/smoke",
+      "/home/diego/projects/borg-rs/harness/reference/smoke"
+    ],
+    "diff_tool_sha256": "ae04a80724fbc7a028659200f03b4eae8ea6dba2578445206712b21da83813fd",
+    "exit_code": 0,
+    "reference": "/home/diego/projects/borg-rs/harness/reference/smoke",
+    "reference_sha256": "d6729fbbc34cfe39fcaf5783938e6b08cd6627ac9708d0ba80e0a975ddea26d9",
+    "stdout": "A: /tmp/borg-rs-m4-coverage/harness/out/coverage/current-matrix/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=883414624b1cc353\nA:   built from f987c077c773 (dirty=no, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at f987c077c773 (dirty=no) overrides=none\nB: /home/diego/projects/borg-rs/harness/reference/smoke: reference (no manifest)\n3/3 runs identical (expected 3)\nmessages.log compared in 3 run(s)\nstate.log compared in 3 run(s)\n"
+  }
+}

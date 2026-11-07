@@ -1,0 +1,38 @@
+{
+  "scope": "pilot_subset",
+  "runs": 3,
+  "totals_project": {
+    "lines": {
+      "count": 36184,
+      "covered": 18117,
+      "percent": 50.06909131107672
+    },
+    "functions": {
+      "count": 1709,
+      "covered": 1189,
+      "percent": 69.57284961966062
+    },
+    "regions": {
+      "count": 57354,
+      "covered": 28766,
+      "percent": 50.1551766223803
+    }
+  },
+  "totals_logic": {
+    "lines": {
+      "count": 34610,
+      "covered": 17089,
+      "percent": 49.37590291823172
+    },
+    "functions": {
+      "count": 1380,
+      "covered": 970,
+      "percent": 70.28985507246377
+    },
+    "regions": {
+      "count": 54827,
+      "covered": 27187,
+      "percent": 49.58688237547194
+    }
+  }
+}

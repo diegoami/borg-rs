@@ -24,6 +24,14 @@ body=text[a:b];assert body.count('dam *= mult;')==1
 (out/'damage-fault.rs').write_text(text[:a]+body.replace('dam *= mult;','dam *= mult + 1;')+text[b:])
 
 write('glyph-fault.rs','borg-rs/src/borg_flow_glyph.rs','st.glyph.glyph_x = 0;','st.glyph.glyph_x = 1;')
+write('glyph-distance-fault.rs','borg-rs/src/borg_flow_glyph.rs',
+      'engine::distance(st.borg.c, center) >= 50',
+      'engine::distance(st.borg.c, center) > 50')
+text=(root/'borg-rs/src/borg_flow_glyph.rs').read_text()
+assert text.count('v < b_v')==2
+(out/'glyph-tie-fault.rs').write_text(text.replace('v < b_v','v <= b_v'))
+before,after=text.rsplit('v < b_v',1)
+(out/'glyph-old-tie-fault.rs').write_text(before+'v <= b_v'+after)
 
 text=(root/'borg-rs/src/borg_think_dungeon.rs').read_text();a=text.index('fn borg_think_dungeon_lunal(');b=text.index('\n}',a)
 body=text[a:b];old='st.borg.goal.fleeing_lunal = false;';assert old in body

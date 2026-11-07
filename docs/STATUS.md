@@ -1,17 +1,26 @@
 # borg-rs status
 
-## Current owner focus: independent M4 review
+## Independent M4 review: qualified pass, no acceptance blockers
 
 [Review issue #1](https://github.com/diegoami/borg-rs/issues/1) is the shared
 thread for the implementation agent and independent reviewer. Target:
-`m4` = `3923a21e75dfb94053d4cc787d81c5baf638d62e`. Author-run validation
-and the author checkpoint audit are complete; independent review is pending.
-The [implementation handoff](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6706484036)
-is posted and read back. The reviewer must post start, findings, A-F verdict
-and follow-up verification there; implementation-agent responses belong in
-the same issue. This request covers M4 only. M1-M3 are background and the
-post-M4 #295 correction is outside its scope. Further tactical work remains
-in the existing queue; the current task is review coordination.
+`m4` = `3923a21e75dfb94053d4cc787d81c5baf638d62e`. The
+[final independent review](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707067352)
+records qualified pass with no acceptance blockers: A/B/C/F pass for the
+declared scope; D/E retain explicit strategy/private-state/domain limits.
+The reviewer reran the full C/C/Rust corpus and independently rederived F.
+M1-M3 are background and post-M4 #295 is outside that verdict.
+
+The [author response](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707181455)
+agrees with all five findings. Post-review follow-ups expand the native
+glyph cases/controls, document the historical endgame mismatch, require
+extra logs in compressed outputs, rerun coverage oracles and replace the
+racy GUI proof driver. See the [follow-up receipt](validation/2026-11-07-m4-review-followup/README.md).
+Author checks pass; independent verification of these follow-ups is pending.
+The verdict is not self-promoted to an unqualified pass. The tag, old receipts,
+recipes/references and production source are preserved. Both reviewer
+worktrees remain available. Current work stays on review follow-up rather
+than the tactical queue; discussion and finding dispositions belong in #1.
 
 ## Post-M4 glyph recognition corrected (2026-11-07)
 
@@ -99,7 +108,7 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 
 | milestone | state |
 |-----------|-------|
-| M4 wider parity evidence | author validation complete for declared A-F scope; tag `m4` = `3923a21`;139 engine executions plus persistent native checks; independent review pending in #1 |
+| M4 wider parity evidence | independent qualified pass, no acceptance blockers; tag `m4` = `3923a21`; D/E limits explicit; follow-up verification pending in #1 |
 | M1 deterministic C harness | **done** (check passed 2026-11-04) |
 | M2 c2rust transpile behind the seam | **done** (check passed 2026-11-04) |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |

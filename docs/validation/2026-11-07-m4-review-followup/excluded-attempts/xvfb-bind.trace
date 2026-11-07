@@ -1,0 +1,12 @@
+unlink("/tmp/.tX193-lock")              = 0
+socket(AF_UNIX, SOCK_STREAM, 0)         = 6
+bind(6, {sa_family=AF_UNIX, sun_path=@"/tmp/.X11-unix/X193"}, 22) = 0
+socket(AF_UNIX, SOCK_STREAM, 0)         = 7
+unlink("/tmp/.X11-unix/X193")           = -1 EROFS (Read-only file system)
+bind(7, {sa_family=AF_UNIX, sun_path="/tmp/.X11-unix/X193"}, 21) = -1 EROFS (Read-only file system)
+--- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=296885, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+unlink("/tmp/server-193.xkm")           = 0
+--- SIGTERM {si_signo=SIGTERM, si_code=SI_USER, si_pid=296881, si_uid=1000} ---
+--- SIGCONT {si_signo=SIGCONT, si_code=SI_USER, si_pid=296881, si_uid=1000} ---
+unlink("/tmp/.X193-lock")               = 0
++++ exited with 0 +++

@@ -3,7 +3,7 @@
 
 Usage:
   harness/diff [--suite NAME] [--save-root DIR] [--expect-impl c|rust] [--allow-incomplete]
-              [--allow-unverified] A B
+              [--allow-unverified] [--allow-legacy-logs] A B
 
   A and B are either two key logs (keys.log or keys.log.xz) or two
   directories of runs (each run is a subdirectory holding keys.log[.xz]
@@ -24,13 +24,11 @@ Directory mode:
         (state.log[.xz]) are byte-identical, when compared (below); a
         state log has summary.keys lines, and line i is at the game turn
         of key i.
-  * Message and state logs: if both sides have one, it is compared. If
-    only one side has it, the run fails, unless the side without it is a
-    stored dir (no plain keys.log: a reference, or a compressed output)
-    made before these logs existed; then that log is not compared and a
-    note says so. So a reference that has them requires them on the
-    output side, and an output without them passes only against a
-    reference without them. Neither side having it is a note too.
+  * Message and state logs are required in directory mode, independently
+    of compression. --allow-legacy-logs explicitly permits a reference
+    without a build-identity manifest and plain key logs to omit them;
+    skipped comparisons are printed. It never excuses missing logs in
+    a suite output. Such legacy comparisons are not full three-log passes.
   * Roles come from the manifest, not the log format. A dir whose
     manifest has the build identity (written by harness/suite.sh) is a
     suite output, plain or compressed: it must hold the DONE marker
@@ -208,16 +206,17 @@ def state_consistency(label, state, keys, summary):
     return []
 
 
-def is_stored(run_dir):
-    """A stored run (reference or compressed output): no plain keys.log."""
-    return not os.path.isfile(os.path.join(run_dir, "keys.log"))
+def legacy_reference(run_dir):
+    """Only manifest-free historical reference roles can opt out of logs."""
+    return (not has_build_identity(os.path.dirname(run_dir))
+            and not os.path.isfile(os.path.join(run_dir, "keys.log")))
 
 
 # Per-diff tallies of the extra logs: label -> {"compared": n, "skipped": n}
 EXTRA_TALLY = {}
 
 
-def compare_extra(name, da, db, seed, ka, kb, sa, sb):
+def compare_extra(name, da, db, seed, ka, kb, sa, sb, allow_legacy=False):
     """Compare messages.log and state.log of one run. Returns the problems
     (a divergence is printed, not returned) and whether all compared logs
     were identical."""
@@ -227,18 +226,18 @@ def compare_extra(name, da, db, seed, ka, kb, sa, sb):
         tally = EXTRA_TALLY.setdefault(kind, {"compared": 0, "skipped": 0})
         xa = read_log(os.path.join(da, fname))
         xb = read_log(os.path.join(db, fname))
-        if xa is None and xb is None:
-            tally["skipped"] += 1
-            continue
         if xa is None or xb is None:
-            lack, ldir, have = (("A", da, "B") if xa is None else ("B", db, "A"))
-            if is_stored(ldir):
-                # a reference (or compressed output) from before these logs
+            missing = [(label, directory) for label, directory, data
+                       in (("A", da, xa), ("B", db, xb)) if data is None]
+            required = [(label, directory) for label, directory in missing
+                        if not (allow_legacy and legacy_reference(directory))]
+            if required:
+                for label, directory in required:
+                    probs.append("%s: missing required %s.log in %s"
+                                 % (label, kind, directory))
+                same = False
+            else:
                 tally["skipped"] += 1
-                continue
-            probs.append("%s.log present in %s only (%s, a run with a plain "
-                         "keys.log, has none)" % (kind, have, lack))
-            same = False
             continue
         tally["compared"] += 1
         if xa != xb:
@@ -250,7 +249,7 @@ def compare_extra(name, da, db, seed, ka, kb, sa, sb):
     return probs, same
 
 
-def compare_run(name, da, db):
+def compare_run(name, da, db, allow_legacy=False):
     """Compare one run (two run dirs). True if identical and consistent."""
     a = read_log(os.path.join(da, "keys.log"))
     b = read_log(os.path.join(db, "keys.log"))
@@ -264,7 +263,7 @@ def compare_run(name, da, db):
         show_divergence(name, a, b, seed)
         ok = False
     probs = consistency("A", a, sa) + consistency("B", b, sb)
-    xprobs, xsame = compare_extra(name, da, db, seed, a, b, sa, sb)
+    xprobs, xsame = compare_extra(name, da, db, seed, a, b, sa, sb, allow_legacy)
     probs += xprobs
     if not xsame:
         ok = False
@@ -411,11 +410,12 @@ def check_done(d, allow):
     must carry DONE."""
     plain = any(os.path.isfile(os.path.join(d, r, "keys.log"))
                 for r in run_dirs(d))
-    if not (plain or has_build_identity(d)) or os.path.isfile(os.path.join(d, "DONE")):
-        return True
-    msg = "%s has no DONE marker (incomplete, failed or stale suite output)" % d
     if os.path.isfile(os.path.join(d, "FAILED")):
         msg = "%s is marked FAILED by harness/suite.sh" % d
+    elif not (plain or has_build_identity(d)) or os.path.isfile(os.path.join(d, "DONE")):
+        return True
+    else:
+        msg = "%s has no DONE marker (incomplete, failed or stale suite output)" % d
     if allow:
         print("WARNING: " + msg)
         return True
@@ -516,6 +516,7 @@ def main(argv):
     suite = None
     allow = False
     allow_unverified = False
+    allow_legacy = False
     expect_impl = None
     save_root = None
     while args and args[0].startswith("--"):
@@ -528,6 +529,8 @@ def main(argv):
             allow = True
         elif opt == "--allow-unverified":
             allow_unverified = True
+        elif opt == "--allow-legacy-logs":
+            allow_legacy = True
         elif opt == "--expect-impl" and args and args[0] in ("c", "rust"):
             expect_impl = args.pop(0)
         else:
@@ -590,7 +593,7 @@ def main(argv):
                     print("== %s: only in %s" % (d, "A" if d in na else "B"))
                 ok = False
                 continue
-            r = compare_run(d, os.path.join(A, d), os.path.join(B, d))
+            r = compare_run(d, os.path.join(A, d), os.path.join(B, d), allow_legacy)
             same += r
             ok &= r
         print("%d/%d runs identical (expected %d)"
@@ -599,8 +602,8 @@ def main(argv):
             t = EXTRA_TALLY.get(kind, {"compared": 0, "skipped": 0})
             note = ""
             if t["skipped"]:
-                note = ("; NOTE: not compared in %d run(s): no %s.log on a "
-                        "stored side (made before it existed) or on either side"
+                note = ("; NOTE: not compared in %d run(s): --allow-legacy-logs "
+                        "permits missing %s.log in a historical reference"
                         % (t["skipped"], kind))
             print("%s.log compared in %d run(s)%s" % (kind, t["compared"], note))
         if same != len(expected):

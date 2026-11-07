@@ -83,6 +83,13 @@ identical BUILD_ID/image across collections. Partial groups are excluded.
 Both joining and reporting verify the expected recipe/run names, manifests,
 binary/source hashes, no overrides/captures, successful process outcomes,
 profile-to-PID identity and profile hashes. They reject reused profiles.
+After review#1, every join/report validation also reruns strict three-log
+comparison against the selected C oracle, rather than accepting saved PASS
+text. `--reference-root DIR` selects an explicit oracle root; otherwise the
+collection's REFERENCE_ROOT is used, with harness/reference as the historical
+fallback. Fresh ORACLES.json records exact reference-tree and diff-tool hashes,
+arguments and output. New joins retain fresh .diff results. Missing/corrupt
+streams or a wrong oracle fail even if saved comparison text says PASS.
 Joined groups are symlinks to retained collections, recorded in COLLECTIONS.json;
 keep those collections while reporting or exporting the result.
 

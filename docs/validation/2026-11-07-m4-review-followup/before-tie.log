@@ -1,0 +1,20 @@
+   Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
+    Finished `release` profile [optimized + debuginfo] target(s) in 3.42s
+     Running `harness/out/m4-review-followup/native-before-target/release/spatial 1600 --glyph --fault-control`
+glyph scenario=0 native_result=1 tracked=1
+glyph scenario=1 native_result=0 tracked=1
+glyph scenario=2 native_result=1 tracked=0
+glyph scenario=3 native_result=0 tracked=1
+glyph scenario=4 native_result=1 tracked=25
+glyph scenario=5 native_result=0 tracked=0
+glyph scenario=6 native_result=1 tracked=200
+glyph scenario=7 native_result=1 tracked=200
+glyph scenario=8 native_result=1 tracked=0
+glyph scenario=9 native_result=1 tracked=1
+glyph scenario=10 native_result=0 tracked=1
+glyph scenario=11 native_result=0 tracked=0
+glyph scenario=12 native_result=0 tracked=0
+glyph scenario=13 native_result=0 tracked=0
+glyph scenario=14 native_result=0 tracked=25
+glyph scenario=15 native_result=1 tracked=0
+fault source unexpectedly matched

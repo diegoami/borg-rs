@@ -1,0 +1,2474 @@
+{
+  "build_id": {
+    "binary": "/tmp/borg-rs-m4-coverage/build/rust/game/angband",
+    "binary_sha256": "883414624b1cc3535be94d3104d1f5db410884ffd0708b1822f976045703f27e",
+    "built_utc": "2026-11-06T21:45:31Z",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "git_dirty": "no",
+    "git_rev": "f987c077c77360a537c5d6c45fab02b8ad651d91",
+    "impl": "rust",
+    "inputs_dirty": "no",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "source_sha256": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f"
+  },
+  "files": [
+    {
+      "file": "borg.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 11,
+          "covered": 9,
+          "percent": 81.81818181818183
+        },
+        "instantiations": {
+          "count": 11,
+          "covered": 9,
+          "percent": 81.81818181818183
+        },
+        "lines": {
+          "count": 177,
+          "covered": 95,
+          "percent": 53.672316384180796
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 261,
+          "covered": 127,
+          "notcovered": 134,
+          "percent": 48.65900383141762
+        }
+      }
+    },
+    {
+      "file": "borg_attack_munchkin.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 5,
+          "covered": 0,
+          "percent": 0
+        },
+        "instantiations": {
+          "count": 5,
+          "covered": 0,
+          "percent": 0
+        },
+        "lines": {
+          "count": 144,
+          "covered": 0,
+          "percent": 0
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 210,
+          "covered": 0,
+          "notcovered": 210,
+          "percent": 0
+        }
+      }
+    },
+    {
+      "file": "borg_caution.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 25,
+          "covered": 18,
+          "percent": 72
+        },
+        "instantiations": {
+          "count": 25,
+          "covered": 18,
+          "percent": 72
+        },
+        "lines": {
+          "count": 1242,
+          "covered": 562,
+          "percent": 45.249597423510465
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 2281,
+          "covered": 910,
+          "notcovered": 1371,
+          "percent": 39.894782989916706
+        }
+      }
+    },
+    {
+      "file": "borg_cave.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 6,
+          "covered": 5,
+          "percent": 83.33333333333334
+        },
+        "instantiations": {
+          "count": 6,
+          "covered": 5,
+          "percent": 83.33333333333334
+        },
+        "lines": {
+          "count": 26,
+          "covered": 20,
+          "percent": 76.92307692307693
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 48,
+          "covered": 37,
+          "notcovered": 11,
+          "percent": 77.08333333333334
+        }
+      }
+    },
+    {
+      "file": "borg_cave_light.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 4,
+          "covered": 4,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 4,
+          "covered": 4,
+          "percent": 100
+        },
+        "lines": {
+          "count": 107,
+          "covered": 74,
+          "percent": 69.1588785046729
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 233,
+          "covered": 150,
+          "notcovered": 83,
+          "percent": 64.37768240343348
+        }
+      }
+    },
+    {
+      "file": "borg_cave_util.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 6,
+          "covered": 5,
+          "percent": 83.33333333333334
+        },
+        "instantiations": {
+          "count": 6,
+          "covered": 5,
+          "percent": 83.33333333333334
+        },
+        "lines": {
+          "count": 46,
+          "covered": 40,
+          "percent": 86.95652173913044
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 59,
+          "covered": 47,
+          "notcovered": 12,
+          "percent": 79.66101694915254
+        }
+      }
+    },
+    {
+      "file": "borg_cave_view.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 15,
+          "covered": 15,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 22,
+          "covered": 22,
+          "percent": 100
+        },
+        "lines": {
+          "count": 226,
+          "covered": 225,
+          "percent": 99.5575221238938
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 454,
+          "covered": 453,
+          "notcovered": 1,
+          "percent": 99.77973568281938
+        }
+      }
+    },
+    {
+      "file": "borg_commands.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 59,
+          "covered": 2,
+          "percent": 3.389830508474576
+        },
+        "instantiations": {
+          "count": 61,
+          "covered": 2,
+          "percent": 3.278688524590164
+        },
+        "lines": {
+          "count": 807,
+          "covered": 28,
+          "percent": 3.469640644361834
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1454,
+          "covered": 37,
+          "notcovered": 1417,
+          "percent": 2.544704264099037
+        }
+      }
+    },
+    {
+      "file": "borg_danger.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 14,
+          "covered": 10,
+          "percent": 71.42857142857143
+        },
+        "instantiations": {
+          "count": 14,
+          "covered": 10,
+          "percent": 71.42857142857143
+        },
+        "lines": {
+          "count": 1623,
+          "covered": 500,
+          "percent": 30.80714725816389
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1859,
+          "covered": 673,
+          "notcovered": 1186,
+          "percent": 36.20225927918236
+        }
+      }
+    },
+    {
+      "file": "borg_escape.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 24,
+          "covered": 16,
+          "percent": 66.66666666666666
+        },
+        "instantiations": {
+          "count": 25,
+          "covered": 16,
+          "percent": 64
+        },
+        "lines": {
+          "count": 752,
+          "covered": 412,
+          "percent": 54.78723404255319
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1376,
+          "covered": 772,
+          "notcovered": 604,
+          "percent": 56.104651162790695
+        }
+      }
+    },
+    {
+      "file": "borg_fight_attack.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 93,
+          "covered": 76,
+          "percent": 81.72043010752688
+        },
+        "instantiations": {
+          "count": 102,
+          "covered": 80,
+          "percent": 78.43137254901961
+        },
+        "lines": {
+          "count": 2384,
+          "covered": 1158,
+          "percent": 48.57382550335571
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 4063,
+          "covered": 1971,
+          "notcovered": 2092,
+          "percent": 48.510952498154076
+        }
+      }
+    },
+    {
+      "file": "borg_fight_defend.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 58,
+          "covered": 47,
+          "percent": 81.03448275862068
+        },
+        "instantiations": {
+          "count": 58,
+          "covered": 47,
+          "percent": 81.03448275862068
+        },
+        "lines": {
+          "count": 2062,
+          "covered": 706,
+          "percent": 34.23860329776915
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 3336,
+          "covered": 1137,
+          "notcovered": 2199,
+          "percent": 34.08273381294964
+        }
+      }
+    },
+    {
+      "file": "borg_fight_perm.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 20,
+          "covered": 1,
+          "percent": 5
+        },
+        "instantiations": {
+          "count": 20,
+          "covered": 1,
+          "percent": 5
+        },
+        "lines": {
+          "count": 393,
+          "covered": 10,
+          "percent": 2.5445292620865136
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 554,
+          "covered": 15,
+          "notcovered": 539,
+          "percent": 2.707581227436823
+        }
+      }
+    },
+    {
+      "file": "borg_flow.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 32,
+          "covered": 31,
+          "percent": 96.875
+        },
+        "instantiations": {
+          "count": 32,
+          "covered": 31,
+          "percent": 96.875
+        },
+        "lines": {
+          "count": 720,
+          "covered": 509,
+          "percent": 70.69444444444444
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1202,
+          "covered": 804,
+          "notcovered": 398,
+          "percent": 66.88851913477536
+        }
+      }
+    },
+    {
+      "file": "borg_flow_dark.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 23,
+          "covered": 21,
+          "percent": 91.30434782608695
+        },
+        "instantiations": {
+          "count": 23,
+          "covered": 21,
+          "percent": 91.30434782608695
+        },
+        "lines": {
+          "count": 492,
+          "covered": 405,
+          "percent": 82.3170731707317
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 830,
+          "covered": 702,
+          "notcovered": 128,
+          "percent": 84.57831325301206
+        }
+      }
+    },
+    {
+      "file": "borg_flow_glyph.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 6,
+          "covered": 2,
+          "percent": 33.33333333333333
+        },
+        "instantiations": {
+          "count": 6,
+          "covered": 2,
+          "percent": 33.33333333333333
+        },
+        "lines": {
+          "count": 160,
+          "covered": 6,
+          "percent": 3.75
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 247,
+          "covered": 8,
+          "notcovered": 239,
+          "percent": 3.2388663967611335
+        }
+      }
+    },
+    {
+      "file": "borg_flow_kill.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 65,
+          "covered": 57,
+          "percent": 87.6923076923077
+        },
+        "instantiations": {
+          "count": 67,
+          "covered": 58,
+          "percent": 86.56716417910447
+        },
+        "lines": {
+          "count": 1805,
+          "covered": 1165,
+          "percent": 64.54293628808865
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 2705,
+          "covered": 1773,
+          "notcovered": 932,
+          "percent": 65.54528650646951
+        }
+      }
+    },
+    {
+      "file": "borg_flow_misc.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 32,
+          "covered": 24,
+          "percent": 75
+        },
+        "instantiations": {
+          "count": 32,
+          "covered": 24,
+          "percent": 75
+        },
+        "lines": {
+          "count": 826,
+          "covered": 495,
+          "percent": 59.9273607748184
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1379,
+          "covered": 844,
+          "notcovered": 535,
+          "percent": 61.2037708484409
+        }
+      }
+    },
+    {
+      "file": "borg_flow_stairs.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 14,
+          "covered": 13,
+          "percent": 92.85714285714286
+        },
+        "instantiations": {
+          "count": 14,
+          "covered": 13,
+          "percent": 92.85714285714286
+        },
+        "lines": {
+          "count": 199,
+          "covered": 149,
+          "percent": 74.87437185929649
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 326,
+          "covered": 243,
+          "notcovered": 83,
+          "percent": 74.5398773006135
+        }
+      }
+    },
+    {
+      "file": "borg_flow_take.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 23,
+          "covered": 19,
+          "percent": 82.6086956521739
+        },
+        "instantiations": {
+          "count": 23,
+          "covered": 19,
+          "percent": 82.6086956521739
+        },
+        "lines": {
+          "count": 483,
+          "covered": 295,
+          "percent": 61.07660455486542
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 754,
+          "covered": 498,
+          "notcovered": 256,
+          "percent": 66.04774535809018
+        }
+      }
+    },
+    {
+      "file": "borg_formulas.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 63,
+          "covered": 13,
+          "percent": 20.634920634920633
+        },
+        "instantiations": {
+          "count": 63,
+          "covered": 13,
+          "percent": 20.634920634920633
+        },
+        "lines": {
+          "count": 951,
+          "covered": 83,
+          "percent": 8.727655099894847
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1427,
+          "covered": 152,
+          "notcovered": 1275,
+          "percent": 10.651716888577436
+        }
+      }
+    },
+    {
+      "file": "borg_formulas_calc.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 23,
+          "covered": 1,
+          "percent": 4.3478260869565215
+        },
+        "instantiations": {
+          "count": 23,
+          "covered": 1,
+          "percent": 4.3478260869565215
+        },
+        "lines": {
+          "count": 447,
+          "covered": 3,
+          "percent": 0.6711409395973155
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 643,
+          "covered": 4,
+          "notcovered": 639,
+          "percent": 0.6220839813374806
+        }
+      }
+    },
+    {
+      "file": "borg_home_notice.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 13,
+          "covered": 13,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 13,
+          "covered": 13,
+          "percent": 100
+        },
+        "lines": {
+          "count": 648,
+          "covered": 488,
+          "percent": 75.30864197530865
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 887,
+          "covered": 617,
+          "notcovered": 270,
+          "percent": 69.56031567080045
+        }
+      }
+    },
+    {
+      "file": "borg_home_power.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 10,
+          "covered": 10,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 10,
+          "covered": 10,
+          "percent": 100
+        },
+        "lines": {
+          "count": 292,
+          "covered": 265,
+          "percent": 90.75342465753424
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 444,
+          "covered": 379,
+          "notcovered": 65,
+          "percent": 85.36036036036036
+        }
+      }
+    },
+    {
+      "file": "borg_init.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 30,
+          "covered": 20,
+          "percent": 66.66666666666666
+        },
+        "instantiations": {
+          "count": 30,
+          "covered": 20,
+          "percent": 66.66666666666666
+        },
+        "lines": {
+          "count": 412,
+          "covered": 241,
+          "percent": 58.495145631067956
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 621,
+          "covered": 383,
+          "notcovered": 238,
+          "percent": 61.67471819645732
+        }
+      }
+    },
+    {
+      "file": "borg_inventory.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 12,
+          "covered": 11,
+          "percent": 91.66666666666666
+        },
+        "instantiations": {
+          "count": 13,
+          "covered": 12,
+          "percent": 92.3076923076923
+        },
+        "lines": {
+          "count": 126,
+          "covered": 108,
+          "percent": 85.71428571428571
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 197,
+          "covered": 169,
+          "notcovered": 28,
+          "percent": 85.78680203045685
+        }
+      }
+    },
+    {
+      "file": "borg_io.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 21,
+          "covered": 17,
+          "percent": 80.95238095238095
+        },
+        "instantiations": {
+          "count": 21,
+          "covered": 17,
+          "percent": 80.95238095238095
+        },
+        "lines": {
+          "count": 242,
+          "covered": 145,
+          "percent": 59.917355371900825
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 359,
+          "covered": 212,
+          "notcovered": 147,
+          "percent": 59.05292479108635
+        }
+      }
+    },
+    {
+      "file": "borg_item.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 19,
+          "covered": 13,
+          "percent": 68.42105263157895
+        },
+        "instantiations": {
+          "count": 19,
+          "covered": 13,
+          "percent": 68.42105263157895
+        },
+        "lines": {
+          "count": 126,
+          "covered": 87,
+          "percent": 69.04761904761905
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 174,
+          "covered": 100,
+          "notcovered": 74,
+          "percent": 57.47126436781609
+        }
+      }
+    },
+    {
+      "file": "borg_item_activation.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 2,
+          "covered": 2,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 2,
+          "covered": 2,
+          "percent": 100
+        },
+        "lines": {
+          "count": 173,
+          "covered": 167,
+          "percent": 96.53179190751445
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 335,
+          "covered": 329,
+          "notcovered": 6,
+          "percent": 98.2089552238806
+        }
+      }
+    },
+    {
+      "file": "borg_item_analyze.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 16,
+          "covered": 14,
+          "percent": 87.5
+        },
+        "instantiations": {
+          "count": 16,
+          "covered": 14,
+          "percent": 87.5
+        },
+        "lines": {
+          "count": 363,
+          "covered": 215,
+          "percent": 59.22865013774105
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 521,
+          "covered": 319,
+          "notcovered": 202,
+          "percent": 61.228406909788866
+        }
+      }
+    },
+    {
+      "file": "borg_item_decurse.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 8,
+          "covered": 3,
+          "percent": 37.5
+        },
+        "instantiations": {
+          "count": 8,
+          "covered": 3,
+          "percent": 37.5
+        },
+        "lines": {
+          "count": 84,
+          "covered": 13,
+          "percent": 15.476190476190476
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 138,
+          "covered": 15,
+          "notcovered": 123,
+          "percent": 10.869565217391305
+        }
+      }
+    },
+    {
+      "file": "borg_item_enchant.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 16,
+          "covered": 5,
+          "percent": 31.25
+        },
+        "instantiations": {
+          "count": 16,
+          "covered": 5,
+          "percent": 31.25
+        },
+        "lines": {
+          "count": 295,
+          "covered": 66,
+          "percent": 22.372881355932204
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 408,
+          "covered": 84,
+          "notcovered": 324,
+          "percent": 20.588235294117645
+        }
+      }
+    },
+    {
+      "file": "borg_item_id.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 7,
+          "covered": 3,
+          "percent": 42.857142857142854
+        },
+        "instantiations": {
+          "count": 7,
+          "covered": 3,
+          "percent": 42.857142857142854
+        },
+        "lines": {
+          "count": 104,
+          "covered": 13,
+          "percent": 12.5
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 161,
+          "covered": 20,
+          "notcovered": 141,
+          "percent": 12.422360248447205
+        }
+      }
+    },
+    {
+      "file": "borg_item_use.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 43,
+          "covered": 37,
+          "percent": 86.04651162790698
+        },
+        "instantiations": {
+          "count": 46,
+          "covered": 40,
+          "percent": 86.95652173913044
+        },
+        "lines": {
+          "count": 655,
+          "covered": 258,
+          "percent": 39.38931297709924
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1141,
+          "covered": 386,
+          "notcovered": 755,
+          "percent": 33.82997370727432
+        }
+      }
+    },
+    {
+      "file": "borg_item_val.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 8,
+          "covered": 7,
+          "percent": 87.5
+        },
+        "instantiations": {
+          "count": 8,
+          "covered": 7,
+          "percent": 87.5
+        },
+        "lines": {
+          "count": 255,
+          "covered": 241,
+          "percent": 94.50980392156862
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 675,
+          "covered": 653,
+          "notcovered": 22,
+          "percent": 96.74074074074073
+        }
+      }
+    },
+    {
+      "file": "borg_item_wear.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 38,
+          "covered": 31,
+          "percent": 81.57894736842105
+        },
+        "instantiations": {
+          "count": 38,
+          "covered": 31,
+          "percent": 81.57894736842105
+        },
+        "lines": {
+          "count": 835,
+          "covered": 468,
+          "percent": 56.04790419161677
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1377,
+          "covered": 738,
+          "notcovered": 639,
+          "percent": 53.59477124183007
+        }
+      }
+    },
+    {
+      "file": "borg_junk.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 39,
+          "covered": 30,
+          "percent": 76.92307692307693
+        },
+        "instantiations": {
+          "count": 39,
+          "covered": 30,
+          "percent": 76.92307692307693
+        },
+        "lines": {
+          "count": 830,
+          "covered": 297,
+          "percent": 35.78313253012048
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1355,
+          "covered": 513,
+          "notcovered": 842,
+          "percent": 37.859778597785976
+        }
+      }
+    },
+    {
+      "file": "borg_light.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 15,
+          "covered": 9,
+          "percent": 60
+        },
+        "instantiations": {
+          "count": 15,
+          "covered": 9,
+          "percent": 60
+        },
+        "lines": {
+          "count": 388,
+          "covered": 205,
+          "percent": 52.83505154639175
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 736,
+          "covered": 404,
+          "notcovered": 332,
+          "percent": 54.891304347826086
+        }
+      }
+    },
+    {
+      "file": "borg_log.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 25,
+          "covered": 1,
+          "percent": 4
+        },
+        "instantiations": {
+          "count": 25,
+          "covered": 1,
+          "percent": 4
+        },
+        "lines": {
+          "count": 832,
+          "covered": 8,
+          "percent": 0.9615384615384616
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1295,
+          "covered": 11,
+          "notcovered": 1284,
+          "percent": 0.8494208494208495
+        }
+      }
+    },
+    {
+      "file": "borg_magic.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 26,
+          "covered": 22,
+          "percent": 84.61538461538461
+        },
+        "instantiations": {
+          "count": 26,
+          "covered": 22,
+          "percent": 84.61538461538461
+        },
+        "lines": {
+          "count": 367,
+          "covered": 287,
+          "percent": 78.2016348773842
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 494,
+          "covered": 390,
+          "notcovered": 104,
+          "percent": 78.94736842105263
+        }
+      }
+    },
+    {
+      "file": "borg_magic_play.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 4,
+          "covered": 2,
+          "percent": 50
+        },
+        "instantiations": {
+          "count": 4,
+          "covered": 2,
+          "percent": 50
+        },
+        "lines": {
+          "count": 124,
+          "covered": 55,
+          "percent": 44.354838709677416
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 175,
+          "covered": 88,
+          "notcovered": 87,
+          "percent": 50.28571428571429
+        }
+      }
+    },
+    {
+      "file": "borg_messages.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 55,
+          "covered": 50,
+          "percent": 90.9090909090909
+        },
+        "instantiations": {
+          "count": 55,
+          "covered": 50,
+          "percent": 90.9090909090909
+        },
+        "lines": {
+          "count": 878,
+          "covered": 572,
+          "percent": 65.14806378132118
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1515,
+          "covered": 1076,
+          "notcovered": 439,
+          "percent": 71.02310231023102
+        }
+      }
+    },
+    {
+      "file": "borg_messages_react.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 8,
+          "covered": 6,
+          "percent": 75
+        },
+        "instantiations": {
+          "count": 8,
+          "covered": 6,
+          "percent": 75
+        },
+        "lines": {
+          "count": 164,
+          "covered": 85,
+          "percent": 51.829268292682926
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 266,
+          "covered": 135,
+          "notcovered": 131,
+          "percent": 50.75187969924813
+        }
+      }
+    },
+    {
+      "file": "borg_power.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 26,
+          "covered": 20,
+          "percent": 76.92307692307693
+        },
+        "instantiations": {
+          "count": 26,
+          "covered": 20,
+          "percent": 76.92307692307693
+        },
+        "lines": {
+          "count": 1358,
+          "covered": 767,
+          "percent": 56.480117820324004
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1977,
+          "covered": 1076,
+          "notcovered": 901,
+          "percent": 54.42589782498736
+        }
+      }
+    },
+    {
+      "file": "borg_prepared.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 20,
+          "covered": 11,
+          "percent": 55.00000000000001
+        },
+        "instantiations": {
+          "count": 20,
+          "covered": 11,
+          "percent": 55.00000000000001
+        },
+        "lines": {
+          "count": 585,
+          "covered": 140,
+          "percent": 23.931623931623932
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 779,
+          "covered": 194,
+          "notcovered": 585,
+          "percent": 24.90372272143774
+        }
+      }
+    },
+    {
+      "file": "borg_projection.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 16,
+          "covered": 11,
+          "percent": 68.75
+        },
+        "instantiations": {
+          "count": 16,
+          "covered": 11,
+          "percent": 68.75
+        },
+        "lines": {
+          "count": 450,
+          "covered": 312,
+          "percent": 69.33333333333334
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 682,
+          "covered": 407,
+          "notcovered": 275,
+          "percent": 59.67741935483871
+        }
+      }
+    },
+    {
+      "file": "borg_recover.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 4,
+          "covered": 3,
+          "percent": 75
+        },
+        "instantiations": {
+          "count": 4,
+          "covered": 3,
+          "percent": 75
+        },
+        "lines": {
+          "count": 315,
+          "covered": 121,
+          "percent": 38.41269841269842
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 621,
+          "covered": 173,
+          "notcovered": 448,
+          "percent": 27.858293075684383
+        }
+      }
+    },
+    {
+      "file": "borg_reincarnate.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 7,
+          "covered": 0,
+          "percent": 0
+        },
+        "instantiations": {
+          "count": 7,
+          "covered": 0,
+          "percent": 0
+        },
+        "lines": {
+          "count": 76,
+          "covered": 0,
+          "percent": 0
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 130,
+          "covered": 0,
+          "notcovered": 130,
+          "percent": 0
+        }
+      }
+    },
+    {
+      "file": "borg_store.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 10,
+          "covered": 10,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 10,
+          "covered": 10,
+          "percent": 100
+        },
+        "lines": {
+          "count": 114,
+          "covered": 93,
+          "percent": 81.57894736842105
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 165,
+          "covered": 141,
+          "notcovered": 24,
+          "percent": 85.45454545454545
+        }
+      }
+    },
+    {
+      "file": "borg_store_buy.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 34,
+          "covered": 32,
+          "percent": 94.11764705882352
+        },
+        "instantiations": {
+          "count": 34,
+          "covered": 32,
+          "percent": 94.11764705882352
+        },
+        "lines": {
+          "count": 752,
+          "covered": 494,
+          "percent": 65.69148936170212
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1220,
+          "covered": 814,
+          "notcovered": 406,
+          "percent": 66.72131147540983
+        }
+      }
+    },
+    {
+      "file": "borg_store_sell.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 31,
+          "covered": 27,
+          "percent": 87.09677419354838
+        },
+        "instantiations": {
+          "count": 31,
+          "covered": 27,
+          "percent": 87.09677419354838
+        },
+        "lines": {
+          "count": 721,
+          "covered": 524,
+          "percent": 72.67683772538142
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1104,
+          "covered": 816,
+          "notcovered": 288,
+          "percent": 73.91304347826086
+        }
+      }
+    },
+    {
+      "file": "borg_think.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 8,
+          "covered": 5,
+          "percent": 62.5
+        },
+        "instantiations": {
+          "count": 8,
+          "covered": 5,
+          "percent": 62.5
+        },
+        "lines": {
+          "count": 104,
+          "covered": 51,
+          "percent": 49.03846153846153
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 160,
+          "covered": 68,
+          "notcovered": 92,
+          "percent": 42.5
+        }
+      }
+    },
+    {
+      "file": "borg_think_dungeon.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 26,
+          "covered": 18,
+          "percent": 69.23076923076923
+        },
+        "instantiations": {
+          "count": 28,
+          "covered": 20,
+          "percent": 71.42857142857143
+        },
+        "lines": {
+          "count": 1276,
+          "covered": 540,
+          "percent": 42.31974921630094
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1983,
+          "covered": 792,
+          "notcovered": 1191,
+          "percent": 39.93948562783661
+        }
+      }
+    },
+    {
+      "file": "borg_think_dungeon_util.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 22,
+          "covered": 12,
+          "percent": 54.54545454545454
+        },
+        "instantiations": {
+          "count": 22,
+          "covered": 12,
+          "percent": 54.54545454545454
+        },
+        "lines": {
+          "count": 720,
+          "covered": 208,
+          "percent": 28.888888888888886
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 1223,
+          "covered": 331,
+          "notcovered": 892,
+          "percent": 27.06459525756337
+        }
+      }
+    },
+    {
+      "file": "borg_think_store.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 14,
+          "covered": 12,
+          "percent": 85.71428571428571
+        },
+        "instantiations": {
+          "count": 14,
+          "covered": 12,
+          "percent": 85.71428571428571
+        },
+        "lines": {
+          "count": 192,
+          "covered": 142,
+          "percent": 73.95833333333334
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 330,
+          "covered": 223,
+          "notcovered": 107,
+          "percent": 67.57575757575758
+        }
+      }
+    },
+    {
+      "file": "borg_trait.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 33,
+          "covered": 31,
+          "percent": 93.93939393939394
+        },
+        "instantiations": {
+          "count": 33,
+          "covered": 31,
+          "percent": 93.93939393939394
+        },
+        "lines": {
+          "count": 1551,
+          "covered": 1092,
+          "percent": 70.40618955512572
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 2086,
+          "covered": 1547,
+          "notcovered": 539,
+          "percent": 74.16107382550335
+        }
+      }
+    },
+    {
+      "file": "borg_trait_swap.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 21,
+          "covered": 18,
+          "percent": 85.71428571428571
+        },
+        "instantiations": {
+          "count": 21,
+          "covered": 18,
+          "percent": 85.71428571428571
+        },
+        "lines": {
+          "count": 460,
+          "covered": 297,
+          "percent": 64.56521739130436
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 760,
+          "covered": 462,
+          "notcovered": 298,
+          "percent": 60.78947368421053
+        }
+      }
+    },
+    {
+      "file": "borg_update.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 61,
+          "covered": 56,
+          "percent": 91.80327868852459
+        },
+        "instantiations": {
+          "count": 68,
+          "covered": 63,
+          "percent": 92.64705882352942
+        },
+        "lines": {
+          "count": 1604,
+          "covered": 1023,
+          "percent": 63.77805486284289
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 2528,
+          "covered": 1669,
+          "notcovered": 859,
+          "percent": 66.02056962025317
+        }
+      }
+    },
+    {
+      "file": "borg_util.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 6,
+          "covered": 6,
+          "percent": 100
+        },
+        "instantiations": {
+          "count": 6,
+          "covered": 6,
+          "percent": 100
+        },
+        "lines": {
+          "count": 52,
+          "covered": 52,
+          "percent": 100
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 84,
+          "covered": 84,
+          "notcovered": 0,
+          "percent": 100
+        }
+      }
+    },
+    {
+      "file": "cctype.rs",
+      "scope": "logic",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 5,
+          "covered": 3,
+          "percent": 60
+        },
+        "instantiations": {
+          "count": 5,
+          "covered": 3,
+          "percent": 60
+        },
+        "lines": {
+          "count": 15,
+          "covered": 9,
+          "percent": 60
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 20,
+          "covered": 12,
+          "notcovered": 8,
+          "percent": 60
+        }
+      }
+    },
+    {
+      "file": "engine.rs",
+      "scope": "ffi_or_support",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 325,
+          "covered": 219,
+          "percent": 67.38461538461539
+        },
+        "instantiations": {
+          "count": 341,
+          "covered": 222,
+          "percent": 65.10263929618768
+        },
+        "lines": {
+          "count": 1505,
+          "covered": 1028,
+          "percent": 68.30564784053156
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 2334,
+          "covered": 1579,
+          "notcovered": 755,
+          "percent": 67.65209940017138
+        }
+      }
+    },
+    {
+      "file": "regress.rs",
+      "scope": "ffi_or_support",
+      "summary": {
+        "branches": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "functions": {
+          "count": 4,
+          "covered": 0,
+          "percent": 0
+        },
+        "instantiations": {
+          "count": 4,
+          "covered": 0,
+          "percent": 0
+        },
+        "lines": {
+          "count": 69,
+          "covered": 0,
+          "percent": 0
+        },
+        "mcdc": {
+          "count": 0,
+          "covered": 0,
+          "notcovered": 0,
+          "percent": 0
+        },
+        "regions": {
+          "count": 193,
+          "covered": 0,
+          "notcovered": 193,
+          "percent": 0
+        }
+      }
+    }
+  ],
+  "llvm_version": "LLVM (http://llvm.org/):\n  LLVM version 22.1.8-rust-1.98.1-stable\n  Optimized build.",
+  "runs": 3,
+  "scope": "pilot_subset",
+  "suites": [
+    "smoke"
+  ],
+  "totals_logic": {
+    "functions": {
+      "count": 1380,
+      "covered": 970,
+      "percent": 70.28985507246377
+    },
+    "lines": {
+      "count": 34610,
+      "covered": 17089,
+      "percent": 49.37590291823172
+    },
+    "regions": {
+      "count": 54827,
+      "covered": 27187,
+      "percent": 49.58688237547194
+    }
+  },
+  "totals_project": {
+    "functions": {
+      "count": 1709,
+      "covered": 1189,
+      "percent": 69.57284961966062
+    },
+    "lines": {
+      "count": 36184,
+      "covered": 18117,
+      "percent": 50.06909131107672
+    },
+    "regions": {
+      "count": 57354,
+      "covered": 28766,
+      "percent": 50.1551766223803
+    }
+  }
+}

@@ -1,5 +1,12 @@
 # Supervised runs and engine checkpoints
 
+Historical oracle note: `endgame` against `harness/reference/endgame` is
+expected to report4/5 identical (exit1) with corrected M4 source because
+the depth98 messages change under #287. Keys/state match all five.
+The corrected checkpoint is `crash-fixes` with its matching reference;
+original endgame references and hashed recipes are preserved. See
+[saved-character replay](harness.md#saved-character-replay-m4-d).
+
 Every `harness/run.sh` invocation now runs its engine once through
 `harness/supervise.py`. A failure is recorded, not retried. `process.json`
 keeps the actual child return code, terminating signal when applicable,

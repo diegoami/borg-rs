@@ -1,0 +1,72 @@
+[
+  {
+    "stage": "0-first",
+    "bytes": 92944,
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "0-reload",
+    "bytes": 92944,
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "1-first",
+    "bytes": 92944,
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "1-reload",
+    "bytes": 92944,
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "2-first",
+    "bytes": 92944,
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "2-reload",
+    "bytes": 92944,
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "3-first",
+    "bytes": 92944,
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "3-reload",
+    "bytes": 92944,
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "4-first",
+    "bytes": 92944,
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  },
+  {
+    "stage": "4-reload",
+    "bytes": 92944,
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "exit_code": 0,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}"
+  }
+]

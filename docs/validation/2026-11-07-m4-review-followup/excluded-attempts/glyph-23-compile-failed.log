@@ -1,0 +1,53 @@
+   Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
+error[E0277]: cannot add `i32` to `usize`
+    --> src/bin/spatial.rs:1582:61
+     |
+1582 |             let field = |n| i32::from_le_bytes(native[offset+n*4..offset+n*4+4].try_into().unwrap());
+     |                                                             ^ no implementation for `usize + i32`
+     |
+     = help: the trait `Add<i32>` is not implemented for `usize`
+help: the following other types implement trait `Add<Rhs>`
+    --> /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/ops/arith.rs:98:8
+     |
+     = note: `usize` implements `Add`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/ops/arith.rs:113:0
+     |
+     = note: in this macro invocation
+    --> /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:22:8
+     |
+     = note: `&usize` implements `Add<usize>`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:33:8
+     |
+     = note: `usize` implements `Add<&usize>`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:44:8
+     |
+     = note: `&usize` implements `Add`
+     = note: this error originates in the macro `add_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+error[E0277]: cannot add `i32` to `usize`
+    --> src/bin/spatial.rs:1582:73
+     |
+1582 |             let field = |n| i32::from_le_bytes(native[offset+n*4..offset+n*4+4].try_into().unwrap());
+     |                                                                         ^ no implementation for `usize + i32`
+     |
+     = help: the trait `Add<i32>` is not implemented for `usize`
+help: the following other types implement trait `Add<Rhs>`
+    --> /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/ops/arith.rs:98:8
+     |
+     = note: `usize` implements `Add`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/ops/arith.rs:113:0
+     |
+     = note: in this macro invocation
+    --> /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:22:8
+     |
+     = note: `&usize` implements `Add<usize>`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:33:8
+     |
+     = note: `usize` implements `Add<&usize>`
+    ::: /rustc/48a229ceaefd4985c50990b14116b6d856af0985/library/core/src/internal_macros.rs:44:8
+     |
+     = note: `&usize` implements `Add`
+     = note: this error originates in the macro `add_impl` (in Nightly builds, run with -Z macro-backtrace for more info)
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `borg-native-checker` (bin "spatial") due to 2 previous errors

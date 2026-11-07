@@ -63,7 +63,7 @@ for name in ['key','i2d','tr','avoid','simulating','grid','is_ghost','rf','rsf',
 body=item('borg-rs/src/borg_fight_attack.rs','fn borg_thrust_damage_one(').replace('fn borg_thrust_damage_one(','pub fn physical_damage_one(',1)
 text+=body+'\n'
 text+='}\n'
-text+='pub mod glyph {use super::*;use flow::StairTrack;use cave::{AUTO_MAX_X,AUTO_MAX_Y};use crate::{flow as borg_flow,directions as borg_flow_misc};use terrain::FEAT_FLOOR;type borg_spells=u32;\n'
+text+='pub mod glyph {use super::*;use flow::StairTrack;use cave::{AUTO_MAX_X,AUTO_MAX_Y};use crate::{flow as borg_flow,glyph_environment as borg_flow_misc};use terrain::FEAT_FLOOR;type borg_spells=u32;\n'
 text+=statement('borg-rs/src/borg_flow_glyph.rs','GOAL_MISC')+'\n'+statement('borg-rs/src/borg_headers/borg_magic_h.rs','GLYPH_OF_WARDING')+'\n'
 text+='#[derive(Default)]\n'+item('borg-rs/src/borg_flow_glyph.rs','pub struct GlyphState {')+'\n'
 for name in ['ring','track_new_glyph','borg_flow_glyph']:

@@ -1,0 +1,1 @@
+An initial preservation check also interpreted the 19-entry old native live-source SHA256SUMS as an artifact ledger. It correctly disagreed with intentional native-checker source edits. The actual frozen ARTIFACT_SHA256SUMS passes unchanged; historical source ledgers were not rewritten.

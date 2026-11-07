@@ -1,0 +1,7 @@
+A: /tmp/borg-rs-m4-coverage/harness/out/coverage/synthetic-collection/synthetic-tactics: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=883414624b1cc353
+A:   built from f987c077c773 (dirty=no, inputs dirty=no) source_sha256=8ac76b00ed9f9687; run at f987c077c773 (dirty=yes) overrides=none
+B: /home/diego/projects/borg-rs/harness/reference/synthetic-tactics: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=2e99ac86769d02c2
+B:   built from 28b8170a67bd (dirty=yes, inputs dirty=no) source_sha256=3e9ac5743b149636; run at 91dece5da4fe (dirty=yes) overrides=none
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)
