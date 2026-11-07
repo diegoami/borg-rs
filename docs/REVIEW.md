@@ -15,15 +15,25 @@ crash/play-blocker corrections are mirrored in C/Rust and documented in
 `docs/FORK-CORRECTIONS.md`, with corrected C run twice and original
 references preserved. Other known C bugs remain recorded in `docs/c-bugs.md`.
 
-What is shown is narrower than that goal: the key streams are identical on
-the suites' seeds (smoke, full, deep, classes with the stock `borg.txt`;
-config with munchkin start or lunal mode on; options with one other
-borg.txt option per run) and the suites' turn limits
-(no run deeper than dungeon level 27). Code the
-suites do not reach (depth 50+, Morgoth, self-lunal and the lunal thinker,
-config options or values no suite run plays (see the `options` suite), most debug commands) rests on reading, the per-module cross-checks (not
-committed, numbers in PROGRESS) and the committed regressions in
-`harness/regress/`. See also the external review and the response to it
+The declared M4 checkpoint is complete on main. The full coverage corpus
+contains 139 successful oracle-checked executions in 11 groups, comparing
+keys, messages and per-key player state. Production inputs remain at
+`28b8170`; later commits add tooling, fixtures, receipts and the interactive
+launcher. Original references remain separate from corrected C references.
+
+Extended games reach logged current depth 99; synthetic endgame starts
+include depth 100. Six targeted engine cases establish actual self-lunal
+entry/first descent and glyph creation, with complete final engine-save
+equality between C twice and Rust. They do not establish autonomous rune
+formation, useful unbounded scumming or an unassisted win. Persistent native
+checks compare declared kernels and logical state beyond the game oracles,
+with explicit environment adapters and fault controls.
+
+Start with [STATUS](STATUS.md), [the M4 plan](M4-PLAN.md),
+[full coverage](validation/2026-11-07-coverage/README.md),
+[synthetic cases](validation/2026-11-07-synthetic-tactics/README.md) and
+[native checks](validation/2026-11-06-native-expanded/README.md).
+The earlier external review and response remain historical evidence
 (`docs/REVIEW-RESPONSE-4c06cec08.md`).
 
 ## Where things stand
@@ -33,20 +43,21 @@ committed, numbers in PROGRESS) and the committed regressions in
 | M1 deterministic C harness | done (tag `m1-harness`) | `full` run twice, 45/45 logs identical; `docs/STATUS.md` |
 | M2 c2rust transpile behind the seam | done (tag `m2-c2rust`) | `harness/check-no-c-borg.sh`; `full` 45/45 identical to the C reference |
 | M3 safe, idiomatic Rust | done (tag `m3` = `74fc8793c`) | `docs/PROGRESS.md` (one row per module, checkpoints, unsafe count); final checkpoint in `docs/STATUS.md` |
+| M4 wider parity evidence | declared A-F scope verified on main; owner tag pending | 139 engine executions; persistent native checks; linked receipts above |
 
-`main` is moved forward only to commits that passed a full checkpoint (`full` 45/45
-and `deep` 9/9 identical to the C references). The work branch
-(`claude/serene-ramanujan-8hzsfm`) has every intermediate commit, one per
-converted module.
+The owner-authorized main integration includes the former work-branch tip
+`40194d8`; `claude/serene-ramanujan-8hzsfm` is historical. Continue from main.
+The recorded next-stage sequence puts an owner-created milestone tag before
+broader behavior changes; see M4-PLAN.md.
 
 ## Layout
 
 ```
 angband/             upstream Angband e473720ed (git subtree), plus small
-                     #ifdef BORG_HARNESS hooks (see docs/harness.md)
+                     #ifdef BORG_HARNESS hooks and documented FORK corrections
 harness/             build.sh, run.sh, suite.sh, diff, check-no-c-borg.sh,
-                     suites/{smoke,full,deep,classes,config,options}, reference/ (C oracle
-                     logs, xz)
+                     suites/, reference/ (C oracle logs, xz), native-checker/,
+                     coverage/, scenarios/ and saves/
 borg-rs/src/         the Rust Borg (staticlib linked into the engine)
   <module>.rs        safe Rust, one per original .c file (all 59 converted)
   engine.rs          the FFI boundary: safe wrappers over the engine, the
@@ -103,9 +114,16 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
      (`NAME=VALUE` flags): money scum, dynamic calcs, worships, risky,
      uniques, swaps off, stops, autosave, verbose, chests, munchkin
      limits, respawn. Added in M4 (step B).
-   * The C references are in `harness/reference/`. They were made from the
-     unmodified C build and checked deterministic (two C runs, identical, for
-     every suite; for `smoke` this was first recorded after the review).
+   * M4 adds `captured-rogue`, `crash-fixes`, `extended`, `natural` and
+     `synthetic-tactics`. Together with the six baseline suites these form
+     the 139-execution coverage corpus. Synthetic tactics compares complete
+     final saves as well as the three logs. See the linked receipts for
+     recipes, source identities, capture provenance and finite stops.
+   * The C references are in `harness/reference/` and checked deterministic
+     (two C runs, identical, for every suite; for `smoke` this was first
+     recorded after the review). Original references use the original C
+     behavior; corrected references are separately identified in
+     FORK-CORRECTIONS.md.
      Since M4 step A each reference run also has `messages.log.xz` and
      `state.log.xz`, made the same way (C twice, identical; the stored
      keys and summaries reproduced byte for byte).
@@ -113,8 +131,10 @@ docs/                STATUS.md, PROGRESS.md, c-bugs.md, harness.md, this file
    c2rust code ran next to the new code on every real call, and on fuzzed
    inputs that reach code the suites never touch, with state compared field by
    field. These checks were not committed, so a reviewer cannot rerun them;
-   each PROGRESS row says what was compared and how many calls. For code the
-   suites never reach, they are the only evidence besides reading the code.
+   each PROGRESS row says what was compared and how many calls. The committed
+   M4 native checker adds reproducible C/Rust calculator, spatial/flow/melee,
+   glyph and lunal checks, with source hashes and seven actual-source faults
+   rejected. Its declared state footprint is not whole-Borg shadow execution.
 
 To reproduce:
 
@@ -127,17 +147,23 @@ done
 harness/check-no-c-borg.sh
 ```
 
+The commands above reproduce the six baseline suites. For the full 11-group
+measurement use `harness/coverage/README.md`; synthetic fixture generation and
+C/C/Rust replay are documented in `harness/scenarios/README.md`. Persistent
+kernel checks run with `CHECK_UBSAN=1 harness/native-checker/run.sh`.
+
 ## What to look at critically
 
 A self-review (three independent read-only reviews) was done before the
 external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
 
 * **Coverage.** The keypress oracle only covers what the suites reach.
-  Deep-dungeon code (below level 27, the deepest any suite run reaches:
-  `config`'s long lunal run), rare items, the Morgoth endgame and the
-  self-lunal thinker are checked only by the per-module fuzz cross-checks
-  and by reading the code.
-  `docs/PROGRESS.md` lists the never-exercised paths for each module.
+  The full game corpus covers 29550/34610 Borg-logic lines (85.38%) and
+  1269/1380 LLVM function instances (91.96%); closures and monomorphizations
+  count separately, and branch coverage is unmeasured. Per-file metrics,
+  function counts and gaps are retained in the full coverage receipt.
+  Native checker coverage is measured separately and never merged into
+  these profiles. Entry alone does not establish completion of a tactic.
 * **What the oracle cannot see.** It compares the keys the Borg returns,
   the messages (game messages and Borg notes) and a per-key digest of
   player state, up to the turn limit (M4 step A; see `docs/harness.md`).
@@ -145,7 +171,11 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   files; the Borg's internal state (its map, its idea of the monsters and
   items) except through keys and notes; engine state outside the digest
   (the cave, monsters, objects on the floor, stores) except through later
-  keys, messages or player state; Borg-side direct writes to game state
+  keys, messages or player state and the explicitly compared serialized
+  engine captures/final saves. Saves do not preserve private Borg memory.
+  Native checks cover their declared kernel state; the separate read-only
+  glyph observer samples the stop boundary, not every running private field.
+  Other limits include Borg-side direct writes to game state
   (cheat-death cure, `option_set`, the RNG swap) except through the digest
   or later keys; anything
   after the turn limit; and most config-dependent paths. The `config`
@@ -153,7 +183,12 @@ external one; its findings, verdicts and fixes are in `docs/SELF-REVIEW.md`.
   `borg_lunal_mode` (lunal mode changes the stair and rest choices in the
   flow code). It does not reach `borg_think_dungeon_lunal`: that needs
   `borg_self_lunal` and a deep character well above its max depth, and
-  eight 1M-turn tries with `borg_self_lunal` on never got there. The
+  eight 1M-turn tries with `borg_self_lunal` on never got there. The separate
+  `synthetic-tactics` suite now records 155 actual self-lunal entries and
+  8 glyph-builder entries, with zero-entry controls. Its accepted lunal
+  case stops at the first descent; longer stair-cycling pilots failed and
+  are excluded. Existing glyph-recognition #295 and reverse-flow #345
+  remain unresolved; full rune formation is not claimed. The
   `options` suite (M4 step B) sets the other options one per run: money
   scum and self scum, dynamic calcs (stock formulas), the six worships,
   risky play, unique hunting, swaps off, depth/level stops, autosave,

@@ -1,10 +1,11 @@
 # Rust coverage tooling
 
 Use an isolated checkout so instrumentation never replaces a binary used
-by an active ordinary suite. The first measurement is a **pilot** at
-`26a96bee4570`: smoke/full only, 48 successful oracle-checked runs. Full
-M4 F coverage remains open; the later melee correction is not part of that
-pilot image.
+by an active ordinary suite. M4 F is complete for the declared 11-group,
+139-execution corpus; see `docs/validation/2026-11-07-coverage/README.md`.
+The first measurement at `26a96bee4570` remains a historical **pilot**:
+smoke/full only, 48 successful oracle-checked runs, predating the later
+melee correction. It is separate from the final image and profiles.
 
 ## Build an isolated coverage image
 
