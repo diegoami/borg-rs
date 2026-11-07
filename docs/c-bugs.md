@@ -1462,4 +1462,5 @@ The C source is unchanged; no correction is proposed in this pass.
   search and section29's rollback/counting slips. No full formation-building,
   combat improvement or win is claimed.
 * Tracker: diegoami/neo-angband-tracker#295 (existing source finding;
-  additional consumer evidence pending published module commit).
+  [additional consumer native evidence](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6700494859)
+  links184ed94 and was read back).

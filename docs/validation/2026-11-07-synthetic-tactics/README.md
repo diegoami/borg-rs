@@ -52,3 +52,5 @@ shows missing/changed final engine saves are rejected even with identical three
 logs. The complete139-execution coverage export includes these six profiles;
 the original133 baseline and native checker coverage remain separately labelled.
 Reproduction commands are in harness/scenarios/README.md.
+
+[Published additional native evidence on existing tracker295](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6700494859) links184ed94 and was read back. Source-side verification and adoption remain separate.
