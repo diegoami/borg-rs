@@ -14,7 +14,6 @@ import shutil
 import signal
 import subprocess
 import sys
-import tempfile
 import time
 
 import borg_runtime as runtime
@@ -33,10 +32,10 @@ def environment():
     return env
 
 
-def command(binary, data, profile, character, arguments, frontend='x11'):
+def command(binary, data, profile, character, arguments, frontend='x11', archive=None):
     return [str(binary), '-m' + frontend,
             *['-d' + option + '=' + str(data / key) for option, key in (('gamedata', 'gamedata'), ('pref', 'customize'), ('screens', 'screens'), ('help', 'help'))],
-            *['-d' + key + '=' + str(profile / key) for key in PROFILE_DIRS],
+            *['-d' + key + '=' + str(archive if key == 'archive' and archive is not None else profile / key) for key in PROFILE_DIRS],
             '-u' + character, *arguments]
 
 
@@ -88,10 +87,15 @@ def start(binary, profile, character, arguments):
             shutil.copytree(profile / name, initial / name)
     output = bundle / 'run'
     output.mkdir()
+    session_archive = output / 'archive'
+    shutil.copytree(initial / 'archive', session_archive)
     record = {'schema': SCHEMA, 'status': 'recording', 'character': character,
               'arguments': arguments, 'frontend': 'x11',
               'verification_model': 'rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save',
               'scope': 'engine observations; fresh Borg memory on load; no whole-private-Borg-state claim',
+              'build_id': {'git_rev': subprocess.check_output(['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
+                           'source_sha256': subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'source-hash', 'rust'], text=True).strip(),
+                           'binary_sha256': runtime.sha(frozen / 'angband')},
               'started': stamp, 'timezone': zone, 'origin_sha256': runtime.sha(initial / 'save' / character) if (initial / 'save' / character).exists() else None}
     runtime.write(bundle / 'recording.json', record)
     immutable = {str(p.relative_to(bundle)): runtime.sha(p) for folder in (bundle / 'runtime', initial) for p in folder.rglob('*') if p.is_file()}
@@ -105,7 +109,7 @@ def start(binary, profile, character, arguments):
     print('Replay:', ROOT / 'replay-borg.py', bundle, flush=True)
     started = time.monotonic()
     with (output / 'engine.log').open('w') as log:
-        child = subprocess.Popen(command(frozen / 'angband', frozen / 'lib', profile, character, arguments),
+        child = subprocess.Popen(command(frozen / 'angband', frozen / 'lib', profile, character, arguments, archive=session_archive),
                                  cwd=frozen, env=env, stdout=log, stderr=subprocess.STDOUT, pass_fds=(9,))
         try:
             code = child.wait()
@@ -122,6 +126,18 @@ def start(binary, profile, character, arguments):
     for name, digest in immutable.items():
         if runtime.sha(bundle / name) != digest:
             raise ValueError('Frozen input changed during recording: ' + name)
+    # Archive output is per session, so simultaneous named games cannot mix
+    # Borg.map/death logs. Preserve changed files only; initial files stay frozen.
+    record['native_archive'] = []
+    for source in list(session_archive.rglob('*')):
+        if not source.is_file():
+            continue
+        relative = source.relative_to(session_archive)
+        before = initial / 'archive' / relative
+        if before.exists() and before.stat().st_mtime_ns == source.stat().st_mtime_ns and runtime.sha(before) == runtime.sha(source):
+            source.unlink()
+            continue
+        record['native_archive'].append(str(relative))
     final = profile / 'save' / character
     if final.exists():
         shutil.copy2(final, bundle / 'final.save')
@@ -138,6 +154,8 @@ def start(binary, profile, character, arguments):
     record['files_sha256'] = {str(p.relative_to(bundle)): runtime.sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
     runtime.write(bundle / 'recording.json', record)
     print(f'GUI recording complete: {bundle}', flush=True)
+    import borg_deaths
+    borg_deaths.maybe_register(bundle, issue=os.environ.get('BORG_DEATH_ISSUE'))
     return bundle
 
 
@@ -167,26 +185,25 @@ def validate(bundle, require_complete=True):
     return record
 
 
-def verify(bundle):
+def verify(bundle, output=None, timeout=None):
     bundle = bundle.resolve()
     record = validate(bundle)
     source_hash = hashlib.sha256((runtime.sha(Path(__file__)) + runtime.sha(Path(runtime.__file__))).encode()).hexdigest()
     manifest_hash = runtime.sha(bundle / 'recording.json')
     cached = bundle / 'verification.json'
-    if cached.exists():
+    if output is None and timeout is None and cached.exists():
         prior = json.loads(cached.read_text())
         if prior.get('verified') is True and prior.get('manifest_sha256') == manifest_hash and prior.get('verifier_sha256') == source_hash:
             return prior
-    with tempfile.TemporaryDirectory(prefix='borg-gui-replay-') as temporary:
-        temporary = Path(temporary)
+    with runtime.replay_workspace(output) as temporary:
         profile = temporary / 'profile'
         shutil.copytree(bundle / 'initial-profile', profile)
-        output = temporary / 'run'
-        output.mkdir()
+        output_run = temporary / 'run'
+        output_run.mkdir()
         geometry = json.loads((bundle / 'run/geometry.json').read_text())
         env = environment()
         env['TZ'] = ':' + str(bundle / 'runtime/timezone') if record['timezone'] == 'frozen-file' else record['timezone']
-        env.update(BORG_RECORD_DIR=str(output), BORG_REPLAY_DIR=str(bundle / 'run'), BORG_REPLAY_SYS=record['frontend'],
+        env.update(BORG_RECORD_DIR=str(output_run), BORG_REPLAY_DIR=str(bundle / 'run'), BORG_REPLAY_SYS=record['frontend'],
                    BORG_REPLAY_WIDTH=str(geometry['width']), BORG_REPLAY_HEIGHT=str(geometry['height']), BORG_REPLAY_KEY_SIZE=str(geometry['key_size']),
                    BORG_REPLAY_SOFT_CURSOR=str(geometry['soft_cursor']), BORG_REPLAY_COMPLEX_INPUT=str(geometry['complex_input']))
         frozen = bundle / 'runtime/game'
@@ -196,30 +213,35 @@ def verify(bundle):
         args = args[:args.index('--')] if '--' in args else args
         result = subprocess.run(command(frozen / 'angband', frozen / 'lib', profile, record['character'], args, 'test'),
                                 cwd=frozen, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
-                                timeout=max(30, record['duration_seconds'] * 2 + 30), stdin=subprocess.DEVNULL)
+                                timeout=timeout if timeout is not None else max(30, record['duration_seconds'] * 2 + 30), stdin=subprocess.DEVNULL)
         if result.returncode:
             raise ValueError('GUI replay failed; original preserved: ' + result.stdout[-1500:])
         for name in STREAMS:
-            if not (output / name).exists() or runtime.sha(output / name) != runtime.sha(bundle / 'run' / name):
+            if not (output_run / name).exists() or runtime.sha(output_run / name) != runtime.sha(bundle / 'run' / name):
                 # Save only a useful first divergence, never overwrite originals.
-                if name == 'frames.jsonl' and (output / name).exists():
-                    with (output / name).open() as after, (bundle / 'run' / name).open() as before:
+                if name == 'frames.jsonl' and (output_run / name).exists():
+                    with (output_run / name).open() as after, (bundle / 'run' / name).open() as before:
                         for n, (a, b) in enumerate(zip(before, after), 1):
                             if a != b:
                                 raise ValueError(f'GUI replay diverges: frames.jsonl row {n}')
                 raise ValueError('GUI replay diverges or did not consume complete input: ' + name)
         originals = {p.name for p in (bundle / 'run').glob('file-input-*.bin')}
-        repeated = {p.name for p in output.glob('file-input-*.bin')}
+        repeated = {p.name for p in output_run.glob('file-input-*.bin')}
         if originals != repeated:
             raise ValueError('GUI replay file-read set diverges')
         for name in originals:
-            if runtime.sha(bundle / 'run' / name) != runtime.sha(output / name):
+            if runtime.sha(bundle / 'run' / name) != runtime.sha(output_run / name):
                 raise ValueError('GUI replay file-read bytes diverge: ' + name)
+        for name in record.get('native_archive', []):
+            if runtime.sha(profile / 'archive' / name) != runtime.sha(bundle / 'run/archive' / name):
+                raise ValueError('GUI replay native death archive diverges: ' + name)
         final = profile / 'save' / record['character']
         if (runtime.sha(final) if final.exists() else None) != record['final_sha256']:
             raise ValueError('GUI replay final native save diverges')
     proof = {'verified': True, 'manifest_sha256': manifest_hash, 'verifier_sha256': source_hash, 'model': record['verification_model']}
     runtime.write(cached, proof)
+    if output is not None:
+        runtime.write(output.resolve() / 'verification.json', proof)
     return proof
 
 

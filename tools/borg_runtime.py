@@ -100,14 +100,15 @@ def inspect_save(save, directory, binary):
         return json.loads(result.stdout)
 
 
-def frozen_run(bundle, output):
+def frozen_run(bundle, output, timeout=None):
+    bundle = bundle.resolve()
     record = json.loads((bundle / 'recording.json').read_text())
     profile = record['profile']
     runtime = bundle / 'runtime'
     env = {k: v for k, v in os.environ.items() if not k.startswith(('BORG_', 'ANGBAND_', 'LLVM_PROFILE'))}
     env.update(BORG_IMPL='rust', ANGBAND_BIN=str(runtime / 'game/angband'),
                SAVE_ROOT=str(runtime / 'harness/saves'), BORGH_DATA_ROOT=str(runtime / 'game/lib'),
-               RUN_TIMEOUT_SECONDS=str(profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
+               RUN_TIMEOUT_SECONDS=str(min(profile['wall_seconds'], timeout) if timeout is not None else profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
                LC_ALL='C.UTF-8', LANG='C.UTF-8', TZ='UTC')
     return subprocess.run([str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
                            str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']],
@@ -205,6 +206,8 @@ def record_run(args):
         print('Save:', save)
         print('Recording:', bundle)
         print('Replay:', ROOT / 'replay-borg.py', bundle)
+        import borg_deaths
+        borg_deaths.maybe_register(bundle, issue=getattr(args, 'death_issue', None) or os.environ.get('BORG_DEATH_ISSUE'))
         return bundle
 
 
@@ -224,38 +227,84 @@ def validate(bundle, require_complete=True):
     return record
 
 
-def verify(bundle):
+@contextmanager
+def replay_workspace(output):
+    temporary = output is None
+    workspace = Path(tempfile.mkdtemp(prefix='borg-rust-replay-')) if temporary else output.resolve()
+    if not temporary:
+        workspace.mkdir(parents=True, exist_ok=False)
+    try:
+        yield workspace
+    except BaseException as error:
+        write(workspace / 'verification.json', {'verified': False, 'error': str(error)})
+        if temporary and isinstance(error, Exception):
+            raise ValueError(f'{error}; failed replay evidence retained at {workspace}') from error
+        raise
+    else:
+        if temporary:
+            shutil.rmtree(workspace)
+
+
+def verify(bundle, output=None, timeout=None):
+    bundle = bundle.resolve()
     record = validate(bundle)
     source_hash = sha(Path(__file__))
     manifest_hash = sha(bundle / 'recording.json')
     cached = bundle / 'verification.json'
-    if cached.exists():
+    if output is None and timeout is None and cached.exists():
         prior = json.loads(cached.read_text())
         if prior.get('verified') is True and prior.get('manifest_sha256') == manifest_hash and prior.get('verifier_sha256') == source_hash:
             return prior
-    with tempfile.TemporaryDirectory(prefix='borg-rust-replay-') as temp:
-        output = Path(temp) / 'run'
-        result = frozen_run(bundle, output)
+    with replay_workspace(output) as workspace:
+        output_run = workspace / 'run'
+        result = frozen_run(bundle, output_run, timeout=timeout)
+        output_run_path = output_run
         if result.returncode:
             raise ValueError('Replay failed; original evidence preserved: ' + result.stdout[-1500:])
-        process = json.loads((output / 'process.json').read_text())
+        process = json.loads((output_run_path / 'process.json').read_text())
         if process['status'] != 'success' or process['engine_returncode'] != 0:
             raise ValueError('Replay process did not complete successfully')
         for filename in ('keys.log', 'messages.log', 'state.log', 'frames.jsonl', 'final.save', 'config.txt'):
-            if sha(output / filename) != sha(bundle / 'run' / filename):
+            if sha(output_run_path / filename) != sha(bundle / 'run' / filename):
                 raise ValueError('Replay diverges: ' + filename)
-        before, after = (json.loads((p / 'summary.json').read_text()) for p in (bundle / 'run', output))
+        native_original = {str(p.relative_to(bundle / 'run/archive')): p for p in (bundle / 'run/archive').rglob('*') if p.is_file()}
+        native_repeated = {str(p.relative_to(output_run_path / 'archive')): p for p in (output_run_path / 'archive').rglob('*') if p.is_file()}
+        if native_original.keys() != native_repeated.keys():
+            raise ValueError('Replay native Borg archive set diverges')
+        native_clock_differences = []
+        for name, original in native_original.items():
+            repeated = native_repeated[name]
+            if sha(original) == sha(repeated):
+                continue
+            # Historical headless engines pin seasonal monster availability,
+            # but their Rust death-log header reads the real wall clock. Keep
+            # those original bytes/hashes; compare every other log byte.
+            if name != 'borg-log.txt':
+                raise ValueError('Replay native Borg archive diverges: ' + name)
+            left, right = original.read_bytes().splitlines(keepends=True), repeated.read_bytes().splitlines(keepends=True)
+            if len(left) != len(right):
+                raise ValueError('Replay native death log length diverges')
+            for number, (a, b) in enumerate(zip(left, right), 1):
+                if a == b:
+                    continue
+                if not all(re.fullmatch(rb'[0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}\n', value) for value in (a, b)):
+                    raise ValueError('Replay native death log body diverges')
+                native_clock_differences.append({'line': number, 'original': a.decode().strip(), 'rerun': b.decode().strip()})
+        before, after = (json.loads((p / 'summary.json').read_text()) for p in (bundle / 'run', output_run_path))
         before.pop('wall_seconds', None);after.pop('wall_seconds', None)
         if before != after:
             raise ValueError('Replay summary diverges')
         originals = set(p.name for p in (bundle / 'run/checkpoints').glob('*.save'))
-        repeated = set(p.name for p in (output / 'checkpoints').glob('*.save'))
+        repeated = set(p.name for p in (output_run_path / 'checkpoints').glob('*.save'))
         if originals != repeated:
             raise ValueError('Replay checkpoint set diverges')
         for filename in (bundle / 'run/checkpoints').glob('*.save'):
-            if sha(filename) != sha(output / 'checkpoints' / filename.name):
+            if sha(filename) != sha(output_run_path / 'checkpoints' / filename.name):
                 raise ValueError('Replay world snapshot diverges: ' + filename.name)
     proof = {'verified': True, 'manifest_sha256': manifest_hash, 'verifier_sha256': source_hash,
-             'model': record['verification_model'], 'original_death_not_new_sample': record['summary']['dead']}
+             'model': record['verification_model'], 'original_death_not_new_sample': record['summary']['dead'],
+             'native_archive_body_verified': True, 'native_death_log_wall_clock_differences': native_clock_differences}
     write(cached, proof)
+    if output is not None:
+        write(output.resolve() / 'verification.json', proof)
     return proof

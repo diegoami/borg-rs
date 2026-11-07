@@ -1,5 +1,5 @@
-# Imported from diegoami/better-borg-c at 08a5cd0198b2a2a9ceb426d4cc4704fd5364d519; tools/borg-replay-viewer.py
-# Original project licence: GPL-2.0-or-later or Angband licence; see angband/docs/copying.rst.
+# Imported from diegoami/better-borg-c at f3ced6219768aca6382381236c7d938718f492d5; tools/borg-replay-viewer.py
+# Original licence: GPL-2.0-or-later or Angband; see angband/docs/copying.rst.
 """Local, reversible inspection of original terminal frames; no game execution."""
 from bisect import bisect_right
 from contextlib import contextmanager
@@ -90,6 +90,37 @@ def glyph(code):
     return chr(code) if code <= 0x10ffff else '�'
 
 
+def read_key(screen, playing=False):
+    """Accept both normal CSI and application-cursor sequences used by terminals."""
+    key = screen.getch()
+    if key != 27:
+        return key
+    screen.timeout(40)
+    try:
+        first = screen.getch()
+        if first not in (ord('['), ord('O')):
+            if first != -1:
+                curses.ungetch(first)
+            return 27
+        sequence = chr(first)
+        for _ in range(6):
+            part = screen.getch()
+            if part == -1:
+                break
+            sequence += chr(part)
+            if chr(part).isalpha() or part == ord('~'):
+                break
+        return {'[A': curses.KEY_UP, 'OA': curses.KEY_UP,
+                '[B': curses.KEY_DOWN, 'OB': curses.KEY_DOWN,
+                '[C': curses.KEY_RIGHT, 'OC': curses.KEY_RIGHT,
+                '[D': curses.KEY_LEFT, 'OD': curses.KEY_LEFT,
+                '[H': curses.KEY_HOME, 'OH': curses.KEY_HOME, '[1~': curses.KEY_HOME,
+                '[F': curses.KEY_END, 'OF': curses.KEY_END, '[4~': curses.KEY_END,
+                '[5~': curses.KEY_PPAGE, '[6~': curses.KEY_NPAGE}.get(sequence, -1)
+    finally:
+        screen.timeout(100 if playing else -1)
+
+
 def show(directory, turn=None, verified=False, dump=False):
     frames = Frames(directory)
     index = frames.at_turn(turn if turn is not None else frames.turns[-1] - 105)
@@ -147,14 +178,17 @@ def show(directory, turn=None, verified=False, dump=False):
                         rows += [f"{'visible' if m['visible'] else 'UNSEEN ':7} {m['name']} HP {m['hp']}/{m['max_hp']} at({m['x']},{m['y']}) speed {m['speed']}" for m in monsters]
                     for row, text in enumerate(rows[scroll:scroll + height - 3], 1):
                         screen.addnstr(row, 0, text, max(0, width - 1))
-                screen.addnstr(height - 2, 0, '←/→ step  g turn  Space play  i gear  m monsters  v screen  j/k [] scroll  q quit', max(0, width - 1))
+                screen.addnstr(height - 2, 0, '←/→ step  g turn  Space play  i gear  m monsters  Esc/v back  j/k [] scroll  q quit', max(0, width - 1))
                 screen.addnstr(height - 1, 0, f'Frame {index + 1}/{len(frames.index)}. Original observations; controls never change the game.', max(0, width - 1))
                 screen.refresh()
                 screen.timeout(100 if playing else -1)
-                key = screen.getch()
-                if key in (ord('q'), 27):
+                key = read_key(screen, playing)
+                if key == ord('q'):
                     break
-                if key in (ord('i'), ord('m'), ord('v')):
+                if key == 27:
+                    panel = 'screen'
+                    scroll = horizontal = 0
+                elif key in (ord('i'), ord('m'), ord('v')):
                     panel = {ord('i'): 'gear', ord('m'): 'monsters', ord('v'): 'screen'}[key]
                     scroll = 0
                 elif key == ord('j'):
@@ -185,6 +219,7 @@ def show(directory, turn=None, verified=False, dump=False):
                     index = len(frames.index) - 1
                 elif key == ord('g'):
                     playing = False
+                    screen.timeout(-1)
                     curses.echo()
                     screen.addstr(height - 1, 0, 'Engine turn: ')
                     try:

@@ -33,9 +33,9 @@ Named launch, backup restore, headless play and replay (adapted from
 ./start-borg.sh MyCharacter --from-backup=1
 ./run-borg-headless.py MyCharacter --turns 100000
 ./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
-./replay-borg.py .angband-rust/recordings/RUN --turn 5000
+./replay-borg.py .angband-rust/recordings/RUN --from-turn 5000
 ./replay-borg.py .angband-rust/recordings/RUN --verify-only
-./replay-borg.py .angband-rust/recordings/RUN --turn 5000 --dump
+./replay-borg.py .angband-rust/recordings/RUN --dump-turn 5000
 ```
 
 GUI/headless launchers share a per-character lock and five rolling backups
@@ -62,6 +62,19 @@ C-only private Borg diagnostic fields are omitted. Historical runs without
 a recording cannot claim exact replay; interrupted recordings can be viewed
 with `--recording-only` and an explicit UNVERIFIED badge.
 See [tools/README.md](tools/README.md) for verification scope and provenance.
+
+Replay accepts better-borg-c's `--from-turn`, `--dump-turn`, `--view-only`,
+`--verify-only`, `--output` and `--timeout`. Older Rust `--turn`, `--dump`
+and `--recording-only` forms remain supported. The turn selects **viewing**;
+verification reruns the full original session, preserving private Borg history.
+
+Completed natural deaths automatically create a dossier in `docs/deaths/`,
+with native maps/death logs, build/input hashes, actual pre-death observations,
+checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a
+dossier directory too. [Registry and existing cases](docs/deaths/README.md).
+Set `BORG_DEATH_RECORDS_DIR` for a separate registry; attach a discussion with
+headless `--death-issue URL` or GUI `BORG_DEATH_ISSUE`. No issue is posted
+automatically, and replays/backup branches do not inflate independent deaths.
 
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
   (git subtree), plus optional harness/GUI recording hooks and the documented

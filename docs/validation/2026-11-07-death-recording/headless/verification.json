@@ -1,0 +1,15 @@
+{
+  "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0",
+  "model": "rerun original Rust Borg from original origin; exact keys/messages/player-state/terminal frames/final save and scheduled world saves; not whole-Borg private-state shadow",
+  "native_archive_body_verified": true,
+  "native_death_log_wall_clock_differences": [
+    {
+      "line": 1,
+      "original": "2026/11/07 17:14",
+      "rerun": "2026/11/07 17:17"
+    }
+  ],
+  "original_death_not_new_sample": true,
+  "verified": true,
+  "verifier_sha256": "ea06207c345a1a3972bdcc7a1cf05ce8f5839db05a98400e9dab8c111bcf7fee"
+}

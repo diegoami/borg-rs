@@ -49,3 +49,18 @@ only leads, found by reading the code and never seen in a game.
 * **Record the link back.** Add a `Tracker:` line with the issue reference(s)
   (`diegoami/neo-angband-tracker#N`) to the `c-bugs.md` section.
 * **Never** open issues, PRs or comments on `angband/angband`.
+
+
+## Death record workflow
+
+Named GUI/headless launchers export completed natural deaths automatically.
+Read docs/deaths/README.md and FEEDBACK.md when collecting or investigating
+cases. Keep actual source/binary/input identity and curated original observations;
+full raw bundles/saves/builds stay outside Git. Use tools/record-death.py and
+aggregate-deaths.py for qualified manual exports; historical cases without
+movies retain their weaker evidence. Keep assessment/actions/authorized feedback
+durable, distinguish native facts from hypotheses, and never count reruns or
+backup branches as independent lives. New C defect leads still follow the
+canonical tracker rules above. Logging alone never authorizes tactical changes
+or automatic issue creation. Check linked owner feedback during active case
+work; no unattended monitoring or deletion of unique evidence.

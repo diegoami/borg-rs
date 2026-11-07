@@ -4,3 +4,5 @@ target/
 .claude/
 __pycache__/
 /.angband-rust/
+
+/docs/deaths/.registry.lock

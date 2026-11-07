@@ -1,0 +1,6 @@
+{
+  "manifest_sha256": "1cebc21fef44d3172c90215dcb7c8896aa1d569ba3525ebf4ebb9eed8c94ee09",
+  "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+  "verified": true,
+  "verifier_sha256": "69fb8d179bea1e4de822ab60db25946905444214f5527ab26ec6ea84c6ab2f60"
+}

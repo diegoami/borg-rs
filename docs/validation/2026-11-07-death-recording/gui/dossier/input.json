@@ -1,0 +1,19 @@
+{
+  "calendar": "frozen-file",
+  "identity": {
+    "binary": "30899a194a4fa68aff2b5b2cce03b00f75f2b43b13cc44361f99855a48303c87",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+    "encounter_family": "start-d6dce30d0b180d6edc658598271c410e2d3885f85fc6a07e035b59fbc5da00e1",
+    "seed": null,
+    "source": "1be58fdfaeaa6c0a2e74aaaf285b18a8ffe81c2c",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+    "start_save": "9a05277fbb400aa736c2926fe3d4a2ee5b65e20a86d9e1db5e4d789e7fd7a653",
+    "turn": 10668
+  },
+  "profile": {
+    "duration_seconds": 3.907751441001892,
+    "frontend": "x11"
+  },
+  "run_kind": "interactive GUI; recorded human inputs"
+}

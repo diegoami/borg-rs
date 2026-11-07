@@ -1,0 +1,24 @@
+Score not registered for borgs. -more-                                          
+Hobbit                            #.#                                           
+Vagabond                           .                                            
+Rogue                                                                           
+LEVEL      2                                                                    
+NXT       18                                                                    
+AU         0                                                                    
+|    ~( )]]                                                                     
+STR:      15                                                                    
+INT:      16                      #.#                                           
+WIS:       8                      %.%                                           
+DEX:   18/40                      %.%##%#%%#%%%%                                
+CON:      14                      %.'.........<%                                
+                                  %c%.%%%%%>%#%%                                
+Cur AC    24                      #@#....%%#%                                   
+HP   -2/  13                      %R####.%                                      
+                                  #.#                                           
+                                                                                
+[*********-]                            '                                       
+                                        .                                       
+                                        .                                       
+                                        .                                       
+50' (L1)                                .                                       
+             LF:1-? Light 2 Descent  Fed 84 % Open floor                        

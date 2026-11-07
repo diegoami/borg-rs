@@ -1,0 +1,27 @@
+Original frame 828; engine turn 5532; phase key; HP 11, SP 0, depth 1
+Logical cells; diagnostics are actual engine state, not extra Borg knowledge.
+
+                                                                                
+Hobbit                            #.#                                           
+Vagabond                           .                                            
+Rogue                                                                           
+LEVEL      1                                                                    
+NXT       10                                                                    
+AU         0                                                                    
+|    ~( )]]                                                                     
+STR:      15                                                                    
+INT:      16                      #c#                                           
+WIS:       8                      %.%                                           
+DEX:   18/40                      %@%##%#%%#%%%%                                
+CON:      14                      %.'.........<%                                
+                                  %.%.%%%%%>%#%%                                
+Cur AC    24                      #.#....%%#%                                   
+HP   11/  11                      %.####.%                                      
+                                  #.#                                           
+                                                                                
+                                        '                                       
+                                        .                                       
+                                        .                                       
+                                        .                                       
+50' (L1)                                .                                       
+             LF:1-? Light 2  Fed 84 % Open floor                                

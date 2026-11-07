@@ -1,0 +1,13 @@
+Building verified Rust headless engine...
+/home/diego/projects/borg-rs/build/rust/game/angband
+......turns: level1, depth1, dead=False
+Save: /tmp/borg-record-test-87u328as/save/Recorded
+Recording: /tmp/borg-record-test-87u328as/recordings/20261107T171044.758495Z-Recorded
+Replay: /home/diego/projects/borg-rs/replay-borg.py /tmp/borg-record-test-87u328as/recordings/20261107T171044.758495Z-Recorded
+Preserved current save: /tmp/borg-save-test-to2u8qxd/backups/Hero/before-restore-20261107T171048.117168Z.save
+Restored backup slot 3: /tmp/borg-save-test-to2u8qxd/Hero
+....
+----------------------------------------------------------------------
+Ran 10 tests in 16.288s
+
+OK

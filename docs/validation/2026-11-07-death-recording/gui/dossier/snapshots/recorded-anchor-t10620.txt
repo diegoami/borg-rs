@@ -1,0 +1,27 @@
+Original frame 1004; engine turn 10620; phase command; HP 12, SP 2, depth 1
+Logical cells; diagnostics are actual engine state, not extra Borg knowledge.
+
+                                                                                
+Half-Elf                 ###                                                    
+Wanderer                 #># #>#   ###                                          
+Druid                    #·###·#####·###                                        
+LEVEL      1             #···#······@··#                                        
+NXT        7             #·#·#·#·###c#·#                                        
+AU       227             #·············#                                        
+\ =  ~( )                #!·!··········#                                        
+STR:      15             #·············#                                        
+INT:      11             #··············                                        
+WIS:      18             #·············#                                        
+DEX:       9             '####·#######·#                                        
+CON:      15                                                                    
+                                                                                
+Cur AC    11                                                                    
+HP   12/  12                                                                    
+SP    2/   2                                                                    
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+                                                                                
+50' (L1)                                                                        
+             LF:2-? Light 2  Fed 79 % Open floor                                

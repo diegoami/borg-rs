@@ -1,0 +1,27 @@
+[
+  {
+    "attempt": 1,
+    "verified": true,
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0"
+  },
+  {
+    "attempt": 2,
+    "verified": true,
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0"
+  },
+  {
+    "attempt": 3,
+    "verified": true,
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0"
+  },
+  {
+    "attempt": 4,
+    "verified": true,
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0"
+  },
+  {
+    "attempt": 5,
+    "verified": true,
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0"
+  }
+]

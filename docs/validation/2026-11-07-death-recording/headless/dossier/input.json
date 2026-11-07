@@ -1,0 +1,24 @@
+{
+  "calendar": "seeded headless harness holiday context pinned to epoch",
+  "identity": {
+    "binary": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "f70b4596abb6a2814da1d1893a0d761137e0d96076b60c62e90d9f4cf07eb77d",
+    "encounter_family": "start-170b8f642c8199ade5596968c51b6fb2f5ccb1c0eed70286e83dd3558a6a5479",
+    "seed": 8406,
+    "source": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+    "start_save": null,
+    "turn": 5600
+  },
+  "profile": {
+    "checkpoint_every": 1000,
+    "class": 6,
+    "flags": "menu,terminal-save,frames,key-limit=50000",
+    "race": 3,
+    "seed": 8406,
+    "turn_limit": 10000,
+    "wall_seconds": 60
+  },
+  "run_kind": "new birth"
+}

@@ -1,0 +1,208 @@
+{
+  "attempts": [
+    {
+      "binary_sha256": "30899a194a4fa68aff2b5b2cce03b00f75f2b43b13cc44361f99855a48303c87",
+      "outcome": "death",
+      "raw_directory": "/home/diego/projects/borg-rs/harness/out/death-tooling/gui-isolated-archive/profile/recordings/20261107T171207.664550Z-DeathTest",
+      "result_sha256": "1cebc21fef44d3172c90215dcb7c8896aa1d569ba3525ebf4ebb9eed8c94ee09",
+      "role": "original",
+      "source_commit": "1be58fdfaeaa6c0a2e74aaaf285b18a8ffe81c2c"
+    }
+  ],
+  "build": {
+    "binary_sha256": "30899a194a4fa68aff2b5b2cce03b00f75f2b43b13cc44361f99855a48303c87",
+    "git_rev": "1be58fdfaeaa6c0a2e74aaaf285b18a8ffe81c2c",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794"
+  },
+  "calendar_context": "frozen-file",
+  "character": "DeathTest",
+  "encounter_family": "start-d6dce30d0b180d6edc658598271c410e2d3885f85fc6a07e035b59fbc5da00e1",
+  "files_sha256": {
+    "actions.txt": "e12aa7d3196190a534a103fdecab7cb985436c06ffb95bd90113f8a97d65e724",
+    "build.json": "d03a605630cd3187a00158534434f01c8f670dcc0d5d22b3f2654a32e428b94d",
+    "input.json": "e33ce4343be029c44861ac8873c654131ccf1f7f6f45791ed33fbb46a156f4ff",
+    "native/Borg.map": "5fee9a6bcbad8d7963d93482efcda10f3b0624c56d68215a1014c0aadaf124ef",
+    "native/borg-log.txt": "cafbefccaf87b5889a4fbb5fa569dae7a62b9ba21b5ca16d87a17edb6ca135e3",
+    "native/borg.dat": "f0cb82ec11768a2ea31775d94f94f4fa926be849a360fa7d32ac9beedc95c337",
+    "snapshots/recorded-anchor-t10560.json": "553307ee1d5dc91d9dbe56edd1e73545bf3deb8aa0d3847207e4c13181395c56",
+    "snapshots/recorded-anchor-t10560.txt": "944115dcb51c0aa37a5373821294db815ddf3309d526808d8e82c7d5a7031f23",
+    "snapshots/recorded-anchor-t10580.json": "a0ff19ef64c13924d7da7fd7fe36fc49d74ca23dfea2540db1bc4b55317f58ff",
+    "snapshots/recorded-anchor-t10580.txt": "fcac4abaf05f8e8d0c31f1a7670fe903ff6e2aa457a33e597eb6be8a7021af4c",
+    "snapshots/recorded-anchor-t10600.json": "6a0c585dd640094b174113bcca0675c60d8410556bcef1df34390795a0bdc489",
+    "snapshots/recorded-anchor-t10600.txt": "08b98315fe1f60d5aae055d5861cdc6ee396f12f313330d8836caf96cf5901ed",
+    "snapshots/recorded-anchor-t10620.json": "0fc98b9cba057702c337a5c489e2df4ba6a12e02643feee4d1c4eb7c22ac7228",
+    "snapshots/recorded-anchor-t10620.txt": "92825d81581aeb2d8a3f52b9e2f36926274d40cdf6e8c17c0929fd6288e961a9",
+    "snapshots/recorded-anchor-t10640.json": "7a69c5e1fdd83d7664d16f3e60408034eb2a4ad6f0378a6c1dbd07788221b5bd",
+    "snapshots/recorded-anchor-t10640.txt": "6551088b7a93aa3900d400eaf57d8f4b0bb7dedd72ebeacd2f93ee6ac3774d23",
+    "snapshots/recorded-anchor-t10650.json": "c3daf6e00366bd20f7c46bd24103cb916cfbeb3022be1b6c10a16252f2dd957d",
+    "snapshots/recorded-anchor-t10650.txt": "afc846c88a5522f43c3d3299e7f108324b357f823b5953194b032979e7f64a9d",
+    "snapshots/recorded-anchor-t10660.json": "33139506a0063d2a73403416b40b2c219a3e1090de8fb3cb1ec27153f10d14e1",
+    "snapshots/recorded-anchor-t10660.txt": "26511d7aee8607f7cde076bbfb09bae9da5296ba1162627d20bb212509f92a3c",
+    "terminal.map.txt": "cc49ac2331cb020d7f02e1051ec46eaf002647dbfc8f12a40dcbc5584810596d"
+  },
+  "id": "D0001",
+  "identity": {
+    "binary": "30899a194a4fa68aff2b5b2cce03b00f75f2b43b13cc44361f99855a48303c87",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+    "encounter_family": "start-d6dce30d0b180d6edc658598271c410e2d3885f85fc6a07e035b59fbc5da00e1",
+    "seed": null,
+    "source": "1be58fdfaeaa6c0a2e74aaaf285b18a8ffe81c2c",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+    "start_save": "9a05277fbb400aa736c2926fe3d4a2ee5b65e20a86d9e1db5e4d789e7fd7a653",
+    "turn": 10668
+  },
+  "independence_note": "Curated case; repeats, continuations, GUI intervention and backup branches are not an independent mortality cohort",
+  "investigation": null,
+  "issue": null,
+  "limits": {
+    "duration_seconds": 3.907751441001892,
+    "frontend": "x11"
+  },
+  "living_checkpoints": [],
+  "raw_cause": "a giant yellow centipede",
+  "recording": {
+    "frames_sha256": "985c24db4b083ca467afad956ac394d8e48954d2cd5e52eeabc262c8584f20e4",
+    "manifest_sha256": "1cebc21fef44d3172c90215dcb7c8896aa1d569ba3525ebf4ebb9eed8c94ee09",
+    "nearby_original_anchors": [
+      {
+        "frame_index": 1018,
+        "json": "snapshots/recorded-anchor-t10660.json",
+        "offset_engine_turns": 8,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          5
+        ],
+        "text": "snapshots/recorded-anchor-t10660.txt",
+        "turn": 10660
+      },
+      {
+        "frame_index": 1014,
+        "json": "snapshots/recorded-anchor-t10650.json",
+        "offset_engine_turns": 18,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          12
+        ],
+        "text": "snapshots/recorded-anchor-t10650.txt",
+        "turn": 10650
+      },
+      {
+        "frame_index": 1010,
+        "json": "snapshots/recorded-anchor-t10640.json",
+        "offset_engine_turns": 28,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          25
+        ],
+        "text": "snapshots/recorded-anchor-t10640.txt",
+        "turn": 10640
+      },
+      {
+        "frame_index": 1004,
+        "json": "snapshots/recorded-anchor-t10620.json",
+        "offset_engine_turns": 48,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          40
+        ],
+        "text": "snapshots/recorded-anchor-t10620.txt",
+        "turn": 10620
+      },
+      {
+        "frame_index": 1000,
+        "json": "snapshots/recorded-anchor-t10600.json",
+        "offset_engine_turns": 68,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          60
+        ],
+        "text": "snapshots/recorded-anchor-t10600.txt",
+        "turn": 10600
+      },
+      {
+        "frame_index": 996,
+        "json": "snapshots/recorded-anchor-t10580.json",
+        "offset_engine_turns": 88,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          82
+        ],
+        "text": "snapshots/recorded-anchor-t10580.txt",
+        "turn": 10580
+      },
+      {
+        "frame_index": 992,
+        "json": "snapshots/recorded-anchor-t10560.json",
+        "offset_engine_turns": 108,
+        "phase": "command",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          105
+        ],
+        "text": "snapshots/recorded-anchor-t10560.txt",
+        "turn": 10560
+      }
+    ],
+    "qualification": "Original frames, not an assumed verified rerun or mid-run Borg-memory restore",
+    "raw_directory": "/home/diego/projects/borg-rs/harness/out/death-tooling/gui-isolated-archive/profile/recordings/20261107T171207.664550Z-DeathTest",
+    "replay_command": "./replay-borg.py harness/out/death-tooling/gui-curated/D0001-gui --from-turn 10563",
+    "schema": "borg-rs-gui-recording@1",
+    "selected_original_frames": [],
+    "unavailable_offsets": [
+      {
+        "offset_engine_turns": 5,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10663
+      },
+      {
+        "offset_engine_turns": 12,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10656
+      },
+      {
+        "offset_engine_turns": 25,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10643
+      },
+      {
+        "offset_engine_turns": 40,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10628
+      },
+      {
+        "offset_engine_turns": 60,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10608
+      },
+      {
+        "offset_engine_turns": 82,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10586
+      },
+      {
+        "offset_engine_turns": 105,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 10563
+      }
+    ]
+  },
+  "recording_schema": "borg-rs-gui-recording@1",
+  "run_kind": "interactive GUI; recorded human inputs",
+  "schema": "borg-rs/death-record@1",
+  "terminal": {
+    "cause": "a giant yellow centipede",
+    "class_idx": 2,
+    "dead": 1,
+    "depth": 1,
+    "level": 1,
+    "race_idx": 1,
+    "turn": 10668
+  }
+}

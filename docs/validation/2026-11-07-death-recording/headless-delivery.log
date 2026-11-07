@@ -1,0 +1,5 @@
+death: level2, depth1, dead=True
+Save: /home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-profile/save/DeliveryDeath
+Recording: /home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-profile/recordings/20261107T171422.908091Z-DeliveryDeath
+Replay: /home/diego/projects/borg-rs/replay-borg.py /home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-profile/recordings/20261107T171422.908091Z-DeliveryDeath
+Natural death dossier: /home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-deaths/D0001-recorded (unassessed; replay/diagnosis pending)

@@ -39,6 +39,20 @@ final save. Private C Borg diagnostics remain omitted. All tests use isolated pr
 private display/build, never owner saves/display. Tool-test and integration
 receipts: validation/2026-11-07-launch-tool-port and validation/2026-11-07-gui-recording.
 
+The owner additionally requested C-compatible replay parameters and adoption
+of death logging. Replay supports --from-turn/--dump-turn/--view-only/
+--verify-only/--output/--timeout, retaining Rust aliases; turn means viewing,
+not mid-run restoration. Headless --timeout aliases its wall budget; donor
+--stall-timeout remains unported. Both launchers auto-export completed natural
+deaths to docs/deaths (BORG_DEATH_RECORDS_DIR override), with immutable identity,
+curated native artifacts, actual windows/nearby anchors, checkpoint metadata,
+unassessed assessment/actions and deduplicated aggregate. GUI native archives
+verify byte-exactly; historical headless death-log clock headers are separately
+reported, with all other log bytes checked. Four older cohort dossiers retain
+four inputs/twelve C/C/Rust attempts and no invented movies. No issues are
+posted automatically. Read docs/deaths/FEEDBACK.md for active case feedback.
+New validation receipt: validation/2026-11-07-death-recording.
+
 Current post-M4 investigation results:
 - #345 mirrored caller-only reverse-flow correction now constructs25 actual
   Runes,24 around the player, with40 scrolls dropping to15, by turn177 in

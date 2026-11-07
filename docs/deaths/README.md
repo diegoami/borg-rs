@@ -1,11 +1,23 @@
-# Natural game assessments
+# Rust Borg death records
 
-Nine distinct ordinary births in the first post-M4 cohort: four natural deaths
-and five alive at the100k-turn cap. Repeated C/C/Rust verification runs are
-not independent samples. No cheat death, cheat-live or wizard/load starts.
-This is a bounded descriptive sample, not a win or an improvement comparison.
+Every confirmed natural death gets an immutable source/build/input identity, original observations, an assessment and linked actions. Full raw runs/saves/builds stay outside Git. Death alone does not establish a bug.
 
-- [8400: Human Warrior](seed8400-warrior.md) — a pseudo-dragon.
-- [8402: Half-Elf Druid](seed8402-druid.md) — a cutpurse.
-- [8406: Hobbit Rogue](seed8406-rogue.md) — a giant yellow centipede.
-- [8408: Gnome Blackguard](seed8408-blackguard.md) — a wild cat.
+Dossiers: 4; distinct starting conditions: 4; retained process attempts: 12 (including repeats). This registry is not a survival-rate estimate.
+
+| Case | Discussion | Actual source | Seed | Raw cause | Death turn | Diagnosis |
+| --- | --- | --- | --- | --- | --- | --- |
+| [D0001](D0001-seed8400-warrior/report.md) | unassigned | `f772eb6dcb93` | 8400 | a pseudo-dragon | 37680 | C/Rust parity observed; defect not established |
+| [D0002](D0002-seed8402-druid/report.md) | unassigned | `f772eb6dcb93` | 8402 | a cutpurse | 5590 | C/Rust parity observed; defect not established |
+| [D0003](D0003-seed8406-rogue/report.md) | unassigned | `f772eb6dcb93` | 8406 | a giant yellow centipede | 5600 | C/Rust parity observed; defect not established |
+| [D0004](D0004-seed8408-blackguard/report.md) | unassigned | `f772eb6dcb93` | 8408 | a wild cat | 6231 | C/Rust parity observed; defect not established |
+
+## Aggregated actions
+
+- Prioritize escape-stock/restocking and the decision to descend. A controlled rerun from original birth is needed before attributing survival to another policy; loading the prior engine save starts fresh Borg memory. — recorded; needs causal investigation; cases D0001.
+- Investigate avoiding adjacent lethal encounters with exhausted mana and minimal starting resources. No port-specific defect or guaranteed unused known escape is established. — recorded; needs causal investigation; cases D0002.
+- Investigate emergency unknown-scroll policy and earlier avoidance. The actual hidden kind is diagnostic information, not knowledge available to the Borg. — recorded; needs causal investigation; cases D0003.
+- Prioritize a controlled healing-versus-finishing-attack counterfactual. Last-checkpoint stock alone is not proof a particular alternative would survive; no tactical change is made from this observation. — recorded; needs causal investigation; cases D0004.
+
+[Earlier nine-class cohort and assessments](cohort-2026-11-07.md) · [Feedback process](FEEDBACK.md).
+
+Export with tools/record-death.py, curate assessment.json/report.md, regenerate with tools/aggregate-deaths.py. Original-C defect leads go to neo-angband-tracker under the repository policy; no automatic issues or gameplay changes are made by the logger.

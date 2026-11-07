@@ -1,0 +1,296 @@
+{
+  "attempts": [
+    {
+      "binary_sha256": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+      "outcome": "death",
+      "raw_directory": "/home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-profile/recordings/20261107T171422.908091Z-DeliveryDeath",
+      "result_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0",
+      "role": "original",
+      "source_commit": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588"
+    }
+  ],
+  "build": {
+    "binary": "/home/diego/projects/borg-rs/build/rust/game/angband",
+    "binary_sha256": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+    "built_utc": "2026-11-07T17:10:45Z",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "git_dirty": "yes",
+    "git_rev": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+    "impl": "rust",
+    "inputs_dirty": "yes",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794"
+  },
+  "calendar_context": "seeded headless harness holiday context pinned to epoch",
+  "character": "DeliveryDeath",
+  "encounter_family": "start-170b8f642c8199ade5596968c51b6fb2f5ccb1c0eed70286e83dd3558a6a5479",
+  "files_sha256": {
+    "CharOutput.txt": "0653fa12b07eb8f9108326178418eecf9a3462f9eb3396517ef22ca7973b45c2",
+    "build.json": "78a4859d100974cec65f7c7377adb275a686a81f70d7598e004cf7f65e88a3a9",
+    "input.json": "e52e536a88a6329bb3a0decf9416a912d34c1fe6e945b17f8a37f77d63298ba3",
+    "keys.log": "1c824b8d2d33856375e0956eb40f6ebbd43b75282d38c42c526e69a566b6ae58",
+    "messages.log": "2e950f6935fea0f0ae6920e0f29f6ab654bead98dabdb169a4133aa694e99957",
+    "native/Borg.map": "928ab621ba96afca6d8cf21b72086f5b5772eb7f84193684701973e186f536b8",
+    "native/borg-log.txt": "db5bf750285c310f920795456e2722f341e22b549e15d08b9769d3129f2e3e91",
+    "native/borg.dat": "e46f3b25a3617f2b4d71ec0a53e2445c6288b5aa8854b0c4205ad336e1e29c44",
+    "snapshots/recorded-T-minus-12.json": "bc459b7054f094494d0cec58a056a15cddf0df5162d3b9dc2a879872854de9ab",
+    "snapshots/recorded-T-minus-12.txt": "aefaec1187b3d4cac5242fdf312c8acc65bbba999dd4cd31b2f4cb2dd9386cea",
+    "snapshots/recorded-anchor-t5492.json": "11fc0ef9d115984f319bc60a0cd278c8573ef2a0627c61b0094001ab57fb52ac",
+    "snapshots/recorded-anchor-t5492.txt": "78c00233b964db8838b233098259e5420e36f4857089e8d6dd0d437cfd664009",
+    "snapshots/recorded-anchor-t5512.json": "4ec9c1681835167f0a5ad823e52a13f0337a22ab72d3cb49e97238d11f4fedee",
+    "snapshots/recorded-anchor-t5512.txt": "f478c0a1825608c69eadcacd2e6c55b8d49b5c532c790cf8d5e3312d49ca19c2",
+    "snapshots/recorded-anchor-t5532.json": "b0b37308f6fac566e18b60e05e63057ac2ae06e9485365b608155bd0e74bfb4a",
+    "snapshots/recorded-anchor-t5532.txt": "ef33f8b4f5a4911e615693acc98a89532da4f884b46696c85788d1b2d94a6776",
+    "snapshots/recorded-anchor-t5552.json": "fad039d1c8d9dc51ead2ab0d8b7d9ef20485b34b7f08eaf9c097c309ff9fb7ad",
+    "snapshots/recorded-anchor-t5552.txt": "95a357a6415a2debfc5b37ec2fdb4853493f2ad52e166b1cb8fb58b5ef344d27",
+    "snapshots/recorded-anchor-t5572.json": "dc4071960bee171443cb3d725b1873e89266bbd8a10e54fa72614fe41add4202",
+    "snapshots/recorded-anchor-t5572.txt": "82eaedcf092c580a29666a3c8c53ca419a2a6ade55f392b6b5740a93f0862ad5",
+    "snapshots/recorded-anchor-t5591.json": "f7923f697514aec1ecc6014b3dc6c32ac6f7b10e2ac7a86f1ccfcc910abbd1ea",
+    "snapshots/recorded-anchor-t5591.txt": "8bb7baeeabadf2dda5853e1b67c3b328bcaf4190dd71f445a61128755339990c",
+    "state.log": "7f022d4713a0c4ab4f8e4bae569712826981953b7807e39b27c6327798a42c86",
+    "terminal.map.txt": "3b383dbb405551872ca2cadcdbe8959a2759ab317046367af457c4f4c25ea6ad"
+  },
+  "id": "D0001",
+  "identity": {
+    "binary": "519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "f70b4596abb6a2814da1d1893a0d761137e0d96076b60c62e90d9f4cf07eb77d",
+    "encounter_family": "start-170b8f642c8199ade5596968c51b6fb2f5ccb1c0eed70286e83dd3558a6a5479",
+    "seed": 8406,
+    "source": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+    "source_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+    "start_save": null,
+    "turn": 5600
+  },
+  "independence_note": "Curated case; repeats, continuations, GUI intervention and backup branches are not an independent mortality cohort",
+  "investigation": null,
+  "issue": null,
+  "limits": {
+    "checkpoint_every": 1000,
+    "class": 6,
+    "flags": "menu,terminal-save,frames,key-limit=50000",
+    "race": 3,
+    "seed": 8406,
+    "turn_limit": 10000,
+    "wall_seconds": 60
+  },
+  "living_checkpoints": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 1000,
+      "file": "checkpoint-000001-t0000001002.save",
+      "game_turn": 1002,
+      "keys": 295,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "6e126edf8ac09ec84aa6f27aef1c76b9362466494561b9f838ce72c3c7777323",
+      "seed": 8406,
+      "size_bytes": 55540
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 2000,
+      "file": "checkpoint-000002-t0000002002.save",
+      "game_turn": 2002,
+      "keys": 407,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "bb958ac7b61e1cb6079c9ed5f93a840fe1d02dd91ab1829e3b170928190326f3",
+      "seed": 8406,
+      "size_bytes": 60712
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 3000,
+      "file": "checkpoint-000003-t0000003001.save",
+      "game_turn": 3001,
+      "keys": 534,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "93c96fd5a9fbdc9d99dc3e485e511de7fa5a774e19f80a56b7a1b13ef58fd5dd",
+      "seed": 8406,
+      "size_bytes": 56652
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 4000,
+      "file": "checkpoint-000004-t0000004002.save",
+      "game_turn": 4002,
+      "keys": 647,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "99fbc511c650d069581e5b217feecac3b032e38eef0db096c5a47eb429717b7b",
+      "seed": 8406,
+      "size_bytes": 53796
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 5000,
+      "file": "checkpoint-000005-t0000005002.save",
+      "game_turn": 5002,
+      "keys": 765,
+      "load_validation": "not attempted by exporter; original fork-save hash retained",
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "06e80ceaac56c4c31c3abfef06d08b052cf7266719f940e3a4f43f24b69fab5f",
+      "seed": 8406,
+      "size_bytes": 56372
+    }
+  ],
+  "raw_cause": "a giant yellow centipede",
+  "recording": {
+    "frames_sha256": "112b6880d0694be0b9851990599e56fe28bb3ff5ef379437e68115279a07b534",
+    "manifest_sha256": "08870f32ff657f3841d9c74a6732663eff3390ace4347cc48202499c594ea9c0",
+    "nearby_original_anchors": [
+      {
+        "frame_index": 850,
+        "json": "snapshots/recorded-anchor-t5591.json",
+        "offset_engine_turns": 9,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          5
+        ],
+        "text": "snapshots/recorded-anchor-t5591.txt",
+        "turn": 5591
+      },
+      {
+        "frame_index": 839,
+        "json": "snapshots/recorded-anchor-t5572.json",
+        "offset_engine_turns": 28,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          25
+        ],
+        "text": "snapshots/recorded-anchor-t5572.txt",
+        "turn": 5572
+      },
+      {
+        "frame_index": 830,
+        "json": "snapshots/recorded-anchor-t5552.json",
+        "offset_engine_turns": 48,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          40
+        ],
+        "text": "snapshots/recorded-anchor-t5552.txt",
+        "turn": 5552
+      },
+      {
+        "frame_index": 828,
+        "json": "snapshots/recorded-anchor-t5532.json",
+        "offset_engine_turns": 68,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          60
+        ],
+        "text": "snapshots/recorded-anchor-t5532.txt",
+        "turn": 5532
+      },
+      {
+        "frame_index": 826,
+        "json": "snapshots/recorded-anchor-t5512.json",
+        "offset_engine_turns": 88,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          82
+        ],
+        "text": "snapshots/recorded-anchor-t5512.txt",
+        "turn": 5512
+      },
+      {
+        "frame_index": 823,
+        "json": "snapshots/recorded-anchor-t5492.json",
+        "offset_engine_turns": 108,
+        "phase": "key",
+        "qualification": "Nearest earlier actual observation; not an exact requested offset or interpolated state",
+        "requested_offsets_engine_turns": [
+          105
+        ],
+        "text": "snapshots/recorded-anchor-t5492.txt",
+        "turn": 5492
+      }
+    ],
+    "qualification": "Original frames, not an assumed verified rerun or mid-run Borg-memory restore",
+    "raw_directory": "/home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-profile/recordings/20261107T171422.908091Z-DeliveryDeath",
+    "replay_command": "./replay-borg.py /home/diego/projects/borg-rs/harness/out/death-tooling/headless-delivery-deaths/D0001-recorded --from-turn 5495",
+    "schema": "borg-rs-headless-recording@1",
+    "selected_original_frames": [
+      {
+        "frame_index": 848,
+        "json": "snapshots/recorded-T-minus-12.json",
+        "offset_engine_turns": 12,
+        "phase": "key",
+        "text": "snapshots/recorded-T-minus-12.txt",
+        "turn": 5588
+      }
+    ],
+    "unavailable_offsets": [
+      {
+        "offset_engine_turns": 5,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5595
+      },
+      {
+        "offset_engine_turns": 25,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5575
+      },
+      {
+        "offset_engine_turns": 40,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5560
+      },
+      {
+        "offset_engine_turns": 60,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5540
+      },
+      {
+        "offset_engine_turns": 82,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5518
+      },
+      {
+        "offset_engine_turns": 105,
+        "reason": "No original frame at this exact engine turn",
+        "requested_turn": 5495
+      }
+    ]
+  },
+  "recording_schema": "borg-rs-headless-recording@1",
+  "run_kind": "new birth",
+  "schema": "borg-rs/death-record@1",
+  "terminal": {
+    "cause": "a giant yellow centipede",
+    "class_idx": 6,
+    "dead": true,
+    "depth": 1,
+    "level": 2,
+    "race_idx": 3,
+    "turn": 5600
+  }
+}

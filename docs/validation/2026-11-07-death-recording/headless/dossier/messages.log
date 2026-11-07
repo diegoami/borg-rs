@@ -1,0 +1,250 @@
+677 4302 0 # Standing on up-stairs
+677 4302 0 # Leaving via up stairs.
+678 4302 78 You enter a maze of up staircases.
+680 4302 0 # Standing on dn-stairs
+680 4302 0 # Nothing to sell in town (leaving).
+680 4302 0 # Flowing toward down-stairs at cost 0
+680 4302 0 # Fleeing and leaving the level (Looking for Up Stair).
+680 4302 0 # Flowing toward down-stairs at cost 0
+680 4302 0 # Flowing toward Home at cost 12
+681 4312 0 # Nothing to sell in town (leaving).
+681 4312 0 # Flowing toward down-stairs at cost 1
+682 4322 0 # Standing on dn-stairs
+683 4322 29 You enter a maze of down staircases.
+684 4322 0 This place seems reasonably safe.
+685 4322 0 # FEELING_DANGER:7 (+)
+685 4322 0 # FEELING_DANGER:7 (1)
+685 4322 0 # Standing on up-stairs
+685 4322 0 # Flowing toward dark-2 at cost 3
+688 4352 0 # Flowing toward dark-2 at cost 3
+691 4382 0 # Flowing toward dark-2 at cost 3
+694 4412 0 # Flowing toward dark-2 at cost 3
+697 4442 0 # Flowing toward dark-4 at cost 8
+705 4522 0 # Flowing toward dark-2 at cost 3
+708 4552 0 # Flowing toward dark-2 at cost 3
+711 4582 0 # heading up (bored and unable to dive: Clevel < depth)
+711 4582 0 # Looking for up stairs.  Going up.
+711 4582 0 # Flowing toward up-stairs at cost 12
+711 4582 0 # Going to stairs up. I'm bored.
+723 4702 0 # Standing on up-stairs
+723 4702 0 # Leaving via up stairs.
+724 4702 78 You enter a maze of up staircases.
+726 4702 0 # Standing on dn-stairs
+726 4702 0 # Nothing to sell in town (leaving).
+726 4702 0 # Flowing toward down-stairs at cost 0
+726 4702 0 # Fleeing and leaving the level (Looking for Up Stair).
+726 4702 0 # Flowing toward down-stairs at cost 0
+726 4702 0 # Flowing toward Home at cost 12
+727 4712 0 # Nothing to sell in town (leaving).
+727 4712 0 # Flowing toward down-stairs at cost 1
+728 4722 0 # Standing on dn-stairs
+729 4722 29 You enter a maze of down staircases.
+730 4722 0 This seems a tame, sheltered place.
+731 4722 0 # FEELING_DANGER:8 (+)
+731 4722 0 # FEELING_DANGER:8 (1)
+731 4722 0 # Standing on up-stairs
+731 4722 0 # Flowing toward dark-2 at cost 3
+734 4752 0 # Creating a monster 'giant white mouse' at (26,140), HP: 3, Index: 23
+734 4752 0 # Removing Regional Fear (26,140) because of a LOS giant white mouse
+734 4752 0 # Scary guy on level.
+734 4752 0 # Leaving (Scary guy on level)
+734 4752 0 # Fleeing (Scary guy on level)
+734 4752 0 # Fleeing and leaving the level. (scaryguy)
+734 4752 0 # Flowing toward up-stairs at cost 3
+734 4752 0 # Desperate for Stairs (three)
+735 4762 0 # Scary guy on level.
+735 4762 0 # Fleeing and leaving the level. (scaryguy)
+735 4762 0 # Flowing toward up-stairs at cost 2
+735 4762 0 # Desperate for Stairs (one)
+736 4772 0 # Scary guy on level.
+736 4772 0 # Fleeing and leaving the level. (scaryguy)
+736 4772 0 # Flowing toward up-stairs at cost 1
+736 4772 0 # Desperate for Stairs (one)
+737 4782 0 # Scary guy on level.
+737 4782 0 # Standing on up-stairs
+737 4782 0 # Fleeing and leaving the level. (scaryguy)
+737 4782 0 # Leaving via up stairs.
+738 4782 78 You enter a maze of up staircases.
+740 4782 0 # Standing on dn-stairs
+740 4782 0 # Nothing to sell in town (leaving).
+740 4782 0 # Flowing toward down-stairs at cost 0
+740 4782 0 # Fleeing and leaving the level (Looking for Up Stair).
+740 4782 0 # Flowing toward down-stairs at cost 0
+740 4782 0 # Flowing toward Home at cost 12
+741 4792 0 # Nothing to sell in town (leaving).
+741 4792 0 # Flowing toward down-stairs at cost 1
+742 4802 0 # Standing on dn-stairs
+743 4802 29 You enter a maze of down staircases.
+744 4802 0 This seems a quiet, peaceful place.
+745 4802 0 # FEELING_DANGER:9 (+)
+745 4802 0 # Creating an object '& Flask~ of oil' at (155,22)
+745 4802 0 # Creating a monster 'grey mold' at (22,157), HP: 2, Index: 17
+745 4802 0 # Removing Regional Fear (22,157) because of a LOS grey mold
+745 4802 0 # Creating a monster 'wild dog' at (22,148), HP: 3, Index: 29
+745 4802 0 # Removing Regional Fear (22,148) because of a LOS wild dog
+745 4802 0 # FEELING_DANGER:9 (1)
+745 4802 0 # Standing on up-stairs
+745 4802 0 # Flowing toward dark-2 at cost 3
+746 4812 0 # Creating a monster 'clear icky thing' at (22,143), HP: 6, Index: 22
+746 4812 0 # Removing Regional Fear (22,143) because of a LOS clear icky thing
+748 4832 0 # Creating a monster 'wild dog' at (22,145), HP: 3, Index: 29
+748 4832 0 # Removing Regional Fear (22,145) because of a LOS wild dog
+748 4832 0 # Loc:22,141 Dep:1 Lev:1 HP:11/11 SP:0/0 Danger:p=2
+748 4832 0 # Flowing toward dark-4 at cost 5
+751 4862 0 # Standing on up-stairs
+753 4882 0 # Flowing toward dark-2 at cost 3
+756 4912 0 # Flowing toward dark-2 at cost 3
+759 4942 0 # Flowing toward dark-2 at cost 3
+762 4972 0 # heading up (bored and unable to dive: Clevel < depth)
+762 4972 0 # Looking for up stairs.  Going up.
+762 4972 0 # Flowing toward up-stairs at cost 11
+762 4972 0 # Going to stairs up. I'm bored.
+773 5082 0 # Standing on up-stairs
+773 5082 0 # Leaving via up stairs.
+774 5082 78 You enter a maze of up staircases.
+776 5082 0 # Standing on dn-stairs
+776 5082 0 # Nothing to sell in town (leaving).
+776 5082 0 # Flowing toward down-stairs at cost 0
+776 5082 0 # Fleeing and leaving the level (Looking for Up Stair).
+776 5082 0 # Flowing toward down-stairs at cost 0
+776 5082 0 # Flowing toward Home at cost 12
+777 5092 0 # Nothing to sell in town (leaving).
+777 5092 0 # Flowing toward down-stairs at cost 1
+778 5102 0 # Standing on dn-stairs
+779 5102 29 You enter a maze of down staircases.
+780 5102 0 This seems a quiet, peaceful place.
+781 5102 0 # FEELING_DANGER:9 (+)
+781 5102 0 # FEELING_DANGER:9 (1)
+781 5102 0 # Standing on up-stairs
+781 5102 0 # Flowing toward dark-2 at cost 3
+783 5122 0 # Digging through wall/etc
+785 5122 0 You dig in the rubble with your weapon.
+786 5132 0 You dig in the rubble with your weapon.
+787 5142 0 You dig in the rubble with your weapon.
+788 5152 0 You dig in the rubble with your weapon.
+789 5162 0 You dig in the rubble with your weapon.
+790 5172 0 You dig in the rubble with your weapon.
+791 5182 0 You dig in the rubble with your weapon.
+792 5192 0 You dig in the rubble with your weapon.
+793 5202 0 You dig in the rubble with your weapon.
+794 5212 0 You dig in the rubble with your weapon.
+795 5222 0 You dig in the rubble with your weapon.
+796 5232 0 You dig in the rubble with your weapon.
+797 5242 0 You have removed the rubble with your weapon.
+799 5262 0 # Flowing toward dark-2 at cost 3
+800 5272 0 # Standing on dn-stairs
+800 5272 0 # Flowing toward dark-3 at cost 2
+802 5292 0 # Flowing toward dark-2 at cost 3
+805 5322 0 # Flowing toward dark-2 at cost 3
+808 5352 0 # Flowing toward dark-2 at cost 3
+811 5382 0 # Flowing toward dark-3 at cost 5
+816 5432 0 # Flowing toward dark-2 at cost 3
+819 5462 0 # Flowing toward dark-4 at cost 6
+824 5502 0 A horn blast sounds!
+824 5502 0 You hear a sudden stirring in the distance!
+825 5512 0 # Creating a monster 'giant yellow centipede' at (19,154), HP: 5, Index: 19
+825 5512 0 # Removing Regional Fear (19,154) because of a LOS giant yellow centipede
+826 5522 0 # Tracking a monster 'giant yellow centipede' at (20,154) from (19,154)
+826 5522 0 # Loc:22,154 Dep:1 Lev:1 HP:11/11 SP:0/0 Danger:p=6
+826 5522 0 # Retreating to 23,154 (distance 1) via 23,154 (6 > 0)
+827 5532 0 # Tracking a monster 'giant yellow centipede' at (21,154) from (20,154)
+827 5532 0 # Loc:23,154 Dep:1 Lev:1 HP:11/11 SP:0/0 Danger:p=6
+827 5532 0 # Retreating to 24,154 (distance 1) via 24,154 (6 > 0)
+828 5542 0 # Tracking a monster 'giant yellow centipede' at (22,154) from (21,154)
+828 5542 0 # Creating a monster 'rock lizard' at (28,154), HP: 5, Index: 28
+828 5542 0 # Removing Regional Fear (28,154) because of a LOS rock lizard
+828 5542 0 # Loc:24,154 Dep:1 Lev:1 HP:11/11 SP:0/0 Danger:p=6
+828 5542 0 # Retreating to 25,154 (distance 1) via 25,154 (6 > 0)
+829 5552 0 # Tracking a monster 'rock lizard' at (27,154) from (28,154)
+829 5552 0 # Tracking a monster 'giant yellow centipede' at (23,154) from (22,154)
+829 5552 0 # Loc:25,154 Dep:1 Lev:1 HP:11/11 SP:0/0 Danger:p=7
+829 5552 0 # Retreating to 26,154 (distance 1) via 26,154 (7 > 2)
+830 5559 39 The rock lizard bites you.
+831 5562 0 # HIT_BY:The rock lizard (+)
+831 5562 0 # Tracking a monster 'giant yellow centipede' at (24,154) from (23,154)
+831 5562 0 # HIT_BY:The rock lizard (3)
+831 5562 0 # Loc:26,154 Dep:1 Lev:1 HP:10/11 SP:0/0 Danger:p=8
+831 5562 0 # Fleeing (failed to teleport)
+831 5562 0 # Leaving (failed to teleport)
+831 5562 0 # Performing attack type 1 with value 4.
+831 5562 0 # Facing rock lizard at (27,154) who has 5 Hit Points.
+831 5562 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+833 5562 2 You hit the rock lizard.
+833 5562 2 You hit the rock lizard.
+833 5569 0 The rock lizard misses you.
+835 5571 0 # HIT:the rock lizard (+)
+835 5571 0 # HIT:the rock lizard (+)
+835 5571 0 # MISS_BY:The rock lizard (+)
+835 5571 0 # Tracking a monster 'giant yellow centipede' at (25,154) from (24,154)
+835 5571 0 # HIT:the rock lizard (2)
+835 5571 0 # HIT:the rock lizard (2)
+835 5571 0 # MISS_BY:The rock lizard (3)
+835 5571 0 # Possibility of being surrounded (monsters/safegrids)(2/0)
+835 5571 0 # Loc:26,154 Dep:1 Lev:1 HP:10/11 SP:0/0 Danger:p=14
+835 5571 0 # Performing attack type 1 with value 19.
+835 5571 0 # Facing giant yellow centipede at (25,154) who has 5 Hit Points.
+835 5571 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+837 5571 3 You miss the giant yellow centipede.
+837 5571 2 You hit the giant yellow centipede.
+837 5572 0 The giant yellow centipede misses you.
+838 5572 40 The giant yellow centipede stings you.
+839 5579 0 The rock lizard misses you.
+840 5579 0 # MISS:the giant yellow centipede (+)
+840 5579 0 # HIT:the giant yellow centipede (+)
+840 5579 0 # MISS_BY:The giant yellow centipede (+)
+840 5579 0 # HIT_BY:The giant yellow centipede (+)
+840 5579 0 # MISS_BY:The rock lizard (+)
+840 5579 0 # MISS:the giant yellow centipede (2)
+840 5579 0 # HIT:the giant yellow centipede (2)
+840 5579 0 # MISS_BY:The giant yellow centipede (3)
+840 5579 0 # HIT_BY:The giant yellow centipede (3)
+840 5579 0 # MISS_BY:The rock lizard (3)
+840 5579 0 # Possibility of being surrounded (monsters/safegrids)(2/0)
+840 5579 0 # Loc:26,154 Dep:1 Lev:1 HP:8/11 SP:0/0 Danger:p=14
+840 5579 0 # Performing attack type 1 with value 19.
+840 5579 0 # Facing giant yellow centipede at (25,154) who has 4 Hit Points.
+840 5579 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+842 5579 3 You miss the giant yellow centipede.
+842 5579 2 You hit the giant yellow centipede.
+842 5582 0 The giant yellow centipede misses you.
+843 5582 40 The giant yellow centipede stings you.
+845 5588 0 # MISS:the giant yellow centipede (+)
+845 5588 0 # HIT:the giant yellow centipede (+)
+845 5588 0 # MISS_BY:The giant yellow centipede (+)
+845 5588 0 # HIT_BY:The giant yellow centipede (+)
+845 5588 0 # MISS:the giant yellow centipede (2)
+845 5588 0 # HIT:the giant yellow centipede (2)
+845 5588 0 # MISS_BY:The giant yellow centipede (3)
+845 5588 0 # HIT_BY:The giant yellow centipede (3)
+845 5588 0 # Possibility of being surrounded (monsters/safegrids)(2/0)
+845 5588 0 # Loc:26,154 Dep:1 Lev:1 HP:5/11 SP:0/0 Danger:p=14
+845 5588 0 # Performing attack type 1 with value 19.
+845 5588 0 # Facing giant yellow centipede at (25,154) who has 3 Hit Points.
+845 5588 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+847 5588 3 You miss the giant yellow centipede.
+847 5588 3 You miss the giant yellow centipede.
+848 5589 39 The rock lizard bites you.
+848 5591 0 The giant yellow centipede misses you.
+849 5591 40 The giant yellow centipede stings you.
+851 5596 0 # MISS:the giant yellow centipede (+)
+851 5596 0 # MISS:the giant yellow centipede (+)
+851 5596 0 # HIT_BY:The rock lizard (+)
+851 5596 0 # MISS_BY:The giant yellow centipede (+)
+851 5596 0 # HIT_BY:The giant yellow centipede (+)
+851 5596 0 # MISS:the giant yellow centipede (2)
+851 5596 0 # MISS:the giant yellow centipede (2)
+851 5596 0 # HIT_BY:The rock lizard (3)
+851 5596 0 # MISS_BY:The giant yellow centipede (3)
+851 5596 0 # HIT_BY:The giant yellow centipede (3)
+851 5596 0 # Possibility of being surrounded (monsters/safegrids)(2/0)
+851 5596 0 # Loc:26,154 Dep:1 Lev:1 HP:1/11 SP:0/0 Danger:p=14
+851 5596 0 # Reading unknown scroll Scroll titled "citas ca".
+853 5596 25 The air around you starts to swirl...
+853 5596 7 Welcome to level 2.
+853 5596 0 You have no more Scrolls of Deep Descent (c).
+854 5599 39 The rock lizard bites you.
+854 5600 39 The giant yellow centipede bites you.
+855 5600 8 You die.
+856 5600 0 Score not registered for borgs.
+856 5600 0 # Aborting (death).
+856 5600 0 # Aborting (player died).

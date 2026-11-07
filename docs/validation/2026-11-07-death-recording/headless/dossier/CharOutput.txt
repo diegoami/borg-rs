@@ -1,0 +1,9 @@
+{
+race: "Hobbit",
+class: "Rogue",
+mapName: "Angband",
+dLvl: "1",
+cLvl: "2",
+isDead: "1",
+killedBy: "a giant yellow centipede"
+}

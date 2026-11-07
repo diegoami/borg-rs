@@ -1,0 +1,27 @@
+Original frame 848; engine turn 5588; phase key; HP 5, SP 0, depth 1
+Logical cells; diagnostics are actual engine state, not extra Borg knowledge.
+
+You miss the giant yellow centipede. -more-                                     
+Hobbit                            #.#                                           
+Vagabond                           .                                            
+Rogue                                                                           
+LEVEL      1                                                                    
+NXT       10                                                                    
+AU         0                                                                    
+|    ~( )]]                                                                     
+STR:      15                                                                    
+INT:      16                      #.#                                           
+WIS:       8                      %.%                                           
+DEX:   18/40                      %.%##%#%%#%%%%                                
+CON:      14                      %.'.........<%                                
+                                  %c%.%%%%%>%#%%                                
+Cur AC    24                      #@#....%%#%                                   
+HP    5/  11                      %R####.%                                      
+                                  #.#                                           
+                                                                                
+[*******---]                            '                                       
+                                        .                                       
+                                        .                                       
+                                        .                                       
+50' (L1)                                .                                       
+             LF:1-? Light 2  Fed 84 % Open floor                                

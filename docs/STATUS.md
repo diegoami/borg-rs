@@ -20,6 +20,15 @@ controls pass; observer-disabled actions/final save match. See tools/README.md
 and validation/2026-11-07-gui-recording. C Borg private state remains omitted;
 original saves/data are preserved in testing.
 
+Replay now also accepts better-borg-c's turn/view/output/timeout flags. Both
+launchers export completed natural deaths with immutable identities, native
+maps/logs, exact original windows or labeled nearby anchors, checkpoint metadata
+and unassessed findings/actions. The four earlier deaths are indexed with their
+actual twelve C/C/Rust process attempts and four distinct inputs; no historical
+movies are invented. GUI archive bytes verify exactly; headless wall-clock log
+header differences are explicitly reported while other bytes remain exact.
+See docs/deaths and validation/2026-11-07-death-recording.
+
 Post-M4 #345 now builds a complete25-Rune formation autonomously in a
 constructed preparation room by turn177; C twice and Rust match3/3 logs
 and full final saves. Self-lunal's repeated connected-stair rerolls are

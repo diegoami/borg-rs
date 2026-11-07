@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "cases": [
+        "D0001"
+      ],
+      "issue": null,
+      "key": "legacy-warrior",
+      "status": "recorded; needs causal investigation",
+      "summary": "Prioritize escape-stock/restocking and the decision to descend. A controlled rerun from original birth is needed before attributing survival to another policy; loading the prior engine save starts fresh Borg memory."
+    },
+    {
+      "cases": [
+        "D0002"
+      ],
+      "issue": null,
+      "key": "legacy-druid",
+      "status": "recorded; needs causal investigation",
+      "summary": "Investigate avoiding adjacent lethal encounters with exhausted mana and minimal starting resources. No port-specific defect or guaranteed unused known escape is established."
+    },
+    {
+      "cases": [
+        "D0003"
+      ],
+      "issue": null,
+      "key": "legacy-rogue",
+      "status": "recorded; needs causal investigation",
+      "summary": "Investigate emergency unknown-scroll policy and earlier avoidance. The actual hidden kind is diagnostic information, not knowledge available to the Borg."
+    },
+    {
+      "cases": [
+        "D0004"
+      ],
+      "issue": null,
+      "key": "legacy-blackguard",
+      "status": "recorded; needs causal investigation",
+      "summary": "Prioritize a controlled healing-versus-finishing-attack counterfactual. Last-checkpoint stock alone is not proof a particular alternative would survive; no tactical change is made from this observation."
+    }
+  ],
+  "cases": 4,
+  "causes_by_distinct_start": {
+    "a cutpurse": 1,
+    "a giant yellow centipede": 1,
+    "a pseudo-dragon": 1,
+    "a wild cat": 1
+  },
+  "death_process_attempts": 12,
+  "distinct_starting_conditions": 4,
+  "limit": "Selected cases; repeats/reference variants and backup branches are not independent lives or a mortality-rate estimate",
+  "schema": "borg-rs/death-index@1",
+  "versions": {
+    "f772eb6dcb93dc8d53cfc0167496d6122133f42e": 12
+  }
+}

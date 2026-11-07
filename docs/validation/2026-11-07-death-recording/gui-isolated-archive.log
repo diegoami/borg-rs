@@ -1,0 +1,17 @@
+VERIFIED frozen-origin rerun: rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save
+{
+  "bundle": "/home/diego/projects/borg-rs/harness/out/death-tooling/gui-isolated-archive/profile/recordings/20261107T171207.664550Z-DeathTest",
+  "dossier": "/home/diego/projects/borg-rs/harness/out/death-tooling/gui-isolated-archive/deaths/D0001-recorded",
+  "terminal": {
+    "cause": "a giant yellow centipede",
+    "class_idx": 2,
+    "dead": 1,
+    "depth": 1,
+    "level": 1,
+    "race_idx": 1,
+    "turn": 10668
+  },
+  "verified": true,
+  "qualification": "loaded living Druid checkpoint; fresh Borg diagnostic branch, not original cohort replay or independent survival sample"
+}
+

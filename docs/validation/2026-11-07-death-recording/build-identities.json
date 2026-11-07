@@ -1,0 +1,8 @@
+{
+  "base_commit": "75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588",
+  "c_BUILD_ID": "impl=c\ngit_rev=75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588\ngit_dirty=yes\ninputs_dirty=yes\nsource_sha256=78704cd9db6ce8b488ff23716abb570b2dd0102fc0ac9a132a982fd912e65a8e\nbinary=/home/diego/projects/borg-rs/build/c/game/angband\nbinary_sha256=93a92c4976f5c48eca06d5a9037e565827d9ad5c95f95839dff40ff4145a27f6\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nbuilt_utc=2026-11-07T17:10:49Z\n",
+  "c_inputs_sha256": "78704cd9db6ce8b488ff23716abb570b2dd0102fc0ac9a132a982fd912e65a8e",
+  "rust_BUILD_ID": "impl=rust\ngit_rev=75fbcc6a79f5fe3a5e8512bd273fc7ab6b51d588\ngit_dirty=yes\ninputs_dirty=yes\nsource_sha256=d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794\nbinary=/home/diego/projects/borg-rs/build/rust/game/angband\nbinary_sha256=519385eeb1e3a498eda096d53044989c30f1e552bdfaf7b6b2d1745310e1c3e0\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nrustc=rustc 1.98.1 (48a229cea 2026-09-01)\nbuilt_utc=2026-11-07T17:10:45Z\n",
+  "rust_inputs_sha256": "d247f691a3f8a7db91489456c4ccc23646a7cacbcc3816bdf142517d899b3794",
+  "working_tree_source": true
+}

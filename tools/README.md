@@ -84,3 +84,60 @@ Rust Borg activation/interruption plus manual play/live borg.txt reload/resize,
 a loaded Hobbit Rogue, and fresh birth. Negative controls exercise runtime/input/
 action/save corruption, incomplete streams and extra terminal input. Tests run
 on a private Xvfb display and disposable profiles/build, never owner saves.
+
+
+## C-compatible parameters and death records
+
+Replay has the same public parameter names as better-borg-c f3ced6219768:
+--from-turn N, --dump-turn N, --view-only, --verify-only, --output NEW_DIR,
+--timeout SECONDS. Rust's older --turn/--dump/--recording-only aliases remain.
+--from-turn selects the first original frame at/before that engine turn; the
+verification always reexecutes from the frozen origin. --output retains actual
+rerun streams/profile and a success/failure proof; an existing output directory
+is never overwritten. Failed verification also retains a temporary diagnostics
+directory automatically; successful temporary outputs are cleaned up.
+Verification timeouts stop the replay engine, preserve
+the original and never publish a named save. Death dossier paths and record.json
+resolve to their original bundle only when its manifest hash still matches.
+
+Headless --timeout aliases --wall-seconds, and --death-issue links an exported
+case. Rust keeps its own defaults (seed42, optional100k-turn budget) and extra
+race/class/new/key/checkpoint controls. Donor --stall-timeout is not ported;
+Rust uses independent world-turn/key/wall limits. These launchers are not fully
+identical argument sets. Donor death-issue defaults are not copied across repos.
+
+Both launchers export each confirmed natural terminal death after the session
+completes. The registry defaults to docs/deaths; BORG_DEATH_RECORDS_DIR overrides
+it for private/testing profiles. Registry allocation is locked and dossier
+publication uses a staged directory; original identity and evidence are not
+replaced by later builds. Caps, failures and retirement do not become deaths.
+Borg/game cheat-enabled cases are rejected from natural-death export. GUI mixed
+control and loaded/backup branches retain explicit context. Every assessment
+starts unassessed; logging does not infer a defect, open an issue or alter tactics.
+
+Dossiers contain native Borg maps, borg.dat/borg-log.txt, bounded original
+keys/messages/state/actions, actual terminal state, source/binary/config/input
+hashes, checkpoint hashes and explicit load-validation status. Full frozen
+bundles and saves stay outside Git. GUI archive output is isolated per session (concurrent characters cannot mix
+Borg.map/death logs); it preserves newly written native archives in its bundle (stale archive files are excluded) and replay checks them
+byte for byte. Headless replay also compares archives: maps/data/all log-body
+bytes must match. Its historical Rust death-log header uses the real wall clock;
+only recognized date/time header-line differences are reported separately in
+verification.json. Original timestamp bytes remain hashed and immutable. The
+existing gameplay streams, frames and native saves still require exact matches.
+
+The donor's default pre-death offsets5/12/25/40/60/82/105 are engine turns.
+Exact original frames are exported when present. Missing exact frames remain
+unavailable; separately named nearby anchors carry actual turn, phase and offset,
+with no interpolation or false claim of exact timing. Several requested offsets
+can share one actual boundary; they are not distinct decisions or lives.
+
+Use tools/record-death.py --run BUNDLE --output DOSSIER --id D0005
+[--investigation URL] [--repeat BUNDLE] for manual export; repeat evidence must
+match actual source/start and complete observable channels. Existing assessments
+and attempts are preserved; issue metadata and qualified repeats may be appended.
+Then run tools/aggregate-deaths.py. The index groups attempts by original input,
+keeps source versions separate, and groups actions by canonical issue/key. This
+is a selected-case registry, not a mortality estimate. The four earlier cohort
+deaths keep their actual historical builds, twelve C/C/Rust attempts, original
+assessments and explicit absence of movies.
