@@ -117,6 +117,19 @@ all matched the C oracles; the modest variable speed gain did not justify
 mixing images during this collection. Current full profiles consistently
 use instrument-coverage/link-dead-code. Branch coverage is unmeasured.
 
+## Interactive Rust launcher
+
+Owner-requested `./run-rust-borg.sh` builds the ordinary X11 game in
+`build/play-rust` with BORG_IMPL=rust and harness hooks off, verifies the
+executable's Rust identity, and starts it from the correct data directory.
+Persistent saves/settings are in ignored `.angband-rust/`; an existing
+borg.txt is preserved and the first copy has stock cheat death FALSE.
+Ctrl-Z then z starts the Borg after character creation/load; any key stops
+it. The fixed-font default works without the missing legacy bitmap packs,
+while saved/window font settings take precedence. Build/rebuild, actual
+Xvfb startup from /tmp, and config-byte preservation checks passed.
+No production input changed; coverage jobs remain isolated and active.
+
 ## Next work
 
 1. Let extended finish all12 cases and pass its strict diff/profile receipt.

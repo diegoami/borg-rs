@@ -4,6 +4,13 @@ A faithful Rust port of the Angband Borg (`angband/src/borg/`). It is verified b
 checking that, for the same seed and the same unmodified C engine, the Rust Borg
 produces a byte-identical keypress stream to the C Borg.
 
+Run `./run-rust-borg.sh` to build and open the graphical X11 game with the
+Rust Borg. Create/load a character, then press **Ctrl-Z**, **z** (confirm
+the initial warning if shown). Any key stops the Borg. Saves and settings
+stay in `.angband-rust/`; the initial configuration has cheat death off.
+Requires CMake, a C compiler, Rust/Cargo and X11 development libraries.
+Use `./run-rust-borg.sh --help` for build and game arguments.
+
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
   (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks and the documented
   matching fork corrections in `docs/FORK-CORRECTIONS.md`

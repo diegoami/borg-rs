@@ -3,3 +3,4 @@ harness/out/
 target/
 .claude/
 __pycache__/
+/.angband-rust/
