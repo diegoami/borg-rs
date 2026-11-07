@@ -11,9 +11,14 @@ tracker update posted/read back. Requested native workflow tooling is now
 adapted for Rust: root start-borg.sh, run-borg-headless.py and replay-borg.py,
 shared name locks, five backups/restore preservation, frozen headless origins
 and verified reruns plus actual terminal/engine diagnostic inspection.
-See tools/README.md and the launch-tool-port receipt. Replay covers new
-headless recordings; GUI human-input recording and C Borg private state are
-explicitly outside this port. Original saves/data are preserved in testing.
+GUI human-input recording/replay is now included: terminal polls/events,
+clock values from C/Rust, RNG initialization PID, frozen timezone/file reads,
+actual Rust actions, main-terminal game frames and fork-private world saves.
+Six real GUI cases (including fresh birth, loaded Rogue, restore, live
+preferences and resize) replay exactly. Ten GUI controls and ten headless
+controls pass; observer-disabled actions/final save match. See tools/README.md
+and validation/2026-11-07-gui-recording. C Borg private state remains omitted;
+original saves/data are preserved in testing.
 
 Post-M4 #345 now builds a complete25-Rune formation autonomously in a
 constructed preparation room by turn177; C twice and Rust match3/3 logs

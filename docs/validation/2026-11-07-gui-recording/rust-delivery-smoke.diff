@@ -1,0 +1,6 @@
+A: harness/reference/smoke: reference (no manifest)
+B: harness/out/gui-tooling/rust-delivery-smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=9d2e480cdad0684a
+B:   built from 1be58fdfaeaa (dirty=yes, inputs dirty=yes) source_sha256=c2090e19abc98f3d; run at 1be58fdfaeaa (dirty=yes) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

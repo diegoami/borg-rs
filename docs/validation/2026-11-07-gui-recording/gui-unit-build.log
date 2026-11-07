@@ -1,0 +1,17 @@
+-- Could NOT find Sphinx (missing: SPHINX_EXECUTABLE) 
+-- Support for X11 front end - Ready
+-- Support for spoiler front end - Ready
+-- Support for test front end - Ready
+-- Configuring done (8.3s)
+-- Generating done (0.4s)
+-- Build files have been written to: /home/diego/projects/borg-rs/build/gui-record-test
+Copying needed files
+[  0%] Built target OurUnitTestLib
+[  0%] Built target TransferLib
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.03s
+[  0%] Built target BorgRs
+[ 97%] Built target OurCoreLib
+[ 97%] Linking C executable unittests/z-file/path-normalize/path-normalize
+[100%] Built target unittest-z-file-path-normalize
+z-file/path-normalize finished: 7/7 passed
+[100%] Built target run-unittest-z-file-path-normalize

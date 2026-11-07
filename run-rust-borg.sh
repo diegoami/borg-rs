@@ -19,6 +19,7 @@ Create or load a character, then press Ctrl-Z followed by z to start the Borg.
 Confirm the initial Borg warning if shown. Press any key to stop the Borg.
 
 Saves and settings: .angband-rust/ (preserved between builds).
+GUI sessions are recorded in .angband-rust/recordings/ for verified replay.
 The initial borg.txt uses the stock settings, with cheat death off.
 Pass -n to start a new character, or -uNAME to select another save name.
 --build-only builds and checks the executable without opening a window.
@@ -42,6 +43,7 @@ printf 'Building Angband with the Rust Borg...\n'
 CONFIGURE=0
 for option in 'BORG_IMPL:STRING=rust' 'SUPPORT_BORG:BOOL=ON' \
     'SUPPORT_X11_FRONTEND:BOOL=ON' 'SUPPORT_BORG_HARNESS:BOOL=OFF' \
+    'SUPPORT_BORG_RECORDING:BOOL=ON' 'SUPPORT_TEST_FRONTEND:BOOL=ON' \
     'CMAKE_BUILD_TYPE:STRING=Release' 'SC_INSTALL:BOOL=ON' 'BORG_RS_FEATURES:STRING='; do
     if ! grep -Fxq -- "$option" "$PLAY_BUILD/CMakeCache.txt" 2>/dev/null; then
         CONFIGURE=1
@@ -55,7 +57,7 @@ if [ "$CONFIGURE" = 1 ]; then
     -DSUPPORT_X11_FRONTEND=ON -DSUPPORT_GCU_FRONTEND=OFF \
     -DSUPPORT_NCURSES_FRONTEND=OFF -DSUPPORT_SDL_FRONTEND=OFF \
     -DSUPPORT_SDL2_FRONTEND=OFF -DSUPPORT_BORG_HARNESS=OFF \
-    -DSUPPORT_TEST_FRONTEND=OFF -DBUILD_DOC=OFF -DSC_INSTALL=ON -DBORG_RS_FEATURES= \
+    -DSUPPORT_BORG_RECORDING=ON -DSUPPORT_TEST_FRONTEND=ON -DBUILD_DOC=OFF -DSC_INSTALL=ON -DBORG_RS_FEATURES= \
     >"$PLAY_BUILD/configure.log" 2>&1 || {
         cat "$PLAY_BUILD/configure.log" >&2
         exit 1
@@ -115,8 +117,5 @@ if [ "$PLAY_FRONTEND_OPTIONS" = 0 ]; then
     set -- "$@" -- -n1
 fi
 printf 'Create/load a character; Ctrl-Z then z starts the Rust Borg. Any key stops it.\n'
-cd "$PLAY_BUILD/game"
-exec ./angband -mx11 \
-    "-duser=$PLAY_DATA/user" "-dsave=$PLAY_DATA/save" \
-    "-darchive=$PLAY_DATA/archive" "-dpanic=$PLAY_DATA/panic" \
-    "-dscores=$PLAY_DATA/scores" "-u$PLAY_CHARACTER" "$@"
+exec python3 "$PROJECT_ROOT/tools/borg_gui.py" \
+    "$PLAY_BUILD/game/angband" "$PLAY_DATA" "$PLAY_CHARACTER" "$@"

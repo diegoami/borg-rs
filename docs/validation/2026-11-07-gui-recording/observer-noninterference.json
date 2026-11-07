@@ -1,0 +1,16 @@
+{
+  "source": "/home/diego/projects/borg-rs/harness/out/gui-tooling/integration-final/profile/recordings/20261107T163830.151839Z-GuiHero",
+  "observer_enabled_binary": "6cc01d0628377573126fb5217a5a218065ca8a624fc8b90f2aab59b110abf15a",
+  "observer_disabled_binary": "5a24bec9859f9b302035c02b83c263a66445821b165e12f7aa7f386342fac465",
+  "compared": {
+    "events.txt": "4795c13a23b4ec032148c4eda7df95fc2cc2e8add32e86809c5e9359d57ccb77",
+    "clock.txt": "4adbdb9c029a4fd39b16dc7b3056dd592b8b7c25e89a53e359f497c84b426df3",
+    "pid.txt": "0fc7c4c3d4e163c5b8f32b59d0d13efc2b667deae851c8b58046d42b2b0c6399",
+    "actions.txt": "8d41358176304e4c6eaeab077be5bae00113110ff275c7b4609e4454725770df",
+    "file-inputs.txt": "98f994a3b52b3c2273a86a9c9e05506d3be334bdfa353b14cee22e2543093fbc",
+    "geometry.json": "1eb3a909b816e77716093071d90f6f533e8a32c330350efe6d7021a41d96a2b6",
+    "final.save": "28ff8473b0e3cd3cfdb68630935a306ea21c41e3bf0f507732ce1ab7dfa8ce15"
+  },
+  "private_mutant_only": "record_frame early return; clocks/terminal/file input capture and actual Rust decision code unchanged",
+  "all_inputs_consumed": true
+}

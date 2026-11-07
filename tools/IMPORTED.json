@@ -17,5 +17,26 @@
     "path": "tools/native-replay.c",
     "original_sha256": "b3124d9f18ffba871a4785af10d97380ebdbd0a746b24f03b30baceef15355dd",
     "adaptation": "engine-only diagnostic helpers; omit C Borg fields; opt-in headless frames"
+  },
+  "angband/src/native-replay.c": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/native-replay.c",
+    "original_sha256": "b3124d9f18ffba871a4785af10d97380ebdbd0a746b24f03b30baceef15355dd",
+    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs"
+  },
+  "angband/src/native-replay.h": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/native-replay.h",
+    "original_sha256": "c57d2b898559fe6d46bbb88a44925d3dc2a172431b47e9fd25b3b9d48e314f50",
+    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs"
+  },
+  "angband/src/native-replay.c snapshot helper": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
+    "path": "tools/native-observer.c",
+    "original_sha256": "e773bee9ce1cf69902effadc0d2f102d768c748a7ed3f4094a891c206f80b123",
+    "adaptation": "fork-private native save helper only; no C Borg observer/controller state imported"
   }
 }

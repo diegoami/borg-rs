@@ -1,0 +1,34 @@
+VERIFIED frozen-origin rerun: rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save
+VERIFIED turn=10 phase=exit level=50 depth=50 HP=1123
+Saving game... done.                    Press Return (or Escape).                                         
+Human                                                                                                     
+Lord                                                                                                      
+Warrior                                                                                                   
+LEVEL     50                                                                                              
+EXP 99999999                                                                         p  p     d           
+AU   1000000                                                                      P           d           
+| = "~[()]]]                                                                                  d           
+STR!  18/***                                                                        p       d             
+INT!  18/130                                                                   a                          
+WIS!  18/150                                                                                  T           
+DEX!  18/190                                                                      p        T  T ###       
+CON!  18/210                                                                      D p   V  TT T #@#       
+                                                                                                #·#       
+Cur AC   244                                                                                    #·#       
+HP 1123/1145                                                                                     ·#       
+                                                                                                #·#       
+                                                                                                    PP    
+                                                                                                          
+                                                                                                          
+                                                                                                          
+Fast (+24)                                                                                                
+2500' (L50)                                                                                               
+                                                                                                          
+                                                                                                          
+                                                                                                          
+                                                                                                          
+                                                                                                          
+                                                                                                          
+                                                                                                          
+                                                                                                          
+             LF:6-? Light 4  Fed 89 % Open floor                                                          

@@ -34,6 +34,7 @@ Named launch, backup restore, headless play and replay (adapted from
 ./run-borg-headless.py MyCharacter --turns 100000
 ./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
 ./replay-borg.py .angband-rust/recordings/RUN --turn 5000
+./replay-borg.py .angband-rust/recordings/RUN --verify-only
 ./replay-borg.py .angband-rust/recordings/RUN --turn 5000 --dump
 ```
 
@@ -46,16 +47,24 @@ turn, key and wall budgets; a death publishes a dead native save and retains
 the latest living checkpoint in backup1 when available. Resume a dead character
 only with explicit backup restore or `--new`.
 
+GUI sessions now print a recording path too. They preserve the original save,
+executable/data, terminal polls and human input, clock values, startup PID used
+by engine RNG, timezone rules, and bytes of files read during play (including
+later preference reloads). They use the ordinary save path and keep your user
+settings. The recorder is Linux/X11 text mode; headless replay needs no display.
+Recordings include a frozen executable and can grow during long sessions.
+
 Replay verifies a rerun from the original start before showing actual frames;
 use left/right to step, space to play, g to jump, i/m for recorded engine
 inventory/monster diagnostics, and q to quit. Diagnostic hidden information
-is never supplied to the Borg. This is **new headless recordings only**:
-interactive GUI input recording and C-only private Borg diagnostic fields
-are not ported. Historical runs without a recording cannot claim exact replay.
+is never supplied to the Borg. Both new GUI and headless recordings work.
+C-only private Borg diagnostic fields are omitted. Historical runs without
+a recording cannot claim exact replay; interrupted recordings can be viewed
+with `--recording-only` and an explicit UNVERIFIED badge.
 See [tools/README.md](tools/README.md) for verification scope and provenance.
 
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
-  (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks and the documented
+  (git subtree), plus optional harness/GUI recording hooks and the documented
   matching fork corrections in `docs/FORK-CORRECTIONS.md`
 * `harness/`: build/run/suite scripts, seed suites, diff tool, pinned
   `borg.txt`, C reference logs

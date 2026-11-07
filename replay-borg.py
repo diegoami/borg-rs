@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-"""Verify a frozen Rust headless recording and inspect its actual terminal frames."""
+"""Verify a frozen Rust GUI or headless recording and inspect its actual terminal frames."""
 import argparse
+import json
 from pathlib import Path
 import sys
 import subprocess
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools'))
 import borg_runtime
+import borg_gui
 import borg_replay_viewer
 
 parser = argparse.ArgumentParser(description=__doc__)
@@ -20,11 +22,13 @@ if args.verify_only and args.recording_only:
     parser.error('--verify-only cannot be combined with --recording-only')
 try:
     directory = args.recording.resolve()
-    borg_runtime.validate(directory, require_complete=not args.recording_only)
+    schema = json.loads((directory / 'recording.json').read_text()).get('schema')
+    backend = borg_gui if schema == borg_gui.SCHEMA else borg_runtime
+    backend.validate(directory, require_complete=not args.recording_only)
     verified = not args.recording_only
     if verified:
-        proof = borg_runtime.verify(directory)
-        print('VERIFIED frozen-origin rerun: keys, messages, player state, frames, final and scheduled engine saves', flush=True)
+        proof = backend.verify(directory)
+        print('VERIFIED frozen-origin rerun: ' + proof['model'], flush=True)
     if not args.verify_only:
         frames = directory if (directory / 'frames.jsonl.gz').exists() else directory / 'run'
         borg_replay_viewer.show(frames, turn=args.turn, verified=verified, dump=args.dump)

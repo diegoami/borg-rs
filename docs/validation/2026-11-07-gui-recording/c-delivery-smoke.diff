@@ -1,0 +1,6 @@
+A: harness/reference/smoke: reference (no manifest)
+B: harness/out/gui-tooling/c-delivery-smoke: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=9a8c4f76ba4cffc0
+B:   built from 1be58fdfaeaa (dirty=yes, inputs dirty=yes) source_sha256=5b142fd3fbdb04d9; run at 1be58fdfaeaa (dirty=yes) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

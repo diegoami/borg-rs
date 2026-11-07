@@ -27,10 +27,17 @@ and atomic checked publication protect named saves. Headless continuation
 detects actual race/class and preserves saved engine RNG; Borg memory starts
 fresh. Replay reruns the frozen Rust executable/origin/data/config and checks
 actual logs/frames/native saves. Engine spoiler diagnostics are never AI input.
-GUI input recording and private C Borg diagnostics are not ported; only new
-headless recordings get verified replay. All tests use isolated profiles,
+GUI input recording is now ported too (Linux/X11 character mode), using the
+same pinned donor's engine-only recorder without C Borg globals. Every GUI
+session prints a frozen recording path; default replay reruns actual Rust
+with captured terminal/clock/file inputs and checks actions, frames, world
+fingerprints and final native saves. Six real GUI cases replay exactly,
+including fresh birth, loaded Rogue, save/reload/restore, manual interruption,
+live preferences and geometry. Ten negative GUI controls plus ten headless
+tool tests pass. An observer-disabled control has identical actions and
+final save. Private C Borg diagnostics remain omitted. All tests use isolated profiles,
 private display/build, never owner saves/display. Tool-test and integration
-receipt: validation/2026-11-07-launch-tool-port.
+receipts: validation/2026-11-07-launch-tool-port and validation/2026-11-07-gui-recording.
 
 Current post-M4 investigation results:
 - #345 mirrored caller-only reverse-flow correction now constructs25 actual
@@ -208,6 +215,6 @@ M4 qualified pass is owner-accepted and issue#1 is closed by explicit request.
 The current focus is the authorized post-M4 investigations and then tools.
 Recognition #295 is complete; #345 now has construction evidence. Self-lunal
 and the first ordinary nine-class cohort are assessed in the investigation
-receipt. Next deliver validated source/receipts and import the requested tools.
+receipt. Requested launch/backup/headless/replay tools, including GUI recording, are delivered with isolated validation receipts.
 The game-start scripts remain an additional owner topic; no further requested
 script behavior was specified. Preserve existing character saves/settings.
