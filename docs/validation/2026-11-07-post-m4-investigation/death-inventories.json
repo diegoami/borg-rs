@@ -1,0 +1,386 @@
+{
+  "live-blackguard": {
+    "checkpoint": {
+      "capture_method": "fork_private_engine",
+      "class_idx": 8,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 6000,
+      "file": "checkpoint-000006-t0000006006.save",
+      "game_turn": 6006,
+      "keys": 858,
+      "max_depth": 1,
+      "race_idx": 4,
+      "save_sha256": "d819f7b5d83eccc5db320d20c44370916e0189c9dd442a6d2f2a94507847ea76",
+      "seed": 8408,
+      "size_bytes": 52740
+    },
+    "gear_actual_diagnostic_not_borg_input": [
+      {
+        "tval": 26,
+        "sval": 8,
+        "qty": 6,
+        "aware": true,
+        "actual_kind": "Cure Light Wounds"
+      },
+      {
+        "tval": 14,
+        "sval": 3,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Leather Shield~"
+      },
+      {
+        "tval": 9,
+        "sval": 6,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Tulwar~"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 28,
+        "sval": 5,
+        "qty": 9,
+        "aware": true,
+        "actual_kind": "& Ration~ of Food"
+      },
+      {
+        "tval": 33,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "[Into the Shadows]"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 6,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 25,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "Phase Door"
+      },
+      {
+        "tval": 12,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Hard Leather Cap~"
+      },
+      {
+        "tval": 10,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Pair~ of Leather Boots"
+      },
+      {
+        "tval": 26,
+        "sval": 35,
+        "qty": 4,
+        "aware": false,
+        "actual_kind": "Blindness"
+      },
+      {
+        "tval": 25,
+        "sval": 5,
+        "qty": 3,
+        "aware": false,
+        "actual_kind": "Treasure Detection"
+      }
+    ]
+  },
+  "live-druid": {
+    "checkpoint": {
+      "capture_method": "fork_private_engine",
+      "class_idx": 2,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 5000,
+      "file": "checkpoint-000005-t0000005002.save",
+      "game_turn": 5002,
+      "keys": 760,
+      "max_depth": 1,
+      "race_idx": 1,
+      "save_sha256": "9a05277fbb400aa736c2926fe3d4a2ee5b65e20a86d9e1db5e4d789e7fd7a653",
+      "seed": 8402,
+      "size_bytes": 53388
+    },
+    "gear_actual_diagnostic_not_borg_input": [
+      {
+        "tval": 32,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "[Lesser Charms]"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 6,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 7,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Whip~"
+      },
+      {
+        "tval": 28,
+        "sval": 5,
+        "qty": 7,
+        "aware": true,
+        "actual_kind": "& Ration~ of Food"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 14,
+        "sval": 3,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Leather Shield~"
+      },
+      {
+        "tval": 16,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Robe~"
+      },
+      {
+        "tval": 21,
+        "sval": 27,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "Feather Falling"
+      },
+      {
+        "tval": 26,
+        "sval": 24,
+        "qty": 1,
+        "aware": false,
+        "actual_kind": "Speed"
+      }
+    ]
+  },
+  "live-warrior": {
+    "checkpoint": {
+      "capture_method": "fork_private_engine",
+      "class_idx": 0,
+      "clevel": 6,
+      "depth": 13,
+      "due_turn": 37000,
+      "file": "checkpoint-000037-t0000037004.save",
+      "game_turn": 37004,
+      "keys": 4418,
+      "max_depth": 14,
+      "race_idx": 0,
+      "save_sha256": "56ff9b687e360161ac82ec69e771397e2cb707d40ecdfac4a5ea2c74666aac66",
+      "seed": 8400,
+      "size_bytes": 75220
+    },
+    "gear_actual_diagnostic_not_borg_input": [
+      {
+        "tval": 16,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "Soft Leather Armour~"
+      },
+      {
+        "tval": 9,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Dagger~"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 28,
+        "sval": 5,
+        "qty": 7,
+        "aware": true,
+        "actual_kind": "& Ration~ of Food"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 12,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 14,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Wicker Shield~"
+      },
+      {
+        "tval": 5,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Sling~"
+      },
+      {
+        "tval": 12,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Metal Cap~"
+      },
+      {
+        "tval": 26,
+        "sval": 8,
+        "qty": 2,
+        "aware": true,
+        "actual_kind": "Cure Light Wounds"
+      },
+      {
+        "tval": 28,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Apple~"
+      },
+      {
+        "tval": 26,
+        "sval": 36,
+        "qty": 2,
+        "aware": true,
+        "actual_kind": "Confusion"
+      },
+      {
+        "tval": 25,
+        "sval": 38,
+        "qty": 2,
+        "aware": false,
+        "actual_kind": "Darkness"
+      },
+      {
+        "tval": 23,
+        "sval": 30,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "Haste Monster"
+      }
+    ]
+  },
+  "live-rogue": {
+    "checkpoint": {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 5000,
+      "file": "checkpoint-000005-t0000005002.save",
+      "game_turn": 5002,
+      "keys": 765,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "06e80ceaac56c4c31c3abfef06d08b052cf7266719f940e3a4f43f24b69fab5f",
+      "seed": 8406,
+      "size_bytes": 56372
+    },
+    "gear_actual_diagnostic_not_borg_input": [
+      {
+        "tval": 30,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "[First Spells]"
+      },
+      {
+        "tval": 16,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "Soft Leather Armour~"
+      },
+      {
+        "tval": 9,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Dagger~"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 28,
+        "sval": 5,
+        "qty": 7,
+        "aware": true,
+        "actual_kind": "& Ration~ of Food"
+      },
+      {
+        "tval": 19,
+        "sval": 1,
+        "qty": 10,
+        "aware": true,
+        "actual_kind": "& Wooden Torch~"
+      },
+      {
+        "tval": 14,
+        "sval": 3,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Leather Shield~"
+      },
+      {
+        "tval": 12,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Metal Cap~"
+      },
+      {
+        "tval": 11,
+        "sval": 2,
+        "qty": 1,
+        "aware": true,
+        "actual_kind": "& Set~ of Gauntlets"
+      },
+      {
+        "tval": 25,
+        "sval": 27,
+        "qty": 1,
+        "aware": false,
+        "actual_kind": "Deep Descent"
+      }
+    ]
+  }
+}

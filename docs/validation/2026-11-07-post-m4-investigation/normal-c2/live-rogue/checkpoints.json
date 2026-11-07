@@ -1,0 +1,82 @@
+{
+  "captures": [
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 1000,
+      "file": "checkpoint-000001-t0000001002.save",
+      "game_turn": 1002,
+      "keys": 295,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "6e126edf8ac09ec84aa6f27aef1c76b9362466494561b9f838ce72c3c7777323",
+      "seed": 8406,
+      "size_bytes": 55540
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 2000,
+      "file": "checkpoint-000002-t0000002002.save",
+      "game_turn": 2002,
+      "keys": 407,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "bb958ac7b61e1cb6079c9ed5f93a840fe1d02dd91ab1829e3b170928190326f3",
+      "seed": 8406,
+      "size_bytes": 60712
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 3000,
+      "file": "checkpoint-000003-t0000003001.save",
+      "game_turn": 3001,
+      "keys": 534,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "93c96fd5a9fbdc9d99dc3e485e511de7fa5a774e19f80a56b7a1b13ef58fd5dd",
+      "seed": 8406,
+      "size_bytes": 56652
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 4000,
+      "file": "checkpoint-000004-t0000004002.save",
+      "game_turn": 4002,
+      "keys": 647,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "99fbc511c650d069581e5b217feecac3b032e38eef0db096c5a47eb429717b7b",
+      "seed": 8406,
+      "size_bytes": 53796
+    },
+    {
+      "capture_method": "fork_private_engine",
+      "class_idx": 6,
+      "clevel": 1,
+      "depth": 1,
+      "due_turn": 5000,
+      "file": "checkpoint-000005-t0000005002.save",
+      "game_turn": 5002,
+      "keys": 765,
+      "max_depth": 1,
+      "race_idx": 3,
+      "save_sha256": "06e80ceaac56c4c31c3abfef06d08b052cf7266719f940e3a4f43f24b69fab5f",
+      "seed": 8406,
+      "size_bytes": 56372
+    }
+  ],
+  "errors": [],
+  "replay": "fresh_borg_not_continuation",
+  "source_process_status": "success"
+}

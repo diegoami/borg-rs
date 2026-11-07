@@ -10,6 +10,8 @@ p.add_argument("generator", type=Path)
 p.add_argument("output", type=Path)
 p.add_argument("--glyph-recognition", action="store_true",
                help="also generate Rune, decoy, harmful-trap and hidden-Rune controls")
+p.add_argument("--glyph-construction", action="store_true",
+               help="also generate bounded autonomous construction and supply/ring controls")
 a = p.parse_args()
 binary = a.generator.resolve()
 out = a.output.resolve()
@@ -33,6 +35,9 @@ cases = [
 if a.glyph_recognition:
     cases += [(name, 100, 100) for name in (
         "glyph-visible-rune", "glyph-visible-trap", "glyph-hidden-rune", "glyph-decoy")]
+if a.glyph_construction:
+    cases += [(name, 100, 100) for name in (
+        "glyph-build-ready", "glyph-build-low-supply", "glyph-build-complete")]
 for name, depth, maximum in cases:
     states = []
     for number in (1, 2):

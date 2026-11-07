@@ -1,0 +1,30 @@
+---- screen ----
+The skeleton etten is unaffected! The skeleton troll misses you. -more-         
+Human                                                                           
+Lord                                        W...  W                             
+Warrior                                   Ws.s..W.                              
+LEVEL     50                               zzss.sW  W                           
+EXP 99999999                             WsWsszss.W                             
+AU   1002090                             WWsz!@$.W-                             
+| = "~[()]]]                              ####'#####                            
+STR!  18/***                               ..$.s....                            
+INT!  18/130                               #%%'#.#%%                            
+WIS!  18/150                                 %?%.%                              
+DEX!  18/190                                 %.#.%                              
+CON!  18/210                                   %.%   #............              
+                                               %.%%%%%..............            
+Cur AC   244                                   #....................            
+HP 1125/1125                                   #.#.###...............           
+                                               ####..................           
+                                                  ##############.####           
+[**--------]                                                   #.#              
+                                                               #.#              
+                                                       #########.###            
+Fast (+33)                                             #......'...<#            
+1300' (L26)                                            #......######            
+             LF:9-? Light 5  Fed 71 % ProtEvil Open floor                       
+----------------
+SYNTH_STATE {"phase":"replay-stop","turn":4680,"depth":26,"max_depth":34,"level":50,"engine_glyphs":0,"visible_engine_glyphs":0,"disarmable_glyphs":0,"rune_scrolls":0,"borg_map_glyphs":0,"borg_tracked_glyphs":0,"borg_morgoth_position":0}
+SYNTH_TRAPS {"borg_map_traps":0}
+SYNTH_LUNAL {"lunal_mode":0,"goal_less":0,"fleeing":0,"known_up":1,"known_down":0,"under_feat":1,"persistent":0,"connected_stairs":1}
+SYNTH_FORMATION {"player_x":161,"player_y":37,"surrounding_runes":0,"rune_under_player":0}

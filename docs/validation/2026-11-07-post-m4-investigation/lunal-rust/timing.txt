@@ -1,0 +1,4 @@
+suite=lunal-investigation impl=rust jobs=3 wall_seconds=3.794470213 result=OK
+lunal-budget-ready keys turns=371 pturns=1056 clev=50 maxdepth=99 keys=3000 wall=3.7 Human Warrior
+lunal-budget-disabled keys turns=4196 pturns=1649 clev=50 maxdepth=99 keys=3000 wall=1.0 Human Warrior
+lunal-budget-history keys turns=4680 pturns=1845 clev=50 maxdepth=34 keys=3000 wall=1.1 Human Warrior

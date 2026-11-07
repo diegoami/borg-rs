@@ -1,0 +1,33 @@
+suite=glyph-construction
+suite_sha256=2e974de1c281a074a54ab9ec406f5edffcfe6e246e9aec495d16a4750efe0b0f
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+build_id_binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-07T14:46:20Z
+checkout_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=harness/out/tactics/canonical-fixtures
+started_utc=2026-11-07T15:23:02Z
+run_config.glyph-build-ready=menu,finalsave,rune-pattern,save=glyph-build-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-build-supply=menu,finalsave,rune-pattern,save=glyph-build-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-build-prelaid=menu,finalsave,rune-pattern,save=glyph-build-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+finished_utc=2026-11-07T15:23:02Z result=OK

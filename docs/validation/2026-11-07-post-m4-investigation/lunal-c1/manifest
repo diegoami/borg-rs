@@ -1,0 +1,33 @@
+suite=lunal-investigation
+suite_sha256=daec6491fd02f144bcc990c6ab17c3a07c4d8b1ff78f0ea0f88fe6d3c52ff4cb
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+build_id_binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-07T14:46:20Z
+checkout_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=harness/saves/synthetic-tactics
+started_utc=2026-11-07T15:23:02Z
+run_config.lunal-budget-ready=menu,finalsave,selflunal,key-limit=3000,save=lunal-ready.save c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+run_config.lunal-budget-disabled=menu,finalsave,borg_self_lunal=FALSE,key-limit=3000,save=lunal-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.lunal-budget-history=menu,finalsave,selflunal,key-limit=3000,save=lunal-shallow-history.save c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+binary_sha256_end=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+finished_utc=2026-11-07T15:23:06Z result=OK

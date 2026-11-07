@@ -1,0 +1,4 @@
+suite=glyph-construction impl=c jobs=3 wall_seconds=.408678199 result=OK
+glyph-build-ready turns turns=500 pturns=199 clev=50 maxdepth=100 keys=235 wall=0.2 Human Warrior
+glyph-build-supply turns turns=500 pturns=205 clev=50 maxdepth=100 keys=477 wall=0.3 Human Warrior
+glyph-build-prelaid rune_pattern turns=1 pturns=0 clev=50 maxdepth=100 keys=1 wall=0.0 Human Warrior

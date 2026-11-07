@@ -1,0 +1,5 @@
+   Compiling borg-native-checker v0.1.0 (/home/diego/projects/borg-rs/harness/native-checker)
+    Finished `release` profile [optimized + debuginfo] target(s) in 10.22s
+     Running `harness/out/native-checker.n8QYys/spatial-fault-target/release/spatial 2600 --glyph --fault-control`
+glyph scenario=0 native_result=1 tracked=1 target_x=0 center_x=100
+MISMATCH spatial case=0 byte=248 native_len=201087 rust_len=201087 native=[0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0] rust=[1, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 33, 0, 0, 0]

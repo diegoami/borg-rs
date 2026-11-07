@@ -36,6 +36,10 @@ static bool fixture_glyph_flow_old(int why){return glyph_call(4,why,0);}
 static int glyph_scenario;
 static void fixture_glyph_reverse(int depth,bool optimize,bool avoid,bool tunneling,int stair_idx,bool sneak){
     borg_flow_reverse(depth,optimize,avoid,tunneling,stair_idx,sneak);
+    if(glyph_scenario>=19 && glyph_scenario<=25){
+        memset(borg_data_cost->data,255,sizeof(borg_data_cost->data));
+        borg_data_cost->data[33][100]=0;
+    }
     if(glyph_scenario>=19 && glyph_scenario<=22){
         borg_data_cost->data[33][99]=1;
         borg_data_cost->data[33][101]=glyph_scenario>=21?2:1;

@@ -352,13 +352,26 @@ def check_suite_params(label, d, suite, save_root=None):
         if bool(sm.get("cheat_live", False)) != ("cheatlive" in flags):
             bad.append("cheat_live %s, suite flags %s" % (sm.get("cheat_live", False), sorted(flags)))
         g = sm.get("game_turns", -1)
+        key_limits = [f.split("=", 1)[1] for f in flags if f.startswith("key-limit=")]
+        if key_limits:
+            if len(key_limits) != 1 or not re.fullmatch(r"[1-9][0-9]{0,8}", key_limits[0]):
+                bad.append("invalid key-limit flag")
+            elif sm.get("keys", -1) > int(key_limits[0]) or (
+                    sm.get("stop_reason") == "keys" and sm.get("keys") != int(key_limits[0])):
+                bad.append("key count does not match key-limit stop")
+        elif sm.get("stop_reason") == "keys":
+            bad.append("key stop without key-limit flag")
+        if sm.get("stop_reason") == "rune_pattern" and "rune-pattern" not in flags:
+            bad.append("Rune-pattern stop without rune-pattern flag")
         if sm.get("stop_reason") == "turns" and g < turns:
             bad.append("stopped on turns at %s, below the suite limit %s" % (g, turns))
-        if sm.get("stop_reason") != "turns" and g >= turns:
+        if sm.get("stop_reason") not in ("turns", "keys", "rune_pattern") and g >= turns:
             bad.append("stopped (%s) at %s, at or past the suite limit %s" % (sm.get("stop_reason"), g, turns))
         cp = os.path.join(d, name, "config.txt")
         if "finalsave" in flags and find_log(os.path.join(d, name, "final.save")) is None:
             bad.append("missing final engine save required by finalsave flag")
+        if "living-save" in flags and not sm.get("dead") and find_log(os.path.join(d, name, "final.save")) is None:
+            bad.append("missing living final engine save")
         want_cfg = set(f for f in flags if f in CONFIG_FLAGS or "=" in f)
         if os.path.isfile(cp):
             with open(cp) as f:

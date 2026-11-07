@@ -53,11 +53,13 @@ blockers ([final review](https://github.com/diegoami/borg-rs/issues/1#issuecomme
 The reviewer verified c2b52d9's fixes, recording only a new low cost75 test
 gap and an oracle-test portability note. Tested author follow-ups now cover
 cost74/75/76 and use M4-only oracle fixtures; see the residual receipt.
-Their independent verification and owner acceptance remain pending.
+The owner accepted the qualified outcome and explicitly requested closure;
+issue#1 is closed. The owner resumed the technical queue and requested
+launch/backup/headless/replay imports after the investigations if time permits.
 Both parties must post progress,
 questions, finding dispositions and follow-up verification in that issue.
 M1-M3 supply background only; post-M4 #295 is excluded from this verdict.
-The previous technical sequence below remains queued for later work.
+The technical sequence below is now authorized and active.
 
 ## Agreed next-session order
 
@@ -69,7 +71,8 @@ session, then explicitly resumed and delegated milestone tag creation.
    before broader behavior changes. See validation/2026-11-07-main-review.md.
 2. Glyph-recognition #295 is corrected and checkpointed after the tag;
    see validation/2026-11-07-glyph-recognition. Next address reverse-flow
-   finding#345; require autonomous complete rune building before claiming
+   finding#345 (now corrected with controlled autonomous formation at turn177);
+   require autonomous complete rune building before claiming
    the full tactic works. Recognition of a prelaid ring is a separate result.
 3. Investigate self-lunal stair cycling. Current evidence establishes entry
    and first descent; failed longer clock-bound pilots remain excluded.

@@ -113,3 +113,22 @@ The correction and receipts are published at `da39bf5`; the
 [existing #295 update](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6705894975)
 was posted and read back. The tracker remains responsible for independent
 source qualification/adoption.
+
+## Owner-accepted M4: glyph reverse flow (#345)
+
+After owner acceptance/closure of review#1, the agreed #345 correction sets
+optimize=false only at the glyph builder's reverse-flow call in C/Rust.
+The shared helper and its other callers are unchanged. The constructed
+40-scroll case now autonomously builds25 actual engine Runes and returns
+to a center with24 surrounding Runes by turn177; C twice and Rust match all
+logs and full final saves. The reverted caller fails to complete by500.
+The native C stop observer confirms map25/tracked25/Morgoth position true
+without changing normal byte streams. This is controlled preparation, not
+a naturally earned character, combat benefit or win. See
+validation/2026-11-07-post-m4-investigation for the source/fixture scope.
+
+Independent harness budgets/stops are opt-in: key limits bound stair-reroll
+loops and Rune-pattern stops observe engine glyphs only. Living-save skips
+dead characters while preserving real save errors; mandatory finalsave stays
+strict. These hooks do not change ordinary GUI behavior. Self-lunal strategy
+is diagnosed but not rewritten; the stock setting remains off.

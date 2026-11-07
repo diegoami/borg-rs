@@ -1,0 +1,128 @@
+{
+  "lunal-budget-ready": {
+    "summary": {
+      "seed": 7200,
+      "loaded": true,
+      "loaded_turn": 1,
+      "race": "Human",
+      "race_idx": 0,
+      "class": "Warrior",
+      "class_idx": 0,
+      "menu_letters": true,
+      "stop_reason": "keys",
+      "game_turns": 371,
+      "player_turns": 1056,
+      "resting_turns": 0,
+      "clevel": 50,
+      "max_depth": 99,
+      "depth": 21,
+      "dead": false,
+      "death_cause": "",
+      "keys": 3000,
+      "wall_seconds": 3.844
+    },
+    "ascents": 455,
+    "descents": 456,
+    "lunal_climb": 453,
+    "lunal_dive": 611,
+    "depth_observations": {
+      "20": 1630,
+      "21": 1370
+    },
+    "distinct_positions": {
+      "20": 925,
+      "21": 872
+    },
+    "depth_transitions": 911
+  },
+  "lunal-budget-disabled": {
+    "summary": {
+      "seed": 7200,
+      "loaded": true,
+      "loaded_turn": 1,
+      "race": "Human",
+      "race_idx": 0,
+      "class": "Warrior",
+      "class_idx": 0,
+      "menu_letters": true,
+      "stop_reason": "keys",
+      "game_turns": 4196,
+      "player_turns": 1649,
+      "resting_turns": 4,
+      "clevel": 50,
+      "max_depth": 99,
+      "depth": 25,
+      "dead": false,
+      "death_cause": "",
+      "keys": 3000,
+      "wall_seconds": 1.172
+    },
+    "ascents": 0,
+    "descents": 5,
+    "lunal_climb": 0,
+    "lunal_dive": 0,
+    "depth_observations": {
+      "20": 256,
+      "21": 479,
+      "22": 333,
+      "23": 855,
+      "24": 951,
+      "25": 126
+    },
+    "distinct_positions": {
+      "20": 60,
+      "21": 179,
+      "22": 144,
+      "23": 181,
+      "24": 84,
+      "25": 15
+    },
+    "depth_transitions": 5
+  },
+  "lunal-budget-history": {
+    "summary": {
+      "seed": 7200,
+      "loaded": true,
+      "loaded_turn": 1,
+      "race": "Human",
+      "race_idx": 0,
+      "class": "Warrior",
+      "class_idx": 0,
+      "menu_letters": true,
+      "stop_reason": "keys",
+      "game_turns": 4680,
+      "player_turns": 1845,
+      "resting_turns": 3,
+      "clevel": 50,
+      "max_depth": 34,
+      "depth": 26,
+      "dead": false,
+      "death_cause": "",
+      "keys": 3000,
+      "wall_seconds": 1.123
+    },
+    "ascents": 0,
+    "descents": 6,
+    "lunal_climb": 0,
+    "lunal_dive": 0,
+    "depth_observations": {
+      "20": 256,
+      "21": 886,
+      "22": 18,
+      "23": 534,
+      "24": 898,
+      "25": 76,
+      "26": 332
+    },
+    "distinct_positions": {
+      "20": 60,
+      "21": 192,
+      "22": 5,
+      "23": 89,
+      "24": 317,
+      "25": 65,
+      "26": 51
+    },
+    "depth_transitions": 6
+  }
+}

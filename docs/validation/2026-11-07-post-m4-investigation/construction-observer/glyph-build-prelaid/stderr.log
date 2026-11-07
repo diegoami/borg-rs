@@ -1,0 +1,30 @@
+---- screen ----
+                                                                                
+Human                                                                           
+Lord                                                                            
+Warrior                                                                         
+LEVEL     50                                                                    
+EXP 99999999                                                                    
+AU   1000000                                                                    
+| = "~[()]]]                                                                    
+STR!  18/***                                 ...                                
+INT!  18/130                               .......                              
+WIS!  18/150                               .;;;;;.                              
+DEX!  18/190                              ..;;;;;..                             
+CON!  18/210                              ..;;@;;..                         ### 
+                                          ..;;;;;..                         #.  
+Cur AC   244                               .=;;;;.                          #.# 
+HP 1125/1125                               .......                          #.# 
+                                             ...                            #.# 
+                                                                            ### 
+                                                                                
+                                                                                
+                                                                                
+Fast (+34)                                                                      
+5000' (L100)                                                                    
+             LF:6-? Light 5  Fed 89 % Open floor                                
+----------------
+SYNTH_STATE {"phase":"replay-stop","turn":1,"depth":100,"max_depth":100,"level":50,"engine_glyphs":24,"visible_engine_glyphs":24,"disarmable_glyphs":0,"rune_scrolls":40,"borg_map_glyphs":24,"borg_tracked_glyphs":24,"borg_morgoth_position":1}
+SYNTH_TRAPS {"borg_map_traps":0}
+SYNTH_LUNAL {"lunal_mode":0,"goal_less":0,"fleeing":0,"known_up":0,"known_down":0,"under_feat":1,"persistent":0,"connected_stairs":1}
+SYNTH_FORMATION {"player_x":60,"player_y":33,"surrounding_runes":24,"rune_under_player":0}

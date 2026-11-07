@@ -1,0 +1,10 @@
+suite=normal-live impl=rust jobs=3 wall_seconds=21.310746340 result=OK
+live-warrior death turns=37680 pturns=3819 clev=8 maxdepth=14 keys=4563 wall=4.6 Human Warrior
+live-mage turns turns=100096 pturns=10276 clev=4 maxdepth=2 keys=6727 wall=5.8 Kobold Mage
+live-druid death turns=5590 pturns=588 clev=1 maxdepth=1 keys=856 wall=1.9 Half-Elf Druid
+live-priest turns turns=100006 pturns=10392 clev=2 maxdepth=1 keys=5165 wall=5.7 Half-Orc Priest
+live-necromancer turns turns=100065 pturns=10153 clev=3 maxdepth=2 keys=8509 wall=6.8 Half-Troll Necromancer
+live-paladin turns turns=100007 pturns=10198 clev=5 maxdepth=2 keys=8117 wall=7.4 Dunadan Paladin
+live-rogue death turns=5600 pturns=587 clev=2 maxdepth=1 keys=857 wall=1.0 Hobbit Rogue
+live-ranger turns turns=100007 pturns=10254 clev=6 maxdepth=3 keys=14938 wall=12.2 Half-Elf Ranger
+live-blackguard death turns=6231 pturns=662 clev=1 maxdepth=1 keys=921 wall=0.9 Gnome Blackguard

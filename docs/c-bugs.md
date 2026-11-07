@@ -1422,6 +1422,19 @@ The C source is unchanged; no correction is proposed in this pass.
   corpus matches C/Rust, including already-glyphed/outlying and failed
   creation/commit/step controls. This is not an ordinary-play reproduction.
 
+* Post-M4 owner-authorized FORK correction: only this caller passes
+  optimize=false to reverse flow, in both C and Rust. Real engine construction
+  from an empty room with40 known Rune scrolls now produces25 engine glyphs,
+ 24 around the player,25 tracked C glyphs and Morgoth position true at
+  turn177, leaving15 scrolls. The reverted C caller fails to build a pattern
+  within500 turns on the same engine save. Three construction/control cases
+  match corrected C twice and Rust on all logs and complete final saves;
+  the read-only native C stop observer preserves those bytes. This uses a
+  wizard-equipped Warrior and a distant awake Morgoth to isolate preparation;
+  it is not a naturally earned setup, combat/survival improvement or a win.
+  See validation/2026-11-07-post-m4-investigation. Independent source-tracker
+  qualification remains separate.
+
 ## 57. Explicit X11 window count can bypass saved preferences (reported lead)
 
 * `init_x11()` initializes the `settings` filename only inside

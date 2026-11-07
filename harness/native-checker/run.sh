@@ -32,7 +32,7 @@ CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" -
 python3 "$ROOT/harness/native-checker/spatial_controls.py" "$ROOT" "$OUT"
 CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 2600 --glyph >"$OUT/glyph.log" 2>&1
 CARGO_TARGET_DIR="$OUT/target" cargo run --release --manifest-path "$MANIFEST" --bin spatial -- 1280 --lunal >"$OUT/lunal.log" 2>&1
-for control in flow projection combat damage glyph glyph-distance glyph-tie glyph-old-tie glyph-cost lunal; do
+for control in flow projection combat damage glyph glyph-distance glyph-tie glyph-old-tie glyph-cost glyph-reverse lunal; do
     case "$control" in
         flow) override_name=BORG_XCHECK_FLOW_SOURCE;;
         projection) override_name=BORG_XCHECK_PROJECTION_SOURCE;;
@@ -79,4 +79,4 @@ sha256sum "$ROOT/borg-rs/src/borg_formulas_calc.rs" "$ROOT/borg-rs/src/cctype.rs
 find "$OUT/target/release/build" -name spatial-source-ledger.json -exec cp '{}' "$OUT/source-ledger.json" \;
 touch "$OUT/DONE"
 cat "$OUT/parity.log" "$OUT/spatial.log" "$OUT/spatial-second.log" "$OUT/glyph.log" "$OUT/lunal.log"
-echo "native-checker: calculator/spatial/combat parity and eleven real-source fault controls passed; glyph26 layouts x100 variants; receipts $OUT"
+echo "native-checker: calculator/spatial/combat parity and twelve real-source fault controls passed; glyph26 layouts x100 variants; receipts $OUT"

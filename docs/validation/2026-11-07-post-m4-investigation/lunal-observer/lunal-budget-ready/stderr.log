@@ -1,0 +1,30 @@
+---- screen ----
+You feel anxious about this place.                                              
+Human                                 p     yZZpZZZZZ                           
+Lord                                                                            
+Warrior                                     p  p                                
+LEVEL     50                                                                    
+EXP 99999999                                                                    
+AU   1000000                                                                    
+| = "~[()]]]                                                                    
+STR!  18/***                                                                    
+INT!  18/130                                                                    
+WIS!  18/150                                                                    
+DEX!  18/190                                      ###                           
+CON!  18/210                                      #@#                           
+                                                  #.#                           
+Cur AC   234                                      #.#                           
+HP 1125/1125                                      %.%          ZZZZZ            
+                                                   .%           ZZZZ            
+                                                                                
+                                                           H                    
+                                                                                
+                                                                                
+Fast (+33)                                                                      
+1050' (L21)                                            w                        
+             LF:6-? Light 5  Fed 88 % Berserk Up staircase                      
+----------------
+SYNTH_STATE {"phase":"replay-stop","turn":371,"depth":21,"max_depth":99,"level":50,"engine_glyphs":0,"visible_engine_glyphs":0,"disarmable_glyphs":0,"rune_scrolls":0,"borg_map_glyphs":0,"borg_tracked_glyphs":0,"borg_morgoth_position":0}
+SYNTH_TRAPS {"borg_map_traps":0}
+SYNTH_LUNAL {"lunal_mode":1,"goal_less":1,"fleeing":1,"known_up":0,"known_down":1,"under_feat":5,"persistent":0,"connected_stairs":1}
+SYNTH_FORMATION {"player_x":168,"player_y":27,"surrounding_runes":0,"rune_under_player":0}

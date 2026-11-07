@@ -1,0 +1,6 @@
+A: harness/out/tactics/checkpoint-rust/deep: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=fcc2070b339b1c53
+A:   built from f772eb6dcb93 (dirty=yes, inputs dirty=yes) source_sha256=a2a3a26a8dae33e6; run at f772eb6dcb93 (dirty=yes) overrides=none
+B: harness/reference/deep: reference (no manifest)
+9/9 runs identical (expected 9)
+messages.log compared in 9 run(s)
+state.log compared in 9 run(s)

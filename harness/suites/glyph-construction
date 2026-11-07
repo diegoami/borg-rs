@@ -1,0 +1,5 @@
+# Real engine autonomous construction; 40 known Rune scrolls keep the >=10 gate satisfied.
+# SAVE_ROOT is the accepted generate.py --glyph-construction fixture directory.
+glyph-build-ready    7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-ready.save
+glyph-build-supply   7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-low-supply.save
+glyph-build-prelaid  7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-complete.save

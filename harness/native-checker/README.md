@@ -54,9 +54,10 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   unequal-score controls. Cases23-25 additionally exercise candidate costs
   74/75/76: only74 is accepted. Whole declared state is compared in each execution.
   Candidate-cost cases19-25 use a shared, explicit adapter: after real reverse
-  flow, provide the ranking/cutoff candidate costs. Inherited #345 otherwise leaves only
-  the origin reachable, preventing the ties. Other cases keep real reverse
-  flow unmodified. These cases test the production ranking body under a
+  flow, replace the cost plane with only the declared ranking/cutoff candidates
+  and origin reachable. This keeps the selection contracts independent of
+  reachability. Other cases use real reverse flow, now corrected under #345.
+  These cases test the production ranking body under a
   controlled environment, not naturally reachable engine tie outcomes.
 * Lunal thinker:1,280 controlled states over40 exit, recovery, self-scumming,
   stair capacity/duplicate, climb/dive and forced-descend scenarios. Shared
@@ -68,7 +69,8 @@ Game-corpus oracles and serialized capture equality remain separate evidence.
   guard, damage multiplier, glyph target bookkeeping and self-lunal flag reset
   are changed in temporary copies. Three review follow-up controls additionally
   mutate the distance50 boundary, both tie comparisons and the old-center tie
-  comparison alone. The cost75 cutoff mutant is an eleventh control. Glyph
+  comparison alone. Cost75 and the #345 reverse-flow regression are additional
+  controls, twelve total. Glyph
   controls request the full2,600-execution corpus (and fail as soon as a
   mismatch is found); other controls retain their bounded subsets.
   Overrides cannot produce valid PASS evidence.

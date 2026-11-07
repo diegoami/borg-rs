@@ -1,0 +1,30 @@
+---- screen ----
+Ulfast, Son of Ulfang, grunts with pain.                                        
+Human        #####################################################              
+Lord         # # #   # # ..#.....#.+ # # #   #     #           # #              
+Warrior      # # ### # ###.#.#.###.### # # ##### # ### # # # ### #              
+LEVEL     50 #   # #     #...#.....#   #     #   #   # # # # #   #              
+EXP 99999999 # ###R# #####'###.#@### # ### # # ### ##### ##### # #              
+AU   1002995 #   #     # #..<#.#.$ # #   # #   #               # #              
+|}= "~[()]]] ### # # ### #######|####### # ############### #######              
+STR!  18/*** #     # o # #o#   #.# #   #         #       # #     #              
+INT!  18/130 ####### ###o#o#o###.# # # #+##### # #####:### ### # #              
+WIS!  18/150 # #     # #oooooo #.  # #     #   # +       #     # #              
+DEX!  18/190 # ### ### #o##### #.### ### #R##### ######### #######              
+CON!  18/210 #         #ooooo# p.      # # #   # #   #     #   # #              
+             ##### ###n# #o#o##### # # # ##### ### ##### # # ### #              
+Cur AC   244 # + # # # # # #   # + # # #    >#     #   # #       #              
+HP 1125/1125 # ### # ### #p###########p### ##### # ### ### ### ###              
+             #           #  p  #   p pp#p        # # +     #     #              
+             #####################################################              
+[**--------]                                                                    
+                                                                                
+                                                                                
+Fast (+33)                                                                      
+1250' (L25)                                                                     
+             LF:4-? Light 6  Fed 73 % Open floor                                
+----------------
+SYNTH_STATE {"phase":"replay-stop","turn":4196,"depth":25,"max_depth":99,"level":50,"engine_glyphs":0,"visible_engine_glyphs":0,"disarmable_glyphs":0,"rune_scrolls":0,"borg_map_glyphs":0,"borg_tracked_glyphs":0,"borg_morgoth_position":0}
+SYNTH_TRAPS {"borg_map_traps":0}
+SYNTH_LUNAL {"lunal_mode":0,"goal_less":0,"fleeing":0,"known_up":1,"known_down":1,"under_feat":1,"persistent":0,"connected_stairs":1}
+SYNTH_FORMATION {"player_x":19,"player_y":4,"surrounding_runes":0,"rune_under_player":0}

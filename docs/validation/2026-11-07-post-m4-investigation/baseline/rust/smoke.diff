@@ -1,0 +1,6 @@
+A: harness/out/tactics/checkpoint-rust/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=fcc2070b339b1c53
+A:   built from f772eb6dcb93 (dirty=yes, inputs dirty=yes) source_sha256=a2a3a26a8dae33e6; run at f772eb6dcb93 (dirty=yes) overrides=none
+B: harness/reference/smoke: reference (no manifest)
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

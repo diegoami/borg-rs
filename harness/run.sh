@@ -61,6 +61,12 @@ if [ "$FLAGS" != "-" ]; then
             cheat) CHEAT=TRUE;;
             menu) BORGH_FLAGS+=(-menu-letters);;
             finalsave) BORGH_FLAGS+=(-save-on-stop "$OUT/final.save");;
+            living-save) BORGH_FLAGS+=(-save-living-on-stop "$OUT/final.save");;
+            rune-pattern) BORGH_FLAGS+=(-stop-rune-pattern);;
+            key-limit=*)
+                key_limit="${fl#key-limit=}"
+                [[ "$key_limit" =~ ^[1-9][0-9]{0,8}$ ]] || { echo 'run.sh: key-limit must be 1..999999999' >&2; exit 2; }
+                BORGH_FLAGS+=(-keys "$key_limit");;
             cheatlive) BORGH_FLAGS+=(-cheat-live);;
             munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
             lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;

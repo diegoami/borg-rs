@@ -1,0 +1,3 @@
+flags=menu,finalsave,selflunal,key-limit=3000,save=lunal-shallow-history.save
+borg_txt_sha256=c534272204d991a3bae4683c58ca17dd0da02bf5221ae2187bafb941cf34fcf7
+save_sha256=ca2ca8ccf3d2cbefd2fbc54e7bc2bccfe20cc61cac512462189085c0d461f25c

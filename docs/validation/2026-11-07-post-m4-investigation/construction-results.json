@@ -1,0 +1,191 @@
+{
+  "glyph-build-prelaid": {
+    "C1_C2_Rust_observer_bytes": {
+      "final.save": "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c",
+      "keys.log": "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5",
+      "messages.log": "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b",
+      "state.log": "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d"
+    },
+    "after_native": {
+      "borg_map_glyphs": 24,
+      "borg_morgoth_position": 1,
+      "borg_tracked_glyphs": 24,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 40,
+      "turn": 1,
+      "visible_engine_glyphs": 24
+    },
+    "before_native": {
+      "borg_map_glyphs": 24,
+      "borg_morgoth_position": 1,
+      "borg_tracked_glyphs": 24,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 40,
+      "turn": 1,
+      "visible_engine_glyphs": 24
+    },
+    "engine_pattern": {
+      "player_x": 60,
+      "player_y": 33,
+      "rune_under_player": 0,
+      "surrounding_runes": 24
+    },
+    "summary": {
+      "class": "Warrior",
+      "class_idx": 0,
+      "clevel": 50,
+      "dead": false,
+      "death_cause": "",
+      "depth": 100,
+      "game_turns": 1,
+      "keys": 1,
+      "loaded": true,
+      "loaded_turn": 1,
+      "max_depth": 100,
+      "menu_letters": true,
+      "player_turns": 0,
+      "race": "Human",
+      "race_idx": 0,
+      "resting_turns": 0,
+      "seed": 7300,
+      "stop_reason": "rune_pattern",
+      "wall_seconds": 0.025
+    }
+  },
+  "glyph-build-ready": {
+    "C1_C2_Rust_observer_bytes": {
+      "final.save": "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4",
+      "keys.log": "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c",
+      "messages.log": "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650",
+      "state.log": "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032"
+    },
+    "after_native": {
+      "borg_map_glyphs": 25,
+      "borg_morgoth_position": 1,
+      "borg_tracked_glyphs": 25,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 25,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 15,
+      "turn": 177,
+      "visible_engine_glyphs": 25
+    },
+    "before_native": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 40,
+      "turn": 500,
+      "visible_engine_glyphs": 0
+    },
+    "engine_pattern": {
+      "player_x": 69,
+      "player_y": 44,
+      "rune_under_player": 1,
+      "surrounding_runes": 24
+    },
+    "summary": {
+      "class": "Warrior",
+      "class_idx": 0,
+      "clevel": 50,
+      "dead": false,
+      "death_cause": "",
+      "depth": 100,
+      "game_turns": 177,
+      "keys": 183,
+      "loaded": true,
+      "loaded_turn": 1,
+      "max_depth": 100,
+      "menu_letters": true,
+      "player_turns": 70,
+      "race": "Human",
+      "race_idx": 0,
+      "resting_turns": 0,
+      "seed": 7300,
+      "stop_reason": "rune_pattern",
+      "wall_seconds": 0.085
+    }
+  },
+  "glyph-build-supply": {
+    "C1_C2_Rust_observer_bytes": {
+      "final.save": "e7f894f03d92c48ddce8e90cec69b64b59548b2589e6bfcb0f843b2fd2278da0",
+      "keys.log": "6ac59e38027b72b8816256910dd98fae8d84b19ca2db2ca9b0eff7da603f7b3d",
+      "messages.log": "9400dda84f1423a092ae5897eb9f831e3718dcbfa315bb3880283eb5e5258739",
+      "state.log": "93755d556e91dd13633930b6bb3e433a1db24e82e4eb230353b044ed0e2e22be"
+    },
+    "after_native": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 99,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 500,
+      "visible_engine_glyphs": 0
+    },
+    "before_native": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 99,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 500,
+      "visible_engine_glyphs": 0
+    },
+    "engine_pattern": {
+      "player_x": 112,
+      "player_y": 45,
+      "rune_under_player": 0,
+      "surrounding_runes": 0
+    },
+    "summary": {
+      "class": "Warrior",
+      "class_idx": 0,
+      "clevel": 50,
+      "dead": false,
+      "death_cause": "",
+      "depth": 99,
+      "game_turns": 500,
+      "keys": 477,
+      "loaded": true,
+      "loaded_turn": 1,
+      "max_depth": 100,
+      "menu_letters": true,
+      "player_turns": 205,
+      "race": "Human",
+      "race_idx": 0,
+      "resting_turns": 0,
+      "seed": 7300,
+      "stop_reason": "turns",
+      "wall_seconds": 0.292
+    }
+  }
+}

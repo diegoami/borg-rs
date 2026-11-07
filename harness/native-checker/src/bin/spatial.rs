@@ -842,8 +842,14 @@ mod glyph_environment {
         sneak: bool,
     ) {
         directions::borg_flow_reverse(st, depth, optimize, avoid, tunneling, stair_idx, sneak);
-        // Candidate-cost adapter: #345 otherwise leaves only the origin reachable.
+        // Isolate ranking/cutoff contracts from the real reachability algorithm.
         // Keep real reverse flow in all other cases; do not alter its algorithm.
+        if (19..=25).contains(&st.glyph_scenario) {
+            for row in &mut st.flow.data_cost {
+                row.fill(255);
+            }
+            st.flow.data_cost[33][100] = 0;
+        }
         if (19..=22).contains(&st.glyph_scenario) {
             st.flow.data_cost[33][99] = 1;
             st.flow.data_cost[33][101] = if st.glyph_scenario >= 21 { 2 } else { 1 };

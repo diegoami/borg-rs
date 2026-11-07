@@ -1,0 +1,6 @@
+A: harness/out/tactics/checkpoint-c/full: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=b53c3b92befd0017
+A:   built from f772eb6dcb93 (dirty=yes, inputs dirty=yes) source_sha256=630ae87d4aaa552f; run at f772eb6dcb93 (dirty=yes) overrides=none
+B: harness/reference/full: reference (no manifest)
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

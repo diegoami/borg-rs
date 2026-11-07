@@ -1,0 +1,3 @@
+SYNTH_STATE {"phase":"replay-stop","turn":500,"depth":100,"max_depth":100,"level":50,"engine_glyphs":0,"visible_engine_glyphs":0,"disarmable_glyphs":0,"rune_scrolls":40,"borg_map_glyphs":0,"borg_tracked_glyphs":0,"borg_morgoth_position":0}
+SYNTH_TRAPS {"borg_map_traps":0}
+SYNTH_FORMATION {"player_x":45,"player_y":33,"surrounding_runes":0,"rune_under_player":0}

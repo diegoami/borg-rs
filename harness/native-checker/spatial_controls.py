@@ -28,6 +28,9 @@ write('glyph-distance-fault.rs','borg-rs/src/borg_flow_glyph.rs',
       'engine::distance(st.borg.c, center) >= 50',
       'engine::distance(st.borg.c, center) > 50')
 write('glyph-cost-fault.rs','borg-rs/src/borg_flow_glyph.rs','if cost >= 75 {','if cost > 75 {')
+write('glyph-reverse-fault.rs','borg-rs/src/borg_flow_glyph.rs',
+      'borg_flow_misc::borg_flow_reverse(st, 250, false, false, false, -1, false);',
+      'borg_flow_misc::borg_flow_reverse(st, 250, true, false, false, -1, false);')
 text=(root/'borg-rs/src/borg_flow_glyph.rs').read_text()
 assert text.count('v < b_v')==2
 (out/'glyph-tie-fault.rs').write_text(text.replace('v < b_v','v <= b_v'))

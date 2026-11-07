@@ -1,0 +1,3 @@
+flags=menu,finalsave,rune-pattern,save=glyph-build-complete.save
+borg_txt_sha256=f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+save_sha256=3a34473642ba0f29b9a3da5ff828268d307c58aeead3d96bb3153416347ae8e3

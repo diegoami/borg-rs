@@ -1,0 +1,56 @@
+{
+  "glyph-build-complete": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-build-complete",
+      "rune_scrolls": 40,
+      "turn": 1,
+      "visible_engine_glyphs": 24
+    },
+    "seed": 7100,
+    "sha256": "3a34473642ba0f29b9a3da5ff828268d307c58aeead3d96bb3153416347ae8e3"
+  },
+  "glyph-build-low-supply": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-build-low-supply",
+      "rune_scrolls": 9,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "c1432dd87e4eba837b30639817c43986d2586ed23ed2aee82d0210fd0994e8a6"
+  },
+  "glyph-build-ready": {
+    "engine": {
+      "borg_map_glyphs": -1,
+      "borg_morgoth_position": -1,
+      "borg_tracked_glyphs": -1,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "glyph-build-ready",
+      "rune_scrolls": 40,
+      "turn": 1,
+      "visible_engine_glyphs": 0
+    },
+    "seed": 7100,
+    "sha256": "68259de6cc96a8b65846d1efa37f89fd56f356873404672db70a7b64203bbda2"
+  }
+}

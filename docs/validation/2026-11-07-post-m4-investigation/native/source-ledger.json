@@ -1,0 +1,554 @@
+[
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "DUNGEON_WID",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "97930f2c7cf5d964f03fe4d2c6c097dc4c62c59361e7018dc6de12d1fbda3a68"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "DUNGEON_HGT",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "75a74631054c6a54d53f1994e931357f7fe40bc21644c3776a63effed2865b97"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "AUTO_MAX_X",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "f6dcad41714295f7e87a01033b1efd94719b6888ebe2273dd06b1820cb8cf495"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "AUTO_MAX_Y",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "439a409b578400fb9625c08483420631c48a3e78e347511f9a8781e4118e3d97"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "pub struct BorgGrid {",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "fd3a42923b5595c03123c4b9b9a76d18890101acd413781fa48e16491cad2732"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "pub struct CaveState {",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "be2aa265c21a576015dd74854088b85a8d2023a4ff65486d98dd9823fb6b17db"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave.rs",
+    "item": "impl CaveState {",
+    "source_sha256": "7fffdbed8fd77b452b763ad856a13ebeb0ed1803948ab95e000bc7bb8e655502",
+    "item_sha256": "0e228a711d1539d006449c0023560f18ec5edb036207202dc077a6b926fe26a5"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave_util.rs",
+    "item": "fn feat_is(",
+    "source_sha256": "0d9e76b81f061ae13eff41cf36aca244eb66ad40343375c6a53419050b34e740",
+    "item_sha256": "ecfb14119f24dfdb76f4bc4bd2e56b52dc0575358d2b5b37f61482b4af8d5442"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave_util.rs",
+    "item": "pub fn borg_cave_floor_bold(",
+    "source_sha256": "0d9e76b81f061ae13eff41cf36aca244eb66ad40343375c6a53419050b34e740",
+    "item_sha256": "941d217b9d026c8474be9d6a26ccfcf5e64cadfc1bf959b4df64d062130ba268"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave_util.rs",
+    "item": "pub fn borg_cave_floor_grid(",
+    "source_sha256": "0d9e76b81f061ae13eff41cf36aca244eb66ad40343375c6a53419050b34e740",
+    "item_sha256": "eb915337cfa9bf6a0adeee3aa884186e37b762c59c3a4d155a562f41c9555b4c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_cave_util.rs",
+    "item": "pub fn borg_feature_protected(",
+    "source_sha256": "0d9e76b81f061ae13eff41cf36aca244eb66ad40343375c6a53419050b34e740",
+    "item_sha256": "6087cedc0e146031dcd3e2fa366286f2470613924b24ce5a20914f71f0a0713f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "fn feat_is(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "f9cab9dbc19b448bce80cc589b6c857372d6324447d0b8122141ccaafe9beba2"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "fn los_with(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "18464e120ce0107482e8a14c174c64e79fb076712e08f8e37615f432aa842fba"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_los(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "888616d936d3f16aaef6fdfd1e75b3f54c734bf7259d8099b3aa9c3cd606c988"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "fn max_range(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "8dd054f8306f89c73bb2616d932bd8368a9548e9e0d6c40e07039e2e80235d98"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "fn fear_region_scary(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "4efec4a283a8086f6d7d32c97ffe18f987d698f156bd7e492e9a70db1a7fa4e3"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_projectable(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "9a13819058c08ebacfbe291c37d23cd62d7e7768524037c96f9d76027b1b54a3"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_offset_projectable(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "2969185423306d8376b4fac6a4994cc1813ab8b645b466a4a7d75c097a240fcf"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_projectable_pure(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "06bb1915723206774914ff15d440a02766c6feee01dcc6826ff108e37dc0a1ca"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_projectable_dark(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "008117844a037d211a1f7c710555f9588946822d42c058355c926ecb371a1a6b"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_inc_motion(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "3c76f61eeac90ba5008ac8dd16b0b95b8c06e2082208b27c5689e284698e494a"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_distance(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "6a8f451ed31863a8f6478868b5ce732f970f3f44894835fd9b1615a45a9f387a"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_target(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "48ce637f79a0aa1e431fc340f3848ae620f5e47348e5941c58499e73fab16ef1"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "fn is_floor(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "1282756328a661eb93547ae0859a0684e166cf1bf95c52e56fec06c67b0e0883"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_projection.rs",
+    "item": "pub fn borg_target_unknown_wall(",
+    "source_sha256": "739a39d2df0ef848911dc84f0ea156e2e3d902327114f5a9fdddca1b46618fb1",
+    "item_sha256": "80402dda5f146f126b4c962c306db5a25e1b2c96a69ae3f642e202da615c3b3c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "AUTO_FLOW_MAX",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "c84692cd0d7e14cebe266ea3c78c3a3ad2fb853251bb4d008ec9e6fd89cd0cd5"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "AUTO_TEMP_MAX",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "76b3bc86ae84972132136cceba7877550fdb93c904d90091ddb4a587bd6998e3"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "BorgData",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "13da4c51f9d2a479ccc40693fbaf9592631124ef864ab8c0cfe8c036e2e8cdef"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "BORG_DDX_DDD",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "a7c2430af5664f1417c0b9919b38b549f73f3ce469c39c0e775173f9605a97a3"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "BORG_DDY_DDD",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "fe243fcfb8a04fdd8d671be0ce3b0c3e45635148616752e584fa41f23f3eccd5"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn borg_ddxy_ddd(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "34a2065f46fe216786b4c40c02b7c0d94723d76bc92264b08d4bf696704cde05"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub struct FlowState {",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "eb471587c5e00023dd0ba0d990cd4d261b8ce827cac31c8a294d81600f5b399f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "impl Default for FlowState {",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "4fdcd611f8a3c0d15e934f0ec9460d1f0d7a7ac02705a80b1ae14cc0d49a98d7"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "impl FlowState {",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "a7ae49898e0c2a4dccd33ea82c189bcde7e1b00ef0560dd4fba189bde18555c0"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn copy_data(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "441c3222247d30176ec9755f9a6386e4371b4b24ae27bd051713e70b5b12df48"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn zero_data(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "da085c544e9c222105a1b23bdb2824b661e7ba4aa4be7afc94ca46b7258b803f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn borg_flow_clear(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "912276d3f68e6822901f29718ec5e3bb5e2cf51257b15d9e6911e505642ff814"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "fn flow_fear(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "441c660e0c50bf2cb249559382a53fa238183a7e5d8de66a17c3ac6a7fef5bd7"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "fn monster_adjacent(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "e4f85238c57d2979431da6d6a32adc2c3511c678ff915201f6e6af4e36a34451"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "fn spread_blocked(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "061cbf5e544e9b8642a9130ff795fa09f662f204daa5b67b7d924b2dd5245d1c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn borg_flow_spread(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "23e9c91d10b83c08252a808163def6d5864c637cea1f7c22e4ca1d8388162c5d"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn borg_flow_enqueue_grid(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "b00dc5c5b107f436735f40f555bb1521ab724f5d4ca49d3592db47d9236d2218"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn borg_flow_commit(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "bf1bee915a49d17891fcb4a75012c81e17d642010be866d7379d65dc37803d64"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow.rs",
+    "item": "pub fn flow_commit(",
+    "source_sha256": "0a4250e63ddfc7a765f879e88ea567664df83856fce19855710979538c62b4ae",
+    "item_sha256": "5fcccdb69eed84b871a9dc975e7d6ca18c6d6a7a8adcd7cc2c07c8f2404ed99f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_misc.rs",
+    "item": "pub fn borg_extract_dir(",
+    "source_sha256": "5d455948ce7fc92c32f26d9a74f0fce6a7761a6525971b6a64d2d4c73aba65f8",
+    "item_sha256": "b59b6a6007ea158944e251ae014f587472f2344376e0b9a5f8c08dc959ade6fa"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_misc.rs",
+    "item": "pub fn borg_goto_dir(",
+    "source_sha256": "5d455948ce7fc92c32f26d9a74f0fce6a7761a6525971b6a64d2d4c73aba65f8",
+    "item_sha256": "7e040f23dddaec950ebf024545e46298591ebe6df1179a020a22614b88ee19b0"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_misc.rs",
+    "item": "pub fn borg_flow_reverse(",
+    "source_sha256": "5d455948ce7fc92c32f26d9a74f0fce6a7761a6525971b6a64d2d4c73aba65f8",
+    "item_sha256": "e2579a7521021e84ddf4ac2174b686af853889bd3af28b8b393df324774cea70"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "CLASS_MAGE",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "7f58cd4228ed78623f09e4778356ab0efea5e44174be888fb456802098ebe6d5"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "CLASS_NECROMANCER",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "44673a041f32078d8424e3dc9dc6c70996bb11d59090da888bd48123e4afd28c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn key(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "74e522547c641cf6e68f494a73da1808b08502bf62e14f63a1728317ef635e2b"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn i2d(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "8ce24d6ff35a70ca6a3eec0d7529407af3c0e53e5848295e727d2b0c561e4618"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn tr(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "92e0c8b6d1f31d26ee3fc932789519aac6ea737807c4241b7ea086e13c468741"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn avoid(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "80249fc4e3084f66a0d39e762acea9c19d7957e0210814b852b5e5436499f7cc"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn simulating(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "e0e349a4f015baf402fd5e0043d8887d256d9daebc962526025afb369edf31ca"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn grid(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "29a48ca17831ae06741888e0957d669f1eeea0c8e4db689e8e54fb4d36cbba23"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn is_ghost(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "87122d9bf1d7e46cd41a047eddd2c4873fe0c47efb3d8cc0e7295d98659d5963"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn rf(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "2911bf7d086b2df0092cff941f4b8c1b6e1b3bbf356e7532dfd11b730be82bde"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn rsf(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "e9eb58de7b333572c06050abbbf97c5b0fdf700066c3717bcde68d46ef1bb79d"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn is_summoner(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "c64e5e415fef139ff965ca869c56a9f80ada1b5cd8057c4e8e6af82cadd93359"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn desc(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "5be4b81af9d743aff4153dc2cefd7dae5386c5a5b66b86d2551e1171660a8596"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn danger_one_here(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "3b793aaa19ec02a874b5e1779970f27e5e60a28db73059180e65fd1b7309ea26"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn power(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "80393e38f773660779f5b0ab20001f7bf8bd6ae986846d96ff0205b8f782067d"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn melee_score(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "9c241114badd20bc29a347ed8d08d9932c2c165878f8885953746ae55c2b34b0"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn borg_attack_aux_thrust(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "bd1c78406259bb4d55126b1d7ccb75d1f30d472e132b1273cda5983233ccb6eb"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_fight_attack.rs",
+    "item": "fn borg_thrust_damage_one(",
+    "source_sha256": "753e292f95aedcf715b125d2fd1f5a539840a77b760f1bc9145bd19feab9ab8f",
+    "item_sha256": "850c03a3189ca564cfa4ca762a7d13443dd3308f8584a173848dd4c755cac440"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs",
+    "item": "GOAL_MISC",
+    "source_sha256": "022b7c299346badb2f86def487a0d00c1d9dfba6d5bdf27947332ce5dc36a17b",
+    "item_sha256": "fd849713564084903801523b59afd598d9000e3cc0a4bfa955bf123bdff78097"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_headers/borg_magic_h.rs",
+    "item": "GLYPH_OF_WARDING",
+    "source_sha256": "3e2e3d6f585d71b858c09b96815a2c83cd2c735ff126ad1b6bcf106f27d76244",
+    "item_sha256": "1d3e8567db6752272112d82106fecbd5afebbd6c67a5455a2a3a422df4451898"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs",
+    "item": "pub struct GlyphState {",
+    "source_sha256": "022b7c299346badb2f86def487a0d00c1d9dfba6d5bdf27947332ce5dc36a17b",
+    "item_sha256": "1f654d65d28ab1989ae7c8d439e3383ad95ac28ac65607536e353f8cbf90d19b"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs",
+    "item": "fn ring(",
+    "source_sha256": "022b7c299346badb2f86def487a0d00c1d9dfba6d5bdf27947332ce5dc36a17b",
+    "item_sha256": "d15cb8cbe45bb01a2e74711f1db0cd12790d239877c9538d13ee2e05d039a7cd"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs",
+    "item": "fn track_new_glyph(",
+    "source_sha256": "022b7c299346badb2f86def487a0d00c1d9dfba6d5bdf27947332ce5dc36a17b",
+    "item_sha256": "6895c622ac065f7ac59b5291409e66c5ea1cce74fc82b429023046ca9f5a7f93"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_flow_glyph.rs",
+    "item": "pub fn borg_flow_glyph(",
+    "source_sha256": "022b7c299346badb2f86def487a0d00c1d9dfba6d5bdf27947332ce5dc36a17b",
+    "item_sha256": "edd4c41be0536bf99d9a3f2f94ce889b53fbe709df9a7e296215594ab1b4e0ee"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "GOAL_TAKE",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "ec1ef7dc51625187cf874df21775732203288ce2acb6af1adbf3c2b592b1db50"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "GOAL_FLEE",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "c874efb3eff1190502c0f595da254e690cbb097516fee999a58d43c3b5439f01"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_headers/borg_h.rs",
+    "item": "BORG_SELF_LUNAL",
+    "source_sha256": "0432eb9a78fb758484314daea0b2558f37c581b09c7e4d0bf930b8b39254cfee",
+    "item_sha256": "267f72d2c2034111f52343cee40fc307d2d6939a49f604ac65869077bf48dc68"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/headers/list_options_h.rs",
+    "item": "OPT_birth_force_descend",
+    "source_sha256": "2583ccce9e976764afd6f41640f793103fc6f3a08ec25950a7284a0dd3d7354a",
+    "item_sha256": "65874adaab25d8f6a2ad96b4e85903a30138cf51ebd4a9e9be90775dac270747"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_light.rs",
+    "item": "pub enum BorgNeed {",
+    "source_sha256": "e5287142c7803095933ed35decdd77826bc353a731463d1d497b14ae117db91d",
+    "item_sha256": "e823c635daa3c0856b0d264621c2406004acdbfda3e08df6f809f2fa0264defe"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "enum Stairs {",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "c6a6c4844fc12bed6ecab51e2606314481fa38a568fcc0b77525818d132f4944"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn inven_light(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "1071114fd55c18fcef9fedb9361fd83556a7de89bcbe504f5e87e204fe579af6"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn pack_slot_iqty(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "fb7e8e43a052f95d63c6b1fe56fadf87ba26a898d71f67ca330ed1df384beb55"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn feat_at(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "0a48ff8c4abdb4fea87776a0ee3fc91757efdb209c8d6cf6dd50d78177a0e77c"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn force_descend(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "891980b39bae3ac578fc2977e975a1fc39a7c81ece45eee39a46450f77edcbdb"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn prepared_null(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "a42e304020e70001a8fb6c6ddb53cca13eaed7ea66a902e7d567bb2e8489819f"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn stairs(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "e6c37fa7629207c909853575ea35bec4016b49019328cb16e1872a56322c5494"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn stairs_mut(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "62efa6c18b5d7104f85cbc585e849f733c819da75b1ee917fe94dd5d8fd76381"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn track_stairs_under(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "86a7187260f98ef5bd47a9fd2d483207aa6f7faf81e35ca21b7be320c55ea0e8"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn track_stair(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "0146a646f1d696782e33523a38fe10d99fafe3298657c4eb124c2490fe0cd896"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn nearest_stair(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "30349580218577bd10b1d08367ea88845389863a37e70d511b1c7fe0fff2b291"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/borg_think_dungeon.rs",
+    "item": "fn borg_think_dungeon_lunal(",
+    "source_sha256": "6a4870fb11c5a80613550cc786ac3f9e03aae7a9a10255aceb2f49930dcd35ae",
+    "item_sha256": "8721a47f2014cfdfb40b6fd00735afe1bef88addd75ffa4154fbd4562675d7ec"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/borg-rs/src/engine.rs",
+    "item": "pub fn distance(",
+    "source_sha256": "863fc10014d41b03fd9f069f9d2d221d1272c25a027db9ba042b7c69d473aab4",
+    "item_sha256": "be4c9070bbd9297c9c50096c398b86dc18fd743b567a87e892a7b4f6b9cf1870"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/angband/src/borg/borg-fight-attack.c",
+    "item": "borg_thrust_damage_one",
+    "source_sha256": "94735d6d110db5feb9d2ad5a31a8be3c077a6a2d5ccd49f629fd3aa593b180e6",
+    "item_sha256": "8dc8bc42d5895e4d68e9edfc959ba4d8f7fadb6bab376278c6608087cd99bc49"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/angband/src/borg/borg-fight-attack.c",
+    "item": "borg_attack_aux_thrust",
+    "source_sha256": "94735d6d110db5feb9d2ad5a31a8be3c077a6a2d5ccd49f629fd3aa593b180e6",
+    "item_sha256": "b41ce889d7d671e394a34bc25cd6159c8754b9c05f7761737de2006aaa778e58"
+  },
+  {
+    "source": "/home/diego/projects/borg-rs/angband/src/borg/borg-think-dungeon.c",
+    "item": "borg_think_dungeon_lunal",
+    "source_sha256": "3151fb508ca305a107438cad89d2c5d0ea9c78151f4ba8904f3a3972aeb2e453",
+    "item_sha256": "9768cb9fe12e9faa8fa1ecbd4c81d695a502ac61b8a93156a814c7f089c9183a"
+  }
+]

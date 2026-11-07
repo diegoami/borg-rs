@@ -1,0 +1,33 @@
+suite=glyph-construction
+suite_sha256=2e974de1c281a074a54ab9ec406f5edffcfe6e246e9aec495d16a4750efe0b0f
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=1225b48449f78c8d3f1cbc56d8ad036d1c416ef3886f5341f9b335923d4addac
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=e117ff6b80ae436787d9d03dbfcb3c9fd2f8bf125fc4711595b5a2f03c1eee01
+build_id_binary_sha256=1225b48449f78c8d3f1cbc56d8ad036d1c416ef3886f5341f9b335923d4addac
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-07T14:31:02Z
+checkout_source_sha256=e117ff6b80ae436787d9d03dbfcb3c9fd2f8bf125fc4711595b5a2f03c1eee01
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=harness/out/tactics/construction-spaced-fixtures
+started_utc=2026-11-07T14:31:03Z
+run_config.glyph-build-ready=menu,finalsave,rune-pattern,save=glyph-build-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-build-supply=menu,finalsave,rune-pattern,save=glyph-build-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.glyph-build-prelaid=menu,finalsave,rune-pattern,save=glyph-build-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=1225b48449f78c8d3f1cbc56d8ad036d1c416ef3886f5341f9b335923d4addac
+finished_utc=2026-11-07T14:31:03Z result=OK

@@ -7,8 +7,9 @@ builds. The issue contains the scope, pinned evidence and required comment
 workflow for both reviewer and implementation agent. The
 [independent verdict](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707067352)
 is qualified pass with no acceptance blockers; D/E scope remains qualified.
-The reviewer verified the first tooling fixes; two further small cost75/
-fixture-portability fixes await follow-up verification. See STATUS and issue#1.
+The owner accepted this qualified outcome and explicitly requested closure
+of issue#1; it is closed. Later source/investigations are separate from the
+reviewed tag and its qualifications. See STATUS for current work.
 The corpus results below retain their original source/scope; the checkpoint
 audit itself was author-run. Do not include later #295 behavior in this verdict.
 

@@ -1,0 +1,62 @@
+{
+  "lunal-budget-disabled": {
+    "native_c_state": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 25,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 99,
+      "phase": "replay-stop",
+      "rune_scrolls": 0,
+      "turn": 4196,
+      "visible_engine_glyphs": 0
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  },
+  "lunal-budget-history": {
+    "native_c_state": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 26,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 34,
+      "phase": "replay-stop",
+      "rune_scrolls": 0,
+      "turn": 4680,
+      "visible_engine_glyphs": 0
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  },
+  "lunal-budget-ready": {
+    "native_c_state": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 21,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 99,
+      "phase": "replay-stop",
+      "rune_scrolls": 0,
+      "turn": 371,
+      "visible_engine_glyphs": 0
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  }
+}

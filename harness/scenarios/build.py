@@ -22,6 +22,8 @@ assert (
 ), "stale C build"
 out.mkdir(parents=True)
 source = root / "harness/scenarios/fixture-save.c"
+snapshot_source = out / "fixture-save.c"
+snapshot_source.write_bytes(source.read_bytes())
 obj = out / "fixture-save.o"
 compile_args = [
     "cc",
@@ -31,7 +33,7 @@ compile_args = [
     "-DBORG_HARNESS",
     "-I" + str(root / "angband/src"),
     "-c",
-    str(source),
+    str(snapshot_source),
     "-o",
     str(obj),
 ]
@@ -59,7 +61,7 @@ assert (
 meta = {
     "test_only": True,
     "base_build_id": bid,
-    "constructor_source_sha256": sha(source),
+    "constructor_source_sha256": sha(snapshot_source),
     "compile_argv": compile_args,
     "link_argv": args,
     "objects_unchanged": before,

@@ -1,0 +1,7 @@
+A: harness/out/tactics/synthetic-c1: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=b53c3b92befd0017
+A:   built from f772eb6dcb93 (dirty=yes, inputs dirty=yes) source_sha256=630ae87d4aaa552f; run at f772eb6dcb93 (dirty=yes) overrides=none
+B: harness/out/tactics/synthetic-c2: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=b53c3b92befd0017
+B:   built from f772eb6dcb93 (dirty=yes, inputs dirty=yes) source_sha256=630ae87d4aaa552f; run at f772eb6dcb93 (dirty=yes) overrides=none
+6/6 runs identical (expected 6)
+messages.log compared in 6 run(s)
+state.log compared in 6 run(s)

@@ -1,0 +1,11 @@
+# Fresh ordinary births; no cheat-death/cheat-live, no restored/wizard characters.
+# Wall timeout is supplied by the caller; both turn and key budgets bound each run.
+live-warrior     8400 0  0 100000 menu,living-save,key-limit=50000
+live-mage        8401 10 1 100000 menu,living-save,key-limit=50000
+live-druid       8402 1  2 100000 menu,living-save,key-limit=50000
+live-priest      8403 6  3 100000 menu,living-save,key-limit=50000
+live-necromancer 8404 7  4 100000 menu,living-save,key-limit=50000
+live-paladin     8405 8  5 100000 menu,living-save,key-limit=50000
+live-rogue       8406 3  6 100000 menu,living-save,key-limit=50000
+live-ranger      8407 1  7 100000 menu,living-save,key-limit=50000
+live-blackguard  8408 4  8 100000 menu,living-save,key-limit=50000

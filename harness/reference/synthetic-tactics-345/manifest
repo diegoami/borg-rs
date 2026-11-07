@@ -1,0 +1,36 @@
+suite=synthetic-tactics
+suite_sha256=ad05106d47aa928ebde793170a55543e87b149933bfd42635b47e633ab0919f5
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+build_id_binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-07T14:46:20Z
+checkout_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+git_dirty=yes
+jobs=3
+checkpoint_every=0
+run_timeout_seconds=30
+save_root=harness/saves/synthetic-tactics
+started_utc=2026-11-07T15:25:24Z
+run_config.synth-lunal-ready=menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-ready.save 76520d020db3eff72ac80e720bc0063083b88002bf35049bb775aff144f58396
+run_config.synth-lunal-disabled=menu,finalsave,borg_self_lunal=FALSE,borg_stop_dlevel=21,save=lunal-ready.save c78d09d4bfa5f02042c14b8e926881bbc691b04b82b0d29e3da49f2fb0d1bb8f
+run_config.synth-lunal-history=menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-shallow-history.save 76520d020db3eff72ac80e720bc0063083b88002bf35049bb775aff144f58396
+run_config.synth-glyph-ready=menu,finalsave,save=glyph-ready.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-low-supply=menu,finalsave,save=glyph-low-supply.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.synth-glyph-prelaid=menu,finalsave,save=glyph-complete.save f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+binary_sha256_end=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+finished_utc=2026-11-07T15:25:24Z result=OK

@@ -1,0 +1,4 @@
+# Independent key cap bounds free stair transitions when game clock does not advance.
+lunal-budget-ready     7200 0 0 10000 menu,finalsave,selflunal,key-limit=3000,save=lunal-ready.save
+lunal-budget-disabled  7200 0 0 10000 menu,finalsave,borg_self_lunal=FALSE,key-limit=3000,save=lunal-ready.save
+lunal-budget-history   7200 0 0 10000 menu,finalsave,selflunal,key-limit=3000,save=lunal-shallow-history.save

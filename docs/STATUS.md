@@ -1,5 +1,21 @@
 # borg-rs status
 
+## Current owner-accepted milestone and post-M4 investigation
+
+The owner accepted the qualified M4 outcome and requested closure of
+[review#1](https://github.com/diegoami/borg-rs/issues/1); it is closed as
+completed. The qualifications and tag m4/3923a21 remain unchanged.
+
+Post-M4 #345 now builds a complete25-Rune formation autonomously in a
+constructed preparation room by turn177; C twice and Rust match3/3 logs
+and full final saves. Self-lunal's repeated connected-stair rerolls are
+bounded by a new independent key limit; the tactic itself is unchanged.
+The first nine-class ordinary cohort (no wizard/load/cheat death) has four
+natural deaths and five alive at100k, matching C/C/Rust9/9 and540 full
+capture sets. See [the investigation](validation/2026-11-07-post-m4-investigation/README.md)
+and [individual deaths](deaths/README.md). These are later source/evidence,
+not an update of M4 coverage or proof of unassisted winning play.
+
 ## Independent M4 review: qualified pass, no acceptance blockers
 
 [Review issue #1](https://github.com/diegoami/borg-rs/issues/1) is the shared
@@ -22,7 +38,7 @@ Its new low cost75 boundary gap and oracle-test portability note are addressed
 in a [second author follow-up](validation/2026-11-07-m4-review-residual/README.md):
 26 scenarios ×100 variants, eleven fault controls and nine oracle tests
 passing both on main and an exact-M4 tooling overlay. Verification of these
-two small follow-ups and owner acceptance remain pending.
+two small follow-ups remains optional; the owner has accepted M4 and closed #1.
 Fixes and receipts are published at `c2b52d9`; the [author follow-up](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707502737)
 was posted/read back and requests independent verification of that commit.
 The verdict is not self-promoted to an unqualified pass. The tag, old receipts,

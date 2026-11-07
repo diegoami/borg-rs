@@ -1,0 +1,7 @@
+1. rust build: src/borg/*.c entries in compile_commands.json: 0
+   rust build: src/borg object files: 0
+2. staticlib members: 345; rustc objects: 310 (borg_rs crate: 17); compiler-builtins C objects: 35
+3. C Borg symbols: 1174; rust binary symbols: 8965; borg_rs exports: 1197; C Borg names in the rust binary: 2, of those exported by borg_rs: 1
+4. engine objects: 154 in build/c, byte-identical in build/rust: 154 (buildid.c.o may differ)
+5. link inputs (ld --trace of a relink identical to the binary): engine objects: 154; staticlib members pulled in: 31; system files and members: 25
+OK: no C Borg code in /home/diego/projects/borg-rs/build/rust/game/angband

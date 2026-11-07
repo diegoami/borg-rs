@@ -161,8 +161,8 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
         return false;
     }
 
-    /* Reverse flow */
-    borg_flow_misc::borg_flow_reverse(st, 250, true, false, false, -1, false);
+    // FORK #345: explore outlying candidates instead of stopping at origin.
+    borg_flow_misc::borg_flow_reverse(st, 250, false, false, false, -1, false);
 
     let needs_new_sea = st.glyph.needs_new_sea;
     let cx = i32::from(st.glyph.center_x);

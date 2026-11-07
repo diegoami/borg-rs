@@ -1,0 +1,19 @@
+{
+  "seed": 8401,
+  "race": "Kobold",
+  "race_idx": 10,
+  "class": "Mage",
+  "class_idx": 1,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100096,
+  "player_turns": 10276,
+  "resting_turns": 7128,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 6727,
+  "wall_seconds": 5.616
+}

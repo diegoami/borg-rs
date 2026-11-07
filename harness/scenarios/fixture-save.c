@@ -17,11 +17,13 @@
 #include "player.h"
 #include "player-calcs.h"
 #include "player-util.h"
+#include "option.h"
 #include "savefile.h"
 #include "trap.h"
 #include "borg/borg.h"
 #include "borg/borg-cave.h"
 #include "borg/borg-flow-glyph.h"
+#include "borg/borg-flow-stairs.h"
 
 extern bool __real_savefile_save(const char *path);
 extern bool __real_savefile_load(const char *path, bool cheat_death);
@@ -51,6 +53,18 @@ static void describe(const char *phase)
     fflush(stderr);
     if(getenv("BORG_SYNTHETIC_OBSERVE"))
         fprintf(stderr,"SYNTH_TRAPS {\"borg_map_traps\":%d}\n",traps);
+    if(getenv("BORG_SYNTHETIC_OBSERVE"))
+        fprintf(stderr,"SYNTH_LUNAL {\"lunal_mode\":%d,\"goal_less\":%d,\"fleeing\":%d,\"known_up\":%d,\"known_down\":%d,\"under_feat\":%d,\"persistent\":%d,\"connected_stairs\":%d}\n",
+            borg.lunal_mode,borg.goal.less,borg.goal.fleeing,track_less.num,track_more.num,square(cave,player->grid)->feat,OPT(player,birth_levels_persist),OPT(player,birth_connect_stairs));
+    {
+        int ring=0;
+        for(y=-2;y<=2;y++)for(x=-2;x<=2;x++) {
+            struct loc grid=loc(player->grid.x+x,player->grid.y+y);
+            if((x||y)&&square_in_bounds(cave,grid)&&square_iswarded(cave,grid))ring++;
+        }
+        fprintf(stderr,"SYNTH_FORMATION {\"player_x\":%d,\"player_y\":%d,\"surrounding_runes\":%d,\"rune_under_player\":%d}\n",
+            player->grid.x,player->grid.y,ring,square_iswarded(cave,player->grid));
+    }
 }
 
 bool __wrap_savefile_load(const char *path, bool cheat_death)
@@ -59,6 +73,11 @@ bool __wrap_savefile_load(const char *path, bool cheat_death)
     if(getenv("BORG_SYNTHETIC_INSPECT")) {
         if(!ok)_Exit(2);
         describe("loaded");
+        if(getenv("BORG_SYNTHETIC_GEAR")) {
+            struct object *item;
+            for(item=player->gear;item;item=item->next)
+                fprintf(stderr,"SYNTH_ITEM %d %d %d %d %s\n",item->tval,item->sval,item->number,item->kind->aware,item->kind->name);
+        }
         _Exit(0); /* Inspector exits before any Borg or world action. */
     }
     return ok;
@@ -100,6 +119,10 @@ bool __wrap_savefile_save(const char *path)
         struct monster *boss=NULL;
         struct loc center=loc(100,33),far=loc(165,55);
         int i,x,y;
+        if(!strncmp(mode,"glyph-build-",12)) {
+            center=loc(60,33);
+            far=loc(190,55);
+        }
         if(player->depth!=100)quit("synthetic glyph fixture requires depth100");
         for(i=cave_monster_max(cave)-1;i>=1;i--) {
             struct monster *m=cave_monster(cave,i);
@@ -114,13 +137,14 @@ bool __wrap_savefile_save(const char *path)
         }
         square_set_feat(cave,far,FEAT_FLOOR);
         monster_swap(boss->grid,far);
-        for(y=20;y<=46;y++)for(x=85;x<=115;x++)
+        for(y=20;y<=46;y++)for(x=center.x-15;x<=center.x+15;x++)
             square_set_feat(cave,loc(x,y),FEAT_FLOOR);
         monster_swap(player->grid,center);
         carry(TV_SCROLL,"Rune of Protection",
+            (!strcmp(mode,"glyph-build-ready") || !strcmp(mode,"glyph-build-complete"))?40:
             (!strcmp(mode,"glyph-ready") || !strcmp(mode,"glyph-complete"))?20:9);
         carry(TV_POTION,"*Healing*",20);
-        if(!strcmp(mode,"glyph-complete")) {
+        if(!strcmp(mode,"glyph-complete") || !strcmp(mode,"glyph-build-complete")) {
             for(y=-2;y<=2;y++)for(x=-2;x<=2;x++)
                 if(x || y)square_add_glyph(cave,loc(center.x+x,center.y+y),GLYPH_WARDING);
         } else if(!strcmp(mode,"glyph-visible-rune")) {

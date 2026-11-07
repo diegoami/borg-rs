@@ -1,0 +1,39 @@
+suite=normal-live
+suite_sha256=0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1
+borg_txt_sha256=ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c
+borg_impl_env=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+binary_impl=c
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+build_id_binary_sha256=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-07T14:46:20Z
+checkout_source_sha256=630ae87d4aaa552f2cb0b12c9441a2448c7dbde8534bb1f55e51ef9b2e46ec96
+impl_check=ok
+build_check=ok
+overrides=none
+git_rev=f772eb6dcb93dc8d53cfc0167496d6122133f42e
+git_dirty=yes
+jobs=3
+checkpoint_every=1000
+run_timeout_seconds=180
+save_root=/home/diego/projects/borg-rs/harness/saves
+started_utc=2026-11-07T14:53:51Z
+run_config.live-warrior=menu,living-save,key-limit=50000 f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+run_config.live-mage=menu,living-save,key-limit=50000 5daf0aa78a7eea312468f22306277704dd0f7d3cd6f2985def07b2d0d0bed2d9
+run_config.live-druid=menu,living-save,key-limit=50000 8901575c8657411039f94e8b774bc82dde7d5398f51452a3d4eb6d9d3f2725cb
+run_config.live-priest=menu,living-save,key-limit=50000 59486c12550ee81d34f53842d12dc8d1e78ef62961face36d5982b4ede28e7c9
+run_config.live-necromancer=menu,living-save,key-limit=50000 7806df1f1589159d600de0d55e86fcfe44fd5a9c87e6c9c1381adf48a4e70e39
+run_config.live-paladin=menu,living-save,key-limit=50000 4e27c4fbdff643a90734e5fd66e1ec0531359fd88309330abadb7f6efc75c6d6
+run_config.live-rogue=menu,living-save,key-limit=50000 f70b4596abb6a2814da1d1893a0d761137e0d96076b60c62e90d9f4cf07eb77d
+run_config.live-ranger=menu,living-save,key-limit=50000 12dab38ddc1c2d669f9503a2cdcaa4640b565a8c0afb5685a3cb4bb2e562cde0
+run_config.live-blackguard=menu,living-save,key-limit=50000 69e8de7cd624d3f6ebc313176c3ba3a8ac4130e9bc9ad86d0d1bf04f688cdfce
+binary_sha256_end=b53c3b92befd00179f8e8bab1e390c9dc447c5b0247e88b3b2aa01bef51b7dee
+finished_utc=2026-11-07T14:54:12Z result=OK

@@ -1,0 +1,62 @@
+{
+  "glyph-build-prelaid": {
+    "native_c_state": {
+      "borg_map_glyphs": 24,
+      "borg_morgoth_position": 1,
+      "borg_tracked_glyphs": 24,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 24,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 40,
+      "turn": 1,
+      "visible_engine_glyphs": 24
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  },
+  "glyph-build-ready": {
+    "native_c_state": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 100,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 40,
+      "turn": 500,
+      "visible_engine_glyphs": 0
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  },
+  "glyph-build-supply": {
+    "native_c_state": {
+      "borg_map_glyphs": 0,
+      "borg_morgoth_position": 0,
+      "borg_tracked_glyphs": 0,
+      "depth": 99,
+      "disarmable_glyphs": 0,
+      "engine_glyphs": 0,
+      "level": 50,
+      "max_depth": 100,
+      "phase": "replay-stop",
+      "rune_scrolls": 9,
+      "turn": 500,
+      "visible_engine_glyphs": 0
+    },
+    "native_c_traps": {
+      "borg_map_traps": 0
+    },
+    "normal_c_keys_messages_state_save_identical": true
+  }
+}
