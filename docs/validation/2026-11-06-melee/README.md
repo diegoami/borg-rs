@@ -95,3 +95,10 @@ profile provenance. The interrupted deep group is excluded. Full coverage
 of the latest corpus/source remains open. Deep levels and function entries
 alone do not establish Sea of Runes, self-lunal, a win or a winning strategy.
 Independent tracker verification and upstream/source resolution are not claimed.
+
+Depth-description correction (2026-11-07): the quoted maxdepth44/99/51 values
+are final engine summary fields, which the recall-depth choice can reset.
+The complete accepted state traces show deepest logged current depths52/99/59
+for Warrior2000/Warrior2007/Blackguard3100. See the separate
+[depth audit](../2026-11-07-depth-audit/README.md). Raw logs, references,
+production source and all parity results are unchanged.

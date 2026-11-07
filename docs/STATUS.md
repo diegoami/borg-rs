@@ -15,8 +15,10 @@ Verified at this source, with DONE, strict comparisons and no overrides:
   captured-Rogue fresh replays: **8/8 each**.
 * Fresh extended C/C and Rust/C: **12/12**, every original turn limit
   reached. Previously blocked Warrior2000 now finishes 5,000,001 turns,
-  clevel42/depth44; Warrior2007 reaches natural maximum depth99 and
-  Blackguard3100 depth51. The suite/seeds/limits are unchanged.
+  clevel42 and final max_depth44. Audited deepest logged current depths
+  are52/99/59 for Warrior2000/Warrior2007/Blackguard3100. Recall can reset
+  the summary field; see the [depth audit](validation/2026-11-07-depth-audit/README.md).
+  The suite/seeds/limits are unchanged.
 * All **30** fork-isolated engine captures match metadata, SHA-256 and
   direct saved bytes across both C passes and Rust. Installed in
   `harness/saves/captured-extended`, with provenance.

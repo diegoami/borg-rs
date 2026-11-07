@@ -1,0 +1,58 @@
+{
+  "extended/ext-blackguard": {
+    "harness/reference/extended/ext-blackguard/state.log.xz": "0798ba6e3fe8883501a1529028f65894cadab9a8387fef75d09ff790c166a036",
+    "harness/reference/extended/ext-blackguard/summary.json": "1b0a9bb629ad13932642f76ededb65aeb65340f53c8a1c78563538c5a03ee192"
+  },
+  "extended/ext-druid": {
+    "harness/reference/extended/ext-druid/state.log.xz": "d3edd083eca51186395e36f8acdb64d7cc13e5349c7ffc76c5f928dee8101d54",
+    "harness/reference/extended/ext-druid/summary.json": "10461cdbc95216646d23d0dc4a3b3ea16b405aa4a760150da00affcf4cb80c0f"
+  },
+  "extended/ext-long-blackguard-3100": {
+    "harness/reference/extended/ext-long-blackguard-3100/state.log.xz": "71a2b1d571c484dca14288b47b87e4b3847d11e07288b211227c9ec8dc26e730",
+    "harness/reference/extended/ext-long-blackguard-3100/summary.json": "e8858fa1b9a3a5c9b34c14281945ea5240590533564aa3b99e13ebf5b3555e1d"
+  },
+  "extended/ext-long-warrior-2000": {
+    "harness/reference/extended/ext-long-warrior-2000/state.log.xz": "c961ee19bcde9c7f2de3f903e8361c658690f3a36e71fbd94b320d9732377025",
+    "harness/reference/extended/ext-long-warrior-2000/summary.json": "4ec2cf26b965235e52003054f0e9e837c0d02317b9d0355ea4f39b7cabd66af9"
+  },
+  "extended/ext-long-warrior-2007": {
+    "harness/reference/extended/ext-long-warrior-2007/state.log.xz": "3609b36975395b34524691b83e9e8667b6f88f4ba4417b0c5800e38cd9f460ef",
+    "harness/reference/extended/ext-long-warrior-2007/summary.json": "a87163b4a9d0d6d0335ae701b909f96ef74c53535e015f8f0cf85dc372e73796"
+  },
+  "extended/ext-mage": {
+    "harness/reference/extended/ext-mage/state.log.xz": "c0ee1e058df2b3f5ce800a6ac6da326716c300f2871185e4eeb94c1cdfd3abde",
+    "harness/reference/extended/ext-mage/summary.json": "5e09088c8aaad3e30af3314a64d0ca0e250c0b68894b5af18526dbcc061df9fb"
+  },
+  "extended/ext-necro": {
+    "harness/reference/extended/ext-necro/state.log.xz": "c85481945cc5c9604415b5e9cbb31b9ee16555a5242ad1d0c0b30ef2d1201726",
+    "harness/reference/extended/ext-necro/summary.json": "300c1fe1b395b4c5cd953d5e94ba0091efcced5c4208999226382a485eaff8e0"
+  },
+  "extended/ext-paladin": {
+    "harness/reference/extended/ext-paladin/state.log.xz": "dc4601d2799b4daf119e1268beca07e0b9ac7bf87ca91224a1dedbc986a23280",
+    "harness/reference/extended/ext-paladin/summary.json": "8cab956110c950a83725832aaf224fe7da82aa2a1e3489c6caaea6c5b85cc677"
+  },
+  "extended/ext-priest": {
+    "harness/reference/extended/ext-priest/state.log.xz": "df3bc5da770006a3e7b05b5099d5a9f356ae3fb8b99b1c6a6055c1cd99e1ac20",
+    "harness/reference/extended/ext-priest/summary.json": "9c286a55af226c07feacbc2161cf083a96724d93ca2cff7eff9eccc6586dd80c"
+  },
+  "extended/ext-ranger": {
+    "harness/reference/extended/ext-ranger/state.log.xz": "dd61ace85c8afcc3dbbad5b6255cd8af03c1b33f31cd9400267b7b2cccc7389d",
+    "harness/reference/extended/ext-ranger/summary.json": "8825596b8e851b512f96f424dd4dadb2dab0f495e5f48d561870d1d317638293"
+  },
+  "extended/ext-rogue": {
+    "harness/reference/extended/ext-rogue/state.log.xz": "f30c409d92c56abdbdaee5fc6cf1f4171235a988d86598704c4c5b7420fe37bb",
+    "harness/reference/extended/ext-rogue/summary.json": "67e1f6f25b66a8fca6ea29602263f9792f17a2bd872c6e3e775e48a7dbd58fb9"
+  },
+  "extended/ext-warrior": {
+    "harness/reference/extended/ext-warrior/state.log.xz": "4b17674df76ddc82bb29b790555363bff49823b43fcd9fb47c599481264c8d64",
+    "harness/reference/extended/ext-warrior/summary.json": "ddfede631b1bd9d499d878a5d4012a28e38089b55ec9194d36c0dd7608623612"
+  },
+  "natural/natural-blackguard-40": {
+    "harness/reference/natural/natural-blackguard-40/state.log.xz": "15b81c3bb68c02116a72fb67c858d266001a313ce5857f2fc586605afdb2511d",
+    "harness/reference/natural/natural-blackguard-40/summary.json": "5fa8ca14c9cfc9b957c04af98ba45dddc2d089e915dc19cc8cf66ce6f20ec4c2"
+  },
+  "natural/natural-warrior-78": {
+    "harness/reference/natural/natural-warrior-78/state.log.xz": "53bc1580ef6bc4c2cf126399b37f7533419558f4a6319a7ca67e30fb0b8d2b88",
+    "harness/reference/natural/natural-warrior-78/summary.json": "08f92559bcd590372bc9ee69b51fc389dc585eaaabf8197411806a002aecf9f4"
+  }
+}

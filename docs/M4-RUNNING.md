@@ -8,8 +8,9 @@ is active (see LOCAL-SESSION-HANDOVER). The latest gameplay receipt is
 Fresh crash-fixes C/C and Rust/C6/6; both builds baseline105/105 and
 captured-Rogue8/8; fresh extended C/C and Rust/C12/12, all original limits
 reached. Same-square melee (#322) no longer stops Warrior2000: all three
-finish5,000,001 turns, clevel42/depth44. Warrior2007 reaches natural99,
-Blackguard3100 reaches51. All30 captured engine saves match metadata and
+finish5,000,001 turns, clevel42/final max_depth44. Deepest logged current
+depths are52/99/59 for the three long cases; recall can reset max_depth
+(see the2026-11-07 depth audit). All30 captured engine saves match metadata and
 complete bytes across C/C/Rust. Natural fresh-Borg C/C and Rust/C2/2 start
 at78/40 and reach84/41. The synthetic five starts remain covered by the
 unchanged crash-fixes suite. Current corrected references are crash-fixes,

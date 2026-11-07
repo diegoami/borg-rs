@@ -1,0 +1,142 @@
+{
+  "extended/ext-blackguard": {
+    "deepest_logged_current_depth": 19,
+    "final_summary_clevel": 25,
+    "final_summary_depth": 3,
+    "final_summary_max_depth_field": 19,
+    "first_game_turn_at_deepest_logged_depth": 1712705,
+    "greatest_logged_max_depth_field": 19,
+    "highest_logged_clevel": 25,
+    "reference_state_log": "harness/reference/extended/ext-blackguard/state.log.xz"
+  },
+  "extended/ext-druid": {
+    "deepest_logged_current_depth": 19,
+    "final_summary_clevel": 22,
+    "final_summary_depth": 7,
+    "final_summary_max_depth_field": 19,
+    "first_game_turn_at_deepest_logged_depth": 1944018,
+    "greatest_logged_max_depth_field": 19,
+    "highest_logged_clevel": 22,
+    "reference_state_log": "harness/reference/extended/ext-druid/state.log.xz"
+  },
+  "extended/ext-long-blackguard-3100": {
+    "deepest_logged_current_depth": 59,
+    "final_summary_clevel": 43,
+    "final_summary_depth": 10,
+    "final_summary_max_depth_field": 51,
+    "first_game_turn_at_deepest_logged_depth": 4402601,
+    "greatest_logged_max_depth_field": 59,
+    "highest_logged_clevel": 43,
+    "reference_state_log": "harness/reference/extended/ext-long-blackguard-3100/state.log.xz"
+  },
+  "extended/ext-long-warrior-2000": {
+    "deepest_logged_current_depth": 52,
+    "final_summary_clevel": 42,
+    "final_summary_depth": 42,
+    "final_summary_max_depth_field": 44,
+    "first_game_turn_at_deepest_logged_depth": 4449168,
+    "greatest_logged_max_depth_field": 52,
+    "highest_logged_clevel": 42,
+    "reference_state_log": "harness/reference/extended/ext-long-warrior-2000/state.log.xz"
+  },
+  "extended/ext-long-warrior-2007": {
+    "deepest_logged_current_depth": 99,
+    "final_summary_clevel": 50,
+    "final_summary_depth": 97,
+    "final_summary_max_depth_field": 99,
+    "first_game_turn_at_deepest_logged_depth": 4887018,
+    "greatest_logged_max_depth_field": 99,
+    "highest_logged_clevel": 50,
+    "reference_state_log": "harness/reference/extended/ext-long-warrior-2007/state.log.xz"
+  },
+  "extended/ext-mage": {
+    "deepest_logged_current_depth": 23,
+    "final_summary_clevel": 26,
+    "final_summary_depth": 22,
+    "final_summary_max_depth_field": 23,
+    "first_game_turn_at_deepest_logged_depth": 1967329,
+    "greatest_logged_max_depth_field": 23,
+    "highest_logged_clevel": 26,
+    "reference_state_log": "harness/reference/extended/ext-mage/state.log.xz"
+  },
+  "extended/ext-necro": {
+    "deepest_logged_current_depth": 3,
+    "final_summary_clevel": 11,
+    "final_summary_depth": 2,
+    "final_summary_max_depth_field": 3,
+    "first_game_turn_at_deepest_logged_depth": 695380,
+    "greatest_logged_max_depth_field": 3,
+    "highest_logged_clevel": 11,
+    "reference_state_log": "harness/reference/extended/ext-necro/state.log.xz"
+  },
+  "extended/ext-paladin": {
+    "deepest_logged_current_depth": 31,
+    "final_summary_clevel": 23,
+    "final_summary_depth": 3,
+    "final_summary_max_depth_field": 31,
+    "first_game_turn_at_deepest_logged_depth": 1927571,
+    "greatest_logged_max_depth_field": 31,
+    "highest_logged_clevel": 23,
+    "reference_state_log": "harness/reference/extended/ext-paladin/state.log.xz"
+  },
+  "extended/ext-priest": {
+    "deepest_logged_current_depth": 14,
+    "final_summary_clevel": 13,
+    "final_summary_depth": 2,
+    "final_summary_max_depth_field": 4,
+    "first_game_turn_at_deepest_logged_depth": 418339,
+    "greatest_logged_max_depth_field": 14,
+    "highest_logged_clevel": 13,
+    "reference_state_log": "harness/reference/extended/ext-priest/state.log.xz"
+  },
+  "extended/ext-ranger": {
+    "deepest_logged_current_depth": 36,
+    "final_summary_clevel": 29,
+    "final_summary_depth": 36,
+    "final_summary_max_depth_field": 36,
+    "first_game_turn_at_deepest_logged_depth": 1948476,
+    "greatest_logged_max_depth_field": 36,
+    "highest_logged_clevel": 29,
+    "reference_state_log": "harness/reference/extended/ext-ranger/state.log.xz"
+  },
+  "extended/ext-rogue": {
+    "deepest_logged_current_depth": 27,
+    "final_summary_clevel": 21,
+    "final_summary_depth": 1,
+    "final_summary_max_depth_field": 6,
+    "first_game_turn_at_deepest_logged_depth": 615531,
+    "greatest_logged_max_depth_field": 27,
+    "highest_logged_clevel": 21,
+    "reference_state_log": "harness/reference/extended/ext-rogue/state.log.xz"
+  },
+  "extended/ext-warrior": {
+    "deepest_logged_current_depth": 34,
+    "final_summary_clevel": 34,
+    "final_summary_depth": 32,
+    "final_summary_max_depth_field": 34,
+    "first_game_turn_at_deepest_logged_depth": 1992821,
+    "greatest_logged_max_depth_field": 34,
+    "highest_logged_clevel": 34,
+    "reference_state_log": "harness/reference/extended/ext-warrior/state.log.xz"
+  },
+  "natural/natural-blackguard-40": {
+    "deepest_logged_current_depth": 41,
+    "final_summary_clevel": 35,
+    "final_summary_depth": 0,
+    "final_summary_max_depth_field": 41,
+    "first_game_turn_at_deepest_logged_depth": 3090172,
+    "greatest_logged_max_depth_field": 41,
+    "highest_logged_clevel": 35,
+    "reference_state_log": "harness/reference/natural/natural-blackguard-40/state.log.xz"
+  },
+  "natural/natural-warrior-78": {
+    "deepest_logged_current_depth": 84,
+    "final_summary_clevel": 50,
+    "final_summary_depth": 83,
+    "final_summary_max_depth_field": 84,
+    "first_game_turn_at_deepest_logged_depth": 3019097,
+    "greatest_logged_max_depth_field": 84,
+    "highest_logged_clevel": 50,
+    "reference_state_log": "harness/reference/natural/natural-warrior-78/state.log.xz"
+  }
+}

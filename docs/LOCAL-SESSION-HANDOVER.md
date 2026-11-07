@@ -41,8 +41,10 @@ At `28b8170`, no stale/unknown-implementation override is used:
   (smoke3, full45, deep9, classes16, config7, options25).
 * Both builds vs original captured-Rogue references: **8/8 each**.
 * Fresh extended C/C and Rust/C: **12/12**, all original turn limits
-  reached. Warrior2000 finishes5,000,001 turns, clevel42/depth44;
-  Warrior2007 reaches maxdepth99 and Blackguard3100 maxdepth51.
+  reached. Warrior2000 finishes5,000,001 turns, clevel42/final max_depth44.
+  Audited deepest logged current depths are52/99/59 for Warrior2000/
+  Warrior2007/Blackguard3100; recall can reset the summary max_depth field.
+  See `docs/validation/2026-11-07-depth-audit/README.md`.
 * All30 fork-isolated captures match metadata, SHA-256 and direct bytes
   across C1/C2/Rust; retained in `harness/saves/captured-extended`.
 * Named natural suite C/C and Rust/C: **2/2**, 100k-turn fresh-Borg replays
