@@ -17,6 +17,8 @@ glyph cases/controls, document the historical endgame mismatch, require
 extra logs in compressed outputs, rerun coverage oracles and replace the
 racy GUI proof driver. See the [follow-up receipt](validation/2026-11-07-m4-review-followup/README.md).
 Author checks pass; independent verification of these follow-ups is pending.
+Fixes and receipts are published at `c2b52d9`; the [author follow-up](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707502737)
+was posted/read back and requests independent verification of that commit.
 The verdict is not self-promoted to an unqualified pass. The tag, old receipts,
 recipes/references and production source are preserved. Both reviewer
 worktrees remain available. Current work stays on review follow-up rather

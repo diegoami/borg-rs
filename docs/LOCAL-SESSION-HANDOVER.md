@@ -21,6 +21,10 @@ strict compressed extra logs; fresh coverage diff against fingerprinted C
 oracles; historical endgame mismatch documentation; maintained GUI driver
 with four race controls and five successful isolated roundtrips at M4.
 Independent follow-up verification remains pending. Both reviewer worktrees
+are preserved. Fixes/receipts are published at `c2b52d9`; author follow-up
+[comment6707502737](https://github.com/diegoami/borg-rs/issues/1#issuecomment-6707502737)
+was posted and read back. The reviewer is asked to verify that commit;
+the qualified verdict and open issue are unchanged. Reviewer worktrees
 must be preserved for that work; no cleanup is authorized before follow-up.
 M1-M3 are background only, and post-M4 #295 is excluded.
 Read the live issue before further review work; do not auto-start the
