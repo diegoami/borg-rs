@@ -4,7 +4,7 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PLAY_BUILD="$PROJECT_ROOT/build/play-rust"
-PLAY_DATA="$PROJECT_ROOT/.angband-rust"
+PLAY_DATA="${BORG_PLAY_DATA_DIR:-$PROJECT_ROOT/.angband-rust}"
 BUILD_ONLY=0
 
 case "${1:-}" in
@@ -24,6 +24,7 @@ Set JOBS to control build parallelism (default: 4).
 Uses the same 28-pixel Courier main-window font as better-borg-c/start-borg.sh.
 Set BORG_PLAY_FONT to override it.
 Opens one main window by default; arguments after -- override frontend options.
+Set BORG_PLAY_DATA_DIR to use a separate save/settings directory.
 
 Requires CMake, a C compiler, Cargo/Rust, and X11 development libraries.
 EOF
@@ -72,6 +73,7 @@ if [ "$BUILD_ONLY" = 1 ]; then
 fi
 
 mkdir -p "$PLAY_DATA"/{user,save,archive,panic,scores}
+PLAY_DATA="$(cd -- "$PLAY_DATA" && pwd)"
 if [ ! -e "$PLAY_DATA/user/borg.txt" ]; then
     cp "$PROJECT_ROOT/angband/src/borg/borg.txt" "$PLAY_DATA/user/borg.txt"
 fi
@@ -88,7 +90,7 @@ if [ "$PLAY_FRONTEND_OPTIONS" = 0 ]; then
 fi
 printf 'Create/load a character; Ctrl-Z then z starts the Rust Borg. Any key stops it.\n'
 cd "$PLAY_BUILD/game"
-exec ./angband -mx11 -uRustBorg \
+exec ./angband -mx11 \
     "-duser=$PLAY_DATA/user" "-dsave=$PLAY_DATA/save" \
     "-darchive=$PLAY_DATA/archive" "-dpanic=$PLAY_DATA/panic" \
-    "-dscores=$PLAY_DATA/scores" "$@"
+    "-dscores=$PLAY_DATA/scores" -uRustBorg "$@"

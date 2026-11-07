@@ -131,7 +131,13 @@ it. The owner requested the larger better-borg-c launcher appearance: main
 font28-pixel Courier (BORG_PLAY_FONT override), explicit one-window frontend
 argument,1362x722 verified. Auxiliary fonts default to fixed. Build/rebuild, actual
 Xvfb startup from /tmp, and config-byte preservation checks passed.
-No production input changed; coverage jobs remain isolated and active.
+The save-directory flags now precede -u (ordinary engine freezes the path
+at -u). A generated legacy lib/save symlink repaired the already-running
+owner session; the retry created .angband-rust/save/RustBorg. The corrected
+launcher passed a two-profile real GUI save/reload roundtrip using a synthetic
+level50 fixture. BORG_PLAY_DATA_DIR supports isolated profiles. Window-prefs
+source lead#357 is separate from this wrapper bug. No production input changed;
+coverage jobs remain isolated and active.
 
 ## Next work
 

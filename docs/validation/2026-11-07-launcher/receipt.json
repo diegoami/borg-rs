@@ -15,7 +15,8 @@
   "gameplay_claim": "startup only, not autonomous play or a win",
   "implementation": "rust",
   "initial_config_cheat_death": false,
-  "launcher_sha256": "450d52944498ce7c9de030e0e3400749899cd97e02a87c09e4c502aeb80dd725",
+  "layout_launcher_sha256": "450d52944498ce7c9de030e0e3400749899cd97e02a87c09e4c502aeb80dd725",
+  "layout_source_commit": "b6b3579",
   "observed_pixels": {
     "courier_with_explicit_one_window": [
       1362,
@@ -27,5 +28,8 @@
     ]
   },
   "production_source_sha256": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f",
-  "reference_launcher": "/home/diego/projects/angband/better-borg-c/start-borg.sh"
+  "reference_launcher": "/home/diego/projects/angband/better-borg-c/start-borg.sh",
+  "save_fix": "directory overrides precede -u; normal engine freezes the save filename at -u",
+  "save_fix_launcher_sha256": "03dcabb229efb9292cbd4b33a2c8cc9cef7ade6dd1437bd05da77548977dfb87",
+  "save_roundtrip": "two isolated real GUI load/Ctrl-X-save sessions; both exit0, preserve level50 and replace nonempty save files"
 }

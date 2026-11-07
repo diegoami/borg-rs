@@ -1438,4 +1438,6 @@ The C source is unchanged; no correction is proposed in this pass.
   in `docs/validation/2026-11-07-launcher/`. This is a preference-loading
   reported lead, not an ordinary-play halt/win-loss result or independent
   tracker verification. It is separate from wide-panel bounds findings.
-* Tracker: pending published discovery/intake.
+* Tracker: diegoami/neo-angband-tracker#357 (reported lead).
+  This concerns window preferences only; the separate launcher save failure
+  was an argument-order error fixed in the wrapper, not a C savefile defect.

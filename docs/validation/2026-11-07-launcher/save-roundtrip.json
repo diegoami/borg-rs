@@ -1,0 +1,18 @@
+[
+  {
+    "bytes": 92944,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}",
+    "exit_code": 0,
+    "save_path": "/tmp/borg-launcher-save-2b2o8260/first/save/RustBorg",
+    "sha256": "59cb56c6ee2c6f0f0a1ad116b25a59cc170aeab864c3bcd4d34c11b3101ab759",
+    "stage": "first"
+  },
+  {
+    "bytes": 92944,
+    "character": "{\nrace: \"Human\",\nclass: \"Warrior\",\nmapName: \"Angband\",\ndLvl: \"50\",\ncLvl: \"50\",\nisDead: \"0\",\nkilledBy: \"(saved)\"\n}",
+    "exit_code": 0,
+    "save_path": "/tmp/borg-launcher-save-2b2o8260/reload/save/RustBorg",
+    "sha256": "3920bea0dd93d18d7c26f74d97c6e8cbbfc7d42a9a379e0d5eba12b06229bd9c",
+    "stage": "reload"
+  }
+]
