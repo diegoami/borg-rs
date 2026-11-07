@@ -10,6 +10,8 @@ the initial warning if shown). Any key stops the Borg. Saves and settings
 stay in `.angband-rust/`; the initial configuration has cheat death off.
 Requires CMake, a C compiler, Rust/Cargo and X11 development libraries.
 Use `./run-rust-borg.sh --help` for build and game arguments.
+The main window uses the same 28-pixel Courier font as `better-borg-c/start-borg.sh`;
+set `BORG_PLAY_FONT` to choose another X11 font.
 
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
   (git subtree), plus small `#ifdef BORG_HARNESS` harness hooks and the documented

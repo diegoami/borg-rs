@@ -21,6 +21,9 @@ The initial borg.txt uses the stock settings, with cheat death off.
 Pass -n to start a new character, or -uNAME to select another save name.
 --build-only builds and checks the executable without opening a window.
 Set JOBS to control build parallelism (default: 4).
+Uses the same 28-pixel Courier main-window font as better-borg-c/start-borg.sh.
+Set BORG_PLAY_FONT to override it.
+Opens one main window by default; arguments after -- override frontend options.
 
 Requires CMake, a C compiler, Cargo/Rust, and X11 development libraries.
 EOF
@@ -72,9 +75,17 @@ mkdir -p "$PLAY_DATA"/{user,save,archive,panic,scores}
 if [ ! -e "$PLAY_DATA/user/borg.txt" ]; then
     cp "$PROJECT_ROOT/angband/src/borg/borg.txt" "$PLAY_DATA/user/borg.txt"
 fi
-# X11's built-in fixed font works even without the optional bitmap-font packs.
-# Saved preferences and per-window ANGBAND_X11_FONT_n settings take precedence.
+# Match better-borg-c/start-borg.sh; the window-specific setting also overrides
+# a small FONT_0 saved by an earlier launch. Keep fixed for auxiliary windows.
 export ANGBAND_X11_FONT="${ANGBAND_X11_FONT:-fixed}"
+export ANGBAND_X11_FONT_0="${BORG_PLAY_FONT:-${ANGBAND_X11_FONT_0:--adobe-courier-medium-r-normal--28-*-*-*-p-*-iso8859-1}}"
+PLAY_FRONTEND_OPTIONS=0
+for argument in "$@"; do
+    if [ "$argument" = -- ]; then PLAY_FRONTEND_OPTIONS=1; break; fi
+done
+if [ "$PLAY_FRONTEND_OPTIONS" = 0 ]; then
+    set -- "$@" -- -n1
+fi
 printf 'Create/load a character; Ctrl-Z then z starts the Rust Borg. Any key stops it.\n'
 cd "$PLAY_BUILD/game"
 exec ./angband -mx11 -uRustBorg \

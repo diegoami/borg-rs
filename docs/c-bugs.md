@@ -1420,3 +1420,22 @@ The C source is unchanged; no correction is proposed in this pass.
   while the existing-center case still returns false. The1600-state
   corpus matches C/Rust, including already-glyphed/outlying and failed
   creation/commit/step controls. This is not an ordinary-play reproduction.
+
+## 57. Explicit X11 window count can bypass saved preferences (reported lead)
+
+* `init_x11()` initializes the `settings` filename only inside
+  `if (num_term == -1)`. An explicit `-nN` sets that count before the block,
+  leaving the static filename empty. `term_data_init()` still tries to read
+  that filename, and the quit preference writer uses it too. Saved font,
+  tile and position settings can consequently be bypassed along with the
+  window-count default. Documentation describes `-n` as selecting the count.
+* Observed during the owner's Rust-launcher layout request: the original
+  native C X11 frontend with a28-pixel Courier override and saved6x13 tiles
+  opened482x314 with clipped glyphs; explicit `-n1` opened1362x722 with
+  font-derived metrics. The launcher follows the requested C launcher's
+  existing option pattern. No C frontend or Borg source correction is made.
+* Evidence is source inspection plus consumer native GUI startup observations
+  in `docs/validation/2026-11-07-launcher/`. This is a preference-loading
+  reported lead, not an ordinary-play halt/win-loss result or independent
+  tracker verification. It is separate from wide-panel bounds findings.
+* Tracker: pending published discovery/intake.

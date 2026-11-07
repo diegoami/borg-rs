@@ -127,8 +127,9 @@ executable's Rust identity, and starts it from the correct data directory.
 Persistent saves/settings are in ignored `.angband-rust/`; an existing
 borg.txt is preserved and the first copy has stock cheat death FALSE.
 Ctrl-Z then z starts the Borg after character creation/load; any key stops
-it. The fixed-font default works without the missing legacy bitmap packs,
-while saved/window font settings take precedence. Build/rebuild, actual
+it. The owner requested the larger better-borg-c launcher appearance: main
+font28-pixel Courier (BORG_PLAY_FONT override), explicit one-window frontend
+argument,1362x722 verified. Auxiliary fonts default to fixed. Build/rebuild, actual
 Xvfb startup from /tmp, and config-byte preservation checks passed.
 No production input changed; coverage jobs remain isolated and active.
 

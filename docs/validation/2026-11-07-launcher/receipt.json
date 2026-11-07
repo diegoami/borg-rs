@@ -1,0 +1,31 @@
+{
+  "binary_sha256": "30abe2aed5fbc6312fb3ef704cf8fbf9f39e683640a3b187082e3b3f1985eaf3",
+  "borg_txt_preservation_check": "existing config hash unchanged across ordinary startup smoke",
+  "cmake": {
+    "BORG_IMPL:STRING": "rust",
+    "BORG_RS_FEATURES:STRING": "",
+    "SUPPORT_BORG:BOOL": "ON",
+    "SUPPORT_BORG_HARNESS:BOOL": "OFF",
+    "SUPPORT_X11_FRONTEND:BOOL": "ON"
+  },
+  "font": "-adobe-courier-medium-r-normal--28-*-*-*-p-*-iso8859-1",
+  "frontend_args": [
+    "-n1"
+  ],
+  "gameplay_claim": "startup only, not autonomous play or a win",
+  "implementation": "rust",
+  "initial_config_cheat_death": false,
+  "launcher_sha256": "450d52944498ce7c9de030e0e3400749899cd97e02a87c09e4c502aeb80dd725",
+  "observed_pixels": {
+    "courier_with_explicit_one_window": [
+      1362,
+      722
+    ],
+    "font_only_with_saved_small_tiles": [
+      482,
+      314
+    ]
+  },
+  "production_source_sha256": "8ac76b00ed9f96875777bb497655a7156ee1c08892bc52e37c8836594625ec8f",
+  "reference_launcher": "/home/diego/projects/angband/better-borg-c/start-borg.sh"
+}
