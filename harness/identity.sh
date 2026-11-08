@@ -7,14 +7,15 @@
 #   harness/identity.sh binary-impl BIN   c, rust or unknown, read from BIN
 #
 # Build inputs (paths relative to the checkout root):
-#   c     angband/
-#   rust  angband/ borg-rs/ Cargo.toml Cargo.lock
+#   c     angband/ harness/measurement/
+#   rust  angband/ borg-rs/ Cargo.toml Cargo.lock harness/measurement/
 # They are the files git tracks under those paths plus the untracked files
 # that .gitignore does not exclude, as they are in the working tree (not as
 # committed): source-hash is sha256 over "<git blob id> <path>" lines, so
 # it depends only on file contents and names. It does not change when a
 # change is committed, nor when files outside the inputs (docs/, harness/)
-# change. The C build does not read borg-rs/, so a Rust change leaves the
+# change, except harness/measurement adapters which are explicit inputs.
+# The C build does not read borg-rs/, so a Rust change leaves the
 # C binary's identity valid.
 #
 # binary-impl reads the executable itself: "rust" if its .comment section
@@ -26,8 +27,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 inputs_of() {
     case "$1" in
-        c) echo "angband";;
-        rust) echo "angband borg-rs Cargo.toml Cargo.lock";;
+        c) echo "angband harness/measurement";;
+        rust) echo "angband borg-rs Cargo.toml Cargo.lock harness/measurement";;
         *) echo "identity.sh: implementation must be c or rust, not '$1'" >&2; exit 2;;
     esac
 }

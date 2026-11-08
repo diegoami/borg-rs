@@ -1,0 +1,29 @@
+[
+  {
+    "seed": 2624955987,
+    "race": "Elf",
+    "class": "Druid",
+    "observer_source": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "observer_harness": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "result_sha256": "a3c0de0f1c4b47caa3115088c35294b4427e7a2d5f5a2f8a99a770c9f85477bc",
+    "result_path": "/home/diego/projects/angband/better-borg-c/artifacts/death-workflow/collections/20261107T202939.921328Z/game-001-seed-2624955987/result.json"
+  },
+  {
+    "seed": 2624955988,
+    "race": "Gnome",
+    "class": "Mage",
+    "observer_source": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "observer_harness": "22f817c96843cc45da41dcefb0856ca507d8c66a",
+    "result_sha256": "4a825622ddb951ec1061431a9e1869c3d7f3802ae9cfc007a5b29098bc1896e5",
+    "result_path": "/home/diego/projects/angband/better-borg-c/artifacts/death-workflow/collections/20261107T202939.921328Z/game-002-seed-2624955988/result.json"
+  },
+  {
+    "seed": 3167239341,
+    "race": "Half-Troll",
+    "class": "Ranger",
+    "observer_source": "a22d8d09e4a04f17de1680a6047dac759e46e54f",
+    "observer_harness": "a22d8d09e4a04f17de1680a6047dac759e46e54f",
+    "result_sha256": "4ede9d313dd51c84564ca3663ca0e451a06094bc5bdecb5faeb14ecf6ff1fb44",
+    "result_path": "/home/diego/projects/angband/better-borg-c/artifacts/death-workflow/collections/20261107T215303.304659Z/game-002-seed-3167239341/result.json"
+  }
+]

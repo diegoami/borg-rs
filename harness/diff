@@ -18,8 +18,9 @@ Directory mode:
   * Each run passes only if
       - the key logs are byte-identical,
       - on each side the key log has summary.keys lines and its last line's
-        game turn equals summary.game_turns,
-      - the two summary.json files are equal apart from wall_seconds,
+        game turn equals summary.game_turns (or precedes an explicit exact/stall stop),
+      - the two summary.json files are equal apart from wall_seconds and new
+        measurement fields absent from historical references,
       - the message logs (messages.log[.xz]) and the engine-state logs
         (state.log[.xz]) are byte-identical, when compared (below); a
         state log has summary.keys lines, and line i is at the game turn
@@ -69,6 +70,10 @@ import sys
 CONTEXT = 20
 # summary.json fields that are not part of the oracle
 IGNORED_FIELDS = {"wall_seconds"}
+# Legacy references predate measurement fields. Compare each whenever both
+# sides provide it; old fields still require presence and equality.
+MEASUREMENT_FIELDS = {"calendar", "max_clevel", "hp", "max_hp", "borg_decisions",
+                      "player_energy", "borg_rng", "game_rng", "effective_settings"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -123,6 +128,15 @@ def consistency(label, data, summary):
     lines = data.split(b"\n")
     if lines and lines[-1] == b"":
         lines.pop()
+    if summary.get("calendar") == "fixed":
+        for field in sorted(MEASUREMENT_FIELDS):
+            if field not in summary:
+                probs.append("%s: missing measurement field %s" % (label, field))
+    if summary.get("stop_reason") == "stalled":
+        if (summary.get("stall_turn") != summary.get("game_turns") or
+                not isinstance(summary.get("stall_decisions"), int) or summary["stall_decisions"] < 1 or
+                not isinstance(summary.get("stall_energy_delta"), int) or summary["stall_energy_delta"] < 0):
+            probs.append("%s: invalid stall boundary/deltas" % label)
     keys = summary.get("keys")
     if keys != len(lines):
         probs.append("%s: key log has %d lines, summary keys=%s"
@@ -132,7 +146,10 @@ def consistency(label, data, summary):
             last_turn = int(lines[-1].split()[0])
         except (ValueError, IndexError):
             last_turn = None
-        if last_turn != summary.get("game_turns"):
+        if (last_turn != summary.get("game_turns") and not
+                (((summary.get("exact_turns") is True and summary.get("stop_reason") == "turns")
+                  or summary.get("stop_reason") == "stalled")
+                 and isinstance(last_turn, int) and last_turn <= summary.get("game_turns", -1))):
             probs.append("%s: last key at game turn %s, summary game_turns=%s"
                          % (label, last_turn, summary.get("game_turns")))
     return probs
@@ -277,6 +294,8 @@ def compare_run(name, da, db, allow_legacy=False):
     if sa is not None and sb is not None:
         keys = sorted(set(sa) | set(sb))
         for k in keys:
+            if k in MEASUREMENT_FIELDS and (sa.get("calendar") != "fixed" or sb.get("calendar") != "fixed"):
+                continue
             if k in IGNORED_FIELDS:
                 continue
             if sa.get(k, "<absent>") != sb.get(k, "<absent>"):
