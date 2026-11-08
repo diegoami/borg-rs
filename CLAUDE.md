@@ -26,7 +26,9 @@ tracking [borg-rs#11](https://github.com/diegoami/borg-rs/issues/11), record
 [adoption/c-m4](docs/adoption/c-m4/README.md). The engine Remove Curse crash
 it exposed (C and Rust alike) is root-caused to the wizard cure-all and fixed
 narrowly in the engine (FORK-CORRECTIONS; neo-angband-tracker#474).
-Independent review: qualified pass; owner acceptance pending.
+Independent review: qualified pass (issue11). Owner accepted it as impact
+milestone 4 (tag `4.2.6-impact-v4`) after harness/diff was allowed to accept
+a mid-command Borg self-stop.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The

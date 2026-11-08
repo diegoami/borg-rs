@@ -431,3 +431,7 @@ Open: `cfg-lunal-deep-warrior` (seed2007) now hits an engine SIGSEGV in
 ui-curse.c `curse_menu` (known curse listed, real `obj->curses` NULL) in both
 C and Rust; unchanged on official master. Owner decision pending; no engine
 change made. Not merged to main.
+Engine crash root-caused to wizard cure-all (cheat-death path) and fixed
+narrowly in cmd-wizard.c (neo-angband-tracker#474). Review: qualified pass.
+Owner: allow the mid-command self-stop in harness/diff, merge and accept ->
+impact v4, tag `4.2.6-impact-v4` (owner pushes the tag).
