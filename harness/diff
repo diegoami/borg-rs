@@ -18,7 +18,9 @@ Directory mode:
   * Each run passes only if
       - the key logs are byte-identical,
       - on each side the key log has summary.keys lines and its last line's
-        game turn equals summary.game_turns (or precedes an explicit exact/stall stop),
+        game turn equals summary.game_turns (or precedes an explicit exact/stall stop,
+        or a Borg self-stop that fired inside a command, so the game finished
+        that turn without a further key),
       - the two summary.json files are equal apart from wall_seconds and new
         measurement fields absent from historical references,
       - the message logs (messages.log[.xz]) and the engine-state logs
@@ -150,7 +152,11 @@ def consistency(label, data, summary):
             last_turn = None
         if (last_turn != summary.get("game_turns") and not
                 (((summary.get("exact_turns") is True and summary.get("stop_reason") == "turns")
-                  or summary.get("stop_reason") == "stalled")
+                  or summary.get("stop_reason") == "stalled"
+                  # The Borg's auto-stop (e.g. borg_stop_clevel) can fire
+                  # inside a command; the game then completes that turn
+                  # after the keypress hook is removed. Never the reverse.
+                  or summary.get("stop_reason") == "borg_stopped")
                  and isinstance(last_turn, int) and last_turn <= summary.get("game_turns", -1))):
             probs.append("%s: last key at game turn %s, summary game_turns=%s"
                          % (label, last_turn, summary.get("game_turns")))

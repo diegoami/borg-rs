@@ -136,7 +136,7 @@
         "fork_corrections": "docs/FORK-CORRECTIONS.md",
         "c_bugs": "section 59"
       },
-      "harness_diff_note": "opt-stopclevel-war fails the harness last-key/game_turns consistency check identically in C and Rust (mid-command auto-stop); check not relaxed",
+      "harness_diff_note": "harness/diff now accepts a borg_stopped run whose last key precedes summary.game_turns (owner decision; mid-command auto-stop in opt-stopclevel-war); exit 0, matrix.py PASS; controls harness/regress/diff-consistency-test.py",
       "build_receipt_commit": "9a78e32",
       "independent_review": {
         "verdict": "qualified pass",

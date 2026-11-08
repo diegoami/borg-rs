@@ -123,11 +123,11 @@
   "live-ranger",
   "live-blackguard"
  ],
- "harness_diff_exit": 1,
+ "harness_diff_exit": 0,
  "harness_diff_tail": [
+  "B: harness/out/c-m4/g-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=7d84023db003c93d",
   "B:   built from 9a78e32497da (dirty=no, inputs dirty=no) source_sha256=f8f7e7817e6c3cb4; run at 9a78e32497da (dirty=no) overrides=none",
-  "== opt-stopclevel-war: A: last key at game turn 30106, summary game_turns=30116; B: last key at game turn 30106, summary game_turns=30116",
-  "130/131 runs identical (expected 131)",
+  "131/131 runs identical (expected 131)",
   "messages.log compared in 131 run(s)",
   "state.log compared in 131 run(s)"
  ],
