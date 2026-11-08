@@ -1,0 +1,2 @@
+flags=menu,cheat,munchkin,terminal-save
+borg_txt_sha256=f9bc18ad7c4199558f1557f470fb92faced259c9e4a106efaf7afb27b82fabde

@@ -1,0 +1,19 @@
+{
+  "seed": 1080,
+  "race": "Dunadan",
+  "race_idx": 8,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 20011,
+  "player_turns": 46377,
+  "resting_turns": 1047,
+  "clevel": 9,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 137311,
+  "wall_seconds": 196.677
+}

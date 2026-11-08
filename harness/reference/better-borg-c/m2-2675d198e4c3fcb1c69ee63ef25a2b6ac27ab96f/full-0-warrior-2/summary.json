@@ -1,0 +1,18 @@
+{
+  "seed": 1002,
+  "race": "Elf",
+  "race_idx": 2,
+  "class": "Warrior",
+  "class_idx": 0,
+  "stop_reason": "turns",
+  "game_turns": 100009,
+  "player_turns": 10223,
+  "resting_turns": 333,
+  "clevel": 7,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 14368,
+  "wall_seconds": 25.181
+}

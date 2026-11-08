@@ -7,8 +7,13 @@ Read [docs/M5-PLAN.md](docs/M5-PLAN.md),
 [docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md) and
 [review#2](https://github.com/diegoami/borg-rs/issues/2) first.
 
-The active next step is selecting the first accepted better-borg-c gameplay
-milestone; no target is selected yet. Exact accepted C milestone pins now
+The owner selected better-borg-c milestone2 on2026-11-08 and requested
+adoption issue [borg-rs#6](https://github.com/diegoami/borg-rs/issues/6).
+Target2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f contains seven fixes,
+independently approved in C review38/comment6705894080. Read
+[adoption/c-m2](docs/adoption/c-m2/README.md) and adoption/status.json for
+actual implementation/validation state. No later C milestone is included.
+Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
 adoption contract supersedes older routing/fidelity wording for the new lane;

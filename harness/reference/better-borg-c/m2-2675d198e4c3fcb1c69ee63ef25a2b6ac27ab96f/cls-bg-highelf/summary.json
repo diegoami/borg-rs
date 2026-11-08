@@ -1,0 +1,19 @@
+{
+  "seed": 3001,
+  "race": "High-Elf",
+  "race_idx": 9,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100005,
+  "player_turns": 10199,
+  "resting_turns": 3875,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 8742,
+  "wall_seconds": 16.291
+}

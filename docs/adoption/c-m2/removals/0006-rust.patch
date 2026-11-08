@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_item_use.rs b/borg-rs/src/borg_item_use.rs
+--- a/borg-rs/src/borg_item_use.rs
++++ b/borg-rs/src/borg_item_use.rs
+@@ -142,10 +142,10 @@ pub fn borg_quaff_crit(st: &mut BorgState, no_check: bool) -> bool {
+         return false;
+     }
+ 
+-    /* Avoid drinking CCW twice in a row (C also tests `borg_timer(..) > 0`,
+-     * which the `> 4` already implies) */
++    /* Avoid drinking CCW twice in a row. */
+     let last = st.item_use.when_last_quaff;
+-    if st.borg.time.now - last > 4 && (engine::randint0(100) + 1 < 75) {
++    let elapsed = st.borg.time.now - last;
++    if last != 0 && elapsed <= 4 && elapsed > 0 && (engine::randint0(100) + 1 < 75) {
+         return false;
+     }
+ 

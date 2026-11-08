@@ -1372,7 +1372,7 @@ pub fn guess_race_name(
 /// give up.
 pub fn borg_locate_kill(st: &mut BorgState, who: &[u8], mut c: loc, r: i32) -> i32 {
     // Handle invisible monsters
-    if strnieq(who, b"Something", 9) || strnieq(who, b"It", 2) {
+    if strnieq(who, b"Something", 9) || strnieq(who, b"It", 3) {
         // Note
         note(st, &[b"# Invisible monster nearby."]);
         // if I can, cast detect inviso--time stamp it

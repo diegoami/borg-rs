@@ -1,0 +1,19 @@
+{
+  "seed": 3015,
+  "race": "Kobold",
+  "race_idx": 10,
+  "class": "Necromancer",
+  "class_idx": 4,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100007,
+  "player_turns": 10114,
+  "resting_turns": 7411,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 5675,
+  "wall_seconds": 13.899
+}

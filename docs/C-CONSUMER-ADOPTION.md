@@ -5,7 +5,12 @@ post-M4 corrections/tooling; subsequent Rust bug-fix work tracks the maintained
 C consumer's verified milestones. The current M5 candidate and review are in
 [M5-PLAN.md](M5-PLAN.md) and [review#2](https://github.com/diegoami/borg-rs/issues/2).
 M5 has independent pass and [owner acceptance](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628); tag m5 points
-to `0203227` and review#2 is closed. No first C target is selected.
+to `0203227` and review#2 is closed. On2026-11-08 the owner selected C
+milestone2, runtime2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f,
+[independently approved](https://github.com/diegoami/better-borg-c/issues/38#issuecomment-6705894080).
+The first bounded batch is tracked on [Rust#6](https://github.com/diegoami/borg-rs/issues/6)
+and in [adoption/c-m2](adoption/c-m2/README.md). C approval identifies the
+target; Rust implementation/review state is recorded separately.
 This contract supersedes old direct neo-angband-tracker queue scheduling for
 the post-M5 lane; historical reports and their ownership remain preserved.
 

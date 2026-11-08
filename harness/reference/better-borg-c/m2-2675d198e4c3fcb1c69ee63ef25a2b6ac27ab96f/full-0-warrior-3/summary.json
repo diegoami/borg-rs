@@ -1,0 +1,18 @@
+{
+  "seed": 1003,
+  "race": "Hobbit",
+  "race_idx": 3,
+  "class": "Warrior",
+  "class_idx": 0,
+  "stop_reason": "death",
+  "game_turns": 45862,
+  "player_turns": 4737,
+  "resting_turns": 240,
+  "clevel": 8,
+  "max_depth": 9,
+  "depth": 7,
+  "dead": true,
+  "death_cause": "a lemure",
+  "keys": 5785,
+  "wall_seconds": 9.144
+}

@@ -1,0 +1,18 @@
+{
+  "seed": 1054,
+  "race": "Human",
+  "race_idx": 9,
+  "class": "Paladin",
+  "class_idx": 5,
+  "stop_reason": "turns",
+  "game_turns": 100007,
+  "player_turns": 10144,
+  "resting_turns": 5304,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 7854,
+  "wall_seconds": 12.494
+}

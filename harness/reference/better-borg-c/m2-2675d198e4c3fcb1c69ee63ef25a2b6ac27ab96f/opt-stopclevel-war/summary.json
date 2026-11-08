@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "race": "Human",
+  "race_idx": 0,
+  "class": "Warrior",
+  "class_idx": 0,
+  "menu_letters": true,
+  "stop_reason": "borg_stopped",
+  "game_turns": 27889,
+  "player_turns": 2882,
+  "resting_turns": 121,
+  "clevel": 5,
+  "max_depth": 8,
+  "depth": 7,
+  "dead": false,
+  "death_cause": "",
+  "keys": 3722,
+  "wall_seconds": 7.950
+}

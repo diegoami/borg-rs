@@ -1,0 +1,18 @@
+{
+  "seed": 1040,
+  "race": "Gnome",
+  "race_idx": 4,
+  "class": "Necromancer",
+  "class_idx": 4,
+  "stop_reason": "turns",
+  "game_turns": 100025,
+  "player_turns": 10075,
+  "resting_turns": 7867,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 5063,
+  "wall_seconds": 5.787
+}

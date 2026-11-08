@@ -1,0 +1,19 @@
+{
+  "seed": 3016,
+  "race": "Kobold",
+  "race_idx": 10,
+  "class": "Warrior",
+  "class_idx": 0,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100007,
+  "player_turns": 10174,
+  "resting_turns": 519,
+  "clevel": 6,
+  "max_depth": 3,
+  "depth": 3,
+  "dead": false,
+  "death_cause": "",
+  "keys": 13521,
+  "wall_seconds": 32.859
+}

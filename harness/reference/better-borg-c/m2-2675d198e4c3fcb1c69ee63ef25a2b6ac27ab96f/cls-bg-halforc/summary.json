@@ -1,0 +1,19 @@
+{
+  "seed": 3006,
+  "race": "Half-Orc",
+  "race_idx": 6,
+  "class": "Blackguard",
+  "class_idx": 8,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100096,
+  "player_turns": 10127,
+  "resting_turns": 3531,
+  "clevel": 4,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 8657,
+  "wall_seconds": 18.540
+}

@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_danger.rs b/borg-rs/src/borg_danger.rs
+--- a/borg-rs/src/borg_danger.rs
++++ b/borg-rs/src/borg_danger.rs
+@@ -391,8 +391,7 @@ fn borg_danger_physical(
+                 if st.borg.tr(BI_RCOLD) != 0 {
+                     z = (z + 2) / 3;
+                 }
+-                // C bug: tests the temporary acid resistance (kept)
+-                if st.borg.temp.res_acid {
++                if st.borg.temp.res_cold {
+                     z = (z + 2) / 3;
+                 }
+                 // Add fear for the effect

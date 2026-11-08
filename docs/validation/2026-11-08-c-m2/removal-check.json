@@ -1,0 +1,75 @@
+{
+  "verified": true,
+  "removal_units": [
+    {
+      "patch": "docs/adoption/c-m2/removals/0001-c.patch",
+      "sha256": "74f68e92ac57d761d7a62e3c2b2734b3c6642753a8d8ec58f517d8fa9b377bff",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0001-rust.patch",
+      "sha256": "f1d2e6d68c0ed31cad1f36510307d9f4874785cb741332aa15e4303d341c932a",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0002-c.patch",
+      "sha256": "f3228cbc885fc0fa0ca90fd3674c407274533051c95a42763123f2a464a76634",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0002-rust.patch",
+      "sha256": "0ff3eb5eaac514e4cdcda46acffd6557e0c4a193b02047af02bf8938750c7717",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0003-c.patch",
+      "sha256": "66c61f1fb5b8b3637743edc752b16ad1c4d300af0bf2f40d23c8aeef8e6644b2",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0003-rust.patch",
+      "sha256": "514d08c5431268a5c1b83300699a567e942b5f4ed7f449ebb1b1c465e8c0d94c",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0004-c.patch",
+      "sha256": "3fc47d32a905d1533cb0cc6469b8828b9122043be47bac06dee05cf4e7e11b18",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0004-rust.patch",
+      "sha256": "41c36c96005af1fc8caf0ccd12a072caff31ba16e58504050bd2644280fe6abe",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0005-c.patch",
+      "sha256": "72e221a5d09bd8fa9c628795b76e73cecddcc6c3d4c26f94ca122e23d896f7e5",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0005-rust.patch",
+      "sha256": "27319c524ce84d5b153affabd9b29e8cfed7352305ab34ce7afd0716ccf8631a",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0006-c.patch",
+      "sha256": "7ef09fba4397f497985817a86c8e965813e68ff7173e7e7af11ca82a888d1e49",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0006-rust.patch",
+      "sha256": "b842c43729583d762f76ac9db59f8703950f35b81014361b0821448b58b2663d",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0007-c.patch",
+      "sha256": "26d469a3bcd6ce4e5a0223cb57e397d47f4cde45ecb0290744d750e543ecc158",
+      "reverse_check_on_final_source": true
+    },
+    {
+      "patch": "docs/adoption/c-m2/removals/0007-rust.patch",
+      "sha256": "45ada881404a123ae5b2e060fac92a877d24ababb8432a3e44adfa422f9e880f",
+      "reverse_check_on_final_source": true
+    }
+  ]
+}

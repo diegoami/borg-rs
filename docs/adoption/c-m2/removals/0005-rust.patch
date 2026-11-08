@@ -1,0 +1,27 @@
+diff --git a/borg-rs/src/borg_item_use.rs b/borg-rs/src/borg_item_use.rs
+--- a/borg-rs/src/borg_item_use.rs
++++ b/borg-rs/src/borg_item_use.rs
+@@ -706,9 +706,9 @@ fn inven_total() -> i32 {
+ }
+ 
+ /// Check and see if borg is wielding a ring and if he will pass a fail
+-/// check. (Only the right ring slot is scanned, as in C.)
++/// check.
+ pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
+-    for i in inven_right()..inven_left() {
++    for i in inven_right()..=inven_left() {
+         let item = &st.items.items[i as usize];
+ 
+         if item.iqty == 0 || !item.aware {
+diff --git a/borg-rs/src/borg_item_use.rs b/borg-rs/src/borg_item_use.rs
+--- a/borg-rs/src/borg_item_use.rs
++++ b/borg-rs/src/borg_item_use.rs
+@@ -759,7 +759,7 @@ pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
+ /// Attempt to use the given ring.
+ pub fn borg_activate_ring(st: &mut BorgState, ring_sval: i32) -> bool {
+     /* Check the equipment */
+-    for i in inven_right()..inven_left() {
++    for i in inven_right()..=inven_left() {
+         let item = &st.items.items[i as usize];
+ 
+         /*  Make Sure item is IDed */

@@ -1,0 +1,18 @@
+{
+  "seed": 1041,
+  "race": "Dwarf",
+  "race_idx": 5,
+  "class": "Necromancer",
+  "class_idx": 4,
+  "stop_reason": "turns",
+  "game_turns": 100480,
+  "player_turns": 10140,
+  "resting_turns": 7926,
+  "clevel": 3,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 4994,
+  "wall_seconds": 5.852
+}

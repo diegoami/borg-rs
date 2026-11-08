@@ -462,6 +462,11 @@ fn borg_perma_aux_regen(st: &mut BorgState) -> i32 {
         return 0;
     }
 
+    /* Simulation */
+    if st.traits.simulate {
+        return 1;
+    }
+
     /* do it! */
     if borg_spell(st, RAPID_REGENERATION) {
         /* No resting to recoup mana */

@@ -1,0 +1,156 @@
+[
+  {
+    "source": "angband/src/borg/borg-item-use.c",
+    "source_sha256": "2d8da67d6140167531e9a1a953845492b052e272c004b003917ba4a07510f294",
+    "start": "bool borg_quaff_crit(",
+    "end": null,
+    "selected_sha256": "0bc183faba225d305a4b14eee70ca59e000fbfa4b48dd0b6809e657694e799ad"
+  },
+  {
+    "source": "borg-rs/src/borg_item_use.rs",
+    "source_sha256": "89799007ff7b911da748fdea4b291d361b464baf66a4730370f0c8a7639b2e65",
+    "start": "pub fn borg_quaff_crit(",
+    "end": null,
+    "selected_sha256": "fc14977e1526856e443ac46246235076f71d3f0301b1c44c95862473dbd2d30f"
+  },
+  {
+    "source": "angband/src/borg/borg-item-use.c",
+    "source_sha256": "2d8da67d6140167531e9a1a953845492b052e272c004b003917ba4a07510f294",
+    "start": "bool borg_equips_ring(",
+    "end": null,
+    "selected_sha256": "6ab4e88958694ab355e4ff5c225bfffe72d123313e156e75d552e542a4342479"
+  },
+  {
+    "source": "borg-rs/src/borg_item_use.rs",
+    "source_sha256": "89799007ff7b911da748fdea4b291d361b464baf66a4730370f0c8a7639b2e65",
+    "start": "pub fn borg_equips_ring(",
+    "end": null,
+    "selected_sha256": "99b25bf59521d05846b6b7c28331128913253dc6a9e464088345319f4142d712"
+  },
+  {
+    "source": "angband/src/borg/borg-item-use.c",
+    "source_sha256": "2d8da67d6140167531e9a1a953845492b052e272c004b003917ba4a07510f294",
+    "start": "bool borg_activate_ring(",
+    "end": null,
+    "selected_sha256": "d706d889be014ad69326ecc65039cb8196bef00f255d5c7186896b8781152f98"
+  },
+  {
+    "source": "borg-rs/src/borg_item_use.rs",
+    "source_sha256": "89799007ff7b911da748fdea4b291d361b464baf66a4730370f0c8a7639b2e65",
+    "start": "pub fn borg_activate_ring(",
+    "end": null,
+    "selected_sha256": "86b395d217ae76a3de1c9b10e75241b29207180b62f91792c17fd34d2b154b6d"
+  },
+  {
+    "source": "angband/src/borg/borg-fight-perm.c",
+    "source_sha256": "7ac6bb54192d2dae6a4dfe82d93c3ba0c7d3f7b796a60cede58190010582bba7",
+    "start": "static int borg_perma_aux_regen(",
+    "end": null,
+    "selected_sha256": "2ec7a92a89688f77062cc4e82e2d868f2086ba2db6ab16e6b99f36d2fba89ca6"
+  },
+  {
+    "source": "borg-rs/src/borg_fight_perm.rs",
+    "source_sha256": "6ccbb91c1d823f729c60c0f459b18ded954d514788894c892cd33637e92f7010",
+    "start": "fn borg_perma_aux_regen(",
+    "end": null,
+    "selected_sha256": "d68816c9d427e8e3cf2563be59d6157d92caa62dd02692716173464d7159d1cc"
+  },
+  {
+    "source": "borg-rs/src/borg_fight_perm.rs",
+    "source_sha256": "6ccbb91c1d823f729c60c0f459b18ded954d514788894c892cd33637e92f7010",
+    "start": "fn fail_allowed(",
+    "end": null,
+    "selected_sha256": "6810c72717d3672ad47116a2f9216676ae34ff0af141208089eb7fa64e438de5"
+  },
+  {
+    "source": "borg-rs/src/borg_fight_perm.rs",
+    "source_sha256": "6ccbb91c1d823f729c60c0f459b18ded954d514788894c892cd33637e92f7010",
+    "start": "fn too_costly(",
+    "end": null,
+    "selected_sha256": "96033acd05b5d3ff3a8a57fc72be05d3ecd18157f296ab555b6b806d80b4baf4"
+  },
+  {
+    "source": "borg-rs/src/borg_fight_perm.rs",
+    "source_sha256": "6ccbb91c1d823f729c60c0f459b18ded954d514788894c892cd33637e92f7010",
+    "start": "fn blind_or_confused(",
+    "end": null,
+    "selected_sha256": "b9f01507c0acd4d789468bc25e0fde30e62a9beca211249998a0c08d8563f9a3"
+  },
+  {
+    "source": "borg-rs/src/borg_item_use.rs",
+    "source_sha256": "89799007ff7b911da748fdea4b291d361b464baf66a4730370f0c8a7639b2e65",
+    "start": "fn device_skill(",
+    "end": null,
+    "selected_sha256": "f9cc4951ac25bcdc715958feb09c648217c97f19106a98680bb001998eabd182"
+  },
+  {
+    "source": "borg-rs/src/borg_item_use.rs",
+    "source_sha256": "89799007ff7b911da748fdea4b291d361b464baf66a4730370f0c8a7639b2e65",
+    "start": "fn device_fail(",
+    "end": null,
+    "selected_sha256": "394836a6dbfa89dad764e78180feff73c4901536d204b852c58daa9b8b1e13a8"
+  },
+  {
+    "source": "angband/src/borg/borg-item-wear.c",
+    "source_sha256": "7f6d4eb2e5e33139f23786a2cf51031418f5d3c214a78eb1723aa203c1acb750",
+    "start": "    /* prefer the lower danger among available swaps. */",
+    "end": "\n}\n",
+    "selected_sha256": "d4f073240873efcb06906d20b1ff26fa5390759b834ef6355035abd19ba22aa4"
+  },
+  {
+    "source": "borg-rs/src/borg_item_wear.rs",
+    "source_sha256": "520b803a11dfc46d1690ec688bcae3d761853bdc8c500d770e92e6400821a78f",
+    "start": "    /* Prefer the lower danger among available swaps. */",
+    "end": "\n}\n",
+    "selected_sha256": "f35433fc0358b2f63af03ec9382e032066d5fcd1afc9ec74883f121273f68268"
+  },
+  {
+    "source": "angband/src/borg/borg-danger.c",
+    "source_sha256": "bad414fee0b7b1cedf694f0726ad4b10bb97bf3717032e80472777eb89adbe58",
+    "start": "        case MONBLOW_COLD:",
+    "end": "        case MONBLOW_BLIND:",
+    "selected_sha256": "9aee7ca56097dc833e0eb8f77edfb8c53727e448d545a13ecaea631eca3a6859"
+  },
+  {
+    "source": "borg-rs/src/borg_danger.rs",
+    "source_sha256": "adb881f1a6653ed7345da0e52f94e775fd45aee61debe8ef43d541d240b3e52b",
+    "start": "            MONBLOW_COLD => 'b: {",
+    "end": "            MONBLOW_BLIND",
+    "selected_sha256": "3e1404f1cdc98cc2c4752a8f39306926c884977dc5c9e8c61bd8a2d9e89b9eaf"
+  },
+  {
+    "source": "angband/src/borg/borg.c",
+    "source_sha256": "fccea5be3bb31c1e3a8e2aecd4a209fc2877abc2845f64cf98cf343550a1e972",
+    "start": "    /* Flush messages */\n    borg_parse(NULL);",
+    "end": "    /* Check for key on the queue */",
+    "selected_sha256": "ee475199fdb0a778b85b6f7d4ce9ade7c45631885cd2ed749ea71623efb5f0b6"
+  },
+  {
+    "source": "borg-rs/src/borg.rs",
+    "source_sha256": "4655c58782c1dab6ed106e0c1b782e0c032fc60092c16cedc65b304b4b694e31",
+    "start": "    crate::borg_messages::borg_parse(st, None);\n    st.msgs.dont_react = false;",
+    "end": "    let borg_ch = borg_inkey(st, true);",
+    "selected_sha256": "dfbb0213c4f923b08dd8fd0c507fcc7f1378cf4ce90383bc073b799c6a9cc2d1"
+  },
+  {
+    "source": "angband/src/borg/borg-flow-kill.c",
+    "source_sha256": "0489bc679403e0fc497ce982567b9fc8f5b782f13914e172b17f066765dd3897",
+    "start": "    if (my_strnicmp(who, \"Something\", 9) == 0",
+    "end": " {\n",
+    "selected_sha256": "7df752b86cb756fe36ced295ec7e688d78df0436ea2871609cac4c01255caf8b"
+  },
+  {
+    "source": "borg-rs/src/borg_flow_kill.rs",
+    "source_sha256": "7de49ab77948b80ebd574e347f7f6ca66a455e6e1fada4f4a192551890ceb7a0",
+    "start": "    if strnieq(who, b\"Something\", 9)",
+    "end": " {\n",
+    "selected_sha256": "02899e38871c9947ae722980b0b137f8c47741dc3b5df5c0a054bc2dd561c4df"
+  },
+  {
+    "source": "borg-rs/src/borg_flow_kill.rs",
+    "source_sha256": "7de49ab77948b80ebd574e347f7f6ca66a455e6e1fada4f4a192551890ceb7a0",
+    "start": "fn strnieq(",
+    "end": null,
+    "selected_sha256": "eabec25ed48923c700d5797e0a6f5b7994dd61023ff69e07bc1bf6e6ba880991"
+  }
+]

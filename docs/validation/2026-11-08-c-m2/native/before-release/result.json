@@ -1,0 +1,564 @@
+{
+  "consumer_pin": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+  "fixtures": {
+    "swap": {
+      "cases": {
+        "armour-better": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "dc7372db552984256e6df8cd56d08dafbd86d35969272e93046c68d20113fb70"
+        },
+        "weapon-better": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "a1e29ae6a27d141cc120f206f51376b923ebeaf2449103099a67c0076412164b"
+        },
+        "armour-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "6052705f6c0759a0ed5755fd42b387f32ccb5d2c4f309159dd42f76fee45626f"
+        },
+        "weapon-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "7f8467c051efc7bfbafad2c98e42230d7ffbba908f5effa05df7f6bde98e7438"
+        },
+        "tie": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "628b15a33235cba998c66acaece07f32c42fb2817c4e0920dbe9835a99be2c07"
+        },
+        "no-benefit": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "859db6ef881b08dd34109cd9f48a6c2d55455fc30b5aebce2f26eda56145f00a"
+        },
+        "fire-armour": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "861652b0a1886f87dcd8b056125f9d9e51d9febde458ebe42e4f9da1871743c6"
+        },
+        "electric-weapon": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "a26de55cfadeef54555657d7a6b95687c80a6bbb272e93a744ccf2bf9b2f81a8"
+        },
+        "both-helpful": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "e3f6de2aa6e017929642c3296851190e267cd69e38aed9ccd2f063d334450c53"
+        }
+      },
+      "binary_sha256": "2705538cb727e4a77b37f28a0ed6362805c851a3ec20a5dc5b6e74128745f17e",
+      "adapted_source_sha256": "38921594b41faa6f33a43d28a9457587332846fe7c71775639e2c78773cb3ae0",
+      "original_source_sha256": "b26f955689acaf552545019189ade029e82344a0c508d9c77d5b1581015a70b6"
+    },
+    "knockout": {
+      "cases": {
+        "knockout": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "d23e1433938065bce53242e38a7a52a80dd8aac145b46214e3f8f8b4bc41f366"
+        },
+        "heavy-stun": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "b8ca375e83b03f34fdde0e34219a453bb084c7e814d36476bb805aea362817f3"
+        },
+        "paralysis": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "ad3e43b920f63ac32f26a59e319aff11fff9a640284468b6a6fa75afef60f0ad"
+        },
+        "none": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "2125fd1c6f455a449abbf25adadd3af3d1b3e11485f6b90c22ecba1f5a6ccbca"
+        }
+      },
+      "binary_sha256": "880876bd4015cc487ac302dec418c8a698665e5b7f20197dcc0054cac502537e",
+      "adapted_source_sha256": "30546785a9a05ddac73d2f2a105f1171e33dafb21cae1d9c08f277ddc27b5f29",
+      "original_source_sha256": "dc59861e6efb69fd9d1212651bc66839f37e8adfff123727f137a7351975e727"
+    },
+    "preparation": {
+      "cases": {
+        "regen-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "f827d83b4b2593bf45df1ae5b4c7f48cbed6de6bbea65e2e64c2b9d2567783cb"
+        },
+        "speed-wins": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "bcaad5db16c129e509f06631f8df568e42b3c670a6a0ff9e68ff7cfc2e9d415c"
+        },
+        "speed-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "41d63d8906618ee7c7c05ac6a78d60fcec846d76e4d8e484123c42b2707b4167"
+        },
+        "already-active": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "400c97a61132405c0010666de6ff0471077dcdbea784462bcecdd2d542c2946f"
+        },
+        "unlearned": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "3800ac3a57287f04905cada021e7dd0cf5b232c93a6d9e37b09c1bee039ee798"
+        },
+        "blind": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "d5f34c0397a8a8b3990bec33b6247e81faf551be1ff4bd0228bc11626aaaa0de"
+        },
+        "confused": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "baa14bdc82d49372ee814f46c38d7df6388ab5d192bcddab8981862a187d6211"
+        },
+        "town": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "414418a4b173a624d865f163bb183bd06b77bde534fbdc4ffae94ea310ac7076"
+        },
+        "low-mana": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "e0ba5c7e1b2feab8ba11c4779da7f94e0400e96f7a35ddcc6817ebfb12b68621"
+        }
+      },
+      "binary_sha256": "3758f68f06b59e52191e661e7861edbb8bb81660287e83f22de678e6ce7958cb",
+      "adapted_source_sha256": "941d9caa9f00b67336ad4dd92d78951ee74ff5bc781bcca9c9763ef4b62dbc9e",
+      "original_source_sha256": "941d9caa9f00b67336ad4dd92d78951ee74ff5bc781bcca9c9763ef4b62dbc9e"
+    },
+    "cold": {
+      "cases": {
+        "acid-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "133133a3f2ff58052ae7a1878d3b5f9536cc9c75f7f80e4787080eca83e22eda"
+        },
+        "cold-only": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "c1ec6fdb27a712cb4d0d715bf1beccbc63d2b8b7037fa785ddac9596f20d4287"
+        },
+        "neither": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "ae42f19fef596eb471c9263ae29d7bfa65ee67121a7bbc735f17827150cde044"
+        },
+        "both": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "42a6b7deac10e47f69d8019a11b2f1376dd036b006ccd4f3003098b49e454a81"
+        },
+        "physical-acid-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "55b96bdd1fbcab1de0eca6d78d415da45429f9176b52275a96f51ada91550487"
+        },
+        "physical-cold-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "e8793329e2880a3fdb2c8001b394a7b8d4ea7337ea20855381ef31e6f40f822a"
+        }
+      },
+      "binary_sha256": "d28e3fcc0a5b77fae245862ad022bf10c7ba5b88bfe9e9ccb6566de90546d297",
+      "adapted_source_sha256": "ec0caa6a646af64d291aaf7e43b249c5265f8419a6f37f6ee9fa0c9dbe61f966",
+      "original_source_sha256": "ec0caa6a646af64d291aaf7e43b249c5265f8419a6f37f6ee9fa0c9dbe61f966"
+    },
+    "rings": {
+      "cases": {
+        "left-ready": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "dadb6e8bdd9677eb4a6c79559de883b25ca90ee212921b707498e5ac34eae4ab"
+        },
+        "right-charging-left-ready": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "d8b96150399b14351e3b55e5d899c4400132737f6b4972b6392606dd24c63dfa"
+        },
+        "right-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "1611cfc46721e8b9bad4518f793974c348262e849f38601baeb00b8d5cb66b67"
+        },
+        "both-ready": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "5b1c2528b2f0223d742d4d8cac388546f9d60d220e11013c3f1866651362a0a8"
+        },
+        "left-charging": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "82a41498351209320129fd9dec2e900d49f64b3dd8342abb0ba40dff7e20413b"
+        },
+        "no-ring": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "a2e33d1b69d5fd8604fb535b7133ae6a8094ed5004601c44e8db8c49c8557229"
+        },
+        "blind-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "133b528cd0b0d9c4c598458a10924e1ecc864f9537efd9023f4eb5749866a3a3"
+        }
+      },
+      "binary_sha256": "d34d26f640da0cd169492021c0aa14fe31d2229ea868a60a5151c2cbb7440ecd",
+      "adapted_source_sha256": "17c1826a2bc1c781ec23fcc889164ad8934a7845ada7d6bdb8948a5600ffec60",
+      "original_source_sha256": "17c1826a2bc1c781ec23fcc889164ad8934a7845ada7d6bdb8948a5600ffec60"
+    },
+    "potion": {
+      "cases": {
+        "long-gap": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "9e0d83f664941a2c555b0e1d9891ef972b9c362d68a315fe7786225a0e8c8618"
+        },
+        "recent": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "42a102a062c27b7597f20c2e99da064dd302edd4537e967621c5c65b2e4445ca"
+        },
+        "boundary-four": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "36b50f8dfaf6fee973cae8744111e05d4a274d8c2a7b9f249615642a0049507d"
+        },
+        "same-turn": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "3618026988c5a3611ca51ff85a60575e2d9fc61b31a92ececfe615b2c845189d"
+        },
+        "bypass-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "62b9a0467c3fbeb4d6c7edda63110d6972cfef488d6e9d2dbf1795e718f525f9"
+        },
+        "reserve-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "dace7f5c05a8f80410986c7a940b4681c3bd9b9333cdb06e51b66debe6a924e5"
+        },
+        "empty-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "841323e128f3042d08c589e95927776ece529823cb5d1e2e4f75b40bae8a2431"
+        },
+        "first-use": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "bfa2c65e453847c1402ed668708c441b9567baad5ccf1973a6a19ee05164d1d6"
+        },
+        "first-turn": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "19f02573b9cd637ed356c7d2547b0ff082cd915d066902c086b8735506ee88bc"
+        }
+      },
+      "binary_sha256": "8df3a6df45189376eec57346b23a75b19ffb2be854ce53a494a27ae49b18f099",
+      "adapted_source_sha256": "e625fb2fdcc9c2f89f2b3744539e4eea8a713d3a44966badfa4c24e3ad929fcb",
+      "original_source_sha256": "e625fb2fdcc9c2f89f2b3744539e4eea8a713d3a44966badfa4c24e3ad929fcb"
+    },
+    "name": {
+      "cases": {
+        "named-dragon": {
+          "returncode": 0,
+          "completed": true,
+          "passed": false,
+          "log_sha256": "58186f74e2ba2ac3701e5aa47e987f9f52603e0aea9ba3e03e4edb14f11aa4df"
+        },
+        "ogre-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "5e0488b630fc01fbbb6e51899253a58e324e2ad82f774c82707a3a8ae0c63612"
+        },
+        "unseen-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "15909f595de514b77a34426f24ed4e66543330169a751c994480cb25607453cb"
+        },
+        "it-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "e3b3961260a8305f5dbdc8f8601e276cdc30fa062029c06c064dacb9c3f08feb"
+        },
+        "lower-it-control": {
+          "returncode": 0,
+          "completed": true,
+          "passed": true,
+          "log_sha256": "1640eac422f1c4fed1091df8d9cf67aef4a8175eb3592160151e6c040af83553"
+        }
+      },
+      "binary_sha256": "89177eeb6dde5d1918ebb1f59ab4276f6411ae6d225a304815af3bb0b08997f8",
+      "adapted_source_sha256": "9813e137cc3984618ad756829f87d32828c0a2dcb19f498560430052b509b7e1",
+      "original_source_sha256": "9813e137cc3984618ad756829f87d32828c0a2dcb19f498560430052b509b7e1"
+    }
+  },
+  "objects_sha256": {
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-attack-munchkin.c.o": "70f029d0763e876bd42005725245ad8befe06c6de287ccd276795972e417cd4d",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-caution.c.o": "c2d50b7ec0d54e2dfcfa4cc43cc9a068a0ac2b9494db2912f9bba6c148415a46",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-light.c.o": "a620dbffb282dee34e00bffc35d1bd165ea29a1ad5e89c2e938e860c57f9b582",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-util.c.o": "f20f98bad324853443a152e5e7c6d3e17a622943b93d5653f0c06ff65d705eab",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-view.c.o": "42a37f279ee1ad1bb0cc5d9879373f381d3e63ae53a593cb175a7790ad7c7547",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave.c.o": "fedd003eb0325fd4f67cb75c8993b4a0dfb2bdb375a5efbc0283496da62a94cb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-commands.c.o": "fbf8f99b1dd5a4f7d309002c25d3ae266a738e3e1d1c8cd163413ea3f33d136b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-danger.c.o": "57907ae575fc030a42240f595f5b6a170ce28adbc04cc2e56028dde5f86a8295",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-escape.c.o": "ca031005c2710204a29b5e30d8a1d935a9cc8bf4d0dbed66ed2c6c6fab15455b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-attack.c.o": "62202a67a98d67965123e8d9d9b4ac0e43f68791998d495e7100ed214552ccd0",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-defend.c.o": "12a6e69709f1cacba68893c496db7cca4e6ed6b2bd984de26de376274119dbea",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-perm.c.o": "00fd6720312b8787f8e69aa7e184abc3bf7be5fba1c9d66eb70eabe68ab6560b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-dark.c.o": "af69e3379a923272f1893ba3f9e62a3767cfb361f4e281cfdf490177c773d97a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-glyph.c.o": "d1972e732567ee73f4ce415f06c9b9a666a5e083fb0da7a127cb03cc1b8a58a3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-kill.c.o": "8c4d4918e33662cc340f96b318c2b748ba60ea555707d9394f56ced05d1f45a5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-misc.c.o": "48b84fd15f2bb532391170d9315b4595fee7c6405dcdd357ef1c1e9a76355622",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-stairs.c.o": "73b8b9d141aa65879a519f2e2d785c7801c577499b1b7359681dba2e48dda9d0",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-take.c.o": "5a1d39ec8af5ccf65b387f9fca324210bfd7f089b70a2368c3e6ff92440b558d",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow.c.o": "525e36b5e95b6ed2c52bc4c09f3adcd1ee01999dccffc71fb28f45cd368f88d2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas-calc.c.o": "174ac3d7e8086a181292cbf94fbf118965ea350d8bd6210f1fcc8af90677a3f2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas.c.o": "eff8ada08a78871e0307ef2dbeec0d88caec927a1adf080f27dca4c2046dfccb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-notice.c.o": "2c661c9a6080de2e8924325e6fc393c90f758ec9239929df2c704cf33863dd15",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-power.c.o": "a35f636e5a1cec7b2ce4afebe183607d189aeb2300e58f2fe7eda624b01edebd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-init.c.o": "c1e10d5bdd26118900047fb1f8cdcc3a4838f790251ea2d9aa98f2518a46904f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-inventory.c.o": "ca7c3af6abdcdf1899c473405bc0e04ad1ca2afa07b950575299d78c070c8620",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-io.c.o": "c5eba5de6db753b76d8a7cec4f6a091fd37aa764cd24880a09921d89badfcdaa",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-activation.c.o": "767fde260e1f468b800940731482a449b9da69370355f0106570868bc1dc8ab8",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-analyze.c.o": "c62ce129e142e7f48ccd7dfb4dde58aa3aa406131fd02598554cf9002b4b31a1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-decurse.c.o": "5caa9f9be7553a5853165a48ee2e15a1c85d02eaf7036fb331be7960492c09c1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-enchant.c.o": "697d3d39e04ef31b33865d167dd518684f6dd9cb03aebc057f644dd9c7307693",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-id.c.o": "7cd31728d0f670bd82f592b03ff4fc26efa93a0d138eda5735536f1a647e03c9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-use.c.o": "20da776748e5403bf2e480d4f1d24e5e94949abbfa963b6b86b0db6cf4b94e4c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-val.c.o": "b48223876a13f976ba8b8cde0bdab5526612f6dbd32eeee4f9fd64389c522e4e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-wear.c.o": "55c1bcc3002a272398e63517732d7e4ee20f4dac4cf8a81faa73cd113b04c7fc",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-item.c.o": "5d3e5a4b1b68bdaa4d340db82669d64acaca9ad48db2f9fd2ed66a5d0c93d3dd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-junk.c.o": "992b568a59640deb0e00971852fe1462d0225ed50554fe48ab549820fc619ba4",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-light.c.o": "e8be8e86647af2e07e0cad1fbe47ca21ee3c78e8e86af7f554d9ab20f8bfe8c7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-log.c.o": "cbabb0ecda5682fe00d09cb2f797a537dab0115a464894d0833b3ae5eb69964c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic-play.c.o": "894158d4429a57bc38e7aef508a8f31c4d3be375ea2b6c9ab3504bc59be2a7ab",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic.c.o": "ec02ccbdda78c760c4fccfab9adb10ffb414c097116ade3b5461c60f51dbe31b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages-react.c.o": "9eba34f541bda81f3e76a0d53877fbd95bd97688ee57f77af3ad5cf442303d82",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages.c.o": "7ca229dfe4b1a2df635dc96c68c3f37ac6673bee409719ef65c34acadc983b4d",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-power.c.o": "960afc2ee582839e5b30eae3cab0e378270bad41cb1bff4f6d70d0258e9b8a73",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-prepared.c.o": "06995211dec817bc441acf9975cc3073023a7c4c3c446ffbb4f2cb0a971232c6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-projection.c.o": "ab298dc1e31a8dbf853c11c3e41ddc27dcb7013a8ac3bac2c90e78a5e264a0ff",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-recover.c.o": "34f024011054b54ed7637f6f3ab1ef319ace30650ce112aa5a3a09729ff5b380",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-reincarnate.c.o": "d0dfdcbd60758b26d380f6c561fc5b72062354e77ad88f34166c8621741a5047",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-buy.c.o": "b93bcde8d39af3d5920a1ed89b762ec4af18224c219cbaa02fb45453fed598bc",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-sell.c.o": "11a8d7e5a319ad20284be304d83c3ff9da371f659407922d9a0e9f1a10380793",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-store.c.o": "6382268f6dc23a8bdc2c026cd12da59416ab03ea6f2d1f7197822c2741fc85da",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon-util.c.o": "8f41040fd31b1bcfb92ac1312ad644adc217ba912fa54bbada15260cf2efa498",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon.c.o": "72a0b71f3562c44f50a6d7e9666aa753ec361d17eb1327dea5eb0943fd1a1ac9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-store.c.o": "f237b2ee7861a5976ce9ccb80f535dd91e2110a1ef8baacc3304f9896e705f04",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-think.c.o": "d48c84400fe163365db06edcb6487eade40d634398d6964bfe060a133237aecf",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait-swap.c.o": "e7d021bb9f9960bdd0260672b07a7d966672c9a5288c6077b918c0981cbb8316",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait.c.o": "66795d3e9db967bd6d59e46ad22cf7c4395e77a397e553c43e50bb27a55cc2f7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-update.c.o": "c66164e2fd274285ac7dbd7ea7288391b79d9c37d1aed170a2a6209d2a4c6514",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg-util.c.o": "66efb3dbe959649bab7a69486b622f4068a034d3d704684651429cfae487ac10",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/borg/borg.c.o": "50e9f7da67cd7de9041f1f05e2a27a827596663c2cb9473f1d5825a79acb2c9f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/buildid.c.o": "a39bd534074ec812361c7776cbca4540978e776072083529965bbfcb70fafe99",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cave-map.c.o": "b046b62fa37b5d64ecfdc42eb3852564245e501d2f394c407ea224b90bc53556",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cave-square.c.o": "bb5bdf0ec3f43314e46db3b246a9a9ba44fcebfa39366639d635e745ec5da962",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cave-view.c.o": "d7c378b9c69d22d15d380ee5980cd203b41bebccff3070c52862f9dadff15238",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cave.c.o": "f819cc66a10563467eca8bfba0639d861441e4f5362a5b3f90d97902e10aa8bc",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-cave.c.o": "6821f4b0638d64bfe3da239851a8f00860a938ab67c9f9119af465e156f0f1d1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-core.c.o": "269e16c59d374ca9d3a77305302eb8abc24a0f6e4aebff21e61406a6cc65b98a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-misc.c.o": "3a4baa2815ff07e7f9e37c870097ad3453f7291315ebb0f958cf4ce4c3821c36",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-obj.c.o": "5e064b04b300dc90ae74d381b47d2499e86c13de47571a2421914218dd0c8163",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-pickup.c.o": "2a8a4baa32c3988d71bd985c67387d07ec835a1ac4e6340f64919f1c98c8e576",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-spoil.c.o": "896125af9b84c5509a191dde6126fe588d789f582d53036f098d0c8a99e9758f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/cmd-wizard.c.o": "106ff0a51a92ca88d4a8b2a0d6c24bf3842785a1d265d4fd2c8e8b202cd3237d",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/datafile.c.o": "5b7c785c6152f5b6acbc0c7e501e3e66c4cb6b96d0edb4dbb07b7c67e478cd92",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/debug.c.o": "9d10be8698f5f373ee2a9fe3a0c6f07c3fcb2e9f554ebb9bf98b1e14da26f017",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/effect-handler-attack.c.o": "4e0b2860bb021dc16b2bfd3310125346e72f459ccec5cb0234539b935dfe8406",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/effect-handler-general.c.o": "ab96ad6cbca84e4d8c5a7957cfc626d1813e0b785802f755469459f1a99c42c6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/effects-info.c.o": "a5619ee8f8101da8d8d4b74e7c8d275a9fe13f2fc76ce072a7ef8a2b93b2d39c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/effects.c.o": "40a6d9021020f839b0eaf1e42948ca1bad71c3b5894fe694b89bf742075df1e5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/game-event.c.o": "41bd44830d50fe5cb6b6d9ab09dbb096d6cac6fcd2cb43062dd2e6d6384d7130",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/game-input.c.o": "9d200ebdb61a9b3a8568a3f11798f61d756f5eca390f9312261059121647c3d4",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/game-world.c.o": "1d2c1eedbd532540b5e46773b472237f4651fa9e438fb587d3383ff02eef0b27",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/gen-cave.c.o": "f36fe6333cd684e38823c5efb9fc732ec67c87857c8eb110e1ee88c886b6ccc0",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/gen-chunk.c.o": "c291e0988fe549c093c65032567e900907e63c8d5d2dda38bf6a6cdc7623cfb2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/gen-monster.c.o": "22b3943bdfd73985c5bc5931dcb76e73dca7d881f3e0772e1946d9f87d47cff9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/gen-room.c.o": "f24bab649bb3e00684e4b460bde6d2ad0b7cf8edd2f77a6b6da958ea4cf806f1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/gen-util.c.o": "d94278fe5e974eefc1566a847db6cb4e792891795b9854f978464b99961c2f87",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/generate.c.o": "c7e6496e667456c63edc93f10f035a524199927c1ba77ca5d53efcf2709d4ad4",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/grafmode.c.o": "5d0209714d2c4c3040d5d903f46e4c6f74278d04f6d69ecbf62f26324ef0edfa",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/guid.c.o": "f3b6f7df8aace43409465b0ced0518cff3df2d2246eb9c3c76a448cbe6b921bd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/init.c.o": "4db0f3c8b902d043151bfdf803845082912de43ccd98ad33b837117d722a7b75",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/load.c.o": "87210fa2c475e95dfa8dbce07db0cabf0fb43c3b6720d84b20537d72a0cf46e8",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/message.c.o": "f617a2e76273142b830e37f3ed15f59fadc01e9c3edd2b5438f65e79ec2d7cf6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-attack.c.o": "a9717478512e4f227a6bcf628d5a1862e7b4fe1900fa2e067c749e283de7a4c6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-blows.c.o": "cbdba54986d4eae9184a0dda57a2d2c42a6aae3bb893fe862d81f1403fea91eb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-desc.c.o": "7e4ed79b21936eed9352c59d33295f37ae51cca72c52a8ef8c55dfedc5efab1a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-group.c.o": "1281443b11c26a6601a35c4f9102cda987b7b601b2a7a8628089dd8383788b0b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-init.c.o": "db605081cd946ed9564fed015665cc8e7391cddbb9aa5d10b13b3fac0e3e9cf5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-list.c.o": "3a75013943815123f67fb9156fe1c46130e79eb310b9c16273be411e70edf81b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-lore.c.o": "3ec1236598048d5a906f203a0b3140530d7c613bcda771f935e37667770c4ca7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-make.c.o": "1ba1d91dc64de4ecdfda65fb3750c2d09f020c8777034563d1eafb791e2f277e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-move.c.o": "433d5ad6309f0ee630c8837d09e006c9171209f683d522300723f0361f0b4e9c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-msg.c.o": "495d9a00760cb50f11548e8c375797e0f6a0c61c08d31101dbec6555df2e76ff",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-predicate.c.o": "49525c5ede586754fc1df471d38f64469a05ef17be10a54011d2b65220773bdf",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-spell.c.o": "7012ae7956a33247fb6139c067b0340fb4eaf8b79ae1a5076a56058c699f2135",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-summon.c.o": "d95761f7db877461f6fb2d5d540a595761808aa5b6ec78c7d86b64a2495b8667",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-timed.c.o": "a2d9d1c13dd66c2a6eaaf3c340c70909381b15c96b42d45873c073152a45e9c2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/mon-util.c.o": "ff9a99f9a3bfa06bb9b4e23803d4e51836c6f67cd87f648e1ecb7cb74eeebb15",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-chest.c.o": "b976cca9b6b8102b6b6605c47be01ec64c422bf3f733b97b523ce83de854dbea",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-curse.c.o": "911ed3cab6fb68061736ed555ebe490083568ec17a26c7b6d78a2c95ae05b8b2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-desc.c.o": "3df70bbddce7e112f45afdbeecef739471a350344076c4945c53f5e4849efdc8",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-gear.c.o": "988235b28fdc8e1a35720dfc57c059016e382062e07ca17fd7928be8b772198b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-ignore.c.o": "51869fc05003bd94cb774ed85d68e7aa31a330903201652284beb1f785855aa6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-info.c.o": "f4196c469b84bf0139ed7d06252360e4b04146c9748a904b0869cc09b1a1a423",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-init.c.o": "7993ac1c6ad0e8ce7e9bc4737f93b47af689d30e6abc3f5189449858ae0c9b1f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-knowledge.c.o": "f0e859f80f54a9ef1bf6aa7bb770b6894bdcd58d2748efc85e21df2d48759e94",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-list.c.o": "fcda1f398d42c64d9103a1b71364350d65acd0f0ee9b4c40a8673f06d35738eb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-make.c.o": "13be96f05ecb2b7a4976c1f4fb6d952025dc9ccb366a1778bd5641a9d17d37b5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-pile.c.o": "4f237cc5b5e83b921838a81068026d3a54a362063a623b98079ba26cf89a4033",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-power.c.o": "a4684254dcebfa6e4726025e5789ff512fd41f02bb25a2cce64e774351fae1dd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-properties.c.o": "6afc314912669705acdbcd8ebe178e599d0111b07c45208ba5e5b41e109710e1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-randart.c.o": "af0ffe96793b4bf7eb67cbce79cd08fdb8f08939a2eb3e3296baab6240cba8ca",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-slays.c.o": "39bacdfccdf88ad60cf145eff2c1c67974da08774a71e600550aea228f95acce",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-tval.c.o": "a0bc93e79b25023db600c0f78d6abde22d831697e87fc92c8fe0362b8617d40c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/obj-util.c.o": "43cd90224a75b1ded4436c7ae7567acacc6678f3e85d499c195c84d73b8b52eb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/option.c.o": "a58b791cf5144302d3b541b86ee0980a18f768fafe78f2d2bf3f4e14c0cbf94a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/parser.c.o": "6adb530b2c0b733216f3dd1b68aeed5f50cb837f9d5f2b8d6c483c2b57946603",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-attack.c.o": "c33d42ec8892f20cde7b6785e8fc60939f3fa923c38b583d967b829b4246db91",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-birth.c.o": "339581e13466d79195d79a8d975cd7fea216dbdc0428f8b046e03439f24df3d3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-calcs.c.o": "173caabe282d9ecd5a8c8528e1a67cfbb2bb0a215846e6d1348e5dca9bf5158e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-class.c.o": "68a01a61278bb1a8c9b57cecdac250b47f28df22fb3f2cf70b0728c33b1a85dc",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-history.c.o": "e333f39f89f6812df37737a3a05ba4b77a7d94e092ae3a989e1ce685ed67bd9c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-path.c.o": "7f191a12f7829ee80d169a09d85fc6d7fb175a2416621ed04f63fd6f25e09209",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-properties.c.o": "bd75e21b7215d480debc0ebf34722b537c8ff421f2059d8ad60e42a8cf2474f9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-quest.c.o": "b6ba7ca1e225f05c5e1c6dd2bc6f37d0cc0d5c2706544ed72026802bfe6b3045",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-race.c.o": "d05953bc03651e448938608eb95df6fa18f9dc05325ad70ce3d15093f95a387b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-spell.c.o": "614a7a68596058e688fc15de7e0292739508e30ca94f34aa4eab8cc6c80955c2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-timed.c.o": "3b5ffe4fe0318ec54d9bc34101e36c08eddd38a265a6f79f1be040145243a6a2",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player-util.c.o": "30a186ea5dfbbbba3f8b409310cf82df429ec9a84450969648c48c546f03aedd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/player.c.o": "b5208352c0ddd85c3835405b1681e03aa55b851e5774d18482f54b26d76c5e9b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/project-feat.c.o": "17ce21432100480693f4845b759bf63e7de92086dc5cf5cd5246be7f249092c5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/project-mon.c.o": "4b46b2e1d1c452d41d3f480af7beaf732f444fa0f5dacdb99afa3b4ef8fa09fa",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/project-obj.c.o": "d8a0c53d415e8dd5e2dbb71f6dd73ffcda3be6405c673432f10b4548067e768f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/project-player.c.o": "8858fe459a8e6557176965200fc32b39838669b84b4f17bf29a7c5447535f404",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/project.c.o": "de604f4673b9d884b6054d78056bd4813e9c13b581a70bd15bc232e691e37023",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/randname.c.o": "15de094946aca92cbbb7ef966eb04f9468431807af7bdcd256c8adb05f95df91",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/save-charoutput.c.o": "2e7ab9580b9e5b1b97ddd02ae32d0cbdbdde23ea4c5bd41bbefada866e8154cb",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/save.c.o": "57bbb5c41eecf8bfe49a3c1604434a9d15fc8436472b0528c978c179947a35d5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/savefile.c.o": "3efd8c06382a2cfcd56dd96dda3e6979b80ce8be1511a5e797cdbf25ea119590",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/score-util.c.o": "436147eedbca2c6200d0c7338785f142a3278a70752630fb5d393e25168ec728",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/score.c.o": "71788021503b5ab0c750d5e8984a9e570be273247ac4e7b66f3a8f1db6ca16db",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/sound-core.c.o": "13533c4f3e6d5c3ca18c6b52d8226f96f9dff11bb3bb61537f41160f44bda145",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/source.c.o": "adf195ad8237895a1932c5cdd739d60054c03a1c1f4590b43157d8ec1ea6a0d3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/store.c.o": "d5fd663b2a2854c7f9d887f45de7f579c36792f59f1ef3d3a7dce031f9553c0e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/target.c.o": "f775b5a1c3ed04ce127f0ef1124cdb9ffd16484df53f9430a7f24016c0b938f9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/trap.c.o": "fc024eed11a68fed6e9a76384644cd8e2dc0ecb675be69a391062203c568daa6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-birth.c.o": "81183ab4b6a701ae184e77d0e9fa33f379f1ad730889f4f0a193d04d82b92b84",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-command.c.o": "d6a80a6744db50bb3a9ef7f177627c8d703f6f8266554adab8b2b33d892906ad",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-context.c.o": "b4203b6b258d0247bfcaee72b8cb67c54bc980e5c24d0105283382ec53865785",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-curse.c.o": "9d17eb47c53dd40ddb7b5346dd279e24d8c15e2d3f28656f1ef54de0afa95c34",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-death.c.o": "0c7b72e29915c6b485a9230dc14d1bdc75e68a6755d67e71de46308d4084c6d3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-display.c.o": "b2daa3daaa4232b13f10072946fcde21b2a9ad82df28a980c92dbbfab10cb46e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-effect.c.o": "4e9b8f1cca86e6cbabca2228056de7726ebe3bfca55a0be903e7f17111046180",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-entry-combiner.c.o": "dd434796d920e589957d2ee61eba6418b792967567ac6416bcb4e9a540bc31a5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-entry-renderers.c.o": "1578a960926e161e3d1fd127a2b704f4cdcbc761f6b821c710740173a0557169",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-entry.c.o": "00dead1b7f485af84889864982687fc35df1bf1d488e1cce29f91e24df7c9a9f",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-equip-cmp.c.o": "825f055b7f342c59e8bb47489d3df8359ffc51a9f771bd330add0fa205d7dce8",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-event.c.o": "1050c0bcea0df3dfe7d789080cc87b7b02facb7ca5f105fc641ebe8a39120994",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-game.c.o": "54f863e42af2d3c9aa0c5419e0ba5274cfeb520eae3992c4221ef987c04f6915",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-help.c.o": "e3e884fb96aef0faaa190ca5c74a4435ec2938958460d2e6d4b429a884a586d7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-history.c.o": "c1aa9f0ddd95cef050775038623adffedd5115e97f79947fdcfee693c8ae1d18",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-init.c.o": "87781109797b3e39b8b3f0a1d7aaf6e25dd643b897446443f1ef06d3d3785873",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-input.c.o": "a0e7cd5832eb34e1bdd5894c8f6215696a1ea1844d45b7e1af43e492f7bc65af",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-keymap.c.o": "666e8697fea29cf398918c3d95e2d1fbef73524914e9b4b90b84253ffee70f1a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-knowledge.c.o": "574bb53501fca2a4f80b17b2ab8b7dd9340f95ec4e0b3a5a697941a0c6980128",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-map.c.o": "c249584179512a62aced449431dc00a87e392193d508f99600d3c1f2b589e687",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-menu.c.o": "d6455b1eeaec12bf278394a7138700d2495945458066a0ea025d5a0c2fceaef7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-mon-list.c.o": "bc177d4edd60380b87da0f44dfc777e6e881be5320f8bde14bce053dd938ef9a",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-mon-lore.c.o": "1545a67ee3522906d840fcc1f1ffeca7ee86e8bb20f12350ca0a0501ee6df7bc",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-obj-list.c.o": "3c47fed9ed98ab10d76d7924b7b71605dc537410f40bffaedc883b3fc4fd2db7",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-object.c.o": "af720fbb687a3ae7a524697ab67100a3735b4d1e4b5fdeb8eb13cccfbb96f9db",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-options.c.o": "da5b33e6e5d2ef8e5caabced19c79601e3695316ab571192f25907396901b095",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-output.c.o": "0ae7ea1f64ffc5146e532667c7963b0ba099524039ae1cd367510fbe324036af",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-player-properties.c.o": "87b429925cebfb7bb509d62634d32b81ccf382a4d175685e1f92fdd2bffd8293",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-player.c.o": "5df1df587908d3c29daf71837a22dbf77a76ce350bb11f9bda07cc47d892dcb3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-prefs.c.o": "760cb8a6e4a592aa25446e2c87d260e2b8d025f7172f1eb8039f5e9dcf42214e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-score.c.o": "c52d1d8bbd8ffdedec090d6d25f9c0a0b92ee778cadb187b6ed132fde5310e47",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-signals.c.o": "744cc326d3ff45fdd68f34961cf01f66d4491dd547d6127c5c7324078e178fe1",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-spell.c.o": "975a00b6d12f674dc4bdb55c624fd49b3f896809c400de3a7f82f69d3be6a383",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-spoil.c.o": "f8761e37e895c761126fd7acc3413e859ed0b06e157d7e5f89a477ad4dc3751d",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-store.c.o": "2408a102592c9c9fbfde58f319f28ae27dcbab2202fb5d85443e635ce9fc49fa",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-target.c.o": "78a431100c5a2770fcbc3559ed73d5061e5be12b5ec9c2d7b27c157b4104c8b3",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-term.c.o": "f5d2c02334f71f6b2b7f87906630f74bc637437b7589bdac10268e1f6ceb7acd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-visuals.c.o": "280cb48a74b671ed3dec0fc7e8decb2143a663deb84572dfe1862873290bce5c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/ui-wizard.c.o": "7885c89cb486455f7d9e1ccdce1795f77b2bd32e5cfa1a58f950479349621f46",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/wiz-debug.c.o": "8b576499ce453250da159be915b263a5cc3da692fb593eab3f2897ce0792fda4",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/wiz-spoil.c.o": "6f49715359a9f1c2bc6136229d43880355a396492187444231b16508ed900b5e",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/wiz-stats.c.o": "8321ac82700d9f66664805b09edbc0f0d1725f6de4ab1664806f37a557611593",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-bitflag.c.o": "f10577b20ff526d862e6e17daf93ca4eabb1dcaa660db63e7b0b5cf5c910bece",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-color.c.o": "5eeed7146215851eb24453e013998946a19c69b8e4534b4c65c1d51362566168",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-dice.c.o": "e8f7e9dc8192076baa05eabe33ac03c9147a36ab10e417be07fc4982e0620e0b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-expression.c.o": "65fe84113c37bdd3059ea0ea1cd7a41fdb2b601fd06e22d2e42a7a80db5dc4a6",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-file.c.o": "8f64dcda4ff4b5e7aef1d85b728f53205371d223f4d5b9b13d6900995d2b196c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-form.c.o": "4543d6e1250d1a856b4c516524320c4789917aff6009f893d5e63f678cadd727",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-quark.c.o": "98607af0905769a1687e169e094992d600d50634cf423b51aaf9b1a56e6cec47",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-queue.c.o": "bed85ce109dad6863f0a9ac10c2e686e2c5a969062ceee127b8c11216bead5dd",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-rand.c.o": "f70c125460c2753e3948b8980b53c6d0c96f4812331d423a755a1a2392115d24",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-textblock.c.o": "d0b8b931dc431e8466959ebec494b1569f1fc579d3038deaa4f0b34ae7d854b5",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-type.c.o": "22c9cb3022662fcc61a929c9312c6b3ebd190e9b33a3352b77b1caa43b75a2af",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-util.c.o": "a6e5c42be41dd6e36009cab3af60ec10dbe961d17e877d8d6badad22e265653c",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurCoreLib.dir/src/z-virt.c.o": "7ca9a4bf20066e692f54c910578833ca127433efb4cdbcf06f2d14fb2cd5bf0b",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurUnitTestLib.dir/src/tests/test-utils.c.o": "c7eedeab8f4b897dba5f84a96f2c3744be43cae081c97776d401bdb82f3822b9",
+    "/home/diego/projects/borg-rs/build/c/CMakeFiles/OurUnitTestLib.dir/src/tests/unit-test.c.o": "ca260d5e82fd81d39e36597885f9099066b1c3a84be912df88294fef22a3f816"
+  },
+  "source_sha256": "abf91257dda411c5606e66db6ae7345edbfb8ed33f75081256482a110d690809",
+  "cases": 49,
+  "passed": 32
+}

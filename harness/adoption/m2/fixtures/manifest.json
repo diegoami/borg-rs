@@ -1,0 +1,132 @@
+{
+  "consumer_pin": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "swap",
+      "id": "CBUG-0066",
+      "source_commit": "1b67370d0dc56d9b7ef34e5356e63d21a7095545",
+      "source_path": "docs/audit/c-reports/CBUG-0066/expanded/scenario.c",
+      "source_sha256": "b26f955689acaf552545019189ade029e82344a0c508d9c77d5b1581015a70b6",
+      "config_sha256": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+      "modes": [
+        "armour-better",
+        "weapon-better",
+        "armour-only",
+        "weapon-only",
+        "tie",
+        "no-benefit",
+        "fire-armour",
+        "electric-weapon",
+        "both-helpful"
+      ],
+      "environment": "CBUG0066_MODE"
+    },
+    {
+      "name": "knockout",
+      "id": "CBUG-0002",
+      "source_commit": "3de1e3123915587483395dd40c4d2e75704e65f4",
+      "source_path": "docs/audit/c-reports/CBUG-0002/scenario.c",
+      "source_sha256": "dc59861e6efb69fd9d1212651bc66839f37e8adfff123727f137a7351975e727",
+      "config_sha256": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+      "modes": [
+        "knockout",
+        "heavy-stun",
+        "paralysis",
+        "none"
+      ],
+      "environment": "CBUG0002_MODE"
+    },
+    {
+      "name": "preparation",
+      "id": "CBUG-0094",
+      "source_commit": "a19c8733c0dfa8139b04eecd8117429ec5f55cd6",
+      "source_path": "docs/audit/c-reports/CBUG-0094/scenario.c",
+      "source_sha256": "941d9caa9f00b67336ad4dd92d78951ee74ff5bc781bcca9c9763ef4b62dbc9e",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "modes": [
+        "regen-only",
+        "speed-wins",
+        "speed-only",
+        "already-active",
+        "unlearned",
+        "blind",
+        "confused",
+        "town",
+        "low-mana"
+      ],
+      "environment": "CBUG0094_MODE"
+    },
+    {
+      "name": "cold",
+      "id": "CBUG-0004",
+      "source_commit": "b0b0fa2471a11e91838bcbc3d980f4b04f8c6b01",
+      "source_path": "docs/audit/c-reports/CBUG-0004/scenario.c",
+      "source_sha256": "ec0caa6a646af64d291aaf7e43b249c5265f8419a6f37f6ee9fa0c9dbe61f966",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "modes": [
+        "acid-only",
+        "cold-only",
+        "neither",
+        "both",
+        "physical-acid-control",
+        "physical-cold-control"
+      ],
+      "environment": "CBUG0004_MODE"
+    },
+    {
+      "name": "rings",
+      "id": "CBUG-0062",
+      "source_commit": "bfe3fc402e8ae6cdec74d8b35fa8f50e612f2a8e",
+      "source_path": "docs/audit/c-reports/CBUG-0062/scenario.c",
+      "source_sha256": "17c1826a2bc1c781ec23fcc889164ad8934a7845ada7d6bdb8948a5600ffec60",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "modes": [
+        "left-ready",
+        "right-charging-left-ready",
+        "right-control",
+        "both-ready",
+        "left-charging",
+        "no-ring",
+        "blind-control"
+      ],
+      "environment": "CBUG0062_MODE"
+    },
+    {
+      "name": "potion",
+      "id": "CBUG-0061",
+      "source_commit": "cce1d5d92079e78e939126d3cf35e24121442734",
+      "source_path": "docs/audit/c-reports/CBUG-0061/scenario.c",
+      "source_sha256": "e625fb2fdcc9c2f89f2b3744539e4eea8a713d3a44966badfa4c24e3ad929fcb",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "modes": [
+        "long-gap",
+        "recent",
+        "boundary-four",
+        "same-turn",
+        "bypass-control",
+        "reserve-control",
+        "empty-control",
+        "first-use",
+        "first-turn"
+      ],
+      "environment": "CBUG0061_MODE"
+    },
+    {
+      "name": "name",
+      "id": "CBUG-0086",
+      "source_commit": "b61f6b611600fdbc4c6370fff3ac2835ee77017f",
+      "source_path": "docs/audit/c-reports/CBUG-0086/scenario.c",
+      "source_sha256": "9813e137cc3984618ad756829f87d32828c0a2dcb19f498560430052b509b7e1",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "modes": [
+        "named-dragon",
+        "ogre-control",
+        "unseen-control",
+        "it-control",
+        "lower-it-control"
+      ],
+      "environment": "CBUG0086_MODE"
+    }
+  ]
+}

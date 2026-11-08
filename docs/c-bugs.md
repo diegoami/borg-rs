@@ -4,6 +4,10 @@ Unless explicitly corrected under `docs/FORK-CORRECTIONS.md`, the Rust port
 keeps these as C behaves. Entries preserve the original findings and identify
 the owner-authorized exceptions so changes are deliberate and reviewable.
 
+The seven milestone2 carries in [adoption/c-m2](adoption/c-m2/README.md)
+correct selected findings below in local C and Rust. Their source ownership
+and historical descriptions remain; consumer adoption is not upstream closure.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -202,8 +206,9 @@ with its issues.
 * Harmless, same file: `borg_react_prompted()` returns `key` (a pointer)
   from a `bool` function in three places; it is never NULL, so this is
   just `true`.
-* Rust: kept (`st.msgs.dont_react` is only ever set; `st.borg.dont_react`
-  is reset) in `borg_messages_react.rs` / `borg.rs`.
+* Original Rust reset the unused struct field. Milestone2/source14 now resets
+  `st.msgs.dont_react` after parsing in `borg.rs`. The unrelated prompted-key
+  return convention remains. Adoption: [Rust#6](https://github.com/diegoami/borg-rs/issues/6).
 ## 15. Inscribing a quiver item types an equipment letter
 
 * `borg-item-id.c`, `borg_object_fully_id()`, by code reading. The loop
@@ -268,7 +273,8 @@ with its issues.
 * `borg_danger()` overwrites its `full_damage` argument with `true`, so the
   partial-damage paths above are only reached through direct
   `borg_danger_one_kill(..., false)` calls.
-* Rust: all kept in `borg_danger.rs`.
+* Rust: milestone2/source26 corrects the COLD temporary resistance in
+  `borg_danger.rs`; the other findings remain.
 
 ## 18. Item value: stat bonuses tested as object flags (item analyze)
 
@@ -333,7 +339,9 @@ with its issues.
   always).
 * `borg_use_things()`: the Enlightenment potion branch only `break`s
   (never quaffs); the comment says "Check the scroll".
-* Rust: all kept in `borg_item_use.rs`.
+* Rust: milestone2/source77 corrects CCW timing, and source78 includes both
+  ring slots in both readiness and activation. Other findings remain in
+  `borg_item_use.rs`.
 ## 21. Equipment swaps and the "best" list (item wear)
 
 * `borg-item-wear.c`, found by code reading.
@@ -362,7 +370,9 @@ with its issues.
   `borg.time.now` is truncated; once the time passes 32767 the "worn
   more than 10 turns ago" test is true at once. The test itself skips an
   artifact worn on this level *more* than 10 turns ago (not recently).
-* Rust (`borg_item_wear.rs`): all kept (`swap_letter(-1)` gives the 0 key).
+* Rust (`borg_item_wear.rs`): milestone2/source82 chooses lower danger among
+  available emergency swaps, including the zero-danger single-swap case.
+  Other findings remain; `swap_letter(-1)` itself still gives the 0 key.
 
 ## 22. Light beam edge test and lantern refuel scan (light)
 
@@ -432,7 +442,8 @@ with its issues.
   level).
 * `borg_locate_kill()`: `my_strnicmp(who, "It", 2)` treats any name that
   starts with "it" (any case) as an invisible monster.
-* Rust (`borg_flow_kill.rs`): all kept.
+* Rust (`borg_flow_kill.rs`): milestone2/source102 requires the exact unseen
+  name "It" (case-insensitive, C-string termination semantics). Other findings remain.
 
 ## 25. Enchant item prompt keys (item enchant)
 
@@ -498,8 +509,9 @@ with its issues.
   to `CLEVEL * 1000`, which wraps negative from level 33 on (33000 ->
   -32536), so `no_rest_prep` has no effect then (the same pattern is in
   borg-fight-defend.c and borg-flow-stairs.c).
-* Rust (`borg_fight_perm.rs`): all kept (`as i16` truncation for the
-  level timer).
+* Rust (`borg_fight_perm.rs`): milestone2/source110 makes regeneration
+  simulation return without casting. Other findings remain, including
+  `as i16` truncation for the level timer.
 ## 29. Sea of Runes scan slips (flow glyph)
 
 * `borg-flow-glyph.c`, found by code reading.

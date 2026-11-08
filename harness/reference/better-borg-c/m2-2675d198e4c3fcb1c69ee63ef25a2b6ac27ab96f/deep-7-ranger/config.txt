@@ -1,0 +1,2 @@
+flags=cheat,terminal-save
+borg_txt_sha256=2635f671300d584187ecbe2016b6cd7452521f73aca1486aae348d1218308d19

@@ -1,0 +1,19 @@
+{
+  "seed": 3014,
+  "race": "Kobold",
+  "race_idx": 10,
+  "class": "Rogue",
+  "class_idx": 6,
+  "menu_letters": true,
+  "stop_reason": "death",
+  "game_turns": 75645,
+  "player_turns": 7751,
+  "resting_turns": 635,
+  "clevel": 6,
+  "max_depth": 7,
+  "depth": 7,
+  "dead": true,
+  "death_cause": "a blacklock mage",
+  "keys": 9448,
+  "wall_seconds": 28.693
+}

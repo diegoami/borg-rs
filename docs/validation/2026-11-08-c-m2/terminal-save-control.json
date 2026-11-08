@@ -1,0 +1,195 @@
+{
+  "passed": true,
+  "uniform_nine_inputs_repeated_per_role": true,
+  "comparisons": [
+    {
+      "role": "c1",
+      "case": "live-blackguard",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "c1",
+      "case": "live-necromancer",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-paladin",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-druid",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "c1",
+      "case": "live-ranger",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-priest",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-mage",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-warrior",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c1",
+      "case": "live-rogue",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "c2",
+      "case": "live-blackguard",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "c2",
+      "case": "live-necromancer",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-paladin",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-druid",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "c2",
+      "case": "live-ranger",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-priest",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-mage",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-warrior",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "c2",
+      "case": "live-rogue",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "rust",
+      "case": "live-blackguard",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "rust",
+      "case": "live-necromancer",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-paladin",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-druid",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    },
+    {
+      "role": "rust",
+      "case": "live-ranger",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-priest",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-mage",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-warrior",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": true
+    },
+    {
+      "role": "rust",
+      "case": "live-rogue",
+      "three_logs_and_summary_identical": true,
+      "full_terminal_save": true,
+      "prior_living_save_present": false
+    }
+  ]
+}

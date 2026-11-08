@@ -1,0 +1,230 @@
+[
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/games-c1",
+    "marker": "FAILED",
+    "manifest_sha256": "1f24528f6c0ce0ac077cb5915864d55fc9cb5b60fbb460bb1a0018ec34f1f437",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 131,
+    "engine_successes": 117,
+    "engine_failures": {
+      "cfg-munchkin-dunadan-bg": "timeout",
+      "ext-rogue": "timeout",
+      "deep-7-ranger": "timeout"
+    },
+    "preflight_failures": [
+      "glyph-known-rune",
+      "glyph-known-decoy",
+      "glyph-known-trap",
+      "glyph-hidden-rune",
+      "glyph-empty-floor",
+      "glyph-prelaid-ring",
+      "glyph-build-ready",
+      "glyph-build-supply",
+      "glyph-build-prelaid",
+      "natural-warrior-78",
+      "natural-blackguard-40"
+    ],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/games-c2",
+    "marker": "FAILED",
+    "manifest_sha256": "6d97daac03eb61af28063f4b8287e584aa3eeb762ffe9a797131ad196aa14f53",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 131,
+    "engine_successes": 117,
+    "engine_failures": {
+      "cfg-munchkin-dunadan-bg": "timeout",
+      "ext-rogue": "timeout",
+      "deep-7-ranger": "timeout"
+    },
+    "preflight_failures": [
+      "glyph-known-rune",
+      "glyph-known-decoy",
+      "glyph-known-trap",
+      "glyph-hidden-rune",
+      "glyph-empty-floor",
+      "glyph-prelaid-ring",
+      "glyph-build-ready",
+      "glyph-build-supply",
+      "glyph-build-prelaid",
+      "natural-warrior-78",
+      "natural-blackguard-40"
+    ],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/games-rust",
+    "marker": "FAILED",
+    "manifest_sha256": "75e63ff7e3901dc30cc0e670d4161e1a8ed6a326d5ea0ce6b5e16903c79eca75",
+    "source_sha256": "64c4a2eb647f1aac493f946b6979e524a972cdb9b455fb15287eb70d85b7c55a",
+    "binary_sha256": "3f59de59bea9cec82bec8af3338d6f2a468e55fd9579f8da98e192598def5548",
+    "attempted_case_invocations": 131,
+    "engine_successes": 117,
+    "engine_failures": {
+      "cfg-munchkin-dunadan-bg": "timeout",
+      "ext-rogue": "timeout",
+      "deep-7-ranger": "timeout"
+    },
+    "preflight_failures": [
+      "glyph-known-rune",
+      "glyph-known-decoy",
+      "glyph-known-trap",
+      "glyph-hidden-rune",
+      "glyph-empty-floor",
+      "glyph-prelaid-ring",
+      "glyph-build-ready",
+      "glyph-build-supply",
+      "glyph-build-prelaid",
+      "natural-warrior-78",
+      "natural-blackguard-40"
+    ],
+    "superseded_source": true
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/games-rust-final",
+    "marker": "FAILED",
+    "manifest_sha256": "f048748bf0bc4f802447e265a8373bd8a475292090ca2d5ec9d77805680d0115",
+    "source_sha256": "2a5ad064c4102098f6c610de34e5c0b63fb12544db3a2f1570f41259e25ae1c8",
+    "binary_sha256": "310dbdf9913b162b92e10791fdf753499f126b8fcffd0e0d91803d7b5a3f7cde",
+    "attempted_case_invocations": 131,
+    "engine_successes": 120,
+    "engine_failures": {},
+    "preflight_failures": [
+      "glyph-known-rune",
+      "glyph-known-decoy",
+      "glyph-known-trap",
+      "glyph-hidden-rune",
+      "glyph-empty-floor",
+      "glyph-prelaid-ring",
+      "glyph-build-ready",
+      "glyph-build-supply",
+      "glyph-build-prelaid",
+      "natural-warrior-78",
+      "natural-blackguard-40"
+    ],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures-c1",
+    "marker": "DONE",
+    "manifest_sha256": "24799dca0e1ed05047e1e3f78660c6905829476e0374ce615fcdeadfe4689900",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 11,
+    "engine_successes": 11,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures-c2",
+    "marker": "DONE",
+    "manifest_sha256": "7da3321868c97cc316dd0f84cafde5f200367a8e50b22761f1fbeb4710a0c560",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 11,
+    "engine_successes": 11,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures-rust",
+    "marker": "DONE",
+    "manifest_sha256": "013b7caff1aedb62634108a39f75dd07e6785ecfc4bc99830c6b483d02a0239a",
+    "source_sha256": "2a5ad064c4102098f6c610de34e5c0b63fb12544db3a2f1570f41259e25ae1c8",
+    "binary_sha256": "310dbdf9913b162b92e10791fdf753499f126b8fcffd0e0d91803d7b5a3f7cde",
+    "attempted_case_invocations": 11,
+    "engine_successes": 11,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/retry-c1",
+    "marker": "DONE",
+    "manifest_sha256": "64fe10fbbcaae68fee2ff10f55895b8b7cb2e7e4a65722616df0e802122f119b",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 1,
+    "engine_successes": 1,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/retry-c2",
+    "marker": "DONE",
+    "manifest_sha256": "be4226fc64bd5f3c66739757927caf7bcc99ef9c710c828a2c3022cc2d78888b",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 1,
+    "engine_successes": 1,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/long-c1",
+    "marker": "DONE",
+    "manifest_sha256": "b5e183e212793265b3efdb86c1e64fa780b792f9b24fd9f5000631a7e0d63123",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 2,
+    "engine_successes": 2,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/long-c2",
+    "marker": "DONE",
+    "manifest_sha256": "f86bf12e4b3828ed41c5655941e457af965cbc9056384c685d4d6a33d0a33527",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 2,
+    "engine_successes": 2,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/ordinary-c1",
+    "marker": "DONE",
+    "manifest_sha256": "66d590ffeba4ed1c14dad047dc982e6a88e62a785a4a896b5c82fcb3854671e0",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 9,
+    "engine_successes": 9,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/ordinary-c2",
+    "marker": "DONE",
+    "manifest_sha256": "67b3e82f91cd1129ea49b87ba1b5240cee9f89395953fd409c3a244133d674b1",
+    "source_sha256": "7f61dfd8e12154d0528b78e78e6dd31be01d56cdd3dae9d4398711019c55ad73",
+    "binary_sha256": "a270eeac7326fe2443b60e246a2fced6d8d5e3f771560bf820b43466ffb54905",
+    "attempted_case_invocations": 9,
+    "engine_successes": 9,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  },
+  {
+    "directory": "/home/diego/projects/borg-rs/harness/out/c-m2/ordinary-rust",
+    "marker": "DONE",
+    "manifest_sha256": "0e5b08aba512158c38d7fe7e979f016b4fb9768f0adc79eceb3c763c3dac7148",
+    "source_sha256": "2a5ad064c4102098f6c610de34e5c0b63fb12544db3a2f1570f41259e25ae1c8",
+    "binary_sha256": "310dbdf9913b162b92e10791fdf753499f126b8fcffd0e0d91803d7b5a3f7cde",
+    "attempted_case_invocations": 9,
+    "engine_successes": 9,
+    "engine_failures": {},
+    "preflight_failures": [],
+    "superseded_source": false
+  }
+]

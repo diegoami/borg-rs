@@ -767,8 +767,10 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
         }
     }
 
-    /* Pass on the swap which yields the best result */
-    let (b_p, swap) = if b_p1 <= b_p2 {
+    /* Prefer the lower danger among available swaps. */
+    let (b_p, swap) = if st.trait_swap.weapon_swap != 0
+        && (st.trait_swap.armour_swap == 0 || b_p2 <= b_p1)
+    {
         (b_p2, st.trait_swap.weapon_swap - 1)
     } else {
         (b_p1, st.trait_swap.armour_swap - 1)

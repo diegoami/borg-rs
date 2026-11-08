@@ -1,0 +1,18 @@
+{
+  "seed": 1072,
+  "race": "Human",
+  "race_idx": 9,
+  "class": "Warrior",
+  "class_idx": 7,
+  "stop_reason": "death",
+  "game_turns": 91587,
+  "player_turns": 9341,
+  "resting_turns": 660,
+  "clevel": 10,
+  "max_depth": 9,
+  "depth": 5,
+  "dead": true,
+  "death_cause": "Bullroarer the Hobbit",
+  "keys": 11472,
+  "wall_seconds": 24.881
+}

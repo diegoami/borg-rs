@@ -67,6 +67,8 @@ pub struct Borg {
     pub times_twitch: i16,
     pub escapes: i16,
     pub trying_unknown: bool,
+    /// Unused C struct field; the reaction gate lives in `MsgState`.
+    #[allow(dead_code)]
     pub dont_react: bool,
     pub targeting: bool,
     pub goal: BorgGoal,
@@ -427,7 +429,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     }
 
     crate::borg_messages::borg_parse(st, None);
-    st.borg.dont_react = false;
+    st.msgs.dont_react = false;
 
     let borg_ch = borg_inkey(st, true);
     if borg_ch != 0 {

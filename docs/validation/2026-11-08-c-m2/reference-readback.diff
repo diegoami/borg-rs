@@ -1,0 +1,7 @@
+A: /home/diego/projects/borg-rs/harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=a270eeac7326fe24
+A:   built from 379728289dbc (dirty=yes, inputs dirty=yes) source_sha256=7f61dfd8e12154d0; run at 379728289dbc (dirty=yes) overrides=none
+B: /home/diego/projects/borg-rs/harness/out/c-m2/qualified-complete/rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=310dbdf9913b162b
+B:   built from 379728289dbc (dirty=yes, inputs dirty=yes) source_sha256=2a5ad064c4102098; run at 379728289dbc (dirty=yes) overrides=none
+131/131 runs identical (expected 131)
+messages.log compared in 131 run(s)
+state.log compared in 131 run(s)

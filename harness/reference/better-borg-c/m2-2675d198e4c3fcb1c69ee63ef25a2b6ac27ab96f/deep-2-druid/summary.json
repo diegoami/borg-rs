@@ -1,0 +1,18 @@
+{
+  "seed": 2002,
+  "race": "Hobbit",
+  "race_idx": 3,
+  "class": "Druid",
+  "class_idx": 2,
+  "stop_reason": "turns",
+  "game_turns": 1000093,
+  "player_turns": 100109,
+  "resting_turns": 50882,
+  "clevel": 12,
+  "max_depth": 5,
+  "depth": 2,
+  "dead": false,
+  "death_cause": "",
+  "keys": 92881,
+  "wall_seconds": 136.773
+}

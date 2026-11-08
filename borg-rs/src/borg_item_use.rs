@@ -142,10 +142,10 @@ pub fn borg_quaff_crit(st: &mut BorgState, no_check: bool) -> bool {
         return false;
     }
 
-    /* Avoid drinking CCW twice in a row (C also tests `borg_timer(..) > 0`,
-     * which the `> 4` already implies) */
+    /* Avoid drinking CCW twice in a row. */
     let last = st.item_use.when_last_quaff;
-    if st.borg.time.now - last > 4 && (engine::randint0(100) + 1 < 75) {
+    let elapsed = st.borg.time.now - last;
+    if last != 0 && elapsed <= 4 && elapsed > 0 && (engine::randint0(100) + 1 < 75) {
         return false;
     }
 
@@ -706,9 +706,9 @@ fn inven_total() -> i32 {
 }
 
 /// Check and see if borg is wielding a ring and if he will pass a fail
-/// check. (Only the right ring slot is scanned, as in C.)
+/// check.
 pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
-    for i in inven_right()..inven_left() {
+    for i in inven_right()..=inven_left() {
         let item = &st.items.items[i as usize];
 
         if item.iqty == 0 || !item.aware {
@@ -759,7 +759,7 @@ pub fn borg_equips_ring(st: &mut BorgState, ring_sval: i32) -> bool {
 /// Attempt to use the given ring.
 pub fn borg_activate_ring(st: &mut BorgState, ring_sval: i32) -> bool {
     /* Check the equipment */
-    for i in inven_right()..inven_left() {
+    for i in inven_right()..=inven_left() {
         let item = &st.items.items[i as usize];
 
         /*  Make Sure item is IDed */

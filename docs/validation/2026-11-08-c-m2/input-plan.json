@@ -1,0 +1,729 @@
+{
+  "cases": [
+    {
+      "line": "smoke-warrior-1 101 0 0 20000 terminal-save",
+      "source_suite": "smoke",
+      "suite_sha256": "b895f144088de8e502c6ad83768b2a9e260cb69a8f1a92ba85d98e504d4910d2"
+    },
+    {
+      "line": "smoke-mage-2 102 2 1 20000 terminal-save",
+      "source_suite": "smoke",
+      "suite_sha256": "b895f144088de8e502c6ad83768b2a9e260cb69a8f1a92ba85d98e504d4910d2"
+    },
+    {
+      "line": "smoke-priest-3 103 5 3 20000 terminal-save",
+      "source_suite": "smoke",
+      "suite_sha256": "b895f144088de8e502c6ad83768b2a9e260cb69a8f1a92ba85d98e504d4910d2"
+    },
+    {
+      "line": "full-0-warrior-0 1000 0 0 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-0-warrior-1 1001 1 0 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-0-warrior-2 1002 2 0 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-0-warrior-3 1003 3 0 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-0-warrior-4 1004 4 0 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-1-mage-0 1010 1 1 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-1-mage-1 1011 2 1 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-1-mage-2 1012 3 1 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-1-mage-3 1013 4 1 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-1-mage-4 1014 5 1 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-2-druid-0 1020 2 2 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-2-druid-1 1021 3 2 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-2-druid-2 1022 4 2 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-2-druid-3 1023 5 2 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-2-druid-4 1024 6 2 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-3-priest-0 1030 3 3 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-3-priest-1 1031 4 3 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-3-priest-2 1032 5 3 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-3-priest-3 1033 6 3 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-3-priest-4 1034 7 3 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-4-necro-0 1040 4 4 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-4-necro-1 1041 5 4 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-4-necro-2 1042 6 4 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-4-necro-3 1043 7 4 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-4-necro-4 1044 8 4 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-5-paladin-0 1050 5 5 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-5-paladin-1 1051 6 5 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-5-paladin-2 1052 7 5 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-5-paladin-3 1053 8 5 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-5-paladin-4 1054 9 5 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-6-rogue-0 1060 6 6 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-6-rogue-1 1061 7 6 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-6-rogue-2 1062 8 6 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-6-rogue-3 1063 9 6 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-6-rogue-4 1064 10 6 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-7-ranger-0 1070 7 7 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-7-ranger-1 1071 8 7 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-7-ranger-2 1072 9 7 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-7-ranger-3 1073 10 7 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-7-ranger-4 1074 0 7 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-8-blackguard-0 1080 8 8 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-8-blackguard-1 1081 9 8 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-8-blackguard-2 1082 10 8 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-8-blackguard-3 1083 0 8 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "full-8-blackguard-4 1084 1 8 100000 terminal-save",
+      "source_suite": "full",
+      "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+    },
+    {
+      "line": "deep-0-warrior 2000 0 0 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-1-mage 2001 2 1 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-2-druid 2002 3 2 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-3-priest 2003 5 3 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-4-necro 2004 10 4 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-5-paladin 2005 8 5 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-6-rogue 2006 3 6 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-7-ranger 2007 9 7 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "deep-8-blackguard 2008 7 8 1000000 cheat,terminal-save",
+      "source_suite": "deep",
+      "suite_sha256": "e0efdb7d83b821b32b3a8908ff19966e49bdb8c596090657b224fbcb0bbf9cca"
+    },
+    {
+      "line": "cls-deep-bg-dunadan 3100 8 8 1000000 cheat,menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-dunadan 3000 8 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-highelf 3001 9 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-kobold 3002 10 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-human 3003 0 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-halftroll 3004 7 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-dwarf 3005 5 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-bg-halforc 3006 6 8 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-dunadan-ranger 3010 8 7 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-dunadan-paladin 3011 8 5 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-highelf-mage 3012 9 1 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-highelf-priest 3013 9 3 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-kobold-rogue 3014 10 6 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-kobold-necro 3015 10 4 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-kobold-warrior 3016 10 0 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cls-halfelf-ranger 3017 1 7 100000 menu,terminal-save",
+      "source_suite": "classes",
+      "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+    },
+    {
+      "line": "cfg-munchkin-human-war 42 0 0 100000 menu,cheat,munchkin,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-munchkin-halfelf-mage 12345 1 1 100000 menu,cheat,munchkin,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-munchkin-dunadan-bg 1080 8 8 20000 menu,cheat,munchkin,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-lunal-human-war 42 0 0 100000 menu,cheat,lunal,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-lunal-halfelf-mage 12345 1 1 100000 menu,cheat,lunal,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-lunal-dunadan-bg 1080 8 8 20000 menu,cheat,lunal,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "cfg-lunal-deep-warrior 2007 0 0 1000000 menu,cheat,lunal,terminal-save",
+      "source_suite": "config",
+      "suite_sha256": "149bf0688a9b8a52bae85eeb1898a3644a606f87b7ed536b03810bcd2d83e4f9"
+    },
+    {
+      "line": "opt-scum-war 42 0 0 100000 menu,cheat,borg_money_scum_amount=5000,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-scum-mage 12345 1 1 100000 menu,cheat,borg_money_scum_amount=5000,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-scum-noself-mage 12345 1 1 100000 menu,cheat,borg_money_scum_amount=1000,borg_self_scum=FALSE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-scum-done-mage 12345 1 1 100000 menu,cheat,borg_money_scum_amount=300,borg_self_scum=FALSE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-dyn-war 42 0 0 100000 menu,cheat,borg_uses_dynamic_calcs=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-dyn-mage 12345 1 1 100000 menu,cheat,borg_uses_dynamic_calcs=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-dyn-priest 103 5 3 100000 menu,cheat,borg_uses_dynamic_calcs=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-wdam-war 42 0 0 100000 menu,cheat,borg_worships_damage=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-wspeed-war 42 0 0 100000 menu,cheat,borg_worships_speed=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-whp-war 42 0 0 100000 menu,cheat,borg_worships_hp=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-wmana-rogue 2006 3 6 1000000 menu,cheat,borg_worships_mana=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-wac-war 2000 0 0 100000 menu,cheat,borg_worships_ac=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-wgold-war 2000 0 0 200000 menu,cheat,borg_worships_gold=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-risky-war 42 0 0 100000 menu,cheat,borg_plays_risky=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-uniques-war 42 0 0 100000 menu,cheat,borg_kills_uniques=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-noswap-war 42 0 0 100000 menu,cheat,borg_uses_swaps=FALSE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-nodeeper-war 42 0 0 100000 menu,cheat,borg_no_deeper=3,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-stopdlevel-war 42 0 0 100000 menu,cheat,borg_stop_dlevel=2,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-stopclevel-war 42 0 0 100000 menu,cheat,borg_stop_clevel=5,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-autosave-war 42 0 0 100000 menu,cheat,borg_autosave=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-verbose-war 42 0 0 100000 menu,cheat,borg_verbose=TRUE,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-chest-war 2000 0 0 400000 menu,cheat,borg_chest_fail_tolerance=0,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-munchkin-limits-war 42 0 0 100000 menu,cheat,munchkin,borg_munchkin_level=5,borg_munchkin_depth=4,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-respawn-druid 1021 3 2 100000 menu,cheatlive,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "opt-respawn-random-druid 1021 3 2 100000 menu,cheatlive,borg_respawn_race=-1,borg_respawn_class=-1,terminal-save",
+      "source_suite": "options",
+      "suite_sha256": "8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5"
+    },
+    {
+      "line": "ext-rogue 4006 3 6 2000000 menu,cheat,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24"
+    },
+    {
+      "line": "end-depth50 6000 0 0 100000 menu,cheat,save=depth50.save,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/depth50.save",
+      "save_sha256": "3484f59f37c2bb305c9601ef229af74953b7631f11b335f904106b120987c180",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/depth50.save"
+    },
+    {
+      "line": "end-depth98 6001 0 0 100000 menu,cheat,save=depth98.save,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/depth98.save",
+      "save_sha256": "16b8f761bb027165cf1e9a9412f222129ad1ca0d19f37daa69bcb6e7cf131fd5",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/depth98.save"
+    },
+    {
+      "line": "end-depth99 6002 0 0 100000 menu,cheat,save=depth99.save,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/depth99.save",
+      "save_sha256": "7c7524f0da100db9dd53b88312ecc0b1eb6856acb10cb20369988296a5c5ed50",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/depth99.save"
+    },
+    {
+      "line": "end-depth100 6003 0 0 50000 menu,cheat,save=depth100.save,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/depth100.save",
+      "save_sha256": "d10a369510ad195eeb029c8d84f5a477b7e0dd753f8496ee3f23c99575b4c6f5",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/depth100.save"
+    },
+    {
+      "line": "end-near-morgoth 6004 0 0 20000 menu,cheat,save=morgoth.save,terminal-save",
+      "source_suite": "crash-fixes",
+      "suite_sha256": "dc4f9bd979bbfdc746b47420a28ac8bc16dfd500b60229dd90316455d1faae24",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/morgoth.save",
+      "save_sha256": "3e63fbc0013d79a68485bcecb8700c0481927d8621454528517853f445cbd574",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/morgoth.save"
+    },
+    {
+      "line": "glyph-known-rune 7201 0 0 15 menu,finalsave,save=glyph-visible-rune.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-visible-rune.save",
+      "save_sha256": "c5412a4b576496c96449d92419f1774476b0c37c5b3a46e740cf1c95f0e13acd",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-visible-rune.save"
+    },
+    {
+      "line": "glyph-known-decoy 7201 0 0 15 menu,finalsave,save=glyph-decoy.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-decoy.save",
+      "save_sha256": "dcb34e971a615e473984b0e45bb0240ad0e9dbea12e2a86591362445b971a6cb",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-decoy.save"
+    },
+    {
+      "line": "glyph-known-trap 7201 0 0 15 menu,finalsave,save=glyph-visible-trap.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-visible-trap.save",
+      "save_sha256": "811d78da69b124ee30eadbfe4c3b05b934159a94a5ed250b4f4e98b105d99e66",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-visible-trap.save"
+    },
+    {
+      "line": "glyph-hidden-rune 7201 0 0 15 menu,finalsave,save=glyph-hidden-rune.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-hidden-rune.save",
+      "save_sha256": "eab359438c913de06827871a8f50e3b795d47588852e02c8db950e0048fa74be",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-hidden-rune.save"
+    },
+    {
+      "line": "glyph-empty-floor 7201 0 0 15 menu,finalsave,save=glyph-low-supply.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-low-supply.save",
+      "save_sha256": "1db90931df679ed7d58990bf96e734a34e87f0291cf050250c5f39dc9afb417c",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-low-supply.save"
+    },
+    {
+      "line": "glyph-prelaid-ring 7201 0 0 15 menu,finalsave,save=glyph-complete.save",
+      "source_suite": "glyph-recognition",
+      "suite_sha256": "88f1c7f1f6daa2c6670b3923f1bab586b4129ca8da5e073f8e5f15f5227230f4",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-recognition/glyph-complete.save",
+      "save_sha256": "5f3d1f3412d90d14957b964c2d22e678f2d14494333e9450e15b21a5ef96c0ab",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-complete.save"
+    },
+    {
+      "line": "glyph-build-ready 7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-ready.save",
+      "source_suite": "glyph-construction",
+      "suite_sha256": "2e974de1c281a074a54ab9ec406f5edffcfe6e246e9aec495d16a4750efe0b0f",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-construction/glyph-build-ready.save",
+      "save_sha256": "68259de6cc96a8b65846d1efa37f89fd56f356873404672db70a7b64203bbda2",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-build-ready.save"
+    },
+    {
+      "line": "glyph-build-supply 7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-low-supply.save",
+      "source_suite": "glyph-construction",
+      "suite_sha256": "2e974de1c281a074a54ab9ec406f5edffcfe6e246e9aec495d16a4750efe0b0f",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-construction/glyph-build-low-supply.save",
+      "save_sha256": "c1432dd87e4eba837b30639817c43986d2586ed23ed2aee82d0210fd0994e8a6",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-build-low-supply.save"
+    },
+    {
+      "line": "glyph-build-prelaid 7300 0 0 500 menu,finalsave,rune-pattern,save=glyph-build-complete.save",
+      "source_suite": "glyph-construction",
+      "suite_sha256": "2e974de1c281a074a54ab9ec406f5edffcfe6e246e9aec495d16a4750efe0b0f",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/glyph-construction/glyph-build-complete.save",
+      "save_sha256": "3a34473642ba0f29b9a3da5ff828268d307c58aeead3d96bb3153416347ae8e3",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/glyph-build-complete.save"
+    },
+    {
+      "line": "natural-warrior-78 2007 0 0 3100001 menu,cheat,save=ext-long-warrior-2007-checkpoint-000003-t0003000001.save,terminal-save",
+      "source_suite": "natural",
+      "suite_sha256": "d93d033b6ab561fe0cd40971893c724066841c46c409a491b9e591beac7d4f51",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/captured-extended/ext-long-warrior-2007-checkpoint-000003-t0003000001.save",
+      "save_sha256": "004d869f8605b04729f15ad14bfa7e71278b244500709b82974cea741f1f702a",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/ext-long-warrior-2007-checkpoint-000003-t0003000001.save"
+    },
+    {
+      "line": "natural-blackguard-40 3100 8 8 3100387 menu,cheat,save=ext-long-blackguard-3100-checkpoint-000003-t0003000387.save,terminal-save",
+      "source_suite": "natural",
+      "suite_sha256": "d93d033b6ab561fe0cd40971893c724066841c46c409a491b9e591beac7d4f51",
+      "save_source": "/home/diego/projects/borg-rs/harness/saves/captured-extended/ext-long-blackguard-3100-checkpoint-000003-t0003000387.save",
+      "save_sha256": "290bf6f9f36f172b8697682ed091ffe6b224edf02418417a18b29c61c589e829",
+      "save_copy": "/home/diego/projects/borg-rs/harness/out/c-m2/fixtures/ext-long-blackguard-3100-checkpoint-000003-t0003000387.save"
+    },
+    {
+      "line": "live-warrior 8400 0 0 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-mage 8401 10 1 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-druid 8402 1 2 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-priest 8403 6 3 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-necromancer 8404 7 4 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-paladin 8405 8 5 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-rogue 8406 3 6 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-ranger 8407 1 7 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    },
+    {
+      "line": "live-blackguard 8408 4 8 100000 menu,terminal-save,key-limit=50000",
+      "source_suite": "normal-live",
+      "suite_sha256": "0f08091c058c83e1f6934b099d4a22a31d68e111ad70229da53a6a428a8f49b1",
+      "original_recording_flags": "menu,living-save,key-limit=50000",
+      "recording_adjustment": "terminal-save replaces living-save; observation only after decisions stop; all nine ordinary inputs repeated"
+    }
+  ],
+  "wall_seconds": 300,
+  "captures": "terminal native save for every case; all other flags/inputs/budgets unchanged",
+  "effective_suite_file": "/home/diego/projects/borg-rs/harness/out/c-m2/adoption-suite-final",
+  "effective_suite_sha256": "9428a8085d6d8828312b57323e8b04d2ac639596cbffec33cce0cd1dbd402dd8"
+}

@@ -1,0 +1,2 @@
+flags=menu,terminal-save
+borg_txt_sha256=4af80b474f26658c4da937b66d04e0ac528e7624b6dc70aa21bc26306d8e7d65

@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "c_milestone_selection_pending",
+  "phase": "c_m2_carried_review_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -8,11 +8,44 @@
   "historical_m4": "3923a21e75dfb94053d4cc787d81c5baf638d62e",
   "post_m5_delivery_source": "https://github.com/diegoami/better-borg-c",
   "source_tracker_role": "historical/source provenance; no independent post-M5 Rust adoption queue",
-  "accepted_c_target": null,
-  "adopted_batches": [],
+  "accepted_c_target": {
+    "milestone": 2,
+    "repository": "https://github.com/diegoami/better-borg-c",
+    "commit": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+    "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+    "review": "https://github.com/diegoami/better-borg-c/issues/38#issuecomment-6705894080",
+    "verdict": "approved; observations only; no required M2 fixes",
+    "owner_selection": "2026-11-08: start carrying milestone 2 bug fixes",
+    "rust_tracking_issue": "https://github.com/diegoami/borg-rs/issues/6",
+    "review_package_commit": "9929eb4eb16412ef2415a5711a3eecab92fa1288"
+  },
+  "adopted_batches": [
+    {
+      "id": "c-m2",
+      "target_commit": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+      "state": "carried_validated_review_pending",
+      "fixes": 7,
+      "source_issues": [
+        82,
+        14,
+        110,
+        26,
+        78,
+        77,
+        102
+      ],
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/6",
+      "receipt": "docs/validation/2026-11-08-c-m2/README.md",
+      "game_cases": 131,
+      "full_native_saves": 131,
+      "native_correctness_cases": 49,
+      "shared_environment_kernel_cases": 1785,
+      "rust_milestone_accepted": false
+    }
+  ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Select and pin an accepted better-borg-c milestone, reconcile the patch ledger and plan the first bounded C/Rust adoption batch",
+  "next_action": "Accumulated Rust review on issue6 of the seven C M2 carries and their source-qualified validation; owner decides acceptance. No later C milestone or new tag inferred.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -34,5 +67,14 @@
     "date": "2026-11-07",
     "recorded_at": "https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628",
     "tagging_delegated": true
+  },
+  "active_batch": {
+    "id": "c-m2",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/6",
+    "starting_rust_main": "379728289dbce6c2ba2d017073d5d639bcbbd65c",
+    "state": "implemented_validated_review_pending",
+    "ledger": "docs/adoption/c-m2/ledger.json",
+    "receipt": "docs/validation/2026-11-08-c-m2/README.md",
+    "reference": "harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f"
   }
 }

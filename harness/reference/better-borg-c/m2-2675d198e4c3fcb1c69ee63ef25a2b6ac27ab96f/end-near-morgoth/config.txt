@@ -1,0 +1,3 @@
+flags=menu,cheat,save=morgoth.save,terminal-save
+borg_txt_sha256=576f17d081493f21addc5ca3c84e11b7836a8984557b755616e5fcb5fdb4ad51
+save_sha256=3e63fbc0013d79a68485bcecb8700c0481927d8621454528517853f445cbd574

@@ -1,0 +1,305 @@
+{
+  "passed": true,
+  "counts": {
+    "repeats": 49,
+    "unchanged_controls": 32,
+    "fail_before_pass_after": 17
+  },
+  "rows": [
+    {
+      "fixture": "swap",
+      "mode": "armour-better",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "swap",
+      "mode": "weapon-better",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "swap",
+      "mode": "armour-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "swap",
+      "mode": "weapon-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "swap",
+      "mode": "tie",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "swap",
+      "mode": "no-benefit",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "swap",
+      "mode": "fire-armour",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "swap",
+      "mode": "electric-weapon",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "swap",
+      "mode": "both-helpful",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "knockout",
+      "mode": "knockout",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "knockout",
+      "mode": "heavy-stun",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "knockout",
+      "mode": "paralysis",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "knockout",
+      "mode": "none",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "regen-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "preparation",
+      "mode": "speed-wins",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "preparation",
+      "mode": "speed-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "already-active",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "unlearned",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "blind",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "confused",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "town",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "preparation",
+      "mode": "low-mana",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "cold",
+      "mode": "acid-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "cold",
+      "mode": "cold-only",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "cold",
+      "mode": "neither",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "cold",
+      "mode": "both",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "cold",
+      "mode": "physical-acid-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "cold",
+      "mode": "physical-cold-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "rings",
+      "mode": "left-ready",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "rings",
+      "mode": "right-charging-left-ready",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "rings",
+      "mode": "right-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "rings",
+      "mode": "both-ready",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "rings",
+      "mode": "left-charging",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "rings",
+      "mode": "no-ring",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "rings",
+      "mode": "blind-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "potion",
+      "mode": "long-gap",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "potion",
+      "mode": "recent",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "potion",
+      "mode": "boundary-four",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "potion",
+      "mode": "same-turn",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "potion",
+      "mode": "bypass-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "potion",
+      "mode": "reserve-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "potion",
+      "mode": "empty-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "potion",
+      "mode": "first-use",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "potion",
+      "mode": "first-turn",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "name",
+      "mode": "named-dragon",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": false
+    },
+    {
+      "fixture": "name",
+      "mode": "ogre-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "name",
+      "mode": "unseen-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "name",
+      "mode": "it-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    },
+    {
+      "fixture": "name",
+      "mode": "lower-it-control",
+      "fixed_repeat_identical_after_profile_relocation": true,
+      "unchanged_control": true
+    }
+  ],
+  "normalization": "Only the literal isolated PROFILE directory prefix is aliased; raw logs retained"
+}

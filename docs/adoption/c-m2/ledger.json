@@ -1,0 +1,216 @@
+{
+  "consumer_commit": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+  "issue": "https://github.com/diegoami/borg-rs/issues/6",
+  "prior_rust_milestone": "020322749026418a666da3209c169f48ec9d608c",
+  "starting_main": "379728289dbce6c2ba2d017073d5d639bcbbd65c",
+  "retained_local_corrections": [
+    287,
+    290,
+    322,
+    295,
+    345
+  ],
+  "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "patches": [
+    {
+      "id": "CBUG-0066",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/4",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/82",
+      "source_head": "ebcd255ba9064fc44a35d693f42f9df3dc00bd88",
+      "source_commits": [
+        "66e1012113fd7db634b19ffe86a470b58a7f7967",
+        "017ba47ebc8731fa0a61361a6f6777759a748d2a",
+        "ebcd255ba9064fc44a35d693f42f9df3dc00bd88"
+      ],
+      "applied_commits": [
+        "9c10b9b6a475b452c854bd480d87d06ad8226d1b",
+        "5aeae57a3484d6c5bb593fcccbf1cabd480728d7",
+        "39986cc52f3f70727ada24b6def5de98d0bd36c8"
+      ],
+      "patch": "patches/0001-safer-emergency-swap.patch",
+      "patch_active": true,
+      "evidence_ref": "1b67370d0dc56d9b7ef34e5356e63d21a7095545",
+      "verification": "docs/measurement/SAFER-SWAP.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_item_wear.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0001-c.patch",
+        "rust": "removals/0001-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0002",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/7",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/14",
+      "source_head": "6f463d01d753089ab695537495ab27f3bc928dfa",
+      "source_commits": [
+        "32ab6823c6a993d94ce382b72f8a855a20f7911c",
+        "6f463d01d753089ab695537495ab27f3bc928dfa"
+      ],
+      "applied_commits": [
+        "8f320210924ffae36a4b592a988982fa7947ad79",
+        "0009ecddcd02b95ac02d63ff43c4c4f95db67b87"
+      ],
+      "patch": "patches/0002-knockout-reaction-reset.patch",
+      "patch_active": true,
+      "evidence_ref": "3de1e3123915587483395dd40c4d2e75704e65f4",
+      "verification": "docs/measurement/KNOCKOUT.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0002-c.patch",
+        "rust": "removals/0002-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0094",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/15",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/110",
+      "source_head": "31a042d00581ed914d30f17cca1ed0e70e99d21f",
+      "source_commits": [
+        "31a042d00581ed914d30f17cca1ed0e70e99d21f"
+      ],
+      "applied_commits": [
+        "0e76ee35138b309ceb3ed43a6427f2baa42e6d1f"
+      ],
+      "patch": "patches/0003-regen-simulation.patch",
+      "patch_active": true,
+      "evidence_ref": "a19c8733c0dfa8139b04eecd8117429ec5f55cd6",
+      "verification": "docs/measurement/PREPARATION.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_fight_perm.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0003-c.patch",
+        "rust": "removals/0003-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0004",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/17",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/26",
+      "source_head": "d504eb3d272ce96c0de2c00eba757a251b551334",
+      "source_commits": [
+        "d504eb3d272ce96c0de2c00eba757a251b551334"
+      ],
+      "applied_commits": [
+        "2827b28fc378cbba32aaab30163756b64dea36b0"
+      ],
+      "patch": "patches/0004-cold-melee-protection.patch",
+      "patch_active": true,
+      "evidence_ref": "b0b0fa2471a11e91838bcbc3d980f4b04f8c6b01",
+      "verification": "docs/measurement/COLD-PROTECTION.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_danger.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0004-c.patch",
+        "rust": "removals/0004-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0062",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/20",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/78",
+      "source_head": "46c14b2828ed751ff8be7ac67df93b28cdc15f87",
+      "source_commits": [
+        "46c14b2828ed751ff8be7ac67df93b28cdc15f87"
+      ],
+      "applied_commits": [
+        "c3f631068ee9016c53e2a3598a298b64d2296f6a"
+      ],
+      "patch": "patches/0005-both-ring-slots.patch",
+      "patch_active": true,
+      "evidence_ref": "bfe3fc402e8ae6cdec74d8b35fa8f50e612f2a8e",
+      "verification": "docs/measurement/BOTH-RINGS.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_item_use.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0005-c.patch",
+        "rust": "removals/0005-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0061",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/31",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/77",
+      "source_head": "cedf25eb790f2ff7c7c161cd1612b18ed99fb35e",
+      "source_commits": [
+        "cedf25eb790f2ff7c7c161cd1612b18ed99fb35e"
+      ],
+      "applied_commits": [
+        "5e9417be42cb1401708a7a37ec1b13641bc04b83"
+      ],
+      "patch": "patches/0006-healing-potion-timing.patch",
+      "patch_active": true,
+      "evidence_ref": "cce1d5d92079e78e939126d3cf35e24121442734",
+      "verification": "docs/measurement/POTION-TIMING.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_item_use.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0006-c.patch",
+        "rust": "removals/0006-rust.patch"
+      }
+    },
+    {
+      "id": "CBUG-0086",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/36",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/102",
+      "source_head": "cad765806eed6431642ab02b53240d7938470c21",
+      "source_commits": [
+        "cad765806eed6431642ab02b53240d7938470c21"
+      ],
+      "applied_commits": [
+        "3d12dc5306be7d032332f3a9a6e6732261b432c0"
+      ],
+      "patch": "patches/0007-exact-unseen-name.patch",
+      "patch_active": true,
+      "evidence_ref": "b61f6b611600fdbc4c6370fff3ac2835ee77017f",
+      "verification": "docs/measurement/ITANGAST.md",
+      "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+      "reconciliation": "new correction; absent in pre-adoption C/Rust; independent of retained local287/290/322/295/345",
+      "rust_module": "borg-rs/src/borg_flow_kill.rs",
+      "disposition": "carried in C/Rust; source-qualified native/kernel/game validation passed; accumulated review pending",
+      "local_removal_units": {
+        "c": "removals/0007-c.patch",
+        "rust": "removals/0007-rust.patch"
+      }
+    }
+  ],
+  "imported_files_sha256": {
+    "docs/adoption/c-m2/patches/0002-knockout-reaction-reset.patch": "eb7bdfb47fa4d2414f3b195d94a0d4baa82883fde6bb9151af4eb39139d0a2a7",
+    "docs/adoption/c-m2/patches/0003-regen-simulation.patch": "66ee81e0b2269ae4838d3425257b86043e1f9b0c9105ba8d74475bf56a40d5c8",
+    "docs/adoption/c-m2/patches/0007-exact-unseen-name.patch": "c7ad0d1785cefb0bb44ebaa363ece8ebc1946b0cf8132c6446b107b17671da8a",
+    "docs/adoption/c-m2/patches/0005-both-ring-slots.patch": "8a61a78f4c4b58af50d237fe0d10fad5c27b4b8ada4d3725ec107da9ba6d6817",
+    "docs/adoption/c-m2/patches/0004-cold-melee-protection.patch": "b032551b9c8b23fc42933f8a38fb08f5b48ffea0fd713951bf640f0654d8d75a",
+    "docs/adoption/c-m2/patches/0001-safer-emergency-swap.patch": "7544e22ca8300d9362819dfc5dfdc6a1da3ecf05be13501b28f2012d7d50ed57",
+    "docs/adoption/c-m2/patches/0006-healing-potion-timing.patch": "9bf0eed14d6d1bfcaf2c1b534d99404bbea40bac9d47b95ea172f7891279e250",
+    "harness/adoption/m2/fixtures/manifest.json": "659605ab38d1a1a2721c10a540d64ad717731ae3f1d999510e693fb2cf089439",
+    "harness/adoption/m2/fixtures/name/scenario.c": "9813e137cc3984618ad756829f87d32828c0a2dcb19f498560430052b509b7e1",
+    "harness/adoption/m2/fixtures/name/borg.txt": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+    "harness/adoption/m2/fixtures/rings/scenario.c": "17c1826a2bc1c781ec23fcc889164ad8934a7845ada7d6bdb8948a5600ffec60",
+    "harness/adoption/m2/fixtures/rings/borg.txt": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+    "harness/adoption/m2/fixtures/preparation/scenario.c": "941d9caa9f00b67336ad4dd92d78951ee74ff5bc781bcca9c9763ef4b62dbc9e",
+    "harness/adoption/m2/fixtures/preparation/borg.txt": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+    "harness/adoption/m2/fixtures/potion/scenario.c": "e625fb2fdcc9c2f89f2b3744539e4eea8a713d3a44966badfa4c24e3ad929fcb",
+    "harness/adoption/m2/fixtures/potion/borg.txt": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+    "harness/adoption/m2/fixtures/knockout/scenario.c": "dc59861e6efb69fd9d1212651bc66839f37e8adfff123727f137a7351975e727",
+    "harness/adoption/m2/fixtures/knockout/borg.txt": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+    "harness/adoption/m2/fixtures/cold/scenario.c": "ec0caa6a646af64d291aaf7e43b249c5265f8419a6f37f6ee9fa0c9dbe61f966",
+    "harness/adoption/m2/fixtures/cold/borg.txt": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+    "harness/adoption/m2/fixtures/swap/scenario.c": "b26f955689acaf552545019189ade029e82344a0c508d9c77d5b1581015a70b6",
+    "harness/adoption/m2/fixtures/swap/borg.txt": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c"
+  },
+  "review_package_commit": "9929eb4eb16412ef2415a5711a3eecab92fa1288",
+  "validation_receipt": "docs/validation/2026-11-08-c-m2/README.md"
+}

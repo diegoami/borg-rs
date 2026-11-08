@@ -1,0 +1,11 @@
+{
+  "consumer_pin": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+  "affected_c_files_equal_pin": {
+    "borg-danger.c": "bad414fee0b7b1cedf694f0726ad4b10bb97bf3717032e80472777eb89adbe58",
+    "borg-fight-perm.c": "7ac6bb54192d2dae6a4dfe82d93c3ba0c7d3f7b796a60cede58190010582bba7",
+    "borg-flow-kill.c": "0489bc679403e0fc497ce982567b9fc8f5b782f13914e172b17f066765dd3897",
+    "borg-item-use.c": "2d8da67d6140167531e9a1a953845492b052e272c004b003917ba4a07510f294",
+    "borg-item-wear.c": "7f6d4eb2e5e33139f23786a2cf51031418f5d3c214a78eb1723aa203c1acb750",
+    "borg.c": "fccea5be3bb31c1e3a8e2aecd4a209fc2877abc2845f64cf98cf343550a1e972"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "seed": 42,
+  "race": "Human",
+  "race_idx": 0,
+  "class": "Warrior",
+  "class_idx": 0,
+  "menu_letters": true,
+  "stop_reason": "turns",
+  "game_turns": 100004,
+  "player_turns": 12811,
+  "resting_turns": 232,
+  "clevel": 8,
+  "max_depth": 4,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 24321,
+  "wall_seconds": 49.333
+}

@@ -11,7 +11,9 @@ The reviewer independently verified M1/L1/L2 fixes and I1/I2/I3/Q1 follow-ups.
 [Owner accepted and delegated tagging](https://github.com/diegoami/borg-rs/issues/2#issuecomment-6712169628) on2026-11-07. Annotated tag **m5** is pushed at the verified follow-up; review#2 is closed as completed. Later
 status/documentation commits do not change the verified source or inherit
 an independent verdict for new runtime behavior.
-M5 is accepted/tagged. The first better-borg-c gameplay milestone remains unselected.
+M5 is accepted/tagged. On2026-11-08 the owner selected C milestone2 at
+2675d198e for the next bounded adoption: [Rust#6](https://github.com/diegoami/borg-rs/issues/6),
+[current batch state](adoption/c-m2/README.md). The frozen M5 scope below is unchanged.
 
 M1-M4 remain historical accepted/recorded checkpoints. M4's qualified pass,
 closed review#1 and its D/E limits remain intact. This review assesses the

@@ -1,0 +1,18 @@
+{
+  "seed": 2004,
+  "race": "Human",
+  "race_idx": 10,
+  "class": "Necromancer",
+  "class_idx": 4,
+  "stop_reason": "turns",
+  "game_turns": 1000146,
+  "player_turns": 100751,
+  "resting_turns": 81054,
+  "clevel": 8,
+  "max_depth": 3,
+  "depth": 0,
+  "dead": false,
+  "death_cause": "",
+  "keys": 50048,
+  "wall_seconds": 54.698
+}

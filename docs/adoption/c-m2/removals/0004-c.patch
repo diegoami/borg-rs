@@ -1,0 +1,12 @@
+diff --git a/angband/src/borg/borg-danger.c b/angband/src/borg/borg-danger.c
+--- a/angband/src/borg/borg-danger.c
++++ b/angband/src/borg/borg-danger.c
+@@ -266,7 +266,7 @@ static int borg_danger_physical(int i, bool full_damage)
+             power = 10;
+             if (borg.trait[BI_RCOLD])
+                 z = (z + 2) / 3;
+-            if (borg.temp.res_acid)
++            if (borg.temp.res_cold)
+                 z = (z + 2) / 3;
+             /* Add fear for the effect */
+             z = z * 2;

@@ -1,0 +1,2 @@
+flags=menu,terminal-save,key-limit=50000
+borg_txt_sha256=12dab38ddc1c2d669f9503a2cdcaa4640b565a8c0afb5685a3cb4bb2e562cde0

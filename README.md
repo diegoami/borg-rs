@@ -3,7 +3,10 @@
 Current checkpoint: owner-accepted [M5](docs/M5-PLAN.md), tag `m5` at
 `0203227`, with independent pass and [review#2 closed](https://github.com/diegoami/borg-rs/issues/2).
 Subsequent development follows [verified better-borg-c milestones](docs/C-CONSUMER-ADOPTION.md).
-M4 remains accepted; no new C gameplay baseline is selected yet.
+M4 remains accepted. The owner selected C milestone2's seven fixes at
+`2675d198e`; adoption/validation is tracked on [issue#6](https://github.com/diegoami/borg-rs/issues/6)
+and [the batch ledger](docs/adoption/c-m2/README.md). No new Rust milestone
+acceptance is inferred.
 
 A faithful Rust port of the Angband Borg (`angband/src/borg/`). It is verified by
 checking that, for the same seed and the same unmodified C engine, the Rust Borg

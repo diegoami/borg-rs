@@ -1,0 +1,3 @@
+flags=menu,finalsave,save=glyph-visible-trap.save
+borg_txt_sha256=f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419
+save_sha256=811d78da69b124ee30eadbfe4c3b05b934159a94a5ed250b4f4e98b105d99e66

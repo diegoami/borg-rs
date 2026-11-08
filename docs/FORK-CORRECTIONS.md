@@ -5,8 +5,11 @@ review, then [C-CONSUMER-ADOPTION.md](C-CONSUMER-ADOPTION.md) governs the new
 lane. After M5 acceptance, accepted better-borg-c milestones become the pinned
 adoption baseline; neo source links stay provenance. This supersedes treating
 the old source-tracker queue or pristine version as the automatic post-M5 target.
-No C gameplay target or tag is selected by this documentation. The narrow
-crash/play-blocker policy remains, with explicit coordination and evidence.
+The owner selected C milestone2 on2026-11-08: seven fixes at2675d198e,
+tracked on [Rust#6](https://github.com/diegoami/borg-rs/issues/6) with full
+provenance/state in [adoption/c-m2](adoption/c-m2/README.md). No new Rust tag
+or milestone acceptance is inferred. The narrow crash/play-blocker policy
+remains, with explicit coordination and evidence.
 
 The sections below record the original M4 and post-M4 correction history.
 

@@ -1,5 +1,46 @@
 # Local checkpoint — 2026-11-08
 
+## C milestone2 adoption
+
+Owner selected better-borg-c milestone2 bug fixes and requested Rust#6.
+Target runtime2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f, distinct reviewed
+package9929eb4eb16412ef2415a5711a3eecab92fa1288; C approval38/comment6705894080.
+Seven fixes are mirrored in six C/six Rust files. All six C files equal the
+target blobs; local287/290/322/295/345 remain. No later C milestone, strategy,
+tag or original death identity is changed. C approval is not Rust signoff;
+actual batch state lives in docs/adoption/status.json and adoption/c-m2.
+
+Original native49:32pass before/49after in C twice;17changed cases and32
+unchanged controls (only isolated PROFILE path literal aliased). Selected
+production-body/seam checker:1,785 C/Rust comparisons under C UBSan and9
+rejected actual Rust faults, including independent ring loops and first-use
+potion sentinel. This is not native Rust49 or whole-private-Borg equivalence.
+A NUL boundary in the first name translation was caught/corrected. Release
+100pass/one existing ignored, clippy, existing checker/12faults+UBSan,
+14 independent C/Rust removal reverse checks and no-C-Borg audit pass.
+Production link has154engine objects; two unlinked unit helpers make156
+matching stored engine/test objects after native fixture builds.
+
+Validation root:harness/out/c-m2; final Rust image:build/rust-m2, exact source/
+binary hashes in BUILD_ID and the final receipt.131-case game plan keeps
+original inputs/budgets/full terminal saves. Initial C/C/old-Rust sweeps each
+retain3wall timeouts and11suite-specific save-path preflight failures. Private
+hashed fixture union supplies11successful C/C/final-Rust repeats. Lower-
+concurrency C repeats reach the deep Ranger, Blackguard munchkin and2M Rogue
+limits within unchanged300s budgets. Final Rust pass is separate from the
+initial name-guard variant; never relabel original failed suites successful.
+
+harness/adoption/m2/compare.py makes attributed case views only after fresh
+strict C/C/Rust diffs and whole-save comparisons, validates source/binary/
+input/config/budgets, retains excluded failures and rejects one C execution
+reused as two repeats.8 controls pass. Final join131/131 C/C/Rust matches all
+three logs and full native saves; exported target references read back exactly.
+Ordinary9 inputs were uniformly re-recorded with terminal-save instead of
+living-save (27 unchanged three-log/summary controls); initial load hashes use
+pre-launch config.txt and mutable autosaves are also compared. Target references
+stay separate from M4/M5. Receipt:docs/validation/2026-11-08-c-m2. Issue6 holds
+delivery and accumulated review; no new Rust milestone/tag acceptance inferred.
+
 ## Human takeover tooling
 
 Owner authorized playing from a recorded turn, then explicitly delegated D6
@@ -68,9 +109,8 @@ Annotated tag objectf1cdf2167ef1f66fda15afc6aecbbffbb7553dc4 is pushed/verified;
 M4 remains accepted/unchanged. Preserve earlier reviewer worktrees/evidence.
 
 Read M5-PLAN.md, C-CONSUMER-ADOPTION.md and adoption/status.json before
-continuing. The active next step is selection/pinning of an accepted
-better-borg-c bug-fixing milestone. No C gameplay target or adoption batch
-is selected yet; do not substitute a moving head or tooling pin. Author/
+continuing. The owner selected C milestone2; see the active batch above.
+Do not substitute a moving head or tooling pin. Author/
 reviewer evidence and dispositions remain on closed review#2. A later
 runtime change needs its own source-qualified validation, not inherited signoff.
 

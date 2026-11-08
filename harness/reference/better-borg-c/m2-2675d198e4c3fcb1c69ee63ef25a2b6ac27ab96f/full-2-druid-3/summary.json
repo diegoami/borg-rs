@@ -1,0 +1,18 @@
+{
+  "seed": 1023,
+  "race": "Dwarf",
+  "race_idx": 5,
+  "class": "Druid",
+  "class_idx": 2,
+  "stop_reason": "turns",
+  "game_turns": 100489,
+  "player_turns": 10138,
+  "resting_turns": 2491,
+  "clevel": 6,
+  "max_depth": 2,
+  "depth": 2,
+  "dead": false,
+  "death_cause": "",
+  "keys": 10380,
+  "wall_seconds": 19.188
+}

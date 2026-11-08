@@ -1,0 +1,18 @@
+{
+  "seed": 1071,
+  "race": "Half-Troll",
+  "race_idx": 8,
+  "class": "Warrior",
+  "class_idx": 7,
+  "stop_reason": "turns",
+  "game_turns": 100004,
+  "player_turns": 10164,
+  "resting_turns": 193,
+  "clevel": 8,
+  "max_depth": 5,
+  "depth": 2,
+  "dead": false,
+  "death_cause": "",
+  "keys": 13148,
+  "wall_seconds": 29.381
+}

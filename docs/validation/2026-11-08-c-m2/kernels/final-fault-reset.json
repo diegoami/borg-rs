@@ -1,0 +1,13 @@
+{
+  "passed": false,
+  "fault": "reset",
+  "case": 1765,
+  "mode": 5,
+  "input": [
+    1,
+    0,
+    0
+  ],
+  "c": "0 0 0 0 0 0 0\n",
+  "rust": "1 0 0 0 0 0 0\n"
+}

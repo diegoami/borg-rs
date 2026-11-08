@@ -1,0 +1,21 @@
+{
+  "seed": 1021,
+  "race": "Hobbit",
+  "race_idx": 3,
+  "class": "Necromancer",
+  "class_idx": 2,
+  "menu_letters": true,
+  "cheat_live": true,
+  "deaths": 2,
+  "stop_reason": "turns",
+  "game_turns": 100006,
+  "player_turns": 10101,
+  "resting_turns": 7170,
+  "clevel": 5,
+  "max_depth": 2,
+  "depth": 1,
+  "dead": false,
+  "death_cause": "",
+  "keys": 7019,
+  "wall_seconds": 12.273
+}

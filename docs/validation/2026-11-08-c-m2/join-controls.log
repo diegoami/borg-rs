@@ -1,0 +1,13 @@
+test_actual_captures_compare (test_join.JoinControls.test_actual_captures_compare) ... ok
+test_altered_budget_rejected (test_join.JoinControls.test_altered_budget_rejected) ... ok
+test_changed_full_save_rejected (test_join.JoinControls.test_changed_full_save_rejected) ... ok
+test_changed_state_stream_rejected (test_join.JoinControls.test_changed_state_stream_rejected) ... ok
+test_failed_process_cannot_pass (test_join.JoinControls.test_failed_process_cannot_pass) ... ok
+test_missing_message_stream_rejected (test_join.JoinControls.test_missing_message_stream_rejected) ... ok
+test_mutated_frozen_input_save_rejected_after_suite_rename (test_join.JoinControls.test_mutated_frozen_input_save_rejected_after_suite_rename) ... ok
+test_reusing_one_c_execution_rejected (test_join.JoinControls.test_reusing_one_c_execution_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 5.399s
+
+OK
