@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v5_accepted; c_m6_carried_review_pending",
+  "phase": "impact_v6_accepted",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -187,7 +187,7 @@
       "id": "c-m6",
       "target_commit": "b3c825c97c8aef18b252a7fb7d9b7dceef83d586",
       "consumer_tag": "4.2.6-impact-v6",
-      "state": "carried_validated_review_pending",
+      "state": "reviewed_qualified_pass_owner_accepted",
       "consumer_patches": 13,
       "carried_c_and_rust": 13,
       "source250": "already carried as 0012 (impact v3)",
@@ -200,12 +200,25 @@
       "rust_fault_controls_detected": "4/12 units",
       "implementation_commit": "30d1e4e",
       "starting_rust_main": "6b58a46444ab3f5d28cfd86c7ac820d54c762c47",
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": true,
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "6b2ef2d",
+        "comment": "https://github.com/diegoami/borg-rs/issues/15",
+        "findings_addressed_in": "975fdb0",
+        "tip_rerun": "975fdb0 builds: 131/131 parity, streams identical to 30d1e4e run"
+      },
+      "owner_acceptance": {
+        "instruction": "accept, merge and tag",
+        "date": "2026-11-08",
+        "tag": "4.2.6-impact-v6",
+        "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "C milestone6 carried on branch claude/wonderful-bell-3a7j6m (issue15): independent review, then owner acceptance (tag 4.2.6-impact-v6).",
+  "next_action": "Impact v6 (C milestone6) accepted; tag 4.2.6-impact-v6 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -232,7 +245,7 @@
     "id": "c-m6",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/15",
     "starting_rust_main": "6b58a46444ab3f5d28cfd86c7ac820d54c762c47",
-    "state": "implemented_validated_review_pending",
+    "state": "accepted_impact_v6",
     "ledger": "docs/adoption/c-m6/ledger.json",
     "receipt": "docs/validation/2026-11-08-c-m6/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"

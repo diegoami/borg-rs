@@ -18,6 +18,13 @@ engine, data, header or FFI changes. Builder: Ubuntu cc 13.3.0, rustc 1.97.0
 (recorded in the BUILD_IDs). `binary_sha256` is specific to that toolchain;
 `source_sha256` is the reproducibility anchor across environments.
 
+After the review's comment fixes (`975fdb0`, Rust comments only), both images
+were rebuilt cleanly ([C-BUILD_ID-975fdb0](C-BUILD_ID-975fdb0),
+[RUST-BUILD_ID-975fdb0](RUST-BUILD_ID-975fdb0)) and the full 131-case plan was
+rerun on them: 131/131 C/Rust parity, `harness/diff` exit 0, `matrix.py` PASS,
+and every stream of both roles is byte-identical to the `30d1e4e` run.
+[matrix.json](matrix.json) is the `975fdb0` run.
+
 ## Checks
 
 | Check | Result |

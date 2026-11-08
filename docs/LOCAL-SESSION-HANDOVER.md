@@ -457,3 +457,6 @@ already carried as 0012. Native 13→30/31 (recall-mana lowmana red both as the
 consumer asserts; adapted fixture flips), second C pass identical, 131/131
 C/Rust parity, harness/diff exit 0, 4/12 Rust fault units detected. Review
 and owner acceptance pending; not merged.
+Review (issue15): qualified pass, no blocker/major; findings addressed in
+975fdb0 and the 131-case plan rerun on its builds (identical streams).
+Owner: "accept, merge and tag" -> impact v6, tag `4.2.6-impact-v6`.
