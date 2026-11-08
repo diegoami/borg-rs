@@ -447,3 +447,13 @@ flowcache contract 19→30/30, native checker (flow kernel covers 0049),
 detected. Review and owner acceptance pending; not merged.
 Review (issue13): qualified pass, no blocker/major; findings addressed in
 b35d112. Owner: "accept, merge and tag" -> impact v5, tag `4.2.6-impact-v5`.
+
+## C milestone6 adoption (2026-11-08)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v5`, tracking
+borg-rs#15, record docs/adoption/c-m6, receipt docs/validation/2026-11-08-c-m6.
+All thirteen patches (0051-0063) carried in C and Rust; source250 overlap
+already carried as 0012. Native 13→30/31 (recall-mana lowmana red both as the
+consumer asserts; adapted fixture flips), second C pass identical, 131/131
+C/Rust parity, harness/diff exit 0, 4/12 Rust fault units detected. Review
+and owner acceptance pending; not merged.

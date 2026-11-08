@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v5_accepted",
+  "phase": "impact_v5_accepted; c_m6_carried_review_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -182,11 +182,30 @@
         "tag": "4.2.6-impact-v5",
         "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
       }
+    },
+    {
+      "id": "c-m6",
+      "target_commit": "b3c825c97c8aef18b252a7fb7d9b7dceef83d586",
+      "consumer_tag": "4.2.6-impact-v6",
+      "state": "carried_validated_review_pending",
+      "consumer_patches": 13,
+      "carried_c_and_rust": 13,
+      "source250": "already carried as 0012 (impact v3)",
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/15",
+      "receipt": "docs/validation/2026-11-08-c-m6/README.md",
+      "native_modes_before_after": "13/31 -> 30/31 (recallmana lowmana red both, as the consumer asserts; adapted fixture fail->pass)",
+      "game_cases": 131,
+      "c_rust_parity": 131,
+      "harness_diff_exit": 0,
+      "rust_fault_controls_detected": "4/12 units",
+      "implementation_commit": "30d1e4e",
+      "starting_rust_main": "6b58a46444ab3f5d28cfd86c7ac820d54c762c47",
+      "rust_milestone_accepted": false
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v5 (C milestone5) accepted; tag 4.2.6-impact-v5 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "C milestone6 carried on branch claude/wonderful-bell-3a7j6m (issue15): independent review, then owner acceptance (tag 4.2.6-impact-v6).",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -210,12 +229,12 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-m5",
-    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/13",
-    "starting_rust_main": "d3e94d3eb939ea9bf22a1a1ab2e8e38d60c78cf4",
-    "state": "accepted_impact_v5",
-    "ledger": "docs/adoption/c-m5/ledger.json",
-    "receipt": "docs/validation/2026-11-08-c-m5/README.md",
+    "id": "c-m6",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/15",
+    "starting_rust_main": "6b58a46444ab3f5d28cfd86c7ac820d54c762c47",
+    "state": "implemented_validated_review_pending",
+    "ledger": "docs/adoption/c-m6/ledger.json",
+    "receipt": "docs/validation/2026-11-08-c-m6/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"
   },
   "m2_active_batch_record": {
