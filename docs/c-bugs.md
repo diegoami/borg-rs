@@ -8,6 +8,14 @@ The seven milestone2 carries in [adoption/c-m2](adoption/c-m2/README.md)
 correct selected findings below in local C and Rust. Their source ownership
 and historical descriptions remain; consumer adoption is not upstream closure.
 
+The milestone3 carries in [adoption/c-m3](adoption/c-m3/README.md)
+(better-borg-c `702f091f6`, [Rust#8](https://github.com/diegoami/borg-rs/issues/8))
+correct further findings below; each affected section has a "Milestone3"
+bullet. Fixes the C lane found after these sections were written (caster
+grid in `borg_projectable_pure()`, glow-array bound in `borg_flow_light()`,
+trapped walls counted once in `borg_surrounded()`, both lunal flags cleared
+on the town/weak scum bail) are listed in that batch's ledger.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -275,6 +283,8 @@ with its issues.
   `borg_danger_one_kill(..., false)` calls.
 * Rust: milestone2/source26 corrects the COLD temporary resistance in
   `borg_danger.rs`; the other findings remain.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source64 resets `bolt` per spell and source67 reads
+  the Teleport Other list only below its count, in C and Rust.
 
 ## 18. Item value: stat bonuses tested as object flags (item analyze)
 
@@ -533,6 +543,9 @@ with its issues.
   written at index -1.
 * Rust (`borg_flow_glyph.rs`): all kept; an index of -1 panics instead
   of reading or writing outside the arrays.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): the failed-glyph handler now decrements `num` only
+  when it is positive and clears the tracked entry (source118), so it can
+  no longer go below 0 from that path.
 
 ## 30. Munchkin attacks leave the attack flags set (attack munchkin)
 
@@ -994,6 +1007,8 @@ with its issues.
   level's row array. `engine::square_iswarded` panics.
 * Rust (`borg_messages.rs`): all kept; the out-of-bounds reads and writes
   are panics.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source118 guards the failed-glyph handler (decrement
+  first, only when `num > 0`) in C and Rust.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#191 to diegoami/neo-angband-tracker#198.
 
@@ -1161,6 +1176,9 @@ with its issues.
   (same byte). Out-of-range table indexes (a negative stat index, a book
   number of -1, level 0 for `player_hp[lev - 1]`) panic where C would
   read or write out of bounds; none is reachable with valid game data.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source239 or-accumulates slay traits and sets the
+  `BI_WK_*` traits for multipliers of 5 or more; source238 adds the light
+  modifier once; source313 weighs one weapon in `borg_calc_blows()`.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#237 to diegoami/neo-angband-tracker#241.
 
@@ -1195,6 +1213,8 @@ with its issues.
 * Rust (`borg_think_dungeon.rs`): all kept. A grid outside the map
   panics (C reads outside `borg_grids`), and so does a negative
   `PACK_SLOTS - n` index (C reads before `borg_items`).
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source244 re-acquires the Borg's own grid before the
+  munchkin stair keys, in C and Rust.
 * Tracker: the duplicated loop is a comment on
   diegoami/neo-angband-tracker#232; the other three slips are
   diegoami/neo-angband-tracker#243, #244, #245.
@@ -1274,6 +1294,16 @@ with its issues.
   use 20.
 * Rust (`borg_fight_attack.rs`): all kept; the out-of-bounds reads and
   writes are panics.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): corrected in C and Rust — Dispel Life hurts only
+  living monsters (source248); dispels/beams no longer collect or break
+  as `rad == 10` bolts and a no-target launch returns 0 (source326); the
+  arc tests the scanned grid's angle (source253); a launch with no chosen
+  missile returns before using `b_k` (source254); Vampire Strike guards
+  `best_dist` (source257); the reserve-bolt veto scans every near monster
+  (source258); the final-teleport penalty applies once (source259);
+  ACID_BOLT3/DISPEL_ALL use their own activations (source260); Blind
+  Creature scores fear (source261); Staff Holy is an area dispel
+  (source262). `BF_ACT_WONDER`'s radius and the blast-loop edges remain.
 * Tracker: one lead per slip, in the order above (the last bullet is
   four):
   diegoami/neo-angband-tracker#247 to diegoami/neo-angband-tracker#263.
@@ -1320,6 +1350,8 @@ match current corrected C/C/Rust in keys/messages/state within the six-case
 `crash-fixes` suite. See `validation/2026-11-06-capacity/README.md`.
 The original-source description above is historical; original references
 are preserved and independent tracker verification remains explicit.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): consumer patch0025 (`ABS(n) * MB_CUR_MAX` bound) is not
+  imported; the local capacity-based correction above already covers it.
 
 ## 53. Queued detection can address a panel outside resized arrays (update)
 
@@ -1358,6 +1390,12 @@ At `26a96bee4570`, corrected seed4006 finishes 2,000,352 turns in C twice and Ru
 with identical keys/messages/state. See
 `validation/2026-11-06-capacity/README.md`. The original-source description
 above is historical; independent tracker verification remains explicit.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): the accepted C correction (patch0018) bounds-checks every
+  queued detection mark and the "cackles" reset against the current panel
+  count, dropping stale reactions. It supersedes the local equality reset:
+  that reset made a stale reaction stamp the new cave's panel (0,0) as
+  detected (detect-290 `stale` fixture). C and Rust return to the pristine
+  `>` reset plus the consumer guard; the original seed4006 2M run is rerun.
 
 ## 54. A stale monster on the player's square can stop melee play (fight-attack)
 
@@ -1383,6 +1421,8 @@ above is historical; independent tracker verification remains explicit.
   `validation/2026-11-06-melee/README.md`.
 * Tracker: diegoami/neo-angband-tracker#322. This is supplied consumer evidence,
   not independent tracker verification or upstream source resolution.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): consumer patch0027 is the same `!= 1` correction; the
+  local one is retained and not counted twice.
 
 ## 55. Calculator pointer-array allocations are not released (reported leads)
 
@@ -1406,6 +1446,8 @@ The C source is unchanged; no correction is proposed in this pass.
   out-of-memory or gameplay-consequence claim is made.
 * Tracker: one finding per distinct slip, in the order above:
   diegoami/neo-angband-tracker#323, #324 and #325.
+* Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): C carries all three releases (patches0026/0033/0034);
+  ASan/LSan fixtures show the leaks gone. Rust needs no change.
 
 ## 56. Glyph reverse flow can stop at the origin (reported lead)
 

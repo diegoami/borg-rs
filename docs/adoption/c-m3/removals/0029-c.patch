@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-trait.c b/angband/src/borg/borg-trait.c
+index 154eb38..ae2d118 100644
+--- a/angband/src/borg/borg-trait.c
++++ b/angband/src/borg/borg-trait.c
+@@ -1525,6 +1538,4 @@ static void borg_notice_equipment(void)
+                 && (borg.trait[BI_CLASS] == CLASS_NECROMANCER))
+                 borg.trait[BI_LIGHT]--;
+-
+-            borg.trait[BI_LIGHT] += item->modifiers[OBJ_MOD_LIGHT];
+         }
+ 

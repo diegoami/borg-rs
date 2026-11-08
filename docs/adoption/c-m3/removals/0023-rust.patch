@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -4294,5 +4279,7 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
+         BF_ACT_STAFF_HOLY => {
+             let dam = if tr(st, BI_CURHP) < tr(st, BI_MAXHP) / 2 { 500 } else { 120 };
+-            activation(st, act.staff_holy, 0, dam, BORG_ATTACK_DISP_EVIL, false)
++            /* The effect floods the area with goodness: an area-of-sight
++             * dispel, not a single-target bolt. */
++            activation(st, act.staff_holy, 10, dam, BORG_ATTACK_DISP_EVIL, false)
+         }
+ 

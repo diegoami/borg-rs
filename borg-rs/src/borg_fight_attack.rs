@@ -856,12 +856,10 @@ fn borg_launch_damage_one(st: &mut BorgState, i: i32, mut dam: i32, typ: i32, am
             }
         }
 
-        /*  Dispel life */
+        /*  Dispel life: the game's drain only hurts living monsters
+         * (nonliving is undead or nonliving). */
         BORG_ATTACK_DRAIN_LIFE => {
-            if !rf(r, RF_NONLIVING) {
-                dam = 0;
-            }
-            if !rf(r, RF_UNDEAD) {
+            if rf(r, RF_NONLIVING) || rf(r, RF_UNDEAD) {
                 dam = 0;
             }
         }
@@ -1603,13 +1601,13 @@ fn borg_launch_bolt_at_location(
         }
 
         /* Collect damage (bolts/beams) */
-        if rad <= 0 || rad == 10 {
+        if rad <= 0 {
             n += borg_launch_bolt_aux_hack(st, i32::from(ag.kill), dam, typ, ammo_location);
         }
 
         /* Check for arrival at "final target" */
         /* except beams, which keep going. */
-        if (rad != -1 && rad != 10) && (x == x2 && y == y2) {
+        if rad != -1 && (x == x2 && y == y2) {
             break;
         }
 
@@ -1865,7 +1863,7 @@ pub fn borg_launch_bolt(st: &mut BorgState, rad: i32, dam: i32, typ: i32, max: i
         i += 1;
     }
     if b_i == -1 {
-        return b_n;
+        return 0;
     }
 
     /* Reset Teleport Other variables */
@@ -2031,10 +2029,9 @@ fn borg_launch_arc_at_location(st: &mut BorgState, y: i32, x: i32, degrees: i32,
             }
 
             /* check on angle */
-            /* Reorient current grid for table access. (C uses the end of
-             * the path, `y`/`x`, not the current grid `ry`/`rx`) */
-            let n2y = y - y1 + 20;
-            let n2x = x - x1 + 20;
+            /* Reorient current grid for table access. */
+            let n2y = ry - y1 + 20;
+            let n2x = rx - x1 + 20;
 
             /* Find the angular difference (/2) between the lines to
              * the end of the arc's center-line and to the current grid.
@@ -2142,9 +2139,8 @@ fn borg_launch_arc(st: &mut BorgState, degrees: i32, dam: i32, typ: i32, mut max
 /// Simulate/Apply the optimal result of launching a missile
 /// (`borg_attack_aux_launch`).
 ///
-/// When no missile scores above -1 (every `borg_launch_bolt` finds no
-/// target) `b_n` stays 0 and `b_k` -1, and a real call goes on to
-/// `borg_items[-1]`: C reads before the array, Rust panics.
+/// When no missile is chosen (every `borg_launch_bolt` finds no target)
+/// `b_k` stays -1 and nothing is used.
 pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
     let mut b_n = 0;
     let mut b_k: i32 = -1;
@@ -2215,8 +2211,9 @@ pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
         }
     }
 
-    /* Nothing to use */
-    if b_n < 0 {
+    /* Nothing to use: no candidate missile was chosen, and b_n never goes
+     * negative once initialized to zero (candidates only raise it). */
+    if b_k < 0 {
         return 0;
     }
 
@@ -2678,22 +2675,20 @@ fn borg_attack_aux_spell_bolt_reserve(
          */
         if d < 7 {
             near_monsters += 1;
-        }
 
-        /* If it has too many hp to be taken out with this */
-        /* spell, don't bother trying */
-        /* NOTE: the +4 is because the damage is toned down
-        as an 'average damage' */
-        if i32::from(kill.power) > dam + 4 {
-            return 0;
-        }
+            /* If it has too many hp to be taken out with this */
+            /* spell, don't bother trying */
+            /* NOTE: the +4 is because the damage is toned down
+            as an 'average damage' */
+            if i32::from(kill.power) > dam + 4 {
+                return 0;
+            }
 
-        /* Do not use it in town */
-        if tr(st, BI_CDEPTH) == 0 {
-            return 0;
+            /* Do not use it in town */
+            if tr(st, BI_CDEPTH) == 0 {
+                return 0;
+            }
         }
-
-        break;
     }
 
     /* Should only be 1 near monster */
@@ -2786,12 +2781,6 @@ fn borg_attack_aux_spell_dispel(st: &mut BorgState, spell: borg_spells, dam: i32
     /* Really penalize use of mana needed for final teleport */
     let penalty = class_penalty(st);
     if tr(st, BI_MAXSP) > 30 && tr(st, BI_CURSP) - spell_power < penalty {
-        b_n -= spell_power * 750;
-    }
-
-    /* Really penalize use of mana needed for final teleport */
-    /* (6 pts for mage) */
-    if tr(st, BI_MAXSP) > 30 && (tr(st, BI_CURSP) - spell_power) < 6 {
         b_n -= spell_power * 750;
     }
 
@@ -3489,12 +3478,8 @@ fn borg_attack_aux_maim_foe(st: &mut BorgState) -> i32 {
 }
 
 /// trying the Vampire Strike spell (`borg_attack_aux_vampire_strike`)
-///
-/// The "require relatively close" test uses the distance of the *last*
-/// monster in the list, not of the closest one, as C.
 fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
     let mut b_i: i32 = -1;
-    let mut dist = 0;
     let mut best_dist = max_range();
 
     /* Can I do it */
@@ -3508,7 +3493,7 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
         let (y, x) = st.flow.temp_at(i as usize);
 
         /* closest distance */
-        dist = dist_to(st, x, y);
+        let dist = dist_to(st, x, y);
         if dist <= best_dist {
             best_dist = dist;
             b_i = i;
@@ -3522,7 +3507,7 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
     }
 
     /* Nothing to attack, require relatively close */
-    if dist >= 20 {
+    if best_dist >= 20 {
         return 0;
     }
 
@@ -3904,7 +3889,9 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
         ),
 
         /* Prayer -- blind creature */
-        BF_SPELL_BLIND_CREATURE => bolt(st, FRIGHTEN, 0, 10, BORG_ATTACK_OLD_CONF, mr),
+        /* Frighten is a fear effect; scoring it as confusion made the
+         * Borg expect a confused monster where the game applies fear. */
+        BF_SPELL_BLIND_CREATURE => bolt(st, FRIGHTEN, 0, 10, BORG_ATTACK_TURN_ALL, mr),
 
         /* Druid - Trance */
         BF_SPELL_TRANCE => borg_attack_aux_trance(st),
@@ -4258,8 +4245,7 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
 
         BF_ACT_ACID_BOLT2 => activation(st, act.acid_bolt2, 0, 10 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
 
-        /* (C uses act_acid_bolt2 here too) */
-        BF_ACT_ACID_BOLT3 => activation(st, act.acid_bolt2, 0, 12 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
+        BF_ACT_ACID_BOLT3 => activation(st, act.acid_bolt3, 0, 12 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
 
         BF_ACT_ACID_BALL => activation(st, act.acid_ball, 2, 120, BORG_ATTACK_ACID, true),
 
@@ -4279,8 +4265,7 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
 
         BF_ACT_DISPEL_UNDEAD => activation(st, act.dispel_undead, 10, 60, BORG_ATTACK_DISP_UNDEAD, false),
 
-        /* (C uses act_dispel_undead here) */
-        BF_ACT_DISPEL_ALL => activation(st, act.dispel_undead, 10, 60, BORG_ATTACK_DISP_ALL, false),
+        BF_ACT_DISPEL_ALL => activation(st, act.dispel_all, 10, 60, BORG_ATTACK_DISP_ALL, false),
 
         BF_ACT_LOSSLOW => activation(st, act.losslow, 10, 20, BORG_ATTACK_OLD_SLOW, false),
 
@@ -4293,7 +4278,9 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
 
         BF_ACT_STAFF_HOLY => {
             let dam = if tr(st, BI_CURHP) < tr(st, BI_MAXHP) / 2 { 500 } else { 120 };
-            activation(st, act.staff_holy, 0, dam, BORG_ATTACK_DISP_EVIL, false)
+            /* The effect floods the area with goodness: an area-of-sight
+             * dispel, not a single-target bolt. */
+            activation(st, act.staff_holy, 10, dam, BORG_ATTACK_DISP_EVIL, false)
         }
 
         BF_ACT_RING_ACID => activation(st, act.ring_acid, 2, 70, BORG_ATTACK_ACID, true),

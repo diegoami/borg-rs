@@ -1,0 +1,36 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -2679,20 +2676,18 @@ fn borg_attack_aux_spell_bolt_reserve(
+         if d < 7 {
+             near_monsters += 1;
+-        }
+ 
+-        /* If it has too many hp to be taken out with this */
+-        /* spell, don't bother trying */
+-        /* NOTE: the +4 is because the damage is toned down
+-        as an 'average damage' */
+-        if i32::from(kill.power) > dam + 4 {
+-            return 0;
+-        }
++            /* If it has too many hp to be taken out with this */
++            /* spell, don't bother trying */
++            /* NOTE: the +4 is because the damage is toned down
++            as an 'average damage' */
++            if i32::from(kill.power) > dam + 4 {
++                return 0;
++            }
+ 
+-        /* Do not use it in town */
+-        if tr(st, BI_CDEPTH) == 0 {
+-            return 0;
++            /* Do not use it in town */
++            if tr(st, BI_CDEPTH) == 0 {
++                return 0;
++            }
+         }
+-
+-        break;
+     }
+ 

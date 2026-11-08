@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 2919fa2..c79c02a 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -2138,6 +2138,7 @@ int borg_attack_aux_launch(void)
+     }
+ 
+-    /* Nothing to use */
+-    if (b_n < 0)
++    /* Nothing to use: no candidate missile was chosen, and b_n never goes
++     * negative once initialized to zero (candidates only raise it). */
++    if (b_k < 0)
+         return 0;
+ 

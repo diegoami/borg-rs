@@ -1,0 +1,13 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 2919fa2..c79c02a 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -1968,6 +1968,6 @@ static int borg_launch_arc_at_location(
+             /* check on angle */
+             /* Reorient current grid for table access. */
+-            n2y = y - y1 + 20;
+-            n2x = x - x1 + 20;
++            n2y = ry - y1 + 20;
++            n2x = rx - x1 + 20;
+ 
+             /* Find the angular difference (/2) between the lines to

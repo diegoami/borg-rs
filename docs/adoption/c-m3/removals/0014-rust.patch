@@ -1,0 +1,16 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -2032,8 +2030,7 @@ fn borg_launch_arc_at_location(st: &mut BorgState, y: i32, x: i32, degrees: i32,
+ 
+             /* check on angle */
+-            /* Reorient current grid for table access. (C uses the end of
+-             * the path, `y`/`x`, not the current grid `ry`/`rx`) */
+-            let n2y = y - y1 + 20;
+-            let n2x = x - x1 + 20;
++            /* Reorient current grid for table access. */
++            let n2y = ry - y1 + 20;
++            let n2x = rx - x1 + 20;
+ 
+             /* Find the angular difference (/2) between the lines to

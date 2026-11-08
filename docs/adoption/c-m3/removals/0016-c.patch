@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 2919fa2..c79c02a 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -3541,5 +3536,5 @@ static int borg_attack_aux_vampire_strike(void)
+ 
+     /* Nothing to attack, require relatively close */
+-    if (dist >= 20)
++    if (best_dist >= 20)
+         return 0;
+ 

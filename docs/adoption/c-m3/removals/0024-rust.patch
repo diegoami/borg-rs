@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -3905,5 +3890,7 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
+ 
+         /* Prayer -- blind creature */
+-        BF_SPELL_BLIND_CREATURE => bolt(st, FRIGHTEN, 0, 10, BORG_ATTACK_OLD_CONF, mr),
++        /* Frighten is a fear effect; scoring it as confusion made the
++         * Borg expect a confused monster where the game applies fear. */
++        BF_SPELL_BLIND_CREATURE => bolt(st, FRIGHTEN, 0, 10, BORG_ATTACK_TURN_ALL, mr),
+ 
+         /* Druid - Trance */

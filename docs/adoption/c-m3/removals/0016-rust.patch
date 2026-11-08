@@ -1,0 +1,29 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -3490,10 +3479,6 @@ fn borg_attack_aux_maim_foe(st: &mut BorgState) -> i32 {
+ 
+ /// trying the Vampire Strike spell (`borg_attack_aux_vampire_strike`)
+-///
+-/// The "require relatively close" test uses the distance of the *last*
+-/// monster in the list, not of the closest one, as C.
+ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
+     let mut b_i: i32 = -1;
+-    let mut dist = 0;
+     let mut best_dist = max_range();
+ 
+@@ -3509,5 +3494,5 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
+ 
+         /* closest distance */
+-        dist = dist_to(st, x, y);
++        let dist = dist_to(st, x, y);
+         if dist <= best_dist {
+             best_dist = dist;
+@@ -3523,5 +3508,5 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
+ 
+     /* Nothing to attack, require relatively close */
+-    if dist >= 20 {
++    if best_dist >= 20 {
+         return 0;
+     }

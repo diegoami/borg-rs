@@ -739,8 +739,6 @@ fn borg_danger_spell(
     let mut glyph = false;
     let mut spot_safe: i32 = 1;
     let mut total_dam: i32 = 0;
-    // C: declared once for all the spells (never reset)
-    let mut bolt = false;
 
     // PFE gives a protection.
     // Apply PROTECTION_FROM_EVIL
@@ -789,6 +787,7 @@ fn borg_danger_spell(
 
     // Analyze the spells
     for q in 0..usize::from(kill.ranged_attack) {
+        let mut bolt = false;
         let mut p: i32 = 0;
         let mut z: i32 = 0;
 
@@ -2048,8 +2047,7 @@ fn danger_one_kill(
     // checks in borg6.c in the defense maneuvers.
     let tp_other_n = st.fight_attack.tp_other_n;
     if tp_other_n != 0 {
-        // C reads one entry past the count (`<=`)
-        for ii in 0..=i32::from(tp_other_n) {
+        for ii in 0..i32::from(tp_other_n) {
             // Is the current danger check same as a saved monster index?
             if i == st.fight_attack.tp_other_index[ii as usize] {
                 return 0;

@@ -250,10 +250,10 @@ pub fn borg_surrounded(st: &mut BorgState) -> bool {
         } else if engine::feat_is_shop(i32::from(ag.feat)) {
             // Mega-Hack -- skip stores XXX XXX XXX
             non_safe_grids += 1;
-        }
-
-        // Mega-Hack -- skip traps XXX XXX XXX
-        if ag.trap && !ag.glyph {
+        } else if ag.trap && !ag.glyph {
+            // Mega-Hack -- skip traps XXX XXX XXX
+            // (part of the same chain: a trapped wall is one non-safe
+            // grid, not two)
             non_safe_grids += 1;
         }
     }

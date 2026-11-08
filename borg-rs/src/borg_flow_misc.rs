@@ -21,6 +21,7 @@
 
 use crate::borg::BorgTime;
 use crate::borg_cave::{BorgGrid, AUTO_MAX_X, AUTO_MAX_Y};
+use crate::borg_cave_light::AUTO_LIGHT_MAX;
 use crate::borg_cave_util::{borg_cave_floor_bold, borg_cave_floor_grid, borg_panel_hgt, borg_panel_wid};
 use crate::borg_cave_view::BORG_VIEW;
 use crate::borg_danger::{borg_danger, borg_danger_one_kill};
@@ -909,6 +910,12 @@ pub fn borg_flow_light(st: &mut BorgState, why: i32) -> bool {
         for x in w_x..w_x + screen_wid {
             /* Not a perma-lit, and not our spot. */
             if st.cave.grid(x, y).info & BORG_GLOW == 0 {
+                continue;
+            }
+
+            /* Stop when the glow arrays are full: the panel can hold
+             * more glowing grids than AUTO_LIGHT_MAX. */
+            if st.light.glow_n as usize >= AUTO_LIGHT_MAX {
                 continue;
             }
 

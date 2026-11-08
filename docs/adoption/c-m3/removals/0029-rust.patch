@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_trait.rs b/borg-rs/src/borg_trait.rs
+index 7508164..0cc9de1 100644
+--- a/borg-rs/src/borg_trait.rs
++++ b/borg-rs/src/borg_trait.rs
+@@ -999,5 +1015,4 @@ fn borg_notice_equipment(st: &mut BorgState) {
+         extra_might += m(OBJ_MOD_MIGHT);
+ 
+-        /* (the light's radius is added twice, C bug 48) */
+         if i != wield + 5 || of_has(&item.flags, OF_NO_FUEL) || item.timeout != 0 {
+             /* Item makes player glow or has a light radius  */
+@@ -1015,6 +1030,4 @@ fn borg_notice_equipment(st: &mut BorgState) {
+                 t[BI_LIGHT] -= 1;
+             }
+-
+-            t[BI_LIGHT] += m(OBJ_MOD_LIGHT);
+         }
+ 

@@ -1096,12 +1096,15 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
     }
     // failed glyph spell message
     if prefix(msg, b"The object resists the spell") || prefix(msg, b"There is no clear floor") {
-        // Forget the newly created-though-failed glyph (no check: `num`
-        // can be `size` or go below 0, C bug 29)
+        // Forget the newly created-though-failed glyph.  Nothing was
+        // tracked if the list is already empty, and clearing the
+        // actually-tracked entry keeps the write inside the array.
         let t = &mut st.glyph.track;
-        t.x[t.num as usize] = 0;
-        t.y[t.num as usize] = 0;
-        t.num -= 1;
+        if t.num > 0 {
+            t.num -= 1;
+            t.x[t.num as usize] = 0;
+            t.y[t.num as usize] = 0;
+        }
 
         // note it
         borg_note(st, "# Removing the Glyph under me, placing with broken door.");

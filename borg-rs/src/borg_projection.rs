@@ -411,8 +411,8 @@ pub fn borg_projectable_pure(st: &BorgState, y1: i32, x1: i32, y2: i32, x2: i32)
             return true;
         }
 
-        /* Stop at monsters */
-        if ag.kill != 0 {
+        /* Stop at monsters (not the caster's own grid) */
+        if dist != 0 && ag.kill != 0 {
             break;
         }
 

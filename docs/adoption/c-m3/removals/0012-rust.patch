@@ -1,0 +1,12 @@
+diff --git a/borg-rs/src/borg_danger.rs b/borg-rs/src/borg_danger.rs
+index 5f1d4f2..8bbd36f 100644
+--- a/borg-rs/src/borg_danger.rs
++++ b/borg-rs/src/borg_danger.rs
+@@ -2049,6 +2048,5 @@ fn danger_one_kill(
+     let tp_other_n = st.fight_attack.tp_other_n;
+     if tp_other_n != 0 {
+-        // C reads one entry past the count (`<=`)
+-        for ii in 0..=i32::from(tp_other_n) {
++        for ii in 0..i32::from(tp_other_n) {
+             // Is the current danger check same as a saved monster index?
+             if i == st.fight_attack.tp_other_index[ii as usize] {

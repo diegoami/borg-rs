@@ -1,0 +1,13 @@
+diff --git a/angband/src/borg/borg-escape.c b/angband/src/borg/borg-escape.c
+index 1a77bc6..79ef7ad 100644
+--- a/angband/src/borg/borg-escape.c
++++ b/angband/src/borg/borg-escape.c
+@@ -233,5 +233,7 @@ bool borg_surrounded(void)
+ 
+         /* Mega-Hack -- skip traps XXX XXX XXX */
+-        if (ag->trap && !ag->glyph)
++        /* (part of the same chain: a trapped wall is one non-safe
++         * grid, not two) */
++        else if (ag->trap && !ag->glyph)
+             non_safe_grids++;
+     }

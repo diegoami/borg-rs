@@ -1,0 +1,21 @@
+diff --git a/angband/src/borg/borg-messages.c b/angband/src/borg/borg-messages.c
+index 444de59..ccbe10a 100644
+--- a/angband/src/borg/borg-messages.c
++++ b/angband/src/borg/borg-messages.c
+@@ -1197,8 +1197,12 @@ static void borg_parse_aux(char *msg, int len)
+         || prefix(msg, "There is no clear floor")) {
+ 
+-        /* Forget the newly created-though-failed  glyph */
+-        track_glyph.x[track_glyph.num] = 0;
+-        track_glyph.y[track_glyph.num] = 0;
+-        track_glyph.num--;
++        /* Forget the newly created-though-failed glyph.  Nothing was
++         * tracked if the list is already empty, and clearing the
++         * actually-tracked entry keeps the write inside the array. */
++        if (track_glyph.num > 0) {
++            track_glyph.num--;
++            track_glyph.x[track_glyph.num] = 0;
++            track_glyph.y[track_glyph.num] = 0;
++        }
+ 
+         /* note it */

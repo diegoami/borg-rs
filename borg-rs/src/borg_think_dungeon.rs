@@ -892,7 +892,7 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
                 continue;
             }
 
-            /* Get the grid (C's `ag` stays here after the scan, C bug 49) */
+            /* Get the grid */
             (ax, ay) = (x, y);
 
             /* Monster is adjacent to the borg */
@@ -922,6 +922,11 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
         if borg_flow_stair_both(st, GOAL_FLEE, false) {
             return true;
         }
+
+        /* Re-acquire the Borg's own grid: the adjacent-monster scan above
+         * leaves ag pointing at the last neighbour it examined. */
+        (ax, ay) = (st.borg.c.x, st.borg.c.y);
+
         if feat_at(st, ax, ay) == FEAT_LESS && !force_descend() {
             /* Take the Up Stair */
             borg_keypress(st, key(b'<'));

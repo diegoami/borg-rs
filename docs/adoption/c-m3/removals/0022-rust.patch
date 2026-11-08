@@ -1,0 +1,25 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -1604,5 +1602,5 @@ fn borg_launch_bolt_at_location(
+ 
+         /* Collect damage (bolts/beams) */
+-        if rad <= 0 || rad == 10 {
++        if rad <= 0 {
+             n += borg_launch_bolt_aux_hack(st, i32::from(ag.kill), dam, typ, ammo_location);
+         }
+@@ -1610,5 +1608,5 @@ fn borg_launch_bolt_at_location(
+         /* Check for arrival at "final target" */
+         /* except beams, which keep going. */
+-        if (rad != -1 && rad != 10) && (x == x2 && y == y2) {
++        if rad != -1 && (x == x2 && y == y2) {
+             break;
+         }
+@@ -1866,5 +1864,5 @@ pub fn borg_launch_bolt(st: &mut BorgState, rad: i32, dam: i32, typ: i32, max: i
+     }
+     if b_i == -1 {
+-        return b_n;
++        return 0;
+     }
+ 
