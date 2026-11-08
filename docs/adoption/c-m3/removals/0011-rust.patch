@@ -1,0 +1,24 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -2143,7 +2140,6 @@ fn borg_launch_arc(st: &mut BorgState, degrees: i32, dam: i32, typ: i32, mut max
+ /// (`borg_attack_aux_launch`).
+ ///
+-/// When no missile scores above -1 (every `borg_launch_bolt` finds no
+-/// target) `b_n` stays 0 and `b_k` -1, and a real call goes on to
+-/// `borg_items[-1]`: C reads before the array, Rust panics.
++/// When no missile is chosen (every `borg_launch_bolt` finds no target)
++/// `b_k` stays -1 and nothing is used.
+ pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
+     let mut b_n = 0;
+@@ -2216,6 +2212,7 @@ pub fn borg_attack_aux_launch(st: &mut BorgState) -> i32 {
+     }
+ 
+-    /* Nothing to use */
+-    if b_n < 0 {
++    /* Nothing to use: no candidate missile was chosen, and b_n never goes
++     * negative once initialized to zero (candidates only raise it). */
++    if b_k < 0 {
+         return 0;
+     }

@@ -1,0 +1,18 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -857,10 +857,8 @@ fn borg_launch_damage_one(st: &mut BorgState, i: i32, mut dam: i32, typ: i32, am
+         }
+ 
+-        /*  Dispel life */
++        /*  Dispel life: the game's drain only hurts living monsters
++         * (nonliving is undead or nonliving). */
+         BORG_ATTACK_DRAIN_LIFE => {
+-            if !rf(r, RF_NONLIVING) {
+-                dam = 0;
+-            }
+-            if !rf(r, RF_UNDEAD) {
++            if rf(r, RF_NONLIVING) || rf(r, RF_UNDEAD) {
+                 dam = 0;
+             }

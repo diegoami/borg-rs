@@ -11,6 +11,14 @@ provenance/state in [adoption/c-m2](adoption/c-m2/README.md). No new Rust tag
 or milestone acceptance is inferred. The narrow crash/play-blocker policy
 remains, with explicit coordination and evidence.
 
+The owner then directed C milestone3 (better-borg-c `702f091f6`, 27 carries),
+tracked on [Rust#8](https://github.com/diegoami/borg-rs/issues/8) with state in
+[adoption/c-m3](adoption/c-m3/README.md). Its patch0018 (same source #290)
+bounds-checks every queued detection mark instead; it supersedes the local
+equality reset in the table below, which is reverted to the pristine `>` test
+in C and Rust (history and receipts below are unchanged). Local #287 and #322
+remain and cover consumer patches0025/0027.
+
 The sections below record the original M4 and post-M4 correction history.
 
 Owner direction, 2026-11-06: inherited C behavior may be corrected when

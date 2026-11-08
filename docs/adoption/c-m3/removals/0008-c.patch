@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-projection.c b/angband/src/borg/borg-projection.c
+index 10c4e8d..ae0556d 100644
+--- a/angband/src/borg/borg-projection.c
++++ b/angband/src/borg/borg-projection.c
+@@ -398,5 +398,5 @@ bool borg_projectable_pure(int y1, int x1, int y2, int x2)
+ 
+         /* Stop at monsters */
+-        if (ag->kill)
++        if (dist && ag->kill)
+             break;
+ 

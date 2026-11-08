@@ -1,0 +1,15 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -2790,10 +2785,4 @@ fn borg_attack_aux_spell_dispel(st: &mut BorgState, spell: borg_spells, dam: i32
+     }
+ 
+-    /* Really penalize use of mana needed for final teleport */
+-    /* (6 pts for mage) */
+-    if tr(st, BI_MAXSP) > 30 && (tr(st, BI_CURSP) - spell_power) < 6 {
+-        b_n -= spell_power * 750;
+-    }
+-
+     /* never tap if we previously missed a tap */
+     if st.fight_attack.target_closest < 0 && BORG_ATTACK_TAP_UNLIFE as i32 == typ && b_n > 0 {

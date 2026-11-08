@@ -1,0 +1,15 @@
+diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
+index 8b1145a..53d1c14 100644
+--- a/angband/src/borg/borg-think-dungeon-util.c
++++ b/angband/src/borg/borg-think-dungeon-util.c
+@@ -364,5 +364,9 @@ bool borg_think_stair_scum(void)
+     if (borg.trait[BI_CDEPTH] == 0 || borg.trait[BI_ISWEAK]) {
+         borg_note("# Leaving Scumming Mode. (Town or Weak)");
+-        borg.lunal_mode = false;
++        /* The lunal mode is entered and left as a pair; clearing only
++         * lunal_mode here left goal.fleeing_lunal set, and the caution
++         * phase kept behaving as if the Borg were still lunal. */
++        borg.lunal_mode           = false;
++        borg.goal.fleeing_lunal   = false;
+         return false;
+     }

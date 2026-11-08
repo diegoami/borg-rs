@@ -1,0 +1,96 @@
+diff --git a/borg-rs/src/borg_update.rs b/borg-rs/src/borg_update.rs
+index 44f7338..b1905c5 100644
+--- a/borg-rs/src/borg_update.rs
++++ b/borg-rs/src/borg_update.rs
+@@ -988,8 +988,12 @@ fn borg_fear_spell(st: &mut BorgState, i: i32) -> i32 {
+ /// "old" player location and panel.
+ fn borg_handle_self(st: &mut BorgState, s: &[u8]) {
+-    // Extract panel
++    // Extract panel.  The offsets are from the panel the Borg last saw:
++    // a reaction queued before a level change can address panels outside
++    // the detection arrays resized for the new cave, so drop the panel
++    // marks of such stale reactions.
+     let q_x = st.update.o_w_x / borg_panel_wid();
+     let q_y = st.update.o_w_y / borg_panel_hgt();
+     let range = format!("({},{} to {},{})", q_y, q_x, q_y + 1, q_x + 1);
++    let ok = detect_panel_ok(st, q_y, q_x);
+ 
+     if st.update.failure {
+@@ -1032,22 +1036,22 @@ fn borg_handle_self(st: &mut BorgState, s: &[u8]) {
+             ag.info &= !BORG_DARK;
+         }
+-    } else if s.starts_with(b"wall") {
++    } else if ok && s.starts_with(b"wall") {
+         // Handle "detect walls"
+         borg_note(st, &format!("# Detected walls {range}"));
+         st.update.mark4(Detect::Wall, q_y, q_x, true);
+-    } else if s.starts_with(b"trap") {
++    } else if ok && s.starts_with(b"trap") {
+         // Handle "detect traps"
+         borg_note(st, &format!("# Detected traps {range}"));
+         st.update.mark4(Detect::Trap, q_y, q_x, true);
+-    } else if s.starts_with(b"door") {
++    } else if ok && s.starts_with(b"door") {
+         // Handle "detect doors"
+         borg_note(st, &format!("# Detected doors {range}"));
+         st.update.mark4(Detect::Door, q_y, q_x, true);
+-    } else if s.starts_with(b"both") {
++    } else if ok && s.starts_with(b"both") {
+         // Handle "detect traps and doors"
+         borg_note(st, &format!("# Detected traps and doors {range}"));
+         st.update.mark4(Detect::Trap, q_y, q_x, true);
+         st.update.mark4(Detect::Door, q_y, q_x, true);
+-    } else if s.starts_with(b"TDE") {
++    } else if ok && s.starts_with(b"TDE") {
+         // Handle "detect traps and doors and evil"
+         borg_note(st, &format!("# Detected traps, doors & evil {range}"));
+@@ -1055,9 +1059,9 @@ fn borg_handle_self(st: &mut BorgState, s: &[u8]) {
+         st.update.mark4(Detect::Door, q_y, q_x, true);
+         st.update.mark4(Detect::Evil, q_y, q_x, true);
+-    } else if s.starts_with(b"evil") {
++    } else if ok && s.starts_with(b"evil") {
+         // Handle DETECT_EVIL
+         borg_note(st, &format!("# Detected evil {range}"));
+         st.update.mark4(Detect::Evil, q_y, q_x, true);
+-    } else if s.starts_with(b"obj") {
++    } else if ok && s.starts_with(b"obj") {
+         // Handle "detect objects"
+         borg_note(st, &format!("# Detected objects {range}"));
+@@ -1066,4 +1070,10 @@ fn borg_handle_self(st: &mut BorgState, s: &[u8]) {
+ }
+ 
++/// Whether the four panels from (`q_y`, `q_x`) lie inside the current
++/// panel count, so a stale reaction cannot mark outside the arrays.
++fn detect_panel_ok(st: &BorgState, q_y: i32, q_x: i32) -> bool {
++    q_x >= 0 && q_y >= 0 && q_x < st.borg.panels.x && q_y < st.borg.panels.y
++}
++
+ /// Message `i` of the queue (`borg_msg_buf + borg_msg_pos[i]`), without
+ /// its NUL.
+@@ -1190,8 +1200,7 @@ pub fn borg_update(st: &mut BorgState) {
+     // if the old panel info is larger than the cave, reset it. This can
+     // happen if the player changes levels while there are messages
+-    // waiting to be processed
+-    // FORK: equality is outside the cave, too (tracker #290).
+-    // Match the crash correction in borg-update.c before queued detection.
+-    if st.update.o_w_x >= width || st.update.o_w_y >= height {
++    // waiting to be processed (stale panels left in range are dropped by
++    // the queued-detection bounds checks)
++    if st.update.o_w_x > width || st.update.o_w_y > height {
+         st.update.o_w_y = 0;
+         st.update.o_w_x = 0;
+@@ -1808,8 +1817,12 @@ fn old_location_message(st: &mut BorgState, i: i32, msg: &[u8], hit_dist: i32) -
+ /// and assume the known floor grids next to the Borg are traps.
+ fn created_traps_here(st: &mut BorgState) {
+-    // Remove the flag which tells borg that Trap Detection was done here
++    // Remove the flag which tells borg that Trap Detection was done here.
++    // The old offsets can address a panel outside the arrays resized for
++    // a new cave.
+     let q_y = st.update.o_w_y / borg_panel_hgt();
+     let q_x = st.update.o_w_x / borg_panel_wid();
+-    st.update.mark4(Detect::Trap, q_y, q_x, false);
++    if detect_panel_ok(st, q_y, q_x) {
++        st.update.mark4(Detect::Trap, q_y, q_x, false);
++    }
+ 
+     // Leave a note

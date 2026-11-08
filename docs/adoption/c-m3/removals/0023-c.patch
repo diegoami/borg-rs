@@ -1,0 +1,12 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 2919fa2..c79c02a 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -4719,4 +4716,7 @@ int borg_calculate_attack_effectiveness(int attack_type)
+ 
+     case BF_ACT_STAFF_HOLY:
++        /* The effect floods the area with goodness: an area-of-sight
++         * dispel, not a single-target bolt. */
++        rad = 10;
+         if (borg.trait[BI_CURHP] < borg.trait[BI_MAXHP] / 2)
+             dam = 500;

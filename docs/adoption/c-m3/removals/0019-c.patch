@@ -1,0 +1,18 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 2919fa2..c79c02a 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -4633,5 +4630,5 @@ int borg_calculate_attack_effectiveness(int attack_type)
+         dam = (12 * (8 + 1) / 2);
+         return (borg_attack_aux_activation(
+-            act_acid_bolt2, rad, dam, BORG_ATTACK_ACID, true, -1));
++            act_acid_bolt3, rad, dam, BORG_ATTACK_ACID, true, -1));
+ 
+     case BF_ACT_ACID_BALL:
+@@ -4693,5 +4690,5 @@ int borg_calculate_attack_effectiveness(int attack_type)
+         dam = 60;
+         return (borg_attack_aux_activation(
+-            act_dispel_undead, rad, dam, BORG_ATTACK_DISP_ALL, false, -1));
++            act_dispel_all, rad, dam, BORG_ATTACK_DISP_ALL, false, -1));
+ 
+     case BF_ACT_LOSSLOW:

@@ -1,0 +1,13 @@
+diff --git a/angband/src/borg/borg-trait.c b/angband/src/borg/borg-trait.c
+index 154eb38..ae2d118 100644
+--- a/angband/src/borg/borg-trait.c
++++ b/angband/src/borg/borg-trait.c
+@@ -1040,5 +1040,7 @@ int borg_calc_blows(borg_item *item)
+     int blow_energy;
+ 
+-    int weight     = item->weight * item->iqty;
++    /* The engine weighs one weapon (object_weight_one): blows per
++     * weapon must not depend on how many weapons are stacked. */
++    int weight     = item->weight;
+     int min_weight = player->class->min_weight;
+ 

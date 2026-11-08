@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_danger.rs b/borg-rs/src/borg_danger.rs
+index 5f1d4f2..8bbd36f 100644
+--- a/borg-rs/src/borg_danger.rs
++++ b/borg-rs/src/borg_danger.rs
+@@ -740,6 +740,4 @@ fn borg_danger_spell(
+     let mut spot_safe: i32 = 1;
+     let mut total_dam: i32 = 0;
+-    // C: declared once for all the spells (never reset)
+-    let mut bolt = false;
+ 
+     // PFE gives a protection.
+@@ -790,4 +788,5 @@ fn borg_danger_spell(
+     // Analyze the spells
+     for q in 0..usize::from(kill.ranged_attack) {
++        let mut bolt = false;
+         let mut p: i32 = 0;
+         let mut z: i32 = 0;

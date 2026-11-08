@@ -547,7 +547,9 @@ pub fn borg_uses_swaps(st: &BorgState) -> bool {
 pub fn borg_calc_blows(st: &BorgState, item: &borg_item) -> i32 {
     let class = engine::player_class_info();
 
-    let weight = i32::from(item.weight) * i32::from(item.iqty);
+    /* The engine weighs one weapon (object_weight_one): blows per
+     * weapon must not depend on how many weapons are stacked. */
+    let weight = i32::from(item.weight);
     let min_weight = class.min_weight;
 
     /* Enforce a minimum "weight" (tenth pounds) */
@@ -933,15 +935,29 @@ fn borg_notice_equipment(st: &mut BorgState) {
         t[BI_ADEX] += m(OBJ_MOD_DEX) * known(OBJ_MOD_DEX);
         t[BI_ACON] += m(OBJ_MOD_CON) * known(OBJ_MOD_CON);
 
-        /* various slays (each slot overwrites them, C bug 48) */
-        t[BI_WS_ANIMAL] = item.slays[RF_ANIMAL as usize];
-        t[BI_WS_EVIL] = item.slays[RF_EVIL as usize];
-        t[BI_WS_UNDEAD] = item.slays[RF_UNDEAD as usize];
-        t[BI_WS_DEMON] = item.slays[RF_DEMON as usize];
-        t[BI_WS_ORC] = item.slays[RF_ORC as usize];
-        t[BI_WS_TROLL] = item.slays[RF_TROLL as usize];
-        t[BI_WS_GIANT] = item.slays[RF_GIANT as usize];
-        t[BI_WS_DRAGON] = item.slays[RF_DRAGON as usize];
+        /* various slays: accumulate across slots.  Assigning them per
+         * slot made the last occupied slot (usually the light or boots,
+         * with no slays) erase the wielded weapon's slays. */
+        t[BI_WS_ANIMAL] |= item.slays[RF_ANIMAL as usize];
+        t[BI_WS_EVIL] |= item.slays[RF_EVIL as usize];
+        t[BI_WS_UNDEAD] |= item.slays[RF_UNDEAD as usize];
+        t[BI_WS_DEMON] |= item.slays[RF_DEMON as usize];
+        t[BI_WS_ORC] |= item.slays[RF_ORC as usize];
+        t[BI_WS_TROLL] |= item.slays[RF_TROLL as usize];
+        t[BI_WS_GIANT] |= item.slays[RF_GIANT as usize];
+        t[BI_WS_DRAGON] |= item.slays[RF_DRAGON as usize];
+
+        /* the greater, race-destroying slays are stored under the same
+         * race flag with the largest multiplier */
+        if item.slays[RF_UNDEAD as usize] >= 5 {
+            t[BI_WK_UNDEAD] = 1;
+        }
+        if item.slays[RF_DEMON as usize] >= 5 {
+            t[BI_WK_DEMON] = 1;
+        }
+        if item.slays[RF_DRAGON as usize] >= 5 {
+            t[BI_WK_DRAGON] = 1;
+        }
 
         /* various brands */
         for (elem, bi) in [
@@ -998,7 +1014,6 @@ fn borg_notice_equipment(st: &mut BorgState) {
         /* Boost might */
         extra_might += m(OBJ_MOD_MIGHT);
 
-        /* (the light's radius is added twice, C bug 48) */
         if i != wield + 5 || of_has(&item.flags, OF_NO_FUEL) || item.timeout != 0 {
             /* Item makes player glow or has a light radius  */
             t[BI_LIGHT] += m(OBJ_MOD_LIGHT);
@@ -1014,8 +1029,6 @@ fn borg_notice_equipment(st: &mut BorgState) {
             if m(OBJ_MOD_LIGHT) > 0 && class == CLASS_NECROMANCER {
                 t[BI_LIGHT] -= 1;
             }
-
-            t[BI_LIGHT] += m(OBJ_MOD_LIGHT);
         }
 
         /* Boost mod moves */

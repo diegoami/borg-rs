@@ -1,0 +1,20 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index b45a547..ec4c21b 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -4259,6 +4246,5 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
+         BF_ACT_ACID_BOLT2 => activation(st, act.acid_bolt2, 0, 10 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
+ 
+-        /* (C uses act_acid_bolt2 here too) */
+-        BF_ACT_ACID_BOLT3 => activation(st, act.acid_bolt2, 0, 12 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
++        BF_ACT_ACID_BOLT3 => activation(st, act.acid_bolt3, 0, 12 * (8 + 1) / 2, BORG_ATTACK_ACID, true),
+ 
+         BF_ACT_ACID_BALL => activation(st, act.acid_ball, 2, 120, BORG_ATTACK_ACID, true),
+@@ -4280,6 +4266,5 @@ pub fn borg_calculate_attack_effectiveness(st: &mut BorgState, attack_type: i32)
+         BF_ACT_DISPEL_UNDEAD => activation(st, act.dispel_undead, 10, 60, BORG_ATTACK_DISP_UNDEAD, false),
+ 
+-        /* (C uses act_dispel_undead here) */
+-        BF_ACT_DISPEL_ALL => activation(st, act.dispel_undead, 10, 60, BORG_ATTACK_DISP_ALL, false),
++        BF_ACT_DISPEL_ALL => activation(st, act.dispel_all, 10, 60, BORG_ATTACK_DISP_ALL, false),
+ 
+         BF_ACT_LOSSLOW => activation(st, act.losslow, 10, 20, BORG_ATTACK_OLD_SLOW, false),

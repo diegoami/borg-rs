@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_escape.rs b/borg-rs/src/borg_escape.rs
+index 8d97e80..cb054f1 100644
+--- a/borg-rs/src/borg_escape.rs
++++ b/borg-rs/src/borg_escape.rs
+@@ -251,8 +251,8 @@ pub fn borg_surrounded(st: &mut BorgState) -> bool {
+             // Mega-Hack -- skip stores XXX XXX XXX
+             non_safe_grids += 1;
+-        }
+-
+-        // Mega-Hack -- skip traps XXX XXX XXX
+-        if ag.trap && !ag.glyph {
++        } else if ag.trap && !ag.glyph {
++            // Mega-Hack -- skip traps XXX XXX XXX
++            // (part of the same chain: a trapped wall is one non-safe
++            // grid, not two)
+             non_safe_grids += 1;
+         }

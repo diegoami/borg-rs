@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_trait.rs b/borg-rs/src/borg_trait.rs
+index 7508164..0cc9de1 100644
+--- a/borg-rs/src/borg_trait.rs
++++ b/borg-rs/src/borg_trait.rs
+@@ -548,5 +548,7 @@ pub fn borg_calc_blows(st: &BorgState, item: &borg_item) -> i32 {
+     let class = engine::player_class_info();
+ 
+-    let weight = i32::from(item.weight) * i32::from(item.iqty);
++    /* The engine weighs one weapon (object_weight_one): blows per
++     * weapon must not depend on how many weapons are stacked. */
++    let weight = i32::from(item.weight);
+     let min_weight = class.min_weight;
+ 

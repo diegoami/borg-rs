@@ -1,0 +1,508 @@
+{
+  "consumer_pin": "702f091f6ac06cae1014df2f85ac218be0189813",
+  "previous_consumer_pin": "2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "shot-path",
+      "patch": "0008",
+      "source_issue": 279,
+      "consumer_issue": 40,
+      "evidence_commit": "cef0b118e02976a3384d4c348ba4cd0210c1f492",
+      "evidence_path": "docs/audit/c-reports/shot-path-279/scenario.c",
+      "original_sha256": "092405626c1fe937f30ed99747979655fb060afa3f92527ac01791597e283080",
+      "env_prefix": "SHOTPATH279",
+      "marker": "native-c/shot-path-279 finished: 1/1 passed",
+      "modes": [
+        "clear-path",
+        "blocked",
+        "ball-control",
+        "direct-control",
+        "boulder-control",
+        "boulder-blocked"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "092405626c1fe937f30ed99747979655fb060afa3f92527ac01791597e283080",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "per-spell",
+      "patch": "0009",
+      "source_issue": 64,
+      "consumer_issue": 44,
+      "evidence_commit": "0507c24cccd2131710e4e6cd566f901bad94e081",
+      "evidence_path": "docs/audit/c-reports/CBUG-0048/scenario.c",
+      "original_sha256": "8f0cd0766ffa795d485039bb7d21f51a3de079c59b6a2fa113dcd3395e5f69a7",
+      "env_prefix": "CBUG0048",
+      "marker": "native-c/CBUG-0048 finished: 1/1 passed",
+      "modes": [
+        "clear-path",
+        "blocked",
+        "ball-control",
+        "direct-control",
+        "boulder-control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "8f0cd0766ffa795d485039bb7d21f51a3de079c59b6a2fa113dcd3395e5f69a7",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "glyph-tracker",
+      "patch": "0010",
+      "source_issue": 118,
+      "consumer_issue": 48,
+      "evidence_commit": "f1f53106526412cfe44fa01c73d00e7dbf4dbeed",
+      "evidence_path": "docs/audit/c-reports/CBUG-0102/scenario.c",
+      "original_sha256": "4c691fa1520098291e5c293de889516e7d12b7e399eeb0c5f312979d8b2a4183",
+      "env_prefix": "CBUG0102",
+      "marker": "native-c/CBUG-0102 finished: 1/1 passed",
+      "modes": [
+        "stairs",
+        "clear-floor",
+        "pairing"
+      ],
+      "sanitizer": "asan",
+      "adapted_from": {
+        "repository": "diegoami/better-borg-c",
+        "commit": "702f091f6ac06cae1014df2f85ac218be0189813",
+        "path": "tools/glyph-tracker-scenario.c"
+      },
+      "scenario_sha256": "aa9e29ce492d3075da56313cf5b6eb769a294eca3fcdd4135c9b0dfeeb37c9c9",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "missile-no-target",
+      "patch": "0011",
+      "source_issue": 254,
+      "consumer_issue": 51,
+      "evidence_commit": "8b30eb5845ae542b41f2601d4370c044f13c21ac",
+      "evidence_path": "docs/audit/c-reports/missile-254/scenario.c",
+      "original_sha256": "4d15c1575716ff072acf905502d4c35aa58785455ca88722c7115df086c45e41",
+      "env_prefix": "M254",
+      "marker": "native-c/missile-254 finished: 1/1 passed",
+      "modes": [
+        "no-target",
+        "live-shot",
+        "simulated"
+      ],
+      "sanitizer": "asan",
+      "scenario_sha256": "4d15c1575716ff072acf905502d4c35aa58785455ca88722c7115df086c45e41",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "tp-other-skip",
+      "patch": "0012",
+      "source_issue": 67,
+      "consumer_issue": 54,
+      "evidence_commit": "83cedb3fe33f494d58d2ceb0016c0feab95be6d8",
+      "evidence_path": "docs/audit/c-reports/CBUG-0051/scenario.c",
+      "original_sha256": "ed6e4c2b32fa922811b35d83a0a816f8c7751ca62db6c50b086224782de75614",
+      "env_prefix": "CBUG0051",
+      "marker": "native-c/CBUG-0051 finished: 1/1 passed",
+      "modes": [
+        "two-phase",
+        "no-morgoth-phase",
+        "single"
+      ],
+      "sanitizer": "asan",
+      "scenario_sha256": "ed6e4c2b32fa922811b35d83a0a816f8c7751ca62db6c50b086224782de75614",
+      "config_sha256": "38fbac6a4291b7fc923235cb55f98452d9ad009907c4c2ddf28260359fef11b7"
+    },
+    {
+      "name": "dispel-filter",
+      "patch": "0013",
+      "source_issue": 248,
+      "consumer_issue": 57,
+      "evidence_commit": "6df50d2e5ad605ec8d3898ca1b653985a373480c",
+      "evidence_path": "docs/audit/c-reports/dispel-248/scenario.c",
+      "original_sha256": "75b1d78926f9ff729d84804249762865d6150ded32b8c2fabaa85bfebfef911e",
+      "env_prefix": "D248",
+      "marker": "native-c/dispel-248 finished: 1/1 passed",
+      "modes": [
+        "living",
+        "undead",
+        "bolt"
+      ],
+      "sanitizer": null,
+      "adapted_from": {
+        "repository": "diegoami/better-borg-c",
+        "commit": "702f091f6ac06cae1014df2f85ac218be0189813",
+        "path": "tools/dispel-filter-scenario.c"
+      },
+      "scenario_sha256": "09651aed3443cee0e77c805d994a6d2d86fd92744e211df8bf208ddc09b6dfc6",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "arc-angle",
+      "patch": "0014",
+      "source_issue": 253,
+      "consumer_issue": 60,
+      "evidence_commit": "6f1f66446e1bc2232e7eb71d03246b6d4e2b4fb3",
+      "evidence_path": "docs/audit/c-reports/arc-253/scenario.c",
+      "original_sha256": "1d97d37f033eaade1b596c4579f35a70af40b8f42c5f06514ca4071b970f7335",
+      "env_prefix": "A253",
+      "marker": "native-c/arc-253 finished: 1/1 passed",
+      "modes": [
+        "arc-bystander",
+        "arc-both"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "1d97d37f033eaade1b596c4579f35a70af40b8f42c5f06514ca4071b970f7335",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "munchkin-stair",
+      "patch": "0015",
+      "source_issue": 244,
+      "consumer_issue": 63,
+      "evidence_commit": "f5b3c50e26e4803fb2c5af07a047ba37d92ebeb1",
+      "evidence_path": "docs/audit/c-reports/munchkin-244/scenario.c",
+      "original_sha256": "be21e9922707bc4199c22bae2f316a47cfa3107aaa41e34c52fbe68bdda9f458",
+      "env_prefix": "M244",
+      "marker": "native-c/munchkin-244 finished: 1/1 passed",
+      "modes": [
+        "phantom",
+        "on-stair"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "be21e9922707bc4199c22bae2f316a47cfa3107aaa41e34c52fbe68bdda9f458",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "config_overrides": [
+        [
+          "borg_munchkin_start = FALSE",
+          "borg_munchkin_start = TRUE"
+        ]
+      ]
+    },
+    {
+      "name": "vampire-strike",
+      "patch": "0016",
+      "source_issue": 257,
+      "consumer_issue": 66,
+      "evidence_commit": "e41e44d9652c38266dcee5e9e5b4b363f3813212",
+      "evidence_path": "docs/audit/c-reports/vampire-257/scenario.c",
+      "original_sha256": "5536af151497d8d5daf5fd1e207bfd2927cda849292f5bf24e5e3f5625cb4152",
+      "env_prefix": "V257",
+      "marker": "native-c/vampire-257 finished: 1/1 passed",
+      "modes": [
+        "near-far",
+        "near-near",
+        "far"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "5536af151497d8d5daf5fd1e207bfd2927cda849292f5bf24e5e3f5625cb4152",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "slay-traits",
+      "patch": "0017",
+      "source_issue": 239,
+      "consumer_issue": 69,
+      "evidence_commit": "25b0118631f108edc926856c8f4b3c35d3611bf9",
+      "evidence_path": "docs/audit/c-reports/slay-239/scenario.c",
+      "original_sha256": "c0f9c7263cec124698c9cb943c5c58711f2120d6034a5268b8459ee4313e650c",
+      "env_prefix": "S239",
+      "marker": "native-c/slay-239 finished: 1/1 passed",
+      "modes": [
+        "animal",
+        "nonanimal"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "c0f9c7263cec124698c9cb943c5c58711f2120d6034a5268b8459ee4313e650c",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "detect-panel",
+      "patch": "0018",
+      "source_issue": 290,
+      "consumer_issue": 72,
+      "evidence_commit": "d9d4c7186293b4c08925c78e8e72d2728a84732b",
+      "evidence_path": "docs/audit/c-reports/detect-290/scenario.c",
+      "original_sha256": "79ebc0931bf93d3f4fbf5c41377bade4d5d17982b00691c7ae1d7c447bd01dae",
+      "env_prefix": "D290",
+      "marker": "native-c/detect-290 finished: 1/1 passed",
+      "modes": [
+        "stale",
+        "fresh"
+      ],
+      "sanitizer": "asan",
+      "scenario_sha256": "79ebc0931bf93d3f4fbf5c41377bade4d5d17982b00691c7ae1d7c447bd01dae",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "activ-lookup",
+      "patch": "0019",
+      "source_issue": 260,
+      "consumer_issue": 75,
+      "evidence_commit": "f0e856241b1fe3d62005edda0722c991278afdf9",
+      "evidence_path": "docs/audit/c-reports/activ-260/scenario.c",
+      "original_sha256": "e4e427c13bd0c46dc934b909a5ab208444e44b4390e9020273f3831110fcf3ad",
+      "env_prefix": "A260",
+      "marker": "native-c/activ-260 finished: 1/1 passed",
+      "modes": [
+        "miswired",
+        "control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "e4e427c13bd0c46dc934b909a5ab208444e44b4390e9020273f3831110fcf3ad",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "reserve-bolt",
+      "patch": "0020",
+      "source_issue": 258,
+      "consumer_issue": 78,
+      "evidence_commit": "359882c25f81baa3824f20f7db8ae290ae2d4ed2",
+      "evidence_path": "docs/audit/c-reports/reserve-258/scenario.c",
+      "original_sha256": "7edf2dd671fb93571c6b542f1cb44e351e8f1d3492be6877bed024530f0e5fe9",
+      "env_prefix": "R258",
+      "marker": "native-c/reserve-258 finished: 1/1 passed",
+      "modes": [
+        "veto",
+        "control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "7edf2dd671fb93571c6b542f1cb44e351e8f1d3492be6877bed024530f0e5fe9",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "dispel-reserve",
+      "patch": "0021",
+      "source_issue": 259,
+      "consumer_issue": 81,
+      "evidence_commit": "f0ed9115c696b70422e1d8639a92511278c4de2a",
+      "evidence_path": "docs/audit/c-reports/dispel-259/scenario.c",
+      "original_sha256": "982b6c45368c56613c7eacf915f00b9b26e8616742701f8b794015eeea512c84",
+      "env_prefix": "D259",
+      "marker": "native-c/dispel-259 finished: 1/1 passed",
+      "modes": [
+        "reserve",
+        "clear"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "982b6c45368c56613c7eacf915f00b9b26e8616742701f8b794015eeea512c84",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "losdispel",
+      "patch": "0022",
+      "source_issue": 326,
+      "consumer_issue": 84,
+      "evidence_commit": "9ae8856aa9f3f7e1e28d5eb8d7ef3070e0f3b58e",
+      "evidence_path": "docs/audit/c-reports/losdispel-326/scenario.c",
+      "original_sha256": "c221ac02b1a257a85d81a4b3c4f29cee0c729deb6f5983a94432c8e5fe955910",
+      "env_prefix": "L326",
+      "marker": "native-c/losdispel-326 finished: 1/1 passed",
+      "modes": [
+        "storm",
+        "control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "c221ac02b1a257a85d81a4b3c4f29cee0c729deb6f5983a94432c8e5fe955910",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "staff-holy",
+      "patch": "0023",
+      "source_issue": 262,
+      "consumer_issue": 87,
+      "evidence_commit": "ba63014b3caf3926bd86a7c8edc8a26e5e947860",
+      "evidence_path": "docs/audit/c-reports/staff-262/scenario.c",
+      "original_sha256": "dca8a79c5b8ee4eef3b7706e47d933f8aead6a053a7400743d5baeb286e39021",
+      "env_prefix": "S262",
+      "marker": "native-c/staff-262 finished: 1/1 passed",
+      "modes": [
+        "holy",
+        "control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "dca8a79c5b8ee4eef3b7706e47d933f8aead6a053a7400743d5baeb286e39021",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "blind-frighten",
+      "patch": "0024",
+      "source_issue": 261,
+      "consumer_issue": 90,
+      "evidence_commit": "cb8554e079e404993c060d0c1d4a05df67581099",
+      "evidence_path": "docs/audit/c-reports/blind-261/scenario.c",
+      "original_sha256": "e38027481e421d7ede5afed2d0dca9c19a16b261355869c1fb374d41575da9ca",
+      "env_prefix": "B261",
+      "marker": "native-c/blind-261 finished: 1/1 passed",
+      "modes": [
+        "blind",
+        "control"
+      ],
+      "sanitizer": null,
+      "adapted_from": {
+        "repository": "diegoami/better-borg-c",
+        "commit": "702f091f6ac06cae1014df2f85ac218be0189813",
+        "path": "tools/blind-frighten-scenario.c"
+      },
+      "scenario_sha256": "c2de467156065f53fc68dab52294a04e79d738336d24f2376bba2c2123734dea",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "calc-reload",
+      "patch": "0026",
+      "source_issue": 325,
+      "consumer_issue": 96,
+      "evidence_commit": "8764d94b8a2007214e4bc35a923f0a92f0f17613",
+      "evidence_path": "docs/audit/c-reports/calcreload-325/scenario.c",
+      "original_sha256": "f4d6d50c122bad2914bbfc36d43a66c07f2f8774dad1afea6301ed6a9efbf76b",
+      "env_prefix": "T325",
+      "marker": "native-c/calcreload-325 finished: 1/1 passed",
+      "modes": [
+        "reload",
+        "control"
+      ],
+      "sanitizer": "lsan",
+      "scenario_sha256": "f4d6d50c122bad2914bbfc36d43a66c07f2f8774dad1afea6301ed6a9efbf76b",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "stale-target",
+      "patch": "0027",
+      "source_issue": 322,
+      "consumer_issue": 99,
+      "evidence_commit": "929764f4d12cece8181a22106c1d808bdd3c2881",
+      "evidence_path": "docs/audit/c-reports/staletarget-322/scenario.c",
+      "original_sha256": "6a6644b7312e87aaaf4c1f4fef19fee145288de52d6bf2d32c39b82983b992e1",
+      "env_prefix": "T322",
+      "marker": "native-c/staletarget-322 finished: 1/1 passed",
+      "modes": [
+        "stale",
+        "control"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "6a6644b7312e87aaaf4c1f4fef19fee145288de52d6bf2d32c39b82983b992e1",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "glow-overflow",
+      "patch": "0028",
+      "source_issue": 311,
+      "consumer_issue": 102,
+      "evidence_commit": "1a9946c6111c541a4041edc7a200e7440434d85e",
+      "evidence_path": "docs/audit/c-reports/glowoverflow-311/scenario.c",
+      "original_sha256": "6d7d5288c5ed285c2ec8de8170396922fc989f95068e8321ba865375d371c105",
+      "env_prefix": "T311",
+      "marker": "native-c/glowoverflow-311 finished: 1/1 passed",
+      "modes": [
+        "glow",
+        "control"
+      ],
+      "sanitizer": "asan",
+      "scenario_sha256": "6d7d5288c5ed285c2ec8de8170396922fc989f95068e8321ba865375d371c105",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "light-modifier",
+      "patch": "0029",
+      "source_issue": 238,
+      "consumer_issue": 105,
+      "evidence_commit": "f1e899b66b383b19ab2d69b4d7ffbb2148ba5444",
+      "evidence_path": "docs/audit/c-reports/light-238/scenario.c",
+      "original_sha256": "664f5fb89cf139a030eb1a734aa892bd5a2d245da478fc102c4ef0921db2b4cd",
+      "env_prefix": "T238",
+      "marker": "native-c/light-238 finished: 1/1 passed",
+      "modes": [
+        "phial",
+        "torch"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "664f5fb89cf139a030eb1a734aa892bd5a2d245da478fc102c4ef0921db2b4cd",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "surrounded-traps",
+      "patch": "0030",
+      "source_issue": 312,
+      "consumer_issue": 109,
+      "evidence_commit": "44334c6fc0ccad023b5c632eef39d955e36c19eb",
+      "evidence_path": "docs/audit/c-reports/surrounded-312/scenario.c",
+      "original_sha256": "98e0b5176037e344e206d68fcc83665a30003401cbb7246f1522f425849cbbac",
+      "env_prefix": "T312",
+      "marker": "native-c/surrounded-312 finished: 1/1 passed",
+      "modes": [
+        "traps",
+        "walls"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "98e0b5176037e344e206d68fcc83665a30003401cbb7246f1522f425849cbbac",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "home-blows",
+      "patch": "0031",
+      "source_issue": 313,
+      "consumer_issue": 113,
+      "evidence_commit": "d73c67ab573e5406e4993315d846836b3e7b052a",
+      "evidence_path": "docs/audit/c-reports/homeblows-313/scenario.c",
+      "original_sha256": "13dcaf04bb6797f4ba81592789a0d2d420d2ac4834416e18db8501772e6c0004",
+      "env_prefix": "T313",
+      "marker": "native-c/homeblows-313 finished: 1/1 passed",
+      "modes": [
+        "stack",
+        "single"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "13dcaf04bb6797f4ba81592789a0d2d420d2ac4834416e18db8501772e6c0004",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "lunal-state",
+      "patch": "0032",
+      "source_issue": 314,
+      "consumer_issue": 117,
+      "evidence_commit": "d50baba77bd2101732e7db3413e7dab25ba72cb4",
+      "evidence_path": "docs/audit/c-reports/lunal-314/scenario.c",
+      "original_sha256": "0e1e199a6eaa5e304b726bb5a4d3aa4a6e1866f0fc00bd3a59631fd3a9cc0a6d",
+      "env_prefix": "T314",
+      "marker": "native-c/lunal-314 finished: 1/1 passed",
+      "modes": [
+        "town",
+        "pack"
+      ],
+      "sanitizer": null,
+      "scenario_sha256": "0e1e199a6eaa5e304b726bb5a4d3aa4a6e1866f0fc00bd3a59631fd3a9cc0a6d",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "opblock-leak",
+      "patch": "0033",
+      "source_issue": 324,
+      "consumer_issue": 121,
+      "evidence_commit": "6cbb034794f10b6e8832a55103233f52cee67dfa",
+      "evidence_path": "docs/audit/c-reports/opblock-324/scenario.c",
+      "original_sha256": "60095e0edbad423f1f85c41d923215116bb4720e120e45e462a81924823e17ab",
+      "env_prefix": "T324",
+      "marker": "native-c/opblock-324 finished: 1/1 passed",
+      "modes": [
+        "operators",
+        "control"
+      ],
+      "sanitizer": "lsan",
+      "scenario_sha256": "60095e0edbad423f1f85c41d923215116bb4720e120e45e462a81924823e17ab",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "calfree-tokens",
+      "patch": "0034",
+      "source_issue": 323,
+      "consumer_issue": 124,
+      "evidence_commit": "0799d4639ed837b06a301d412ad0aca977b59756",
+      "evidence_path": "docs/audit/c-reports/calfree-323/scenario.c",
+      "original_sha256": "602781eba623dacc9c8a8977dd8439dbe0694821ed79a90bd032f7a2af80b079",
+      "env_prefix": "T323",
+      "marker": "native-c/calfree-323 finished: 1/1 passed",
+      "modes": [
+        "free",
+        "control"
+      ],
+      "sanitizer": "lsan",
+      "scenario_sha256": "602781eba623dacc9c8a8977dd8439dbe0694821ed79a90bd032f7a2af80b079",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    }
+  ]
+}

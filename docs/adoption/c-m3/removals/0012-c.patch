@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-danger.c b/angband/src/borg/borg-danger.c
+index 15eb273..f3b02d7 100644
+--- a/angband/src/borg/borg-danger.c
++++ b/angband/src/borg/borg-danger.c
+@@ -2322,5 +2322,5 @@ int borg_danger_one_kill(
+      */
+     if (borg_tp_other_n) {
+-        for (ii = 0; ii <= borg_tp_other_n; ii++) {
++        for (ii = 0; ii < borg_tp_other_n; ii++) {
+             /* Is the current danger check same as a saved monster index? */
+             if (i == borg_tp_other_index[ii]) {

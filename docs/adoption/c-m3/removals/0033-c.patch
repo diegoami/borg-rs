@@ -1,0 +1,12 @@
+diff --git a/angband/src/borg/borg-formulas-calc.c b/angband/src/borg/borg-formulas-calc.c
+index ca7a0c2..2d7e716 100644
+--- a/angband/src/borg/borg-formulas-calc.c
++++ b/angband/src/borg/borg-formulas-calc.c
+@@ -432,4 +432,7 @@ static bool adjust_order_ops_depth_block(
+         operators->items[i] = NULL;
+     }
++    /* Release the backing pointer array too: it is allocated separately
++     * by borg_array_add() once the block has an operator. */
++    mem_free(operators->items);
+     mem_free(operators);
+     operators = NULL;
