@@ -49,8 +49,8 @@ text+='\n'.join(statement(flow,n) for n in ['AUTO_FLOW_MAX','AUTO_TEMP_MAX','Bor
 text+=array_constant(flow,'BORG_DDX_DDD')+'\n'+array_constant(flow,'BORG_DDY_DDD')+'\n'+item(flow,'pub fn borg_ddxy_ddd(')+'\n'
 text+='#[derive(Default)] pub struct StairTrack{pub num:i16,pub size:i16,pub x:Vec<i32>,pub y:Vec<i32>}\n'
 text+=item(flow,'pub struct FlowState {')+'\n'+item(flow,'impl Default for FlowState {')+'\n'+item(flow,'impl FlowState {')+'\n'
-for name in ['copy_data','zero_data','borg_flow_clear','flow_fear','monster_adjacent','spread_blocked','borg_flow_spread','borg_flow_enqueue_grid','borg_flow_commit','flow_commit']:
- prefix='fn ' if name in ['flow_fear','monster_adjacent','spread_blocked'] else 'pub fn '
+for name in ['copy_data','zero_data','borg_flow_clear','flow_fear','borg_flow_ignores_danger','monster_adjacent','spread_blocked','borg_flow_spread','borg_flow_enqueue_grid','borg_flow_commit','flow_commit']:
+ prefix='fn ' if name in ['flow_fear','borg_flow_ignores_danger','monster_adjacent','spread_blocked'] else 'pub fn '
  text+=item(flow,prefix+name+'(')+'\n'
 text+='}\n'
 text+='pub mod directions {use super::*; use flow::{borg_flow_clear,borg_flow_enqueue_grid,borg_flow_spread};\n'+item('borg-rs/src/borg_flow_misc.rs','pub fn borg_extract_dir(')+'\n'+item('borg-rs/src/borg_flow_misc.rs','pub fn borg_goto_dir(')+'\n'+item('borg-rs/src/borg_flow_misc.rs','pub fn borg_flow_reverse(')+'\n}\nuse directions::borg_extract_dir;\n'
