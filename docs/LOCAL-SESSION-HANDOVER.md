@@ -445,3 +445,5 @@ All eight patches (0043-0050) carried in C and Rust; Rust adds the
 flowcache contract 19→30/30, native checker (flow kernel covers 0049),
 131/131 C/Rust parity with harness/diff exit 0, 2/8 Rust fault controls
 detected. Review and owner acceptance pending; not merged.
+Review (issue13): qualified pass, no blocker/major; findings addressed in
+b35d112. Owner: "accept, merge and tag" -> impact v5, tag `4.2.6-impact-v5`.

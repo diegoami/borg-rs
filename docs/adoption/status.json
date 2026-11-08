@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v4_accepted; c_m5_carried_review_pending",
+  "phase": "impact_v5_accepted",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -156,7 +156,7 @@
       "id": "c-m5",
       "target_commit": "5384f12ed51e8fef6f31353fd2daaf0e7fb43856",
       "consumer_tag": "4.2.6-impact-v5",
-      "state": "carried_validated_review_pending",
+      "state": "reviewed_qualified_pass_owner_accepted",
       "consumer_patches": 8,
       "carried_c_and_rust": 8,
       "tracking_issue": "https://github.com/diegoami/borg-rs/issues/13",
@@ -169,12 +169,24 @@
       "rust_fault_controls_detected": "2/8",
       "implementation_commit": "7a0728f",
       "starting_rust_main": "d3e94d3eb939ea9bf22a1a1ab2e8e38d60c78cf4",
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": true,
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "ca30c5d",
+        "comment": "https://github.com/diegoami/borg-rs/issues/13#issuecomment-6725849799",
+        "findings_addressed_in": "b35d112"
+      },
+      "owner_acceptance": {
+        "instruction": "accept, merge and tag",
+        "date": "2026-11-08",
+        "tag": "4.2.6-impact-v5",
+        "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "C milestone5 carried on branch claude/wonderful-bell-3a7j6m (issue13): independent review, then owner acceptance (tag 4.2.6-impact-v5).",
+  "next_action": "Impact v5 (C milestone5) accepted; tag 4.2.6-impact-v5 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -201,7 +213,7 @@
     "id": "c-m5",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/13",
     "starting_rust_main": "d3e94d3eb939ea9bf22a1a1ab2e8e38d60c78cf4",
-    "state": "implemented_validated_review_pending",
+    "state": "accepted_impact_v5",
     "ledger": "docs/adoption/c-m5/ledger.json",
     "receipt": "docs/validation/2026-11-08-c-m5/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"

@@ -31,7 +31,8 @@ milestone 4 (tag `4.2.6-impact-v4`) after harness/diff was allowed to accept
 a mid-command Borg self-stop.
 Owner then directed C milestone5 (target 5384f12ed, `4.2.6-impact-v5`),
 tracking [borg-rs#13](https://github.com/diegoami/borg-rs/issues/13), record
-[adoption/c-m5](docs/adoption/c-m5/README.md); review and acceptance pending.
+[adoption/c-m5](docs/adoption/c-m5/README.md). Independent qualified pass
+(issue13); owner accepted it as impact milestone 5 (tag `4.2.6-impact-v5`).
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
