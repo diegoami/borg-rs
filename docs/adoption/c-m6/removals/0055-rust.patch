@@ -1,5 +1,4 @@
 diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
-index 1eca4e3..c4d7d26 100644
 --- a/borg-rs/src/borg_caution.rs
 +++ b/borg-rs/src/borg_caution.rs
 @@ -808,7 +808,7 @@ fn note_standing(st: &mut BorgState) -> (bool, bool) {

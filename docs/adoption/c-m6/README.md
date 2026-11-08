@@ -9,8 +9,10 @@ Target: better-borg-c `b3c825c97c8aef18b252a7fb7d9b7dceef83d586`, tagged
 254/257/258/259/261/263/266/267), after the milestone5 target `5384f12ed`. C
 review: [better-borg-c#273](https://github.com/diegoami/better-borg-c/issues/273)
 approved it with two required documentation corrections and one verification
-condition, applied or recorded in PR274. The C lane's accumulated regression
-matrix was not rerun at its tip. Package:
+condition, applied or recorded in PR274. That verification condition (rerun
+the accumulated 154-case prior-fixture matrix) was dispositioned rather than
+executed (review item M6-02, option b): the matrix was not rerun at the tip and
+its runner is not committed. Package:
 `docs/measurement/IMPACT-MILESTONE6.md` there. The C package marks 0053 and
 0056 as behaviour-active and discloses a layered 0054/0053 interaction (see
 below). The package's "source250 overlap" is the Teleport Other reader fix
@@ -52,8 +54,10 @@ except the same seven files that hold the retained local corrections.
 - 0055: Rust had folded both of C's stair scans into one helper; it is
   renamed `nearest_free_stair` and keeps C's `b <= j && b != -1` test.
 - 0056: Rust's `adjacent_monster` is declared without an initial value and set
-  to false at C's reset point, so the compiler rejects any read before the
-  per-grid reset.
+  to false at C's reset point. The compiler rejects a read before the first
+  assignment; a read placed earlier in a later loop iteration would still see
+  the previous grid's value, so the reset's position is what matters (it
+  matches C's).
 - 0057/0058: these touch the same lines of `borg_proc_setting` in C and Rust,
   so they share one removal unit (`0057-0058`).
 - 0059: Rust filled in its defaults inside `read_txt_settings`. They are now
@@ -61,6 +65,9 @@ except the same seven files that hold the retained local corrections.
   return leaves them in place; the later re-fill before parsing is
   idempotent. The re-read failure that used to panic now warns and keeps the
   defaults.
+- Comments that described the pre-fix behaviour (0054 in `borg_caution.rs`;
+  0057-0059 in `borg_init.rs`) now describe the fixed behaviour and name the
+  patch. These edits are part of the corresponding removal units.
 - Unit tests: `parses_like_c` pinned the old `borg_no_deeper -` → −127. It now
   expects the default 127 (0058), and gains a 0057 case (`borg_respawn_race = x`
   keeps the default, and the next line still parses).

@@ -1,8 +1,17 @@
 diff --git a/borg-rs/src/borg_init.rs b/borg-rs/src/borg_init.rs
-index ba9d9cb..982865b 100644
 --- a/borg-rs/src/borg_init.rs
 +++ b/borg-rs/src/borg_init.rs
-@@ -189,12 +189,14 @@ fn borg_proc_setting(
+@@ -142,6 +142,7 @@ fn atoi(s: &[u8]) -> i32 {
+ ///
+ /// For an int setting, a byte after the name that is not ` `, `=`, `-` or
+-/// a digit makes the C loop spin forever without advancing (C bug 38); so
+-/// does this one.
++/// a digit ends the parse and keeps the default, and a `-` only negates a
++/// number that follows it (milestone6 patches 0057/0058; before them the C
++/// loop, and this one, spun forever there; c-bugs.md section 38).
+ fn borg_proc_setting(
+     cfg: &mut [i32],
+@@ -189,12 +190,14 @@ fn borg_proc_setting(
              if c_isdigit(ch) {
                  cfg[setting] = atoi(&line[p..]);
 +                if negative {
@@ -21,7 +30,7 @@ index ba9d9cb..982865b 100644
 +        break;
      }
  
-@@ -953,5 +961,7 @@ mod tests {
+@@ -953,5 +964,7 @@ mod tests {
          // (int) 99999999999L = 1215752191
          assert_eq!(cfg[BORG_ENCHANT_LIMIT as usize], 15);
 -        assert_eq!(cfg[BORG_NO_DEEPER as usize], -127);
@@ -30,7 +39,7 @@ index ba9d9cb..982865b 100644
 +        assert_eq!(cfg[BORG_NO_DEEPER as usize], 127);
          assert_eq!(cfg[BORG_STOP_KING as usize], 0);
          assert_eq!(cfg[BORG_KILLS_UNIQUES as usize], 0);
-@@ -959,4 +969,11 @@ mod tests {
+@@ -959,4 +972,11 @@ mod tests {
          assert_eq!(cfg[BORG_MUNCHKIN_DEPTH as usize], 8);
  
 +        // an integer setting followed by a non-number keeps its default and

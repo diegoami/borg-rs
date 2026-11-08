@@ -1,5 +1,4 @@
 diff --git a/borg-rs/src/borg_power.rs b/borg-rs/src/borg_power.rs
-index b670531..ad5d5f4 100644
 --- a/borg-rs/src/borg_power.rs
 +++ b/borg-rs/src/borg_power.rs
 @@ -1191,6 +1191,6 @@ fn borg_power_inventory(st: &BorgState) -> i32 {

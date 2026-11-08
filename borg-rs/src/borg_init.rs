@@ -141,8 +141,9 @@ fn atoi(s: &[u8]) -> i32 {
 /// Returns whether the line names the setting.
 ///
 /// For an int setting, a byte after the name that is not ` `, `=`, `-` or
-/// a digit makes the C loop spin forever without advancing (C bug 38); so
-/// does this one.
+/// a digit ends the parse and keeps the default, and a `-` only negates a
+/// number that follows it (milestone6 patches 0057/0058; before them the C
+/// loop, and this one, spun forever there; c-bugs.md section 38).
 fn borg_proc_setting(
     cfg: &mut [i32],
     setting: usize,
@@ -423,9 +424,11 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
 /// Initialize borg.txt (`borg_init_txt_file`). Returns whether a warning
 /// was given.
 ///
-/// If borg.txt is missing and cannot be written, this returns before
-/// `borg_cfg` is allocated, and C then reads through the NULL `borg_cfg`
-/// (C bug 38); here the first `cfg` read panics.
+/// The config starts with the default values before borg.txt is opened, so
+/// a borg.txt that is missing and cannot be written, or cannot be read back,
+/// leaves the defaults in place (milestone6 patch 0059; before it, C read
+/// through a NULL `borg_cfg` and the first Rust `cfg` read panicked;
+/// c-bugs.md section 38).
 pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     borg_free_txt_file(st);
     crate::borg_trait::borg_trait_init(st);

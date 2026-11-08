@@ -1,5 +1,4 @@
 diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
-index 1eca4e3..c4d7d26 100644
 --- a/borg-rs/src/borg_caution.rs
 +++ b/borg-rs/src/borg_caution.rs
 @@ -1133,7 +1133,6 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {

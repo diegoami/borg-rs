@@ -1,5 +1,4 @@
 diff --git a/angband/src/borg/borg-init.c b/angband/src/borg/borg-init.c
-index 59be9fa..26bd01b 100644
 --- a/angband/src/borg/borg-init.c
 +++ b/angband/src/borg/borg-init.c
 @@ -187,4 +189,11 @@ bool borg_init_txt_file(void)

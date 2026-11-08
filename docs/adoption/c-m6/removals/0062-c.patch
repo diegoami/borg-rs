@@ -1,5 +1,4 @@
 diff --git a/angband/src/borg/borg-power.c b/angband/src/borg/borg-power.c
-index 26f8088..ab50c7a 100644
 --- a/angband/src/borg/borg-power.c
 +++ b/angband/src/borg/borg-power.c
 @@ -1186,4 +1186,5 @@ static int32_t borg_power_inventory(void)

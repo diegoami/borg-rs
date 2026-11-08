@@ -216,7 +216,7 @@
    "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
    "verification_status": "merged; verified stepwise on the unchanged source fixture; native gate on the stacked tip; carried/open+patch-active",
    "merge_commit": "d4f9bb5c92179fcc4107d357af3882738d482aff",
-   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v5); shares lines with 0057/0058, so the removal unit is combined",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v5); shares lines with 0058, so the removal unit is combined",
    "disposition": "carried in C/Rust",
    "rust_module": [
     "borg-rs/src/borg_init.rs"
@@ -245,7 +245,7 @@
    "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
    "verification_status": "merged; verified stepwise on the unchanged source fixture; native gate on the stacked tip; carried/open+patch-active",
    "merge_commit": "d4f9bb5c92179fcc4107d357af3882738d482aff",
-   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v5); shares lines with 0057/0058, so the removal unit is combined",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v5); shares lines with 0057, so the removal unit is combined",
    "disposition": "carried in C/Rust",
    "rust_module": [
     "borg-rs/src/borg_init.rs"

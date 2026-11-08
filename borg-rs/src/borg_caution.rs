@@ -2009,8 +2009,8 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
 /// Buy time while waiting for recall in danger: mana, phase door, cure
 /// potions (the last block but one of `borg_caution`).
 fn buy_time_for_recall(st: &mut BorgState) -> bool {
-    // `CURSP < CURSP / 4` (C compares the current mana with itself; true
-    // only for negative mana).
+    // `CURSP < MAXSP / 4` (before milestone6 patch 0054 C compared the
+    // current mana with itself, true only for negative mana).
     if st.borg.tr(BI_ISCONFUSED) == 0
         && st.borg.tr(BI_ISBLIND) == 0
         && st.borg.tr(BI_MAXSP) > 60

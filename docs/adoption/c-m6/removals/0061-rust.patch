@@ -1,5 +1,4 @@
 diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
-index dca163a..20bb493 100644
 --- a/borg-rs/src/borg_think_dungeon_util.rs
 +++ b/borg-rs/src/borg_think_dungeon_util.rs
 @@ -782,6 +782,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {

@@ -1,5 +1,4 @@
 diff --git a/borg-rs/src/borg_think_dungeon.rs b/borg-rs/src/borg_think_dungeon.rs
-index 9074f80..1c4ecb0 100644
 --- a/borg-rs/src/borg_think_dungeon.rs
 +++ b/borg-rs/src/borg_think_dungeon.rs
 @@ -740,7 +740,7 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {

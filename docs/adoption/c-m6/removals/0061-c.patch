@@ -1,5 +1,4 @@
 diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
-index e4687ed..35d082d 100644
 --- a/angband/src/borg/borg-think-dungeon-util.c
 +++ b/angband/src/borg/borg-think-dungeon-util.c
 @@ -731,6 +731,10 @@ bool borg_leave_level(bool bored)

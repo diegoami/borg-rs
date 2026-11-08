@@ -1,5 +1,4 @@
 diff --git a/angband/src/borg/borg-think-dungeon.c b/angband/src/borg/borg-think-dungeon.c
-index 4efebab..a3dd50f 100644
 --- a/angband/src/borg/borg-think-dungeon.c
 +++ b/angband/src/borg/borg-think-dungeon.c
 @@ -583,6 +583,10 @@ static bool borg_think_dungeon_munchkin(void)

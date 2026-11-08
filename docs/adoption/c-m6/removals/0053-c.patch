@@ -1,5 +1,4 @@
 diff --git a/angband/src/borg/borg-caution.c b/angband/src/borg/borg-caution.c
-index 313e3fe..43a99dd 100644
 --- a/angband/src/borg/borg-caution.c
 +++ b/angband/src/borg/borg-caution.c
 @@ -1090,5 +1090,5 @@ bool borg_caution(void)
