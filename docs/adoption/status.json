@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v3_accepted; c_m4_carried_decision_pending",
+  "phase": "impact_v3_accepted; c_m4_reviewed_owner_acceptance_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -113,24 +113,42 @@
       "id": "c-m4",
       "target_commit": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
       "consumer_tag": "4.2.6-impact-v4",
-      "state": "carried_validated_open_engine_crash_finding",
+      "state": "carried_validated_reviewed_qualified_pass_owner_acceptance_pending",
       "consumer_patches": 8,
       "carried_c_and_rust": 8,
       "tracking_issue": "https://github.com/diegoami/borg-rs/issues/11",
       "receipt": "docs/validation/2026-11-08-c-m4/README.md",
       "native_modes_before_after": "15/24 -> 24/24",
       "game_cases": 131,
-      "c_rust_parity": 130,
-      "open_finding": "cfg-lunal-deep-warrior: engine SIGSEGV in ui-curse.c curse_menu (known/real curse lists diverge), identical in C and Rust; owner decision pending",
+      "c_rust_parity": 131,
       "rust_fault_controls_detected": "3/8",
       "implementation_commit": "a9bfd80",
       "starting_rust_main": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": false,
+      "engine_correction": {
+        "file": "angband/src/cmd-wizard.c",
+        "commits": [
+          "eb29098",
+          "9a78e32"
+        ],
+        "summary": "do_cmd_wiz_cure_all also frees obj->known->curses; fixes the cfg-lunal-deep-warrior Remove Curse SIGSEGV (C and Rust)",
+        "upstream": "https://github.com/diegoami/neo-angband-tracker/issues/474",
+        "fork_corrections": "docs/FORK-CORRECTIONS.md",
+        "c_bugs": "section 59"
+      },
+      "harness_diff_note": "opt-stopclevel-war fails the harness last-key/game_turns consistency check identically in C and Rust (mid-command auto-stop); check not relaxed",
+      "build_receipt_commit": "9a78e32",
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "80614e4 (plus eb29098)",
+        "comment": "https://github.com/diegoami/borg-rs/issues/11#issuecomment-6723532162",
+        "findings_addressed": "0afdcfd and the receipt commit"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "C milestone4 carried on branch claude/wonderful-bell-3a7j6m (issue11): owner decides how to handle the engine Remove Curse crash exposed in cfg-lunal-deep-warrior; then independent review and acceptance.",
+  "next_action": "C milestone4 (issue11): independent qualified pass; findings addressed. Owner decides acceptance and tag 4.2.6-impact-v4, and whether the harness last-key consistency check should accept a mid-command auto-stop.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -157,7 +175,7 @@
     "id": "c-m4",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/11",
     "starting_rust_main": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
-    "state": "implemented_validated_engine_crash_decision_pending",
+    "state": "reviewed_qualified_pass_owner_acceptance_pending",
     "ledger": "docs/adoption/c-m4/ledger.json",
     "receipt": "docs/validation/2026-11-08-c-m4/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"

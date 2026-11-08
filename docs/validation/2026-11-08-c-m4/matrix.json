@@ -1,11 +1,10 @@
 {
  "cases": 131,
- "both_ran": 130,
- "parity": 130,
- "missing": [
-  "cfg-lunal-deep-warrior"
- ],
- "changed_vs_m2": [
+ "both_ran": 131,
+ "parity": 131,
+ "missing": [],
+ "reference": "harness/out/c-m3/g-c",
+ "changed_vs_reference": [
   "smoke-warrior-1",
   "smoke-mage-2",
   "smoke-priest-3",
@@ -83,6 +82,7 @@
   "cfg-lunal-human-war",
   "cfg-lunal-halfelf-mage",
   "cfg-lunal-dunadan-bg",
+  "cfg-lunal-deep-warrior",
   "opt-dyn-war",
   "opt-dyn-mage",
   "opt-dyn-priest",
@@ -123,10 +123,13 @@
   "live-ranger",
   "live-blackguard"
  ],
- "harness_diff_exit": 2,
+ "harness_diff_exit": 1,
  "harness_diff_tail": [
-  "REFUSED: harness/out/c-m4/g-c is marked FAILED by harness/suite.sh; use --allow-incomplete to compare anyway",
-  "REFUSED: harness/out/c-m4/g-rust is marked FAILED by harness/suite.sh; use --allow-incomplete to compare anyway"
+  "B:   built from 9a78e32497da (dirty=no, inputs dirty=no) source_sha256=f8f7e7817e6c3cb4; run at 9a78e32497da (dirty=no) overrides=none",
+  "== opt-stopclevel-war: A: last key at game turn 30106, summary game_turns=30116; B: last key at game turn 30106, summary game_turns=30116",
+  "130/131 runs identical (expected 131)",
+  "messages.log compared in 131 run(s)",
+  "state.log compared in 131 run(s)"
  ],
  "rows": {
   "smoke-warrior-1": {
@@ -150,13 +153,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20003,
     "clevel": 3,
@@ -164,7 +167,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20004,
     "clevel": 3,
@@ -194,10 +197,10 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "messages.log"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20005,
     "clevel": 2,
@@ -205,7 +208,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20005,
     "clevel": 2,
@@ -235,13 +238,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20005,
     "clevel": 1,
@@ -249,7 +252,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20352,
     "clevel": 2,
@@ -279,13 +282,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 82960,
     "clevel": 10,
@@ -293,7 +296,7 @@
     "dead": true,
     "death_cause": "a forest troll"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 7,
@@ -323,13 +326,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 8,
@@ -337,7 +340,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 5,
@@ -367,13 +370,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100009,
     "clevel": 7,
@@ -381,7 +384,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 8,
@@ -411,13 +414,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 7,
@@ -425,7 +428,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 37390,
     "clevel": 6,
@@ -455,13 +458,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 6,
@@ -469,7 +472,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 68815,
     "clevel": 5,
@@ -499,13 +502,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100009,
     "clevel": 5,
@@ -513,7 +516,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100096,
     "clevel": 5,
@@ -543,13 +546,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 14534,
     "clevel": 2,
@@ -557,7 +560,7 @@
     "dead": true,
     "death_cause": "a small kobold"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 9130,
     "clevel": 1,
@@ -587,13 +590,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100110,
     "clevel": 4,
@@ -601,7 +604,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 4,
@@ -631,13 +634,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100480,
     "clevel": 4,
@@ -645,7 +648,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 3,
@@ -675,13 +678,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 4,
@@ -689,7 +692,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100096,
     "clevel": 4,
@@ -719,13 +722,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 5,
@@ -733,7 +736,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 13470,
     "clevel": 1,
@@ -763,10 +766,10 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "messages.log"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 5865,
     "clevel": 1,
@@ -774,7 +777,7 @@
     "dead": true,
     "death_cause": "a blue yeek"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 5865,
     "clevel": 1,
@@ -804,13 +807,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 7367,
     "clevel": 1,
@@ -818,7 +821,7 @@
     "dead": true,
     "death_cause": "a crow"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 10368,
     "clevel": 1,
@@ -848,13 +851,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 5,
@@ -862,7 +865,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100470,
     "clevel": 8,
@@ -892,13 +895,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 7098,
     "clevel": 1,
@@ -906,7 +909,7 @@
     "dead": true,
     "death_cause": "a cutpurse"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 14716,
     "clevel": 1,
@@ -936,13 +939,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 22136,
     "clevel": 2,
@@ -950,7 +953,7 @@
     "dead": true,
     "death_cause": "Fang, Farmer Maggot's Dog"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100615,
     "clevel": 5,
@@ -980,13 +983,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 11722,
     "clevel": 1,
@@ -994,7 +997,7 @@
     "dead": true,
     "death_cause": "a giant yellow centipede"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 4,
@@ -1024,13 +1027,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 3,
@@ -1038,7 +1041,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 3,
@@ -1068,13 +1071,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100016,
     "clevel": 3,
@@ -1082,7 +1085,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100411,
     "clevel": 3,
@@ -1112,13 +1115,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100269,
     "clevel": 5,
@@ -1126,7 +1129,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100687,
     "clevel": 6,
@@ -1156,13 +1159,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100025,
     "clevel": 4,
@@ -1170,7 +1173,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100041,
     "clevel": 4,
@@ -1200,13 +1203,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100480,
     "clevel": 3,
@@ -1214,7 +1217,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100191,
     "clevel": 3,
@@ -1244,13 +1247,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 6416,
     "clevel": 1,
@@ -1258,7 +1261,7 @@
     "dead": true,
     "death_cause": "Fang, Farmer Maggot's Dog"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100175,
     "clevel": 2,
@@ -1288,13 +1291,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 23381,
     "clevel": 3,
@@ -1302,7 +1305,7 @@
     "dead": true,
     "death_cause": "a cave spider"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100538,
     "clevel": 3,
@@ -1332,13 +1335,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100245,
     "clevel": 5,
@@ -1346,7 +1349,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100096,
     "clevel": 4,
@@ -1376,13 +1379,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 4,
@@ -1390,7 +1393,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 5,
@@ -1420,13 +1423,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100352,
     "clevel": 5,
@@ -1434,7 +1437,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 12348,
     "clevel": 3,
@@ -1464,13 +1467,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 5021,
     "clevel": 1,
@@ -1478,7 +1481,7 @@
     "dead": true,
     "death_cause": "a wild cat"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100202,
     "clevel": 4,
@@ -1508,13 +1511,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 6,
@@ -1522,7 +1525,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 6,
@@ -1552,13 +1555,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 4,
@@ -1566,7 +1569,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100803,
     "clevel": 4,
@@ -1596,13 +1599,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 7,
@@ -1610,7 +1613,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 18678,
     "clevel": 3,
@@ -1640,13 +1643,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 32960,
     "clevel": 3,
@@ -1654,7 +1657,7 @@
     "dead": true,
     "death_cause": "poison"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 42886,
     "clevel": 4,
@@ -1684,13 +1687,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 6,
@@ -1698,7 +1701,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 7,
@@ -1728,13 +1731,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 3376,
     "clevel": 1,
@@ -1742,7 +1745,7 @@
     "dead": true,
     "death_cause": "Grip, Farmer Maggot's Dog"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 12446,
     "clevel": 2,
@@ -1772,13 +1775,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 7,
@@ -1786,7 +1789,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 6,
@@ -1816,13 +1819,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100009,
     "clevel": 10,
@@ -1830,7 +1833,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 6,
@@ -1860,13 +1863,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100009,
     "clevel": 7,
@@ -1874,7 +1877,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 8,
@@ -1904,13 +1907,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 7,
@@ -1918,7 +1921,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 8,
@@ -1948,13 +1951,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 62120,
     "clevel": 6,
@@ -1962,7 +1965,7 @@
     "dead": true,
     "death_cause": "Lagduf, the Snaga"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 40422,
     "clevel": 5,
@@ -1992,13 +1995,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 10,
@@ -2006,7 +2009,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 37281,
     "clevel": 4,
@@ -2036,13 +2039,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 7,
@@ -2050,7 +2053,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 8,
@@ -2080,7 +2083,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "full-8-blackguard-2": {
    "streams": {
@@ -2103,7 +2106,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "full-8-blackguard-3": {
    "streams": {
@@ -2126,13 +2129,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 32580,
     "clevel": 3,
@@ -2140,7 +2143,7 @@
     "dead": true,
     "death_cause": "poison"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 11511,
     "clevel": 1,
@@ -2170,13 +2173,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 9495,
     "clevel": 2,
@@ -2184,7 +2187,7 @@
     "dead": true,
     "death_cause": "Fang, Farmer Maggot's Dog"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 95836,
     "clevel": 5,
@@ -2214,13 +2217,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000006,
     "clevel": 24,
@@ -2228,7 +2231,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000009,
     "clevel": 22,
@@ -2258,13 +2261,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000004,
     "clevel": 12,
@@ -2272,7 +2275,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000009,
     "clevel": 13,
@@ -2302,13 +2305,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000007,
     "clevel": 12,
@@ -2316,7 +2319,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000004,
     "clevel": 13,
@@ -2346,13 +2349,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000203,
     "clevel": 9,
@@ -2360,7 +2363,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000875,
     "clevel": 10,
@@ -2390,13 +2393,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000146,
     "clevel": 8,
@@ -2404,7 +2407,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1001059,
     "clevel": 8,
@@ -2434,13 +2437,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000000,
     "clevel": 15,
@@ -2448,7 +2451,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000000,
     "clevel": 23,
@@ -2478,13 +2481,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000328,
     "clevel": 18,
@@ -2492,7 +2495,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000009,
     "clevel": 16,
@@ -2522,13 +2525,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000001,
     "clevel": 24,
@@ -2536,7 +2539,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000001,
     "clevel": 25,
@@ -2566,13 +2569,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000001,
     "clevel": 19,
@@ -2580,7 +2583,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000000,
     "clevel": 17,
@@ -2610,13 +2613,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000004,
     "clevel": 21,
@@ -2624,7 +2627,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000003,
     "clevel": 20,
@@ -2654,13 +2657,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 6,
@@ -2668,7 +2671,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 5,
@@ -2698,13 +2701,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 4,
@@ -2712,7 +2715,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 65830,
     "clevel": 4,
@@ -2742,13 +2745,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 5,
@@ -2756,7 +2759,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 10,
@@ -2786,13 +2789,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 4,
@@ -2800,7 +2803,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 7277,
     "clevel": 1,
@@ -2830,13 +2833,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 6,
@@ -2844,7 +2847,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 5,
@@ -2874,13 +2877,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 3,
@@ -2888,7 +2891,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 4,
@@ -2918,13 +2921,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 5,
@@ -2932,7 +2935,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 6,
@@ -2962,13 +2965,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 26791,
     "clevel": 3,
@@ -2976,7 +2979,7 @@
     "dead": true,
     "death_cause": "a fruit bat"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 5,
@@ -3006,13 +3009,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100108,
     "clevel": 5,
@@ -3020,7 +3023,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 3221,
     "clevel": 1,
@@ -3050,13 +3053,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 4,
@@ -3064,7 +3067,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 3,
@@ -3094,13 +3097,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100030,
     "clevel": 4,
@@ -3108,7 +3111,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 42985,
     "clevel": 4,
@@ -3138,13 +3141,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 75645,
     "clevel": 6,
@@ -3152,7 +3155,7 @@
     "dead": true,
     "death_cause": "a blacklock mage"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 53124,
     "clevel": 3,
@@ -3182,13 +3185,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 4,
@@ -3196,7 +3199,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100675,
     "clevel": 3,
@@ -3226,13 +3229,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 6,
@@ -3240,7 +3243,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 6,
@@ -3270,13 +3273,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 5,
@@ -3284,7 +3287,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 68461,
     "clevel": 4,
@@ -3314,13 +3317,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 11,
@@ -3328,7 +3331,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 11,
@@ -3358,13 +3361,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3372,7 +3375,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100352,
     "clevel": 10,
@@ -3402,10 +3405,10 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "messages.log"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20011,
     "clevel": 9,
@@ -3413,7 +3416,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20011,
     "clevel": 9,
@@ -3443,13 +3446,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 11,
@@ -3457,7 +3460,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100009,
     "clevel": 7,
@@ -3487,13 +3490,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100224,
     "clevel": 4,
@@ -3501,7 +3504,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100102,
     "clevel": 4,
@@ -3531,13 +3534,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20352,
     "clevel": 2,
@@ -3545,7 +3548,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20352,
     "clevel": 1,
@@ -3555,7 +3558,48 @@
    }
   },
   "cfg-lunal-deep-warrior": {
-   "missing": true
+   "streams": {
+    "keys.log": [
+     "a262c07c301748b461dae67fb05ad4900e062d0cef86d8149f2fa268fef1e848",
+     "a262c07c301748b461dae67fb05ad4900e062d0cef86d8149f2fa268fef1e848"
+    ],
+    "messages.log": [
+     "68afb379092dd1dfccc2da2e6d391754d1ad6164a2958568d6da168b8c3547c1",
+     "68afb379092dd1dfccc2da2e6d391754d1ad6164a2958568d6da168b8c3547c1"
+    ],
+    "state.log": [
+     "dd502d3905f8454273217bd21070be59370ac441da2be7e625cfd1491e53d2d2",
+     "dd502d3905f8454273217bd21070be59370ac441da2be7e625cfd1491e53d2d2"
+    ],
+    "final.save": [
+     "481796c233f49e04aefa1db333b1431ecaff9bc71bdf96bacfaf05aef5fad9c2",
+     "481796c233f49e04aefa1db333b1431ecaff9bc71bdf96bacfaf05aef5fad9c2"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000007,
+    "clevel": 26,
+    "max_depth": 21,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000002,
+    "clevel": 23,
+    "max_depth": 22,
+    "dead": false,
+    "death_cause": ""
+   }
   },
   "opt-scum-war": {
    "streams": {
@@ -3578,7 +3622,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "opt-scum-mage": {
    "streams": {
@@ -3601,7 +3645,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "opt-scum-noself-mage": {
    "streams": {
@@ -3624,7 +3668,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "opt-scum-done-mage": {
    "streams": {
@@ -3647,7 +3691,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "opt-dyn-war": {
    "streams": {
@@ -3670,13 +3714,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 7,
@@ -3684,7 +3728,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3714,13 +3758,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100096,
     "clevel": 5,
@@ -3728,7 +3772,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100224,
     "clevel": 4,
@@ -3758,13 +3802,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 2,
@@ -3772,7 +3816,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100096,
     "clevel": 3,
@@ -3802,13 +3846,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 11,
@@ -3816,7 +3860,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3846,13 +3890,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 8,
@@ -3860,7 +3904,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3890,13 +3934,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 8,
@@ -3904,7 +3948,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3934,13 +3978,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 1000328,
     "clevel": 18,
@@ -3948,7 +3992,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 1000009,
     "clevel": 16,
@@ -3978,13 +4022,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -3992,7 +4036,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100003,
     "clevel": 10,
@@ -4022,13 +4066,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 200004,
     "clevel": 12,
@@ -4036,7 +4080,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 200006,
     "clevel": 10,
@@ -4066,13 +4110,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 9,
@@ -4080,7 +4124,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 8,
@@ -4110,13 +4154,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100005,
     "clevel": 7,
@@ -4124,7 +4168,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 7,
@@ -4154,13 +4198,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 8,
@@ -4168,7 +4212,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -4198,13 +4242,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 11,
@@ -4212,7 +4256,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 7,
@@ -4242,13 +4286,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "borg_stopped",
     "game_turns": 20833,
     "clevel": 4,
@@ -4256,7 +4300,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "borg_stopped",
     "game_turns": 15793,
     "clevel": 3,
@@ -4286,13 +4330,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "borg_stopped",
     "game_turns": 27889,
     "clevel": 5,
@@ -4300,7 +4344,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "borg_stopped",
     "game_turns": 30116,
     "clevel": 5,
@@ -4330,13 +4374,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -4344,7 +4388,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -4374,13 +4418,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 8,
@@ -4388,7 +4432,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 8,
@@ -4418,13 +4462,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 400001,
     "clevel": 15,
@@ -4432,7 +4476,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 400006,
     "clevel": 15,
@@ -4462,13 +4506,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 8,
@@ -4476,7 +4520,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 8,
@@ -4506,13 +4550,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 4,
@@ -4520,7 +4564,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 101185,
     "clevel": 4,
@@ -4550,13 +4594,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 5,
@@ -4564,7 +4608,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100008,
     "clevel": 3,
@@ -4594,13 +4638,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 2000008,
     "clevel": 17,
@@ -4608,7 +4652,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 2000111,
     "clevel": 22,
@@ -4638,13 +4682,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100046,
     "clevel": 50,
@@ -4652,7 +4696,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 50,
@@ -4682,13 +4726,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 50,
@@ -4696,7 +4740,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 50,
@@ -4726,13 +4770,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100000,
     "clevel": 50,
@@ -4740,7 +4784,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100090,
     "clevel": 50,
@@ -4770,13 +4814,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 50001,
     "clevel": 50,
@@ -4784,7 +4828,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 50000,
     "clevel": 50,
@@ -4814,13 +4858,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 20002,
     "clevel": 50,
@@ -4828,7 +4872,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 20001,
     "clevel": 50,
@@ -4858,7 +4902,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-known-decoy": {
    "streams": {
@@ -4881,7 +4925,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-known-trap": {
    "streams": {
@@ -4904,7 +4948,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-hidden-rune": {
    "streams": {
@@ -4927,7 +4971,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-empty-floor": {
    "streams": {
@@ -4950,7 +4994,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-prelaid-ring": {
    "streams": {
@@ -4973,7 +5017,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-build-ready": {
    "streams": {
@@ -4996,7 +5040,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "glyph-build-supply": {
    "streams": {
@@ -5019,13 +5063,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 512,
     "clevel": 50,
@@ -5033,7 +5077,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 500,
     "clevel": 50,
@@ -5063,7 +5107,7 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": []
+   "changed_vs_reference": []
   },
   "natural-warrior-78": {
    "streams": {
@@ -5086,13 +5130,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 3100003,
     "clevel": 50,
@@ -5100,7 +5144,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 3100021,
     "clevel": 50,
@@ -5130,13 +5174,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 3100416,
     "clevel": 35,
@@ -5144,7 +5188,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 3100392,
     "clevel": 35,
@@ -5174,13 +5218,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 9,
@@ -5188,7 +5232,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 22149,
     "clevel": 8,
@@ -5218,13 +5262,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100001,
     "clevel": 4,
@@ -5232,7 +5276,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 19081,
     "clevel": 2,
@@ -5262,10 +5306,10 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "messages.log"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 5590,
     "clevel": 1,
@@ -5273,7 +5317,7 @@
     "dead": true,
     "death_cause": "a cutpurse"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 5590,
     "clevel": 1,
@@ -5303,13 +5347,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100006,
     "clevel": 2,
@@ -5317,7 +5361,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100308,
     "clevel": 2,
@@ -5347,13 +5391,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100004,
     "clevel": 4,
@@ -5361,7 +5405,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 5,
@@ -5391,13 +5435,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "turns",
     "game_turns": 100147,
     "clevel": 4,
@@ -5405,7 +5449,7 @@
     "dead": false,
     "death_cause": ""
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100007,
     "clevel": 3,
@@ -5435,13 +5479,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 5600,
     "clevel": 2,
@@ -5449,7 +5493,7 @@
     "dead": true,
     "death_cause": "a giant yellow centipede"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 65970,
     "clevel": 3,
@@ -5479,13 +5523,13 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "keys.log",
     "messages.log",
     "state.log",
     "final.save"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 97048,
     "clevel": 6,
@@ -5493,7 +5537,7 @@
     "dead": true,
     "death_cause": "an air hound"
    },
-   "m3": {
+   "current": {
     "stop_reason": "turns",
     "game_turns": 100002,
     "clevel": 6,
@@ -5523,10 +5567,10 @@
    },
    "summary_equal": true,
    "parity": true,
-   "changed_vs_m2": [
+   "changed_vs_reference": [
     "messages.log"
    ],
-   "m2": {
+   "reference": {
     "stop_reason": "death",
     "game_turns": 6231,
     "clevel": 1,
@@ -5534,7 +5578,7 @@
     "dead": true,
     "death_cause": "a wild cat"
    },
-   "m3": {
+   "current": {
     "stop_reason": "death",
     "game_turns": 6231,
     "clevel": 1,
