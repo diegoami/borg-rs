@@ -739,9 +739,9 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
     st.borg.goal.fleeing_munchkin = true;
     st.borg.goal.fleeing = true;
 
-    /* Increase the range of the borg a bit (below clevel 10 it shrinks,
-     * C bug 49) */
-    if st.borg.tr(BI_CDEPTH) <= 10 {
+    /* Increase the range of the borg a bit.  Only when the character
+     * level term can be positive: below level 10 it would shrink the range. */
+    if st.borg.tr(BI_CDEPTH) <= 10 && st.borg.tr(BI_CLEVEL) > 10 {
         closeness += (st.borg.tr(BI_CLEVEL) - 10) + (10 - st.borg.tr(BI_CDEPTH));
     }
 
@@ -1324,13 +1324,12 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
         return true;
     }
 
-    /* Prevent clock wrapping Step 2 */
+    /* Prevent clock wrapping Step 2: reset the clock gracefully and keep
+     * playing.  This must run before any panic: the borg_think() overflow
+     * check remains as a failsafe in case the reset was somehow missed. */
     if st.borg.time.now >= BORG_TIME_MAX - 3000 {
-        /* Panic */
-        crate::borg_think::borg_oops(st, "clock overflow");
-
-        /* Oops */
-        return true;
+        st.borg.time.now = 1;
+        crate::borg_io::borg_warning(st, "*****WARNING***** Borg Clock Overflow");
     }
 
     /* no longer trying an unknown object */

@@ -188,14 +188,16 @@ fn borg_proc_setting(
             }
             if c_isdigit(ch) {
                 cfg[setting] = atoi(&line[p..]);
+                if negative {
+                    // C `*= -1` (int overflow on INT_MIN; wraps)
+                    cfg[setting] = cfg[setting].wrapping_mul(-1);
+                }
                 break;
             }
         }
-    }
 
-    if negative {
-        // C `*= -1` (int overflow on INT_MIN; wraps)
-        cfg[setting] = cfg[setting].wrapping_mul(-1);
+        // anything else is not a value: keep the default
+        break;
     }
 
     true
@@ -436,6 +438,10 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
         st.init.init_failure = true;
     }
 
+    // allocate the config data and start it with the default values, so
+    // every early return below leaves the defaults in place
+    st.core.cfg = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
+
     let path = engine::path_build_user(TXT_BUF, b"borg.txt");
 
     // Open the file
@@ -462,11 +468,13 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
         }
         out.close();
         fp = engine::file_open_read(&path);
+        if fp.is_none() {
+            borg_warning(st, "*****WARNING***** unable to read default BORG.TXT file!");
+            return true;
+        }
     }
 
-    // C goes on with a NULL file if the reopen failed (file_getl then
-    // reads through it)
-    let fp = fp.expect("borg.txt written but not readable");
+    let fp = fp.expect("borg.txt opened above");
     let mut file = TxtFile { st, fp: Some(fp) };
     let (formulas_found, old_formulas_found) = read_txt_settings(&mut file);
 
@@ -952,11 +960,20 @@ mod tests {
         assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 0);
         // (int) 99999999999L = 1215752191
         assert_eq!(cfg[BORG_ENCHANT_LIMIT as usize], 15);
-        assert_eq!(cfg[BORG_NO_DEEPER as usize], -127);
+        // a "-" with no number keeps the default (better-borg-c milestone6
+        // patch 0058; the original negated the default to -127)
+        assert_eq!(cfg[BORG_NO_DEEPER as usize], 127);
         assert_eq!(cfg[BORG_STOP_KING as usize], 0);
         assert_eq!(cfg[BORG_KILLS_UNIQUES as usize], 0);
         assert_eq!(cfg[BORG_LUNAL_MODE as usize], 1);
         assert_eq!(cfg[BORG_MUNCHKIN_DEPTH as usize], 8);
+
+        // an integer setting followed by a non-number keeps its default and
+        // the parser moves on (milestone6 patch 0057; the original looped
+        // forever on such a line)
+        let (cfg, _) = cfg_of(b"borg_respawn_race = x\nborg_respawn_class = 3\n");
+        assert_eq!(cfg[BORG_RESPAWN_RACE as usize], defaults[BORG_RESPAWN_RACE as usize]);
+        assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 3);
 
         let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\nCND foo\n");
         assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);

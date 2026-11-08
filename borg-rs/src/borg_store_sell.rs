@@ -1256,7 +1256,7 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
         if borg_item_note_needs_id(st, &item) {
             // note if we have more than one
             if !borg_has_mutiple(st, i) {
-                return 0;
+                continue;
             }
         }
 

@@ -1,0 +1,266 @@
+{
+  "consumer_pin": "b3c825c97c8aef18b252a7fb7d9b7dceef83d586",
+  "previous_consumer_pin": "5384f12ed51e8fef6f31353fd2daaf0e7fb43856",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "stairrange",
+      "patch": "0051",
+      "source_issue": 245,
+      "consumer_issue": 242,
+      "evidence_commit": "5da8217435bb693c3aabbff9d75520f96f355c61",
+      "evidence_path": "docs/audit/c-reports/stairrange-245/scenario.c",
+      "original_sha256": "3494404db57ccf9f119f53cefdbb8d27cc00d753e08ab27596b9ea9d3f0e3040",
+      "scenario_sha256": "3494404db57ccf9f119f53cefdbb8d27cc00d753e08ab27596b9ea9d3f0e3040",
+      "env_prefix": "SR245",
+      "marker": "native-c/stairrange-245 finished: 1/1 passed",
+      "modes": [
+        "main"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "clockreset",
+      "patch": "0052",
+      "source_issue": 246,
+      "consumer_issue": 245,
+      "evidence_commit": "6d4859904037aa987577a8bcab522d5ebd4ae17a",
+      "evidence_path": "docs/audit/c-reports/clockreset-246/scenario.c",
+      "original_sha256": "7194aab49d28638768aed2dbeb516d390b32be00a7f7174f6eb09887f5b38db5",
+      "scenario_sha256": "7194aab49d28638768aed2dbeb516d390b32be00a7f7174f6eb09887f5b38db5",
+      "env_prefix": "CR246",
+      "marker": "native-c/clockreset-246 finished: 1/1 passed",
+      "modes": [
+        "main"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "dangerflee",
+      "patch": "0053",
+      "source_issue": 156,
+      "consumer_issue": 247,
+      "evidence_commit": "7d796742e9ad496695baa24f9b076f203a5d74c6",
+      "evidence_path": "docs/audit/c-reports/dangerflee-156/scenario.c",
+      "original_sha256": "93212be1634861b56330b28a93cc8150d51ff88bcf8a8f2b2d0a1c37df5c87ec",
+      "scenario_sha256": "93212be1634861b56330b28a93cc8150d51ff88bcf8a8f2b2d0a1c37df5c87ec",
+      "env_prefix": "DF156",
+      "marker": "native-c/dangerflee-156 finished: 1/1 passed",
+      "modes": [
+        "excessive",
+        "morgoth",
+        "hurt"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "recallmana",
+      "patch": "0054",
+      "source_issue": 157,
+      "consumer_issue": 250,
+      "evidence_commit": "5a8572e08e24321cce00e65a4c2c7832c4a1315d",
+      "evidence_path": "docs/audit/c-reports/recallmana-157/scenario.c",
+      "original_sha256": "80d117c75fca03743f491ca9bc574e4ce5e68a60524b441f0e7b1215b5ae3ab4",
+      "scenario_sha256": "80d117c75fca03743f491ca9bc574e4ce5e68a60524b441f0e7b1215b5ae3ab4",
+      "env_prefix": "RM157",
+      "marker": "native-c/recallmana-157 finished: 1/1 passed",
+      "modes": [
+        "lowmana",
+        "halfmana"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "deskstair",
+      "patch": "0055",
+      "source_issue": 153,
+      "consumer_issue": 252,
+      "evidence_commit": "993a75f8a3eef3dcc073e7dbb6b69359dd8ab635",
+      "evidence_path": "docs/audit/c-reports/deskstair-153/scenario.c",
+      "original_sha256": "b5cc35143d7b211413ce6bc37e24a5ea0135bcdaf2a7a363324a82152d67037c",
+      "scenario_sha256": "b5cc35143d7b211413ce6bc37e24a5ea0135bcdaf2a7a363324a82152d67037c",
+      "env_prefix": "DS153",
+      "marker": "native-c/deskstair-153 finished: 1/1 passed",
+      "modes": [
+        "twostairs",
+        "twodown",
+        "onestair"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "backaway",
+      "patch": "0056",
+      "source_issue": 155,
+      "consumer_issue": 254,
+      "evidence_commit": "c7bd31508cf6a8f001b408b810263fb297d0ddd2",
+      "evidence_path": "docs/audit/c-reports/backaway-155/scenario.c",
+      "original_sha256": "953521ff58a01eb022cbe11e22738c034b85187b89721f32ad17faf6e727460a",
+      "scenario_sha256": "953521ff58a01eb022cbe11e22738c034b85187b89721f32ad17faf6e727460a",
+      "env_prefix": "BA155",
+      "marker": "native-c/backaway-155 finished: 1/1 passed",
+      "modes": [
+        "monster",
+        "trap",
+        "healthy"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "cfghang",
+      "patch": "0057",
+      "source_issue": 141,
+      "consumer_issue": 257,
+      "evidence_commit": "096ee66813dad5a32f9468d5fff2c48d2a46077c",
+      "evidence_path": "docs/audit/c-reports/cfghang-141/scenario.c",
+      "original_sha256": "acebef3db9110989a103059fcb7495016255b91a0a3af8cd7a174e704e131107",
+      "scenario_sha256": "acebef3db9110989a103059fcb7495016255b91a0a3af8cd7a174e704e131107",
+      "env_prefix": "CH141",
+      "marker": "native-c/cfghang-141 finished: 1/1 passed",
+      "modes": [
+        "word",
+        "suffix",
+        "valid"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "cfgminus",
+      "patch": "0058",
+      "source_issue": 142,
+      "consumer_issue": 258,
+      "evidence_commit": "0a21f5ce0cfdadfb1d3520480425a337bab5f752",
+      "evidence_path": "docs/audit/c-reports/cfgminus-142/scenario.c",
+      "original_sha256": "63e0376392da8fcbc7d3584bc7bdd9144f0be0ea25e30dda1bf8e0d7ab4ba56e",
+      "scenario_sha256": "63e0376392da8fcbc7d3584bc7bdd9144f0be0ea25e30dda1bf8e0d7ab4ba56e",
+      "env_prefix": "CN142",
+      "marker": "native-c/cfgminus-142 finished: 1/1 passed",
+      "modes": [
+        "minus",
+        "valid",
+        "negative"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "cfgmissing",
+      "patch": "0059",
+      "source_issue": 144,
+      "consumer_issue": 259,
+      "evidence_commit": "f37cc9b515e361913a6c680451c4ceab62e3f51c",
+      "evidence_path": "docs/audit/c-reports/cfgmissing-144/scenario.c",
+      "original_sha256": "23a4920dfb744dc38e7495e838ebbd5bfe91f8558d08431d71d6c529645a1855",
+      "scenario_sha256": "23a4920dfb744dc38e7495e838ebbd5bfe91f8558d08431d71d6c529645a1855",
+      "env_prefix": "CM144",
+      "marker": "native-c/cfgmissing-144 finished: 1/1 passed",
+      "modes": [
+        "missing",
+        "present"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "countsell",
+      "patch": "0060",
+      "source_issue": 134,
+      "consumer_issue": 261,
+      "evidence_commit": "6aedfa6f16479584a9c59c6bd6dbdc8408f624a8",
+      "evidence_path": "docs/audit/c-reports/countsell-134/scenario.c",
+      "original_sha256": "9f03053e846b7c5e48c8e96310549881e296ee007123ac21c7eaf2161dccb71f",
+      "scenario_sha256": "9f03053e846b7c5e48c8e96310549881e296ee007123ac21c7eaf2161dccb71f",
+      "env_prefix": "CS134",
+      "marker": "native-c/countsell-134 finished: 1/1 passed",
+      "modes": [
+        "full-unid",
+        "full",
+        "light"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "drainedive",
+      "patch": "0061",
+      "source_issue": 235,
+      "consumer_issue": 263,
+      "evidence_commit": "300d18cdd256f6055f2ae905057e0254810c9b07",
+      "evidence_path": "docs/audit/c-reports/drainedive-235/scenario.c",
+      "original_sha256": "ad3803eb13da3eb88b1cfa0f3da04eabc1dec96cbc04df83713ed933ff4cb15c",
+      "scenario_sha256": "ad3803eb13da3eb88b1cfa0f3da04eabc1dec96cbc04df83713ed933ff4cb15c",
+      "env_prefix": "DD235",
+      "marker": "native-c/drainedive-235 finished: 1/1 passed",
+      "modes": [
+        "main"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "respois",
+      "patch": "0062",
+      "source_issue": 184,
+      "consumer_issue": 266,
+      "evidence_commit": "c94b12b3c58caeb3310a772f2322b76baa711ebe",
+      "evidence_path": "docs/audit/c-reports/respois-184/scenario.c",
+      "original_sha256": "0e753127338006d3e76a8c0de473dbde0da19aa523d1460f473e61ac1c8d24cc",
+      "scenario_sha256": "0e753127338006d3e76a8c0de473dbde0da19aa523d1460f473e61ac1c8d24cc",
+      "env_prefix": "RP184",
+      "marker": "native-c/respois-184 finished: 1/1 passed",
+      "modes": [
+        "apples",
+        "rations"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "respoiswar",
+      "patch": "0063",
+      "source_issue": 185,
+      "consumer_issue": 267,
+      "evidence_commit": "58a366e8b9bdc886c9c94292271ea0313e678906",
+      "evidence_path": "docs/audit/c-reports/respoiswar-185/scenario.c",
+      "original_sha256": "5efdc8def65b1da6d15a6b94151dd1222fa3c97c0d532e5aaca8db8c86bc0f68",
+      "scenario_sha256": "5efdc8def65b1da6d15a6b94151dd1222fa3c97c0d532e5aaca8db8c86bc0f68",
+      "env_prefix": "RW185",
+      "marker": "native-c/respoiswar-185 finished: 1/1 passed",
+      "modes": [
+        "cold",
+        "plain"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "recallmana-adapted",
+      "patch": "0054",
+      "source_issue": 157,
+      "consumer_issue": 250,
+      "evidence_commit": "5a8572e08e24321cce00e65a4c2c7832c4a1315d",
+      "evidence_path": "docs/audit/c-reports/recallmana-157/scenario.c",
+      "original_sha256": "80d117c75fca03743f491ca9bc574e4ce5e68a60524b441f0e7b1215b5ae3ab4",
+      "scenario_sha256": "4de3ddbe10899d2e3f3ac16474f115542b57626e5fb9f3b6327f8c9a849222d2",
+      "env_prefix": "RM157",
+      "marker": "native-c/recallmana-157 finished: 1/1 passed",
+      "modes": [
+        "lowmana",
+        "halfmana"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "transform": {
+        "replace": "borg.ready_morgoth = 0;",
+        "with": "borg.ready_morgoth = 1;"
+      }
+    }
+  ]
+}
