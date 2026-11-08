@@ -62,7 +62,9 @@ python3 harness/adoption/m3/matrix.py
 
 `matrix.py` compares C and Rust per case (keys, messages, state, full
 terminal native save) and C against the committed milestone2 reference to
-count the cases whose behaviour this batch changes.
+count the cases whose behaviour this batch changes. It exits 1 unless both
+suites are DONE, all planned cases have parity and harness/diff passes (and,
+with fault controls, every fault suite is DONE with equal case counts).
 
 Per-fix Rust fault controls: in a separate worktree at the implementation
 commit, for each `docs/adoption/c-m3/removals/NNNN-rust.patch` restore

@@ -12,7 +12,7 @@ adoption issue [borg-rs#6](https://github.com/diegoami/borg-rs/issues/6).
 Target2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f contains seven fixes,
 independently approved in C review38/comment6705894080. Read
 [adoption/c-m2](docs/adoption/c-m2/README.md) and adoption/status.json for
-actual implementation/validation state. No later C milestone is included.
+actual implementation/validation state. That M2 batch included no later C milestone.
 Owner then directed C milestone3 (2026-11-08): target702f091f6, tracking
 [borg-rs#8](https://github.com/diegoami/borg-rs/issues/8), record
 [adoption/c-m3](docs/adoption/c-m3/README.md). It retires the local #290

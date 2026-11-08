@@ -7,6 +7,13 @@ messages.log, state.log and the terminal native save (final.save). The C run
 is then compared with the committed milestone2 reference (same inputs,
 pre-milestone3 C/Rust) to list the cases whose behaviour changed.
 harness/diff is also run on the two suite directories. Writes matrix.json.
+
+Exit status is 0 only when both suite directories carry DONE, every planned
+case ran in both roles with parity, harness/diff succeeded and, when fault
+controls are present, every fault suite carries DONE with the same case count
+as the first. Otherwise it exits 1 after writing the diagnostics. Fault
+detection counts are reported, never gated: a fault output is not parity
+evidence, and an undetected fault means "not detected on this subset".
 """
 import argparse
 import hashlib
@@ -14,6 +21,7 @@ import json
 import lzma
 from pathlib import Path
 import subprocess
+import sys
 
 ROOT = Path(__file__).resolve().parents[3]
 REF = ROOT / 'harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f'
@@ -79,8 +87,27 @@ def main():
     for name in changed:
         print(' ', name, rows[name]['m2'], '->', rows[name]['m3'])
     for fix, f in report.get('fault_controls', {}).items():
-        print(f"fault {fix}: {'DETECTED' if f['detected'] else 'not detected'} "
+        print(f"fault {fix}: {'DETECTED' if f['detected'] else 'not detected on this subset'} "
               f"({len(f['differing'])}/{f['cases']} cases differ; suite DONE={f['suite_done']})")
+    problems = []
+    for role, path in (('C', args.c), ('Rust', args.rust)):
+        if not (path / 'DONE').exists():
+            problems.append(f'{role} suite has no DONE marker')
+    if missing:
+        problems.append(f'{len(missing)} planned cases missing in a role')
+    if parity != len(cases):
+        problems.append(f'parity {parity}/{len(cases)}')
+    if diff.returncode != 0:
+        problems.append(f'harness/diff exit {diff.returncode}')
+    fault_rows = report.get('fault_controls', {})
+    if fault_rows:
+        counts = {f['cases'] for f in fault_rows.values()}
+        if len(counts) != 1 or not all(f['suite_done'] for f in fault_rows.values()):
+            problems.append('incomplete fault-control suites')
+    if problems:
+        print('FAIL: ' + '; '.join(problems))
+        sys.exit(1)
+    print('PASS')
 
 
 def faults(c_dir, faults_dir):
