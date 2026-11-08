@@ -19,6 +19,16 @@ equality reset in the table below, which is reverted to the pristine `>` test
 in C and Rust (history and receipts below are unchanged). Local #287 and #322
 remain and cover consumer patches0025/0027.
 
+Engine correction during the C milestone4 adoption (owner-directed narrow
+fix, 2026-11-08): `do_cmd_wiz_cure_all()` in `cmd-wizard.c` also frees the
+known curse list. Before, the Borg's cheat-death answer left
+`obj->known->curses` set after freeing `obj->curses`, and a later Remove
+Curse crashed in `curse_menu` (C and Rust share this engine code).
+Reported upstream as
+[neo-angband-tracker#474](https://github.com/diegoami/neo-angband-tracker/issues/474)
+for that repository's own process; evidence is in
+[validation/2026-11-08-c-m4](validation/2026-11-08-c-m4/README.md).
+
 The sections below record the original M4 and post-M4 correction history.
 
 Owner direction, 2026-11-06: inherited C behavior may be corrected when
