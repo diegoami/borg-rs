@@ -1,0 +1,10 @@
+impl=rust
+git_rev=30d1e4e9e6561b26982bb405c56d11cb54c02b0e
+git_dirty=no
+inputs_dirty=no
+source_sha256=c71add34a2c6327574a1c9389ea46c178d1caa31227610898495e6a532d678a6
+binary=/home/user/borg-rs/build/rust/game/angband
+binary_sha256=88aaba5079a2168b1dc1112f645e4fd05a6586a2dd0d3d35d91ae027eaf38e17
+cc=cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+rustc=rustc 1.97.0 (2d8144b78 2026-07-07)
+built_utc=2026-11-08T20:22:23Z
