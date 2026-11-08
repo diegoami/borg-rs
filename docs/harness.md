@@ -532,3 +532,92 @@ replacement, level50 and both exact archived save hashes. Four deterministic
 race controls and five complete real roundtrips pass; see
 [the driver README](../harness/regress/launcher-save/README.md) and
 [review follow-up](validation/2026-11-07-m4-review-followup/README.md).
+
+## Borg zoo measurements (2026-11-08)
+
+Both `harness/build.sh` backends expose these additional borgh arguments.
+Pass them after `--` in `harness/run.sh`; all are off by default.
+
+| Option | Recording / stop |
+| --- | --- |
+| `-states FILE` | Native-observer-style `STATE` lines: `start`, `borg_start`, `progress` every 100 Borg think decisions, and the stop reason. Flushed per record. |
+| `-stall-decisions N` | Stop as `stalled` after a decision-count delta of N at one unchanged game turn. Energy increases do not reset the clock. N must be positive. |
+| `-exact-turns` | Stop from the world-turn increment at the positive `-turns` limit, before requesting another key. |
+| `-random-birth` | Send the birth menus' `*` choices for race and class; the game seed chooses the character. Cannot combine with `-load`. |
+
+Example (substitute an absolute output path):
+
+```sh
+BORG_IMPL=rust harness/run.sh /tmp/zoo-run 1045 0 0 100000 menu,munchkin -- \
+  -states /tmp/zoo-run/states.log -stall-decisions 10000 -exact-turns
+```
+
+`STATE KIND` is followed by space-separated `name=value` tokens:
+`turn energy decisions depth max_depth level max_level hp max_hp dead winner
+borg_rng quick quick_rng rng_index rng`. These match the concepts and names
+of better-borg-c's `tools/native-observer.c`; `max_hp` is an additional token.
+`energy` is `player->total_energy`, the cumulative energy spent (including
+resting), not the current action-energy budget. `rng` concatenates the 32
+32-bit complex-RNG words as eight lowercase hexadecimal digits each.
+The quick RNG is temporarily the Borg's RNG during a think call, exactly as
+in the native observer; `quick` records that fact. Recording never draws RNG.
+
+Every summary adds these fields, including when all options are off:
+
+| Field | Meaning |
+| --- | --- |
+| `calendar` | `"fixed"`: the existing seeded non-holiday date remains unchanged. |
+| `max_clevel` | Engine `player->max_lev`, including any earlier maximum before level loss. |
+| `hp`, `max_hp` | Engine HP and maximum HP at the stop. |
+| `borg_decisions` | Observed Borg think boundaries, including iterations that return false without yielding a key. |
+| `player_energy` | Same cumulative energy as the stream's `energy`. |
+| `borg_rng` | Borg's stored local RNG state (native observer's `borg_rng`). |
+| `game_rng` | Object with `quick` (boolean), `quick_rng`, `rng_index`, and the same hexadecimal `rng` string as STATE. Captured before any requested final save. |
+| `effective_settings` | Map from Borg setting name to parsed integer value; booleans are 0/1, as in native `BORG_OPTIONS`. Read from the live configuration, including parser adjustments, rather than reconstructed from `borg.txt`. Empty if the Borg never reaches a decision. |
+
+Opt-in runs also add `exact_turns: true` or `random_birth: true` as
+applicable. Random births add `played_race_idx` and `played_class_idx` from
+the engine. Existing `race_idx`/`class_idx` continue to mean the requested
+indices, preserving legacy menu behavior and references; `race`/`class`
+continue to name the character actually played. Negative requested indices
+remain rejected; the old header's misleading “-1 = random” text is removed.
+
+A stall adds `stall_turn`, `stall_decisions` and `stall_energy_delta`.
+The latter two are deltas from the first decision observed at the frozen
+turn; the first observation establishes the baseline. Any change in turn
+(including a backwards change on reincarnation) establishes a new baseline.
+Stalling can stop inside the think loop without another key. As with an
+exact world-turn stop, the last key can precede `summary.game_turns`.
+`harness/diff` permits that explicitly declared boundary and validates stall
+deltas. Ordinary legacy runs retain the last-key/summary equality check.
+
+Keys remain the oracle. Pure observation and a nontriggering stall limit
+leave all three existing log streams byte-identical. A triggered limit
+retains their key prefix. `-exact-turns` deliberately omits the old final
+key generated at/after the cap; it can therefore shorten the key log.
+`-random-birth` deliberately changes the character and key stream versus a
+fixed birth. It uses the same seeded choice as the observer; it cannot also
+preserve a fixed character's keys. No Borg choice is changed by recording.
+
+The checked-in C and Rust Borg files are untouched. Only harness builds
+instrument their think-call boundary: C uses a forced compiler include on
+`borg.c`; Rust builds a generated source overlay under
+`build/<impl>/measurement-rust`, with a read-only FFI bridge in its engine
+module. The two exact Rust insertion sites are checked and fail closed if
+they change. Ordinary Rust builds use the original workspace. The adapters
+copy live values synchronously, retain no Borg pointers, and call no game
+callbacks. The harness adapter files participate in `BUILD_ID` source hashes.
+Do not edit generated sources to implement gameplay changes. Harness unit-test
+executables use separate no-op observation sinks; those sinks are never linked
+into the game executable.
+
+New fields are compared between new summaries. For historical references
+that predate `calendar: "fixed"`, only the new measurement fields are skipped;
+all existing fields and streams remain required. New-format summaries must
+contain the complete added field set. No stored reference is rewritten.
+
+Focused controls: `python3 harness/regress/measurement-test.py`. The
+smoke/config option sweep and additional-suite baseline controls are in
+`harness/regress/measurement-suites.py` and `measurement-remaining.py`.
+Native-observer birth expectations record their donor source/result hashes
+in `harness/regress/measurement-birth-reference.json`.

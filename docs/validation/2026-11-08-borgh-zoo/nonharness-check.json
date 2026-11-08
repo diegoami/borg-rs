@@ -1,0 +1,7 @@
+{
+  "module": "game-world.c",
+  "harness_define": false,
+  "before_ref": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+  "object_sha256": "1d2c1eedbd532540b5e46773b472237f4651fa9e438fb587d3383ff02eef0b27",
+  "byte_identical": true
+}

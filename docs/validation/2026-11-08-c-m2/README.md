@@ -41,8 +41,10 @@ remain truthful, with final effective source hashes rather than relabelled IDs.
   NUL termination. Nine actual Rust fault variants are rejected. These use
   controlled environment callbacks; they are not the full native49 on Rust
   or a shadow of every private state field.
-- Real game cases:131/131 strict C/C/Rust matches in keys/messages/player-state
-  logs, input/config and summary. All131 full terminal native saves and the
+- Real game cases: the author obtained131/131 strict C/C/Rust matches on the
+  recorded hardware/load under the300s per-case wall; that coverage count is
+  not a portable wall-time guarantee. Keys/messages/player-state logs,
+  input/config and summary match. All131 full terminal native saves and the
   retained private autosave copies match across the three roles. World-turn,
   seed/race/class, key caps/config and300s per-case wall limits are checked.
 - Ordinary9 were uniformly repeated with terminal-save replacing living-save,
@@ -106,3 +108,20 @@ save/load equivalence, whole private memory equivalence or universal correctness
 The donor's disclosed unfavorable potion-conservation/RNG tradeoffs remain.
 Batch is ready for accumulated Rust review on issue6; no new acceptance/tag
 is inferred from implementation.
+
+
+## Independent review (2026-11-08)
+
+[Review at0bc7a09](https://github.com/diegoami/borg-rs/issues/6#issuecomment-6716468916)
+is **qualified pass, no acceptance blockers**. The reviewer independently
+reproduced all131 C1 cases and their524 compressed-reference channels, but
+only125 cases completed in all three roles under the unchanged300s wall.
+C2 timed out on Rogue2M; Rust timed out on that case, three deep cases,
+Blackguard munchkin and deep lunal. Completed cases match exactly; timeout
+prefixes match up to termination. This qualifies portable coverage under a
+wall budget; it does not identify behavioural divergence in the seven fixes.
+The49 native C scenarios,1,785 shared-callback body/seam comparisons and
+whole-private-Borg equivalence remain distinct; the last is not established.
+Owner acceptance/tagging remain separate. Review findings/dispositions stay
+on issue6; a later harness sweep with a larger wall budget is separate evidence
+and does not upgrade this independent verdict.

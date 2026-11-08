@@ -1,0 +1,46 @@
+{
+  "native_c_cases": 49,
+  "native_c_passed": 49,
+  "unit_brand": {
+    "c": "11/11",
+    "rust": "11/11"
+  },
+  "focused_log": "== changed RNG: summary borg_rng: A=2767035579 B=2767035580\nPASS: C/Rust stream, RNG, settings, frozen-clock stall, exact cap, three native births: /home/diego/projects/borg-rs/harness/out/measurement-y_zmo75n",
+  "link_audit": "1. rust build: src/borg/*.c entries in compile_commands.json: 0\n   rust build: src/borg object files: 0\n2. staticlib members: 345; rustc objects: 310 (borg_rs crate: 17); compiler-builtins C objects: 35\n3. C Borg symbols: 1174; rust binary symbols: 9049; borg_rs exports: 1251; C Borg names in the rust binary: 2, of those exported by borg_rs: 1\n4. engine objects: 158 in build/c, byte-identical in build/rust: 158 (buildid.c.o may differ)\n5. link inputs (ld --trace of a relink identical to the binary): engine objects: 154; staticlib members pulled in: 31; system files and members: 25\nOK: no C Borg code in /home/diego/projects/borg-rs/build/rust/game/angband",
+  "artifacts_sha256": {
+    "final-c-build.log": "275e20be46cfaf5efd7c2f529ceabd89d12d3943e8ad78ece11bbf754b25c0b8",
+    "final-rust-build.log": "e3ff00a50a05adb2309ec4c2af7de07993e883cfffacfaad5b0aa8e102bd738b",
+    "final-unit-c-build.log": "4c83de750ee43c325179a270a22310c7d99b72604ae46cec47b767ea5443645d",
+    "final-unit-rust-build.log": "6a36f2eba2cdeb33a8273414ef03b49cc50c2508fc1f0b9bc64e0a8672cc23a0",
+    "final-unit-c.log": "0c1403ea67545796c3f653fe03c8e1e6abb10961ab90dafb9a5a84481d5d1e7a",
+    "final-unit-rust.log": "0c1403ea67545796c3f653fe03c8e1e6abb10961ab90dafb9a5a84481d5d1e7a",
+    "final-focused.log": "fc642593dda75bd852530ac52de5f902b953d73f47f884d258582478f7f4d4de",
+    "final-native.log": "7efed5f428ca7969d1aa627bd3caeaa103a9c29bed7e9479782761f0ccd4da67",
+    "final-no-c-borg.log": "c94090639d6c1aa261c81162a49c3cd20c6249e874667af48e0cc7d45dc49e62",
+    "no-c-borg-helper-hint.log": "8a76e31bd5ff53b2caf45162a325d0e493682f47749c22c722be1a13550f2068",
+    "options-parity.diff": "756e528ff110af297faa890314615baa71ae87fcd988b829bf80e4da491d2343"
+  },
+  "final_smoke": {
+    "cases_per_backend": 3,
+    "comparisons": {
+      "c": {
+        "sha256": "fc4a48dbcc4604863d76f153d5ea3a219487f84502267cf49f2f36fa31ebc211",
+        "result": "3/3 keys/messages/state/summary/full-save comparisons pass"
+      },
+      "rust": {
+        "sha256": "b53a08f85a4bcb56e16fcc65d3a6b66c95b13dc20730ea79046187c2c8400f94",
+        "result": "3/3 keys/messages/state/summary/full-save comparisons pass"
+      },
+      "parity": {
+        "sha256": "3882788bdef2cfe3a515cf9450c9e3dc0e2fb0de585f6490ff07aae95410bc74",
+        "result": "3/3 keys/messages/state/summary/full-save comparisons pass"
+      }
+    }
+  },
+  "input_identity": {
+    "parallel_checks": 40,
+    "read_errors_fail_closed": true,
+    "receipt": "identity-check.json",
+    "log_sha256": "f64c2605b8b1eb67aef80e1d12f8d09d7fa3d00c0901ce4c9c901a38d08fa4c4"
+  }
+}

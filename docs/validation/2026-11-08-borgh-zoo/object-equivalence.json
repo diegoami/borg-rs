@@ -1,0 +1,42 @@
+{
+  "followup": "7ee493b unit targets only; game source unchanged from033209a",
+  "backends": {
+    "c": {
+      "objects_compared": 213,
+      "changed_objects": [
+        "CMakeFiles/OurCoreLib.dir/src/buildid.c.o"
+      ],
+      "build_id": {
+        "impl": "c",
+        "git_rev": "9db8833ba3c197f0a3620b938ec347eeb5ff8eee",
+        "git_dirty": "yes",
+        "inputs_dirty": "no",
+        "source_sha256": "602c00d456b2091dd64f8ffb516310c9cd2b9621a7d8a4fedc8b8f1e25cb7e3b",
+        "binary": "/home/diego/projects/borg-rs/build/c/game/angband",
+        "binary_sha256": "6a00e01bc2ed201ccf61abd0fb43d34be1bcc172153599c619c687a4b3f375c1",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "built_utc": "2026-11-08T03:33:37Z"
+      }
+    },
+    "rust": {
+      "objects_compared": 154,
+      "changed_objects": [
+        "CMakeFiles/OurCoreLib.dir/src/buildid.c.o"
+      ],
+      "build_id": {
+        "impl": "rust",
+        "git_rev": "9db8833ba3c197f0a3620b938ec347eeb5ff8eee",
+        "git_dirty": "yes",
+        "inputs_dirty": "no",
+        "source_sha256": "8c526f1b34b7a4f35e6a229f727366d924c7f915742e49f44f5ca059e3c11639",
+        "binary": "/home/diego/projects/borg-rs/build/rust/game/angband",
+        "binary_sha256": "d7b6389a7b726d5f5138b6b3686b56715b48542fc396e28f02a80c7f76315eb8",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+        "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+        "built_utc": "2026-11-08T03:33:37Z"
+      }
+    }
+  },
+  "rust_staticlib_byte_identical": true,
+  "rust_staticlib_sha256": "f138f3d40e59ed2f04ad7764dc4990501d277c1f8976c90b556b22d67c801af2"
+}

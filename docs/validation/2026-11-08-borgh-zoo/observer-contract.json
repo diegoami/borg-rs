@@ -1,0 +1,15 @@
+{
+  "repository": "diegoami/better-borg-c",
+  "commit": "2f4d62e4fd3450196ed14c4f20c1d15486dea851",
+  "files": {
+    "tools/native-observer.c": "9c10fcedd8b2f44e211f63235b38bad7cec351ec45216366689e73cb3f0a9ad7",
+    "tools/measure-native.py": "e9cd4aa132f234d1f13d3e644ee928aedb022eb1b69418c50b4fca7637a91499"
+  },
+  "parser_check": {
+    "input": "harness/out/measurement-f_k1d1ym/c/states/states.log",
+    "records": 20,
+    "function": "parse_states",
+    "result": "accepted without changes"
+  },
+  "scope": "observer format and recorded births only; no gameplay import"
+}

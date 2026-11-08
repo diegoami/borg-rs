@@ -7,14 +7,15 @@
 #   harness/identity.sh binary-impl BIN   c, rust or unknown, read from BIN
 #
 # Build inputs (paths relative to the checkout root):
-#   c     angband/
-#   rust  angband/ borg-rs/ Cargo.toml Cargo.lock
+#   c     angband/ harness/measurement/
+#   rust  angband/ borg-rs/ Cargo.toml Cargo.lock harness/measurement/
 # They are the files git tracks under those paths plus the untracked files
 # that .gitignore does not exclude, as they are in the working tree (not as
 # committed): source-hash is sha256 over "<git blob id> <path>" lines, so
 # it depends only on file contents and names. It does not change when a
 # change is committed, nor when files outside the inputs (docs/, harness/)
-# change. The C build does not read borg-rs/, so a Rust change leaves the
+# change, except harness/measurement adapters which are explicit inputs.
+# The C build does not read borg-rs/, so a Rust change leaves the
 # C binary's identity valid.
 #
 # binary-impl reads the executable itself: "rust" if its .comment section
@@ -26,8 +27,8 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 inputs_of() {
     case "$1" in
-        c) echo "angband";;
-        rust) echo "angband borg-rs Cargo.toml Cargo.lock";;
+        c) echo "angband harness/measurement";;
+        rust) echo "angband borg-rs Cargo.toml Cargo.lock harness/measurement";;
         *) echo "identity.sh: implementation must be c or rust, not '$1'" >&2; exit 2;;
     esac
 }
@@ -48,14 +49,17 @@ case "${1:-}" in
         list_inputs "$2" | tr '\0' '\n';;
     source-hash)
         inputs_of "$2" >/dev/null
-        list_inputs "$2" > "${TMPDIR:-/tmp}/identity.$$"
-        trap 'rm -f "${TMPDIR:-/tmp}/identity.$$"' EXIT
-        n=$(tr -cd '\0' < "${TMPDIR:-/tmp}/identity.$$" | wc -c)
+        # Shared workspaces can have callers in separate PID namespaces;
+        # $$ alone does not give a unique name on the shared filesystem.
+        HASH_TMP=$(mktemp -d "${TMPDIR:-/tmp}/borg-input-hash.XXXXXXXX")
+        trap 'rm -f "$HASH_TMP/paths" "$HASH_TMP/blobs"; rmdir "$HASH_TMP"' EXIT
+        list_inputs "$2" > "$HASH_TMP/paths"
+        n=$(tr -cd '\0' < "$HASH_TMP/paths" | wc -c)
         [ "$n" -gt 0 ] || { echo "identity.sh: no inputs for $2 under $ROOT" >&2; exit 1; }
-        # blob ids in the same order as the paths
-        paste -d' ' \
-            <(cd "$ROOT" && xargs -0 git hash-object -- < "${TMPDIR:-/tmp}/identity.$$") \
-            <(tr '\0' '\n' < "${TMPDIR:-/tmp}/identity.$$") \
+        # Capture this step directly so a failed read cannot be hidden by
+        # process substitution and followed by a successful partial hash.
+        (cd "$ROOT" && xargs -0 git hash-object -- < "$HASH_TMP/paths") > "$HASH_TMP/blobs"
+        paste -d' ' "$HASH_TMP/blobs" <(tr '\0' '\n' < "$HASH_TMP/paths") \
           | { echo "borg-rs build inputs v1 impl=$2"; cat; } \
           | sha256sum | cut -d' ' -f1;;
     inputs-dirty)
