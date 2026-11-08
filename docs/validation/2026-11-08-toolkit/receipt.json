@@ -115,7 +115,7 @@
     "prefixes.json": "2090fa0ca76ca27eb787f9f58273edaf0462e5521a8a41657146774063de9ccd",
     "prefixes.log": "daffb364911d40bcf325414a13358f11fc636c681a8113e20df7eb2eef3945ff",
     "rust-unit.log": "f747727b4cbe0208fa6ebaacf8ef0830c904f645f901f4d6c9e0c90df9221e3c",
-    "README.md": "0cbd0141a491c49c5faa5c47a5d9169384116e89c6334c167271d7d16a903deb",
+    "README.md": "79e5a1f248890e90db3b5d50df8542bdf4f2c2332d8191626c3e925f104afc21",
     "negative-controls.json": "780d83bc188ca20eab5cd27671c1bcd1f26f69b3b4120ea6085fbb4a63b9c572",
     "gui-runs.json": "9ef9ff2506975e99f071f7572136c26c27359a067dbde34807e6f58cfbd8d118",
     "self-replays.json": "f992e3c1f0d349f6b35cbc6b96b3cb21153d81a0135eee155216448ce0d03ff6",
@@ -128,7 +128,9 @@
     "noninterference.json": "356f9b02c6047bf3573608a86a7860c17be5ccac4a18c68946c78c46555077a7",
     "diagnostic.log": "2d183d12201289429f30c62126e67e73f937f5912bbd50f7a52655baf8764e01",
     "no-c-borg.log": "331af35318836896d435a0dd8aead4adb39a8515e7be93d777fc6d2eede48a0a",
-    "manual-sessions.json": "2b25618db181fa5c220c2d609da1a05fcb486e664ba41724032aaf6664f22cf9"
+    "manual-sessions.json": "2b25618db181fa5c220c2d609da1a05fcb486e664ba41724032aaf6664f22cf9",
+    "post-commit-reuse.json": "09013bc46f9f7fd614e2fb93e3c4a5f39093c2cb11fbf4fbfec6ad761189794d"
   },
-  "current_verifier_sha256": "32ab19a6cf58d5be2add10eb5ae046f36a8b84705bb8b63b92b8db85b22f9103"
+  "current_verifier_sha256": "32ab19a6cf58d5be2add10eb5ae046f36a8b84705bb8b63b92b8db85b22f9103",
+  "post_commit_reuse": "post-commit-reuse.json"
 }

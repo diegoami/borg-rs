@@ -89,3 +89,5 @@ The final complete unit log and native failure artifacts are retained here/by pa
    here; full/deep main-integration gates were not rerun in this tooling lane.
    Milestone4 gameplay issue11 and its owner branch are separate. No owner review
    mark, acceptance, release or new C carry is inferred.
+
+Post-commit control: [compatible build reuse](post-commit-reuse.json) requested committed tooling6477a7e, reused the exact native image compiled from3211e91 with --no-build, and passed one further full Rust self-replay. This is separate from the frozen three-game qualification batch.
