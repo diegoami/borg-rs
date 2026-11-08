@@ -1,0 +1,288 @@
+{
+  "implementation_commit": "033209a0ff56cc6c9ddaa604c1f47f74a1b9e02a",
+  "builds": {
+    "c": {
+      "impl": "c",
+      "git_rev": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+      "git_dirty": "yes",
+      "inputs_dirty": "yes",
+      "source_sha256": "223b883d63c6d19d6cfe36954c0f1ab8b7bddf397b92a76624af747787c70088",
+      "binary": "/home/diego/projects/borg-rs/build/c/game/angband",
+      "binary_sha256": "e2c2bc6f3a1bbf9287666877ec7729255a5706ee14f155a01dc45f2e583a9d9f",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "built_utc": "2026-11-08T02:12:43Z"
+    },
+    "rust": {
+      "impl": "rust",
+      "git_rev": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+      "git_dirty": "yes",
+      "inputs_dirty": "yes",
+      "source_sha256": "374d410419388cfcc702e2e2cf095cb5918eb15838eecece5884f04c1cd29b20",
+      "binary": "/home/diego/projects/borg-rs/build/rust/game/angband",
+      "binary_sha256": "da73d433d4078e24226c52f77af459604ecbd097636bd5004d816941f48c079d",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "built_utc": "2026-11-08T02:12:44Z"
+    }
+  },
+  "baseline_ref": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+  "baseline_image": {
+    "impl": "rust",
+    "git_rev": "379728289dbce6c2ba2d017073d5d639bcbbd65c",
+    "git_dirty": "yes",
+    "inputs_dirty": "yes",
+    "source_sha256": "2a5ad064c4102098f6c610de34e5c0b63fb12544db3a2f1570f41259e25ae1c8",
+    "binary": "/home/diego/projects/borg-rs/build/rust-m2/game/angband",
+    "binary_sha256": "310dbdf9913b162b92e10791fdf753499f126b8fcffd0e0d91803d7b5a3f7cde",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "built_utc": "2026-11-08T00:28:23Z",
+    "verified_source_ref": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712"
+  },
+  "groups": {
+    "c-m2": {
+      "cases": 131,
+      "stream_trees": {
+        "keys.log": "e34fced5c27d63bfd7e0c1c6ef06c223580eaa390e702ab61fe344bb08badaf0",
+        "messages.log": "050f5f8f5b9a1ad88ae0a5eb78598f3cfc48891ad4c9f045e8f0cef43898722d",
+        "state.log": "8ecebc05b34c986606a2efed202e0d63077865a315d887a07c28c1733c4ce9fa"
+      },
+      "summary_tree": "0dd6de145cfac13b9209b151b65260466ef9137927e58160cef3e2abddec82d7"
+    },
+    "rust-m2": {
+      "cases": 131,
+      "stream_trees": {
+        "keys.log": "e34fced5c27d63bfd7e0c1c6ef06c223580eaa390e702ab61fe344bb08badaf0",
+        "messages.log": "050f5f8f5b9a1ad88ae0a5eb78598f3cfc48891ad4c9f045e8f0cef43898722d",
+        "state.log": "8ecebc05b34c986606a2efed202e0d63077865a315d887a07c28c1733c4ce9fa"
+      },
+      "summary_tree": "0dd6de145cfac13b9209b151b65260466ef9137927e58160cef3e2abddec82d7"
+    },
+    "baseline-captured-rogue": {
+      "cases": 8,
+      "stream_trees": {
+        "keys.log": "3c6d79ca583701705b9afba72499fb2f9318201274007198322306c91b2cdac4",
+        "messages.log": "2fdfe0fe835bfe356b30ab4339307d2455c33b3a21fd9d1175377f510b007eab",
+        "state.log": "0706267006015c1fb11df406ad770127966661b6200cb4a7bc0ca9dda5dcc69a"
+      },
+      "summary_tree": "d55c630ff49014676196b9d62169312b0e967a56b261dda6715c699dc4330491"
+    },
+    "c-captured-rogue": {
+      "cases": 8,
+      "stream_trees": {
+        "keys.log": "3c6d79ca583701705b9afba72499fb2f9318201274007198322306c91b2cdac4",
+        "messages.log": "2fdfe0fe835bfe356b30ab4339307d2455c33b3a21fd9d1175377f510b007eab",
+        "state.log": "0706267006015c1fb11df406ad770127966661b6200cb4a7bc0ca9dda5dcc69a"
+      },
+      "summary_tree": "ac7195305de9bccc4ecd0ed2c18042c0af84b6a1495c5b00fa75a98ef5ce946f"
+    },
+    "rust-captured-rogue": {
+      "cases": 8,
+      "stream_trees": {
+        "keys.log": "3c6d79ca583701705b9afba72499fb2f9318201274007198322306c91b2cdac4",
+        "messages.log": "2fdfe0fe835bfe356b30ab4339307d2455c33b3a21fd9d1175377f510b007eab",
+        "state.log": "0706267006015c1fb11df406ad770127966661b6200cb4a7bc0ca9dda5dcc69a"
+      },
+      "summary_tree": "ac7195305de9bccc4ecd0ed2c18042c0af84b6a1495c5b00fa75a98ef5ce946f"
+    },
+    "baseline-endgame": {
+      "cases": 5,
+      "stream_trees": {
+        "keys.log": "1af0ce7fc8e52bc096766b8bd87b471dac755058eaac6a22c4c25edf095970fb",
+        "messages.log": "e28551bf7ad5d1b301d5af8861465ce477e3633a2358b2fa64f53fe3bec5d354",
+        "state.log": "6b7214e55db8f567a6ddd698088d4859f03667d4801b9c28acb0c86b7a3ee7fd"
+      },
+      "summary_tree": "18e0b672f8f506edad4f4e8d3a60e2559da17325567ae4f1e5bcefb0892a698e"
+    },
+    "c-endgame": {
+      "cases": 5,
+      "stream_trees": {
+        "keys.log": "1af0ce7fc8e52bc096766b8bd87b471dac755058eaac6a22c4c25edf095970fb",
+        "messages.log": "e28551bf7ad5d1b301d5af8861465ce477e3633a2358b2fa64f53fe3bec5d354",
+        "state.log": "6b7214e55db8f567a6ddd698088d4859f03667d4801b9c28acb0c86b7a3ee7fd"
+      },
+      "summary_tree": "67074c6b7d1a82e2b01f5aff300989befa162315ab089798341818607c03978c"
+    },
+    "rust-endgame": {
+      "cases": 5,
+      "stream_trees": {
+        "keys.log": "1af0ce7fc8e52bc096766b8bd87b471dac755058eaac6a22c4c25edf095970fb",
+        "messages.log": "e28551bf7ad5d1b301d5af8861465ce477e3633a2358b2fa64f53fe3bec5d354",
+        "state.log": "6b7214e55db8f567a6ddd698088d4859f03667d4801b9c28acb0c86b7a3ee7fd"
+      },
+      "summary_tree": "67074c6b7d1a82e2b01f5aff300989befa162315ab089798341818607c03978c"
+    },
+    "baseline-extended": {
+      "cases": 12,
+      "stream_trees": {
+        "keys.log": "2fef930eb8d8874bb0d3aef2c611b2b3b4e0a499f51dd0571e0775a3a7c59f53",
+        "messages.log": "e02b2029b5a84f7737ba039d66a1d5f56c91a07a8cc94b5d816719af3a66f9a1",
+        "state.log": "bb93de8c9a7cd18a0b7822ccf63ec213e1e7f70410f77b8304559e9e2a9f5ab3"
+      },
+      "summary_tree": "c710bd89672737769bf5cd9b6681662d540fc3e942411e22b2f2d299546c232c"
+    },
+    "c-extended": {
+      "cases": 12,
+      "stream_trees": {
+        "keys.log": "2fef930eb8d8874bb0d3aef2c611b2b3b4e0a499f51dd0571e0775a3a7c59f53",
+        "messages.log": "e02b2029b5a84f7737ba039d66a1d5f56c91a07a8cc94b5d816719af3a66f9a1",
+        "state.log": "bb93de8c9a7cd18a0b7822ccf63ec213e1e7f70410f77b8304559e9e2a9f5ab3"
+      },
+      "summary_tree": "ca23ac19b6bd1692095e05a2c594894ec6226bccf9d5800abe1eddd236c44f96"
+    },
+    "rust-extended": {
+      "cases": 12,
+      "stream_trees": {
+        "keys.log": "2fef930eb8d8874bb0d3aef2c611b2b3b4e0a499f51dd0571e0775a3a7c59f53",
+        "messages.log": "e02b2029b5a84f7737ba039d66a1d5f56c91a07a8cc94b5d816719af3a66f9a1",
+        "state.log": "bb93de8c9a7cd18a0b7822ccf63ec213e1e7f70410f77b8304559e9e2a9f5ab3"
+      },
+      "summary_tree": "ca23ac19b6bd1692095e05a2c594894ec6226bccf9d5800abe1eddd236c44f96"
+    },
+    "baseline-lunal-investigation": {
+      "cases": 3,
+      "stream_trees": {
+        "keys.log": "49343b3cf8f91d82eac99a5204debde4d8151ba89b5d1b4b213162f1a8ed1f06",
+        "messages.log": "99858ac6d8c8433d8e587a9084a866868e93737df30b89773510abab044bc2a9",
+        "state.log": "e044c48bb86c75c328ef79a30c4739bb4505dee280e87b6d0257b18857a98f29"
+      },
+      "summary_tree": "35dcaedbfd32f14f9b0347b8a45d2f6e962e207bf6dfd0561fff6f38a5987b13"
+    },
+    "c-lunal-investigation": {
+      "cases": 3,
+      "stream_trees": {
+        "keys.log": "49343b3cf8f91d82eac99a5204debde4d8151ba89b5d1b4b213162f1a8ed1f06",
+        "messages.log": "99858ac6d8c8433d8e587a9084a866868e93737df30b89773510abab044bc2a9",
+        "state.log": "e044c48bb86c75c328ef79a30c4739bb4505dee280e87b6d0257b18857a98f29"
+      },
+      "summary_tree": "02d01390428fefc150b318bfd26e59472571391d1aeea13a9f13a6f35c9d1d35"
+    },
+    "rust-lunal-investigation": {
+      "cases": 3,
+      "stream_trees": {
+        "keys.log": "49343b3cf8f91d82eac99a5204debde4d8151ba89b5d1b4b213162f1a8ed1f06",
+        "messages.log": "99858ac6d8c8433d8e587a9084a866868e93737df30b89773510abab044bc2a9",
+        "state.log": "e044c48bb86c75c328ef79a30c4739bb4505dee280e87b6d0257b18857a98f29"
+      },
+      "summary_tree": "02d01390428fefc150b318bfd26e59472571391d1aeea13a9f13a6f35c9d1d35"
+    },
+    "baseline-synthetic-tactics": {
+      "cases": 6,
+      "stream_trees": {
+        "keys.log": "82a3862cc130190cdb466148404f3f0c5e81cf666cfb48a600e64ded176cb7c5",
+        "messages.log": "7a68caa0e0a1af486b35c788d10ed28c42ef75caec447a96cb63911749162092",
+        "state.log": "201bdbbc3e3bebebc52994a2b47aba5013505f4611001084f05e59d0c7c129eb"
+      },
+      "summary_tree": "e093c8e2d64d2da2c8b331276a9546dce0208108be53de972497eac08b777f95"
+    },
+    "c-synthetic-tactics": {
+      "cases": 6,
+      "stream_trees": {
+        "keys.log": "82a3862cc130190cdb466148404f3f0c5e81cf666cfb48a600e64ded176cb7c5",
+        "messages.log": "7a68caa0e0a1af486b35c788d10ed28c42ef75caec447a96cb63911749162092",
+        "state.log": "201bdbbc3e3bebebc52994a2b47aba5013505f4611001084f05e59d0c7c129eb"
+      },
+      "summary_tree": "e0f2397a2dbf15b4ad372cb9bf66681942bed7f9f8454fcb522f1c2c3a6e4948"
+    },
+    "rust-synthetic-tactics": {
+      "cases": 6,
+      "stream_trees": {
+        "keys.log": "82a3862cc130190cdb466148404f3f0c5e81cf666cfb48a600e64ded176cb7c5",
+        "messages.log": "7a68caa0e0a1af486b35c788d10ed28c42ef75caec447a96cb63911749162092",
+        "state.log": "201bdbbc3e3bebebc52994a2b47aba5013505f4611001084f05e59d0c7c129eb"
+      },
+      "summary_tree": "e0f2397a2dbf15b4ad372cb9bf66681942bed7f9f8454fcb522f1c2c3a6e4948"
+    }
+  },
+  "diffs": {
+    "c-m2-reference": "5b113156ba027af583f19d0840257696e7ec07c8264e043123b21ceeb696289a",
+    "rust-m2-reference": "edf4d279ee60003b83534250810db8f81a67024061a26719a6b6e96ca554d555",
+    "m2-parity": "003e26a908474613b33344608c881f5e79e14d7cd5ac4fcbd932e74cbe43e5e3",
+    "c-captured-rogue": "ae6ab30cec898ba03f5b77b6126ed1ec50f5c2fdca0812ccc92f000e5240da9d",
+    "rust-captured-rogue": "b5881c4b3bd6cfae5b9849d46fa33dacbefe86c1a3b760941cea2062cb9f7825",
+    "parity-captured-rogue": "478642412e565ffe29c70ce9052772e55b41a28ee90bbd8f6b790a48990d7d36",
+    "c-endgame": "a4d7fd6590751554ee9ebf353940d701ee788c4275320fe4578d09f76efc6e93",
+    "rust-endgame": "7b9159cbafd28b635222ea08587b33768fa9a6be9355e8c889457bbe560de6ce",
+    "parity-endgame": "d75390fbd25bd613da0956c23341181905fbfee19815728db027113e4d0cd5e8",
+    "c-extended": "35c3bfaaf88247cdf603f269b4b13d6f959d52ab813ff36244ff7757f3fed12b",
+    "rust-extended": "e6c332a227e8f962a913db9cfc8229895951c7e38164622ebd6579a1977f34af",
+    "parity-extended": "8a0bbbf1dd5151e2642e2bee70b314e32fa01909fb1d92a466372196cb5f460f",
+    "c-lunal-investigation": "0ad505453dea793cd54cb5f94aee1c064bc482c62d1e30eb7d24b4f6cb3f2a43",
+    "rust-lunal-investigation": "384c8767a5063168e63889399a42f29cd1a0d1071d275d04028e9005ca507f26",
+    "parity-lunal-investigation": "d018987acfb0501b8f89e084993268b88f7fadb654d949023654a3000f2c70be",
+    "c-synthetic-tactics": "8ef3704937e0b2060c25358a8533363d93b61fe5d815169ebb732f4acb186567",
+    "rust-synthetic-tactics": "b3454dd9da7b0c487abf33f02ef06d445e2600ec0f8fd7e2b5611b80b07a3997",
+    "parity-synthetic-tactics": "7b2cb29e7f4826489a1b05d12333cd283db15d5f70f4daf93be83eb2fd3008ce"
+  },
+  "options": {
+    "executions": 60,
+    "results_sha256": "a3d3fc4f13fe5d2d994b0d9101bf5665c722620d34e055b83a3a67fc783acb61",
+    "checks": "three-log equality for states/nontriggering stall; exact key prefixes and exact caps; C/Rust summaries and STATE bytes"
+  },
+  "limits": [
+    "Existing M2 gameplay adoption is inherited; no new gameplay changes.",
+    "The additional suites and option matrix select qualified successful executions; original scheduling attempts remain preserved.",
+    "Random birth changes a fixed character; exact/stall limits retain the key prefix.",
+    "These are repeated oracle/regression executions, not independent survival lives."
+  ],
+  "observer_contract": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "2f4d62e4fd3450196ed14c4f20c1d15486dea851",
+    "files": {
+      "tools/native-observer.c": "9c10fcedd8b2f44e211f63235b38bad7cec351ec45216366689e73cb3f0a9ad7",
+      "tools/measure-native.py": "e9cd4aa132f234d1f13d3e644ee928aedb022eb1b69418c50b4fca7637a91499"
+    },
+    "parser_check": {
+      "input": "harness/out/measurement-f_k1d1ym/c/states/states.log",
+      "records": 20,
+      "function": "parse_states",
+      "result": "accepted without changes"
+    },
+    "scope": "observer format and recorded births only; no gameplay import"
+  },
+  "nonharness_check": {
+    "module": "game-world.c",
+    "harness_define": false,
+    "before_ref": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+    "object_sha256": "1d2c1eedbd532540b5e46773b472237f4651fa9e438fb587d3383ff02eef0b27",
+    "byte_identical": true
+  },
+  "default-scheduling": {
+    "initial_jobs_per_backend": 2,
+    "runtime_jobs_per_backend": 4,
+    "xargs_pids": [
+      2095664,
+      2095858
+    ],
+    "method": "xargs SIGUSR1, owned validation coordinators only",
+    "unix_time": 1794105187.902557,
+    "second_adjustment_unix": 1794105193.9648676
+  },
+  "remaining-reschedule": {
+    "reason": "raise wall budget for original 5M-turn cases; schedule independent cases",
+    "coordinator_pid": 2122341,
+    "owned_supervisors": [
+      2170774,
+      2171070,
+      2171155
+    ],
+    "unix_time": 1794105123.5490909,
+    "original_output_preserved": "remaining",
+    "tail_scheduling": {
+      "paused_coordinator": 2173825,
+      "action": "active 5M cases continue; new coordinator waits for success and runs independent tail cases",
+      "case_workers": 9,
+      "unix_time": 1794107274.260927,
+      "children_finished_before_coordinator_exit": true,
+      "coordinator_exit_unix": 1794108581.1188948
+    }
+  },
+  "options-reschedule": {
+    "coordinator_pid": 2115861,
+    "action": "paused scheduling; active owned cases allowed to finish",
+    "reason": "reuse completed inputs with wider bounded case scheduling",
+    "unix_time": 1794105531.9587598,
+    "children_finished_before_coordinator_exit": true,
+    "coordinator_exit_unix": 1794106126.399044
+  }
+}

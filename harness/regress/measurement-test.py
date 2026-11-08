@@ -8,6 +8,7 @@ import concurrent.futures
 import importlib.machinery
 import json
 import os
+import shutil
 from pathlib import Path
 import subprocess
 import tempfile
@@ -159,9 +160,14 @@ corrupt = dict(summary)
 del corrupt['effective_settings']
 assert any('missing measurement field effective_settings' in p
            for p in diff.consistency('corrupt', log('c', 'plain'), corrupt))
+corrupt = dict(summary)
+del corrupt['calendar']
+assert diff.consistency('missing calendar', log('c', 'plain'), corrupt)
+legacy = {k: v for k, v in summary.items() if k not in diff.MEASUREMENT_FIELDS}
+assert not diff.consistency('legacy', log('c', 'plain'), legacy)
 corrupt = dict(summary, borg_rng=summary['borg_rng'] + 1)
-summary_path = OUT / 'c/states/summary.json'
-summary_path.write_text(json.dumps(corrupt))
-assert not diff.compare_run('changed RNG', str(OUT / 'c/plain'), str(OUT / 'c/states'))
-summary_path.write_text(json.dumps(summary))
+corrupt_dir = OUT / 'corrupt-rng-control'
+shutil.copytree(OUT / 'c/states', corrupt_dir)
+(corrupt_dir / 'summary.json').write_text(json.dumps(corrupt))
+assert not diff.compare_run('changed RNG', str(OUT / 'c/plain'), str(corrupt_dir))
 print('PASS: C/Rust stream, RNG, settings, frozen-clock stall, exact cap, three native births:', OUT)

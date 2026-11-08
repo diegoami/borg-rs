@@ -569,7 +569,7 @@ Every summary adds these fields, including when all options are off:
 | `calendar` | `"fixed"`: the existing seeded non-holiday date remains unchanged. |
 | `max_clevel` | Engine `player->max_lev`, including any earlier maximum before level loss. |
 | `hp`, `max_hp` | Engine HP and maximum HP at the stop. |
-| `borg_decisions` | Calls to `borg_think`, including calls that return false without yielding a key. |
+| `borg_decisions` | Observed Borg think boundaries, including iterations that return false without yielding a key. |
 | `player_energy` | Same cumulative energy as the stream's `energy`. |
 | `borg_rng` | Borg's stored local RNG state (native observer's `borg_rng`). |
 | `game_rng` | Object with `quick` (boolean), `quick_rng`, `rng_index`, and the same hexadecimal `rng` string as STATE. Captured before any requested final save. |
@@ -607,7 +607,9 @@ module. The two exact Rust insertion sites are checked and fail closed if
 they change. Ordinary Rust builds use the original workspace. The adapters
 copy live values synchronously, retain no Borg pointers, and call no game
 callbacks. The harness adapter files participate in `BUILD_ID` source hashes.
-Do not edit generated sources to implement gameplay changes.
+Do not edit generated sources to implement gameplay changes. Harness unit-test
+executables use separate no-op observation sinks; those sinks are never linked
+into the game executable.
 
 New fields are compared between new summaries. For historical references
 that predate `calendar: "fixed"`, only the new measurement fields are skipped;

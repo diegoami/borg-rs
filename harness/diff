@@ -128,7 +128,9 @@ def consistency(label, data, summary):
     lines = data.split(b"\n")
     if lines and lines[-1] == b"":
         lines.pop()
-    if summary.get("calendar") == "fixed":
+    if any(field in summary for field in MEASUREMENT_FIELDS):
+        if summary.get("calendar") != "fixed":
+            probs.append("%s: measurement calendar must be fixed" % label)
         for field in sorted(MEASUREMENT_FIELDS):
             if field not in summary:
                 probs.append("%s: missing measurement field %s" % (label, field))
