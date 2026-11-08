@@ -413,3 +413,7 @@ reds), ASan/LSan clean after, 131/131 C/Rust parity with 79 cases changed vs
 the M2 reference, 6/22 Rust fault controls detected on a 23-case subset.
 Not merged to main; independent review and owner acceptance pending.
 Reproduction: harness/adoption/m3/README.md. Raw outputs harness/out/c-m3.
+Review (issue8 comment 6720857563): qualified pass, no blocker/major; four
+findings addressed in ec13462. Owner: "if accepted, create the milestone and
+the tag" -> integrated into main, GitHub milestone M6 and annotated tag m6
+(C milestone2+3 carries). Next C milestone is the owner's choice.
