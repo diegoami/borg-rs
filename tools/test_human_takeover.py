@@ -40,7 +40,7 @@ class TakeoverControls(unittest.TestCase):
             bundle = Path(directory)
             (bundle / 'recording.json').write_text(json.dumps({'schema': 'borg-rs-gui-recording@1'}))
             with mock.patch.object(human, 'qualified_engine') as build:
-                with self.assertRaisesRegex(ValueError, 'headless'):
+                with self.assertRaisesRegex(ValueError, 'Legacy GUI.*frozen'):
                     human.prepare(bundle, 1)
                 build.assert_not_called()
 

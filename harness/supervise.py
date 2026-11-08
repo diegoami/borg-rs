@@ -86,22 +86,42 @@ def file_hash(path):
 
 
 
-def observed_turn(directory):
-    """Latest complete, flushed key-log boundary; no game input or RNG access."""
-    path = directory / 'keys.log'
+def complete_tail(path):
+    """Return the last whole flushed row, never a partial UTF-8/JSON suffix."""
     try:
         with path.open('rb') as stream:
             stream.seek(0, os.SEEK_END)
             end = stream.tell()
-            stream.seek(max(0, end - 8192))
-            data = stream.read()
-        lines = data.split(b'\n')[:-1]
-        for line in reversed(lines):
-            fields = line.split()
-            if len(fields) == 4 and fields[0].isdigit():
-                return int(fields[0])
+            span = 65536
+            while True:
+                start = max(0, end - span)
+                stream.seek(start)
+                rows = stream.read().split(b'\n')
+                if len(rows) >= 3 or start == 0:
+                    return rows[-2] if len(rows) >= 2 else None
+                if span >= 64 * 1024 * 1024:
+                    raise ValueError('Live native row exceeds the declared resource bound')
+                span *= 2
     except FileNotFoundError:
-        pass
+        return None
+
+
+def observed_turn(directory):
+    """Actual flushed native clock when available; legacy key-boundary fallback."""
+    native = directory / 'native/frames.jsonl'
+    if native.exists():
+        line = complete_tail(native)
+        if line is None:
+            return None
+        row = json.loads(line.decode('utf-8'))
+        if type(row.get('turn')) is not int or row['turn'] < 0:
+            raise ValueError('Invalid live native clock row')
+        return row['turn']
+    line = complete_tail(directory / 'keys.log')
+    if line is not None:
+        fields = line.split()
+        if len(fields) == 4 and fields[0].isdigit():
+            return int(fields[0])
     return None
 
 
@@ -119,7 +139,7 @@ def main(argv=None):
     started = time.monotonic()
     record = {"status": "starting", "command": command, "timeout_seconds": args.timeout,
               "started_unix": time.time(), "supervisor_pid": os.getpid(),
-              "stall_timeout_seconds": args.stall_timeout, "progress_scope": "latest complete flushed key-log world turn"}
+              "stall_timeout_seconds": args.stall_timeout, "progress_scope": "latest complete flushed native-frame world tick; legacy key-log fallback"}
     child = None
     reserved = False
     interrupted = []

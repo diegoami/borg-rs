@@ -1,0 +1,35 @@
+[
+  {
+    "bundle": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-001-seed-42/recordings/20261108T142711.396906Z-CollectedBorg",
+    "exact_death_windows": 7,
+    "last_frame": {
+      "dead": 1,
+      "hp": -1,
+      "phase": "death",
+      "turn": 2787
+    },
+    "verified": true
+  },
+  {
+    "bundle": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-002-seed-1532917772/recordings/20261108T142714.800436Z-CollectedBorg",
+    "exact_death_windows": null,
+    "last_frame": {
+      "dead": 0,
+      "hp": 18,
+      "phase": "turns",
+      "turn": 5003
+    },
+    "verified": true
+  },
+  {
+    "bundle": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-003-seed-2647001198/recordings/20261108T142719.470219Z-CollectedBorg",
+    "exact_death_windows": null,
+    "last_frame": {
+      "dead": 0,
+      "hp": 41,
+      "phase": "turns",
+      "turn": 5858
+    },
+    "verified": true
+  }
+]

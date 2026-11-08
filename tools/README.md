@@ -1,5 +1,12 @@
 # Rust launch and recording adapters
 
+The current connected workflow is documented in [the Rust toolkit guide](../docs/REPLAY-TOOLKIT.md),
+with [executed qualification and remaining gaps](../docs/TOOLKIT-IMPLEMENTATION.md).
+The notes below preserve earlier implementation/review provenance; their former
+first-death collector stop rule and fixed/hashed birth defaults are historical.
+Current collection continues after every exported death/ordinary limit and uses
+native seeded random menus. Historical engines/movies are not refreshed.
+
 Workflow source: diegoami/better-borg-c, committed record/replay feature
 08a5cd019 (already merged in donor PR147). IMPORTED.json pins full donor
 commit/path/SHA. Original licence/credit is preserved. Save helpers and the

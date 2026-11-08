@@ -17,6 +17,10 @@ import shlex
 import shutil
 import subprocess
 import tempfile
+import time
+import signal
+
+from toolkit_common import serialized
 
 import borg_saves as saves
 
@@ -58,24 +62,24 @@ def character_lock(save):
         yield
 
 
+@serialized
 def build():
-    directory = ROOT / 'build/rust'
-    current = subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'source-hash', 'rust'], text=True).strip()
-    identity = directory / 'BUILD_ID'
-    values = dict(line.split('=', 1) for line in identity.read_text().splitlines()) if identity.exists() else {}
-    binary = directory / 'game/angband'
-    if values.get('impl') != 'rust' or values.get('source_sha256') != current or not binary.exists() or sha(binary) != values.get('binary_sha256'):
-        print('Building verified Rust headless engine...', flush=True)
-        subprocess.run([str(ROOT / 'harness/build.sh')], env={**os.environ, 'BORG_IMPL': 'rust'}, check=True)
-        values = dict(line.split('=', 1) for line in identity.read_text().splitlines())
-    assert subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'binary-impl', str(binary)], text=True).strip() == 'rust'
-    return directory, binary, values
+    # Immutable toolkit caches preserve every historical engine. No refresh of
+    # build/rust or a historical helper is performed by named play.
+    import death_workflow as workflow
+    from types import SimpleNamespace
+    pin = workflow.source_commit('HEAD')
+    args = SimpleNamespace(build=None)
+    prepared = workflow.prepare_runtime(args, pin, workflow.tool_hashes())
+    return Path(prepared['build_directory']), Path(prepared['binary']), prepared['build_id']
 
 
 def inspect_save(save, directory, binary):
     """Native deserialize, engine fields only, exit before Borg/world execution."""
     source = ROOT / 'tools/inspect-save.c'
-    recipe = ['cc', '-O2', '-DALLOW_BORG', '-DBORG_HARNESS', '-DNDEBUG', '-I' + str(ROOT / 'angband/src')]
+    cache = (directory / 'CMakeCache.txt').read_text().splitlines()
+    engine_source = Path(next(line.split('=', 1)[1] for line in cache if line.startswith('CMAKE_HOME_DIRECTORY:INTERNAL=')))
+    recipe = ['cc', '-O2', '-DALLOW_BORG', '-DBORG_HARNESS', '-DNDEBUG', '-I' + str(engine_source / 'src')]
     key = hashlib.sha256((sha(source) + sha(binary) + repr(recipe)).encode()).hexdigest()[:20]
     output = ROOT / 'build/save-inspect' / key
     reader = output / 'angband'
@@ -93,7 +97,9 @@ def inspect_save(save, directory, binary):
     if meta['game'] != sha(binary) or meta['source'] != sha(source) or meta['reader'] != sha(reader):
         raise ValueError('Save metadata reader changed; preserve cache and investigate')
     with tempfile.TemporaryDirectory(prefix='borg-save-info-') as tmp:
-        cmd = [str(reader), '-mborgh', '-duser=' + tmp, '-dgamedata=' + str(ROOT / 'angband/lib/gamedata'),
+        dirs = [f'-d{name}={tmp}' for name in ('user', 'save', 'archive', 'panic', 'scores')]
+        dirs += [f'-d{option}={engine_source / "lib" / name}' for option, name in (('gamedata','gamedata'), ('pref','customize'), ('screens','screens'), ('help','help'))]
+        cmd = [str(reader), '-mborgh', *dirs,
                '--', '-seed', '1', '-race', '0', '-class', '0', '-turns', '2147483647', '-load', str(save.resolve())]
         result = subprocess.run(cmd, cwd=directory / 'game', capture_output=True, text=True, timeout=15)
         if result.returncode:
@@ -101,7 +107,7 @@ def inspect_save(save, directory, binary):
         return json.loads(result.stdout)
 
 
-def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=True, takeover=None):
+def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=True, takeover=None, native_recording=True, progress=False):
     bundle = bundle.resolve()
     record = json.loads((bundle / 'recording.json').read_text())
     profile = record['profile']
@@ -109,18 +115,59 @@ def frozen_run(bundle, output, timeout=None, *, engine=None, extra_observations=
     env = {k: v for k, v in os.environ.items() if not k.startswith(('BORG_', 'ANGBAND_', 'LLVM_PROFILE'))}
     env.update(BORG_IMPL='rust', ANGBAND_BIN=str(Path(engine).resolve() if engine is not None else runtime / 'game/angband'),
                SAVE_ROOT=str(runtime / 'harness/saves'), BORGH_DATA_ROOT=str(runtime / 'game/lib'),
-               RUN_TIMEOUT_SECONDS=str(min(profile['wall_seconds'], timeout) if timeout is not None else profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
+               RUN_TIMEOUT_SECONDS=str(timeout if timeout is not None else profile['wall_seconds']), CHECKPOINT_EVERY=str(profile['checkpoint_every']),
                STALL_TIMEOUT_SECONDS=str(profile.get('stall_seconds', 0)),
                LC_ALL='C.UTF-8', LANG='C.UTF-8', TZ='UTC')
     if not extra_observations:
         env['BORG_NO_EXTRA_OBSERVATIONS'] = '1'
     if takeover is not None:
         env.update(BORG_TAKEOVER_TURN=str(takeover['turn']), BORG_TAKEOVER_DIR=str(takeover['directory']))
-    return subprocess.run([str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
-                           str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']],
-                          env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    if record.get('toolkit'):
+        env['BORG_TOOLKIT_HEADLESS'] = '1'
+    if record.get('toolkit') and native_recording:
+        env['BORG_TOOLKIT_NATIVE'] = '1'
+        if (bundle / 'run/native').exists() and output.resolve() != (bundle / 'run').resolve():
+            env['BORG_REPLAY_DIR'] = str(bundle / 'run/native')
+    command = [str(runtime / 'harness/run.sh'), str(output), str(profile['seed']),
+               str(profile['race']), str(profile['class']), str(profile['turn_limit']), profile['flags']]
+    if not progress:
+        return subprocess.run(command, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    started = time.monotonic()
+    with tempfile.TemporaryFile() as console:
+        child = subprocess.Popen(command, env=env, stdout=console, stderr=subprocess.STDOUT, start_new_session=True)
+        try:
+            while True:
+                try:
+                    code = child.wait(timeout=5)
+                    break
+                except subprocess.TimeoutExpired:
+                    tick = 'not yet observed'
+                    keys = output / 'keys.log'
+                    if keys.exists():
+                        with keys.open('rb') as stream:
+                            stream.seek(max(0, keys.stat().st_size - 8192))
+                            lines = stream.read().split(b'\n')[:-1]
+                        if lines and lines[-1].split() and lines[-1].split()[0].isdigit():
+                            tick = lines[-1].split()[0].decode('ascii')
+                    print(f'Progress: {time.monotonic()-started:.1f} wall seconds; engine tick {tick}', flush=True)
+        except BaseException:
+            # The session contains only our runner/supervisor/engine children.
+            if child.poll() is None:
+                try:
+                    os.killpg(child.pid, signal.SIGTERM)
+                except ProcessLookupError:
+                    pass
+                try:
+                    child.wait(timeout=5)
+                except subprocess.TimeoutExpired:
+                    os.killpg(child.pid, signal.SIGKILL); child.wait()
+            raise
+        console.seek(0)
+        return subprocess.CompletedProcess(command, code, console.read().decode('utf-8'))
 
 
+
+@serialized
 def record_run(args, *, prepared=None, profile_root=None, export_death=True):
     data_directory = Path(profile_root).resolve() if profile_root is not None else data_root()
     source_root = Path(prepared['source_root']) if prepared else ROOT
@@ -129,9 +176,10 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
     with character_lock(save):
         if prepared is None:
             directory, binary, identity = build()
+            cached = json.loads((binary.parent.parent / 'prepared.json').read_text())
+            source_root = Path(cached['source_root'])
+            runner_root = Path(cached['runner_root'])
         else:
-            if not args.new or args.from_backup is not None:
-                raise ValueError('Prepared collection runtimes only support fresh births')
             directory, binary, identity = Path(prepared['build_directory']), Path(prepared['binary']), prepared['build_id']
         if args.from_backup is not None and args.from_backup not in range(1, 6):
             raise ValueError('Backup slot must be 1 through 5')
@@ -146,6 +194,8 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
                 origin = inspect_save(snapshot, directory, binary)
                 if origin['dead']:
                     raise ValueError('Character is dead; use --from-backup or --new')
+                if args.turns > 2147483647 - origin['turn']:
+                    raise ValueError('Additional tick budget exceeds the native signed clock range; named save preserved')
                 if (args.race is not None and args.race != origin['race']) or (args.cls is not None and args.cls != origin['class']):
                     raise ValueError('Requested race/class differs from the loaded character')
             if args.from_backup is not None:
@@ -165,13 +215,17 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
             shutil.copytree(source_root / 'angband/lib' / name, runtime / 'game/lib' / name)
         for name in ('run.sh', 'supervise.py'):
             shutil.copy2(runner_root / name, runtime / 'harness' / name)
-        if prepared:
-            shutil.copytree(Path(prepared['tool_source_root']), runtime / 'tool-source')
+        tool_source = Path((prepared or cached)['tool_source_root'])
+        shutil.copytree(tool_source, runtime / 'tool-source')
         config = data_directory / 'user/borg.txt'
         shutil.copy2(Path(prepared['config']) if prepared else config if config.exists() else ROOT / 'harness/borg.txt', runtime / 'harness/borg.txt')
         cfg = runtime / 'harness/borg.txt'
         cfg.write_text(re.sub(r'^borg_delay_factor = .*$', 'borg_delay_factor = 0', cfg.read_text(), flags=re.M))
         flags = f'menu,terminal-save,frames,key-limit={args.keys}'
+        if not origin and args.race is None and args.cls is None:
+            flags += ',random-birth'
+        if getattr(args, 'munchkin', False):
+            flags += ',munchkin'
         if origin:
             shutil.copy2(save.parent / 'backups' / save.name / 'save.1', runtime / 'harness/saves/origin.save')
             if sha(runtime / 'harness/saves/origin.save') != initial:
@@ -189,35 +243,49 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
                   'rng_origin': 'saved engine RNG preserved; fresh Borg' if origin else 'seeded birth',
                   'calendar': 'seeded headless harness holiday context pinned to epoch',
                   'verification_model': 'rerun original Rust Borg from original origin; exact keys/messages/player-state/terminal frames/final save and scheduled world saves; not whole-Borg private-state shadow',
+                  'toolkit': identity.get('overlay'),
+                  'stop_boundary': 'next living native top-level command after tick/key threshold; pending commands finish',
+                  'movie_channel': 'run/native/frames.jsonl' if identity.get('overlay') else 'run/frames.jsonl',
                   'runtime_sha256': {str(p.relative_to(bundle)): sha(p) for p in runtime.rglob('*') if p.is_file()}}
         if prepared:
             record['collection_context'] = prepared['context']
+        write(runtime / 'build-id.json', identity)
+        record['runtime_sha256']['runtime/build-id.json'] = sha(runtime / 'build-id.json')
         write(bundle / 'recording.json', record)
-        result = frozen_run(bundle, bundle / 'run')
+        print('Immutable session evidence:', bundle, flush=True)
+        result = frozen_run(bundle, bundle / 'run', progress=True)
         (bundle / 'console.log').write_text(result.stdout)
-        if result.returncode:
+        process = json.loads((bundle / 'run/process.json').read_text()) if (bundle / 'run/process.json').exists() else {}
+        summary = json.loads((bundle / 'run/summary.json').read_text()) if (bundle / 'run/summary.json').exists() else None
+        consistent_timeout = (process.get('status') == 'timeout' and process.get('engine_returncode') == 0
+            and summary and summary.get('stop_reason') == 'wall_timeout' and (bundle / 'run/native/record-complete.json').exists())
+        if result.returncode and not consistent_timeout:
             record['status'] = 'failed'
+            record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
             write(bundle / 'recording.json', record)
             raise ValueError(f'Headless run failed; named save preserved. Evidence: {bundle}')
-        summary = json.loads((bundle / 'run/summary.json').read_text())
-        process = json.loads((bundle / 'run/process.json').read_text())
-        assert process['status'] == 'success' and process['engine_returncode'] == 0
         final = bundle / 'run/final.save'
         assert final.is_file() and final.stat().st_size
         for name, digest in record['runtime_sha256'].items():
             if sha(bundle / name) != digest:
                 raise ValueError('Frozen runtime input changed; named save preserved: ' + name)
-        frames = bundle / 'run/frames.jsonl'
+        frames = bundle / record.get('movie_channel', 'run/frames.jsonl')
         compressed = bundle / '.frames.jsonl.gz.partial'
         with frames.open('rb') as source, gzip.open(compressed, 'wb') as target:
             shutil.copyfileobj(source, target)
         with gzip.open(compressed, 'rb') as source:
             assert hashlib.sha256(source.read()).hexdigest() == sha(frames)
         os.replace(compressed, bundle / 'frames.jsonl.gz')
-        record.update(status='complete', summary=summary, publication='pending')
+        record.update(status='timeout' if consistent_timeout else 'complete', summary=summary, publication='pending', finalized=True)
         record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*')
                                  if p.is_file() and p.name != 'recording.json'}
         write(bundle / 'recording.json', record)
+        validate(bundle, require_complete=not consistent_timeout)
+        if consistent_timeout:
+            record['publication'] = 'not published: finalized timeout; prefix qualification required'
+            write(bundle / 'recording.json', record)
+            print('Finalized timeout movie:', bundle, flush=True)
+            return bundle
         try:
             caps = json.loads((bundle / 'run/checkpoints.json').read_text())['captures'] if (bundle / 'run/checkpoints.json').exists() else []
             if caps and (summary['dead'] or initial is None):
@@ -255,6 +323,13 @@ def validate(bundle, require_complete=True):
         path = (bundle / name).resolve()
         if not path.is_relative_to(bundle) or sha(path) != digest:
             raise ValueError('Recording file changed: ' + name)
+    for name, digest in record.get('runtime_sha256', {}).items():
+        path = (bundle / name).resolve()
+        if not path.is_relative_to(bundle) or sha(path) != digest:
+            raise ValueError('Frozen runtime input binding changed: ' + name)
+    validate_binary(bundle, record)
+    if record.get('toolkit'):
+        validate_toolkit(bundle, record)
     return record
 
 
@@ -290,10 +365,11 @@ def compare_observation_extension(original, extended):
             for field in OBSERVATION_FIELDS - expected.keys():
                 actual.pop(field, None)
             if expected != actual:
-                fields = sorted(key for key in expected.keys() | actual.keys() if expected.get(key) != actual.get(key))
+                fields = sorted(key for key in expected.keys() | actual.keys() if key not in expected or key not in actual or expected[key] != actual[key])
                 raise ValueError(f'Observation replay original frame diverges at row {number}: {fields}')
 
 
+@serialized
 def verify(bundle, output=None, timeout=None, *, engine=None, observation_extension=False):
     if (engine is not None) != observation_extension or (observation_extension and output is None):
         raise ValueError('Observation rebuild verification requires its engine and retained output')
@@ -311,7 +387,14 @@ def verify(bundle, output=None, timeout=None, *, engine=None, observation_extens
         result = frozen_run(bundle, output_run, timeout=timeout, **({"engine": engine} if engine is not None else {}))
         output_run_path = output_run
         if result.returncode:
-            raise ValueError('Replay failed; original evidence preserved: ' + result.stdout[-1500:])
+            detail = ''
+            for name in ('native/frames.jsonl', 'state.log', 'keys.log'):
+                actual, original = output_run / name, bundle / 'run' / name
+                if actual.exists() and original.exists() and sha(actual) != sha(original):
+                    detail = first_difference(original, actual) + '\n'
+                    break
+            stderr = (output_run / 'stderr.log').read_text() if (output_run / 'stderr.log').exists() else ''
+            raise ValueError(detail + 'Replay failed; original evidence preserved: ' + stderr[-1000:] + result.stdout[-500:])
         process = json.loads((output_run_path / 'process.json').read_text())
         if process['status'] != 'success' or process['engine_returncode'] != 0:
             raise ValueError('Replay process did not complete successfully')
@@ -320,7 +403,9 @@ def verify(bundle, output=None, timeout=None, *, engine=None, observation_extens
                 compare_observation_extension(bundle / 'run' / filename, output_run_path / filename)
                 continue
             if sha(output_run_path / filename) != sha(bundle / 'run' / filename):
-                raise ValueError('Replay diverges: ' + filename)
+                raise ValueError(first_difference(bundle / 'run' / filename, output_run_path / filename))
+        if record.get('toolkit'):
+            compare_native(bundle / 'run/native', output_run_path / 'native')
         native_original = {str(p.relative_to(bundle / 'run/archive')): p for p in (bundle / 'run/archive').rglob('*') if p.is_file()}
         native_repeated = {str(p.relative_to(output_run_path / 'archive')): p for p in (output_run_path / 'archive').rglob('*') if p.is_file()}
         if native_original.keys() != native_repeated.keys():
@@ -365,3 +450,88 @@ def verify(bundle, output=None, timeout=None, *, engine=None, observation_extens
     if output is not None:
         write(output.resolve() / 'verification.json', proof)
     return proof
+
+
+def first_difference(original, repeated):
+    if original.suffix in ('.log', '.jsonl', '.txt', '.json'):
+        with original.open('rb') as left, repeated.open('rb') as right:
+            for row, (a, b) in enumerate(itertools.zip_longest(left, right), 1):
+                if a != b:
+                    detail = ''
+                    if original.suffix == '.jsonl' and a and b:
+                        try:
+                            x, y = json.loads(a), json.loads(b)
+                            fields = sorted(k for k in x.keys() | y.keys() if k not in x or k not in y or x[k] != y[k])
+                            detail = f" tick={x.get('turn')} fields={fields}"
+                        except (ValueError, AttributeError):
+                            pass
+                    return f'Replay diverges: {original.name} row={row}{detail}; original={a!r} repeated={b!r}'[:1500]
+    return 'Replay diverges: ' + original.name
+
+
+def compare_native(original, repeated):
+    # Parent-owned native streams only. Auxiliary world scratch files can be
+    # overwritten by the next forked anchor and are still compared at the end.
+    before = {str(p.relative_to(original)): p for p in original.rglob('*') if p.is_file()}
+    after = {str(p.relative_to(repeated)): p for p in repeated.rglob('*') if p.is_file()}
+    if before.keys() != after.keys():
+        raise ValueError('Replay native stream set diverges: ' + str(sorted(before.keys() ^ after.keys())))
+    for name, path in before.items():
+        if sha(path) != sha(after[name]):
+            raise ValueError(first_difference(path, after[name]))
+
+
+def validate_toolkit(bundle, record):
+    import toolkit_native
+    if record['toolkit'] != toolkit_native.VERSION:
+        raise ValueError('Unsupported Rust toolkit extension')
+    hashes = record.get('files_sha256', {})
+    required = {'runtime/game/angband', 'runtime/harness/borg.txt', 'runtime/harness/run.sh',
+        'runtime/harness/supervise.py', 'run/keys.log', 'run/messages.log', 'run/state.log',
+        'run/summary.json', 'run/process.json', 'run/config.txt', 'run/final.save', 'frames.jsonl.gz'}
+    required.update('run/native/' + name for name in ('events.txt', 'clock.txt', 'pid.txt', 'actions.txt',
+        'frames.jsonl', 'file-inputs.txt', 'geometry.json', 'native-messages.jsonl', 'record-complete.json'))
+    if record.get('finalized') or record.get('status') == 'complete':
+        if not required <= hashes.keys():
+            raise ValueError('Finalized Rust toolkit recording missing required files: ' + str(sorted(required - hashes.keys())))
+        actual = {str(p.relative_to(bundle)) for p in bundle.rglob('*') if p.is_file()} - {'recording.json', 'verification.json'}
+        if actual != hashes.keys():
+            raise ValueError('Rust toolkit recording file set changed')
+        native = bundle / 'run/native'
+        footer = json.loads((native / 'record-complete.json').read_text())
+        for field, name in (('inputs', 'events.txt'), ('frames', 'frames.jsonl')):
+            with (native / name).open('rb') as stream:
+                count = sum(1 for line in stream if line.endswith(b'\n'))
+            if type(footer.get(field)) is not int or footer[field] != count:
+                raise ValueError('Native footer count differs: ' + field)
+        with gzip.open(bundle / 'frames.jsonl.gz', 'rb') as stream:
+            digest = hashlib.file_digest(stream, 'sha256').hexdigest()
+        if digest != sha(native / 'frames.jsonl'):
+            raise ValueError('Compressed original movie differs from native frames')
+        from borg_replay_viewer import Frames
+        movie = Frames(native)
+        movie.close()
+
+
+def validate_binary(bundle, record):
+    identity = record.get('build_id')
+    if not identity:
+        if record.get('profile') or record.get('frontend') or record.get('toolkit'):
+            raise ValueError('Missing actual Rust build identity; no qualified replay claim')
+        return  # Legacy minimal fixtures carry no qualified build claim.
+    binary = bundle / 'runtime/game/angband'
+    if sha(binary) != identity.get('binary_sha256'):
+        raise ValueError('Recorded build binary differs from frozen executable')
+    if subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'binary-impl', str(binary)], text=True).strip() != 'rust':
+        raise ValueError('Rust recording requires a Rust executable; C-only bundles are refused')
+    if record.get('origin') is not None:
+        origin = bundle / 'runtime/harness/saves/origin.save'
+        if sha(origin) != record.get('original_named_sha256'):
+            raise ValueError('Frozen origin save differs from named-start identity')
+    elif record.get('schema') == 'borg-rs-gui-recording@1' and record.get('origin_sha256'):
+        origin = bundle / 'initial-profile/save' / record['character']
+        if sha(origin) != record['origin_sha256']:
+            raise ValueError('Frozen GUI origin save differs from recorded start')
+    frozen_identity = bundle / 'runtime/build-id.json'
+    if frozen_identity.exists() and json.loads(frozen_identity.read_text()) != identity:
+        raise ValueError('Recording build identity differs from immutable frozen build provenance')

@@ -1,0 +1,53 @@
+[
+  {
+    "original": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-001-seed-42/recordings/20261108T142711.396906Z-CollectedBorg",
+    "binary_sha256": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+    "process_exit": 0,
+    "channels": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true,
+      "frames.jsonl": true,
+      "final.save": true,
+      "config.txt": true,
+      "summary": true
+    },
+    "checkpoint_count": 2,
+    "all_checkpoints_equal": true,
+    "scope": "same frozen Rust binary; native recorder off versus on; original observations/keys/RNG summary and native save anchors"
+  },
+  {
+    "original": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-002-seed-1532917772/recordings/20261108T142714.800436Z-CollectedBorg",
+    "binary_sha256": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+    "process_exit": 0,
+    "channels": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true,
+      "frames.jsonl": true,
+      "final.save": true,
+      "config.txt": true,
+      "summary": true
+    },
+    "checkpoint_count": 4,
+    "all_checkpoints_equal": true,
+    "scope": "same frozen Rust binary; native recorder off versus on; original observations/keys/RNG summary and native save anchors"
+  },
+  {
+    "original": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-003-seed-2647001198/recordings/20261108T142719.470219Z-CollectedBorg",
+    "binary_sha256": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+    "process_exit": 0,
+    "channels": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true,
+      "frames.jsonl": true,
+      "final.save": true,
+      "config.txt": true,
+      "summary": true
+    },
+    "checkpoint_count": 4,
+    "all_checkpoints_equal": true,
+    "scope": "same frozen Rust binary; native recorder off versus on; original observations/keys/RNG summary and native save anchors"
+  }
+]

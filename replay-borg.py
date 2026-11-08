@@ -41,6 +41,9 @@ def main(argv=None):
     parser.add_argument('--dump', action='store_true', help='print --from-turn/--turn without an interactive terminal')
     parser.add_argument('--play-from-turn', type=int, metavar='TURN', help='verify and copy a headless game at the next living command boundary, then play with Borg off')
     parser.add_argument('--prepare-only', action='store_true', help='prepare --play-from-turn save without opening X11')
+    parser.add_argument('--combat-log', action='store_true', help='open captured native fighting log; missing legacy data remains unavailable')
+    parser.add_argument('--yes', action='store_true', help='accept separate historical takeover helper build')
+    parser.add_argument('--no-build', action='store_true')
     parser.add_argument('--verify-only', action='store_true')
     parser.add_argument('--view-only', '--recording-only', dest='recording_only', action='store_true', help='view with an UNVERIFIED badge')
     parser.add_argument('--output', type=Path, help='new directory retaining verification evidence, or the independent human branch with --play-from-turn')
@@ -62,6 +65,10 @@ def main(argv=None):
         directory = resolve_recording(args.recording)
         if args.play_from_turn is not None:
             import human_takeover
+            human_takeover.BUILD_POLICY = 'no-build' if args.no_build else 'yes' if args.yes else 'ask'
+            if not args.prepare_only:
+                import display_font
+                display_font.probe()
             branch = human_takeover.prepare(directory, args.play_from_turn, output=args.output, timeout=args.timeout or 600)
             if not args.prepare_only:
                 human_takeover.launch(branch)
@@ -88,10 +95,11 @@ def main(argv=None):
             if supplemental:
                 print('VERIFIED historical native observations; original recording unchanged.' if verified else 'View-only: using the previously qualified native-observation cache.', flush=True)
             borg_replay_viewer.show(display, turn=args.dump_turn if args.dump_turn is not None else args.turn,
-                                   verified=verified, dump=dump, caster=replay_observations.caster(directory), supplemental=supplemental)
+                                   verified=verified, dump=dump, combat_log=args.combat_log, caster=replay_observations.caster(directory), supplemental=supplemental)
         return 0
     except (ValueError, OSError, KeyError, AssertionError, subprocess.SubprocessError) as error:
-        if args.output and not existed and args.output.exists() and args.play_from_turn is None:
+        if args.output and not existed and args.play_from_turn is None:
+            args.output.mkdir(parents=True, exist_ok=True)
             borg_runtime.write(args.output / 'verification.json', {'verified': False, 'error': str(error)})
         print(str(error), file=sys.stderr)
         return 1

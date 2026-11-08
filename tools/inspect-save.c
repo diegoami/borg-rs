@@ -8,8 +8,11 @@ extern bool __real_savefile_load(const char *, bool);
 bool __wrap_savefile_load(const char *path, bool cheat)
 {
     if(!__real_savefile_load(path,cheat)) _Exit(2);
-    printf("{\"race\":%u,\"class\":%u,\"turn\":%ld,\"level\":%d,\"dead\":%s}\n",
-        player->race->ridx,player->class->cidx,(long)turn,player->lev,player->is_dead?"true":"false");
+    int i;
+    printf("{\"race\":%u,\"class\":%u,\"turn\":%ld,\"level\":%d,\"dead\":%s,\"rng_index\":%u,\"rng\":\"",
+        player->race->ridx,player->class->cidx,(long)turn,player->lev,player->is_dead?"true":"false", state_i);
+    for (i = 0; i < RAND_DEG; i++) printf("%08x", STATE[i]);
+    printf("\"}\n");
     fflush(stdout);
     _Exit(0);
 }

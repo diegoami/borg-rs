@@ -12,9 +12,13 @@ import os
 from pathlib import Path
 import re
 import shutil
+import shlex
 import subprocess
 import tarfile
 import uuid
+
+import toolkit_native
+import toolkit_common
 
 import borg_runtime as runtime
 import borg_deaths as deaths
@@ -23,7 +27,8 @@ ROOT = runtime.ROOT
 TOOLS = ('produce_death.py', 'replay_next_death.py', 'replay-borg.py',
          'tools/death_workflow.py', 'tools/borg_runtime.py', 'tools/borg_deaths.py',
          'tools/borg_saves.py', 'tools/borg_gui.py', 'tools/borg_replay_viewer.py', 'tools/replay_observations.py',
-         'harness/run.sh', 'harness/supervise.py', 'harness/identity.sh')
+         'harness/run.sh', 'harness/supervise.py', 'harness/identity.sh',
+         'tools/toolkit_native.py', 'tools/native-combat.h', 'tools/toolkit_common.py', 'tools/run_report.py', 'tools/display_font.py', 'tools/start_recorded_borg.py', 'tools/inspect-save.c')
 LOADED_TOOLS = {name: runtime.sha(ROOT / name) for name in TOOLS}
 
 
@@ -73,7 +78,7 @@ def source_commit(ref):
 
 def source_inputs(commit):
     rows = []
-    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', binary=True).split(b'\0'):
+    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', binary=True).split(b'\0'):
         if not item:
             continue
         metadata, name = item.split(b'\t', 1)
@@ -112,10 +117,19 @@ def reviews():
 def cases():
     result = []
     for path in sorted(deaths.registry_root().glob('D*/record.json')):
-        record = read(path)
-        if record['schema'] != deaths.SCHEMA:
-            raise ValueError('Unknown death dossier schema: ' + str(path))
-        assessment = read(path.with_name('assessment.json'))
+        try:
+            record = read(path)
+            if record['schema'] != deaths.SCHEMA:
+                raise ValueError('Unknown death dossier schema')
+            assessment = read(path.with_name('assessment.json'))
+            if record.get('independent_life') is False:
+                continue
+            family(record, assessment)
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            result.append({'case': path.parent.name.split('-')[0], 'directory': str(path.parent),
+                'family': 'corrupt-' + path.parent.name, 'cause': 'unavailable', 'turn': None,
+                'recording': 'corrupt/legacy dossier: ' + str(error)})
+            continue
         recording = record.get('recording')
         status = 'legacy: no full recording'
         if recording:
@@ -174,25 +188,85 @@ def validate_build(directory, expected):
     cache = (directory / 'CMakeCache.txt').read_text()
     if identity.get('impl') != 'rust' or identity.get('source_sha256') != expected or sha(binary) != identity.get('binary_sha256'):
         raise ValueError('Build identity/binary must match the committed Rust source pin')
-    if 'SUPPORT_BORG_HARNESS:BOOL=ON' not in cache or re.search(r'^BORG_RS_FEATURES:STRING=.+$', cache, re.M):
+    if 'BORG_IMPL:STRING=rust' not in cache or 'SUPPORT_BORG_HARNESS:BOOL=ON' not in cache or re.search(r'^BORG_RS_FEATURES:STRING=.+$', cache, re.M):
         raise ValueError('Use an ordinary recording-capable Rust harness build without test features')
     if subprocess.check_output([str(ROOT / 'harness/identity.sh'), 'binary-impl', str(binary)], text=True).strip() != 'rust':
         raise ValueError('Executable is not the Rust Borg')
+    commands = read(directory / 'compile_commands.json')
+    if any('/src/borg/' in row.get('file', '').replace('\\', '/') and row.get('file', '').endswith('.c') for row in commands):
+        raise ValueError('Rust recording cache compiles C Borg strategy code')
     return binary, identity
+
+
+def build_key(args, commit, hashes):
+    return hashlib.sha256(json.dumps({'inputs': source_inputs(commit), 'tools': hashes,
+        'toolchain': toolchain(), 'explicit_build': str(args.build.resolve()) if args.build else None}, sort_keys=True).encode()).hexdigest()[:20]
+
+
+def toolchain():
+    def version(command):
+        return subprocess.check_output(command, text=True).strip()
+    return {'rustc': version(['rustc', '-vV']), 'cargo': version(['cargo', '-V']),
+            'cc': version(shlex.split(os.environ.get('CC', 'cc')) + ['--version']), 'target': version(['cc', '-dumpmachine']),
+            'features': '', 'profile': 'Release', 'build_environment': {name: os.environ[name] for name in ('CC', 'CXX', 'LD', 'AR', 'CFLAGS', 'CPPFLAGS', 'LDFLAGS', 'RUSTFLAGS', 'CARGO_ENCODED_RUSTFLAGS', 'CARGO_BUILD_TARGET', 'RUSTUP_TOOLCHAIN') if name in os.environ}, 'cmake': version(['cmake', '--version'])}
+
+
+def matching_runtime(args, commit, hashes):
+    cache = primary_root() / 'build/death-workflow' / build_key(args, commit, hashes)
+    path = cache / 'prepared.json'
+    if path.exists():
+        manifest = read(path)
+        validate_prepared(manifest, commit, hashes)
+        return manifest
+    if cache.exists():
+        with Path('/tmp/angband-validation.lock').open('a') as held:
+            try:
+                fcntl.flock(held, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError:
+                print('Another native lane may be preparing this cache; it will be rechecked under the shared lock.', flush=True)
+                return None
+        raise ValueError('Incomplete build retained, not overwritten: ' + str(cache))
+    return None
+
+
+def build_offer(args, commit, hashes):
+    toolkit_common.section('Build')
+    prepared = matching_runtime(args, commit, hashes)
+    print('Requested source:', commit, flush=True)
+    if prepared:
+        print('Compatible frozen Rust build:', prepared['binary'], flush=True)
+        print('Actual build source:', prepared['build_id']['git_rev'], flush=True)
+        return True
+    engine = compatible_engine(args, commit, hashes)
+    if engine:
+        print('Compatible frozen Rust engine:', engine[1], flush=True)
+        print('Actual build source:', engine[2]['git_rev'], flush=True)
+        print('Current launcher/tool sources will be frozen separately; no native rebuild is needed.', flush=True)
+        return True
+    print('No compatible frozen Rust toolkit build is available.', flush=True)
+    if getattr(args, 'check_build', False):
+        return False
+    if getattr(args, 'no_build', False):
+        raise ValueError('--no-build requires a compatible complete build')
+    if not getattr(args, 'yes', False):
+        import sys
+        if not sys.stdin.isatty():
+            raise ValueError('A build is needed; use --yes to accept or --no-build to refuse')
+        if input('Build the pinned Rust toolkit now? [y/N] ').strip().lower() not in ('y', 'yes'):
+            raise ValueError('Build declined; no games started')
+    return False
 
 
 def prepare_runtime(args, commit, hashes):
     """Freeze committed source/data and current observation tools before play."""
     expected = source_inputs(commit)
-    fingerprint = hashlib.sha256(json.dumps({'commit': commit, 'tools': hashes,
-                         'explicit_build': str(args.build.resolve()) if args.build else None}, sort_keys=True).encode()).hexdigest()[:20]
+    fingerprint = build_key(args, commit, hashes)
     cache = primary_root() / 'build/death-workflow' / fingerprint
     manifest_path = cache / 'prepared.json'
     if manifest_path.exists():
         manifest = read(manifest_path)
         validate_prepared(manifest, commit, hashes)
         return manifest
-    explicit = validate_build(args.build.resolve(), expected) if args.build else None
     cache.mkdir(parents=True, exist_ok=True)
     source = cache / 'source'
     if source.exists():
@@ -207,24 +281,30 @@ def prepare_runtime(args, commit, hashes):
             raise ValueError('Observation tool changed while freezing: ' + name)
     archive = cache / 'source.tar'
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=tar', '-o', str(archive), commit,
-                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt'], check=True)
+                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt', 'harness/measurement'], check=True)
     with tarfile.open(archive) as saved:
         saved.extractall(source, filter='data')
     frontend = (source / 'angband/src/main-borgh.c').read_text()
     for flag in ('-frames', '-keys', '-save-final-state'):
         if flag not in frontend:
             raise ValueError('Selected source lacks required headless recording support: ' + flag)
-    if args.build:
-        directory = args.build.resolve()
-        binary, identity = explicit
+    toolkit_native.apply(source)
+    reusable = compatible_engine(args, commit, hashes)
+    if args.build and reusable is None:
+        raise ValueError('--build requires a complete compatible toolkit cache directory, not an ordinary C/harness build')
+    if reusable:
+        directory, binary, identity = reusable
+        identity = {**identity, 'rust_library_sha256': sha(directory / 'cargo/release/libborg_rs.a')}
+        print('Reusing compatible Rust engine from:', identity['git_rev'], flush=True)
     else:
         directory = cache / 'build'
         # The snapshot stamp is build metadata, not a game-source alteration.
-        (source / 'angband/version').write_text(commit + '-death-workflow')
+        (source / 'angband/version').write_text(expected[:20] + '-rust-toolkit')
         env = {**os.environ, 'GIT_CEILING_DIRECTORIES': str(source), 'LC_ALL': 'C.UTF-8', 'LANG': 'C.UTF-8'}
         commands = [ ['cmake', '-S', str(source / 'angband'), '-B', str(directory), '-DCMAKE_BUILD_TYPE=Release',
                      '-DBORG_IMPL=rust', '-DSUPPORT_BORG_HARNESS=ON', '-DSUPPORT_BORG=ON', '-DBORG_RS_FEATURES=',
-                     '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON', '-DSC_INSTALL=ON', '-DBUILD_DOC=OFF'],
+                     '-DCMAKE_EXPORT_COMPILE_COMMANDS=ON', '-DSUPPORT_BORG_RECORDING=ON', '-DSUPPORT_TEST_FRONTEND=ON', '-DSUPPORT_X11_FRONTEND=ON',
+                     '-DSC_INSTALL=ON', '-DBUILD_DOC=OFF'],
                     ['cmake', '--build', str(directory), '--target', 'OurExecutable', '--parallel', os.environ.get('JOBS', '4')] ]
         for label, command in zip(('configure', 'build'), commands):
             print(label, directory, flush=True)
@@ -233,9 +313,15 @@ def prepare_runtime(args, commit, hashes):
         binary = directory / 'game/angband'
         identity = {'impl': 'rust', 'git_rev': commit, 'inputs_dirty': 'no', 'git_dirty': 'no',
                     'source_sha256': expected, 'binary_sha256': sha(binary), 'binary': str(binary),
-                    'source_snapshot_sha256': sha(archive), 'build_stamp': commit + '-death-workflow'}
+                    'source_snapshot_sha256': sha(archive), 'build_stamp': expected[:20] + '-rust-toolkit',
+                    'toolchain': toolchain(), 'overlay': toolkit_native.VERSION,
+                    'overlay_sha256': {name: hashes[name] for name in toolkit_native.FILES},
+                    'cargo_lock_sha256': sha(source / 'Cargo.lock'),
+                    'compile_commands_sha256': sha(directory / 'compile_commands.json'),
+                    'link_sha256': sha(directory / 'CMakeFiles/OurExecutable.dir/link.txt'),
+                    'rust_library_sha256': sha(directory / 'cargo/release/libborg_rs.a')}
         (directory / 'BUILD_ID').write_text(''.join(f'{key}={value}\n' for key, value in identity.items()))
-        binary, identity = validate_build(directory, expected)
+        binary, _ = validate_build(directory, expected)
     frozen = cache / 'game/angband'
     frozen.parent.mkdir()
     shutil.copy2(binary, frozen)
@@ -249,6 +335,7 @@ def prepare_runtime(args, commit, hashes):
         text, count = re.subn(r'^' + name + r' = .*$', name + ' = ' + value, text, flags=re.M)
         if count != 1:
             raise ValueError('Missing/ambiguous native safety setting: ' + name)
+    text = re.sub(r'^borg_munchkin_start = .*$', 'borg_munchkin_start = FALSE', text, flags=re.M)
     config.write_text(text)
     manifests = {str(p.relative_to(cache)): sha(p) for p in cache.rglob('*') if p.is_file() and p != manifest_path
                  and not p.is_relative_to(directory)}
@@ -257,14 +344,15 @@ def prepare_runtime(args, commit, hashes):
                 'source_root': str(source), 'runner_root': str(runner), 'tool_source_root': str(tool_source), 'config': str(config), 'cache': str(cache),
                 'files_sha256': manifests, 'complete': True,
                 'context': {'committed_source': commit, 'source_inputs_sha256': expected, 'tools_sha256': hashes,
-                            'character_selection': 'prospective SHA-256-derived race/class; explicit ordinary native menus'}}
+                            'character_selection': 'seeded native random menu (*) or explicit fixed birth',
+                            'overlay': toolkit_native.VERSION}}
     write(manifest_path, manifest)
     validate_prepared(manifest, commit, hashes)
     return manifest
 
 
 def validate_prepared(manifest, commit, hashes):
-    if manifest.get('schema') != 'borg-rs/death-prepared-runtime@1' or not manifest.get('complete') or manifest.get('source_commit') != commit or manifest.get('tools_sha256') != hashes:
+    if manifest.get('schema') != 'borg-rs/death-prepared-runtime@1' or not manifest.get('complete') or source_inputs(manifest.get('source_commit', '')) != source_inputs(commit) or manifest.get('tools_sha256') != hashes:
         raise ValueError('Prepared recording runtime/source/tools do not match')
     if manifest['source_inputs_sha256'] != source_inputs(commit):
         raise ValueError('Prepared source input identity differs')
@@ -279,5 +367,33 @@ def validate_prepared(manifest, commit, hashes):
             raise ValueError('Prepared input changed: ' + name)
     if sha(Path(manifest['binary'])) != manifest['build_id']['binary_sha256']:
         raise ValueError('Prepared Rust binary changed')
+    artifacts = {'compile_commands_sha256': 'compile_commands.json', 'link_sha256': 'CMakeFiles/OurExecutable.dir/link.txt', 'rust_library_sha256': 'cargo/release/libborg_rs.a'}
+    for key, name in artifacts.items():
+        if key in manifest['build_id'] and sha(build_directory / name) != manifest['build_id'][key]:
+            raise ValueError('Prepared build dependency changed: ' + name)
     if tool_hashes() != hashes:
         raise ValueError('Observation tools changed during collection')
+
+
+def compatible_engine(args, commit, hashes):
+    expected = source_inputs(commit)
+    reusable = None
+    candidates = [args.build.resolve() / 'prepared.json'] if args.build else sorted((primary_root() / 'build/death-workflow').glob('*/prepared.json'))
+    for candidate in candidates:
+        prior = read(candidate)
+        bid = prior.get('build_id', {})
+        if (prior.get('complete') and prior.get('source_inputs_sha256') == expected
+                and bid.get('overlay_sha256') == {name: hashes[name] for name in toolkit_native.FILES}
+                and bid.get('toolchain') == toolchain()):
+            base = candidate.parent.resolve()
+            for name, digest in prior['files_sha256'].items():
+                path = (base / name).resolve()
+                if not path.is_relative_to(base) or sha(path) != digest:
+                    raise ValueError('Compatible build cache changed: ' + str(path))
+            directory = Path(prior['build_directory'])
+            validate_build(directory, expected)
+            if sha(Path(prior['binary'])) != bid['binary_sha256']:
+                raise ValueError('Compatible frozen binary changed')
+            reusable = (directory, Path(prior['binary']), bid)
+            break
+    return reusable

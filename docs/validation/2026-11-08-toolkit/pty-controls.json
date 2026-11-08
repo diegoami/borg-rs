@@ -1,0 +1,33 @@
+{
+  "exit": 0,
+  "checks": {
+    "UNVERIFIED": true,
+    "Inventory": true,
+    "Equipment": true,
+    "Spells / prayers": true,
+    "Native fighting log": true,
+    "500": true
+  },
+  "keys": [
+    "l",
+    "h",
+    "g500\n",
+    "i",
+    "\u001b",
+    "e",
+    "\u001b",
+    "s",
+    "\u001b",
+    "p",
+    "\t",
+    "\t",
+    "\t",
+    "j",
+    "k",
+    "\u001b",
+    " ",
+    " ",
+    "q"
+  ],
+  "scope": "actual focused PTY interaction with original frames; movie-only, no native execution"
+}

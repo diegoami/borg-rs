@@ -1,0 +1,13 @@
+{
+  "requested_commit": "6477a7ede0d32cc333e470781cdedfe39daf9749",
+  "actual_compiled_commit": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+  "binary_sha256": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+  "source_inputs_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+  "no_build": true,
+  "native_attempts": 1,
+  "full_frozen_self_replay": true,
+  "outcome": "turn_cap",
+  "raw_collection": "/home/diego/projects/borg-rs/harness/out/toolkit-committed-smoke",
+  "manifest_sha256": "652da2bcd87e82f76b4f42cca89a24ceb0a8ef1152c43af5d74a262c9f93ca22",
+  "scope": "compatible native build reused across committed tooling/documentation change; no C/Rust parity or survival inference"
+}

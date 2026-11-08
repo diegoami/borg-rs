@@ -38,11 +38,25 @@ class Frames:
             for line in stream:
                 try:
                     frame = json.loads(line)
-                except json.JSONDecodeError:
-                    # An interrupted recorder may leave one incomplete tail row.
-                    if stream.read(1):
-                        raise ValueError('Malformed recording frame before the stream end')
-                    break
+                except json.JSONDecodeError as error:
+                    raise ValueError('Malformed recording frame; finalized evidence cannot hide a damaged tail') from error
+                width, height = frame['width'], frame['height']
+                if type(width) is not int or type(height) is not int or not (1 <= width <= 4096 and 1 <= height <= 4096 and width * height <= 1048576):
+                    raise ValueError('Recorded geometry outside resource bounds')
+                if self.index and (width, height) != previous_geometry and not frame['full']:
+                    raise ValueError('Geometry changed without a full frame')
+                previous_geometry = (width, height)
+                offsets = set()
+                for at, character, attr in frame['cells']:
+                    if type(at) is not int or not 0 <= at < width * height or at in offsets or type(character) is not int or not 0 <= character <= 0x10ffff or type(attr) is not int or not 0 <= attr <= 255:
+                        raise ValueError('Invalid/duplicate recorded cell')
+                    offsets.add(at)
+                if self.turns and frame['turn'] < self.turns[-1]:
+                    raise ValueError('Recorded ticks move backwards')
+                if frame['index'] != len(self.index) + 1:
+                    raise ValueError('Recorded frame index gap/duplicate')
+                if not line.endswith('\n'):
+                    raise ValueError('Unfinalized frame row')
                 if frame['full']:
                     last_full = len(self.index)
                 if not self.index and not frame['full']:
@@ -105,11 +119,16 @@ class Frames:
 
 class ReplayLog:
     """Window recorded messages/notes without inventing within-turn timestamps."""
-    MODES = ('Borg action notes', 'All Borg notes', 'Game messages')
+    MODES = ('Borg action notes', 'All Borg notes', 'Game messages', 'Native fighting log')
     ACTION = re.compile(r'\b(attacking|casting|praying|firing|quaffing|reading|activating|zapping|aiming|using|wearing|taking off|buying|selling|retreating|resting|climbing|descending|ascending|walking|backing|flowing|performing attack|facing|targeting|fleeing|recalling)\b', re.I)
 
     def __init__(self, directory, frames):
         self.frames = frames
+        self.combat = []
+        for path in (directory / 'combat.jsonl', directory / 'run/native/combat.jsonl'):
+            if path.exists():
+                self.combat = [json.loads(line) for line in path.read_text().splitlines()]
+                break
         self.notes = []
         trace = directory / 'trace.txt'
         if trace.exists():
@@ -137,6 +156,8 @@ class ReplayLog:
                             self.game_native.append((int(parts[1]), parts[3]))
                             self.game_boundaries.append(int(parts[0]))
         native_json = directory / 'native-messages.jsonl'
+        if not native_json.exists() and (directory / 'run/native/native-messages.jsonl').exists():
+            native_json = directory / 'run/native/native-messages.jsonl'
         if not native_json.exists():
             native_json = directory / 'run/native-messages.jsonl'
         if native_json.exists():
@@ -159,7 +180,32 @@ class ReplayLog:
         self.complete = (directory / 'record-complete.json').exists()
 
     def window(self, frame, position, height, width, back=0, mode=0):
-        if mode == 2 and self.game_native is not None:
+        if mode == 3:
+            events = []
+            for event in self.combat:
+                if event['frame'] > frame['index']:
+                    continue
+                kind, tick = event['kind'], event['turn']
+                if kind == 'speed':
+                    text = f"Speed {event['speed']}: +{event['gain']} energy/tick, move cost {event['move']}"
+                elif kind == 'damage':
+                    text = f"HP {event['before']}->{event['after']} (loss {event['before']-event['after']}), source {event['cause']}"
+                    if events and events[-1][0] == tick and events[-1][2] == 'message':
+                        previous = events.pop()
+                        text = previous[1] + '; ' + text
+                else:
+                    if event['text'].startswith('#'):
+                        continue
+                    text = event['type'] + ': ' + event['text']
+                events.append((tick, text, kind))
+            end = len(events)
+            caption = 'Native fighting log at original frame ' + str(frame['index'])
+            precision = 'Native messages before coalescing; nearby HP-loss rows are grouped, never counted as extra hits.' if self.combat else 'Combat was not recorded; no exact hits/damage are inferred from Borg notes.'
+            if 'energy_available' in frame:
+                precision += f" Speed {frame['speed']}, gain {frame['energy_gain']}/tick, move cost {frame['move_cost']}, budget {frame['energy_available']}."
+            def label(row):
+                return f'{row[0]}: {row[1]}'
+        elif mode == 2 and self.game_native is not None:
             events = self.game_native
             end = bisect_left(self.game_boundaries, frame['index'])
             caption = f"Game messages before recorded frame {frame['index']}"
@@ -325,7 +371,7 @@ def read_key(screen, playing=False):
         screen.timeout(100 if playing else -1)
 
 
-def show(directory, turn=None, verified=False, dump=False, caster=None, supplemental=False):
+def show(directory, turn=None, verified=False, dump=False, caster=None, supplemental=False, combat_log=False):
     frames = Frames(directory)
     index = frames.at_turn(turn if turn is not None else frames.turns[-1] - 105)
     try:
@@ -343,10 +389,10 @@ def show(directory, turn=None, verified=False, dump=False, caster=None, suppleme
             curses.start_color()
             screen.keypad(True)
             playing = False
-            panel = 'screen'
+            panel = 'log' if combat_log else 'screen'
             scroll = 0
             horizontal = 0
-            log_mode, logs = 0, None
+            log_mode, logs = (3 if combat_log else 0), None
             while True:
                 frame, chars, attrs, palette = frames.get(index)
                 if caster is not None:

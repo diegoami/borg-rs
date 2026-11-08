@@ -1,0 +1,136 @@
+{
+  "schema": "borg-rs/toolkit-qualification@1",
+  "target_base": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+  "c_implementation_reference": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+  "handoff_and_docs_reference": "a9fb21bc006f71b639ae38b3032583271411581e",
+  "source_inputs_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+  "build_id": {
+    "binary": "/home/diego/projects/borg-rs/build/death-workflow/701a89a6119e753b10e7/build/game/angband",
+    "binary_sha256": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+    "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+    "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+    "compile_commands_sha256": "5fbd7010a84a4265d07d97e4b89da385ea4dfcb2baaea7945eaeb1ee848d0390",
+    "git_dirty": "no",
+    "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+    "impl": "rust",
+    "inputs_dirty": "no",
+    "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+    "overlay": "borg-rs-toolkit-overlay@1",
+    "overlay_sha256": {
+      "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+      "tools/toolkit_native.py": "4067d111de84ec4d2478488aa6470673cb9f628b22ded91560f3ebf7f2d829df"
+    },
+    "rust_library_sha256": "7bdd8d31c06dad57528d4cd26171bed6e3c9637367a3567b3e92d967fef11e63",
+    "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+    "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+    "toolchain": {
+      "build_environment": {},
+      "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+      "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+      "features": "",
+      "profile": "Release",
+      "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+      "target": "x86_64-linux-gnu"
+    }
+  },
+  "runtime": {
+    "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+    "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43"
+  },
+  "actual_batch": {
+    "plan_sha256": "148109b15af34d37084084ed466a9578949c807c5ec729afedf12d17dff333bf",
+    "runs": [
+      {
+        "seed": 42,
+        "outcome": "death",
+        "character": "Half-Troll Mage",
+        "recording": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-001-seed-42/recordings/20261108T142711.396906Z-CollectedBorg",
+        "dossier": "/home/diego/projects/borg-rs/harness/out/toolkit-command-deaths/D0001-recorded",
+        "qualification": "complete frozen recording; rerun verification and assessment remain separate"
+      },
+      {
+        "seed": 1532917772,
+        "outcome": "turn_cap",
+        "character": "Dwarf Paladin",
+        "recording": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-002-seed-1532917772/recordings/20261108T142714.800436Z-CollectedBorg",
+        "dossier": null,
+        "qualification": "complete frozen recording; rerun verification and assessment remain separate"
+      },
+      {
+        "seed": 2647001198,
+        "outcome": "turn_cap",
+        "character": "Half-Orc Blackguard",
+        "recording": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-003-seed-2647001198/recordings/20261108T142719.470219Z-CollectedBorg",
+        "dossier": null,
+        "qualification": "complete frozen recording; rerun verification and assessment remain separate"
+      }
+    ],
+    "counts": {
+      "death": 1,
+      "turn_cap": 2
+    },
+    "raw": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2"
+  },
+  "tests": {
+    "python": {
+      "run": 99,
+      "passed": 96,
+      "skipped": 3
+    },
+    "rust": {
+      "passed": 100,
+      "ignored": 1
+    },
+    "clippy": "pass",
+    "native_rust_full_self_replays": 3,
+    "native_recorder_noninterference_pairs": 3,
+    "c_repeatability_pairs": 3,
+    "c_rust_parity_pairs": 3,
+    "parity_executions": 9,
+    "matching_engine_objects": 156,
+    "native_negative_controls_rejected": 20,
+    "actual_named_successful_sessions": 5,
+    "named_failure_controls": 2,
+    "separately_recorded_manual_sessions": 2,
+    "pty_key_sequences": 1,
+    "prospective_simulated_ten_deaths": {
+      "attempted": 10,
+      "exported_separately": 10,
+      "independent_native_games": 0
+    },
+    "finalized_native_timeout_attempts": 2,
+    "strict_selected_prefixes": 3,
+    "missing_null_field_diagnostic": "pass"
+  },
+  "scope": "Linux/WSL2; frozen Rust self-replay and separate finite C/C/Rust smoke parity. Not full private-state equality, cross-platform equality, population benefit or checkpoint acceptance.",
+  "remaining": [
+    "Longer visible Borg interruption did not consistently return to human input; cause unresolved; visible natural-death qualification absent.",
+    "Three historical M5 supplementary controls skipped because their external continuation/legacy registry fixtures are unavailable.",
+    "Legacy arbitrary prefixes without an original save anchor, missing raw recordings/frozen observers, and absent legacy combat recovery remain unavailable.",
+    "No full/deep main-integration checkpoint or independent review is claimed. Other owner milestone-4 work remains separate."
+  ],
+  "preservation": "Raw movies, build caches, failed attempts and helper dependencies remain outside Git; existing owner cases/builds/references were not replaced.",
+  "curated_files_sha256": {
+    "prefixes.json": "2090fa0ca76ca27eb787f9f58273edaf0462e5521a8a41657146774063de9ccd",
+    "prefixes.log": "daffb364911d40bcf325414a13358f11fc636c681a8113e20df7eb2eef3945ff",
+    "rust-unit.log": "f747727b4cbe0208fa6ebaacf8ef0830c904f645f901f4d6c9e0c90df9221e3c",
+    "README.md": "79e5a1f248890e90db3b5d50df8542bdf4f2c2332d8191626c3e925f104afc21",
+    "negative-controls.json": "780d83bc188ca20eab5cd27671c1bcd1f26f69b3b4120ea6085fbb4a63b9c572",
+    "gui-runs.json": "9ef9ff2506975e99f071f7572136c26c27359a067dbde34807e6f58cfbd8d118",
+    "self-replays.json": "f992e3c1f0d349f6b35cbc6b96b3cb21153d81a0135eee155216448ce0d03ff6",
+    "unit-controls.log": "d89ed03c8c79d77951248b268808ae6d12aa214ef5e35986ce3caea7b6e09d11",
+    "parity.json": "2f88cdf13829d57a119d54e8e95369a5ea8bb2c1b98fbf6ee02ca940ec6bed80",
+    "death-windows.json": "13d482114f4c96b529c16bb0711fc0720e3022ebb58d7ca0e4767d5ef48609a3",
+    "pty-controls.json": "0ec20a716127c02db638c35162ca669bc5f85d30ed0d35335e3cad78fb024045",
+    "named-controls.json": "f097e8abbe3eb1f360c7ba783db2f761c57b5d811a464a045e9ab65a8602db5c",
+    "clippy.log": "f4fafc5d35521d3a99a70446826fc444e1124d25391a4db146b68081ad953136",
+    "noninterference.json": "356f9b02c6047bf3573608a86a7860c17be5ccac4a18c68946c78c46555077a7",
+    "diagnostic.log": "2d183d12201289429f30c62126e67e73f937f5912bbd50f7a52655baf8764e01",
+    "no-c-borg.log": "331af35318836896d435a0dd8aead4adb39a8515e7be93d777fc6d2eede48a0a",
+    "manual-sessions.json": "2b25618db181fa5c220c2d609da1a05fcb486e664ba41724032aaf6664f22cf9",
+    "post-commit-reuse.json": "09013bc46f9f7fd614e2fb93e3c4a5f39093c2cb11fbf4fbfec6ad761189794d"
+  },
+  "current_verifier_sha256": "32ab19a6cf58d5be2add10eb5ae046f36a8b84705bb8b63b92b8db85b22f9103",
+  "post_commit_reuse": "post-commit-reuse.json"
+}
