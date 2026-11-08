@@ -1,0 +1,17 @@
+diff --git a/angband/src/borg/borg-caution.c b/angband/src/borg/borg-caution.c
+index 313e3fe..43a99dd 100644
+--- a/angband/src/borg/borg-caution.c
++++ b/angband/src/borg/borg-caution.c
+@@ -1720,5 +1720,5 @@ bool borg_caution(void)
+             /* Mega-Hack -- skip traps XXX XXX XXX */
+             if (ag->trap && !ag->glyph)
+-                break;
++                continue;
+ 
+             /* If i was here last round and 3 rounds ago, suggesting a "bounce"
+@@ -1737,4 +1737,5 @@ bool borg_caution(void)
+              * me when I land on that grid.
+              */
++            adjacent_monster = false;
+             for (ii = 1; ii < borg_kills_nxt; ii++) {
+                 borg_kill *kill;

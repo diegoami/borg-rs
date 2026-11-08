@@ -1,0 +1,29 @@
+diff --git a/angband/src/borg/borg-caution.c b/angband/src/borg/borg-caution.c
+index 313e3fe..43a99dd 100644
+--- a/angband/src/borg/borg-caution.c
++++ b/angband/src/borg/borg-caution.c
+@@ -1307,6 +1307,6 @@ bool borg_caution(void)
+                 continue;
+ 
+-            /* skip the closer ones */
+-            if (b_j >= j)
++            /* skip the farther ones */
++            if (b_j <= j && b_j != -1)
+                 continue;
+ 
+@@ -1322,5 +1322,5 @@ bool borg_caution(void)
+             ag = &borg_grids[y][x];
+ 
+-            /* How far is the nearest up stairs */
++            /* How far is the nearest down stairs */
+             m = distance(borg.c, loc(x, y));
+ 
+@@ -1329,6 +1329,6 @@ bool borg_caution(void)
+                 continue;
+ 
+-            /* skip the closer ones */
+-            if (b_m >= m)
++            /* skip the farther ones */
++            if (b_m <= m && b_m != -1)
+                 continue;
+ 

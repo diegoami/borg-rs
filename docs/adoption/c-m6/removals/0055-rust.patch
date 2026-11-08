@@ -1,0 +1,42 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+index 1eca4e3..c4d7d26 100644
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -808,7 +808,7 @@ fn note_standing(st: &mut BorgState) -> (bool, bool) {
+ }
+ 
+-/// The distance of the farthest stair of `track` without a monster on it,
+-/// or -1 (C's "nearest stair" scan, which keeps the farthest).
+-fn farthest_free_stair(st: &BorgState, up: bool) -> i32 {
++/// The distance of the nearest stair of `track` without a monster on it,
++/// or -1.
++fn nearest_free_stair(st: &BorgState, up: bool) -> i32 {
+     let track = if up { &st.stairs.less } else { &st.stairs.more };
+     let mut best = -1;
+@@ -817,5 +817,5 @@ fn farthest_free_stair(st: &BorgState, up: bool) -> i32 {
+         let y = track.y[i];
+ 
+-        // How far is the nearest up stairs
++        // How far is the nearest stair
+         let j = engine::distance(st.borg.c, loc { x, y });
+ 
+@@ -825,6 +825,6 @@ fn farthest_free_stair(st: &BorgState, up: bool) -> i32 {
+         }
+ 
+-        // skip the closer ones
+-        if best >= j {
++        // skip the farther ones
++        if best <= j && best != -1 {
+             continue;
+         }
+@@ -862,8 +862,8 @@ fn desperate_flow(st: &mut BorgState, up: bool, why: &str) -> bool {
+ fn desperate_for_stairs(st: &mut BorgState, pos_danger: i32) -> bool {
+     // Check for an existing "up stairs"
+-    let b_j = farthest_free_stair(st, true);
++    let b_j = nearest_free_stair(st, true);
+ 
+     // Check for an existing "down stairs"
+-    let b_m = farthest_free_stair(st, false);
++    let b_m = nearest_free_stair(st, false);
+ 
+     // If you are within a few (3) steps of the stairs

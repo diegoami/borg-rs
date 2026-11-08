@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-store-sell.c b/angband/src/borg/borg-store-sell.c
+index 9fcfd53..906d582 100644
+--- a/angband/src/borg/borg-store-sell.c
++++ b/angband/src/borg/borg-store-sell.c
+@@ -1222,5 +1222,5 @@ int borg_count_sell(void)
+             /* note if we have more than one */
+             if (!borg_has_mutiple(item))
+-                return false;
++                continue;
+         }
+ 

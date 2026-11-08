@@ -1,0 +1,44 @@
+diff --git a/borg-rs/src/borg_init.rs b/borg-rs/src/borg_init.rs
+index ba9d9cb..982865b 100644
+--- a/borg-rs/src/borg_init.rs
++++ b/borg-rs/src/borg_init.rs
+@@ -189,12 +189,14 @@ fn borg_proc_setting(
+             if c_isdigit(ch) {
+                 cfg[setting] = atoi(&line[p..]);
++                if negative {
++                    // C `*= -1` (int overflow on INT_MIN; wraps)
++                    cfg[setting] = cfg[setting].wrapping_mul(-1);
++                }
+                 break;
+             }
+         }
+-    }
+ 
+-    if negative {
+-        // C `*= -1` (int overflow on INT_MIN; wraps)
+-        cfg[setting] = cfg[setting].wrapping_mul(-1);
++        // anything else is not a value: keep the default
++        break;
+     }
+ 
+@@ -953,5 +961,7 @@ mod tests {
+         // (int) 99999999999L = 1215752191
+         assert_eq!(cfg[BORG_ENCHANT_LIMIT as usize], 15);
+-        assert_eq!(cfg[BORG_NO_DEEPER as usize], -127);
++        // a "-" with no number keeps the default (better-borg-c milestone6
++        // patch 0058; the original negated the default to -127)
++        assert_eq!(cfg[BORG_NO_DEEPER as usize], 127);
+         assert_eq!(cfg[BORG_STOP_KING as usize], 0);
+         assert_eq!(cfg[BORG_KILLS_UNIQUES as usize], 0);
+@@ -959,4 +969,11 @@ mod tests {
+         assert_eq!(cfg[BORG_MUNCHKIN_DEPTH as usize], 8);
+ 
++        // an integer setting followed by a non-number keeps its default and
++        // the parser moves on (milestone6 patch 0057; the original looped
++        // forever on such a line)
++        let (cfg, _) = cfg_of(b"borg_respawn_race = x\nborg_respawn_class = 3\n");
++        assert_eq!(cfg[BORG_RESPAWN_RACE as usize], defaults[BORG_RESPAWN_RACE as usize]);
++        assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 3);
++
+         let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\nCND foo\n");
+         assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);
