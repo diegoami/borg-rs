@@ -415,5 +415,8 @@ Not merged to main; independent review and owner acceptance pending.
 Reproduction: harness/adoption/m3/README.md. Raw outputs harness/out/c-m3.
 Review (issue8 comment 6720857563): qualified pass, no blocker/major; four
 findings addressed in ec13462. Owner: "if accepted, create the milestone and
-the tag" -> integrated into main, GitHub milestone M6 and annotated tag m6
-(C milestone2+3 carries). Next C milestone is the owner's choice.
+the tag" -> integrated into main (PR9). Named after the C milestone, as the
+owner corrected: annotated tag `4.2.6-impact-v3`, GitHub milestone "4.2.6
+impact v3" and a docs/STATUS.md milestone row. An interim "M6/m6" name was
+written in docs only and corrected; no m6 tag or milestone was created.
+Next C milestone is the owner's choice.
