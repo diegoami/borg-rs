@@ -1,0 +1,11 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index 134c251..cf47f21 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -3473,5 +3473,5 @@ fn borg_attack_aux_maim_foe(st: &mut BorgState) -> i32 {
+     borg_keypress(st, i2d(dir));
+ 
+-    d
++    b_d
+ }
+ 

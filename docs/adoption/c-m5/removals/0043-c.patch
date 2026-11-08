@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
+index 559d060..e4687ed 100644
+--- a/angband/src/borg/borg-think-dungeon-util.c
++++ b/angband/src/borg/borg-think-dungeon-util.c
+@@ -1097,5 +1098,5 @@ bool borg_excavate_vault(int range)
+             borg_grids[borg_temp_y[i]][borg_temp_x[i]].info &= ~BORG_GLOW;
+             /* Dark */
+-            borg_grids[borg_temp_y[i]][borg_temp_x[i]].info |= BORG_GLOW;
++            borg_grids[borg_temp_y[i]][borg_temp_x[i]].info |= BORG_DARK;
+             /* Feat Floor */
+             borg_grids[borg_temp_y[i]][borg_temp_x[i]].feat = FEAT_FLOOR;

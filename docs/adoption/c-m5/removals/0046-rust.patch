@@ -1,0 +1,10 @@
+diff --git a/borg-rs/src/borg_update.rs b/borg-rs/src/borg_update.rs
+index 65ab3de..83b9aee 100644
+--- a/borg-rs/src/borg_update.rs
++++ b/borg-rs/src/borg_update.rs
+@@ -1933,4 +1951,5 @@ fn new_level(st: &mut BorgState) {
+             st.update.set_detect(Detect::Door, y, x, false);
+             st.update.set_detect(Detect::Evil, y, x, false);
++            st.update.set_detect(Detect::Obj, y, x, false);
+         }
+     }

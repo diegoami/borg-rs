@@ -1,0 +1,15 @@
+diff --git a/borg-rs/src/borg_escape.rs b/borg-rs/src/borg_escape.rs
+index cb054f1..d1b732a 100644
+--- a/borg-rs/src/borg_escape.rs
++++ b/borg-rs/src/borg_escape.rs
+@@ -127,7 +127,7 @@ pub fn borg_recall(st: &mut BorgState) -> bool {
+                     } else if st.borg.tr(BI_MAXDEPTH) == 99 && st.prepared.numb_live_unique < 5 {
+                         // Do reset Depth, cleaning up last uniques to hit
+-                        // Morgoth.  Want to keep using up the stock of potions
+-                        borg_note(st, "# Not Resetting recall depth.");
+-                        borg_keypress(st, key(b'n'));
++                        // Morgoth.
++                        borg_note(st, "# Resetting recall depth.");
++                        borg_keypress(st, key(b'y'));
+                     } else {
+                         // Do reset Depth
