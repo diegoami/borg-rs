@@ -1,0 +1,74 @@
+diff --git a/borg-rs/src/borg_update.rs b/borg-rs/src/borg_update.rs
+index 65ab3de..83b9aee 100644
+--- a/borg-rs/src/borg_update.rs
++++ b/borg-rs/src/borg_update.rs
+@@ -403,8 +403,26 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
+         }
+     }
+-    // C has a "Floors" branch here that tests `g.f_idx == FEAT_NONE` again,
+-    // so it is never taken (C bug 46): floors are never marked
+-    // BORG_GLOW/BORG_DARK/BORG_LIGHT from their lighting.
+-    else if g.f_idx == FEAT_OPEN || g.f_idx == FEAT_BROKEN {
++    else if g.f_idx == FEAT_FLOOR {
++        // Floors (blind: nothing special)
++
++        // Handle "dark" floors. square_islit() is the grid's
++        // permanent-glow flag, matching the CAVE_GLOW test this branch
++        // transcribed from the original borg; the lighting enum in
++        // grid_data cannot express it (LIGHTING_LIT is map_info's default
++        // for grids whose lighting is not otherwise established).
++        let lit = engine::square_islit(x, y);
++        let ag = st.cave.grid_mut(x, y);
++        if !lit {
++            // Dark floor grid
++            ag.info |= BORG_DARK;
++            ag.info &= !BORG_GLOW;
++        } else {
++            // Perma Glowing Grid
++            ag.info |= BORG_GLOW;
++
++            // Assume not dark
++            ag.info &= !BORG_DARK;
++        }
++    } else if g.f_idx == FEAT_OPEN || g.f_idx == FEAT_BROKEN {
+         // Open doors
+     } else if g.f_idx == FEAT_GRANITE || g.f_idx == FEAT_PERM {
+diff --git a/borg-rs/src/engine.rs b/borg-rs/src/engine.rs
+index 141154f..cd6f7b9 100644
+--- a/borg-rs/src/engine.rs
++++ b/borg-rs/src/engine.rs
+@@ -1804,4 +1804,13 @@ pub fn square_isglow(x: i32, y: i32) -> bool {
+ }
+ 
++/// `square_islit(cave, loc(x, y))` on the current level. Panics if the
++/// grid is out of bounds (as `square_isglow`).
++pub fn square_islit(x: i32, y: i32) -> bool {
++    assert!(square_in_bounds(x, y), "grid out of bounds");
++    // SAFETY: `cave` is the current level, valid while the game runs; the
++    // grid is in bounds (checked above).
++    unsafe { headers::cave_h::square_islit(headers::cave_h::cave, loc { x, y }) }
++}
++
+ /// `panel_contains(y, x)` (game-input.c, `textui_panel_contains`): is the
+ /// grid on the current map panel? The arguments are C `unsigned int`s (a
+@@ -2838,6 +2847,6 @@ pub struct MapGrid {
+     /// kind, `None` for NULL
+     pub first_kind: Option<(u32, u8, wchar_t)>,
+-    /// `lighting` (`LIGHTING_*`). Never read: the only reader in C is the
+-    /// "Floors" branch of `borg_update_map`, which is dead (C bug 46).
++    /// `lighting` (`LIGHTING_*`). Never read: the corrected "Floors" branch
++    /// of `borg_update_map` tests `square_islit()` instead.
+     #[allow(dead_code)]
+     pub lighting: u32,
+diff --git a/borg-rs/src/headers/cave_h.rs b/borg-rs/src/headers/cave_h.rs
+index d65f710..87cd338 100644
+--- a/borg-rs/src/headers/cave_h.rs
++++ b/borg-rs/src/headers/cave_h.rs
+@@ -153,4 +153,7 @@ extern "C" {
+     pub fn square_isglow(c: *mut chunk, grid: loc) -> bool;
+ }
++extern "C" {
++    pub fn square_islit(c: *mut chunk, grid: loc) -> bool;
++}
+ extern "C" {
+     pub fn square_iswarded(c: *mut chunk, grid: loc) -> bool;

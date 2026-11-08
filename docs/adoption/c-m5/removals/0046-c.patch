@@ -1,0 +1,10 @@
+diff --git a/angband/src/borg/borg-update.c b/angband/src/borg/borg-update.c
+index 5f1e5f2..1307ced 100644
+--- a/angband/src/borg/borg-update.c
++++ b/angband/src/borg/borg-update.c
+@@ -2141,4 +2138,5 @@ void borg_update(void)
+                 borg_detect_door[y][x] = false;
+                 borg_detect_evil[y][x] = false;
++                borg_detect_obj[y][x] = false;
+             }
+         }

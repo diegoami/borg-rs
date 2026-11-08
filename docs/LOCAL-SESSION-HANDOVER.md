@@ -435,3 +435,15 @@ Engine crash root-caused to wizard cure-all (cheat-death path) and fixed
 narrowly in cmd-wizard.c (neo-angband-tracker#474). Review: qualified pass.
 Owner: allow the mid-command self-stop in harness/diff, merge and accept ->
 impact v4, tag `4.2.6-impact-v4` (owner pushes the tag).
+
+## C milestone5 adoption (2026-11-08)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v4`, tracking
+borg-rs#13, record docs/adoption/c-m5, receipt docs/validation/2026-11-08-c-m5.
+All eight patches (0043-0050) carried in C and Rust; Rust adds the
+`square_islit` FFI binding for the live Floors branch. Native 9→16/16,
+flowcache contract 19→30/30, native checker (flow kernel covers 0049),
+131/131 C/Rust parity with harness/diff exit 0, 2/8 Rust fault controls
+detected. Review and owner acceptance pending; not merged.
+Review (issue13): qualified pass, no blocker/major; findings addressed in
+b35d112. Owner: "accept, merge and tag" -> impact v5, tag `4.2.6-impact-v5`.

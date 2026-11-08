@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index 257d1b4..ed39766 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -3496,5 +3496,5 @@ static int borg_attack_aux_maim_foe(void)
+     borg_keypress(I2D(dir));
+ 
+-    return d;
++    return b_d;
+ }
+ 

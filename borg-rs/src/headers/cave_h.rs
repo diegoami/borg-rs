@@ -153,6 +153,9 @@ extern "C" {
     pub fn square_isglow(c: *mut chunk, grid: loc) -> bool;
 }
 extern "C" {
+    pub fn square_islit(c: *mut chunk, grid: loc) -> bool;
+}
+extern "C" {
     pub fn square_iswarded(c: *mut chunk, grid: loc) -> bool;
 }
 extern "C" {

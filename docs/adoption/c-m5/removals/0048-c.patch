@@ -1,0 +1,15 @@
+diff --git a/angband/src/borg/borg-escape.c b/angband/src/borg/borg-escape.c
+index 79ef7ad..51efcc3 100644
+--- a/angband/src/borg/borg-escape.c
++++ b/angband/src/borg/borg-escape.c
+@@ -99,7 +99,7 @@ bool borg_recall(void)
+                         && borg_numb_live_unique < 5) {
+                         /* Do reset Depth, cleaning up last uniques to hit */
+-                        /* Morgoth.  Want to keep using up the stock of potions */
+-                        borg_note("# Not Resetting recall depth.");
+-                        borg_keypress('n');
++                        /* Morgoth. */
++                        borg_note("# Resetting recall depth.");
++                        borg_keypress('y');
+                     }
+                     else {

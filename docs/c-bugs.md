@@ -20,6 +20,13 @@ The milestone4 carries in [adoption/c-m4](adoption/c-m4/README.md)
 (better-borg-c `70993393a`, [Rust#11](https://github.com/diegoami/borg-rs/issues/11))
 are marked with "Milestone4" bullets in the same way.
 
+The milestone5 carries in [adoption/c-m5](adoption/c-m5/README.md)
+(better-borg-c `5384f12ed`, [Rust#13](https://github.com/diegoami/borg-rs/issues/13))
+are marked with "Milestone5" bullets. Two of them have no section here: the
+endgame recall-depth prompt answers `y` at max depth 99 with few uniques left
+(source310), and flows that skip the danger check no longer mark grids as
+checked (`borg_flow_ignores_danger`, source404).
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -1043,6 +1050,7 @@ with its issues.
 * `borg_notice_armour_swap()`: gloves are wearable but not in the
   switch, so they are never a swap armour.
 * Rust (`borg_trait_swap.rs`): all kept.
+* Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source205 adds gloves to the armour-swap candidates.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#199, #201, #202, #203, #204, #205.
 
@@ -1098,6 +1106,9 @@ with its issues.
   and so are a detection panel index outside the arrays and a queued
   `SPELL_` message without a ':' (C reads through `NULL + 1`; every
   message the Borg queues has one).
+* Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source213 makes the Floors branch live (`FEAT_FLOOR`, lit
+  test via `square_islit()`), and source219 also clears `borg_detect_obj` on
+  a new level (C and Rust).
 * Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source212 takes `old_wall` before the feature is
   overwritten, so wall/door changes reach the flow/view updates (C and Rust).
 * Tracker: one lead per slip, in the order above (the `created_traps` /
@@ -1154,6 +1165,8 @@ with its issues.
   `borg_feeling_stuff` outside 0..11 panics in
   `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
   grid outside the map panics (C reads outside `borg_grids`).
+* Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source231 scans the Borg's own grid in the Call Light
+  loop, and source236 marks the excavated vault grid `BORG_DARK`.
 * Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source229 lets a dying fuelled light (timeout <= 3,
   not `NO_FUEL`) start the maneuvers; source230 returns after queuing `<`;
   source232 `break`s the known up-stair loop (the `borg-think-dungeon.c`
@@ -1307,6 +1320,7 @@ with its issues.
   use 20.
 * Rust (`borg_fight_attack.rs`): all kept; the out-of-bounds reads and
   writes are panics.
+* Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source256 returns the best Maim Foe score `b_d`.
 * Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source247 stops the blow-name search before the NULL
   end entry; source252 includes the south/east edges in the ball and arc
   blast loops.

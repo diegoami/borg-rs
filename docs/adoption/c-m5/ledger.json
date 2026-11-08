@@ -1,0 +1,260 @@
+{
+ "consumer_commit": "5384f12ed51e8fef6f31353fd2daaf0e7fb43856",
+ "consumer_tag": "4.2.6-impact-v5",
+ "previous_consumer_commit": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
+ "c_review": "https://github.com/diegoami/better-borg-c/issues/229",
+ "issue": "https://github.com/diegoami/borg-rs/issues/13",
+ "previous_batch": "https://github.com/diegoami/borg-rs/issues/11",
+ "starting_main": "d3e94d3eb939ea9bf22a1a1ab2e8e38d60c78cf4",
+ "starting_tag": "4.2.6-impact-v4",
+ "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+ "retained_local_corrections": [
+  287,
+  322,
+  295,
+  345
+ ],
+ "retained_engine_corrections": [
+  "cure-all known curses (neo-angband-tracker#474)"
+ ],
+ "counts": {
+  "consumer_carries": 8,
+  "carried_c_and_rust": 8
+ },
+ "patches": [
+  {
+   "id": "CBUG-0236",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/188",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/236",
+   "source_head": "8e0f8448e9ebc6d164e4e621840acb0005094f81",
+   "source_commits": [
+    "8e0f8448e9ebc6d164e4e621840acb0005094f81"
+   ],
+   "applied_commits": [
+    "bdd3c2ea2c120c5200f182b1676b860942abc71e"
+   ],
+   "patch": "patches/0043-excavate-dark-flag.patch",
+   "patch_active": true,
+   "evidence_ref": "793f723ebb684f1f2abcdb267dc759861bc7874d",
+   "verification": "docs/measurement/EXCAVATE-DARK-FLAG.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "5053915f5c9899b380ab6cc4d62b7001fbc1d62e",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_think_dungeon_util.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0043-c.patch",
+    "rust": "removals/0043-rust.patch"
+   },
+   "native_fixture": "excavate"
+  },
+  {
+   "id": "CBUG-0231",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/196",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/231",
+   "source_head": "cda4fb662cabee8a49fbdbcaf4383dc7be1fff1c",
+   "source_commits": [
+    "cda4fb662cabee8a49fbdbcaf4383dc7be1fff1c"
+   ],
+   "applied_commits": [
+    "6b43497330399bfc8711289a3e873868a8af910f"
+   ],
+   "patch": "patches/0044-call-light-own-grid.patch",
+   "patch_active": true,
+   "evidence_ref": "85de924fa8c008a86a2ab3ff6340bfd157a69b7a",
+   "verification": "docs/measurement/CALL-LIGHT-OWN-GRID.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_think_dungeon_util.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0044-c.patch",
+    "rust": "removals/0044-rust.patch"
+   },
+   "native_fixture": "calllight"
+  },
+  {
+   "id": "CBUG-0205",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/201",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/205",
+   "source_head": "c52527eed3cf272cb62a16a773f25ed09f6cac36",
+   "source_commits": [
+    "c52527eed3cf272cb62a16a773f25ed09f6cac36"
+   ],
+   "applied_commits": [
+    "175ef6feb555bbf67bcdfff7f628d686decf63a8"
+   ],
+   "patch": "patches/0045-gloves-armour-swap.patch",
+   "patch_active": true,
+   "evidence_ref": "7ff787acc6250893e4391e0998c46eeecfb67665",
+   "verification": "docs/measurement/GLOVES-ARMOUR-SWAP.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "813feaec7ec9a5f3dc7e9e6609d0b1b24b0ba376",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_trait_swap.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0045-c.patch",
+    "rust": "removals/0045-rust.patch"
+   },
+   "native_fixture": "gloves"
+  },
+  {
+   "id": "CBUG-0219",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/205",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/219",
+   "source_head": "3d104a8b82aafeb421869c62736c8046b6272d82",
+   "source_commits": [
+    "3d104a8b82aafeb421869c62736c8046b6272d82"
+   ],
+   "applied_commits": [
+    "7be6518287d8bb20b08c3e59f58c8f3707e36ae2"
+   ],
+   "patch": "patches/0046-detection-carryover.patch",
+   "patch_active": true,
+   "evidence_ref": "55e00023674b9e7634713f2117b5c8c47802ca5f",
+   "verification": "docs/measurement/DETECTION-CARRYOVER.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "7a02072cda8bc79cccabe3ad32d578e233a1edd1",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_update.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0046-c.patch",
+    "rust": "removals/0046-rust.patch"
+   },
+   "native_fixture": "detectcarry"
+  },
+  {
+   "id": "CBUG-0256",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/214",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/256",
+   "source_head": "91822d82ab394afc70d2640d1c2cc735af328056",
+   "source_commits": [
+    "91822d82ab394afc70d2640d1c2cc735af328056"
+   ],
+   "applied_commits": [
+    "c61e90c9cdfb466336d3f564a1a3709f3daecc65"
+   ],
+   "patch": "patches/0047-maimfoe-real-pass-score.patch",
+   "patch_active": true,
+   "evidence_ref": "ea1443bd6a98d4dcbb40c7d7224d2ce224f3bbca",
+   "verification": "docs/measurement/MAIMFOE-RETURN.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "8a30a39d9c22d10ca30e2190f06d00df400c2c46",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_fight_attack.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0047-c.patch",
+    "rust": "removals/0047-rust.patch"
+   },
+   "native_fixture": "maimfoe"
+  },
+  {
+   "id": "CBUG-0310",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/216",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/310",
+   "source_head": "9609e2c8682c7f55fe1ae4bf9701ae74e2718ce0",
+   "source_commits": [
+    "9609e2c8682c7f55fe1ae4bf9701ae74e2718ce0"
+   ],
+   "applied_commits": [
+    "b00f2a1901091b8a3222dc5576638684b36d95ea"
+   ],
+   "patch": "patches/0048-recalldepth-endgame-answer.patch",
+   "patch_active": true,
+   "evidence_ref": "9ccd191c2601d30285d2e9983f5eabdfd1cbf165",
+   "verification": "docs/measurement/RECALLDEPTH-ANSWER.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified and measured (behavior-neutral on the v1 cohort); carried/open+patch-active",
+   "merge_commit": "b9e64aa855139001cf63a95b11ce8934c5777b1e",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_escape.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0048-c.patch",
+    "rust": "removals/0048-rust.patch"
+   },
+   "native_fixture": "recalldepth"
+  },
+  {
+   "id": "FLOWCACHE-404",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/212",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/404",
+   "source_head": "b71b32c152e272886cb46bb8f253e8c4f5130711",
+   "source_commits": [
+    "b71b32c152e272886cb46bb8f253e8c4f5130711"
+   ],
+   "applied_commits": [
+    "257e7b473e56d6e9cf69c8dcdbc13e9039a42b5b"
+   ],
+   "patch": "patches/0049-flow-danger-cache.patch",
+   "patch_active": true,
+   "evidence_ref": "89326f5216148ab47a18585236678c391bb4e559",
+   "evidence_receipt": "f15794d2f2128714988596bfa036748d63a8f407",
+   "verification": "docs/measurement/FLOW-DANGER-CACHE.md",
+   "credit": "Diego Amicabile (owner death feedback; native C proposal/evidence); related independent borg-rs grey-mold diagnosis",
+   "verification_status": "merged; product before/after/negative controls and154prior expectations verified; frozen v1trace-neutral; D0008 diagnostic alive200000, no population-benefit claim; carried/open+patch-active",
+   "merge_commit": "1c8fcdccfafa08fd34aaa12b8e6409e8607030bb",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_flow.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0049-c.patch",
+    "rust": "removals/0049-rust.patch"
+   },
+   "native_fixture": "flowcache (harness/adoption/m5/flowcache.py)"
+  },
+  {
+   "id": "CBUG-0213",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/224",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/213",
+   "source_head": "da9934216eb15d421220050b374c72b65b9cd680",
+   "source_commits": [
+    "da9934216eb15d421220050b374c72b65b9cd680"
+   ],
+   "applied_commits": [
+    "6c00db351c3edaabd708294bd9b702b07f66cb4c"
+   ],
+   "patch": "patches/0050-glowtrace-floors-branch.patch",
+   "patch_active": true,
+   "evidence_ref": "5edc188e4e37c4ccf351dd5657b83bc5f1167244",
+   "verification": "docs/measurement/GLOWTRACE-FLOORS.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "verified on task/carry-glowtrace; awaiting normal PR merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v4); independent of retained local #287/#295/#322/#345 and the cure-all engine correction",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_update.rs",
+    "borg-rs/src/engine.rs",
+    "borg-rs/src/headers/cave_h.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0050-c.patch",
+    "rust": "removals/0050-rust.patch"
+   },
+   "native_fixture": "glowtrace"
+  }
+ ]
+}

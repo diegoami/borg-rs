@@ -631,30 +631,25 @@ pub fn borg_flow_spread(
                 continue;
             }
 
-            /* Analyze every grid once */
-            if st.flow.data_know[y as usize][x as usize] == 0 {
+            /* Analyze every grid once (unless this mode skips the danger
+             * check) */
+            if st.flow.data_know[y as usize][x as usize] == 0 && !borg_flow_ignores_danger(st) {
                 /* Mark as known */
                 st.flow.data_know[y as usize][x as usize] = 1;
 
-                if !st.borg.status.desperate
-                    && !st.borg.lunal_mode
-                    && !st.borg.munchkin_mode
-                    && !st.borg.status.digging
-                {
-                    /* Get the danger */
-                    let p = borg_danger(st, y, x, 1, true, false);
+                /* Get the danger */
+                let p = borg_danger(st, y, x, 1, true, false);
 
-                    /* Increase bravery */
-                    let fear = flow_fear(st);
+                /* Increase bravery */
+                let fear = flow_fear(st);
 
-                    /* Dangerous grid */
-                    if p > fear {
-                        /* Mark as icky */
-                        st.flow.data_icky[y as usize][x as usize] = 1;
+                /* Dangerous grid */
+                if p > fear {
+                    /* Mark as icky */
+                    st.flow.data_icky[y as usize][x as usize] = 1;
 
-                        /* Ignore this grid */
-                        continue;
-                    }
+                    /* Ignore this grid */
+                    continue;
                 }
             }
 
@@ -671,6 +666,17 @@ pub fn borg_flow_spread(
     st.flow.tail = 0;
 }
 
+/// Do the flows of the current mode skip the danger check
+/// (`borg_flow_ignores_danger`)?
+///
+/// Retreating, lunal and munchkin flows, and digging flows, deliberately go
+/// through grids whatever their danger. A grid they pass has therefore not
+/// been checked, and must not be remembered as checked: a later flow in the
+/// normal mode would otherwise accept it without ever assessing its danger.
+fn borg_flow_ignores_danger(st: &BorgState) -> bool {
+    st.borg.status.desperate || st.borg.lunal_mode || st.borg.munchkin_mode || st.borg.status.digging
+}
+
 /// Enqueue a fresh (legal) starting grid, if it is safe.
 pub fn borg_flow_enqueue_grid(st: &mut BorgState, y: i32, x: i32) {
     /* Avoid icky grids */
@@ -679,7 +685,7 @@ pub fn borg_flow_enqueue_grid(st: &mut BorgState, y: i32, x: i32) {
     }
 
     /* Unknown */
-    if st.flow.data_know[y as usize][x as usize] == 0 {
+    if st.flow.data_know[y as usize][x as usize] == 0 && !borg_flow_ignores_danger(st) {
         /* Mark as known */
         st.flow.data_know[y as usize][x as usize] = 1;
 
@@ -692,12 +698,7 @@ pub fn borg_flow_enqueue_grid(st: &mut BorgState, y: i32, x: i32) {
         let fear = flow_fear(st);
 
         /* Dangerous grid */
-        if p > fear
-            && !st.borg.status.desperate
-            && !st.borg.lunal_mode
-            && !st.borg.munchkin_mode
-            && !st.borg.status.digging
-        {
+        if p > fear {
             /* Icky */
             st.flow.data_icky[y as usize][x as usize] = 1;
 

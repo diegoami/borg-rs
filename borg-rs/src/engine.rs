@@ -1803,6 +1803,15 @@ pub fn square_isglow(x: i32, y: i32) -> bool {
     unsafe { headers::cave_h::square_isglow(headers::cave_h::cave, loc { x, y }) }
 }
 
+/// `square_islit(cave, loc(x, y))` on the current level. Panics if the
+/// grid is out of bounds (as `square_isglow`).
+pub fn square_islit(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level, valid while the game runs; the
+    // grid is in bounds (checked above).
+    unsafe { headers::cave_h::square_islit(headers::cave_h::cave, loc { x, y }) }
+}
+
 /// `panel_contains(y, x)` (game-input.c, `textui_panel_contains`): is the
 /// grid on the current map panel? The arguments are C `unsigned int`s (a
 /// negative value wraps, as in C).
@@ -2837,8 +2846,8 @@ pub struct MapGrid {
     /// `first_kind`: `(kidx, d_attr, d_char)` of the first visible object
     /// kind, `None` for NULL
     pub first_kind: Option<(u32, u8, wchar_t)>,
-    /// `lighting` (`LIGHTING_*`). Never read: the only reader in C is the
-    /// "Floors" branch of `borg_update_map`, which is dead (C bug 46).
+    /// `lighting` (`LIGHTING_*`). Never read: the corrected "Floors" branch
+    /// of `borg_update_map` tests `square_islit()` instead.
     #[allow(dead_code)]
     pub lighting: u32,
     pub in_view: bool,

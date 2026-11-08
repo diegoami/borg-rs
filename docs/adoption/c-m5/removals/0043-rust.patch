@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
+index 97ca893..dca163a 100644
+--- a/borg-rs/src/borg_think_dungeon_util.rs
++++ b/borg-rs/src/borg_think_dungeon_util.rs
+@@ -1241,6 +1241,6 @@ pub fn borg_excavate_vault(st: &mut BorgState, range: i32) -> bool {
+             /* Not Lit */
+             ag.info &= !BORG_GLOW;
+-            /* Dark (C sets BORG_GLOW again, C bug 47) */
+-            ag.info |= BORG_GLOW;
++            /* Dark */
++            ag.info |= BORG_DARK;
+             /* Feat Floor */
+             ag.feat = FEAT_FLOOR as u8;

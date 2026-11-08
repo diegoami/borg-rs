@@ -126,9 +126,9 @@ pub fn borg_recall(st: &mut BorgState) -> bool {
                         borg_keypress(st, key(b'n'));
                     } else if st.borg.tr(BI_MAXDEPTH) == 99 && st.prepared.numb_live_unique < 5 {
                         // Do reset Depth, cleaning up last uniques to hit
-                        // Morgoth.  Want to keep using up the stock of potions
-                        borg_note(st, "# Not Resetting recall depth.");
-                        borg_keypress(st, key(b'n'));
+                        // Morgoth.
+                        borg_note(st, "# Resetting recall depth.");
+                        borg_keypress(st, key(b'y'));
                     } else {
                         // Do reset Depth
                         borg_note(st, "# Resetting recall depth.");

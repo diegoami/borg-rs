@@ -1,0 +1,10 @@
+diff --git a/angband/src/borg/borg-trait-swap.c b/angband/src/borg/borg-trait-swap.c
+index 0842480..81e8c90 100644
+--- a/angband/src/borg/borg-trait-swap.c
++++ b/angband/src/borg/borg-trait-swap.c
+@@ -851,4 +851,5 @@ void borg_notice_armour_swap(void)
+         case TV_CROWN:
+         case TV_SHIELD:
++        case TV_GLOVES:
+         case TV_CLOAK:
+         case TV_SOFT_ARMOR:

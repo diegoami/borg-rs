@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
+index 559d060..e4687ed 100644
+--- a/angband/src/borg/borg-think-dungeon-util.c
++++ b/angband/src/borg/borg-think-dungeon-util.c
+@@ -254,6 +254,7 @@ bool borg_think_dungeon_light(void)
+         if (borg.time.call_light == 0
+             || (borg_timer(borg.time.call_light) > 7)) {
+-            /* Scan grids adjacent to me */
+-            for (ii = 0; ii < 8; ii++) {
++            /* Scan the grids adjacent to me and my own grid (an open
++             * door underfoot is handled below) */
++            for (ii = 0; ii <= 8; ii++) {
+                 x = borg.c.x + ddx_ddd[ii];
+                 y = borg.c.y + ddy_ddd[ii];

@@ -309,8 +309,9 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
      * but not if we just did so.
      */
     if st.borg.time.call_light == 0 || borg_timer(st, st.borg.time.call_light) > 7 {
-        /* Scan grids adjacent to me */
-        for ii in 0..8 {
+        /* Scan the grids adjacent to me and my own grid (an open
+         * door underfoot is handled below) */
+        for ii in 0..=8 {
             let (dx, dy) = dd(ii);
             let (x, y) = (st.borg.c.x + dx, st.borg.c.y + dy);
 
@@ -328,8 +329,7 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
                 continue;
             }
 
-            /* Problem with casting Call Light on Open Doors (never true:
-             * the scan skips the Borg's own grid, C bug 47) */
+            /* Problem with casting Call Light on Open Doors */
             if (feat == FEAT_OPEN || feat == FEAT_BROKEN)
                 && (y == st.borg.c.y && x == st.borg.c.x)
             {
@@ -1240,8 +1240,8 @@ pub fn borg_excavate_vault(st: &mut BorgState, range: i32) -> bool {
             let ag = st.cave.grid_mut(tx, ty);
             /* Not Lit */
             ag.info &= !BORG_GLOW;
-            /* Dark (C sets BORG_GLOW again, C bug 47) */
-            ag.info |= BORG_GLOW;
+            /* Dark */
+            ag.info |= BORG_DARK;
             /* Feat Floor */
             ag.feat = FEAT_FLOOR as u8;
             /*
