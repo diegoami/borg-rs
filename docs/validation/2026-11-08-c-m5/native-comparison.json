@@ -1,0 +1,253 @@
+{
+ "consumer_pin": "5384f12ed51e8fef6f31353fd2daaf0e7fb43856",
+ "before_source": "d3e94d3 (4.2.6-impact-v4)",
+ "after_source": "7a0728f",
+ "fixtures": {
+  "excavate": {
+   "excavate": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "acted=1 dark_marked=0",
+     "log_sha256": "722529817ef5d8fba61f3a326f31049bd41ff4d9dc614f9e17bfd0d7a8fbfb76"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 dark_marked=1",
+     "log_sha256": "ca5eb43c1f56bc85dac34ba757064769b9bdecc45dfbd82965577b74942af71e"
+    }
+   },
+   "no-target": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=0 dark_marked=0",
+     "log_sha256": "1955f21b2417c596113ca23dbb628dacee772852299b8fed3a42afca992725fd"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=0 dark_marked=0",
+     "log_sha256": "1955f21b2417c596113ca23dbb628dacee772852299b8fed3a42afca992725fd"
+    }
+   }
+  },
+  "calllight": {
+   "own-open-door": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "ownglow=0",
+     "log_sha256": "c3b5785da84c49957ad76d9d50644c8d38902a43bef4edf94ff6de2bcd43db56"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ownglow=1",
+     "log_sha256": "c0f583ec7ae41ec72d6d083530ec85c014752396d9abd4ac3b7b2d83f4f769bc"
+    }
+   },
+   "floor": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ownglow=1",
+     "log_sha256": "959f03341e6259b2d8a3ccaccd7911e45bf5eae219b59e79a6a4a766bad06e5a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ownglow=1",
+     "log_sha256": "959f03341e6259b2d8a3ccaccd7911e45bf5eae219b59e79a6a4a766bad06e5a"
+    }
+   }
+  },
+  "gloves": {
+   "glove-fa": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "armour_swap=0 free_act=0",
+     "log_sha256": "d239f1b463dd7d5c9c34e191590cb8e468b9a80124d8e6856099a101177dc02a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "armour_swap=1 free_act=1",
+     "log_sha256": "ec2e5e01d753a4968ae8ff03fb24b80799d074e485d5d9d9ecad471d3a2e6bca"
+    }
+   },
+   "plain": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "armour_swap=0 free_act=0",
+     "log_sha256": "3db131aab697ce22e51c41e2b146b508ec3335571d808f993eee1399d9231f8e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "armour_swap=0 free_act=0",
+     "log_sha256": "3db131aab697ce22e51c41e2b146b508ec3335571d808f993eee1399d9231f8e"
+    }
+   },
+   "have-fa": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "armour_swap=0 free_act=0",
+     "log_sha256": "ac8a25bb4e467fc1507903ceca9b3809e7c84c5f832713fb2eb62775ceaaac5f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "armour_swap=0 free_act=0",
+     "log_sha256": "ac8a25bb4e467fc1507903ceca9b3809e7c84c5f832713fb2eb62775ceaaac5f"
+    }
+   }
+  },
+  "detectcarry": {
+   "new-level": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "obj_cleared=0 wall_cleared=1",
+     "log_sha256": "736d3a8e1915c2b8a029e4cd8115f6f909ba5572238303e6887b2bd14c35eef8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "obj_cleared=1 wall_cleared=1",
+     "log_sha256": "ae7af8e417197b6509ea146d98e1d636ac056591919c2ec2773d5e8b8a926359"
+    }
+   },
+   "same-level": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "obj_cleared=0 wall_cleared=0",
+     "log_sha256": "ddef0ee464561cc298e7e5cb1b8e261fb946c65f9763e65bee65a8356bc7d3a1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "obj_cleared=0 wall_cleared=0",
+     "log_sha256": "ddef0ee464561cc298e7e5cb1b8e261fb946c65f9763e65bee65a8356bc7d3a1"
+    }
+   }
+  },
+  "maimfoe": {
+   "wrong-return": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "value=30",
+     "log_sha256": "9aa9be4fedebcc4fc045aee841f0f800bc724032b47232760c4c25cb10bb60aa"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "value=234",
+     "log_sha256": "bb89a6ac40ff77dd5917c073fb4c08d34d1d64c3d5df0330824c4e617810d76a"
+    }
+   },
+   "single": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "value=234",
+     "log_sha256": "26b4487c2af74b35329562a393d89bc8569876dbd8f91553ef92ee6074795761"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "value=234",
+     "log_sha256": "26b4487c2af74b35329562a393d89bc8569876dbd8f91553ef92ee6074795761"
+    }
+   },
+   "none": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "value=0",
+     "log_sha256": "f1318ad36b021b3bc54a852ce51728b529343d534817f79318b6afea50614fb9"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "value=0",
+     "log_sha256": "f1318ad36b021b3bc54a852ce51728b529343d534817f79318b6afea50614fb9"
+    }
+   }
+  },
+  "recalldepth": {
+   "endgame": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "acted=1 keys=6 reset_y=0 keep_n=1",
+     "log_sha256": "10885d849b0af9f388e89f114bba0e00319ec963a1525652f9b8124527938f9a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 keys=6 reset_y=1 keep_n=0",
+     "log_sha256": "339c02e5d0053891d08fea28d2d7020de284c5fe0ce711208415677113efb03a"
+    }
+   },
+   "generic": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 keys=6 reset_y=1 keep_n=0",
+     "log_sha256": "5c188cd1a653cb6596a17b82a5875a598f78aad90085d43a118bb1fe61901f1a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 keys=6 reset_y=1 keep_n=0",
+     "log_sha256": "5c188cd1a653cb6596a17b82a5875a598f78aad90085d43a118bb1fe61901f1a"
+    }
+   },
+   "mismatch": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 keys=6 reset_y=0 keep_n=1",
+     "log_sha256": "855bcdbccfd859466d8e24b9e333a6b98d2d7a6f43f3a3f168b7d19ba57c331f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "acted=1 keys=6 reset_y=0 keep_n=1",
+     "log_sha256": "855bcdbccfd859466d8e24b9e333a6b98d2d7a6f43f3a3f168b7d19ba57c331f"
+    }
+   }
+  },
+  "glowtrace": {
+   "main": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": null,
+     "log_sha256": "b709068564ca4c51417ee06bb74e0e84b5a9c3818c402e0fc0dafb05505a3d97"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "glow_n=484",
+     "log_sha256": "a54c7d7402f84ae8a3d3793deb437ee4850f0dd3260f3a305c8af5eb0c8b9a3d"
+    }
+   }
+  }
+ },
+ "totals": {
+  "modes": 16,
+  "before_pass": 9,
+  "after_pass": 16,
+  "fail_to_pass": 7,
+  "pass_both": 9,
+  "control_logs_identical": 9
+ }
+}

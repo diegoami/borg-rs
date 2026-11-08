@@ -1,0 +1,10 @@
+{
+  "variant": "after",
+  "build": "/home/user/borg-rs/harness/out/c-m3/oracles/after",
+  "cases": 30,
+  "failed": [],
+  "expected_failed": [],
+  "all_exit_zero": true,
+  "matches_contract": true,
+  "binary_sha256": "bc905f1ab154989df83aa03a91095a898277527084cf3d2ffd106e041f24f8d3"
+}

@@ -1,0 +1,34 @@
+{
+  "variant": "before",
+  "build": "/home/user/borg-rs/harness/out/c-m3/oracles/before",
+  "cases": 30,
+  "failed": [
+    "cache-desperate-enqueue",
+    "cache-desperate-spread",
+    "cache-digging-enqueue",
+    "cache-digging-spread",
+    "cache-lunal-enqueue",
+    "cache-lunal-spread",
+    "cache-munchkin-enqueue",
+    "cache-munchkin-spread",
+    "caution",
+    "prod-remembered",
+    "prod-visible"
+  ],
+  "expected_failed": [
+    "cache-desperate-enqueue",
+    "cache-desperate-spread",
+    "cache-digging-enqueue",
+    "cache-digging-spread",
+    "cache-lunal-enqueue",
+    "cache-lunal-spread",
+    "cache-munchkin-enqueue",
+    "cache-munchkin-spread",
+    "caution",
+    "prod-remembered",
+    "prod-visible"
+  ],
+  "all_exit_zero": true,
+  "matches_contract": true,
+  "binary_sha256": "4b1ca681e2afc64dd04f70c449f2db4d14a0b91d56750f88589627d08e72cb0f"
+}
