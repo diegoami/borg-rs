@@ -45,10 +45,29 @@ Remove Curse.
 
 This is engine code, unchanged on official Angband master
 (`e473720ed`, checked 2026-11-08). Milestone4 changed the trajectory so the
-Borg reaches it; it is not a C/Rust translation difference. How the known and
-real curse lists diverged is not yet established. Per the adoption contract,
-no engine correction or cross-repository report is made without the owner's
-decision. Reproduce it with the case line from the plan
+Borg reaches it; it is not a C/Rust translation difference.
+
+**Root cause (owner chose "root cause first").** A hardware watchpoint on the
+crashing object's `curses` field ([root-cause-watchpoint.gdb](root-cause-watchpoint.gdb),
+[log](root-cause-watchpoint.log), debug C build) shows:
+
+1. At turn 19210 learning the siren-curse rune runs `player_know_object`.
+   That allocates the known list from the real one, which is non-NULL then.
+2. At turn 20270 a tengu's blow triggers `take_hit` → "Die? [y/n]". Because the
+   case runs with `borg_cheat_death` (the suite's `cheat` flag),
+   `borg_react_prompted` calls `do_cmd_wiz_cure_all`. At `cmd-wizard.c:946`
+   that frees `obj->curses` and sets it to NULL for every worn item, but leaves
+   `obj->known->curses` as it was.
+3. Later, Remove Curse filters on the stale known list and `curse_menu`
+   dereferences the NULL real list.
+
+The Rust Borg calls the same engine function through FFI
+(`engine::do_cmd_wiz_cure_all`, `borg_messages_react.rs`), so both crash
+identically. The defect is in the engine's wizard "cure all" command, which
+official master has unchanged. It is reachable only through that debug command
+or the Borg's cheat-death path, never in normal play. 50 of the 131 plan
+cases use `cheat`. No engine correction or cross-repository report has been
+made; the owner decides the next step. Reproduce it with the case line from the plan
 (`cfg-lunal-deep-warrior 2007 0 0 1000000 menu,cheat,lunal,terminal-save`)
 on either image.
 

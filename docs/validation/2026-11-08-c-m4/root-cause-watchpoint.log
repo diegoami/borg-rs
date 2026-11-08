@@ -1,0 +1,24 @@
+Breakpoint 1 at 0xd7fb4: file /home/user/borg-rs/angband/src/obj-knowledge.c, line 1137.
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+=== ALLOC known, turn=19210 curses=0x5555559a2f50
+Hardware watchpoint 2: -location ((struct object *)0x555555e12420)->curses
+=== WRITE target->curses now=(nil) turn=20270
+#0  do_cmd_wiz_cure_all (cmd=0x0) at /home/user/borg-rs/angband/src/cmd-wizard.c:946
+#1  0x000055555574b5b6 in borg_react_prompted (buf=0x7fffffffb5f0 "Die? [y/n]", key=0x7fffffffba50, cursor=...) at /home/user/borg-rs/angband/src/borg/borg-messages-react.c:135
+#2  0x000055555574bcb3 in borg_get_messages (key=0x7fffffffba50, cursor=...) at /home/user/borg-rs/angband/src/borg/borg-messages.c:219
+#3  0x000055555577a556 in generate_keypress (flush_first=0) at /home/user/borg-rs/angband/src/borg/borg.c:307
+#4  0x000055555577a063 in borg_entry_point (flush_first=0) at /home/user/borg-rs/angband/src/borg/borg.c:78
+#5  0x00005555556a2dc1 in inkey_ex () at /home/user/borg-rs/angband/src/ui-input.c:235
+#6  0x00005555556a30f7 in inkey_m () at /home/user/borg-rs/angband/src/ui-input.c:382
+#7  0x00005555556a47d9 in textui_get_check (prompt=0x5555557a3aa3 "Die? ") at /home/user/borg-rs/angband/src/ui-input.c:1287
+#8  0x00005555555b9c3e in get_check (prompt=0x5555557a3aa3 "Die? ") at /home/user/borg-rs/angband/src/game-input.c:97
+#9  0x000055555565fa5f in take_hit (p=0x55555593df50, dam=7, kb_str=0x7fffffffbdc0 "a tengu") at /home/user/borg-rs/angband/src/player-util.c:247
+
+Program received signal SIGSEGV, Segmentation fault.
+curse_menu (obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:109
+109				available[count].power = obj->curses[i].power;
+#0  curse_menu (obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:109
+#1  0x0000555555683c3b in textui_get_curse (choice=0x7fffffffbb60, obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:158
+#2  0x00005555555b9e98 in get_curse (choice=0x7fffffffbb60, obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/game-input.c:244
+#3  0x00005555555ad879 in uncurse_object (obj=0x555555e12420, strength=29, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/effect-handler-general.c:185
