@@ -130,6 +130,11 @@ same=0; : > "$TMP/objdiff"
 if ! cmp -s "$TMP/cobj" "$TMP/robj"; then
     echo "   engine object lists differ:" >> "$TMP/objdiff"
     diff "$TMP/cobj" "$TMP/robj" | sed 's/^/     /' >> "$TMP/objdiff" || true
+    if comm -3 "$TMP/cobj" "$TMP/robj" | grep -E '(OurUnitTestLib|unittest-)[^/]*/' >/dev/null; then
+        echo "   HINT: unit-test objects differ between build directories." >> "$TMP/objdiff"
+        echo "         Build the same unit-test targets in build/c and build/rust, then rerun." >> "$TMP/objdiff"
+        echo "         The audit still requires every production object and link input to match." >> "$TMP/objdiff"
+    fi
 fi
 while read -r o; do
     [ -f "$R/CMakeFiles/$o" ] || continue

@@ -56,8 +56,8 @@ fault controls are rejected. These are bounded shared-environment checks,
 not whole-private-Borg equivalence. An initial exact-name length translation
 failed the C NUL-boundary control and was corrected before final-source use.
 
-The131-case real-game matrix now passes corrected C twice and final-source
-Rust: every key/message/state byte and all131 full terminal native saves match.
+The author's131-case real-game matrix passes corrected C twice and final-source
+Rust on the recorded hardware/load under its300s per-case wall: every key/message/state byte and all131 full terminal native saves match.
 It preserves smoke/full/deep/classes/config/options/crash/Rune/natural/ordinary
 game inputs and budgets. The ordinary9 profiles' living-only capture was
 uniformly repeated with terminal capture:27 three-log/summary comparisons and
@@ -83,3 +83,13 @@ case matrix must identify exact build/source/config and retained failure/repeat
 origins, and must rerun actual comparisons. No coverage percentage is inherited.
 Accumulated review is recorded on issue6; implementation does not imply a new
 Rust milestone acceptance or tag.
+
+
+[Independent review](https://github.com/diegoami/borg-rs/issues/6#issuecomment-6716468916):
+**qualified pass; no acceptance blockers**. The reviewer reproduced131/131 C1
+cases,125/131 complete across all three roles under the same300s wall, and
+125/125 strict joined comparisons. All completed channels and native saves
+match; timed-out prefixes match. The131-case author count is hardware/load
+specific. Native49, controlled body/seam checks and whole-private-Borg
+equivalence retain their distinct scopes. Owner acceptance and a tag remain
+pending; later harness measurements are not independent M2-review evidence.
