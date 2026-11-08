@@ -21,6 +21,10 @@ patches0025/0027. Independent qualified pass (issue8); on the owner's
 instruction ("if accepted, create the milestone and the tag") it is recorded
 as impact milestone 3 in docs/STATUS.md with annotated tag `4.2.6-impact-v3`,
 following `4.2.6-impact-v2` for the milestone2 carry.
+Owner then directed C milestone4 (target 70993393a, `4.2.6-impact-v4`),
+tracking [borg-rs#11](https://github.com/diegoami/borg-rs/issues/11), record
+[adoption/c-m4](docs/adoption/c-m4/README.md). Open: an engine Remove Curse
+crash it exposes (C and Rust alike); owner decision, review and acceptance pending.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
