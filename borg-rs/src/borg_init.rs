@@ -141,8 +141,9 @@ fn atoi(s: &[u8]) -> i32 {
 /// Returns whether the line names the setting.
 ///
 /// For an int setting, a byte after the name that is not ` `, `=`, `-` or
-/// a digit makes the C loop spin forever without advancing (C bug 38); so
-/// does this one.
+/// a digit ends the parse and keeps the default, and a `-` only negates a
+/// number that follows it (milestone6 patches 0057/0058; before them the C
+/// loop, and this one, spun forever there; c-bugs.md section 38).
 fn borg_proc_setting(
     cfg: &mut [i32],
     setting: usize,
@@ -188,14 +189,16 @@ fn borg_proc_setting(
             }
             if c_isdigit(ch) {
                 cfg[setting] = atoi(&line[p..]);
+                if negative {
+                    // C `*= -1` (int overflow on INT_MIN; wraps)
+                    cfg[setting] = cfg[setting].wrapping_mul(-1);
+                }
                 break;
             }
         }
-    }
 
-    if negative {
-        // C `*= -1` (int overflow on INT_MIN; wraps)
-        cfg[setting] = cfg[setting].wrapping_mul(-1);
+        // anything else is not a value: keep the default
+        break;
     }
 
     true
@@ -421,9 +424,11 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
 /// Initialize borg.txt (`borg_init_txt_file`). Returns whether a warning
 /// was given.
 ///
-/// If borg.txt is missing and cannot be written, this returns before
-/// `borg_cfg` is allocated, and C then reads through the NULL `borg_cfg`
-/// (C bug 38); here the first `cfg` read panics.
+/// The config starts with the default values before borg.txt is opened, so
+/// a borg.txt that is missing and cannot be written, or cannot be read back,
+/// leaves the defaults in place (milestone6 patch 0059; before it, C read
+/// through a NULL `borg_cfg` and the first Rust `cfg` read panicked;
+/// c-bugs.md section 38).
 pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     borg_free_txt_file(st);
     crate::borg_trait::borg_trait_init(st);
@@ -435,6 +440,10 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
         engine::msg(st, b"borg settings structures not correct.  aborting. ");
         st.init.init_failure = true;
     }
+
+    // allocate the config data and start it with the default values, so
+    // every early return below leaves the defaults in place
+    st.core.cfg = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
 
     let path = engine::path_build_user(TXT_BUF, b"borg.txt");
 
@@ -462,11 +471,13 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
         }
         out.close();
         fp = engine::file_open_read(&path);
+        if fp.is_none() {
+            borg_warning(st, "*****WARNING***** unable to read default BORG.TXT file!");
+            return true;
+        }
     }
 
-    // C goes on with a NULL file if the reopen failed (file_getl then
-    // reads through it)
-    let fp = fp.expect("borg.txt written but not readable");
+    let fp = fp.expect("borg.txt opened above");
     let mut file = TxtFile { st, fp: Some(fp) };
     let (formulas_found, old_formulas_found) = read_txt_settings(&mut file);
 
@@ -952,11 +963,20 @@ mod tests {
         assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 0);
         // (int) 99999999999L = 1215752191
         assert_eq!(cfg[BORG_ENCHANT_LIMIT as usize], 15);
-        assert_eq!(cfg[BORG_NO_DEEPER as usize], -127);
+        // a "-" with no number keeps the default (better-borg-c milestone6
+        // patch 0058; the original negated the default to -127)
+        assert_eq!(cfg[BORG_NO_DEEPER as usize], 127);
         assert_eq!(cfg[BORG_STOP_KING as usize], 0);
         assert_eq!(cfg[BORG_KILLS_UNIQUES as usize], 0);
         assert_eq!(cfg[BORG_LUNAL_MODE as usize], 1);
         assert_eq!(cfg[BORG_MUNCHKIN_DEPTH as usize], 8);
+
+        // an integer setting followed by a non-number keeps its default and
+        // the parser moves on (milestone6 patch 0057; the original looped
+        // forever on such a line)
+        let (cfg, _) = cfg_of(b"borg_respawn_race = x\nborg_respawn_class = 3\n");
+        assert_eq!(cfg[BORG_RESPAWN_RACE as usize], defaults[BORG_RESPAWN_RACE as usize]);
+        assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 3);
 
         let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\nCND foo\n");
         assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);

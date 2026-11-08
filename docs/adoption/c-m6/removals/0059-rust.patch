@@ -1,0 +1,40 @@
+diff --git a/borg-rs/src/borg_init.rs b/borg-rs/src/borg_init.rs
+--- a/borg-rs/src/borg_init.rs
++++ b/borg-rs/src/borg_init.rs
+@@ -422,7 +425,9 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
+ /// was given.
+ ///
+-/// If borg.txt is missing and cannot be written, this returns before
+-/// `borg_cfg` is allocated, and C then reads through the NULL `borg_cfg`
+-/// (C bug 38); here the first `cfg` read panics.
++/// The config starts with the default values before borg.txt is opened, so
++/// a borg.txt that is missing and cannot be written, or cannot be read back,
++/// leaves the defaults in place (milestone6 patch 0059; before it, C read
++/// through a NULL `borg_cfg` and the first Rust `cfg` read panicked;
++/// c-bugs.md section 38).
+ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
+     borg_free_txt_file(st);
+@@ -437,4 +442,8 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
+     }
+ 
++    // allocate the config data and start it with the default values, so
++    // every early return below leaves the defaults in place
++    st.core.cfg = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
++
+     let path = engine::path_build_user(TXT_BUF, b"borg.txt");
+ 
+@@ -463,9 +472,11 @@ pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
+         out.close();
+         fp = engine::file_open_read(&path);
++        if fp.is_none() {
++            borg_warning(st, "*****WARNING***** unable to read default BORG.TXT file!");
++            return true;
++        }
+     }
+ 
+-    // C goes on with a NULL file if the reopen failed (file_getl then
+-    // reads through it)
+-    let fp = fp.expect("borg.txt written but not readable");
++    let fp = fp.expect("borg.txt opened above");
+     let mut file = TxtFile { st, fp: Some(fp) };
+     let (formulas_found, old_formulas_found) = read_txt_settings(&mut file);

@@ -27,6 +27,10 @@ endgame recall-depth prompt answers `y` at max depth 99 with few uniques left
 (source310), and flows that skip the danger check no longer mark grids as
 checked (`borg_flow_ignores_danger`, source404).
 
+The milestone6 carries in [adoption/c-m6](adoption/c-m6/README.md)
+(better-borg-c `b3c825c97`, [Rust#15](https://github.com/diegoami/borg-rs/issues/15))
+are marked with "Milestone6" bullets.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -654,6 +658,8 @@ with its issues.
   item).
 * Rust (`borg_store_sell.rs`): all kept (`test_item`/`best_item` clear
   their first 8 bytes; a shorter array would panic where C overruns).
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source134 skips (does not return on) an unidentified
+  single item in `borg_count_sell()`.
 ## 34. Shopping slips (store buy)
 
 * `borg-store-buy.c`, found by code reading.
@@ -784,6 +790,10 @@ with its issues.
   `borg_reinit_options()`, which no command path does).
 * Rust (`borg_init.rs`): all kept (the hang is the same loop; the NULL
   reads are panics).
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source141 ends the parse at a non-value character (keeps
+  the default; no hang), source142 applies `-` only to a number that follows,
+  and source144 sets the defaults before reading borg.txt and warns if the
+  rewritten file cannot be read (C and Rust).
 
 ## 39. Misc flow slips (flow misc)
 
@@ -860,6 +870,10 @@ with its issues.
 * Rust (`borg_caution.rs`): all kept. `borg_heal()` divides by `BI_MAXHP`
   and the resistance note by `borg_game_ratio`; a 0 there panics where C
   traps.
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source156 flees on excessive danger unless ready for
+  Morgoth; source157 compares the recall-wait mana with `BI_MAXSP / 4`;
+  source153 takes the nearest free stairs; source155 skips trapped grids and
+  resets `adjacent_monster` per grid in the back-away scan.
 
 ## 41. Debug command slips (commands)
 
@@ -969,6 +983,7 @@ with its issues.
   Kept.
 * Rust (`borg_power.rs`): all kept; the out-of-bounds reads and the
   division by zero are panics.
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source184/185 reset `k` before both Resist Poison loops.
 * Tracker: one lead per slip, in the order above (the out-of-bounds bullet
   is two):
   diegoami/neo-angband-tracker#184 to diegoami/neo-angband-tracker#190.
@@ -1165,6 +1180,8 @@ with its issues.
   `borg_feeling_stuff` outside 0..11 panics in
   `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
   grid outside the map panics (C reads outside `borg_grids`).
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source235 keeps a drained Borg from diving whenever
+  `BI_ISFIXEXP` is set (the dead `g` gate is gone).
 * Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source231 scans the Borg's own grid in the Call Light
   loop, and source236 marks the excavated vault grid `BORG_DARK`.
 * Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source229 lets a dying fuelled light (timeout <= 3,
@@ -1239,6 +1256,9 @@ with its issues.
 * Rust (`borg_think_dungeon.rs`): all kept. A grid outside the map
   panics (C reads outside `borg_grids`), and so does a negative
   `PACK_SLOTS - n` index (C reads before `borg_items`).
+* Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source245 widens the munchkin range only above clevel 10;
+  source246 resets the clock in `borg_think_dungeon()` instead of aborting
+  (the `borg_think()` reset stays as a failsafe).
 * Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source244 re-acquires the Borg's own grid before the
   munchkin stair keys, in C and Rust.
 * Tracker: the duplicated loop is a comment on

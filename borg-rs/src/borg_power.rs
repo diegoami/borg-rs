@@ -1190,8 +1190,8 @@ fn borg_power_inventory(st: &BorgState) -> i32 {
     }
 
     // collect Resistance pots if not immune -- All Classes
-    // (`k` is not reset here: it carries over from the loops above)
     if tr(BI_IPOIS) == 0 && tr(BI_ACUREPOIS) <= 20 && !munchkin_wait() {
+        k = 0;
         count_up(v, &mut k, 4, tr(BI_ARESPOIS), 300);
     }
 
@@ -1208,7 +1208,8 @@ fn borg_power_inventory(st: &BorgState) -> i32 {
             if tr(BI_ICOLD) == 0 {
                 count_up(v, &mut k, 4, tr(BI_ARESCOLD), 500);
             }
-            // collect pots if not immune (`k` not reset)
+            k = 0;
+            // collect pots if not immune
             if tr(BI_IPOIS) == 0 {
                 count_up(v, &mut k, 4, tr(BI_ARESPOIS), 500);
             }

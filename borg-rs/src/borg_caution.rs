@@ -807,16 +807,16 @@ fn note_standing(st: &mut BorgState) -> (bool, bool) {
     (on_upstair, on_dnstair)
 }
 
-/// The distance of the farthest stair of `track` without a monster on it,
-/// or -1 (C's "nearest stair" scan, which keeps the farthest).
-fn farthest_free_stair(st: &BorgState, up: bool) -> i32 {
+/// The distance of the nearest stair of `track` without a monster on it,
+/// or -1.
+fn nearest_free_stair(st: &BorgState, up: bool) -> i32 {
     let track = if up { &st.stairs.less } else { &st.stairs.more };
     let mut best = -1;
     for i in 0..track.num.max(0) as usize {
         let x = track.x[i];
         let y = track.y[i];
 
-        // How far is the nearest up stairs
+        // How far is the nearest stair
         let j = engine::distance(st.borg.c, loc { x, y });
 
         // Skip stairs if a monster is on the stair
@@ -824,8 +824,8 @@ fn farthest_free_stair(st: &BorgState, up: bool) -> i32 {
             continue;
         }
 
-        // skip the closer ones
-        if best >= j {
+        // skip the farther ones
+        if best <= j && best != -1 {
             continue;
         }
 
@@ -861,10 +861,10 @@ fn desperate_flow(st: &mut BorgState, up: bool, why: &str) -> bool {
 /// desperation.
 fn desperate_for_stairs(st: &mut BorgState, pos_danger: i32) -> bool {
     // Check for an existing "up stairs"
-    let b_j = farthest_free_stair(st, true);
+    let b_j = nearest_free_stair(st, true);
 
     // Check for an existing "down stairs"
-    let b_m = farthest_free_stair(st, false);
+    let b_m = nearest_free_stair(st, false);
 
     // If you are within a few (3) steps of the stairs
     // and you can take some damage to get there
@@ -1132,9 +1132,8 @@ fn retreat(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
 fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
     let mut b_i = -1;
     let mut g_k = 0;
-    // Set by the first grid next to a monster and never reset (C bug: one
-    // such grid makes every later grid count as next to a monster).
-    let mut adjacent_monster = false;
+    // Whether the grid being examined is next to a monster (reset per grid)
+    let mut adjacent_monster;
 
     // Current danger
     let mut b_k = pos_danger;
@@ -1175,9 +1174,9 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
             continue;
         }
 
-        // Mega-Hack -- skip traps XXX XXX XXX (C stops the whole scan)
+        // Mega-Hack -- skip traps XXX XXX XXX
         if ag.trap && !ag.glyph {
-            break;
+            continue;
         }
 
         // If i was here last round and 3 rounds ago, suggesting a "bounce"
@@ -1187,6 +1186,7 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
 
         // Skip this grid if it is adjacent to a monster.  He will just hit
         // me when I land on that grid.
+        adjacent_monster = false;
         for ii in 1..i32::from(st.kills.nxt).max(1) {
             let kill = &st.kills.kills[ii as usize];
 
@@ -1628,7 +1628,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
             && st.borg.near.unique == 0
             && st.borg.tr(BI_CLEVEL) < 50
             && !st.borg.status.vault
-            && (st.borg.tr(BI_CDEPTH) < 100 && st.borg.ready_morgoth == 1)
+            && (st.borg.tr(BI_CDEPTH) < 100 && st.borg.ready_morgoth != 1)
         {
             // Note
             borg_note(st, "# Fleeing (excessive danger)");
@@ -2009,12 +2009,12 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
 /// Buy time while waiting for recall in danger: mana, phase door, cure
 /// potions (the last block but one of `borg_caution`).
 fn buy_time_for_recall(st: &mut BorgState) -> bool {
-    // `CURSP < CURSP / 4` (C compares the current mana with itself; true
-    // only for negative mana).
+    // `CURSP < MAXSP / 4` (before milestone6 patch 0054 C compared the
+    // current mana with itself, true only for negative mana).
     if st.borg.tr(BI_ISCONFUSED) == 0
         && st.borg.tr(BI_ISBLIND) == 0
         && st.borg.tr(BI_MAXSP) > 60
-        && st.borg.tr(BI_CURSP) < st.borg.tr(BI_CURSP) / 4
+        && st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) / 4
         && (borg_quaff_potion(st, st.item_val.sv_potion_restore_mana)
             || borg_activate_item(st, st.act.restore_mana))
     {

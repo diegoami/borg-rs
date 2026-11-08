@@ -1,0 +1,29 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -1133,7 +1133,6 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
+     let mut b_i = -1;
+     let mut g_k = 0;
+-    // Set by the first grid next to a monster and never reset (C bug: one
+-    // such grid makes every later grid count as next to a monster).
+-    let mut adjacent_monster = false;
++    // Whether the grid being examined is next to a monster (reset per grid)
++    let mut adjacent_monster;
+ 
+     // Current danger
+@@ -1176,7 +1175,7 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
+         }
+ 
+-        // Mega-Hack -- skip traps XXX XXX XXX (C stops the whole scan)
++        // Mega-Hack -- skip traps XXX XXX XXX
+         if ag.trap && !ag.glyph {
+-            break;
++            continue;
+         }
+ 
+@@ -1188,4 +1187,5 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
+         // Skip this grid if it is adjacent to a monster.  He will just hit
+         // me when I land on that grid.
++        adjacent_monster = false;
+         for ii in 1..i32::from(st.kills.nxt).max(1) {
+             let kill = &st.kills.kills[ii as usize];

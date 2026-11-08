@@ -781,8 +781,9 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
         try_not_to_descend = true;
     }
 
-    /* Do not dive when drained (only when already heading up, C bug 47) */
-    if g != 0 && st.borg.tr(BI_ISFIXEXP) != 0 {
+    /* Do not dive when drained (whenever the experience is drained, not
+     * only when an earlier check already chose to head up) */
+    if st.borg.tr(BI_ISFIXEXP) != 0 {
         try_not_to_descend = true;
     }
 

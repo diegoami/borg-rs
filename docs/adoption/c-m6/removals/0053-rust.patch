@@ -1,0 +1,10 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -1629,5 +1629,5 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
+             && st.borg.tr(BI_CLEVEL) < 50
+             && !st.borg.status.vault
+-            && (st.borg.tr(BI_CDEPTH) < 100 && st.borg.ready_morgoth == 1)
++            && (st.borg.tr(BI_CDEPTH) < 100 && st.borg.ready_morgoth != 1)
+         {
+             // Note

@@ -1,0 +1,11 @@
+diff --git a/borg-rs/src/borg_power.rs b/borg-rs/src/borg_power.rs
+--- a/borg-rs/src/borg_power.rs
++++ b/borg-rs/src/borg_power.rs
+@@ -1209,5 +1209,6 @@ fn borg_power_inventory(st: &BorgState) -> i32 {
+                 count_up(v, &mut k, 4, tr(BI_ARESCOLD), 500);
+             }
+-            // collect pots if not immune (`k` not reset)
++            k = 0;
++            // collect pots if not immune
+             if tr(BI_IPOIS) == 0 {
+                 count_up(v, &mut k, 4, tr(BI_ARESPOIS), 500);

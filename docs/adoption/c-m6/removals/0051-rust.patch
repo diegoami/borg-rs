@@ -1,0 +1,14 @@
+diff --git a/borg-rs/src/borg_think_dungeon.rs b/borg-rs/src/borg_think_dungeon.rs
+--- a/borg-rs/src/borg_think_dungeon.rs
++++ b/borg-rs/src/borg_think_dungeon.rs
+@@ -740,7 +740,7 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
+     st.borg.goal.fleeing = true;
+ 
+-    /* Increase the range of the borg a bit (below clevel 10 it shrinks,
+-     * C bug 49) */
+-    if st.borg.tr(BI_CDEPTH) <= 10 {
++    /* Increase the range of the borg a bit.  Only when the character
++     * level term can be positive: below level 10 it would shrink the range. */
++    if st.borg.tr(BI_CDEPTH) <= 10 && st.borg.tr(BI_CLEVEL) > 10 {
+         closeness += (st.borg.tr(BI_CLEVEL) - 10) + (10 - st.borg.tr(BI_CDEPTH));
+     }

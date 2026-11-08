@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -2010,10 +2010,10 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
+ /// potions (the last block but one of `borg_caution`).
+ fn buy_time_for_recall(st: &mut BorgState) -> bool {
+-    // `CURSP < CURSP / 4` (C compares the current mana with itself; true
+-    // only for negative mana).
++    // `CURSP < MAXSP / 4` (before milestone6 patch 0054 C compared the
++    // current mana with itself, true only for negative mana).
+     if st.borg.tr(BI_ISCONFUSED) == 0
+         && st.borg.tr(BI_ISBLIND) == 0
+         && st.borg.tr(BI_MAXSP) > 60
+-        && st.borg.tr(BI_CURSP) < st.borg.tr(BI_CURSP) / 4
++        && st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) / 4
+         && (borg_quaff_potion(st, st.item_val.sv_potion_restore_mana)
+             || borg_activate_item(st, st.act.restore_mana))

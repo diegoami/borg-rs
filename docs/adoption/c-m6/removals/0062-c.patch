@@ -1,0 +1,9 @@
+diff --git a/angband/src/borg/borg-power.c b/angband/src/borg/borg-power.c
+--- a/angband/src/borg/borg-power.c
++++ b/angband/src/borg/borg-power.c
+@@ -1186,4 +1186,5 @@ static int32_t borg_power_inventory(void)
+             /* Do not carry these until later */
+         } else {
++            k = 0;
+             for (; k < 4 && k < borg.trait[BI_ARESPOIS]; k++)
+                 value += 300L;

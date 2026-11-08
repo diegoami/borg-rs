@@ -1,0 +1,10 @@
+diff --git a/borg-rs/src/borg_store_sell.rs b/borg-rs/src/borg_store_sell.rs
+--- a/borg-rs/src/borg_store_sell.rs
++++ b/borg-rs/src/borg_store_sell.rs
+@@ -1257,5 +1257,5 @@ pub fn borg_count_sell(st: &mut BorgState) -> i32 {
+             // note if we have more than one
+             if !borg_has_mutiple(st, i) {
+-                return 0;
++                continue;
+             }
+         }
