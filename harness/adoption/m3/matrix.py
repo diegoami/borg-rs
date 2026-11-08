@@ -85,7 +85,7 @@ def main():
         report['fault_controls'] = faults(args.c, args.faults)
     args.output.write_text(json.dumps(report, indent=1) + '\n')
     print(f"cases {len(cases)}; both ran {report['both_ran']}; C/Rust parity {parity}; "
-          f"changed vs M2 {len(changed)}; harness/diff exit {diff.returncode}")
+          f"changed vs reference {len(changed)}; harness/diff exit {diff.returncode}")
     for name in changed:
         print(' ', name, rows[name]['m2'], '->', rows[name]['m3'])
     for fix, f in report.get('fault_controls', {}).items():
