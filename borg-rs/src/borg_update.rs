@@ -402,10 +402,28 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
             ag.info |= BORG_DARK;
         }
     }
-    // C has a "Floors" branch here that tests `g.f_idx == FEAT_NONE` again,
-    // so it is never taken (C bug 46): floors are never marked
-    // BORG_GLOW/BORG_DARK/BORG_LIGHT from their lighting.
-    else if g.f_idx == FEAT_OPEN || g.f_idx == FEAT_BROKEN {
+    else if g.f_idx == FEAT_FLOOR {
+        // Floors (blind: nothing special)
+
+        // Handle "dark" floors. square_islit() is the grid's
+        // permanent-glow flag, matching the CAVE_GLOW test this branch
+        // transcribed from the original borg; the lighting enum in
+        // grid_data cannot express it (LIGHTING_LIT is map_info's default
+        // for grids whose lighting is not otherwise established).
+        let lit = engine::square_islit(x, y);
+        let ag = st.cave.grid_mut(x, y);
+        if !lit {
+            // Dark floor grid
+            ag.info |= BORG_DARK;
+            ag.info &= !BORG_GLOW;
+        } else {
+            // Perma Glowing Grid
+            ag.info |= BORG_GLOW;
+
+            // Assume not dark
+            ag.info &= !BORG_DARK;
+        }
+    } else if g.f_idx == FEAT_OPEN || g.f_idx == FEAT_BROKEN {
         // Open doors
     } else if g.f_idx == FEAT_GRANITE || g.f_idx == FEAT_PERM {
         // Walls. A humongo cheat: is it a perma grid? Only counts for
@@ -1932,6 +1950,7 @@ fn new_level(st: &mut BorgState) {
             st.update.set_detect(Detect::Trap, y, x, false);
             st.update.set_detect(Detect::Door, y, x, false);
             st.update.set_detect(Detect::Evil, y, x, false);
+            st.update.set_detect(Detect::Obj, y, x, false);
         }
     }
 

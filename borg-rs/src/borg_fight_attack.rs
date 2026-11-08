@@ -3472,7 +3472,7 @@ fn borg_attack_aux_maim_foe(st: &mut BorgState) -> i32 {
     let _ = borg_spell(st, MAIM_FOE);
     borg_keypress(st, i2d(dir));
 
-    d
+    b_d
 }
 
 /// trying the Vampire Strike spell (`borg_attack_aux_vampire_strike`)

@@ -1,0 +1,147 @@
+{
+  "consumer_pin": "5384f12ed51e8fef6f31353fd2daaf0e7fb43856",
+  "previous_consumer_pin": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "excavate",
+      "patch": "0043",
+      "source_issue": 236,
+      "consumer_issue": 188,
+      "evidence_commit": "793f723ebb684f1f2abcdb267dc759861bc7874d",
+      "evidence_path": "docs/audit/c-reports/excavate-236/scenario.c",
+      "original_sha256": "3223d4ea13eaceff8f3ae16a2b8a955700c80b2bdc4ceeca495ec0bbc7d942ce",
+      "scenario_sha256": "3223d4ea13eaceff8f3ae16a2b8a955700c80b2bdc4ceeca495ec0bbc7d942ce",
+      "env_prefix": "EV236",
+      "marker": "native-c/excavate-236 finished: 1/1 passed",
+      "modes": [
+        "excavate",
+        "no-target"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "calllight",
+      "patch": "0044",
+      "source_issue": 231,
+      "consumer_issue": 196,
+      "evidence_commit": "85de924fa8c008a86a2ab3ff6340bfd157a69b7a",
+      "evidence_path": "docs/audit/c-reports/calllight-231/scenario.c",
+      "original_sha256": "e665e5ba7526eebe58a11f3c0d3c51fca39bd0197df6bf43744669d3b5606831",
+      "scenario_sha256": "e665e5ba7526eebe58a11f3c0d3c51fca39bd0197df6bf43744669d3b5606831",
+      "env_prefix": "CL231",
+      "marker": "native-c/calllight-231 finished: 1/1 passed",
+      "modes": [
+        "own-open-door",
+        "floor"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "gloves",
+      "patch": "0045",
+      "source_issue": 205,
+      "consumer_issue": 201,
+      "evidence_commit": "7ff787acc6250893e4391e0998c46eeecfb67665",
+      "evidence_path": "docs/audit/c-reports/gloves-205/scenario.c",
+      "original_sha256": "469a7015251aa664789fabce7084477578e789e6b80496f4df99259ed2b8d205",
+      "scenario_sha256": "469a7015251aa664789fabce7084477578e789e6b80496f4df99259ed2b8d205",
+      "env_prefix": "GL205",
+      "marker": "native-c/gloves-205 finished: 1/1 passed",
+      "modes": [
+        "glove-fa",
+        "plain",
+        "have-fa"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "detectcarry",
+      "patch": "0046",
+      "source_issue": 219,
+      "consumer_issue": 205,
+      "evidence_commit": "52cc5bc423dfb925f4b95b6df01357c5e23053b8",
+      "evidence_path": "docs/audit/c-reports/detectcarry-219/scenario.c",
+      "original_sha256": "0eec01c09e09addfc43ff44a64e7baf6a738acf9dba26e0f0fc4950c53d81aaa",
+      "scenario_sha256": "0eec01c09e09addfc43ff44a64e7baf6a738acf9dba26e0f0fc4950c53d81aaa",
+      "env_prefix": "DC219",
+      "marker": "native-c/detectcarry-219 finished: 1/1 passed",
+      "modes": [
+        "new-level",
+        "same-level"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "maimfoe",
+      "patch": "0047",
+      "source_issue": 256,
+      "consumer_issue": 214,
+      "evidence_commit": "01ddb076c721ca131b758d303548c66a45758f40",
+      "evidence_path": "docs/audit/c-reports/maimfoe-256/scenario.c",
+      "original_sha256": "550d8618f2ed167f73eb8dde13bb97500db87f98ac0955ae3cd0794e720e7c39",
+      "scenario_sha256": "550d8618f2ed167f73eb8dde13bb97500db87f98ac0955ae3cd0794e720e7c39",
+      "env_prefix": "MF256",
+      "marker": "native-c/maimfoe-256 finished: 1/1 passed",
+      "modes": [
+        "wrong-return",
+        "single",
+        "none"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "recalldepth",
+      "patch": "0048",
+      "source_issue": 310,
+      "consumer_issue": 216,
+      "evidence_commit": "1f0425e12e9af9e31b15a0973aa8e805fe44c240",
+      "evidence_path": "docs/audit/c-reports/recalldepth-310/scenario.c",
+      "original_sha256": "96b35130628ac376b69e5b8a62d1269eca761b7511ed1966d10d8c1c0b17be60",
+      "scenario_sha256": "96b35130628ac376b69e5b8a62d1269eca761b7511ed1966d10d8c1c0b17be60",
+      "env_prefix": "RD310",
+      "marker": "native-c/recalldepth-310 finished: 1/1 passed",
+      "modes": [
+        "endgame",
+        "generic",
+        "mismatch"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "glowtrace",
+      "patch": "0050",
+      "source_issue": 213,
+      "consumer_issue": 224,
+      "evidence_commit": "5e6f2ddb5296922905ad47207ed6dcc166ff3233",
+      "evidence_path": "docs/audit/c-reports/glowtrace-213/scenario.c",
+      "original_sha256": "f548833978fdf7799831a31a26334ae1f3d2f375053e2b60d143cd3f5edb6e1a",
+      "scenario_sha256": "f548833978fdf7799831a31a26334ae1f3d2f375053e2b60d143cd3f5edb6e1a",
+      "env_prefix": "GLOW213",
+      "marker": "native-c/glowtrace-213 finished: 1/1 passed",
+      "modes": [
+        "main"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    }
+  ],
+  "flowcache": {
+    "patch": "0049",
+    "source_issue": 404,
+    "consumer_issue": 212,
+    "evidence_commit": "89326f5216148ab47a18585236678c391bb4e559",
+    "files": {
+      "scenario.c": "e610e166d48b6d0d27d46de68ef87b261d857e4b9d61ac252bb39f4902c5cc03",
+      "borg.txt": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c",
+      "run-cases.py": "3b98ea5a27fecd036c48e30e1d49d17c5c93cf53f6a5864a2abbd35fe9cc7e43",
+      "reproduce.py": "be4ecac50359867653505db241d4bce177a3b5fc26aac5bce05563db436582cb"
+    }
+  }
+}
