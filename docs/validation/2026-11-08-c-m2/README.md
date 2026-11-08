@@ -61,8 +61,8 @@ remain truthful, with final effective source hashes rather than relabelled IDs.
   clippy pass. Rust release100pass/one existing ignored; production all-target
   release clippy, no-C-Borg/link audit and Python compilation pass. Authored
   production/tool changes pass the whitespace check; byte-exact imported patch
-  context/signatures and fixture/config files retain their original whitespace
-  and are explicitly excluded from that formatting-only check.
+  context/signatures, fixture/config files and archived raw test logs retain
+  their original formatting and are explicitly excluded from that check.
   No old whole-game coverage percentage is inherited.
 
 ## Retained failures and repeats

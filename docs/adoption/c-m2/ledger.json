@@ -212,5 +212,6 @@
     "harness/adoption/m2/fixtures/swap/borg.txt": "ffd2a2dc635bd7afd08e5cfa4dcaf5c039eb01774ba83ce462ceac846477c57c"
   },
   "review_package_commit": "9929eb4eb16412ef2415a5711a3eecab92fa1288",
-  "validation_receipt": "docs/validation/2026-11-08-c-m2/README.md"
+  "validation_receipt": "docs/validation/2026-11-08-c-m2/README.md",
+  "rust_implementation_commit": "9cfbbffdeea946f9fad96fbf4522295633945b7b"
 }

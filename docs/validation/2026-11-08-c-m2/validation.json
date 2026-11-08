@@ -63,7 +63,31 @@
     "stored_engine_and_unlinked_helper_objects_equal": 156,
     "data_files_equal_consumer_pin": 354,
     "independent_c_rust_removal_units_reverse_checked": 14,
-    "input_aware_reference_diff_returncode": 0
+    "input_aware_reference_diff_returncode": 0,
+    "authored_whitespace_exitcode": 0,
+    "whitespace_checked_sources": [
+      "angband/src/borg/borg-danger.c",
+      "angband/src/borg/borg-fight-perm.c",
+      "angband/src/borg/borg-flow-kill.c",
+      "angband/src/borg/borg-item-use.c",
+      "angband/src/borg/borg-item-wear.c",
+      "angband/src/borg/borg.c",
+      "borg-rs/src/borg.rs",
+      "borg-rs/src/borg_danger.rs",
+      "borg-rs/src/borg_fight_perm.rs",
+      "borg-rs/src/borg_flow_kill.rs",
+      "borg-rs/src/borg_item_use.rs",
+      "borg-rs/src/borg_item_wear.rs",
+      "harness/adoption/m2/compare.py",
+      "harness/adoption/m2/import.py",
+      "harness/adoption/m2/inputs.py",
+      "harness/adoption/m2/kernel-c.h",
+      "harness/adoption/m2/kernel-rust.rs",
+      "harness/adoption/m2/kernels.py",
+      "harness/adoption/m2/native.py",
+      "harness/adoption/m2/test_join.py"
+    ],
+    "whitespace_scope": "authored production/tool sources only; byte-exact imports, patch syntax and archived raw observations preserved"
   },
   "raw_case_invocations": 590,
   "raw_engine_failures": 9,
@@ -72,7 +96,7 @@
   "review_status": "author validation; accumulated Rust review on issue6 pending; no new milestone acceptance or tag",
   "artifacts_sha256": {
     "C-BUILD_ID": "0a0d71a5c2e34fa35592be787de906b8ecf9af5690dd7e300402a25c9e83ec59",
-    "README.md": "19260a00dcc670cc3f3647546888ba54a1f685e758f8b876cb4ee836126f30d5",
+    "README.md": "1f43bdeadc4623d5ce93536f848cf9b6aad27eca2f476e7ff1cb318feb0853d0",
     "RUST-BUILD_ID": "19775e8b7a932af893ad9186eb833b45946d40fe0489caaf2da893651856b699",
     "adoption-suite": "9428a8085d6d8828312b57323e8b04d2ac639596cbffec33cce0cd1dbd402dd8",
     "c1-c2.diff": "6dd50b254f62e6900b8f4ecd3ee105e91c0c4cad39ebd4799e83737ea0bb92b0",
@@ -275,6 +299,9 @@
     "release-tests.log": "ae7234a9d6d73368771fbad9e509aeb1af9b3a5197f9d82a7a0a1816deb087f8",
     "removal-check.json": "8b0ff4f427dfd489bacd1eb2d32f426670d9dcb2a1224d082bac79efe803e691",
     "source-identity.json": "465e7ae2019531aa3bd812d7fe20bcd9dcdb9c87d5d0789910f145d45c7a4425",
-    "terminal-save-control.json": "629139b73c61d16a84eefd639d04402469d8cff885d6d548a38a9926b989e024"
-  }
+    "terminal-save-control.json": "629139b73c61d16a84eefd639d04402469d8cff885d6d548a38a9926b989e024",
+    "authored-whitespace.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "diagnostics/preserved-artifact-whitespace.log": "5578c4d53d7f75141c3e78a5ae4eef69fdb5f7235d0363d0c20d57745d56f293"
+  },
+  "implementation_commit": "9cfbbffdeea946f9fad96fbf4522295633945b7b"
 }

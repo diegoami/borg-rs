@@ -40,7 +40,8 @@
       "full_native_saves": 131,
       "native_correctness_cases": 49,
       "shared_environment_kernel_cases": 1785,
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": false,
+      "implementation_commit": "9cfbbffdeea946f9fad96fbf4522295633945b7b"
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
@@ -75,6 +76,7 @@
     "state": "implemented_validated_review_pending",
     "ledger": "docs/adoption/c-m2/ledger.json",
     "receipt": "docs/validation/2026-11-08-c-m2/README.md",
-    "reference": "harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f"
+    "reference": "harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+    "implementation_commit": "9cfbbffdeea946f9fad96fbf4522295633945b7b"
   }
 }
