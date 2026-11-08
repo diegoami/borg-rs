@@ -1,0 +1,398 @@
+[
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-gui3/profile/recordings/20261108T130443.335607Z-ToolkitGui",
+    "manifest_sha256": "9671fd90d7f4943624a1f9778293be7d31ba1f44a8ab51900a4b6ae983f0c6b2",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/bd7a050c22b543d39133/build/game/angband",
+      "binary_sha256": "62366e564297cb99cb5ab137b400e5c1fb5d1609a8120c69b0e494749be8ed03",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "eb10fd7078499e2c5cbf4f6cd8a06db6a64938296319d8971ff41c818eba7063",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "92cedaf6f792b8156e5ae483fdde561583d5362d3575a8e690027d59bc9392f3"
+      },
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 25,
+      "frames": 15
+    },
+    "verification": {
+      "manifest_sha256": "9671fd90d7f4943624a1f9778293be7d31ba1f44a8ab51900a4b6ae983f0c6b2",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "12be880f6ec9db4ce0a741948f4f91ecaa90e959c93d6233a62d66447d9ac435"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-gui3/profile/recordings/20261108T130501.728864Z-ToolkitGui",
+    "manifest_sha256": "25b0a3d3b806a098c882596aa27bd4b21c24f622a6a00bf9d28b452aa779913b",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/bd7a050c22b543d39133/build/game/angband",
+      "binary_sha256": "62366e564297cb99cb5ab137b400e5c1fb5d1609a8120c69b0e494749be8ed03",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "eb10fd7078499e2c5cbf4f6cd8a06db6a64938296319d8971ff41c818eba7063",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "92cedaf6f792b8156e5ae483fdde561583d5362d3575a8e690027d59bc9392f3"
+      },
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 6,
+      "frames": 7
+    },
+    "verification": {
+      "manifest_sha256": "25b0a3d3b806a098c882596aa27bd4b21c24f622a6a00bf9d28b452aa779913b",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "12be880f6ec9db4ce0a741948f4f91ecaa90e959c93d6233a62d66447d9ac435"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-gui6/profile/recordings/20261108T132158.963216Z-ToolkitGui",
+    "manifest_sha256": "d84f605d036d663bb6ea2e4113784c5c595b1d66ab3f0feb93f744b56510a3c1",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/b4a48a586ade39cf51e7/build/game/angband",
+      "binary_sha256": "58f2c4936071f0c3a90ebc51db727521a5e86c401e2be5fa5661b79005b75f2b",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "102f958c569d0c8d731b551e41ded6385188e658abb6982e6a25c776995c6dfe",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "92cedaf6f792b8156e5ae483fdde561583d5362d3575a8e690027d59bc9392f3"
+      },
+      "rust_library_sha256": "263ce6a2313c9df5971688c14081b5bbe26a54c54ac86733b12841556d583e44",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 25,
+      "frames": 15
+    },
+    "verification": {
+      "manifest_sha256": "d84f605d036d663bb6ea2e4113784c5c595b1d66ab3f0feb93f744b56510a3c1",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "c11197dfe0f200d5d3d5b4f1ad2a16449a5120663e2ec879c95742716c881922"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-gui6/profile/recordings/20261108T132203.636051Z-ToolkitGui",
+    "manifest_sha256": "c330d72970b28f3675ed8ee1b117a0794060f1ae909ed29c69e406b086e550cd",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/b4a48a586ade39cf51e7/build/game/angband",
+      "binary_sha256": "58f2c4936071f0c3a90ebc51db727521a5e86c401e2be5fa5661b79005b75f2b",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "102f958c569d0c8d731b551e41ded6385188e658abb6982e6a25c776995c6dfe",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "92cedaf6f792b8156e5ae483fdde561583d5362d3575a8e690027d59bc9392f3"
+      },
+      "rust_library_sha256": "263ce6a2313c9df5971688c14081b5bbe26a54c54ac86733b12841556d583e44",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 6,
+      "frames": 7
+    },
+    "verification": {
+      "manifest_sha256": "c330d72970b28f3675ed8ee1b117a0794060f1ae909ed29c69e406b086e550cd",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "c11197dfe0f200d5d3d5b4f1ad2a16449a5120663e2ec879c95742716c881922"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-gui6/profile/recordings/20261108T132205.602716Z-ToolkitGui",
+    "manifest_sha256": "535b0be179ede15a634c5f6cb6b8c80a2728c39dd5862156a8e079dc28cf57f0",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/b4a48a586ade39cf51e7/build/game/angband",
+      "binary_sha256": "58f2c4936071f0c3a90ebc51db727521a5e86c401e2be5fa5661b79005b75f2b",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "102f958c569d0c8d731b551e41ded6385188e658abb6982e6a25c776995c6dfe",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "92cedaf6f792b8156e5ae483fdde561583d5362d3575a8e690027d59bc9392f3"
+      },
+      "rust_library_sha256": "263ce6a2313c9df5971688c14081b5bbe26a54c54ac86733b12841556d583e44",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 22,
+      "frames": 33
+    },
+    "verification": {
+      "manifest_sha256": "535b0be179ede15a634c5f6cb6b8c80a2728c39dd5862156a8e079dc28cf57f0",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "c11197dfe0f200d5d3d5b4f1ad2a16449a5120663e2ec879c95742716c881922"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-final-gui/profile/recordings/20261108T135744.163407Z-ToolkitGui",
+    "manifest_sha256": "82c88ab85b348582d08b396410108a4d9d297e7fc2bcce489be6439c582bb9de",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/d7eb32df36ef4be8c176/build/game/angband",
+      "binary_sha256": "3205839e634e738af0daaf34801eb0043adb0add843905035e0ee08cb09a4eee",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "369d2ae739666112d031bbd950c62b1b7d1ed3d3d705b347a7f70902656ff785",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "2da0cce0195c2f005bf0d513f8cd5a64d48958cfe115207721cacc6fc7b93d19"
+      },
+      "rust_library_sha256": "4d8e698dcb709854efb0e4e965a5c818488b82fc831e7f120f5fd5807d75600b",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 25,
+      "frames": 25
+    },
+    "verification": {
+      "manifest_sha256": "82c88ab85b348582d08b396410108a4d9d297e7fc2bcce489be6439c582bb9de",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "10254f7a680ed9720d47be0d57ac714041c15eac59a96018545e7d2f47a91d03"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-final-gui/profile/recordings/20261108T135749.716457Z-ToolkitGui",
+    "manifest_sha256": "6240163581813f903d8ef0fbbfb9e1e5a5b1d743c1039ae69a38b8dce18a14f9",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/d7eb32df36ef4be8c176/build/game/angband",
+      "binary_sha256": "3205839e634e738af0daaf34801eb0043adb0add843905035e0ee08cb09a4eee",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "369d2ae739666112d031bbd950c62b1b7d1ed3d3d705b347a7f70902656ff785",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "2da0cce0195c2f005bf0d513f8cd5a64d48958cfe115207721cacc6fc7b93d19"
+      },
+      "rust_library_sha256": "4d8e698dcb709854efb0e4e965a5c818488b82fc831e7f120f5fd5807d75600b",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 6,
+      "frames": 7
+    },
+    "verification": {
+      "manifest_sha256": "6240163581813f903d8ef0fbbfb9e1e5a5b1d743c1039ae69a38b8dce18a14f9",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "10254f7a680ed9720d47be0d57ac714041c15eac59a96018545e7d2f47a91d03"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-final-gui/profile/recordings/20261108T135752.132334Z-ToolkitGui",
+    "manifest_sha256": "fc1f82d76c41e7a0d4ffcaf9aa8d8acd4c629f546f26ba178ee9caf8dba2e690",
+    "status": "complete",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/d7eb32df36ef4be8c176/build/game/angband",
+      "binary_sha256": "3205839e634e738af0daaf34801eb0043adb0add843905035e0ee08cb09a4eee",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "369d2ae739666112d031bbd950c62b1b7d1ed3d3d705b347a7f70902656ff785",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "2da0cce0195c2f005bf0d513f8cd5a64d48958cfe115207721cacc6fc7b93d19"
+      },
+      "rust_library_sha256": "4d8e698dcb709854efb0e4e965a5c818488b82fc831e7f120f5fd5807d75600b",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 10,
+      "frames": 25
+    },
+    "verification": {
+      "manifest_sha256": "fc1f82d76c41e7a0d4ffcaf9aa8d8acd4c629f546f26ba178ee9caf8dba2e690",
+      "model": "rerun frozen Rust executable with original terminal polls/events, clock, RNG initialization PID, and file-read bytes; compare actions, frames, world fingerprints and final native save",
+      "verified": true,
+      "verifier_sha256": "10254f7a680ed9720d47be0d57ac714041c15eac59a96018545e7d2f47a91d03"
+    }
+  },
+  {
+    "path": "/home/diego/projects/borg-rs/harness/out/toolkit-final-gui/profile/recordings/20261108T135755.754231Z-ToolkitGui",
+    "manifest_sha256": "b039fb1bebb1a68a890962b4759d92fd48818cd427611dcf4b3364b7a1fd7c17",
+    "status": "recording",
+    "build_id": {
+      "binary": "/home/diego/projects/borg-rs/build/death-workflow/d7eb32df36ef4be8c176/build/game/angband",
+      "binary_sha256": "3205839e634e738af0daaf34801eb0043adb0add843905035e0ee08cb09a4eee",
+      "build_stamp": "c95f125de01ecccbd0aa-rust-toolkit",
+      "cargo_lock_sha256": "d2c99a62b9d31885ca4bb68fd45892e7f52f677f83d4c89e8d5b5d8474aefd0d",
+      "compile_commands_sha256": "369d2ae739666112d031bbd950c62b1b7d1ed3d3d705b347a7f70902656ff785",
+      "git_dirty": "no",
+      "git_rev": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "link_sha256": "31b0cf186bd0823a7dafb2e0be88ffb3a682e2dc55ab22d21266e4d217e36043",
+      "overlay": "borg-rs-toolkit-overlay@1",
+      "overlay_sha256": {
+        "tools/native-combat.h": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+        "tools/toolkit_native.py": "2da0cce0195c2f005bf0d513f8cd5a64d48958cfe115207721cacc6fc7b93d19"
+      },
+      "rust_library_sha256": "4d8e698dcb709854efb0e4e965a5c818488b82fc831e7f120f5fd5807d75600b",
+      "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+      "source_snapshot_sha256": "f6b213d3cb2a72969218a91b7b96bbc071c87ed54a4e1a41ec29f7aa2629c49b",
+      "toolchain": {
+        "build_environment": {},
+        "cargo": "cargo 1.99.1 (5f94df478 2026-08-27)",
+        "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nCopyright (C) 2025 Free Software Foundation, Inc.\nThis is free software; see the source for copying conditions.  There is NO\nwarranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.",
+        "cmake": "cmake version 4.2.3\n\nCMake suite maintained and supported by Kitware (kitware.com/cmake).",
+        "features": "",
+        "profile": "Release",
+        "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)\nbinary: rustc\ncommit-hash: 58cf8f9c35b355199727627d07ae34a4e2846d67\ncommit-date: 2026-10-13\nhost: x86_64-unknown-linux-gnu\nrelease: 1.99.1\nLLVM version: 23.1.1",
+        "target": "x86_64-linux-gnu"
+      }
+    },
+    "frames_footer": {
+      "inputs": 31,
+      "frames": 205
+    },
+    "verification": null
+  }
+]

@@ -125,3 +125,5 @@ automatically, and replays/backup branches do not inflate independent deaths.
 
 Licence: GPLv2 (see `LICENSE`). Angband itself is dual-licensed GPLv2 / Angband
 licence, and upstream copyright headers are kept.
+
+For named play, bounded collection, reports, original-movie replay and manual alternatives, see [the local Rust toolkit guide](docs/REPLAY-TOOLKIT.md).

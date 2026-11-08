@@ -155,8 +155,7 @@ class Collection(unittest.TestCase):
         pin = workflow.source_commit('m5')
         first = producer.prospective_births(list(range(20)), 'random', pin)
         self.assertEqual(first, producer.prospective_births(list(range(20)), 'random', pin))
-        self.assertGreater(len({(p['race'], p['class']) for p in first}), 1)
-        self.assertTrue(all(0 <= p['race'] < 11 and 0 <= p['class'] < 9 for p in first))
+        self.assertTrue(all(p['race'] is None and p['class'] is None for p in first))
         self.assertTrue(all(p['race'] == p['class'] == 0 for p in producer.prospective_births([1,2], 'fixed', pin)))
 
     def test_non_rust_or_non_harness_build_is_rejected(self):
@@ -226,11 +225,11 @@ class Collection(unittest.TestCase):
                 except ValueError:code = 1
             return code, calls, workflow.read(output / 'collection.json'), export.call_count
 
-    def test_first_death_stops_without_extra_seed_or_budget(self):
-        code, calls, plan, exports = self.simulate(['cap','death'])
-        self.assertEqual((code,calls,exports), (0,[3,4],1))
-        self.assertEqual(plan['counts'], {'turn_cap':1,'death':1})
-        self.assertEqual(plan['status'], 'natural_death_recorded')
+    def test_every_exported_death_continues_without_extra_seed_or_budget(self):
+        code, calls, plan, exports = self.simulate(['cap','death','death'])
+        self.assertEqual((code,calls,exports), (0,[3,4,5],2))
+        self.assertEqual(plan['counts'], {'turn_cap':1,'death':2})
+        self.assertEqual(plan['status'], 'completed')
 
     def test_no_death_exhausts_only_the_planned_games(self):
         code,calls,plan,exports = self.simulate(['cap','keys','cap'])
@@ -265,6 +264,15 @@ class StallSupervisor(unittest.TestCase):
         code, receipt = self.supervise("import time\nf=open('keys.log','w')\nwhile True:\n f.write('1 1 61 0\\n'); f.flush(); time.sleep(.03)\n")
         self.assertEqual(code,125);self.assertEqual(receipt['status'],'stall')
         self.assertTrue(receipt['stalled']);self.assertEqual(receipt['last_observed_turn'],1)
+
+    def test_native_clock_advances_even_when_keys_remain_at_one_tick(self):
+        script = "import time,json,os\nos.mkdir('native')\nk=open('keys.log','w');k.write('1 1 61 0\\n');k.flush()\nf=open('native/frames.jsonl','w')\nfor t in range(8):\n f.write(json.dumps({'turn':t})+'\\n'); f.flush(); time.sleep(.06)\nopen('summary.json','w').write('{}')\n"
+        code, receipt = self.supervise(script)
+        self.assertEqual(code, 0); self.assertFalse(receipt['stalled'])
+
+    def test_malformed_complete_native_clock_fails_honestly(self):
+        code, receipt = self.supervise("import os,time\nos.mkdir('native')\nopen('native/frames.jsonl','wb').write(b'{bad}\\n')\ntime.sleep(2)\n")
+        self.assertEqual(code, 3); self.assertEqual(receipt['status'], 'supervisor_error')
 
     def test_advancing_world_turns_are_not_stalled(self):
         code,receipt = self.supervise("import time\nf=open('keys.log','w')\nfor t in range(8):\n f.write(f'{t} 1 61 0\\n'); f.flush(); time.sleep(.06)\nopen('summary.json','w').write('{}')\n")

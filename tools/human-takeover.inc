@@ -47,7 +47,7 @@ void borgh_human_mode_init(void)
     /* Same nonholiday calendar as the original seeded headless run.
      * Set before initialization; never reseed the loaded complex RNG. */
     borgh_seed = (uint32_t)strtoul(seed, NULL, 10);
-    borgh_seed_set = true;
+    borgh_seed_set = !getenv("BORG_HUMAN_GUI_CALENDAR");
     inkey_hack = NULL;
     borgh_command_hook = human_ready;
 }
@@ -60,7 +60,7 @@ static void human_capture(void)
     pid_t child, parent;
     int status;
     FILE *fp;
-    if (!requested || !directory || !borg_started || !keys_logged || !player ||
+    if (!requested || !directory || !player ||
         player->is_dead || !character_dungeon || player->upkeep->generate_level ||
         turn < strtol(requested, NULL, 10)) return;
     path_build(path, sizeof(path), directory, "captured-state.json");
@@ -76,27 +76,9 @@ static void human_capture(void)
     if (ferror(fp) || fclose(fp)) quit("human takeover: boundary write failed");
     path_build(path, sizeof(path), directory, "snapshot.save");
     if (file_exists(path)) quit("human takeover: refusing to replace a snapshot");
-    /* Native save compacts monster indices: isolate it from replay state. */
-    parent = getpid();
-    child = fork();
-    if (child < 0) quit("human takeover: fork failed");
-    if (!child) {
-#ifdef __linux__
-        if (prctl(PR_SET_PDEATHSIG, SIGKILL) || getppid() != parent) _exit(3);
-#else
-        (void)parent;
-#endif
-        if (keylog_fp) close(fileno(keylog_fp));
-        if (msglog_fp) close(fileno(msglog_fp));
-        if (statelog_fp) close(fileno(statelog_fp));
-        if (checkpoint_fp) close(fileno(checkpoint_fp));
-        if (frames_fp) close(fileno(frames_fp));
-        keylog_fp = msglog_fp = statelog_fp = checkpoint_fp = frames_fp = NULL;
-        _exit(savefile_save(path) ? 0 : 3);
-    }
-    while (waitpid(child, &status, 0) < 0) {
-        if (errno != EINTR) quit("human takeover: wait failed");
-    }
-    if (!WIFEXITED(status) || WEXITSTATUS(status)) quit("human takeover: snapshot failed");
+    /* The recorder's saver marks its child so it cannot poll/read/record
+     * through the parent's streams or mutate/compact the parent's world. */
+    { extern bool human_private_snapshot(const char *);
+      if (!human_private_snapshot(path)) quit("human takeover: private snapshot failed"); }
     borgh_finish("human_takeover");
 }

@@ -76,6 +76,8 @@ def describe(bundle):
     """Validate retained evidence; do not infer a death from a process exit."""
     bundle = bundle.resolve()
     raw = read(bundle / 'recording.json')
+    if raw.get('independent_life') is False or raw.get('session_context', {}).get('kind') == 'human_takeover':
+        return None
     if raw.get('schema') == runtime.SCHEMA:
         raw = runtime.validate(bundle)
         summary = raw['summary']
@@ -88,7 +90,7 @@ def describe(bundle):
         if summary.get('cheat_live') or re.search(r'^\s*borg_cheat_death\s*=\s*(?:TRUE|1)\s*$', config.read_text(), re.M | re.I):
             raise ValueError('Cheat-enabled deaths are diagnostic, not natural death records')
         terminal = {'turn': summary['game_turns'], 'level': summary['clevel'], 'depth': summary['depth'],
-                    'dead': True, 'cause': summary['death_cause'], 'race_idx': summary['race_idx'], 'class_idx': summary['class_idx']}
+                    'dead': True, 'cause': summary['death_cause'], 'race_idx': summary.get('played_race_idx', summary['race_idx']), 'class_idx': summary.get('played_class_idx', summary['class_idx'])}
         origin = raw.get('original_named_sha256') if raw.get('origin') is not None else None
         seed = summary['seed'] if origin is None else None
         run_kind = raw.get('run_kind', 'unknown')

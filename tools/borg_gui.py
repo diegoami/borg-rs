@@ -17,6 +17,7 @@ import sys
 import time
 
 import borg_runtime as runtime
+from toolkit_common import serialized
 
 ROOT = runtime.ROOT
 SCHEMA = 'borg-rs-gui-recording@1'
@@ -77,6 +78,14 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
     if zone_file is not None:
         shutil.copyfile(zone_file, bundle / 'runtime/timezone')
         zone = 'frozen-file'
+    if build_identity and build_identity.get('overlay'):
+        for name, digest in build_identity['overlay_sha256'].items():
+            source = ROOT / name
+            if runtime.sha(source) != digest:
+                raise ValueError('Visible engine overlay differs from retained source: ' + name)
+            target = bundle / 'runtime/tool-source' / name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(source, target)
     initial = bundle / 'initial-profile'
     for name in PROFILE_DIRS:
         if name == 'save':
@@ -102,8 +111,11 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
         record['build_id'] = {**build_identity, 'binary_sha256': runtime.sha(frozen / 'angband')}
     if session_context is not None:
         record['session_context'] = session_context
+    runtime.write(bundle / 'runtime/build-id.json', record['build_id'])
     runtime.write(bundle / 'recording.json', record)
     immutable = {str(p.relative_to(bundle)): runtime.sha(p) for folder in (bundle / 'runtime', initial) for p in folder.rglob('*') if p.is_file()}
+    record['runtime_sha256'] = immutable
+    runtime.write(bundle / 'recording.json', record)
     env = environment()
     env.update({k: v for k, v in os.environ.items() if k.startswith('ANGBAND_X11_')})
     env['BORG_RECORD_DIR'] = str(output)
@@ -158,6 +170,9 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
         raise ValueError(f'GUI exited without a complete game recording (status {code}); evidence retained at {bundle}; ' + (output / 'engine.log').read_text()[-800:])
     with (output / 'frames.jsonl').open('rb') as src, gzip.open(bundle / 'frames.jsonl.gz', 'wb') as dst:
         shutil.copyfileobj(src, dst)
+    with gzip.open(bundle / 'frames.jsonl.gz', 'rb') as stream:
+        if hashlib.file_digest(stream, 'sha256').hexdigest() != runtime.sha(output / 'frames.jsonl'):
+            raise ValueError('Lossless frame compression check failed; original raw frames retained')
     with (output / 'frames.jsonl').open() as stream:
         first_frame = json.loads(next(stream))
     record['captured_views'] = {'inventory': 'inventory' in first_frame, 'spells': 'spells' in first_frame,
@@ -174,7 +189,11 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
 
 def human_environment(record, env, output):
     context = record.get('session_context', {})
+    if context.get('visible_seed') is not None:
+        env['BORG_VISIBLE_SEED'] = str(context['visible_seed'])
     if context.get('kind') == 'human_takeover':
+        if context.get('calendar') == 'original-gui':
+            env['BORG_HUMAN_GUI_CALENDAR'] = '1'
         env.update(BORG_HUMAN_SEED=str(context['seed']), BORG_HUMAN_READY=str(output / 'human-ready.json'),
                    BORG_HUMAN_APPROVE=str(output / 'human-approved'))
 
@@ -195,6 +214,8 @@ def validate(bundle, require_complete=True):
         required.add('run/native-messages.jsonl')
     if record.get('final_sha256'):
         required.add('final.save')
+    if record.get('build_id', {}).get('overlay'):
+        required.add('run/combat.jsonl')
     if not required.issubset(hashes):
         raise ValueError('GUI recording manifest is missing required streams/runtime')
     actual = {str(p.relative_to(bundle)) for p in bundle.rglob('*') if p.is_file()} - {'recording.json', 'verification.json'}
@@ -204,16 +225,34 @@ def validate(bundle, require_complete=True):
         path = (bundle / name).resolve()
         if not path.is_relative_to(bundle) or runtime.sha(path) != digest:
             raise ValueError('GUI recording file changed: ' + name)
+    for name, digest in record.get('runtime_sha256', {}).items():
+        path = (bundle / name).resolve()
+        if not path.is_relative_to(bundle) or runtime.sha(path) != digest:
+            raise ValueError('Frozen GUI origin/runtime binding changed: ' + name)
+    runtime.validate_binary(bundle, record)
+    if record.get('status') == 'complete':
+        footer = json.loads((bundle / 'run/record-complete.json').read_text())
+        for field, filename in (('inputs', 'events.txt'), ('frames', 'frames.jsonl')):
+            with (bundle / 'run' / filename).open('rb') as stream:
+                count = sum(1 for line in stream if line.endswith(b'\n'))
+            if type(footer.get(field)) is not int or footer[field] != count:
+                raise ValueError('GUI complete input/frame footer count diverges: ' + field)
+        with gzip.open(bundle / 'frames.jsonl.gz', 'rb') as stream:
+            if hashlib.file_digest(stream, 'sha256').hexdigest() != runtime.sha(bundle / 'run/frames.jsonl'):
+                raise ValueError('GUI compressed movie differs')
     return record
 
 
-def verify(bundle, output=None, timeout=None):
+@serialized
+def verify(bundle, output=None, timeout=None, *, engine=None):
     bundle = bundle.resolve()
     record = validate(bundle)
     source_hash = hashlib.sha256((runtime.sha(Path(__file__)) + runtime.sha(Path(runtime.__file__))).encode()).hexdigest()
     manifest_hash = runtime.sha(bundle / 'recording.json')
     cached = bundle / 'verification.json'
-    if output is None and timeout is None and cached.exists():
+    if engine is not None and output is None:
+        raise ValueError('Historical GUI helper verification needs retained output')
+    if engine is None and output is None and timeout is None and cached.exists():
         prior = json.loads(cached.read_text())
         if prior.get('verified') is True and prior.get('manifest_sha256') == manifest_hash and prior.get('verifier_sha256') == source_hash:
             return prior
@@ -234,12 +273,14 @@ def verify(bundle, output=None, timeout=None):
         # X11-only options do not apply to the dummy display, whose input calls
         # are supplied by the recorder. Actual Rust decisions still execute.
         args = args[:args.index('--')] if '--' in args else args
-        result = subprocess.run(command(frozen / 'angband', frozen / 'lib', profile, record['character'], args, 'test'),
+        result = subprocess.run(command(Path(engine).resolve() if engine else frozen / 'angband', frozen / 'lib', profile, record['character'], args, 'test'),
                                 cwd=frozen, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
                                 timeout=timeout if timeout is not None else max(30, record['duration_seconds'] * 2 + 30), stdin=subprocess.DEVNULL)
         if result.returncode:
             raise ValueError('GUI replay failed; original preserved: ' + result.stdout[-1500:])
         streams = (*STREAMS, 'native-messages.jsonl') if (bundle / 'run/native-messages.jsonl').exists() else STREAMS
+        if (bundle / 'run/combat.jsonl').exists():
+            streams = (*streams, 'combat.jsonl')
         for name in streams:
             if not (output_run / name).exists() or runtime.sha(output_run / name) != runtime.sha(bundle / 'run' / name):
                 # Save only a useful first divergence, never overwrite originals.
@@ -266,7 +307,10 @@ def verify(bundle, output=None, timeout=None):
         if (runtime.sha(final) if final.exists() else None) != record['final_sha256']:
             raise ValueError('GUI replay final native save diverges')
     proof = {'verified': True, 'manifest_sha256': manifest_hash, 'verifier_sha256': source_hash, 'model': record['verification_model']}
-    runtime.write(cached, proof)
+    if engine is None:
+        runtime.write(cached, proof)
+    else:
+        proof['historical_helper_sha256'] = runtime.sha(Path(engine))
     if output is not None:
         runtime.write(output.resolve() / 'verification.json', proof)
     return proof

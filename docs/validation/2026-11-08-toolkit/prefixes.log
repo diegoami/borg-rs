@@ -1,0 +1,22 @@
+A separate historical Rust takeover helper is required: 3211e91c39ddf8480357193a9ea0a426e93a7c61
+Building historical Rust image for human takeover: 3211e91c39ddf8480357193a9ea0a426e93a7c61
+Qualifying historical image against the entire original trajectory and saves...
+Capturing first living command boundary at/after turn 2781
+Human save ready at turn 2781, depth 1, position (68,50), HP 1, SP 1.
+Save: /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-death/profile/save/HumanBorg
+Launch/resume: /home/diego/projects/borg-rs/play-branch.py /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-death
+death /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-death
+Waiting for shared native validation lock: /tmp/angband-validation.lock
+Qualifying historical image against the entire original trajectory and saves...
+Capturing first living command boundary at/after turn 100
+Human save ready at turn 101, depth 0, position (20,9), HP 18, SP 2.
+Save: /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-living/profile/save/HumanBorg
+Launch/resume: /home/diego/projects/borg-rs/play-branch.py /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-living
+living /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-living
+Waiting for shared native validation lock: /tmp/angband-validation.lock
+Preparing strict prefix qualification for finalized timeout...
+Capturing first living command boundary at/after turn 2501
+Human save ready at turn 2501, depth 0, position (32,14), HP 11, SP 2.
+Save: /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-timeout/profile/save/HumanBorg
+Launch/resume: /home/diego/projects/borg-rs/play-branch.py /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-timeout
+timeout /home/diego/projects/borg-rs/harness/out/toolkit-command-prefix-timeout

@@ -73,7 +73,13 @@
     "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
     "path": "produce_death.py",
     "original_sha256": "5b7e3632b23b95aed9f80c9170234e9a871d353d24c7e6320766f5e76976df0d",
-    "adaptation": "bounded prospective Rust collection; pinned source/data/build, explicit native menus and Rust runtime adapter"
+    "adaptation": "bounded prospective Rust collection; pinned source/data/build, explicit native menus and Rust runtime adapter",
+    "additional_reference": {
+      "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+      "path": "produce_death.py",
+      "sha256": "e242eb411f7cdf632c8da1b2e113fe115f06707f327bb09b8ce5de1e3b51d790",
+      "adaptation": "All-attempt collection, compatible native build offers, independent report/watch/manual delivery; Rust schema/source/link identity preserved"
+    }
   },
   "replay_next_death.py": {
     "repository": "diegoami/better-borg-c",
@@ -87,7 +93,13 @@
     "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
     "path": "tools/death-workflow.py",
     "original_sha256": "6085bf44f950e9c60dfaa30296e59dc63162879a935e94a0dd3ab5605b42084f",
-    "adaptation": "Rust queue/owner ledger and pinned Rust recording runtime preparation"
+    "adaptation": "Rust queue/owner ledger and pinned Rust recording runtime preparation",
+    "additional_reference": {
+      "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+      "path": "tools/death-workflow.py",
+      "sha256": "6085bf44f950e9c60dfaa30296e59dc63162879a935e94a0dd3ab5605b42084f",
+      "adaptation": "All-attempt collection, compatible native build offers, independent report/watch/manual delivery; Rust schema/source/link identity preserved"
+    }
   },
   "tools/test_death_workflow.py": {
     "repository": "diegoami/better-borg-c",
@@ -130,5 +142,37 @@
     "path": "docs/deaths/REVIEW-TEMPLATE.md",
     "original_sha256": "5b270b2168c07c762304a27ef15786a028c508dac5a18b1a5a39c2cb2c5a3804",
     "adaptation": "structured death assessment with Rust adoption boundary"
+  },
+  "tools/native-combat.h": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+    "path": "tools/native-combat.h",
+    "original_sha256": "66a5e4c0a7b9d7f0a0a67ba547d4d07af66262372d6bb68053d0837d849dfe19",
+    "adaptation": "Native pre-coalescing messages, actual HP damage/source and speed; included only in disposable Rust engine exports",
+    "licence": "GPL-2.0-or-later or Angband licence; target adapters remain covered by repository licence"
+  },
+  "tools/run_report.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+    "path": "tools/run-report.py",
+    "original_sha256": "9848c4382b6f0f26227b3ef799632947fc4b09fc05edadc3ee0379bb7456beca",
+    "adaptation": "Versioned native save counter parser; isolated Rust frozen-engine formatter, per-attempt/collection reports",
+    "licence": "GPL-2.0-or-later or Angband licence; target adapters remain covered by repository licence"
+  },
+  "tools/toolkit_native.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+    "path": "tools/native-replay.c",
+    "original_sha256": "58b9e6c69dcbfcbcc2485404c2a07bf1ceee895dcacdb4c840ab0b40c231bbda",
+    "adaptation": "Target-owned disposable-export adapter around the existing Rust recorder; full native ticks, terminal stop frame, combat, timeout and no-advance formatting",
+    "licence": "GPL-2.0-or-later or Angband licence; target adapters remain covered by repository licence"
+  },
+  "play-from-replay.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
+    "path": "play-from-replay.py",
+    "original_sha256": "7f0f8ef3df0eb474229f55f55cd4d4c4eb956eae144cf5680a1a2b6cc17d9181",
+    "adaptation": "Rust schema/qualified-helper wrapper; original headless/GUI prefix, latest and pinned manual resume",
+    "licence": "GPL-2.0-or-later or Angband licence; target adapters remain covered by repository licence"
   }
 }

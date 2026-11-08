@@ -1,0 +1,93 @@
+{
+  "private_case": "/home/diego/projects/borg-rs/harness/out/toolkit-command-deaths/D0001-recorded",
+  "manifest_sha256": "fcc50c1b4481829a2fdd0b939e5568661a8b4f9ddc1d02ff7e818348c8078cc7",
+  "identity": {
+    "binary": "9bfbf95a546dd0f1187d5696542b9d4df1c940040b750ffef4cc84026c67b3c8",
+    "cause": "a giant yellow centipede",
+    "config_sha256": "f20f7ed7065a31dec52467b932f8f9ea4b17f69922732c02c583e160b6ddb419",
+    "encounter_family": "start-bef7bec615f0e6b4a96e00a31f6bfefba72c255a7fdf25434653710433d50016",
+    "seed": 42,
+    "source": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+    "source_sha256": "c95f125de01ecccbd0aaf202fa6da457361e779e3486e6ee4b06932dacc5a921",
+    "start_save": null,
+    "turn": 2787
+  },
+  "terminal": {
+    "cause": "a giant yellow centipede",
+    "class_idx": 1,
+    "dead": true,
+    "depth": 1,
+    "level": 1,
+    "race_idx": 7,
+    "turn": 2787
+  },
+  "recording": {
+    "frames_sha256": "1154f3670905a5136d5bb94fcad9909c2db1c99997b581c4c353848fae0ebee5",
+    "manifest_sha256": "3fd74f366aaaf4c6df2b74c905fbc911e92eca1d3a34df87d574471bbde4ae58",
+    "nearby_original_anchors": [],
+    "qualification": "Original frames, not an assumed verified rerun or mid-run Borg-memory restore",
+    "raw_directory": "/home/diego/projects/borg-rs/harness/out/toolkit-command-collection2/game-001-seed-42/recordings/20261108T142711.396906Z-CollectedBorg",
+    "replay_command": "./replay-borg.py /home/diego/projects/borg-rs/harness/out/toolkit-command-deaths/D0001-recorded --from-turn 2682",
+    "schema": "borg-rs-headless-recording@1",
+    "selected_original_frames": [
+      {
+        "frame_index": 3423,
+        "json": "snapshots/recorded-T-minus-5.json",
+        "offset_engine_turns": 5,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-5.txt",
+        "turn": 2782
+      },
+      {
+        "frame_index": 3412,
+        "json": "snapshots/recorded-T-minus-12.json",
+        "offset_engine_turns": 12,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-12.txt",
+        "turn": 2775
+      },
+      {
+        "frame_index": 3395,
+        "json": "snapshots/recorded-T-minus-25.json",
+        "offset_engine_turns": 25,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-25.txt",
+        "turn": 2762
+      },
+      {
+        "frame_index": 3372,
+        "json": "snapshots/recorded-T-minus-40.json",
+        "offset_engine_turns": 40,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-40.txt",
+        "turn": 2747
+      },
+      {
+        "frame_index": 3344,
+        "json": "snapshots/recorded-T-minus-60.json",
+        "offset_engine_turns": 60,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-60.txt",
+        "turn": 2727
+      },
+      {
+        "frame_index": 3314,
+        "json": "snapshots/recorded-T-minus-82.json",
+        "offset_engine_turns": 82,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-82.txt",
+        "turn": 2705
+      },
+      {
+        "frame_index": 3281,
+        "json": "snapshots/recorded-T-minus-105.json",
+        "offset_engine_turns": 105,
+        "phase": "tick",
+        "text": "snapshots/recorded-T-minus-105.txt",
+        "turn": 2682
+      }
+    ],
+    "unavailable_offsets": []
+  },
+  "assessment": "unassessed qualification fixture; no diagnosis, owner-review or survival claim"
+}

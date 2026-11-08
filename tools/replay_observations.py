@@ -112,7 +112,7 @@ def prepare(bundle, timeout=600):
             source.mkdir(parents=True, exist_ok=False)
             archive = build / 'historical-source.tar'
             subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=tar', '-o', str(archive), pin,
-                            'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock'], check=True)
+                            'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement'], check=True)
             with tarfile.open(archive) as stream:
                 stream.extractall(source, filter='data')
             original_files = {str(p.relative_to(source)): runtime.sha(p) for p in source.rglob('*') if p.is_file()}

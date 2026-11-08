@@ -60,6 +60,7 @@ if [ "$FLAGS" != "-" ]; then
         case "$fl" in
             cheat) CHEAT=TRUE;;
             menu) BORGH_FLAGS+=(-menu-letters);;
+            random-birth) BORGH_FLAGS+=(-random-birth);;
             finalsave) BORGH_FLAGS+=(-save-on-stop "$OUT/final.save");;
             living-save) BORGH_FLAGS+=(-save-living-on-stop "$OUT/final.save");;
             terminal-save) BORGH_FLAGS+=(-save-final-state "$OUT/final.save");;
@@ -99,8 +100,13 @@ if [ "$FLAGS" != "-" ]; then
         esac
     done
 fi
-rm -rf "$OUT"
+[ ! -e "$OUT" ] || { echo "run.sh: output exists; preserve it and use a new directory: $OUT" >&2; exit 2; }
 mkdir -p "$OUT"/{user,save,archive,panic,scores}
+if [ "${BORG_TOOLKIT_NATIVE:-0}" = 1 ]; then
+    mkdir "$OUT/native"
+    export BORG_RECORD_DIR="$OUT/native"
+    export BORG_TOOLKIT_HEADLESS=1
+fi
 if [ -n "$SAVE_NAME" ]; then
     # The engine may autosave: never give it the committed fixture's path.
     cp "$SAVE_ROOT/$SAVE_NAME" "$OUT/save/input.save"

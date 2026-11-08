@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
-# Named Rust launcher; workflow adapted from diegoami/better-borg-c.
+# Named visible Rust launcher. Immutable builds and session-local recordings.
 set -euo pipefail
 root=$(cd -- "$(dirname -- "$0")" && pwd)
-if [ $# -gt 0 ] && [[ "$1" != -* ]]; then
-    export BORG_PLAY_CHARACTER="$1"
-    shift
-fi
-exec "$root/run-rust-borg.sh" "$@"
+exec python3 "$root/tools/start_recorded_borg.py" "$@"
