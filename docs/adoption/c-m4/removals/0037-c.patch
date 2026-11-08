@@ -1,0 +1,22 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index c79c02a..257d1b4 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -1628,6 +1628,6 @@ static int borg_launch_bolt_at_location(
+ 
+     /* Check monsters and objects in blast radius */
+-    for (ry = y2 - rad; ry < y2 + rad; ry++) {
+-        for (rx = x2 - rad; rx < x2 + rad; rx++) {
++    for (ry = y2 - rad; ry <= y2 + rad; ry++) {
++        for (rx = x2 - rad; rx <= x2 + rad; rx++) {
+ 
+             /* Bounds check */
+@@ -1945,6 +1945,6 @@ static int borg_launch_arc_at_location(
+     /* Check monsters and objects in blast radius and on the arc */
+     /* for an arc, blast radius starts at player */
+-    for (ry = y1 - max; ry < y1 + max; ry++) {
+-        for (rx = x1 - max; rx < x1 + max; rx++) {
++    for (ry = y1 - max; ry <= y1 + max; ry++) {
++        for (rx = x1 - max; rx <= x1 + max; rx++) {
+ 
+             /* Bounds check */

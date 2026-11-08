@@ -1,0 +1,11 @@
+diff --git a/angband/src/borg/borg-fight-attack.c b/angband/src/borg/borg-fight-attack.c
+index c79c02a..257d1b4 100644
+--- a/angband/src/borg/borg-fight-attack.c
++++ b/angband/src/borg/borg-fight-attack.c
+@@ -90,5 +90,5 @@ int borg_mon_blow_effect(const char *name)
+         { "BLACK_BREATH", MONBLOW_BLACK_BREATH }, { NULL, MONBLOW_NONE } };
+     unsigned long i;
+-    for (i = 0; i < sizeof(monblow) / sizeof(monblow[0]); ++i)
++    for (i = 0; i + 1 < sizeof(monblow) / sizeof(monblow[0]); ++i)
+         if (!strcmp(name, monblow[i].name))
+             return monblow[i].val;

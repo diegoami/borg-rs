@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_item_use.rs b/borg-rs/src/borg_item_use.rs
+index d63c09d..01ee15e 100644
+--- a/borg-rs/src/borg_item_use.rs
++++ b/borg-rs/src/borg_item_use.rs
+@@ -1077,7 +1077,10 @@ pub fn borg_use_things(st: &mut BorgState) -> bool {
+         match u32::from(item.tval) {
+             TV_POTION => {
+-                /* Check the scroll */
++                /* Check the potion */
+                 if sval == st.item_val.sv_potion_enlightenment {
+-                    /* Never quaff these in town (and nothing else either) */
++                    /* Never quaff these in town */
++                    if st.borg.tr(BI_CDEPTH) != 0 && borg_quaff_potion(st, sval) {
++                        return true;
++                    }
+                 } else if sval == st.item_val.sv_potion_inc_all {
+                     /* Try quaffing the potion */

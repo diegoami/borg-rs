@@ -1,0 +1,12 @@
+diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
+index 53d1c14..559d060 100644
+--- a/angband/src/borg/borg-think-dungeon-util.c
++++ b/angband/src/borg/borg-think-dungeon-util.c
+@@ -192,4 +193,7 @@ bool borg_think_dungeon_light(void)
+ 
+                 borg_keypress('<');
++
++                /* Done */
++                return true;
+             }
+         }

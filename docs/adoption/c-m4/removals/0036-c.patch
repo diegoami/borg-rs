@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-think-dungeon-util.c b/angband/src/borg/borg-think-dungeon-util.c
+index 53d1c14..559d060 100644
+--- a/angband/src/borg/borg-think-dungeon-util.c
++++ b/angband/src/borg/borg-think-dungeon-util.c
+@@ -404,6 +408,8 @@ bool borg_think_stair_scum(void)
+         for (i = 0; i < track_less.num; i++) {
+             /* We already knew about this one */
++            /* (break, like the down-stair loop above: continuing past a
++             * match re-adds the known staircase as a duplicate) */
+             if ((track_less.x[i] == borg.c.x) && (track_less.y[i] == borg.c.y))
+-                continue;
++                break;
+         }
+ 
