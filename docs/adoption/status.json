@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "m6_accepted_c_m2_m3_carried",
+  "phase": "impact_v3_accepted_c_m3_carried",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -101,16 +101,18 @@
         "instruction": "if accepted, create the milestone and the tag",
         "date": "2026-11-08",
         "basis": "independent qualified pass without blocker/major findings",
-        "tag": "m6",
-        "github_milestone": "M6",
+        "tag": "4.2.6-impact-v3",
+        "github_milestone": "4.2.6 impact v3",
         "tagging_delegated": true,
-        "scope": "Tag m6 covers the integrated tree carrying C milestone2 (issue6, qualified pass) and C milestone3 (issue8)"
+        "scope": "Tag 4.2.6-impact-v3 marks main with the C milestone3 carry (after 4.2.6-impact-v2 for milestone2)",
+        "naming": "Owner correction: named after the C milestone (impact v3), not a new Rust M6",
+        "integrated_by": "https://github.com/diegoami/borg-rs/pull/9"
       }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "M6 (C milestones 2 and 3) accepted and tagged. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "Impact v3 (C milestone3) accepted and tagged 4.2.6-impact-v3. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -137,7 +139,7 @@
     "id": "c-m3",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/8",
     "starting_rust_main": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
-    "state": "accepted_tagged_m6",
+    "state": "accepted_tagged_4.2.6-impact-v3",
     "ledger": "docs/adoption/c-m3/ledger.json",
     "receipt": "docs/validation/2026-11-08-c-m3/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"

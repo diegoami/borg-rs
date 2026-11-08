@@ -18,8 +18,9 @@ Owner then directed C milestone3 (2026-11-08): target702f091f6, tracking
 [adoption/c-m3](docs/adoption/c-m3/README.md). It retires the local #290
 equality reset in favour of the consumer's patch0018 guard; #287/#322 cover
 patches0025/0027. Independent qualified pass (issue8); on the owner's
-instruction ("if accepted, create the milestone and the tag") M6 covers the
-integrated C milestone2+3 carries with annotated tag `m6` on main.
+instruction ("if accepted, create the milestone and the tag") it is recorded
+as impact milestone 3 in docs/STATUS.md with annotated tag `4.2.6-impact-v3`,
+following `4.2.6-impact-v2` for the milestone2 carry.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
