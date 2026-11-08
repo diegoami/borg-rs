@@ -19,6 +19,20 @@ after commit; only docs/harness files were untracked). Binaries: C
 contains no C Borg code; 154/154 engine objects byte-identical. No engine,
 data, header or FFI change.
 
+### Rerun after merging main
+
+While this batch ran, main advanced to `3832151` (borgh measurement streams
+and the milestone2 review record). Merge commit `a8a09f1` resolves only
+`docs/adoption/status.json`. Clean committed builds at `a8a09f1`
+([C-BUILD_ID-merged](C-BUILD_ID-merged), [RUST-BUILD_ID-merged](RUST-BUILD_ID-merged),
+`git_dirty=no`): tests 100 pass, clippy clean, no C Borg code in Rust. The
+131-case matrix was rerun on them: C and Rust 131/131 DONE, **131/131 C/Rust
+parity**, and all 524 streams of both roles are byte-identical to the pre-merge
+runs, so main's harness changes are behaviour-neutral here.
+[matrix.json](matrix.json) is the merged run (fault controls were built at
+`4fe376e`). Native fixtures and the native checker were run at `4fe376e`;
+main changed no Borg source.
+
 ## Checks
 
 | Check | Result |

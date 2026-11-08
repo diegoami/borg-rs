@@ -86,8 +86,8 @@
  ],
  "harness_diff_exit": 0,
  "harness_diff_tail": [
-  "B: /home/user/borg-rs/harness/out/c-m3/g-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=aac44ccd79b71561",
-  "B:   built from 0bc7a09fb41a (dirty=yes, inputs dirty=yes) source_sha256=1885ad89f8f33206; run at 4fe376e9c887 (dirty=yes) overrides=none",
+  "B: /home/user/borg-rs/harness/out/c-m3/g-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=25a6c9f08da495fc",
+  "B:   built from a8a09f1785e3 (dirty=no, inputs dirty=no) source_sha256=c95f125de01ecccb; run at a8a09f1785e3 (dirty=no) overrides=none",
   "131/131 runs identical (expected 131)",
   "messages.log compared in 131 run(s)",
   "state.log compared in 131 run(s)"
