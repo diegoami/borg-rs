@@ -1,0 +1,37 @@
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+curse_menu (obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:109
+109				available[count].power = obj->curses[i].power;
+#0  curse_menu (obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:109
+#1  0x0000555555683c3b in textui_get_curse (choice=0x7fffffffbb60, obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:158
+#2  0x00005555555b9e98 in get_curse (choice=0x7fffffffbb60, obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/game-input.c:244
+#3  0x00005555555ad879 in uncurse_object (obj=0x555555e12420, strength=29, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/effect-handler-general.c:185
+#4  0x00005555555afd1e in effect_handler_REMOVE_CURSE (context=0x7fffffffbcd0) at /home/user/borg-rs/angband/src/effect-handler-general.c:1087
+#5  0x00005555555b6542 in effect_do (effect=0x5555558e7240, origin=..., obj=0x555555e20320, ident=0x7fffffffbda2, aware=true, dir=5, beam=0, boost=6, cmd=0x5555558509a0 <cmd_queue+2112>) at /home/user/borg-rs/angband/src/effects.c:505
+#6  0x000055555559c167 in use_aux (cmd=0x5555558509a0 <cmd_queue+2112>, obj=0x555555e20320, use=USE_SINGLE, snd=0) at /home/user/borg-rs/angband/src/cmd-obj.c:567
+#7  0x000055555559c951 in do_cmd_read_scroll (cmd=0x5555558509a0 <cmd_queue+2112>) at /home/user/borg-rs/angband/src/cmd-obj.c:758
+#8  0x000055555559967e in process_command (ctx=CTX_GAME, cmd=0x5555558509a0 <cmd_queue+2112>) at /home/user/borg-rs/angband/src/cmd-core.c:388
+#9  0x00005555555997cc in cmdq_pop (c=CTX_GAME) at /home/user/borg-rs/angband/src/cmd-core.c:420
+#10 0x00005555555bc171 in process_player () at /home/user/borg-rs/angband/src/game-world.c:913
+#11 0x00005555555bc46a in run_game_loop () at /home/user/borg-rs/angband/src/game-world.c:1023
+#12 0x00005555556a0ab7 in play_game (mode=GAME_NEW) at /home/user/borg-rs/angband/src/ui-game.c:971
+#13 0x000055555558aa79 in main (argc=21, argv=0x7fffffffc120) at /home/user/borg-rs/angband/src/main.c:595
+#1  0x0000555555683c3b in textui_get_curse (choice=0x7fffffffbb60, obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:158
+158		int curse = curse_menu(obj, dice_string);
+curse = 21845
+#0  curse_menu (obj=0x555555e12420, dice_string=0x7fffffffbc30 "20+d20") at /home/user/borg-rs/angband/src/ui-curse.c:109
+109				available[count].power = obj->curses[i].power;
+menu_f = {get_tag = 0x0, valid_row = 0x0, display_row = 0x555555683503 <get_curse_display>, row_handler = 0x55555568362c <get_curse_action>, resize = 0x0}
+m = 0x5555558df1e0
+header = "\240\272\377\377\377\177\000\000q\236mUUU\000\000@\000\202UP\000\000\000\000\000\000\000P\000\000\000\220\272\377\377\377\177\000\000P\000\000\000\377\377\377\377\377\377\377\377P\000\000\000\210\377\377\377\377\377\377\377\002\000\000\000\000\000\000\000\320\361\215UUU\000"
+row = 1434583104
+length = 0
+i = 11
+count = 0
+array_size = 224
+available = 0x5555559a2f50
+area = {col = 20, row = 1, width = -1, page_rows = -2}
+$1 = {kind = 0x7ffff7b2cbf0, ego = 0x555555911f60, artifact = 0x0, prev = 0x555555ca6210, next = 0x555555e24b50, known = 0x555555dc8520, oidx = 0, grid = {x = 0, y = 0}, tval = 9 '\t', sval = 3 '\003', pval = 0, weight = 40, dd = 1 '\001', ds = 6 '\006', ac = 0, to_a = 0, to_h = 5, to_d = 7, flags = "\000\000\000\000", modifiers = {0 <repeats 16 times>}, el_info = {{res_level = 1, flags = 3 '\003'}, {res_level = 0, flags = 0 '\000'} <repeats 24 times>}, brands = 0x555555e12560, slays = 0x0, curses = 0x0, effect = 0x0, effect_msg = 0x0, activation = 0x0, time = {base = 0, dice = 0, sides = 0, m_bonus = 0}, timeout = 0, number = 1 '\001', notice = 0 '\000', held_m_idx = 0, mimicking_m_idx = 0, origin = 1 '\001', origin_depth = 6 '\006', origin_race = 0x0, note = 0}
+$2 = (struct object *) 0x555555dc8520

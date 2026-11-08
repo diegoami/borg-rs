@@ -1,0 +1,23 @@
+diff --git a/borg-rs/src/borg_fight_attack.rs b/borg-rs/src/borg_fight_attack.rs
+index ec4c21b..134c251 100644
+--- a/borg-rs/src/borg_fight_attack.rs
++++ b/borg-rs/src/borg_fight_attack.rs
+@@ -296,13 +296,11 @@ const MONBLOW: [(Option<&[u8]>, u32); 31] = [
+ /// What effect does a blow from a monster have? (`borg_mon_blow_effect`)
+ ///
+-/// *HACK* must match code in mon-blows.c. C compares the name with every
+-/// entry, including the NULL end entry, so a name that is not in the table
+-/// would crash in `strcmp`; Rust panics there (every name in
+-/// blow_effects.txt is in the table).
++/// *HACK* must match code in mon-blows.c. The search stops before the
++/// NULL end entry, so an unknown name gives `MONBLOW_NONE`.
+ pub fn borg_mon_blow_effect(name: &[u8]) -> i32 {
+-    for (n, val) in MONBLOW {
+-        let n = n.expect("borg_mon_blow_effect: strcmp with the NULL end entry");
++    for (n, val) in &MONBLOW[..MONBLOW.len() - 1] {
++        let n = n.expect("borg_mon_blow_effect: only the end entry is NULL");
+         if name == n {
+-            return val as i32;
++            return *val as i32;
+         }
+     }

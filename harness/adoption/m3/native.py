@@ -58,7 +58,8 @@ def run_phase(fixture, directory, build, phase, asan):
         env[fixture['env_prefix'] + '_PROFILE'] = str(directory / 'profile')
         if asan:
             leaks = fixture['sanitizer'] == 'lsan'
-            env['ASAN_OPTIONS'] = 'detect_leaks=1' if leaks else 'detect_leaks=0:intercept_strcmp=0'
+            env['ASAN_OPTIONS'] = fixture.get('asan_options') or (
+                'detect_leaks=1' if leaks else 'detect_leaks=0:intercept_strcmp=0')
         result = subprocess.run([str(binary), '-v'], cwd=build / 'game', env=env,
                                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT, timeout=300)
         text = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout.decode(errors='replace'))
@@ -83,10 +84,13 @@ def main():
     parser.add_argument('--asan-build', type=Path, help='matching AddressSanitizer C build directory')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--only', action='append', help='fixture name (repeatable)')
+    parser.add_argument('--fixtures', type=Path, default=HERE / 'fixtures',
+                        help='fixture directory with manifest.json (milestone4: harness/adoption/m4/fixtures)')
     args = parser.parse_args()
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
-    manifest = json.loads((HERE / 'fixtures/manifest.json').read_text())
+    fixtures_dir = args.fixtures.resolve()
+    manifest = json.loads((fixtures_dir / 'manifest.json').read_text())
     build = args.build.resolve()
     report = {'consumer_pin': manifest['consumer_pin'], 'build': str(build),
               'build_flags_sha256': sha(build / 'CMakeFiles/OurCoreLib.dir/flags.make'),
@@ -100,7 +104,7 @@ def main():
         name = fixture['name']
         if args.only and name not in args.only:
             continue
-        source = HERE / 'fixtures' / name / 'scenario.c'
+        source = fixtures_dir / name / 'scenario.c'
         assert sha(source) == fixture['scenario_sha256'], name
         directory = output / name
         (directory / 'profile').mkdir(parents=True)

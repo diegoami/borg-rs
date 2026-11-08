@@ -1,0 +1,22 @@
+diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
+index bf9cc1f..97ca893 100644
+--- a/borg-rs/src/borg_think_dungeon_util.rs
++++ b/borg-rs/src/borg_think_dungeon_util.rs
+@@ -54,4 +54,5 @@ use crate::borg_headers::borg_trait_h::{
+     BI_SAURON_DEAD,
+ };
++use crate::headers::list_object_flags_h::OF_NO_FUEL;
+ use crate::headers::list_options_h::OPT_birth_force_descend;
+ use crate::headers::list_terrain_h::{
+@@ -197,8 +198,7 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
+     }
+ 
+-    if !(st.borg.tr(BI_LIGHT) == 0
+-        && (st.borg.tr(BI_LIGHT) <= 0 || st.items.items[inven_light()].timeout <= 3)
+-        && st.borg.tr(BI_CDEPTH) >= 1)
+-    {
++    let light = &st.items.items[inven_light()];
++    let dying = light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);
++    if !((st.borg.tr(BI_LIGHT) == 0 || dying) && st.borg.tr(BI_CDEPTH) >= 1) {
+         /* Nothing to do */
+         return false;

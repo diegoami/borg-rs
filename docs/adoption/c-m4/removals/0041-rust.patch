@@ -1,0 +1,19 @@
+diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
+index bf9cc1f..97ca893 100644
+--- a/borg-rs/src/borg_think_dungeon_util.rs
++++ b/borg-rs/src/borg_think_dungeon_util.rs
+@@ -241,5 +241,5 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
+     }
+ 
+-    /* Test for stairs (C queues '<' and goes on: C bug 47) */
++    /* Test for stairs */
+     if !engine::player_opt(OPT_birth_force_descend)
+         && feat_at(st, st.borg.c.x, st.borg.c.y) == FEAT_LESS
+@@ -248,4 +248,7 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
+         borg_note(st, "# Testing for stairs .");
+         borg_keypress(st, key(b'<'));
++
++        /* Done */
++        return true;
+     }
+ 

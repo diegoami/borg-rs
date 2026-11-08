@@ -1,0 +1,21 @@
+diff --git a/angband/src/borg/borg-update.c b/angband/src/borg/borg-update.c
+index b63ef33..5f1e5f2 100644
+--- a/angband/src/borg/borg-update.c
++++ b/angband/src/borg/borg-update.c
+@@ -287,4 +287,8 @@ static void borg_update_map(void)
+             ag->info |= BORG_OKAY;
+ 
++            /* Save the old "wall" or "door", before the feature below is
++             * overwritten with what the game shows now */
++            old_wall = !borg_cave_floor_grid(ag);
++
+             /* Notice "knowledge" */
+             /* if this square is not in view and the borg previously */
+@@ -310,7 +314,4 @@ static void borg_update_map(void)
+             }
+ 
+-            /* Save the old "wall" or "door" */
+-            old_wall = !borg_cave_floor_grid(ag);
+-
+             /* Analyze know information about grid */
+             /* Shop Doors */

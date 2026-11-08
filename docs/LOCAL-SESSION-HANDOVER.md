@@ -420,3 +420,18 @@ owner corrected: annotated tag `4.2.6-impact-v3`, GitHub milestone "4.2.6
 impact v3" and a docs/STATUS.md milestone row. An interim "M6/m6" name was
 written in docs only and corrected; no m6 tag or milestone was created.
 Next C milestone is the owner's choice.
+
+## C milestone4 adoption (2026-11-08)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v3`, tracking
+borg-rs#11, record docs/adoption/c-m4, receipt docs/validation/2026-11-08-c-m4.
+All eight consumer patches (0035-0042) carried in C and Rust. Native 15→24/24;
+130/131 C/Rust parity; 3/8 Rust fault controls detected on the 23-case subset.
+Open: `cfg-lunal-deep-warrior` (seed2007) now hits an engine SIGSEGV in
+ui-curse.c `curse_menu` (known curse listed, real `obj->curses` NULL) in both
+C and Rust; unchanged on official master. Owner decision pending; no engine
+change made. Not merged to main.
+Engine crash root-caused to wizard cure-all (cheat-death path) and fixed
+narrowly in cmd-wizard.c (neo-angband-tracker#474). Review: qualified pass.
+Owner: allow the mid-command self-stop in harness/diff, merge and accept ->
+impact v4, tag `4.2.6-impact-v4` (owner pushes the tag).

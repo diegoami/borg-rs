@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v3_accepted_c_m3_carried",
+  "phase": "impact_v4_accepted",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -108,11 +108,54 @@
         "naming": "Owner correction: named after the C milestone (impact v3), not a new Rust M6",
         "integrated_by": "https://github.com/diegoami/borg-rs/pull/9"
       }
+    },
+    {
+      "id": "c-m4",
+      "target_commit": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
+      "consumer_tag": "4.2.6-impact-v4",
+      "state": "reviewed_qualified_pass_owner_accepted",
+      "consumer_patches": 8,
+      "carried_c_and_rust": 8,
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/11",
+      "receipt": "docs/validation/2026-11-08-c-m4/README.md",
+      "native_modes_before_after": "15/24 -> 24/24",
+      "game_cases": 131,
+      "c_rust_parity": 131,
+      "rust_fault_controls_detected": "3/8",
+      "implementation_commit": "a9bfd80",
+      "starting_rust_main": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+      "rust_milestone_accepted": true,
+      "engine_correction": {
+        "file": "angband/src/cmd-wizard.c",
+        "commits": [
+          "eb29098",
+          "9a78e32"
+        ],
+        "summary": "do_cmd_wiz_cure_all also frees obj->known->curses; fixes the cfg-lunal-deep-warrior Remove Curse SIGSEGV (C and Rust)",
+        "upstream": "https://github.com/diegoami/neo-angband-tracker/issues/474",
+        "fork_corrections": "docs/FORK-CORRECTIONS.md",
+        "c_bugs": "section 59"
+      },
+      "harness_diff_note": "harness/diff now accepts a borg_stopped run whose last key precedes summary.game_turns (owner decision; mid-command auto-stop in opt-stopclevel-war); exit 0, matrix.py PASS; controls harness/regress/diff-consistency-test.py",
+      "build_receipt_commit": "9a78e32",
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "80614e4 (plus eb29098)",
+        "comment": "https://github.com/diegoami/borg-rs/issues/11#issuecomment-6723532162",
+        "findings_addressed": "0afdcfd and the receipt commit"
+      },
+      "owner_acceptance": {
+        "instruction": "allow the mid-command stop, then merge and accept",
+        "date": "2026-11-08",
+        "basis": "independent qualified pass (issue11); findings addressed; harness check decision applied",
+        "tag": "4.2.6-impact-v4",
+        "tag_note": "annotated tag to be pushed by the owner on the merged main commit (session git proxy refuses tag pushes)"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v3 (C milestone3) accepted and tagged 4.2.6-impact-v3. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "Impact v4 (C milestone4) accepted; owner pushes tag 4.2.6-impact-v4 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -136,12 +179,12 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-m3",
-    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/8",
-    "starting_rust_main": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
-    "state": "accepted_tagged_4.2.6-impact-v3",
-    "ledger": "docs/adoption/c-m3/ledger.json",
-    "receipt": "docs/validation/2026-11-08-c-m3/README.md",
+    "id": "c-m4",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/11",
+    "starting_rust_main": "3211e91c39ddf8480357193a9ea0a426e93a7c61",
+    "state": "accepted_impact_v4",
+    "ledger": "docs/adoption/c-m4/ledger.json",
+    "receipt": "docs/validation/2026-11-08-c-m4/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"
   },
   "m2_active_batch_record": {

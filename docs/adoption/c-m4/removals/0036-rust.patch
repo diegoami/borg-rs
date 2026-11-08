@@ -1,0 +1,26 @@
+diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
+index bf9cc1f..97ca893 100644
+--- a/borg-rs/src/borg_think_dungeon_util.rs
++++ b/borg-rs/src/borg_think_dungeon_util.rs
+@@ -516,8 +519,17 @@ pub fn borg_think_stair_scum(st: &mut BorgState) -> bool {
+ 
+     if feat == FEAT_LESS && feat_at(st, ax, ay) != FEAT_LESS {
+-        /* Check for an existing "up stairs": C's loop `continue`s instead
+-         * of `break`ing, so it always ends at the end of the list (C bug
+-         * 47) */
+-        let i = i32::from(st.stairs.less.num).max(0);
++        /* Check for an existing "up stairs" */
++        let mut i = 0;
++        while i < i32::from(st.stairs.less.num) {
++            /* We already knew about this one */
++            /* (break, like the down-stair loop above: continuing past a
++             * match re-adds the known staircase as a duplicate) */
++            if st.stairs.less.x[i as usize] == st.borg.c.x
++                && st.stairs.less.y[i as usize] == st.borg.c.y
++            {
++                break;
++            }
++            i += 1;
++        }
+ 
+         /* Track the newly discovered "up stairs" */

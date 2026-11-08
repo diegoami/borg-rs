@@ -343,6 +343,10 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
     // Notice "on-screen"
     ag.info |= BORG_OKAY;
 
+    // Save the old "wall" or "door", before the feature below is
+    // overwritten with what the game shows now
+    let old_wall = !borg_cave_floor_grid(ag);
+
     // Notice "knowledge": if this square is not in view and the borg
     // previously cast stone to mud here, ignore the map info so repeated
     // stone to mud aren't cast
@@ -363,9 +367,6 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
         st.borg.c.x = x;
         st.borg.c.y = y;
     }
-
-    // Save the old "wall" or "door"
-    let old_wall = !borg_cave_floor_grid(st.cave.grid(x, y));
 
     // Analyze know information about grid
     if engine::feat_is_shop(g.f_idx as i32) {

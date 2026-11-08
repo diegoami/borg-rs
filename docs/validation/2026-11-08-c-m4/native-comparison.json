@@ -1,0 +1,588 @@
+{
+ "consumer_pin": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
+ "before_source": "3211e91 (4.2.6-impact-v3)",
+ "after_source": "a9bfd80",
+ "fixtures": {
+  "brand-need": {
+   "normal:brand": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "need_brand=20",
+     "log_sha256": "29dcb9c6dea2d8f49a3281b3cbcc9a306e279da27449ffa74e8b3848e695d22b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "need_brand=10",
+     "log_sha256": "05a06b4327fbd6aa0a7ff8fc4fe5be2fb6cdf914a72fbb574378df78bfbd57d1"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "need_brand=0",
+     "log_sha256": "93cc5e4bc79f91067da901bd8fc5a5d15ab1284be2879f39d3a3cb91c3bd4bba"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "need_brand=0",
+     "log_sha256": "93cc5e4bc79f91067da901bd8fc5a5d15ab1284be2879f39d3a3cb91c3bd4bba"
+    }
+   }
+  },
+  "stairtrack": {
+   "normal:known": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "before=1 after=2",
+     "log_sha256": "0dbd3f2f22407b800a025ad7244987014e89fc616561a403fe4fecf158f34878"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "before=1 after=1",
+     "log_sha256": "cec0c5f56ef75d665113b369bc2d439f4d3dd27f03e17e2c17b4b501597b5784"
+    }
+   },
+   "normal:fresh": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "before=0 after=1",
+     "log_sha256": "f5c4269d0a0e12be2f7edadb776d51ed0931e00887f4dff573467b413d7fd0fe"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "before=0 after=1",
+     "log_sha256": "f5c4269d0a0e12be2f7edadb776d51ed0931e00887f4dff573467b413d7fd0fe"
+    }
+   }
+  },
+  "acidarc": {
+   "normal:edge": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast=0",
+     "log_sha256": "45e925dfc9a4083d46930dd9758ba9b31bdd0bd92ea582575d6c55ede5a7245f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=17 cast=1",
+     "log_sha256": "d4a00b98dba31e73221527c4e52f2ffefcd134729b7913cd573a16ce5460d079"
+    }
+   },
+   "normal:near": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=15 cast=1",
+     "log_sha256": "317a0a2c1733ed2f859d76db2f4b6133db4ed8cc25eb078a6cd88ca2239f1999"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=15 cast=1",
+     "log_sha256": "317a0a2c1733ed2f859d76db2f4b6133db4ed8cc25eb078a6cd88ca2239f1999"
+    }
+   },
+   "normal:empty": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast=0",
+     "log_sha256": "25656ae8a753346fcab686808e401738ad62903542f283e1709a0fcc184dfa1c"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast=0",
+     "log_sha256": "25656ae8a753346fcab686808e401738ad62903542f283e1709a0fcc184dfa1c"
+    }
+   }
+  },
+  "outoflight": {
+   "normal:dying": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0",
+     "log_sha256": "d49c07bf7f7c4463204bad2d48cc697131c9ea24bfae4febc6efea4d83da9d04"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=2",
+     "log_sha256": "8edbc2e833ec04d1b4c54f67ee2de72fe2bd4b142e5cf37268e34c754b11526c"
+    }
+   },
+   "normal:lit": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0",
+     "log_sha256": "a7be42397c6a0ecfdcb79ecd357ba671c11f328fec1c27e8fcb4b3404081c7f3"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0",
+     "log_sha256": "a7be42397c6a0ecfdcb79ecd357ba671c11f328fec1c27e8fcb4b3404081c7f3"
+    }
+   },
+   "normal:everburn": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0",
+     "log_sha256": "d1cddb75cb98b838d4ea83a7690ca19f1ae348ff7b4a8c04ec3d02ba95ecb43e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0",
+     "log_sha256": "d1cddb75cb98b838d4ea83a7690ca19f1ae348ff7b4a8c04ec3d02ba95ecb43e"
+    }
+   },
+   "normal:dead": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=2",
+     "log_sha256": "fd481a0ecc9c1aad374e3afeada1f9df5b023ecf056aa10e497497a4d715b5fb"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=2",
+     "log_sha256": "fd481a0ecc9c1aad374e3afeada1f9df5b023ecf056aa10e497497a4d715b5fb"
+    }
+   }
+  },
+  "mapwall": {
+   "normal:door-close": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=0 flow255=0",
+     "log_sha256": "d9947bff09b68b0e2858abee3fdc74a238231d4f512c2c9cb499a40a6c3342ce"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=1 flow255=1",
+     "log_sha256": "c953f683d03a0831a94b3cb5bd6935597dd972bbd79df638bc6b95058059adbb"
+    }
+   },
+   "normal:door-open": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=0 flow255=0",
+     "log_sha256": "933dd5d5b9b0bc3fd67a0a4a6516cea282de4281de96dd51d3a620133a987dc5"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=1 flow255=0",
+     "log_sha256": "45d0e7dbba74720a68990e4c61fe10a9cb24453ecfa0e63078ce3637d4c77efb"
+    }
+   },
+   "normal:no-change": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=0 flow255=0",
+     "log_sha256": "5be488375ec26d1d51d3b30be5387fd3d3b3087ce5f8c6b521d53c72f6112756"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "invalidated=0 flow255=0",
+     "log_sha256": "5be488375ec26d1d51d3b30be5387fd3d3b3087ce5f8c6b521d53c72f6112756"
+    }
+   }
+  },
+  "enlightenment": {
+   "normal:dungeon": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "31f0a947da53f4c25111f2d3e33600a4c6da732f7f63f12f11689e978d19f2c1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=1 stairs_feat=6 native_stairs=6 hp=421",
+     "log_sha256": "48282685ab4617d8163faca964b9991353d8fdc72015ce9ed82c3d44a80dab15"
+    }
+   },
+   "normal:town-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "f03d46768a546ec7e6349f7dbda2960b3bd97a5251b155751704121842e19a3a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "f03d46768a546ec7e6349f7dbda2960b3bd97a5251b155751704121842e19a3a"
+    }
+   },
+   "normal:unknown-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ee34411bed65df6859a722ad6ac870f4b9900cd63a3bd645f7d6adcf0ddda65"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ee34411bed65df6859a722ad6ac870f4b9900cd63a3bd645f7d6adcf0ddda65"
+    }
+   },
+   "normal:unrelated-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "5150925a4306c1285d4641f78809b1094920b00a2c5b145a432d3942d6ebb3f0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "5150925a4306c1285d4641f78809b1094920b00a2c5b145a432d3942d6ebb3f0"
+    }
+   },
+   "normal:augmentation-dungeon": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ade238057cdd2f8392fea9bc28cddf603e275c243754613d12d605d3991a445"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ade238057cdd2f8392fea9bc28cddf603e275c243754613d12d605d3991a445"
+    }
+   },
+   "normal:augmentation-town": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "b58689625f5d0714073efdbdb14ecdee7d6aa261873528547be5e10573bf9953"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "b58689625f5d0714073efdbdb14ecdee7d6aa261873528547be5e10573bf9953"
+    }
+   },
+   "asan:dungeon": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "31f0a947da53f4c25111f2d3e33600a4c6da732f7f63f12f11689e978d19f2c1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=1 stairs_feat=6 native_stairs=6 hp=421",
+     "log_sha256": "48282685ab4617d8163faca964b9991353d8fdc72015ce9ed82c3d44a80dab15"
+    }
+   },
+   "asan:town-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "f03d46768a546ec7e6349f7dbda2960b3bd97a5251b155751704121842e19a3a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "f03d46768a546ec7e6349f7dbda2960b3bd97a5251b155751704121842e19a3a"
+    }
+   },
+   "asan:unknown-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ee34411bed65df6859a722ad6ac870f4b9900cd63a3bd645f7d6adcf0ddda65"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ee34411bed65df6859a722ad6ac870f4b9900cd63a3bd645f7d6adcf0ddda65"
+    }
+   },
+   "asan:unrelated-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "5150925a4306c1285d4641f78809b1094920b00a2c5b145a432d3942d6ebb3f0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=0 potions_spent=0 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "5150925a4306c1285d4641f78809b1094920b00a2c5b145a432d3942d6ebb3f0"
+    }
+   },
+   "asan:augmentation-dungeon": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ade238057cdd2f8392fea9bc28cddf603e275c243754613d12d605d3991a445"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "9ade238057cdd2f8392fea9bc28cddf603e275c243754613d12d605d3991a445"
+    }
+   },
+   "asan:augmentation-town": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "b58689625f5d0714073efdbdb14ecdee7d6aa261873528547be5e10573bf9953"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used=1 potions_spent=1 stairs_known=0 stairs_feat=0 native_stairs=6 hp=421",
+     "log_sha256": "b58689625f5d0714073efdbdb14ecdee7d6aa261873528547be5e10573bf9953"
+    }
+   }
+  },
+  "stairreturn": {
+   "normal:stairs-dead-torch": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=1 stairkey=1",
+     "log_sha256": "57f969101514a96c70e0694b6981d5e5fec1327a125250f97bc0809a30b2be6b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=1 stairkey=1",
+     "log_sha256": "e95cd777e31821b9662361eb1d879c1699135c27064be8d73aa51ace0e5e9263"
+    }
+   },
+   "normal:lit": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 stairkey=0",
+     "log_sha256": "bee0cf489d2150f7dab5ec4712ea7ecbba9198bbd81a6971789dfa91c8e34c56"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 stairkey=0",
+     "log_sha256": "bee0cf489d2150f7dab5ec4712ea7ecbba9198bbd81a6971789dfa91c8e34c56"
+    }
+   },
+   "normal:dead-no-stairs": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 stairkey=0",
+     "log_sha256": "5bf2d437cc558573d85f3d0f7a8e958013c3e636eb7f0daf892e825c1ca413fc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 stairkey=0",
+     "log_sha256": "5bf2d437cc558573d85f3d0f7a8e958013c3e636eb7f0daf892e825c1ca413fc"
+    }
+   }
+  },
+  "blowname": {
+   "normal:default": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "f5be3418ceb886fe013f95aabf0f803a7e10437fb8e73340c7e15652aa845428"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "eeb1bdd713bb0fe99989a6e0b9be3d07a21ac1b6334caf6112d313a263db0bfe"
+    }
+   },
+   "asan:default": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:470 in strcmp",
+     "outcome": null,
+     "log_sha256": "88e68c7f7391c9eab3e61e5fefddcef779346ebeb9b8027517ac369ca0c8bc54"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:470 in strcmp",
+     "outcome": null,
+     "log_sha256": "54cda6c751a31b6fae0bcc7acd313374606e6639585611cdb1a2331c6b142723"
+    }
+   }
+  }
+ },
+ "totals": {
+  "modes": 24,
+  "before_pass": 15,
+  "after_pass": 24,
+  "fail_to_pass": 9,
+  "pass_both": 15
+ }
+}
