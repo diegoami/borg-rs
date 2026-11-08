@@ -36,5 +36,11 @@
         "result": "3/3 keys/messages/state/summary/full-save comparisons pass"
       }
     }
+  },
+  "input_identity": {
+    "parallel_checks": 40,
+    "read_errors_fail_closed": true,
+    "receipt": "identity-check.json",
+    "log_sha256": "f64c2605b8b1eb67aef80e1d12f8d09d7fa3d00c0901ce4c9c901a38d08fa4c4"
   }
 }

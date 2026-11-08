@@ -117,3 +117,12 @@ and binds preserved images using `--baseline-ref`/`--measurement-ref`.
 Its current paths select the retained M2 plan, fixtures and measured outputs.
 These checks do not establish whole-private-Borg equivalence, new coverage
 percentages, survival improvement, milestone acceptance or a tag decision.
+
+
+Final concurrent source verification exposed a temporary-file warning and a
+blob-read error that the old process-substitution pipeline failed to propagate.
+Input hashing now uses atomic unique temporary directories and checks blob
+reads directly. Forty concurrent C/Rust hashes match independent committed-tree
+hashes; a forced read failure returns no hash and a failing status. The already
+recorded build identities match those same tree hashes. This tool-only repair
+changes no game code or input-hash format; see [check](identity-check.json).

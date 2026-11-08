@@ -1,0 +1,14 @@
+{
+  "expected": {
+    "c": "602c00d456b2091dd64f8ffb516310c9cd2b9621a7d8a4fedc8b8f1e25cb7e3b",
+    "rust": "8c526f1b34b7a4f35e6a229f727366d924c7f915742e49f44f5ca059e3c11639"
+  },
+  "parallel_checks": 40,
+  "read_error_rejected": true,
+  "failed_read_returncode": 123,
+  "pre_fix_observation": {
+    "warning": "fatal: could not open .rs for reading",
+    "parallel_commands_returned_success_with_incorrect_hashes": true,
+    "recorded_build_ids_match_independent_committed_tree_hashes": true
+  }
+}
