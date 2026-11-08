@@ -675,25 +675,6 @@ fn borg_notice_ammo(st: &mut BorgState, slot: i32) {
             }
         }
     } /* Ammo Power > 3 */
-
-    /* Only enchant ammo if we have a good shooter,
-     * otherwise, store the enchants in the home.
-     */
-    if t(st, BI_AMMO_POWER) < 3 {
-        return;
-    }
-
-    /* (C counts the brand need a second time here, C bug 48) */
-    if (equips!(st, firebrand) || borg_spell_legal_fail(st, BRAND_AMMUNITION, 65))
-        && item.iqty >= 5
-        /* Skip artifacts and ego-items */
-        && item.art_idx == 0
-        && item.ego_idx == 0
-        && item.ident
-        && i32::from(item.tval) == t(st, BI_AMMO_TVAL)
-    {
-        tr(st)[BI_NEED_BRAND_WEAPON] += 10;
-    }
 }
 
 /// don't give credit for perm-cursed non-artifacts (`cursed_nonartifact`)

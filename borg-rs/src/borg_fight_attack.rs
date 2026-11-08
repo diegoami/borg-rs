@@ -295,15 +295,13 @@ const MONBLOW: [(Option<&[u8]>, u32); 31] = [
 
 /// What effect does a blow from a monster have? (`borg_mon_blow_effect`)
 ///
-/// *HACK* must match code in mon-blows.c. C compares the name with every
-/// entry, including the NULL end entry, so a name that is not in the table
-/// would crash in `strcmp`; Rust panics there (every name in
-/// blow_effects.txt is in the table).
+/// *HACK* must match code in mon-blows.c. The search stops before the
+/// NULL end entry, so an unknown name gives `MONBLOW_NONE`.
 pub fn borg_mon_blow_effect(name: &[u8]) -> i32 {
-    for (n, val) in MONBLOW {
-        let n = n.expect("borg_mon_blow_effect: strcmp with the NULL end entry");
+    for (n, val) in &MONBLOW[..MONBLOW.len() - 1] {
+        let n = n.expect("borg_mon_blow_effect: only the end entry is NULL");
         if name == n {
-            return val as i32;
+            return *val as i32;
         }
     }
     MONBLOW_NONE as i32
@@ -1704,8 +1702,8 @@ fn borg_launch_bolt_at_location(
     }
 
     /* Check monsters and objects in blast radius */
-    for ry in (y2 - rad)..(y2 + rad) {
-        for rx in (x2 - rad)..(x2 + rad) {
+    for ry in (y2 - rad)..=(y2 + rad) {
+        for rx in (x2 - rad)..=(x2 + rad) {
             /* Bounds check */
             if !engine::square_in_bounds(rx, ry) {
                 continue;
@@ -2005,8 +2003,8 @@ fn borg_launch_arc_at_location(st: &mut BorgState, y: i32, x: i32, degrees: i32,
 
     /* Check monsters and objects in blast radius and on the arc */
     /* for an arc, blast radius starts at player */
-    for ry in (y1 - max)..(y1 + max) {
-        for rx in (x1 - max)..(x1 + max) {
+    for ry in (y1 - max)..=(y1 + max) {
+        for rx in (x1 - max)..=(x1 + max) {
             /* Bounds check */
             if !engine::square_in_bounds(rx, ry) {
                 continue;

@@ -1076,9 +1076,12 @@ pub fn borg_use_things(st: &mut BorgState) -> bool {
         /* Process "force" items */
         match u32::from(item.tval) {
             TV_POTION => {
-                /* Check the scroll */
+                /* Check the potion */
                 if sval == st.item_val.sv_potion_enlightenment {
-                    /* Never quaff these in town (and nothing else either) */
+                    /* Never quaff these in town */
+                    if st.borg.tr(BI_CDEPTH) != 0 && borg_quaff_potion(st, sval) {
+                        return true;
+                    }
                 } else if sval == st.item_val.sv_potion_inc_all {
                     /* Try quaffing the potion */
                     if borg_quaff_potion(st, sval) {

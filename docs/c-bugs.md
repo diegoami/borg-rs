@@ -16,6 +16,10 @@ grid in `borg_projectable_pure()`, glow-array bound in `borg_flow_light()`,
 trapped walls counted once in `borg_surrounded()`, both lunal flags cleared
 on the town/weak scum bail) are listed in that batch's ledger.
 
+The milestone4 carries in [adoption/c-m4](adoption/c-m4/README.md)
+(better-borg-c `70993393a`, [Rust#11](https://github.com/diegoami/borg-rs/issues/11))
+are marked with "Milestone4" bullets in the same way.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -352,6 +356,8 @@ with its issues.
 * Rust: milestone2/source77 corrects CCW timing, and source78 includes both
   ring slots in both readiness and activation. Other findings remain in
   `borg_item_use.rs`.
+* Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source81 quaffs a recognised Enlightenment potion in
+  the dungeon (never in town), in C and Rust.
 ## 21. Equipment swaps and the "best" list (item wear)
 
 * `borg-item-wear.c`, found by code reading.
@@ -1092,6 +1098,8 @@ with its issues.
   and so are a detection panel index outside the arrays and a queued
   `SPELL_` message without a ':' (C reads through `NULL + 1`; every
   message the Borg queues has one).
+* Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source212 takes `old_wall` before the feature is
+  overwritten, so wall/door changes reach the flow/view updates (C and Rust).
 * Tracker: one lead per slip, in the order above (the `created_traps` /
   `BLINK:` bullet is two):
   diegoami/neo-angband-tracker#212 to diegoami/neo-angband-tracker#221.
@@ -1146,6 +1154,10 @@ with its issues.
   `borg_feeling_stuff` outside 0..11 panics in
   `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
   grid outside the map panics (C reads outside `borg_grids`).
+* Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source229 lets a dying fuelled light (timeout <= 3,
+  not `NO_FUEL`) start the maneuvers; source230 returns after queuing `<`;
+  source232 `break`s the known up-stair loop (the `borg-think-dungeon.c`
+  copies are unchanged).
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#229 to diegoami/neo-angband-tracker#236.
 
@@ -1176,6 +1188,7 @@ with its issues.
   (same byte). Out-of-range table indexes (a negative stat index, a book
   number of -1, level 0 for `player_hp[lev - 1]`) panic where C would
   read or write out of bounds; none is reachable with valid game data.
+* Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source240 removes the duplicate brand-ammo count.
 * Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source239 or-accumulates slay traits and sets the
   `BI_WK_*` traits for multipliers of 5 or more; source238 adds the light
   modifier once; source313 weighs one weapon in `borg_calc_blows()`.
@@ -1294,6 +1307,9 @@ with its issues.
   use 20.
 * Rust (`borg_fight_attack.rs`): all kept; the out-of-bounds reads and
   writes are panics.
+* Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source247 stops the blow-name search before the NULL
+  end entry; source252 includes the south/east edges in the ball and arc
+  blast loops.
 * Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): corrected in C and Rust — Dispel Life hurts only
   living monsters (source248); dispels/beams no longer collect or break
   as `rad == 10` bolts and a no-target launch returns 0 (source326); the

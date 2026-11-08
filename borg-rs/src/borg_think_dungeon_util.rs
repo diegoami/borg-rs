@@ -53,6 +53,7 @@ use crate::borg_headers::borg_trait_h::{
     BI_MAXDEPTH, BI_MAXSP, BI_PREP_BIG_FIGHT, BI_QUIVER_SLOTS, BI_RECALL, BI_REG,
     BI_SAURON_DEAD,
 };
+use crate::headers::list_object_flags_h::OF_NO_FUEL;
 use crate::headers::list_options_h::OPT_birth_force_descend;
 use crate::headers::list_terrain_h::{
     FEAT_BROKEN, FEAT_FLOOR, FEAT_GRANITE, FEAT_LESS, FEAT_MAGMA, FEAT_MAGMA_K, FEAT_MORE,
@@ -196,10 +197,9 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
         return true;
     }
 
-    if !(st.borg.tr(BI_LIGHT) == 0
-        && (st.borg.tr(BI_LIGHT) <= 0 || st.items.items[inven_light()].timeout <= 3)
-        && st.borg.tr(BI_CDEPTH) >= 1)
-    {
+    let light = &st.items.items[inven_light()];
+    let dying = light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);
+    if !((st.borg.tr(BI_LIGHT) == 0 || dying) && st.borg.tr(BI_CDEPTH) >= 1) {
         /* Nothing to do */
         return false;
     }
@@ -240,13 +240,16 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
         return true;
     }
 
-    /* Test for stairs (C queues '<' and goes on: C bug 47) */
+    /* Test for stairs */
     if !engine::player_opt(OPT_birth_force_descend)
         && feat_at(st, st.borg.c.x, st.borg.c.y) == FEAT_LESS
     {
         /* Usable stairs */
         borg_note(st, "# Testing for stairs .");
         borg_keypress(st, key(b'<'));
+
+        /* Done */
+        return true;
     }
 
     /* If on a glowing grid, got some food, and low mana, then rest here */
@@ -515,10 +518,19 @@ pub fn borg_think_stair_scum(st: &mut BorgState) -> bool {
     }
 
     if feat == FEAT_LESS && feat_at(st, ax, ay) != FEAT_LESS {
-        /* Check for an existing "up stairs": C's loop `continue`s instead
-         * of `break`ing, so it always ends at the end of the list (C bug
-         * 47) */
-        let i = i32::from(st.stairs.less.num).max(0);
+        /* Check for an existing "up stairs" */
+        let mut i = 0;
+        while i < i32::from(st.stairs.less.num) {
+            /* We already knew about this one */
+            /* (break, like the down-stair loop above: continuing past a
+             * match re-adds the known staircase as a duplicate) */
+            if st.stairs.less.x[i as usize] == st.borg.c.x
+                && st.stairs.less.y[i as usize] == st.borg.c.y
+            {
+                break;
+            }
+            i += 1;
+        }
 
         /* Track the newly discovered "up stairs" */
         track_stair(st, Stairs::Less, i);

@@ -1,0 +1,160 @@
+{
+  "consumer_pin": "70993393a1c946ce8cd38ee558bf1ce6464350e7",
+  "previous_consumer_pin": "702f091f6ac06cae1014df2f85ac218be0189813",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "brand-need",
+      "patch": "0035",
+      "source_issue": 240,
+      "consumer_issue": 133,
+      "evidence_commit": "d9a848a8e89e0a0e7843c44e699631fb0ee392fc",
+      "evidence_path": "docs/audit/c-reports/brand-240/scenario.c",
+      "original_sha256": "95dad6409ae84c7c0d4bde635674d9c88b703d5b24021ffbcc4053713726d115",
+      "scenario_sha256": "95dad6409ae84c7c0d4bde635674d9c88b703d5b24021ffbcc4053713726d115",
+      "env_prefix": "N240",
+      "marker": "native-c/brand-240 finished: 1/1 passed",
+      "modes": [
+        "brand",
+        "control"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "stairtrack",
+      "patch": "0036",
+      "source_issue": 232,
+      "consumer_issue": 137,
+      "evidence_commit": "07a71c16084398643ac09da9cc56e3b2b5b6ea6b",
+      "evidence_path": "docs/audit/c-reports/stairtrack-232/scenario.c",
+      "original_sha256": "aa241be68fe334dd07e2453da2ccb8c4c76b58ff5fc6c93a2b443146a231ca3c",
+      "scenario_sha256": "aa241be68fe334dd07e2453da2ccb8c4c76b58ff5fc6c93a2b443146a231ca3c",
+      "env_prefix": "T232",
+      "marker": "native-c/stairtrack-232 finished: 1/1 passed",
+      "modes": [
+        "known",
+        "fresh"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "acidarc",
+      "patch": "0037",
+      "source_issue": 252,
+      "consumer_issue": 141,
+      "evidence_commit": "e40c642a0a7906d8d9caadb803ed6a5adb70bbc5",
+      "evidence_path": "docs/audit/c-reports/acidarc-252/scenario.c",
+      "original_sha256": "7520ce3da98aea7f9b3de83209e9e7e8947766009dde76d128830a3fbf9a6762",
+      "scenario_sha256": "7520ce3da98aea7f9b3de83209e9e7e8947766009dde76d128830a3fbf9a6762",
+      "env_prefix": "AC252",
+      "marker": "native-c/acidarc-252 finished: 1/1 passed",
+      "modes": [
+        "edge",
+        "near",
+        "empty"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "outoflight",
+      "patch": "0038",
+      "source_issue": 229,
+      "consumer_issue": 144,
+      "evidence_commit": "e1638569ea292812dd6633e3968b99f78c18c2f4",
+      "evidence_path": "docs/audit/c-reports/outoflight-229/scenario.c",
+      "original_sha256": "dc0d53e252e5382a73fcd6a14f09a04150799624bf7986f68a763ffd880ac03b",
+      "scenario_sha256": "dc0d53e252e5382a73fcd6a14f09a04150799624bf7986f68a763ffd880ac03b",
+      "env_prefix": "OL229",
+      "marker": "native-c/outoflight-229 finished: 1/1 passed",
+      "modes": [
+        "dying",
+        "lit",
+        "everburn",
+        "dead"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "mapwall",
+      "patch": "0039",
+      "source_issue": 212,
+      "consumer_issue": 148,
+      "evidence_commit": "9fe10e42709c480e7b09c8472f9205b9281d6a1c",
+      "evidence_path": "docs/audit/c-reports/mapwall-212/scenario.c",
+      "original_sha256": "0289086d572e648d81ad74ceff80e5f01fc197df9c7c6d8eeb20a101fcbae897",
+      "scenario_sha256": "0289086d572e648d81ad74ceff80e5f01fc197df9c7c6d8eeb20a101fcbae897",
+      "env_prefix": "MW212",
+      "marker": "native-c/mapwall-212 finished: 1/1 passed",
+      "modes": [
+        "door-close",
+        "door-open",
+        "no-change"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "enlightenment",
+      "patch": "0040",
+      "source_issue": 81,
+      "consumer_issue": 157,
+      "evidence_commit": "8eb4b9951cdd8a3cc3a702ce0109643dba1f98f1",
+      "evidence_path": "docs/audit/c-reports/CBUG-0065/scenario.c",
+      "original_sha256": "27ff848a032a717d22012124a87c618f6a8098777efb4e95b052f3cee3736cc6",
+      "scenario_sha256": "27ff848a032a717d22012124a87c618f6a8098777efb4e95b052f3cee3736cc6",
+      "env_prefix": "CBUG0065",
+      "marker": "native-c/CBUG-0065 finished: 1/1 passed",
+      "modes": [
+        "dungeon",
+        "town-control",
+        "unknown-control",
+        "unrelated-control",
+        "augmentation-dungeon",
+        "augmentation-town"
+      ],
+      "sanitizer": "asan",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "stairreturn",
+      "patch": "0041",
+      "source_issue": 230,
+      "consumer_issue": 167,
+      "evidence_commit": "484c534d59c47a4a84273b7651b0c483cf8b5b67",
+      "evidence_path": "docs/audit/c-reports/stairreturn-230/scenario.c",
+      "original_sha256": "4652253c1fcc1932a6b2457c5fe60aa0aec47f1bfe81a3130d7fb04bc54e45b7",
+      "scenario_sha256": "4652253c1fcc1932a6b2457c5fe60aa0aec47f1bfe81a3130d7fb04bc54e45b7",
+      "env_prefix": "SR230",
+      "marker": "native-c/stairreturn-230 finished: 1/1 passed",
+      "modes": [
+        "stairs-dead-torch",
+        "lit",
+        "dead-no-stairs"
+      ],
+      "sanitizer": null,
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    },
+    {
+      "name": "blowname",
+      "patch": "0042",
+      "source_issue": 247,
+      "consumer_issue": 176,
+      "evidence_commit": "eea8f6e1cc24ef72fb0dc07ff6df888e100bf3f9",
+      "evidence_path": "docs/audit/c-reports/blowname-247/scenario.c",
+      "original_sha256": "dc2508bd0d3431a7592b2246cfe6b1a9f0cf1f36d532f31148dfb34fb4d39ca4",
+      "scenario_sha256": "dc2508bd0d3431a7592b2246cfe6b1a9f0cf1f36d532f31148dfb34fb4d39ca4",
+      "env_prefix": "BW247",
+      "marker": "native-c/blowname-247 finished: 1/1 passed",
+      "modes": [
+        "default"
+      ],
+      "sanitizer": "asan",
+      "asan_options": "halt_on_error=0:detect_leaks=0",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47"
+    }
+  ]
+}

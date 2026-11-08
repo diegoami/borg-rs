@@ -45,12 +45,14 @@ def main():
     p.add_argument('--rust', type=Path, default=out / 'g-rust')
     p.add_argument('--output', type=Path, default=out / 'matrix.json')
     p.add_argument('--faults', type=Path, default=out / 'faults', help='per-fix Rust fault-control runs')
+    p.add_argument('--reference', type=Path, default=REF,
+                   help='previous-target case directories (default: committed milestone2 reference)')
     args = p.parse_args()
     cases = [line.split()[0] for line in args.plan.read_text().splitlines()
              if line.split('#', 1)[0].strip()]
     rows, parity, changed, missing = {}, 0, [], []
     for name in cases:
-        c, r, ref = args.c / name, args.rust / name, REF / name
+        c, r, ref = args.c / name, args.rust / name, args.reference / name
         row = {}
         if not (c / 'summary.json').exists() or not (r / 'summary.json').exists():
             row['missing'] = True
