@@ -59,7 +59,10 @@ remain truthful, with final effective source hashes rather than relabelled IDs.
 - Existing native checker:30,000 calculator, two2,000-state spatial/combat
   batches,2,600 glyph and1,280 lunal states,12fault controls, C UBSan and its
   clippy pass. Rust release100pass/one existing ignored; production all-target
-  release clippy, no-C-Borg/link audit, Python compilation and whitespace pass.
+  release clippy, no-C-Borg/link audit and Python compilation pass. Authored
+  production/tool changes pass the whitespace check; byte-exact imported patch
+  context/signatures and fixture/config files retain their original whitespace
+  and are explicitly excluded from that formatting-only check.
   No old whole-game coverage percentage is inherited.
 
 ## Retained failures and repeats
