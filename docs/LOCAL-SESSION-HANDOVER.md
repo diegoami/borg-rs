@@ -401,3 +401,15 @@ and the first ordinary nine-class cohort are assessed in the investigation
 receipt. Requested launch/backup/headless/replay tools, including GUI recording, are delivered with isolated validation receipts.
 The game-start scripts remain an additional owner topic; no further requested
 script behavior was specified. Preserve existing character saves/settings.
+
+## C milestone3 adoption (2026-11-08)
+
+Owner directed milestone3 after the milestone2 carry. Branch
+`claude/wonderful-bell-3a7j6m`, tracking borg-rs#8, record docs/adoption/c-m3,
+receipt docs/validation/2026-11-08-c-m3. 22 carries in C/Rust, 3 C-only
+calculator releases, 0025/0027 covered by local #287/#322, local #290 equality
+reset retired for the consumer guard. Native 37→62/64 (two pinned dispel-259
+reds), ASan/LSan clean after, 131/131 C/Rust parity with 79 cases changed vs
+the M2 reference, 6/22 Rust fault controls detected on a 23-case subset.
+Not merged to main; independent review and owner acceptance pending.
+Reproduction: harness/adoption/m3/README.md. Raw outputs harness/out/c-m3.

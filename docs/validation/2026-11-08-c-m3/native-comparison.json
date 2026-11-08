@@ -1,0 +1,1934 @@
+{
+ "consumer_pin": "702f091f6ac06cae1014df2f85ac218be0189813",
+ "before_source": "0bc7a09fb41a01cfbc4f5bb86b89002b074f3712",
+ "after_source": "4fe376e (build inputs)",
+ "before_objects_sha256": {
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-attack-munchkin.c.o": "f8532e9061e77f16b2c41db14046a312f6f78c2f71bd6932aad7c6c52232d022",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-caution.c.o": "d5709968665744b9700885da8de4f5f75257c393fc041b1220b8e2e55a9acf79",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-light.c.o": "4c15ecbaa07a9512e7d175999874f3cb9e8368165064c7d5ff794b97652b5f94",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-util.c.o": "ce8144eb412069f079cfe3344de40c34821e2891f8f53b4225e68c71c0d87404",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-view.c.o": "ed25611e283ee4c6fc3bff227bacaf0282000701b85e351ade1d71638224f84b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave.c.o": "ad33aedec1f3c6b99aedd9803668030ab22bb5fc250dd0be527479dd491bf798",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-commands.c.o": "03f48587c7428db5c72fc4268c8c5073d6f9532dcf0a71c29a38f291f688ee99",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-danger.c.o": "aae4ddbf7940deb2d731f0fec88e9c504a72ec47de0bec4ced4c7d8bdd2047c8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-escape.c.o": "6ca3f4d82348d8c93440225bd530e061d200c6321d2451467c247699c510625d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-attack.c.o": "80c429b045d75d88a767b434ff9395e6aa69792258e4433e35d931f84e1f7ed5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-defend.c.o": "48b3f9d78963a75c2a5fdfebedae8f9d6bedb3878d880c51cbb984ff59ef2a64",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-perm.c.o": "7ffbf6a9c4f91b0c068368c6222d5a3116b38677b745f77ba2f3f89a94f9730e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-dark.c.o": "7ab4ad691c7ea65f344ca656e5e865449fce65c0bdec886fae62a053dd57585a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-glyph.c.o": "07a72b3e8798fba441f7b741159fbd65e689a4dfa459d6545934ed1014161a3e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-kill.c.o": "dcf98498ec8d9760caaffcef9e08772fcee26073eb42c40c992c03c2ffbc0ec3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-misc.c.o": "b6714e6e934b7f0b7cc4f1ac240490556dc4a7df334384d5a132c3e9d60ce9cf",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-stairs.c.o": "31501ca748e89d0901d0027f1e875cdd940e636f97080b3884a74c17a3b9181e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-take.c.o": "219225c8174b0f9638db8f2ac43b31bcee7f3284591afa79c77e23079ef7ac6a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow.c.o": "cf4d60cf690142f45c20929407a86ff287ea8247b6870188938698201765f32c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas-calc.c.o": "394f7e7de50a1950ca686aa439f3da88ad6beaceb8c4205028acb4f2e7142f75",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas.c.o": "8e13621bf026eec2fe64998d979f8bff0caabd75de17b025f481cc05e215be90",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-notice.c.o": "f229ae40db082f2660a581b3dc37b916dafff607f39fd566fe7c22f6f4779cab",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-power.c.o": "953ad6150346f5ec6e4b00af1abe5d7c683417ca79928d38f38958a5a4abbc5a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-init.c.o": "808385005275a6a650471fa976051224895e28dcc0ee42aa5020d372cc42201e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-inventory.c.o": "3df435fbb16ceb30f66fa9dacf680bff56c50009a4134ed224fba9d886048836",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-io.c.o": "6b5655d47abd1bba7593352814df3d7e06fdfeb1d79b07811b468137eede7eed",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-activation.c.o": "736f6edad709f00a89e37908dc4387f64f39f160f90ee32f6b41c23dae866941",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-analyze.c.o": "f0028a7793eb31bfbfee96176d621b9ae1c5275cc6a5e7563fdb361111e4c060",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-decurse.c.o": "dd005e4311c86ab88b344cc02fe8d83b0a6de24162d47575f6e043524644ef20",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-enchant.c.o": "10a441c82948bb623cba26e8708501f89a470af305b9a65c6c75e724cde3d213",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-id.c.o": "a717fbd9e0b885569d4af23bfa59498ec19f61c589be6e5ad96ba43a6e435e1b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-use.c.o": "0d5af26f64a9c17064cf207b647fc2c22c329ab6e4ff7bec4afd877c6ee67086",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-val.c.o": "7ab5b8a0b6f741942859e80bb363c744cb5360d1ef21711df4f6c9537373775a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-wear.c.o": "d59907225e98f5aa6f91aa3e9b2ca6164dfa757f68883fdd053e16ffe5b86566",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-item.c.o": "657f458de1bcc3256af6487af986735469e343b479c4c509614a4e1f4f670da1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-junk.c.o": "75ea3f999cb9896708f191558dc6da6938d1d820f36d6448b53a2f6ee55ce343",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-light.c.o": "d7fe4ca4547f0c0994338625cfdec698de37689facf5eadcc06664e71f5183f6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-log.c.o": "8095ee79b369d62681def11e7deeac5a4b75e46eaefe55aa1d5ebf23200ebcb0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic-play.c.o": "9c0416c3c1972ab59527a660b57c4efd0c5cf3cb6f0182310691dd05d8a4c90c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic.c.o": "3f296ffd2c3967959844839fa7daf6a49525ccfa6ab8cb5d7effc6f44fa5715b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages-react.c.o": "2b82ce6db383dd0b4128a7df86396421ec7c70408ce3ef00b61474444f89e779",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages.c.o": "44ce917734d5d84eff0798114178fa41018b52f4999e6073388f09bf565f3487",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-power.c.o": "387139bba0d3e6a3d7de21c82f36926fbb863694aaecef6a0a126c7b3e5225dd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-prepared.c.o": "c86658b71003fd0f4a4dfd3f83b2eba457857a3ce54d18ae5eec9ecedba13afc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-projection.c.o": "ab786e78ae20889a55119cf4580b02aa7c52a8a275ef67274dac40ba2f6e4539",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-recover.c.o": "0706a34c18c9c3f1b2d1a9a896d4fd9270d6357ec7df3603d5324d15f853d0ef",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-reincarnate.c.o": "8301e2f49bc5ff96063a09a92576939c20b9f759004d00f49ff39367972d3b9e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-buy.c.o": "b971014ea358073a17ba3ed0ac0d1a6fd5fdc01b3eed2e609726218b20e10793",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-sell.c.o": "875ea4e1e992b3f33be6ae486d6e0bf246695557f7fb152b87817b45d48b0642",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-store.c.o": "56cac336a8be21a0c7a636675aaa07714932c4e1064c9d86154681aca05812cf",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon-util.c.o": "9432b3e45b08cfdd50b9552dd5ebb35abf47f0e8d3244fef785ef13545d9ca46",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon.c.o": "dd69f4e0183cccca5dd8e04a8ac01767ee29b0eb829375aba1aaea80e00e26fc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-store.c.o": "325ba52666046393050dd6bcb6dffb9f44297b41ed8a234d6cb21aa7a5ef0d53",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-think.c.o": "3ef4afad6d5844be16cb85eda0aa450e7c0a8531c214815b520a6cb777c6f097",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait-swap.c.o": "714294ebcae9132a1881a17cc43eae98bc5539b2647937be9b859952bfa17b1c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait.c.o": "6e3e6ba6a7da9edb0e1c731c5fcb152c2644f40d3aca352fc6088f4362f7d45b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-update.c.o": "a423dce4f992df99ca22b34fde67d58f63b2e0207c78bf200dc8b28da35f2119",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg-util.c.o": "bfa87d5447b59cae5f8c9dd0f69a5f7b97a33c9c60f1d4f35ddb4eaaeec8cde1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/borg/borg.c.o": "f30c057014eeca1db8c86a645ca9f36e8427ffcf53f6b2c97ce2f5693748d75c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/buildid.c.o": "f7bec5b1c1a89facaf7e48a22a11f5a17ef3d4af230debe25a491923ee998e74",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cave-map.c.o": "a9cdbde077b92f5dc7a3ee760cfaf5a6056afc3b6e11bc274e1f18cac67e2bdc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cave-square.c.o": "649273a8b10a25ac2e3c50b19e331eb339c5fd6865be0a1e69b1e7d2f24e27ea",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cave-view.c.o": "eb5e708381f0aa8a38a7700ca8ccde2c34886459e3fb8e0b8032d48b17b7c18c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cave.c.o": "7e977906a3b6bed0284f415bbea88989b9a4c766ec9c8a2c1450e68dcfc572bd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-cave.c.o": "9a60def2549fe033742c8aaba7154f161a693f6b387eae2f5e26fd931e3cabf0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-core.c.o": "b08350824e53da93a7d2e09ec0e435ced4c4991fe09ffc50faf727e1e9263429",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-misc.c.o": "63e09294c80cba47e0a12aed653e170faad07ae6ccac0ad1738cb8f4503a8c9a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-obj.c.o": "cdab7fddd4f386d003fe82e4893e6404502796c4d945a9904e65943e4538b54a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-pickup.c.o": "2163bce514658b2285115392f86bceb72f455ea5d8b3e3a40353447acfe9404e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-spoil.c.o": "e5e96b7a1d54942c3b582bebda426313b4dd649bacb7fad96c2e58c006c84add",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/cmd-wizard.c.o": "b7b699633b9af848550cd194e75d8f8b185b3567e0ff92e68bf209fc7885d65d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/datafile.c.o": "637b8189499cd351296b37fb63b97e88fecad4ba2ee1f3081ea9c71e401f24e5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/debug.c.o": "b40c438fefedccfb6cc362e9c7eef3d40990518a46db39e1cbee94f291982736",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/effect-handler-attack.c.o": "43883f86ec5005519e81064d9e741e7c72d790166650ea6350ad5c96177f9848",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/effect-handler-general.c.o": "e808b415da953dc90cbc027162760664f4eb357fd52b60a2c5b4baa8a7abe0c5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/effects-info.c.o": "a9b576fd9eb6f048a3e9c4680cec51052e76f14ccf24ccc05a4cc12d855cd482",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/effects.c.o": "010fb3121dfd8002bfb3cd65b1344b8c58554514fa9c7f54dcf45377098e045e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/game-event.c.o": "0d8323de0e1fcec8bb9606f7b1f5a3f4077f5de631383f3edf4495319cdcdecf",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/game-input.c.o": "28e3a72d28383ccd9a4a1a00dfe026e70acd2d9cfb9ee7309e4a7c3dc134adfa",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/game-world.c.o": "326df7b4c3152d2613eef027589811b1c621b1922e167f74ee7833310e58fbcc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/gen-cave.c.o": "faaac0444245cf5e2b6570d6b494187b6f077cd21ff9bfb6bafa5b32a741b39a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/gen-chunk.c.o": "8e7bfb4a25221bb197fc415f4d9487723b79161a0443883d74ac40948bb8e4d2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/gen-monster.c.o": "bcb0d3c0193e4addb68904424d3437223ac8c0dc2bd2ba52ec52b91f608556d4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/gen-room.c.o": "4be2cc2276014b85764d834a2ddd42cac02a13b10f3b90be3a6a00356ab730a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/gen-util.c.o": "e088348c28595230ae3967b19a89e4ad11b468b5308335e1a439aaccf834a5ce",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/generate.c.o": "a98367523687f2d181baf81c49bdd65086c5a52a22c67b66b8799df9405d511e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/grafmode.c.o": "a8c625b8b98d640813946cf33454cb7473cc839f118414e54ffa40cda7fb6945",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/guid.c.o": "80e64fbaae027d0b9e6dee90f0362318523db7ff741d053b115c1b8ba4f6c0a2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/init.c.o": "8550377c82fc028872c7e574a558cc4cdd3e517640bba9f28decb52b185507a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/load.c.o": "10f4a2b9e3f4362e57f44f5c5d435155f59d64729d5f42ac475858d90fb228d9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/message.c.o": "e75f228f8743ac6be3fb4029846dcc58f7d73cc295195b00d78c5709a91e028a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-attack.c.o": "1e73ab15254cb33adff266499c8e85c65c4dbc729b76c26c954a6c1637aa4d83",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-blows.c.o": "b17ba7a1559b9f16b71960f04f6da8374f345b362e5f3c9753a46ce29731cb7e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-desc.c.o": "3e35128f496785e66a2e7f371276a08f47c6c3078d20acb10464485256193b42",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-group.c.o": "8eed7d5559bed875df7b8ed9b46d8d775a109fe31a2ed6d02f31a441b15fe9a2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-init.c.o": "919bd400e1c19539435623c5ce6ecafa8dcda2d70111e323c1c8cf05b9db6e17",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-list.c.o": "6abb2b38bb0d286a25b0b7b71bbfe6ded3309783da2e9c2cae85123c1e2905ac",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-lore.c.o": "a080de9da5b7a36cd21ba80d6ae5b75401e1b4f78b4a146707ef5bd2bd1d066a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-make.c.o": "481b10118ba248930bda958998e365f9925036e5774bd94f3c569fd74a1405dd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-move.c.o": "9b1aefb720b09ecdc779ebc932773fdf8f6d3db76039ca51f35dda7be58cf87b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-msg.c.o": "896c2ebd34ac78d12187b4b014940ccd7a75084d0637e1c60e1431752371d9b6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-predicate.c.o": "9727e84f3381e37acc100cf97c9d9e9e6f0e246ccdc09bc447c1f8b18db7102c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-spell.c.o": "c566334754714c9a0ba62212a6069d6328c45b9450c97c72b972cc5d8ff80e00",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-summon.c.o": "e96266a250ebfb855468b4ea4020279cbade2adbfa1cbcf6b9102c9acf813124",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-timed.c.o": "cee4e83c83559d0c885969d4ef76741f91214a487ae9c03102ea81f09411c69f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/mon-util.c.o": "f0c43df8b52204d4cc475a1ab4fec9f0d49ff14225ce0b6f77d7954829bdae09",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-chest.c.o": "4df6fd48b43c470dd6cfd45cc3530525b76f431bbc845d23823163209cf2fded",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-curse.c.o": "4e723a81da4f81df3df2131b1842c66418688a231e7e8fad975699683b010d92",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-desc.c.o": "69655925cbc920d650f99d6398228ed75b7f9a91e6f887c714acf2612cd34612",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-gear.c.o": "c701c68ec0d16d312f9a8075ffdd4a6ce416fb988f1ba1c841375faaf552e14f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-ignore.c.o": "2655168143148760967b26f82bb37d5cd69705380bf056e3a61bb0047de2728b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-info.c.o": "f95e0f0ab8ef10123ac7862422187a9e04277cf2629ba906f1c4c6e60d222e03",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-init.c.o": "3992169577fc1eca92bfa97ea6e158ed18b3d672842222151b85ad1c73bb4be6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-knowledge.c.o": "913e650e5f567a8ba5688c577bd9e9767343533e3de4fa15c2a0db2347b2558e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-list.c.o": "0cd1926d36af73d022d99e12abb63a51a63eb2bf778b230d7fdbcd0d9921f1ee",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-make.c.o": "db447d340bbad090743866e604432dca2e32ea330294cd1d376b9047a2e5181b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-pile.c.o": "64ef74676fbde7ad0817a192a314f0e7f6a968470a864cc30da17219f6363001",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-power.c.o": "fc9aa59764b73cfb1a4dded0ecae057b933ed04ab748f9c7db86d41341409af1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-properties.c.o": "990fb37bcff31101e93226eabc8c6fb39fe2a397fefe0a78ab19657ffbac251d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-randart.c.o": "4f822bf0ce3300b4668210a8d5a6144a2cf44f6aa2cf307da013a37f16785687",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-slays.c.o": "7d54079a4eccd94bba12083e5dc5fc36778af9c75a3f2691d8d3b1eac8cb4725",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-tval.c.o": "ad4469cb8a909fa84d325afc98a58d5019ab197fa9af30b66ffa3fefc538e9b5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/obj-util.c.o": "f5761e9e0ac90b59285e3939c86b0f4d196ad512ba7e6e19b2c484042001155f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/option.c.o": "c9bf074a5b7ae89a006f85998ce58535ea49b4ef910f21795569aaebc32045c1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/parser.c.o": "c83c41a6d3c76a821c377326bc168177b3d56c535c27488c77b6ad71960d927b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-attack.c.o": "fb3a85f0722a36ca64daf04533deec0f70e65778244bfcbce180f31bb1964a9e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-birth.c.o": "ea39ab72fcde6009bb62222e75538575fc64f0cf6a1e5d04c20af2c07d3e9041",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-calcs.c.o": "941a5010df6344f5b1d1c3f08ac14b1d3b64127c9dfb8d708e7d976effa9899a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-class.c.o": "b80217b3a54c5735cc197a9ba370391d64dde63eb56cb7996d57d92b02051a45",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-history.c.o": "81acf05555d042de6d5478e97f6dcf183a37326da8965e9e0cb7c31d3491af55",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-path.c.o": "f963f3f68b347698a999ff9616b1f20a1eb9f982d36d4ae1160fb5c25c789971",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-properties.c.o": "89feafbfaa7178161d3c733390addd89f8020141eeda0e9b86290cace4179775",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-quest.c.o": "6310af0477c63ce1d49c6b7bd6ebccfd56b8a39424874d582e2d0000bf892d37",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-race.c.o": "8d2e368963e754bab1baf496840b1f5c9182a70be057b9b90696ae74c1947716",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-spell.c.o": "d693d2dff9a9942ad95222cdf93d3920567dc9ba79b279ca6f56c83b27278da4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-timed.c.o": "8c910d2147d8c9b748c5b5e7a1129ef2d32259f2b0648786da8694a5f51090f6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player-util.c.o": "fefeeea8046ff6c58f8b0cef6e5168bca49dcb426d68cbd31dcfc98b4fc5801f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/player.c.o": "bab5658293659eaf4eb272763cbc90b0693341b7119cff85b96921116720a74a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/project-feat.c.o": "c7add8de9b052c14139565e1e4e512d9983a08f1e03690e8acbe019cb62b3604",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/project-mon.c.o": "221c5b53a12d6912882091fe31bcb74fd296524aa7be753b9848725601dd9222",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/project-obj.c.o": "d058f5a06d6c160e87b5404abfc4c775ab5ea0e8a3d4afd98025cc6824fb042c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/project-player.c.o": "917726263b96f705018b9e9cc4683483ebf685b8f10856503a07cc9aa4004b48",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/project.c.o": "6f636401a2671080073c04dc90cc48c3934b9282bdbeb491e6ea5f930826dae8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/randname.c.o": "680c88f7ecd8a40940e64a76917ed513c29ae42cb673e2d470af19f7908fd982",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/save-charoutput.c.o": "1c5042cd6992101141c19c5f92237f66328fa3fa99f251fca1592cf406c606b9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/save.c.o": "3a1e4729d153e1188ca544b314d066329d48698d7e5cba43c00ea4144f68c598",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/savefile.c.o": "e685a3c211dc5ce1f1cf2c5cd6ec718b9a3e46a2f9d836cb702e09b9c0c7f5b3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/score-util.c.o": "a10c76681aed69eb094a6bec887afa1b81aef2ecc96e425314c720a5dfd2dc27",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/score.c.o": "179b30d41b7801e95bd4c1349b0fdc458f86d3afd59c54a5a052e2fd5d1861d2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/sound-core.c.o": "56ec9a0cb9a79cb30c9eef42afab04af2e45dfca07c49b27c4445ecad2f5dbd7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/source.c.o": "940fbac69b5e950ead51a072de88cb2042024ea05535d65215c554f54cbfa144",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/store.c.o": "c9c56ad78da52cef0152ae1bc421b583414590309b16b1c9f2a05e58b7e622af",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/target.c.o": "b8fadda578c315cb0af7ec382507d05a974a4ceb47fd801d635fff8fca878c9d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/trap.c.o": "930151aa734ddf6574a6c2c493a2df09b252ed239051bc1bf6ba4909f2ca8449",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-birth.c.o": "17407e54af7f62fdbee49863e082768c359eb42c28ab2162333a8565abaabb41",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-command.c.o": "e9a3a7cd914334eca3892e0399f63989403571308d89decbf639c48627f77684",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-context.c.o": "c23b45f99284f76da4172cf767ed56066c35494cf451c2b25db521b879bfde92",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-curse.c.o": "469898638c933ee063ccc101f03a3a42ec2d78e58b173c53a21f6f7769047f78",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-death.c.o": "09f13fc3ecdb38c7533b15155a1adf0c3b0d98cc3f1211fd232188e23e997434",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-display.c.o": "2271682fa57b4b2edeb2c26c1e8a4cd384cccd804e3a78b6a6c4bfaf6ab35c21",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-effect.c.o": "e0d29bc379e0cd5982336084b8ac2d03db469df03a99e4222069ce2b573c70a1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-entry-combiner.c.o": "6e1d2e249969da29b270a06a4e305ed6ba4dda3b2b3471bf68597c6f4765c207",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-entry-renderers.c.o": "3095490b23e7e9bafd5bd07898006ee5b1da7523336c8aa91a08d3064a0d62b2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-entry.c.o": "17709c7dbf68934c6b7ad251131acfe4d2fd899f5a7de8d944a51b283724e24b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-equip-cmp.c.o": "887673f54d44e0b6718739af505428d1e36d4a5b7840425dc212585473eeb6cb",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-event.c.o": "249cbf693df399236876d64b36411a6e7017310a04e362ba3274c12afbaa123f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-game.c.o": "3c6af1a0bb015096b273e186447b4017fa0baf27387160efb7ae4f8173b023c2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-help.c.o": "05360445c4ed51f577278bea69e0130f922122f8e04c22a18ad500195cef4bd1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-history.c.o": "19d4299563470b14507ed5cdd41b13221604e67ce598b082eb74c8b0af04f22a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-init.c.o": "1690b2c91461edb6b4129769f6d867e1aa69e970db3a5afbb2384e67083fe044",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-input.c.o": "15769fa79ac120171a5cd7fda196b81cafedc945f16e5678134e81855e711f1b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-keymap.c.o": "b29a332909ec32c004092251a6a1a2c58d8c6a947d8507d0031e8dd7c7b94ea1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-knowledge.c.o": "014f8fe2246fff5cb3f0e8251c558e46f1adb9ea0de95f075a0cc81881c186d7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-map.c.o": "2e7dec1cd17986ea371dafb9d3601ccee3afaa9832629658308872c01e33282d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-menu.c.o": "c0b536c1385b19b12ac446e51a269face4b9838cb5de28b337d8ac1157e4a7b1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-mon-list.c.o": "592c6cbcb4a328665220fad2fc42f18c762aad44ce087b3496b16062902219f8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-mon-lore.c.o": "2721d3dd09263c0afb08d1c7eef2e3515d303cef71aa185835847cb6ae857938",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-obj-list.c.o": "fef918aa4e480cce955b726115c13ac227052fe71dc667dd25a6ff5ebeb5b8c6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-object.c.o": "8002e57a59d74ea2ef0726e5d9e1ca989c132cbce9d1e3c755ef170a67ffdf99",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-options.c.o": "00fdbae1868b5df41bb8ed852204e9c1bacc0cb1872fffec332df5dc3ce5914f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-output.c.o": "e6d0381fef12dd6e3a06c91cf71825cf9566255cf4742d14f4c9277f4042bd2e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-player-properties.c.o": "738235e56c31c4a0de4c120b48fc0ca225be94539bf1652aa6ccb4f4c05fe167",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-player.c.o": "093bf905cb7deb93d0baf47e458e706c5ee03c022a5910f47504d88960ea652c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-prefs.c.o": "7058fcfa834b7b4ee71689019c0acfd89679ad3a7faff41db970bbd2544cf209",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-score.c.o": "729fc4704d4ba1ca3d3c4ef41635f88adea2c180e6f91c65543f9f0d2df31fe4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-signals.c.o": "044b379a5b42d77792a52afa9800eec6805a45d65efc0253c95399cc45fb5db3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-spell.c.o": "9ec262951cc8d95d9646f5e2222cfbecb57e2113be4e66d8d17709e5404619ce",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-spoil.c.o": "05a9192e95c520079199d2b05ad96ba61232364f4f1f6141acbdc8ee13b7f4cd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-store.c.o": "8c695317221e5ed92b2bafc33a68c7e837405d7884e94208f517399e4ba1bf8f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-target.c.o": "90f594f66fb85b7f53d06efc6005171b93788b61674079e2e4b1d3ae2ba8de8c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-term.c.o": "2cbc80de00d9de604b32a7bf1a70d03409246c3aeac0452cb2f73a90653d5ea1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-visuals.c.o": "c7dc0fb4fa82a79962e7b8bdfd726679b127e5ab9f665561148f577dc13440c1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/ui-wizard.c.o": "c9e7c2f04b1614fbdf8fea6fb4e0ed7d2a1ae1059b12a3864aa1de365e3ce57f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/wiz-debug.c.o": "4fcdd9400662ddd00c903b761fdb24165126c937a8715839cc34f199527740e0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/wiz-spoil.c.o": "099d1d215b52d78ea72da0a373eca1ad1f0807c8bf8b7b5c62f9135af2f2708b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/wiz-stats.c.o": "f465f47b0eda5f8c036e8318dabf897dcbda82be003eca4a808251be7b9bfc77",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-bitflag.c.o": "8501c5a327f513621048d4cae0dcba7c4aaf34e06c9454e56e3ec4f3255040d0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-color.c.o": "889c2c7e121694bd8f1adc539324e646a3f0a6a31bfa37bf14c51384a133a6c7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-dice.c.o": "75d684db60e2cda1cb2e96f7e6776e9c2fc002e76a4194fa34e342f04b5c552c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-expression.c.o": "be5636b5eef710e8d04712e7d8a4506aebc998dcc442db5b908c6fdd46505065",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-file.c.o": "c528f189b2fface565cda5724dd281045ea40ac00dc1ea89ee7f9067df43e9e4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-form.c.o": "d5e9e7227deaf80a9beaa19dd335d59c1b525a5fdedbe4b8be2323998f1faac5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-quark.c.o": "630ab5936d062456a359ef6a86f0c8375aff7869c01146a81b8f99d3ef5851c8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-queue.c.o": "b8170cca29104896340addb5533f52a81e203f6ca59dd3afc6d246a7e995120c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-rand.c.o": "bf0bebd0380b1121b19e1a08646ae1dffa009c521ed34156e6c6f6b6dff4e0a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-textblock.c.o": "fc39246f0e939284c93ba0b95a544d856023f33b1b202956497e3f4aa6cbd2d8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-type.c.o": "2a8d80dfb3b1a50f39f124df0a0addaa4d4df2e246003a0901e8c6127520a369",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-util.c.o": "aba085ab2a9feb7e2cb18903619fb652b7c39dd3e7d565f57a920a9b02668859",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurCoreLib.dir/src/z-virt.c.o": "22ecebfa0da54b0ae99313bca7bab346ed634964b0e1be8889483f6c4602f8ea",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurUnitTestLib.dir/src/tests/test-utils.c.o": "aa71f886f8b3b00b545611f53c6283cd195da6a53c1c58d912bb4a49ad4523f3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/before/CMakeFiles/OurUnitTestLib.dir/src/tests/unit-test.c.o": "7ab8ec9b97cbf991e4b956291c3714d17891e4c8688b3ce1ac45b9f949a8abdd"
+ },
+ "after_objects_sha256": {
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-attack-munchkin.c.o": "f8532e9061e77f16b2c41db14046a312f6f78c2f71bd6932aad7c6c52232d022",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-caution.c.o": "d5709968665744b9700885da8de4f5f75257c393fc041b1220b8e2e55a9acf79",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-light.c.o": "4c15ecbaa07a9512e7d175999874f3cb9e8368165064c7d5ff794b97652b5f94",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-util.c.o": "ce8144eb412069f079cfe3344de40c34821e2891f8f53b4225e68c71c0d87404",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave-view.c.o": "ed25611e283ee4c6fc3bff227bacaf0282000701b85e351ade1d71638224f84b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-cave.c.o": "ad33aedec1f3c6b99aedd9803668030ab22bb5fc250dd0be527479dd491bf798",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-commands.c.o": "03f48587c7428db5c72fc4268c8c5073d6f9532dcf0a71c29a38f291f688ee99",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-danger.c.o": "c2b4b4ca978fda3049dbed15d0b7994444d7bc72299fbd1897eaeb70d35ef0ed",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-escape.c.o": "c10b7bc94dfe9aeaab045fc340725e8a2204daa900663fd104780e445dbb00d4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-attack.c.o": "c3bbf6095efffcf07fd11bb1a09ac3f0c2ae8535414e85c4b877c7220646ca41",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-defend.c.o": "48b3f9d78963a75c2a5fdfebedae8f9d6bedb3878d880c51cbb984ff59ef2a64",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-fight-perm.c.o": "7ffbf6a9c4f91b0c068368c6222d5a3116b38677b745f77ba2f3f89a94f9730e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-dark.c.o": "7ab4ad691c7ea65f344ca656e5e865449fce65c0bdec886fae62a053dd57585a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-glyph.c.o": "07a72b3e8798fba441f7b741159fbd65e689a4dfa459d6545934ed1014161a3e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-kill.c.o": "dcf98498ec8d9760caaffcef9e08772fcee26073eb42c40c992c03c2ffbc0ec3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-misc.c.o": "240c6685c3a2186b2f7d81849dd6ba2fc79de6d75b971a58f80240507241b23f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-stairs.c.o": "31501ca748e89d0901d0027f1e875cdd940e636f97080b3884a74c17a3b9181e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow-take.c.o": "219225c8174b0f9638db8f2ac43b31bcee7f3284591afa79c77e23079ef7ac6a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-flow.c.o": "cf4d60cf690142f45c20929407a86ff287ea8247b6870188938698201765f32c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas-calc.c.o": "ea3a7c87a0e9992bc8bd9c6baa3c01252f5420122249a71dffe74aa7903b2801",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-formulas.c.o": "8e13621bf026eec2fe64998d979f8bff0caabd75de17b025f481cc05e215be90",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-notice.c.o": "f229ae40db082f2660a581b3dc37b916dafff607f39fd566fe7c22f6f4779cab",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-home-power.c.o": "953ad6150346f5ec6e4b00af1abe5d7c683417ca79928d38f38958a5a4abbc5a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-init.c.o": "808385005275a6a650471fa976051224895e28dcc0ee42aa5020d372cc42201e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-inventory.c.o": "3df435fbb16ceb30f66fa9dacf680bff56c50009a4134ed224fba9d886048836",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-io.c.o": "6b5655d47abd1bba7593352814df3d7e06fdfeb1d79b07811b468137eede7eed",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-activation.c.o": "736f6edad709f00a89e37908dc4387f64f39f160f90ee32f6b41c23dae866941",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-analyze.c.o": "f0028a7793eb31bfbfee96176d621b9ae1c5275cc6a5e7563fdb361111e4c060",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-decurse.c.o": "dd005e4311c86ab88b344cc02fe8d83b0a6de24162d47575f6e043524644ef20",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-enchant.c.o": "10a441c82948bb623cba26e8708501f89a470af305b9a65c6c75e724cde3d213",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-id.c.o": "a717fbd9e0b885569d4af23bfa59498ec19f61c589be6e5ad96ba43a6e435e1b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-use.c.o": "0d5af26f64a9c17064cf207b647fc2c22c329ab6e4ff7bec4afd877c6ee67086",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-val.c.o": "7ab5b8a0b6f741942859e80bb363c744cb5360d1ef21711df4f6c9537373775a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item-wear.c.o": "d59907225e98f5aa6f91aa3e9b2ca6164dfa757f68883fdd053e16ffe5b86566",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-item.c.o": "657f458de1bcc3256af6487af986735469e343b479c4c509614a4e1f4f670da1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-junk.c.o": "75ea3f999cb9896708f191558dc6da6938d1d820f36d6448b53a2f6ee55ce343",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-light.c.o": "d7fe4ca4547f0c0994338625cfdec698de37689facf5eadcc06664e71f5183f6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-log.c.o": "8095ee79b369d62681def11e7deeac5a4b75e46eaefe55aa1d5ebf23200ebcb0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic-play.c.o": "9c0416c3c1972ab59527a660b57c4efd0c5cf3cb6f0182310691dd05d8a4c90c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-magic.c.o": "3f296ffd2c3967959844839fa7daf6a49525ccfa6ab8cb5d7effc6f44fa5715b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages-react.c.o": "2b82ce6db383dd0b4128a7df86396421ec7c70408ce3ef00b61474444f89e779",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-messages.c.o": "59d75a43a3b742f82f7cad50252d277c8c2f083e1cd285567f4c21f73c2d6ddd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-power.c.o": "387139bba0d3e6a3d7de21c82f36926fbb863694aaecef6a0a126c7b3e5225dd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-prepared.c.o": "c86658b71003fd0f4a4dfd3f83b2eba457857a3ce54d18ae5eec9ecedba13afc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-projection.c.o": "e7e7bf7ae7cabefc3b39f1796d972e38d32c4eebde4e573f86682c6dd17b2ef0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-recover.c.o": "0706a34c18c9c3f1b2d1a9a896d4fd9270d6357ec7df3603d5324d15f853d0ef",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-reincarnate.c.o": "8301e2f49bc5ff96063a09a92576939c20b9f759004d00f49ff39367972d3b9e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-buy.c.o": "b971014ea358073a17ba3ed0ac0d1a6fd5fdc01b3eed2e609726218b20e10793",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-store-sell.c.o": "875ea4e1e992b3f33be6ae486d6e0bf246695557f7fb152b87817b45d48b0642",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-store.c.o": "56cac336a8be21a0c7a636675aaa07714932c4e1064c9d86154681aca05812cf",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon-util.c.o": "29cf75651b9657907ad152dff91a5819e6bc579c01f8763750e002ad418e5118",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-dungeon.c.o": "9aebd2704e3cfc0af7f9e636c9cbe90a712d9a0105c05a2ae76ba2b0d7ed86ba",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-think-store.c.o": "325ba52666046393050dd6bcb6dffb9f44297b41ed8a234d6cb21aa7a5ef0d53",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-think.c.o": "3ef4afad6d5844be16cb85eda0aa450e7c0a8531c214815b520a6cb777c6f097",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait-swap.c.o": "714294ebcae9132a1881a17cc43eae98bc5539b2647937be9b859952bfa17b1c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-trait.c.o": "0de6c51f48ed9adae284027e674db517121f7ebc8c38319b8dbfd483173c9394",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-update.c.o": "ef85b2aa4c6ddfc1cb75fc1fc0c35ac91cb830584ce9218e374f8f74e43d7d53",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg-util.c.o": "bfa87d5447b59cae5f8c9dd0f69a5f7b97a33c9c60f1d4f35ddb4eaaeec8cde1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/borg/borg.c.o": "f30c057014eeca1db8c86a645ca9f36e8427ffcf53f6b2c97ce2f5693748d75c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/buildid.c.o": "35d6114d3c0963b1c4e8f566a40c2c8cbe71922b88debde2e5d121cac9a0caf6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cave-map.c.o": "a9cdbde077b92f5dc7a3ee760cfaf5a6056afc3b6e11bc274e1f18cac67e2bdc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cave-square.c.o": "649273a8b10a25ac2e3c50b19e331eb339c5fd6865be0a1e69b1e7d2f24e27ea",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cave-view.c.o": "eb5e708381f0aa8a38a7700ca8ccde2c34886459e3fb8e0b8032d48b17b7c18c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cave.c.o": "7e977906a3b6bed0284f415bbea88989b9a4c766ec9c8a2c1450e68dcfc572bd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-cave.c.o": "9a60def2549fe033742c8aaba7154f161a693f6b387eae2f5e26fd931e3cabf0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-core.c.o": "b08350824e53da93a7d2e09ec0e435ced4c4991fe09ffc50faf727e1e9263429",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-misc.c.o": "63e09294c80cba47e0a12aed653e170faad07ae6ccac0ad1738cb8f4503a8c9a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-obj.c.o": "cdab7fddd4f386d003fe82e4893e6404502796c4d945a9904e65943e4538b54a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-pickup.c.o": "2163bce514658b2285115392f86bceb72f455ea5d8b3e3a40353447acfe9404e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-spoil.c.o": "e5e96b7a1d54942c3b582bebda426313b4dd649bacb7fad96c2e58c006c84add",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/cmd-wizard.c.o": "b7b699633b9af848550cd194e75d8f8b185b3567e0ff92e68bf209fc7885d65d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/datafile.c.o": "637b8189499cd351296b37fb63b97e88fecad4ba2ee1f3081ea9c71e401f24e5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/debug.c.o": "b40c438fefedccfb6cc362e9c7eef3d40990518a46db39e1cbee94f291982736",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/effect-handler-attack.c.o": "43883f86ec5005519e81064d9e741e7c72d790166650ea6350ad5c96177f9848",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/effect-handler-general.c.o": "e808b415da953dc90cbc027162760664f4eb357fd52b60a2c5b4baa8a7abe0c5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/effects-info.c.o": "a9b576fd9eb6f048a3e9c4680cec51052e76f14ccf24ccc05a4cc12d855cd482",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/effects.c.o": "010fb3121dfd8002bfb3cd65b1344b8c58554514fa9c7f54dcf45377098e045e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/game-event.c.o": "0d8323de0e1fcec8bb9606f7b1f5a3f4077f5de631383f3edf4495319cdcdecf",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/game-input.c.o": "28e3a72d28383ccd9a4a1a00dfe026e70acd2d9cfb9ee7309e4a7c3dc134adfa",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/game-world.c.o": "326df7b4c3152d2613eef027589811b1c621b1922e167f74ee7833310e58fbcc",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/gen-cave.c.o": "faaac0444245cf5e2b6570d6b494187b6f077cd21ff9bfb6bafa5b32a741b39a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/gen-chunk.c.o": "8e7bfb4a25221bb197fc415f4d9487723b79161a0443883d74ac40948bb8e4d2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/gen-monster.c.o": "bcb0d3c0193e4addb68904424d3437223ac8c0dc2bd2ba52ec52b91f608556d4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/gen-room.c.o": "4be2cc2276014b85764d834a2ddd42cac02a13b10f3b90be3a6a00356ab730a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/gen-util.c.o": "e088348c28595230ae3967b19a89e4ad11b468b5308335e1a439aaccf834a5ce",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/generate.c.o": "a98367523687f2d181baf81c49bdd65086c5a52a22c67b66b8799df9405d511e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/grafmode.c.o": "a8c625b8b98d640813946cf33454cb7473cc839f118414e54ffa40cda7fb6945",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/guid.c.o": "80e64fbaae027d0b9e6dee90f0362318523db7ff741d053b115c1b8ba4f6c0a2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/init.c.o": "8550377c82fc028872c7e574a558cc4cdd3e517640bba9f28decb52b185507a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/load.c.o": "10f4a2b9e3f4362e57f44f5c5d435155f59d64729d5f42ac475858d90fb228d9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/message.c.o": "e75f228f8743ac6be3fb4029846dcc58f7d73cc295195b00d78c5709a91e028a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-attack.c.o": "1e73ab15254cb33adff266499c8e85c65c4dbc729b76c26c954a6c1637aa4d83",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-blows.c.o": "b17ba7a1559b9f16b71960f04f6da8374f345b362e5f3c9753a46ce29731cb7e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-desc.c.o": "3e35128f496785e66a2e7f371276a08f47c6c3078d20acb10464485256193b42",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-group.c.o": "8eed7d5559bed875df7b8ed9b46d8d775a109fe31a2ed6d02f31a441b15fe9a2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-init.c.o": "919bd400e1c19539435623c5ce6ecafa8dcda2d70111e323c1c8cf05b9db6e17",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-list.c.o": "6abb2b38bb0d286a25b0b7b71bbfe6ded3309783da2e9c2cae85123c1e2905ac",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-lore.c.o": "a080de9da5b7a36cd21ba80d6ae5b75401e1b4f78b4a146707ef5bd2bd1d066a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-make.c.o": "481b10118ba248930bda958998e365f9925036e5774bd94f3c569fd74a1405dd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-move.c.o": "9b1aefb720b09ecdc779ebc932773fdf8f6d3db76039ca51f35dda7be58cf87b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-msg.c.o": "896c2ebd34ac78d12187b4b014940ccd7a75084d0637e1c60e1431752371d9b6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-predicate.c.o": "9727e84f3381e37acc100cf97c9d9e9e6f0e246ccdc09bc447c1f8b18db7102c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-spell.c.o": "c566334754714c9a0ba62212a6069d6328c45b9450c97c72b972cc5d8ff80e00",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-summon.c.o": "e96266a250ebfb855468b4ea4020279cbade2adbfa1cbcf6b9102c9acf813124",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-timed.c.o": "cee4e83c83559d0c885969d4ef76741f91214a487ae9c03102ea81f09411c69f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/mon-util.c.o": "f0c43df8b52204d4cc475a1ab4fec9f0d49ff14225ce0b6f77d7954829bdae09",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-chest.c.o": "4df6fd48b43c470dd6cfd45cc3530525b76f431bbc845d23823163209cf2fded",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-curse.c.o": "4e723a81da4f81df3df2131b1842c66418688a231e7e8fad975699683b010d92",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-desc.c.o": "69655925cbc920d650f99d6398228ed75b7f9a91e6f887c714acf2612cd34612",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-gear.c.o": "c701c68ec0d16d312f9a8075ffdd4a6ce416fb988f1ba1c841375faaf552e14f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-ignore.c.o": "2655168143148760967b26f82bb37d5cd69705380bf056e3a61bb0047de2728b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-info.c.o": "f95e0f0ab8ef10123ac7862422187a9e04277cf2629ba906f1c4c6e60d222e03",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-init.c.o": "3992169577fc1eca92bfa97ea6e158ed18b3d672842222151b85ad1c73bb4be6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-knowledge.c.o": "913e650e5f567a8ba5688c577bd9e9767343533e3de4fa15c2a0db2347b2558e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-list.c.o": "0cd1926d36af73d022d99e12abb63a51a63eb2bf778b230d7fdbcd0d9921f1ee",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-make.c.o": "db447d340bbad090743866e604432dca2e32ea330294cd1d376b9047a2e5181b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-pile.c.o": "c1ed089d88a5cf48c499822c799cbc2c8e2438b3c1772136a56958aaa8e7a49a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-power.c.o": "fc9aa59764b73cfb1a4dded0ecae057b933ed04ab748f9c7db86d41341409af1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-properties.c.o": "990fb37bcff31101e93226eabc8c6fb39fe2a397fefe0a78ab19657ffbac251d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-randart.c.o": "4f822bf0ce3300b4668210a8d5a6144a2cf44f6aa2cf307da013a37f16785687",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-slays.c.o": "7d54079a4eccd94bba12083e5dc5fc36778af9c75a3f2691d8d3b1eac8cb4725",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-tval.c.o": "ad4469cb8a909fa84d325afc98a58d5019ab197fa9af30b66ffa3fefc538e9b5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/obj-util.c.o": "f5761e9e0ac90b59285e3939c86b0f4d196ad512ba7e6e19b2c484042001155f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/option.c.o": "c9bf074a5b7ae89a006f85998ce58535ea49b4ef910f21795569aaebc32045c1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/parser.c.o": "c83c41a6d3c76a821c377326bc168177b3d56c535c27488c77b6ad71960d927b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-attack.c.o": "fb3a85f0722a36ca64daf04533deec0f70e65778244bfcbce180f31bb1964a9e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-birth.c.o": "ea39ab72fcde6009bb62222e75538575fc64f0cf6a1e5d04c20af2c07d3e9041",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-calcs.c.o": "941a5010df6344f5b1d1c3f08ac14b1d3b64127c9dfb8d708e7d976effa9899a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-class.c.o": "b80217b3a54c5735cc197a9ba370391d64dde63eb56cb7996d57d92b02051a45",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-history.c.o": "81acf05555d042de6d5478e97f6dcf183a37326da8965e9e0cb7c31d3491af55",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-path.c.o": "f963f3f68b347698a999ff9616b1f20a1eb9f982d36d4ae1160fb5c25c789971",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-properties.c.o": "89feafbfaa7178161d3c733390addd89f8020141eeda0e9b86290cace4179775",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-quest.c.o": "6310af0477c63ce1d49c6b7bd6ebccfd56b8a39424874d582e2d0000bf892d37",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-race.c.o": "8d2e368963e754bab1baf496840b1f5c9182a70be057b9b90696ae74c1947716",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-spell.c.o": "d693d2dff9a9942ad95222cdf93d3920567dc9ba79b279ca6f56c83b27278da4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-timed.c.o": "8c910d2147d8c9b748c5b5e7a1129ef2d32259f2b0648786da8694a5f51090f6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player-util.c.o": "fefeeea8046ff6c58f8b0cef6e5168bca49dcb426d68cbd31dcfc98b4fc5801f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/player.c.o": "bab5658293659eaf4eb272763cbc90b0693341b7119cff85b96921116720a74a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/project-feat.c.o": "c7add8de9b052c14139565e1e4e512d9983a08f1e03690e8acbe019cb62b3604",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/project-mon.c.o": "221c5b53a12d6912882091fe31bcb74fd296524aa7be753b9848725601dd9222",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/project-obj.c.o": "d058f5a06d6c160e87b5404abfc4c775ab5ea0e8a3d4afd98025cc6824fb042c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/project-player.c.o": "917726263b96f705018b9e9cc4683483ebf685b8f10856503a07cc9aa4004b48",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/project.c.o": "6f636401a2671080073c04dc90cc48c3934b9282bdbeb491e6ea5f930826dae8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/randname.c.o": "680c88f7ecd8a40940e64a76917ed513c29ae42cb673e2d470af19f7908fd982",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/save-charoutput.c.o": "1c5042cd6992101141c19c5f92237f66328fa3fa99f251fca1592cf406c606b9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/save.c.o": "3a1e4729d153e1188ca544b314d066329d48698d7e5cba43c00ea4144f68c598",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/savefile.c.o": "e685a3c211dc5ce1f1cf2c5cd6ec718b9a3e46a2f9d836cb702e09b9c0c7f5b3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/score-util.c.o": "a10c76681aed69eb094a6bec887afa1b81aef2ecc96e425314c720a5dfd2dc27",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/score.c.o": "179b30d41b7801e95bd4c1349b0fdc458f86d3afd59c54a5a052e2fd5d1861d2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/sound-core.c.o": "56ec9a0cb9a79cb30c9eef42afab04af2e45dfca07c49b27c4445ecad2f5dbd7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/source.c.o": "940fbac69b5e950ead51a072de88cb2042024ea05535d65215c554f54cbfa144",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/store.c.o": "c9c56ad78da52cef0152ae1bc421b583414590309b16b1c9f2a05e58b7e622af",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/target.c.o": "b8fadda578c315cb0af7ec382507d05a974a4ceb47fd801d635fff8fca878c9d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/trap.c.o": "930151aa734ddf6574a6c2c493a2df09b252ed239051bc1bf6ba4909f2ca8449",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-birth.c.o": "17407e54af7f62fdbee49863e082768c359eb42c28ab2162333a8565abaabb41",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-command.c.o": "e9a3a7cd914334eca3892e0399f63989403571308d89decbf639c48627f77684",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-context.c.o": "c23b45f99284f76da4172cf767ed56066c35494cf451c2b25db521b879bfde92",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-curse.c.o": "469898638c933ee063ccc101f03a3a42ec2d78e58b173c53a21f6f7769047f78",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-death.c.o": "09f13fc3ecdb38c7533b15155a1adf0c3b0d98cc3f1211fd232188e23e997434",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-display.c.o": "2271682fa57b4b2edeb2c26c1e8a4cd384cccd804e3a78b6a6c4bfaf6ab35c21",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-effect.c.o": "e0d29bc379e0cd5982336084b8ac2d03db469df03a99e4222069ce2b573c70a1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-entry-combiner.c.o": "6e1d2e249969da29b270a06a4e305ed6ba4dda3b2b3471bf68597c6f4765c207",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-entry-renderers.c.o": "3095490b23e7e9bafd5bd07898006ee5b1da7523336c8aa91a08d3064a0d62b2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-entry.c.o": "17709c7dbf68934c6b7ad251131acfe4d2fd899f5a7de8d944a51b283724e24b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-equip-cmp.c.o": "887673f54d44e0b6718739af505428d1e36d4a5b7840425dc212585473eeb6cb",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-event.c.o": "249cbf693df399236876d64b36411a6e7017310a04e362ba3274c12afbaa123f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-game.c.o": "3c6af1a0bb015096b273e186447b4017fa0baf27387160efb7ae4f8173b023c2",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-help.c.o": "05360445c4ed51f577278bea69e0130f922122f8e04c22a18ad500195cef4bd1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-history.c.o": "19d4299563470b14507ed5cdd41b13221604e67ce598b082eb74c8b0af04f22a",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-init.c.o": "1690b2c91461edb6b4129769f6d867e1aa69e970db3a5afbb2384e67083fe044",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-input.c.o": "15769fa79ac120171a5cd7fda196b81cafedc945f16e5678134e81855e711f1b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-keymap.c.o": "b29a332909ec32c004092251a6a1a2c58d8c6a947d8507d0031e8dd7c7b94ea1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-knowledge.c.o": "014f8fe2246fff5cb3f0e8251c558e46f1adb9ea0de95f075a0cc81881c186d7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-map.c.o": "2e7dec1cd17986ea371dafb9d3601ccee3afaa9832629658308872c01e33282d",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-menu.c.o": "c0b536c1385b19b12ac446e51a269face4b9838cb5de28b337d8ac1157e4a7b1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-mon-list.c.o": "592c6cbcb4a328665220fad2fc42f18c762aad44ce087b3496b16062902219f8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-mon-lore.c.o": "2721d3dd09263c0afb08d1c7eef2e3515d303cef71aa185835847cb6ae857938",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-obj-list.c.o": "fef918aa4e480cce955b726115c13ac227052fe71dc667dd25a6ff5ebeb5b8c6",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-object.c.o": "8002e57a59d74ea2ef0726e5d9e1ca989c132cbce9d1e3c755ef170a67ffdf99",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-options.c.o": "00fdbae1868b5df41bb8ed852204e9c1bacc0cb1872fffec332df5dc3ce5914f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-output.c.o": "e6d0381fef12dd6e3a06c91cf71825cf9566255cf4742d14f4c9277f4042bd2e",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-player-properties.c.o": "738235e56c31c4a0de4c120b48fc0ca225be94539bf1652aa6ccb4f4c05fe167",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-player.c.o": "093bf905cb7deb93d0baf47e458e706c5ee03c022a5910f47504d88960ea652c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-prefs.c.o": "7058fcfa834b7b4ee71689019c0acfd89679ad3a7faff41db970bbd2544cf209",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-score.c.o": "729fc4704d4ba1ca3d3c4ef41635f88adea2c180e6f91c65543f9f0d2df31fe4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-signals.c.o": "044b379a5b42d77792a52afa9800eec6805a45d65efc0253c95399cc45fb5db3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-spell.c.o": "9ec262951cc8d95d9646f5e2222cfbecb57e2113be4e66d8d17709e5404619ce",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-spoil.c.o": "05a9192e95c520079199d2b05ad96ba61232364f4f1f6141acbdc8ee13b7f4cd",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-store.c.o": "8c695317221e5ed92b2bafc33a68c7e837405d7884e94208f517399e4ba1bf8f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-target.c.o": "90f594f66fb85b7f53d06efc6005171b93788b61674079e2e4b1d3ae2ba8de8c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-term.c.o": "2cbc80de00d9de604b32a7bf1a70d03409246c3aeac0452cb2f73a90653d5ea1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-visuals.c.o": "c7dc0fb4fa82a79962e7b8bdfd726679b127e5ab9f665561148f577dc13440c1",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/ui-wizard.c.o": "c9e7c2f04b1614fbdf8fea6fb4e0ed7d2a1ae1059b12a3864aa1de365e3ce57f",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/wiz-debug.c.o": "4fcdd9400662ddd00c903b761fdb24165126c937a8715839cc34f199527740e0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/wiz-spoil.c.o": "099d1d215b52d78ea72da0a373eca1ad1f0807c8bf8b7b5c62f9135af2f2708b",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/wiz-stats.c.o": "f465f47b0eda5f8c036e8318dabf897dcbda82be003eca4a808251be7b9bfc77",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-bitflag.c.o": "8501c5a327f513621048d4cae0dcba7c4aaf34e06c9454e56e3ec4f3255040d0",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-color.c.o": "889c2c7e121694bd8f1adc539324e646a3f0a6a31bfa37bf14c51384a133a6c7",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-dice.c.o": "75d684db60e2cda1cb2e96f7e6776e9c2fc002e76a4194fa34e342f04b5c552c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-expression.c.o": "be5636b5eef710e8d04712e7d8a4506aebc998dcc442db5b908c6fdd46505065",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-file.c.o": "c528f189b2fface565cda5724dd281045ea40ac00dc1ea89ee7f9067df43e9e4",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-form.c.o": "d5e9e7227deaf80a9beaa19dd335d59c1b525a5fdedbe4b8be2323998f1faac5",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-quark.c.o": "630ab5936d062456a359ef6a86f0c8375aff7869c01146a81b8f99d3ef5851c8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-queue.c.o": "b8170cca29104896340addb5533f52a81e203f6ca59dd3afc6d246a7e995120c",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-rand.c.o": "bf0bebd0380b1121b19e1a08646ae1dffa009c521ed34156e6c6f6b6dff4e0a9",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-textblock.c.o": "fc39246f0e939284c93ba0b95a544d856023f33b1b202956497e3f4aa6cbd2d8",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-type.c.o": "2a8d80dfb3b1a50f39f124df0a0addaa4d4df2e246003a0901e8c6127520a369",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-util.c.o": "aba085ab2a9feb7e2cb18903619fb652b7c39dd3e7d565f57a920a9b02668859",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurCoreLib.dir/src/z-virt.c.o": "22ecebfa0da54b0ae99313bca7bab346ed634964b0e1be8889483f6c4602f8ea",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurUnitTestLib.dir/src/tests/test-utils.c.o": "aa71f886f8b3b00b545611f53c6283cd195da6a53c1c58d912bb4a49ad4523f3",
+  "/home/user/borg-rs/harness/out/c-m3/oracles/after/CMakeFiles/OurUnitTestLib.dir/src/tests/unit-test.c.o": "7ab8ec9b97cbf991e4b956291c3714d17891e4c8688b3ce1ac45b9f949a8abdd"
+ },
+ "fixtures": {
+  "shot-path": {
+   "normal:clear-path": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=76 hp_lost=54 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "0b1ff397bf572dedece236f027798ea3814f0408a7462ab39e478fd0f08cb35a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=13 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "b8508b71e46291bd4aafea0f6dfdc81bd2acde673c3d94a335fc234026f9a09a"
+    }
+   },
+   "normal:blocked": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=71 hp_lost=59 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "8f1e06232767c91b9c63f6345171573a2f4c29934bc641ee1a4f4df8d37dd7c1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=1 hp_before=130 hp_after=76 hp_lost=54 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "c7c2f1be27ea4e289cfa8905cf0f0b9486fe1ef8bf48a435040edaf39d1bb909"
+    }
+   },
+   "normal:ball-control": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=15 cast=1 hp_before=130 hp_after=83 hp_lost=47 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "0912bef3e62bf697d174da85db467b9a85a171b27b85c35d156238fdc355f33d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=15 cast=1 hp_before=130 hp_after=83 hp_lost=47 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "bbed477234fbc5d7681b41e9003efdb281d193bdd9ce6af2fd476e10721b631f"
+    }
+   },
+   "normal:direct-control": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "aa291bced90d01f0886fa5c844e7d2ae76d7f7889bb273f376390e5dd089835b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "44d62594fdda4d1b951b5655cb6a8a996b759b9170401dedaef2fa7311b7aec6"
+    }
+   },
+   "normal:boulder-control": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=112 hp_lost=18 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "0750a6cfe5a7792313fa60dfa000fc10ef6663611e5a021f9e5f113f9b614c40"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=11 cast=1 hp_before=130 hp_after=101 hp_lost=29 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "0d98dd47d05f4962d8c777f4233107d9b9094c4a023424c5abecbec37ef9576c"
+    }
+   },
+   "normal:boulder-blocked": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=130 hp_lost=0 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "a28af5ac19ce152aee0ae243741905aa02dccd4c8f2fc908122e6601f6a65b88"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=130 hp_lost=0 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "a28af5ac19ce152aee0ae243741905aa02dccd4c8f2fc908122e6601f6a65b88"
+    }
+   }
+  },
+  "per-spell": {
+   "normal:clear-path": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=76 hp_lost=54 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "5b379205a925072e08aa1e7358326b07e4927044cfeba833abc28dd1868df1ae"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=13 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "7416b2e5d6d19b2c67bd9e6ba343bddd5fbe585feef23385d5326dbc8b45ac94"
+    }
+   },
+   "normal:blocked": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=71 hp_lost=59 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "8495d1752c184de31977457de94129585e11e166aef267e9841d9ef5cd640659"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=1 hp_before=130 hp_after=76 hp_lost=54 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "8cd228836ad80672844d6c8b2970417218dadd14c7b600882c00ba18f4b142b2"
+    }
+   },
+   "normal:ball-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=15 cast=1 hp_before=130 hp_after=83 hp_lost=47 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "7a91f9b9a7d9470e60271b8fa9709bc9b3497c5adf62e94d1b4a62b0d495634a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=15 cast=1 hp_before=130 hp_after=83 hp_lost=47 mana_spent=0 scrolls_spent=1",
+     "log_sha256": "0d8b9a144fcac30c69cd4e8fe58b5c74a72c2c3f11a4869c7a0dfc7f0f41b63c"
+    }
+   },
+   "normal:direct-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "21760664ca55fb77963e23c77e60595a91f9a31fce83080e252d6229b997f05f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=7 cast=0 hp_before=130 hp_after=130 hp_lost=0 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "bfd2030f90d3f2e71edee0ec26bd5379ee5ba54265bade73829fdd1f10210d7e"
+    }
+   },
+   "normal:boulder-control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=0 moved=0 distance=6 cast=1 hp_before=130 hp_after=112 hp_lost=18 mana_spent=0 scrolls_spent=0",
+     "log_sha256": "b3d6c3f33d506a57e553de79fdb027dd22c66cec340811fa4ab18dcf84aaf01d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "escape=1 moved=1 distance=11 cast=1 hp_before=130 hp_after=101 hp_lost=29 mana_spent=2 scrolls_spent=0",
+     "log_sha256": "382250472f28f80b4e39740d9889aa2d9ca9b23652f47cbd048923a5267b9c2b"
+    }
+   }
+  },
+  "glyph-tracker": {
+   "normal:stairs": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=0",
+     "log_sha256": "a61a3c2470e214b12462bd584c84094f3573be769f8d37f305610a362e457a5b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "3c44aaeb4e5a3a568bf52129e0225b1ac09c7383b3f6a9e8dd594a13da817f1b"
+    }
+   },
+   "normal:clear-floor": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "02aaa2234dcb6566503b3f5610f78d45ceead24c2b5ab69b2d660cb2e9e3c6ec"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "02aaa2234dcb6566503b3f5610f78d45ceead24c2b5ab69b2d660cb2e9e3c6ec"
+    }
+   },
+   "normal:pairing": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "bfc0bd52bb6775118fc867194f9d269d197766c405e75a72a3508f1c60bff73d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "bfc0bd52bb6775118fc867194f9d269d197766c405e75a72a3508f1c60bff73d"
+    }
+   },
+   "asan:stairs": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m3/native-before/glyph-tracker/asan-scenario+0x182da8) (BuildId: b94a1d81bee8ad5a9d56827d7379624e418adae3) in borg_calculate_defense_effectiveness",
+     "outcome": null,
+     "log_sha256": "cd37e62e57f9b8e5a6eb14040b9394e514ef8de913e62bde7d2c841c15e29043"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "3c44aaeb4e5a3a568bf52129e0225b1ac09c7383b3f6a9e8dd594a13da817f1b"
+    }
+   },
+   "asan:clear-floor": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "02aaa2234dcb6566503b3f5610f78d45ceead24c2b5ab69b2d660cb2e9e3c6ec"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "02aaa2234dcb6566503b3f5610f78d45ceead24c2b5ab69b2d660cb2e9e3c6ec"
+    }
+   },
+   "asan:pairing": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "bfc0bd52bb6775118fc867194f9d269d197766c405e75a72a3508f1c60bff73d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glyph_created=1 warded_grid=(10,10) hp=8 num_final=1",
+     "log_sha256": "bfc0bd52bb6775118fc867194f9d269d197766c405e75a72a3508f1c60bff73d"
+    }
+   }
+  },
+  "missile-no-target": {
+   "normal:no-target": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=0 keys=3",
+     "log_sha256": "1c73061346945ee71cacd386b91cc8d0d6bdfff064544a9723ff151c3a15dec7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=0 keys=0",
+     "log_sha256": "543f19d33a48a3ffe7a20312638fcc27084a1d2b584143dd0e408933fe0eb1d0"
+    }
+   },
+   "normal:live-shot": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=11",
+     "log_sha256": "1a0bb575da7e826189716802884292d2644ffaf23a86e2f6e90352cc682cb649"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=11",
+     "log_sha256": "1a0bb575da7e826189716802884292d2644ffaf23a86e2f6e90352cc682cb649"
+    }
+   },
+   "normal:simulated": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=0",
+     "log_sha256": "e8d9fa7820fc15e6aa21589ebdbe068bd0a4b7d687b8bed6922adfa3f9b8e7b8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=0",
+     "log_sha256": "e8d9fa7820fc15e6aa21589ebdbe068bd0a4b7d687b8bed6922adfa3f9b8e7b8"
+    }
+   },
+   "asan:no-target": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow ../../../../src/libsanitizer/sanitizer_common/sanitizer_common_interceptors.inc:391 in strlen",
+     "outcome": null,
+     "log_sha256": "01707d551f12045159234249b8788a5f6dc0f534e332d51523a7bc71d80cd040"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=0 keys=0",
+     "log_sha256": "543f19d33a48a3ffe7a20312638fcc27084a1d2b584143dd0e408933fe0eb1d0"
+    }
+   },
+   "asan:live-shot": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=11",
+     "log_sha256": "1a0bb575da7e826189716802884292d2644ffaf23a86e2f6e90352cc682cb649"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=11",
+     "log_sha256": "1a0bb575da7e826189716802884292d2644ffaf23a86e2f6e90352cc682cb649"
+    }
+   },
+   "asan:simulated": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=0",
+     "log_sha256": "e8d9fa7820fc15e6aa21589ebdbe068bd0a4b7d687b8bed6922adfa3f9b8e7b8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "return=4 keys=0",
+     "log_sha256": "e8d9fa7820fc15e6aa21589ebdbe068bd0a4b7d687b8bed6922adfa3f9b8e7b8"
+    }
+   }
+  },
+  "tp-other-skip": {
+   "normal:two-phase": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=144 expected_best=128 strong=128 weak=16 tp_other_n=0",
+     "log_sha256": "1924fc904ca35204f5040ebda7df9855bb365efecedfe24b29b1b15e66320879"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=192 expected_best=192 strong=192 weak=16 tp_other_n=0",
+     "log_sha256": "8d6dc3d5f28c73d4bc38e62166f6442e38db0770acec8712196dfe00ac9ae6da"
+    }
+   },
+   "normal:no-morgoth-phase": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=128 expected_best=128 strong=128 weak=16 tp_other_n=0",
+     "log_sha256": "8c4828f631209c7c080966ead77f7acac74fdda61e8a7713fbd9ec062e7b2818"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=192 expected_best=192 strong=192 weak=16 tp_other_n=0",
+     "log_sha256": "6a40513b6de6cae4dcaf1f7b638a75a540b814801447520f9a59811468f56b2e"
+    }
+   },
+   "normal:single": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=16 expected_best=16 strong=0 weak=16 tp_other_n=0",
+     "log_sha256": "43c5dd25405e4f773fc9b5fcc938c1946ca9a97d2b31c3a787dd6ba4dd248791"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=16 expected_best=16 strong=0 weak=16 tp_other_n=0",
+     "log_sha256": "43c5dd25405e4f773fc9b5fcc938c1946ca9a97d2b31c3a787dd6ba4dd248791"
+    }
+   },
+   "asan:two-phase": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=144 expected_best=128 strong=128 weak=16 tp_other_n=0",
+     "log_sha256": "1924fc904ca35204f5040ebda7df9855bb365efecedfe24b29b1b15e66320879"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=192 expected_best=192 strong=192 weak=16 tp_other_n=0",
+     "log_sha256": "8d6dc3d5f28c73d4bc38e62166f6442e38db0770acec8712196dfe00ac9ae6da"
+    }
+   },
+   "asan:no-morgoth-phase": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=128 expected_best=128 strong=128 weak=16 tp_other_n=0",
+     "log_sha256": "8c4828f631209c7c080966ead77f7acac74fdda61e8a7713fbd9ec062e7b2818"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=192 expected_best=192 strong=192 weak=16 tp_other_n=0",
+     "log_sha256": "6a40513b6de6cae4dcaf1f7b638a75a540b814801447520f9a59811468f56b2e"
+    }
+   },
+   "asan:single": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=16 expected_best=16 strong=0 weak=16 tp_other_n=0",
+     "log_sha256": "43c5dd25405e4f773fc9b5fcc938c1946ca9a97d2b31c3a787dd6ba4dd248791"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "p2=16 expected_best=16 strong=0 weak=16 tp_other_n=0",
+     "log_sha256": "43c5dd25405e4f773fc9b5fcc938c1946ca9a97d2b31c3a787dd6ba4dd248791"
+    }
+   }
+  },
+  "dispel-filter": {
+   "normal:living": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "hp_before=225 hp_after=159 hp_lost=66 undead=0",
+     "log_sha256": "73cedc29935bc4cd482c6565a267d2e5295068f15e6841aeb402ce7285f05014"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "hp_before=225 hp_after=159 hp_lost=66 undead=0",
+     "log_sha256": "29548d5194fc72239d590df649a61ac5e0f8cdfe74e7f341e6bfdff9dd495a8c"
+    }
+   },
+   "normal:undead": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "hp_before=47 hp_after=47 hp_lost=0 undead=1",
+     "log_sha256": "f95e12749f4725a7e0c9a999ac011cc74d8940269c2df46eee2bea81c6f5fd1d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "hp_before=47 hp_after=47 hp_lost=0 undead=1",
+     "log_sha256": "635460cbd7ac51200f02c3026e5417f91a26cb216d056a695dece8b357c3b4d5"
+    }
+   },
+   "normal:bolt": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "bce76a0a7d3c216cdeec8e9964f6f70eb253c4bb3d20f0b56fb69d92aa3f302d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "b1614cf58a6e9f4095482b94942375e428ab6f0e02c0cffab9ca97c2b8a927ab"
+    }
+   }
+  },
+  "arc-angle": {
+   "normal:arc-bystander": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "reference=6 value=17",
+     "log_sha256": "8269f8c5ea25143b1bf8865935852dc353198f9c5b9a4f44e03bb5d5ca379a5b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "reference=6 value=6",
+     "log_sha256": "f44dbec9ac88c01bb1acc74eddcd8d294dc52f7f6d378bd9d529091f9378937f"
+    }
+   },
+   "normal:arc-both": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "reference=6 value=44",
+     "log_sha256": "77482b1923422b07f1e0a89c9b5f7db4e32285b6d34af2ba059f22262240df39"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "reference=6 value=44",
+     "log_sha256": "77482b1923422b07f1e0a89c9b5f7db4e32285b6d34af2ba059f22262240df39"
+    }
+   }
+  },
+  "munchkin-stair": {
+   "normal:phantom": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 stair_key=62 own_is_stair=0",
+     "log_sha256": "13921cd8f6546331a21d07214c50d6664832a6026c3ec2acc847becc281ceab7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 stair_key=0 own_is_stair=0",
+     "log_sha256": "ca286c72c3dbfdb424840fe353ed9fea5b803b3a03c47b3609b7519f1d989ffc"
+    }
+   },
+   "normal:on-stair": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 stair_key=62 own_is_stair=1",
+     "log_sha256": "0aaba3137597f80d32edde22af9e831bdaad144d23584adb9765ba60e1447bc8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 stair_key=62 own_is_stair=1",
+     "log_sha256": "0aaba3137597f80d32edde22af9e831bdaad144d23584adb9765ba60e1447bc8"
+    }
+   }
+  },
+  "vampire-strike": {
+   "normal:near-far": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast_spell=0",
+     "log_sha256": "0ff874e8085433d1cb7a88aa1dbf9efe04e909e425f04298f1e6d361d6a4977e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=3 cast_spell=1",
+     "log_sha256": "bb7775a1112c616adfa53abbf88d583f18812ca0eae9de73247ae2879ac5e6b6"
+    }
+   },
+   "normal:near-near": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=3 cast_spell=1",
+     "log_sha256": "edf44dee519a8335a01d6b2c126e82854095e16760aa7264c93cc07f10ef45e3"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=3 cast_spell=1",
+     "log_sha256": "edf44dee519a8335a01d6b2c126e82854095e16760aa7264c93cc07f10ef45e3"
+    }
+   },
+   "normal:far": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast_spell=0",
+     "log_sha256": "2faeb8a95d61cbcfc43d3edbfdd4fb0aa3860e3e72b4b0b5d1f5b1b710aeb8c0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=0 cast_spell=0",
+     "log_sha256": "2faeb8a95d61cbcfc43d3edbfdd4fb0aa3860e3e72b4b0b5d1f5b1b710aeb8c0"
+    }
+   }
+  },
+  "slay-traits": {
+   "normal:animal": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "auto=17 without=17 with=20",
+     "log_sha256": "9f3528cc1aa25403dcf0ae14b5853cacb074dd4fe3ef5f7b592d0b7587ecd380"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "auto=20 without=17 with=20",
+     "log_sha256": "1f3119a22c7905694bae7159861cd646a676366dcb28273255beffeabfcd2019"
+    }
+   },
+   "normal:nonanimal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "auto=19 without=19 with=19",
+     "log_sha256": "3d336fd890527a42c795f8f39ad82b24a4a9126900e45f854f7887fc634a4c8a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "auto=19 without=19 with=19",
+     "log_sha256": "3d336fd890527a42c795f8f39ad82b24a4a9126900e45f854f7887fc634a4c8a"
+    }
+   }
+  },
+  "detect-panel": {
+   "normal:stale": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "4b5019bcaa334fb745044dfc1961580b6cca92b0c488705147f022bde15bc526"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=0",
+     "log_sha256": "b6bddf10ee93122a538d6aba333e7bd2f3e758e22fa34a9bb1f35372fb6db990"
+    }
+   },
+   "normal:fresh": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "85e82dee675dbc61918d33893b15d28e0218e741f25c2c855812a9e83ce2dcc1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "85e82dee675dbc61918d33893b15d28e0218e741f25c2c855812a9e83ce2dcc1"
+    }
+   },
+   "asan:stale": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "4b5019bcaa334fb745044dfc1961580b6cca92b0c488705147f022bde15bc526"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=0",
+     "log_sha256": "b6bddf10ee93122a538d6aba333e7bd2f3e758e22fa34a9bb1f35372fb6db990"
+    }
+   },
+   "asan:fresh": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "85e82dee675dbc61918d33893b15d28e0218e741f25c2c855812a9e83ce2dcc1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "last_row_mark=1",
+     "log_sha256": "85e82dee675dbc61918d33893b15d28e0218e741f25c2c855812a9e83ce2dcc1"
+    }
+   }
+  },
+  "activ-lookup": {
+   "normal:miswired": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt3=0 bolt2=0",
+     "log_sha256": "729a05f89dbf0149fb43666f7b97be556b28512193b42ff8c38db2d957c6d769"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt3=52 bolt2=0",
+     "log_sha256": "8f4b2a4a94837efaed8324bb62cd0af42e00360e3696ab4fef6e8a46b695f49e"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt2=52",
+     "log_sha256": "4d4f219e105b31a483116653159a38ab6c5455c6424b1ee79d76ab6653046b08"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt2=52",
+     "log_sha256": "4d4f219e105b31a483116653159a38ab6c5455c6424b1ee79d76ab6653046b08"
+    }
+   }
+  },
+  "reserve-bolt": {
+   "normal:veto": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=0",
+     "log_sha256": "800a6f129785616bf8f2f771f2838246cba86ce741ecb4d390edf229a326049f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=40",
+     "log_sha256": "2d1c393d684cfe53092578f969837b30696eced8b3f236b951b88f9243dd5cdf"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=50",
+     "log_sha256": "f79510db70398ace43fa845015b05d57654e247f2a69acf7660145fa1035d9a2"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=50",
+     "log_sha256": "f79510db70398ace43fa845015b05d57654e247f2a69acf7660145fa1035d9a2"
+    }
+   }
+  },
+  "dispel-reserve": {
+   "normal:reserve": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=-21127",
+     "log_sha256": "07af6e61af12dc7f49b448884d70a610e6ebd3c7a7d5e317b50d9f55cb04bdc3"
+    },
+    "after": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=-10331",
+     "log_sha256": "47a2167daff163fc1976fce0840b83590d17e7b6e65a51a3b462794e6f189e09"
+    }
+   },
+   "normal:clear": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=-127",
+     "log_sha256": "d45c00862f79ef016cdc62d037a006d199703e63cc70e5657aa23b3662515a45"
+    },
+    "after": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "value=169",
+     "log_sha256": "4d4922834f2068a08533979c431b3a2d21dbc30915a6cc89c8a4a4f4cdcb2023"
+    }
+   }
+  },
+  "losdispel": {
+   "normal:storm": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dispel=-15",
+     "log_sha256": "5c6ae09c998699a6e9fb5f4a24cbf615c566971a4aaef00e7fa0264d992b0fed"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dispel=534",
+     "log_sha256": "4c21f5f44a88c097dc5b660684d042b20fa1192b9a291afe64bdd38ebf81cfbc"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "orb=540",
+     "log_sha256": "2fc891e8594eb1d74ed7f31075b141564592ff2c2115ac7aad5b3a9900dde311"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "orb=540",
+     "log_sha256": "2fc891e8594eb1d74ed7f31075b141564592ff2c2115ac7aad5b3a9900dde311"
+    }
+   }
+  },
+  "staff-holy": {
+   "normal:holy": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "holy=28",
+     "log_sha256": "7d518a251187db732fb37c543e54a5244e771fb30585b9ac72d8977c7129b77e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "holy=60",
+     "log_sha256": "f31cafb7a8b911911f5b63aef3821d048530eeda2119eb8cfbbf1f90fbbfca3f"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt2=28",
+     "log_sha256": "2cc161ffd8caf27ac93432b39ef5f603afb1838b230075a1e2463ae4925971f4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bolt2=28",
+     "log_sha256": "2cc161ffd8caf27ac93432b39ef5f603afb1838b230075a1e2463ae4925971f4"
+    }
+   }
+  },
+  "blind-frighten": {
+   "normal:blind": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "blind=955 frighten=-5",
+     "log_sha256": "5378f4ceddc23976a1abb45e98e5f8d7e393b8033bd7eb497bc4e7d816c82afe"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "blind=-4 frighten=-4",
+     "log_sha256": "ad9c28993fdf4c5aec71f281ba722fda0f3224982a8e14c25d52cc26054744b6"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "frighten=-5",
+     "log_sha256": "13f6eb057f7d774f8788fd1ae2e0f9415410949c53ff960e010ae5d7bd50bfbc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "frighten=-4",
+     "log_sha256": "00a25c8f81b5779e389ac2ac7dcf704f29b9eac762d2ebcfa143cb56331cf049"
+    }
+   }
+  },
+  "calc-reload": {
+   "normal:reload": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "retained=1 reload_value=7 reload_count=1",
+     "log_sha256": "26b35248c345312333c022bcd3e37e8c940e6aa18aa658732393e0e7a457bfca"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "retained=0 reload_value=7 reload_count=1",
+     "log_sha256": "9f62699ed2945596e526f26520710a623523e22c7fb1251cdb24ddb4dc1eeef9"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=3 control_count=1",
+     "log_sha256": "6d80fb5d22c779b285086c091c18ccd7232244f2f4c3793c04fb103ca881a1d0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=3 control_count=1",
+     "log_sha256": "6d80fb5d22c779b285086c091c18ccd7232244f2f4c3793c04fb103ca881a1d0"
+    }
+   },
+   "asan:reload": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": "320 byte(s) leaked in 4 allocation(s).",
+     "outcome": "retained=1 reload_value=7 reload_count=1",
+     "log_sha256": "bbb362afca6df662e3711fa76481c3f0f95698bc267d37047d487037203d9548"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "retained=0 reload_value=7 reload_count=1",
+     "log_sha256": "9f62699ed2945596e526f26520710a623523e22c7fb1251cdb24ddb4dc1eeef9"
+    }
+   }
+  },
+  "stale-target": {
+   "normal:stale": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=\"\" center_attack=0",
+     "log_sha256": "ca958f679d3a0133d5e0a2d4e4c1e2695ba67a58447014fa1fcba0827569b572"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=0 keys=\"\" center_attack=0",
+     "log_sha256": "ca958f679d3a0133d5e0a2d4e4c1e2695ba67a58447014fa1fcba0827569b572"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=\"+2\" center_attack=0",
+     "log_sha256": "e6bdc61647f9b204d574a2d03939334b3edd44af85f36e9aeb3d88378a4467cb"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "acted=1 keys=\"+2\" center_attack=0",
+     "log_sha256": "e6bdc61647f9b204d574a2d03939334b3edd44af85f36e9aeb3d88378a4467cb"
+    }
+   }
+  },
+  "glow-overflow": {
+   "normal:glow": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1600 overflow=64",
+     "log_sha256": "d5174ae667f4e2fedae02249590968a3505e60cfa700673eb71bc20d5c4e8d17"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1536 overflow=0",
+     "log_sha256": "ba8269a34abf6de0ec164cca8a20339fb74d808dfc85524003920f0987df36af"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1000 overflow=0",
+     "log_sha256": "3e85b3c85389a41db02c129a9ca1e8abd3a766173d1885db2b95547377bfcee0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1000 overflow=0",
+     "log_sha256": "3e85b3c85389a41db02c129a9ca1e8abd3a766173d1885db2b95547377bfcee0"
+    }
+   },
+   "asan:glow": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "global-buffer-overflow (/home/user/borg-rs/harness/out/c-m3/native-before/glow-overflow/asan-scenario+0x1a4f3d) (BuildId: 73de1d442f9afc6fbe2da71d084a822cbf685dbf) in borg_flow_light",
+     "outcome": null,
+     "log_sha256": "add354f2140268960b488816abdd49994af82b82b3c551d9f522d92c289e5686"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1536 overflow=0",
+     "log_sha256": "ba8269a34abf6de0ec164cca8a20339fb74d808dfc85524003920f0987df36af"
+    }
+   },
+   "asan:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1000 overflow=0",
+     "log_sha256": "3e85b3c85389a41db02c129a9ca1e8abd3a766173d1885db2b95547377bfcee0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=1000 overflow=0",
+     "log_sha256": "3e85b3c85389a41db02c129a9ca1e8abd3a766173d1885db2b95547377bfcee0"
+    }
+   }
+  },
+  "light-modifier": {
+   "normal:phial": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bi_light=8",
+     "log_sha256": "ae1fe96e18b82f76930f0481d6685e0132cbdc0c02ec2614da243205c487ab23"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bi_light=4",
+     "log_sha256": "ea7b2c06ce02ea7a60e2cff81e93bc904af678a000b385e54b73b67557801992"
+    }
+   },
+   "normal:torch": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bi_light=2",
+     "log_sha256": "071da3cac43555e6f1751bb01b639ea5b5f6c2aa16b528ee89362fdb530e6cf8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "bi_light=2",
+     "log_sha256": "071da3cac43555e6f1751bb01b639ea5b5f6c2aa16b528ee89362fdb530e6cf8"
+    }
+   }
+  },
+  "surrounded-traps": {
+   "normal:traps": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "surrounded=1",
+     "log_sha256": "3f299fa214da8dffb10ca31b68f9922c9dd80f54c9c565d570b2e3a3511785b4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "surrounded=0",
+     "log_sha256": "7d50637d19fe3ce2210a92d7059d9afc7b32c2da6604d1498b4944fbd7f20803"
+    }
+   },
+   "normal:walls": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "surrounded=0",
+     "log_sha256": "cf28bba24dae390a571210f2711f34c44c3087e9db69c0c14a63933398251e72"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "surrounded=0",
+     "log_sha256": "cf28bba24dae390a571210f2711f34c44c3087e9db69c0c14a63933398251e72"
+    }
+   }
+  },
+  "home-blows": {
+   "normal:stack": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_blows=1 engine_blows=2",
+     "log_sha256": "0f45271d338ba86142e31179c9569445ceda6a22b2625d47886bdf448b9749e5"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_blows=2 engine_blows=2",
+     "log_sha256": "9ad422697fdf74e6251b8fda22a72119544a83791be87ce006c0fa52a9ee35b7"
+    }
+   },
+   "normal:single": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_blows=2 engine_blows=2",
+     "log_sha256": "8ce8fdcfceceea798589679aef85ac1ae15dd7500c0c5319a63879d2abb71e71"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_blows=2 engine_blows=2",
+     "log_sha256": "8ce8fdcfceceea798589679aef85ac1ae15dd7500c0c5319a63879d2abb71e71"
+    }
+   }
+  },
+  "lunal-state": {
+   "normal:town": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "lunal_mode=0 fleeing_lunal=1",
+     "log_sha256": "ecc50c9a0d19e22eb28965c71ce3f4eaa259eb59afceb870104ea9a19929177d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "lunal_mode=0 fleeing_lunal=0",
+     "log_sha256": "de63881ea2ffea6f803892f1979c555503a173e0abb3eb2a4b75e1e6d8393b55"
+    }
+   },
+   "normal:pack": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "lunal_mode=1 fleeing_lunal=1",
+     "log_sha256": "e283487ff5e27644d74d5738170a3f52f8ffceb67fb3686925c49dfa5dc4036e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "lunal_mode=1 fleeing_lunal=1",
+     "log_sha256": "e283487ff5e27644d74d5738170a3f52f8ffceb67fb3686925c49dfa5dc4036e"
+    }
+   }
+  },
+  "opblock-leak": {
+   "normal:operators": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "formula_value=7 calc_count=1",
+     "log_sha256": "e409328a7f603cb51d6e69de2ea139dde3e3861f7de9444fa728028fe66482ad"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "formula_value=7 calc_count=1",
+     "log_sha256": "e409328a7f603cb51d6e69de2ea139dde3e3861f7de9444fa728028fe66482ad"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=42 control_count=1",
+     "log_sha256": "d45d78cebae749560f01c2d65012eb8310062d4ff8f7e622159029f18b1e455d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=42 control_count=1",
+     "log_sha256": "d45d78cebae749560f01c2d65012eb8310062d4ff8f7e622159029f18b1e455d"
+    }
+   },
+   "asan:operators": {
+    "before": {
+     "exit": 1,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": "160 byte(s) leaked in 2 allocation(s).",
+     "outcome": "formula_value=7 calc_count=1",
+     "log_sha256": "e4185d14927e110be41bc9903b84d3a2a4378bc212fbe40a72ac3bae3f157186"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "formula_value=7 calc_count=1",
+     "log_sha256": "e409328a7f603cb51d6e69de2ea139dde3e3861f7de9444fa728028fe66482ad"
+    }
+   }
+  },
+  "calfree-tokens": {
+   "normal:free": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "freed_value=3 freed_count=0",
+     "log_sha256": "f1e8224ee74570d2098edc55b85e8a70e5b5607bb6fa9182a84a8b4d363d7cd4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "freed_value=3 freed_count=0",
+     "log_sha256": "f1e8224ee74570d2098edc55b85e8a70e5b5607bb6fa9182a84a8b4d363d7cd4"
+    }
+   },
+   "normal:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=42 control_count=1",
+     "log_sha256": "04e4a0747bd65c0c06d1c26f0347e6265bcfb2a6bd66a759eb00b5fef514db54"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "control_value=42 control_count=1",
+     "log_sha256": "04e4a0747bd65c0c06d1c26f0347e6265bcfb2a6bd66a759eb00b5fef514db54"
+    }
+   },
+   "asan:free": {
+    "before": {
+     "exit": 1,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": "160 byte(s) leaked in 2 allocation(s).",
+     "outcome": "freed_value=3 freed_count=0",
+     "log_sha256": "de5d0d3ae2c26fb9206c9484dc8f131bfefe3baf9bc9207d038e2242cc960966"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "freed_value=3 freed_count=0",
+     "log_sha256": "f1e8224ee74570d2098edc55b85e8a70e5b5607bb6fa9182a84a8b4d363d7cd4"
+    }
+   }
+  }
+ },
+ "totals": {
+  "normal_before_pass": 37,
+  "normal_after_pass": 62,
+  "modes": 64,
+  "fail_to_pass": 26,
+  "pass_both": 36,
+  "pass_to_fail": 1,
+  "fail_both": 1
+ }
+}

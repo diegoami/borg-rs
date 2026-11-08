@@ -13,6 +13,11 @@ Target2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f contains seven fixes,
 independently approved in C review38/comment6705894080. Read
 [adoption/c-m2](docs/adoption/c-m2/README.md) and adoption/status.json for
 actual implementation/validation state. No later C milestone is included.
+Owner then directed C milestone3 (2026-11-08): target702f091f6, tracking
+[borg-rs#8](https://github.com/diegoami/borg-rs/issues/8), record
+[adoption/c-m3](docs/adoption/c-m3/README.md). It retires the local #290
+equality reset in favour of the consumer's patch0018 guard; #287/#322 cover
+patches0025/0027. Review/acceptance pending; no tag inferred.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
