@@ -27,12 +27,18 @@ engine function `square_islit`.
 | Existing native checker and `CHECK_UBSAN=1` | pass: 30,000 calculator cases, 2×2,000 spatial states, 2,600 glyph-builder runs and 1,280 lunal-thinker states; twelve real-source fault controls rejected. The spatial kernel compares the actual C and Rust `borg_flow_spread`/`borg_flow_enqueue_grid` with randomised desperate/digging/lunal/munchkin flags and full flow matrices, so it is **direct C/Rust evidence for 0049**. The checker's extraction list needed the new Rust helper (`borg_flow_ignores_danger`); that was the only change |
 | 131-case milestone2 plan ([matrix.json](matrix.json)) | C and Rust 131/131 completed (DONE). **131/131 C/Rust parity** on keys, messages, state and full native saves; `harness/diff` exit 0; `matrix.py` PASS |
 | Behaviour change vs the milestone4 run on the same plan | 121/131 cases differ from the local milestone4 run (`harness/out/c-m4/g-c`, recorded as `reference`). Deaths over the plan: 28 (M4) → 26 (M5). This is an observation, not a survival claim |
-| Per-fix Rust fault controls ([fault-suite](fault-suite), 23 cases, built at `7a0728f`) | all 8 suites DONE; **2 detected**: 0050 (23/23 cases), 0049 (6). 0043–0048 are not detected on this subset; non-detection is not proof of non-execution. 0049 also has the kernel-level evidence above |
+| Per-fix Rust fault controls ([fault-suite](fault-suite), 23 cases, built at `7a0728f`) | all 8 suites DONE; **2 detected**: 0050 (23/23 cases), 0049 (6/23). These are counts on the 23-case **subset**, not a measure of how often a fix acts. On the full 131-case plan the independent review measured 0050 at 121/131, 0049 at 77/131 and 0044 at 0/131 (issue13). 0043–0048 are not detected on this subset; non-detection is not proof of non-execution. 0049 also has the kernel-level evidence above |
 | Removal units | all 16 reverse-apply alone on the final tree; reversing all of them restores `4.2.6-impact-v4` exactly for the changed C/Rust files (including the FFI binding) |
 
-Rust coverage for 0043–0048 rests on translation review plus the parity
-matrix; there is no Rust-side behavioural control for them.
+Rust coverage for 0043, 0044, 0046, 0047 and 0048 rests on translation review
+plus the parity matrix; there is no Rust-side behavioural control for them.
+0045 has one: the `tvals` unit test pins `is_armour(TV_GLOVES)`. A Rust control
+for 0047 needs engine spell state; per the review, Rust-side controls for
+such cases are a follow-up for the next milestone.
 
 Budget: `JOBS=3`, `RUN_TIMEOUT_SECONDS=600`; maximum Rust wall time 239.3 s.
-Only one C pass was run, and no new target reference is exported. Raw outputs
+A second C-oracle pass of the native fixtures and the flow-cache contract
+(after review) is byte-identical to the first: 16/16 with every log hash
+equal, and 30/30. The independent review's rerun also matched. The game matrix
+was run once per image, and no new target reference is exported. Raw outputs
 are in `harness/out/c-m5`, outside Git.
