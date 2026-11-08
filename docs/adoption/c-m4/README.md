@@ -19,8 +19,10 @@ Rust starts from main `3211e91c39ddf8480357193a9ea0a426e93a7c61`
 
 ## Reconciliation
 
-[series.json](series.json) and [patches](patches) are the consumer's records
-for 0035-0042, byte-for-byte from `70993393a`. [ledger.json](ledger.json) adds
+[patches](patches) are the consumer's patch files for 0035-0042,
+byte-for-byte from `70993393a`; [series.json](series.json) holds those eight
+entries unchanged (a filtered subset of the consumer file, plus a
+`consumer_pin` key). [ledger.json](ledger.json) adds
 the Rust disposition. All eight are new (absent from pre-adoption C and Rust)
 and are carried in both:
 

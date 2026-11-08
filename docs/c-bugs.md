@@ -1563,3 +1563,20 @@ The C source is unchanged; no correction is proposed in this pass.
   See `docs/validation/2026-11-07-glyph-recognition/README.md`. This fixes
   recognition, not section56's reverse flow or autonomous construction.
   Published correction/evidence: `da39bf5`; [tracker update read back](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6705894975).
+
+## 59. Wizard cure-all leaves known curses; Remove Curse then reads NULL (engine)
+
+* `cmd-wizard.c`, `do_cmd_wiz_cure_all()`, with `ui-curse.c` `curse_menu()`.
+  Observed in the C milestone4 adoption, case `cfg-lunal-deep-warrior`
+  (seed 2007, `menu,cheat,lunal`), at game turn about 20076, in C and Rust alike.
+* Cure-all frees each worn item's `obj->curses` and sets it to NULL but leaves
+  `obj->known->curses`. `curse_menu()` filters on the known list and reads
+  the real one, so a later Remove Curse dereferences NULL. The Borg reaches
+  cure-all through its cheat-death answer to "Die? [y/n]" (`borg_react_prompted`);
+  normal play reaches it only through the debug command.
+* Engine code, shared by both images (Rust calls it through FFI). Unchanged on
+  official master `e473720ed`.
+* Corrected locally (owner-directed narrow engine fix): cure-all also frees the
+  known list. See `FORK-CORRECTIONS.md` and
+  [validation/2026-11-08-c-m4](validation/2026-11-08-c-m4/README.md).
+* Tracker: diegoami/neo-angband-tracker#474. Adoption: [Rust#11](https://github.com/diegoami/borg-rs/issues/11).
