@@ -498,4 +498,7 @@ harness/adoption/m9/local/staleglyph), so it is carried with a narrow guard
 (owner decision; reported on better-borg-c#375). 0099 crashed every
 Necromancer case of the 131-case plan (stale borg.c after a level change);
 carried with a bounds guard (b89c106; better-borg-c#377). Native 23->39/41,
-ASan 6->12/12. Validation in progress; review and owner acceptance pending.
+ASan 6->12/12. 131-case plan: 130 complete with full C/Rust parity;
+cfg-munchkin-dunadan-bg times out in both roles in a pre-existing munchkin
+blind livelock (prefix-identical; owner: record and report, better-borg-c#204).
+2/10 Rust fault units detected. Review and owner acceptance pending; not merged.

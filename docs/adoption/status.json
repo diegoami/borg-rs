@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v9_in_progress",
+  "phase": "impact_v9_author_validated_review_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -289,7 +289,7 @@
       "id": "c-m9",
       "target_commit": "33207fbeeb582e67d6b18e9f40613617667905ae",
       "consumer_tag": "4.2.6-impact-v9",
-      "state": "author_validation_in_progress",
+      "state": "author_validated_review_pending",
       "consumer_patches": 10,
       "carried_c_and_rust": 10,
       "superseded_local_corrections": {
@@ -304,12 +304,17 @@
       "native_modes_before_after": "23/41 -> 39/41 (runeglyph floor/trap red both, as the consumer asserts); ASan 6/12 -> 12/12",
       "implementation_commit": "d7e5985 (+ b89c106, the 0099 guard)",
       "starting_rust_main": "286215c",
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": false,
+      "game_cases": 131,
+      "c_rust_parity": "130 complete with full parity; cfg-munchkin-dunadan-bg timed out in both roles (pre-existing munchkin blind livelock; prefix-identical up to the kill; owner: record and report, better-borg-c#204)",
+      "harness_diff_exit": "2 (refuses incomplete suites); --allow-incomplete: 130/131 identical",
+      "rust_fault_controls_detected": "2/10 units (0092, 0094)",
+      "behaviour_change_vs_m8": "57/130 completed cases; deaths 18 -> 13"
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v9 (C milestone9) carried on the work branch; validation in progress, then independent review and owner acceptance.",
+  "next_action": "Impact v9 (C milestone9) carried and author-validated on the work branch; independent review and owner acceptance pending.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -336,7 +341,7 @@
     "id": "c-m9",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/21",
     "starting_rust_main": "286215c",
-    "state": "author_validation_in_progress",
+    "state": "author_validated_review_pending",
     "ledger": "docs/adoption/c-m9/ledger.json",
     "receipt": "docs/validation/2026-11-09-c-m9/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"
