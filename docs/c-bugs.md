@@ -36,6 +36,11 @@ The milestone7 carries in [adoption/c-m7](adoption/c-m7/README.md)
 are marked with "Milestone7" bullets. Two of them replace retained local
 corrections: 0068 supersedes #287 and 0065 supersedes #345.
 
+The milestone8 carries in [adoption/c-m8](adoption/c-m8/README.md)
+(better-borg-c `017e038e8`, [Rust#19](https://github.com/diegoami/borg-rs/issues/19))
+are marked with "Milestone8" bullets. The same target also carries the
+owner's munchkin-by-class change (PR302), which is not a C bug fix.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -59,6 +64,7 @@ with its issues.
   comment-free sibling checks elsewhere do with `borg.trait[BI_CURHP]`).
 * Rust (`borg_fight_defend.rs`): `st.borg.has[BI_CURHP as usize]` (same
   index into the same table).
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source37 reads `borg.trait[BI_CURHP]` (patch 0078), in C and Rust.
 
 ## 2. Copy-and-paste slips in sval lookups
 
@@ -91,6 +97,8 @@ with its issues.
   once by the box scan). Duplicates only make readers of the array
   (`borg_flow_dark`, `borg_update`) visit a grid twice.
 * Rust: kept as is in `borg_cave_light.rs`.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source40 lights (y+1, x-2) and (y-1, x-2) (patch 0081), in C
+  and Rust.
 
 ## 5. Spell status set from a bool; books 0-7 only (magic)
 
@@ -146,6 +154,8 @@ with its issues.
   (the other item types use a lower second threshold, e.g. rings 6 / 4).
 * Rust: both kept in `borg_home_power.rs` (the dead branch is left out, as
   clippy rejects an `if` with the same condition twice; a comment marks it).
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source47 removes the dead `else if (num_neck > 3)` branch
+  (patch 0083, an owner-decided cleanup with no behaviour change).
 ## 9. Dark-grid test uses `==` instead of `&` (magic play)
 
 * `borg-magic-play.c`, `borg_play_magic()`, every call (study and town
@@ -306,6 +316,8 @@ with its issues.
   `borg_danger.rs`; the other findings remain.
 * Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): source64 resets `bolt` per spell and source67 reads
   the Teleport Other list only below its count, in C and Rust.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source62 removes the dead HURT stun test (patch 0085, an
+  owner-decided cleanup with no behaviour change).
 
 ## 18. Item value: stat bonuses tested as object flags (item analyze)
 
@@ -320,6 +332,8 @@ with its issues.
   an item that has a pval (and a CON sustain does not).
 * Rust: kept (`engine::flag_has(&item.flags, STAT_*)`) in
   `borg_item_analyze.rs`.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source70 credits the positive stat modifiers themselves, and
+  no longer skips every credit when `pval` is 0 (patch 0082), in C and Rust.
 ## 19. Object tracking and item flows (flow take)
 
 * `borg-flow-take.c`, found by code reading.
@@ -346,6 +360,8 @@ with its issues.
   is `'!'` and its attr is not 11; for every other kind the attr is not
   compared at all.
 * Rust (`borg_flow_take.rs`): all kept.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source72 skips dead entries (`kidx == 0`) in
+  `borg_flow_take_lunal()` (patch 0088), in C and Rust.
 
 ## 20. Device use slips (item use)
 
@@ -431,6 +447,8 @@ with its issues.
 * Rust (`borg_light.rs`): all kept.
 * Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source90 scans for the *first* lantern in the pack (patch 0076),
   in C and Rust.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source88 tests the Borg's row on the panel
+  (`borg.c.y - Term->offset_y`) in `borg_light_beam()` (patch 0084), in C and Rust.
 ## 23. Curse removal item letters (item decurse)
 
 * `borg-item-decurse.c`, `borg_decurse_any()`, found by code reading.
@@ -638,6 +656,8 @@ with its issues.
   cost).
 * Rust (`borg_flow.rs`): all kept (the index -1 read panics; the dead
   event code and the double free are left out, as they have no effect).
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source125 skips a non-goal shop entrance on any grid but
+  the Borg's (`||`, patch 0080), in C and Rust.
 
 ## 33. Selling and stashing slips (store sell)
 
@@ -730,6 +750,8 @@ with its issues.
   known floor grid without a monster, or in range of the spell; it ignores
   the result of `borg_spell()`.
 * Rust (`borg_escape.rs`): all kept.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source21 aims Dimension Door only at a known floor grid
+  without a monster (patch 0086), in C and Rust.
 ## 36. Shop choice slips (think store)
 
 * `borg-think-store.c`, found by code reading.
@@ -745,6 +767,9 @@ with its issues.
 * The money-scumming test repeats `!borg.trait[BI_CDEPTH]`, already
   returned on at the top of the function.
 * Rust (`borg_think_store.rs`): all kept.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source23 sends a poisoned or bleeding Borg to the Alchemy
+  shop (4) in `borg_choose_shop()` and `borg_think_shop_buy_useful()` (patch
+  0087), in C and Rust.
 
 ## 37. Junk and drop choices (junk)
 
@@ -844,6 +869,9 @@ with its issues.
   Rust code panics.
 * Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source146 runs the spastic reverse flow with `optimize` false
   (patch 0064), in C and Rust.
+* Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source149 no longer clears `last_kill_mult` in
+  `borg_check_rest()` (patch 0079), and source147 uses the candidate grid's
+  own search count in the spastic value (patch 0089), in C and Rust.
 
 ## 40. Caution slips (caution)
 
