@@ -1,0 +1,32 @@
+diff --git a/angband/src/borg/borg-messages.c b/angband/src/borg/borg-messages.c
+index ccbe10a..fb44d4d 100644
+--- a/angband/src/borg/borg-messages.c
++++ b/angband/src/borg/borg-messages.c
+@@ -621,8 +625,11 @@ static void borg_parse_aux(char *msg, int len)
+                         }
+                         track_glyph.num = 0;
+ 
+-                        /* Check for glyphs under player -- Cheat*/
+-                        if (square_iswarded(cave, borg.c)) {
++                        /* Check for glyphs under player -- Cheat.  The
++                         * position may still be on the previous level when
++                         * this is parsed just after a level change. */
++                        if (square_in_bounds(cave, borg.c)
++                            && square_iswarded(cave, borg.c)) {
+                             track_glyph.x[track_glyph.num] = borg.c.x;
+                             track_glyph.y[track_glyph.num] = borg.c.y;
+                             track_glyph.num++;
+@@ -1184,8 +1191,11 @@ static void borg_parse_aux(char *msg, int len)
+         /* no known glyphs */
+         track_glyph.num = 0;
+ 
+-        /* Check for glyphs under player -- Cheat*/
+-        if (square_iswarded(cave, borg.c)) {
++        /* Check for glyphs under player -- Cheat.  The position may still
++         * be on the previous level when this is parsed just after a level
++         * change. */
++        if (square_in_bounds(cave, borg.c)
++            && square_iswarded(cave, borg.c)) {
+             track_glyph.x[track_glyph.num] = borg.c.x;
+             track_glyph.y[track_glyph.num] = borg.c.y;
+             track_glyph.num++;

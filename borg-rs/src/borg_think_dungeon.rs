@@ -74,7 +74,7 @@ use crate::borg_headers::borg_h::{
 use crate::borg_headers::borg_magic_h::{PHASE_DOOR, PORTAL, TELEPORT_SELF};
 use crate::borg_headers::borg_trait_h::{
     BI_AGLYPH, BI_CDEPTH, BI_CLEVEL, BI_CURHP, BI_CURSP, BI_FOOD, BI_GOLD, BI_ISBLIND,
-    BI_ISCONFUSED, BI_ISCUT, BI_ISHUNGRY, BI_ISPOISONED, BI_ISWEAK, BI_KING, BI_LIGHT,
+    BI_ISCONFUSED, BI_ISCUT, BI_ISHUNGRY, BI_ISIMAGE, BI_ISPOISONED, BI_ISWEAK, BI_KING, BI_LIGHT,
     BI_MAXCLEVEL, BI_MAXDEPTH, BI_MAXHP, BI_MAXSP, BI_QUIVER_SLOTS, BI_RECALL,
 };
 use crate::headers::list_options_h::OPT_birth_force_descend;
@@ -638,6 +638,17 @@ fn borg_think_dungeon_munchkin(st: &mut BorgState) -> bool {
     /* Not if starving or in town */
     if st.borg.tr(BI_CDEPTH) == 0 || st.borg.tr(BI_ISWEAK) != 0 {
         borg_note(st, "# Leaving munchkin Mode. (Town or Weak)");
+        st.borg.munchkin_mode = false;
+        return false;
+    }
+
+    /* Not while poisoned or hallucinating. Stair travel does not age the
+     * world clock (level entry grants minimum move energy and the world
+     * tick is skipped during level generation), so these timed ailments
+     * can never wear off while the borg shuttles between stairs. Leave
+     * them to the ordinary recovery path, which ages turns normally. */
+    if st.borg.tr(BI_ISPOISONED) != 0 || st.borg.tr(BI_ISIMAGE) != 0 {
+        borg_note(st, "# Leaving munchkin Mode. (Poisoned or Hallucinating)");
         st.borg.munchkin_mode = false;
         return false;
     }

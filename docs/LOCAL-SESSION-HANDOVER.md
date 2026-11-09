@@ -460,3 +460,17 @@ and owner acceptance pending; not merged.
 Review (issue15): qualified pass, no blocker/major; findings addressed in
 975fdb0 and the 131-case plan rerun on its builds (identical streams).
 Owner: "accept, merge and tag" -> impact v6, tag `4.2.6-impact-v6`.
+
+## C milestone7 adoption (2026-11-09)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v6`, tracking
+borg-rs#17, record docs/adoption/c-m7, receipt docs/validation/2026-11-09-c-m7.
+All thirteen patches (0064-0071, 0073-0077) carried in C and Rust; 0068/0065
+supersede local #287/#345 (#322/#295 stay); 0072 deferred by the consumer.
+Native 24→42/43 (painmsg puff red both, as the consumer asserts), ASan 6→8/8,
+second C pass identical, 131/131 C/Rust parity, harness/diff exit 0, 3/12
+Rust fault units detected; Rust rerun at 7efe65c identical. Review and owner
+acceptance pending; not merged.
+Review (issue17): qualified pass, no blocker/major; doc-comment findings fixed
+in 1c1fa0c/2e9a609, Rust rerun at 2e9a609 identical (rust-reruns.json).
+Owner: "accept, merge and tag" -> impact v7, tag `4.2.6-impact-v7`.

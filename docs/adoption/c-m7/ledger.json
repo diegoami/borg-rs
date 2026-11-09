@@ -1,0 +1,403 @@
+{
+ "consumer_commit": "3573d741e6dc3cafa4099fcef8b38fdb32952977",
+ "consumer_tag": "4.2.6-impact-v7",
+ "previous_consumer_commit": "b3c825c97c8aef18b252a7fb7d9b7dceef83d586",
+ "consumer_package": "docs/measurement/IMPACT-MILESTONE7.md at better-borg-c f9f02be3 (docs-only after the runtime snapshot)",
+ "c_review": "https://github.com/diegoami/better-borg-c/issues/301",
+ "issue": "https://github.com/diegoami/borg-rs/issues/17",
+ "previous_batch": "https://github.com/diegoami/borg-rs/issues/15",
+ "starting_main": "e5cb263eed8eee93860b5cfcdc18af99e6d134f1",
+ "starting_tag": "4.2.6-impact-v6",
+ "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+ "retained_local_corrections": [
+  322,
+  295
+ ],
+ "superseded_local_corrections": {
+  "287": "consumer patch 0068",
+  "345": "consumer patch 0065"
+ },
+ "retained_engine_corrections": [
+  "cure-all known curses (neo-angband-tracker#474)"
+ ],
+ "not_in_batch": "0072 (spasticscore-147) was prepared by the consumer and deferred before its PR; it is not in the series",
+ "counts": {
+  "consumer_carries": 13,
+  "carried_c_and_rust": 13,
+  "behaviour_unchanged_vs_v6": [
+   "0065 (already local #345)"
+  ],
+  "removal_units": {
+   "c": 13,
+   "rust": 13
+  }
+ },
+ "patches": [
+  {
+   "id": "CBUG-0130",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/268",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/146",
+   "source_head": "f97311e5d52de4dda8d75058114c52acbdac2674",
+   "source_commits": [
+    "f97311e5d52de4dda8d75058114c52acbdac2674"
+   ],
+   "applied_commits": [
+    "dafc4bd45c5cc45fa0a435ced1a956512fbdcafc"
+   ],
+   "patch": "patches/0064-spastic-reverse-flow-unoptimized.patch",
+   "patch_active": true,
+   "evidence_ref": "da9a39f4da3005dc24feeba4ae6b8e0bfe67475e",
+   "verification": "docs/measurement/REVERSE-FLOW.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified stepwise on the unchanged source fixture; native gate on the stacked tip; v1 cohort measured on the pair; carried/open+patch-active",
+   "merge_commit": "8d0d0cd8b7a48c328c0c33e53d3dd1d35c060e34",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_flow_misc.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0064-c.patch",
+    "rust": "removals/0064-rust.patch"
+   },
+   "native_fixture": "spastic"
+  },
+  {
+   "id": "GLYPHFLOW-345",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/269",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/345",
+   "source_head": "f618381294dcf5bff1f0bc95f0fbe259412a53b9",
+   "source_commits": [
+    "f618381294dcf5bff1f0bc95f0fbe259412a53b9"
+   ],
+   "applied_commits": [
+    "e66b1dca298523c84a8a7a0d9ae009ddf6562b10"
+   ],
+   "patch": "patches/0065-glyph-reverse-flow-unoptimized.patch",
+   "patch_active": true,
+   "evidence_ref": "fbe06401c54c4e701ea20a9e3c7aec48f849c30b",
+   "verification": "docs/measurement/REVERSE-FLOW.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "merged; verified stepwise on the unchanged source fixture; native gate on the stacked tip; v1 cohort measured on the pair; carried/open+patch-active",
+   "merge_commit": "8d0d0cd8b7a48c328c0c33e53d3dd1d35c060e34",
+   "reconciliation": "supersedes retained local correction #345 (same call: borg_flow_reverse(250, false, ...)); C takes the consumer blob and Rust the matching comment; neither changes behaviour relative to impact v6",
+   "disposition": "carried in C/Rust (Rust change is the comment only: the call already passed optimize=false under local #345)",
+   "rust_module": [
+    "borg-rs/src/borg_flow_glyph.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0065-c.patch",
+    "rust": "removals/0065-rust.patch"
+   },
+   "native_fixture": "glyphflow"
+  },
+  {
+   "id": "SWAPACID-199",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/270",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/199",
+   "source_head": "eddbf5b82293ea70a76fae960bc9f8debf1579c6",
+   "source_commits": [
+    "eddbf5b82293ea70a76fae960bc9f8debf1579c6"
+   ],
+   "applied_commits": [
+    "91f075bdcc329ec754e10e24da3cce36c5279784"
+   ],
+   "patch": "patches/0066-swap-weapon-acid-element.patch",
+   "patch_active": true,
+   "evidence_ref": "9eca003a5896403b9810806b4fc656446a34cf9a",
+   "verification": "docs/measurement/SWAP-ACID.md",
+   "credit": "borg-rs (lead); Diego Amicabile (native validation/proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the stacked tip; v1 traces identical; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_trait_swap.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0066-c.patch",
+    "rust": "removals/0066-rust.patch"
+   },
+   "native_fixture": "swapacid"
+  },
+  {
+   "id": "STAIRCYCLE-403",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/280",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/403",
+   "source_head": "d92e06c3f964e4bba19642288ded1b331a327109",
+   "source_commits": [
+    "d92e06c3f964e4bba19642288ded1b331a327109"
+   ],
+   "applied_commits": [
+    "bd9a36def55cde1c478136b31bf3c7c3a717d520"
+   ],
+   "patch": "patches/0067-munchkin-leaves-while-poisoned-or-hallucinating.patch",
+   "patch_active": true,
+   "evidence_ref": "43dee40ed05284848f3df25aa5abf19a7f776c7f",
+   "verification": "docs/measurement/STAIR-CYCLE-POISON.md",
+   "credit": "Diego Amicabile (zoo-reported, native validation/proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the stacked tip; v1 traces identical; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_think_dungeon.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0067-c.patch",
+    "rust": "removals/0067-rust.patch"
+   },
+   "native_fixture": "staircycle"
+  },
+  {
+   "id": "TEXT-287-BUFSIZE",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/93",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/287",
+   "source_head": "e7f670fa4d4f0672dc346637fc7be20c814a4b62",
+   "source_commits": [
+    "e7f670fa4d4f0672dc346637fc7be20c814a4b62"
+   ],
+   "applied_commits": [
+    "60034c84c47e7ec71c25fbb637841ac018ef29bb"
+   ],
+   "patch": "patches/0068-text-buffer-size-bound.patch",
+   "patch_active": true,
+   "evidence_ref": "e41f4c99eb39f676e47fe5ab5c06a0ed3056c5c5",
+   "verification": "docs/measurement/TEXT-BUFSIZE.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the revised source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "supersedes retained local correction #287 (the consumer's 0068 corrects its patch 0025, which borg-rs had carried as #287): C takes the consumer's borg-io.c/borg-io.h blobs and the call-site formatting in borg-messages.c; the only behavioural difference from #287 is the wcstombs error path (now NUL-terminates at 0 and returns success instead of returning early); Rust borg_what_text follows",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_io.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0068-c.patch",
+    "rust": "removals/0068-rust.patch"
+   },
+   "native_fixture": "text287"
+  },
+  {
+   "id": "GLOWISGLOW-213",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/224",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/213",
+   "source_head": "c316a65b248c4372ff3b686eafaa0477c3117eeb",
+   "source_commits": [
+    "c316a65b248c4372ff3b686eafaa0477c3117eeb"
+   ],
+   "applied_commits": [
+    "b5e07827a5e04e36669323138b8ffeb95adb7e40"
+   ],
+   "patch": "patches/0069-glow-floor-permanent-glow-flag.patch",
+   "patch_active": true,
+   "evidence_ref": "f2b402c92ce57cc85d9fda777de901c2f157c720",
+   "verification": "docs/measurement/GLOW-ISGLOW.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the revised source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "corrects consumer patch 0050 (carried in impact v5): Floors test uses square_isglow (permanent glow) instead of square_islit; C keeps local #295 in borg-update.c",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_update.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0069-c.patch",
+    "rust": "removals/0069-rust.patch"
+   },
+   "native_fixture": "glowtrace"
+  },
+  {
+   "id": "ISWARDED-198",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/286",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/198",
+   "source_head": "62242ac26bab4f128793d767f0f502bf4ca4d820",
+   "source_commits": [
+    "62242ac26bab4f128793d767f0f502bf4ca4d820"
+   ],
+   "applied_commits": [
+    "ecfea5064546b52695680150d9f7828f3ef2e2d2"
+   ],
+   "patch": "patches/0070-rune-check-current-level.patch",
+   "patch_active": true,
+   "evidence_ref": "5454144a624ef51ec68cbd37e8291b45d10d865d",
+   "verification": "docs/measurement/ISWARDED-198.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_messages.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0070-c.patch",
+    "rust": "removals/0070-rust.patch"
+   },
+   "native_fixture": "iswarded"
+  },
+  {
+   "id": "PAINMSG-197",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/287",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/197",
+   "source_head": "8a0c13f7127642da8222c84380b4e6b8f9f96eff",
+   "source_commits": [
+    "8a0c13f7127642da8222c84380b4e6b8f9f96eff"
+   ],
+   "applied_commits": [
+    "1e00314553594d9bf0f8174ae6e15b28f3bcf7c7"
+   ],
+   "patch": "patches/0071-pain-message-allocation.patch",
+   "patch_active": true,
+   "evidence_ref": "ffb74e54ad2ccf6a88e38c174322d04814bb3748",
+   "verification": "docs/measurement/PAINMSG-197.md",
+   "credit": "borg-rs (discovery); Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate at the applied tip; carried/open+patch-active after merge",
+   "reconciliation": "Rust unit test parsed_pain pinned the cut last character; it now expects the full text",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_messages.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0071-c.patch",
+    "rust": "removals/0071-rust.patch"
+   },
+   "native_fixture": "painmsg"
+  },
+  {
+   "id": "TROLLSWAP-201",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/289",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/201",
+   "source_head": "4fe83bc81a2208e76481e09fa66a66481052cd44",
+   "source_commits": [
+    "4fe83bc81a2208e76481e09fa66a66481052cd44"
+   ],
+   "applied_commits": [
+    "288556d2bb20add9718b9d4a33c457b68a3d5e91"
+   ],
+   "patch": "patches/0073-troll-slay-real-multiplier.patch",
+   "patch_active": true,
+   "evidence_ref": "2f3a73f374746a9de0677184128520af52f34f0b",
+   "verification": "docs/measurement/TROLLSWAP-201.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_trait_swap.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0073-c.patch",
+    "rust": "removals/0073-rust.patch"
+   },
+   "native_fixture": "trollswap"
+  },
+  {
+   "id": "DROPHOLE-136",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/290",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/136",
+   "source_head": "ca904787777ca8fed7e113f52f1a6ae4fa02daeb",
+   "source_commits": [
+    "ca904787777ca8fed7e113f52f1a6ae4fa02daeb"
+   ],
+   "applied_commits": [
+    "6e1858a7115bcf898f7f172f13498d1060ffe90c"
+   ],
+   "patch": "patches/0074-drop-hold-equal-comparisons.patch",
+   "patch_active": true,
+   "evidence_ref": "ac57d5169f76bcaaf184df9a8c7595681145e94e",
+   "verification": "docs/measurement/DROPHOLE-136.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_junk.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0074-c.patch",
+    "rust": "removals/0074-rust.patch"
+   },
+   "native_fixture": "drophole"
+  },
+  {
+   "id": "WEARSKIP-85",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/294",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/85",
+   "source_head": "5d73e0c2120b450428f2417db325041c1b6d3da9",
+   "source_commits": [
+    "5d73e0c2120b450428f2417db325041c1b6d3da9"
+   ],
+   "applied_commits": [
+    "7b97f0f88dbb734e37c3cc16c43c78a17a50384e"
+   ],
+   "patch": "patches/0075-best-stuff-skip-count.patch",
+   "patch_active": true,
+   "evidence_ref": "3735a7e72849aa4fa95ddade1458fb27a95be866",
+   "verification": "docs/measurement/WEARSKIP-85.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_item_wear.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0075-c.patch",
+    "rust": "removals/0075-rust.patch"
+   },
+   "native_fixture": "wearskip"
+  },
+  {
+   "id": "LANTERN-90",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/296",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/90",
+   "source_head": "bd4698a850e9fb926d74c9a26be298716a33e5ba",
+   "source_commits": [
+    "bd4698a850e9fb926d74c9a26be298716a33e5ba"
+   ],
+   "applied_commits": [
+    "69a62b869ed4a176d8136223649ce979cb8f9388"
+   ],
+   "patch": "patches/0076-lantern-scan-first.patch",
+   "patch_active": true,
+   "evidence_ref": "8ba3564002fe376a5c5142f1e2079e7704efeb6a",
+   "verification": "docs/measurement/LANTERN-90.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_light.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0076-c.patch",
+    "rust": "removals/0076-rust.patch"
+   },
+   "native_fixture": "lantern"
+  },
+  {
+   "id": "HOMEBANISH-54",
+   "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/298",
+   "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/54",
+   "source_head": "e49ab94809d6f18d0b1d155ff2b1bc6ba8d3db78",
+   "source_commits": [
+    "e49ab94809d6f18d0b1d155ff2b1bc6ba8d3db78"
+   ],
+   "applied_commits": [
+    "6373f9b8aad1276c9cd7e99a1df7f4ff93d2ab95"
+   ],
+   "patch": "patches/0077-home-banishment-count.patch",
+   "patch_active": true,
+   "evidence_ref": "e24fa8ccabf7e86219898b7d777868887908c426",
+   "verification": "docs/measurement/HOMEBANISH-54.md",
+   "credit": "Diego Amicabile (native proposal/evidence)",
+   "verification_status": "verified stepwise on the unchanged source fixture; native gate on the tip; carried/open+patch-active after merge",
+   "reconciliation": "new correction; absent in pre-adoption C/Rust (4.2.6-impact-v6)",
+   "disposition": "carried in C/Rust",
+   "rust_module": [
+    "borg-rs/src/borg_home_notice.rs"
+   ],
+   "local_removal_units": {
+    "c": "removals/0077-c.patch",
+    "rust": "removals/0077-rust.patch"
+   },
+   "native_fixture": "homebanish"
+  }
+ ]
+}

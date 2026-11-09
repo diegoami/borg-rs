@@ -1,0 +1,17 @@
+diff --git a/borg-rs/src/borg_messages.rs b/borg-rs/src/borg_messages.rs
+index 26e8b52..a62a319 100644
+--- a/borg-rs/src/borg_messages.rs
++++ b/borg-rs/src/borg_messages.rs
+@@ -466,9 +466,10 @@ fn rebuild_glyphs(st: &mut BorgState) {
+     // no known glyphs
+     t.num = 0;
+ 
+-    // Check for glyphs under player -- Cheat
++    // Check for glyphs under player -- Cheat.  The position may still be on
++    // the previous level when this is parsed just after a level change.
+     let c = st.borg.c;
+-    if engine::square_iswarded(c.x, c.y) {
++    if engine::square_in_bounds(c.x, c.y) && engine::square_iswarded(c.x, c.y) {
+         let t = &mut st.glyph.track;
+         t.x[t.num as usize] = c.x;
+         t.y[t.num as usize] = c.y;

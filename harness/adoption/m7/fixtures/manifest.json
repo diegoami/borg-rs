@@ -1,0 +1,278 @@
+{
+  "consumer_pin": "3573d741e6dc3cafa4099fcef8b38fdb32952977",
+  "previous_consumer_pin": "b3c825c97c8aef18b252a7fb7d9b7dceef83d586",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "spastic",
+      "patch": "0064",
+      "source_issue": 146,
+      "consumer_issue": 268,
+      "evidence_commit": "33f288ef664527ddef80dcda928a8e8db6b1cff5",
+      "evidence_path": "docs/audit/c-reports/spastic-146/scenario.c",
+      "config_path": "docs/audit/c-reports/spastic-146/profile/borg.txt",
+      "original_sha256": "0eb671fcba236cec56286bb2e004ddf171a39ae2dee944f064a36090b22c63ab",
+      "scenario_sha256": "0eb671fcba236cec56286bb2e004ddf171a39ae2dee944f064a36090b22c63ab",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "SP146",
+      "marker": "native-c/spastic-146 finished: 1/1 passed",
+      "modes": [
+        "middle",
+        "corner",
+        "far"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "glyphflow",
+      "patch": "0065",
+      "source_issue": 345,
+      "consumer_issue": 269,
+      "evidence_commit": "4695d78e4e6ed5e2f0361520029c86badfa6c2ba",
+      "evidence_path": "docs/audit/c-reports/glyphflow-345/scenario.c",
+      "config_path": "docs/audit/c-reports/glyphflow-345/profile/borg.txt",
+      "original_sha256": "25de8ebe1ac6c936a6f09008d0a2e5ab4e834795f4373d979f01f0ab1a4776db",
+      "scenario_sha256": "25de8ebe1ac6c936a6f09008d0a2e5ab4e834795f4373d979f01f0ab1a4776db",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "GF345",
+      "marker": "native-c/glyphflow-345 finished: 1/1 passed",
+      "modes": [
+        "center",
+        "offcenter"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "swapacid",
+      "patch": "0066",
+      "source_issue": 199,
+      "consumer_issue": 270,
+      "evidence_commit": "fbc0de07ffa7729f618ea64364086d8b80dd1254",
+      "evidence_path": "docs/audit/c-reports/swapacid-199/scenario.c",
+      "config_path": "docs/audit/c-reports/swapacid-199/profile/borg.txt",
+      "original_sha256": "ecd840b9e4b71d701b84e252bc1fe1819ebaf31f669508a652bd45bf67537309",
+      "scenario_sha256": "ecd840b9e4b71d701b84e252bc1fe1819ebaf31f669508a652bd45bf67537309",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "SA199",
+      "marker": "native-c/swapacid-199 finished: 1/1 passed",
+      "modes": [
+        "elec",
+        "acid",
+        "fire",
+        "none"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "staircycle",
+      "patch": "0067",
+      "source_issue": 403,
+      "consumer_issue": 280,
+      "evidence_commit": "eb36b06b524992d112cef4fc9ec51f8ea701c015",
+      "evidence_path": "docs/audit/c-reports/staircycle-403/scenario.c",
+      "config_path": "docs/audit/c-reports/staircycle-403/profile/borg.txt",
+      "original_sha256": "734af08dca61108dfc326f48cf19805b2f3a8a804c57d07baf190de82204b931",
+      "scenario_sha256": "734af08dca61108dfc326f48cf19805b2f3a8a804c57d07baf190de82204b931",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "STAIR403",
+      "marker": "native-c/staircycle-403 finished: 1/1 passed",
+      "modes": [
+        "main",
+        "clean"
+      ],
+      "sanitizer": null,
+      "mode_markers": {
+        "main": "native-c/staircycle-403 finished: 2/2 passed",
+        "clean": "finished: 1/1 passed"
+      }
+    },
+    {
+      "name": "text287",
+      "patch": "0068",
+      "source_issue": 287,
+      "consumer_issue": 93,
+      "evidence_commit": "f9706564e0a667670fb024e9e1f87da137f21c9c",
+      "evidence_path": "docs/audit/c-reports/text-287/scenario.c",
+      "config_path": "docs/audit/c-reports/text-287/borg.txt",
+      "original_sha256": "a39c3a0b4c3b2565c8a6c27afca5854aa9bd1607040ba711003135c6a6b6ec63",
+      "scenario_sha256": "a39c3a0b4c3b2565c8a6c27afca5854aa9bd1607040ba711003135c6a6b6ec63",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "T287",
+      "marker": "native-c/text-287 finished: 1/1 passed",
+      "modes": [
+        "multibyte",
+        "control",
+        "wide"
+      ],
+      "sanitizer": "asan",
+      "extra_files": {
+        "t287-variant.h": "2cd7d94774d0459b26386b853b43adb591a97848c07ed95ee2b3019b5dcdb129"
+      }
+    },
+    {
+      "name": "glowtrace",
+      "patch": "0069",
+      "source_issue": 213,
+      "consumer_issue": 224,
+      "evidence_commit": "f2b402c92ce57cc85d9fda777de901c2f157c720",
+      "evidence_path": "docs/audit/c-reports/glowtrace-213/scenario.c",
+      "config_path": "docs/audit/c-reports/glowtrace-213/borg.txt",
+      "original_sha256": "0deb0d05d83835f5eecbb57b41fbada83d9af12d43bc1743c2079b6b7e081fb7",
+      "scenario_sha256": "0deb0d05d83835f5eecbb57b41fbada83d9af12d43bc1743c2079b6b7e081fb7",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "GLOW213",
+      "marker": "native-c/glowtrace-213 finished: 1/1 passed",
+      "modes": [
+        "main",
+        "door",
+        "torchlit",
+        "unlit"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "iswarded",
+      "patch": "0070",
+      "source_issue": 198,
+      "consumer_issue": 286,
+      "evidence_commit": "5454144a624ef51ec68cbd37e8291b45d10d865d",
+      "evidence_path": "docs/audit/c-reports/iswarded-198/scenario.c",
+      "config_path": "docs/audit/c-reports/iswarded-198/borg.txt",
+      "original_sha256": "daafb4822f9139159a84e76d55825e65b1b098b60674758570af2052007e5173",
+      "scenario_sha256": "daafb4822f9139159a84e76d55825e65b1b098b60674758570af2052007e5173",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "ISW198",
+      "marker": "native-c/iswarded-198 finished: 1/1 passed",
+      "modes": [
+        "rune-town",
+        "hit-town",
+        "rune-inside",
+        "hit-inside",
+        "hit-noglyph"
+      ],
+      "sanitizer": "asan"
+    },
+    {
+      "name": "painmsg",
+      "patch": "0071",
+      "source_issue": 197,
+      "consumer_issue": 287,
+      "evidence_commit": "ffb74e54ad2ccf6a88e38c174322d04814bb3748",
+      "evidence_path": "docs/audit/c-reports/painmsg-197/scenario.c",
+      "config_path": "docs/audit/c-reports/painmsg-197/borg.txt",
+      "original_sha256": "06893ae79cb33f42a8d82530788d09f150a50983e49e5c6cbe2734ca1e968fd0",
+      "scenario_sha256": "06893ae79cb33f42a8d82530788d09f150a50983e49e5c6cbe2734ca1e968fd0",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "PM197",
+      "marker": "native-c/painmsg-197 finished: 1/1 passed",
+      "modes": [
+        "held",
+        "command",
+        "uncommand",
+        "shapefail",
+        "stun",
+        "hurt",
+        "puff"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "trollswap",
+      "patch": "0073",
+      "source_issue": 201,
+      "consumer_issue": 289,
+      "evidence_commit": "2f3a73f374746a9de0677184128520af52f34f0b",
+      "evidence_path": "docs/audit/c-reports/trollswap-201/scenario.c",
+      "config_path": "docs/audit/c-reports/trollswap-201/borg.txt",
+      "original_sha256": "bafbd589a55b9e6d236772e732bccca9b1a4e5c8f57e3cb6af267c4276c933b6",
+      "scenario_sha256": "bafbd589a55b9e6d236772e732bccca9b1a4e5c8f57e3cb6af267c4276c933b6",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "TS201",
+      "marker": "native-c/trollswap-201 finished: 1/1 passed",
+      "modes": [
+        "troll-orc",
+        "troll-plain"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "drophole",
+      "patch": "0074",
+      "source_issue": 136,
+      "consumer_issue": 290,
+      "evidence_commit": "ac57d5169f76bcaaf184df9a8c7595681145e94e",
+      "evidence_path": "docs/audit/c-reports/drophole-136/scenario.c",
+      "config_path": "docs/audit/c-reports/drophole-136/borg.txt",
+      "original_sha256": "8285405170e06365da486f3bf37a3f681e172ddda322149733a8360cefbc97bb",
+      "scenario_sha256": "8285405170e06365da486f3bf37a3f681e172ddda322149733a8360cefbc97bb",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "DH136",
+      "marker": "native-c/drophole-136 finished: 1/1 passed",
+      "modes": [
+        "salt-water",
+        "spare-esp",
+        "restore-mana",
+        "level30"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "wearskip",
+      "patch": "0075",
+      "source_issue": 85,
+      "consumer_issue": 294,
+      "evidence_commit": "3735a7e72849aa4fa95ddade1458fb27a95be866",
+      "evidence_path": "docs/audit/c-reports/wearskip-85/scenario.c",
+      "config_path": "docs/audit/c-reports/wearskip-85/borg.txt",
+      "original_sha256": "5c9c1e95ac96273f03af986598d9437246a97b87c1d44d1e201458d5cdaa8a44",
+      "scenario_sha256": "5c9c1e95ac96273f03af986598d9437246a97b87c1d44d1e201458d5cdaa8a44",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "WS85",
+      "marker": "native-c/wearskip-85 finished: 1/1 passed",
+      "modes": [
+        "tight",
+        "roomy",
+        "nocloak"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "lantern",
+      "patch": "0076",
+      "source_issue": 90,
+      "consumer_issue": 296,
+      "evidence_commit": "8ba3564002fe376a5c5142f1e2079e7704efeb6a",
+      "evidence_path": "docs/audit/c-reports/lantern-90/scenario.c",
+      "config_path": "docs/audit/c-reports/lantern-90/borg.txt",
+      "original_sha256": "59f018e84df4cc2889aad404a95ad2839c75dd354b109beb8a0ea2a9acaab2dc",
+      "scenario_sha256": "59f018e84df4cc2889aad404a95ad2839c75dd354b109beb8a0ea2a9acaab2dc",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "LN90",
+      "marker": "native-c/lantern-90 finished: 1/1 passed",
+      "modes": [
+        "empty",
+        "single"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "homebanish",
+      "patch": "0077",
+      "source_issue": 54,
+      "consumer_issue": 298,
+      "evidence_commit": "e24fa8ccabf7e86219898b7d777868887908c426",
+      "evidence_path": "docs/audit/c-reports/homebanish-54/scenario.c",
+      "config_path": "docs/audit/c-reports/homebanish-54/borg.txt",
+      "original_sha256": "d35bce49f4f39cd625f38957aac68032bf57d66caa5678c615c3524cdbf69142",
+      "scenario_sha256": "d35bce49f4f39cd625f38957aac68032bf57d66caa5678c615c3524cdbf69142",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "HB54",
+      "marker": "native-c/homebanish-54 finished: 1/1 passed",
+      "modes": [
+        "banish",
+        "mass"
+      ],
+      "sanitizer": null
+    }
+  ]
+}

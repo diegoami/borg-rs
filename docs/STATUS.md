@@ -1,11 +1,19 @@
 # borg-rs status
 
-## Current task: adopt better-borg-c milestone 6 (impact v6)
+## Current task: adopt better-borg-c milestone 7 (impact v7)
+
+C milestone 7 (`4.2.6-impact-v7`, thirteen carries; 0068/0065 supersede the
+local #287/#345 corrections) is carried on branch `claude/wonderful-bell-3a7j6m`
+([#17](https://github.com/diegoami/borg-rs/issues/17)), with 131/131 C/Rust
+parity. Independent review: qualified pass; owner accepted as impact v7 (tag
+`4.2.6-impact-v7`). No later C milestone is selected.
+
+## Previous: adopt better-borg-c milestone 6 (impact v6)
 
 C milestone 6 (`4.2.6-impact-v6`, thirteen carries) is carried on branch
 `claude/wonderful-bell-3a7j6m` ([#15](https://github.com/diegoami/borg-rs/issues/15)),
 with 131/131 C/Rust parity. Independent review: qualified pass; owner
-accepted as impact v6 (tag `4.2.6-impact-v6`). No later C milestone is selected.
+accepted as impact v6 (tag `4.2.6-impact-v6`).
 
 ## Previous: adopt better-borg-c milestone 5 (impact v5)
 
@@ -238,6 +246,7 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 | Impact v4: better-borg-c milestone 4 carry | 8 consumer patches carried in C/Rust; engine correction: wizard cure-all also clears known curses (FORK-CORRECTIONS, neo-angband-tracker#474); harness/diff accepts a mid-command Borg self-stop (owner decision); 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#11); tag `4.2.6-impact-v4` on main; record `docs/adoption/c-m4` |
 | Impact v5: better-borg-c milestone 5 carry | 8 consumer patches carried in C/Rust (incl. flow danger cache 0049 and live Floors branch 0050, new `square_islit` FFI binding); 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#13); tag `4.2.6-impact-v5` on main; record `docs/adoption/c-m5` |
 | Impact v6: better-borg-c milestone 6 carry | 13 consumer patches carried in C/Rust (caution/flee, config parsing, clock reset, power, sell, drained dive); source250 already in 0012; 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#15); tag `4.2.6-impact-v6` on main; record `docs/adoption/c-m6` |
+| Impact v7: better-borg-c milestone 7 carry | 13 consumer patches carried in C/Rust (reverse flows, swap acid/troll, munchkin poison exit, text buffer size, glow floors, rune bounds, pain messages, drop/hold, wear skip, lantern, home banishment); 0068/0065 supersede local #287/#345; 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#17); tag `4.2.6-impact-v7` on main; record `docs/adoption/c-m7` |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
 
 ## Original M1-M3 machine

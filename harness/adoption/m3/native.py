@@ -4,8 +4,8 @@
 Each fixture is linked unchanged against the core and unit-test helper
 objects of one C build directory, and every mode is run with its original
 <PREFIX>_MODE/<PREFIX>_PROFILE environment. A mode passes only when its
-own "finished: 1/1 passed" marker is printed; exit status alone is never
-taken as a pass. Fixtures with a sanitizer column are also linked/run in
+own "finished: 1/1 passed" marker is printed (or a per-mode marker from
+'mode_markers'); exit status alone is never taken as a pass. Fixtures with a sanitizer column are also linked/run in
 an AddressSanitizer build (--asan-build): 'asan' fixtures run with
 detect_leaks=0 and record any AddressSanitizer report, 'lsan' fixtures run
 their first mode with detect_leaks=1 and record the leak summary.
@@ -65,7 +65,8 @@ def run_phase(fixture, directory, build, phase, asan):
         text = re.sub(r'\x1b\[[0-9;]*m', '', result.stdout.decode(errors='replace'))
         log = directory / f'{phase}-{mode}.log'
         log.write_text(text)
-        row = {'exit': result.returncode, 'passed': fixture['marker'] in text,
+        marker = fixture.get('mode_markers', {}).get(mode, fixture['marker'])
+        row = {'exit': result.returncode, 'passed': marker in text,
                'asan_report': 'ERROR: AddressSanitizer' in text, 'log_sha256': sha(log)}
         summary = re.search(r'SUMMARY: AddressSanitizer: (.*)', text)
         if summary:
@@ -119,6 +120,12 @@ def main():
                 text = text.replace(old.encode(), new.encode())
             (directory / 'profile/borg.txt').write_bytes(text)
         (directory / 'scenario.c').write_bytes(source.read_bytes())
+        # Headers a scenario includes by quoted name (milestone7: the text-287
+        # API-shape header); they sit next to the copied scenario.c.
+        for extra, digest in fixture.get('extra_files', {}).items():
+            data = (fixtures_dir / name / extra).read_bytes()
+            assert hashlib.sha256(data).hexdigest() == digest, (name, extra)
+            (directory / extra).write_bytes(data)
         entry = {'normal': run_phase(fixture, directory, build, 'normal', False)}
         if args.asan_build and fixture['sanitizer']:
             entry['asan'] = run_phase(fixture, directory, asan, 'asan', True)

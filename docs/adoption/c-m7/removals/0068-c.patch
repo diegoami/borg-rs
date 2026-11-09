@@ -1,0 +1,105 @@
+diff --git a/angband/src/borg/borg-io.c b/angband/src/borg/borg-io.c
+index 956575a..a3b4b83 100644
+--- a/angband/src/borg/borg-io.c
++++ b/angband/src/borg/borg-io.c
+@@ -32,8 +32,9 @@ bool borg_confirm_target;
+  * Query the "attr/chars" at a given location on the screen
+  *
+  * Note that "a" points to a single "attr", and "s" to an array
+- * of "chars", into which the attribute and text at the given
+- * location are stored.
++ * of "size" "chars", into which the attribute and text at the given
++ * location are stored.  The text is truncated to fit and always
++ * terminated.
+  *
+  * We will not grab more than "ABS(n)" characters for the string.
+  * If "n" is "positive", we will grab exactly "n" chars, or fail.
+@@ -54,6 +55,7 @@ bool borg_confirm_target;
+ errr borg_what_text(int x, int y, int n, uint8_t *a, char *s, size_t size)
+ {
+     int     i;
++    size_t  len;
+     wchar_t screen_str[1024];
+ 
+     int     t_a;
+@@ -122,18 +124,10 @@ errr borg_what_text(int x, int y, int n, uint8_t *a, char *s, size_t size)
+     /* Save the attribute */
+     (*a) = d_a;
+ 
+-    /* Convert back to a char string */
+-    /* FORK: n counts screen columns, not UTF-8 bytes. Use the caller's
+-     * byte capacity and reserve NUL, retaining complete multibyte text
+-     * whenever it fits. neo-angband-tracker#287; mirrored in Rust. */
+-    if (size == 0)
+-        return 1;
+-    size_t converted = wcstombs(s, screen_str, size - 1);
+-    if (converted == (size_t)-1) {
+-        s[0] = '\0';
+-        return 1;
+-    }
+-    s[converted] = '\0';
++    /* Convert back to a char string that fits the buffer; wcstombs()
++     * does not terminate a result it had to truncate */
++    len = wcstombs(s, screen_str, size - 1);
++    s[(len == (size_t)-1) ? 0 : len] = '\0';
+     /* Too short */
+     if ((n > 0) && (i != n))
+         return 1;
+diff --git a/angband/src/borg/borg-io.h b/angband/src/borg/borg-io.h
+index 41d19e1..f93e770 100644
+--- a/angband/src/borg/borg-io.h
++++ b/angband/src/borg/borg-io.h
+@@ -40,8 +40,8 @@ extern bool borg_confirm_target;
+ /*
+  * Query the "attr/chars" at a given location on the screen
+  */
+-/* FORK #287: size is the output byte capacity, including NUL; n is columns. */
+-extern errr borg_what_text(int x, int y, int n, uint8_t *a, char *s, size_t size);
++extern errr borg_what_text(
++    int x, int y, int n, uint8_t *a, char *s, size_t size);
+ 
+ /*
+  * Memorize a message, Log it, Search it, and Display it in pieces
+diff --git a/angband/src/borg/borg-messages.c b/angband/src/borg/borg-messages.c
+index ccbe10a..fb44d4d 100644
+--- a/angband/src/borg/borg-messages.c
++++ b/angband/src/borg/borg-messages.c
+@@ -190,7 +190,8 @@ bool borg_get_messages(struct keypress* key, struct loc cursor)
+ 
+     /* get everything on the message line */
+     buf = buffer;
+-    borg_what_text(0, 0, ((Term->wid - 1) / (tile_width)), &t_a, buffer, sizeof(buffer));
++    borg_what_text(
++        0, 0, ((Term->wid - 1) / (tile_width)), &t_a, buffer, sizeof(buffer));
+ #if 0
+     /* just used for debugging.  Not so useful in general */
+     if (borg_cfg[BORG_VERBOSE])
+@@ -228,14 +229,16 @@ bool borg_get_messages(struct keypress* key, struct loc cursor)
+     /* And that text is "-more-" */
+     buf = buffer;
+     if (borg_prompt && !inkey_flag && (cursor.y == 0) && (cursor.x >= 7)
+-        && (0 == borg_what_text(cursor.x - 7, cursor.y, 7, &t_a, buffer, sizeof(buffer)))
++        && (0 == borg_what_text(
++            cursor.x - 7, cursor.y, 7, &t_a, buffer, sizeof(buffer)))
+         && (suffix(buf, " -more-"))) {
+ 
+         if (borg_cfg[BORG_VERBOSE])
+             borg_note("# message with -more-");
+ 
+         /* Get the message */
+-        if (0 == borg_what_text(0, 0, cursor.x - 7, &t_a, buffer, sizeof(buffer))) {
++        if (0 == borg_what_text(
++                0, 0, cursor.x - 7, &t_a, buffer, sizeof(buffer))) {
+             /* Parse it */
+             borg_parse(buf);
+         }
+@@ -271,7 +274,8 @@ bool borg_get_messages(struct keypress* key, struct loc cursor)
+         buf = buffer;
+         if (0
+             == borg_what_text(
+-                0, 0, ((Term->wid - 1) / (tile_width)), &t_a, buffer, sizeof(buffer))) {
++                0, 0, ((Term->wid - 1) / (tile_width)), &t_a, buffer,
++                sizeof(buffer))) {
+             int k = strlen(buf);
+ 
+             /* Strip trailing spaces */

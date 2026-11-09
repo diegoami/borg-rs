@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v6_accepted",
+  "phase": "impact_v7_accepted",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -214,11 +214,47 @@
         "tag": "4.2.6-impact-v6",
         "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
       }
+    },
+    {
+      "id": "c-m7",
+      "target_commit": "3573d741e6dc3cafa4099fcef8b38fdb32952977",
+      "consumer_tag": "4.2.6-impact-v7",
+      "state": "reviewed_qualified_pass_owner_accepted",
+      "consumer_patches": 13,
+      "carried_c_and_rust": 13,
+      "superseded_local_corrections": {
+        "287": "0068",
+        "345": "0065"
+      },
+      "not_in_series": "0072 (deferred by the consumer)",
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/17",
+      "receipt": "docs/validation/2026-11-09-c-m7/README.md",
+      "native_modes_before_after": "24/43 -> 42/43 (painmsg puff red both, as the consumer asserts); ASan 6/8 -> 8/8",
+      "game_cases": 131,
+      "c_rust_parity": 131,
+      "harness_diff_exit": 0,
+      "implementation_commit": "54e3d1e",
+      "starting_rust_main": "e5cb263",
+      "rust_milestone_accepted": true,
+      "rust_fault_controls_detected": "3/12 behavioural units (0064, 0069, 0071); 0065 Rust unit is comment-only",
+      "rust_rerun": "7efe65c and 2e9a609 Rust builds: 131/131 streams identical to the c9a198c C and Rust runs (docs/validation/2026-11-09-c-m7/rust-reruns.json)",
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "0d6c210",
+        "comment": "https://github.com/diegoami/borg-rs/issues/17#issuecomment-6730707717",
+        "findings_addressed_in": "1c1fa0c, 2e9a609"
+      },
+      "owner_acceptance": {
+        "instruction": "accept, merge and tag",
+        "date": "2026-11-09",
+        "tag": "4.2.6-impact-v7",
+        "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v6 (C milestone6) accepted; tag 4.2.6-impact-v6 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "Impact v7 (C milestone7) accepted; tag 4.2.6-impact-v7 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -242,12 +278,12 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-m6",
-    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/15",
-    "starting_rust_main": "6b58a46444ab3f5d28cfd86c7ac820d54c762c47",
-    "state": "accepted_impact_v6",
-    "ledger": "docs/adoption/c-m6/ledger.json",
-    "receipt": "docs/validation/2026-11-08-c-m6/README.md",
+    "id": "c-m7",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/17",
+    "starting_rust_main": "e5cb263",
+    "state": "accepted_impact_v7",
+    "ledger": "docs/adoption/c-m7/ledger.json",
+    "receipt": "docs/validation/2026-11-09-c-m7/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"
   },
   "m2_active_batch_record": {

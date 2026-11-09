@@ -466,9 +466,10 @@ fn rebuild_glyphs(st: &mut BorgState) {
     // no known glyphs
     t.num = 0;
 
-    // Check for glyphs under player -- Cheat
+    // Check for glyphs under player -- Cheat.  The position may still be on
+    // the previous level when this is parsed just after a level change.
     let c = st.borg.c;
-    if engine::square_iswarded(c.x, c.y) {
+    if engine::square_in_bounds(c.x, c.y) && engine::square_iswarded(c.x, c.y) {
         let t = &mut st.glyph.track;
         t.x[t.num as usize] = c.x;
         t.y[t.num as usize] = c.y;
@@ -1543,9 +1544,9 @@ fn borg_init_spell_messages(st: &mut BorgState) {
 /// leading space (`borg_get_parsed_pain`; HACK pluralize code stolen from
 /// mon-msg.c).
 ///
-/// As in C, the output (space included) is cut at `strlen(pain) - 1`
-/// bytes after the space, so a message without brackets loses its last
-/// character.
+/// As in C, the buffer has room for the leading space, the text and the
+/// terminator (`strlen(pain) + 2`), so the last character is kept
+/// (better-borg-c milestone7 patch 0071).
 fn borg_get_parsed_pain(pain: &[u8], do_plural: bool) -> Vec<u8> {
     #[derive(PartialEq)]
     enum Parse {
@@ -1553,7 +1554,8 @@ fn borg_get_parsed_pain(pain: &[u8], do_plural: bool) -> Vec<u8> {
         Single,
         Plural,
     }
-    let buflen = pain.len() + 1;
+    // Room for the leading space, the text and the terminator
+    let buflen = pain.len() + 2;
     let mut buf = vec![b' '];
     let mut state = Parse::Normal;
 
@@ -1719,8 +1721,9 @@ mod tests {
         // "[s]" is the singular part ("It dies.", "They die.")
         assert_eq!(borg_get_parsed_pain(b"die[s].", false), b" dies.");
         assert_eq!(borg_get_parsed_pain(b"die[s].", true), b" die.");
-        // no brackets: the last character is cut
-        assert_eq!(borg_get_parsed_pain(b"can move again.", false), b" can move again");
+        // no brackets: the whole text is kept (better-borg-c milestone7
+        // patch 0071; before it the last character was cut)
+        assert_eq!(borg_get_parsed_pain(b"can move again.", false), b" can move again.");
         assert_eq!(
             borg_get_parsed_pain(b"You hear [a|several] scream[|s] of agony!", true),
             b" You hear several screams of agony!"

@@ -55,8 +55,9 @@ pub struct IoState {
 /// first non-space character's; the attribute goes to `a`. The text is
 /// converted with `wcstombs` into the caller's byte buffer `s`, reserving
 /// one byte for NUL. `n` counts screen columns, not UTF-8 bytes. Returns 1
-/// on an empty output buffer, conversion error or if fewer than `n`
-/// (n > 0) characters were read, else 0.
+/// on an empty output buffer or if fewer than `n` (n > 0) characters were
+/// read, else 0. A conversion error yields an empty string and follows the
+/// length check (better-borg-c milestone7 patch 0068).
 pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
     let mut screen_str: [wchar_t; 1024] = [0; 1024];
     let mut d_a: i32 = 0;
@@ -84,18 +85,18 @@ pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
     }
     screen_str[i.max(0) as usize] = 0;
     *a = d_a as u8;
-    // FORK: match C's capacity/termination correction (tracker #287).
-    // n counts columns; UTF-8 needs the caller's actual byte capacity.
+    // Convert back to a char string that fits the buffer (the caller's
+    // byte capacity, `size` in C); wcstombs() does not terminate a result
+    // it had to truncate, and a conversion error leaves an empty string
+    // (better-borg-c milestone7 patch 0068, source #287).
+    // (No caller passes an empty buffer; this guard only avoids the
+    // `size - 1` underflow in Rust.)
     if s.is_empty() {
         return 1;
     }
     let limit = s.len() - 1;
     let converted = engine::wcstombs(&mut s[..limit], &screen_str);
-    if converted == usize::MAX {
-        s[0] = 0;
-        return 1;
-    }
-    s[converted] = 0;
+    s[if converted == usize::MAX { 0 } else { converted }] = 0;
     if n > 0 && i != n {
         return 1;
     }

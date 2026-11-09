@@ -815,6 +815,8 @@ fn borg_notice_home_aux(st: &mut BorgState, in_item: Option<&borg_item>, no_item
                     add(&mut h.num_teleport_level, iqty);
                 } else if sval == v.sv_scroll_recharging {
                     add(&mut h.num_recharge, iqty);
+                } else if sval == v.sv_scroll_banishment {
+                    add(&mut h.num_genocide, iqty);
                 } else if sval == v.sv_scroll_mass_banishment {
                     add(&mut h.num_mass_genocide, iqty);
                 }

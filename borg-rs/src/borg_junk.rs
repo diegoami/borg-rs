@@ -719,11 +719,11 @@ fn hole_high_level_value(st: &BorgState, item: &borg_item, value: i32) -> i32 {
 
         TV_ROD => {
             /* BIG HACK! don't crush cool stuff. */
-            if (sval != v.sv_rod_drain_life)
-                || (sval != v.sv_rod_acid_ball)
-                || (sval != v.sv_rod_elec_ball)
-                || (sval != v.sv_rod_fire_ball)
-                || (sval != v.sv_rod_cold_ball)
+            if (sval == v.sv_rod_drain_life)
+                || (sval == v.sv_rod_acid_ball)
+                || (sval == v.sv_rod_elec_ball)
+                || (sval == v.sv_rod_fire_ball)
+                || (sval == v.sv_rod_cold_ball)
             {
                 qty_long(item, 300000) /* value at 30k */
             } else {
@@ -733,10 +733,10 @@ fn hole_high_level_value(st: &BorgState, item: &borg_item, value: i32) -> i32 {
 
         TV_STAFF => {
             /* BIG HACK! don't crush cool stuff. */
-            if sval != v.sv_staff_dispel_evil
-                || ((sval != v.sv_staff_power || sval != v.sv_staff_holiness)
+            if sval == v.sv_staff_dispel_evil
+                || ((sval == v.sv_staff_power || sval == v.sv_staff_holiness)
                     && st.borg.tr(BI_GOOD_S_CHG) < 2)
-                || (sval != v.sv_staff_destruction && st.borg.tr(BI_ASTFDEST) < 2)
+                || (sval == v.sv_staff_destruction && st.borg.tr(BI_ASTFDEST) < 2)
             {
                 qty_long(item, 300000) /* value at 30k */
             } else {
@@ -746,15 +746,15 @@ fn hole_high_level_value(st: &BorgState, item: &borg_item, value: i32) -> i32 {
 
         TV_WAND => {
             /* BIG HACK! don't crush cool stuff. */
-            if (sval != v.sv_wand_drain_life)
-                || (sval != v.sv_wand_teleport_away)
-                || (sval != v.sv_wand_acid_ball)
-                || (sval != v.sv_wand_elec_ball)
-                || (sval != v.sv_wand_fire_ball)
-                || (sval != v.sv_wand_cold_ball)
-                || (sval != v.sv_wand_annihilation)
-                || (sval != v.sv_wand_dragon_fire)
-                || (sval != v.sv_wand_dragon_cold)
+            if (sval == v.sv_wand_drain_life)
+                || (sval == v.sv_wand_teleport_away)
+                || (sval == v.sv_wand_acid_ball)
+                || (sval == v.sv_wand_elec_ball)
+                || (sval == v.sv_wand_fire_ball)
+                || (sval == v.sv_wand_cold_ball)
+                || (sval == v.sv_wand_annihilation)
+                || (sval == v.sv_wand_dragon_fire)
+                || (sval == v.sv_wand_dragon_cold)
             {
                 qty_long(item, 300000) /* value at 30k */
             } else {
@@ -764,8 +764,8 @@ fn hole_high_level_value(st: &BorgState, item: &borg_item, value: i32) -> i32 {
 
         /* scrolls and potions crush easy */
         TV_SCROLL => {
-            if (sval != v.sv_scroll_protection_from_evil)
-                || (sval != v.sv_scroll_rune_of_protection)
+            if (sval == v.sv_scroll_protection_from_evil)
+                || (sval == v.sv_scroll_rune_of_protection)
             {
                 qty_long(item, 30000)
             } else {
@@ -776,10 +776,10 @@ fn hole_high_level_value(st: &BorgState, item: &borg_item, value: i32) -> i32 {
         TV_POTION => {
             /* BIG HACK! don't crush heal/mana potions.  It could be */
             /* that we are in town and are collecting them. */
-            if (sval != v.sv_potion_healing)
-                || (sval != v.sv_potion_star_healing)
-                || (sval != v.sv_potion_life)
-                || (sval != v.sv_potion_restore_mana)
+            if (sval == v.sv_potion_healing)
+                || (sval == v.sv_potion_star_healing)
+                || (sval == v.sv_potion_life)
+                || (sval == v.sv_potion_restore_mana)
             {
                 qty_long(item, 300000) /* value at 30k */
             } else {

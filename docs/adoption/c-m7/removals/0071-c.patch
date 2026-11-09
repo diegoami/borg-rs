@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-messages.c b/angband/src/borg/borg-messages.c
+index ccbe10a..fb44d4d 100644
+--- a/angband/src/borg/borg-messages.c
++++ b/angband/src/borg/borg-messages.c
+@@ -1618,7 +1628,8 @@ static void borg_init_spell_messages(void)
+ /* load monster in pain messages */
+ static char *borg_get_parsed_pain(const char *pain, bool do_plural)
+ {
+-    size_t buflen = strlen(pain) + 1;
++    /* Room for the leading space, the text and the terminator */
++    size_t buflen = strlen(pain) + 2;
+     char  *buf    = mem_zalloc(buflen);
+ 
+     int    state  = MSG_PARSE_NORMAL;

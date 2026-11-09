@@ -1,0 +1,80 @@
+diff --git a/borg-rs/src/borg_trait_swap.rs b/borg-rs/src/borg_trait_swap.rs
+index d6a94d1..f9cd0d7 100644
+--- a/borg-rs/src/borg_trait_swap.rs
++++ b/borg-rs/src/borg_trait_swap.rs
+@@ -132,10 +132,8 @@ impl SwapFlags {
+ 
+     /// Note the flags of `item` (the slays, brands, infravision, flags,
+     /// curses, immunities, resistances and uncursability block, copied
+-    /// four times in C). `acid_elem` is the element whose resistance sets
+-    /// `resist_acid`: `ELEM_ACID`, except in the weapon's final block
+-    /// (`ELEM_ELEC`, C bug 45).
+-    fn note(&mut self, item: &borg_item, acid_elem: u32) {
++    /// four times in C).
++    fn note(&mut self, item: &borg_item) {
+         self.slay_animal = item.slays[RF_ANIMAL as usize] as u8;
+         self.slay_evil = item.slays[RF_EVIL as usize] as u8;
+         self.slay_undead = item.slays[RF_UNDEAD as usize] as u8;
+@@ -225,7 +223,7 @@ impl SwapFlags {
+         }
+ 
+         /* Resistance flags */
+-        if res(acid_elem) > 0 {
++        if res(ELEM_ACID) > 0 {
+             self.resist_acid = true;
+         }
+         if res(ELEM_ELEC) > 0 {
+@@ -572,8 +569,7 @@ fn armour_value(st: &BorgState, item: &borg_item) -> i32 {
+ /// and only if the Borg uses swaps. C bugs kept (43): a non-digger weapon
+ /// when swaps are off returns at once, leaving the flags of the last item
+ /// looked at and the old enchantment needs; `weapon_swap_digger` is not
+-/// cleared at the end; the final `resist_acid` reads the electricity
+-/// resistance.
++/// cleared at the end.
+ pub fn borg_notice_weapon_swap(st: &mut BorgState) {
+     let mut b_i: i32 = -1;
+     let mut b_v: i32 = -1;
+@@ -630,7 +626,7 @@ pub fn borg_notice_weapon_swap(st: &mut BorgState) {
+             }
+         }
+ 
+-        st.trait_swap.weapon.note(&item, ELEM_ACID);
++        st.trait_swap.weapon.note(&item);
+ 
+         let v = weapon_value(st, &item);
+ 
+@@ -690,13 +686,13 @@ pub fn borg_notice_weapon_swap(st: &mut BorgState) {
+         }
+     }
+ 
+-    /* C bug 45: the final resist_acid reads ELEM_ELEC */
+-    st.trait_swap.weapon.note(&item, ELEM_ELEC);
++    st.trait_swap.weapon.note(&item);
+ }
+ 
+ /// Notice the player swap armour.
+ ///
+-/// Gloves and lights are wearable but never valued (not in C's switch);
++/// Lights are wearable but never valued (not in C's switch; gloves are,
++/// since better-borg-c milestone5 patch 0045);
+ /// a cursed item counts only if it can be uncursed, and the One Ring
+ /// never.
+ pub fn borg_notice_armour_swap(st: &mut BorgState) {
+@@ -743,7 +739,7 @@ pub fn borg_notice_armour_swap(st: &mut BorgState) {
+         }
+ 
+         /* as of 280, armours don't have slays but random artifacts might. */
+-        st.trait_swap.armour.note(&item, ELEM_ACID);
++        st.trait_swap.armour.note(&item);
+ 
+         let v = armour_value(st, &item);
+ 
+@@ -773,7 +769,7 @@ pub fn borg_notice_armour_swap(st: &mut BorgState) {
+ 
+     /*** Process the best inven item ***/
+     let item = st.items.items[b_i as usize];
+-    st.trait_swap.armour.note(&item, ELEM_ACID);
++    st.trait_swap.armour.note(&item);
+ 
+     st.trait_swap.enchant_armour_swap_to_a = 0;
+ 
