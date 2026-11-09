@@ -42,6 +42,10 @@ tracking [borg-rs#17](https://github.com/diegoami/borg-rs/issues/17), record
 [adoption/c-m7](docs/adoption/c-m7/README.md). Its 0068/0065 supersede the
 local #287/#345 corrections; #322 and #295 remain. Independent qualified pass
 (issue17); owner accepted it as impact milestone 7 (tag `4.2.6-impact-v7`).
+Owner then directed C milestone8 (target 017e038e8, `4.2.6-impact-v8`),
+tracking [borg-rs#19](https://github.com/diegoami/borg-rs/issues/19), record
+[adoption/c-m8](docs/adoption/c-m8/README.md). On the owner's decision it also
+carries the munchkin-by-class change (better-borg-c PR302). Review pending.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
