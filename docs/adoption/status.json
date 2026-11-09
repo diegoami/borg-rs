@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v8_accepted",
+  "phase": "impact_v9_in_progress",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -284,11 +284,31 @@
         "tag": "4.2.6-impact-v8",
         "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
       }
+    },
+    {
+      "id": "c-m9",
+      "target_commit": "33207fbeeb582e67d6b18e9f40613617667905ae",
+      "consumer_tag": "4.2.6-impact-v9",
+      "state": "author_validation_in_progress",
+      "consumer_patches": 10,
+      "carried_c_and_rust": 10,
+      "superseded_local_corrections": {
+        "295": "0098"
+      },
+      "local_corrections_added": [
+        "0098 guard (NULL cave trap; staleglyph fixture; better-borg-c#375)"
+      ],
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/21",
+      "receipt": "docs/validation/2026-11-09-c-m9/README.md",
+      "native_modes_before_after": "23/41 -> 39/41 (runeglyph floor/trap red both, as the consumer asserts); ASan 6/12 -> 12/12",
+      "implementation_commit": "d7e5985",
+      "starting_rust_main": "286215c",
+      "rust_milestone_accepted": false
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v8 (C milestone8) accepted; tag 4.2.6-impact-v8 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "Impact v9 (C milestone9) carried on the work branch; validation in progress, then independent review and owner acceptance.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -312,12 +332,12 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-m8",
-    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/19",
-    "starting_rust_main": "ce27f5e",
-    "state": "accepted_impact_v8",
-    "ledger": "docs/adoption/c-m8/ledger.json",
-    "receipt": "docs/validation/2026-11-09-c-m8/README.md",
+    "id": "c-m9",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/21",
+    "starting_rust_main": "286215c",
+    "state": "author_validation_in_progress",
+    "ledger": "docs/adoption/c-m9/ledger.json",
+    "receipt": "docs/validation/2026-11-09-c-m9/README.md",
     "branch": "claude/wonderful-bell-3a7j6m"
   },
   "m2_active_batch_record": {

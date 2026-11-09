@@ -487,3 +487,13 @@ Warrior runs). Review and owner acceptance pending; not merged.
 Review (issue19): qualified pass, no blocker/major; findings fixed in
 d7f4cb2/2664122, Rust rerun at 2664122 identical (rust-rerun.json).
 Owner: "accept, merge and tag" -> impact v8, tag `4.2.6-impact-v8`.
+
+## C milestone9 adoption (2026-11-09)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v8`, tracking
+borg-rs#21, record docs/adoption/c-m9, receipt docs/validation/2026-11-09-c-m9.
+Patches 0090-0099 in C and Rust. 0098 replaces local #295; as written it
+dereferences a NULL cave trap for a rune broken out of view (reproduced by
+harness/adoption/m9/local/staleglyph), so it is carried with a narrow guard
+(owner decision; reported on better-borg-c#375). Native 23->39/41, ASan
+6->12/12. Validation in progress; review and owner acceptance pending.

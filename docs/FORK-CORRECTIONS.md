@@ -46,6 +46,22 @@ munchkin-by-class change (better-borg-c PR302). That change is a behaviour
 default, not a crash correction: Warriors, Druids and Rangers take the
 munchkin start unless `borg_munchkin_by_class` is set FALSE in borg.txt.
 
+The C milestone9 adoption (better-borg-c `33207fbee`,
+[Rust#21](https://github.com/diegoami/borg-rs/issues/21),
+[adoption/c-m9](adoption/c-m9/README.md)) replaces local #295 with the
+consumer's patch 0098 for the same source, and adds one narrow crash
+correction to it, the **0098 guard**. As written, 0098 enters the glyph
+branch of `borg_update_map()` when the player remembers a glyph, then reads
+`square(cave, l)->trap->t_idx`. A rune broken out of view leaves the player's
+memory intact and the cave trap NULL, so the read dereferences NULL. The
+borg-rs fixture `harness/adoption/m9/local/staleglyph` reproduces it: SIGSEGV,
+and an ASan SEGV in `borg_update`. The guard checks the cave trap first (C).
+In Rust, `engine::square_trap_is_glyph` returns false without a trap. With
+the guard, both fixture modes pass and the consumer's runeglyph rows are
+unchanged. Reported for the consumer's process on
+[better-borg-c#375](https://github.com/diegoami/better-borg-c/issues/375#issuecomment-6743759756).
+Local #322 remains; #295 is now history.
+
 The sections below record the original M4 and post-M4 correction history.
 
 Owner direction, 2026-11-06: inherited C behavior may be corrected when
