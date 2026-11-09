@@ -161,7 +161,9 @@ pub fn borg_flow_glyph(st: &mut BorgState) -> bool {
         return false;
     }
 
-    // FORK #345: explore outlying candidates instead of stopping at origin.
+    // Reverse flow, not optimized: it starts at the borg's own grid (cost 0)
+    // and an optimized spread stops before reaching any other grid
+    // (better-borg-c milestone7 patch 0065, formerly local correction #345).
     borg_flow_misc::borg_flow_reverse(st, 250, false, false, false, -1, false);
 
     let needs_new_sea = st.glyph.needs_new_sea;
