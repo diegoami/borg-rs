@@ -1,0 +1,52 @@
+diff --git a/borg-rs/src/borg_store_buy.rs b/borg-rs/src/borg_store_buy.rs
+index e26976c..2aaa278 100644
+--- a/borg-rs/src/borg_store_buy.rs
++++ b/borg-rs/src/borg_store_buy.rs
+@@ -67,7 +67,8 @@ pub struct BuyState {
+     pub bought_item_pval: [i32; 10],
+     /// `bought_item_store`
+     pub bought_item_store: [i32; 10],
+-    /// `bought_item_num`: the index of the last entry written (-1 at start).
++    /// `bought_item_num`: the number of entries in use, newest included
++    /// (-1 at start; better-borg-c milestone9 patch 0094).
+     pub bought_item_num: i32,
+     /// `bought_item_nxt`: the next entry to write.
+     pub bought_item_nxt: i32,
+@@ -1335,8 +1333,10 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
+         b.bought_item_tval[i] = i32::from(item.tval);
+         b.bought_item_sval[i] = i32::from(item.sval);
+         b.bought_item_store[i] = i32::from(st.borg.goal.shop);
+-        b.bought_item_num = b.bought_item_nxt;
+         b.bought_item_nxt += 1;
++        if b.bought_item_num < b.bought_item_nxt {
++            b.bought_item_num = b.bought_item_nxt;
++        }
+ 
+         purchase_done(st);
+ 
+diff --git a/borg-rs/src/borg_store_sell.rs b/borg-rs/src/borg_store_sell.rs
+index eb1a071..6f1a668 100644
+--- a/borg-rs/src/borg_store_sell.rs
++++ b/borg-rs/src/borg_store_sell.rs
+@@ -61,7 +61,8 @@ pub struct StoreSellState {
+     pub sold_item_pval: [i32; 10],
+     /// `sold_item_store`
+     pub sold_item_store: [i32; 10],
+-    /// `sold_item_num` (the index of the last sale, not a count)
++    /// `sold_item_num`: the number of entries in use, newest included
++    /// (better-borg-c milestone9 patch 0094)
+     pub sold_item_num: i32,
+     /// `sold_item_nxt`
+     pub sold_item_nxt: i32,
+@@ -1158,8 +1159,10 @@ pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
+         s.sold_item_tval[nxt] = i32::from(item.tval);
+         s.sold_item_sval[nxt] = i32::from(item.sval);
+         s.sold_item_store[nxt] = shop;
+-        s.sold_item_num = s.sold_item_nxt;
+         s.sold_item_nxt += 1;
++        if s.sold_item_num < s.sold_item_nxt {
++            s.sold_item_num = s.sold_item_nxt;
++        }
+ 
+         // The purchase is complete
+         st.borg.goal.item = -1;

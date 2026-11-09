@@ -1,0 +1,13 @@
+diff --git a/borg-rs/src/borg_store_buy.rs b/borg-rs/src/borg_store_buy.rs
+index e26976c..2aaa278 100644
+--- a/borg-rs/src/borg_store_buy.rs
++++ b/borg-rs/src/borg_store_buy.rs
+@@ -272,7 +273,7 @@ fn borg_good_buy(st: &mut BorgState, who: i32, ware_n: i32) -> bool {
+                     /* mage and rogue can cast teleport away */
+                     || (sval == iv.sv_rod_teleport_other
+                         && class != CLASS_MAGE
+-                        && class == CLASS_ROGUE)
++                        && class != CLASS_ROGUE)
+                     || (sval == iv.sv_rod_illumination && b.tr(BI_ALITE) == 0)))
+             || (can_browse(&item)
+                 && b.amt_book[borg_get_book_num(sval) as usize] == 0

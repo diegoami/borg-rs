@@ -1,0 +1,30 @@
+diff --git a/borg-rs/src/borg_trait.rs b/borg-rs/src/borg_trait.rs
+index 02e1850..f2ecc9d 100644
+--- a/borg-rs/src/borg_trait.rs
++++ b/borg-rs/src/borg_trait.rs
+@@ -1939,6 +1942,9 @@ fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
+                     iqty
+                 };
+                 tr(st)[BI_ASPEED] += n;
++            } else if sval == v.tele_other {
++                /* Counted like a wand of teleport other */
++                tr(st)[BI_ATPORTOTHER] += iqty;
+             } else if sval == v.mapping {
+                 tr(st)[BI_AMAGICMAP] += iqty * 100;
+             } else if sval == v.healing {
+@@ -2071,6 +2077,7 @@ struct RodSvals {
+     detection: i32,
+     illumination: i32,
+     speed: i32,
++    tele_other: i32,
+     mapping: i32,
+     healing: i32,
+     light: i32,
+@@ -2091,6 +2098,7 @@ fn rod_svals(v: &crate::borg_item_val::ItemValState) -> RodSvals {
+         detection: v.sv_rod_detection,
+         illumination: v.sv_rod_illumination,
+         speed: v.sv_rod_speed,
++        tele_other: v.sv_rod_teleport_other,
+         mapping: v.sv_rod_mapping,
+         healing: v.sv_rod_healing,
+         light: v.sv_rod_light,

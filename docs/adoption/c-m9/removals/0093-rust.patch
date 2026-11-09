@@ -1,0 +1,34 @@
+diff --git a/borg-rs/src/borg_store_buy.rs b/borg-rs/src/borg_store_buy.rs
+index e26976c..2aaa278 100644
+--- a/borg-rs/src/borg_store_buy.rs
++++ b/borg-rs/src/borg_store_buy.rs
+@@ -662,11 +664,9 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
+         let mut p: i32 = 0;
+         if slot >= 0 {
+             /* Require two empty slots */
+-            if hole == -1 {
+-                continue;
+-            }
+-            if (hole + 1) >= pack_slots(st) {
+-                // C leaves the home ware changed here (docs/c-bugs.md)
++            if hole == -1 || (hole + 1) >= pack_slots(st) {
++                /* Restore shop item */
++                restore_ware(st, home, n);
+                 continue;
+             }
+ 
+@@ -768,11 +768,9 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
+             }
+ 
+             /* Require two empty slots */
+-            if stack == -1 && hole == -1 {
+-                continue;
+-            }
+-            if stack == -1 && (hole + 1) >= pack_slots(st) {
+-                // C leaves the home ware changed here (docs/c-bugs.md)
++            if stack == -1 && (hole == -1 || (hole + 1) >= pack_slots(st)) {
++                /* Restore shop item */
++                restore_ware(st, home, n);
+                 continue;
+             }
+ 

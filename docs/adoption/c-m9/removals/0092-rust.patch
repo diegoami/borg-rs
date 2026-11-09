@@ -1,0 +1,27 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+index ef6c7f9..9b3a35a 100644
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -411,19 +411,19 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
+ 
+     // if we are fighting a unique increase the odds of healing
+     if st.borg.near.unique != 0 {
+-        chance -= 10;
++        chance += 10;
+     }
+ 
+     // if danger is close to the hp and healing will help, do it
+     if danger >= st.borg.tr(BI_CURHP) && danger < st.borg.tr(BI_MAXHP) {
+-        chance -= 75;
++        chance += 75;
+     } else if st.borg.tr(BI_CLASS) != CLASS_PRIEST && st.borg.tr(BI_CLASS) != CLASS_PALADIN {
+         chance -= 25;
+     }
+ 
+     // Risky Borgs are less likely to heal in the fight
+     if st.cfg(BORG_PLAYS_RISKY) != 0 {
+-        chance += 5;
++        chance -= 5;
+     }
+ 
+     if ((pct_down <= 15 && chance < 98)
