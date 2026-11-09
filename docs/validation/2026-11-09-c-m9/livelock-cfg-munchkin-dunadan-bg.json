@@ -55,6 +55,13 @@
    "first_seen": "game turn 19038 (t2:13, state.log line 96990)",
    "at_freeze": "t2:12 from game turn 19045 on, every later state line",
    "reading": "the same defect family as consumer patch 0067 (better-borg-c#280, investigation #204): a timed ailment cannot wear off while the munchkin Borg only takes stairs, because stair travel does not age the world clock; 0067 bails out of munchkin mode for poison and hallucination, not for blindness"
+  },
+  "m8_same_case": {
+   "stop_reason": "turns",
+   "game_turns": 20005,
+   "dead": false,
+   "source": "reference-m8-c-summary.json",
+   "reading": "the stall mechanism is pre-existing; the case itself completed at M8 and reaches the mechanism at M9 on the path 0092 opens at turn 3298"
   }
  }
 }

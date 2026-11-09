@@ -128,17 +128,25 @@ side:
 - 0090/0093/0094/0096 split `borg-store-buy.c` and `borg_store_buy.rs` by
   hunk.
 - 0090/0095 split `borg-trait.c` and `borg_trait.rs` by hunk.
-- Every hunk of the implementation diff is in exactly one unit.
-- Each unit reverse-applies on its own on the final tree.
-- Reversing all of them restores `4.2.6-impact-v8` exactly for the changed C
-  and Rust files.
+- The 0098 and 0099 units include their guards, and the 0098 Rust unit
+  includes the guard's unit tests.
+
+The units were checked three ways:
+- Each unit passes `git apply -R --check` on its own on the final tree.
+- Applying all of them with `git apply -R` in a scratch worktree leaves
+  `git diff 286215c -- angband/src borg-rs/src` empty.
+- The implementation diff's hunks are partitioned across the units, with no
+  hunk in two units and none left out.
 
 ## Native fixtures
 
 [harness/adoption/m9/import.py](../../../harness/adoption/m9/import.py)
 imports the ten consumer fixtures from their neo-angband-tracker evidence
 commits, plus the local staleglyph fixture. panelrows and staleglyph also run
-under AddressSanitizer. No runner change was needed.
+under AddressSanitizer. One runner addition (review finding): per-fixture
+`cflags`. healchance gets `-include obj-tval.h`, as the consumer's
+`tools/verify-healchance.py` does, because its scenario calls
+`tval_is_potion()` without including the header.
 
 ## Validation
 

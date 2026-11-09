@@ -38,7 +38,7 @@ index d6f3797..8d83510 100644
          // Darkness
          let ag = st.cave.grid_mut(x, y);
 diff --git a/borg-rs/src/engine.rs b/borg-rs/src/engine.rs
-index b83d80f..bd2fabb 100644
+index b83d80f..1603404 100644
 --- a/borg-rs/src/engine.rs
 +++ b/borg-rs/src/engine.rs
 @@ -2866,7 +2866,8 @@ pub struct MapGrid {
@@ -51,7 +51,7 @@ index b83d80f..bd2fabb 100644
      pub glyph: bool,
  }
  
-@@ -2911,6 +2912,28 @@ pub fn map_info(x: i32, y: i32) -> MapGrid {
+@@ -2911,6 +2912,43 @@ pub fn map_info(x: i32, y: i32) -> MapGrid {
      }
  }
  
@@ -61,22 +61,78 @@ index b83d80f..bd2fabb 100644
 +/// local 0098 guard). Panics out of bounds or for a bad trap index.
 +pub fn square_trap_is_glyph(x: i32, y: i32) -> bool {
 +    assert!(square_in_bounds(x, y), "grid out of bounds");
-+    // SAFETY: `cave` is the current level; the grid is in bounds; the trap
-+    // pointer is checked; trap_info has z_info->trap_max entries (index
-+    // checked); the trap's flag array is copied.
-+    let flags = unsafe {
++    // SAFETY: `cave` is the current level and the grid is in bounds; the
++    // square's trap pointer is NULL or an engine-owned trap; trap_info has
++    // z_info->trap_max entries (index checked); the kind's flag array is
++    // copied.
++    unsafe {
 +        let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
-+        let trap = (*sq).trap;
-+        if trap.is_null() {
-+            return false;
-+        }
-+        let t_idx = usize::from((*trap).t_idx);
-+        assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
-+        (*headers::trap_h::trap_info.add(t_idx)).flags
-+    };
-+    flag_has(&flags, headers::list_trap_flags_h::TRF_GLYPH as i32)
++        trap_head_is_glyph((*sq).trap, |t_idx| {
++            assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
++            let flags = (*headers::trap_h::trap_info.add(t_idx)).flags;
++            flag_has(&flags, headers::list_trap_flags_h::TRF_GLYPH as i32)
++        })
++    }
++}
++
++/// The local 0098 guard: whether the trap list head `trap` (the cave's
++/// `square(cave, loc)->trap`) is a glyph, where `kind_is_glyph(t_idx)` reads
++/// the trap kind. False for a NULL head, without reading any kind.
++///
++/// # Safety
++/// `trap` must be NULL or point to a valid trap.
++unsafe fn trap_head_is_glyph(
++    trap: *const headers::trap_h::trap,
++    kind_is_glyph: impl FnOnce(usize) -> bool,
++) -> bool {
++    if trap.is_null() {
++        return false;
++    }
++    // SAFETY: non-null, valid by the caller's contract.
++    kind_is_glyph(usize::from(unsafe { (*trap).t_idx }))
 +}
 +
  /// `square_shopnum(cave, loc(x, y))`: the store of a shop entrance (-1
  /// otherwise). Panics out of bounds.
  pub fn square_shopnum(x: i32, y: i32) -> i32 {
+@@ -3189,6 +3227,40 @@ mod tests {
+     // `flag_has`/`flag_next` need no engine: these are the boundaries of
+     // review finding 2 (docs/SELF-REVIEW.md F2).
+ 
++    fn trap_with_index(t_idx: u8) -> headers::trap_h::trap {
++        headers::trap_h::trap {
++            t_idx,
++            kind: core::ptr::null_mut(),
++            next: core::ptr::null_mut(),
++            grid: loc { x: 0, y: 0 },
++            power: 0,
++            timeout: 0,
++            flags: [0; 2],
++        }
++    }
++
++    /// The local 0098 guard: a grid whose rune is gone from the cave (NULL
++    /// trap head, as after a rune is broken out of view) is not a glyph, and
++    /// no trap kind is read (better-borg-c patch 0098 read through NULL).
++    #[test]
++    fn trap_head_is_glyph_without_a_trap_is_false() {
++        // SAFETY: NULL is allowed.
++        let glyph = unsafe {
++            trap_head_is_glyph(core::ptr::null(), |_| panic!("kind read without a trap"))
++        };
++        assert!(!glyph);
++    }
++
++    #[test]
++    fn trap_head_is_glyph_reads_the_head_kind() {
++        let rune = trap_with_index(7);
++        // SAFETY: a valid trap.
++        unsafe {
++            assert!(trap_head_is_glyph(&rune, |t_idx| t_idx == 7));
++            assert!(!trap_head_is_glyph(&rune, |t_idx| t_idx == 3));
++        }
++    }
++
+     #[test]
+     fn flag_has_end_is_false_even_on_an_empty_set() {
+         assert!(!flag_has(&[], FLAG_END));
