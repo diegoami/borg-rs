@@ -235,7 +235,9 @@
       "harness_diff_exit": 0,
       "implementation_commit": "54e3d1e",
       "starting_rust_main": "e5cb263",
-      "rust_milestone_accepted": false
+      "rust_milestone_accepted": false,
+      "rust_fault_controls_detected": "3/12 behavioural units (0064, 0069, 0071); 0065 Rust unit is comment-only",
+      "rust_rerun": "7efe65c Rust build: 131/131 streams identical to the c9a198c run"
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
