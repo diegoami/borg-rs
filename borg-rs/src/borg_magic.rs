@@ -571,7 +571,12 @@ pub fn borg_spell_fail_rate(st: &BorgState, spell: borg_spells) -> i32 {
 
     // Necromancers are punished by being on lit squares, whatever lights
     // them (their own light, permanent light, a monster's light)
-    if st.borg.tr(BI_CLASS) == CLASS_NECROMANCER && engine::square_islit(st.borg.c.x, st.borg.c.y) {
+    // FORK (0099 guard): just after a level change the Borg's position can
+    // still be on the previous, larger level
+    if st.borg.tr(BI_CLASS) == CLASS_NECROMANCER
+        && engine::square_in_bounds(st.borg.c.x, st.borg.c.y)
+        && engine::square_islit(st.borg.c.x, st.borg.c.y)
+    {
         chance += 25;
     }
 
