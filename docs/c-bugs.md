@@ -31,6 +31,11 @@ The milestone6 carries in [adoption/c-m6](adoption/c-m6/README.md)
 (better-borg-c `b3c825c97`, [Rust#15](https://github.com/diegoami/borg-rs/issues/15))
 are marked with "Milestone6" bullets.
 
+The milestone7 carries in [adoption/c-m7](adoption/c-m7/README.md)
+(better-borg-c `3573d741e`, [Rust#17](https://github.com/diegoami/borg-rs/issues/17))
+are marked with "Milestone7" bullets. Two of them replace retained local
+corrections: 0068 supersedes #287 and 0065 supersedes #345.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -198,6 +203,7 @@ with its issues.
   looked for), so the home power reward for them is always 0. (The
   `num_brand_weapon` global is never written at all.)
 * Rust: all kept in `borg_home_notice.rs`.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source54 counts scrolls of Banishment into `num_genocide` (patch 0077), in C and Rust.
 
 ## 13. Log and status slips (log)
 
@@ -400,6 +406,8 @@ with its issues.
 * Rust (`borg_item_wear.rs`): milestone2/source82 chooses lower danger among
   available emergency swaps, including the zero-danger single-swap case.
   Other findings remain; `swap_letter(-1)` itself still gives the 0 key.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source85 sets `skipping` once, before the loop in
+  `borg_one_step_wearing_best()` (patch 0075), in C and Rust.
 
 ## 22. Light beam edge test and lantern refuel scan (light)
 
@@ -421,6 +429,8 @@ with its issues.
   lantern (or the pack ends) and no lantern is used, even when an earlier
   lantern has fuel.
 * Rust (`borg_light.rs`): all kept.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source90 scans for the *first* lantern in the pack (patch 0076),
+  in C and Rust.
 ## 23. Curse removal item letters (item decurse)
 
 * `borg-item-decurse.c`, `borg_decurse_any()`, found by code reading.
@@ -764,6 +774,8 @@ with its issues.
 * `borg_consume()`: Brawn (`sv_potion_inc_str2`) has no `break` after a
   failed quaff and falls into the other potion tests (harmless).
 * Rust (`borg_junk.rs`): all kept.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source136 uses `==` in the five drop/hold device and potion
+  comparisons (patch 0074), in C and Rust.
 
 ## 38. borg.txt parsing slips (init)
 
@@ -830,6 +842,8 @@ with its issues.
 * Rust (`borg_flow_misc.rs`): all kept. Where C would read or write out of
   bounds (a `borg_temp_*` overflow, a shop index past `store_max`), the
   Rust code panics.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source146 runs the spastic reverse flow with `optimize` false
+  (patch 0064), in C and Rust.
 
 ## 40. Caution slips (caution)
 
@@ -1039,6 +1053,10 @@ with its issues.
   first, only when `num > 0`) in C and Rust.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#191 to diegoami/neo-angband-tracker#198.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source198 checks `square_in_bounds()` before both
+  `square_iswarded(cave, borg.c)` calls (patch 0070), and source197 sizes the
+  pain buffer for the leading space and the terminator, so the last
+  character is no longer cut (patch 0071), in C and Rust.
 
 
 ## 45. Swap slips (trait swap)
@@ -1068,6 +1086,8 @@ with its issues.
 * Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source205 adds gloves to the armour-swap candidates.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#199, #201, #202, #203, #204, #205.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source199 reads `ELEM_ACID` for the acid resist (patch 0066)
+  and source201 uses the real troll slay multiplier (patch 0073), in C and Rust.
 
 ## 46. Update slips (update)
 
@@ -1129,6 +1149,9 @@ with its issues.
 * Tracker: one lead per slip, in the order above (the `created_traps` /
   `BLINK:` bullet is two):
   diegoami/neo-angband-tracker#212 to diegoami/neo-angband-tracker#221.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source213 marks floors as glowing from the permanent-glow
+  flag `square_isglow()` (patch 0069, correcting the impact v5 patch 0050),
+  so a torch-lit grid is no longer marked glowing; C keeps local #295.
 
 ## 47. Dungeon-think helper slips (think dungeon util)
 
@@ -1264,6 +1287,8 @@ with its issues.
 * Tracker: the duplicated loop is a comment on
   diegoami/neo-angband-tracker#232; the other three slips are
   diegoami/neo-angband-tracker#243, #244, #245.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source403 leaves munchkin mode while poisoned or hallucinating
+  (patch 0067), in C and Rust.
 
 ## 50. Think slips (think)
 
@@ -1402,6 +1427,10 @@ The original-source description above is historical; original references
 are preserved and independent tracker verification remains explicit.
 * Milestone3 ([Rust#8](https://github.com/diegoami/borg-rs/issues/8)): consumer patch0025 (`ABS(n) * MB_CUR_MAX` bound) is not
   imported; the local capacity-based correction above already covers it.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): the consumer corrected its patch 0025 with 0068 (pass the
+  buffer size); borg-rs takes it in C and Rust, superseding the local
+  correction above. The only behavioural difference is the `wcstombs()`
+  error path, which now terminates the buffer at 0 instead of returning early.
 
 ## 53. Queued detection can address a panel outside resized arrays (update)
 
@@ -1540,6 +1569,9 @@ The C source is unchanged; no correction is proposed in this pass.
   qualification remains separate.
   [Published consumer correction/evidence](https://github.com/diegoami/neo-angband-tracker/issues/345#issuecomment-6709066618)
   links d0803c6 and was read back.
+* Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): the consumer carried this as patch 0065; C takes the consumer
+  blob and Rust its comment. Behaviour is unchanged (the local #345 call was
+  already the same).
 
 ## 57. Explicit X11 window count can bypass saved preferences (reported lead)
 

@@ -1,0 +1,35 @@
+diff --git a/borg-rs/src/borg_item_wear.rs b/borg-rs/src/borg_item_wear.rs
+index 833da67..f5087a6 100644
+--- a/borg-rs/src/borg_item_wear.rs
++++ b/borg-rs/src/borg_item_wear.rs
+@@ -1099,8 +1099,8 @@ fn equip_slots_max() -> usize {
+ }
+ 
+ /// Take one step in wearing the optimized equipment
+-/// (`borg_one_step_wearing_best`). The C `skipping` counter is reset on
+-/// every pass of the loop (see docs/c-bugs.md).
++/// (`borg_one_step_wearing_best`). The `skipping` counter is set once,
++/// before the loop (better-borg-c milestone7 patch 0075).
+ fn borg_one_step_wearing_best(st: &mut BorgState, skip: i32) -> bool {
+     let mut item_num: usize = 0;
+ 
+@@ -1108,16 +1108,16 @@ fn borg_one_step_wearing_best(st: &mut BorgState, skip: i32) -> bool {
+         return false;
+     }
+ 
++    /* skip some if there are issues with full inventory */
++    let mut skipping = skip;
++
+     /* find a change */
+     loop {
+-        /* skip some if there are issues with full inventory */
+-        let mut skipping = skip;
+         let b = st.borg.goal.best_item[item_num];
+         if b.tval != 0 || b.pval != 0 || b.sval != 0 {
+             if skipping != 0 {
+                 item_num += 1;
+                 skipping -= 1;
+-                let _ = skipping;
+ 
+                 /* skipping the last item means we need to make room */
+                 /* before continuing */

@@ -1,0 +1,13 @@
+diff --git a/angband/src/borg/borg-trait-swap.c b/angband/src/borg/borg-trait-swap.c
+index 81e8c90..26ceae1 100644
+--- a/angband/src/borg/borg-trait-swap.c
++++ b/angband/src/borg/borg-trait-swap.c
+@@ -404,7 +404,7 @@ void borg_notice_weapon_swap(void)
+             if (!borg.trait[BI_WS_ORC] && weapon_swap_slay_orc)
+                 v += (dam * weapon_swap_slay_orc) / 2;
+             if (!borg.trait[BI_WS_TROLL] && weapon_swap_slay_troll)
+-                v += (dam * 2) / 2;
++                v += (dam * weapon_swap_slay_troll) / 2;
+ 
+             if (!borg.trait[BI_WS_UNDEAD] && weapon_swap_slay_undead)
+                 v += (dam * weapon_swap_slay_undead) / 2;

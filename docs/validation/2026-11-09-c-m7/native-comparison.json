@@ -1,0 +1,966 @@
+{
+ "consumer_pin": "3573d741e6dc3cafa4099fcef8b38fdb32952977",
+ "before_source": "e5cb263 (4.2.6-impact-v6)",
+ "after_source": "54e3d1e (fixtures run on the c9a198c tree; no Borg source change between them)",
+ "fixtures": {
+  "spastic": {
+   "middle": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=0",
+     "log_sha256": "fb2ec66a4990fd0124d0466fd8b8fe3eea7ea632cc0f1e46bba221fcf712088c"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=1",
+     "log_sha256": "fe320e4a62b46977574c3d49277d3becc0628c8f0471f93bcc0c9ed64fb0e4c1"
+    }
+   },
+   "corner": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=0",
+     "log_sha256": "ca488219d574d67acb8f3dec8334025f556b785ebbd2bf4e7b5eda3d9c3d709f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=1",
+     "log_sha256": "ef657497c5b3f371eb9c6fcfce0c15dd809ed99b0eb48e6302e3b54df55d601e"
+    }
+   },
+   "far": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=0",
+     "log_sha256": "ef00f38d72433f93de35cad00019d2dbf9a836fecdc0ef2b7c1d10de2ef3520d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "moved=0",
+     "log_sha256": "ef00f38d72433f93de35cad00019d2dbf9a836fecdc0ef2b7c1d10de2ef3520d"
+    }
+   }
+  },
+  "glyphflow": {
+   "center": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "progress=1",
+     "log_sha256": "7847612d29e48fbdbc0e2b89d488936dc72155cae594aa2677714411ca243ace"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "progress=1",
+     "log_sha256": "7847612d29e48fbdbc0e2b89d488936dc72155cae594aa2677714411ca243ace"
+    }
+   },
+   "offcenter": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "progress=1",
+     "log_sha256": "fa21d50d2eda8b4a424681267e0b12b765337c376eef8048507c8c4f90493e14"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "progress=1",
+     "log_sha256": "fa21d50d2eda8b4a424681267e0b12b765337c376eef8048507c8c4f90493e14"
+    }
+   }
+  },
+  "swapacid": {
+   "elec": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=1 acid_counted=1",
+     "log_sha256": "4f4a1a0069496891063a42df0be274d1cdfba4dc07fb880d7a1acbe1a58d1254"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "723898517dfe18758de395b2fdc92299cd23c147616568a1c6ce3c2df9c57aed"
+    }
+   },
+   "acid": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "ecc2dd993cd26c754607861291cc39661a10d54dbb738786ab241e8e67ffd859"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=1 acid_counted=1",
+     "log_sha256": "150e5560e3ee1112cd24f7a404f49f538248d1bb96de6a6cb89338b20f2e347b"
+    }
+   },
+   "fire": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "f78e34dafff376de0c5ab1b04ad7b6e33995ebc90854b26367e398f873b59f3b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "f78e34dafff376de0c5ab1b04ad7b6e33995ebc90854b26367e398f873b59f3b"
+    }
+   },
+   "none": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "01d59e8bb8bf25787f841e0839a1ba93214e0ceab3fd19db28f3a27cc0b82d8a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "prepared30=0 acid_counted=0",
+     "log_sha256": "01d59e8bb8bf25787f841e0839a1ba93214e0ceab3fd19db28f3a27cc0b82d8a"
+    }
+   }
+  },
+  "staircycle": {
+   "main": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stair_directed=1",
+     "log_sha256": "f932764da6627798cc262d7400386796e22cf812971dbc12d14ecb6785659349"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stair_directed=0",
+     "log_sha256": "5fe8fb70927ad36066cd548b09d2f0fd65982bff6ad28ac2530d8c96645b39b1"
+    }
+   },
+   "clean": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "munchkin_handled=1",
+     "log_sha256": "24cbbdc242dd9461ded2e7fc8f8e199075d417e30166fe2bd85eab046d235c9d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "munchkin_handled=1",
+     "log_sha256": "24cbbdc242dd9461ded2e7fc8f8e199075d417e30166fe2bd85eab046d235c9d"
+    }
+   }
+  },
+  "text287": {
+   "multibyte": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=81",
+     "log_sha256": "8474005f32294bb9b91df5a3b38fc2789a1cbb179f8d1463886d41b171f0128b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=81",
+     "log_sha256": "8474005f32294bb9b91df5a3b38fc2789a1cbb179f8d1463886d41b171f0128b"
+    }
+   },
+   "control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=80",
+     "log_sha256": "e5bf1ca09204936e06a678040d7465177126870b0d20b8cac2bc787477af54e7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=80",
+     "log_sha256": "e5bf1ca09204936e06a678040d7465177126870b0d20b8cac2bc787477af54e7"
+    }
+   },
+   "wide": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=1020 guard_overwritten=0",
+     "log_sha256": "ed0c0c4c288922a0b29784fbdc63fa0a9ce3354ba5ca7ba15130eecaa171ae64"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=1020 guard_overwritten=0",
+     "log_sha256": "ed0c0c4c288922a0b29784fbdc63fa0a9ce3354ba5ca7ba15130eecaa171ae64"
+    }
+   },
+   "asan:multibyte": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=81",
+     "log_sha256": "8474005f32294bb9b91df5a3b38fc2789a1cbb179f8d1463886d41b171f0128b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=81",
+     "log_sha256": "8474005f32294bb9b91df5a3b38fc2789a1cbb179f8d1463886d41b171f0128b"
+    }
+   },
+   "asan:control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=80",
+     "log_sha256": "e5bf1ca09204936e06a678040d7465177126870b0d20b8cac2bc787477af54e7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=80",
+     "log_sha256": "e5bf1ca09204936e06a678040d7465177126870b0d20b8cac2bc787477af54e7"
+    }
+   },
+   "asan:wide": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=1020 guard_overwritten=0",
+     "log_sha256": "4885a840b2a4b79e74702402e63698eedd304ad7f3eabb87fae4c4cf7e6ddd5f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "terminated=1 strnlen=1020 guard_overwritten=0",
+     "log_sha256": "4885a840b2a4b79e74702402e63698eedd304ad7f3eabb87fae4c4cf7e6ddd5f"
+    }
+   }
+  },
+  "glowtrace": {
+   "main": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=484",
+     "log_sha256": "699d45d7078bbdaeb71346784116adc606de0e510c9248027e9284f9c9e668c2"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "glow_n=484",
+     "log_sha256": "699d45d7078bbdaeb71346784116adc606de0e510c9248027e9284f9c9e668c2"
+    }
+   },
+   "door": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "door_is_open=1 wall_glow=0",
+     "log_sha256": "2620cdb7fc0550e035f9da958834003bac762def8a2a5dac45dc74d9fcf57ac4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "door_is_open=1 wall_glow=0",
+     "log_sha256": "2620cdb7fc0550e035f9da958834003bac762def8a2a5dac45dc74d9fcf57ac4"
+    }
+   },
+   "torchlit": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "torchlit_marked_glow=1 glow_n=9",
+     "log_sha256": "25f9303a3c246dde11f965cdfa63dc5fa1b624328dcc7e5cb9db4eab566a7f25"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "torchlit_marked_glow=0 glow_n=0",
+     "log_sha256": "7081108308e524185b6f3ce5ab579f2a34a15e672a0ebc0654e54215c3037672"
+    }
+   },
+   "unlit": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "far_dark=1",
+     "log_sha256": "91acbecece22b7eefb5f5c21ec72572471e2bac297febc1f95c9a73b4bcfec93"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "far_dark=1",
+     "log_sha256": "91acbecece22b7eefb5f5c21ec72572471e2bac297febc1f95c9a73b4bcfec93"
+    }
+   }
+  },
+  "iswarded": {
+   "rune-town": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "fb58e9a4f07b7d9a5008e28bdc55b6f6aaa49c632d371d4e559e0059db8156fc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "f2faa68c74c98775c05b97d21057e94df31b0e7d6adb6f13ace2538d73054333"
+    }
+   },
+   "hit-town": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "a0bb380222da474e68f1bdff48589a37388b472360eed50f626ee2e1cda7b7b7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8393577cbdf5bbbc80150a9e8a51d6acbea4734462b67c22937f6cab7d8306ac"
+    }
+   },
+   "rune-inside": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2925cac634265c81904d4af215cf8d38db748b734af0f3dc2ad8b5d2824a1fa1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2925cac634265c81904d4af215cf8d38db748b734af0f3dc2ad8b5d2824a1fa1"
+    }
+   },
+   "hit-inside": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8e7326052d30f235b949ee1133d350c3cdc608dc9f456f8970bfdee22f462e5a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8e7326052d30f235b949ee1133d350c3cdc608dc9f456f8970bfdee22f462e5a"
+    }
+   },
+   "hit-noglyph": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2407dc8deb482d6dc9b9fb35460b51186f01579ae54ade2b06d75d1435e5ea7e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2407dc8deb482d6dc9b9fb35460b51186f01579ae54ade2b06d75d1435e5ea7e"
+    }
+   },
+   "asan:rune-town": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m7/native-before/iswarded/asan-scenario+0x296657) (BuildId: d3317373b286be6d033b2a3301b83ac7ee78ae64) in square_istrap",
+     "outcome": null,
+     "log_sha256": "46a8104d61b14c5ff6455453f78288ce9103a782b20b9fbe5f74c251f4018959"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "f2faa68c74c98775c05b97d21057e94df31b0e7d6adb6f13ace2538d73054333"
+    }
+   },
+   "asan:hit-town": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m7/native-before/iswarded/asan-scenario+0x296657) (BuildId: d3317373b286be6d033b2a3301b83ac7ee78ae64) in square_istrap",
+     "outcome": null,
+     "log_sha256": "76a2a219b16fb8e6097369c246de50ac161d1c081a8fdbe46831a13567698a4b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8393577cbdf5bbbc80150a9e8a51d6acbea4734462b67c22937f6cab7d8306ac"
+    }
+   },
+   "asan:rune-inside": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2925cac634265c81904d4af215cf8d38db748b734af0f3dc2ad8b5d2824a1fa1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2925cac634265c81904d4af215cf8d38db748b734af0f3dc2ad8b5d2824a1fa1"
+    }
+   },
+   "asan:hit-inside": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8e7326052d30f235b949ee1133d350c3cdc608dc9f456f8970bfdee22f462e5a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "8e7326052d30f235b949ee1133d350c3cdc608dc9f456f8970bfdee22f462e5a"
+    }
+   },
+   "asan:hit-noglyph": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2407dc8deb482d6dc9b9fb35460b51186f01579ae54ade2b06d75d1435e5ea7e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1",
+     "log_sha256": "2407dc8deb482d6dc9b9fb35460b51186f01579ae54ade2b06d75d1435e5ea7e"
+    }
+   }
+  },
+  "painmsg": {
+   "held": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "fe368c9e81deec594c00f5bc157b3df70a99fa69ac3647c32f996f2ad0c00b53"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "4e644a1ce50721ad21dce46f4b2b658ce9a3347d442dc592042ac4d320c400a6"
+    }
+   },
+   "command": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "13167928c7c1c53f8a26de169e3bec08c1713fcbdaace784b462a6b61745e3db"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "eef5a5da88221a4e162c4ae80daa59b1054dba3e98ef143d39dfeef06735ffaf"
+    }
+   },
+   "uncommand": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "904f4c19d378a2211650abd9aeffd806abfd83ea89cf86a80be912554ace88bb"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "358c7f129bec67ab226c2d71a51bf4f215f6ecc1daa09b1bc3399fdbd27c23eb"
+    }
+   },
+   "shapefail": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "30f2a9d4de771330a62e9ca298d249081ec5c7c61629a0192ea2a01af629f408"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "59a2af77c093ce3717cdacf265afe9a986b3ccb13ac8078983193666a4439915"
+    }
+   },
+   "stun": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "f621a97db11ee81b700eed12e395b8ca1ad3d25fe615b4696af84d47da4b725f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "f621a97db11ee81b700eed12e395b8ca1ad3d25fe615b4696af84d47da4b725f"
+    }
+   },
+   "hurt": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "70ec0bdf3f337d37cc78be34a4cbbc4fd3b296010a3f801d52cf9a813c4e667a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=1 matched_to_kobold=1",
+     "log_sha256": "70ec0bdf3f337d37cc78be34a4cbbc4fd3b296010a3f801d52cf9a813c4e667a"
+    }
+   },
+   "puff": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "35457c9fb15fa5d5584757c21e0c57d4e251cfaa9615d3d04af6180f819251ec"
+    },
+    "after": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "recognised=0 matched_to_kobold=0",
+     "log_sha256": "35457c9fb15fa5d5584757c21e0c57d4e251cfaa9615d3d04af6180f819251ec"
+    }
+   }
+  },
+  "trollswap": {
+   "troll-orc": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "sells_other=0 sells_troll=1",
+     "log_sha256": "ecea2126cfe343374dd4d0414603ca28848887df28dc65d4bd84fb876b4bb5ca"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "sells_other=1 sells_troll=0",
+     "log_sha256": "0badbc9bbd513c786b1e690085e63d537e9b4017ecc1a0f267d6f7150d04d597"
+    }
+   },
+   "troll-plain": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "sells_other=1 sells_troll=0",
+     "log_sha256": "4c13aff2b9d3095f605fd2450618f45100ddbd83071080eb884642d19e9f06ae"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "sells_other=1 sells_troll=0",
+     "log_sha256": "4c13aff2b9d3095f605fd2450618f45100ddbd83071080eb884642d19e9f06ae"
+    }
+   }
+  },
+  "drophole": {
+   "salt-water": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=1 dropped_potion=0 floor_items=1",
+     "log_sha256": "4f1ce115e560a10737e0e0ab4bc54cc6ec00778108a93c32f8fc0859174c7dea"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=0 dropped_potion=1 floor_items=1",
+     "log_sha256": "779ba969a745e2b9c1c6d0e9328d07204726e5eadd690f19025497ebdce69fa7"
+    }
+   },
+   "spare-esp": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=1 dropped_potion=0 floor_items=1",
+     "log_sha256": "f7ae5a9d4a1685149a495028b66d2ebd3a5a492ee190d55b72aa37628a81955d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=0 dropped_potion=1 floor_items=1",
+     "log_sha256": "119b17c2a8e1f696b547168b2138ff9773e2425731e2b4b2b32bf5258f8f058d"
+    }
+   },
+   "restore-mana": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=1 dropped_potion=0 floor_items=1",
+     "log_sha256": "7d6c24e1b5adf4185c63674f60449fc0eb0ee72480712a9bd69a5a827c381b35"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=1 dropped_potion=0 floor_items=1",
+     "log_sha256": "7d6c24e1b5adf4185c63674f60449fc0eb0ee72480712a9bd69a5a827c381b35"
+    }
+   },
+   "level30": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=0 dropped_potion=1 floor_items=1",
+     "log_sha256": "653845206b6437524acea4b9b3fa4856dfcfd9435cc59e2c2d564b5847e5aaae"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "dropped_amulet=0 dropped_potion=1 floor_items=1",
+     "log_sha256": "653845206b6437524acea4b9b3fa4856dfcfd9435cc59e2c2d564b5847e5aaae"
+    }
+   }
+  },
+  "wearskip": {
+   "tight": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=2 wears_scale_mail=0 wears_cloak=0",
+     "log_sha256": "10c645846a188060816e36790c08246e38330bc516ac04fe6500300fcb905e98"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=5 wears_scale_mail=1 wears_cloak=1",
+     "log_sha256": "dbabe4a723f7bd772803686d5a162ec72f6ad1fffcc21aa1e0af888ee5230eba"
+    }
+   },
+   "roomy": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=5 wears_scale_mail=1 wears_cloak=1",
+     "log_sha256": "36bed66898fb39022f0ce8852c341c51d0d51576bc19aa1767f2aa5da5a6b0e1"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=5 wears_scale_mail=1 wears_cloak=1",
+     "log_sha256": "36bed66898fb39022f0ce8852c341c51d0d51576bc19aa1767f2aa5da5a6b0e1"
+    }
+   },
+   "nocloak": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=2 wears_scale_mail=0 wears_cloak=0",
+     "log_sha256": "ea86f8b1579e97b8ac648c29e3d195cd948927c60942999a5637b0f5a886208a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "actions=2 wears_scale_mail=0 wears_cloak=0",
+     "log_sha256": "ea86f8b1579e97b8ac648c29e3d195cd948927c60942999a5637b0f5a886208a"
+    }
+   }
+  },
+  "lantern": {
+   "empty": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "refuels=0",
+     "log_sha256": "c394d1a6eb54b65daf2fabd1faae76c1a9e05c9641d3a20d85d4716664e88617"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "refuels=1",
+     "log_sha256": "88e5ac68723d6292c1b0a84ef84bbe8327114709e35628ccb9c0bd29aa142904"
+    }
+   },
+   "single": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "refuels=1",
+     "log_sha256": "a215c69662550b0e7d931271189cbc1125b059a15baa506c829a2de0315151a9"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "refuels=1",
+     "log_sha256": "a215c69662550b0e7d931271189cbc1125b059a15baa506c829a2de0315151a9"
+    }
+   }
+  },
+  "homebanish": {
+   "banish": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stores_banishment_scroll=0",
+     "log_sha256": "4739011da280e7239f8e4f8f8605aa6837cdddba3d148a9985a6b46aa4d168f4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stores_banishment_scroll=1",
+     "log_sha256": "4f017aa829d72a44906a0f600f24ac4633a30a3718931fcdaac4ff703cfaf0c2"
+    }
+   },
+   "mass": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stores_banishment_scroll=1",
+     "log_sha256": "b802c59937d700f95276c9691df1360edebe50078090e5cdf5c17ba11b12796e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stores_banishment_scroll=1",
+     "log_sha256": "b802c59937d700f95276c9691df1360edebe50078090e5cdf5c17ba11b12796e"
+    }
+   }
+  }
+ },
+ "totals": {
+  "modes": 43,
+  "before_pass": 24,
+  "after_pass": 42,
+  "fail_to_pass": 18,
+  "pass_both": 24,
+  "red_both": 1,
+  "pass_to_fail": 0,
+  "second_pass_log_mismatches": 0,
+  "asan": {
+   "modes": 8,
+   "before_pass": 6,
+   "after_pass": 8
+  }
+ }
+}

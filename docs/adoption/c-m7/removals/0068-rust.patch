@@ -1,0 +1,30 @@
+diff --git a/borg-rs/src/borg_io.rs b/borg-rs/src/borg_io.rs
+index 8fffcdf..b1c7f87 100644
+--- a/borg-rs/src/borg_io.rs
++++ b/borg-rs/src/borg_io.rs
+@@ -84,18 +84,18 @@ pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
+     }
+     screen_str[i.max(0) as usize] = 0;
+     *a = d_a as u8;
+-    // FORK: match C's capacity/termination correction (tracker #287).
+-    // n counts columns; UTF-8 needs the caller's actual byte capacity.
++    // Convert back to a char string that fits the buffer (the caller's
++    // byte capacity, `size` in C); wcstombs() does not terminate a result
++    // it had to truncate, and a conversion error leaves an empty string
++    // (better-borg-c milestone7 patch 0068, source #287).
++    // (No caller passes an empty buffer; this guard only avoids the
++    // `size - 1` underflow in Rust.)
+     if s.is_empty() {
+         return 1;
+     }
+     let limit = s.len() - 1;
+     let converted = engine::wcstombs(&mut s[..limit], &screen_str);
+-    if converted == usize::MAX {
+-        s[0] = 0;
+-        return 1;
+-    }
+-    s[converted] = 0;
++    s[if converted == usize::MAX { 0 } else { converted }] = 0;
+     if n > 0 && i != n {
+         return 1;
+     }

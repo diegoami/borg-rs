@@ -1,0 +1,13 @@
+diff --git a/angband/src/borg/borg-trait-swap.c b/angband/src/borg/borg-trait-swap.c
+index 81e8c90..26ceae1 100644
+--- a/angband/src/borg/borg-trait-swap.c
++++ b/angband/src/borg/borg-trait-swap.c
+@@ -711,7 +711,7 @@ void borg_notice_weapon_swap(void)
+         weapon_swap_immune_elec = true;
+ 
+     /* Resistance flags */
+-    if (item->el_info[ELEM_ELEC].res_level > 0)
++    if (item->el_info[ELEM_ACID].res_level > 0)
+         weapon_swap_resist_acid = true;
+     if (item->el_info[ELEM_ELEC].res_level > 0)
+         weapon_swap_resist_elec = true;

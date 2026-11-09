@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-flow-glyph.c b/angband/src/borg/borg-flow-glyph.c
+index fa5acc1..24872cc 100644
+--- a/angband/src/borg/borg-flow-glyph.c
++++ b/angband/src/borg/borg-flow-glyph.c
+@@ -144,7 +144,8 @@ bool borg_flow_glyph(void)
+         return false;
+     }
+ 
+-    /* FORK #345: explore outlying candidates instead of stopping at origin. */
++    /* Reverse flow, not optimized: it starts at the borg's own grid (cost 0)
++     * and an optimized spread stops before reaching any other grid. */
+     borg_flow_reverse(250, false, false, false, -1, false);
+ 
+     /* Scan the entire map */

@@ -1,0 +1,26 @@
+diff --git a/borg-rs/src/borg_trait_swap.rs b/borg-rs/src/borg_trait_swap.rs
+index d6a94d1..f9cd0d7 100644
+--- a/borg-rs/src/borg_trait_swap.rs
++++ b/borg-rs/src/borg_trait_swap.rs
+@@ -357,8 +355,8 @@ fn is_armour(tval: u8) -> bool {
+ /// The rewards of a weapon/armour swap that are the same in both copies
+ /// (`v` after the damage, to-hit and to-dam rewards): the slays and
+ /// brands, the abilities, the immunities and the resists, in C's order.
+-/// `armour` selects the armour copy's differences: its slay order, no
+-/// "troll" C bug, no fear resist.
++/// `armour` selects the armour copy's differences: its slay order and no
++/// fear resist.
+ fn value_flags(st: &BorgState, f: &SwapFlags, damage: i32, mut v: i32, armour: bool) -> i32 {
+     let t = |bi| tr(st, bi);
+     let blows = t(BI_BLOWS);
+@@ -382,9 +380,8 @@ fn value_flags(st: &BorgState, f: &SwapFlags, damage: i32, mut v: i32, armour: b
+         if t(BI_WS_ORC) == 0 && f.slay_orc != 0 {
+             add(&mut v, dam.wrapping_mul(i32::from(f.slay_orc)) / 2);
+         }
+-        /* C bug 45: `(dam * 2) / 2`, not the troll slay */
+         if t(BI_WS_TROLL) == 0 && f.slay_troll != 0 {
+-            add(&mut v, dam.wrapping_mul(2) / 2);
++            add(&mut v, dam.wrapping_mul(i32::from(f.slay_troll)) / 2);
+         }
+     }
+ 

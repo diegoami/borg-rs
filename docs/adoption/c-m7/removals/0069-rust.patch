@@ -1,0 +1,36 @@
+diff --git a/borg-rs/src/borg_update.rs b/borg-rs/src/borg_update.rs
+index 83b9aee..d6f3797 100644
+--- a/borg-rs/src/borg_update.rs
++++ b/borg-rs/src/borg_update.rs
+@@ -405,21 +405,24 @@ fn update_map_grid(st: &mut BorgState, x: i32, y: i32) {
+     else if g.f_idx == FEAT_FLOOR {
+         // Floors (blind: nothing special)
+ 
+-        // Handle "dark" floors. square_islit() is the grid's
+-        // permanent-glow flag, matching the CAVE_GLOW test this branch
+-        // transcribed from the original borg; the lighting enum in
+-        // grid_data cannot express it (LIGHTING_LIT is map_info's default
+-        // for grids whose lighting is not otherwise established).
++        // Handle "dark" floors
++        let glow = engine::square_isglow(x, y);
+         let lit = engine::square_islit(x, y);
+         let ag = st.cave.grid_mut(x, y);
+-        if !lit {
++        if !glow && !lit {
+             // Dark floor grid
+             ag.info |= BORG_DARK;
+             ag.info &= !BORG_GLOW;
+-        } else {
++        } else if glow {
+             // Perma Glowing Grid
+             ag.info |= BORG_GLOW;
+ 
++            // Assume not dark
++            ag.info &= !BORG_DARK;
++        } else {
++            // torch-lit or line of sight grids
++            ag.info |= BORG_LIGHT;
++
+             // Assume not dark
+             ag.info &= !BORG_DARK;
+         }
