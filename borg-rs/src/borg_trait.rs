@@ -1777,7 +1777,8 @@ fn add_i16(v: &mut i16, x: i32) {
 }
 
 /// One pack item of `borg_notice_inventory` (the `switch (item->tval)`).
-fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
+/// `remove_hunger` is C's local count of Remove Hunger scrolls.
+fn notice_pack_item(st: &mut BorgState, item: &borg_item, remove_hunger: &mut i32) {
     let iqty = i32::from(item.iqty);
     let sval = i32::from(item.sval);
     let pval = i32::from(item.pval);
@@ -1882,6 +1883,8 @@ fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
             let mut t = Traits(&mut st.borg.trait_);
             if sval == v.sv_scroll_identify {
                 t[BI_AID] += iqty;
+            } else if sval == v.sv_scroll_satisfy_hunger {
+                *remove_hunger += iqty;
             } else if sval == v.sv_scroll_recharging {
                 t[BI_ARECHARGE] += iqty;
             } else if sval == v.sv_scroll_phase_door {
@@ -1939,6 +1942,9 @@ fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
                     iqty
                 };
                 tr(st)[BI_ASPEED] += n;
+            } else if sval == v.tele_other {
+                /* Counted like a wand of teleport other */
+                tr(st)[BI_ATPORTOTHER] += iqty;
             } else if sval == v.mapping {
                 tr(st)[BI_AMAGICMAP] += iqty * 100;
             } else if sval == v.healing {
@@ -2071,6 +2077,7 @@ struct RodSvals {
     detection: i32,
     illumination: i32,
     speed: i32,
+    tele_other: i32,
     mapping: i32,
     healing: i32,
     light: i32,
@@ -2091,6 +2098,7 @@ fn rod_svals(v: &crate::borg_item_val::ItemValState) -> RodSvals {
         detection: v.sv_rod_detection,
         illumination: v.sv_rod_illumination,
         speed: v.sv_rod_speed,
+        tele_other: v.sv_rod_teleport_other,
         mapping: v.sv_rod_mapping,
         healing: v.sv_rod_healing,
         light: v.sv_rod_light,
@@ -2108,6 +2116,8 @@ fn rod_svals(v: &crate::borg_item_val::ItemValState) -> RodSvals {
 
 /// Helper function -- notice the player inventory (`borg_notice_inventory`).
 fn borg_notice_inventory(st: &mut BorgState) {
+    let mut remove_hunger = 0;
+
     /*** Reset counters ***/
 
     /* Reset stat potions */
@@ -2180,7 +2190,7 @@ fn borg_notice_inventory(st: &mut BorgState) {
             continue;
         }
 
-        notice_pack_item(st, &item);
+        notice_pack_item(st, &item, &mut remove_hunger);
     }
 
     /* flasks of oil are ammo at low levels */
@@ -2466,6 +2476,11 @@ fn borg_notice_inventory(st: &mut BorgState) {
     /* Correct the high and low calorie foods */
     t[BI_FOOD] += t[BI_FOOD_HI];
     t[BI_FOOD] += t[BI_FOOD_LO];
+
+    /* With no other food, Remove Hunger scrolls are the food supply */
+    if t[BI_FOOD] == 0 {
+        t[BI_FOOD] = remove_hunger;
+    }
 
     /* If weak, do not count food spells */
     if t[BI_ISWEAK] != 0 && t[BI_FOOD] >= 1000 {

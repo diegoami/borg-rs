@@ -487,3 +487,22 @@ Warrior runs). Review and owner acceptance pending; not merged.
 Review (issue19): qualified pass, no blocker/major; findings fixed in
 d7f4cb2/2664122, Rust rerun at 2664122 identical (rust-rerun.json).
 Owner: "accept, merge and tag" -> impact v8, tag `4.2.6-impact-v8`.
+
+## C milestone9 adoption (2026-11-09)
+
+Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v8`, tracking
+borg-rs#21, record docs/adoption/c-m9, receipt docs/validation/2026-11-09-c-m9.
+Patches 0090-0099 in C and Rust. 0098 replaces local #295; as written it
+dereferences a NULL cave trap for a rune broken out of view (reproduced by
+harness/adoption/m9/local/staleglyph), so it is carried with a narrow guard
+(owner decision; reported on better-borg-c#375). 0099 crashed every
+Necromancer case of the 131-case plan (stale borg.c after a level change);
+carried with a bounds guard (b89c106; better-borg-c#377). Native 23->39/41,
+ASan 6->12/12. 131-case plan: 130 complete with full C/Rust parity;
+cfg-munchkin-dunadan-bg times out in both roles in a pre-existing munchkin
+blind livelock (prefix-identical; owner: record and report, better-borg-c#204).
+2/10 Rust fault units detected. Review and owner acceptance pending; not merged.
+Review (issue21): qualified pass, no blocker; findings fixed in 55cd233/72bec24
+(healchance cflags, M9 summary, wording, Rust 0098 guard tests); Rust rerun at
+72bec24 identical for all 130 completing cases (rust-rerun.json).
+Re-review (issue21): pass. Owner: "accept, merge and tag" -> impact v9, tag `4.2.6-impact-v9`.

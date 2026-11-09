@@ -1,0 +1,246 @@
+{
+  "consumer_pin": "33207fbeeb582e67d6b18e9f40613617667905ae",
+  "previous_consumer_pin": "017e038e8726a7a423887a366b5d40e89c0550a1",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "starvealch",
+      "patch": "0090",
+      "source_issue": 18,
+      "consumer_issue": 359,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "99db3c5ca26afceb280b0f49fb48f2756176488e",
+      "evidence_path": "docs/audit/c-reports/starvealch-18/scenario.c",
+      "config_path": "docs/audit/c-reports/starvealch-18/borg.txt",
+      "original_sha256": "34c715dfea5e50710567df1c01835a6bce6a5a5da62481717f090e26a81548ba",
+      "scenario_sha256": "34c715dfea5e50710567df1c01835a6bce6a5a5da62481717f090e26a81548ba",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "SA18",
+      "marker": "native-c/starvealch-18 finished: 1/1 passed",
+      "modes": [
+        "starving",
+        "general_food",
+        "fed"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "torodvalue",
+      "patch": "0091",
+      "source_issue": 549,
+      "consumer_issue": 361,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "8b30cf629baf9ee0b2cc4ee381c402bcc293598a",
+      "evidence_path": "docs/audit/c-reports/torodvalue-549/scenario.c",
+      "config_path": "docs/audit/c-reports/torodvalue-549/borg.txt",
+      "original_sha256": "140bac13d4e1d0f6b005ad3c9e6b7d6d102a6e76a07da694666b1a61bf0f8e88",
+      "scenario_sha256": "140bac13d4e1d0f6b005ad3c9e6b7d6d102a6e76a07da694666b1a61bf0f8e88",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "TR549",
+      "marker": "native-c/torodvalue-549 finished: 1/1 passed",
+      "modes": [
+        "rod",
+        "wand",
+        "weak"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "healchance",
+      "patch": "0092",
+      "source_issue": 364,
+      "consumer_issue": 363,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "f88fee1e3ace2b5f34f6fc8a1b4fbc30d3f94da1",
+      "evidence_path": "docs/audit/c-reports/healchance-364/scenario.c",
+      "config_path": "docs/audit/c-reports/healchance-364/borg.txt",
+      "original_sha256": "a326f3e1c8f16c85998fcc58545f5524ec17c7885fdde00444137e4568d95bb6",
+      "scenario_sha256": "a326f3e1c8f16c85998fcc58545f5524ec17c7885fdde00444137e4568d95bb6",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "HC364",
+      "marker": "native-c/healchance-364 finished: 1/1 passed",
+      "modes": [
+        "danger",
+        "unique",
+        "risky",
+        "control"
+      ],
+      "sanitizer": null,
+      "cflags": [
+        "-include",
+        "obj-tval.h"
+      ]
+    },
+    {
+      "name": "homebuyqty",
+      "patch": "0093",
+      "source_issue": 19,
+      "consumer_issue": 365,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "fbd96fa79610d00a148372efd55a63ee5da13c66",
+      "evidence_path": "docs/audit/c-reports/homebuyqty-19/scenario.c",
+      "config_path": "docs/audit/c-reports/homebuyqty-19/borg.txt",
+      "original_sha256": "6dd3e4dae6753b727df902e3baeb5c1656d6c236fa1fef0bf2c40d5ed18f246e",
+      "scenario_sha256": "6dd3e4dae6753b727df902e3baeb5c1656d6c236fa1fef0bf2c40d5ed18f246e",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "HB19",
+      "marker": "native-c/homebuyqty-19 finished: 1/1 passed",
+      "modes": [
+        "single",
+        "pair",
+        "roomy",
+        "stack"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "tradehist",
+      "patch": "0094",
+      "source_issue": 20,
+      "consumer_issue": 367,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "ddb06e523f711bf0780320926e66aca42d48f475",
+      "evidence_path": "docs/audit/c-reports/tradehist-20/scenario.c",
+      "config_path": "docs/audit/c-reports/tradehist-20/borg.txt",
+      "original_sha256": "44bffb06af63f3352e9337d49c7ffd5d103137c2a204db50f375e5698774ec95",
+      "scenario_sha256": "44bffb06af63f3352e9337d49c7ffd5d103137c2a204db50f375e5698774ec95",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "TH20",
+      "marker": "native-c/tradehist-20 finished: 1/1 passed",
+      "modes": [
+        "rations-only",
+        "with-recall"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "torodpower",
+      "patch": "0095",
+      "source_issue": 560,
+      "consumer_issue": 369,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "4141bfa68bf29936f2a97dbad637d7f8a7555738",
+      "evidence_path": "docs/audit/c-reports/torodpower-560/scenario.c",
+      "config_path": "docs/audit/c-reports/torodpower-560/borg.txt",
+      "original_sha256": "360cb479412ee3bf1222039af4f1ebc3d007764344e62de4c9aef67639a6ea19",
+      "scenario_sha256": "360cb479412ee3bf1222039af4f1ebc3d007764344e62de4c9aef67639a6ea19",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "TP560",
+      "marker": "native-c/torodpower-560 finished: 1/1 passed",
+      "modes": [
+        "rod",
+        "wand",
+        "mage"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "tporod",
+      "patch": "0096",
+      "source_issue": 17,
+      "consumer_issue": 371,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "a85a78156f53265c85ae09d3281c0d8fd401070b",
+      "evidence_path": "docs/audit/c-reports/tporod-17/scenario.c",
+      "config_path": "docs/audit/c-reports/tporod-17/borg.txt",
+      "original_sha256": "5f8cc8b6b475b1e007a50a16b417f00b490a2d94e866aba56ae3c571246b0b11",
+      "scenario_sha256": "5f8cc8b6b475b1e007a50a16b417f00b490a2d94e866aba56ae3c571246b0b11",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "TP17",
+      "marker": "native-c/tporod-17 finished: 1/1 passed",
+      "modes": [
+        "warrior",
+        "rogue",
+        "warrior-buy",
+        "mage"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "panelrows",
+      "patch": "0097",
+      "source_issue": 348,
+      "consumer_issue": 373,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "24159739b3b1642615afb362217213f290cf0127",
+      "evidence_path": "docs/audit/c-reports/panelrows-348/scenario.c",
+      "config_path": "docs/audit/c-reports/panelrows-348/borg.txt",
+      "original_sha256": "5a1ac387a895b74c421fa0cdaa43cb129077bcc69798da57c6a34ffa5c8a20b2",
+      "scenario_sha256": "5a1ac387a895b74c421fa0cdaa43cb129077bcc69798da57c6a34ffa5c8a20b2",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "PR348",
+      "marker": "native-c/panelrows-348 finished: 1/1 passed",
+      "modes": [
+        "light-tall",
+        "light-wide",
+        "light-normal",
+        "light-fit",
+        "vault-tall",
+        "vault-wide",
+        "vault-normal",
+        "dig-tall",
+        "dig-wide",
+        "dig-normal"
+      ],
+      "sanitizer": "asan"
+    },
+    {
+      "name": "runeglyph",
+      "patch": "0098",
+      "source_issue": 295,
+      "consumer_issue": 375,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "dae7a1bd6da9a78b92229534fa2b03630e01da1d",
+      "evidence_path": "docs/audit/c-reports/runeglyph-295/scenario.c",
+      "config_path": "docs/audit/c-reports/runeglyph-295/borg.txt",
+      "original_sha256": "8ad04304f760c950fb8c6c153bfb34611aef2a14a6accd307016a9c5c654be85",
+      "scenario_sha256": "8ad04304f760c950fb8c6c153bfb34611aef2a14a6accd307016a9c5c654be85",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "RG295",
+      "marker": "native-c/runeglyph-295 finished: 1/1 passed",
+      "modes": [
+        "rune",
+        "floor",
+        "trap"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "necrolight",
+      "patch": "0099",
+      "source_issue": 296,
+      "consumer_issue": 377,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "ee195556f3f0eb811f5b09638a433280223a0dcc",
+      "evidence_path": "docs/audit/c-reports/necrolight-296/scenario.c",
+      "config_path": "docs/audit/c-reports/necrolight-296/borg.txt",
+      "original_sha256": "83eea58c54fd2a88bfbe867204c3cc123fe41c1d189ab50989be0026d39c43ea",
+      "scenario_sha256": "83eea58c54fd2a88bfbe867204c3cc123fe41c1d189ab50989be0026d39c43ea",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "N296",
+      "marker": "native-c/necrolight-296 finished: 1/1 passed",
+      "modes": [
+        "lit",
+        "dark",
+        "mage"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "staleglyph",
+      "patch": "0098",
+      "evidence_repository": "diegoami/borg-rs (local fixture)",
+      "evidence_path": "harness/adoption/m9/local/staleglyph/scenario.c",
+      "original_sha256": "d24f8da6371a41b2dfea914b9ca2f3eff41bb9cc8eaf60f4392a4dbcb150c7d1",
+      "scenario_sha256": "d24f8da6371a41b2dfea914b9ca2f3eff41bb9cc8eaf60f4392a4dbcb150c7d1",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "SG",
+      "marker": "native-c/staleglyph-0098 finished: 1/1 passed",
+      "modes": [
+        "stale",
+        "fresh"
+      ],
+      "sanitizer": "asan"
+    }
+  ]
+}

@@ -1,12 +1,22 @@
 # borg-rs status
 
-## Current task: adopt better-borg-c milestone 8 (impact v8)
+## Current task: adopt better-borg-c milestone 9 (impact v9)
+
+C milestone 9 (`4.2.6-impact-v9`, ten carries; 0098 replaces local #295;
+0098 and 0099 each carry a local crash guard) is carried on branch
+`claude/wonderful-bell-3a7j6m` ([#21](https://github.com/diegoami/borg-rs/issues/21)): 130/131 cases with full
+C/Rust parity, the last one a pre-existing munchkin livelock that both roles
+hit identically (recorded and reported). Independent review: pass on
+re-review; owner accepted as impact v9 (tag `4.2.6-impact-v9`). No later C
+milestone is selected.
+
+## Previous: adopt better-borg-c milestone 8 (impact v8)
 
 C milestone 8 (`4.2.6-impact-v8`, twelve carries plus the owner's
 munchkin-by-class change) is carried on branch `claude/wonderful-bell-3a7j6m`
 ([#19](https://github.com/diegoami/borg-rs/issues/19)), with 131/131 C/Rust
 parity. Independent review: qualified pass; owner accepted as impact v8 (tag
-`4.2.6-impact-v8`). No later C milestone is selected.
+`4.2.6-impact-v8`).
 
 ## Previous: adopt better-borg-c milestone 7 (impact v7)
 
@@ -256,6 +266,7 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 | Impact v6: better-borg-c milestone 6 carry | 13 consumer patches carried in C/Rust (caution/flee, config parsing, clock reset, power, sell, drained dive); source250 already in 0012; 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#15); tag `4.2.6-impact-v6` on main; record `docs/adoption/c-m6` |
 | Impact v7: better-borg-c milestone 7 carry | 13 consumer patches carried in C/Rust (reverse flows, swap acid/troll, munchkin poison exit, text buffer size, glow floors, rune bounds, pain messages, drop/hold, wear skip, lantern, home banishment); 0068/0065 supersede local #287/#345; 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#17); tag `4.2.6-impact-v7` on main; record `docs/adoption/c-m7` |
 | Impact v8: better-borg-c milestone 8 carry | 12 consumer patches carried in C/Rust (banishment HP, rest after multiplier kill, shop entrances, west light, item stat value, neck/stun cleanups, light beam panel row, Dimension Door landing, Alchemy cures, lunal dead takes, spastic search count) plus the owner's munchkin-by-class change (PR302); 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#19); tag `4.2.6-impact-v8` on main; record `docs/adoption/c-m8` |
+| Impact v9: better-borg-c milestone 9 carry | 10 consumer patches carried in C/Rust (Remove Hunger shopping, Teleport Other rod, healing-chance signs, home-buy restore, trade history, panel scan bounds, visible runes, Necromancer lit squares); 0098 replaces local #295; local crash guards on 0098 and 0099 (better-borg-c#375/#377); 130/131 C/Rust full-save parity, the last case a recorded pre-existing munchkin livelock identical in both roles (better-borg-c#204); independent pass on re-review and owner acceptance (#21); tag `4.2.6-impact-v9` on main; record `docs/adoption/c-m9` |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
 
 ## Original M1-M3 machine

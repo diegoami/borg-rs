@@ -128,7 +128,7 @@ static bool borg_good_buy(borg_item *item, int who, int ware)
                     /* mage and rogue can cast teleport away */
                     (item->sval == sv_rod_teleport_other
                         && borg.trait[BI_CLASS] != CLASS_MAGE
-                        && borg.trait[BI_CLASS] == CLASS_ROGUE)
+                        && borg.trait[BI_CLASS] != CLASS_ROGUE)
                     || (item->sval == sv_rod_illumination
                         && (!borg.trait[BI_ALITE]))))
             || (obj_kind_can_browse(&k_info[item->kind])
@@ -249,7 +249,7 @@ bool borg_think_shop_buy_useful(void)
 
         /* If I am bad shape up, only see certain stores */
         if ((borg.trait[BI_LIGHT] == 0 || borg.trait[BI_FOOD] == 0) && k != 0
-            && k != BORG_HOME)
+            && k != BORG_HOME && !(borg.trait[BI_FOOD] == 0 && k == 4))
             continue;
         /* Cures for poison and cuts are sold in the Alchemy shop */
         if ((borg.trait[BI_ISCUT] || borg.trait[BI_ISPOISONED]) && k != 4)
@@ -280,10 +280,9 @@ bool borg_think_shop_buy_useful(void)
             /* Skip it if I just sold this item. XXX XXX*/
 
             /* Special check for 'immediate shopping' */
-            if (borg.trait[BI_FOOD] == 0
-                && (item->tval != TV_FOOD
-                    && (item->tval != TV_SCROLL
-                        && item->sval != sv_scroll_satisfy_hunger)))
+            if (borg.trait[BI_FOOD] == 0 && item->tval != TV_FOOD
+                && !(item->tval == TV_SCROLL
+                    && item->sval == sv_scroll_satisfy_hunger))
                 continue;
 
             /* Don't fill up on attack wands, its ok to buy a few */
@@ -515,10 +514,12 @@ bool borg_think_home_buy_useful(void)
         p = 0;
         if (slot >= 0) {
             /* Require two empty slots */
-            if (hole == -1)
+            if (hole == -1 || (hole + 1) >= PACK_SLOTS) {
+                /* Restore shop item */
+                memcpy(&borg_shops[BORG_HOME].ware[n],
+                    &borg_safe_shops[BORG_HOME].ware[n], sizeof(borg_item));
                 continue;
-            if ((hole + 1) >= PACK_SLOTS)
-                continue;
+            }
 
             /* Check Rings */
             if (slot == INVEN_LEFT) {
@@ -637,10 +638,12 @@ bool borg_think_home_buy_useful(void)
                 hole = stack;
 
             /* Require two empty slots */
-            if (stack == -1 && hole == -1)
+            if (stack == -1 && (hole == -1 || (hole + 1) >= PACK_SLOTS)) {
+                /* Restore shop item */
+                memcpy(&borg_shops[BORG_HOME].ware[n],
+                    &borg_safe_shops[BORG_HOME].ware[n], sizeof(borg_item));
                 continue;
-            if (stack == -1 && (hole + 1) >= PACK_SLOTS)
-                continue;
+            }
 
             /* Move new item into inventory */
             memcpy(&borg_items[hole], &borg_safe_shops[BORG_HOME].ware[n],
@@ -1230,8 +1233,9 @@ bool borg_think_shop_buy(void)
         bought_item_tval[bought_item_nxt]  = item->tval;
         bought_item_sval[bought_item_nxt]  = item->sval;
         bought_item_store[bought_item_nxt] = borg.goal.shop;
-        bought_item_num                    = bought_item_nxt;
         bought_item_nxt++;
+        if (bought_item_num < bought_item_nxt)
+            bought_item_num = bought_item_nxt;
 
         /* The purchase is complete */
         borg.goal.shop = borg.goal.ware = borg.goal.item = -1;

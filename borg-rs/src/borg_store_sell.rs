@@ -61,7 +61,8 @@ pub struct StoreSellState {
     pub sold_item_pval: [i32; 10],
     /// `sold_item_store`
     pub sold_item_store: [i32; 10],
-    /// `sold_item_num` (the index of the last sale, not a count)
+    /// `sold_item_num`: the number of entries in use, newest included
+    /// (better-borg-c milestone9 patch 0094)
     pub sold_item_num: i32,
     /// `sold_item_nxt`
     pub sold_item_nxt: i32,
@@ -1158,8 +1159,10 @@ pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
         s.sold_item_tval[nxt] = i32::from(item.tval);
         s.sold_item_sval[nxt] = i32::from(item.sval);
         s.sold_item_store[nxt] = shop;
-        s.sold_item_num = s.sold_item_nxt;
         s.sold_item_nxt += 1;
+        if s.sold_item_num < s.sold_item_nxt {
+            s.sold_item_num = s.sold_item_nxt;
+        }
 
         // The purchase is complete
         st.borg.goal.item = -1;

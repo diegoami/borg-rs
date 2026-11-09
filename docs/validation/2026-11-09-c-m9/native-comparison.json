@@ -1,0 +1,1038 @@
+{
+ "consumer_pin": "33207fbeeb582e67d6b18e9f40613617667905ae",
+ "before_source": "286215c (4.2.6-impact-v8, local #295)",
+ "after_source": "9e34120 (0098 and 0099 guarded)",
+ "staleglyph_on_unguarded_consumer_0098": {
+  "what": "staleglyph fixture linked against the after oracle built from the consumer borg-update.c before the guard was added (harness/out/c-m9/sg-unguarded)",
+  "rows": {
+   "normal:stale": {
+    "exit": -11,
+    "passed": false,
+    "asan_report": false,
+    "sanitizer_summary": null,
+    "outcome": null,
+    "log_sha256": "3e65704d6ada92996544713b215f30e188513deef0ef2c9c4bb70b4ecfcd2d35"
+   },
+   "normal:fresh": {
+    "exit": 0,
+    "passed": true,
+    "asan_report": false,
+    "sanitizer_summary": null,
+    "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+    "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+   },
+   "asan:stale": {
+    "exit": 1,
+    "passed": false,
+    "asan_report": true,
+    "sanitizer_summary": "SEGV (/home/user/borg-rs/harness/out/c-m9/sg-unguarded/staleglyph/asan-scenario+0x27d48f) (BuildId: 666526f4e93d33df42ec07a1196b25d9603911a0) in borg_update",
+    "outcome": null,
+    "log_sha256": "ccc5334042964f5ef1b0272e3cd655b3fbbaaff9584a8398e8b76a837ee02dd2"
+   },
+   "asan:fresh": {
+    "exit": 0,
+    "passed": true,
+    "asan_report": false,
+    "sanitizer_summary": null,
+    "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+    "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+   }
+  }
+ },
+ "fixtures": {
+  "starvealch": {
+   "starving": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=0 buys_remove_hunger=0",
+     "log_sha256": "5af7da41940afa72f4df889f45c101610bee622734ec8173b7aa9fbc297e1eb4"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=0 buys_remove_hunger=1",
+     "log_sha256": "d872051b2d87915689e9019e9e5ecd165b0dde24938021110cfae357c2e90baa"
+    }
+   },
+   "general_food": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=1 buys_remove_hunger=0",
+     "log_sha256": "0f15bec67161807d24afdc84415d6e1fd48e4d7bedca32c610498db8b4e38f8a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=1 buys_remove_hunger=0",
+     "log_sha256": "0f15bec67161807d24afdc84415d6e1fd48e4d7bedca32c610498db8b4e38f8a"
+    }
+   },
+   "fed": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=0 buys_remove_hunger=0",
+     "log_sha256": "3092176203a4c57a970deb9a02e5cc9155db17d1421092dde07e516c246b3bff"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_food=0 buys_remove_hunger=0",
+     "log_sha256": "3092176203a4c57a970deb9a02e5cc9155db17d1421092dde07e516c246b3bff"
+    }
+   }
+  },
+  "torodvalue": {
+   "rod": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=0 monster_moved=0",
+     "log_sha256": "b496eaaf5a98330e38407ee26c2f0e1f8cae05c75a29f8b6d261adbe878234fb"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=1 monster_moved=1",
+     "log_sha256": "a95586d3bb5a537a882811d975fd86f3f486dec932b6a42be5903b795d318e55"
+    }
+   },
+   "wand": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=1 monster_moved=1",
+     "log_sha256": "35dd9c4ef63b45755cedf56eae78df260b2adfb2774d0fd7128deb39cc0518fe"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=1 monster_moved=1",
+     "log_sha256": "35dd9c4ef63b45755cedf56eae78df260b2adfb2774d0fd7128deb39cc0518fe"
+    }
+   },
+   "weak": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=0 monster_moved=0",
+     "log_sha256": "450a4698a49ebd12f842bd339037c56fc2e3622d229c541c3b4f5852a519cf38"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "used_teleport_other=0 monster_moved=0",
+     "log_sha256": "c3c7df8422b77c1fb7d4d4ef8a6d0b8cedaba732b1d72d57a5951f1c1104ad26"
+    }
+   }
+  },
+  "healchance": {
+   "danger": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=0 plain_heals=-1 witness_healed=0 drank_healing=0 hp_after=149",
+     "log_sha256": "5b1476fcf573df5d2ed9211424f86dc740879fa5c0248350f068d3b99ff6e238"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=100 plain_heals=-1 witness_healed=1 drank_healing=1 hp_after=374",
+     "log_sha256": "113647eaf57ff7816d839a8d2ab254a26cf060dcd227b41dbdf9a4942857e330"
+    }
+   },
+   "unique": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=18 plain_heals=-1 witness_healed=0 drank_healing=0 hp_after=179",
+     "log_sha256": "e6f21391cf1745160826d06913ee0e4b043634e9964f096e23771ea207b345f9"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=32 plain_heals=-1 witness_healed=0 drank_healing=0 hp_after=179",
+     "log_sha256": "c2bf5b01a53eca81a880e56ffe1587fe2eef43a41354c123ae3e9015a51ee4be"
+    }
+   },
+   "risky": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=27 plain_heals=23 witness_healed=0 drank_healing=0 hp_after=149",
+     "log_sha256": "76d34e1243dca0fdd5ffb182074d76de43653b474006039390f9774688744dce"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=20 plain_heals=23 witness_healed=0 drank_healing=0 hp_after=149",
+     "log_sha256": "6e8a44b8985a3db78211934f05419c5712636982586f97ccee42d293cb8644da"
+    }
+   },
+   "control": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=23 plain_heals=-1 witness_healed=0 drank_healing=0 hp_after=149",
+     "log_sha256": "3b25a0b3eefd23f81bbc0843767a1f0c35d060feafdc0eb979b63d1c24004230"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "heals=23 plain_heals=-1 witness_healed=0 drank_healing=0 hp_after=149",
+     "log_sha256": "3b25a0b3eefd23f81bbc0843767a1f0c35d060feafdc0eb979b63d1c24004230"
+    }
+   }
+  },
+  "homebuyqty": {
+   "single": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=0",
+     "log_sha256": "81467bf698c772d43c94419b26ec8ac7c8e0a184debf48c3b23d53cf47401973"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=1",
+     "log_sha256": "1485f833d1ae753a9a8face4fe3ecfd007f4d7ddc7be8fdcd2a6f6f2c5aae65e"
+    }
+   },
+   "pair": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=1",
+     "log_sha256": "effa818feb6d76d12f0d300423db19a9574a158bc53018f82fb8a2208de6f8a0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=1",
+     "log_sha256": "0802aac43f0ae64256ecd64245b1eb0960f894e83932d55598627a98c3a25232"
+    }
+   },
+   "roomy": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=1",
+     "log_sha256": "1a338049d62a9ba47fa158351a10d52fb832d880559c692c8ae5b9c6eec6eeed"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=1",
+     "log_sha256": "1a338049d62a9ba47fa158351a10d52fb832d880559c692c8ae5b9c6eec6eeed"
+    }
+   },
+   "stack": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=0",
+     "log_sha256": "659807d546d1ee7b66b58ab39407ddf94b880b266a12d63ca77a44bf5b28feff"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_home_ware0=0",
+     "log_sha256": "659807d546d1ee7b66b58ab39407ddf94b880b266a12d63ca77a44bf5b28feff"
+    }
+   }
+  },
+  "tradehist": {
+   "rations-only": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stashed_rations=3 retrieved_rations=2",
+     "log_sha256": "8a4e121717c87b4f5350fa6d1b05e37659eaeba681e696b17bed1ad0bb916134"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stashed_rations=3 retrieved_rations=0",
+     "log_sha256": "1bbf0651941e0f9a96b4afc1cb9088897159af8ad66da4ac055a988796d94ec0"
+    }
+   },
+   "with-recall": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stashed_rations=3 retrieved_rations=0",
+     "log_sha256": "4562368686963b565512e38e4e495e0021424bbb31108507a357facfac940d0e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "stashed_rations=3 retrieved_rations=0",
+     "log_sha256": "4562368686963b565512e38e4e495e0021424bbb31108507a357facfac940d0e"
+    }
+   }
+  },
+  "torodpower": {
+   "rod": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=0",
+     "log_sha256": "b3d102657be53ef2ec9aadf7c1c252f8f73888a470326b12455c8398068e7538"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=1",
+     "log_sha256": "82a3cda02e716d33b43baf63ffd0eccb00819c13c492bf330659edb109050d27"
+    }
+   },
+   "wand": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=0",
+     "log_sha256": "e138ca844385d0f2a77096849a238480a7e78f7dbdf74e5a2ce9abeeee4a2900"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=0",
+     "log_sha256": "e138ca844385d0f2a77096849a238480a7e78f7dbdf74e5a2ce9abeeee4a2900"
+    }
+   },
+   "mage": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=0",
+     "log_sha256": "e914400ad4ac8766eabcbdf2bbb3439913f2a60862f5b72810bea5771e33b86c"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "buys_rod=0",
+     "log_sha256": "e914400ad4ac8766eabcbdf2bbb3439913f2a60862f5b72810bea5771e33b86c"
+    }
+   }
+  },
+  "tporod": {
+   "warrior": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=0 buys_rod=0",
+     "log_sha256": "5892e116fbc5e580888a1f3311261b6ffc0eab98500fee292a948dbc4e2bd4bc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=1 buys_rod=0",
+     "log_sha256": "7c7c3e91c4b0b6fb13e10d5e349bcb175753e7b26c13caa8acb50fdb4bea0cc6"
+    }
+   },
+   "rogue": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=1 buys_rod=0",
+     "log_sha256": "e73d414ea115eaeefc7991f6fdfb8cfd320e15c4df51f40fa53197607437f7ec"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=0 buys_rod=0",
+     "log_sha256": "66e79c5b82cb07559737562d8feee5f9bd9b7b0eb95a025c36ac8623030e175d"
+    }
+   },
+   "warrior-buy": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=0 buys_rod=0",
+     "log_sha256": "c4b30a64103906d10d4e6e54b6ccf83cd4d6d2daaf10a3d37ab18caf9f428837"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=1 buys_rod=1",
+     "log_sha256": "9ba3bb67caa0e7bf66fa302925024f5f92287e6c6982ee062c2ee6c7c2ef0386"
+    }
+   },
+   "mage": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=0 buys_rod=0",
+     "log_sha256": "34c7edd7c80ceb27874102e9cab53643167faa3d1094204b6620ef3f4835db34"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "saves_for_rod=0 buys_rod=0",
+     "log_sha256": "34c7edd7c80ceb27874102e9cab53643167faa3d1094204b6620ef3f4835db34"
+    }
+   }
+  },
+  "panelrows": {
+   "light-tall": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "193481309d42ffa8c6901d0e36ade8e2890f69638657039c74c4e5d62568da6f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "18ce8be523152223d593b8261866828b1f29e2e08577f2cbfc85bad70f70c1b5"
+    }
+   },
+   "light-wide": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "374ca3b10ffc1d42d06374f7a5731148b95b564d762a37f2dc83b8e23b92141f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "374ca3b10ffc1d42d06374f7a5731148b95b564d762a37f2dc83b8e23b92141f"
+    }
+   },
+   "light-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "a83bc9c0dca91e72e7274c895d32cd7de14645c86c408df9488752b2f719ae4f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "a83bc9c0dca91e72e7274c895d32cd7de14645c86c408df9488752b2f719ae4f"
+    }
+   },
+   "light-fit": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "a82356da9ad43490e99c14c2fba852d0413513e087334aceb0613eb4bf5dd049"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "a82356da9ad43490e99c14c2fba852d0413513e087334aceb0613eb4bf5dd049"
+    }
+   },
+   "vault-tall": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "6f21e1620fa4f1332d086b17a7869a1e69b3e506871a2b0b4fa09c5876a9b95e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "dbda194113c020968772501a597826c774b1807b7a989c37419c8e0182606a51"
+    }
+   },
+   "vault-wide": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b40ea139e38bcb440c8df586819984006214176c58852d4c1879f07f95a71567"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b40ea139e38bcb440c8df586819984006214176c58852d4c1879f07f95a71567"
+    }
+   },
+   "vault-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "f088fb71f4bea0290feeb29ae214233fc0d64d5dc1058282232e88b8af3edacc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "f088fb71f4bea0290feeb29ae214233fc0d64d5dc1058282232e88b8af3edacc"
+    }
+   },
+   "dig-tall": {
+    "before": {
+     "exit": -11,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": null,
+     "log_sha256": "ba4a1d11e86ccc84ad89c7191edf141f91d4c2f0c61f1581108aaf492dbfcd73"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "1699862eb3178db0323b07d29b60903547885b7fcf1d0998254cf9d0731b340f"
+    }
+   },
+   "dig-wide": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b67ba0e5330bdbee14b97fafb25d6c17a428b55f9d80999553ce095aa7f77b87"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b67ba0e5330bdbee14b97fafb25d6c17a428b55f9d80999553ce095aa7f77b87"
+    }
+   },
+   "dig-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "54ccf4dfbb6e8af70c317aefe9a2f40cbac3c5d7a5676e652ffc219aa504560f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "54ccf4dfbb6e8af70c317aefe9a2f40cbac3c5d7a5676e652ffc219aa504560f"
+    }
+   },
+   "asan:light-tall": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "global-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x1a857d) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_flow_light",
+     "outcome": null,
+     "log_sha256": "f135154279fbfe7dd244c419ac5903b44940afefe8218c3552af9ed5a139a41a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "18ce8be523152223d593b8261866828b1f29e2e08577f2cbfc85bad70f70c1b5"
+    }
+   },
+   "asan:light-wide": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x1a8505) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_flow_light",
+     "outcome": null,
+     "log_sha256": "726c9d404eef4b7a94a89f3f31368b4a6ebe880f55b38e7d464111202fefc543"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "374ca3b10ffc1d42d06374f7a5731148b95b564d762a37f2dc83b8e23b92141f"
+    }
+   },
+   "asan:light-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "a83bc9c0dca91e72e7274c895d32cd7de14645c86c408df9488752b2f719ae4f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=66 offmap=0 progress=1",
+     "log_sha256": "a83bc9c0dca91e72e7274c895d32cd7de14645c86c408df9488752b2f719ae4f"
+    }
+   },
+   "asan:light-fit": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "a82356da9ad43490e99c14c2fba852d0413513e087334aceb0613eb4bf5dd049"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=88 offmap=0 progress=1",
+     "log_sha256": "a82356da9ad43490e99c14c2fba852d0413513e087334aceb0613eb4bf5dd049"
+    }
+   },
+   "asan:vault-tall": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "global-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x1a8faa) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_flow_vault",
+     "outcome": null,
+     "log_sha256": "66984903109ebb1fd0fd2cddd2b7029ca706467fc7d98f2c7a1af4435e996c19"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "dbda194113c020968772501a597826c774b1807b7a989c37419c8e0182606a51"
+    }
+   },
+   "asan:vault-wide": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x1a8fb2) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_flow_vault",
+     "outcome": null,
+     "log_sha256": "3e496af8b21e6265cfc9f063efdef3b6a67f54ad39be6ca9063f1ca024f7da53"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b40ea139e38bcb440c8df586819984006214176c58852d4c1879f07f95a71567"
+    }
+   },
+   "asan:vault-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "f088fb71f4bea0290feeb29ae214233fc0d64d5dc1058282232e88b8af3edacc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "f088fb71f4bea0290feeb29ae214233fc0d64d5dc1058282232e88b8af3edacc"
+    }
+   },
+   "asan:dig-tall": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "global-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x24dd90) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_excavate_vault",
+     "outcome": null,
+     "log_sha256": "e875538e4fd302e87ee6796c5057f836485a32e042f9828e59dd9dac09532e64"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "1699862eb3178db0323b07d29b60903547885b7fcf1d0998254cf9d0731b340f"
+    }
+   },
+   "asan:dig-wide": {
+    "before": {
+     "exit": 1,
+     "passed": false,
+     "asan_report": true,
+     "sanitizer_summary": "heap-buffer-overflow (/home/user/borg-rs/harness/out/c-m9/native-before/panelrows/asan-scenario+0x24dd95) (BuildId: 37bc899735c5dd966141538d8ef83f0c660d6918) in borg_excavate_vault",
+     "outcome": null,
+     "log_sha256": "231771cc74f67f95e8f1d7dd2073a885f8ccb2cb9bfb89f258e6a208ec1a105f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "b67ba0e5330bdbee14b97fafb25d6c17a428b55f9d80999553ce095aa7f77b87"
+    }
+   },
+   "asan:dig-normal": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "54ccf4dfbb6e8af70c317aefe9a2f40cbac3c5d7a5676e652ffc219aa504560f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "completed=1 targets=1 offmap=0 progress=1",
+     "log_sha256": "54ccf4dfbb6e8af70c317aefe9a2f40cbac3c5d7a5676e652ffc219aa504560f"
+    }
+   }
+  },
+  "runeglyph": {
+   "rune": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=4->4 game_runes_here=1->1 borg_glyph_here=1",
+     "log_sha256": "ec4b8d503c9457b4076b6fdd7eb6f636f5e53f8eb9b59bf6f1a2447a90e2bd3f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=4->4 game_runes_here=1->1 borg_glyph_here=1",
+     "log_sha256": "ec4b8d503c9457b4076b6fdd7eb6f636f5e53f8eb9b59bf6f1a2447a90e2bd3f"
+    }
+   },
+   "floor": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=5->5 game_runes_here=0->0 borg_glyph_here=0",
+     "log_sha256": "63e5c9405e08d2715a7954a474967159217d89e19cac7e1a57eb1a0b6ab9958e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=5->5 game_runes_here=0->0 borg_glyph_here=0",
+     "log_sha256": "63e5c9405e08d2715a7954a474967159217d89e19cac7e1a57eb1a0b6ab9958e"
+    }
+   },
+   "trap": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=5->5 game_runes_here=0->0 borg_glyph_here=0",
+     "log_sha256": "a1ce0d8b1147aaf518edd910be29fb98423ab998654e8709135e028d9bc0b4f2"
+    },
+    "after": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "read_rune=0 scrolls=5->5 game_runes_here=0->0 borg_glyph_here=0",
+     "log_sha256": "a1ce0d8b1147aaf518edd910be29fb98423ab998654e8709135e028d9bc0b4f2"
+    }
+   }
+  },
+  "necrolight": {
+   "lit": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=8 game_chance=33 estimate_matches_game=0 cast_spell=1 game_chance_over_threshold=1",
+     "log_sha256": "4ccdd266e33224e778c3174fb782918737fa7565ea02c6eaa81d9a4213c7c2a0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=33 game_chance=33 estimate_matches_game=1 cast_spell=0 game_chance_over_threshold=1",
+     "log_sha256": "6fef838d57f09bdeb9bef2e6f55b23fee83cb3af6384a1c2050ebbb8e827854e"
+    }
+   },
+   "dark": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=8 game_chance=8 estimate_matches_game=1 cast_spell=1 game_chance_over_threshold=0",
+     "log_sha256": "ae9da5419932a5c797a6ab043514e2a8f2a791c0519fd45dfa12759f2caf1128"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=8 game_chance=8 estimate_matches_game=1 cast_spell=1 game_chance_over_threshold=0",
+     "log_sha256": "ae9da5419932a5c797a6ab043514e2a8f2a791c0519fd45dfa12759f2caf1128"
+    }
+   },
+   "mage": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=2 game_chance=2 estimate_matches_game=1 cast_spell=1 game_chance_over_threshold=0",
+     "log_sha256": "0db7bac3c965d304cc3dddad116ac06d7a270dd4f7b687434c878cdc958ed2c0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "borg_estimate=2 game_chance=2 estimate_matches_game=1 cast_spell=1 game_chance_over_threshold=0",
+     "log_sha256": "0db7bac3c965d304cc3dddad116ac06d7a270dd4f7b687434c878cdc958ed2c0"
+    }
+   }
+  },
+  "staleglyph": {
+   "stale": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "d80cb3b199301e8e31f170e1c80a63c428850ac556bd536a3a23dc16f0f9945d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "d80cb3b199301e8e31f170e1c80a63c428850ac556bd536a3a23dc16f0f9945d"
+    }
+   },
+   "fresh": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+    }
+   },
+   "asan:stale": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "d80cb3b199301e8e31f170e1c80a63c428850ac556bd536a3a23dc16f0f9945d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "d80cb3b199301e8e31f170e1c80a63c428850ac556bd536a3a23dc16f0f9945d"
+    }
+   },
+   "asan:fresh": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "asan_report": false,
+     "sanitizer_summary": null,
+     "outcome": "survived=1 borg_glyph=1 borg_trap=0 tracked=1",
+     "log_sha256": "bb5946029ac4494fee38696395258915e660594cd630d7edbf7d50cda8b99f3b"
+    }
+   }
+  }
+ },
+ "totals": {
+  "modes": 41,
+  "before_pass": 23,
+  "after_pass": 39,
+  "fail_to_pass": 16,
+  "pass_both": 23,
+  "red_both": [
+   "runeglyph:floor",
+   "runeglyph:trap"
+  ],
+  "pass_to_fail": 0,
+  "second_pass_log_mismatches": 0,
+  "asan": {
+   "modes": 12,
+   "before_pass": 6,
+   "after_pass": 12
+  }
+ }
+}

@@ -1,0 +1,76 @@
+diff --git a/borg-rs/src/borg_store_buy.rs b/borg-rs/src/borg_store_buy.rs
+index e26976c..2aaa278 100644
+--- a/borg-rs/src/borg_store_buy.rs
++++ b/borg-rs/src/borg_store_buy.rs
+@@ -384,6 +385,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
+         if (st.borg.tr(BI_LIGHT) == 0 || st.borg.tr(BI_FOOD) == 0)
+             && k != 0
+             && k != BORG_HOME as i32
++            && !(st.borg.tr(BI_FOOD) == 0 && k == 4)
+         {
+             continue;
+         }
+@@ -422,8 +424,8 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
+ 
+             /* Special check for 'immediate shopping' */
+             if st.borg.tr(BI_FOOD) == 0
+-                && (tval != TV_FOOD
+-                    && (tval != TV_SCROLL && sval != st.item_val.sv_scroll_satisfy_hunger))
++                && tval != TV_FOOD
++                && !(tval == TV_SCROLL && sval == st.item_val.sv_scroll_satisfy_hunger)
+             {
+                 continue;
+             }
+diff --git a/borg-rs/src/borg_trait.rs b/borg-rs/src/borg_trait.rs
+index 02e1850..f2ecc9d 100644
+--- a/borg-rs/src/borg_trait.rs
++++ b/borg-rs/src/borg_trait.rs
+@@ -1777,7 +1777,8 @@ fn add_i16(v: &mut i16, x: i32) {
+ }
+ 
+ /// One pack item of `borg_notice_inventory` (the `switch (item->tval)`).
+-fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
++/// `remove_hunger` is C's local count of Remove Hunger scrolls.
++fn notice_pack_item(st: &mut BorgState, item: &borg_item, remove_hunger: &mut i32) {
+     let iqty = i32::from(item.iqty);
+     let sval = i32::from(item.sval);
+     let pval = i32::from(item.pval);
+@@ -1882,6 +1883,8 @@ fn notice_pack_item(st: &mut BorgState, item: &borg_item) {
+             let mut t = Traits(&mut st.borg.trait_);
+             if sval == v.sv_scroll_identify {
+                 t[BI_AID] += iqty;
++            } else if sval == v.sv_scroll_satisfy_hunger {
++                *remove_hunger += iqty;
+             } else if sval == v.sv_scroll_recharging {
+                 t[BI_ARECHARGE] += iqty;
+             } else if sval == v.sv_scroll_phase_door {
+@@ -2108,6 +2116,8 @@ fn rod_svals(v: &crate::borg_item_val::ItemValState) -> RodSvals {
+ 
+ /// Helper function -- notice the player inventory (`borg_notice_inventory`).
+ fn borg_notice_inventory(st: &mut BorgState) {
++    let mut remove_hunger = 0;
++
+     /*** Reset counters ***/
+ 
+     /* Reset stat potions */
+@@ -2180,7 +2190,7 @@ fn borg_notice_inventory(st: &mut BorgState) {
+             continue;
+         }
+ 
+-        notice_pack_item(st, &item);
++        notice_pack_item(st, &item, &mut remove_hunger);
+     }
+ 
+     /* flasks of oil are ammo at low levels */
+@@ -2467,6 +2477,11 @@ fn borg_notice_inventory(st: &mut BorgState) {
+     t[BI_FOOD] += t[BI_FOOD_HI];
+     t[BI_FOOD] += t[BI_FOOD_LO];
+ 
++    /* With no other food, Remove Hunger scrolls are the food supply */
++    if t[BI_FOOD] == 0 {
++        t[BI_FOOD] = remove_hunger;
++    }
++
+     /* If weak, do not count food spells */
+     if t[BI_ISWEAK] != 0 && t[BI_FOOD] >= 1000 {
+         t[BI_FOOD] -= 1000;

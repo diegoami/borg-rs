@@ -67,7 +67,8 @@ pub struct BuyState {
     pub bought_item_pval: [i32; 10],
     /// `bought_item_store`
     pub bought_item_store: [i32; 10],
-    /// `bought_item_num`: the index of the last entry written (-1 at start).
+    /// `bought_item_num`: the number of entries in use, newest included
+    /// (-1 at start; better-borg-c milestone9 patch 0094).
     pub bought_item_num: i32,
     /// `bought_item_nxt`: the next entry to write.
     pub bought_item_nxt: i32,
@@ -272,7 +273,7 @@ fn borg_good_buy(st: &mut BorgState, who: i32, ware_n: i32) -> bool {
                     /* mage and rogue can cast teleport away */
                     || (sval == iv.sv_rod_teleport_other
                         && class != CLASS_MAGE
-                        && class == CLASS_ROGUE)
+                        && class != CLASS_ROGUE)
                     || (sval == iv.sv_rod_illumination && b.tr(BI_ALITE) == 0)))
             || (can_browse(&item)
                 && b.amt_book[borg_get_book_num(sval) as usize] == 0
@@ -384,6 +385,7 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
         if (st.borg.tr(BI_LIGHT) == 0 || st.borg.tr(BI_FOOD) == 0)
             && k != 0
             && k != BORG_HOME as i32
+            && !(st.borg.tr(BI_FOOD) == 0 && k == 4)
         {
             continue;
         }
@@ -422,8 +424,8 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
 
             /* Special check for 'immediate shopping' */
             if st.borg.tr(BI_FOOD) == 0
-                && (tval != TV_FOOD
-                    && (tval != TV_SCROLL && sval != st.item_val.sv_scroll_satisfy_hunger))
+                && tval != TV_FOOD
+                && !(tval == TV_SCROLL && sval == st.item_val.sv_scroll_satisfy_hunger)
             {
                 continue;
             }
@@ -662,11 +664,9 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
         let mut p: i32 = 0;
         if slot >= 0 {
             /* Require two empty slots */
-            if hole == -1 {
-                continue;
-            }
-            if (hole + 1) >= pack_slots(st) {
-                // C leaves the home ware changed here (docs/c-bugs.md)
+            if hole == -1 || (hole + 1) >= pack_slots(st) {
+                /* Restore shop item */
+                restore_ware(st, home, n);
                 continue;
             }
 
@@ -768,11 +768,9 @@ pub fn borg_think_home_buy_useful(st: &mut BorgState) -> bool {
             }
 
             /* Require two empty slots */
-            if stack == -1 && hole == -1 {
-                continue;
-            }
-            if stack == -1 && (hole + 1) >= pack_slots(st) {
-                // C leaves the home ware changed here (docs/c-bugs.md)
+            if stack == -1 && (hole == -1 || (hole + 1) >= pack_slots(st)) {
+                /* Restore shop item */
+                restore_ware(st, home, n);
                 continue;
             }
 
@@ -1335,8 +1333,10 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         b.bought_item_tval[i] = i32::from(item.tval);
         b.bought_item_sval[i] = i32::from(item.sval);
         b.bought_item_store[i] = i32::from(st.borg.goal.shop);
-        b.bought_item_num = b.bought_item_nxt;
         b.bought_item_nxt += 1;
+        if b.bought_item_num < b.bought_item_nxt {
+            b.bought_item_num = b.bought_item_nxt;
+        }
 
         purchase_done(st);
 

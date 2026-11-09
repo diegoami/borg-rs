@@ -1,0 +1,36 @@
+diff --git a/angband/src/borg/borg-store-buy.c b/angband/src/borg/borg-store-buy.c
+index eb1be2b..2ebcb73 100644
+--- a/angband/src/borg/borg-store-buy.c
++++ b/angband/src/borg/borg-store-buy.c
+@@ -515,10 +514,12 @@ bool borg_think_home_buy_useful(void)
+         p = 0;
+         if (slot >= 0) {
+             /* Require two empty slots */
+-            if (hole == -1)
+-                continue;
+-            if ((hole + 1) >= PACK_SLOTS)
++            if (hole == -1 || (hole + 1) >= PACK_SLOTS) {
++                /* Restore shop item */
++                memcpy(&borg_shops[BORG_HOME].ware[n],
++                    &borg_safe_shops[BORG_HOME].ware[n], sizeof(borg_item));
+                 continue;
++            }
+ 
+             /* Check Rings */
+             if (slot == INVEN_LEFT) {
+@@ -637,10 +638,12 @@ bool borg_think_home_buy_useful(void)
+                 hole = stack;
+ 
+             /* Require two empty slots */
+-            if (stack == -1 && hole == -1)
+-                continue;
+-            if (stack == -1 && (hole + 1) >= PACK_SLOTS)
++            if (stack == -1 && (hole == -1 || (hole + 1) >= PACK_SLOTS)) {
++                /* Restore shop item */
++                memcpy(&borg_shops[BORG_HOME].ware[n],
++                    &borg_safe_shops[BORG_HOME].ware[n], sizeof(borg_item));
+                 continue;
++            }
+ 
+             /* Move new item into inventory */
+             memcpy(&borg_items[hole], &borg_safe_shops[BORG_HOME].ware[n],

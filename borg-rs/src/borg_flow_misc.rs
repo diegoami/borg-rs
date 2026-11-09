@@ -906,9 +906,9 @@ pub fn borg_flow_light(st: &mut BorgState, why: i32) -> bool {
     st.light.glow_n = 0;
 
     /* build the glow array */
-    /* Scan map */
-    for y in w_y..w_y + screen_hgt {
-        for x in w_x..w_x + screen_wid {
+    /* Scan map (a large terminal can show more than the map) */
+    for y in w_y..(w_y + screen_hgt).min(AUTO_MAX_Y) {
+        for x in w_x..(w_x + screen_wid).min(AUTO_MAX_X) {
             /* Not a perma-lit, and not our spot. */
             if st.cave.grid(x, y).info & BORG_GLOW == 0 {
                 continue;
@@ -972,9 +972,10 @@ pub fn borg_flow_vault(st: &mut BorgState, nearness: i32) -> bool {
     let (screen_hgt, screen_wid) = screen_hgt_wid();
     let (w_x, w_y) = (st.core.w_x, st.core.w_y);
 
-    /* build the array -- Scan screen */
-    for y in w_y..w_y + screen_hgt {
-        for x in w_x..w_x + screen_wid {
+    /* build the array -- Scan screen (a large terminal can show more than
+     * the map) */
+    for y in w_y..(w_y + screen_hgt).min(AUTO_MAX_Y) {
+        for x in w_x..(w_x + screen_wid).min(AUTO_MAX_X) {
             /* only bother with near ones */
             if engine::distance(st.borg.c, loc { x, y }) > nearness {
                 continue;

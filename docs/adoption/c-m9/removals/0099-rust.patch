@@ -1,0 +1,31 @@
+diff --git a/borg-rs/src/borg_magic.rs b/borg-rs/src/borg_magic.rs
+index 27ec165..b273d94 100644
+--- a/borg-rs/src/borg_magic.rs
++++ b/borg-rs/src/borg_magic.rs
+@@ -46,9 +46,6 @@ const PY_SPELL_LEARNED: i32 = 0x01; // Spell has been learned
+ const PY_SPELL_WORKED: i32 = 0x02; // Spell has been successfully tried
+ const PY_SPELL_FORGOTTEN: i32 = 0x04; // Spell has been forgotten
+ 
+-/// `BORG_LIGHT` (borg-cave-view.h): lit by the torch
+-const BORG_LIGHT: u16 = 0x10;
+-
+ /// Class indices (borg-trait.h)
+ const CLASS_MAGE: i32 = 1;
+ const CLASS_DRUID: i32 = 2;
+@@ -572,10 +569,13 @@ pub fn borg_spell_fail_rate(st: &BorgState, spell: borg_spells) -> i32 {
+         minfail = 5;
+     }
+ 
+-    // Necromancers are punished by being on lit squares
+-    // necromancers like the dark
++    // Necromancers are punished by being on lit squares, whatever lights
++    // them (their own light, permanent light, a monster's light)
++    // FORK (0099 guard): just after a level change the Borg's position can
++    // still be on the previous, larger level
+     if st.borg.tr(BI_CLASS) == CLASS_NECROMANCER
+-        && st.cave.grid(st.borg.c.x, st.borg.c.y).info & BORG_LIGHT != 0
++        && engine::square_in_bounds(st.borg.c.x, st.borg.c.y)
++        && engine::square_islit(st.borg.c.x, st.borg.c.y)
+     {
+         chance += 25;
+     }

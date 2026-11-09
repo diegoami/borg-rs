@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-trait.c b/angband/src/borg/borg-trait.c
+index 993857d..a4939ed 100644
+--- a/angband/src/borg/borg-trait.c
++++ b/angband/src/borg/borg-trait.c
+@@ -2417,6 +2420,9 @@ static void borg_notice_inventory(void)
+                 } else {
+                     borg.trait[BI_ASPEED] += item->iqty;
+                 }
++            } else if (item->sval == sv_rod_teleport_other) {
++                /* Counted like a wand of teleport other */
++                borg.trait[BI_ATPORTOTHER] += item->iqty;
+             } else if (item->sval == sv_rod_mapping)
+                 borg.trait[BI_AMAGICMAP] += item->iqty * 100;
+             else if (item->sval == sv_rod_healing) {

@@ -41,6 +41,11 @@ The milestone8 carries in [adoption/c-m8](adoption/c-m8/README.md)
 are marked with "Milestone8" bullets. The same target also carries the
 owner's munchkin-by-class change (PR302), which is not a C bug fix.
 
+The milestone9 carries in [adoption/c-m9](adoption/c-m9/README.md)
+(better-borg-c `33207fbee`, [Rust#21](https://github.com/diegoami/borg-rs/issues/21))
+are marked with "Milestone9" bullets. 0098 replaces the local #295
+correction; 0098 and 0099 are each carried with a local crash guard.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -114,6 +119,10 @@ with its issues.
 * `borg_spell_stat()` tests `&books[0].spells[0] != NULL`, which is always
   true.
 * Rust (`borg_magic.rs`): all kept (`u8::from(status)`, `0..8`, no check).
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source296 applies the Necromancer penalty on any lit square
+  (`square_islit`, patch 0099), in C and Rust, with a local guard: the
+  position must be in bounds, as just after a level change it can still be
+  on the previous level (FORK-CORRECTIONS; better-borg-c#377).
 
 ## 6. Formula error text lost to `format()`'s static buffer
 
@@ -692,6 +701,8 @@ with its issues.
   their first 8 bytes; a shorter array would panic where C overruns).
 * Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source134 skips (does not return on) an unidentified
   single item in `borg_count_sell()`.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source20 makes `sold_item_num` count the newest sale (patch
+  0094), in C and Rust.
 ## 34. Shopping slips (store buy)
 
 * `borg-store-buy.c`, found by code reading.
@@ -726,6 +737,11 @@ with its issues.
   never used. (`sold_item_*` in borg-store-sell.c work the same way and are
   read the same way here.)
 * Rust (`borg_store_buy.rs`): all kept.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source17 lets every class but Mage and Rogue buy the Rod of
+  Teleport Other (0096); source18 lets a Borg with no food shop at the
+  Alchemist and fixes the Remove Hunger test (0090); source19 restores the
+  home ware when a home-buy trial is skipped (0093); source20 makes
+  `bought_item_num` count the newest purchase (0094), in C and Rust.
 
 ## 35. Escape slips (escape)
 
@@ -874,6 +890,8 @@ with its issues.
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source149 no longer clears `last_kill_mult` in
   `borg_check_rest()` (patch 0079), and source147 uses the candidate grid's
   own search count in the spastic value (patch 0089), in C and Rust.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source348 stops the `borg_flow_light()`/`borg_flow_vault()`
+  panel scans at the map edge (patch 0097), in C and Rust.
 
 ## 40. Caution slips (caution)
 
@@ -918,6 +936,8 @@ with its issues.
   Morgoth; source157 compares the recall-wait mana with `BI_MAXSP / 4`;
   source153 takes the nearest free stairs; source155 skips trapped grids and
   resets `adjacent_monster` per grid in the back-away scan.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source364 gives the three healing-chance adjustments the
+  direction their comments state (patch 0092), in C and Rust.
 
 ## 41. Debug command slips (commands)
 
@@ -992,6 +1012,8 @@ with its issues.
 * Rust (`borg_fight_defend.rs`): all kept.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#173 to diegoami/neo-angband-tracker#183.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source549 lets the Teleport Other defence zap a Rod of
+  Teleport Other (patch 0091), in C and Rust.
 
 ## 43. Power slips (power)
 
@@ -1243,6 +1265,8 @@ with its issues.
   copies are unchanged).
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#229 to diegoami/neo-angband-tracker#236.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source348 stops the `borg_excavate_vault()` panel scan at the
+  map edge (patch 0097), in C and Rust.
 
 
 ## 48. Trait slips (trait)
@@ -1277,6 +1301,9 @@ with its issues.
   modifier once; source313 weighs one weapon in `borg_calc_blows()`.
 * Tracker: one lead per slip, in the order above:
   diegoami/neo-angband-tracker#237 to diegoami/neo-angband-tracker#241.
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source18 counts Remove Hunger scrolls as food when there is no
+  other food (0090), and source560 counts a Rod of Teleport Other in
+  `BI_ATPORTOTHER` (0095), in C and Rust.
 
 ## 49. Dungeon-think slips (think dungeon)
 
@@ -1659,6 +1686,12 @@ The C source is unchanged; no correction is proposed in this pass.
   See `docs/validation/2026-11-07-glyph-recognition/README.md`. This fixes
   recognition, not section56's reverse flow or autonomous construction.
   Published correction/evidence: `da39bf5`; [tracker update read back](https://github.com/diegoami/neo-angband-tracker/issues/295#issuecomment-6705894975).
+* Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): the consumer carried source295 as patch 0098, which replaces
+  the local #295 correction in C and Rust. As written, 0098 reads the cave's
+  trap after taking the glyph test from the player's memory; a rune broken
+  out of view leaves that trap NULL. borg-rs adds a narrow NULL guard
+  (FORK-CORRECTIONS, fixture `harness/adoption/m9/local/staleglyph`) and
+  reported it on better-borg-c#375.
 
 ## 59. Wizard cure-all leaves known curses; Remove Curse then reads NULL (engine)
 

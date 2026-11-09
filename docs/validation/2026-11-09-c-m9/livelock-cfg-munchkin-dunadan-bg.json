@@ -1,0 +1,67 @@
+{
+ "what": "cfg-munchkin-dunadan-bg in the milestone9 131-case plan: both roles killed by the 600 s run timeout (rc=124) in a munchkin stair livelock at a frozen game turn. C and Rust streams compared line by line up to the kill; raw runs in harness/out/c-m9/g-c and g-rust (outside Git).",
+ "run_exit": {
+  "c": 124,
+  "rust": 124
+ },
+ "streams": {
+  "keys.log": {
+   "c_lines": 424781,
+   "rust_lines": 415529,
+   "identical_leading_lines": 415527,
+   "identical_prefix_sha256": "400b4d57ec978d56f0aebf917c8912a8ae2603ae42e2a11e12f9ef1ae8b44fce",
+   "rust_prefix_sha256": "400b4d57ec978d56f0aebf917c8912a8ae2603ae42e2a11e12f9ef1ae8b44fce",
+   "first_difference": {
+    "c": "19045 1 3c 0",
+    "rust": "19045 1 e000 0"
+   }
+  },
+  "messages.log": {
+   "c_lines": 1077633,
+   "rust_lines": 1054503,
+   "identical_leading_lines": 1054501,
+   "identical_prefix_sha256": "88eb266d9dec97c4aa797d249f1ab0f49bc427b8aa5d3993c9dfe83feddb1a3f",
+   "rust_prefix_sha256": "88eb266d9dec97c4aa797d249f1ab0f49bc427b8aa5d3993c9dfe83feddb1a3f",
+   "first_difference": {
+    "c": "415527 19045 0 # FEELING_DANGER:8 (+)",
+    "rust": "415527 19045 0 # Aborting (terminal disconnect abort)."
+   }
+  },
+  "state.log": {
+   "c_lines": 424781,
+   "rust_lines": 415529,
+   "identical_leading_lines": 415528,
+   "identical_prefix_sha256": "960d65fbd33ac1911ae9877e19b0615fa23e3a9284d073ffff3669f9e111b086",
+   "rust_prefix_sha256": "960d65fbd33ac1911ae9877e19b0615fa23e3a9284d073ffff3669f9e111b086",
+   "first_difference": {
+    "c": "19045 25,52 d1/2 hp98/98 sp10/11 f7299 au166 xp343 lv9 t2:12 o3:5000,6:3292 pa66e9b8feb90dbba e68d76064cc6b4872 r2a03388222544324",
+    "rust": "19045 25,52 d2/2 hp98/98 sp10/11 f7299 au166 xp343 lv9 t2:12 o3:5000,6:3292 pa66e9b8feb90dbba e68d76064cc6b4872 r2a03388222544324"
+   }
+  }
+ },
+ "loop": {
+  "game_turn_frozen_at": 19045,
+  "c_message_lines_at_19045": 819469,
+  "level_changes_at_turns_19022_and_19045_c": 109303,
+  "pattern": "'# Fleeing level. Munchkin Mode' on arrival, then 'Power Climb'/'Power Diving' to the stair under the Borg; connected stairs, so every level is entered on a stair and the world clock does not advance",
+  "divergence_from_m8": {
+   "messages_line": 947,
+   "game_turn": 3298,
+   "m8": "# Retreating to 25,60 (distance 1) via 25,60 (16 > 0)",
+   "m9": "# Quaffing Potions of Cure Light Wounds. (patch 0092, healing-chance signs)"
+  },
+  "blind": {
+   "state_field": "t2 = TMD_BLIND (main-borgh.c prints the non-food timed effects as t<index>:<turns>)",
+   "first_seen": "game turn 19038 (t2:13, state.log line 96990)",
+   "at_freeze": "t2:12 from game turn 19045 on, every later state line",
+   "reading": "the same defect family as consumer patch 0067 (better-borg-c#280, investigation #204): a timed ailment cannot wear off while the munchkin Borg only takes stairs, because stair travel does not age the world clock; 0067 bails out of munchkin mode for poison and hallucination, not for blindness"
+  },
+  "m8_same_case": {
+   "stop_reason": "turns",
+   "game_turns": 20005,
+   "dead": false,
+   "source": "reference-m8-c-summary.json",
+   "reading": "the stall mechanism is pre-existing; the case itself completed at M8 and reaches the mechanism at M9 on the path 0092 opens at turn 3298"
+  }
+ }
+}
