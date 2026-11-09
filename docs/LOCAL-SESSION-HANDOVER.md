@@ -471,3 +471,5 @@ Native 24→42/43 (painmsg puff red both, as the consumer asserts), ASan 6→8/8
 second C pass identical, 131/131 C/Rust parity, harness/diff exit 0, 3/12
 Rust fault units detected; Rust rerun at 7efe65c identical. Review and owner
 acceptance pending; not merged.
+Review (issue17): qualified pass, no blocker/major; doc-comment findings fixed
+in 1c1fa0c/2e9a609, Rust rerun at 2e9a609 identical (rust-reruns.json).

@@ -237,7 +237,13 @@
       "starting_rust_main": "e5cb263",
       "rust_milestone_accepted": false,
       "rust_fault_controls_detected": "3/12 behavioural units (0064, 0069, 0071); 0065 Rust unit is comment-only",
-      "rust_rerun": "7efe65c Rust build: 131/131 streams identical to the c9a198c run"
+      "rust_rerun": "7efe65c and 2e9a609 Rust builds: 131/131 streams identical to the c9a198c C and Rust runs (docs/validation/2026-11-09-c-m7/rust-reruns.json)",
+      "independent_review": {
+        "verdict": "qualified pass",
+        "reviewed_source": "0d6c210",
+        "comment": "https://github.com/diegoami/borg-rs/issues/17#issuecomment-6730707717",
+        "findings_addressed_in": "1c1fa0c, 2e9a609"
+      }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",

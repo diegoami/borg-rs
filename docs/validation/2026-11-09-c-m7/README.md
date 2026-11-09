@@ -18,13 +18,17 @@ between the two images, except `buildid.c.o`, which the script allows to
 differ. There are no engine, data, header or FFI changes. Builder: Ubuntu cc
 13.3.0 and rustc 1.97.0, as recorded in the BUILD_IDs.
 
-`7efe65c` then adds one Rust comment, the Rust side of 0065. The Rust image
-was rebuilt cleanly at that commit
-([RUST-BUILD_ID-7efe65c](RUST-BUILD_ID-7efe65c)). Its `binary_sha256` differs
-because the build identity is linked in. The Rust side of the full plan was
-therefore rerun on it: all 131 cases have byte-identical `keys.log`,
-`messages.log`, `state.log` and `final.save` to the `c9a198c` Rust run. Only
-`wall_seconds` differs. Later commits change only docs.
+Two later commits change Rust comments only: `7efe65c` (the Rust side of
+0065) and, after the review, `1c1fa0c` (the 0068/0071 doc comments). The Rust
+image was rebuilt cleanly after each
+([RUST-BUILD_ID-7efe65c](RUST-BUILD_ID-7efe65c) and
+[RUST-BUILD_ID-2e9a609](RUST-BUILD_ID-2e9a609), which includes `1c1fa0c`).
+The `binary_sha256` changes because the build identity is linked in, so the
+Rust side of the full plan was rerun on both builds. In both reruns all 131
+cases have byte-identical `keys.log`, `messages.log`, `state.log` and
+`final.save` to the `c9a198c` Rust and C runs; only `wall_seconds` differs.
+[rust-reruns.json](rust-reruns.json) records the per-case digests of all four
+runs and the build identities. Later commits change only docs.
 
 ## Checks
 
