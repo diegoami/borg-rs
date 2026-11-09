@@ -484,3 +484,6 @@ decision: carry the whole pinned tree) in C and Rust. Native 19->31/31,
 131/131 C/Rust parity, harness/diff exit 0, 6/13 Rust fault units detected;
 117/131 cases changed vs M7 (munchkin start now active for Druid/Ranger/most
 Warrior runs). Review and owner acceptance pending; not merged.
+Review (issue19): qualified pass, no blocker/major; findings fixed in
+d7f4cb2/2664122, Rust rerun at 2664122 identical (rust-rerun.json).
+Owner: "accept, merge and tag" -> impact v8, tag `4.2.6-impact-v8`.

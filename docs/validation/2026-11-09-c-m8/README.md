@@ -22,6 +22,13 @@ rustc 1.97.0, as recorded in the BUILD_IDs.
 the consumer's `borg.txt`. It adds the two munchkin-by-class settings, so the
 suite manifests' `borg_txt_sha256` differs from the milestone7 run.
 
+After the review, `d7f4cb2` changed one Rust doc comment (0082). The Rust
+image was rebuilt cleanly at `2664122`
+([RUST-BUILD_ID-2664122](RUST-BUILD_ID-2664122)), and the Rust side of the
+full plan was rerun on it. All 131 cases have byte-identical `keys.log`,
+`messages.log`, `state.log` and `final.save` to the `cf20c85` Rust and C runs
+([rust-rerun.json](rust-rerun.json) holds the per-case digests).
+
 ## Checks
 
 | Check | Result |
