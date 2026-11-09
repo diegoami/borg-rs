@@ -65,7 +65,11 @@
         "risky",
         "control"
       ],
-      "sanitizer": null
+      "sanitizer": null,
+      "cflags": [
+        "-include",
+        "obj-tval.h"
+      ]
     },
     {
       "name": "homebuyqty",

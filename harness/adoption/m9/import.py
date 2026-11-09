@@ -47,6 +47,10 @@ FIXTURES = [
     ('necrolight', '0099', 296, 377, 'ee195556f3f0eb811f5b09638a433280223a0dcc', 'docs/audit/c-reports/necrolight-296/', 'N296',
      'necrolight-296', ['lit', 'dark', 'mage'], None),
 ]
+# Compiler flags the consumer's verify scripts add for a fixture
+# (tools/verify-healchance.py forces obj-tval.h rather than edit the pinned
+# scenario).
+CFLAGS = {'healchance': ['-include', 'obj-tval.h']}
 # Local fixture (borg-rs): the 0098 guard. Copied from local/<name>.
 LOCAL = [('staleglyph', '0098', 'SG', 'staleglyph-0098', ['stale', 'fresh'], 'asan')]
 
@@ -75,6 +79,8 @@ def main():
                         'config_sha256': hashlib.sha256(config).hexdigest(),
                         'env_prefix': env, 'marker': f'native-c/{suite} finished: 1/1 passed',
                         'modes': modes, 'sanitizer': sanitizer})
+        if name in CFLAGS:
+            entries[-1]['cflags'] = CFLAGS[name]
     for (name, patch, env, suite, modes, sanitizer) in LOCAL:
         directory = out / name
         directory.mkdir()

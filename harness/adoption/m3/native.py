@@ -43,6 +43,11 @@ def run_phase(fixture, directory, build, phase, asan):
     command = ['cc', '-g', '-DNDEBUG', '-DALLOW_BORG', '-I' + str(ROOT / 'angband/src'), '-I' + str(ROOT / 'angband/src/tests')]
     if asan:
         command += ['-fsanitize=address', '-fno-omit-frame-pointer']
+    # Per-fixture compiler flags (milestone9: healchance-364 calls
+    # tval_is_potion() without including obj-tval.h; the consumer's verify
+    # script forces the include, and newer compilers reject the implicit
+    # declaration).
+    command += fixture.get('cflags', [])
     command += [str(directory / 'scenario.c'), *map(str, core + helpers), '-lm', '-o', str(binary)]
     with (directory / f'{phase}-link.log').open('w') as log:
         linked = subprocess.run(command, stdout=log, stderr=subprocess.STDOUT)
