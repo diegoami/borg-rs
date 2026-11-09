@@ -1,5 +1,5 @@
 diff --git a/borg-rs/src/borg_messages.rs b/borg-rs/src/borg_messages.rs
-index 26e8b52..b374478 100644
+index 26e8b52..a62a319 100644
 --- a/borg-rs/src/borg_messages.rs
 +++ b/borg-rs/src/borg_messages.rs
 @@ -466,9 +466,10 @@ fn rebuild_glyphs(st: &mut BorgState) {

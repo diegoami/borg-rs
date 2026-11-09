@@ -55,8 +55,9 @@ except `borg-fight-attack.c` (local #322, comment text) and `borg-update.c`
   changes one path: when `wcstombs()` fails, the text is now terminated at 0
   and the function goes on to its normal return, where #287 returned an
   error at once. Rust
-  `borg_what_text` follows; its empty-buffer guard is kept because it guards
-  an index underflow in Rust.
+  `borg_what_text` follows. Rust also keeps an empty-buffer guard that
+  returns 1, because C would underflow `size - 1`; no C caller passes an
+  empty buffer.
 - **#345 → 0065.** Same call (`borg_flow_reverse(250, false, ...)`). C takes
   the consumer blob (comment text) and Rust the matching comment.
 
