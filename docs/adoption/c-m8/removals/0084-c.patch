@@ -1,0 +1,16 @@
+diff --git a/angband/src/borg/borg-light.c b/angband/src/borg/borg-light.c
+index 13f50db..45059d5 100644
+--- a/angband/src/borg/borg-light.c
++++ b/angband/src/borg/borg-light.c
+@@ -818,9 +818,9 @@ bool borg_light_beam(bool simulation)
+     /* Don't do it if on the edge of shifting the panel. */
+     if (dir == 5 || spell_ok == false || blocked == true
+         || (dir == 2
+-            && (borg.c.y > borg_panel_hgt() - 2))
++            && (borg.c.y - Term->offset_y > borg_panel_hgt() - 2))
+         || (dir == 8
+-            && (borg.c.y > borg_panel_hgt() - 2)))
++            && (borg.c.y - Term->offset_y > borg_panel_hgt() - 2)))
+         return false;
+ 
+     /* simulation */

@@ -1,0 +1,14 @@
+diff --git a/borg-rs/src/borg_flow_misc.rs b/borg-rs/src/borg_flow_misc.rs
+index 2d1794f..3347457 100644
+--- a/borg-rs/src/borg_flow_misc.rs
++++ b/borg-rs/src/borg_flow_misc.rs
+@@ -1332,9 +1332,6 @@ pub fn borg_check_rest(st: &mut BorgState, y: i32, x: i32) -> bool {
+         return false;
+     }
+ 
+-    /* Set this to Zero */
+-    st.borg.time.last_kill_mult = 0;
+-
+     /* Most of the time, its ok to rest in a vault
+      * (C bug 39: only the 2x2 grids up and left of the Borg) */
+     if st.borg.status.vault {

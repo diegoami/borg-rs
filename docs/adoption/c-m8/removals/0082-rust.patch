@@ -1,0 +1,102 @@
+diff --git a/borg-rs/src/borg_item_analyze.rs b/borg-rs/src/borg_item_analyze.rs
+index 490e262..0b71160 100644
+--- a/borg-rs/src/borg_item_analyze.rs
++++ b/borg-rs/src/borg_item_analyze.rs
+@@ -23,7 +23,7 @@ use crate::headers::list_kind_flags_h::{
+     KF_RAND_BASE_RES, KF_RAND_HI_RES, KF_RAND_POWER, KF_RAND_RES_POWER, KF_RAND_SUSTAIN,
+ };
+ use crate::headers::list_object_modifiers_h::*;
+-use crate::headers::list_stats_h::{STAT_CON, STAT_DEX, STAT_INT, STAT_STR, STAT_WIS};
++use crate::headers::list_stats_h::{OBJ_MOD_CON, OBJ_MOD_DEX, OBJ_MOD_INT, OBJ_MOD_STR, OBJ_MOD_WIS};
+ use crate::headers::list_tvals_h::*;
+ use crate::headers::obj_properties_h::OBJ_MOD_MAX;
+ use crate::headers::object_h::ELEM_MAX;
+@@ -83,7 +83,6 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
+ 
+     /* `value += x * nL` (computed as long, stored as int32_t) */
+     let add_long = |value: i32, x: i64| (i64::from(value) + x) as i32;
+-    let pval = i64::from(item.pval);
+     let m = |i: u32| i64::from(item.modifiers[i as usize]);
+ 
+     /* Analyze pval bonus */
+@@ -103,48 +102,46 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
+                 return 0;
+             }
+ 
+-            /* No pval */
+-            if item.pval != 0 {
+-                /* Give credit for stat bonuses */
+-                for stat in [STAT_STR, STAT_INT, STAT_WIS, STAT_DEX, STAT_CON] {
+-                    if engine::flag_has(&item.flags, stat as i32) {
+-                        value = add_long(value, pval * 200);
+-                    }
++            /* Give credit for stat bonuses (the stat modifiers themselves:
++             * better-borg-c milestone8 patch 0082) */
++            for stat in [OBJ_MOD_STR, OBJ_MOD_INT, OBJ_MOD_WIS, OBJ_MOD_DEX, OBJ_MOD_CON] {
++                if m(stat) > 0 {
++                    value = add_long(value, m(stat) * 200);
+                 }
++            }
++
++            /* Give credit for stealth and searching */
++            value = add_long(value, m(OBJ_MOD_STEALTH) * 100);
++            value = add_long(value, m(OBJ_MOD_SEARCH) * 100);
++
++            /* Give credit for infra-vision and tunneling */
++            value = add_long(value, m(OBJ_MOD_INFRA) * 50);
++            value = add_long(value, m(OBJ_MOD_TUNNEL) * 50);
+ 
+-                /* Give credit for stealth and searching */
+-                value = add_long(value, m(OBJ_MOD_STEALTH) * 100);
+-                value = add_long(value, m(OBJ_MOD_SEARCH) * 100);
+-
+-                /* Give credit for infra-vision and tunneling */
+-                value = add_long(value, m(OBJ_MOD_INFRA) * 50);
+-                value = add_long(value, m(OBJ_MOD_TUNNEL) * 50);
+-
+-                /* Give credit for extra attacks */
+-                if m(OBJ_MOD_BLOWS) != 0 {
+-                    if m(OBJ_MOD_BLOWS) > i64::from(MAX_BLOWS) {
+-                        value = add_long(value, i64::from(MAX_BLOWS) * 2000);
+-                    } else {
+-                        value = add_long(value, m(OBJ_MOD_BLOWS) * 2000);
+-                    }
++            /* Give credit for extra attacks */
++            if m(OBJ_MOD_BLOWS) != 0 {
++                if m(OBJ_MOD_BLOWS) > i64::from(MAX_BLOWS) {
++                    value = add_long(value, i64::from(MAX_BLOWS) * 2000);
++                } else {
++                    value = add_long(value, m(OBJ_MOD_BLOWS) * 2000);
+                 }
+-                value = add_long(value, m(OBJ_MOD_SHOTS) * 2000);
++            }
++            value = add_long(value, m(OBJ_MOD_SHOTS) * 2000);
+ 
+-                /* Give credit for speed bonus */
+-                value = add_long(value, m(OBJ_MOD_SPEED) * 30000);
++            /* Give credit for speed bonus */
++            value = add_long(value, m(OBJ_MOD_SPEED) * 30000);
+ 
+-                /* Give credit for glowing bonus */
+-                value = add_long(value, m(OBJ_MOD_LIGHT) * 100);
++            /* Give credit for glowing bonus */
++            value = add_long(value, m(OBJ_MOD_LIGHT) * 100);
+ 
+-                /* Give credit for might */
+-                value = add_long(value, m(OBJ_MOD_MIGHT) * 100);
++            /* Give credit for might */
++            value = add_long(value, m(OBJ_MOD_MIGHT) * 100);
+ 
+-                /* Give credit for moves */
+-                value = add_long(value, m(OBJ_MOD_MOVES) * 100);
++            /* Give credit for moves */
++            value = add_long(value, m(OBJ_MOD_MOVES) * 100);
+ 
+-                /* Give credit for damage reduction */
+-                value = add_long(value, m(OBJ_MOD_DAM_RED) * 200);
+-            }
++            /* Give credit for damage reduction */
++            value = add_long(value, m(OBJ_MOD_DAM_RED) * 200);
+         }
+         _ => {}
+     }

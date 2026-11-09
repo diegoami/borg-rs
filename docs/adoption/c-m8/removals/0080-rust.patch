@@ -1,0 +1,14 @@
+diff --git a/borg-rs/src/borg_flow.rs b/borg-rs/src/borg_flow.rs
+index 8df0535..97a9fc9 100644
+--- a/borg-rs/src/borg_flow.rs
++++ b/borg-rs/src/borg_flow.rs
+@@ -439,8 +439,7 @@ fn spread_blocked(
+     if b.goal.shop >= 0
+         && engine::feat_is_shop(i32::from(ag.feat))
+         && i32::from(ag.store) != i32::from(b.goal.shop)
+-        && y != b.c.y
+-        && x != b.c.x
++        && (y != b.c.y || x != b.c.x)
+     {
+         return true;
+     }
