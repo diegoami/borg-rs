@@ -155,9 +155,8 @@ pub fn borg_update_light(st: &mut BorgState) {
         /* West of the player */
         if borg_cave_floor_bold(st, cy, cx - 2) {
             borg_cave_light_hack(st, cy, cx - 2);
-            /* C bug (kept): should be y+1 / y-1 like "East"; see c-bugs.md */
-            borg_cave_light_hack(st, cy + 2, cx - 2);
-            borg_cave_light_hack(st, cy - 2, cx - 2);
+            borg_cave_light_hack(st, cy + 1, cx - 2);
+            borg_cave_light_hack(st, cy - 1, cx - 2);
         }
     }
 

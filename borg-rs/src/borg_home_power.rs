@@ -185,8 +185,6 @@ fn borg_power_home_aux1(st: &mut BorgState) -> i32 {
     } else {
         value = too_many(value, n, 4, 2000);
     }
-    // C bug 8: the `else if (num_neck > 3)` branch (700 each) repeats the
-    // first condition and can never run.
     value = too_many(value, i32::from(st.home.num_neck), 3, 1500);
     value = too_many(value, i32::from(st.home.num_armor), 6, 1000);
     value = too_many(value, i32::from(st.home.num_cloaks), 3, 1000);

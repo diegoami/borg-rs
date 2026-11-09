@@ -41,7 +41,7 @@ use crate::borg_headers::borg_trait_h::{
 };
 use crate::headers::list_mon_race_flags_h::{RF_KILL_WALL, RF_PASS_WALL};
 use crate::headers::list_options_h::OPT_birth_force_descend;
-use crate::headers::list_terrain_h::{FEAT_LESS, FEAT_NONE};
+use crate::headers::list_terrain_h::{FEAT_LAVA, FEAT_LESS, FEAT_NONE};
 use crate::headers::ui_event_h::keycode_t;
 use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
@@ -583,6 +583,18 @@ pub fn borg_dimension_door(st: &mut BorgState, allow_fail: i32) -> bool {
             }
 
             if !engine::square_in_bounds_fully(t_x, t_y) {
+                continue;
+            }
+
+            /* Only aim at a known floor grid without a monster, as the
+             * game moves the player elsewhere when the target is not a
+             * legal landing grid (better-borg-c milestone8 patch 0086) */
+            let ag = st.cave.grid(t_x, t_y);
+            if u32::from(ag.feat) == FEAT_NONE
+                || u32::from(ag.feat) == FEAT_LAVA
+                || !borg_cave_floor_grid(ag)
+                || ag.kill != 0
+            {
                 continue;
             }
 
