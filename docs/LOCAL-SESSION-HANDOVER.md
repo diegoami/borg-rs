@@ -495,5 +495,7 @@ borg-rs#21, record docs/adoption/c-m9, receipt docs/validation/2026-11-09-c-m9.
 Patches 0090-0099 in C and Rust. 0098 replaces local #295; as written it
 dereferences a NULL cave trap for a rune broken out of view (reproduced by
 harness/adoption/m9/local/staleglyph), so it is carried with a narrow guard
-(owner decision; reported on better-borg-c#375). Native 23->39/41, ASan
-6->12/12. Validation in progress; review and owner acceptance pending.
+(owner decision; reported on better-borg-c#375). 0099 crashed every
+Necromancer case of the 131-case plan (stale borg.c after a level change);
+carried with a bounds guard (b89c106; better-borg-c#377). Native 23->39/41,
+ASan 6->12/12. Validation in progress; review and owner acceptance pending.

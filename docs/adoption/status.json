@@ -296,12 +296,13 @@
         "295": "0098"
       },
       "local_corrections_added": [
-        "0098 guard (NULL cave trap; staleglyph fixture; better-borg-c#375)"
+        "0098 guard (NULL cave trap; staleglyph fixture; better-borg-c#375)",
+        "0099 guard (stale position after a level change; Necromancer crash in the 131-case plan; better-borg-c#377)"
       ],
       "tracking_issue": "https://github.com/diegoami/borg-rs/issues/21",
       "receipt": "docs/validation/2026-11-09-c-m9/README.md",
       "native_modes_before_after": "23/41 -> 39/41 (runeglyph floor/trap red both, as the consumer asserts); ASan 6/12 -> 12/12",
-      "implementation_commit": "d7e5985",
+      "implementation_commit": "d7e5985 (+ b89c106, the 0099 guard)",
       "starting_rust_main": "286215c",
       "rust_milestone_accepted": false
     }

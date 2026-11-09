@@ -60,6 +60,13 @@ In Rust, `engine::square_trap_is_glyph` returns false without a trap. With
 the guard, both fixture modes pass and the consumer's runeglyph rows are
 unchanged. Reported for the consumer's process on
 [better-borg-c#375](https://github.com/diegoami/better-borg-c/issues/375#issuecomment-6743759756).
+A second guard, the **0099 guard**, follows the same policy. 0099 calls
+`square_islit(cave, borg.c)` before the first map update of a new level, where
+`borg.c` can still lie outside a smaller level. Every Necromancer case of the
+131-case plan crashed, C with SIGSEGV and Rust with an abort on its bounds
+assert. The penalty now applies only when the position is in bounds (C and
+Rust). Reported on
+[better-borg-c#377](https://github.com/diegoami/better-borg-c/issues/377#issuecomment-6746360588).
 Local #322 remains; #295 is now history.
 
 The sections below record the original M4 and post-M4 correction history.

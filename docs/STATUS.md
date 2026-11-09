@@ -2,8 +2,8 @@
 
 ## Current task: adopt better-borg-c milestone 9 (impact v9)
 
-C milestone 9 (`4.2.6-impact-v9`, ten carries; 0098 replaces local #295 and
-is carried with a local NULL guard) is carried on branch
+C milestone 9 (`4.2.6-impact-v9`, ten carries; 0098 replaces local #295;
+0098 and 0099 each carry a local crash guard) is carried on branch
 `claude/wonderful-bell-3a7j6m` ([#21](https://github.com/diegoami/borg-rs/issues/21)).
 Validation, independent review and owner acceptance are pending.
 

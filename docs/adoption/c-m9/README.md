@@ -36,13 +36,14 @@ disposition. All ten are carried in C and Rust:
 | 0096 tporod-17 | Every class but Mage and Rogue may buy the Rod of Teleport Other (`!=`, was `==`) | `borg_store_buy.rs` |
 | 0097 panelrows-348 | Panel scans stop at the edge of the Borg's map on large terminals (memory safety) | `borg_flow_misc.rs`, `borg_think_dungeon_util.rs` |
 | 0098 runeglyph-295 | A visible Rune of Protection is recorded on the Borg's map. **Supersedes local #295; carried with a local NULL guard** (below) | `borg_update.rs`, `engine.rs` |
-| 0099 necrolight-296 | The Necromancer spell penalty applies on any lit square (`square_islit`) | `borg_magic.rs` |
+| 0099 necrolight-296 | The Necromancer spell penalty applies on any lit square (`square_islit`). **Carried with a local bounds guard** (below) | `borg_magic.rs` |
 
 After the change the C Borg files equal the consumer blobs at `33207fbee`,
-with two exceptions:
+with three exceptions:
 - `borg-fight-attack.c` keeps local #322 (comment text).
 - `borg-update.c` differs from the consumer only by the 0098 guard. Local
   #295, which this file used to carry, is retired in favour of 0098.
+- `borg-magic.c` differs only by the 0099 guard.
 
 ### 0098 and the guard
 
@@ -76,6 +77,30 @@ runeglyph kit rows are unchanged. The lead and the fixture are reported on
 for the consumer's own process. The guard sits inside the 0098 removal unit;
 the unguarded consumer behaviour is documented by the fixture run, not by a
 separate unit.
+
+### 0099 and the guard
+
+0099 calls `square_islit(cave, borg.c)` from `borg_spell_fail_rate()`. On a
+new level, `borg.c` is set only by the next map update, and before that
+`borg_think()` → `borg_notice()` → `borg_spell_legal_fail()` reaches the new
+test with the previous level's position. When the new level is smaller
+(dungeon → town), the position is out of bounds, and C reads outside the
+square array (its asserts are compiled out).
+
+In the first 131-case run on the unguarded build, nine cases failed in both
+roles: all eight Necromancer cases and `cfg-munchkin-dunadan-bg`. They failed in
+C with SIGSEGV and in Rust with an abort on its bounds assert. A gdb trace of one
+case gives `square_islit` ← `borg_spell_fail_rate` ← `borg_spell_legal_fail`
+← `borg_notice` ← `borg_think`. A temporary print (reverted) showed
+`borg.c=(117,47)` on the 66×22 town.
+
+Under the standing crash-correction policy, and following the owner's
+decision for the 0098 guard, 0099 is carried with one narrow guard: the
+penalty applies only when `borg.c` is in bounds, in C and Rust. With the
+guard, the same game reaches the turn limit, and the necrolight kit rows are
+unchanged. Reported on
+[better-borg-c#377](https://github.com/diegoami/better-borg-c/issues/377#issuecomment-6746360588).
+The guard is part of the 0099 removal unit.
 
 ## Rust translation notes
 

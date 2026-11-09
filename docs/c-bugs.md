@@ -44,7 +44,7 @@ owner's munchkin-by-class change (PR302), which is not a C bug fix.
 The milestone9 carries in [adoption/c-m9](adoption/c-m9/README.md)
 (better-borg-c `33207fbee`, [Rust#21](https://github.com/diegoami/borg-rs/issues/21))
 are marked with "Milestone9" bullets. 0098 replaces the local #295
-correction and is carried with a local NULL guard.
+correction; 0098 and 0099 are each carried with a local crash guard.
 
 Format: file, function, (seed, turn when observed), explanation.
 
@@ -120,7 +120,9 @@ with its issues.
   true.
 * Rust (`borg_magic.rs`): all kept (`u8::from(status)`, `0..8`, no check).
 * Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source296 applies the Necromancer penalty on any lit square
-  (`square_islit`, patch 0099), in C and Rust.
+  (`square_islit`, patch 0099), in C and Rust, with a local guard: the
+  position must be in bounds, as just after a level change it can still be
+  on the previous level (FORK-CORRECTIONS; better-borg-c#377).
 
 ## 6. Formula error text lost to `format()`'s static buffer
 
