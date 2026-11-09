@@ -1,11 +1,18 @@
 # borg-rs status
 
-## Current task: adopt better-borg-c milestone 6 (impact v6)
+## Current task: adopt better-borg-c milestone 7 (impact v7)
+
+C milestone 7 (`4.2.6-impact-v7`, thirteen carries; 0068/0065 supersede the
+local #287/#345 corrections) is carried on branch `claude/wonderful-bell-3a7j6m`
+([#17](https://github.com/diegoami/borg-rs/issues/17)), with 131/131 C/Rust
+parity. Independent review and owner acceptance are pending.
+
+## Previous: adopt better-borg-c milestone 6 (impact v6)
 
 C milestone 6 (`4.2.6-impact-v6`, thirteen carries) is carried on branch
 `claude/wonderful-bell-3a7j6m` ([#15](https://github.com/diegoami/borg-rs/issues/15)),
 with 131/131 C/Rust parity. Independent review: qualified pass; owner
-accepted as impact v6 (tag `4.2.6-impact-v6`). No later C milestone is selected.
+accepted as impact v6 (tag `4.2.6-impact-v6`).
 
 ## Previous: adopt better-borg-c milestone 5 (impact v5)
 
