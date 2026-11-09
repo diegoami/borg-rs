@@ -480,5 +480,7 @@ Owner: "accept, merge and tag" -> impact v7, tag `4.2.6-impact-v7`.
 Branch `claude/wonderful-bell-3a7j6m` from `4.2.6-impact-v7`, tracking
 borg-rs#19, record docs/adoption/c-m8, receipt docs/validation/2026-11-09-c-m8.
 Patches 0078-0089 plus the owner's munchkin-by-class change (PR302, owner
-decision: carry the whole pinned tree) in C and Rust. Native 19->31/31.
-Validation in progress; review and owner acceptance pending; not merged.
+decision: carry the whole pinned tree) in C and Rust. Native 19->31/31,
+131/131 C/Rust parity, harness/diff exit 0, 6/13 Rust fault units detected;
+117/131 cases changed vs M7 (munchkin start now active for Druid/Ranger/most
+Warrior runs). Review and owner acceptance pending; not merged.

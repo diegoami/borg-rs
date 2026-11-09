@@ -4,8 +4,8 @@
 
 C milestone 8 (`4.2.6-impact-v8`, twelve carries plus the owner's
 munchkin-by-class change) is carried on branch `claude/wonderful-bell-3a7j6m`
-([#19](https://github.com/diegoami/borg-rs/issues/19)). Validation, independent
-review and owner acceptance are pending.
+([#19](https://github.com/diegoami/borg-rs/issues/19)), with 131/131 C/Rust
+parity. Independent review and owner acceptance are pending.
 
 ## Previous: adopt better-borg-c milestone 7 (impact v7)
 
