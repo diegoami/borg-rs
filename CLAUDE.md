@@ -53,7 +53,9 @@ tracking [borg-rs#21](https://github.com/diegoami/borg-rs/issues/21), record
 [adoption/c-m9](docs/adoption/c-m9/README.md). Its 0098 replaces local #295
 and is carried with a local NULL guard (better-borg-c#375); 0099 is carried
 with a local bounds guard (better-borg-c#377); see FORK-CORRECTIONS. #322
-remains. Review pending.
+remains. One plan case (cfg-munchkin-dunadan-bg) is a recorded pre-existing
+munchkin livelock (better-borg-c#204). Independent review: pass on re-review
+(issue21); owner accepted it as impact milestone 9 (tag `4.2.6-impact-v9`).
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The

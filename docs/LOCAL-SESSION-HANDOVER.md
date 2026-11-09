@@ -505,3 +505,4 @@ blind livelock (prefix-identical; owner: record and report, better-borg-c#204).
 Review (issue21): qualified pass, no blocker; findings fixed in 55cd233/72bec24
 (healchance cflags, M9 summary, wording, Rust 0098 guard tests); Rust rerun at
 72bec24 identical for all 130 completing cases (rust-rerun.json).
+Re-review (issue21): pass. Owner: "accept, merge and tag" -> impact v9, tag `4.2.6-impact-v9`.
