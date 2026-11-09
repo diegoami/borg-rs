@@ -150,9 +150,9 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
         return true;
     }
 
-    /* If poisoned or bleeding -- flow to temple */
+    /* If poisoned or bleeding -- flow to the Alchemy shop */
     if st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0 {
-        st.borg.goal.shop = 3;
+        st.borg.goal.shop = 4;
     }
 
     /* If Starving  -- flow to general store */

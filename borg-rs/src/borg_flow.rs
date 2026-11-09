@@ -439,8 +439,7 @@ fn spread_blocked(
     if b.goal.shop >= 0
         && engine::feat_is_shop(i32::from(ag.feat))
         && i32::from(ag.store) != i32::from(b.goal.shop)
-        && y != b.c.y
-        && x != b.c.x
+        && (y != b.c.y || x != b.c.x)
     {
         return true;
     }

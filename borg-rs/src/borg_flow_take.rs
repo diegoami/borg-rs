@@ -754,8 +754,11 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
     while i < i32::from(st.takes.nxt) {
         let take = st.takes.takes[i as usize];
         i += 1;
+        /* Skip dead objects */
+        if take.kidx == 0 {
+            continue;
+        }
         let kidx = take.kidx as usize;
-        /* (C skips the entry when `&k_info[kidx]` is NULL: never) */
         let k = engine::kind(kidx);
 
         /* Access the location */

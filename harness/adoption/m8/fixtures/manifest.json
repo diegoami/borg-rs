@@ -1,0 +1,254 @@
+{
+  "consumer_pin": "017e038e8726a7a423887a366b5d40e89c0550a1",
+  "previous_consumer_pin": "3573d741e6dc3cafa4099fcef8b38fdb32952977",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "banisharte",
+      "patch": "0078",
+      "source_issue": 37,
+      "consumer_issue": 305,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "bbc5de859c7b27d02d88c1bb84ec46d796de8716",
+      "evidence_path": "docs/audit/c-reports/banisharte-37/scenario.c",
+      "config_path": "docs/audit/c-reports/banisharte-37/borg.txt",
+      "original_sha256": "db806cd8821a06ad6ae6b77f09bf227ea90a92f9bb9c1d9b16849361af3700b8",
+      "scenario_sha256": "db806cd8821a06ad6ae6b77f09bf227ea90a92f9bb9c1d9b16849361af3700b8",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "BA37",
+      "marker": "native-c/banisharte-37 finished: 1/1 passed",
+      "modes": [
+        "main",
+        "hurt"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "restmult",
+      "patch": "0079",
+      "source_issue": 149,
+      "consumer_issue": 306,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "c6052b4a76ea641b42844ce8e7c984cffbdc5f31",
+      "evidence_path": "docs/audit/c-reports/restmult-149/scenario.c",
+      "config_path": "docs/audit/c-reports/restmult-149/borg.txt",
+      "original_sha256": "afba57bf369d426184f78c4c247e816ad875ce584286e5ff31cfde556363c2c7",
+      "scenario_sha256": "afba57bf369d426184f78c4c247e816ad875ce584286e5ff31cfde556363c2c7",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "RM149",
+      "marker": "native-c/restmult-149 finished: 1/1 passed",
+      "modes": [
+        "sameturn",
+        "recent"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "shopline",
+      "patch": "0080",
+      "source_issue": 125,
+      "consumer_issue": 307,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "9ce7a0a4752d7564a246ee6508f1e523bc54ffae",
+      "evidence_path": "docs/audit/c-reports/shopline-125/scenario.c",
+      "config_path": "docs/audit/c-reports/shopline-125/borg.txt",
+      "original_sha256": "6c6dbad7e41fe1fed9fc8f7a1cf6a2acf08fea7d425d61c2efaf006429483f4b",
+      "scenario_sha256": "6c6dbad7e41fe1fed9fc8f7a1cf6a2acf08fea7d425d61c2efaf006429483f4b",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "SL125",
+      "marker": "native-c/shopline-125 finished: 1/1 passed",
+      "modes": [
+        "inline",
+        "offrow"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "lightwest",
+      "patch": "0081",
+      "source_issue": 40,
+      "consumer_issue": 309,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "8e9e1da6a5729a619e908e8aa351e25f8a8aa90d",
+      "evidence_path": "docs/audit/c-reports/lightwest-40/scenario.c",
+      "config_path": "docs/audit/c-reports/lightwest-40/borg.txt",
+      "original_sha256": "a111da530b25690a3fd83858a1da85cf857ee61ea9187f615a1b038065bfdda5",
+      "scenario_sha256": "a111da530b25690a3fd83858a1da85cf857ee61ea9187f615a1b038065bfdda5",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "LW40",
+      "marker": "native-c/lightwest-40 finished: 1/1 passed",
+      "modes": [
+        "west",
+        "east"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "modcredit",
+      "patch": "0082",
+      "source_issue": 70,
+      "consumer_issue": 311,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "0af6c5af047a55d80a228c431509c6bab07b1168",
+      "evidence_path": "docs/audit/c-reports/modcredit-70/scenario.c",
+      "config_path": "docs/audit/c-reports/modcredit-70/borg.txt",
+      "original_sha256": "451821f42b56dafe5db9c6749867fa598a826c52bfe0b332ef69804a45e3f0cf",
+      "scenario_sha256": "451821f42b56dafe5db9c6749867fa598a826c52bfe0b332ef69804a45e3f0cf",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "MC70",
+      "marker": "native-c/modcredit-70 finished: 1/1 passed",
+      "modes": [
+        "statring",
+        "speed",
+        "nomods"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "neckdead",
+      "patch": "0083",
+      "source_issue": 47,
+      "consumer_issue": 312,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "3885bfcd07dd13063c361002e8f5048a1df19325",
+      "evidence_path": "docs/audit/c-reports/neckdead-47/scenario.c",
+      "config_path": "docs/audit/c-reports/neckdead-47/borg.txt",
+      "original_sha256": "900f8092252528a7373f23a938871ad73fbee739c2551012c079b635cdc1baac",
+      "scenario_sha256": "900f8092252528a7373f23a938871ad73fbee739c2551012c079b635cdc1baac",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "ND47",
+      "marker": "native-c/neckdead-47 finished: 1/1 passed",
+      "modes": [
+        "neck2",
+        "neck3",
+        "neck4",
+        "neck5"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "lightbeam",
+      "patch": "0084",
+      "source_issue": 88,
+      "consumer_issue": 316,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "90e5fc16bfad3e7fd9ea4eff35ec9e95271b382a",
+      "evidence_path": "docs/audit/c-reports/lightbeam-88/scenario.c",
+      "config_path": "docs/audit/c-reports/lightbeam-88/borg.txt",
+      "original_sha256": "628e763cc86188814711dc241eba1bb80578381cbfae3c5b25feac1c9a467b1c",
+      "scenario_sha256": "628e763cc86188814711dc241eba1bb80578381cbfae3c5b25feac1c9a467b1c",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "LB88",
+      "marker": "native-c/lightbeam-88 finished: 1/1 passed",
+      "modes": [
+        "scrolled",
+        "scrolled_south",
+        "top"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "hurtstun",
+      "patch": "0085",
+      "source_issue": 62,
+      "consumer_issue": 329,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "80318246564ab617197c01032a0368b2218555a5",
+      "evidence_path": "docs/audit/c-reports/hurtstun-62/scenario.c",
+      "config_path": "docs/audit/c-reports/hurtstun-62/borg.txt",
+      "original_sha256": "b4b22b5692b9e2ac160284df43e4fc25ec43d1659b5acf38bffc43c583b3ca6d",
+      "scenario_sha256": "b4b22b5692b9e2ac160284df43e4fc25ec43d1659b5acf38bffc43c583b3ca6d",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "HS62",
+      "marker": "native-c/hurtstun-62 finished: 1/1 passed",
+      "modes": [
+        "mystic",
+        "ant",
+        "orc",
+        "giant"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "dimdoor",
+      "patch": "0086",
+      "source_issue": 21,
+      "consumer_issue": 335,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "f8b7d662b62a97219095914150d6d577851cb3ac",
+      "evidence_path": "docs/audit/c-reports/dimdoor-21/scenario.c",
+      "config_path": "docs/audit/c-reports/dimdoor-21/borg.txt",
+      "original_sha256": "d3d970c78df460086b984508af0e6208d0ab70906f74d11125bf9da5da2bf2fa",
+      "scenario_sha256": "d3d970c78df460086b984508af0e6208d0ab70906f74d11125bf9da5da2bf2fa",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "DD21",
+      "marker": "native-c/dimdoor-21 finished: 1/1 passed",
+      "modes": [
+        "granite",
+        "open"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "urgentshop",
+      "patch": "0087",
+      "source_issue": 23,
+      "consumer_issue": 336,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "e0ecd1ef777447ab02e84255be6717fea303921f",
+      "evidence_path": "docs/audit/c-reports/urgentshop-23/scenario.c",
+      "config_path": "docs/audit/c-reports/urgentshop-23/borg.txt",
+      "original_sha256": "b2ab531b6e6767321ecbb83273b88c1c3517817899145572dbf41515b968ee58",
+      "scenario_sha256": "b2ab531b6e6767321ecbb83273b88c1c3517817899145572dbf41515b968ee58",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "US23",
+      "marker": "native-c/urgentshop-23 finished: 1/1 passed",
+      "modes": [
+        "poisoned",
+        "bleeding",
+        "healthy"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "deadtake",
+      "patch": "0088",
+      "source_issue": 72,
+      "consumer_issue": 338,
+      "evidence_repository": "diegoami/neo-angband-tracker",
+      "evidence_commit": "6332987b90c9eeb55a4f90014a1e4e22cef18e0e",
+      "evidence_path": "docs/audit/c-reports/deadtake-72/scenario.c",
+      "config_path": "docs/audit/c-reports/deadtake-72/borg.txt",
+      "original_sha256": "3cd1beeed3f2ea42ee8a01c87d70e9c1403bc0ec0868c180363f0c0c38611a36",
+      "scenario_sha256": "3cd1beeed3f2ea42ee8a01c87d70e9c1403bc0ec0868c180363f0c0c38611a36",
+      "config_sha256": "6d591c5b04a742833cdff704bc10827f8859906424df70c591701bf4de521c94",
+      "env_prefix": "DT72",
+      "marker": "native-c/deadtake-72 finished: 1/1 passed",
+      "modes": [
+        "dead-entry",
+        "live-only"
+      ],
+      "sanitizer": null
+    },
+    {
+      "name": "spasticscore",
+      "patch": "0089",
+      "source_issue": 147,
+      "consumer_issue": 288,
+      "evidence_repository": "diegoami/better-borg-c",
+      "evidence_commit": "3d6a0953cb9127fcc0aa000beddfd1ebd5b3ab44",
+      "evidence_path": "docs/audit/c-reports/spasticscore-147-product/scenario.c",
+      "config_path": "docs/audit/c-reports/spasticscore-147-product/borg.txt",
+      "original_sha256": "7a973ee3a0a34bd3bfd6771d240adb9f9f5277dc0b0b2549f2492a481d1cab83",
+      "scenario_sha256": "7a973ee3a0a34bd3bfd6771d240adb9f9f5277dc0b0b2549f2492a481d1cab83",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "PS147",
+      "marker": "native-c/spasticscore-147-product finished: 1/1 passed",
+      "modes": [
+        "mismatch",
+        "consistent"
+      ],
+      "sanitizer": null
+    }
+  ]
+}

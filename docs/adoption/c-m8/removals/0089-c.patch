@@ -1,0 +1,14 @@
+diff --git a/angband/src/borg/borg-flow-misc.c b/angband/src/borg/borg-flow-misc.c
+index 81c526a..20265da 100644
+--- a/angband/src/borg/borg-flow-misc.c
++++ b/angband/src/borg/borg-flow-misc.c
+@@ -708,7 +708,8 @@ bool borg_flow_spastic(bool bored)
+ 
+             /* Tweak -- Reward walls, punish visitation, distance, time on level
+              */
+-            v = (supp * 500) + (diag * 100) - (ag->xtra * 40) - (cost * 2)
++            v = (supp * 500) + (diag * 100) - (borg_grids[y][x].xtra * 40)
++                - (cost * 2)
+                 - borg_timer(borg.time.level);
+ 
+             /* Punish low level and searching too much */

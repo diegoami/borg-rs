@@ -1,0 +1,894 @@
+{
+ "what": "Per-case presence of the text 'unchkin' (munchkin mode notes) in messages.log or keys.log of the milestone7 and milestone8 C runs of the 131-case plan (raw runs in harness/out, outside Git). Classes are as recorded in each run's summary.json (the class at the end of the run); C and Rust streams are identical per each run's matrix.json",
+ "runs": {
+  "m7": "harness/out/c-m7/g-c",
+  "m8": "harness/out/c-m8/g-c"
+ },
+ "class_differs_between_runs": [
+  [
+   "opt-respawn-random-druid",
+   "Priest",
+   "Druid"
+  ]
+ ],
+ "counts_by_class": {
+  "Blackguard": {
+   "m7": {
+    "cases": 12,
+    "with_munchkin_text": 1
+   },
+   "m8": {
+    "cases": 12,
+    "with_munchkin_text": 1
+   }
+  },
+  "Druid": {
+   "m7": {
+    "cases": 8,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 9,
+    "with_munchkin_text": 9
+   }
+  },
+  "Mage": {
+   "m7": {
+    "cases": 15,
+    "with_munchkin_text": 1
+   },
+   "m8": {
+    "cases": 15,
+    "with_munchkin_text": 1
+   }
+  },
+  "Necromancer": {
+   "m7": {
+    "cases": 8,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 8,
+    "with_munchkin_text": 0
+   }
+  },
+  "Paladin": {
+   "m7": {
+    "cases": 8,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 8,
+    "with_munchkin_text": 0
+   }
+  },
+  "Priest": {
+   "m7": {
+    "cases": 11,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 10,
+    "with_munchkin_text": 0
+   }
+  },
+  "Ranger": {
+   "m7": {
+    "cases": 9,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 9,
+    "with_munchkin_text": 9
+   }
+  },
+  "Rogue": {
+   "m7": {
+    "cases": 10,
+    "with_munchkin_text": 0
+   },
+   "m8": {
+    "cases": 10,
+    "with_munchkin_text": 0
+   }
+  },
+  "Warrior": {
+   "m7": {
+    "cases": 50,
+    "with_munchkin_text": 2
+   },
+   "m8": {
+    "cases": 50,
+    "with_munchkin_text": 34
+   }
+  }
+ },
+ "cases": {
+  "cfg-lunal-deep-warrior": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "cfg-lunal-dunadan-bg": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cfg-lunal-halfelf-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "cfg-lunal-human-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "cfg-munchkin-dunadan-bg": {
+   "class_m7": "Blackguard",
+   "m7": true,
+   "class_m8": "Blackguard",
+   "m8": true
+  },
+  "cfg-munchkin-halfelf-mage": {
+   "class_m7": "Mage",
+   "m7": true,
+   "class_m8": "Mage",
+   "m8": true
+  },
+  "cfg-munchkin-human-war": {
+   "class_m7": "Warrior",
+   "m7": true,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "cls-bg-dunadan": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-dwarf": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-halforc": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-halftroll": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-highelf": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-human": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-bg-kobold": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-deep-bg-dunadan": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "cls-dunadan-paladin": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "cls-dunadan-ranger": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "cls-halfelf-ranger": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "cls-highelf-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "cls-highelf-priest": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "cls-kobold-necro": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "cls-kobold-rogue": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "cls-kobold-warrior": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "deep-0-warrior": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "deep-1-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "deep-2-druid": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "deep-3-priest": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "deep-4-necro": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "deep-5-paladin": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "deep-6-rogue": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "deep-7-ranger": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "deep-8-blackguard": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "end-depth100": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "end-depth50": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "end-depth98": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "end-depth99": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "end-near-morgoth": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "ext-rogue": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-0-warrior-0": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-0-warrior-1": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-0-warrior-2": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-0-warrior-3": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-0-warrior-4": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-1-mage-0": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "full-1-mage-1": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "full-1-mage-2": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "full-1-mage-3": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "full-1-mage-4": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "full-2-druid-0": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "full-2-druid-1": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "full-2-druid-2": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "full-2-druid-3": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "full-2-druid-4": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "full-3-priest-0": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "full-3-priest-1": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "full-3-priest-2": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "full-3-priest-3": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "full-3-priest-4": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "full-4-necro-0": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "full-4-necro-1": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "full-4-necro-2": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "full-4-necro-3": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "full-4-necro-4": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "full-5-paladin-0": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "full-5-paladin-1": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "full-5-paladin-2": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "full-5-paladin-3": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "full-5-paladin-4": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "full-6-rogue-0": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-6-rogue-1": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-6-rogue-2": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-6-rogue-3": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-6-rogue-4": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "full-7-ranger-0": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-7-ranger-1": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-7-ranger-2": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-7-ranger-3": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-7-ranger-4": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "full-8-blackguard-0": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "full-8-blackguard-1": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "full-8-blackguard-2": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "full-8-blackguard-3": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "full-8-blackguard-4": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "glyph-build-prelaid": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-build-ready": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-build-supply": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-empty-floor": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-hidden-rune": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-known-decoy": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-known-rune": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-known-trap": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "glyph-prelaid-ring": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "live-blackguard": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "live-druid": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "live-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "live-necromancer": {
+   "class_m7": "Necromancer",
+   "m7": false,
+   "class_m8": "Necromancer",
+   "m8": false
+  },
+  "live-paladin": {
+   "class_m7": "Paladin",
+   "m7": false,
+   "class_m8": "Paladin",
+   "m8": false
+  },
+  "live-priest": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "live-ranger": {
+   "class_m7": "Ranger",
+   "m7": false,
+   "class_m8": "Ranger",
+   "m8": true
+  },
+  "live-rogue": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "live-warrior": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "natural-blackguard-40": {
+   "class_m7": "Blackguard",
+   "m7": false,
+   "class_m8": "Blackguard",
+   "m8": false
+  },
+  "natural-warrior-78": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "opt-autosave-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-chest-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-dyn-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "opt-dyn-priest": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "opt-dyn-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-munchkin-limits-war": {
+   "class_m7": "Warrior",
+   "m7": true,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-nodeeper-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-noswap-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-respawn-druid": {
+   "class_m7": "Druid",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "opt-respawn-random-druid": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Druid",
+   "m8": true
+  },
+  "opt-risky-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-scum-done-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "opt-scum-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "opt-scum-noself-mage": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "opt-scum-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": false
+  },
+  "opt-stopclevel-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-stopdlevel-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-uniques-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-verbose-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-wac-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-wdam-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-wgold-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-whp-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "opt-wmana-rogue": {
+   "class_m7": "Rogue",
+   "m7": false,
+   "class_m8": "Rogue",
+   "m8": false
+  },
+  "opt-wspeed-war": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  },
+  "smoke-mage-2": {
+   "class_m7": "Mage",
+   "m7": false,
+   "class_m8": "Mage",
+   "m8": false
+  },
+  "smoke-priest-3": {
+   "class_m7": "Priest",
+   "m7": false,
+   "class_m8": "Priest",
+   "m8": false
+  },
+  "smoke-warrior-1": {
+   "class_m7": "Warrior",
+   "m7": false,
+   "class_m8": "Warrior",
+   "m8": true
+  }
+ }
+}

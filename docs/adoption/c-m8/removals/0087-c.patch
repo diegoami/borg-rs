@@ -1,0 +1,30 @@
+diff --git a/angband/src/borg/borg-store-buy.c b/angband/src/borg/borg-store-buy.c
+index e6841a9..eb1be2b 100644
+--- a/angband/src/borg/borg-store-buy.c
++++ b/angband/src/borg/borg-store-buy.c
+@@ -251,7 +251,8 @@ bool borg_think_shop_buy_useful(void)
+         if ((borg.trait[BI_LIGHT] == 0 || borg.trait[BI_FOOD] == 0) && k != 0
+             && k != BORG_HOME)
+             continue;
+-        if ((borg.trait[BI_ISCUT] || borg.trait[BI_ISPOISONED]) && k != 3)
++        /* Cures for poison and cuts are sold in the Alchemy shop */
++        if ((borg.trait[BI_ISCUT] || borg.trait[BI_ISPOISONED]) && k != 4)
+             continue;
+ 
+         /* Scan the wares */
+diff --git a/angband/src/borg/borg-think-store.c b/angband/src/borg/borg-think-store.c
+index 08f4c48..f6796e1 100644
+--- a/angband/src/borg/borg-think-store.c
++++ b/angband/src/borg/borg-think-store.c
+@@ -102,9 +102,9 @@ bool borg_choose_shop(void)
+     if (borg.goal.shop != -1 && borg.goal.ware != -1)
+         return true;
+ 
+-    /* If poisoned or bleeding -- flow to temple */
++    /* If poisoned or bleeding -- flow to the Alchemy shop */
+     if (borg.trait[BI_ISCUT] || borg.trait[BI_ISPOISONED])
+-        borg.goal.shop = 3;
++        borg.goal.shop = 4;
+ 
+     /* If Starving  -- flow to general store */
+     if (borg.trait[BI_FOOD] == 0

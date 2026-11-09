@@ -694,8 +694,8 @@ pub fn borg_light_beam(st: &mut BorgState, simulation: bool) -> bool {
     if dir == 5
         || !spell_ok
         || blocked
-        || (dir == 2 && cy > borg_panel_hgt() - 2)
-        || (dir == 8 && cy > borg_panel_hgt() - 2)
+        || (dir == 2 && cy - engine::term_geometry().offset_y > borg_panel_hgt() - 2)
+        || (dir == 8 && cy - engine::term_geometry().offset_y > borg_panel_hgt() - 2)
     {
         return false;
     }

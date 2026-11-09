@@ -1,0 +1,2642 @@
+{
+ "what": "Per-case stream digests of the Rust rerun of the 131-case plan after the comment-only review commit d7f4cb2 (build 2664122), compared with the cf20c85 C and Rust runs (raw outputs in harness/out/c-m8, outside Git)",
+ "build_id": {
+  "impl": "rust",
+  "git_rev": "2664122642b193b516b2c25c90e6522579c312b0",
+  "git_dirty": "no",
+  "inputs_dirty": "no",
+  "source_sha256": "791d5ee52e9f6c30127ea5d17e93f1c945031bb81a7a1288e77405d67c46bb4f",
+  "binary_sha256": "868117a8627362688ca5f8ba3022ca9fd5f6cd987d7082d8ecf5a2f00155e090",
+  "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+  "rustc": "rustc 1.97.0 (2d8144b78 2026-07-07)",
+  "built_utc": "2026-11-09T09:36:24Z"
+ },
+ "cases": 131,
+ "summary": {
+  "done": true,
+  "identical_to_cf20c85_rust": 131,
+  "identical_to_cf20c85_c": 131
+ },
+ "rows": {
+  "cfg-lunal-deep-warrior": {
+   "cf20c85-c": {
+    "keys.log": "095cbfc9594155a0abdf8a74c8b983f115f80860a2f990e62d840d7258ca50e8",
+    "messages.log": "99459513410b7726bcf9c5a7edb22ff793437742b413cf5e6014de8222b5abb3",
+    "state.log": "bfcd1b4cc2cd73ab35670c3b40ef13f11b6bd83ba3bfddb31fc73a8da64c6c9d",
+    "final.save": "04be66968217524b4ed2fa56d87ed01a6630ddab9e524a7a8df7b6d2b9933b84"
+   },
+   "cf20c85-rust": {
+    "keys.log": "095cbfc9594155a0abdf8a74c8b983f115f80860a2f990e62d840d7258ca50e8",
+    "messages.log": "99459513410b7726bcf9c5a7edb22ff793437742b413cf5e6014de8222b5abb3",
+    "state.log": "bfcd1b4cc2cd73ab35670c3b40ef13f11b6bd83ba3bfddb31fc73a8da64c6c9d",
+    "final.save": "04be66968217524b4ed2fa56d87ed01a6630ddab9e524a7a8df7b6d2b9933b84"
+   },
+   "2664122-rust": {
+    "keys.log": "095cbfc9594155a0abdf8a74c8b983f115f80860a2f990e62d840d7258ca50e8",
+    "messages.log": "99459513410b7726bcf9c5a7edb22ff793437742b413cf5e6014de8222b5abb3",
+    "state.log": "bfcd1b4cc2cd73ab35670c3b40ef13f11b6bd83ba3bfddb31fc73a8da64c6c9d",
+    "final.save": "04be66968217524b4ed2fa56d87ed01a6630ddab9e524a7a8df7b6d2b9933b84"
+   }
+  },
+  "cfg-lunal-dunadan-bg": {
+   "cf20c85-c": {
+    "keys.log": "f035feac52169d872de80137a5a0b6757d6ee7f0feb048682f8b539368dd7a1b",
+    "messages.log": "eeba60ccd64242d0352f871a15fa79e596e7fd40243b906549920d7a179813e5",
+    "state.log": "03f782430b1df83925fb717724e687b91f9b4d225bac740b6331b059aceba7d3",
+    "final.save": "9d4db718de4d070569518d5f020b33f584e6af688f3a8850cbd7ed199fad96ec"
+   },
+   "cf20c85-rust": {
+    "keys.log": "f035feac52169d872de80137a5a0b6757d6ee7f0feb048682f8b539368dd7a1b",
+    "messages.log": "eeba60ccd64242d0352f871a15fa79e596e7fd40243b906549920d7a179813e5",
+    "state.log": "03f782430b1df83925fb717724e687b91f9b4d225bac740b6331b059aceba7d3",
+    "final.save": "9d4db718de4d070569518d5f020b33f584e6af688f3a8850cbd7ed199fad96ec"
+   },
+   "2664122-rust": {
+    "keys.log": "f035feac52169d872de80137a5a0b6757d6ee7f0feb048682f8b539368dd7a1b",
+    "messages.log": "eeba60ccd64242d0352f871a15fa79e596e7fd40243b906549920d7a179813e5",
+    "state.log": "03f782430b1df83925fb717724e687b91f9b4d225bac740b6331b059aceba7d3",
+    "final.save": "9d4db718de4d070569518d5f020b33f584e6af688f3a8850cbd7ed199fad96ec"
+   }
+  },
+  "cfg-lunal-halfelf-mage": {
+   "cf20c85-c": {
+    "keys.log": "831e8c65be837ba353def4979a6ffae48b5ef4ad609204f7c7a470da7e7d8010",
+    "messages.log": "32ac2113f244dcd0ca5e4f0cd15a056ded7d620574aab203939dd0f040d5965d",
+    "state.log": "d870db4f2eaeb057776be1fed8ba2306f05cfa2c65aee262141f74eda497cc1d",
+    "final.save": "4f1232f07f5e902b5d806236233a21265280ef7e95c5271b33c506ef4c31cac5"
+   },
+   "cf20c85-rust": {
+    "keys.log": "831e8c65be837ba353def4979a6ffae48b5ef4ad609204f7c7a470da7e7d8010",
+    "messages.log": "32ac2113f244dcd0ca5e4f0cd15a056ded7d620574aab203939dd0f040d5965d",
+    "state.log": "d870db4f2eaeb057776be1fed8ba2306f05cfa2c65aee262141f74eda497cc1d",
+    "final.save": "4f1232f07f5e902b5d806236233a21265280ef7e95c5271b33c506ef4c31cac5"
+   },
+   "2664122-rust": {
+    "keys.log": "831e8c65be837ba353def4979a6ffae48b5ef4ad609204f7c7a470da7e7d8010",
+    "messages.log": "32ac2113f244dcd0ca5e4f0cd15a056ded7d620574aab203939dd0f040d5965d",
+    "state.log": "d870db4f2eaeb057776be1fed8ba2306f05cfa2c65aee262141f74eda497cc1d",
+    "final.save": "4f1232f07f5e902b5d806236233a21265280ef7e95c5271b33c506ef4c31cac5"
+   }
+  },
+  "cfg-lunal-human-war": {
+   "cf20c85-c": {
+    "keys.log": "22515d555f97c66521d5c4fe6eea8611bd7dfeed902517f83bc8fc115a17497a",
+    "messages.log": "8c04db4e0780103e4947476ef2f712bdf9e32ade696d39238f6d3fa1449b893e",
+    "state.log": "626ce250908bb9327ff9fce59cc87b6a0e220a87eaf2c1c7477fc89776ad35a9",
+    "final.save": "e293ebfbee752df325cde4310994ebbfcf7d9570bed6427d2d9600d73f41b103"
+   },
+   "cf20c85-rust": {
+    "keys.log": "22515d555f97c66521d5c4fe6eea8611bd7dfeed902517f83bc8fc115a17497a",
+    "messages.log": "8c04db4e0780103e4947476ef2f712bdf9e32ade696d39238f6d3fa1449b893e",
+    "state.log": "626ce250908bb9327ff9fce59cc87b6a0e220a87eaf2c1c7477fc89776ad35a9",
+    "final.save": "e293ebfbee752df325cde4310994ebbfcf7d9570bed6427d2d9600d73f41b103"
+   },
+   "2664122-rust": {
+    "keys.log": "22515d555f97c66521d5c4fe6eea8611bd7dfeed902517f83bc8fc115a17497a",
+    "messages.log": "8c04db4e0780103e4947476ef2f712bdf9e32ade696d39238f6d3fa1449b893e",
+    "state.log": "626ce250908bb9327ff9fce59cc87b6a0e220a87eaf2c1c7477fc89776ad35a9",
+    "final.save": "e293ebfbee752df325cde4310994ebbfcf7d9570bed6427d2d9600d73f41b103"
+   }
+  },
+  "cfg-munchkin-dunadan-bg": {
+   "cf20c85-c": {
+    "keys.log": "4d385b03b24930b8c5901982879cf51e1ab8df553c800c9426c8ce246dc5c5b4",
+    "messages.log": "610415858af07c60d46958a567652ce53555e012b62d6cc6b7794703aeff19b7",
+    "state.log": "2e0805d7cbecb497b176d99f67fbf07bd96426c0511a28244617b70cd9fbdd80",
+    "final.save": "31decfe4b2daa562a98e49a428e085e76f076eabd4f4db692a36deb9c0b16766"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4d385b03b24930b8c5901982879cf51e1ab8df553c800c9426c8ce246dc5c5b4",
+    "messages.log": "610415858af07c60d46958a567652ce53555e012b62d6cc6b7794703aeff19b7",
+    "state.log": "2e0805d7cbecb497b176d99f67fbf07bd96426c0511a28244617b70cd9fbdd80",
+    "final.save": "31decfe4b2daa562a98e49a428e085e76f076eabd4f4db692a36deb9c0b16766"
+   },
+   "2664122-rust": {
+    "keys.log": "4d385b03b24930b8c5901982879cf51e1ab8df553c800c9426c8ce246dc5c5b4",
+    "messages.log": "610415858af07c60d46958a567652ce53555e012b62d6cc6b7794703aeff19b7",
+    "state.log": "2e0805d7cbecb497b176d99f67fbf07bd96426c0511a28244617b70cd9fbdd80",
+    "final.save": "31decfe4b2daa562a98e49a428e085e76f076eabd4f4db692a36deb9c0b16766"
+   }
+  },
+  "cfg-munchkin-halfelf-mage": {
+   "cf20c85-c": {
+    "keys.log": "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+    "messages.log": "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+    "state.log": "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+    "final.save": "687a6b4dcacbbe48aea269773850afa229546760ac8db579057c405de870b2ad"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+    "messages.log": "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+    "state.log": "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+    "final.save": "687a6b4dcacbbe48aea269773850afa229546760ac8db579057c405de870b2ad"
+   },
+   "2664122-rust": {
+    "keys.log": "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+    "messages.log": "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+    "state.log": "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+    "final.save": "687a6b4dcacbbe48aea269773850afa229546760ac8db579057c405de870b2ad"
+   }
+  },
+  "cfg-munchkin-human-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "cls-bg-dunadan": {
+   "cf20c85-c": {
+    "keys.log": "ef06aecd49b0e8f93bd137aea3697324e65ebced7ef578743d4f70093cd9da33",
+    "messages.log": "632b080bca348eeb701090606d24516cda870ca7a2d96c4719490577e79598f1",
+    "state.log": "7f9ac9975e0f625a7b69e48f3f2b62ff05a3bdc5d8eb78301ff8157775d83259",
+    "final.save": "dfdb83f41d9a50d8fb9014de39435661827cee7bea17bc15c8464c2c41ee40d2"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ef06aecd49b0e8f93bd137aea3697324e65ebced7ef578743d4f70093cd9da33",
+    "messages.log": "632b080bca348eeb701090606d24516cda870ca7a2d96c4719490577e79598f1",
+    "state.log": "7f9ac9975e0f625a7b69e48f3f2b62ff05a3bdc5d8eb78301ff8157775d83259",
+    "final.save": "dfdb83f41d9a50d8fb9014de39435661827cee7bea17bc15c8464c2c41ee40d2"
+   },
+   "2664122-rust": {
+    "keys.log": "ef06aecd49b0e8f93bd137aea3697324e65ebced7ef578743d4f70093cd9da33",
+    "messages.log": "632b080bca348eeb701090606d24516cda870ca7a2d96c4719490577e79598f1",
+    "state.log": "7f9ac9975e0f625a7b69e48f3f2b62ff05a3bdc5d8eb78301ff8157775d83259",
+    "final.save": "dfdb83f41d9a50d8fb9014de39435661827cee7bea17bc15c8464c2c41ee40d2"
+   }
+  },
+  "cls-bg-dwarf": {
+   "cf20c85-c": {
+    "keys.log": "195d42bac5987dc94cf51e62b9b9f747a4a44a6850cc7a8f3e9b759f796c9b1b",
+    "messages.log": "7d3ae1b0b2b087568f3a8c4de982d2bbc5645810ff78a443bef60b57a104a4f5",
+    "state.log": "cec43aa01826e097073e3ff303665dc121b3ee11dc3aa704a9b22417c30949d4",
+    "final.save": "d68ef3c327a5e30e2282b92a31f3ed1242ba6695dbc57313ddacbe68d43c9257"
+   },
+   "cf20c85-rust": {
+    "keys.log": "195d42bac5987dc94cf51e62b9b9f747a4a44a6850cc7a8f3e9b759f796c9b1b",
+    "messages.log": "7d3ae1b0b2b087568f3a8c4de982d2bbc5645810ff78a443bef60b57a104a4f5",
+    "state.log": "cec43aa01826e097073e3ff303665dc121b3ee11dc3aa704a9b22417c30949d4",
+    "final.save": "d68ef3c327a5e30e2282b92a31f3ed1242ba6695dbc57313ddacbe68d43c9257"
+   },
+   "2664122-rust": {
+    "keys.log": "195d42bac5987dc94cf51e62b9b9f747a4a44a6850cc7a8f3e9b759f796c9b1b",
+    "messages.log": "7d3ae1b0b2b087568f3a8c4de982d2bbc5645810ff78a443bef60b57a104a4f5",
+    "state.log": "cec43aa01826e097073e3ff303665dc121b3ee11dc3aa704a9b22417c30949d4",
+    "final.save": "d68ef3c327a5e30e2282b92a31f3ed1242ba6695dbc57313ddacbe68d43c9257"
+   }
+  },
+  "cls-bg-halforc": {
+   "cf20c85-c": {
+    "keys.log": "0970ab601f6846d50ca5b1488b33186d7f5cdb20f794b12468f09c47b1e01de9",
+    "messages.log": "c42459126ad26355dc56bc78efa30200d569cf373028faecdd681862f9f22f59",
+    "state.log": "709d1fbf9c68005f9d135779b280d40d1cdf1dc85c3ad7ad242bffdfb44a4b22",
+    "final.save": "243d557fcc83e506d65de4f2c291d849d81c656e7045ba586f8b000f2a1d9023"
+   },
+   "cf20c85-rust": {
+    "keys.log": "0970ab601f6846d50ca5b1488b33186d7f5cdb20f794b12468f09c47b1e01de9",
+    "messages.log": "c42459126ad26355dc56bc78efa30200d569cf373028faecdd681862f9f22f59",
+    "state.log": "709d1fbf9c68005f9d135779b280d40d1cdf1dc85c3ad7ad242bffdfb44a4b22",
+    "final.save": "243d557fcc83e506d65de4f2c291d849d81c656e7045ba586f8b000f2a1d9023"
+   },
+   "2664122-rust": {
+    "keys.log": "0970ab601f6846d50ca5b1488b33186d7f5cdb20f794b12468f09c47b1e01de9",
+    "messages.log": "c42459126ad26355dc56bc78efa30200d569cf373028faecdd681862f9f22f59",
+    "state.log": "709d1fbf9c68005f9d135779b280d40d1cdf1dc85c3ad7ad242bffdfb44a4b22",
+    "final.save": "243d557fcc83e506d65de4f2c291d849d81c656e7045ba586f8b000f2a1d9023"
+   }
+  },
+  "cls-bg-halftroll": {
+   "cf20c85-c": {
+    "keys.log": "85f65104882c0198768cbb893676eea9537807a83aa78448040d8f2f332fb860",
+    "messages.log": "b6e13dfe2e99ff4015365088dbd286aa50dec0963c2063e239a38d5476435231",
+    "state.log": "2e725dd6b75991ea5a9c00f2eccaae05c47e83195c3b04b69624a14c267f0471",
+    "final.save": "91d10df0da42e0bd4f532bc46b71e56803591a1106af736cefc6596d3df49cc8"
+   },
+   "cf20c85-rust": {
+    "keys.log": "85f65104882c0198768cbb893676eea9537807a83aa78448040d8f2f332fb860",
+    "messages.log": "b6e13dfe2e99ff4015365088dbd286aa50dec0963c2063e239a38d5476435231",
+    "state.log": "2e725dd6b75991ea5a9c00f2eccaae05c47e83195c3b04b69624a14c267f0471",
+    "final.save": "91d10df0da42e0bd4f532bc46b71e56803591a1106af736cefc6596d3df49cc8"
+   },
+   "2664122-rust": {
+    "keys.log": "85f65104882c0198768cbb893676eea9537807a83aa78448040d8f2f332fb860",
+    "messages.log": "b6e13dfe2e99ff4015365088dbd286aa50dec0963c2063e239a38d5476435231",
+    "state.log": "2e725dd6b75991ea5a9c00f2eccaae05c47e83195c3b04b69624a14c267f0471",
+    "final.save": "91d10df0da42e0bd4f532bc46b71e56803591a1106af736cefc6596d3df49cc8"
+   }
+  },
+  "cls-bg-highelf": {
+   "cf20c85-c": {
+    "keys.log": "b707489f20d1c2117e7d8e1ae0ca8fcfb6b39ba75eb18fcf52773383f3ab1038",
+    "messages.log": "f37ba4331e9a6c0d2a8ef72e38017232cc983ac8d0363bbd00ba04a4dd4cc4d0",
+    "state.log": "cc47a3bcde010fac8ac53dabde65a4716a2c29d4dd3837cc01f43340f6e3b095",
+    "final.save": "57ccd248ae486b2bdb8df7b0c817d2730cfd63e06d02a38b0cf9b7775af35b47"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b707489f20d1c2117e7d8e1ae0ca8fcfb6b39ba75eb18fcf52773383f3ab1038",
+    "messages.log": "f37ba4331e9a6c0d2a8ef72e38017232cc983ac8d0363bbd00ba04a4dd4cc4d0",
+    "state.log": "cc47a3bcde010fac8ac53dabde65a4716a2c29d4dd3837cc01f43340f6e3b095",
+    "final.save": "57ccd248ae486b2bdb8df7b0c817d2730cfd63e06d02a38b0cf9b7775af35b47"
+   },
+   "2664122-rust": {
+    "keys.log": "b707489f20d1c2117e7d8e1ae0ca8fcfb6b39ba75eb18fcf52773383f3ab1038",
+    "messages.log": "f37ba4331e9a6c0d2a8ef72e38017232cc983ac8d0363bbd00ba04a4dd4cc4d0",
+    "state.log": "cc47a3bcde010fac8ac53dabde65a4716a2c29d4dd3837cc01f43340f6e3b095",
+    "final.save": "57ccd248ae486b2bdb8df7b0c817d2730cfd63e06d02a38b0cf9b7775af35b47"
+   }
+  },
+  "cls-bg-human": {
+   "cf20c85-c": {
+    "keys.log": "c60042cf06d98d2c21a349b171192996748bf30a461a55c759b0f7d695c89101",
+    "messages.log": "f8e04ed50eaa6e83874f10f3083f71b8ccc4d91493ba79852c8a7b947310d686",
+    "state.log": "a44fc4b31d027461296b688121ff336ea277911bf74c14d1893b93d95c173b76",
+    "final.save": "e096d2679d7509f5f41bd1e420acff5c00a9bc80d38f0c8f949ecb20ced7a3ab"
+   },
+   "cf20c85-rust": {
+    "keys.log": "c60042cf06d98d2c21a349b171192996748bf30a461a55c759b0f7d695c89101",
+    "messages.log": "f8e04ed50eaa6e83874f10f3083f71b8ccc4d91493ba79852c8a7b947310d686",
+    "state.log": "a44fc4b31d027461296b688121ff336ea277911bf74c14d1893b93d95c173b76",
+    "final.save": "e096d2679d7509f5f41bd1e420acff5c00a9bc80d38f0c8f949ecb20ced7a3ab"
+   },
+   "2664122-rust": {
+    "keys.log": "c60042cf06d98d2c21a349b171192996748bf30a461a55c759b0f7d695c89101",
+    "messages.log": "f8e04ed50eaa6e83874f10f3083f71b8ccc4d91493ba79852c8a7b947310d686",
+    "state.log": "a44fc4b31d027461296b688121ff336ea277911bf74c14d1893b93d95c173b76",
+    "final.save": "e096d2679d7509f5f41bd1e420acff5c00a9bc80d38f0c8f949ecb20ced7a3ab"
+   }
+  },
+  "cls-bg-kobold": {
+   "cf20c85-c": {
+    "keys.log": "b90b9d38d33ff1707bd905b6c83efe6c0323d38e3eb0fbd3b9f7ad310fb66efb",
+    "messages.log": "b83408c3f257cb6846d3b4732339eebdf5987387f7140a5ffb657e31cd2217d2",
+    "state.log": "2ef6b1d4ddd828892fca7fae826a73d9259856858d6f29107fe0352fa6550ab9",
+    "final.save": "c51b2f73df5ff2d4312fc94a0c2bab65e15128d210b1f26ecda40dfbcc689c7d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b90b9d38d33ff1707bd905b6c83efe6c0323d38e3eb0fbd3b9f7ad310fb66efb",
+    "messages.log": "b83408c3f257cb6846d3b4732339eebdf5987387f7140a5ffb657e31cd2217d2",
+    "state.log": "2ef6b1d4ddd828892fca7fae826a73d9259856858d6f29107fe0352fa6550ab9",
+    "final.save": "c51b2f73df5ff2d4312fc94a0c2bab65e15128d210b1f26ecda40dfbcc689c7d"
+   },
+   "2664122-rust": {
+    "keys.log": "b90b9d38d33ff1707bd905b6c83efe6c0323d38e3eb0fbd3b9f7ad310fb66efb",
+    "messages.log": "b83408c3f257cb6846d3b4732339eebdf5987387f7140a5ffb657e31cd2217d2",
+    "state.log": "2ef6b1d4ddd828892fca7fae826a73d9259856858d6f29107fe0352fa6550ab9",
+    "final.save": "c51b2f73df5ff2d4312fc94a0c2bab65e15128d210b1f26ecda40dfbcc689c7d"
+   }
+  },
+  "cls-deep-bg-dunadan": {
+   "cf20c85-c": {
+    "keys.log": "d39ba9f0823c3113222e49aaf81f028624a5b57dce95138d5bd3a6eb3e285b47",
+    "messages.log": "7397834f94e3788054445336e69e7a7b8d682e963074f6c761aaffaf6ce6dc44",
+    "state.log": "393601765f19d51f01d89b563aad045b6ad265f04947bcc69987ca106b28523f",
+    "final.save": "511f224d1ae50a538175148b33020bfa1f0014b3efce3e795ee98548f6ba0518"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d39ba9f0823c3113222e49aaf81f028624a5b57dce95138d5bd3a6eb3e285b47",
+    "messages.log": "7397834f94e3788054445336e69e7a7b8d682e963074f6c761aaffaf6ce6dc44",
+    "state.log": "393601765f19d51f01d89b563aad045b6ad265f04947bcc69987ca106b28523f",
+    "final.save": "511f224d1ae50a538175148b33020bfa1f0014b3efce3e795ee98548f6ba0518"
+   },
+   "2664122-rust": {
+    "keys.log": "d39ba9f0823c3113222e49aaf81f028624a5b57dce95138d5bd3a6eb3e285b47",
+    "messages.log": "7397834f94e3788054445336e69e7a7b8d682e963074f6c761aaffaf6ce6dc44",
+    "state.log": "393601765f19d51f01d89b563aad045b6ad265f04947bcc69987ca106b28523f",
+    "final.save": "511f224d1ae50a538175148b33020bfa1f0014b3efce3e795ee98548f6ba0518"
+   }
+  },
+  "cls-dunadan-paladin": {
+   "cf20c85-c": {
+    "keys.log": "8752e5c80dc440b7b7b083fff8c781297d5de7ffc8cb1d923b0b939be0da3887",
+    "messages.log": "f535b6f54db3ff0227cbf1905f7ded2b7d4c9d81bf7a172ca867d7034eb1aaf7",
+    "state.log": "20da9cc5cd47d32374a9a244fe0f6e6f1da2477281a5bfbbf810094da0e2767a",
+    "final.save": "12055a2fa08c9b41e26e30bc754715d39e9335aab3c55e12a0b26ea09186a808"
+   },
+   "cf20c85-rust": {
+    "keys.log": "8752e5c80dc440b7b7b083fff8c781297d5de7ffc8cb1d923b0b939be0da3887",
+    "messages.log": "f535b6f54db3ff0227cbf1905f7ded2b7d4c9d81bf7a172ca867d7034eb1aaf7",
+    "state.log": "20da9cc5cd47d32374a9a244fe0f6e6f1da2477281a5bfbbf810094da0e2767a",
+    "final.save": "12055a2fa08c9b41e26e30bc754715d39e9335aab3c55e12a0b26ea09186a808"
+   },
+   "2664122-rust": {
+    "keys.log": "8752e5c80dc440b7b7b083fff8c781297d5de7ffc8cb1d923b0b939be0da3887",
+    "messages.log": "f535b6f54db3ff0227cbf1905f7ded2b7d4c9d81bf7a172ca867d7034eb1aaf7",
+    "state.log": "20da9cc5cd47d32374a9a244fe0f6e6f1da2477281a5bfbbf810094da0e2767a",
+    "final.save": "12055a2fa08c9b41e26e30bc754715d39e9335aab3c55e12a0b26ea09186a808"
+   }
+  },
+  "cls-dunadan-ranger": {
+   "cf20c85-c": {
+    "keys.log": "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+    "messages.log": "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+    "state.log": "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+    "final.save": "e1edfeb92d818db6bd93e069426957266fd78f4f6be0d7da15a3409c9bc03dee"
+   },
+   "cf20c85-rust": {
+    "keys.log": "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+    "messages.log": "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+    "state.log": "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+    "final.save": "e1edfeb92d818db6bd93e069426957266fd78f4f6be0d7da15a3409c9bc03dee"
+   },
+   "2664122-rust": {
+    "keys.log": "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+    "messages.log": "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+    "state.log": "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+    "final.save": "e1edfeb92d818db6bd93e069426957266fd78f4f6be0d7da15a3409c9bc03dee"
+   }
+  },
+  "cls-halfelf-ranger": {
+   "cf20c85-c": {
+    "keys.log": "5e7f2890cf4bee0403d9c2f5d691aceb5069d278d9a76169dbab33ebece109a9",
+    "messages.log": "2baaf9b62d29160022d9743bf02eb92eea9f2f3afd0cba8b61cc64e988e597fa",
+    "state.log": "9f8ed44129d40a16a2314ff7728170abfed6483f6ddbf93d3c602fc6965720c6",
+    "final.save": "1a9d3ff8060adbcda0499fa510d8d7773ecab714961945bb92ae64c8af6cf6e0"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5e7f2890cf4bee0403d9c2f5d691aceb5069d278d9a76169dbab33ebece109a9",
+    "messages.log": "2baaf9b62d29160022d9743bf02eb92eea9f2f3afd0cba8b61cc64e988e597fa",
+    "state.log": "9f8ed44129d40a16a2314ff7728170abfed6483f6ddbf93d3c602fc6965720c6",
+    "final.save": "1a9d3ff8060adbcda0499fa510d8d7773ecab714961945bb92ae64c8af6cf6e0"
+   },
+   "2664122-rust": {
+    "keys.log": "5e7f2890cf4bee0403d9c2f5d691aceb5069d278d9a76169dbab33ebece109a9",
+    "messages.log": "2baaf9b62d29160022d9743bf02eb92eea9f2f3afd0cba8b61cc64e988e597fa",
+    "state.log": "9f8ed44129d40a16a2314ff7728170abfed6483f6ddbf93d3c602fc6965720c6",
+    "final.save": "1a9d3ff8060adbcda0499fa510d8d7773ecab714961945bb92ae64c8af6cf6e0"
+   }
+  },
+  "cls-highelf-mage": {
+   "cf20c85-c": {
+    "keys.log": "1a14597c7c32dca7c183540fd6da386c05c3e9c4cfa72181c77098f948fc9370",
+    "messages.log": "5a7e35585297a06e7427581020f1444ef31c17b36a200e9b45bfcbb29e797492",
+    "state.log": "de97315e86530a74f510c8fe891d46980dbc2eac5279504ca246e2506b1028c1",
+    "final.save": "b45299bb45ada1bdcea745dcf515af7d28d1840dc6d2257eff234d801cc7e8b7"
+   },
+   "cf20c85-rust": {
+    "keys.log": "1a14597c7c32dca7c183540fd6da386c05c3e9c4cfa72181c77098f948fc9370",
+    "messages.log": "5a7e35585297a06e7427581020f1444ef31c17b36a200e9b45bfcbb29e797492",
+    "state.log": "de97315e86530a74f510c8fe891d46980dbc2eac5279504ca246e2506b1028c1",
+    "final.save": "b45299bb45ada1bdcea745dcf515af7d28d1840dc6d2257eff234d801cc7e8b7"
+   },
+   "2664122-rust": {
+    "keys.log": "1a14597c7c32dca7c183540fd6da386c05c3e9c4cfa72181c77098f948fc9370",
+    "messages.log": "5a7e35585297a06e7427581020f1444ef31c17b36a200e9b45bfcbb29e797492",
+    "state.log": "de97315e86530a74f510c8fe891d46980dbc2eac5279504ca246e2506b1028c1",
+    "final.save": "b45299bb45ada1bdcea745dcf515af7d28d1840dc6d2257eff234d801cc7e8b7"
+   }
+  },
+  "cls-highelf-priest": {
+   "cf20c85-c": {
+    "keys.log": "1da8e02204e6488d1d32bf69c036032f686536f9465e62078649d64b56a4793f",
+    "messages.log": "23502b7ff7941579926b022f6cf4116707152596e9185a3d0fa19919b0907b17",
+    "state.log": "c1ddd6761ba9e2bcb39ac23bb8791d72df282d005a81354fc1ce6ab4b6e61f81",
+    "final.save": "f3105b9de77497eeb0e8b21098aac5796a95d5d09ed3ecee70dcad995a614593"
+   },
+   "cf20c85-rust": {
+    "keys.log": "1da8e02204e6488d1d32bf69c036032f686536f9465e62078649d64b56a4793f",
+    "messages.log": "23502b7ff7941579926b022f6cf4116707152596e9185a3d0fa19919b0907b17",
+    "state.log": "c1ddd6761ba9e2bcb39ac23bb8791d72df282d005a81354fc1ce6ab4b6e61f81",
+    "final.save": "f3105b9de77497eeb0e8b21098aac5796a95d5d09ed3ecee70dcad995a614593"
+   },
+   "2664122-rust": {
+    "keys.log": "1da8e02204e6488d1d32bf69c036032f686536f9465e62078649d64b56a4793f",
+    "messages.log": "23502b7ff7941579926b022f6cf4116707152596e9185a3d0fa19919b0907b17",
+    "state.log": "c1ddd6761ba9e2bcb39ac23bb8791d72df282d005a81354fc1ce6ab4b6e61f81",
+    "final.save": "f3105b9de77497eeb0e8b21098aac5796a95d5d09ed3ecee70dcad995a614593"
+   }
+  },
+  "cls-kobold-necro": {
+   "cf20c85-c": {
+    "keys.log": "58f243827d31400c82eb6f420cbab8a289dc1823ebf2351331c0b9dc3a532798",
+    "messages.log": "209c805e492a9c72ebf5cb7c18178e22de0b820cbf9471add199fd591254396a",
+    "state.log": "603d82b00c8406e7ab263ef573cfaa6ecbe86cd08ae1361f038793690ccf29d3",
+    "final.save": "4405311d2bf311c6197fcf8591fc9d711b871ce6586cf10a22f1f760d145090d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "58f243827d31400c82eb6f420cbab8a289dc1823ebf2351331c0b9dc3a532798",
+    "messages.log": "209c805e492a9c72ebf5cb7c18178e22de0b820cbf9471add199fd591254396a",
+    "state.log": "603d82b00c8406e7ab263ef573cfaa6ecbe86cd08ae1361f038793690ccf29d3",
+    "final.save": "4405311d2bf311c6197fcf8591fc9d711b871ce6586cf10a22f1f760d145090d"
+   },
+   "2664122-rust": {
+    "keys.log": "58f243827d31400c82eb6f420cbab8a289dc1823ebf2351331c0b9dc3a532798",
+    "messages.log": "209c805e492a9c72ebf5cb7c18178e22de0b820cbf9471add199fd591254396a",
+    "state.log": "603d82b00c8406e7ab263ef573cfaa6ecbe86cd08ae1361f038793690ccf29d3",
+    "final.save": "4405311d2bf311c6197fcf8591fc9d711b871ce6586cf10a22f1f760d145090d"
+   }
+  },
+  "cls-kobold-rogue": {
+   "cf20c85-c": {
+    "keys.log": "28a760ae3405a0fcf76c19eef07d55d2415f31a1b0d501a7cb93cb365f6b68e1",
+    "messages.log": "f872e06930762854fe827e49d2443d54d15e83f81f7d7c21408462b0908386e6",
+    "state.log": "10f462eb48e339caadc82b615fa818d59f8a7dbe591d2d411a92515be830bda8",
+    "final.save": "c010a2c59cd8dc62b0bb275118282cdfa5f1c527db5b916a024a586b0d022043"
+   },
+   "cf20c85-rust": {
+    "keys.log": "28a760ae3405a0fcf76c19eef07d55d2415f31a1b0d501a7cb93cb365f6b68e1",
+    "messages.log": "f872e06930762854fe827e49d2443d54d15e83f81f7d7c21408462b0908386e6",
+    "state.log": "10f462eb48e339caadc82b615fa818d59f8a7dbe591d2d411a92515be830bda8",
+    "final.save": "c010a2c59cd8dc62b0bb275118282cdfa5f1c527db5b916a024a586b0d022043"
+   },
+   "2664122-rust": {
+    "keys.log": "28a760ae3405a0fcf76c19eef07d55d2415f31a1b0d501a7cb93cb365f6b68e1",
+    "messages.log": "f872e06930762854fe827e49d2443d54d15e83f81f7d7c21408462b0908386e6",
+    "state.log": "10f462eb48e339caadc82b615fa818d59f8a7dbe591d2d411a92515be830bda8",
+    "final.save": "c010a2c59cd8dc62b0bb275118282cdfa5f1c527db5b916a024a586b0d022043"
+   }
+  },
+  "cls-kobold-warrior": {
+   "cf20c85-c": {
+    "keys.log": "5e2d3c90cd242d93eb0ff244bf71fa8e43d4fcf7f18877dee657dd9250013b6d",
+    "messages.log": "ac6d0662748ffc2ef5c2f5e078ecaa8a146c209da1f54be81e7b51f6d59a3e2e",
+    "state.log": "8514f615ebcd8e2a5cef31a582b7abd340f55db59cdcbc3c99f222945e9bc450",
+    "final.save": "697e082fa58a5034441fb53b328da5e1712d15a1410877b0df67d51bcd645e2b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5e2d3c90cd242d93eb0ff244bf71fa8e43d4fcf7f18877dee657dd9250013b6d",
+    "messages.log": "ac6d0662748ffc2ef5c2f5e078ecaa8a146c209da1f54be81e7b51f6d59a3e2e",
+    "state.log": "8514f615ebcd8e2a5cef31a582b7abd340f55db59cdcbc3c99f222945e9bc450",
+    "final.save": "697e082fa58a5034441fb53b328da5e1712d15a1410877b0df67d51bcd645e2b"
+   },
+   "2664122-rust": {
+    "keys.log": "5e2d3c90cd242d93eb0ff244bf71fa8e43d4fcf7f18877dee657dd9250013b6d",
+    "messages.log": "ac6d0662748ffc2ef5c2f5e078ecaa8a146c209da1f54be81e7b51f6d59a3e2e",
+    "state.log": "8514f615ebcd8e2a5cef31a582b7abd340f55db59cdcbc3c99f222945e9bc450",
+    "final.save": "697e082fa58a5034441fb53b328da5e1712d15a1410877b0df67d51bcd645e2b"
+   }
+  },
+  "deep-0-warrior": {
+   "cf20c85-c": {
+    "keys.log": "f8cbe76744953bd54977afd8c69ebdb407f20c8fc812e5f92c86ffc41aca90ae",
+    "messages.log": "6bea4bc563545d98be5464d21a9735540b892c2ffb8f2b333eb937a973c072ba",
+    "state.log": "a66f5a5690818261403c681597e1b84eed07d4f87396ca492ba69b43fa57ffb6",
+    "final.save": "2c29f492006d5fa64e09a87b345cc55633df6abe7d21d844f17ff672404b947c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "f8cbe76744953bd54977afd8c69ebdb407f20c8fc812e5f92c86ffc41aca90ae",
+    "messages.log": "6bea4bc563545d98be5464d21a9735540b892c2ffb8f2b333eb937a973c072ba",
+    "state.log": "a66f5a5690818261403c681597e1b84eed07d4f87396ca492ba69b43fa57ffb6",
+    "final.save": "2c29f492006d5fa64e09a87b345cc55633df6abe7d21d844f17ff672404b947c"
+   },
+   "2664122-rust": {
+    "keys.log": "f8cbe76744953bd54977afd8c69ebdb407f20c8fc812e5f92c86ffc41aca90ae",
+    "messages.log": "6bea4bc563545d98be5464d21a9735540b892c2ffb8f2b333eb937a973c072ba",
+    "state.log": "a66f5a5690818261403c681597e1b84eed07d4f87396ca492ba69b43fa57ffb6",
+    "final.save": "2c29f492006d5fa64e09a87b345cc55633df6abe7d21d844f17ff672404b947c"
+   }
+  },
+  "deep-1-mage": {
+   "cf20c85-c": {
+    "keys.log": "321c4461c73842458547ee29ada064cfcd18557526484fdf833d04d7f679735e",
+    "messages.log": "1e5181c9e86dcfd1a5b3fe44c3baef31685d3f0297c957c9d974cb123ef490a2",
+    "state.log": "be1bba210db636eb55e675ff3ba33769101d5ef5c0ffa5b2a9c9fc2ff003a56a",
+    "final.save": "42ee6ca98d135bb97b91f6a2e653849bd7955683a86d51a502b4d251f49491dc"
+   },
+   "cf20c85-rust": {
+    "keys.log": "321c4461c73842458547ee29ada064cfcd18557526484fdf833d04d7f679735e",
+    "messages.log": "1e5181c9e86dcfd1a5b3fe44c3baef31685d3f0297c957c9d974cb123ef490a2",
+    "state.log": "be1bba210db636eb55e675ff3ba33769101d5ef5c0ffa5b2a9c9fc2ff003a56a",
+    "final.save": "42ee6ca98d135bb97b91f6a2e653849bd7955683a86d51a502b4d251f49491dc"
+   },
+   "2664122-rust": {
+    "keys.log": "321c4461c73842458547ee29ada064cfcd18557526484fdf833d04d7f679735e",
+    "messages.log": "1e5181c9e86dcfd1a5b3fe44c3baef31685d3f0297c957c9d974cb123ef490a2",
+    "state.log": "be1bba210db636eb55e675ff3ba33769101d5ef5c0ffa5b2a9c9fc2ff003a56a",
+    "final.save": "42ee6ca98d135bb97b91f6a2e653849bd7955683a86d51a502b4d251f49491dc"
+   }
+  },
+  "deep-2-druid": {
+   "cf20c85-c": {
+    "keys.log": "5858131d9c4678ff30bc480ad685878c2da26936041a6322d8771e2999410a14",
+    "messages.log": "6d3dc55b630289ad9877c78734d53af058d9b21329c655fdc73c03e96373fe80",
+    "state.log": "addbe0c6ce2cbc13cd27c2a6cf71e916eba888e43dc6707cc2e43863f7c46892",
+    "final.save": "caf3f3841c78ea3135a87be6b499d5cf14ac5ca4ee8f607ce76f8c65c16e7609"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5858131d9c4678ff30bc480ad685878c2da26936041a6322d8771e2999410a14",
+    "messages.log": "6d3dc55b630289ad9877c78734d53af058d9b21329c655fdc73c03e96373fe80",
+    "state.log": "addbe0c6ce2cbc13cd27c2a6cf71e916eba888e43dc6707cc2e43863f7c46892",
+    "final.save": "caf3f3841c78ea3135a87be6b499d5cf14ac5ca4ee8f607ce76f8c65c16e7609"
+   },
+   "2664122-rust": {
+    "keys.log": "5858131d9c4678ff30bc480ad685878c2da26936041a6322d8771e2999410a14",
+    "messages.log": "6d3dc55b630289ad9877c78734d53af058d9b21329c655fdc73c03e96373fe80",
+    "state.log": "addbe0c6ce2cbc13cd27c2a6cf71e916eba888e43dc6707cc2e43863f7c46892",
+    "final.save": "caf3f3841c78ea3135a87be6b499d5cf14ac5ca4ee8f607ce76f8c65c16e7609"
+   }
+  },
+  "deep-3-priest": {
+   "cf20c85-c": {
+    "keys.log": "8509bd263fea7066fde9769b45ac06710c9b2f340d8d9a1c7e6eb6a7f5f97844",
+    "messages.log": "ee96de9d84161b32d0a2c7b10651d712a60e109d727fdd15867443eca4dc4c71",
+    "state.log": "3fb16fa7de288dd5cca51c62d9cd6c818590792c980d0967c1787ef6d3237348",
+    "final.save": "4aa00669de1ece4012cfc8ac613f063bf0a4536d20babff12f1922350e84c099"
+   },
+   "cf20c85-rust": {
+    "keys.log": "8509bd263fea7066fde9769b45ac06710c9b2f340d8d9a1c7e6eb6a7f5f97844",
+    "messages.log": "ee96de9d84161b32d0a2c7b10651d712a60e109d727fdd15867443eca4dc4c71",
+    "state.log": "3fb16fa7de288dd5cca51c62d9cd6c818590792c980d0967c1787ef6d3237348",
+    "final.save": "4aa00669de1ece4012cfc8ac613f063bf0a4536d20babff12f1922350e84c099"
+   },
+   "2664122-rust": {
+    "keys.log": "8509bd263fea7066fde9769b45ac06710c9b2f340d8d9a1c7e6eb6a7f5f97844",
+    "messages.log": "ee96de9d84161b32d0a2c7b10651d712a60e109d727fdd15867443eca4dc4c71",
+    "state.log": "3fb16fa7de288dd5cca51c62d9cd6c818590792c980d0967c1787ef6d3237348",
+    "final.save": "4aa00669de1ece4012cfc8ac613f063bf0a4536d20babff12f1922350e84c099"
+   }
+  },
+  "deep-4-necro": {
+   "cf20c85-c": {
+    "keys.log": "a1fa067f321a30bce0f794b478802495b7e4becb31c24d767478459fcc173305",
+    "messages.log": "22064e15058d67b01c5141cdd9caf2b3f3fdd702e390c34c0ad3d64a79ae5f8f",
+    "state.log": "489c02e879c778cce8d5898212483a9680b59168839f390e453ba99ab4e55a1a",
+    "final.save": "39e702cebb777aff6b646bcf2ca6e7ecd69fcb13e881b7bfafe712f4aced7447"
+   },
+   "cf20c85-rust": {
+    "keys.log": "a1fa067f321a30bce0f794b478802495b7e4becb31c24d767478459fcc173305",
+    "messages.log": "22064e15058d67b01c5141cdd9caf2b3f3fdd702e390c34c0ad3d64a79ae5f8f",
+    "state.log": "489c02e879c778cce8d5898212483a9680b59168839f390e453ba99ab4e55a1a",
+    "final.save": "39e702cebb777aff6b646bcf2ca6e7ecd69fcb13e881b7bfafe712f4aced7447"
+   },
+   "2664122-rust": {
+    "keys.log": "a1fa067f321a30bce0f794b478802495b7e4becb31c24d767478459fcc173305",
+    "messages.log": "22064e15058d67b01c5141cdd9caf2b3f3fdd702e390c34c0ad3d64a79ae5f8f",
+    "state.log": "489c02e879c778cce8d5898212483a9680b59168839f390e453ba99ab4e55a1a",
+    "final.save": "39e702cebb777aff6b646bcf2ca6e7ecd69fcb13e881b7bfafe712f4aced7447"
+   }
+  },
+  "deep-5-paladin": {
+   "cf20c85-c": {
+    "keys.log": "895c2b0510a4bdbc0a9e960f9ff6e78412b3f3c0fa89fdc70b37d576f9b8f4f2",
+    "messages.log": "15fd4954aad329ce2fbbf6541950f8c290654d3420a6c8f7bf098bc474cf8e23",
+    "state.log": "958fad45e8d0b70726b734813be369136b8e99a875b7ecc05ce58610cc627f6d",
+    "final.save": "6029f91f04af3c1adeed49d99d18775453db2a63d48c314fdd70ee465a7578ea"
+   },
+   "cf20c85-rust": {
+    "keys.log": "895c2b0510a4bdbc0a9e960f9ff6e78412b3f3c0fa89fdc70b37d576f9b8f4f2",
+    "messages.log": "15fd4954aad329ce2fbbf6541950f8c290654d3420a6c8f7bf098bc474cf8e23",
+    "state.log": "958fad45e8d0b70726b734813be369136b8e99a875b7ecc05ce58610cc627f6d",
+    "final.save": "6029f91f04af3c1adeed49d99d18775453db2a63d48c314fdd70ee465a7578ea"
+   },
+   "2664122-rust": {
+    "keys.log": "895c2b0510a4bdbc0a9e960f9ff6e78412b3f3c0fa89fdc70b37d576f9b8f4f2",
+    "messages.log": "15fd4954aad329ce2fbbf6541950f8c290654d3420a6c8f7bf098bc474cf8e23",
+    "state.log": "958fad45e8d0b70726b734813be369136b8e99a875b7ecc05ce58610cc627f6d",
+    "final.save": "6029f91f04af3c1adeed49d99d18775453db2a63d48c314fdd70ee465a7578ea"
+   }
+  },
+  "deep-6-rogue": {
+   "cf20c85-c": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "50c4029576f33d87d3ef95f2c0669cb293400455b2172d3b307c23c24fc56d46",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   },
+   "cf20c85-rust": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "50c4029576f33d87d3ef95f2c0669cb293400455b2172d3b307c23c24fc56d46",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   },
+   "2664122-rust": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "50c4029576f33d87d3ef95f2c0669cb293400455b2172d3b307c23c24fc56d46",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   }
+  },
+  "deep-7-ranger": {
+   "cf20c85-c": {
+    "keys.log": "25db2123736ca866f2f34b42836024763f2ff11b35ddff346a01207fafcda5bc",
+    "messages.log": "167a2328644ac6e2529215715dc9f6feef6fb23389094d39d10997b7449dd1ed",
+    "state.log": "d2426b9a99d096e1896dcdcd743aab3844e9364555b6e57d602ec2ccab1378c7",
+    "final.save": "a6a1453d1c794b30894e2638de2876a29089bb82eba1f7c385fea954f6b6f27e"
+   },
+   "cf20c85-rust": {
+    "keys.log": "25db2123736ca866f2f34b42836024763f2ff11b35ddff346a01207fafcda5bc",
+    "messages.log": "167a2328644ac6e2529215715dc9f6feef6fb23389094d39d10997b7449dd1ed",
+    "state.log": "d2426b9a99d096e1896dcdcd743aab3844e9364555b6e57d602ec2ccab1378c7",
+    "final.save": "a6a1453d1c794b30894e2638de2876a29089bb82eba1f7c385fea954f6b6f27e"
+   },
+   "2664122-rust": {
+    "keys.log": "25db2123736ca866f2f34b42836024763f2ff11b35ddff346a01207fafcda5bc",
+    "messages.log": "167a2328644ac6e2529215715dc9f6feef6fb23389094d39d10997b7449dd1ed",
+    "state.log": "d2426b9a99d096e1896dcdcd743aab3844e9364555b6e57d602ec2ccab1378c7",
+    "final.save": "a6a1453d1c794b30894e2638de2876a29089bb82eba1f7c385fea954f6b6f27e"
+   }
+  },
+  "deep-8-blackguard": {
+   "cf20c85-c": {
+    "keys.log": "ebcb200b960f5dd18eca8d04e44bd35ef3fd0d393617a733d185947f9a6b6a25",
+    "messages.log": "f33f4a46bff14de4d64e775b38795b30b3596eb8ee0a92b9d61b6df40f8da76d",
+    "state.log": "6e198f9fd1d2b490affd377b6bbc5bcd7bc1dbc60fb9e2bd626c724f1379d0da",
+    "final.save": "87cfdf1ab7bbe7550e29a3d818c4043893b5ade79f81761e29a457f698713eeb"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ebcb200b960f5dd18eca8d04e44bd35ef3fd0d393617a733d185947f9a6b6a25",
+    "messages.log": "f33f4a46bff14de4d64e775b38795b30b3596eb8ee0a92b9d61b6df40f8da76d",
+    "state.log": "6e198f9fd1d2b490affd377b6bbc5bcd7bc1dbc60fb9e2bd626c724f1379d0da",
+    "final.save": "87cfdf1ab7bbe7550e29a3d818c4043893b5ade79f81761e29a457f698713eeb"
+   },
+   "2664122-rust": {
+    "keys.log": "ebcb200b960f5dd18eca8d04e44bd35ef3fd0d393617a733d185947f9a6b6a25",
+    "messages.log": "f33f4a46bff14de4d64e775b38795b30b3596eb8ee0a92b9d61b6df40f8da76d",
+    "state.log": "6e198f9fd1d2b490affd377b6bbc5bcd7bc1dbc60fb9e2bd626c724f1379d0da",
+    "final.save": "87cfdf1ab7bbe7550e29a3d818c4043893b5ade79f81761e29a457f698713eeb"
+   }
+  },
+  "end-depth100": {
+   "cf20c85-c": {
+    "keys.log": "2d3fe95379b920ebb127e33e177a6415b4bf89ecef4f06f61a7a2c91d5276337",
+    "messages.log": "58c1ba56e667e2d902c55fc1a928a120ceeb55ab790f75905e4bce897d479f09",
+    "state.log": "8b44f30544f19b73f4907e1673d6e792488c41f0ea645b8a9752590a0c89d495",
+    "final.save": "bb486f973e76d0a90dbdacc9e27dadf90f0ba1df96a891f54c074b7fe904b66d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "2d3fe95379b920ebb127e33e177a6415b4bf89ecef4f06f61a7a2c91d5276337",
+    "messages.log": "58c1ba56e667e2d902c55fc1a928a120ceeb55ab790f75905e4bce897d479f09",
+    "state.log": "8b44f30544f19b73f4907e1673d6e792488c41f0ea645b8a9752590a0c89d495",
+    "final.save": "bb486f973e76d0a90dbdacc9e27dadf90f0ba1df96a891f54c074b7fe904b66d"
+   },
+   "2664122-rust": {
+    "keys.log": "2d3fe95379b920ebb127e33e177a6415b4bf89ecef4f06f61a7a2c91d5276337",
+    "messages.log": "58c1ba56e667e2d902c55fc1a928a120ceeb55ab790f75905e4bce897d479f09",
+    "state.log": "8b44f30544f19b73f4907e1673d6e792488c41f0ea645b8a9752590a0c89d495",
+    "final.save": "bb486f973e76d0a90dbdacc9e27dadf90f0ba1df96a891f54c074b7fe904b66d"
+   }
+  },
+  "end-depth50": {
+   "cf20c85-c": {
+    "keys.log": "8cac88e07c24ccdb9e34c5eeda4181eeb3e62efc4a5d585ced8d0d11955d72ab",
+    "messages.log": "42896ec9e998aca0a0c2f802cc517317c0851de0b9a92bf01b0d24c449544e79",
+    "state.log": "779abf185bb47e40887bd9b51756e3adfa7fa124de844487d988c807a5547a4a",
+    "final.save": "ecacbaac77c427e516b6b729e4084780e7273e04fc1d6ac46789fd8bdc560162"
+   },
+   "cf20c85-rust": {
+    "keys.log": "8cac88e07c24ccdb9e34c5eeda4181eeb3e62efc4a5d585ced8d0d11955d72ab",
+    "messages.log": "42896ec9e998aca0a0c2f802cc517317c0851de0b9a92bf01b0d24c449544e79",
+    "state.log": "779abf185bb47e40887bd9b51756e3adfa7fa124de844487d988c807a5547a4a",
+    "final.save": "ecacbaac77c427e516b6b729e4084780e7273e04fc1d6ac46789fd8bdc560162"
+   },
+   "2664122-rust": {
+    "keys.log": "8cac88e07c24ccdb9e34c5eeda4181eeb3e62efc4a5d585ced8d0d11955d72ab",
+    "messages.log": "42896ec9e998aca0a0c2f802cc517317c0851de0b9a92bf01b0d24c449544e79",
+    "state.log": "779abf185bb47e40887bd9b51756e3adfa7fa124de844487d988c807a5547a4a",
+    "final.save": "ecacbaac77c427e516b6b729e4084780e7273e04fc1d6ac46789fd8bdc560162"
+   }
+  },
+  "end-depth98": {
+   "cf20c85-c": {
+    "keys.log": "1caaf21e7d6c66bb75aa5b4c34da4ebf3297a3a4f8bdcfacecdd0622e1074c42",
+    "messages.log": "b44e1177d6b386f184f2f1a1e574a151267d37e876cc342118022da6c00ee39a",
+    "state.log": "951d7cb4fb54c9e4e285506790b434bb0aa4a6778920ac91ee1d490d1b2ed5f4",
+    "final.save": "f59d6b4d76d8b549334d9c3d6547c9d5c7e0599351357440462d00d6ff6a8eaa"
+   },
+   "cf20c85-rust": {
+    "keys.log": "1caaf21e7d6c66bb75aa5b4c34da4ebf3297a3a4f8bdcfacecdd0622e1074c42",
+    "messages.log": "b44e1177d6b386f184f2f1a1e574a151267d37e876cc342118022da6c00ee39a",
+    "state.log": "951d7cb4fb54c9e4e285506790b434bb0aa4a6778920ac91ee1d490d1b2ed5f4",
+    "final.save": "f59d6b4d76d8b549334d9c3d6547c9d5c7e0599351357440462d00d6ff6a8eaa"
+   },
+   "2664122-rust": {
+    "keys.log": "1caaf21e7d6c66bb75aa5b4c34da4ebf3297a3a4f8bdcfacecdd0622e1074c42",
+    "messages.log": "b44e1177d6b386f184f2f1a1e574a151267d37e876cc342118022da6c00ee39a",
+    "state.log": "951d7cb4fb54c9e4e285506790b434bb0aa4a6778920ac91ee1d490d1b2ed5f4",
+    "final.save": "f59d6b4d76d8b549334d9c3d6547c9d5c7e0599351357440462d00d6ff6a8eaa"
+   }
+  },
+  "end-depth99": {
+   "cf20c85-c": {
+    "keys.log": "ac05458d80ac0eec4b45d773d8513579efabe87f7b28cf363e8f39fb8ecfc51e",
+    "messages.log": "541eefa30fb305d8e743ccd2fb38a0e408318a6a533aece7fdfc0b7fab62921d",
+    "state.log": "74f7d0348ad15795ce39cc49dae833a0909aa603311331161369ff0be56c1654",
+    "final.save": "901cc20fc67fa5e376f7f516efdd358b481493acd703e78bdc0f38b16178cf2e"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ac05458d80ac0eec4b45d773d8513579efabe87f7b28cf363e8f39fb8ecfc51e",
+    "messages.log": "541eefa30fb305d8e743ccd2fb38a0e408318a6a533aece7fdfc0b7fab62921d",
+    "state.log": "74f7d0348ad15795ce39cc49dae833a0909aa603311331161369ff0be56c1654",
+    "final.save": "901cc20fc67fa5e376f7f516efdd358b481493acd703e78bdc0f38b16178cf2e"
+   },
+   "2664122-rust": {
+    "keys.log": "ac05458d80ac0eec4b45d773d8513579efabe87f7b28cf363e8f39fb8ecfc51e",
+    "messages.log": "541eefa30fb305d8e743ccd2fb38a0e408318a6a533aece7fdfc0b7fab62921d",
+    "state.log": "74f7d0348ad15795ce39cc49dae833a0909aa603311331161369ff0be56c1654",
+    "final.save": "901cc20fc67fa5e376f7f516efdd358b481493acd703e78bdc0f38b16178cf2e"
+   }
+  },
+  "end-near-morgoth": {
+   "cf20c85-c": {
+    "keys.log": "20807e283dc8f78a6ade7c7c13ae19f540fc3f597bee259e16b515fabdb482d0",
+    "messages.log": "8601552e2ce8363e0c66305583a70e9d22d300ba29ec0afe75e2d23ab1c93904",
+    "state.log": "c70cc48e4a7d22ca5fe448016e22ccf80260617c1da218469e1c52f4edff5441",
+    "final.save": "34c4d6a6b8e448cdcdbf6915a26b3f43ddda5e2c848336529637e5a959d97630"
+   },
+   "cf20c85-rust": {
+    "keys.log": "20807e283dc8f78a6ade7c7c13ae19f540fc3f597bee259e16b515fabdb482d0",
+    "messages.log": "8601552e2ce8363e0c66305583a70e9d22d300ba29ec0afe75e2d23ab1c93904",
+    "state.log": "c70cc48e4a7d22ca5fe448016e22ccf80260617c1da218469e1c52f4edff5441",
+    "final.save": "34c4d6a6b8e448cdcdbf6915a26b3f43ddda5e2c848336529637e5a959d97630"
+   },
+   "2664122-rust": {
+    "keys.log": "20807e283dc8f78a6ade7c7c13ae19f540fc3f597bee259e16b515fabdb482d0",
+    "messages.log": "8601552e2ce8363e0c66305583a70e9d22d300ba29ec0afe75e2d23ab1c93904",
+    "state.log": "c70cc48e4a7d22ca5fe448016e22ccf80260617c1da218469e1c52f4edff5441",
+    "final.save": "34c4d6a6b8e448cdcdbf6915a26b3f43ddda5e2c848336529637e5a959d97630"
+   }
+  },
+  "ext-rogue": {
+   "cf20c85-c": {
+    "keys.log": "ef36da2af909ee00e8314d5cc3269b5c5513768c62b2a30602a639e1e6759ab4",
+    "messages.log": "1c353a7491e2552df3b1a5ee7cb30f82ed50ca7b303b8fe05e2b020f4c0d496c",
+    "state.log": "4e7fe2291c19ebb77df9f826919e8ec4f6ca18ef77f2c287725d9a6d5086ab07",
+    "final.save": "50faea833c438876697b7733c52923bfc0ab9ca7efb77d61acc1655fb5e4f3e6"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ef36da2af909ee00e8314d5cc3269b5c5513768c62b2a30602a639e1e6759ab4",
+    "messages.log": "1c353a7491e2552df3b1a5ee7cb30f82ed50ca7b303b8fe05e2b020f4c0d496c",
+    "state.log": "4e7fe2291c19ebb77df9f826919e8ec4f6ca18ef77f2c287725d9a6d5086ab07",
+    "final.save": "50faea833c438876697b7733c52923bfc0ab9ca7efb77d61acc1655fb5e4f3e6"
+   },
+   "2664122-rust": {
+    "keys.log": "ef36da2af909ee00e8314d5cc3269b5c5513768c62b2a30602a639e1e6759ab4",
+    "messages.log": "1c353a7491e2552df3b1a5ee7cb30f82ed50ca7b303b8fe05e2b020f4c0d496c",
+    "state.log": "4e7fe2291c19ebb77df9f826919e8ec4f6ca18ef77f2c287725d9a6d5086ab07",
+    "final.save": "50faea833c438876697b7733c52923bfc0ab9ca7efb77d61acc1655fb5e4f3e6"
+   }
+  },
+  "full-0-warrior-0": {
+   "cf20c85-c": {
+    "keys.log": "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+    "messages.log": "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+    "state.log": "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+    "final.save": "c225af7639658d5e3f24979181666e8907bfe7f6b2231727a4062b25167ebc8b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+    "messages.log": "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+    "state.log": "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+    "final.save": "c225af7639658d5e3f24979181666e8907bfe7f6b2231727a4062b25167ebc8b"
+   },
+   "2664122-rust": {
+    "keys.log": "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+    "messages.log": "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+    "state.log": "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+    "final.save": "c225af7639658d5e3f24979181666e8907bfe7f6b2231727a4062b25167ebc8b"
+   }
+  },
+  "full-0-warrior-1": {
+   "cf20c85-c": {
+    "keys.log": "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+    "messages.log": "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+    "state.log": "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+    "final.save": "8645e37a45bed70a6d5f472004bc019aa5bbd5573ff8092778293f0d499655cc"
+   },
+   "cf20c85-rust": {
+    "keys.log": "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+    "messages.log": "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+    "state.log": "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+    "final.save": "8645e37a45bed70a6d5f472004bc019aa5bbd5573ff8092778293f0d499655cc"
+   },
+   "2664122-rust": {
+    "keys.log": "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+    "messages.log": "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+    "state.log": "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+    "final.save": "8645e37a45bed70a6d5f472004bc019aa5bbd5573ff8092778293f0d499655cc"
+   }
+  },
+  "full-0-warrior-2": {
+   "cf20c85-c": {
+    "keys.log": "f105c4a41993b942d71ef430c62868ed9d519a9dd31e83a87f2a23e70d7b76a8",
+    "messages.log": "5aed97394641857414b160bfb23aaab11fbaa2832dbe24d0fd8ad24b0ec6236e",
+    "state.log": "e4cb2423339c6c32d59f73949530b1d8b55fda837182c047596b63c453b872c6",
+    "final.save": "7ec766b049f5aac79b403ce91e82cd43b7869dc2ca5b23044e207acdfe432347"
+   },
+   "cf20c85-rust": {
+    "keys.log": "f105c4a41993b942d71ef430c62868ed9d519a9dd31e83a87f2a23e70d7b76a8",
+    "messages.log": "5aed97394641857414b160bfb23aaab11fbaa2832dbe24d0fd8ad24b0ec6236e",
+    "state.log": "e4cb2423339c6c32d59f73949530b1d8b55fda837182c047596b63c453b872c6",
+    "final.save": "7ec766b049f5aac79b403ce91e82cd43b7869dc2ca5b23044e207acdfe432347"
+   },
+   "2664122-rust": {
+    "keys.log": "f105c4a41993b942d71ef430c62868ed9d519a9dd31e83a87f2a23e70d7b76a8",
+    "messages.log": "5aed97394641857414b160bfb23aaab11fbaa2832dbe24d0fd8ad24b0ec6236e",
+    "state.log": "e4cb2423339c6c32d59f73949530b1d8b55fda837182c047596b63c453b872c6",
+    "final.save": "7ec766b049f5aac79b403ce91e82cd43b7869dc2ca5b23044e207acdfe432347"
+   }
+  },
+  "full-0-warrior-3": {
+   "cf20c85-c": {
+    "keys.log": "740f8729a065fc9729aa6ee269ca0ade12f7d65ca0f5d74b14cb4a5633d02ca1",
+    "messages.log": "30e5b97b2084d87cf4273c78643a6336289294ae947fc369829903e840902162",
+    "state.log": "02c31773176c9ab7d3f759a416b14dac966bcef959b884f01364f7d292f1583e",
+    "final.save": "ba62608aad6530d789bd3ed8e2e8b2efe5daaccf8375b2164bd7d7b80cf38e5b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "740f8729a065fc9729aa6ee269ca0ade12f7d65ca0f5d74b14cb4a5633d02ca1",
+    "messages.log": "30e5b97b2084d87cf4273c78643a6336289294ae947fc369829903e840902162",
+    "state.log": "02c31773176c9ab7d3f759a416b14dac966bcef959b884f01364f7d292f1583e",
+    "final.save": "ba62608aad6530d789bd3ed8e2e8b2efe5daaccf8375b2164bd7d7b80cf38e5b"
+   },
+   "2664122-rust": {
+    "keys.log": "740f8729a065fc9729aa6ee269ca0ade12f7d65ca0f5d74b14cb4a5633d02ca1",
+    "messages.log": "30e5b97b2084d87cf4273c78643a6336289294ae947fc369829903e840902162",
+    "state.log": "02c31773176c9ab7d3f759a416b14dac966bcef959b884f01364f7d292f1583e",
+    "final.save": "ba62608aad6530d789bd3ed8e2e8b2efe5daaccf8375b2164bd7d7b80cf38e5b"
+   }
+  },
+  "full-0-warrior-4": {
+   "cf20c85-c": {
+    "keys.log": "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+    "messages.log": "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+    "state.log": "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+    "final.save": "f68ffa65e4bde3b09f08c7f40212f12a16475bc2a17e3a92869ad10134b9b858"
+   },
+   "cf20c85-rust": {
+    "keys.log": "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+    "messages.log": "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+    "state.log": "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+    "final.save": "f68ffa65e4bde3b09f08c7f40212f12a16475bc2a17e3a92869ad10134b9b858"
+   },
+   "2664122-rust": {
+    "keys.log": "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+    "messages.log": "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+    "state.log": "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+    "final.save": "f68ffa65e4bde3b09f08c7f40212f12a16475bc2a17e3a92869ad10134b9b858"
+   }
+  },
+  "full-1-mage-0": {
+   "cf20c85-c": {
+    "keys.log": "51a85436a0ef391e0b2ac93d9ce7dce0f53ff1d650754eada59a939491a14edf",
+    "messages.log": "bd44bcf3b5ed5c37f950e4a974d6756dc12392ce80ed42a3a7011e780d8fa9d1",
+    "state.log": "a294f7889d6697196417992d293e5e9d50641590ee840eb2f5fc428313ca7e7b",
+    "final.save": "31ffd935f6c77923ebcf43855f39b5ac243b81b36d1025d9acdb0900aa769af6"
+   },
+   "cf20c85-rust": {
+    "keys.log": "51a85436a0ef391e0b2ac93d9ce7dce0f53ff1d650754eada59a939491a14edf",
+    "messages.log": "bd44bcf3b5ed5c37f950e4a974d6756dc12392ce80ed42a3a7011e780d8fa9d1",
+    "state.log": "a294f7889d6697196417992d293e5e9d50641590ee840eb2f5fc428313ca7e7b",
+    "final.save": "31ffd935f6c77923ebcf43855f39b5ac243b81b36d1025d9acdb0900aa769af6"
+   },
+   "2664122-rust": {
+    "keys.log": "51a85436a0ef391e0b2ac93d9ce7dce0f53ff1d650754eada59a939491a14edf",
+    "messages.log": "bd44bcf3b5ed5c37f950e4a974d6756dc12392ce80ed42a3a7011e780d8fa9d1",
+    "state.log": "a294f7889d6697196417992d293e5e9d50641590ee840eb2f5fc428313ca7e7b",
+    "final.save": "31ffd935f6c77923ebcf43855f39b5ac243b81b36d1025d9acdb0900aa769af6"
+   }
+  },
+  "full-1-mage-1": {
+   "cf20c85-c": {
+    "keys.log": "760db90c3d438b3dacdba662693f8f31ae6e6682d1ffdae616b011d95d222206",
+    "messages.log": "9d02f1f1d78c9702aada6af49cdaa0164627e56ca7ec3b74e2f52703ac886027",
+    "state.log": "71d130c469072ea40725d25a5f2d32cd1815d6800881d08b6d06ecabaadf80db",
+    "final.save": "1b4643716a5d5dd9762c9222d52969f93998b27ef44ec0df8764b74979a697b4"
+   },
+   "cf20c85-rust": {
+    "keys.log": "760db90c3d438b3dacdba662693f8f31ae6e6682d1ffdae616b011d95d222206",
+    "messages.log": "9d02f1f1d78c9702aada6af49cdaa0164627e56ca7ec3b74e2f52703ac886027",
+    "state.log": "71d130c469072ea40725d25a5f2d32cd1815d6800881d08b6d06ecabaadf80db",
+    "final.save": "1b4643716a5d5dd9762c9222d52969f93998b27ef44ec0df8764b74979a697b4"
+   },
+   "2664122-rust": {
+    "keys.log": "760db90c3d438b3dacdba662693f8f31ae6e6682d1ffdae616b011d95d222206",
+    "messages.log": "9d02f1f1d78c9702aada6af49cdaa0164627e56ca7ec3b74e2f52703ac886027",
+    "state.log": "71d130c469072ea40725d25a5f2d32cd1815d6800881d08b6d06ecabaadf80db",
+    "final.save": "1b4643716a5d5dd9762c9222d52969f93998b27ef44ec0df8764b74979a697b4"
+   }
+  },
+  "full-1-mage-2": {
+   "cf20c85-c": {
+    "keys.log": "661195d9e7f947bec276985c3bbd085c6bdf61a68cfc1e3b6f4b6981b7bbb9db",
+    "messages.log": "2cec63bb592407d0c50a74d10e524980e4d51d7c0fe05d2803f69818612bac0c",
+    "state.log": "3d6430df2422b5db89bc33e7ad06174fe5053670db84c8611c2862431f898bc5",
+    "final.save": "2ee34df73f14610bf027f142d1417d694dc0d2f2ccf04e9547673502734bf5ac"
+   },
+   "cf20c85-rust": {
+    "keys.log": "661195d9e7f947bec276985c3bbd085c6bdf61a68cfc1e3b6f4b6981b7bbb9db",
+    "messages.log": "2cec63bb592407d0c50a74d10e524980e4d51d7c0fe05d2803f69818612bac0c",
+    "state.log": "3d6430df2422b5db89bc33e7ad06174fe5053670db84c8611c2862431f898bc5",
+    "final.save": "2ee34df73f14610bf027f142d1417d694dc0d2f2ccf04e9547673502734bf5ac"
+   },
+   "2664122-rust": {
+    "keys.log": "661195d9e7f947bec276985c3bbd085c6bdf61a68cfc1e3b6f4b6981b7bbb9db",
+    "messages.log": "2cec63bb592407d0c50a74d10e524980e4d51d7c0fe05d2803f69818612bac0c",
+    "state.log": "3d6430df2422b5db89bc33e7ad06174fe5053670db84c8611c2862431f898bc5",
+    "final.save": "2ee34df73f14610bf027f142d1417d694dc0d2f2ccf04e9547673502734bf5ac"
+   }
+  },
+  "full-1-mage-3": {
+   "cf20c85-c": {
+    "keys.log": "362852e712da3a3fd688934e1b6b8c0b16067a11f72f7b5650b5514c9887c899",
+    "messages.log": "204a1b4ff7537da924a4e5ffd21007d322ca2c7d3aa90291e1f5f5704c560e9b",
+    "state.log": "988879386bad4190257d6da112bcbf3f900096736da112d4f3c07bd984675998",
+    "final.save": "69c12c49b19de578d33b208edb1ccf957ceb2bf72cbc1df4cc912957ef83e443"
+   },
+   "cf20c85-rust": {
+    "keys.log": "362852e712da3a3fd688934e1b6b8c0b16067a11f72f7b5650b5514c9887c899",
+    "messages.log": "204a1b4ff7537da924a4e5ffd21007d322ca2c7d3aa90291e1f5f5704c560e9b",
+    "state.log": "988879386bad4190257d6da112bcbf3f900096736da112d4f3c07bd984675998",
+    "final.save": "69c12c49b19de578d33b208edb1ccf957ceb2bf72cbc1df4cc912957ef83e443"
+   },
+   "2664122-rust": {
+    "keys.log": "362852e712da3a3fd688934e1b6b8c0b16067a11f72f7b5650b5514c9887c899",
+    "messages.log": "204a1b4ff7537da924a4e5ffd21007d322ca2c7d3aa90291e1f5f5704c560e9b",
+    "state.log": "988879386bad4190257d6da112bcbf3f900096736da112d4f3c07bd984675998",
+    "final.save": "69c12c49b19de578d33b208edb1ccf957ceb2bf72cbc1df4cc912957ef83e443"
+   }
+  },
+  "full-1-mage-4": {
+   "cf20c85-c": {
+    "keys.log": "7a2a9e304e1f96280d83fb1bf5603491c055ec21530c4ed1bddcb36443732355",
+    "messages.log": "66b14a6109ba35f54f0dd5febb235f5a316524de74dd11c44ae2a136c746faae",
+    "state.log": "69ce3ecef4acfc5069d3edc341d51098e4a8f474b4f9cdbafe48b47aca3dde4d",
+    "final.save": "df45cdf492109e666b6ed1b1a753a9fd0640ca052da43d38c7cd301e6e7ebbdf"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7a2a9e304e1f96280d83fb1bf5603491c055ec21530c4ed1bddcb36443732355",
+    "messages.log": "66b14a6109ba35f54f0dd5febb235f5a316524de74dd11c44ae2a136c746faae",
+    "state.log": "69ce3ecef4acfc5069d3edc341d51098e4a8f474b4f9cdbafe48b47aca3dde4d",
+    "final.save": "df45cdf492109e666b6ed1b1a753a9fd0640ca052da43d38c7cd301e6e7ebbdf"
+   },
+   "2664122-rust": {
+    "keys.log": "7a2a9e304e1f96280d83fb1bf5603491c055ec21530c4ed1bddcb36443732355",
+    "messages.log": "66b14a6109ba35f54f0dd5febb235f5a316524de74dd11c44ae2a136c746faae",
+    "state.log": "69ce3ecef4acfc5069d3edc341d51098e4a8f474b4f9cdbafe48b47aca3dde4d",
+    "final.save": "df45cdf492109e666b6ed1b1a753a9fd0640ca052da43d38c7cd301e6e7ebbdf"
+   }
+  },
+  "full-2-druid-0": {
+   "cf20c85-c": {
+    "keys.log": "139f383ecbe0d712f4470744dd54f04351af7f27320533c25caf59f8977961eb",
+    "messages.log": "bd480b8343d654ba405a8e86920d19ce808b773e7f4ee6e9992b0391bab21489",
+    "state.log": "9399cd2c67a17c948c6e41fcab77dd2b9951b343ce5662caf0a8eb46bacf5359",
+    "final.save": "d0df77d6910cbafbfaf7d0d77a4913db469c4655f8e2b9051bd494fa1b844162"
+   },
+   "cf20c85-rust": {
+    "keys.log": "139f383ecbe0d712f4470744dd54f04351af7f27320533c25caf59f8977961eb",
+    "messages.log": "bd480b8343d654ba405a8e86920d19ce808b773e7f4ee6e9992b0391bab21489",
+    "state.log": "9399cd2c67a17c948c6e41fcab77dd2b9951b343ce5662caf0a8eb46bacf5359",
+    "final.save": "d0df77d6910cbafbfaf7d0d77a4913db469c4655f8e2b9051bd494fa1b844162"
+   },
+   "2664122-rust": {
+    "keys.log": "139f383ecbe0d712f4470744dd54f04351af7f27320533c25caf59f8977961eb",
+    "messages.log": "bd480b8343d654ba405a8e86920d19ce808b773e7f4ee6e9992b0391bab21489",
+    "state.log": "9399cd2c67a17c948c6e41fcab77dd2b9951b343ce5662caf0a8eb46bacf5359",
+    "final.save": "d0df77d6910cbafbfaf7d0d77a4913db469c4655f8e2b9051bd494fa1b844162"
+   }
+  },
+  "full-2-druid-1": {
+   "cf20c85-c": {
+    "keys.log": "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+    "messages.log": "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+    "state.log": "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+    "final.save": "e1e822bbe5d4e0f30582b762379c012f193fb9fcc117500cac89e0776210c443"
+   },
+   "cf20c85-rust": {
+    "keys.log": "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+    "messages.log": "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+    "state.log": "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+    "final.save": "e1e822bbe5d4e0f30582b762379c012f193fb9fcc117500cac89e0776210c443"
+   },
+   "2664122-rust": {
+    "keys.log": "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+    "messages.log": "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+    "state.log": "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+    "final.save": "e1e822bbe5d4e0f30582b762379c012f193fb9fcc117500cac89e0776210c443"
+   }
+  },
+  "full-2-druid-2": {
+   "cf20c85-c": {
+    "keys.log": "0be46717952091eabbeb8394fdb9f34502113ae10a8dd5f31240d2d59ef3fd64",
+    "messages.log": "eeffaa0165f3628b4d12f2434e983a8cc103b12a9fa7de9da397b6ed6f1faec5",
+    "state.log": "15dbb048ce8fb06b7ef151a365d325dbb61031773c952fbe7511fa01dfb8403a",
+    "final.save": "1a18f9f40da3cf06c111065c195a58500398540010dfa6b968aa3dce6385c037"
+   },
+   "cf20c85-rust": {
+    "keys.log": "0be46717952091eabbeb8394fdb9f34502113ae10a8dd5f31240d2d59ef3fd64",
+    "messages.log": "eeffaa0165f3628b4d12f2434e983a8cc103b12a9fa7de9da397b6ed6f1faec5",
+    "state.log": "15dbb048ce8fb06b7ef151a365d325dbb61031773c952fbe7511fa01dfb8403a",
+    "final.save": "1a18f9f40da3cf06c111065c195a58500398540010dfa6b968aa3dce6385c037"
+   },
+   "2664122-rust": {
+    "keys.log": "0be46717952091eabbeb8394fdb9f34502113ae10a8dd5f31240d2d59ef3fd64",
+    "messages.log": "eeffaa0165f3628b4d12f2434e983a8cc103b12a9fa7de9da397b6ed6f1faec5",
+    "state.log": "15dbb048ce8fb06b7ef151a365d325dbb61031773c952fbe7511fa01dfb8403a",
+    "final.save": "1a18f9f40da3cf06c111065c195a58500398540010dfa6b968aa3dce6385c037"
+   }
+  },
+  "full-2-druid-3": {
+   "cf20c85-c": {
+    "keys.log": "21a0e3068992856a284c5919b2b1a269db6f867a77c6040bfe9343b009af7a3a",
+    "messages.log": "8cec50872821919a6fc369f9aa49428e94cd3ede70ed38e15eeb461be92764f0",
+    "state.log": "e82b30268e513a41a7d8ca8fb0260194c49d3c636d6318b5f37aa4d2bc007788",
+    "final.save": "09399efeabbcbe32b9f19e8815c7cb3f64e301e92dea1695d17f4dd9c9d15c31"
+   },
+   "cf20c85-rust": {
+    "keys.log": "21a0e3068992856a284c5919b2b1a269db6f867a77c6040bfe9343b009af7a3a",
+    "messages.log": "8cec50872821919a6fc369f9aa49428e94cd3ede70ed38e15eeb461be92764f0",
+    "state.log": "e82b30268e513a41a7d8ca8fb0260194c49d3c636d6318b5f37aa4d2bc007788",
+    "final.save": "09399efeabbcbe32b9f19e8815c7cb3f64e301e92dea1695d17f4dd9c9d15c31"
+   },
+   "2664122-rust": {
+    "keys.log": "21a0e3068992856a284c5919b2b1a269db6f867a77c6040bfe9343b009af7a3a",
+    "messages.log": "8cec50872821919a6fc369f9aa49428e94cd3ede70ed38e15eeb461be92764f0",
+    "state.log": "e82b30268e513a41a7d8ca8fb0260194c49d3c636d6318b5f37aa4d2bc007788",
+    "final.save": "09399efeabbcbe32b9f19e8815c7cb3f64e301e92dea1695d17f4dd9c9d15c31"
+   }
+  },
+  "full-2-druid-4": {
+   "cf20c85-c": {
+    "keys.log": "f9c7d9f87561fcc5b10547aa3dbbcb207e03e3e38abf55277ee7bd4c7c62671b",
+    "messages.log": "e4ae6181c504f317020b352c4980bf2cd03bf9800723a7ee46c0328fe09d0f8e",
+    "state.log": "51503a6a38e75da377d32ae6aa8efc30fd2c13d619b250f9711e7fa92deebbf9",
+    "final.save": "d171096fde8142d1f9cd8db10f7907274c13adfbb2919ad2f8941e1b4a16e482"
+   },
+   "cf20c85-rust": {
+    "keys.log": "f9c7d9f87561fcc5b10547aa3dbbcb207e03e3e38abf55277ee7bd4c7c62671b",
+    "messages.log": "e4ae6181c504f317020b352c4980bf2cd03bf9800723a7ee46c0328fe09d0f8e",
+    "state.log": "51503a6a38e75da377d32ae6aa8efc30fd2c13d619b250f9711e7fa92deebbf9",
+    "final.save": "d171096fde8142d1f9cd8db10f7907274c13adfbb2919ad2f8941e1b4a16e482"
+   },
+   "2664122-rust": {
+    "keys.log": "f9c7d9f87561fcc5b10547aa3dbbcb207e03e3e38abf55277ee7bd4c7c62671b",
+    "messages.log": "e4ae6181c504f317020b352c4980bf2cd03bf9800723a7ee46c0328fe09d0f8e",
+    "state.log": "51503a6a38e75da377d32ae6aa8efc30fd2c13d619b250f9711e7fa92deebbf9",
+    "final.save": "d171096fde8142d1f9cd8db10f7907274c13adfbb2919ad2f8941e1b4a16e482"
+   }
+  },
+  "full-3-priest-0": {
+   "cf20c85-c": {
+    "keys.log": "d2fd3be936846b63aaf1ac145ebca0cbaca8f3cb4d55df2c3df8044ca1c62b41",
+    "messages.log": "19fb5538f1d0f91c74c1b901627b2739e0015389ea4fa7432a443db94595b509",
+    "state.log": "e155785026d5d12aa60111bb3eb235cc8e0235206012294725149a6f21993744",
+    "final.save": "54416822db17b5bdcb8b4e4882edd848b5565c2a4d75dac52cbdae78320d3fec"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d2fd3be936846b63aaf1ac145ebca0cbaca8f3cb4d55df2c3df8044ca1c62b41",
+    "messages.log": "19fb5538f1d0f91c74c1b901627b2739e0015389ea4fa7432a443db94595b509",
+    "state.log": "e155785026d5d12aa60111bb3eb235cc8e0235206012294725149a6f21993744",
+    "final.save": "54416822db17b5bdcb8b4e4882edd848b5565c2a4d75dac52cbdae78320d3fec"
+   },
+   "2664122-rust": {
+    "keys.log": "d2fd3be936846b63aaf1ac145ebca0cbaca8f3cb4d55df2c3df8044ca1c62b41",
+    "messages.log": "19fb5538f1d0f91c74c1b901627b2739e0015389ea4fa7432a443db94595b509",
+    "state.log": "e155785026d5d12aa60111bb3eb235cc8e0235206012294725149a6f21993744",
+    "final.save": "54416822db17b5bdcb8b4e4882edd848b5565c2a4d75dac52cbdae78320d3fec"
+   }
+  },
+  "full-3-priest-1": {
+   "cf20c85-c": {
+    "keys.log": "a17fed185b5f2c527a79dccb3b01588fbe1b304af921ca37a908812f39d15d6f",
+    "messages.log": "ee047ba2d55bb866c1d6a1e1a4089746dff9044794bdf21cbbfa41ddab991263",
+    "state.log": "e2964b795235ac1435159c539d68a3b316a3c9730826c41ff7d5d244eeb0d4a2",
+    "final.save": "a161adbbdcba869da27cf4bf48ca1824006c2802fac49d6346ad9ccfaba53be1"
+   },
+   "cf20c85-rust": {
+    "keys.log": "a17fed185b5f2c527a79dccb3b01588fbe1b304af921ca37a908812f39d15d6f",
+    "messages.log": "ee047ba2d55bb866c1d6a1e1a4089746dff9044794bdf21cbbfa41ddab991263",
+    "state.log": "e2964b795235ac1435159c539d68a3b316a3c9730826c41ff7d5d244eeb0d4a2",
+    "final.save": "a161adbbdcba869da27cf4bf48ca1824006c2802fac49d6346ad9ccfaba53be1"
+   },
+   "2664122-rust": {
+    "keys.log": "a17fed185b5f2c527a79dccb3b01588fbe1b304af921ca37a908812f39d15d6f",
+    "messages.log": "ee047ba2d55bb866c1d6a1e1a4089746dff9044794bdf21cbbfa41ddab991263",
+    "state.log": "e2964b795235ac1435159c539d68a3b316a3c9730826c41ff7d5d244eeb0d4a2",
+    "final.save": "a161adbbdcba869da27cf4bf48ca1824006c2802fac49d6346ad9ccfaba53be1"
+   }
+  },
+  "full-3-priest-2": {
+   "cf20c85-c": {
+    "keys.log": "460f972a4bc3adeb56398e4caf1811679a9a5e0d55815c18f80bddcc28919c82",
+    "messages.log": "4fd0a0b03faf8f9e14ef2bce6f54735d6fe1d8bcee214183bb10b75e161b5d09",
+    "state.log": "3749131d1919d7ec416a060f62dbeb71469cd56f095d7c54134f447393714262",
+    "final.save": "105007e8852590b3960d67cf45f7a7fa827ee034aabe6f91954eab639f227af7"
+   },
+   "cf20c85-rust": {
+    "keys.log": "460f972a4bc3adeb56398e4caf1811679a9a5e0d55815c18f80bddcc28919c82",
+    "messages.log": "4fd0a0b03faf8f9e14ef2bce6f54735d6fe1d8bcee214183bb10b75e161b5d09",
+    "state.log": "3749131d1919d7ec416a060f62dbeb71469cd56f095d7c54134f447393714262",
+    "final.save": "105007e8852590b3960d67cf45f7a7fa827ee034aabe6f91954eab639f227af7"
+   },
+   "2664122-rust": {
+    "keys.log": "460f972a4bc3adeb56398e4caf1811679a9a5e0d55815c18f80bddcc28919c82",
+    "messages.log": "4fd0a0b03faf8f9e14ef2bce6f54735d6fe1d8bcee214183bb10b75e161b5d09",
+    "state.log": "3749131d1919d7ec416a060f62dbeb71469cd56f095d7c54134f447393714262",
+    "final.save": "105007e8852590b3960d67cf45f7a7fa827ee034aabe6f91954eab639f227af7"
+   }
+  },
+  "full-3-priest-3": {
+   "cf20c85-c": {
+    "keys.log": "c746443e0d2a2be963b0850f136f18462e6ad86e3e83f9369937b066f6ae8217",
+    "messages.log": "b463e6e54905a2f6d7d2bdb4ec3987902f75e529fac1fa8c1ce83aca494a7718",
+    "state.log": "fe90c222e7093ffe42facf168a4778ed5e2223d95837ac2226e34b13d9a726c5",
+    "final.save": "68578111faed73e57b466c2f8ad5217bf518ad47ba6ad63847656aae08d3706a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "c746443e0d2a2be963b0850f136f18462e6ad86e3e83f9369937b066f6ae8217",
+    "messages.log": "b463e6e54905a2f6d7d2bdb4ec3987902f75e529fac1fa8c1ce83aca494a7718",
+    "state.log": "fe90c222e7093ffe42facf168a4778ed5e2223d95837ac2226e34b13d9a726c5",
+    "final.save": "68578111faed73e57b466c2f8ad5217bf518ad47ba6ad63847656aae08d3706a"
+   },
+   "2664122-rust": {
+    "keys.log": "c746443e0d2a2be963b0850f136f18462e6ad86e3e83f9369937b066f6ae8217",
+    "messages.log": "b463e6e54905a2f6d7d2bdb4ec3987902f75e529fac1fa8c1ce83aca494a7718",
+    "state.log": "fe90c222e7093ffe42facf168a4778ed5e2223d95837ac2226e34b13d9a726c5",
+    "final.save": "68578111faed73e57b466c2f8ad5217bf518ad47ba6ad63847656aae08d3706a"
+   }
+  },
+  "full-3-priest-4": {
+   "cf20c85-c": {
+    "keys.log": "0ec64949e8c17fb2fb0cd5edd40fea1e767795ad6cf1526d3f8fd0f356ccf275",
+    "messages.log": "91ebf0aa5dfefcb2553a0a97171da5f813fe8a80391e7d4fdc08003850ff5481",
+    "state.log": "03cce092e747fcaf7bb4ae18cb061c227b59617f4d1bf68f4c24fec8656a4b9f",
+    "final.save": "6d467f96fa08947d4039a0e99696b1ca70924e62e86929b676ec8112566e8031"
+   },
+   "cf20c85-rust": {
+    "keys.log": "0ec64949e8c17fb2fb0cd5edd40fea1e767795ad6cf1526d3f8fd0f356ccf275",
+    "messages.log": "91ebf0aa5dfefcb2553a0a97171da5f813fe8a80391e7d4fdc08003850ff5481",
+    "state.log": "03cce092e747fcaf7bb4ae18cb061c227b59617f4d1bf68f4c24fec8656a4b9f",
+    "final.save": "6d467f96fa08947d4039a0e99696b1ca70924e62e86929b676ec8112566e8031"
+   },
+   "2664122-rust": {
+    "keys.log": "0ec64949e8c17fb2fb0cd5edd40fea1e767795ad6cf1526d3f8fd0f356ccf275",
+    "messages.log": "91ebf0aa5dfefcb2553a0a97171da5f813fe8a80391e7d4fdc08003850ff5481",
+    "state.log": "03cce092e747fcaf7bb4ae18cb061c227b59617f4d1bf68f4c24fec8656a4b9f",
+    "final.save": "6d467f96fa08947d4039a0e99696b1ca70924e62e86929b676ec8112566e8031"
+   }
+  },
+  "full-4-necro-0": {
+   "cf20c85-c": {
+    "keys.log": "479a892ab95d5e0255ec0cfbc8256e2950f4472439d14b54e404e7fff99783f9",
+    "messages.log": "88510986922da62074d391d29e95869b69f3cd8731aa2f27c8b4573f1550a680",
+    "state.log": "540fed8e884a4c7a3176bbb85e84023cd1efda33df7acaeec3083f9ac13574a6",
+    "final.save": "61f9a45733dc1b3499df72bf66083feb36b4ab7046384d099d3025b4a032dd78"
+   },
+   "cf20c85-rust": {
+    "keys.log": "479a892ab95d5e0255ec0cfbc8256e2950f4472439d14b54e404e7fff99783f9",
+    "messages.log": "88510986922da62074d391d29e95869b69f3cd8731aa2f27c8b4573f1550a680",
+    "state.log": "540fed8e884a4c7a3176bbb85e84023cd1efda33df7acaeec3083f9ac13574a6",
+    "final.save": "61f9a45733dc1b3499df72bf66083feb36b4ab7046384d099d3025b4a032dd78"
+   },
+   "2664122-rust": {
+    "keys.log": "479a892ab95d5e0255ec0cfbc8256e2950f4472439d14b54e404e7fff99783f9",
+    "messages.log": "88510986922da62074d391d29e95869b69f3cd8731aa2f27c8b4573f1550a680",
+    "state.log": "540fed8e884a4c7a3176bbb85e84023cd1efda33df7acaeec3083f9ac13574a6",
+    "final.save": "61f9a45733dc1b3499df72bf66083feb36b4ab7046384d099d3025b4a032dd78"
+   }
+  },
+  "full-4-necro-1": {
+   "cf20c85-c": {
+    "keys.log": "ef63eb3b627d9e0165bdebecb16494c1ea17a12a40f5e8867e1d313c534325c5",
+    "messages.log": "2c3a4be7a529444577bc56dadc7791aa1d794e88541988542d36fc788753023c",
+    "state.log": "1c2e9f60ebe4ad90a8e5d7047fac25fceaa9a960d243e3e90c8363b4c9f59b27",
+    "final.save": "c25211a0c1e04ec509732809b88e62c5867cdd8c777cddba2c35ed3d89e7df45"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ef63eb3b627d9e0165bdebecb16494c1ea17a12a40f5e8867e1d313c534325c5",
+    "messages.log": "2c3a4be7a529444577bc56dadc7791aa1d794e88541988542d36fc788753023c",
+    "state.log": "1c2e9f60ebe4ad90a8e5d7047fac25fceaa9a960d243e3e90c8363b4c9f59b27",
+    "final.save": "c25211a0c1e04ec509732809b88e62c5867cdd8c777cddba2c35ed3d89e7df45"
+   },
+   "2664122-rust": {
+    "keys.log": "ef63eb3b627d9e0165bdebecb16494c1ea17a12a40f5e8867e1d313c534325c5",
+    "messages.log": "2c3a4be7a529444577bc56dadc7791aa1d794e88541988542d36fc788753023c",
+    "state.log": "1c2e9f60ebe4ad90a8e5d7047fac25fceaa9a960d243e3e90c8363b4c9f59b27",
+    "final.save": "c25211a0c1e04ec509732809b88e62c5867cdd8c777cddba2c35ed3d89e7df45"
+   }
+  },
+  "full-4-necro-2": {
+   "cf20c85-c": {
+    "keys.log": "42e99746eeb775d63521a4cb0fb4253f5b4ca4cae1d5beef443b2a161af437ad",
+    "messages.log": "a059ab49bbf78025c9001116a1cab05617b56290343bbb9ef8b1e94adcd1becc",
+    "state.log": "5b9d75402506a7f2f0187754ce05183e111675c707ead9ed86d1e3020f78546a",
+    "final.save": "47e1fc05fda46780a829641a62b38c9c7dc2326cc5ac934d3add536e52159164"
+   },
+   "cf20c85-rust": {
+    "keys.log": "42e99746eeb775d63521a4cb0fb4253f5b4ca4cae1d5beef443b2a161af437ad",
+    "messages.log": "a059ab49bbf78025c9001116a1cab05617b56290343bbb9ef8b1e94adcd1becc",
+    "state.log": "5b9d75402506a7f2f0187754ce05183e111675c707ead9ed86d1e3020f78546a",
+    "final.save": "47e1fc05fda46780a829641a62b38c9c7dc2326cc5ac934d3add536e52159164"
+   },
+   "2664122-rust": {
+    "keys.log": "42e99746eeb775d63521a4cb0fb4253f5b4ca4cae1d5beef443b2a161af437ad",
+    "messages.log": "a059ab49bbf78025c9001116a1cab05617b56290343bbb9ef8b1e94adcd1becc",
+    "state.log": "5b9d75402506a7f2f0187754ce05183e111675c707ead9ed86d1e3020f78546a",
+    "final.save": "47e1fc05fda46780a829641a62b38c9c7dc2326cc5ac934d3add536e52159164"
+   }
+  },
+  "full-4-necro-3": {
+   "cf20c85-c": {
+    "keys.log": "a3cc7a1354040e3cf72614f25f1b4093e05e632c31afb49e3c87c172f333bdeb",
+    "messages.log": "bec15ccb86baef667504100a4912af7a00251ebcfd23235f2318d366a3722bcd",
+    "state.log": "52b284245a68f8139489ba3c176c5b542e9a0e587f4ed3c6c2341fc31810831f",
+    "final.save": "eb57784780b80e2cee0dc0fecc789c955a048571dfe1a777e3af896f541c7f8e"
+   },
+   "cf20c85-rust": {
+    "keys.log": "a3cc7a1354040e3cf72614f25f1b4093e05e632c31afb49e3c87c172f333bdeb",
+    "messages.log": "bec15ccb86baef667504100a4912af7a00251ebcfd23235f2318d366a3722bcd",
+    "state.log": "52b284245a68f8139489ba3c176c5b542e9a0e587f4ed3c6c2341fc31810831f",
+    "final.save": "eb57784780b80e2cee0dc0fecc789c955a048571dfe1a777e3af896f541c7f8e"
+   },
+   "2664122-rust": {
+    "keys.log": "a3cc7a1354040e3cf72614f25f1b4093e05e632c31afb49e3c87c172f333bdeb",
+    "messages.log": "bec15ccb86baef667504100a4912af7a00251ebcfd23235f2318d366a3722bcd",
+    "state.log": "52b284245a68f8139489ba3c176c5b542e9a0e587f4ed3c6c2341fc31810831f",
+    "final.save": "eb57784780b80e2cee0dc0fecc789c955a048571dfe1a777e3af896f541c7f8e"
+   }
+  },
+  "full-4-necro-4": {
+   "cf20c85-c": {
+    "keys.log": "78890085690e2c4edf1bdb4c12078087f025c64ffcd097f7552b58281c701463",
+    "messages.log": "a797dabc3ff6b396442f9d246b1c891606acb7a28a3e2c38147c572fd7a1dc72",
+    "state.log": "fd716e989365a4aef9bc491b7649588ceb2a378e5aaf52e53d233448dc4ed563",
+    "final.save": "cc5164d165fc08a2d83cdd6b9786d0ade5005feac3510dade5cd8986baddd26b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "78890085690e2c4edf1bdb4c12078087f025c64ffcd097f7552b58281c701463",
+    "messages.log": "a797dabc3ff6b396442f9d246b1c891606acb7a28a3e2c38147c572fd7a1dc72",
+    "state.log": "fd716e989365a4aef9bc491b7649588ceb2a378e5aaf52e53d233448dc4ed563",
+    "final.save": "cc5164d165fc08a2d83cdd6b9786d0ade5005feac3510dade5cd8986baddd26b"
+   },
+   "2664122-rust": {
+    "keys.log": "78890085690e2c4edf1bdb4c12078087f025c64ffcd097f7552b58281c701463",
+    "messages.log": "a797dabc3ff6b396442f9d246b1c891606acb7a28a3e2c38147c572fd7a1dc72",
+    "state.log": "fd716e989365a4aef9bc491b7649588ceb2a378e5aaf52e53d233448dc4ed563",
+    "final.save": "cc5164d165fc08a2d83cdd6b9786d0ade5005feac3510dade5cd8986baddd26b"
+   }
+  },
+  "full-5-paladin-0": {
+   "cf20c85-c": {
+    "keys.log": "aa93b6e06e907ae295084664bacba48c188b0de27b92816bd35a1ba606bae59d",
+    "messages.log": "72f88d10484d17a11d1f79f49fdc0000a1d6173672e0af6c3afb57c46e5e13a4",
+    "state.log": "883b2b40cb82770bc7b7184887b8c7151cf500d280c0e3dfb21de3837cfeec74",
+    "final.save": "a9372201192d081364500765d21cb158bfce201c222b814913c138b39ef3899a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "aa93b6e06e907ae295084664bacba48c188b0de27b92816bd35a1ba606bae59d",
+    "messages.log": "72f88d10484d17a11d1f79f49fdc0000a1d6173672e0af6c3afb57c46e5e13a4",
+    "state.log": "883b2b40cb82770bc7b7184887b8c7151cf500d280c0e3dfb21de3837cfeec74",
+    "final.save": "a9372201192d081364500765d21cb158bfce201c222b814913c138b39ef3899a"
+   },
+   "2664122-rust": {
+    "keys.log": "aa93b6e06e907ae295084664bacba48c188b0de27b92816bd35a1ba606bae59d",
+    "messages.log": "72f88d10484d17a11d1f79f49fdc0000a1d6173672e0af6c3afb57c46e5e13a4",
+    "state.log": "883b2b40cb82770bc7b7184887b8c7151cf500d280c0e3dfb21de3837cfeec74",
+    "final.save": "a9372201192d081364500765d21cb158bfce201c222b814913c138b39ef3899a"
+   }
+  },
+  "full-5-paladin-1": {
+   "cf20c85-c": {
+    "keys.log": "5a2f94431c1bd2a783d69d531f52dce57d3c6e6118291c46d5994cbfd4e1285e",
+    "messages.log": "24803e2b8c706de39285aa526fc3818964e138d30a89b3fd60e1b99095bcf150",
+    "state.log": "03f1f628b119d935313073173c32287c5273565a9c247c62614f62506f13c940",
+    "final.save": "92eb211ad298c37f7629362c5f3d337fb6ca0eddd003515b3c987c0f06862433"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5a2f94431c1bd2a783d69d531f52dce57d3c6e6118291c46d5994cbfd4e1285e",
+    "messages.log": "24803e2b8c706de39285aa526fc3818964e138d30a89b3fd60e1b99095bcf150",
+    "state.log": "03f1f628b119d935313073173c32287c5273565a9c247c62614f62506f13c940",
+    "final.save": "92eb211ad298c37f7629362c5f3d337fb6ca0eddd003515b3c987c0f06862433"
+   },
+   "2664122-rust": {
+    "keys.log": "5a2f94431c1bd2a783d69d531f52dce57d3c6e6118291c46d5994cbfd4e1285e",
+    "messages.log": "24803e2b8c706de39285aa526fc3818964e138d30a89b3fd60e1b99095bcf150",
+    "state.log": "03f1f628b119d935313073173c32287c5273565a9c247c62614f62506f13c940",
+    "final.save": "92eb211ad298c37f7629362c5f3d337fb6ca0eddd003515b3c987c0f06862433"
+   }
+  },
+  "full-5-paladin-2": {
+   "cf20c85-c": {
+    "keys.log": "b820a38acb4db56e2ccca9f2bbedb48072ee3ea4be76b9d3f41916764ad2bd47",
+    "messages.log": "f2d90f5eec9f84a5ccf316a76d333c8e17e63cea419d29b2e2613d5d6ecec985",
+    "state.log": "736aab09e5590a5d359d48b30eead786bff03ab57e3b962ad9dd1d0cf9fa24bf",
+    "final.save": "df42ab0d2faf861b907d02cf8ea618343146d257fd6c6ee36cfa9242a9627f5d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b820a38acb4db56e2ccca9f2bbedb48072ee3ea4be76b9d3f41916764ad2bd47",
+    "messages.log": "f2d90f5eec9f84a5ccf316a76d333c8e17e63cea419d29b2e2613d5d6ecec985",
+    "state.log": "736aab09e5590a5d359d48b30eead786bff03ab57e3b962ad9dd1d0cf9fa24bf",
+    "final.save": "df42ab0d2faf861b907d02cf8ea618343146d257fd6c6ee36cfa9242a9627f5d"
+   },
+   "2664122-rust": {
+    "keys.log": "b820a38acb4db56e2ccca9f2bbedb48072ee3ea4be76b9d3f41916764ad2bd47",
+    "messages.log": "f2d90f5eec9f84a5ccf316a76d333c8e17e63cea419d29b2e2613d5d6ecec985",
+    "state.log": "736aab09e5590a5d359d48b30eead786bff03ab57e3b962ad9dd1d0cf9fa24bf",
+    "final.save": "df42ab0d2faf861b907d02cf8ea618343146d257fd6c6ee36cfa9242a9627f5d"
+   }
+  },
+  "full-5-paladin-3": {
+   "cf20c85-c": {
+    "keys.log": "f1927df80647bb4bcc8f1d6a18acb8f7023eea61dd5615887d3d2d0abe510d9a",
+    "messages.log": "51068140f2a9b8f8edc2ad7e03c26e8cf6a18aa538b81ab1fea36aabc0576f82",
+    "state.log": "3b266d1664fc09cfb2640796a56a7276d4dc4dc7309f8eeb256dd31b70f49d7b",
+    "final.save": "39664d2d5dc3556523a948ab1849124ac6694f4ce14ce6eb42409019cde54a73"
+   },
+   "cf20c85-rust": {
+    "keys.log": "f1927df80647bb4bcc8f1d6a18acb8f7023eea61dd5615887d3d2d0abe510d9a",
+    "messages.log": "51068140f2a9b8f8edc2ad7e03c26e8cf6a18aa538b81ab1fea36aabc0576f82",
+    "state.log": "3b266d1664fc09cfb2640796a56a7276d4dc4dc7309f8eeb256dd31b70f49d7b",
+    "final.save": "39664d2d5dc3556523a948ab1849124ac6694f4ce14ce6eb42409019cde54a73"
+   },
+   "2664122-rust": {
+    "keys.log": "f1927df80647bb4bcc8f1d6a18acb8f7023eea61dd5615887d3d2d0abe510d9a",
+    "messages.log": "51068140f2a9b8f8edc2ad7e03c26e8cf6a18aa538b81ab1fea36aabc0576f82",
+    "state.log": "3b266d1664fc09cfb2640796a56a7276d4dc4dc7309f8eeb256dd31b70f49d7b",
+    "final.save": "39664d2d5dc3556523a948ab1849124ac6694f4ce14ce6eb42409019cde54a73"
+   }
+  },
+  "full-5-paladin-4": {
+   "cf20c85-c": {
+    "keys.log": "4b823f242c25a037ac5540cb0b29600b629417127bc5a6fa8099d187083c0f90",
+    "messages.log": "cfa86f46f3201d4f627a5d8e570dd95baaafe032c1135c7ce8125674bee25fbd",
+    "state.log": "cb50ea1327672b7628fccc17db49c8f440efe526349a9c46903b714ee6b9b42b",
+    "final.save": "6f4e1c9194f5f81f8a2abb8654155224c00718588494ab3d36aca09327dba036"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4b823f242c25a037ac5540cb0b29600b629417127bc5a6fa8099d187083c0f90",
+    "messages.log": "cfa86f46f3201d4f627a5d8e570dd95baaafe032c1135c7ce8125674bee25fbd",
+    "state.log": "cb50ea1327672b7628fccc17db49c8f440efe526349a9c46903b714ee6b9b42b",
+    "final.save": "6f4e1c9194f5f81f8a2abb8654155224c00718588494ab3d36aca09327dba036"
+   },
+   "2664122-rust": {
+    "keys.log": "4b823f242c25a037ac5540cb0b29600b629417127bc5a6fa8099d187083c0f90",
+    "messages.log": "cfa86f46f3201d4f627a5d8e570dd95baaafe032c1135c7ce8125674bee25fbd",
+    "state.log": "cb50ea1327672b7628fccc17db49c8f440efe526349a9c46903b714ee6b9b42b",
+    "final.save": "6f4e1c9194f5f81f8a2abb8654155224c00718588494ab3d36aca09327dba036"
+   }
+  },
+  "full-6-rogue-0": {
+   "cf20c85-c": {
+    "keys.log": "5541064745404c9157a32eec5bd1d012db35bdcd48d9fa6debb8f2ac3a7fcdbe",
+    "messages.log": "9a34177dc1e65104d8382dea681efd0b2f8f6b3018b3404111442e89e9aaaf9a",
+    "state.log": "5596c57402d843bde5fd00777b4a0021d22048d05c241af778b737400470678e",
+    "final.save": "0c7acf044c2692f4a4f95297a591a58de741ef1139943fc8c435a9c0d312e725"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5541064745404c9157a32eec5bd1d012db35bdcd48d9fa6debb8f2ac3a7fcdbe",
+    "messages.log": "9a34177dc1e65104d8382dea681efd0b2f8f6b3018b3404111442e89e9aaaf9a",
+    "state.log": "5596c57402d843bde5fd00777b4a0021d22048d05c241af778b737400470678e",
+    "final.save": "0c7acf044c2692f4a4f95297a591a58de741ef1139943fc8c435a9c0d312e725"
+   },
+   "2664122-rust": {
+    "keys.log": "5541064745404c9157a32eec5bd1d012db35bdcd48d9fa6debb8f2ac3a7fcdbe",
+    "messages.log": "9a34177dc1e65104d8382dea681efd0b2f8f6b3018b3404111442e89e9aaaf9a",
+    "state.log": "5596c57402d843bde5fd00777b4a0021d22048d05c241af778b737400470678e",
+    "final.save": "0c7acf044c2692f4a4f95297a591a58de741ef1139943fc8c435a9c0d312e725"
+   }
+  },
+  "full-6-rogue-1": {
+   "cf20c85-c": {
+    "keys.log": "93d12aa518d348682e38af476fb5feccd1e2125a989202aae382665dd17aaee6",
+    "messages.log": "f50120671580d091b8e44a03de5e7c4066d09275c3bb3cc249833fddc1e18e54",
+    "state.log": "95275f17574e32b0d0509517eaa3229a15e35cbf77d48af0cfffecb0272375eb",
+    "final.save": "da7bb651a42c2134a213fb059251efc6d6867f12ca6c159108e4e044ccaab69a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "93d12aa518d348682e38af476fb5feccd1e2125a989202aae382665dd17aaee6",
+    "messages.log": "f50120671580d091b8e44a03de5e7c4066d09275c3bb3cc249833fddc1e18e54",
+    "state.log": "95275f17574e32b0d0509517eaa3229a15e35cbf77d48af0cfffecb0272375eb",
+    "final.save": "da7bb651a42c2134a213fb059251efc6d6867f12ca6c159108e4e044ccaab69a"
+   },
+   "2664122-rust": {
+    "keys.log": "93d12aa518d348682e38af476fb5feccd1e2125a989202aae382665dd17aaee6",
+    "messages.log": "f50120671580d091b8e44a03de5e7c4066d09275c3bb3cc249833fddc1e18e54",
+    "state.log": "95275f17574e32b0d0509517eaa3229a15e35cbf77d48af0cfffecb0272375eb",
+    "final.save": "da7bb651a42c2134a213fb059251efc6d6867f12ca6c159108e4e044ccaab69a"
+   }
+  },
+  "full-6-rogue-2": {
+   "cf20c85-c": {
+    "keys.log": "d04cfd97ffd32cfacb5ff4cb173697f35aa6372e7bc31e6d8a751359aa7a9dfe",
+    "messages.log": "7f32476b056bddfa28e11da285b9c0d6e9264b39a46f37c2d2b01c3e489758cf",
+    "state.log": "1e1baafba8c39022889837df7f65f1410ba225d853819f8859bf0409370b3914",
+    "final.save": "a356b5688c7abd2e606a9d4a19710cf0861fcdf58b01e28fb2e6bd8c10c6f24d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d04cfd97ffd32cfacb5ff4cb173697f35aa6372e7bc31e6d8a751359aa7a9dfe",
+    "messages.log": "7f32476b056bddfa28e11da285b9c0d6e9264b39a46f37c2d2b01c3e489758cf",
+    "state.log": "1e1baafba8c39022889837df7f65f1410ba225d853819f8859bf0409370b3914",
+    "final.save": "a356b5688c7abd2e606a9d4a19710cf0861fcdf58b01e28fb2e6bd8c10c6f24d"
+   },
+   "2664122-rust": {
+    "keys.log": "d04cfd97ffd32cfacb5ff4cb173697f35aa6372e7bc31e6d8a751359aa7a9dfe",
+    "messages.log": "7f32476b056bddfa28e11da285b9c0d6e9264b39a46f37c2d2b01c3e489758cf",
+    "state.log": "1e1baafba8c39022889837df7f65f1410ba225d853819f8859bf0409370b3914",
+    "final.save": "a356b5688c7abd2e606a9d4a19710cf0861fcdf58b01e28fb2e6bd8c10c6f24d"
+   }
+  },
+  "full-6-rogue-3": {
+   "cf20c85-c": {
+    "keys.log": "c381252c048ad6a37d7aa68ad2a3a4faa4a5cdd2259524cb89fb611c7c064fb6",
+    "messages.log": "28907cd36d890a1236e6cbaadab2ad94fbf0d00826a80b3daacfc35c5d83f967",
+    "state.log": "66c9b2f808df16f0a8219afa05ed281889bc96731312556f52cd7fdb907b972b",
+    "final.save": "527d203766ee4d0e7fce75e8e0a6aca148ed8ee510ce4f16bdf96543f603ddac"
+   },
+   "cf20c85-rust": {
+    "keys.log": "c381252c048ad6a37d7aa68ad2a3a4faa4a5cdd2259524cb89fb611c7c064fb6",
+    "messages.log": "28907cd36d890a1236e6cbaadab2ad94fbf0d00826a80b3daacfc35c5d83f967",
+    "state.log": "66c9b2f808df16f0a8219afa05ed281889bc96731312556f52cd7fdb907b972b",
+    "final.save": "527d203766ee4d0e7fce75e8e0a6aca148ed8ee510ce4f16bdf96543f603ddac"
+   },
+   "2664122-rust": {
+    "keys.log": "c381252c048ad6a37d7aa68ad2a3a4faa4a5cdd2259524cb89fb611c7c064fb6",
+    "messages.log": "28907cd36d890a1236e6cbaadab2ad94fbf0d00826a80b3daacfc35c5d83f967",
+    "state.log": "66c9b2f808df16f0a8219afa05ed281889bc96731312556f52cd7fdb907b972b",
+    "final.save": "527d203766ee4d0e7fce75e8e0a6aca148ed8ee510ce4f16bdf96543f603ddac"
+   }
+  },
+  "full-6-rogue-4": {
+   "cf20c85-c": {
+    "keys.log": "ab56a5125ec8e15438c7eaf49657ac922712d0da98c48fe1c364545b9466cfbd",
+    "messages.log": "247f385e48fbc09123756ae32b97e2d8f7545630bf757486ff942faea4fcd630",
+    "state.log": "54ef9cc1481d9b5c05bdd557d5e5f2a8e7a2097ed1ce5b35b53c4c82bad16c89",
+    "final.save": "d76676f709f95ef879058e63124e926c886dc39834fd0c452213ca142fc5cc67"
+   },
+   "cf20c85-rust": {
+    "keys.log": "ab56a5125ec8e15438c7eaf49657ac922712d0da98c48fe1c364545b9466cfbd",
+    "messages.log": "247f385e48fbc09123756ae32b97e2d8f7545630bf757486ff942faea4fcd630",
+    "state.log": "54ef9cc1481d9b5c05bdd557d5e5f2a8e7a2097ed1ce5b35b53c4c82bad16c89",
+    "final.save": "d76676f709f95ef879058e63124e926c886dc39834fd0c452213ca142fc5cc67"
+   },
+   "2664122-rust": {
+    "keys.log": "ab56a5125ec8e15438c7eaf49657ac922712d0da98c48fe1c364545b9466cfbd",
+    "messages.log": "247f385e48fbc09123756ae32b97e2d8f7545630bf757486ff942faea4fcd630",
+    "state.log": "54ef9cc1481d9b5c05bdd557d5e5f2a8e7a2097ed1ce5b35b53c4c82bad16c89",
+    "final.save": "d76676f709f95ef879058e63124e926c886dc39834fd0c452213ca142fc5cc67"
+   }
+  },
+  "full-7-ranger-0": {
+   "cf20c85-c": {
+    "keys.log": "450a01ef58087ceee41ab58e3964bbb86a16b4a7444317f90636c49ac2ea59b5",
+    "messages.log": "a570b3139ca1ee8bfb0503ea1609895e110085e44fe52ee4206d887f6e982c13",
+    "state.log": "77d9add79654ea909ad07cdfd239778bc87ec46ee6f1ce675328cbb9d7d8a625",
+    "final.save": "6430af7e511663403df90fdad3f0951a52819ed666eb5f857117f2168cbadb15"
+   },
+   "cf20c85-rust": {
+    "keys.log": "450a01ef58087ceee41ab58e3964bbb86a16b4a7444317f90636c49ac2ea59b5",
+    "messages.log": "a570b3139ca1ee8bfb0503ea1609895e110085e44fe52ee4206d887f6e982c13",
+    "state.log": "77d9add79654ea909ad07cdfd239778bc87ec46ee6f1ce675328cbb9d7d8a625",
+    "final.save": "6430af7e511663403df90fdad3f0951a52819ed666eb5f857117f2168cbadb15"
+   },
+   "2664122-rust": {
+    "keys.log": "450a01ef58087ceee41ab58e3964bbb86a16b4a7444317f90636c49ac2ea59b5",
+    "messages.log": "a570b3139ca1ee8bfb0503ea1609895e110085e44fe52ee4206d887f6e982c13",
+    "state.log": "77d9add79654ea909ad07cdfd239778bc87ec46ee6f1ce675328cbb9d7d8a625",
+    "final.save": "6430af7e511663403df90fdad3f0951a52819ed666eb5f857117f2168cbadb15"
+   }
+  },
+  "full-7-ranger-1": {
+   "cf20c85-c": {
+    "keys.log": "458d71b5a87be35a5547661881bcd7f32415f188135eb738633191ef8b680516",
+    "messages.log": "7cd7fb09682978f2730961d89a2cc12324b098a3832930b82d3a784b8047c5f3",
+    "state.log": "46cda7d7647d1f6520dbf0142b2f4be8d33fd0fb27b9bef4d1686bf3e408ebf9",
+    "final.save": "4b184f7aed54db6d5f0dd4bc3634c4a6f58ccba74d20b19a37d6c0eb8fe0918a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "458d71b5a87be35a5547661881bcd7f32415f188135eb738633191ef8b680516",
+    "messages.log": "7cd7fb09682978f2730961d89a2cc12324b098a3832930b82d3a784b8047c5f3",
+    "state.log": "46cda7d7647d1f6520dbf0142b2f4be8d33fd0fb27b9bef4d1686bf3e408ebf9",
+    "final.save": "4b184f7aed54db6d5f0dd4bc3634c4a6f58ccba74d20b19a37d6c0eb8fe0918a"
+   },
+   "2664122-rust": {
+    "keys.log": "458d71b5a87be35a5547661881bcd7f32415f188135eb738633191ef8b680516",
+    "messages.log": "7cd7fb09682978f2730961d89a2cc12324b098a3832930b82d3a784b8047c5f3",
+    "state.log": "46cda7d7647d1f6520dbf0142b2f4be8d33fd0fb27b9bef4d1686bf3e408ebf9",
+    "final.save": "4b184f7aed54db6d5f0dd4bc3634c4a6f58ccba74d20b19a37d6c0eb8fe0918a"
+   }
+  },
+  "full-7-ranger-2": {
+   "cf20c85-c": {
+    "keys.log": "93b9b2c90aa3b793244c787f34d93e53890f418b2f205f36cdd840721cb8aabf",
+    "messages.log": "6bcac4c66ded718ce07f5abddf0f2b3dc65cd9af11d53819286659cdc0732d8c",
+    "state.log": "725591971a2b9d3cae3c6d71514b34db25c72ddbbd58f76f799759ed09da445f",
+    "final.save": "e06fc60f1edf09e337f418dd9dc03747f90b3d526e0623a1f2b146cb34f39376"
+   },
+   "cf20c85-rust": {
+    "keys.log": "93b9b2c90aa3b793244c787f34d93e53890f418b2f205f36cdd840721cb8aabf",
+    "messages.log": "6bcac4c66ded718ce07f5abddf0f2b3dc65cd9af11d53819286659cdc0732d8c",
+    "state.log": "725591971a2b9d3cae3c6d71514b34db25c72ddbbd58f76f799759ed09da445f",
+    "final.save": "e06fc60f1edf09e337f418dd9dc03747f90b3d526e0623a1f2b146cb34f39376"
+   },
+   "2664122-rust": {
+    "keys.log": "93b9b2c90aa3b793244c787f34d93e53890f418b2f205f36cdd840721cb8aabf",
+    "messages.log": "6bcac4c66ded718ce07f5abddf0f2b3dc65cd9af11d53819286659cdc0732d8c",
+    "state.log": "725591971a2b9d3cae3c6d71514b34db25c72ddbbd58f76f799759ed09da445f",
+    "final.save": "e06fc60f1edf09e337f418dd9dc03747f90b3d526e0623a1f2b146cb34f39376"
+   }
+  },
+  "full-7-ranger-3": {
+   "cf20c85-c": {
+    "keys.log": "5aa8d6e6a68a02b2a4b92ca6be692828d82fdbe272991dc208c7e4e055c187a6",
+    "messages.log": "2174bc652fba4ae5477812891e0e5a587a6894715803ac8700b5f0ead9c174be",
+    "state.log": "64790aa7a77830d5ee3a9678e0816c86134e5f49b2048cb45eb257ec4cfe412c",
+    "final.save": "eca058c4ccfe1ef648e2cc4ab32946b4c0c0168df13230eac88e75c9508a5ec8"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5aa8d6e6a68a02b2a4b92ca6be692828d82fdbe272991dc208c7e4e055c187a6",
+    "messages.log": "2174bc652fba4ae5477812891e0e5a587a6894715803ac8700b5f0ead9c174be",
+    "state.log": "64790aa7a77830d5ee3a9678e0816c86134e5f49b2048cb45eb257ec4cfe412c",
+    "final.save": "eca058c4ccfe1ef648e2cc4ab32946b4c0c0168df13230eac88e75c9508a5ec8"
+   },
+   "2664122-rust": {
+    "keys.log": "5aa8d6e6a68a02b2a4b92ca6be692828d82fdbe272991dc208c7e4e055c187a6",
+    "messages.log": "2174bc652fba4ae5477812891e0e5a587a6894715803ac8700b5f0ead9c174be",
+    "state.log": "64790aa7a77830d5ee3a9678e0816c86134e5f49b2048cb45eb257ec4cfe412c",
+    "final.save": "eca058c4ccfe1ef648e2cc4ab32946b4c0c0168df13230eac88e75c9508a5ec8"
+   }
+  },
+  "full-7-ranger-4": {
+   "cf20c85-c": {
+    "keys.log": "55fe1bb2b217a203174aaacadeccf864044885f2ecb453fc200c94719d86957c",
+    "messages.log": "eb13333ef746f4b9fe06c3fadad9860ac350f964250e122df3f054e003358c66",
+    "state.log": "ebc305bde13ad1f1184b2e9ff12e498097c496947f680c15f98a4de16799ae2b",
+    "final.save": "2674fb6e4a5ec9ad80c6daeb72a1cbb8b23d7bf4bff0229163d90792fbdb1929"
+   },
+   "cf20c85-rust": {
+    "keys.log": "55fe1bb2b217a203174aaacadeccf864044885f2ecb453fc200c94719d86957c",
+    "messages.log": "eb13333ef746f4b9fe06c3fadad9860ac350f964250e122df3f054e003358c66",
+    "state.log": "ebc305bde13ad1f1184b2e9ff12e498097c496947f680c15f98a4de16799ae2b",
+    "final.save": "2674fb6e4a5ec9ad80c6daeb72a1cbb8b23d7bf4bff0229163d90792fbdb1929"
+   },
+   "2664122-rust": {
+    "keys.log": "55fe1bb2b217a203174aaacadeccf864044885f2ecb453fc200c94719d86957c",
+    "messages.log": "eb13333ef746f4b9fe06c3fadad9860ac350f964250e122df3f054e003358c66",
+    "state.log": "ebc305bde13ad1f1184b2e9ff12e498097c496947f680c15f98a4de16799ae2b",
+    "final.save": "2674fb6e4a5ec9ad80c6daeb72a1cbb8b23d7bf4bff0229163d90792fbdb1929"
+   }
+  },
+  "full-8-blackguard-0": {
+   "cf20c85-c": {
+    "keys.log": "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+    "messages.log": "f083094f2d11cc8be491f273c67373fd0d3c64bc83c13b5698a998e4a660a695",
+    "state.log": "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+    "final.save": "4c6f108e44dd963944afd95328f2cca937ff6240c5d3f0caaefaef1b71fc0c03"
+   },
+   "cf20c85-rust": {
+    "keys.log": "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+    "messages.log": "f083094f2d11cc8be491f273c67373fd0d3c64bc83c13b5698a998e4a660a695",
+    "state.log": "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+    "final.save": "4c6f108e44dd963944afd95328f2cca937ff6240c5d3f0caaefaef1b71fc0c03"
+   },
+   "2664122-rust": {
+    "keys.log": "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+    "messages.log": "f083094f2d11cc8be491f273c67373fd0d3c64bc83c13b5698a998e4a660a695",
+    "state.log": "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+    "final.save": "4c6f108e44dd963944afd95328f2cca937ff6240c5d3f0caaefaef1b71fc0c03"
+   }
+  },
+  "full-8-blackguard-1": {
+   "cf20c85-c": {
+    "keys.log": "91f833129fa04df8717a6ada6e0caaf6e277d742d28bcc8c13cbaf08054a025d",
+    "messages.log": "03c7095b0b9fa1eb9f27a771b30df6a5ba1df22a4e280a6ff264974e567e81a5",
+    "state.log": "18dd2f029b48eb7e3b16f29e457d3728326319e201870a10f296a4e4db089998",
+    "final.save": "ad4293eb5e942b5cb9f7fd505f32747a8647c4925d187c371c8c328753f7eb08"
+   },
+   "cf20c85-rust": {
+    "keys.log": "91f833129fa04df8717a6ada6e0caaf6e277d742d28bcc8c13cbaf08054a025d",
+    "messages.log": "03c7095b0b9fa1eb9f27a771b30df6a5ba1df22a4e280a6ff264974e567e81a5",
+    "state.log": "18dd2f029b48eb7e3b16f29e457d3728326319e201870a10f296a4e4db089998",
+    "final.save": "ad4293eb5e942b5cb9f7fd505f32747a8647c4925d187c371c8c328753f7eb08"
+   },
+   "2664122-rust": {
+    "keys.log": "91f833129fa04df8717a6ada6e0caaf6e277d742d28bcc8c13cbaf08054a025d",
+    "messages.log": "03c7095b0b9fa1eb9f27a771b30df6a5ba1df22a4e280a6ff264974e567e81a5",
+    "state.log": "18dd2f029b48eb7e3b16f29e457d3728326319e201870a10f296a4e4db089998",
+    "final.save": "ad4293eb5e942b5cb9f7fd505f32747a8647c4925d187c371c8c328753f7eb08"
+   }
+  },
+  "full-8-blackguard-2": {
+   "cf20c85-c": {
+    "keys.log": "959462c5f773c9b87be9b248d4776cdd4406b7edc7a8fb850e54bd2756897627",
+    "messages.log": "c41e71653fddf52b3d05df306ecad2183a2e50c3b0d7df4ffdff7e6a4bd51ad2",
+    "state.log": "8d67c01921df29a1aa827c255efac9ad975a4ecd26df00adcab1e04696eb9d1e",
+    "final.save": "1fd43202041d82c03ed7ebc8d8112f140db83e909ec3d483c8b1377d7ae9821a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "959462c5f773c9b87be9b248d4776cdd4406b7edc7a8fb850e54bd2756897627",
+    "messages.log": "c41e71653fddf52b3d05df306ecad2183a2e50c3b0d7df4ffdff7e6a4bd51ad2",
+    "state.log": "8d67c01921df29a1aa827c255efac9ad975a4ecd26df00adcab1e04696eb9d1e",
+    "final.save": "1fd43202041d82c03ed7ebc8d8112f140db83e909ec3d483c8b1377d7ae9821a"
+   },
+   "2664122-rust": {
+    "keys.log": "959462c5f773c9b87be9b248d4776cdd4406b7edc7a8fb850e54bd2756897627",
+    "messages.log": "c41e71653fddf52b3d05df306ecad2183a2e50c3b0d7df4ffdff7e6a4bd51ad2",
+    "state.log": "8d67c01921df29a1aa827c255efac9ad975a4ecd26df00adcab1e04696eb9d1e",
+    "final.save": "1fd43202041d82c03ed7ebc8d8112f140db83e909ec3d483c8b1377d7ae9821a"
+   }
+  },
+  "full-8-blackguard-3": {
+   "cf20c85-c": {
+    "keys.log": "8677a9a4bf105bae1bd777c2a1ed8f1b27fb45e5c075fb551d60a518d923b982",
+    "messages.log": "8e433642c0b701c261db957f9cdebda684ade097180e9b5966d6eb6fc4dbb74f",
+    "state.log": "2dd721511d8e60dfb6ed203ea49d0e352f7dcfd21a9d1a280ab591f7840d816e",
+    "final.save": "eddfebea6a29d31c0da60e6f0456b121de075b4baaf99f47cfd97f9cdf861dc5"
+   },
+   "cf20c85-rust": {
+    "keys.log": "8677a9a4bf105bae1bd777c2a1ed8f1b27fb45e5c075fb551d60a518d923b982",
+    "messages.log": "8e433642c0b701c261db957f9cdebda684ade097180e9b5966d6eb6fc4dbb74f",
+    "state.log": "2dd721511d8e60dfb6ed203ea49d0e352f7dcfd21a9d1a280ab591f7840d816e",
+    "final.save": "eddfebea6a29d31c0da60e6f0456b121de075b4baaf99f47cfd97f9cdf861dc5"
+   },
+   "2664122-rust": {
+    "keys.log": "8677a9a4bf105bae1bd777c2a1ed8f1b27fb45e5c075fb551d60a518d923b982",
+    "messages.log": "8e433642c0b701c261db957f9cdebda684ade097180e9b5966d6eb6fc4dbb74f",
+    "state.log": "2dd721511d8e60dfb6ed203ea49d0e352f7dcfd21a9d1a280ab591f7840d816e",
+    "final.save": "eddfebea6a29d31c0da60e6f0456b121de075b4baaf99f47cfd97f9cdf861dc5"
+   }
+  },
+  "full-8-blackguard-4": {
+   "cf20c85-c": {
+    "keys.log": "cfdef80de93ed176ace507f6d96c052f1012f0d4927df1e33069e4a57c917f96",
+    "messages.log": "d48354dcee7d896eb9c500da7a279f4dceb6cf1c2bcdeb7bfef54caa5dcd123f",
+    "state.log": "51b899792bf550cd20e4883710378bd1d6b7df5c69304dd81f0dbc80d8d8ca1a",
+    "final.save": "07dd5178e83ebdb44c40dd131d04a96b641c769cf0d8f1443e9a94cf353b0a53"
+   },
+   "cf20c85-rust": {
+    "keys.log": "cfdef80de93ed176ace507f6d96c052f1012f0d4927df1e33069e4a57c917f96",
+    "messages.log": "d48354dcee7d896eb9c500da7a279f4dceb6cf1c2bcdeb7bfef54caa5dcd123f",
+    "state.log": "51b899792bf550cd20e4883710378bd1d6b7df5c69304dd81f0dbc80d8d8ca1a",
+    "final.save": "07dd5178e83ebdb44c40dd131d04a96b641c769cf0d8f1443e9a94cf353b0a53"
+   },
+   "2664122-rust": {
+    "keys.log": "cfdef80de93ed176ace507f6d96c052f1012f0d4927df1e33069e4a57c917f96",
+    "messages.log": "d48354dcee7d896eb9c500da7a279f4dceb6cf1c2bcdeb7bfef54caa5dcd123f",
+    "state.log": "51b899792bf550cd20e4883710378bd1d6b7df5c69304dd81f0dbc80d8d8ca1a",
+    "final.save": "07dd5178e83ebdb44c40dd131d04a96b641c769cf0d8f1443e9a94cf353b0a53"
+   }
+  },
+  "glyph-build-prelaid": {
+   "cf20c85-c": {
+    "keys.log": "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5",
+    "messages.log": "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b",
+    "state.log": "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d",
+    "final.save": "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5",
+    "messages.log": "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b",
+    "state.log": "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d",
+    "final.save": "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c"
+   },
+   "2664122-rust": {
+    "keys.log": "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5",
+    "messages.log": "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b",
+    "state.log": "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d",
+    "final.save": "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c"
+   }
+  },
+  "glyph-build-ready": {
+   "cf20c85-c": {
+    "keys.log": "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c",
+    "messages.log": "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650",
+    "state.log": "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032",
+    "final.save": "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c",
+    "messages.log": "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650",
+    "state.log": "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032",
+    "final.save": "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4"
+   },
+   "2664122-rust": {
+    "keys.log": "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c",
+    "messages.log": "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650",
+    "state.log": "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032",
+    "final.save": "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4"
+   }
+  },
+  "glyph-build-supply": {
+   "cf20c85-c": {
+    "keys.log": "3f7e2ce8d1908b90a8611c8490a297c88e13fed4c78b7d9b8fb6fb453f181281",
+    "messages.log": "4af7d0c0395f3ad33684534f71ba3b91257dc6ea6b6f206677b5dbe3d45f13bc",
+    "state.log": "0de7ce173d251b0e7d868e4f53791f2005a9d7a5df1c4ae9db2ffbbb489d1ead",
+    "final.save": "8e7276be4bd8b24a961fb1a801873b99e196eae4f93d382924849d47ea59c2a1"
+   },
+   "cf20c85-rust": {
+    "keys.log": "3f7e2ce8d1908b90a8611c8490a297c88e13fed4c78b7d9b8fb6fb453f181281",
+    "messages.log": "4af7d0c0395f3ad33684534f71ba3b91257dc6ea6b6f206677b5dbe3d45f13bc",
+    "state.log": "0de7ce173d251b0e7d868e4f53791f2005a9d7a5df1c4ae9db2ffbbb489d1ead",
+    "final.save": "8e7276be4bd8b24a961fb1a801873b99e196eae4f93d382924849d47ea59c2a1"
+   },
+   "2664122-rust": {
+    "keys.log": "3f7e2ce8d1908b90a8611c8490a297c88e13fed4c78b7d9b8fb6fb453f181281",
+    "messages.log": "4af7d0c0395f3ad33684534f71ba3b91257dc6ea6b6f206677b5dbe3d45f13bc",
+    "state.log": "0de7ce173d251b0e7d868e4f53791f2005a9d7a5df1c4ae9db2ffbbb489d1ead",
+    "final.save": "8e7276be4bd8b24a961fb1a801873b99e196eae4f93d382924849d47ea59c2a1"
+   }
+  },
+  "glyph-empty-floor": {
+   "cf20c85-c": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad",
+    "final.save": "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39"
+   },
+   "cf20c85-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad",
+    "final.save": "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39"
+   },
+   "2664122-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad",
+    "final.save": "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39"
+   }
+  },
+  "glyph-hidden-rune": {
+   "cf20c85-c": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0"
+   },
+   "cf20c85-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0"
+   },
+   "2664122-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0"
+   }
+  },
+  "glyph-known-decoy": {
+   "cf20c85-c": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7"
+   },
+   "cf20c85-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7"
+   },
+   "2664122-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7"
+   }
+  },
+  "glyph-known-rune": {
+   "cf20c85-c": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8"
+   },
+   "cf20c85-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8"
+   },
+   "2664122-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8"
+   }
+  },
+  "glyph-known-trap": {
+   "cf20c85-c": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166"
+   },
+   "cf20c85-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166"
+   },
+   "2664122-rust": {
+    "keys.log": "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+    "messages.log": "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+    "state.log": "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+    "final.save": "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166"
+   }
+  },
+  "glyph-prelaid-ring": {
+   "cf20c85-c": {
+    "keys.log": "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020",
+    "messages.log": "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306",
+    "state.log": "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb",
+    "final.save": "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020",
+    "messages.log": "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306",
+    "state.log": "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb",
+    "final.save": "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e"
+   },
+   "2664122-rust": {
+    "keys.log": "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020",
+    "messages.log": "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306",
+    "state.log": "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb",
+    "final.save": "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e"
+   }
+  },
+  "live-blackguard": {
+   "cf20c85-c": {
+    "keys.log": "870466b2b22fa61c01c60252b43bec705e7067b4e8d271fd2a1aa5ce993a1da5",
+    "messages.log": "cd6f09c61414aeb9f13691dba44f7548a7aae0909eb40204eb8ed6432d79bb98",
+    "state.log": "1fb5d6de7ecac80d8f0d79113d4ce8c240eeabbe11b59219d828abcf4831b002",
+    "final.save": "f6bffbcf221ed95d3cd123a99710a8a4cd949524bb6d4f35537eb06a9960bd95"
+   },
+   "cf20c85-rust": {
+    "keys.log": "870466b2b22fa61c01c60252b43bec705e7067b4e8d271fd2a1aa5ce993a1da5",
+    "messages.log": "cd6f09c61414aeb9f13691dba44f7548a7aae0909eb40204eb8ed6432d79bb98",
+    "state.log": "1fb5d6de7ecac80d8f0d79113d4ce8c240eeabbe11b59219d828abcf4831b002",
+    "final.save": "f6bffbcf221ed95d3cd123a99710a8a4cd949524bb6d4f35537eb06a9960bd95"
+   },
+   "2664122-rust": {
+    "keys.log": "870466b2b22fa61c01c60252b43bec705e7067b4e8d271fd2a1aa5ce993a1da5",
+    "messages.log": "cd6f09c61414aeb9f13691dba44f7548a7aae0909eb40204eb8ed6432d79bb98",
+    "state.log": "1fb5d6de7ecac80d8f0d79113d4ce8c240eeabbe11b59219d828abcf4831b002",
+    "final.save": "f6bffbcf221ed95d3cd123a99710a8a4cd949524bb6d4f35537eb06a9960bd95"
+   }
+  },
+  "live-druid": {
+   "cf20c85-c": {
+    "keys.log": "7f677398a63a5ff14ae4d4fedacb63d118f6282d069301996c2de34b15fde43b",
+    "messages.log": "7426e27f68a22ce615f8161bd7b0bd1a03f7be982f25d021a068154e60a38ff2",
+    "state.log": "17d2988b42ee2afa4699c213533b9f8edf7c72bce43a3ae109d111d536d2a113",
+    "final.save": "0b28b6bfa3acb5a47899b8caa4b1b2183e55a604f37318ed93a5b0451851831a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7f677398a63a5ff14ae4d4fedacb63d118f6282d069301996c2de34b15fde43b",
+    "messages.log": "7426e27f68a22ce615f8161bd7b0bd1a03f7be982f25d021a068154e60a38ff2",
+    "state.log": "17d2988b42ee2afa4699c213533b9f8edf7c72bce43a3ae109d111d536d2a113",
+    "final.save": "0b28b6bfa3acb5a47899b8caa4b1b2183e55a604f37318ed93a5b0451851831a"
+   },
+   "2664122-rust": {
+    "keys.log": "7f677398a63a5ff14ae4d4fedacb63d118f6282d069301996c2de34b15fde43b",
+    "messages.log": "7426e27f68a22ce615f8161bd7b0bd1a03f7be982f25d021a068154e60a38ff2",
+    "state.log": "17d2988b42ee2afa4699c213533b9f8edf7c72bce43a3ae109d111d536d2a113",
+    "final.save": "0b28b6bfa3acb5a47899b8caa4b1b2183e55a604f37318ed93a5b0451851831a"
+   }
+  },
+  "live-mage": {
+   "cf20c85-c": {
+    "keys.log": "05b29d4f41a45e2979635c80753d3832879b305d3f577bd13b593355910296f2",
+    "messages.log": "1acb1bce48b0cc29d6cf6ecf62cb184feebe55c35d81e98acda448e9d978d616",
+    "state.log": "d95af1644383d4c7db3f6c8e76e381c294e6fc57f69eed2ddb1915be470b905e",
+    "final.save": "ac7495db03a35b712f185587b4eb69d9bea4611fb2fa6f1e9ea4f10ff614e8f2"
+   },
+   "cf20c85-rust": {
+    "keys.log": "05b29d4f41a45e2979635c80753d3832879b305d3f577bd13b593355910296f2",
+    "messages.log": "1acb1bce48b0cc29d6cf6ecf62cb184feebe55c35d81e98acda448e9d978d616",
+    "state.log": "d95af1644383d4c7db3f6c8e76e381c294e6fc57f69eed2ddb1915be470b905e",
+    "final.save": "ac7495db03a35b712f185587b4eb69d9bea4611fb2fa6f1e9ea4f10ff614e8f2"
+   },
+   "2664122-rust": {
+    "keys.log": "05b29d4f41a45e2979635c80753d3832879b305d3f577bd13b593355910296f2",
+    "messages.log": "1acb1bce48b0cc29d6cf6ecf62cb184feebe55c35d81e98acda448e9d978d616",
+    "state.log": "d95af1644383d4c7db3f6c8e76e381c294e6fc57f69eed2ddb1915be470b905e",
+    "final.save": "ac7495db03a35b712f185587b4eb69d9bea4611fb2fa6f1e9ea4f10ff614e8f2"
+   }
+  },
+  "live-necromancer": {
+   "cf20c85-c": {
+    "keys.log": "175e3acaf1eff5553b82fc3a6f9170bb633ca310c8612b8b8468735f71617230",
+    "messages.log": "7895dc9e33d68eeb438cc4d6a1ad68901e8dea5f938c50eff0c66b791f6f6095",
+    "state.log": "69c658c827cdf84e08f54903c517c8cb1eef8b9553024eef51ea97a3a3992a67",
+    "final.save": "2394bd2bfd0b3074b3f737affed3585934d3b244da88f34f7673b7fe012dc6ed"
+   },
+   "cf20c85-rust": {
+    "keys.log": "175e3acaf1eff5553b82fc3a6f9170bb633ca310c8612b8b8468735f71617230",
+    "messages.log": "7895dc9e33d68eeb438cc4d6a1ad68901e8dea5f938c50eff0c66b791f6f6095",
+    "state.log": "69c658c827cdf84e08f54903c517c8cb1eef8b9553024eef51ea97a3a3992a67",
+    "final.save": "2394bd2bfd0b3074b3f737affed3585934d3b244da88f34f7673b7fe012dc6ed"
+   },
+   "2664122-rust": {
+    "keys.log": "175e3acaf1eff5553b82fc3a6f9170bb633ca310c8612b8b8468735f71617230",
+    "messages.log": "7895dc9e33d68eeb438cc4d6a1ad68901e8dea5f938c50eff0c66b791f6f6095",
+    "state.log": "69c658c827cdf84e08f54903c517c8cb1eef8b9553024eef51ea97a3a3992a67",
+    "final.save": "2394bd2bfd0b3074b3f737affed3585934d3b244da88f34f7673b7fe012dc6ed"
+   }
+  },
+  "live-paladin": {
+   "cf20c85-c": {
+    "keys.log": "7e2f3b56e8ab3a55ede43fe50c9537ea0891a6baab3f3bb2389af9cdccf01905",
+    "messages.log": "8df4c7c6cb290d7c66c1fdb599b529b9e29679bef36f741c43cfb73344631958",
+    "state.log": "fe999d27104558e36920c9320c5a8ab6d18e178c0e48d8820e7647fb6b769f46",
+    "final.save": "c8c675d664fe8ad1bc6333b076d5bc836f0554bc28be758eff8089bcbc7010c6"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7e2f3b56e8ab3a55ede43fe50c9537ea0891a6baab3f3bb2389af9cdccf01905",
+    "messages.log": "8df4c7c6cb290d7c66c1fdb599b529b9e29679bef36f741c43cfb73344631958",
+    "state.log": "fe999d27104558e36920c9320c5a8ab6d18e178c0e48d8820e7647fb6b769f46",
+    "final.save": "c8c675d664fe8ad1bc6333b076d5bc836f0554bc28be758eff8089bcbc7010c6"
+   },
+   "2664122-rust": {
+    "keys.log": "7e2f3b56e8ab3a55ede43fe50c9537ea0891a6baab3f3bb2389af9cdccf01905",
+    "messages.log": "8df4c7c6cb290d7c66c1fdb599b529b9e29679bef36f741c43cfb73344631958",
+    "state.log": "fe999d27104558e36920c9320c5a8ab6d18e178c0e48d8820e7647fb6b769f46",
+    "final.save": "c8c675d664fe8ad1bc6333b076d5bc836f0554bc28be758eff8089bcbc7010c6"
+   }
+  },
+  "live-priest": {
+   "cf20c85-c": {
+    "keys.log": "74bee25c19639ac319afa811b6c5467bccc484b7831bc6a8d0e8474fd16f5f63",
+    "messages.log": "26d672321edd0e337a380d3c465901692c91dbd120abbd63f699874c9b27f56f",
+    "state.log": "d11e82e67b4350799fa8d43b151be55765a48389fb875efcad100c6bd7078249",
+    "final.save": "89df4156f979d03854a171214d86d46c02b95fdb13710fa06b1fca158460edd7"
+   },
+   "cf20c85-rust": {
+    "keys.log": "74bee25c19639ac319afa811b6c5467bccc484b7831bc6a8d0e8474fd16f5f63",
+    "messages.log": "26d672321edd0e337a380d3c465901692c91dbd120abbd63f699874c9b27f56f",
+    "state.log": "d11e82e67b4350799fa8d43b151be55765a48389fb875efcad100c6bd7078249",
+    "final.save": "89df4156f979d03854a171214d86d46c02b95fdb13710fa06b1fca158460edd7"
+   },
+   "2664122-rust": {
+    "keys.log": "74bee25c19639ac319afa811b6c5467bccc484b7831bc6a8d0e8474fd16f5f63",
+    "messages.log": "26d672321edd0e337a380d3c465901692c91dbd120abbd63f699874c9b27f56f",
+    "state.log": "d11e82e67b4350799fa8d43b151be55765a48389fb875efcad100c6bd7078249",
+    "final.save": "89df4156f979d03854a171214d86d46c02b95fdb13710fa06b1fca158460edd7"
+   }
+  },
+  "live-ranger": {
+   "cf20c85-c": {
+    "keys.log": "8c6775962c39d5c9cbf8c51a5bc98b6d27c5f8d1b2aab026d1da8a8f54b29262",
+    "messages.log": "f87aed768a38d681c05e9ed1f5a85ef48a0b3e448f0767d6e748357addce24aa",
+    "state.log": "b61d913d39b5c10efc7d22b1fa004f75b958b3e5b5ab37d0cced26949ae385e3",
+    "final.save": "b50be918a721e42729e951bd380031dc65dfe57ef12a8bd83a37c36fe2db0389"
+   },
+   "cf20c85-rust": {
+    "keys.log": "8c6775962c39d5c9cbf8c51a5bc98b6d27c5f8d1b2aab026d1da8a8f54b29262",
+    "messages.log": "f87aed768a38d681c05e9ed1f5a85ef48a0b3e448f0767d6e748357addce24aa",
+    "state.log": "b61d913d39b5c10efc7d22b1fa004f75b958b3e5b5ab37d0cced26949ae385e3",
+    "final.save": "b50be918a721e42729e951bd380031dc65dfe57ef12a8bd83a37c36fe2db0389"
+   },
+   "2664122-rust": {
+    "keys.log": "8c6775962c39d5c9cbf8c51a5bc98b6d27c5f8d1b2aab026d1da8a8f54b29262",
+    "messages.log": "f87aed768a38d681c05e9ed1f5a85ef48a0b3e448f0767d6e748357addce24aa",
+    "state.log": "b61d913d39b5c10efc7d22b1fa004f75b958b3e5b5ab37d0cced26949ae385e3",
+    "final.save": "b50be918a721e42729e951bd380031dc65dfe57ef12a8bd83a37c36fe2db0389"
+   }
+  },
+  "live-rogue": {
+   "cf20c85-c": {
+    "keys.log": "bdbdedd489a217987a06030fc977ce50146405e6df848a850840e6437070cd8c",
+    "messages.log": "4ff2d7ee3c164f4d6bd1c26a13a123d0710e4226b0b474adad5a168acd09dce7",
+    "state.log": "3b77ed6e9224fc22092d28ec139dbc2dc6f32e98596d28182f6d311b4fc4af57",
+    "final.save": "670674b80c2fb60c6db9165fb1655f09ee045c2ba570562ed8712f4d31de7906"
+   },
+   "cf20c85-rust": {
+    "keys.log": "bdbdedd489a217987a06030fc977ce50146405e6df848a850840e6437070cd8c",
+    "messages.log": "4ff2d7ee3c164f4d6bd1c26a13a123d0710e4226b0b474adad5a168acd09dce7",
+    "state.log": "3b77ed6e9224fc22092d28ec139dbc2dc6f32e98596d28182f6d311b4fc4af57",
+    "final.save": "670674b80c2fb60c6db9165fb1655f09ee045c2ba570562ed8712f4d31de7906"
+   },
+   "2664122-rust": {
+    "keys.log": "bdbdedd489a217987a06030fc977ce50146405e6df848a850840e6437070cd8c",
+    "messages.log": "4ff2d7ee3c164f4d6bd1c26a13a123d0710e4226b0b474adad5a168acd09dce7",
+    "state.log": "3b77ed6e9224fc22092d28ec139dbc2dc6f32e98596d28182f6d311b4fc4af57",
+    "final.save": "670674b80c2fb60c6db9165fb1655f09ee045c2ba570562ed8712f4d31de7906"
+   }
+  },
+  "live-warrior": {
+   "cf20c85-c": {
+    "keys.log": "3e189eee67537c12e8a272da6eda6a0b40d848c5928677b5e698469b98d698d8",
+    "messages.log": "881e82d6af3a141c5829cde5ffaf0f9b1cbc7ee599327becdabb77754d85ebac",
+    "state.log": "4ba875c9ff9b85a0f63da8397d8b2bbdbdcf0924f0ea86aa4e60ac362e0e0081",
+    "final.save": "35bcbdf03005bd13f92c002701cb66e7491d7447455546a7d00fa6c1ad42f1fd"
+   },
+   "cf20c85-rust": {
+    "keys.log": "3e189eee67537c12e8a272da6eda6a0b40d848c5928677b5e698469b98d698d8",
+    "messages.log": "881e82d6af3a141c5829cde5ffaf0f9b1cbc7ee599327becdabb77754d85ebac",
+    "state.log": "4ba875c9ff9b85a0f63da8397d8b2bbdbdcf0924f0ea86aa4e60ac362e0e0081",
+    "final.save": "35bcbdf03005bd13f92c002701cb66e7491d7447455546a7d00fa6c1ad42f1fd"
+   },
+   "2664122-rust": {
+    "keys.log": "3e189eee67537c12e8a272da6eda6a0b40d848c5928677b5e698469b98d698d8",
+    "messages.log": "881e82d6af3a141c5829cde5ffaf0f9b1cbc7ee599327becdabb77754d85ebac",
+    "state.log": "4ba875c9ff9b85a0f63da8397d8b2bbdbdcf0924f0ea86aa4e60ac362e0e0081",
+    "final.save": "35bcbdf03005bd13f92c002701cb66e7491d7447455546a7d00fa6c1ad42f1fd"
+   }
+  },
+  "natural-blackguard-40": {
+   "cf20c85-c": {
+    "keys.log": "4744e591dd1b174971ecb81caaf8e771e35d3fdb7a9e056e6bd97661aa6b149d",
+    "messages.log": "fbcb0c44c5e108bb082909ffe67b391ca36e3728fea3feac9367feecb514a6b0",
+    "state.log": "cfec43d47237a5d172313f8c8e97f30f16236e01a7ae561f0349daf059841295",
+    "final.save": "1d3b9c328a0bab7ac57b7f0c0f12fa6e53150b28c45a8fca53cb6695d3e54621"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4744e591dd1b174971ecb81caaf8e771e35d3fdb7a9e056e6bd97661aa6b149d",
+    "messages.log": "fbcb0c44c5e108bb082909ffe67b391ca36e3728fea3feac9367feecb514a6b0",
+    "state.log": "cfec43d47237a5d172313f8c8e97f30f16236e01a7ae561f0349daf059841295",
+    "final.save": "1d3b9c328a0bab7ac57b7f0c0f12fa6e53150b28c45a8fca53cb6695d3e54621"
+   },
+   "2664122-rust": {
+    "keys.log": "4744e591dd1b174971ecb81caaf8e771e35d3fdb7a9e056e6bd97661aa6b149d",
+    "messages.log": "fbcb0c44c5e108bb082909ffe67b391ca36e3728fea3feac9367feecb514a6b0",
+    "state.log": "cfec43d47237a5d172313f8c8e97f30f16236e01a7ae561f0349daf059841295",
+    "final.save": "1d3b9c328a0bab7ac57b7f0c0f12fa6e53150b28c45a8fca53cb6695d3e54621"
+   }
+  },
+  "natural-warrior-78": {
+   "cf20c85-c": {
+    "keys.log": "d7254bbf919d42a163b0286df867d5e7de7788c31a81bae5af0b91cb4e5d00cd",
+    "messages.log": "a8346dd81e49ab6044abfa3e7d78ef47b9e8ad0bd0dfb9d87581bbb365de5ccd",
+    "state.log": "6312bcee85bff0705b8109ff5bea3b3f5f0a2a3a496eee07035442ed021677b2",
+    "final.save": "dab89b10aecdc8bd1655c5a45506f1694ae8060706446a720c17ef62d12356f4"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d7254bbf919d42a163b0286df867d5e7de7788c31a81bae5af0b91cb4e5d00cd",
+    "messages.log": "a8346dd81e49ab6044abfa3e7d78ef47b9e8ad0bd0dfb9d87581bbb365de5ccd",
+    "state.log": "6312bcee85bff0705b8109ff5bea3b3f5f0a2a3a496eee07035442ed021677b2",
+    "final.save": "dab89b10aecdc8bd1655c5a45506f1694ae8060706446a720c17ef62d12356f4"
+   },
+   "2664122-rust": {
+    "keys.log": "d7254bbf919d42a163b0286df867d5e7de7788c31a81bae5af0b91cb4e5d00cd",
+    "messages.log": "a8346dd81e49ab6044abfa3e7d78ef47b9e8ad0bd0dfb9d87581bbb365de5ccd",
+    "state.log": "6312bcee85bff0705b8109ff5bea3b3f5f0a2a3a496eee07035442ed021677b2",
+    "final.save": "dab89b10aecdc8bd1655c5a45506f1694ae8060706446a720c17ef62d12356f4"
+   }
+  },
+  "opt-autosave-war": {
+   "cf20c85-c": {
+    "keys.log": "5006d7eebd4c73d8ef484f352a492d1c438d8c5b0ef750af28da8f22462f6ab3",
+    "messages.log": "780a4c92e12de7631bb5031a53ed10433fbaa0de988653283117a4e347d5147d",
+    "state.log": "af28c8e7da2858d37925722a1f6630381edc59acf0184cebfa72836480281847",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5006d7eebd4c73d8ef484f352a492d1c438d8c5b0ef750af28da8f22462f6ab3",
+    "messages.log": "780a4c92e12de7631bb5031a53ed10433fbaa0de988653283117a4e347d5147d",
+    "state.log": "af28c8e7da2858d37925722a1f6630381edc59acf0184cebfa72836480281847",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "5006d7eebd4c73d8ef484f352a492d1c438d8c5b0ef750af28da8f22462f6ab3",
+    "messages.log": "780a4c92e12de7631bb5031a53ed10433fbaa0de988653283117a4e347d5147d",
+    "state.log": "af28c8e7da2858d37925722a1f6630381edc59acf0184cebfa72836480281847",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "opt-chest-war": {
+   "cf20c85-c": {
+    "keys.log": "378f799a3ccf1ac4f00ff03ad68473fc5e026c40fb7dee4bf11e565c26a3a4d8",
+    "messages.log": "2a4da721352c45a481976a2f69e70aff932175d660f2721a61b30e47efc71bdb",
+    "state.log": "52a399f414fb9b2bbee287f8e856a172efeb6e61d497852ddfd34637d48e74d6",
+    "final.save": "1cd4567b6a0d2b925d791850946756598007ece6eed17b2a75e2f82579b86c6c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "378f799a3ccf1ac4f00ff03ad68473fc5e026c40fb7dee4bf11e565c26a3a4d8",
+    "messages.log": "2a4da721352c45a481976a2f69e70aff932175d660f2721a61b30e47efc71bdb",
+    "state.log": "52a399f414fb9b2bbee287f8e856a172efeb6e61d497852ddfd34637d48e74d6",
+    "final.save": "1cd4567b6a0d2b925d791850946756598007ece6eed17b2a75e2f82579b86c6c"
+   },
+   "2664122-rust": {
+    "keys.log": "378f799a3ccf1ac4f00ff03ad68473fc5e026c40fb7dee4bf11e565c26a3a4d8",
+    "messages.log": "2a4da721352c45a481976a2f69e70aff932175d660f2721a61b30e47efc71bdb",
+    "state.log": "52a399f414fb9b2bbee287f8e856a172efeb6e61d497852ddfd34637d48e74d6",
+    "final.save": "1cd4567b6a0d2b925d791850946756598007ece6eed17b2a75e2f82579b86c6c"
+   }
+  },
+  "opt-dyn-mage": {
+   "cf20c85-c": {
+    "keys.log": "a709f92eb834df1632534cdc04040233a32c23b24bff87b60aea208dbdda5680",
+    "messages.log": "b91ca56d3aaf755cee59036c2798f15ffae5363629f205b87169083f45d4c60f",
+    "state.log": "515617103a8780d9b173b8f15eca08ca31fc7860853044352ae43351549b2ed1",
+    "final.save": "79b4e6205ebbf0d6fa99a5f1724bdd09653201b9a2b367a46c50d017b7804af8"
+   },
+   "cf20c85-rust": {
+    "keys.log": "a709f92eb834df1632534cdc04040233a32c23b24bff87b60aea208dbdda5680",
+    "messages.log": "b91ca56d3aaf755cee59036c2798f15ffae5363629f205b87169083f45d4c60f",
+    "state.log": "515617103a8780d9b173b8f15eca08ca31fc7860853044352ae43351549b2ed1",
+    "final.save": "79b4e6205ebbf0d6fa99a5f1724bdd09653201b9a2b367a46c50d017b7804af8"
+   },
+   "2664122-rust": {
+    "keys.log": "a709f92eb834df1632534cdc04040233a32c23b24bff87b60aea208dbdda5680",
+    "messages.log": "b91ca56d3aaf755cee59036c2798f15ffae5363629f205b87169083f45d4c60f",
+    "state.log": "515617103a8780d9b173b8f15eca08ca31fc7860853044352ae43351549b2ed1",
+    "final.save": "79b4e6205ebbf0d6fa99a5f1724bdd09653201b9a2b367a46c50d017b7804af8"
+   }
+  },
+  "opt-dyn-priest": {
+   "cf20c85-c": {
+    "keys.log": "4b5752e16aa34a672c849b466b08ef5a855ae8b3b5700bd414601a437c12bbf6",
+    "messages.log": "4763350b6a82035e69a25ffc9c38cb4382ad57fc3bae24b4023c148d4bd193ac",
+    "state.log": "650e0991e5a4bfb3459367ee20d158a073db77f31f89edd04fb1d07eccc386fb",
+    "final.save": "f14922d14ca4e126a9938c044ae07c900e1d86452fcd8c44cf96f78a1a98d473"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4b5752e16aa34a672c849b466b08ef5a855ae8b3b5700bd414601a437c12bbf6",
+    "messages.log": "4763350b6a82035e69a25ffc9c38cb4382ad57fc3bae24b4023c148d4bd193ac",
+    "state.log": "650e0991e5a4bfb3459367ee20d158a073db77f31f89edd04fb1d07eccc386fb",
+    "final.save": "f14922d14ca4e126a9938c044ae07c900e1d86452fcd8c44cf96f78a1a98d473"
+   },
+   "2664122-rust": {
+    "keys.log": "4b5752e16aa34a672c849b466b08ef5a855ae8b3b5700bd414601a437c12bbf6",
+    "messages.log": "4763350b6a82035e69a25ffc9c38cb4382ad57fc3bae24b4023c148d4bd193ac",
+    "state.log": "650e0991e5a4bfb3459367ee20d158a073db77f31f89edd04fb1d07eccc386fb",
+    "final.save": "f14922d14ca4e126a9938c044ae07c900e1d86452fcd8c44cf96f78a1a98d473"
+   }
+  },
+  "opt-dyn-war": {
+   "cf20c85-c": {
+    "keys.log": "888bcadbc7abc8321e43dbc629008b878ad97e0a18e567a06082691f260ec09b",
+    "messages.log": "1de7698bbcb229a8a7fa0f5815f1705b11cd954e329f2079dd888478de9efd0d",
+    "state.log": "92b71375fc128b233aea64ed438e104fab46fd9a68129e5a5032ea806c8850dc",
+    "final.save": "17a8bc65f7e7bda470959c6e26e96ad765cc1a69f72cac0c9fe89875a698a255"
+   },
+   "cf20c85-rust": {
+    "keys.log": "888bcadbc7abc8321e43dbc629008b878ad97e0a18e567a06082691f260ec09b",
+    "messages.log": "1de7698bbcb229a8a7fa0f5815f1705b11cd954e329f2079dd888478de9efd0d",
+    "state.log": "92b71375fc128b233aea64ed438e104fab46fd9a68129e5a5032ea806c8850dc",
+    "final.save": "17a8bc65f7e7bda470959c6e26e96ad765cc1a69f72cac0c9fe89875a698a255"
+   },
+   "2664122-rust": {
+    "keys.log": "888bcadbc7abc8321e43dbc629008b878ad97e0a18e567a06082691f260ec09b",
+    "messages.log": "1de7698bbcb229a8a7fa0f5815f1705b11cd954e329f2079dd888478de9efd0d",
+    "state.log": "92b71375fc128b233aea64ed438e104fab46fd9a68129e5a5032ea806c8850dc",
+    "final.save": "17a8bc65f7e7bda470959c6e26e96ad765cc1a69f72cac0c9fe89875a698a255"
+   }
+  },
+  "opt-munchkin-limits-war": {
+   "cf20c85-c": {
+    "keys.log": "9cea91709d8c3b9d6c4a42a271d740c4cbcd92f8658110c5d7f8f18fac3fe680",
+    "messages.log": "dad1b56bee6cc5f6d30eb5e8e21311dc873f6acd75766d3b8067e4d5b8d6f42e",
+    "state.log": "3136139ba898cb2f7fc5fa1e59aefe6847f2b646d050b0426c1d232ed3525614",
+    "final.save": "3815d17764ad22c3ef571355d8c0c65961c395ce34cb665be72e41d007c33577"
+   },
+   "cf20c85-rust": {
+    "keys.log": "9cea91709d8c3b9d6c4a42a271d740c4cbcd92f8658110c5d7f8f18fac3fe680",
+    "messages.log": "dad1b56bee6cc5f6d30eb5e8e21311dc873f6acd75766d3b8067e4d5b8d6f42e",
+    "state.log": "3136139ba898cb2f7fc5fa1e59aefe6847f2b646d050b0426c1d232ed3525614",
+    "final.save": "3815d17764ad22c3ef571355d8c0c65961c395ce34cb665be72e41d007c33577"
+   },
+   "2664122-rust": {
+    "keys.log": "9cea91709d8c3b9d6c4a42a271d740c4cbcd92f8658110c5d7f8f18fac3fe680",
+    "messages.log": "dad1b56bee6cc5f6d30eb5e8e21311dc873f6acd75766d3b8067e4d5b8d6f42e",
+    "state.log": "3136139ba898cb2f7fc5fa1e59aefe6847f2b646d050b0426c1d232ed3525614",
+    "final.save": "3815d17764ad22c3ef571355d8c0c65961c395ce34cb665be72e41d007c33577"
+   }
+  },
+  "opt-nodeeper-war": {
+   "cf20c85-c": {
+    "keys.log": "02808cc1dfad146cbd6497115788671858302ac8548cb071e093456c73a7e967",
+    "messages.log": "f40411017567a7b5a4ccbe1f24ff66a8221729094abf3b3fda3ad2a6b126e2d6",
+    "state.log": "c30045fb28afdaef2e0fba8ef0dec7b823a9024c998c3567bb9a3cc6c385c2f5",
+    "final.save": "aaa4bb96a896436daca7a59c83f211bb2ac0b41778d863f04516f34288ba1637"
+   },
+   "cf20c85-rust": {
+    "keys.log": "02808cc1dfad146cbd6497115788671858302ac8548cb071e093456c73a7e967",
+    "messages.log": "f40411017567a7b5a4ccbe1f24ff66a8221729094abf3b3fda3ad2a6b126e2d6",
+    "state.log": "c30045fb28afdaef2e0fba8ef0dec7b823a9024c998c3567bb9a3cc6c385c2f5",
+    "final.save": "aaa4bb96a896436daca7a59c83f211bb2ac0b41778d863f04516f34288ba1637"
+   },
+   "2664122-rust": {
+    "keys.log": "02808cc1dfad146cbd6497115788671858302ac8548cb071e093456c73a7e967",
+    "messages.log": "f40411017567a7b5a4ccbe1f24ff66a8221729094abf3b3fda3ad2a6b126e2d6",
+    "state.log": "c30045fb28afdaef2e0fba8ef0dec7b823a9024c998c3567bb9a3cc6c385c2f5",
+    "final.save": "aaa4bb96a896436daca7a59c83f211bb2ac0b41778d863f04516f34288ba1637"
+   }
+  },
+  "opt-noswap-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "05b635e5cb62e8dc3947aeaae7da4cf04ed388d75a95b64c60397bada2cc283f",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "opt-respawn-druid": {
+   "cf20c85-c": {
+    "keys.log": "1942caeaf9e6ecb572b1fe452b0dad6293e7d9638456aa38572d2e4009030cbf",
+    "messages.log": "551ba1d4fe561f10d58ad855955b49954937d41f4d2552fe9aed5452a5e7a1f3",
+    "state.log": "fbd542bf837d0a0d516b279ab60e43d22d361f8a2d7327cd3e329504db119314",
+    "final.save": "b78500a5c66663959ac39533a64ad432eb5014ea14b59daa200aaeb4813a9533"
+   },
+   "cf20c85-rust": {
+    "keys.log": "1942caeaf9e6ecb572b1fe452b0dad6293e7d9638456aa38572d2e4009030cbf",
+    "messages.log": "551ba1d4fe561f10d58ad855955b49954937d41f4d2552fe9aed5452a5e7a1f3",
+    "state.log": "fbd542bf837d0a0d516b279ab60e43d22d361f8a2d7327cd3e329504db119314",
+    "final.save": "b78500a5c66663959ac39533a64ad432eb5014ea14b59daa200aaeb4813a9533"
+   },
+   "2664122-rust": {
+    "keys.log": "1942caeaf9e6ecb572b1fe452b0dad6293e7d9638456aa38572d2e4009030cbf",
+    "messages.log": "551ba1d4fe561f10d58ad855955b49954937d41f4d2552fe9aed5452a5e7a1f3",
+    "state.log": "fbd542bf837d0a0d516b279ab60e43d22d361f8a2d7327cd3e329504db119314",
+    "final.save": "b78500a5c66663959ac39533a64ad432eb5014ea14b59daa200aaeb4813a9533"
+   }
+  },
+  "opt-respawn-random-druid": {
+   "cf20c85-c": {
+    "keys.log": "d2a96e10312e60f38efa6f69fe9b65b6e62421eff9d3b114bfe63c2c066a47c9",
+    "messages.log": "260b9ae23019f123941850fe8d37b5ca9b886ec2d1bb17248226c0f9868cfe77",
+    "state.log": "c9d64699d9790992ccf82addfdc06ae3f495020b38eca00a5d26a187f675d90f",
+    "final.save": "0600b09a1b16dcc01a60e7589a8627db4b358e7830640a85377425aae216e63b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "d2a96e10312e60f38efa6f69fe9b65b6e62421eff9d3b114bfe63c2c066a47c9",
+    "messages.log": "260b9ae23019f123941850fe8d37b5ca9b886ec2d1bb17248226c0f9868cfe77",
+    "state.log": "c9d64699d9790992ccf82addfdc06ae3f495020b38eca00a5d26a187f675d90f",
+    "final.save": "0600b09a1b16dcc01a60e7589a8627db4b358e7830640a85377425aae216e63b"
+   },
+   "2664122-rust": {
+    "keys.log": "d2a96e10312e60f38efa6f69fe9b65b6e62421eff9d3b114bfe63c2c066a47c9",
+    "messages.log": "260b9ae23019f123941850fe8d37b5ca9b886ec2d1bb17248226c0f9868cfe77",
+    "state.log": "c9d64699d9790992ccf82addfdc06ae3f495020b38eca00a5d26a187f675d90f",
+    "final.save": "0600b09a1b16dcc01a60e7589a8627db4b358e7830640a85377425aae216e63b"
+   }
+  },
+  "opt-risky-war": {
+   "cf20c85-c": {
+    "keys.log": "722bbed29d37691d4e7be9611c030d1358a7e2baf4b6500f615f04bdab2a083a",
+    "messages.log": "ef4ee26ac38ac2793319469a27a71b831d7f31790071f3f6c74989c83e66725e",
+    "state.log": "187b485188d7955206e12df60540cd8494a597c6f35af0b00589c7e7240b1362",
+    "final.save": "f458b6ebcba3e577ee2108855979c5c0ce0c86c9ceffc0daddba440ea7f4248a"
+   },
+   "cf20c85-rust": {
+    "keys.log": "722bbed29d37691d4e7be9611c030d1358a7e2baf4b6500f615f04bdab2a083a",
+    "messages.log": "ef4ee26ac38ac2793319469a27a71b831d7f31790071f3f6c74989c83e66725e",
+    "state.log": "187b485188d7955206e12df60540cd8494a597c6f35af0b00589c7e7240b1362",
+    "final.save": "f458b6ebcba3e577ee2108855979c5c0ce0c86c9ceffc0daddba440ea7f4248a"
+   },
+   "2664122-rust": {
+    "keys.log": "722bbed29d37691d4e7be9611c030d1358a7e2baf4b6500f615f04bdab2a083a",
+    "messages.log": "ef4ee26ac38ac2793319469a27a71b831d7f31790071f3f6c74989c83e66725e",
+    "state.log": "187b485188d7955206e12df60540cd8494a597c6f35af0b00589c7e7240b1362",
+    "final.save": "f458b6ebcba3e577ee2108855979c5c0ce0c86c9ceffc0daddba440ea7f4248a"
+   }
+  },
+  "opt-scum-done-mage": {
+   "cf20c85-c": {
+    "keys.log": "978c8a2efcda5fbf9e5a0223eeca850fdd411b84adbd7f7685dde5b2fa7acbb5",
+    "messages.log": "d20c26f5035837d40432c3492fb7fb8a5f5307b9adf4711ce9d7eee974f5ba33",
+    "state.log": "5272f374030ca4bd4d2e5d45d723dc856225d0c518f310f276e6bc0267ce9ba0",
+    "final.save": "baab62d371f1c022a187aa84975f32c7d493a5432e49847e5abec13629f9a31f"
+   },
+   "cf20c85-rust": {
+    "keys.log": "978c8a2efcda5fbf9e5a0223eeca850fdd411b84adbd7f7685dde5b2fa7acbb5",
+    "messages.log": "d20c26f5035837d40432c3492fb7fb8a5f5307b9adf4711ce9d7eee974f5ba33",
+    "state.log": "5272f374030ca4bd4d2e5d45d723dc856225d0c518f310f276e6bc0267ce9ba0",
+    "final.save": "baab62d371f1c022a187aa84975f32c7d493a5432e49847e5abec13629f9a31f"
+   },
+   "2664122-rust": {
+    "keys.log": "978c8a2efcda5fbf9e5a0223eeca850fdd411b84adbd7f7685dde5b2fa7acbb5",
+    "messages.log": "d20c26f5035837d40432c3492fb7fb8a5f5307b9adf4711ce9d7eee974f5ba33",
+    "state.log": "5272f374030ca4bd4d2e5d45d723dc856225d0c518f310f276e6bc0267ce9ba0",
+    "final.save": "baab62d371f1c022a187aa84975f32c7d493a5432e49847e5abec13629f9a31f"
+   }
+  },
+  "opt-scum-mage": {
+   "cf20c85-c": {
+    "keys.log": "9b23b0aa0a9423a382516cf2bce9f433e6e2127b83193715eeed70c913c26ef0",
+    "messages.log": "ed1552760d21784b8ffac921f69003be2019f09f48f684a042cbb38b6347fc82",
+    "state.log": "a9cc972bd6173bf1e2512c396388248afa3407d3cad0bfe241a88a87b808cd8c",
+    "final.save": "cec1830a2712e15b3b92d49b7d7de1402ef4c63182a003766e53b43c7b59e120"
+   },
+   "cf20c85-rust": {
+    "keys.log": "9b23b0aa0a9423a382516cf2bce9f433e6e2127b83193715eeed70c913c26ef0",
+    "messages.log": "ed1552760d21784b8ffac921f69003be2019f09f48f684a042cbb38b6347fc82",
+    "state.log": "a9cc972bd6173bf1e2512c396388248afa3407d3cad0bfe241a88a87b808cd8c",
+    "final.save": "cec1830a2712e15b3b92d49b7d7de1402ef4c63182a003766e53b43c7b59e120"
+   },
+   "2664122-rust": {
+    "keys.log": "9b23b0aa0a9423a382516cf2bce9f433e6e2127b83193715eeed70c913c26ef0",
+    "messages.log": "ed1552760d21784b8ffac921f69003be2019f09f48f684a042cbb38b6347fc82",
+    "state.log": "a9cc972bd6173bf1e2512c396388248afa3407d3cad0bfe241a88a87b808cd8c",
+    "final.save": "cec1830a2712e15b3b92d49b7d7de1402ef4c63182a003766e53b43c7b59e120"
+   }
+  },
+  "opt-scum-noself-mage": {
+   "cf20c85-c": {
+    "keys.log": "e32db71dafd2444863b37b4002b79c83ddcdc06899887b5721401064b6ac6a1c",
+    "messages.log": "94bbe9c1d2c1475b52e2cef5554cb9d04f494f519e472b991ac57b706bc489a2",
+    "state.log": "aeddc79235f0c89a2d468abe9049840e2d656666b2fb9af26ef7458dbacbe000",
+    "final.save": "45bdb2eecff3373f8996fbce1d30d6ca62fc2cb6b44b4fa0c0e14ae1f7b19aa1"
+   },
+   "cf20c85-rust": {
+    "keys.log": "e32db71dafd2444863b37b4002b79c83ddcdc06899887b5721401064b6ac6a1c",
+    "messages.log": "94bbe9c1d2c1475b52e2cef5554cb9d04f494f519e472b991ac57b706bc489a2",
+    "state.log": "aeddc79235f0c89a2d468abe9049840e2d656666b2fb9af26ef7458dbacbe000",
+    "final.save": "45bdb2eecff3373f8996fbce1d30d6ca62fc2cb6b44b4fa0c0e14ae1f7b19aa1"
+   },
+   "2664122-rust": {
+    "keys.log": "e32db71dafd2444863b37b4002b79c83ddcdc06899887b5721401064b6ac6a1c",
+    "messages.log": "94bbe9c1d2c1475b52e2cef5554cb9d04f494f519e472b991ac57b706bc489a2",
+    "state.log": "aeddc79235f0c89a2d468abe9049840e2d656666b2fb9af26ef7458dbacbe000",
+    "final.save": "45bdb2eecff3373f8996fbce1d30d6ca62fc2cb6b44b4fa0c0e14ae1f7b19aa1"
+   }
+  },
+  "opt-scum-war": {
+   "cf20c85-c": {
+    "keys.log": "4716021aefe3d5483e82bbd599ca68a30914a3559b62010100a1c45a2a69eccc",
+    "messages.log": "7c1e3967035ab4e670fa5e10593055c941e1f22a01c976eb06b379d0e9fffa37",
+    "state.log": "e51a0b90ace7373a09c815795be0ab662f1812d2507e5b50d6bc03fcf968ff25",
+    "final.save": "a3cce65516b8c0451d91ec925a436e52bedce25cd2ba928199a3ed6c31f82f66"
+   },
+   "cf20c85-rust": {
+    "keys.log": "4716021aefe3d5483e82bbd599ca68a30914a3559b62010100a1c45a2a69eccc",
+    "messages.log": "7c1e3967035ab4e670fa5e10593055c941e1f22a01c976eb06b379d0e9fffa37",
+    "state.log": "e51a0b90ace7373a09c815795be0ab662f1812d2507e5b50d6bc03fcf968ff25",
+    "final.save": "a3cce65516b8c0451d91ec925a436e52bedce25cd2ba928199a3ed6c31f82f66"
+   },
+   "2664122-rust": {
+    "keys.log": "4716021aefe3d5483e82bbd599ca68a30914a3559b62010100a1c45a2a69eccc",
+    "messages.log": "7c1e3967035ab4e670fa5e10593055c941e1f22a01c976eb06b379d0e9fffa37",
+    "state.log": "e51a0b90ace7373a09c815795be0ab662f1812d2507e5b50d6bc03fcf968ff25",
+    "final.save": "a3cce65516b8c0451d91ec925a436e52bedce25cd2ba928199a3ed6c31f82f66"
+   }
+  },
+  "opt-stopclevel-war": {
+   "cf20c85-c": {
+    "keys.log": "7287a5875c00f50c3565f1870320a7c5c26c23334868ae773862c8650462597a",
+    "messages.log": "dd567d81995dd7385b5ca5f2951c26cd497c0e5dcd7830d5b73fa08de7c3d3ae",
+    "state.log": "7f0362bc660b74deb34d11ae90c9964f0a65366c81f09f1375a00f461f0f7c06",
+    "final.save": "c80b94f3c3e1d193bdecdc3f1475b862889056e7b6d8a0c8f9c0e40db6414637"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7287a5875c00f50c3565f1870320a7c5c26c23334868ae773862c8650462597a",
+    "messages.log": "dd567d81995dd7385b5ca5f2951c26cd497c0e5dcd7830d5b73fa08de7c3d3ae",
+    "state.log": "7f0362bc660b74deb34d11ae90c9964f0a65366c81f09f1375a00f461f0f7c06",
+    "final.save": "c80b94f3c3e1d193bdecdc3f1475b862889056e7b6d8a0c8f9c0e40db6414637"
+   },
+   "2664122-rust": {
+    "keys.log": "7287a5875c00f50c3565f1870320a7c5c26c23334868ae773862c8650462597a",
+    "messages.log": "dd567d81995dd7385b5ca5f2951c26cd497c0e5dcd7830d5b73fa08de7c3d3ae",
+    "state.log": "7f0362bc660b74deb34d11ae90c9964f0a65366c81f09f1375a00f461f0f7c06",
+    "final.save": "c80b94f3c3e1d193bdecdc3f1475b862889056e7b6d8a0c8f9c0e40db6414637"
+   }
+  },
+  "opt-stopdlevel-war": {
+   "cf20c85-c": {
+    "keys.log": "feff80d42c27c88299049547f0d0f6d8814542e4fbda02a2959e34d8dbdfa500",
+    "messages.log": "8b74c9115ad100b6fa406bc7365043e9b5a5020ef4b0b322c9379ba65ca38180",
+    "state.log": "c2f37265e4e24131726d7923289b7cfef6d4c888f1609c05ec7e4fe54e833ebd",
+    "final.save": "800b5e0771842fc4d76fa7989efe5ab246ad62ead194ebe7f60fdd7915a4034b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "feff80d42c27c88299049547f0d0f6d8814542e4fbda02a2959e34d8dbdfa500",
+    "messages.log": "8b74c9115ad100b6fa406bc7365043e9b5a5020ef4b0b322c9379ba65ca38180",
+    "state.log": "c2f37265e4e24131726d7923289b7cfef6d4c888f1609c05ec7e4fe54e833ebd",
+    "final.save": "800b5e0771842fc4d76fa7989efe5ab246ad62ead194ebe7f60fdd7915a4034b"
+   },
+   "2664122-rust": {
+    "keys.log": "feff80d42c27c88299049547f0d0f6d8814542e4fbda02a2959e34d8dbdfa500",
+    "messages.log": "8b74c9115ad100b6fa406bc7365043e9b5a5020ef4b0b322c9379ba65ca38180",
+    "state.log": "c2f37265e4e24131726d7923289b7cfef6d4c888f1609c05ec7e4fe54e833ebd",
+    "final.save": "800b5e0771842fc4d76fa7989efe5ab246ad62ead194ebe7f60fdd7915a4034b"
+   }
+  },
+  "opt-uniques-war": {
+   "cf20c85-c": {
+    "keys.log": "c03373cbf4d0b276a81501f46fc065230a3802a22c2ed15d03a7a15cf77d8002",
+    "messages.log": "e1eb46b4b94ed93ac2d712d4c5ff615b0e4f149289cd88f011fb2117bf938da3",
+    "state.log": "c63ebad4c8895578d7e4396c3ea92d6a9afba809001fef4ac723e2e1672e9dd4",
+    "final.save": "d943a7b9c6c28968ac90e68804cf3ac45c2d5863f6c3b9160711e12f7bb13841"
+   },
+   "cf20c85-rust": {
+    "keys.log": "c03373cbf4d0b276a81501f46fc065230a3802a22c2ed15d03a7a15cf77d8002",
+    "messages.log": "e1eb46b4b94ed93ac2d712d4c5ff615b0e4f149289cd88f011fb2117bf938da3",
+    "state.log": "c63ebad4c8895578d7e4396c3ea92d6a9afba809001fef4ac723e2e1672e9dd4",
+    "final.save": "d943a7b9c6c28968ac90e68804cf3ac45c2d5863f6c3b9160711e12f7bb13841"
+   },
+   "2664122-rust": {
+    "keys.log": "c03373cbf4d0b276a81501f46fc065230a3802a22c2ed15d03a7a15cf77d8002",
+    "messages.log": "e1eb46b4b94ed93ac2d712d4c5ff615b0e4f149289cd88f011fb2117bf938da3",
+    "state.log": "c63ebad4c8895578d7e4396c3ea92d6a9afba809001fef4ac723e2e1672e9dd4",
+    "final.save": "d943a7b9c6c28968ac90e68804cf3ac45c2d5863f6c3b9160711e12f7bb13841"
+   }
+  },
+  "opt-verbose-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "02bea4b6d041b95f2264c9305435a3ebc1f649707521d09bc9d3f1beccbb1ea9",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "b303ee87c0db6f18ecaf8a44534fdc56db2f6ce49dffc3e4e1684ea9d6269db9"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "02bea4b6d041b95f2264c9305435a3ebc1f649707521d09bc9d3f1beccbb1ea9",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "b303ee87c0db6f18ecaf8a44534fdc56db2f6ce49dffc3e4e1684ea9d6269db9"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "02bea4b6d041b95f2264c9305435a3ebc1f649707521d09bc9d3f1beccbb1ea9",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "b303ee87c0db6f18ecaf8a44534fdc56db2f6ce49dffc3e4e1684ea9d6269db9"
+   }
+  },
+  "opt-wac-war": {
+   "cf20c85-c": {
+    "keys.log": "28d5064ab65ca6655cf8b1a60b5e83079b09dde124f1bfe0504fd116280d4462",
+    "messages.log": "afc3b094e406b50dd391ef4177247f9fe404874147618612b758dd29e0dd46e8",
+    "state.log": "82b7e05f2af824c69a5c5f712ccd25c04d13ddc6f5a52062e3cb271a18802ee1",
+    "final.save": "ae6498e24d4ec90e7871b6909d5b8c666ee908ad941cd97333f66d148b26a05f"
+   },
+   "cf20c85-rust": {
+    "keys.log": "28d5064ab65ca6655cf8b1a60b5e83079b09dde124f1bfe0504fd116280d4462",
+    "messages.log": "afc3b094e406b50dd391ef4177247f9fe404874147618612b758dd29e0dd46e8",
+    "state.log": "82b7e05f2af824c69a5c5f712ccd25c04d13ddc6f5a52062e3cb271a18802ee1",
+    "final.save": "ae6498e24d4ec90e7871b6909d5b8c666ee908ad941cd97333f66d148b26a05f"
+   },
+   "2664122-rust": {
+    "keys.log": "28d5064ab65ca6655cf8b1a60b5e83079b09dde124f1bfe0504fd116280d4462",
+    "messages.log": "afc3b094e406b50dd391ef4177247f9fe404874147618612b758dd29e0dd46e8",
+    "state.log": "82b7e05f2af824c69a5c5f712ccd25c04d13ddc6f5a52062e3cb271a18802ee1",
+    "final.save": "ae6498e24d4ec90e7871b6909d5b8c666ee908ad941cd97333f66d148b26a05f"
+   }
+  },
+  "opt-wdam-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "8586b82293c0d6d6af0e6d0882c6b455a53dbb3432a0517bf12765103153cdb4",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "8586b82293c0d6d6af0e6d0882c6b455a53dbb3432a0517bf12765103153cdb4",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "8586b82293c0d6d6af0e6d0882c6b455a53dbb3432a0517bf12765103153cdb4",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "opt-wgold-war": {
+   "cf20c85-c": {
+    "keys.log": "5c35238fd0f56d976ba2c0229a0416ec13507b551e4b5011b8749e9408018c4e",
+    "messages.log": "3c2a78cd7ef63098289baa46f7fd4ab4260cbdd9df9b3e0faf58a627f6ccc78c",
+    "state.log": "78fcbaab8324596cb53549d4a73fd665762e0643e65a35c30549c1ef177a904f",
+    "final.save": "94a65ab7c30a087a2e4234810c76b912c29029331e80691376672d7dbc3db00d"
+   },
+   "cf20c85-rust": {
+    "keys.log": "5c35238fd0f56d976ba2c0229a0416ec13507b551e4b5011b8749e9408018c4e",
+    "messages.log": "3c2a78cd7ef63098289baa46f7fd4ab4260cbdd9df9b3e0faf58a627f6ccc78c",
+    "state.log": "78fcbaab8324596cb53549d4a73fd665762e0643e65a35c30549c1ef177a904f",
+    "final.save": "94a65ab7c30a087a2e4234810c76b912c29029331e80691376672d7dbc3db00d"
+   },
+   "2664122-rust": {
+    "keys.log": "5c35238fd0f56d976ba2c0229a0416ec13507b551e4b5011b8749e9408018c4e",
+    "messages.log": "3c2a78cd7ef63098289baa46f7fd4ab4260cbdd9df9b3e0faf58a627f6ccc78c",
+    "state.log": "78fcbaab8324596cb53549d4a73fd665762e0643e65a35c30549c1ef177a904f",
+    "final.save": "94a65ab7c30a087a2e4234810c76b912c29029331e80691376672d7dbc3db00d"
+   }
+  },
+  "opt-whp-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "a1c6c465dd7651a7b0c2354f7a215ced404ca5a73b51aa8f7287f2eddfbac788",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "a1c6c465dd7651a7b0c2354f7a215ced404ca5a73b51aa8f7287f2eddfbac788",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "a1c6c465dd7651a7b0c2354f7a215ced404ca5a73b51aa8f7287f2eddfbac788",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "opt-wmana-rogue": {
+   "cf20c85-c": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "cab290fd364f44595153fd6036d8373a93fe326d2b360c86a77632b6499edb78",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   },
+   "cf20c85-rust": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "cab290fd364f44595153fd6036d8373a93fe326d2b360c86a77632b6499edb78",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   },
+   "2664122-rust": {
+    "keys.log": "fbde7c36873b9795a0f7400c6361154df71fb300b865a425cbed50fe986ca1e8",
+    "messages.log": "cab290fd364f44595153fd6036d8373a93fe326d2b360c86a77632b6499edb78",
+    "state.log": "0a1f6f9a43db9ae5690c1d8877e404f7556113b559c62a1b178b494b720b81e9",
+    "final.save": "5c00e0c1aa74943c13a9ec1647903c5400df709f9e3253f3a792d228cd4b54d0"
+   }
+  },
+  "opt-wspeed-war": {
+   "cf20c85-c": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "6110e43fa2a3ba042d82fb2870555e73d99918e1dc1996b4db65030870ba6934",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "cf20c85-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "6110e43fa2a3ba042d82fb2870555e73d99918e1dc1996b4db65030870ba6934",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   },
+   "2664122-rust": {
+    "keys.log": "b45d68112d5200febe7f840a6a60e89b88b5b5c03dbc7a75e460e723940ae55d",
+    "messages.log": "6110e43fa2a3ba042d82fb2870555e73d99918e1dc1996b4db65030870ba6934",
+    "state.log": "0b6f6667e05c1ee02b87fb58c26c759dffced2ac9069b240910e78015f397f61",
+    "final.save": "37883f9c06bbf36a30b428c48b66ee1f7b4512b6a55622b8e5957fb66ced732c"
+   }
+  },
+  "smoke-mage-2": {
+   "cf20c85-c": {
+    "keys.log": "7e4640db298ddad4d3de2c0a8565b80e9f7b9cd618b2a9e08b29ebe26425992e",
+    "messages.log": "d4c941806ad3c818943e5ccfe97ca4fec4feab97a7540547b2851cda0da38940",
+    "state.log": "a9246e205d729f28af3e9145d14125ae469e5f41f2d726ef47c9622ed8cc86ee",
+    "final.save": "3247d3dea1f02fbae041f56fce37e6e7790f9b7e4f5a284c3a5d7df7c666fd8b"
+   },
+   "cf20c85-rust": {
+    "keys.log": "7e4640db298ddad4d3de2c0a8565b80e9f7b9cd618b2a9e08b29ebe26425992e",
+    "messages.log": "d4c941806ad3c818943e5ccfe97ca4fec4feab97a7540547b2851cda0da38940",
+    "state.log": "a9246e205d729f28af3e9145d14125ae469e5f41f2d726ef47c9622ed8cc86ee",
+    "final.save": "3247d3dea1f02fbae041f56fce37e6e7790f9b7e4f5a284c3a5d7df7c666fd8b"
+   },
+   "2664122-rust": {
+    "keys.log": "7e4640db298ddad4d3de2c0a8565b80e9f7b9cd618b2a9e08b29ebe26425992e",
+    "messages.log": "d4c941806ad3c818943e5ccfe97ca4fec4feab97a7540547b2851cda0da38940",
+    "state.log": "a9246e205d729f28af3e9145d14125ae469e5f41f2d726ef47c9622ed8cc86ee",
+    "final.save": "3247d3dea1f02fbae041f56fce37e6e7790f9b7e4f5a284c3a5d7df7c666fd8b"
+   }
+  },
+  "smoke-priest-3": {
+   "cf20c85-c": {
+    "keys.log": "c909a5647a6aeec087d1692c8e5a2869091d73ca1acb5b66eacb7604ae61fe48",
+    "messages.log": "a5cbae070fd4efb30f58fdb8b7cb53934b7ae0bf982712c2acd2e319146fa6b3",
+    "state.log": "e25c78c43f68c5bc2aa976252e497ec7b62c116b9b1b0d2eb73e2205c088fa6c",
+    "final.save": "6efe6a31fa306a096d7bf28044edb6a0e884d5b236806382c01a2ea1bac11b95"
+   },
+   "cf20c85-rust": {
+    "keys.log": "c909a5647a6aeec087d1692c8e5a2869091d73ca1acb5b66eacb7604ae61fe48",
+    "messages.log": "a5cbae070fd4efb30f58fdb8b7cb53934b7ae0bf982712c2acd2e319146fa6b3",
+    "state.log": "e25c78c43f68c5bc2aa976252e497ec7b62c116b9b1b0d2eb73e2205c088fa6c",
+    "final.save": "6efe6a31fa306a096d7bf28044edb6a0e884d5b236806382c01a2ea1bac11b95"
+   },
+   "2664122-rust": {
+    "keys.log": "c909a5647a6aeec087d1692c8e5a2869091d73ca1acb5b66eacb7604ae61fe48",
+    "messages.log": "a5cbae070fd4efb30f58fdb8b7cb53934b7ae0bf982712c2acd2e319146fa6b3",
+    "state.log": "e25c78c43f68c5bc2aa976252e497ec7b62c116b9b1b0d2eb73e2205c088fa6c",
+    "final.save": "6efe6a31fa306a096d7bf28044edb6a0e884d5b236806382c01a2ea1bac11b95"
+   }
+  },
+  "smoke-warrior-1": {
+   "cf20c85-c": {
+    "keys.log": "3462867707c189220085ea6ed1774187bbd552df904e6e8e3ccd947f5f3493c3",
+    "messages.log": "ee5ced60a1310fcecfd46311193860e3002fca4961767a2325373144ce5ea4b9",
+    "state.log": "6747e23dba62b13b181c6d97f6b72463cfe8ed4885b6fad999b103aa76cb4ba8",
+    "final.save": "d25329f4bfca3020577e320d8e1c19d2b30f0e295d055976818b9e6515a36475"
+   },
+   "cf20c85-rust": {
+    "keys.log": "3462867707c189220085ea6ed1774187bbd552df904e6e8e3ccd947f5f3493c3",
+    "messages.log": "ee5ced60a1310fcecfd46311193860e3002fca4961767a2325373144ce5ea4b9",
+    "state.log": "6747e23dba62b13b181c6d97f6b72463cfe8ed4885b6fad999b103aa76cb4ba8",
+    "final.save": "d25329f4bfca3020577e320d8e1c19d2b30f0e295d055976818b9e6515a36475"
+   },
+   "2664122-rust": {
+    "keys.log": "3462867707c189220085ea6ed1774187bbd552df904e6e8e3ccd947f5f3493c3",
+    "messages.log": "ee5ced60a1310fcecfd46311193860e3002fca4961767a2325373144ce5ea4b9",
+    "state.log": "6747e23dba62b13b181c6d97f6b72463cfe8ed4885b6fad999b103aa76cb4ba8",
+    "final.save": "d25329f4bfca3020577e320d8e1c19d2b30f0e295d055976818b9e6515a36475"
+   }
+  }
+ }
+}

@@ -2572,10 +2572,7 @@ fn borg_defend_aux_banishment(st: &mut BorgState, mut p1: i32) -> i32 {
         return 0;
     }
 
-    /* C bug (docs/c-bugs.md #1): `borg.has[BI_CURHP]`, not
-     * `borg.trait[BI_CURHP]` */
-    let using_artifact =
-        borg_equips_item(st, st.act.loskill, true) && st.borg.has[BI_CURHP as usize] > 100;
+    let using_artifact = borg_equips_item(st, st.act.loskill, true) && st.borg.tr(BI_CURHP) > 100;
 
     if !using_artifact && !borg_spell_okay_fail(st, BANISH_EVIL, fail_allowed) {
         return 0;

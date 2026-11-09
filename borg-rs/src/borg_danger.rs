@@ -201,10 +201,6 @@ fn borg_danger_physical(
         match effect {
             MONBLOW_HURT => {
                 z = d_dice * d_side;
-                // stun
-                if d_side < 3 && z > d_dice * d_side {
-                    n += 200;
-                }
                 // fudge- some baddies kick and they tend to KO.  Avoid close
                 // combat like the plague.  10d2 is common but take any very
                 // low sides and high dice count as dangerous

@@ -1,0 +1,30 @@
+diff --git a/borg-rs/src/borg_store_buy.rs b/borg-rs/src/borg_store_buy.rs
+index d202558..e26976c 100644
+--- a/borg-rs/src/borg_store_buy.rs
++++ b/borg-rs/src/borg_store_buy.rs
+@@ -387,7 +387,8 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
+         {
+             continue;
+         }
+-        if (st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0) && k != 3 {
++        /* Cures for poison and cuts are sold in the Alchemy shop */
++        if (st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0) && k != 4 {
+             continue;
+         }
+ 
+diff --git a/borg-rs/src/borg_think_store.rs b/borg-rs/src/borg_think_store.rs
+index 41c83fb..767a4f9 100644
+--- a/borg-rs/src/borg_think_store.rs
++++ b/borg-rs/src/borg_think_store.rs
+@@ -150,9 +150,9 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
+         return true;
+     }
+ 
+-    /* If poisoned or bleeding -- flow to temple */
++    /* If poisoned or bleeding -- flow to the Alchemy shop */
+     if st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0 {
+-        st.borg.goal.shop = 3;
++        st.borg.goal.shop = 4;
+     }
+ 
+     /* If Starving  -- flow to general store */

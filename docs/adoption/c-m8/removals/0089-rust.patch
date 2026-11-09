@@ -1,0 +1,39 @@
+diff --git a/borg-rs/src/borg_flow_misc.rs b/borg-rs/src/borg_flow_misc.rs
+index 2d1794f..3347457 100644
+--- a/borg-rs/src/borg_flow_misc.rs
++++ b/borg-rs/src/borg_flow_misc.rs
+@@ -553,8 +553,9 @@ pub fn borg_flow_vein(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
+ 
+ /// The secret door "value" of a reachable floor grid for
+ /// `borg_flow_spastic()`, or `None` when the grid is skipped. `nb` are the
+-/// 8 grids around it in `ddx_ddd` order.
+-fn spastic_value(st: &BorgState, nb: &[BorgGrid; 8], cost: i32, bored: bool) -> Option<i32> {
++/// 8 grids around it in `ddx_ddd` order; `xtra` is the grid's own search
++/// count.
++fn spastic_value(st: &BorgState, nb: &[BorgGrid; 8], xtra: u8, cost: i32, bored: bool) -> Option<i32> {
+     /* Count possible door locations */
+     let wall = nb[..4].iter().filter(|g| u32::from(g.feat) >= FEAT_GRANITE).count();
+ 
+@@ -612,10 +613,9 @@ fn spastic_value(st: &BorgState, nb: &[BorgGrid; 8], cost: i32, bored: bool) ->
+     }
+ 
+     /* Tweak -- Reward walls, punish visitation, distance, time on level
+-     * (C bug 39: C's `ag` is the last grid of the monster loop here, not
+-     * the candidate grid) */
+-    let last = &nb[7];
+-    let mut v = (supp * 500) + (diag * 100) - (i32::from(last.xtra) * 40) - (cost * 2)
++     * (the candidate grid's own search count: better-borg-c milestone8
++     * patch 0089) */
++    let mut v = (supp * 500) + (diag * 100) - (i32::from(xtra) * 40) - (cost * 2)
+         - borg_timer(st, st.borg.time.level);
+ 
+     /* Punish low level and searching too much */
+@@ -808,7 +808,7 @@ pub fn borg_flow_spastic(st: &mut BorgState, bored: bool) -> bool {
+                 *g = *st.cave.grid(xx, yy);
+             }
+ 
+-            let Some(v) = spastic_value(st, &nb, cost, bored) else {
++            let Some(v) = spastic_value(st, &nb, ag.xtra, cost, bored) else {
+                 continue;
+             };
+ 

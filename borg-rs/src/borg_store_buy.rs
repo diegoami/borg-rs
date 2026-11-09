@@ -387,7 +387,8 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
         {
             continue;
         }
-        if (st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0) && k != 3 {
+        /* Cures for poison and cuts are sold in the Alchemy shop */
+        if (st.borg.tr(BI_ISCUT) != 0 || st.borg.tr(BI_ISPOISONED) != 0) && k != 4 {
             continue;
         }
 

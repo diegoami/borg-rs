@@ -1,0 +1,243 @@
+diff --git a/borg-rs/src/borg_init.rs b/borg-rs/src/borg_init.rs
+index 7aea87c..8c9a6f7 100644
+--- a/borg-rs/src/borg_init.rs
++++ b/borg-rs/src/borg_init.rs
+@@ -20,7 +20,8 @@ use crate::borg_io::{borg_note, borg_warning};
+ use crate::cctype::{c_isdigit, c_toupper};
+ use crate::borg_headers::borg_h::{
+     BORG_ALLOW_STRANGE_OPTS, BORG_CHEAT_DEATH, BORG_ENCHANT_LIMIT, BORG_LUNAL_MODE,
+-    BORG_MAX_SETTINGS, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_LEVEL, BORG_RESPAWN_CLASS,
++    BORG_MAX_SETTINGS, BORG_MUNCHKIN_BY_CLASS, BORG_MUNCHKIN_CLASS_DEPTH, BORG_MUNCHKIN_DEPTH,
++    BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_RESPAWN_CLASS,
+     BORG_RESPAWN_RACE, BORG_RESPAWN_WINNERS, BORG_RESTORE_IGNORE_SETTINGS, BORG_STOP_KING,
+     BORG_USES_DYNAMIC_CALCS,
+ };
+@@ -54,6 +55,11 @@ pub struct InitState {
+     pub game_closed: bool,
+     /// `borg_init_failure`
+     pub init_failure: bool,
++    /// `borg_munchkin_start_setting`: the munchkin start as borg.txt gave
++    /// it, before the class rule
++    pub munchkin_start_setting: i32,
++    /// `borg_munchkin_depth_setting`
++    pub munchkin_depth_setting: i32,
+ }
+ 
+ /// One borg.txt setting (`struct borg_setting`).
+@@ -120,8 +126,46 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
+     b(c"borg_allow_strange_opts", false),
+     b(c"borg_autosave", false),
+     b(c"borg_restore_ignore_settings", false),
++    b(c"borg_munchkin_by_class", true),
++    i(c"borg_munchkin_class_depth", 6),
+ ];
+ 
++/// Class indexes of borg-trait.h used by the munchkin class rule.
++const CLASS_WARRIOR: u32 = 0;
++const CLASS_DRUID: u32 = 2;
++const CLASS_RANGER: u32 = 7;
++
++/// `borg_munchkin_class_settings()`: Warriors, Druids and Rangers survive
++/// their first levels more often with a munchkin start. When borg.txt
++/// leaves the munchkin start off and `borg_munchkin_by_class` is on, these
++/// classes use it anyway, stair-scumming at `borg_munchkin_class_depth`.
++/// Every other class plays as borg.txt says. This runs again after a
++/// reincarnation, since the class may change. `cidx` is
++/// `player->class->cidx` (`None` while there is no player class).
++/// (better-borg-c milestone8, owner change PR302.)
++pub fn borg_munchkin_class_settings(st: &mut BorgState, cidx: Option<u32>) {
++    let Some(cidx) = cidx else {
++        return;
++    };
++    if st.core.cfg.is_empty() {
++        return;
++    }
++
++    let (start, depth) = (st.init.munchkin_start_setting, st.init.munchkin_depth_setting);
++    let cfg = &mut st.core.cfg;
++    cfg[BORG_MUNCHKIN_START as usize] = start;
++    cfg[BORG_MUNCHKIN_DEPTH as usize] = depth;
++
++    if start != 0 || cfg[BORG_MUNCHKIN_BY_CLASS as usize] == 0 {
++        return;
++    }
++
++    if cidx == CLASS_WARRIOR || cidx == CLASS_DRUID || cidx == CLASS_RANGER {
++        cfg[BORG_MUNCHKIN_START as usize] = 1;
++        cfg[BORG_MUNCHKIN_DEPTH as usize] = cfg[BORG_MUNCHKIN_CLASS_DEPTH as usize];
++    }
++}
++
+ /// `prefix_i(s, t)` (z-util.c): does `s` start with `t`, ignoring case?
+ /// `s` is a C string without its NUL (past its end C reads the NUL, which
+ /// matches no byte of `t`).
+@@ -226,6 +270,8 @@ pub(crate) trait TxtEnv {
+     fn warning(&mut self, what: &str);
+     /// `Term_fresh()`
+     fn term_fresh(&mut self);
++    /// `player->class->cidx` (`None` while there is no player class)
++    fn class_cidx(&mut self) -> Option<u32>;
+ }
+ 
+ /// The borg.txt of the game (`None` once closed).
+@@ -254,6 +300,9 @@ impl TxtEnv for TxtFile<'_> {
+     fn term_fresh(&mut self) {
+         engine::term_fresh();
+     }
++    fn class_cidx(&mut self) -> Option<u32> {
++        engine::class_cidx_if_set()
++    }
+ }
+ 
+ /// The default borg.txt that `borg_init_txt_file()` writes when there is
+@@ -399,6 +448,21 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
+         cfg[depth] = 100;
+     }
+ 
++    let class_depth = BORG_MUNCHKIN_CLASS_DEPTH as usize;
++    if cfg[class_depth] <= 1 {
++        cfg[class_depth] = 8;
++    }
++    if cfg[class_depth] >= 100 {
++        cfg[class_depth] = 100;
++    }
++
++    st.init.munchkin_start_setting = cfg[BORG_MUNCHKIN_START as usize];
++    st.init.munchkin_depth_setting = cfg[depth];
++    let cidx = env.class_cidx();
++    let st = env.st();
++    borg_munchkin_class_settings(st, cidx);
++    let cfg = &mut st.core.cfg;
++
+     let enchant = BORG_ENCHANT_LIMIT as usize;
+     cfg[enchant] = cfg[enchant].clamp(8, 15);
+ 
+@@ -619,6 +683,9 @@ extern "C" fn borg_leave_game(
+ /// Prepare some stuff based on the player race and class
+ /// (`borg_prepare_race_class_info`).
+ pub fn borg_prepare_race_class_info(st: &mut BorgState) {
++    // The munchkin start may depend on the class
++    borg_munchkin_class_settings(st, engine::class_cidx_if_set());
++
+     // Initialize the various spell arrays by book
+     crate::borg_magic::borg_prepare_book_info(st);
+ 
+@@ -830,11 +897,12 @@ mod tests {
+         data: Vec<u8>,
+         pos: usize,
+         out: Vec<String>,
++        class: Option<u32>,
+     }
+ 
+     impl FakeTxt {
+         fn new(data: &[u8]) -> Self {
+-            FakeTxt { st: BorgState::default(), data: data.to_vec(), pos: 0, out: Vec::new() }
++            FakeTxt { st: BorgState::default(), data: data.to_vec(), pos: 0, out: Vec::new(), class: None }
+         }
+ 
+         /// `file_getl(f, buf, len)` (z-file.c), on `data`.
+@@ -916,6 +984,9 @@ mod tests {
+         fn term_fresh(&mut self) {
+             self.out.push("FRESH".into());
+         }
++        fn class_cidx(&mut self) -> Option<u32> {
++            self.class
++        }
+     }
+ 
+     fn cfg_of(data: &[u8]) -> (Vec<i32>, Vec<String>) {
+@@ -992,6 +1063,45 @@ mod tests {
+         );
+     }
+ 
++    /// The munchkin start by class (better-borg-c milestone8, PR302):
++    /// Warriors, Druids and Rangers take it at `borg_munchkin_class_depth`
++    /// unless borg.txt turns the munchkin start on or the rule off.
++    #[test]
++    fn munchkin_class_rule() {
++        use crate::borg_headers::borg_h::BORG_MUNCHKIN_START;
++        let run = |data: &[u8], class: Option<u32>| {
++            let mut env = FakeTxt::new(data);
++            env.class = class;
++            let (found, old) = read_txt_settings(&mut env);
++            finish_txt_settings(&mut env, found, old);
++            let c = &env.st.core.cfg;
++            (c[BORG_MUNCHKIN_START as usize], c[BORG_MUNCHKIN_DEPTH as usize])
++        };
++        // the three classes, by default
++        for class in [0, 2, 7] {
++            assert_eq!(run(b"", Some(class)), (1, 6), "class {class}");
++        }
++        // every other class, and no player class yet
++        for class in [1, 3, 4, 5, 6, 8] {
++            assert_eq!(run(b"", Some(class)), (0, 16), "class {class}");
++        }
++        assert_eq!(run(b"", None), (0, 16));
++        // the rule off, a munchkin start from borg.txt, the depth setting
++        assert_eq!(run(b"borg_munchkin_by_class = FALSE\n", Some(0)), (0, 16));
++        assert_eq!(run(b"borg_munchkin_start = TRUE\n", Some(0)), (1, 16));
++        assert_eq!(run(b"borg_munchkin_class_depth = 9\n", Some(2)), (1, 9));
++        assert_eq!(run(b"borg_munchkin_class_depth = 0\n", Some(7)), (1, 8));
++
++        // a reincarnation into another class restores the borg.txt values
++        let mut env = FakeTxt::new(b"");
++        env.class = Some(0);
++        let (found, old) = read_txt_settings(&mut env);
++        finish_txt_settings(&mut env, found, old);
++        borg_munchkin_class_settings(&mut env.st, Some(1));
++        let c = &env.st.core.cfg;
++        assert_eq!((c[BORG_MUNCHKIN_START as usize], c[BORG_MUNCHKIN_DEPTH as usize]), (0, 16));
++    }
++
+     #[test]
+     fn default_file_matches_c() {
+         let text: Vec<u8> = default_txt_file().concat();
+@@ -999,7 +1109,7 @@ mod tests {
+         assert!(text.starts_with("# BORG.txt default settings \n"));
+         assert!(text.contains("\n\nborg_verbose = FALSE\nborg_munchkin_start = FALSE\n"));
+         assert!(text.contains("\nborg_respawn_class = -1\n"));
+-        assert!(text.ends_with("borg_restore_ignore_settings = FALSE\n"));
++        assert!(text.ends_with("borg_munchkin_by_class = TRUE\nborg_munchkin_class_depth = 6\n"));
+     }
+ 
+     /// Differential check against the C parser: for every file in
+diff --git a/borg-rs/src/borg_headers/borg_h.rs b/borg-rs/src/borg_headers/borg_h.rs
+index fccb36d..ddd2c5f 100644
+--- a/borg-rs/src/borg_headers/borg_h.rs
++++ b/borg-rs/src/borg_headers/borg_h.rs
+@@ -12,7 +12,9 @@ pub use crate::borg::BorgIdInfo as C2RustUnnamedH_11;
+ pub use crate::borg::BorgNear as C2RustUnnamedH_10;
+ pub type borg_time = int32_t;
+ pub type C2RustUnnamedH_9 = ::core::ffi::c_uint;
+-pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 35;
++pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 37;
++pub const BORG_MUNCHKIN_CLASS_DEPTH: C2RustUnnamedH_9 = 36;
++pub const BORG_MUNCHKIN_BY_CLASS: C2RustUnnamedH_9 = 35;
+ pub const BORG_RESTORE_IGNORE_SETTINGS: C2RustUnnamedH_9 = 34;
+ pub const BORG_AUTOSAVE: C2RustUnnamedH_9 = 33;
+ pub const BORG_ALLOW_STRANGE_OPTS: C2RustUnnamedH_9 = 32;
+diff --git a/borg-rs/src/engine.rs b/borg-rs/src/engine.rs
+index cd6f7b9..b83d80f 100644
+--- a/borg-rs/src/engine.rs
++++ b/borg-rs/src/engine.rs
+@@ -836,6 +836,20 @@ fn class_magic_ref() -> &'static crate::headers::player_h::class_magic {
+     unsafe { &(*player_ref().class).magic }
+ }
+ 
++/// `player->class->cidx`, or `None` while `player` or `player->class` is
++/// not set
++pub fn class_cidx_if_set() -> Option<u32> {
++    // SAFETY: `player` and `player->class` are only read when non-null; the
++    // class list lives for the game.
++    unsafe {
++        let p = crate::headers::player_h::player;
++        if p.is_null() || (*p).class.is_null() {
++            return None;
++        }
++        Some((*(*p).class).cidx)
++    }
++}
++
+ /// `player->class->cidx`
+ pub fn class_cidx() -> u32 {
+     // SAFETY: as in class_magic_ref().

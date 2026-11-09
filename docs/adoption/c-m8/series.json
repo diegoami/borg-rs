@@ -1,0 +1,223 @@
+{
+  "schema": "better-borg-c/patch-series@1",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "consumer_pin": "017e038e8726a7a423887a366b5d40e89c0550a1",
+  "patches": [
+    {
+      "id": "BANISHARTE-37",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/305",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/37",
+      "source_head": "caa6c6acc70c35ced4bfaaf2781036d99b5d32e5",
+      "source_commits": [
+        "caa6c6acc70c35ced4bfaaf2781036d99b5d32e5"
+      ],
+      "applied_commits": [
+        "8f2669a1f16bd850d51c7da19a6e7dea00c40af8"
+      ],
+      "patch": "patches/0078-banish-artifact-hit-points.patch",
+      "patch_active": true,
+      "evidence_ref": "bbc5de859c7b27d02d88c1bb84ec46d796de8716",
+      "verification": "docs/measurement/BANISHARTE-37.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "RESTMULT-149",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/306",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/149",
+      "source_head": "e66740cc4563224ca5dddab5d7bd543d8c8f1342",
+      "source_commits": [
+        "e66740cc4563224ca5dddab5d7bd543d8c8f1342"
+      ],
+      "applied_commits": [
+        "72e169b1ed5f12dfa8272e0886ce9753cf4a1b78"
+      ],
+      "patch": "patches/0079-rest-mult-kill-timer.patch",
+      "patch_active": true,
+      "evidence_ref": "c6052b4a76ea641b42844ce8e7c984cffbdc5f31",
+      "verification": "docs/measurement/RESTMULT-149.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "SHOPLINE-125",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/307",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/125",
+      "source_head": "9d35babe8bd8e38b2d522e00ce159d740919718f",
+      "source_commits": [
+        "9d35babe8bd8e38b2d522e00ce159d740919718f"
+      ],
+      "applied_commits": [
+        "db2b5b65476e8d83851222a69310dcbf7107285d"
+      ],
+      "patch": "patches/0080-shop-entrance-avoidance.patch",
+      "patch_active": true,
+      "evidence_ref": "9ce7a0a4752d7564a246ee6508f1e523bc54ffae",
+      "verification": "docs/measurement/SHOPLINE-125.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "LIGHTWEST-40",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/309",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/40",
+      "source_head": "6dd5874b444b00b8185fce58c823002ab6c544ad",
+      "source_commits": [
+        "6dd5874b444b00b8185fce58c823002ab6c544ad"
+      ],
+      "applied_commits": [
+        "69e020d3b5a4be33f9f8f23a417b7466b547fa84"
+      ],
+      "patch": "patches/0081-light-west-radius-edge.patch",
+      "patch_active": true,
+      "evidence_ref": "8e9e1da6a5729a619e908e8aa351e25f8a8aa90d",
+      "verification": "docs/measurement/LIGHTWEST-40.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate on the tip; carried/open+patch-active after merge"
+    },
+    {
+      "id": "MODCREDIT-70",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/311",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/70",
+      "source_head": "46c6188eccb54bd0571e0a527145f7fd7ed756c3",
+      "source_commits": [
+        "46c6188eccb54bd0571e0a527145f7fd7ed756c3"
+      ],
+      "applied_commits": [
+        "ebe5504da451f47cb8c5665f78d5ca9ccbba7c77"
+      ],
+      "patch": "patches/0082-item-value-modifier-credit.patch",
+      "patch_active": true,
+      "evidence_ref": "0af6c5af047a55d80a228c431509c6bab07b1168",
+      "verification": "docs/measurement/MODCREDIT-70.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "NECKDEAD-47",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/312",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/47",
+      "source_head": "e9080f35f1d2e8c8166116d0025d2e61e499899e",
+      "source_commits": [
+        "e9080f35f1d2e8c8166116d0025d2e61e499899e"
+      ],
+      "applied_commits": [
+        "ffce4c4f40eaa886dd1032c20abc3856ed2bf8bc"
+      ],
+      "patch": "patches/0083-home-amulet-dead-tier.patch",
+      "patch_active": true,
+      "evidence_ref": "3885bfcd07dd13063c361002e8f5048a1df19325",
+      "verification": "docs/measurement/NECKDEAD-47.md",
+      "credit": "Diego Amicabile (native proposal/evidence); owner decision 2026-11-08 option C (cleanup, no behaviour change)",
+      "verification_status": "cleanup carry: the kit asserts all four amulet-count controls byte-identical before/after (no behaviour change); native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "LIGHTBEAM-88",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/316",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/88",
+      "source_head": "828318ab58cbedc3f90cfe1a343ebd314257933b",
+      "source_commits": [
+        "828318ab58cbedc3f90cfe1a343ebd314257933b"
+      ],
+      "applied_commits": [
+        "ffa3cd8bd14ab8b6b612d957fce63b435325f2e2"
+      ],
+      "patch": "patches/0084-light-beam-panel-edge-row.patch",
+      "patch_active": true,
+      "evidence_ref": "90e5fc16bfad3e7fd9ea4eff35ec9e95271b382a",
+      "verification": "docs/measurement/LIGHTBEAM-88.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at before and tip; carried/open+patch-active after merge"
+    },
+    {
+      "id": "HURTSTUN-62",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/329",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/62",
+      "source_head": "f1aca2e9a3d4e6ffe7e301c9aa750173dd3883bd",
+      "source_commits": [
+        "f1aca2e9a3d4e6ffe7e301c9aa750173dd3883bd"
+      ],
+      "applied_commits": [
+        "c55e11c92c5e1639a169983c3b487868e04e91a2"
+      ],
+      "patch": "patches/0085-hurt-blow-dead-stun-test.patch",
+      "patch_active": true,
+      "evidence_ref": "80318246564ab617197c01032a0368b2218555a5",
+      "verification": "docs/measurement/HURTSTUN-62.md",
+      "credit": "Diego Amicabile (native proposal/evidence); owner decision 2026-11-08 (cleanup, delete the dead block, no behaviour change)",
+      "verification_status": "cleanup carry: the kit asserts all four blow-mode controls byte-identical before/after (no behaviour change); native gate at before and tip; carried/open+patch-active after merge"
+    },
+    {
+      "id": "DIMDOOR-21",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/335",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/21",
+      "source_head": "4b7a9f414bec7b23aa3453dfb7e54ba2e85c871b",
+      "source_commits": [
+        "4b7a9f414bec7b23aa3453dfb7e54ba2e85c871b"
+      ],
+      "applied_commits": [
+        "bd6c7ebbeda158ab17c2cf50aedfc0fed1832c3e"
+      ],
+      "patch": "patches/0086-dimension-door-known-grid.patch",
+      "patch_active": true,
+      "evidence_ref": "f8b7d662b62a97219095914150d6d577851cb3ac",
+      "verification": "docs/measurement/DIMDOOR-21.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture; native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "URGENTSHOP-23",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/336",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/23",
+      "source_head": "09c28cd59c948fa03fb49349d30e7236b6d067ed",
+      "source_commits": [
+        "09c28cd59c948fa03fb49349d30e7236b6d067ed"
+      ],
+      "applied_commits": [
+        "b0d8940b5522caa86ef3039185178d4a56360ad3"
+      ],
+      "patch": "patches/0087-alchemy-poison-cut-cures.patch",
+      "patch_active": true,
+      "evidence_ref": "e0ecd1ef777447ab02e84255be6717fea303921f",
+      "verification": "docs/measurement/URGENTSHOP-23.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture (two-file provenance); native gate at each stacked step; carried/open+patch-active after merge"
+    },
+    {
+      "id": "DEADTAKE-72",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/338",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/72",
+      "source_head": "9492d74ce57ae63fca41866113bc7f35463c5704",
+      "source_commits": [
+        "9492d74ce57ae63fca41866113bc7f35463c5704"
+      ],
+      "applied_commits": [
+        "f13c96b8f58dc21f4e608043539aa8e2ffbaf8fc"
+      ],
+      "patch": "patches/0088-lunal-take-dead-entries.patch",
+      "patch_active": true,
+      "evidence_ref": "6332987b90c9eeb55a4f90014a1e4e22cef18e0e",
+      "verification": "docs/measurement/DEADTAKE-72.md",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "verified stepwise on the unchanged source fixture (kit generators; the lane's recorded-row cross-check pending its later artifacts commit); native gate at before and tip; carried/open+patch-active after merge"
+    },
+    {
+      "id": "SPASTICSCORE-147",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/288",
+      "source_issue": "https://github.com/diegoami/neo-angband-tracker/issues/147",
+      "source_head": "6e54def846e04ee7a6a203bfcb1623128fc7d696",
+      "source_commits": [
+        "6e54def846e04ee7a6a203bfcb1623128fc7d696"
+      ],
+      "applied_commits": [
+        "169ae7d6aafc3a555d5af19e0d7b49b85895aa68"
+      ],
+      "patch": "patches/0089-spastic-own-search-count.patch",
+      "patch_active": true,
+      "evidence_ref": "product-side fixture committed with this carry (docs/audit/c-reports/spasticscore-147-product/), adapted from source kit 5b38022e",
+      "verification": "docs/measurement/SPASTICSCORE-147.md",
+      "credit": "Diego Amicabile (native proposal/evidence); consumer-side fixture for the 0064-corrected flow",
+      "verification_status": "verified on a consumer-designed fixture accounting for the carried 0064 reverse-flow correction; native gate at before and tip; carried/open+patch-active after merge"
+    }
+  ]
+}

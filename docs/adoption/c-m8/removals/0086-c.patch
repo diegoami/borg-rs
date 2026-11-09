@@ -1,0 +1,27 @@
+diff --git a/angband/src/borg/borg-escape.c b/angband/src/borg/borg-escape.c
+index 51efcc3..0c3a5fa 100644
+--- a/angband/src/borg/borg-escape.c
++++ b/angband/src/borg/borg-escape.c
+@@ -575,6 +575,7 @@ bool borg_dimension_door(int allow_fail)
+     struct loc best;
+     int        d, best_d = 0;
+     struct loc target;
++    borg_grid *ag;
+ 
+     /* for now keep the range at under 50, for performance */
+     int range = 50;
+@@ -601,6 +602,14 @@ bool borg_dimension_door(int allow_fail)
+             if (!square_in_bounds_fully(cave, target))
+                 continue;
+ 
++            /* Only aim at a known floor grid without a monster, as the
++             * game moves the player elsewhere when the target is not a
++             * legal landing grid */
++            ag = &borg_grids[t_y][t_x];
++            if (ag->feat == FEAT_NONE || ag->feat == FEAT_LAVA
++                || !borg_cave_floor_grid(ag) || ag->kill)
++                continue;
++
+             d = borg_danger(t_y, t_x, 2, true, false);
+             if (d < best_d) {
+                 best_d = d;

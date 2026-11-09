@@ -1,0 +1,478 @@
+{
+ "consumer_pin": "017e038e8726a7a423887a366b5d40e89c0550a1",
+ "before_source": "ce27f5e (4.2.6-impact-v7)",
+ "after_source": "7fe1482 (implementation)",
+ "fixtures": {
+  "banisharte": {
+   "main": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "banishes_evil=0",
+     "log_sha256": "dc6cf740ad73e04963110947e1c9320ff880205512a737ff1a910fe8bb9e29c8"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "banishes_evil=1",
+     "log_sha256": "6bd87a8350705a758b8c4d673f7206b839cf3a7bd00059dc76b27a52232fe339"
+    }
+   },
+   "hurt": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "banishes_evil=0",
+     "log_sha256": "b7437b1f0a6a54d81cfd055328a0c5254cbad7d3792db6e037ec77222e88b2af"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "banishes_evil=0",
+     "log_sha256": "b7437b1f0a6a54d81cfd055328a0c5254cbad7d3792db6e037ec77222e88b2af"
+    }
+   }
+  },
+  "restmult": {
+   "sameturn": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "rests_one_turn_after_the_kill=1",
+     "log_sha256": "bd4afb0a451a6cbc1702525ca29d1419d878eb58da9d7905a1c0d2a5440f550d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rests_one_turn_after_the_kill=0",
+     "log_sha256": "dcae603d7cb54f7e7e3c667f9808338d967a9405bf17b5362d4f24026c2fc878"
+    }
+   },
+   "recent": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rests_one_turn_after_the_kill=0",
+     "log_sha256": "45fe361c587556f67a3360e7d59a35055f298db883ffc38cd94b2aa23f7bae12"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rests_one_turn_after_the_kill=0",
+     "log_sha256": "45fe361c587556f67a3360e7d59a35055f298db883ffc38cd94b2aa23f7bae12"
+    }
+   }
+  },
+  "shopline": {
+   "inline": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "steps_onto_other_shop=1",
+     "log_sha256": "889984e2a33bc18d5c7a35b53f42289219319e0ad8f554dbfda65d0cfaea0705"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "steps_onto_other_shop=0",
+     "log_sha256": "c2abb9c09674dd16a651649da2d9b38d04a6001245faca7ad575beddb1a23eaf"
+    }
+   },
+   "offrow": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "steps_onto_other_shop=0",
+     "log_sha256": "a4b2221725558e03e77ef98a11fb1a338898068aaf1dcdab2336bfcfe1241fb2"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "steps_onto_other_shop=0",
+     "log_sha256": "a4b2221725558e03e77ef98a11fb1a338898068aaf1dcdab2336bfcfe1241fb2"
+    }
+   }
+  },
+  "lightwest": {
+   "west": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "ghost_kept=1",
+     "log_sha256": "6fa55b70f9fdbf45915464e80900d4ebec43c740c1902b149bb7d09e3044df0d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ghost_kept=0",
+     "log_sha256": "abaf87704df2af0094dc177b09d1bdc24a90186bddf07b73b97faf88bf515c9c"
+    }
+   },
+   "east": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ghost_kept=0",
+     "log_sha256": "6a1b9a56760eaa59c58adb44b42f6f8972ff73bde52549249f20f90f084b84be"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "ghost_kept=0",
+     "log_sha256": "6a1b9a56760eaa59c58adb44b42f6f8972ff73bde52549249f20f90f084b84be"
+    }
+   }
+  },
+  "modcredit": {
+   "statring": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "sold_a=1 sold_b=0",
+     "log_sha256": "e6cbfb0b00335aabb1815f197344dc07456c16d9e673462e61fa34ce50c3c4ac"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "sold_a=0 sold_b=1",
+     "log_sha256": "fdfcd1bc79046fab13fdffc44f4fd93f0109c687a9d3dc2e0bcca8406a4d3565"
+    }
+   },
+   "speed": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "sold_a=1 sold_b=0",
+     "log_sha256": "0034ccd03b5c4fb1376a95b5895a78c9ca2f72c86e5684e47967d41d47b73b0d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "sold_a=0 sold_b=1",
+     "log_sha256": "98dbbc5d5d11addaacbcffa42e293a9a258faddddc491cdfc51e332facdd7967"
+    }
+   },
+   "nomods": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "sold_a=0 sold_b=1",
+     "log_sha256": "5d71af95b1b17fbb4ba0401e56e07bed3d97d470e0964e1d77161d1273f91ffe"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "sold_a=0 sold_b=1",
+     "log_sha256": "5d71af95b1b17fbb4ba0401e56e07bed3d97d470e0964e1d77161d1273f91ffe"
+    }
+   }
+  },
+  "neckdead": {
+   "neck2": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=2 home_power=2040 stores_amulet=1",
+     "log_sha256": "29bd3825225912fe38b12df2095124eaf606907a281b29c0df043ef12818c9d7"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=2 home_power=2040 stores_amulet=1",
+     "log_sha256": "29bd3825225912fe38b12df2095124eaf606907a281b29c0df043ef12818c9d7"
+    }
+   },
+   "neck3": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=3 home_power=3120 stores_amulet=0",
+     "log_sha256": "5f5c3f38571d025fa6c4c671046f973e362c31535ff077dbeeda383f608e7190"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=3 home_power=3120 stores_amulet=0",
+     "log_sha256": "5f5c3f38571d025fa6c4c671046f973e362c31535ff077dbeeda383f608e7190"
+    }
+   },
+   "neck4": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=4 home_power=2625 stores_amulet=0",
+     "log_sha256": "daed454d3fe1017ff3a07c54d6e84eb9b79ea707be679555f766f9307e09d74f"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=4 home_power=2625 stores_amulet=0",
+     "log_sha256": "daed454d3fe1017ff3a07c54d6e84eb9b79ea707be679555f766f9307e09d74f"
+    }
+   },
+   "neck5": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=5 home_power=2130 stores_amulet=0",
+     "log_sha256": "9e468410c78739bb649765de9b07446dc4712c5434941f3c21c4b5de7e83ab8d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "num_neck=5 home_power=2130 stores_amulet=0",
+     "log_sha256": "9e468410c78739bb649765de9b07446dc4712c5434941f3c21c4b5de7e83ab8d"
+    }
+   }
+  },
+  "lightbeam": {
+   "scrolled": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "beam_cast=0",
+     "log_sha256": "dc38773636b2cbd33ad9be5f5cf1d8b33d0f7534e59125c7de8e1bb450d6a3b0"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "beam_cast=1",
+     "log_sha256": "816f7d8b5c150bffb11fa0e329fde80fbdf68d915380175cb1971ee75131ea45"
+    }
+   },
+   "scrolled_south": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "beam_cast=0",
+     "log_sha256": "e797d3664085dc7ee2738d17bc9074b03fd164f824bd04c9cbf2f52502e3b997"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "beam_cast=1",
+     "log_sha256": "d0f5015ed3f5de690d76dedef20dae786013d5d2937a2874b4a52d00f302d37b"
+    }
+   },
+   "top": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "beam_cast=1",
+     "log_sha256": "b1339ef4e989cec558de0bb1599d5dda60586cebc35ef5fbe2d5b15b4d97d4a5"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "beam_cast=1",
+     "log_sha256": "b1339ef4e989cec558de0bb1599d5dda60586cebc35ef5fbe2d5b15b4d97d4a5"
+    }
+   }
+  },
+  "hurtstun": {
+   "mystic": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=1680 full=1680",
+     "log_sha256": "3477ef82c03e14d63cd819b6a9f19c50e37a4115833e69350a46b3148ab9ed4a"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=1680 full=1680",
+     "log_sha256": "3477ef82c03e14d63cd819b6a9f19c50e37a4115833e69350a46b3148ab9ed4a"
+    }
+   },
+   "ant": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=2 full=2",
+     "log_sha256": "018399ac08df38990077bb95e08250bf406f73bf46fcfc76acab3058f097c879"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=2 full=2",
+     "log_sha256": "018399ac08df38990077bb95e08250bf406f73bf46fcfc76acab3058f097c879"
+    }
+   },
+   "orc": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=8 full=8",
+     "log_sha256": "1ad24c5d98db0664da7d9f412232dbff3cd2f434ecb97b51f8275d862568148e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=8 full=8",
+     "log_sha256": "1ad24c5d98db0664da7d9f412232dbff3cd2f434ecb97b51f8275d862568148e"
+    }
+   },
+   "giant": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=64 full=64",
+     "log_sha256": "0e01d20a98002bba9ecfcfe183cc36d2de7fbb728cbc562606fcf795ef05e9dc"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "danger=64 full=64",
+     "log_sha256": "0e01d20a98002bba9ecfcfe183cc36d2de7fbb728cbc562606fcf795ef05e9dc"
+    }
+   }
+  },
+  "dimdoor": {
+   "granite": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "aim_x=16 aim_y=1 landed_x=60 landed_y=31 on_aim=0 aim_distance=59 dread_distance=9 dread_los=1 same_room=1 fear_region_at_landing=78",
+     "log_sha256": "148babe745e55ecf0f361bebcf8809d75a696ba9b6e12d833cb7bf000ded9f46"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "aim_x=100 aim_y=25 landed_x=100 landed_y=25 on_aim=1 aim_distance=0 dread_distance=34 dread_los=0 same_room=0 fear_region_at_landing=0",
+     "log_sha256": "b77de3c5e2945e2e547cc0f56de61557db5fdd3825df5bc29aaf1f815c37be03"
+    }
+   },
+   "open": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "aim_x=16 aim_y=1 landed_x=16 landed_y=1 on_aim=1 aim_distance=0 dread_distance=68 dread_los=1 same_room=0 fear_region_at_landing=0",
+     "log_sha256": "588747b6318cea11c19cd94d3c52605946bdbcc0b922cfd1556e8a092c00710e"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "aim_x=16 aim_y=1 landed_x=16 landed_y=1 on_aim=1 aim_distance=0 dread_distance=68 dread_los=1 same_room=0 fear_region_at_landing=0",
+     "log_sha256": "588747b6318cea11c19cd94d3c52605946bdbcc0b922cfd1556e8a092c00710e"
+    }
+   }
+  },
+  "urgentshop": {
+   "poisoned": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "buys_cure=0",
+     "log_sha256": "77e1e30513ee5ed88406578a86e93b803900c88e912016f80b54801acfe4c333"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "buys_cure=1",
+     "log_sha256": "b4ca3412a2ebf69e1a08c5dfa8d8e5a3555c987f5106fe443941c97bce1e75c5"
+    }
+   },
+   "bleeding": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "buys_cure=0",
+     "log_sha256": "109dbeeca3610024f2c5fec90ed60dc116c4d6ba3d643f9737a24353cb886766"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "buys_cure=1",
+     "log_sha256": "f039cf98f350470c3844f937433bc0c7a2d196110a3005dad525e3eab09b25dc"
+    }
+   },
+   "healthy": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "buys_cure=1",
+     "log_sha256": "97cff8b0579126c2580fcfb88f55f079e8839dba57853d523c9344867df03950"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "buys_cure=1",
+     "log_sha256": "97cff8b0579126c2580fcfb88f55f079e8839dba57853d523c9344867df03950"
+    }
+   }
+  },
+  "deadtake": {
+   "dead-entry": {
+    "before": {
+     "exit": 0,
+     "passed": false,
+     "outcome": "walks_toward_gold=0",
+     "log_sha256": "7aa9120ad76f5c1594f399c5aced240307e20a9ed599ae4ccf32fe39fe20fb2d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "walks_toward_gold=1",
+     "log_sha256": "fb2faa524491809a2aca6b5dce79dec54600b5cf8aa4f41e59d677775e4e1087"
+    }
+   },
+   "live-only": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "walks_toward_gold=1",
+     "log_sha256": "1aa7b4b7b5db15475d3380ceaea89bd88fc72aa0a7540f0f25436f214747b80c"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "walks_toward_gold=1",
+     "log_sha256": "1aa7b4b7b5db15475d3380ceaea89bd88fc72aa0a7540f0f25436f214747b80c"
+    }
+   }
+  },
+  "spasticscore": {
+   "mismatch": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rc=0 goal_x=12 goal_y=2",
+     "log_sha256": "e6adf28c2fd80c117d0b1828b203948bfc88e508744b0d1c8fefbe1ebc7dfc2d"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rc=1 goal_x=13 goal_y=2",
+     "log_sha256": "a8a27123b06cd2d41b5f786fec00ce325578d9708f49bd759ac3167552165994"
+    }
+   },
+   "consistent": {
+    "before": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rc=1 goal_x=13 goal_y=2",
+     "log_sha256": "39e0b25f7cb960cf404e29049187ac16e0cfd759575cfa2a2e2126078c2d9cfb"
+    },
+    "after": {
+     "exit": 0,
+     "passed": true,
+     "outcome": "rc=1 goal_x=13 goal_y=2",
+     "log_sha256": "39e0b25f7cb960cf404e29049187ac16e0cfd759575cfa2a2e2126078c2d9cfb"
+    }
+   }
+  }
+ },
+ "totals": {
+  "modes": 31,
+  "before_pass": 19,
+  "after_pass": 31,
+  "fail_to_pass": 12,
+  "pass_both": 19,
+  "red_both": 0,
+  "pass_to_fail": 0,
+  "pass_both_outcome_changed": [
+   "spasticscore:mismatch"
+  ],
+  "second_pass_log_mismatches": 0
+ }
+}

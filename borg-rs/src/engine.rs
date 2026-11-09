@@ -836,6 +836,20 @@ fn class_magic_ref() -> &'static crate::headers::player_h::class_magic {
     unsafe { &(*player_ref().class).magic }
 }
 
+/// `player->class->cidx`, or `None` while `player` or `player->class` is
+/// not set
+pub fn class_cidx_if_set() -> Option<u32> {
+    // SAFETY: `player` and `player->class` are only read when non-null; the
+    // class list lives for the game.
+    unsafe {
+        let p = crate::headers::player_h::player;
+        if p.is_null() || (*p).class.is_null() {
+            return None;
+        }
+        Some((*(*p).class).cidx)
+    }
+}
+
 /// `player->class->cidx`
 pub fn class_cidx() -> u32 {
     // SAFETY: as in class_magic_ref().

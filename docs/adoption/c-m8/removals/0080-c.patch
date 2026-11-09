@@ -1,0 +1,15 @@
+diff --git a/angband/src/borg/borg-flow.c b/angband/src/borg/borg-flow.c
+index 56ee66f..b0c2151 100644
+--- a/angband/src/borg/borg-flow.c
++++ b/angband/src/borg/borg-flow.c
+@@ -412,8 +412,8 @@ void borg_flow_spread(int depth, bool optimize, bool avoid, bool tunneling,
+ 
+             /* Avoid shop entry points if I am not heading to that shop */
+             if (borg.goal.shop >= 0 && feat_is_shop(ag->feat)
+-                && (ag->store != borg.goal.shop) && y != borg.c.y
+-                && x != borg.c.x)
++                && (ag->store != borg.goal.shop)
++                && (y != borg.c.y || x != borg.c.x))
+                 continue;
+ 
+             /* Avoid Traps if low level-- unless brave */

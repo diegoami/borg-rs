@@ -39,6 +39,13 @@ and goes on to the normal return instead of returning an error at once. 0065 rep
 with the same call, so behaviour is unchanged. #322 and #295 remain. The
 sections below are kept as history.
 
+The C milestone8 adoption (better-borg-c `017e038e8`,
+[Rust#19](https://github.com/diegoami/borg-rs/issues/19),
+[adoption/c-m8](adoption/c-m8/README.md)) also carries the owner's
+munchkin-by-class change (better-borg-c PR302). That change is a behaviour
+default, not a crash correction: Warriors, Druids and Rangers take the
+munchkin start unless `borg_munchkin_by_class` is set FALSE in borg.txt.
+
 The sections below record the original M4 and post-M4 correction history.
 
 Owner direction, 2026-11-06: inherited C behavior may be corrected when
