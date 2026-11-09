@@ -483,7 +483,12 @@ fn borg_refuel_lantern(st: &mut BorgState) -> bool {
     /* None available check for lantern */
     if i < 0 {
         /* get first lantern */
-        i = borg_slot(st, TV_LIGHT as i32, lantern);
+        i = (0..pack_size)
+            .find(|&k| {
+                let item = &st.items.items[k as usize];
+                item.iqty != 0 && u32::from(item.tval) == TV_LIGHT && i32::from(item.sval) == lantern
+            })
+            .unwrap_or(-1);
 
         if i >= 0 {
             /* loop through lanterns (they should be next to each other) */

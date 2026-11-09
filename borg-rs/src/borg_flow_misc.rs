@@ -702,8 +702,9 @@ pub fn borg_flow_spastic(st: &mut BorgState, bored: bool) -> bool {
         return false;
     }
 
-    /* Reverse flow */
-    borg_flow_reverse(st, 250, true, false, false, -1, false);
+    /* Reverse flow, not optimized: it starts at the borg's own grid (cost 0)
+     * and an optimized spread stops before reaching any other grid. */
+    borg_flow_reverse(st, 250, false, false, false, -1, false);
 
     let panel_hgt = borg_panel_hgt();
     let panel_wid = borg_panel_wid();
