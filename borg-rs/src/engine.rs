@@ -2866,7 +2866,8 @@ pub struct MapGrid {
     pub lighting: u32,
     pub in_view: bool,
     pub is_player: bool,
-    /// FORK #295: a glyph reported through the engine's known trap list.
+    /// `g.trap && trf_has(g.trap->flags, TRF_GLYPH)`: the trap the player
+    /// remembers on the grid is a glyph (better-borg-c patch 0098).
     pub glyph: bool,
 }
 
@@ -2909,6 +2910,28 @@ pub fn map_info(x: i32, y: i32) -> MapGrid {
                 && flag_has(&(*g.trap).flags, headers::list_trap_flags_h::TRF_GLYPH as i32),
         }
     }
+}
+
+/// `square(cave, loc(x, y))->trap` is set and the (first) trap on the grid
+/// is a glyph: `trf_has(trap_info[...->t_idx].flags, TRF_GLYPH)`. False
+/// without a trap, where better-borg-c patch 0098 reads through NULL (the
+/// local 0098 guard). Panics out of bounds or for a bad trap index.
+pub fn square_trap_is_glyph(x: i32, y: i32) -> bool {
+    assert!(square_in_bounds(x, y), "grid out of bounds");
+    // SAFETY: `cave` is the current level; the grid is in bounds; the trap
+    // pointer is checked; trap_info has z_info->trap_max entries (index
+    // checked); the trap's flag array is copied.
+    let flags = unsafe {
+        let sq = headers::cave_h::square(headers::cave_h::cave, loc { x, y });
+        let trap = (*sq).trap;
+        if trap.is_null() {
+            return false;
+        }
+        let t_idx = usize::from((*trap).t_idx);
+        assert!(t_idx < usize::from(z_info().trap_max), "trap index out of range");
+        (*headers::trap_h::trap_info.add(t_idx)).flags
+    };
+    flag_has(&flags, headers::list_trap_flags_h::TRF_GLYPH as i32)
 }
 
 /// `square_shopnum(cave, loc(x, y))`: the store of a shop entrance (-1

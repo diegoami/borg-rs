@@ -20,6 +20,7 @@
 //! table). `borg_feeling_stuff` is `st.think_dungeon.feeling_stuff`
 //! (borg_think_dungeon).
 
+use crate::borg_cave::{AUTO_MAX_X, AUTO_MAX_Y};
 use crate::borg::BorgTime;
 use crate::borg_escape::borg_recall;
 use crate::borg_flow::{borg_flow_old, AUTO_TEMP_MAX};
@@ -1145,11 +1146,12 @@ pub fn borg_excavate_vault(st: &mut BorgState, range: i32) -> bool {
 
     /* Danger/bad idea checks */
 
-    /* build the array -- Scan screen */
+    /* build the array -- Scan screen (a large terminal can show more than
+     * the map) */
     let (hgt, wid) = screen_hgt_wid();
     let (w_x, w_y) = (st.core.w_x, st.core.w_y);
-    for y in w_y..w_y + hgt {
-        for x in w_x..w_x + wid {
+    for y in w_y..(w_y + hgt).min(AUTO_MAX_Y) {
+        for x in w_x..(w_x + wid).min(AUTO_MAX_X) {
             /* only bother with near ones */
             if engine::distance(st.borg.c, loc { x, y }) > range {
                 continue;
