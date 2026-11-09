@@ -18,6 +18,18 @@ or acceptance.
 `harness/check-no-c-borg.sh` finds no C Borg code in the Rust image. The
 builder is Ubuntu cc 13.3.0 and rustc 1.97.0, as recorded in the BUILD_IDs.
 
+After the review, `55cd233` refactored the Rust 0098 guard into a tested
+helper. With the review's documentation changes, that makes the tip
+`72bec24`. The Rust image was rebuilt cleanly there
+([RUST-BUILD_ID-72bec24](RUST-BUILD_ID-72bec24)), and the Rust side of the full
+plan was rerun:
+- All 130 completing cases have byte-identical `keys.log`, `messages.log`,
+  `state.log` and `final.save` to both the `9e34120` Rust run and the C run.
+- `cfg-munchkin-dunadan-bg` times out again (rc=124). It is identical to the
+  earlier Rust run up to that run's kill point; this run went further before
+  its own kill.
+- [rust-rerun.json](rust-rerun.json) records the per-case digests.
+
 ## Checks
 
 | Check | Result |

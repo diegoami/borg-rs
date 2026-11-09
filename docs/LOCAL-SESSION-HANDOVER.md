@@ -502,3 +502,6 @@ ASan 6->12/12. 131-case plan: 130 complete with full C/Rust parity;
 cfg-munchkin-dunadan-bg times out in both roles in a pre-existing munchkin
 blind livelock (prefix-identical; owner: record and report, better-borg-c#204).
 2/10 Rust fault units detected. Review and owner acceptance pending; not merged.
+Review (issue21): qualified pass, no blocker; findings fixed in 55cd233/72bec24
+(healchance cflags, M9 summary, wording, Rust 0098 guard tests); Rust rerun at
+72bec24 identical for all 130 completing cases (rust-rerun.json).
