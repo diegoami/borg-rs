@@ -153,7 +153,8 @@ with its issues.
   - 3) * 700L;` repeats the condition, so the 700 penalty never applies
   (the other item types use a lower second threshold, e.g. rings 6 / 4).
 * Rust: both kept in `borg_home_power.rs` (the dead branch is left out, as
-  clippy rejects an `if` with the same condition twice; a comment marks it).
+  clippy rejects an `if` with the same condition twice; until milestone8 a
+  comment marked it, and 0083 removes that comment).
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source47 removes the dead `else if (num_neck > 3)` branch
   (patch 0083, an owner-decided cleanup with no behaviour change).
 ## 9. Dark-grid test uses `==` instead of `&` (magic play)
@@ -331,7 +332,8 @@ with its issues.
   while a known STR/INT/WIS/DEX sustain adds `pval * 200` to the value of
   an item that has a pval (and a CON sustain does not).
 * Rust: kept (`engine::flag_has(&item.flags, STAT_*)`) in
-  `borg_item_analyze.rs`.
+  `borg_item_analyze.rs` until milestone8, which corrects it (patch 0082,
+  bullet below).
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source70 credits the positive stat modifiers themselves, and
   no longer skips every credit when `pval` is 0 (patch 0082), in C and Rust.
 ## 19. Object tracking and item flows (flow take)

@@ -1,5 +1,5 @@
 diff --git a/borg-rs/src/borg_item_analyze.rs b/borg-rs/src/borg_item_analyze.rs
-index 490e262..0b71160 100644
+index 490e262..5b6b8bf 100644
 --- a/borg-rs/src/borg_item_analyze.rs
 +++ b/borg-rs/src/borg_item_analyze.rs
 @@ -23,7 +23,7 @@ use crate::headers::list_kind_flags_h::{
@@ -11,7 +11,17 @@ index 490e262..0b71160 100644
  use crate::headers::list_tvals_h::*;
  use crate::headers::obj_properties_h::OBJ_MOD_MAX;
  use crate::headers::object_h::ELEM_MAX;
-@@ -83,7 +83,6 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
+@@ -43,7 +43,8 @@ const DESC_SIZE: usize = 80;
+ /// if it was sold to a store, with perfect "charisma" modifiers.
+ ///
+ /// The `long` sums are done in `i64` and truncated to `int32_t` as in C;
+-/// the stat bonus test checks `STAT_*` as object flags (docs/c-bugs.md).
++/// the stat bonus test reads the positive `OBJ_MOD_*` modifiers
++/// (better-borg-c milestone8 patch 0082).
+ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
+     let k_ptr = engine::kind(item.kind as usize);
+ 
+@@ -83,7 +84,6 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
  
      /* `value += x * nL` (computed as long, stored as int32_t) */
      let add_long = |value: i32, x: i64| (i64::from(value) + x) as i32;
@@ -19,7 +29,7 @@ index 490e262..0b71160 100644
      let m = |i: u32| i64::from(item.modifiers[i as usize]);
  
      /* Analyze pval bonus */
-@@ -103,48 +102,46 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
+@@ -103,48 +103,46 @@ fn borg_object_value_known(iv: &ItemValState, item: &borg_item) -> i32 {
                  return 0;
              }
  
