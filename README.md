@@ -1,22 +1,74 @@
 # borg-rs
 
+A faithful Rust port of the Angband Borg (`angband/src/borg/`), the
+automatic player bundled with the [Angband](https://angband.github.io/angband/)
+roguelike. The project exists to replace the Borg's original C
+implementation with an idiomatic, memory-safe Rust one that plays
+*identically* to the original: for the same seed and the same unmodified C
+game engine, the Rust Borg is verified to produce a byte-identical keypress
+stream to the C Borg. Known C bugs are kept on purpose (see
+[docs/c-bugs.md](docs/c-bugs.md)) rather than silently fixed, except for a
+narrow, documented set of crash/play-blocker corrections (see
+[docs/FORK-CORRECTIONS.md](docs/FORK-CORRECTIONS.md)).
+
+Beyond the port itself, the repository carries the tooling used to play,
+record, replay and review Borg sessions, and to adopt verified fixes from
+the sibling `better-borg-c` project. See [Tools](#tools) below.
+
+## Status
+
 Current checkpoint: owner-accepted [M5](docs/M5-PLAN.md), tag `m5` at
 `0203227`, with independent pass and [review#2 closed](https://github.com/diegoami/borg-rs/issues/2).
 Subsequent development follows [verified better-borg-c milestones](docs/C-CONSUMER-ADOPTION.md).
 M4 remains accepted. The owner selected C milestone2's seven fixes at
 `2675d198e`; adoption/validation is tracked on [issue#6](https://github.com/diegoami/borg-rs/issues/6)
 and [the batch ledger](docs/adoption/c-m2/README.md). No new Rust milestone
-acceptance is inferred.
+acceptance is inferred. See [docs/STATUS.md](docs/STATUS.md) for the full,
+up-to-date milestone history.
 
-A faithful Rust port of the Angband Borg (`angband/src/borg/`). It is verified by
-checking that, for the same seed and the same unmodified C engine, the Rust Borg
-produces a byte-identical keypress stream to the C Borg.
+## Installing
+
+Building the Rust Borg means building Angband itself with the Rust
+implementation linked in, since the Borg runs inside the game engine rather
+than as a standalone program. `angband/` (a git subtree of upstream Angband)
+and `borg-rs/` (the Rust crate) are built together through Angband's own
+CMake build, which compiles the Rust crate as a static library via Cargo and
+links it into the game executable.
+
+**Prerequisites:**
+
+* A C compiler (gcc or clang)
+* CMake
+* A Rust toolchain (`cargo`, matching [borg-rs/Cargo.toml](borg-rs/Cargo.toml))
+* X11 development headers, for the graphical frontend (e.g. on
+  Debian/Ubuntu: `sudo apt install build-essential cmake libx11-dev`)
+
+**Build and run**, from the repository root:
+
+```sh
+./run-rust-borg.sh --build-only   # Configure + build only, no window
+./run-rust-borg.sh                # Build (if needed) and launch the game
+```
+
+This runs Angband's CMake configure/build with `-DBORG_IMPL=rust` and the
+flags the Rust Borg needs (`SUPPORT_BORG`, `SUPPORT_X11_FRONTEND`,
+`SUPPORT_BORG_RECORDING`, ...); the resulting executable lands in
+`build/play-rust/game/angband`. Set `JOBS` to control build parallelism
+(default 4). There is no separate "install borg-rs" step: cloning this
+repository already gives you both Angband and the Borg source, and the
+build step above produces one combined executable. Re-running the script
+only reconfigures/rebuilds when its inputs changed.
+
+Once built, the game, saves and settings live entirely under this project
+(`.angband-rust/` by default; see [Playing](#playing)) — nothing is
+installed system-wide.
+
+## Playing
 
 Run `./run-rust-borg.sh` to build and open the graphical X11 game with the
 Rust Borg. Create/load a character, then press **Ctrl-Z**, **z** (confirm
 the initial warning if shown). Any key stops the Borg. Saves and settings
 stay in `.angband-rust/`; the initial configuration has cheat death off.
-Requires CMake, a C compiler, Rust/Cargo and X11 development libraries.
 Use `./run-rust-borg.sh --help` for build and game arguments.
 The main window uses the same 28-pixel Courier font as `better-borg-c/start-borg.sh`;
 set `BORG_PLAY_FONT` to choose another X11 font. **Ctrl-X** saves and exits;
@@ -32,6 +84,14 @@ From this project root:
 ```
 
 Named saves use `.angband-rust/save/NAME`; settings are in `.angband-rust/user/`.
+
+## Tools
+
+The Rust launch/recording/replay tooling lives in [tools/](tools/) (see
+[tools/README.md](tools/README.md) for verification scope and provenance)
+and is adapted from `better-borg-c`. The sections below cover the main
+entry points; [docs/REPLAY-TOOLKIT.md](docs/REPLAY-TOOLKIT.md) is the full
+local toolkit guide.
 
 Named launch, backup restore, headless play and replay (adapted from
 `better-borg-c`):
@@ -107,6 +167,8 @@ to choose a directory, or `--prepare-only` to create the save without opening
 X11. Ctrl-X saves; Escape closes the native exit screen. See
 [human takeover scope](tools/README.md#playing-from-a-recorded-turn).
 
+### Death records
+
 Completed natural deaths automatically create a dossier in `docs/deaths/`,
 with native maps/death logs, build/input hashes, actual pre-death observations,
 checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a
@@ -116,14 +178,21 @@ Set `BORG_DEATH_RECORDS_DIR` for a separate registry; attach a discussion with
 headless `--death-issue URL` or GUI `BORG_DEATH_ISSUE`. No issue is posted
 automatically, and replays/backup branches do not inflate independent deaths.
 
+## Repository layout
+
 * `angband/`: upstream Angband at `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
   (git subtree), plus optional harness/GUI recording hooks and the documented
   matching fork corrections in `docs/FORK-CORRECTIONS.md`
+* `borg-rs/`: the Rust port of the Borg itself
+* `tools/`: Python launch, recording, replay and death-workflow tooling
+  (see [Tools](#tools))
 * `harness/`: build/run/suite scripts, seed suites, diff tool, pinned
   `borg.txt`, C reference logs
 * `docs/`: `REVIEW.md` (start here), `STATUS.md`, `PROGRESS.md`, `c-bugs.md`, `harness.md`
 
-Licence: GPLv2 (see `LICENSE`). Angband itself is dual-licensed GPLv2 / Angband
+## Licence
+
+GPLv2 (see `LICENSE`). Angband itself is dual-licensed GPLv2 / Angband
 licence, and upstream copyright headers are kept.
 
 For named play, bounded collection, reports, original-movie replay and manual alternatives, see [the local Rust toolkit guide](docs/REPLAY-TOOLKIT.md).
