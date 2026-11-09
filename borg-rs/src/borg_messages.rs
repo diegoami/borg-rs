@@ -1544,9 +1544,9 @@ fn borg_init_spell_messages(st: &mut BorgState) {
 /// leading space (`borg_get_parsed_pain`; HACK pluralize code stolen from
 /// mon-msg.c).
 ///
-/// As in C, the output (space included) is cut at `strlen(pain) - 1`
-/// bytes after the space, so a message without brackets loses its last
-/// character.
+/// As in C, the buffer has room for the leading space, the text and the
+/// terminator (`strlen(pain) + 2`), so the last character is kept
+/// (better-borg-c milestone7 patch 0071).
 fn borg_get_parsed_pain(pain: &[u8], do_plural: bool) -> Vec<u8> {
     #[derive(PartialEq)]
     enum Parse {

@@ -55,8 +55,9 @@ pub struct IoState {
 /// first non-space character's; the attribute goes to `a`. The text is
 /// converted with `wcstombs` into the caller's byte buffer `s`, reserving
 /// one byte for NUL. `n` counts screen columns, not UTF-8 bytes. Returns 1
-/// on an empty output buffer, conversion error or if fewer than `n`
-/// (n > 0) characters were read, else 0.
+/// on an empty output buffer or if fewer than `n` (n > 0) characters were
+/// read, else 0. A conversion error yields an empty string and follows the
+/// length check (better-borg-c milestone7 patch 0068).
 pub fn borg_what_text(x: i32, y: i32, n: i32, a: &mut u8, s: &mut [u8]) -> i32 {
     let mut screen_str: [wchar_t; 1024] = [0; 1024];
     let mut d_a: i32 = 0;
