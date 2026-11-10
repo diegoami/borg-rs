@@ -103,10 +103,11 @@ population claim belongs to this tranche.
 
 ### Executed implementation checks (2026-11-10)
 
-- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **112 passed, one
+- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **113 passed, one
   existing ignored**. This includes selection precedence, invalid/conflicting
-  configuration, urgent/completed gates, item classification, home-sell
-  retention and the buy-to-identify gate/list.
+  configuration, urgent/completed gates (including light at radius 1 or below),
+  item classification, home-sell retention, the pending-sale goal reset and the
+  buy-to-identify gate/list.
 - `cargo clippy --release --all-targets --manifest-path borg-rs/Cargo.toml --
   -D warnings`: clean.
 - Fresh C and Rust builds plus `harness/check-no-c-borg.sh`: pass; no C Borg is
@@ -125,11 +126,13 @@ population claim belongs to this tranche.
 - `BORG_IMPL=rust harness/suite.sh family-identify harness/out/family-identify`
   followed by `python3 harness/regress/family-identify-test.py
   harness/out/family-identify --baseline harness/out/family-buying`: **PASS**.
-  All four cases complete. Identification on/off changes three of four
-  strategy cases, three cases buy independent (non-reserve) learning-list
-  kinds, and no later goal repeats an already learned `{unseen}` kind. The
-  unchanged reserve410/Warrior case leaves town before the learning stage and
-  is recorded as a valid no-effect case, not as evidence of a behaviour flip.
+  All four cases complete. Each learning kind has at most one executed
+  `{unseen}` purchase, and no `{unseen}` goal follows the engine's completed
+  sale. Exactly three cases show independent (non-reserve) learning and the
+  documented on/off changes; the reserve410/Warrior case is the one expected
+  preemption and stays byte-identical. That case leaves town before the
+  learning stage, so it is a valid no-effect case, not evidence of a behaviour
+  flip.
 
 `harness/run.sh` accepts digits in `borg_*` option names so the reserve410
 settings work through the existing generic `NAME=VALUE` flags. The failed
