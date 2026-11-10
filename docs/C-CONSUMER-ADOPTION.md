@@ -14,6 +14,11 @@ target; Rust implementation/review state is recorded separately.
 This contract supersedes old direct neo-angband-tracker queue scheduling for
 the post-M5 lane; historical reports and their ownership remain preserved.
 
+Owner update (2026-11-10): the consumer's milestone 11
+(`4.2.6-impact-v11`) is carried as **v11R** under the same pin-and-carry
+rules; record [adoption/c-v11r](adoption/c-v11r/README.md). It is an explicit
+carry, not an automatic queue for later targets.
+
 ## Ownership and source of work
 
 - better-borg-c owns accepted C bug-fixing checkpoints, native controls,

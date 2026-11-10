@@ -1,6 +1,23 @@
 # borg-rs status
 
-## Current task: adopt better-borg-c milestone 10 (impact v10)
+## Current task: carry better-borg-c milestone 11 as v11R (impact v11R)
+
+Owner direction (2026-11-10): carry the consumer's milestone 11
+(`4.2.6-impact-v11`, `39268ca8a`) into borg-rs as **v11R**, the Rust
+counterpart of its 18 runtime units 0100-0117. This is an explicit carry, not
+an automatic post-M10 queue. The 11 C Borg files in this tree are the
+consumer's v11 blobs, so the C oracle and the Rust Borg carry the same fixes.
+Record: [docs/adoption/c-v11r](adoption/c-v11r/README.md);
+`docs/c-bugs.md` marks the fixed findings.
+
+Validation: 104 Rust tests (one existing ignored), clippy clean, C/Rust smoke
+**3/3** and full **45/45** identical on keys, messages and state; the Rust
+binary links no C Borg. Receipt:
+[docs/validation/2026-11-10-c-v11r](validation/2026-11-10-c-v11r/README.md).
+This is author validation, not independent review, acceptance or a derived
+tag. The post-M10 family lane is separate and unaffected.
+
+## Previous: adopt better-borg-c milestone 10 (impact v10)
 
 C milestone 10 (`4.2.6-impact-v10`) carries no new bug ordinal: its units are
 two owner-directed local improvement units (I-001, I-002; never proposed
