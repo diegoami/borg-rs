@@ -10,7 +10,7 @@ consumer's v11 blobs, so the C oracle and the Rust Borg carry the same fixes.
 Record: [docs/adoption/c-v11r](adoption/c-v11r/README.md);
 `docs/c-bugs.md` marks the fixed findings.
 
-Validation: 104 Rust tests (one existing ignored), clippy clean, C/Rust smoke
+Validation: 105 Rust tests (one existing ignored), clippy clean, C/Rust smoke
 **3/3** and full **45/45** identical on keys, messages and state; the Rust
 binary links no C Borg. Receipt:
 [docs/validation/2026-11-10-c-v11r](validation/2026-11-10-c-v11r/README.md).

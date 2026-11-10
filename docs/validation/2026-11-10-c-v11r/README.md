@@ -40,8 +40,9 @@ source hashes are the same as in the smoke manifests.
 
 ## Checks
 
-- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **104 passed, one
-  existing ignored**.
+- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **105 passed, one
+  existing ignored** (including the no-rest timer no-wrap test added after the
+  review).
 - `cargo clippy --release --all-targets --manifest-path borg-rs/Cargo.toml --
   -D warnings`: clean.
 - `harness/check-no-c-borg.sh`: OK; the Rust binary links no C Borg.

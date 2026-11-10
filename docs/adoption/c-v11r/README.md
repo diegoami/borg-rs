@@ -69,6 +69,9 @@ patches, C files, Rust files and dispositions.
   `safe_items[hole]`; it replaces `item_mut(st, hole).iqty = 0`.
 - **0116:** Rust's `is_charged()` is the C `TV_STAFF || TV_WAND` test; the
   charges are restored with `charge_each` beside `iqty++`.
+- **Review F1:** the `borg_flow_take_lunal()` doc comment now says the bad-item
+  verdict is used outside munchkin mode, and the no-rest timer no longer
+  wrapping at level 33 has a focused unit test.
 
 ## Unit kinds and limits
 

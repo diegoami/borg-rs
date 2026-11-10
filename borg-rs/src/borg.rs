@@ -63,6 +63,7 @@ pub struct Borg {
     pub antibounce_count: i16,
     pub no_retreat: i16,
     pub resistance: i16,
+    /// `no_rest_prep`: C `int`; time left before resting after a prep spell.
     pub no_rest_prep: i32,
     pub times_twitch: i16,
     pub escapes: i16,

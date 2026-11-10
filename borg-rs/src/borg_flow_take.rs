@@ -721,9 +721,9 @@ fn scum_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
 /// Prepare to "flow" towards special objects to "take"
 /// (`borg_flow_take_lunal`).
 ///
-/// As in C, every entry below `borg_takes_nxt` is a target, dead ones
-/// (at 0,0) included, and the "bad item" verdict is worked out (with its
-/// notes) but never used; see docs/c-bugs.md.
+/// As in C, dead entries (`kidx == 0`) are skipped, and the "bad item"
+/// verdict is used: an item the routine marked bad is not a target outside
+/// munchkin mode (0101/0101a); see docs/c-bugs.md.
 pub fn borg_flow_take_lunal(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     if !lunal_select(st, viewable) {
         return false;
