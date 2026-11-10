@@ -1,0 +1,36 @@
+# The actual binary identity of the milestone10 131-case game matrix (Rust role).
+
+# Read from the raw suite manifest (harness/out/c-m10/g-rust/manifest).
+# This IS the build recorded in RUST-BUILD_ID: the same binary
+# (binary_sha256 6c941a46...), the same commit (ef8b063), the same clean
+# state (git_dirty=no, inputs_dirty=no). It is recorded separately from
+# RUST-BUILD_ID only to make the matrix's two roles legible side by side;
+# the C role's identity differs from its C-BUILD_ID, and that difference
+# should not be hidden.
+#
+# Recorded after review finding M10-R-01 (borg-rs#23). No gate was rerun.
+
+impl=rust
+binary=/home/diego/projects/borg-rs/build/rust/game/angband
+binary_sha256=6c941a46837e667268a7adc669cb2de3d4798a73e324f005b31562b8e67110f3
+binary_elf_impl=rust
+binary_cmake_borg_impl=rust
+build_id_impl=rust
+build_id_git_rev=ef8b063366d9907133ece36aff20b9dc5c69b891
+build_id_git_dirty=no
+build_id_inputs_dirty=no
+build_id_source_sha256=ec78bc3f0cd8aa34038106edbcdbb2147fea3cf0d2eb8f589758dcd249253fd5
+build_id_binary_sha256=6c941a46837e667268a7adc669cb2de3d4798a73e324f005b31562b8e67110f3
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_rustc=rustc 1.98.1 (48a229cea 2026-09-01)
+build_id_built_utc=2026-11-10T12:56:36Z
+checkout_source_sha256=ec78bc3f0cd8aa34038106edbcdbb2147fea3cf0d2eb8f589758dcd249253fd5
+git_rev=ef8b063366d9907133ece36aff20b9dc5c69b891
+git_dirty=no
+binary_sha256_end=6c941a46837e667268a7adc669cb2de3d4798a73e324f005b31562b8e67110f3
+started_utc=2026-11-10T13:05:55Z
+finished_utc=2026-11-10T13:25:07Z
+result=OK
+suite=adoption-suite-final
+suite_sha256=9428a8085d6d8828312b57323e8b04d2ac639596cbffec33cce0cd1dbd402dd8
+borg_txt_sha256=2b047f4d3880457fb71732f948dd0f86f307cf0289cc4707045fb362619d628f

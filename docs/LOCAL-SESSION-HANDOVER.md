@@ -4,7 +4,7 @@
 
 Owner direction (2026-11-10): after `4.2.6-impact-v9`, carry C milestone10.
 Target better-borg-c `6944d88e87d02e9d24e85438d25f0c6ef864c170`, tag
-`4.2.6-impact-v10`. Tracking [Rust#24](https://github.com/diegoami/borg-rs/issues/24).
+`4.2.6-impact-v10`. Tracking [Rust#23](https://github.com/diegoami/borg-rs/issues/23).
 Record `docs/adoption/c-m10`; receipt `docs/validation/2026-11-10-c-m10`.
 C review: better-borg-c#420 (approve with corrections M10-R-01..07, applied
 in the snapshot commit, re-reviewed approve at `46057bc4a`).
@@ -63,11 +63,26 @@ Merged to main as `44a96af` "Impact v10: carry better-borg-c milestone 10",
 followed by `9674ca0` (dropped the empty fixture link logs). Pushed to
 `origin/main` and to `origin/claude/m10-carry`.
 
-**Open: independent review and owner acceptance.** The owner launches the
-reviewer. Nothing in the batch is claimed as accepted, and no tag is placed:
-the tag would follow the owner's acceptance, as for v8 and v9.
+**Independent review: qualified pass, no acceptance blockers**
+([borg-rs#23](https://github.com/diegoami/borg-rs/issues/23#issuecomment-6770750242)).
+The reviewer found no C/Rust semantic mismatch in the three units and judged
+the parity reasoning for the two improvement units sound. Four findings:
+M10-R-01 (minor — the committed `C-BUILD_ID` was not the matrix's actual C
+binary identity; fixed by adding `MATRIX-C-BUILD_ID`/`MATRIX-RUST-BUILD_ID`
+and a `build_id` field in the compact summary, with no gate rerun and no
+evidence relabelled), M10-R-02 (minor — the `borg-caution.c` include is
+placed in the local sorted block, not as in the consumer; README wording
+narrowed, no C source change), M10-R-03 (observation — I-001's evidence is
+adequate for a bounded parity adoption but is not a direct edge-case or
+policy-benefit oracle; limitation preserved), M10-R-04 (note — `status.json`
+said "units" for fault-detected cases; now "cases").
 
-Two things a reviewer should look at first:
+**Open: owner acceptance.** The owner takes the acceptance decision; no tag
+is placed. Per the v8/v9 precedent the tag would go on the runtime snapshot,
+not on the package commit.
+
+Two things a reviewer should look at first (unchanged, and the review
+confirmed both):
 
 1. **I-001's Rust placement.** The C applies the guard only to the strategic
    retreat; Rust's shared `may_move_away()` helper now takes a `retreat`

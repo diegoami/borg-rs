@@ -6,10 +6,10 @@ C milestone 10 (`4.2.6-impact-v10`) carries no new bug ordinal: its units are
 two owner-directed local improvement units (I-001, I-002; never proposed
 upstream) and one crash correction attached to the already-carried 0099
 entry. It is carried on branch `claude/m10-carry`
-([#24](https://github.com/diegoami/borg-rs/issues/24)); record
+([#23](https://github.com/diegoami/borg-rs/issues/23)); record
 `docs/adoption/c-m10`. The 0099 crash correction was already in borg-rs
-since milestone 9, so the C side needed a comment sync only. Review and
-owner acceptance are pending.
+since milestone 9, so the C side needed a comment sync only. Independent
+review: qualified pass, no acceptance blockers; owner acceptance pending.
 
 ## Previous: adopt better-borg-c milestone 9 (impact v9)
 
@@ -278,7 +278,7 @@ The save-path ordering fix and real GUI save/reload roundtrip are verified.
 | Impact v7: better-borg-c milestone 7 carry | 13 consumer patches carried in C/Rust (reverse flows, swap acid/troll, munchkin poison exit, text buffer size, glow floors, rune bounds, pain messages, drop/hold, wear skip, lantern, home banishment); 0068/0065 supersede local #287/#345; 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#17); tag `4.2.6-impact-v7` on main; record `docs/adoption/c-m7` |
 | Impact v8: better-borg-c milestone 8 carry | 12 consumer patches carried in C/Rust (banishment HP, rest after multiplier kill, shop entrances, west light, item stat value, neck/stun cleanups, light beam panel row, Dimension Door landing, Alchemy cures, lunal dead takes, spastic search count) plus the owner's munchkin-by-class change (PR302); 131/131 C/Rust full-save parity; independent qualified pass and owner acceptance (#19); tag `4.2.6-impact-v8` on main; record `docs/adoption/c-m8` |
 | Impact v9: better-borg-c milestone 9 carry | 10 consumer patches carried in C/Rust (Remove Hunger shopping, Teleport Other rod, healing-chance signs, home-buy restore, trade history, panel scan bounds, visible runes, Necromancer lit squares); 0098 replaces local #295; local crash guards on 0098 and 0099 (better-borg-c#375/#377); 130/131 C/Rust full-save parity, the last case a recorded pre-existing munchkin livelock identical in both roles (better-borg-c#204); independent pass on re-review and owner acceptance (#21); tag `4.2.6-impact-v9` on main; record `docs/adoption/c-m9` |
-| Impact v10: better-borg-c milestone 10 carry | no new bug ordinal: two owner-directed local improvement units carried in C/Rust (I-001 one-blow adjacent kill, I-002 caution heals while fleeing) plus the 0099 crash correction, which borg-rs already carried since milestone 9, so the C side needed a comment sync only; C/Rust full-save parity and the native fixture comparison are recorded in `docs/validation/2026-11-10-c-m10`; review and owner acceptance pending; record `docs/adoption/c-m10` |
+| Impact v10: better-borg-c milestone 10 carry | no new bug ordinal: two owner-directed local improvement units carried in C/Rust (I-001 one-blow adjacent kill, I-002 caution heals while fleeing) plus the 0099 crash correction, which borg-rs already carried since milestone 9, so the C side needed a comment sync only; 131/131 C/Rust full-save parity, native 8/9 → 9/9 with the I-002 fail-before anchor, ASan 5/5 with no report, per-unit Rust fault controls detected (I-001 13/23, I-002 14/23); independent qualified pass with no acceptance blockers (#23); owner acceptance pending; record `docs/adoption/c-m10` |
 | M3 safe idiomatic Rust | done (tag `m3` = `74fc8793c`, after the three external reviews): all 59 modules converted, transitional bridge removed, `unsafe` only in `engine.rs` and the engine declarations in `headers/` (270 at `dd885b6dd`, from 848 at M2; 268 at M4;267 after #295, see PROGRESS), clippy `-D warnings` clean; final checkpoint smoke 3/3, full 45/45, deep 9/9, classes 16/16 identical, `check-no-c-borg.sh` OK (see below and PROGRESS.md); after the external review of `4c06cec08` (findings fixed, see `docs/REVIEW-RESPONSE-4c06cec08.md`) the same checkpoint passed again on `e2020e4aa`, see PROGRESS row 62 |
 
 ## Original M1-M3 machine

@@ -4,12 +4,19 @@
   "previous_consumer_commit": "33207fbeeb582e67d6b18e9f40613617667905ae",
   "consumer_package": "docs/measurement/IMPACT-MILESTONE10.md (added after the snapshot)",
   "c_review": "https://github.com/diegoami/better-borg-c/issues/420",
-  "issue": "https://github.com/diegoami/borg-rs/issues/24",
+  "issue": "https://github.com/diegoami/borg-rs/issues/23",
   "previous_batch": "https://github.com/diegoami/borg-rs/issues/21",
   "starting_main": "8a7579d",
   "starting_tag": "4.2.6-impact-v9",
   "implementation_commit": "4f7152d",
   "removal_units_commit": "8a135f1",
+  "independent_review": {
+   "verdict": "qualified pass",
+   "acceptance_blockers": false,
+   "comment": "https://github.com/diegoami/borg-rs/issues/23#issuecomment-6770750242",
+   "c_rust_semantic_mismatch": "none found in the three units",
+   "findings_addressed_in": "the milestone10 review-corrections commit"
+  },
   "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "retained_local_corrections": [
     322

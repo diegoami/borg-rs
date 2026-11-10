@@ -2,7 +2,7 @@
 
 Owner direction, 2026-11-10: after `4.2.6-impact-v9` (C milestone9,
 [Rust#21](https://github.com/diegoami/borg-rs/issues/21)), continue with C
-milestone10. Tracking: [Rust#24](https://github.com/diegoami/borg-rs/issues/24).
+milestone10. Tracking: [Rust#23](https://github.com/diegoami/borg-rs/issues/23).
 
 Target: better-borg-c `6944d88e87d02e9d24e85438d25f0c6ef864c170`, tagged
 `4.2.6-impact-v10` there. It carries no new bug ordinal: its units are two
@@ -51,9 +51,14 @@ units are carried:
 After the change the C Borg files equal the consumer blobs at `6944d88e8`,
 with two exceptions:
 - `borg-fight-attack.c` keeps local #322 (the stale-target comment and guard).
-- `borg-caution.c` differs from the consumer only by that same file's local
-  history in the untouched regions; the m10 hunks are byte-identical to the
-  consumer's.
+- `borg-caution.c`: the **functional** m10 code matches the consumer's
+  exactly. The one difference is where the new
+  `#include "borg-fight-attack.h"` sits: the consumer puts it immediately
+  after `borg-caution.h`, borg-rs puts it in the local sorted include block
+  after `borg-escape.h`. The placement has no behavioural effect, but it is
+  a difference in the I-001 include hunk, not only "local history in the
+  untouched regions". (Review finding M10-R-02, borg-rs#23; no C source
+  change is needed.)
 
 `borg-fight-attack.h` and `borg-magic.c` are byte-identical to the consumer's
 blobs at `6944d88e8`.

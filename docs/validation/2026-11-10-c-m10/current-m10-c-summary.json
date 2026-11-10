@@ -2595,5 +2595,22 @@
     }
    }
   ]
- ]
+ ],
+ "build_id": {
+  "note": "The identity of the C binary the 131-case matrix actually ran against, read from the raw suite manifest. This is NOT the later clean C-BUILD_ID (ef8b063, binary 9432ca12...), which was built afterwards for the remaining checks; see MATRIX-C-BUILD_ID and C-BUILD_ID. The C source was byte-identical in both builds (the same source_sha256), so the matrix result is unaffected. Recorded after review finding M10-R-01.",
+  "impl": "c",
+  "binary": "/home/diego/projects/borg-rs/build/c/game/angband",
+  "binary_sha256": "9a7fb7c4009880356592a63121b742ad0d45a8079abf429c9068e6bfe76ec170",
+  "build_id_git_rev": "8a7579d11998c76b28c6e4f0f749b15d32fb7ba1",
+  "build_id_git_dirty": "yes",
+  "build_id_inputs_dirty": "yes",
+  "build_id_source_sha256": "eb0c22979558759458b2b2c1b4330ef9eed39b43e2c80f9a56c448fe132ca8f9",
+  "build_id_cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "build_id_built_utc": "2026-11-10T12:22:54Z",
+  "started_utc": "2026-11-10T12:25:30Z",
+  "finished_utc": "2026-11-10T12:44:02Z",
+  "result": "OK",
+  "matrix_build_id_record": "docs/validation/2026-11-10-c-m10/MATRIX-C-BUILD_ID",
+  "clean_build_id_record": "docs/validation/2026-11-10-c-m10/C-BUILD_ID"
+ }
 }

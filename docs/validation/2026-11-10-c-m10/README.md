@@ -1,7 +1,7 @@
 # Carry C milestone10 units into the C oracle and Rust
 
 Owner direction (2026-11-10): after `4.2.6-impact-v9`, continue with C
-milestone10. Tracking [Rust#24](https://github.com/diegoami/borg-rs/issues/24);
+milestone10. Tracking [Rust#23](https://github.com/diegoami/borg-rs/issues/23);
 record [adoption/c-m10](../../adoption/c-m10/README.md). Target better-borg-c
 `6944d88e87d02e9d24e85438d25f0c6ef864c170` (`4.2.6-impact-v10`). Start: Rust
 main `8a7579d` (`4.2.6-impact-v9`). This is author validation, not independent
@@ -15,13 +15,37 @@ and the Rust side needed no change.
 
 ## Identities
 
-[C-BUILD_ID](C-BUILD_ID) and [RUST-BUILD_ID](RUST-BUILD_ID) are clean builds
-of `ef8b063` (`git_dirty=no`, `inputs_dirty=no`). The builder is Ubuntu cc
-15.2.0 and rustc 1.98.1, as recorded in the BUILD_IDs. The implementation
-commit is `4f7152d`; `8a135f1` adds the removal units and the adoption
-record, and `ef8b063` the status update. Only the documentation commits
-follow `4f7152d`, so the build inputs (the `source_sha256` values) are the
-same for all three.
+There are **two** C identities in this receipt, and they are not the same
+binary. Both record the same C `source_sha256`
+(`eb0c22979558759458b2b2c1b4330ef9eed39b43e2c80f9a56c448fe132ca8f9`), so the
+C source was byte-identical in both builds.
+
+- [MATRIX-C-BUILD_ID](MATRIX-C-BUILD_ID) is the C binary the **131-case
+  matrix actually ran against**, read from the raw suite manifest. It is
+  binary `9a7fb7c4…`, built at 12:22:54 from a working tree that carried the
+  m10 source changes but was not yet committed (`build_id_git_rev` is the
+  milestone9 tip `8a7579d`, with `git_dirty=yes` and `inputs_dirty=yes`).
+  [MATRIX-RUST-BUILD_ID](MATRIX-RUST-BUILD_ID) is the Rust role's identity
+  and **is** the clean build below.
+- [C-BUILD_ID](C-BUILD_ID) and [RUST-BUILD_ID](RUST-BUILD_ID) are the later
+  **clean** builds (`ef8b063`, `git_dirty=no`, `inputs_dirty=no`), made after
+  the matrix for the remaining checks: the native fixtures, the no-C-Borg
+  audit and the removal-unit checks. The builder is Ubuntu cc 15.2.0 and
+  rustc 1.98.1.
+
+This distinction was missed in the first version of this receipt, which
+presented the clean `C-BUILD_ID` as the matrix's identity. Review finding
+M10-R-01 (borg-rs#23) corrected it; the correction adds the matrix
+identities and changes no result. The matrix compares the C and Rust runs
+per case on their streams, not on their binaries, and the independent review
+verified that its own clean C build reproduced all 23 rerun cases' streams
+exactly and that all 131 raw C process records have stable before/after
+executable hashes.
+
+The implementation commit is `4f7152d`; `8a135f1` adds the removal units
+and the adoption record, and `ef8b063` the status update. Only the
+documentation commits follow `4f7152d`, so the build inputs (the
+`source_sha256` values) are the same for all three.
 
 `harness/check-no-c-borg.sh` finds no C Borg code in the Rust image.
 
@@ -101,6 +125,46 @@ evidence is a targeted life (seed 1907608237) and a paired cohort (seeds
 lane's reach. The Rust coverage for I-001 is therefore the C/Rust parity
 matrix, the 13/23 fault control, and the translation review. This is the
 thinnest part of the batch, and the record says so.
+
+## Independent review
+
+Independent review: **qualified pass, no acceptance blockers**
+([borg-rs#23](https://github.com/diegoami/borg-rs/issues/23#issuecomment-6770750242)).
+The reviewer found **no C/Rust semantic mismatch** in the three units and
+judged the parity reasoning for the two improvement units sound: they are
+named, owner-directed units already merged and reviewed in the consumer's
+product, not a policy redesign invented on the Rust side.
+
+The reviewer executed, independently of this receipt: the re-derivation of
+the full retained matrix over the retained C/Rust outputs and both retained
+fault suites (regenerating an artefact exactly equal to the committed
+`matrix.json`); a fresh corrected C and Rust build pair completing the
+23-case plan 23/23 with full parity; an independent I-001 fault rerun in a
+separate clone (exactly the recorded 13 cases differ, with the recorded
+streams per case); all nine normal native fixture modes on fresh M9 and M10
+C builds (8/9 before, 9/9 after, all 18 logs byte-identical to the copies
+here); the removal-unit checks on another scratch clone; the Rust build
+checks; and a hash of every raw stream file against the recorded rows.
+
+Findings and what was done:
+
+| Finding | Severity | Disposition |
+|---|---|---|
+| **M10-R-01** the committed `C-BUILD_ID` is not the 131-case C suite's actual binary identity (the matrix ran against the earlier dirty build) | minor | **Fixed.** Added [MATRIX-C-BUILD_ID](MATRIX-C-BUILD_ID) and [MATRIX-RUST-BUILD_ID](MATRIX-RUST-BUILD_ID), added a `build_id` field to [current-m10-c-summary.json](current-m10-c-summary.json), and corrected the Identities section above. No gate was rerun and no original evidence was relabelled |
+| **M10-R-02** `borg-caution.c`'s m10 hunks are not all byte-identical as claimed: the new include sits in the local sorted block, not immediately after `borg-caution.h` | minor | **Fixed** in [docs/adoption/c-m10/README.md](../../adoption/c-m10/README.md) by narrowing the wording to "the functional m10 code matches; the include is placed in the local sorted include block". No C source change is needed |
+| **M10-R-03** I-001's evidence is adequate for a bounded parity adoption but is not a direct edge-case or policy-benefit oracle | observation | **No correction required.** The stated limitation is preserved. A focused I-001 fixture would be needed before making the stronger claims |
+| **M10-R-04** `status.json` called the fault-detected cases "units" | note | **Fixed** to "cases" in [docs/adoption/status.json](../../adoption/status.json) |
+
+The reviewer's own limits are recorded with the comment: the consumer's C
+review and its targeted-life, cohort and matrix narratives were taken on
+trust; the **execution** of the complete 131-case plan remains author
+evidence (the reviewer rehashed and compared every retained output and
+independently reran 23 cases); I-002's fault control was re-derived from its
+retained raw outputs rather than independently rebuilt and rerun; the five
+ASan rows were inspected, not rerun; and the discarded first Rust suite's
+own logs are not committed.
+
+Owner acceptance remains a separate decision. No tag is placed.
 
 ## Not claimed
 

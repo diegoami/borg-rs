@@ -10,7 +10,7 @@ Paste the prompt below as the opening message.
 
 You are the **independent reviewer** for the Rust side of diegoami/borg-rs. You
 are reviewing already-merged work on `main`; you are **not** implementing.
-Post your verdict on **diegoami/borg-rs#24** and nowhere else: no PRs, no
+Post your verdict on **diegoami/borg-rs#23** and nowhere else: no PRs, no
 code changes, no tag placement, no issue closing, nothing posted to
 angband/angband or to better-borg-c.
 
@@ -169,7 +169,7 @@ consumer's C Borg. **Judge that reasoning on its merits.**
 
 ## Deliverable
 
-Post **one** comment on **diegoami/borg-rs#24** containing:
+Post **one** comment on **diegoami/borg-rs#23** containing:
 
 - **Verdict**: `pass` / `qualified pass` / `fail` / `insufficient evidence`,
   with **acceptance blockers** named explicitly.
@@ -183,7 +183,7 @@ Post **one** comment on **diegoami/borg-rs#24** containing:
   inspected**.
 - **Limits**: what remains unverified, and anything you could not run.
 
-The author will respond to each finding on issue #24 and will explicitly
+The author will respond to each finding on issue #23 and will explicitly
 verify any claimed fix, or mark it unverified. Owner acceptance remains a
 separate decision after the review.
 
