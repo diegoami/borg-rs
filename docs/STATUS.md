@@ -16,8 +16,12 @@ rejected upstream proposal and preserves its negative evidence.
 Implementation of #25 has begun: the strategy seam, configuration, reserve and
 home-sell guard, focused tests, eight-case runtime suite and registry exist.
 The current control passes 3/3 C/Rust smoke parity and matches the retained v10
-smoke streams; the explicit family validator passes 8/8 cases. This is not
-variant acceptance, a zoo outcome, or a derived-tag decision.
+smoke streams; the explicit family validator passes 8/8 cases. The follow-up
+[borg-rs#27](https://github.com/diegoami/borg-rs/issues/27) adds the independent
+default-off `borg_buy_identify` policy with a four-case validator (3/4 on/off
+cases changed, independent learning anchors in three cases, no repeated
+flavour learning). These are not variant acceptance, zoo outcomes, or
+derived-tag decisions.
 
 Accepted family variants can receive derived tags of the form
 `4.2.6-impact-v10-<variant>` (for example `4.2.6-impact-v10-r` or

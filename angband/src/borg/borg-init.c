@@ -100,6 +100,7 @@ struct borg_setting borg_settings[] = {
     { "borg_buy_strategy_reserve410_classes", 'i', 0 },
     { "borg_buy_strategy_current_munchkin_classes", 'i', 0 },
     { "borg_buy_strategy_reserve410_munchkin_classes", 'i', 0 },
+    { "borg_buy_identify", 'i', 0 },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */

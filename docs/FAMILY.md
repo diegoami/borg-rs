@@ -23,6 +23,22 @@ items, but still failed the declared survival and max-depth-loss margins and
 was rejected. The family experiment exists to make such policy differences
 selectable and measurable, not to erase that evidence.
 
+### Independent buy-to-identify policy (#27)
+
+`borg_buy_identify = 1` enables a separate early learning policy, while zero
+leaves it off. Through `BI_MAXCLEVEL <= 7`, the Borg may buy one affordable
+copy of a still-unaware kind from this deliberately small list: Cure Light
+Wounds, Cure Serious Wounds, Remove Hunger, Detect Invisible and Monster
+Confusion. The engine's real `kind->aware` flag determines eligibility, so a
+kind is not learned repeatedly after its first purchase.
+
+Urgent food/light/cut/poison paths run first, then any unmet `reserve410`
+deficit, then learning purchases, then the old valuation. Missing or
+unaffordable learning stock falls through to the old valuation instead of
+suppressing it. This is [better-borg-c#412](https://github.com/diegoami/better-borg-c/issues/412)
+independently selectable in borg-rs, not a carry or a benefit claim. It can be
+combined with either buying strategy without changing the default.
+
 ## Configuration and precedence
 
 The C and Rust parsers carry the same six integer fields. C always executes the
@@ -32,6 +48,7 @@ or home-selling decision.
 | Setting | Default | Meaning |
 | --- | --- | --- |
 | `borg_buy_strategy_default` | `0` | Global strategy: `0` current, `1` reserve410 |
+| `borg_buy_identify` | `0` | Independent early learning policy: `0` off, `1` on |
 | `borg_buy_strategy_munchkin` | `-1` | Munchkin override: `-1` inherit, `0` current, `1` reserve410 |
 | `borg_buy_strategy_current_classes` | `0` | Class mask forcing current in either mode |
 | `borg_buy_strategy_reserve410_classes` | `0` | Class mask forcing reserve410 in either mode |
@@ -77,10 +94,10 @@ population claim belongs to this tranche.
 
 ### Executed implementation checks (2026-11-10)
 
-- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **110 passed, one
+- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **112 passed, one
   existing ignored**. This includes selection precedence, invalid/conflicting
-  configuration, urgent/completed gates, item classification and home-sell
-  retention.
+  configuration, urgent/completed gates, item classification, home-sell
+  retention and the buy-to-identify gate/list.
 - `cargo clippy --release --all-targets --manifest-path borg-rs/Cargo.toml --
   -D warnings`: clean.
 - Fresh C and Rust builds plus `harness/check-no-c-borg.sh`: pass; no C Borg is
@@ -96,6 +113,14 @@ population claim belongs to this tranche.
   pairs are byte-identical on keys, messages, state and final save; Warrior
   and Mage each differ between current and reserve410 and show at least four
   Phase Door and three Cure Light Wounds purchase anchors.
+- `BORG_IMPL=rust harness/suite.sh family-identify harness/out/family-identify`
+  followed by `python3 harness/regress/family-identify-test.py
+  harness/out/family-identify --baseline harness/out/family-buying`: **PASS**.
+  All four cases complete. Identification on/off changes three of four
+  strategy cases, three cases buy independent (non-reserve) learning-list
+  kinds, and no later goal repeats an already learned `{unseen}` kind. The
+  unchanged reserve410/Warrior case leaves town before the learning stage and
+  is recorded as a valid no-effect case, not as evidence of a behaviour flip.
 
 `harness/run.sh` accepts digits in `borg_*` option names so the reserve410
 settings work through the existing generic `NAME=VALUE` flags. The failed

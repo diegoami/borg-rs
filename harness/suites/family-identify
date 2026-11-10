@@ -1,0 +1,5 @@
+# Bounded buy-to-identify checks (borg-rs#27). One build; independent policy flag.
+identify-current-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_identify=1
+identify-reserve-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_identify=1
+identify-current-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_identify=1
+identify-reserve-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_identify=1

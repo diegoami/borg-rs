@@ -23,7 +23,10 @@
 //! pointer does). C's pointer `item` into a ware is read again
 //! at each use (`ware`), never cached across a call.
 
-use crate::borg_buy_strategy::{reserve410_unmet, RESERVE410_CURE, RESERVE410_PHASE};
+use crate::borg_buy_strategy::{
+    buy_identify_enabled, is_learning_candidate, reserve410_unmet, RESERVE410_CURE,
+    RESERVE410_PHASE,
+};
 use crate::borg_home_notice::borg_notice_home;
 use crate::borg_home_power::borg_power_home;
 use crate::borg_inventory::{borg_first_empty_inventory_slot, borg_slot, borg_wield_slot};
@@ -410,6 +413,36 @@ fn borg_buy_reserve410(st: &mut BorgState) -> bool {
     false
 }
 
+/// Buy one affordable still-unaware kind from the small #27 learning list.
+/// Failure is deliberately non-blocking: the old valuation runs next.
+fn borg_buy_identify(st: &mut BorgState) -> bool {
+    let mut b_k = -1;
+    let mut b_n = -1;
+    let mut b_cost = 0;
+
+    for k in 0..(store_max() - 1) {
+        for n in 0..store_inven_max() {
+            let item = *ware(st, k, n);
+            if item.iqty == 0 || !borg_good_buy(st, k, n) || !is_learning_candidate(st, &item) {
+                continue;
+            }
+            if st.borg.tr(BI_GOLD) < item.cost || (b_k >= 0 && item.cost >= b_cost) {
+                continue;
+            }
+            b_k = k;
+            b_n = n;
+            b_cost = item.cost;
+        }
+    }
+
+    if b_k >= 0 {
+        st.borg.goal.shop = b_k as i16;
+        st.borg.goal.ware = b_n as i16;
+        return true;
+    }
+    false
+}
+
 /// Step 3 -- buy "useful" things from a shop (to be used)
 /// (`borg_think_shop_buy_useful`).
 pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
@@ -435,6 +468,9 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
     // this decision. `current` goes straight to the v10 valuation below.
     if reserve410_unmet(st) {
         return borg_buy_reserve410(st);
+    }
+    if buy_identify_enabled(st) && borg_buy_identify(st) {
+        return true;
     }
 
     /* Extract the "power" */

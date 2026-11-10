@@ -336,6 +336,12 @@ borg_buy_strategy_reserve410_classes = 0
 borg_buy_strategy_current_munchkin_classes = 0
 borg_buy_strategy_reserve410_munchkin_classes = 0
 
+# Buy one affordable copy of each still-unaware learning-list kind through
+# CL7 (borg-rs#27). Urgent needs and reserve410 deficits come first; learning
+# never suppresses the old valuation when stock is absent or unaffordable.
+
+borg_buy_identify = 0
+
 
 ### Enchant Limit ###
 
