@@ -1312,12 +1312,18 @@ fn back_away(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
 /// The common start of the retreat and back-away tests: some danger and
 /// not "nasty", or surrounded; not in a Sea of Runes or an anti-summon
 /// corridor, not confused, not in a vault, and not too many HP.
+///
+/// `retreat` selects the strategic-retreat face: it additionally skips the
+/// retreat when a lone adjacent monster would die in one blow
+/// (`borg_adjacent_kill_in_one_blow`, consumer improvement unit I-001). The
+/// back-away face has no such test, as in the C.
 fn may_move_away(
     st: &BorgState,
     danger_test: bool,
     nasty: bool,
     borg_surround: bool,
     pos_danger: i32,
+    retreat: bool,
 ) -> bool {
     ((danger_test && !nasty && st.borg.no_retreat == 0) || (borg_surround && pos_danger != 0))
         && !st.borg.morgoth_position
@@ -1325,6 +1331,51 @@ fn may_move_away(
         && st.borg.tr(BI_ISCONFUSED) == 0
         && !engine::square_isvault(st.borg.c.x, st.borg.c.y)
         && st.borg.tr(BI_CURHP) < 500
+        && !(retreat && borg_adjacent_kill_in_one_blow(st))
+}
+
+/// A lone adjacent known monster that one blow would kill does not justify
+/// retreat: swinging removes the threat outright, while retreating hands the
+/// initiative back and lets a flee route walk straight back into reach.
+/// Requires exactly one adjacent known kill, so a killable monster never
+/// masks a dangerous one.
+///
+/// (Consumer improvement unit I-001, better-borg-c `4.2.6-impact-v10`.)
+fn borg_adjacent_kill_in_one_blow(st: &BorgState) -> bool {
+    if st.borg.tr(BI_ISAFRAID) != 0 {
+        return false;
+    }
+
+    let mut adjacent = 0;
+    let mut killable = 0;
+
+    for i in 1..st.kills.nxt {
+        let i = i32::from(i);
+        let kill = &st.kills.kills[i as usize];
+
+        if kill.r_idx == 0 {
+            continue;
+        }
+        // C: `kill->r_idx >= z_info->r_max - 1`. `r_max` is a `uint16_t`
+        // promoted to `int`, so the comparison is signed; with an empty
+        // race table `r_max - 1` is -1 and every kill is skipped.
+        if engine::r_max() == 0 || kill.r_idx as i32 >= engine::r_max() as i32 - 1 {
+            continue;
+        }
+        if borg_timer(st, kill.when) > 2 {
+            continue;
+        }
+        if engine::distance(st.borg.c, kill.pos) != 1 {
+            continue;
+        }
+
+        adjacent += 1;
+        if crate::borg_fight_attack::borg_thrust_damage_one(st, i) >= kill.power as i32 {
+            killable += 1;
+        }
+    }
+
+    adjacent == 1 && killable == 1
 }
 
 /// Be "cautious" and attempt to prevent death or dishonor.
@@ -1547,6 +1598,16 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
                 return true;
             }
         }
+    } else if pos_danger < st.borg.tr(BI_CURHP) {
+        // Fleeing, but this grid is survivable this round: still tend to
+        // wounds, poison and cuts instead of staying untreated for the
+        // rest of the level. The flee goal itself is untouched, and
+        // borg_heal()'s own danger gates still apply.
+        //
+        // (Consumer improvement unit I-002, better-borg-c `4.2.6-impact-v10`.)
+        if borg_heal(st, pos_danger) {
+            return true;
+        }
     }
 
     // do some swapping before running away!
@@ -1759,7 +1820,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     // 3) we are in a Sea of Runes
     // 4) we are not in a vault
     let danger_test = pos_danger > i32::from(st.borg.avoidance) / 3;
-    if may_move_away(st, danger_test, nasty, borg_surround, pos_danger)
+    if may_move_away(st, danger_test, nasty, borg_surround, pos_danger, true)
         && retreat(st, pos_danger, borg_surround)
     {
         return true;
@@ -1788,7 +1849,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     // 5) we are not in a vault
     // 6) loads of HP
     let danger_test = pos_danger > i32::from(st.borg.avoidance) * 4 / 10;
-    if may_move_away(st, danger_test, nasty, borg_surround, pos_danger)
+    if may_move_away(st, danger_test, nasty, borg_surround, pos_danger, false)
         && back_away(st, pos_danger, borg_surround)
     {
         return true;

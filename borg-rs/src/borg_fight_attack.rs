@@ -309,7 +309,12 @@ pub fn borg_mon_blow_effect(name: &[u8]) -> i32 {
 
 /// Guess how much damage a physical attack will do to a monster
 /// (`borg_thrust_damage_one`).
-fn borg_thrust_damage_one(st: &BorgState, i: i32) -> i32 {
+///
+/// The C consumer made this non-static for its improvement unit I-001
+/// (better-borg-c `4.2.6-impact-v10`): `borg_caution()`'s
+/// `borg_adjacent_kill_in_one_blow()` needs the melee damage of a full
+/// round against a tracked kill.
+pub fn borg_thrust_damage_one(st: &BorgState, i: i32) -> i32 {
     /* Examine current weapon */
     let item = &st.items.items[inven_wield() as usize];
 

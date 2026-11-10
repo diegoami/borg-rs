@@ -28,6 +28,7 @@
 #include "borg-cave-view.h"
 #include "borg-danger.h"
 #include "borg-escape.h"
+#include "borg-fight-attack.h"
 #include "borg-fight-defend.h"
 #include "borg-flow-glyph.h"
 #include "borg-flow-kill.h"
@@ -796,6 +797,40 @@ static bool borg_heal(int danger)
  *     if borg is correctly positioned in a good room.
  * 5.  Stay put and rest until Morgoth returns.
  */
+/*
+ * A lone adjacent known monster that one blow would kill does not justify
+ * retreat: swinging removes the threat outright, while retreating hands the
+ * initiative back and lets a flee route walk straight back into reach.
+ * Requires exactly one adjacent known kill, so a killable monster never
+ * masks a dangerous one.
+ */
+static bool borg_adjacent_kill_in_one_blow(void)
+{
+    int i, adjacent = 0, killable = 0;
+
+    if (borg.trait[BI_ISAFRAID])
+        return false;
+
+    for (i = 1; i < borg_kills_nxt; i++) {
+        borg_kill *kill = &borg_kills[i];
+
+        if (!kill->r_idx)
+            continue;
+        if (kill->r_idx >= z_info->r_max - 1)
+            continue;
+        if (borg_timer(kill->when) > 2)
+            continue;
+        if (distance(borg.c, kill->pos) != 1)
+            continue;
+
+        adjacent++;
+        if (borg_thrust_damage_one(i) >= kill->power)
+            killable++;
+    }
+
+    return (adjacent == 1 && killable == 1);
+}
+
 bool borg_caution(void)
 {
     int  j, pos_danger;
@@ -1020,6 +1055,13 @@ bool borg_caution(void)
             if (borg_defend(pos_danger))
                 return true;
         }
+    } else if (pos_danger < borg.trait[BI_CURHP]) {
+        /* Fleeing, but this grid is survivable this round: still tend to
+         * wounds, poison and cuts instead of staying untreated for the
+         * rest of the level. The flee goal itself is untouched, and
+         * borg_heal()'s own danger gates still apply. */
+        if (borg_heal(pos_danger))
+            return true;
     }
 
     if (borg_uses_swaps()) {
@@ -1431,7 +1473,8 @@ bool borg_caution(void)
             || (borg_surround && pos_danger != 0))
         && !borg.morgoth_position && (borg_timer(borg.time.antisummon) >= 50)
         && !borg.trait[BI_ISCONFUSED] && !square_isvault(cave, borg.c)
-        && borg.trait[BI_CURHP] < 500) {
+        && borg.trait[BI_CURHP] < 500
+        && !borg_adjacent_kill_in_one_blow()) {
         int d, b_d = -1;
         int r, b_r = -1;
         int b_p = -1, p1 = -1;
