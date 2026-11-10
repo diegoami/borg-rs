@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v11r_author_validated",
+  "phase": "impact_v11r_reviewed_approve_pending_owner",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -25,9 +25,15 @@
       "target_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
       "target_tag": "4.2.6-impact-v11",
       "previous_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
-      "state": "author_validated_pending_review",
+      "state": "independently_reviewed_approve_pending_owner_acceptance",
       "units": 18,
       "patches": 19,
+      "independent_review": {
+        "verdict": "approve",
+        "review": "https://github.com/diegoami/borg-rs/pull/30#issuecomment-6778346536",
+        "finding": "F1 minor stale Lunal doc comment; fixed in e8f939a",
+        "validation_reproduced": "104 tests, 3/3 smoke, 45/45 full, 9/9 deep, 16/16 classes, 7/7 config, 25/25 options"
+      },
       "tracking_record": "docs/adoption/c-v11r/README.md",
       "series": "docs/adoption/c-v11r/series.json",
       "receipt": "docs/validation/2026-11-10-c-v11r/README.md",
@@ -413,7 +419,7 @@
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Owner-directed v11R carry is author-validated; independent review and owner acceptance remain. No later C milestone is selected automatically.",
+  "next_action": "v11R is independently reviewed (approve; F1 fixed). Owner acceptance and any v11R tag decision remain. No later C milestone is selected automatically.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -439,7 +445,7 @@
   "active_batch": {
     "id": "c-v11r",
     "starting_rust_main": "399c907950b1fd474ddfc1c5a5d4f86063778aac",
-    "state": "author_validated_pending_review",
+    "state": "independently_reviewed_approve_pending_owner_acceptance",
     "record": "docs/adoption/c-v11r/README.md",
     "receipt": "docs/validation/2026-11-10-c-v11r/README.md",
     "branch": "claude/v11r-carry"

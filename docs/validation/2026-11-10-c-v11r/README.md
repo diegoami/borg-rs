@@ -8,7 +8,7 @@ author validation, not independent review or acceptance.
 
 Start: Rust main `399c907950b1fd474ddfc1c5a5d4f86063778aac`
 (`4.2.6-impact-v10`). Implementation branch: `claude/v11r-carry`, commit
-`0337f1fe1e410a176b14bcd9e8bb0b9d7724767a`.
+`e8f939a9f8834d656d8ec2bee43a407c89b40d5a` (review F1 fix included).
 
 The consumer's milestone 11 was independently reviewed: verdict approve with
 corrections, all five findings applied in `981be4a1d` with no runtime change,
@@ -28,15 +28,26 @@ change is included.
 
 Clean builds of the final commit, from a fresh clone:
 
-- [C-BUILD_ID](C-BUILD_ID): `impl=c`, `git_rev=0337f1f`, `git_dirty=no`,
-  `inputs_dirty=no`, source `e1e65f643e599e66…`, binary `2104446058c08204…`.
-- [RUST-BUILD_ID](RUST-BUILD_ID): `impl=rust`, `git_rev=0337f1f`,
-  `git_dirty=no`, `inputs_dirty=no`, source `55d5b1e1361ef661…`, binary
-  `1a313f3eff57d5f5…`.
+- [C-BUILD_ID](C-BUILD_ID): `impl=c`, `git_rev=e8f939a`, `git_dirty=no`,
+  `inputs_dirty=no`, source `e1e65f643e599e66…`, binary `9b61185e0ad0d378…`.
+- [RUST-BUILD_ID](RUST-BUILD_ID): `impl=rust`, `git_rev=e8f939a`,
+  `git_dirty=no`, `inputs_dirty=no`, source `8688b8b31e344fdd…`, binary
+  `a77530e9faf91643…`.
 - Toolchain: Ubuntu `cc` 15.2.0 and `rustc` 1.98.1.
 
 The 45-case full suite below also ran on these clean builds; the C and Rust
-source hashes are the same as in the smoke manifests.
+source hashes are the same as in the smoke manifests. The Rust source hash
+changed from the pre-F1 `0337f1f` build because of the comment, doc line and
+`#[cfg(test)]` timer test; the release runtime logic is unchanged.
+
+## Independent review
+
+The reviewer independently verified the C blob identity and all 18 unit
+mappings, and reproduced 104 tests plus C/Rust parity on smoke **3/3**, full
+**45/45**, deep **9/9**, classes **16/16**, config **7/7** and options
+**25/25** (105/105 runs). The sole finding, F1, was a stale
+`borg_flow_take_lunal()` comment and is fixed in `e8f939a`; the clean full
+run above is the post-fix confirmation.
 
 ## Checks
 

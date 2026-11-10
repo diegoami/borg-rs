@@ -14,8 +14,12 @@ Validation: 105 Rust tests (one existing ignored), clippy clean, C/Rust smoke
 **3/3** and full **45/45** identical on keys, messages and state; the Rust
 binary links no C Borg. Receipt:
 [docs/validation/2026-11-10-c-v11r](validation/2026-11-10-c-v11r/README.md).
-This is author validation, not independent review, acceptance or a derived
-tag. The post-M10 family lane is separate and unaffected.
+
+Independent review of [PR #30](https://github.com/diegoami/borg-rs/pull/30):
+**approve**, with one minor doc finding (F1, fixed in `e8f939a`). The reviewer
+also reproduced deep 9/9, classes 16/16, config 7/7 and options 25/25 parity.
+Owner acceptance and any `v11R` tag decision remain; the post-M10 family lane
+is separate and unaffected.
 
 ## Previous: adopt better-borg-c milestone 10 (impact v10)
 

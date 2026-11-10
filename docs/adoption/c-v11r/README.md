@@ -86,6 +86,15 @@ The consumer's package also notes that 0101a is a correction of 0101 and that
 the mode gate is the only unit with a two-mode fixture. The Rust code carries
 the corrected form.
 
+## Independent review
+
+[PR #30](https://github.com/diegoami/borg-rs/pull/30) was reviewed
+independently: **approve**, with one minor doc finding (F1, stale Lunal
+comment) fixed in `e8f939a`. The reviewer reproduced the C blob identity, all
+18 unit mappings, 104 tests, and C/Rust parity on smoke 3/3, full 45/45, deep
+9/9, classes 16/16, config 7/7 and options 25/25. Owner acceptance and any
+v11R tag decision remain.
+
 ## Validation
 
 See [the validation receipt](../../validation/2026-11-10-c-v11r/README.md).
