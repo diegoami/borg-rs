@@ -147,4 +147,4 @@ the Rust lane's reach.
 See [the validation receipt](../../validation/2026-11-10-c-m10/README.md).
 
 Not claimed: a population survival or performance benefit, whole-private-Borg
-equivalence, or acceptance.
+equivalence, or direct I-001 native-fixture coverage.

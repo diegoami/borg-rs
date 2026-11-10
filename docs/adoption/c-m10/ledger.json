@@ -15,7 +15,13 @@
    "acceptance_blockers": false,
    "comment": "https://github.com/diegoami/borg-rs/issues/23#issuecomment-6770750242",
    "c_rust_semantic_mismatch": "none found in the three units",
-   "findings_addressed_in": "the milestone10 review-corrections commit"
+   "findings_addressed_in": "dd9983b",
+   "owner_accepted": true,
+   "owner_acceptance": {
+    "instruction": "merge and tag",
+    "date": "2026-11-10",
+    "tag": "4.2.6-impact-v10"
+   }
   },
   "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "retained_local_corrections": [

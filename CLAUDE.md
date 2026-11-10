@@ -64,7 +64,9 @@ never proposed upstream) and the 0099 crash correction, which borg-rs already
 carried since milestone 9, so its C side needed a comment sync only. The
 improvement units change Borg behaviour and are carried for C/Rust parity.
 Author-validated on branch `claude/m10-carry` (131/131 C/Rust full-save
-parity); independent review and owner acceptance are pending.
+parity). Independent review: qualified pass, no acceptance blockers
+(issue23); findings addressed in `dd9983b`; the owner accepted it as impact
+milestone 10 (tag `4.2.6-impact-v10`).
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The

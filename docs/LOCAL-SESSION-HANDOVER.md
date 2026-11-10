@@ -77,12 +77,13 @@ adequate for a bounded parity adoption but is not a direct edge-case or
 policy-benefit oracle; limitation preserved), M10-R-04 (note — `status.json`
 said "units" for fault-detected cases; now "cases").
 
-**Open: owner acceptance.** The owner takes the acceptance decision; no tag
-is placed. Per the v8/v9 precedent the tag would go on the runtime snapshot,
-not on the package commit.
+**Owner accepted the batch as impact v10** (tag `4.2.6-impact-v10`). The
+findings were addressed in `dd9983b`; the acceptance is recorded in the
+commit that follows. No tag is placed by the session: per the v8/v9
+precedent it is an annotated tag on the merged main commit, and the session
+git proxy refuses tag pushes, so the owner pushes it.
 
-Two things a reviewer should look at first (unchanged, and the review
-confirmed both):
+Two things a reviewer should look at first (the review confirmed both):
 
 1. **I-001's Rust placement.** The C applies the guard only to the strategic
    retreat; Rust's shared `may_move_away()` helper now takes a `retreat`

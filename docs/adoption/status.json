@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v10_reviewed_qualified_pass_owner_acceptance_pending",
+  "phase": "impact_v10_accepted",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -331,7 +331,7 @@
       "id": "c-m10",
       "target_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
       "consumer_tag": "4.2.6-impact-v10",
-      "state": "reviewed_qualified_pass_owner_acceptance_pending",
+      "state": "reviewed_qualified_pass_owner_accepted",
       "unit_kinds": {
         "I-001": "local improvement unit (owner-directed, never proposed upstream); carried in C/Rust for C/Rust parity",
         "I-002": "local improvement unit (owner-directed, never proposed upstream); carried in C/Rust for C/Rust parity",
@@ -352,7 +352,7 @@
       "native_modes_before_after": "8/9 -> 9/9 normal (the fail->pass is the I-002 anchor fleeheal flee-low); ASan 5/5, no report",
       "rust_fault_controls_detected": "I-001 13/23 cases; I-002 14/23 cases",
       "behaviour_change_vs_m9": "94/131 cases; deaths 13 -> 14",
-      "rust_milestone_accepted": false,
+      "rust_milestone_accepted": true,
       "independent_review": {
         "verdict": "qualified pass",
         "acceptance_blockers": false,
@@ -383,13 +383,21 @@
           "M10-R-04": "note: status.json called fault-detected cases \"units\"; fixed to \"cases\""
         },
         "findings_addressed_in": "pending (this commit)",
-        "owner_accepted": false
+        "owner_accepted": true
+      },
+      "owner_acceptance": {
+        "instruction": "merge and tag",
+        "date": "2026-11-10",
+        "basis": "independent qualified pass with no acceptance blockers (borg-rs#23); findings M10-R-01, M10-R-02 and M10-R-04 addressed in dd9983b",
+        "tag": "4.2.6-impact-v10",
+        "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it",
+        "scope": "Tag 4.2.6-impact-v10 marks main with the C milestone10 carry, after 4.2.6-impact-v9 for milestone9"
       }
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v10 (C milestone10) is carried, author-validated and independently reviewed: qualified pass with no acceptance blockers (borg-rs#23). Owner acceptance is pending; the owner launches the reviewer and takes the acceptance decision. No later C milestone is selected.",
+  "next_action": "Impact v10 (C milestone10) accepted; tag 4.2.6-impact-v10 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -416,7 +424,7 @@
     "id": "c-m10",
     "tracking_issue": "https://github.com/diegoami/borg-rs/issues/23",
     "starting_rust_main": "8a7579d",
-    "state": "reviewed_qualified_pass_owner_acceptance_pending",
+    "state": "accepted_impact_v10",
     "ledger": "docs/adoption/c-m10/ledger.json",
     "receipt": "docs/validation/2026-11-10-c-m10/README.md",
     "branch": "claude/m10-carry"

@@ -164,7 +164,9 @@ retained raw outputs rather than independently rebuilt and rerun; the five
 ASan rows were inspected, not rerun; and the discarded first Rust suite's
 own logs are not committed.
 
-Owner acceptance remains a separate decision. No tag is placed.
+Owner acceptance was given on 2026-11-10 ("merge and tag"), on the basis of
+this qualified pass with no acceptance blockers. The tag
+`4.2.6-impact-v10` marks the merged main commit.
 
 ## Not claimed
 
@@ -175,7 +177,9 @@ Owner acceptance remains a separate decision. No tag is placed.
 - That the consumer's fixture baselines and the borg-rs fixture baselines are
   the same files: the borg-rs copies are the consumer's committed kits at the
   milestone10 pin, and the baseline logs were not re-derived here.
-- Independent review or owner acceptance.
+- Independent review or owner acceptance: both are done. The review is a
+  qualified pass with no acceptance blockers (borg-rs#23) and the owner
+  accepted the batch on 2026-11-10.
 
 ## Raw outputs
 
