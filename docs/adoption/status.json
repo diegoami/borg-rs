@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v9_accepted",
+  "phase": "impact_v10_author_validated_review_pending",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -326,11 +326,38 @@
         "tag": "4.2.6-impact-v9",
         "tag_note": "annotated tag on the merged main commit; the session git proxy refuses tag pushes, so the owner pushes it"
       }
+    },
+    {
+      "id": "c-m10",
+      "target_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+      "consumer_tag": "4.2.6-impact-v10",
+      "state": "author_validated_review_pending",
+      "unit_kinds": {
+        "I-001": "local improvement unit (owner-directed, never proposed upstream); carried in C/Rust for C/Rust parity",
+        "I-002": "local improvement unit (owner-directed, never proposed upstream); carried in C/Rust for C/Rust parity",
+        "0099-crash-correction": "crash correction attached to the existing 0099 ledger entry; borg-rs already carried the same guard from milestone9, so the C side needed a comment sync only"
+      },
+      "consumer_carries": 3,
+      "carried_c_and_rust": 3,
+      "already_carried": "0099 crash correction (borg-rs carried the same square_in_bounds guard from milestone9)",
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/24",
+      "receipt": "docs/validation/2026-11-10-c-m10/README.md",
+      "record": "docs/adoption/c-m10/README.md",
+      "c_review": "https://github.com/diegoami/better-borg-c/issues/420",
+      "implementation_commit": "4f7152d",
+      "starting_rust_main": "8a7579d",
+      "game_cases": 131,
+      "c_rust_parity": 131,
+      "harness_diff_exit": 0,
+      "native_modes_before_after": "8/9 -> 9/9 normal (the fail->pass is the I-002 anchor fleeheal flee-low); ASan 5/5, no report",
+      "rust_fault_controls_detected": "I-001 13/23 units; I-002 14/23 units",
+      "behaviour_change_vs_m9": "94/131 cases; deaths 13 -> 14",
+      "rust_milestone_accepted": false
     }
   ],
   "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "Impact v9 (C milestone9) accepted; tag 4.2.6-impact-v9 on the merge commit. No later C milestone is selected; the owner chooses the next target.",
+  "next_action": "Impact v10 (C milestone10) is carried and author-validated on branch claude/m10-carry: 131/131 C/Rust full-save parity, native 8/9 -> 9/9 with the I-002 fail-before anchor, and both fault controls detected. Independent review and owner acceptance are pending; the owner launches the reviewer. No later C milestone is selected.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -354,13 +381,13 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-m9",
-    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/21",
-    "starting_rust_main": "286215c",
-    "state": "accepted_impact_v9",
-    "ledger": "docs/adoption/c-m9/ledger.json",
-    "receipt": "docs/validation/2026-11-09-c-m9/README.md",
-    "branch": "claude/wonderful-bell-3a7j6m"
+    "id": "c-m10",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/24",
+    "starting_rust_main": "8a7579d",
+    "state": "author_validated_review_pending",
+    "ledger": "docs/adoption/c-m10/ledger.json",
+    "receipt": "docs/validation/2026-11-10-c-m10/README.md",
+    "branch": "claude/m10-carry"
   },
   "m2_active_batch_record": {
     "id": "c-m2",

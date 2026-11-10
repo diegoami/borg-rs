@@ -8,6 +8,8 @@
   "previous_batch": "https://github.com/diegoami/borg-rs/issues/21",
   "starting_main": "8a7579d",
   "starting_tag": "4.2.6-impact-v9",
+  "implementation_commit": "4f7152d",
+  "removal_units_commit": "8a135f1",
   "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
   "retained_local_corrections": [
     322

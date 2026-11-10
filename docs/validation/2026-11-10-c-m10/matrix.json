@@ -1,0 +1,5759 @@
+{
+ "cases": 131,
+ "both_ran": 131,
+ "parity": 131,
+ "missing": [],
+ "reference": "/home/diego/projects/borg-rs/harness/reference/better-borg-c/m2-2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f",
+ "changed_vs_reference": [
+  "smoke-warrior-1",
+  "smoke-mage-2",
+  "smoke-priest-3",
+  "full-0-warrior-0",
+  "full-0-warrior-1",
+  "full-0-warrior-2",
+  "full-0-warrior-3",
+  "full-0-warrior-4",
+  "full-1-mage-0",
+  "full-1-mage-1",
+  "full-1-mage-2",
+  "full-1-mage-3",
+  "full-1-mage-4",
+  "full-2-druid-0",
+  "full-2-druid-1",
+  "full-2-druid-2",
+  "full-2-druid-3",
+  "full-2-druid-4",
+  "full-3-priest-0",
+  "full-3-priest-1",
+  "full-3-priest-2",
+  "full-3-priest-3",
+  "full-3-priest-4",
+  "full-4-necro-0",
+  "full-4-necro-1",
+  "full-4-necro-2",
+  "full-4-necro-3",
+  "full-4-necro-4",
+  "full-5-paladin-0",
+  "full-5-paladin-1",
+  "full-5-paladin-2",
+  "full-5-paladin-3",
+  "full-5-paladin-4",
+  "full-6-rogue-0",
+  "full-6-rogue-1",
+  "full-6-rogue-2",
+  "full-6-rogue-3",
+  "full-6-rogue-4",
+  "full-7-ranger-0",
+  "full-7-ranger-1",
+  "full-7-ranger-2",
+  "full-7-ranger-3",
+  "full-7-ranger-4",
+  "full-8-blackguard-0",
+  "full-8-blackguard-1",
+  "full-8-blackguard-2",
+  "full-8-blackguard-3",
+  "full-8-blackguard-4",
+  "deep-0-warrior",
+  "deep-1-mage",
+  "deep-2-druid",
+  "deep-3-priest",
+  "deep-4-necro",
+  "deep-5-paladin",
+  "deep-6-rogue",
+  "deep-7-ranger",
+  "deep-8-blackguard",
+  "cls-deep-bg-dunadan",
+  "cls-bg-dunadan",
+  "cls-bg-highelf",
+  "cls-bg-kobold",
+  "cls-bg-human",
+  "cls-bg-halftroll",
+  "cls-bg-dwarf",
+  "cls-bg-halforc",
+  "cls-dunadan-ranger",
+  "cls-dunadan-paladin",
+  "cls-highelf-mage",
+  "cls-highelf-priest",
+  "cls-kobold-rogue",
+  "cls-kobold-necro",
+  "cls-kobold-warrior",
+  "cls-halfelf-ranger",
+  "cfg-munchkin-human-war",
+  "cfg-munchkin-halfelf-mage",
+  "cfg-munchkin-dunadan-bg",
+  "cfg-lunal-human-war",
+  "cfg-lunal-halfelf-mage",
+  "cfg-lunal-dunadan-bg",
+  "cfg-lunal-deep-warrior",
+  "opt-scum-war",
+  "opt-scum-mage",
+  "opt-scum-noself-mage",
+  "opt-dyn-war",
+  "opt-dyn-mage",
+  "opt-dyn-priest",
+  "opt-wdam-war",
+  "opt-wspeed-war",
+  "opt-whp-war",
+  "opt-wmana-rogue",
+  "opt-wac-war",
+  "opt-wgold-war",
+  "opt-risky-war",
+  "opt-uniques-war",
+  "opt-noswap-war",
+  "opt-nodeeper-war",
+  "opt-stopdlevel-war",
+  "opt-stopclevel-war",
+  "opt-autosave-war",
+  "opt-verbose-war",
+  "opt-chest-war",
+  "opt-munchkin-limits-war",
+  "opt-respawn-druid",
+  "opt-respawn-random-druid",
+  "ext-rogue",
+  "end-depth50",
+  "end-depth98",
+  "end-depth99",
+  "end-depth100",
+  "end-near-morgoth",
+  "glyph-build-supply",
+  "natural-warrior-78",
+  "natural-blackguard-40",
+  "live-warrior",
+  "live-mage",
+  "live-druid",
+  "live-priest",
+  "live-necromancer",
+  "live-paladin",
+  "live-rogue",
+  "live-ranger",
+  "live-blackguard"
+ ],
+ "harness_diff_exit": 0,
+ "harness_diff_tail": [
+  "B: harness/out/c-m10/g-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=6c941a46837e6672",
+  "B:   built from ef8b063366d9 (dirty=no, inputs dirty=no) source_sha256=ec78bc3f0cd8aa34; run at ef8b063366d9 (dirty=no) overrides=none",
+  "131/131 runs identical (expected 131)",
+  "messages.log compared in 131 run(s)",
+  "state.log compared in 131 run(s)"
+ ],
+ "rows": {
+  "smoke-warrior-1": {
+   "streams": {
+    "keys.log": [
+     "c58c9025ce55109569aac0fb7bbe42b100a2c017bb84b0a8efcde62861bd5cd4",
+     "c58c9025ce55109569aac0fb7bbe42b100a2c017bb84b0a8efcde62861bd5cd4"
+    ],
+    "messages.log": [
+     "741f1904b46597579b9df81a41dc9667b0f4b90aea0c6f6b2527a08b75265376",
+     "741f1904b46597579b9df81a41dc9667b0f4b90aea0c6f6b2527a08b75265376"
+    ],
+    "state.log": [
+     "fd92c287296f4d0de9c6b08e8777c93230b5302d73a9eb4fb26a2e98ac15c4dd",
+     "fd92c287296f4d0de9c6b08e8777c93230b5302d73a9eb4fb26a2e98ac15c4dd"
+    ],
+    "final.save": [
+     "81f09a9ef916992c09e3cdd0d38b4257ba37ecadc380a71928c05c626f785939",
+     "81f09a9ef916992c09e3cdd0d38b4257ba37ecadc380a71928c05c626f785939"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20003,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 20006,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "smoke-mage-2": {
+   "streams": {
+    "keys.log": [
+     "7e4640db298ddad4d3de2c0a8565b80e9f7b9cd618b2a9e08b29ebe26425992e",
+     "7e4640db298ddad4d3de2c0a8565b80e9f7b9cd618b2a9e08b29ebe26425992e"
+    ],
+    "messages.log": [
+     "d4c941806ad3c818943e5ccfe97ca4fec4feab97a7540547b2851cda0da38940",
+     "d4c941806ad3c818943e5ccfe97ca4fec4feab97a7540547b2851cda0da38940"
+    ],
+    "state.log": [
+     "a9246e205d729f28af3e9145d14125ae469e5f41f2d726ef47c9622ed8cc86ee",
+     "a9246e205d729f28af3e9145d14125ae469e5f41f2d726ef47c9622ed8cc86ee"
+    ],
+    "final.save": [
+     "3247d3dea1f02fbae041f56fce37e6e7790f9b7e4f5a284c3a5d7df7c666fd8b",
+     "3247d3dea1f02fbae041f56fce37e6e7790f9b7e4f5a284c3a5d7df7c666fd8b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20005,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 20352,
+    "clevel": 2,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "smoke-priest-3": {
+   "streams": {
+    "keys.log": [
+     "aa4367d47bc71336fb3a89a4980d49a1d69f0202c53c543eb0d0e97c1158401f",
+     "aa4367d47bc71336fb3a89a4980d49a1d69f0202c53c543eb0d0e97c1158401f"
+    ],
+    "messages.log": [
+     "df3ab92ea1575a8c936a803c1b64d154fd914565d4a47b94e2a7231e6d0e2cfe",
+     "df3ab92ea1575a8c936a803c1b64d154fd914565d4a47b94e2a7231e6d0e2cfe"
+    ],
+    "state.log": [
+     "0dfac83789ed311dd82abda0207d555c3afb2e6954a1f4fcf5b627f4d1558a5e",
+     "0dfac83789ed311dd82abda0207d555c3afb2e6954a1f4fcf5b627f4d1558a5e"
+    ],
+    "final.save": [
+     "6c53b7e4e8c6af9e255b71f337933d4fe371ad6e1d6df2715b3072a35f64306e",
+     "6c53b7e4e8c6af9e255b71f337933d4fe371ad6e1d6df2715b3072a35f64306e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20005,
+    "clevel": 1,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 12414,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "a giant white mouse"
+   }
+  },
+  "full-0-warrior-0": {
+   "streams": {
+    "keys.log": [
+     "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+     "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe"
+    ],
+    "messages.log": [
+     "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+     "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09"
+    ],
+    "state.log": [
+     "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+     "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71"
+    ],
+    "final.save": [
+     "c225af7639658d5e3f24979181666e8907bfe7f6b2231727a4062b25167ebc8b",
+     "c225af7639658d5e3f24979181666e8907bfe7f6b2231727a4062b25167ebc8b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 7,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 8,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-0-warrior-1": {
+   "streams": {
+    "keys.log": [
+     "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+     "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e"
+    ],
+    "messages.log": [
+     "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+     "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef"
+    ],
+    "state.log": [
+     "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+     "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881"
+    ],
+    "final.save": [
+     "8645e37a45bed70a6d5f472004bc019aa5bbd5573ff8092778293f0d499655cc",
+     "8645e37a45bed70a6d5f472004bc019aa5bbd5573ff8092778293f0d499655cc"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 74181,
+    "clevel": 6,
+    "max_depth": 4,
+    "dead": true,
+    "death_cause": "a soldier"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-0-warrior-2": {
+   "streams": {
+    "keys.log": [
+     "3c02ae1e7ead0373aef2a4cff15b99b07d1ee2768549fe686c69bbe7204978c0",
+     "3c02ae1e7ead0373aef2a4cff15b99b07d1ee2768549fe686c69bbe7204978c0"
+    ],
+    "messages.log": [
+     "1ab72b01cf82e18969fccf1db327bd64037d0b76af9691f4e433fe252825ad42",
+     "1ab72b01cf82e18969fccf1db327bd64037d0b76af9691f4e433fe252825ad42"
+    ],
+    "state.log": [
+     "e4256650f402cd371f69b90fe2b97e607adf94f1ffa767c4151507b6d1df70ec",
+     "e4256650f402cd371f69b90fe2b97e607adf94f1ffa767c4151507b6d1df70ec"
+    ],
+    "final.save": [
+     "9f01d6658a6cfbcba1323f3cf357e719786e37967566e224bd448a378ed65ac4",
+     "9f01d6658a6cfbcba1323f3cf357e719786e37967566e224bd448a378ed65ac4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 7,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 7,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-0-warrior-3": {
+   "streams": {
+    "keys.log": [
+     "4054c4d8d07ed9525739c2fdfdf222f3d5ad7a94ecca871bf97e9bc0b4e2449c",
+     "4054c4d8d07ed9525739c2fdfdf222f3d5ad7a94ecca871bf97e9bc0b4e2449c"
+    ],
+    "messages.log": [
+     "cb8ed797f5094824a1ef421197472d1c51f6fbe356a725184659612eebeb0658",
+     "cb8ed797f5094824a1ef421197472d1c51f6fbe356a725184659612eebeb0658"
+    ],
+    "state.log": [
+     "e13875a08c28baa077a18aefb6b0da5b1bf1bb9fbc7b5dd924770bbc2062d5e3",
+     "e13875a08c28baa077a18aefb6b0da5b1bf1bb9fbc7b5dd924770bbc2062d5e3"
+    ],
+    "final.save": [
+     "65eb71f3ce18b1d7a4a97339baf11c57513f3350291d81a88ef61922c83318ab",
+     "65eb71f3ce18b1d7a4a97339baf11c57513f3350291d81a88ef61922c83318ab"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 45862,
+    "clevel": 8,
+    "max_depth": 9,
+    "dead": true,
+    "death_cause": "a lemure"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-0-warrior-4": {
+   "streams": {
+    "keys.log": [
+     "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+     "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708"
+    ],
+    "messages.log": [
+     "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+     "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282"
+    ],
+    "state.log": [
+     "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+     "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802"
+    ],
+    "final.save": [
+     "f68ffa65e4bde3b09f08c7f40212f12a16475bc2a17e3a92869ad10134b9b858",
+     "f68ffa65e4bde3b09f08c7f40212f12a16475bc2a17e3a92869ad10134b9b858"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 7,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 4,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-1-mage-0": {
+   "streams": {
+    "keys.log": [
+     "d781221b393d61df3a7cab6c0eedc328aaec0b6c34f226de9d9e6f6a5f69cc68",
+     "d781221b393d61df3a7cab6c0eedc328aaec0b6c34f226de9d9e6f6a5f69cc68"
+    ],
+    "messages.log": [
+     "9b90fc981568f4b8d10063f972d6905866fa77c9c81c67e1c0afd3aa9e7866f2",
+     "9b90fc981568f4b8d10063f972d6905866fa77c9c81c67e1c0afd3aa9e7866f2"
+    ],
+    "state.log": [
+     "66c825237449754ac1d2a306f6b908df021b867042040da3c6fbb26219d14aa9",
+     "66c825237449754ac1d2a306f6b908df021b867042040da3c6fbb26219d14aa9"
+    ],
+    "final.save": [
+     "32b361ba18465ca13fad916a0f4dad17a3a94f4f30077714952ad44804747956",
+     "32b361ba18465ca13fad916a0f4dad17a3a94f4f30077714952ad44804747956"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 5,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 54833,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "a rock lizard"
+   }
+  },
+  "full-1-mage-1": {
+   "streams": {
+    "keys.log": [
+     "6dbb600f2d44ea3716ddaf9b88430e050b8c79289cb1cd85c4639c4506b3f680",
+     "6dbb600f2d44ea3716ddaf9b88430e050b8c79289cb1cd85c4639c4506b3f680"
+    ],
+    "messages.log": [
+     "64d941faf08fb94fff28e8ac59f8f443f73ce4fb9c8b000418897d3926b2d224",
+     "64d941faf08fb94fff28e8ac59f8f443f73ce4fb9c8b000418897d3926b2d224"
+    ],
+    "state.log": [
+     "2ff4d417ca36fbb346d9747250473c9b211c3258ce1135a6385434358e03ad9a",
+     "2ff4d417ca36fbb346d9747250473c9b211c3258ce1135a6385434358e03ad9a"
+    ],
+    "final.save": [
+     "3b06e6de0d046ff76315f0e41536a9dd310e40c1cf83233a3ab566792a014765",
+     "3b06e6de0d046ff76315f0e41536a9dd310e40c1cf83233a3ab566792a014765"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 14534,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a small kobold"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 17321,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a giant yellow centipede"
+   }
+  },
+  "full-1-mage-2": {
+   "streams": {
+    "keys.log": [
+     "fea0151c7fd2ccce0d0b7353b722e0203970fb705c3c1f00386573152aaae703",
+     "fea0151c7fd2ccce0d0b7353b722e0203970fb705c3c1f00386573152aaae703"
+    ],
+    "messages.log": [
+     "9c475be80f871cd0391d0796841f118d903a79e060877e771bfd20aae8f8f7f1",
+     "9c475be80f871cd0391d0796841f118d903a79e060877e771bfd20aae8f8f7f1"
+    ],
+    "state.log": [
+     "a79b305f8f1a41ec12a9b0065c58920cf9603bc2a17d6cb3c160dfbb0fd75381",
+     "a79b305f8f1a41ec12a9b0065c58920cf9603bc2a17d6cb3c160dfbb0fd75381"
+    ],
+    "final.save": [
+     "90de605454e3868b97f017719aabf8bd1476cdb55754978426f5668340574250",
+     "90de605454e3868b97f017719aabf8bd1476cdb55754978426f5668340574250"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-1-mage-3": {
+   "streams": {
+    "keys.log": [
+     "d1e9926c4b7dc784d655723914c2f8cda292e743e8eb206b8ec93d0348ca7ee0",
+     "d1e9926c4b7dc784d655723914c2f8cda292e743e8eb206b8ec93d0348ca7ee0"
+    ],
+    "messages.log": [
+     "da3556d8af6e25b288402a0354740f3089b99c133cb45484a2f4d9945873445d",
+     "da3556d8af6e25b288402a0354740f3089b99c133cb45484a2f4d9945873445d"
+    ],
+    "state.log": [
+     "e43bf8a6f9d5bd207234dc41c2602bc3e96e096f0be93356174af2614dc667c3",
+     "e43bf8a6f9d5bd207234dc41c2602bc3e96e096f0be93356174af2614dc667c3"
+    ],
+    "final.save": [
+     "9e27a8829e5926eb7065faef139feb7c51f12b15c6825dbecdaa5dc42762ef58",
+     "9e27a8829e5926eb7065faef139feb7c51f12b15c6825dbecdaa5dc42762ef58"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 9782,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a fruit bat"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-1-mage-4": {
+   "streams": {
+    "keys.log": [
+     "0693c9262bc99c0af3e772fb7ce6d530745b5b1a9f459e5d37458d930e2a23a2",
+     "0693c9262bc99c0af3e772fb7ce6d530745b5b1a9f459e5d37458d930e2a23a2"
+    ],
+    "messages.log": [
+     "b32050e389edb46d6f872017d264e27b10d72fe73d26faeed6348265caf40981",
+     "b32050e389edb46d6f872017d264e27b10d72fe73d26faeed6348265caf40981"
+    ],
+    "state.log": [
+     "738b9d42242ef83155ba1d7b94180ece251f40ee2429593b8854dc92136c0a1a",
+     "738b9d42242ef83155ba1d7b94180ece251f40ee2429593b8854dc92136c0a1a"
+    ],
+    "final.save": [
+     "df45cdf492109e666b6ed1b1a753a9fd0640ca052da43d38c7cd301e6e7ebbdf",
+     "df45cdf492109e666b6ed1b1a753a9fd0640ca052da43d38c7cd301e6e7ebbdf"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100191,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-2-druid-0": {
+   "streams": {
+    "keys.log": [
+     "139f383ecbe0d712f4470744dd54f04351af7f27320533c25caf59f8977961eb",
+     "139f383ecbe0d712f4470744dd54f04351af7f27320533c25caf59f8977961eb"
+    ],
+    "messages.log": [
+     "bd480b8343d654ba405a8e86920d19ce808b773e7f4ee6e9992b0391bab21489",
+     "bd480b8343d654ba405a8e86920d19ce808b773e7f4ee6e9992b0391bab21489"
+    ],
+    "state.log": [
+     "9399cd2c67a17c948c6e41fcab77dd2b9951b343ce5662caf0a8eb46bacf5359",
+     "9399cd2c67a17c948c6e41fcab77dd2b9951b343ce5662caf0a8eb46bacf5359"
+    ],
+    "final.save": [
+     "d0df77d6910cbafbfaf7d0d77a4913db469c4655f8e2b9051bd494fa1b844162",
+     "d0df77d6910cbafbfaf7d0d77a4913db469c4655f8e2b9051bd494fa1b844162"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100224,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-2-druid-1": {
+   "streams": {
+    "keys.log": [
+     "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+     "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b"
+    ],
+    "messages.log": [
+     "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+     "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3"
+    ],
+    "state.log": [
+     "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+     "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69"
+    ],
+    "final.save": [
+     "e1e822bbe5d4e0f30582b762379c012f193fb9fcc117500cac89e0776210c443",
+     "e1e822bbe5d4e0f30582b762379c012f193fb9fcc117500cac89e0776210c443"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 5865,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a blue yeek"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 3608,
+    "clevel": 1,
+    "max_depth": 4,
+    "dead": true,
+    "death_cause": "Fang, Farmer Maggot's Dog"
+   }
+  },
+  "full-2-druid-2": {
+   "streams": {
+    "keys.log": [
+     "0be46717952091eabbeb8394fdb9f34502113ae10a8dd5f31240d2d59ef3fd64",
+     "0be46717952091eabbeb8394fdb9f34502113ae10a8dd5f31240d2d59ef3fd64"
+    ],
+    "messages.log": [
+     "eeffaa0165f3628b4d12f2434e983a8cc103b12a9fa7de9da397b6ed6f1faec5",
+     "eeffaa0165f3628b4d12f2434e983a8cc103b12a9fa7de9da397b6ed6f1faec5"
+    ],
+    "state.log": [
+     "15dbb048ce8fb06b7ef151a365d325dbb61031773c952fbe7511fa01dfb8403a",
+     "15dbb048ce8fb06b7ef151a365d325dbb61031773c952fbe7511fa01dfb8403a"
+    ],
+    "final.save": [
+     "1a18f9f40da3cf06c111065c195a58500398540010dfa6b968aa3dce6385c037",
+     "1a18f9f40da3cf06c111065c195a58500398540010dfa6b968aa3dce6385c037"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 7367,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a crow"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100398,
+    "clevel": 10,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-2-druid-3": {
+   "streams": {
+    "keys.log": [
+     "e56f16cb148d1c7e91bdf45bf54c491586d7e64f55a7438f02f028eb67c2e5cf",
+     "e56f16cb148d1c7e91bdf45bf54c491586d7e64f55a7438f02f028eb67c2e5cf"
+    ],
+    "messages.log": [
+     "168f02db807ce40a3d4193e6b210a37a168db19620c6ffead7e77af7766af63b",
+     "168f02db807ce40a3d4193e6b210a37a168db19620c6ffead7e77af7766af63b"
+    ],
+    "state.log": [
+     "1bafa749090b5bc9918d1d04211669971d83ed6d1a6956276de664bd3f3f247f",
+     "1bafa749090b5bc9918d1d04211669971d83ed6d1a6956276de664bd3f3f247f"
+    ],
+    "final.save": [
+     "d0db4d8cd6da48ec4bd6191a31254a03983ffc11ee5b61fbde488e5184914471",
+     "d0db4d8cd6da48ec4bd6191a31254a03983ffc11ee5b61fbde488e5184914471"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100489,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 12,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-2-druid-4": {
+   "streams": {
+    "keys.log": [
+     "f9c7d9f87561fcc5b10547aa3dbbcb207e03e3e38abf55277ee7bd4c7c62671b",
+     "f9c7d9f87561fcc5b10547aa3dbbcb207e03e3e38abf55277ee7bd4c7c62671b"
+    ],
+    "messages.log": [
+     "5147af5dced4f03c51a9529b56482d8ae7b76d689986624c17ea3c10a124c328",
+     "5147af5dced4f03c51a9529b56482d8ae7b76d689986624c17ea3c10a124c328"
+    ],
+    "state.log": [
+     "51503a6a38e75da377d32ae6aa8efc30fd2c13d619b250f9711e7fa92deebbf9",
+     "51503a6a38e75da377d32ae6aa8efc30fd2c13d619b250f9711e7fa92deebbf9"
+    ],
+    "final.save": [
+     "d171096fde8142d1f9cd8db10f7907274c13adfbb2919ad2f8941e1b4a16e482",
+     "d171096fde8142d1f9cd8db10f7907274c13adfbb2919ad2f8941e1b4a16e482"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 12,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-3-priest-0": {
+   "streams": {
+    "keys.log": [
+     "ff94ac6c734a8a166baa9801e7629f1c3e7bc5cd94de4473be04bcb51e617f76",
+     "ff94ac6c734a8a166baa9801e7629f1c3e7bc5cd94de4473be04bcb51e617f76"
+    ],
+    "messages.log": [
+     "857cb39136704e7a391e8f1ce4f3d5e2abac01a4ab30fbd1d7b1b4e7fc23d41a",
+     "857cb39136704e7a391e8f1ce4f3d5e2abac01a4ab30fbd1d7b1b4e7fc23d41a"
+    ],
+    "state.log": [
+     "dcb7b44e418e20f1996626cfc44135d857c7b410f0dbf8fb5102e0cfb21f3449",
+     "dcb7b44e418e20f1996626cfc44135d857c7b410f0dbf8fb5102e0cfb21f3449"
+    ],
+    "final.save": [
+     "cb736c23a9cffe61f9b17ddd26b664145ffcf9ca0bce7ca677052b72fd6cfc0c",
+     "cb736c23a9cffe61f9b17ddd26b664145ffcf9ca0bce7ca677052b72fd6cfc0c"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 22136,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "Fang, Farmer Maggot's Dog"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100036,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-3-priest-1": {
+   "streams": {
+    "keys.log": [
+     "ee909d137ae8bdf9c6a53a90f88901fd08b72c4bccc8f2a1c899f837673302b6",
+     "ee909d137ae8bdf9c6a53a90f88901fd08b72c4bccc8f2a1c899f837673302b6"
+    ],
+    "messages.log": [
+     "a166983ae0f0b9dc2b12ff5c4ac20dc8115ccdfab895c95dffdd882c6c7d0bc4",
+     "a166983ae0f0b9dc2b12ff5c4ac20dc8115ccdfab895c95dffdd882c6c7d0bc4"
+    ],
+    "state.log": [
+     "5b9d05df364d589efec69f7977009163e57a17baea7846c0ae18040360df4390",
+     "5b9d05df364d589efec69f7977009163e57a17baea7846c0ae18040360df4390"
+    ],
+    "final.save": [
+     "e0652b2823a588e48eca01b44284a5f4b477af107b2d030120a8b65e8b22db88",
+     "e0652b2823a588e48eca01b44284a5f4b477af107b2d030120a8b65e8b22db88"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 11722,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a giant yellow centipede"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100283,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-3-priest-2": {
+   "streams": {
+    "keys.log": [
+     "857d2e5a0f1ca54b3bb9988cf69727fbae1138f5d0f37bef3dd68d75ee45189a",
+     "857d2e5a0f1ca54b3bb9988cf69727fbae1138f5d0f37bef3dd68d75ee45189a"
+    ],
+    "messages.log": [
+     "85803ea487cdf8b83b72ffca459768e4e30638cfae2b3e2fc45a5b1e43fa9916",
+     "85803ea487cdf8b83b72ffca459768e4e30638cfae2b3e2fc45a5b1e43fa9916"
+    ],
+    "state.log": [
+     "273d6b28352244aa2bf9c35966a09e6fd01b2eb5869c99c40b456e28cff619db",
+     "273d6b28352244aa2bf9c35966a09e6fd01b2eb5869c99c40b456e28cff619db"
+    ],
+    "final.save": [
+     "536d65840b268ab6bfb64ec3fa8961c5069cb4a3805ff6ebed3a2885a2602d95",
+     "536d65840b268ab6bfb64ec3fa8961c5069cb4a3805ff6ebed3a2885a2602d95"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-3-priest-3": {
+   "streams": {
+    "keys.log": [
+     "58bc0cc8dfbc543bf7ba2e35b88671d9f0b7517748176c621b8290e1dbdc82dd",
+     "58bc0cc8dfbc543bf7ba2e35b88671d9f0b7517748176c621b8290e1dbdc82dd"
+    ],
+    "messages.log": [
+     "206887b13db30f74500182a220785115e205a12c4b4be724132fb969a20ddbe5",
+     "206887b13db30f74500182a220785115e205a12c4b4be724132fb969a20ddbe5"
+    ],
+    "state.log": [
+     "f0e7d63c9cd315a4b220fd5d7985cfe56e7df5de29a814065c2cc7b22fc688f1",
+     "f0e7d63c9cd315a4b220fd5d7985cfe56e7df5de29a814065c2cc7b22fc688f1"
+    ],
+    "final.save": [
+     "e4f10cd58ec7f71da90007eebff28ad7758cd868a770c1525d81e940b64603d9",
+     "e4f10cd58ec7f71da90007eebff28ad7758cd868a770c1525d81e940b64603d9"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100016,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-3-priest-4": {
+   "streams": {
+    "keys.log": [
+     "9e1ed044ddab228eca87e74baaed909a9798a193b19897c8c82666dbf4fe494a",
+     "9e1ed044ddab228eca87e74baaed909a9798a193b19897c8c82666dbf4fe494a"
+    ],
+    "messages.log": [
+     "8241db9bf1efac1896176af7a27d63bc9f911bc131c143b45b03ca23d09b2092",
+     "8241db9bf1efac1896176af7a27d63bc9f911bc131c143b45b03ca23d09b2092"
+    ],
+    "state.log": [
+     "7c71b8d7ffaecd93f3c8e18891eb9efde40b92133d73effc8a7c5e5df0ad6c26",
+     "7c71b8d7ffaecd93f3c8e18891eb9efde40b92133d73effc8a7c5e5df0ad6c26"
+    ],
+    "final.save": [
+     "2b10cb705f70e2e88461956f3db9446b407bda581160dcee763483853a9a28c8",
+     "2b10cb705f70e2e88461956f3db9446b407bda581160dcee763483853a9a28c8"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100269,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-4-necro-0": {
+   "streams": {
+    "keys.log": [
+     "f80334d09dc04bc281799ac23d6fb65a56daa199ee2d141bb3ed906969007d93",
+     "f80334d09dc04bc281799ac23d6fb65a56daa199ee2d141bb3ed906969007d93"
+    ],
+    "messages.log": [
+     "9d3044d620d5f76ee1aeb6b47ac348e7a60179929c38c9ef86261db1df379677",
+     "9d3044d620d5f76ee1aeb6b47ac348e7a60179929c38c9ef86261db1df379677"
+    ],
+    "state.log": [
+     "5ad5993b4e043748bcea6af68e02058f09238fdb807008d22ec542ed581bb8e2",
+     "5ad5993b4e043748bcea6af68e02058f09238fdb807008d22ec542ed581bb8e2"
+    ],
+    "final.save": [
+     "a791b391ac4684f9785516dd87e852e53e5fc0aa830d7b30004507ad491694ff",
+     "a791b391ac4684f9785516dd87e852e53e5fc0aa830d7b30004507ad491694ff"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100025,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 82750,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "a rock lizard"
+   }
+  },
+  "full-4-necro-1": {
+   "streams": {
+    "keys.log": [
+     "e92dfd4637054b3366dc27b6a81f2b8a00b8b6bfa64061a92673f400a39f5850",
+     "e92dfd4637054b3366dc27b6a81f2b8a00b8b6bfa64061a92673f400a39f5850"
+    ],
+    "messages.log": [
+     "1c117f0cdec27ae9950dc0b3988676d90d6f89b4b58ba07ef1273f8a0152f6fb",
+     "1c117f0cdec27ae9950dc0b3988676d90d6f89b4b58ba07ef1273f8a0152f6fb"
+    ],
+    "state.log": [
+     "bba81bfb3b4899afcfe174989ca3498188167d9a1a372107e6d4feeba502a07b",
+     "bba81bfb3b4899afcfe174989ca3498188167d9a1a372107e6d4feeba502a07b"
+    ],
+    "final.save": [
+     "e7f1c592e85644e97f0d18aa28789a7db4cf1bf6dae6370e42f707fb57b4ff4e",
+     "e7f1c592e85644e97f0d18aa28789a7db4cf1bf6dae6370e42f707fb57b4ff4e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100480,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100621,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-4-necro-2": {
+   "streams": {
+    "keys.log": [
+     "5e472e94a11da798c2d3d4c3118493cce5cd767a155fd3efd8f8d442645b73eb",
+     "5e472e94a11da798c2d3d4c3118493cce5cd767a155fd3efd8f8d442645b73eb"
+    ],
+    "messages.log": [
+     "047d81e3c5e73360b98b84979c27c5a50647b35ebb5ac8996ca540cd38a9946c",
+     "047d81e3c5e73360b98b84979c27c5a50647b35ebb5ac8996ca540cd38a9946c"
+    ],
+    "state.log": [
+     "f84f7ead55a3cf90c642f39df393f2026b4a64cae5a98cebc69334871178d2d0",
+     "f84f7ead55a3cf90c642f39df393f2026b4a64cae5a98cebc69334871178d2d0"
+    ],
+    "final.save": [
+     "047b1b0d9bfee1552c3c266a1f7ddeffa98762ea23e13c946fbc35a97d6ef97d",
+     "047b1b0d9bfee1552c3c266a1f7ddeffa98762ea23e13c946fbc35a97d6ef97d"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 6416,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "Fang, Farmer Maggot's Dog"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 84402,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a crow"
+   }
+  },
+  "full-4-necro-3": {
+   "streams": {
+    "keys.log": [
+     "0aa7e600fe2454e8a98174023ff8aecf533127d3c0efbb8d163802e438240229",
+     "0aa7e600fe2454e8a98174023ff8aecf533127d3c0efbb8d163802e438240229"
+    ],
+    "messages.log": [
+     "1d93b14222c582ae5faf8405dd6e0b8a47ae30eef2430279b749fbbbed17dc66",
+     "1d93b14222c582ae5faf8405dd6e0b8a47ae30eef2430279b749fbbbed17dc66"
+    ],
+    "state.log": [
+     "0e8821332f3b374e7117ed2d121fb2b66408c67317aceedcef061d380cefe81e",
+     "0e8821332f3b374e7117ed2d121fb2b66408c67317aceedcef061d380cefe81e"
+    ],
+    "final.save": [
+     "dfcda57c39a163e844b92e015c9a7d38ba61f67a39f05ff9dd2d96f03c7ec55f",
+     "dfcda57c39a163e844b92e015c9a7d38ba61f67a39f05ff9dd2d96f03c7ec55f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 23381,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a cave spider"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100098,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-4-necro-4": {
+   "streams": {
+    "keys.log": [
+     "8e5319dd382296a87b372e0920e221e6a46d48028cf66fecf45cfa4625c065c3",
+     "8e5319dd382296a87b372e0920e221e6a46d48028cf66fecf45cfa4625c065c3"
+    ],
+    "messages.log": [
+     "581142cc737158d376b3be4bc4a6b68198e6489fc7a6fc8b998fcc34107f5e50",
+     "581142cc737158d376b3be4bc4a6b68198e6489fc7a6fc8b998fcc34107f5e50"
+    ],
+    "state.log": [
+     "79d2576087413e30038ce63502b7660cedcb6a15c87a7d234d2c3b6fca1ce9c9",
+     "79d2576087413e30038ce63502b7660cedcb6a15c87a7d234d2c3b6fca1ce9c9"
+    ],
+    "final.save": [
+     "07d1682cf7beeb9a022b5ddb8a7b2020d389c84160811291d03782c89efac742",
+     "07d1682cf7beeb9a022b5ddb8a7b2020d389c84160811291d03782c89efac742"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100245,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-5-paladin-0": {
+   "streams": {
+    "keys.log": [
+     "821fdc675b1af23b3ed2206a09a5884a76ab6d6850eafc7a195c7a009c9d8adb",
+     "821fdc675b1af23b3ed2206a09a5884a76ab6d6850eafc7a195c7a009c9d8adb"
+    ],
+    "messages.log": [
+     "ff943dec57f8952f429976332eaed60af3a32b001e7783e9d584c33ee6371b82",
+     "ff943dec57f8952f429976332eaed60af3a32b001e7783e9d584c33ee6371b82"
+    ],
+    "state.log": [
+     "7d5b145eb9c2d537a944ee8b194f7ba3da36ff4ea912dcbe1789d76d43fb2b25",
+     "7d5b145eb9c2d537a944ee8b194f7ba3da36ff4ea912dcbe1789d76d43fb2b25"
+    ],
+    "final.save": [
+     "391aff275db2b913d369acff6a213b66afdcfd63d846c96d83a7ad4d61c0f548",
+     "391aff275db2b913d369acff6a213b66afdcfd63d846c96d83a7ad4d61c0f548"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-5-paladin-1": {
+   "streams": {
+    "keys.log": [
+     "7b0ba883bd1d04e4db74b72a7d62e10b9c30fc309142c0e06564be24d1c04e2f",
+     "7b0ba883bd1d04e4db74b72a7d62e10b9c30fc309142c0e06564be24d1c04e2f"
+    ],
+    "messages.log": [
+     "8a68bd66569e9e617c21c8e153c6206e5ab2ec62bc7ff72801f85709f4f749f2",
+     "8a68bd66569e9e617c21c8e153c6206e5ab2ec62bc7ff72801f85709f4f749f2"
+    ],
+    "state.log": [
+     "391b9a8e7ba0bf9bca2a0c0b152142f616c2c8eec3dbe0900c2f275645414bf4",
+     "391b9a8e7ba0bf9bca2a0c0b152142f616c2c8eec3dbe0900c2f275645414bf4"
+    ],
+    "final.save": [
+     "93ff3d66bc882195ff7ec90764d506a18b378d58eadd04c3be52e6e1fb121ca9",
+     "93ff3d66bc882195ff7ec90764d506a18b378d58eadd04c3be52e6e1fb121ca9"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100352,
+    "clevel": 5,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100100,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-5-paladin-2": {
+   "streams": {
+    "keys.log": [
+     "339b65d2e31dac00c609604d3f6b3d2bc44771eabbe15711dd85975bfef54201",
+     "339b65d2e31dac00c609604d3f6b3d2bc44771eabbe15711dd85975bfef54201"
+    ],
+    "messages.log": [
+     "007df632f0e6bd71a7f1e5152131c11a43177171334d67911a922a8c115de38c",
+     "007df632f0e6bd71a7f1e5152131c11a43177171334d67911a922a8c115de38c"
+    ],
+    "state.log": [
+     "ae4c055a975af5e958031fd4ff325cc6837b52ff06355e39b9319fed4f8203a2",
+     "ae4c055a975af5e958031fd4ff325cc6837b52ff06355e39b9319fed4f8203a2"
+    ],
+    "final.save": [
+     "3c5c00301006c216b068b2842c7892b1a0c9dc133827c7ec30610a89354040eb",
+     "3c5c00301006c216b068b2842c7892b1a0c9dc133827c7ec30610a89354040eb"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 5021,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a wild cat"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-5-paladin-3": {
+   "streams": {
+    "keys.log": [
+     "dfa9d5c9680460807d2698d895987e4787bd2e7c0012789ec2d0f8b7783802c2",
+     "dfa9d5c9680460807d2698d895987e4787bd2e7c0012789ec2d0f8b7783802c2"
+    ],
+    "messages.log": [
+     "36b26a3b76aed07f81d83e142ec64d32ed65c1e3236f553545cc724bc6553681",
+     "36b26a3b76aed07f81d83e142ec64d32ed65c1e3236f553545cc724bc6553681"
+    ],
+    "state.log": [
+     "8b91d5ffd3915f8648b530763bfdf8a684fa755480f855369136b0cba116213a",
+     "8b91d5ffd3915f8648b530763bfdf8a684fa755480f855369136b0cba116213a"
+    ],
+    "final.save": [
+     "84615d7b248c38e5d1f4e0254273b6e8a717c28fc374be1cc2bde9c2b8b3471f",
+     "84615d7b248c38e5d1f4e0254273b6e8a717c28fc374be1cc2bde9c2b8b3471f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 7,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-5-paladin-4": {
+   "streams": {
+    "keys.log": [
+     "a87d41eb5dc306259cec1bdbf640b4fa5a5da6a4678d71c95dfe222763cffe0b",
+     "a87d41eb5dc306259cec1bdbf640b4fa5a5da6a4678d71c95dfe222763cffe0b"
+    ],
+    "messages.log": [
+     "c6f2704b4e48e9153a60b0432ff895ba02913b016b9fc5d56ad520b4dde3705b",
+     "c6f2704b4e48e9153a60b0432ff895ba02913b016b9fc5d56ad520b4dde3705b"
+    ],
+    "state.log": [
+     "d3b6c3f2c4d5948051a30d274aca53cef48d312e05b7ad76f842c77d89a31525",
+     "d3b6c3f2c4d5948051a30d274aca53cef48d312e05b7ad76f842c77d89a31525"
+    ],
+    "final.save": [
+     "e8e02272ef91a8acad9b3e0b2ed888765949b8255e82b7ba4fb1d02248ac614a",
+     "e8e02272ef91a8acad9b3e0b2ed888765949b8255e82b7ba4fb1d02248ac614a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 11486,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a soldier"
+   }
+  },
+  "full-6-rogue-0": {
+   "streams": {
+    "keys.log": [
+     "06a52ac2ddc9c3a11eb076b938489ee1522a45c640e8eb365969009651d99d0a",
+     "06a52ac2ddc9c3a11eb076b938489ee1522a45c640e8eb365969009651d99d0a"
+    ],
+    "messages.log": [
+     "d09dc28f801c5a918b86b72f774df678b3b6d6fca24ec568eb0b5864c8cc23a2",
+     "d09dc28f801c5a918b86b72f774df678b3b6d6fca24ec568eb0b5864c8cc23a2"
+    ],
+    "state.log": [
+     "3b953ea44feb93ca3866e350465ca429ab38cd7646ac722a7f27089420010da7",
+     "3b953ea44feb93ca3866e350465ca429ab38cd7646ac722a7f27089420010da7"
+    ],
+    "final.save": [
+     "941bdc9cffa198488800ec1109359a26406dc563ecfe61dc7574f4d1b96785c1",
+     "941bdc9cffa198488800ec1109359a26406dc563ecfe61dc7574f4d1b96785c1"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 6,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-6-rogue-1": {
+   "streams": {
+    "keys.log": [
+     "791c815642c6493a42dead46a0fa304db3d4ac7851c4a8350a1ef021e0f0267b",
+     "791c815642c6493a42dead46a0fa304db3d4ac7851c4a8350a1ef021e0f0267b"
+    ],
+    "messages.log": [
+     "aea2d775a64d4b6051de82d214a0807e10f308447a2182553c13babf81ea9c42",
+     "aea2d775a64d4b6051de82d214a0807e10f308447a2182553c13babf81ea9c42"
+    ],
+    "state.log": [
+     "984b8b8a08bc84afe60d8b353083f9e3baef8ab7c79e927db9300d1a9273a2ed",
+     "984b8b8a08bc84afe60d8b353083f9e3baef8ab7c79e927db9300d1a9273a2ed"
+    ],
+    "final.save": [
+     "966031912e58d9d65b3e607310816c19bbee2669f8e2e69b46d7c0d9d5ddd60a",
+     "966031912e58d9d65b3e607310816c19bbee2669f8e2e69b46d7c0d9d5ddd60a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 32960,
+    "clevel": 3,
+    "max_depth": 3,
+    "dead": true,
+    "death_cause": "poison"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 61530,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "poison"
+   }
+  },
+  "full-6-rogue-2": {
+   "streams": {
+    "keys.log": [
+     "0914667e65913d668f33221d3e16f01b586bc65e3829863de2d1baf7ba44c1a3",
+     "0914667e65913d668f33221d3e16f01b586bc65e3829863de2d1baf7ba44c1a3"
+    ],
+    "messages.log": [
+     "25d5fbb4816cdb2e1f54c040fdbc87398ab0517ddbb582109ce83d3a35cd6c5c",
+     "25d5fbb4816cdb2e1f54c040fdbc87398ab0517ddbb582109ce83d3a35cd6c5c"
+    ],
+    "state.log": [
+     "1967d00bc01340c47e291f53af31e2c13dba89b6743b4d9b228f6cfe41d77e3d",
+     "1967d00bc01340c47e291f53af31e2c13dba89b6743b4d9b228f6cfe41d77e3d"
+    ],
+    "final.save": [
+     "d0673ae5d99c7c8f89ec1480733d861ccbde6dce19e7e50e30a30eecbbd4eb13",
+     "d0673ae5d99c7c8f89ec1480733d861ccbde6dce19e7e50e30a30eecbbd4eb13"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-6-rogue-3": {
+   "streams": {
+    "keys.log": [
+     "c7dbbedd297a9ad2cfa0c56a36af98d834ea30841482427d9241dafe611bad8c",
+     "c7dbbedd297a9ad2cfa0c56a36af98d834ea30841482427d9241dafe611bad8c"
+    ],
+    "messages.log": [
+     "981737e77dc3802de423c275ab0aea9ffca4c4d92f240f3ea90f8e1be85d9fe7",
+     "981737e77dc3802de423c275ab0aea9ffca4c4d92f240f3ea90f8e1be85d9fe7"
+    ],
+    "state.log": [
+     "8a30876a00319b48a50a86c495c3b587692650d4838f48e1a7476bef3e4b4e32",
+     "8a30876a00319b48a50a86c495c3b587692650d4838f48e1a7476bef3e4b4e32"
+    ],
+    "final.save": [
+     "80bb063d263053cafb72053bbd05411de52bf8f667df0f1098fb16beb7695c21",
+     "80bb063d263053cafb72053bbd05411de52bf8f667df0f1098fb16beb7695c21"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 3376,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "Grip, Farmer Maggot's Dog"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100455,
+    "clevel": 9,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-6-rogue-4": {
+   "streams": {
+    "keys.log": [
+     "5e49b9ada7e502771fb331966a3239452b1782c784fa406d2cff0ee32bff4eb4",
+     "5e49b9ada7e502771fb331966a3239452b1782c784fa406d2cff0ee32bff4eb4"
+    ],
+    "messages.log": [
+     "709c0517fa1877cac14d46e43263d4d3a9f5a6746b1391f00499acd722cba716",
+     "709c0517fa1877cac14d46e43263d4d3a9f5a6746b1391f00499acd722cba716"
+    ],
+    "state.log": [
+     "bed30cba6c8516f42406ffa0d68242f1cd557bfc3f7064ddfd5150de5a791552",
+     "bed30cba6c8516f42406ffa0d68242f1cd557bfc3f7064ddfd5150de5a791552"
+    ],
+    "final.save": [
+     "e93f8dd5430e3bed5c55a4f03371cd25a101659ad90c969b46887a55c226d79f",
+     "e93f8dd5430e3bed5c55a4f03371cd25a101659ad90c969b46887a55c226d79f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 7,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-7-ranger-0": {
+   "streams": {
+    "keys.log": [
+     "e180d5a2f902126e07f4f01814e6e5c8c9e5add8d4c2d2f72ca9d6e5a8154576",
+     "e180d5a2f902126e07f4f01814e6e5c8c9e5add8d4c2d2f72ca9d6e5a8154576"
+    ],
+    "messages.log": [
+     "84d3d72ae1ba093b23ccbfe8bf8d5e235e961b7159a5d016d775facd0147686f",
+     "84d3d72ae1ba093b23ccbfe8bf8d5e235e961b7159a5d016d775facd0147686f"
+    ],
+    "state.log": [
+     "b2b79ac155914e89ad5d8eaf69db74685bd616308fb5c3467dad3b58900de7b3",
+     "b2b79ac155914e89ad5d8eaf69db74685bd616308fb5c3467dad3b58900de7b3"
+    ],
+    "final.save": [
+     "27cff8ba4cba57aa0226c5874b98c9dd4c751f65ccc51ba870c9af42ed2b9b2b",
+     "27cff8ba4cba57aa0226c5874b98c9dd4c751f65ccc51ba870c9af42ed2b9b2b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 7,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-7-ranger-1": {
+   "streams": {
+    "keys.log": [
+     "814a33b0b5e417fe453c57bdc7d9cefde46e884c9e8dc03753cd35656890a46c",
+     "814a33b0b5e417fe453c57bdc7d9cefde46e884c9e8dc03753cd35656890a46c"
+    ],
+    "messages.log": [
+     "a5de1034a90070c57e3e2b6f703aac8ce34bbd66f6b31a8db2ce82d4ff5e45a8",
+     "a5de1034a90070c57e3e2b6f703aac8ce34bbd66f6b31a8db2ce82d4ff5e45a8"
+    ],
+    "state.log": [
+     "f8bababf227f688b418ef4a3d6a8f0db72c0e65d28856255a6f88e9f8189f79a",
+     "f8bababf227f688b418ef4a3d6a8f0db72c0e65d28856255a6f88e9f8189f79a"
+    ],
+    "final.save": [
+     "22b15d2f0e045ce896c313c61694c70312c5426d62ba7d819922c6c983912ffd",
+     "22b15d2f0e045ce896c313c61694c70312c5426d62ba7d819922c6c983912ffd"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 8,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 10,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-7-ranger-2": {
+   "streams": {
+    "keys.log": [
+     "3942e3cb226eea265d99f4da5f335fac099e7388bf09ede9746d7026e3a580b0",
+     "3942e3cb226eea265d99f4da5f335fac099e7388bf09ede9746d7026e3a580b0"
+    ],
+    "messages.log": [
+     "eac68d4b08cfcb5bb97a5729af6725cd8d1c8c591bfa342d40655403287b669e",
+     "eac68d4b08cfcb5bb97a5729af6725cd8d1c8c591bfa342d40655403287b669e"
+    ],
+    "state.log": [
+     "11d0a597aab514743428c97152a9b196f9cc03186de35187aa2b17ed619e29e6",
+     "11d0a597aab514743428c97152a9b196f9cc03186de35187aa2b17ed619e29e6"
+    ],
+    "final.save": [
+     "148cbe88f7fd2cc16d61419b2d8c8a51d58b4c1808b66eb874c4eef3a5ad4f75",
+     "148cbe88f7fd2cc16d61419b2d8c8a51d58b4c1808b66eb874c4eef3a5ad4f75"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 91587,
+    "clevel": 10,
+    "max_depth": 9,
+    "dead": true,
+    "death_cause": "Bullroarer the Hobbit"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 1414,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a giant white mouse"
+   }
+  },
+  "full-7-ranger-3": {
+   "streams": {
+    "keys.log": [
+     "da9886169bd0e377b0cc4df4d9fab77afa5b201439a2726cb7f86b61ff82e5ae",
+     "da9886169bd0e377b0cc4df4d9fab77afa5b201439a2726cb7f86b61ff82e5ae"
+    ],
+    "messages.log": [
+     "40836eed1e0ac256aec7da98427298842b855826007ba6cf149b20f4da0be047",
+     "40836eed1e0ac256aec7da98427298842b855826007ba6cf149b20f4da0be047"
+    ],
+    "state.log": [
+     "5f893e0df44dd576d97fd9f9d5eb8b765957a863604202a13c08c536b7ca9034",
+     "5f893e0df44dd576d97fd9f9d5eb8b765957a863604202a13c08c536b7ca9034"
+    ],
+    "final.save": [
+     "94bc2ee872d1e873690c0cb84478faaf0f115fbdf774514a09fe807823fb2626",
+     "94bc2ee872d1e873690c0cb84478faaf0f115fbdf774514a09fe807823fb2626"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 62120,
+    "clevel": 6,
+    "max_depth": 8,
+    "dead": true,
+    "death_cause": "Lagduf, the Snaga"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-7-ranger-4": {
+   "streams": {
+    "keys.log": [
+     "4ba116ee25ab4324b5fcac6d13832deec709cc3dcf531e2bbc39bd26b1741b9a",
+     "4ba116ee25ab4324b5fcac6d13832deec709cc3dcf531e2bbc39bd26b1741b9a"
+    ],
+    "messages.log": [
+     "c4a4fbe8632680cfcbf4bd76591296c76c465827c29b8f03686933805121f775",
+     "c4a4fbe8632680cfcbf4bd76591296c76c465827c29b8f03686933805121f775"
+    ],
+    "state.log": [
+     "1918e0cf2661d09d403c2480e116cad1eceef95b2dfa03b7d9771e12ca0f5b04",
+     "1918e0cf2661d09d403c2480e116cad1eceef95b2dfa03b7d9771e12ca0f5b04"
+    ],
+    "final.save": [
+     "bcadadea6cc2d5cd49a3867f79e31548f3c2310a5483983abe27c4d6f4855d1c",
+     "bcadadea6cc2d5cd49a3867f79e31548f3c2310a5483983abe27c4d6f4855d1c"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 10,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-8-blackguard-0": {
+   "streams": {
+    "keys.log": [
+     "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+     "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158"
+    ],
+    "messages.log": [
+     "f083094f2d11cc8be491f273c67373fd0d3c64bc83c13b5698a998e4a660a695",
+     "f083094f2d11cc8be491f273c67373fd0d3c64bc83c13b5698a998e4a660a695"
+    ],
+    "state.log": [
+     "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+     "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93"
+    ],
+    "final.save": [
+     "4c6f108e44dd963944afd95328f2cca937ff6240c5d3f0caaefaef1b71fc0c03",
+     "4c6f108e44dd963944afd95328f2cca937ff6240c5d3f0caaefaef1b71fc0c03"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 7,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-8-blackguard-1": {
+   "streams": {
+    "keys.log": [
+     "fe31750d8005d6acb617977d9dc21b7b339479008856385a324cc5188bffdb4e",
+     "fe31750d8005d6acb617977d9dc21b7b339479008856385a324cc5188bffdb4e"
+    ],
+    "messages.log": [
+     "69b201fa376e1568713c828dc40cd79cb4a688aa99e75c26f529aec330369b68",
+     "69b201fa376e1568713c828dc40cd79cb4a688aa99e75c26f529aec330369b68"
+    ],
+    "state.log": [
+     "7aa32c71ebef289100f04e17a9cf2c10da214ba204356eea33d338e75262c086",
+     "7aa32c71ebef289100f04e17a9cf2c10da214ba204356eea33d338e75262c086"
+    ],
+    "final.save": [
+     "a499d5a5ebeacf26b7a1927b79241682100045bec840401d5018895d0646849a",
+     "a499d5a5ebeacf26b7a1927b79241682100045bec840401d5018895d0646849a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 2681,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a grey mushroom patch"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 10,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-8-blackguard-2": {
+   "streams": {
+    "keys.log": [
+     "26b14b29fa6206757eb830d67fad646671871eddd04453b7d47ba7e197ed41e6",
+     "26b14b29fa6206757eb830d67fad646671871eddd04453b7d47ba7e197ed41e6"
+    ],
+    "messages.log": [
+     "a7bb14404d245d86660c958b176c3f66e0eada41d5147cd68ef5db24304c3187",
+     "a7bb14404d245d86660c958b176c3f66e0eada41d5147cd68ef5db24304c3187"
+    ],
+    "state.log": [
+     "16a262cb0071eced0548c489efd418d725082f19352eaf92d8235d4b7ccfd409",
+     "16a262cb0071eced0548c489efd418d725082f19352eaf92d8235d4b7ccfd409"
+    ],
+    "final.save": [
+     "20b0c91cffed41023f44a0f447ca4190a98a4aa4a43676c61de122cb911e8565",
+     "20b0c91cffed41023f44a0f447ca4190a98a4aa4a43676c61de122cb911e8565"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 5757,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "an apprentice"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 75085,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": true,
+    "death_cause": "a yellow mold"
+   }
+  },
+  "full-8-blackguard-3": {
+   "streams": {
+    "keys.log": [
+     "e9201a941189bb6d31cfbb919b747b1885d0195160207a383c0439eaa79a8d65",
+     "e9201a941189bb6d31cfbb919b747b1885d0195160207a383c0439eaa79a8d65"
+    ],
+    "messages.log": [
+     "202ef9c25fd33dcc9addb3e1d0d3ba6debb5285f28efd62338104105b83aa340",
+     "202ef9c25fd33dcc9addb3e1d0d3ba6debb5285f28efd62338104105b83aa340"
+    ],
+    "state.log": [
+     "1a56ffce002276ec05fb4d6547fa7b6fab807bd70c4944c3653b41b7e1a3dc7c",
+     "1a56ffce002276ec05fb4d6547fa7b6fab807bd70c4944c3653b41b7e1a3dc7c"
+    ],
+    "final.save": [
+     "860e586ea3b6d06e0755818c1214b271077e21ed5d67f72ce4ec9174aec05d86",
+     "860e586ea3b6d06e0755818c1214b271077e21ed5d67f72ce4ec9174aec05d86"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 32580,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "poison"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "full-8-blackguard-4": {
+   "streams": {
+    "keys.log": [
+     "0db36eee087249c9ef3f5a23f69cabfd14678fb948aa29fe6a71ef2b03e35488",
+     "0db36eee087249c9ef3f5a23f69cabfd14678fb948aa29fe6a71ef2b03e35488"
+    ],
+    "messages.log": [
+     "71655b4afd2e78e7435dfc1223f406e5b30139ce7ad3115cd0d8af938c8bea35",
+     "71655b4afd2e78e7435dfc1223f406e5b30139ce7ad3115cd0d8af938c8bea35"
+    ],
+    "state.log": [
+     "3ee6558c711634f5d7ac36f3d2c5729a8199eb5dfd79d11b3cbfacb702531f3d",
+     "3ee6558c711634f5d7ac36f3d2c5729a8199eb5dfd79d11b3cbfacb702531f3d"
+    ],
+    "final.save": [
+     "b502a17ab3c259b210093373e0c49a5b1d0e4a05afabd77ab4952ba6a2018d11",
+     "b502a17ab3c259b210093373e0c49a5b1d0e4a05afabd77ab4952ba6a2018d11"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 9495,
+    "clevel": 2,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "Fang, Farmer Maggot's Dog"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 7,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-0-warrior": {
+   "streams": {
+    "keys.log": [
+     "3eebf70d06b8c32d64e015a66236adec1f168b07d268536a2bad7d1bc4c3e32b",
+     "3eebf70d06b8c32d64e015a66236adec1f168b07d268536a2bad7d1bc4c3e32b"
+    ],
+    "messages.log": [
+     "8a397142f8c472a2abe85c819b11983bb545a20f6c539879e08bb75dff78ffc1",
+     "8a397142f8c472a2abe85c819b11983bb545a20f6c539879e08bb75dff78ffc1"
+    ],
+    "state.log": [
+     "bfae15f8b5715958add6ba85e918ba3743c3e610ac3e2682eca49acdb501a0c1",
+     "bfae15f8b5715958add6ba85e918ba3743c3e610ac3e2682eca49acdb501a0c1"
+    ],
+    "final.save": [
+     "b16119cde7e7e5e7d7012f53fe8b406167af80373d8c8a01f15127389b827291",
+     "b16119cde7e7e5e7d7012f53fe8b406167af80373d8c8a01f15127389b827291"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000004,
+    "clevel": 21,
+    "max_depth": 13,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000009,
+    "clevel": 23,
+    "max_depth": 10,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-1-mage": {
+   "streams": {
+    "keys.log": [
+     "1472043581f5007ba65e4a54baf4bce490895d9676f32ae1a87aa65adadd8e3b",
+     "1472043581f5007ba65e4a54baf4bce490895d9676f32ae1a87aa65adadd8e3b"
+    ],
+    "messages.log": [
+     "5f774d9563067441668d9be4994b62cc5ab04c21e8bd1f5f5b520d4945ec0992",
+     "5f774d9563067441668d9be4994b62cc5ab04c21e8bd1f5f5b520d4945ec0992"
+    ],
+    "state.log": [
+     "db30754f45fc9024b94c15bef6c574665b58178301794fbe155ceb2af67e65dd",
+     "db30754f45fc9024b94c15bef6c574665b58178301794fbe155ceb2af67e65dd"
+    ],
+    "final.save": [
+     "ad97b5d7af2615d5363036e76a0f55bc4891110c26978e6fe11c84b6493c651b",
+     "ad97b5d7af2615d5363036e76a0f55bc4891110c26978e6fe11c84b6493c651b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000064,
+    "clevel": 12,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000003,
+    "clevel": 11,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-2-druid": {
+   "streams": {
+    "keys.log": [
+     "4d38abd7bd42ab749e097539c9ba7ec88bcb6f6d7cfba0427a1ebd669fcbf57b",
+     "4d38abd7bd42ab749e097539c9ba7ec88bcb6f6d7cfba0427a1ebd669fcbf57b"
+    ],
+    "messages.log": [
+     "847073348f301da0e7ff1f2306380f576efe1f4beece57c0cebfcee1e98148be",
+     "847073348f301da0e7ff1f2306380f576efe1f4beece57c0cebfcee1e98148be"
+    ],
+    "state.log": [
+     "c525e55d2bfe96f7294e201e72560962a9bb8d4f937a2abf77868580de7309e6",
+     "c525e55d2bfe96f7294e201e72560962a9bb8d4f937a2abf77868580de7309e6"
+    ],
+    "final.save": [
+     "ce0c85eef589bb95b69b00c1e5ba6bdc87fc3245345911c9802b112d71206952",
+     "ce0c85eef589bb95b69b00c1e5ba6bdc87fc3245345911c9802b112d71206952"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000093,
+    "clevel": 12,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000006,
+    "clevel": 15,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-3-priest": {
+   "streams": {
+    "keys.log": [
+     "9cdc84b73a8f4524bd2ec7bf378ade2739072cf4a1b4e6efa1cc6158a95486c7",
+     "9cdc84b73a8f4524bd2ec7bf378ade2739072cf4a1b4e6efa1cc6158a95486c7"
+    ],
+    "messages.log": [
+     "74792f0049d6a8f1a0a0cfd5d900eff874e761e55e4cc2d624fc2fecfe604d9d",
+     "74792f0049d6a8f1a0a0cfd5d900eff874e761e55e4cc2d624fc2fecfe604d9d"
+    ],
+    "state.log": [
+     "d185c809956f12976ae880d1a809434d7dac228e3fc72dd3018ee0a5f5ec2ed5",
+     "d185c809956f12976ae880d1a809434d7dac228e3fc72dd3018ee0a5f5ec2ed5"
+    ],
+    "final.save": [
+     "994a27bdc0deb7b78e80e8ae6fcdd012eea6b9ab8a250aa8ec182e1ee8288bef",
+     "994a27bdc0deb7b78e80e8ae6fcdd012eea6b9ab8a250aa8ec182e1ee8288bef"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000188,
+    "clevel": 9,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000064,
+    "clevel": 9,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-4-necro": {
+   "streams": {
+    "keys.log": [
+     "dfa34c2e0316a80adeda4bf80c2159a92a0eac079cca7d86439ba95d7049e3d9",
+     "dfa34c2e0316a80adeda4bf80c2159a92a0eac079cca7d86439ba95d7049e3d9"
+    ],
+    "messages.log": [
+     "6e5e0e15b0f155e0e5f2ec238a98db58a29963767aaa8447e8fceb7f53f9e726",
+     "6e5e0e15b0f155e0e5f2ec238a98db58a29963767aaa8447e8fceb7f53f9e726"
+    ],
+    "state.log": [
+     "738e88f2afe687480712e88565c7a3867fada700d7ffb7b188901250931415e8",
+     "738e88f2afe687480712e88565c7a3867fada700d7ffb7b188901250931415e8"
+    ],
+    "final.save": [
+     "b1e8ba2d47371b757128ddaa06710aec0469f2fd4d0bb277fedfbaa39d17493a",
+     "b1e8ba2d47371b757128ddaa06710aec0469f2fd4d0bb277fedfbaa39d17493a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000146,
+    "clevel": 8,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000054,
+    "clevel": 8,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-5-paladin": {
+   "streams": {
+    "keys.log": [
+     "b8ca2ccd9e0d2e4375826364e2fccdb731560a8f7724feda58ba7fdd77114c7b",
+     "b8ca2ccd9e0d2e4375826364e2fccdb731560a8f7724feda58ba7fdd77114c7b"
+    ],
+    "messages.log": [
+     "8e6dc67bbdcffef53cdd572961b9c55052d6fb1dab32557481f722cd49f15c34",
+     "8e6dc67bbdcffef53cdd572961b9c55052d6fb1dab32557481f722cd49f15c34"
+    ],
+    "state.log": [
+     "0cbc9f558e7a6beafc236da8bc57dc9b6823b9eb7f30e6b41057c422664657fc",
+     "0cbc9f558e7a6beafc236da8bc57dc9b6823b9eb7f30e6b41057c422664657fc"
+    ],
+    "final.save": [
+     "e64f8d5d8dce923f31cbb048aafe0672339ab033d7ba2defcf83c913cc2e4577",
+     "e64f8d5d8dce923f31cbb048aafe0672339ab033d7ba2defcf83c913cc2e4577"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000006,
+    "clevel": 25,
+    "max_depth": 20,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000004,
+    "clevel": 22,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-6-rogue": {
+   "streams": {
+    "keys.log": [
+     "447ea7c96c73917b3389913eee9657c7f16b1279e25808fe0c5e600bc0fe9f18",
+     "447ea7c96c73917b3389913eee9657c7f16b1279e25808fe0c5e600bc0fe9f18"
+    ],
+    "messages.log": [
+     "981791c55ec25aaeee3df969618319bf5f86d3476cb0e1d6d330f8f6faecb502",
+     "981791c55ec25aaeee3df969618319bf5f86d3476cb0e1d6d330f8f6faecb502"
+    ],
+    "state.log": [
+     "387b8331cd32deef83bc66bc9c219d9334894b73d89e485d01b9c98a293abc37",
+     "387b8331cd32deef83bc66bc9c219d9334894b73d89e485d01b9c98a293abc37"
+    ],
+    "final.save": [
+     "909460bc5f3924f60ca0fc5e30a69f7eb20b740d7445decb9c60c092592c6fa5",
+     "909460bc5f3924f60ca0fc5e30a69f7eb20b740d7445decb9c60c092592c6fa5"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000001,
+    "clevel": 15,
+    "max_depth": 11,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000001,
+    "clevel": 14,
+    "max_depth": 11,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-7-ranger": {
+   "streams": {
+    "keys.log": [
+     "fccb41a7cdaaccad66d4dcad094b614d7a3e742ef3b34e3585fc68e9994c21c4",
+     "fccb41a7cdaaccad66d4dcad094b614d7a3e742ef3b34e3585fc68e9994c21c4"
+    ],
+    "messages.log": [
+     "5c9204bf53d31de9278bc70fa4688030f1d1f2d4f9233543fe2d9018d671f0e1",
+     "5c9204bf53d31de9278bc70fa4688030f1d1f2d4f9233543fe2d9018d671f0e1"
+    ],
+    "state.log": [
+     "a8509c90723200adc268541cb2e71365437c0c2cc7f3925a75c5df417e490944",
+     "a8509c90723200adc268541cb2e71365437c0c2cc7f3925a75c5df417e490944"
+    ],
+    "final.save": [
+     "bdb1d002ee193856cbbf3e5288c6a2c5e0afb392ea2a2a5497c5d2211593aaba",
+     "bdb1d002ee193856cbbf3e5288c6a2c5e0afb392ea2a2a5497c5d2211593aaba"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000000,
+    "clevel": 30,
+    "max_depth": 32,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000005,
+    "clevel": 21,
+    "max_depth": 17,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "deep-8-blackguard": {
+   "streams": {
+    "keys.log": [
+     "919d7cb28133c70fbaa3a54becc92f3409d51524c4f5d443ebdfe0dd367f58c5",
+     "919d7cb28133c70fbaa3a54becc92f3409d51524c4f5d443ebdfe0dd367f58c5"
+    ],
+    "messages.log": [
+     "3714b689288692882bbb1995171607c862c9bbea0a792f76d442b557546704f2",
+     "3714b689288692882bbb1995171607c862c9bbea0a792f76d442b557546704f2"
+    ],
+    "state.log": [
+     "a4c0f9d922d41fb3a119cec1b33554a752c7597a690e97b8ad6da2169cd2bfe0",
+     "a4c0f9d922d41fb3a119cec1b33554a752c7597a690e97b8ad6da2169cd2bfe0"
+    ],
+    "final.save": [
+     "b87939a9986d965007835d62a728febef8954e18ed627de8cc9464a516c4e0da",
+     "b87939a9986d965007835d62a728febef8954e18ed627de8cc9464a516c4e0da"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000009,
+    "clevel": 17,
+    "max_depth": 12,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000006,
+    "clevel": 15,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-deep-bg-dunadan": {
+   "streams": {
+    "keys.log": [
+     "af257df4563eec9eaf5f17de705e27aae1baae28d774a3c9595033e85f5331d6",
+     "af257df4563eec9eaf5f17de705e27aae1baae28d774a3c9595033e85f5331d6"
+    ],
+    "messages.log": [
+     "9f55d35504f5fc9a08b8ed1075fa90633fda6cc6f707dada852a23ba3c9ca62a",
+     "9f55d35504f5fc9a08b8ed1075fa90633fda6cc6f707dada852a23ba3c9ca62a"
+    ],
+    "state.log": [
+     "a264cb389db056671301bfff2869fea9786a2893e521fc17d03fe504cd8bb817",
+     "a264cb389db056671301bfff2869fea9786a2893e521fc17d03fe504cd8bb817"
+    ],
+    "final.save": [
+     "1b24020de9bc2917703d619fc59aeaacc04dd2d8aaf0f5eaa5886eb37a051925",
+     "1b24020de9bc2917703d619fc59aeaacc04dd2d8aaf0f5eaa5886eb37a051925"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000007,
+    "clevel": 18,
+    "max_depth": 15,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000003,
+    "clevel": 25,
+    "max_depth": 18,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-dunadan": {
+   "streams": {
+    "keys.log": [
+     "dbc0f41aa3aad61069b2209a433559cc2b41108634dd31509826f90ea6b7f093",
+     "dbc0f41aa3aad61069b2209a433559cc2b41108634dd31509826f90ea6b7f093"
+    ],
+    "messages.log": [
+     "d3f8b7363e41548336c32946ceb12fa30d7179a24e47047a7355deb2842feb7d",
+     "d3f8b7363e41548336c32946ceb12fa30d7179a24e47047a7355deb2842feb7d"
+    ],
+    "state.log": [
+     "2d79151a63efcacf96537ce4fcd1fdb67592a0c710b62a05b85587af82917530",
+     "2d79151a63efcacf96537ce4fcd1fdb67592a0c710b62a05b85587af82917530"
+    ],
+    "final.save": [
+     "f880be1c3a9d78294603ef4835b1a3567e2ddd9baa6588950e52a2b98f1cc917",
+     "f880be1c3a9d78294603ef4835b1a3567e2ddd9baa6588950e52a2b98f1cc917"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-highelf": {
+   "streams": {
+    "keys.log": [
+     "03638bb99bc1617a45e00c1a2038d64ef1e31add0f1f9344968b861a99981aa2",
+     "03638bb99bc1617a45e00c1a2038d64ef1e31add0f1f9344968b861a99981aa2"
+    ],
+    "messages.log": [
+     "090b93c1a714b3ee6aa98394fe15997666491b14b3eb1b66050f818e9cd323b2",
+     "090b93c1a714b3ee6aa98394fe15997666491b14b3eb1b66050f818e9cd323b2"
+    ],
+    "state.log": [
+     "c7c74bb3f85e83e8328e52cba0e8764a5d1b20fd45d4f7fa3bbdfd9532c61be2",
+     "c7c74bb3f85e83e8328e52cba0e8764a5d1b20fd45d4f7fa3bbdfd9532c61be2"
+    ],
+    "final.save": [
+     "6d421bcee683af8254e0454570b0d5d5d3d629ec868e4f8075196019631f8774",
+     "6d421bcee683af8254e0454570b0d5d5d3d629ec868e4f8075196019631f8774"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100480,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-kobold": {
+   "streams": {
+    "keys.log": [
+     "62f3f854ff17243ba07dc7c03fc5b559f8b1c69b3a893e7c8f860a90679fd8cb",
+     "62f3f854ff17243ba07dc7c03fc5b559f8b1c69b3a893e7c8f860a90679fd8cb"
+    ],
+    "messages.log": [
+     "df379bbd41a428116dfebb0999eab9936150299d0b875e04c94303560beaebb9",
+     "df379bbd41a428116dfebb0999eab9936150299d0b875e04c94303560beaebb9"
+    ],
+    "state.log": [
+     "c456d27d445aa33eb2838c40698a9bdd4f08eaabf6971b204cf35ff392523e8c",
+     "c456d27d445aa33eb2838c40698a9bdd4f08eaabf6971b204cf35ff392523e8c"
+    ],
+    "final.save": [
+     "31b2de9a1cb3c835dbc489e159a34c735051fbf25f6771a7f3b98f9c629f60ac",
+     "31b2de9a1cb3c835dbc489e159a34c735051fbf25f6771a7f3b98f9c629f60ac"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100352,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100096,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-human": {
+   "streams": {
+    "keys.log": [
+     "b5bbd478fc9d38588943e3631b82a2307d0108d230a7c8a7e7a2d4cce45b3ff6",
+     "b5bbd478fc9d38588943e3631b82a2307d0108d230a7c8a7e7a2d4cce45b3ff6"
+    ],
+    "messages.log": [
+     "5630c3b973426f1f36edfa94f35e3abf463ba81603cc49a86df54c301911d246",
+     "5630c3b973426f1f36edfa94f35e3abf463ba81603cc49a86df54c301911d246"
+    ],
+    "state.log": [
+     "6b0513f68d3e156999dd8317ac9eafc4baf2383af0b74fb440b62a0583e7f34d",
+     "6b0513f68d3e156999dd8317ac9eafc4baf2383af0b74fb440b62a0583e7f34d"
+    ],
+    "final.save": [
+     "f3d6be65d84dbf8e38cd15eaa627b8126a98a5cb807b1746dc71645a78d54fc4",
+     "f3d6be65d84dbf8e38cd15eaa627b8126a98a5cb807b1746dc71645a78d54fc4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100240,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-halftroll": {
+   "streams": {
+    "keys.log": [
+     "9748e0898673c3b41a70d9e3bdfea30e78254fad0e70fa510b2eb499bdb65986",
+     "9748e0898673c3b41a70d9e3bdfea30e78254fad0e70fa510b2eb499bdb65986"
+    ],
+    "messages.log": [
+     "c207f4460ac4097486e871da37e32f2f5b5c0994af7c3b46053cfcea30f47cd5",
+     "c207f4460ac4097486e871da37e32f2f5b5c0994af7c3b46053cfcea30f47cd5"
+    ],
+    "state.log": [
+     "6c0ea0c132dd678643ef19ab2186f318c602e80195e40a49888f6a7ef34d626c",
+     "6c0ea0c132dd678643ef19ab2186f318c602e80195e40a49888f6a7ef34d626c"
+    ],
+    "final.save": [
+     "80e38406234776e548faadba18679e202787d11345fb51d20914b4dfcc4b1267",
+     "80e38406234776e548faadba18679e202787d11345fb51d20914b4dfcc4b1267"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-dwarf": {
+   "streams": {
+    "keys.log": [
+     "8f98e9a361fd8c3e11bd84d3168c2425d50d5ced13d5d581c90c84a65c175de2",
+     "8f98e9a361fd8c3e11bd84d3168c2425d50d5ced13d5d581c90c84a65c175de2"
+    ],
+    "messages.log": [
+     "95ab3ed5eac0198e979b5642b8a8f51f61ef8cb52e9938e30570801b5f8bf79a",
+     "95ab3ed5eac0198e979b5642b8a8f51f61ef8cb52e9938e30570801b5f8bf79a"
+    ],
+    "state.log": [
+     "b8af6860f8705ee425475c39cabcaaa79015e10be2c0fa67924f3a0b1dc29c0e",
+     "b8af6860f8705ee425475c39cabcaaa79015e10be2c0fa67924f3a0b1dc29c0e"
+    ],
+    "final.save": [
+     "a53718b2698ccfdb54b25ec311313af2a9f4fc03df93fd2ffd08dd4870d6f6d4",
+     "a53718b2698ccfdb54b25ec311313af2a9f4fc03df93fd2ffd08dd4870d6f6d4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 3,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-bg-halforc": {
+   "streams": {
+    "keys.log": [
+     "8a5fa8a634e6635bb766c9600f0e4cc556da1f49416d434237c9fd8f4db5fac9",
+     "8a5fa8a634e6635bb766c9600f0e4cc556da1f49416d434237c9fd8f4db5fac9"
+    ],
+    "messages.log": [
+     "6f98a4f87c186a0c2037c72bf2f5a741d4fcaf92a7d0396cd9f169e462dfb3f7",
+     "6f98a4f87c186a0c2037c72bf2f5a741d4fcaf92a7d0396cd9f169e462dfb3f7"
+    ],
+    "state.log": [
+     "7b1f4ba59f001f244716fa2ff1372f9ef4fcc399e7510692310d4d9019f2f429",
+     "7b1f4ba59f001f244716fa2ff1372f9ef4fcc399e7510692310d4d9019f2f429"
+    ],
+    "final.save": [
+     "77e9bcafb39e77c71d9a4b95b6ea5674cb3b097eceee0ce38f6884eaf38a10b4",
+     "77e9bcafb39e77c71d9a4b95b6ea5674cb3b097eceee0ce38f6884eaf38a10b4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100096,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100035,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-dunadan-ranger": {
+   "streams": {
+    "keys.log": [
+     "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+     "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729"
+    ],
+    "messages.log": [
+     "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+     "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458"
+    ],
+    "state.log": [
+     "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+     "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df"
+    ],
+    "final.save": [
+     "e1edfeb92d818db6bd93e069426957266fd78f4f6be0d7da15a3409c9bc03dee",
+     "e1edfeb92d818db6bd93e069426957266fd78f4f6be0d7da15a3409c9bc03dee"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 26791,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "a fruit bat"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 8,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-dunadan-paladin": {
+   "streams": {
+    "keys.log": [
+     "15a745e51d7a8589dd69e1d53c1ba73b133267bfb90d0c0152faf3d11dbfc814",
+     "15a745e51d7a8589dd69e1d53c1ba73b133267bfb90d0c0152faf3d11dbfc814"
+    ],
+    "messages.log": [
+     "24efa71559d6baa299eb0344679c0142358ed0b999cab65e7d9d2e3a5b6ffe82",
+     "24efa71559d6baa299eb0344679c0142358ed0b999cab65e7d9d2e3a5b6ffe82"
+    ],
+    "state.log": [
+     "2202ceea725fa6923d462b82518af809a3d156f93734d4b37d69fa0b6fcbaf32",
+     "2202ceea725fa6923d462b82518af809a3d156f93734d4b37d69fa0b6fcbaf32"
+    ],
+    "final.save": [
+     "4725eeffdb98ebe04e20eb236f108c7d73d1ba89ad71dce2de3b736450d4f58a",
+     "4725eeffdb98ebe04e20eb236f108c7d73d1ba89ad71dce2de3b736450d4f58a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100108,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100219,
+    "clevel": 6,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-highelf-mage": {
+   "streams": {
+    "keys.log": [
+     "1a14597c7c32dca7c183540fd6da386c05c3e9c4cfa72181c77098f948fc9370",
+     "1a14597c7c32dca7c183540fd6da386c05c3e9c4cfa72181c77098f948fc9370"
+    ],
+    "messages.log": [
+     "5a7e35585297a06e7427581020f1444ef31c17b36a200e9b45bfcbb29e797492",
+     "5a7e35585297a06e7427581020f1444ef31c17b36a200e9b45bfcbb29e797492"
+    ],
+    "state.log": [
+     "de97315e86530a74f510c8fe891d46980dbc2eac5279504ca246e2506b1028c1",
+     "de97315e86530a74f510c8fe891d46980dbc2eac5279504ca246e2506b1028c1"
+    ],
+    "final.save": [
+     "b45299bb45ada1bdcea745dcf515af7d28d1840dc6d2257eff234d801cc7e8b7",
+     "b45299bb45ada1bdcea745dcf515af7d28d1840dc6d2257eff234d801cc7e8b7"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 8099,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "Grip, Farmer Maggot's Dog"
+   }
+  },
+  "cls-highelf-priest": {
+   "streams": {
+    "keys.log": [
+     "05af8093ebbc234219b477e019d83931798e1ea995b30dcf2f012cb0fe247ce5",
+     "05af8093ebbc234219b477e019d83931798e1ea995b30dcf2f012cb0fe247ce5"
+    ],
+    "messages.log": [
+     "4a108d217a0d234e619fd2f9f09e3ae9f140020c1230b87269c4f66c58dcc6f8",
+     "4a108d217a0d234e619fd2f9f09e3ae9f140020c1230b87269c4f66c58dcc6f8"
+    ],
+    "state.log": [
+     "490690f82d2d7365a6337397d4c0e0a86fcf703ca750fab5158f68df61a6cf0b",
+     "490690f82d2d7365a6337397d4c0e0a86fcf703ca750fab5158f68df61a6cf0b"
+    ],
+    "final.save": [
+     "32887542e25b7a67c812a6d87142088c3f8d60f45af4b73b0cf98508a732791f",
+     "32887542e25b7a67c812a6d87142088c3f8d60f45af4b73b0cf98508a732791f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100030,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 46126,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": true,
+    "death_cause": "a giant white mouse"
+   }
+  },
+  "cls-kobold-rogue": {
+   "streams": {
+    "keys.log": [
+     "1e80b231fdc4b5a94932038c2dcf905ab90d79b165799e2323f61b3e017e53c5",
+     "1e80b231fdc4b5a94932038c2dcf905ab90d79b165799e2323f61b3e017e53c5"
+    ],
+    "messages.log": [
+     "455c5de5f98a0c5bbe683b93c2318d9e66e4ef142c4efb29216e98789f75a52a",
+     "455c5de5f98a0c5bbe683b93c2318d9e66e4ef142c4efb29216e98789f75a52a"
+    ],
+    "state.log": [
+     "3255f29506951e8ce4a03c9e53df83efb993a336aaba2b5cd3cce5f1f9cc7a1b",
+     "3255f29506951e8ce4a03c9e53df83efb993a336aaba2b5cd3cce5f1f9cc7a1b"
+    ],
+    "final.save": [
+     "a5be0e8975fe8c9c9683b587a4ae45e65c9ca153e7214ca04bced7e6ee2bc47a",
+     "a5be0e8975fe8c9c9683b587a4ae45e65c9ca153e7214ca04bced7e6ee2bc47a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 75645,
+    "clevel": 6,
+    "max_depth": 7,
+    "dead": true,
+    "death_cause": "a blacklock mage"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-kobold-necro": {
+   "streams": {
+    "keys.log": [
+     "171c43e71fb7ea3946c39fa37095e52c46e70522e06662f3dafa117f88db162e",
+     "171c43e71fb7ea3946c39fa37095e52c46e70522e06662f3dafa117f88db162e"
+    ],
+    "messages.log": [
+     "be24bc828e03698d534d5fa4de7906c3c919e18d3f00b1972215fc64bd77091c",
+     "be24bc828e03698d534d5fa4de7906c3c919e18d3f00b1972215fc64bd77091c"
+    ],
+    "state.log": [
+     "306530074ce0b782608fb8566e637d3419d09cfe5b0680c1968ac2d38d234938",
+     "306530074ce0b782608fb8566e637d3419d09cfe5b0680c1968ac2d38d234938"
+    ],
+    "final.save": [
+     "3fb76e35124d061c1be0424e266ebb0671d0f1132836decf883156350175ba2d",
+     "3fb76e35124d061c1be0424e266ebb0671d0f1132836decf883156350175ba2d"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-kobold-warrior": {
+   "streams": {
+    "keys.log": [
+     "5e2d3c90cd242d93eb0ff244bf71fa8e43d4fcf7f18877dee657dd9250013b6d",
+     "5e2d3c90cd242d93eb0ff244bf71fa8e43d4fcf7f18877dee657dd9250013b6d"
+    ],
+    "messages.log": [
+     "ac6d0662748ffc2ef5c2f5e078ecaa8a146c209da1f54be81e7b51f6d59a3e2e",
+     "ac6d0662748ffc2ef5c2f5e078ecaa8a146c209da1f54be81e7b51f6d59a3e2e"
+    ],
+    "state.log": [
+     "8514f615ebcd8e2a5cef31a582b7abd340f55db59cdcbc3c99f222945e9bc450",
+     "8514f615ebcd8e2a5cef31a582b7abd340f55db59cdcbc3c99f222945e9bc450"
+    ],
+    "final.save": [
+     "697e082fa58a5034441fb53b328da5e1712d15a1410877b0df67d51bcd645e2b",
+     "697e082fa58a5034441fb53b328da5e1712d15a1410877b0df67d51bcd645e2b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 6,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cls-halfelf-ranger": {
+   "streams": {
+    "keys.log": [
+     "77ff5a6e0d9b2ee48c885dd01d880e4f34494c8255d311bcc735d091116acc2b",
+     "77ff5a6e0d9b2ee48c885dd01d880e4f34494c8255d311bcc735d091116acc2b"
+    ],
+    "messages.log": [
+     "3bafa51efe8d03387ee3ab8943ceb2470dd9179a842b972345de19c6b1872b67",
+     "3bafa51efe8d03387ee3ab8943ceb2470dd9179a842b972345de19c6b1872b67"
+    ],
+    "state.log": [
+     "354a82900d170e520a54688996ffa7360005c1ab2c35dfa73649106c4a992284",
+     "354a82900d170e520a54688996ffa7360005c1ab2c35dfa73649106c4a992284"
+    ],
+    "final.save": [
+     "856b70c8d0c586995b0e6755294779a71822e9f61fa1521da4f708c02ef590c1",
+     "856b70c8d0c586995b0e6755294779a71822e9f61fa1521da4f708c02ef590c1"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 96491,
+    "clevel": 8,
+    "max_depth": 6,
+    "dead": true,
+    "death_cause": "a zombified orc"
+   }
+  },
+  "cfg-munchkin-human-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0",
+     "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 9,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-munchkin-halfelf-mage": {
+   "streams": {
+    "keys.log": [
+     "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+     "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e"
+    ],
+    "messages.log": [
+     "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+     "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6"
+    ],
+    "state.log": [
+     "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+     "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a"
+    ],
+    "final.save": [
+     "687a6b4dcacbbe48aea269773850afa229546760ac8db579057c405de870b2ad",
+     "687a6b4dcacbbe48aea269773850afa229546760ac8db579057c405de870b2ad"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-munchkin-dunadan-bg": {
+   "streams": {
+    "keys.log": [
+     "5d7ae5f4023875537d0bbf529cb38a73b38c1028ed63bf6edce454647806e733",
+     "5d7ae5f4023875537d0bbf529cb38a73b38c1028ed63bf6edce454647806e733"
+    ],
+    "messages.log": [
+     "4a723a9466a5b52abda043be80bb9135e61bd1f065681aa80460abbb5eb1b451",
+     "4a723a9466a5b52abda043be80bb9135e61bd1f065681aa80460abbb5eb1b451"
+    ],
+    "state.log": [
+     "564c20b9f43190a2c4c8deaf45580a9c6beffcef8e1659d71262de5e0588a16c",
+     "564c20b9f43190a2c4c8deaf45580a9c6beffcef8e1659d71262de5e0588a16c"
+    ],
+    "final.save": [
+     "ac81d69e737ddaad3f0a1b06cbf81209a49cc89219fc0ea6bf2bc7924d444e07",
+     "ac81d69e737ddaad3f0a1b06cbf81209a49cc89219fc0ea6bf2bc7924d444e07"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20011,
+    "clevel": 9,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 20112,
+    "clevel": 8,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-lunal-human-war": {
+   "streams": {
+    "keys.log": [
+     "301eaa3cc894c4130df2706d48ebd31f7e8ef6d13dac707b963df24dcfdd300e",
+     "301eaa3cc894c4130df2706d48ebd31f7e8ef6d13dac707b963df24dcfdd300e"
+    ],
+    "messages.log": [
+     "7b8cc86634c23f129ec05df104145074c5228bf858e1a99dd2b2cf668690187c",
+     "7b8cc86634c23f129ec05df104145074c5228bf858e1a99dd2b2cf668690187c"
+    ],
+    "state.log": [
+     "54bf5daee2b1fd0d8dc707db6c76bf05d004c470735a30888b01ea90b8aad700",
+     "54bf5daee2b1fd0d8dc707db6c76bf05d004c470735a30888b01ea90b8aad700"
+    ],
+    "final.save": [
+     "0da0330815135c67f786561e7ed1ef0948bf7ffbe8aecc4183c0110a4cf2667d",
+     "0da0330815135c67f786561e7ed1ef0948bf7ffbe8aecc4183c0110a4cf2667d"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 11,
+    "max_depth": 16,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 6,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-lunal-halfelf-mage": {
+   "streams": {
+    "keys.log": [
+     "391e6521d130f19a32bbda8ccda8344997a906c06b45dbd1f79730f588cd8c77",
+     "391e6521d130f19a32bbda8ccda8344997a906c06b45dbd1f79730f588cd8c77"
+    ],
+    "messages.log": [
+     "a0d4e10bc6db9ce16fa1c5f1c37294c87ef4c76264c6f21f7bca4bfceab7c626",
+     "a0d4e10bc6db9ce16fa1c5f1c37294c87ef4c76264c6f21f7bca4bfceab7c626"
+    ],
+    "state.log": [
+     "bb5d2b6c98889571b1841fc8c284e08e03633fb3827d7b09042480ad55dd9e9f",
+     "bb5d2b6c98889571b1841fc8c284e08e03633fb3827d7b09042480ad55dd9e9f"
+    ],
+    "final.save": [
+     "9413b735fc9dc79e83c0f60176463c87b9c0f667bf22091ca2beebb408609b60",
+     "9413b735fc9dc79e83c0f60176463c87b9c0f667bf22091ca2beebb408609b60"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100224,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-lunal-dunadan-bg": {
+   "streams": {
+    "keys.log": [
+     "840270442cff7d9cb8b0ec4a4346555a23f243aa04877b3f7ee5e9a75c148e94",
+     "840270442cff7d9cb8b0ec4a4346555a23f243aa04877b3f7ee5e9a75c148e94"
+    ],
+    "messages.log": [
+     "f0a87d8b0b87e93ac27d53e57534f0f56c172db2844970f814cd11818b226532",
+     "f0a87d8b0b87e93ac27d53e57534f0f56c172db2844970f814cd11818b226532"
+    ],
+    "state.log": [
+     "ea203b844df576d103c78e0493086d10adb6b38d891e6821bcf486163f82e8b5",
+     "ea203b844df576d103c78e0493086d10adb6b38d891e6821bcf486163f82e8b5"
+    ],
+    "final.save": [
+     "3c592d3423a345a4e10df97350159da747da637cfee2a22737f219a06bac43aa",
+     "3c592d3423a345a4e10df97350159da747da637cfee2a22737f219a06bac43aa"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20352,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 20003,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "cfg-lunal-deep-warrior": {
+   "streams": {
+    "keys.log": [
+     "6c6255e631badee05572736fa079353db117122223433e1a30bf647a77fcb176",
+     "6c6255e631badee05572736fa079353db117122223433e1a30bf647a77fcb176"
+    ],
+    "messages.log": [
+     "6095b5a699e1ce9ad31c7941ddcc79138a2e6a4504262d28e7dd52048dc09a9b",
+     "6095b5a699e1ce9ad31c7941ddcc79138a2e6a4504262d28e7dd52048dc09a9b"
+    ],
+    "state.log": [
+     "cfcaaf0ebc0c01bf00658491d6dc309e2cc44511de5dded315f5b8686253123b",
+     "cfcaaf0ebc0c01bf00658491d6dc309e2cc44511de5dded315f5b8686253123b"
+    ],
+    "final.save": [
+     "d84a5f2cf1c6e9c5a56bdc08f58eca5059ec42a509cfedc70c7540601119478d",
+     "d84a5f2cf1c6e9c5a56bdc08f58eca5059ec42a509cfedc70c7540601119478d"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000006,
+    "clevel": 25,
+    "max_depth": 21,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000002,
+    "clevel": 18,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-scum-war": {
+   "streams": {
+    "keys.log": [
+     "4716021aefe3d5483e82bbd599ca68a30914a3559b62010100a1c45a2a69eccc",
+     "4716021aefe3d5483e82bbd599ca68a30914a3559b62010100a1c45a2a69eccc"
+    ],
+    "messages.log": [
+     "7c1e3967035ab4e670fa5e10593055c941e1f22a01c976eb06b379d0e9fffa37",
+     "7c1e3967035ab4e670fa5e10593055c941e1f22a01c976eb06b379d0e9fffa37"
+    ],
+    "state.log": [
+     "e51a0b90ace7373a09c815795be0ab662f1812d2507e5b50d6bc03fcf968ff25",
+     "e51a0b90ace7373a09c815795be0ab662f1812d2507e5b50d6bc03fcf968ff25"
+    ],
+    "final.save": [
+     "a3cce65516b8c0451d91ec925a436e52bedce25cd2ba928199a3ed6c31f82f66",
+     "a3cce65516b8c0451d91ec925a436e52bedce25cd2ba928199a3ed6c31f82f66"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 1,
+    "max_depth": 0,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-scum-mage": {
+   "streams": {
+    "keys.log": [
+     "9b23b0aa0a9423a382516cf2bce9f433e6e2127b83193715eeed70c913c26ef0",
+     "9b23b0aa0a9423a382516cf2bce9f433e6e2127b83193715eeed70c913c26ef0"
+    ],
+    "messages.log": [
+     "ed1552760d21784b8ffac921f69003be2019f09f48f684a042cbb38b6347fc82",
+     "ed1552760d21784b8ffac921f69003be2019f09f48f684a042cbb38b6347fc82"
+    ],
+    "state.log": [
+     "a9cc972bd6173bf1e2512c396388248afa3407d3cad0bfe241a88a87b808cd8c",
+     "a9cc972bd6173bf1e2512c396388248afa3407d3cad0bfe241a88a87b808cd8c"
+    ],
+    "final.save": [
+     "cec1830a2712e15b3b92d49b7d7de1402ef4c63182a003766e53b43c7b59e120",
+     "cec1830a2712e15b3b92d49b7d7de1402ef4c63182a003766e53b43c7b59e120"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-scum-noself-mage": {
+   "streams": {
+    "keys.log": [
+     "e32db71dafd2444863b37b4002b79c83ddcdc06899887b5721401064b6ac6a1c",
+     "e32db71dafd2444863b37b4002b79c83ddcdc06899887b5721401064b6ac6a1c"
+    ],
+    "messages.log": [
+     "94bbe9c1d2c1475b52e2cef5554cb9d04f494f519e472b991ac57b706bc489a2",
+     "94bbe9c1d2c1475b52e2cef5554cb9d04f494f519e472b991ac57b706bc489a2"
+    ],
+    "state.log": [
+     "aeddc79235f0c89a2d468abe9049840e2d656666b2fb9af26ef7458dbacbe000",
+     "aeddc79235f0c89a2d468abe9049840e2d656666b2fb9af26ef7458dbacbe000"
+    ],
+    "final.save": [
+     "45bdb2eecff3373f8996fbce1d30d6ca62fc2cb6b44b4fa0c0e14ae1f7b19aa1",
+     "45bdb2eecff3373f8996fbce1d30d6ca62fc2cb6b44b4fa0c0e14ae1f7b19aa1"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-scum-done-mage": {
+   "streams": {
+    "keys.log": [
+     "978c8a2efcda5fbf9e5a0223eeca850fdd411b84adbd7f7685dde5b2fa7acbb5",
+     "978c8a2efcda5fbf9e5a0223eeca850fdd411b84adbd7f7685dde5b2fa7acbb5"
+    ],
+    "messages.log": [
+     "d20c26f5035837d40432c3492fb7fb8a5f5307b9adf4711ce9d7eee974f5ba33",
+     "d20c26f5035837d40432c3492fb7fb8a5f5307b9adf4711ce9d7eee974f5ba33"
+    ],
+    "state.log": [
+     "5272f374030ca4bd4d2e5d45d723dc856225d0c518f310f276e6bc0267ce9ba0",
+     "5272f374030ca4bd4d2e5d45d723dc856225d0c518f310f276e6bc0267ce9ba0"
+    ],
+    "final.save": [
+     "baab62d371f1c022a187aa84975f32c7d493a5432e49847e5abec13629f9a31f",
+     "baab62d371f1c022a187aa84975f32c7d493a5432e49847e5abec13629f9a31f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "opt-dyn-war": {
+   "streams": {
+    "keys.log": [
+     "7d0d24d7b9f72c07be51acf9bf2c363b35b541414921c55a8a8c954fddd52ec9",
+     "7d0d24d7b9f72c07be51acf9bf2c363b35b541414921c55a8a8c954fddd52ec9"
+    ],
+    "messages.log": [
+     "41bf2ab99353cbbbd09acdfba24158fbd6399074565fd73c19db16d532397efe",
+     "41bf2ab99353cbbbd09acdfba24158fbd6399074565fd73c19db16d532397efe"
+    ],
+    "state.log": [
+     "e981790b74b4a7d772d239079e19f4be7ca14ad800b006b69d9b03deb205962c",
+     "e981790b74b4a7d772d239079e19f4be7ca14ad800b006b69d9b03deb205962c"
+    ],
+    "final.save": [
+     "4aa696be8ba55efb160a873664d5f3a9d2542b6676ed2f037f30bffde2866975",
+     "4aa696be8ba55efb160a873664d5f3a9d2542b6676ed2f037f30bffde2866975"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 14,
+    "max_depth": 14,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-dyn-mage": {
+   "streams": {
+    "keys.log": [
+     "d5fb4b17980e99464724fc1e85c57b38f8484c7f4140183097e0c0359747e034",
+     "d5fb4b17980e99464724fc1e85c57b38f8484c7f4140183097e0c0359747e034"
+    ],
+    "messages.log": [
+     "ac4fd3e2c5f71e478c12139251e9e63d8c2ba008609d046bc967bdf599ef1323",
+     "ac4fd3e2c5f71e478c12139251e9e63d8c2ba008609d046bc967bdf599ef1323"
+    ],
+    "state.log": [
+     "14e6d436b0fedbb953c85dd68bff3d7b35615a46f91f38a7eeba6d674193bd28",
+     "14e6d436b0fedbb953c85dd68bff3d7b35615a46f91f38a7eeba6d674193bd28"
+    ],
+    "final.save": [
+     "3679e1804a2a7f632817fd79505d43902505964c60d1ea2d0227e47e8ce68a21",
+     "3679e1804a2a7f632817fd79505d43902505964c60d1ea2d0227e47e8ce68a21"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100096,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 4,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-dyn-priest": {
+   "streams": {
+    "keys.log": [
+     "73a69864b9384a2613811c8e7911f503b023a5267a383207d90978fe4f1bce57",
+     "73a69864b9384a2613811c8e7911f503b023a5267a383207d90978fe4f1bce57"
+    ],
+    "messages.log": [
+     "f116556dbefe3dcd44a66146c69e9bad4342288adf0165547a1154f75bea32be",
+     "f116556dbefe3dcd44a66146c69e9bad4342288adf0165547a1154f75bea32be"
+    ],
+    "state.log": [
+     "be9a930fea54d6bd6f54892cf2f38e141e1dfe61f40cab0f4e74da08b2868d16",
+     "be9a930fea54d6bd6f54892cf2f38e141e1dfe61f40cab0f4e74da08b2868d16"
+    ],
+    "final.save": [
+     "d940fe34a07269994151b458ee854860cc2378200b49d4f28763431492efad0e",
+     "d940fe34a07269994151b458ee854860cc2378200b49d4f28763431492efad0e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 2,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100277,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-wdam-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "efc8003652e84d4feb208de369c6ccd25cbecd4c6e502514255aa0a321fc5e63",
+     "efc8003652e84d4feb208de369c6ccd25cbecd4c6e502514255aa0a321fc5e63"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 11,
+    "max_depth": 14,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-wspeed-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "9093929b30634e5d6f845d62cb3887de72f906fb83be640758137612501c6bb5",
+     "9093929b30634e5d6f845d62cb3887de72f906fb83be640758137612501c6bb5"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-whp-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "175c06ec9210152cb9e8ef3be3cfb4714ea8bcc2e09dc65cb1fe4263c5ddf9b0",
+     "175c06ec9210152cb9e8ef3be3cfb4714ea8bcc2e09dc65cb1fe4263c5ddf9b0"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-wmana-rogue": {
+   "streams": {
+    "keys.log": [
+     "447ea7c96c73917b3389913eee9657c7f16b1279e25808fe0c5e600bc0fe9f18",
+     "447ea7c96c73917b3389913eee9657c7f16b1279e25808fe0c5e600bc0fe9f18"
+    ],
+    "messages.log": [
+     "437a6fe44c6559ec5295840cf4cb55341c7e2f65ba162f8efb59c9881bbfcf5a",
+     "437a6fe44c6559ec5295840cf4cb55341c7e2f65ba162f8efb59c9881bbfcf5a"
+    ],
+    "state.log": [
+     "387b8331cd32deef83bc66bc9c219d9334894b73d89e485d01b9c98a293abc37",
+     "387b8331cd32deef83bc66bc9c219d9334894b73d89e485d01b9c98a293abc37"
+    ],
+    "final.save": [
+     "909460bc5f3924f60ca0fc5e30a69f7eb20b740d7445decb9c60c092592c6fa5",
+     "909460bc5f3924f60ca0fc5e30a69f7eb20b740d7445decb9c60c092592c6fa5"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 1000001,
+    "clevel": 15,
+    "max_depth": 11,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 1000001,
+    "clevel": 14,
+    "max_depth": 11,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-wac-war": {
+   "streams": {
+    "keys.log": [
+     "c8ed03733237dcdcf18c62a51330ddba01ab7b09545a588bd9311df66a4c882e",
+     "c8ed03733237dcdcf18c62a51330ddba01ab7b09545a588bd9311df66a4c882e"
+    ],
+    "messages.log": [
+     "cbf88d5abee488e1b237ed2eeb3f33f19908aa513b3f45dd8f1d7f73084e03ee",
+     "cbf88d5abee488e1b237ed2eeb3f33f19908aa513b3f45dd8f1d7f73084e03ee"
+    ],
+    "state.log": [
+     "1aa0c05d5175d3cb37c624ff5f5e20e375b3e04ea6d6d7c9164270b625f959b3",
+     "1aa0c05d5175d3cb37c624ff5f5e20e375b3e04ea6d6d7c9164270b625f959b3"
+    ],
+    "final.save": [
+     "4790be30888bf6c5d9b562e3d2fdc0353f896d292317d0bb2b8e547214f7b178",
+     "4790be30888bf6c5d9b562e3d2fdc0353f896d292317d0bb2b8e547214f7b178"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 8,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 7,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-wgold-war": {
+   "streams": {
+    "keys.log": [
+     "999c31e054acf785dff12016d342f2a4d5f0f0e2ea04f8761379c54c0c37f1ee",
+     "999c31e054acf785dff12016d342f2a4d5f0f0e2ea04f8761379c54c0c37f1ee"
+    ],
+    "messages.log": [
+     "d4a32266af3a03970fd2519ab3d1e6a7ba372e8106f272de0bb24dcab2796fba",
+     "d4a32266af3a03970fd2519ab3d1e6a7ba372e8106f272de0bb24dcab2796fba"
+    ],
+    "state.log": [
+     "18300eaa897fb17999e290e5c91ecd1f6bb7df954a234019a85afab5540c16be",
+     "18300eaa897fb17999e290e5c91ecd1f6bb7df954a234019a85afab5540c16be"
+    ],
+    "final.save": [
+     "72ee800839d89f0aaea9cd89009e30ca9c0f92e1c3b1f3bafca74980e0d5d1a4",
+     "72ee800839d89f0aaea9cd89009e30ca9c0f92e1c3b1f3bafca74980e0d5d1a4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 200007,
+    "clevel": 12,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 200005,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-risky-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "ca947ec2020a4f1c2976901fe26f45850b481b40305a3a5cb8d766e8c9920978",
+     "ca947ec2020a4f1c2976901fe26f45850b481b40305a3a5cb8d766e8c9920978"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 9,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-uniques-war": {
+   "streams": {
+    "keys.log": [
+     "1bad035db5f636444ae78663cc64adb4372f49534637169e36ba59f28af60cd8",
+     "1bad035db5f636444ae78663cc64adb4372f49534637169e36ba59f28af60cd8"
+    ],
+    "messages.log": [
+     "b4fd86d5f9cefecfc5b4a8ea348ad7db753785e9c7f22cc6880f190eded179db",
+     "b4fd86d5f9cefecfc5b4a8ea348ad7db753785e9c7f22cc6880f190eded179db"
+    ],
+    "state.log": [
+     "d0ccc0cb58a391c5313a2c8947ceb86b98c58b459e0b7eb82bd0e47580aa709c",
+     "d0ccc0cb58a391c5313a2c8947ceb86b98c58b459e0b7eb82bd0e47580aa709c"
+    ],
+    "final.save": [
+     "6e6fef650fa484f9f336263187f065ef1a9e9be82fe9b236be6df063a19711ad",
+     "6e6fef650fa484f9f336263187f065ef1a9e9be82fe9b236be6df063a19711ad"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 7,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100010,
+    "clevel": 11,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-noswap-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0",
+     "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-nodeeper-war": {
+   "streams": {
+    "keys.log": [
+     "1f79a5eba38f01d24a5dce99df06393cc873dbd2f2e915942bbf3838586216c9",
+     "1f79a5eba38f01d24a5dce99df06393cc873dbd2f2e915942bbf3838586216c9"
+    ],
+    "messages.log": [
+     "1764c34f987bf59339ea99ac93933722ade6b21a5e34e0a9f40e5b35d6f4700d",
+     "1764c34f987bf59339ea99ac93933722ade6b21a5e34e0a9f40e5b35d6f4700d"
+    ],
+    "state.log": [
+     "af214cb71aa8be5242399ece26750f20fb72b91f1a2c72533f7f729a4ae556b8",
+     "af214cb71aa8be5242399ece26750f20fb72b91f1a2c72533f7f729a4ae556b8"
+    ],
+    "final.save": [
+     "6733032274cd6a73ec412c957ed1acd19206c74a68637f509e8b4c96179e230c",
+     "6733032274cd6a73ec412c957ed1acd19206c74a68637f509e8b4c96179e230c"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100005,
+    "clevel": 11,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 11,
+    "max_depth": 5,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-stopdlevel-war": {
+   "streams": {
+    "keys.log": [
+     "feff80d42c27c88299049547f0d0f6d8814542e4fbda02a2959e34d8dbdfa500",
+     "feff80d42c27c88299049547f0d0f6d8814542e4fbda02a2959e34d8dbdfa500"
+    ],
+    "messages.log": [
+     "8b74c9115ad100b6fa406bc7365043e9b5a5020ef4b0b322c9379ba65ca38180",
+     "8b74c9115ad100b6fa406bc7365043e9b5a5020ef4b0b322c9379ba65ca38180"
+    ],
+    "state.log": [
+     "c2f37265e4e24131726d7923289b7cfef6d4c888f1609c05ec7e4fe54e833ebd",
+     "c2f37265e4e24131726d7923289b7cfef6d4c888f1609c05ec7e4fe54e833ebd"
+    ],
+    "final.save": [
+     "800b5e0771842fc4d76fa7989efe5ab246ad62ead194ebe7f60fdd7915a4034b",
+     "800b5e0771842fc4d76fa7989efe5ab246ad62ead194ebe7f60fdd7915a4034b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "borg_stopped",
+    "game_turns": 20833,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "borg_stopped",
+    "game_turns": 4283,
+    "clevel": 1,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-stopclevel-war": {
+   "streams": {
+    "keys.log": [
+     "7287a5875c00f50c3565f1870320a7c5c26c23334868ae773862c8650462597a",
+     "7287a5875c00f50c3565f1870320a7c5c26c23334868ae773862c8650462597a"
+    ],
+    "messages.log": [
+     "dd567d81995dd7385b5ca5f2951c26cd497c0e5dcd7830d5b73fa08de7c3d3ae",
+     "dd567d81995dd7385b5ca5f2951c26cd497c0e5dcd7830d5b73fa08de7c3d3ae"
+    ],
+    "state.log": [
+     "7f0362bc660b74deb34d11ae90c9964f0a65366c81f09f1375a00f461f0f7c06",
+     "7f0362bc660b74deb34d11ae90c9964f0a65366c81f09f1375a00f461f0f7c06"
+    ],
+    "final.save": [
+     "c80b94f3c3e1d193bdecdc3f1475b862889056e7b6d8a0c8f9c0e40db6414637",
+     "c80b94f3c3e1d193bdecdc3f1475b862889056e7b6d8a0c8f9c0e40db6414637"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "borg_stopped",
+    "game_turns": 27889,
+    "clevel": 5,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "borg_stopped",
+    "game_turns": 6004,
+    "clevel": 5,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-autosave-war": {
+   "streams": {
+    "keys.log": [
+     "dfc8df0d297d28a42696abe9562b0ad01a7b9e4f4eada97f655df6aa049515ff",
+     "dfc8df0d297d28a42696abe9562b0ad01a7b9e4f4eada97f655df6aa049515ff"
+    ],
+    "messages.log": [
+     "deb64af9f2b941e56835e889354ce4b90bf337c692ea0dbeedbaa17f9416bf43",
+     "deb64af9f2b941e56835e889354ce4b90bf337c692ea0dbeedbaa17f9416bf43"
+    ],
+    "state.log": [
+     "6d818728895a96c7c49995b9f59781f0381a3d6073423cf835fc26e081554dd0",
+     "6d818728895a96c7c49995b9f59781f0381a3d6073423cf835fc26e081554dd0"
+    ],
+    "final.save": [
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e",
+     "bcdb6ad811258d3807f6186483c4f5afa2ffe16793149d86fa9618bf53e6c00e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-verbose-war": {
+   "streams": {
+    "keys.log": [
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1"
+    ],
+    "messages.log": [
+     "e79eeca23c8ec167331d20f6d5f37fa92733bef66d1c56e44cf44c869dc7c4c4",
+     "e79eeca23c8ec167331d20f6d5f37fa92733bef66d1c56e44cf44c869dc7c4c4"
+    ],
+    "state.log": [
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7"
+    ],
+    "final.save": [
+     "cc2bc402d8394c601474a34dfcb8ac69fa63ffc6c8e7398a3430b8a5b5c7932e",
+     "cc2bc402d8394c601474a34dfcb8ac69fa63ffc6c8e7398a3430b8a5b5c7932e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 8,
+    "max_depth": 8,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-chest-war": {
+   "streams": {
+    "keys.log": [
+     "c4dae57407ceee901938233c3daa84fd7a2cc09b6cc85b6acd026f96e45a9e92",
+     "c4dae57407ceee901938233c3daa84fd7a2cc09b6cc85b6acd026f96e45a9e92"
+    ],
+    "messages.log": [
+     "c72a05cdb3b54c10635bb9eacdc7d9f622632d8512ce2ce9ff18ff3697445d6a",
+     "c72a05cdb3b54c10635bb9eacdc7d9f622632d8512ce2ce9ff18ff3697445d6a"
+    ],
+    "state.log": [
+     "9d86e204a7a818967eb2f3b76c1a14a6c9083714067c026c3f453de452579350",
+     "9d86e204a7a818967eb2f3b76c1a14a6c9083714067c026c3f453de452579350"
+    ],
+    "final.save": [
+     "4aca244d6e02542d2c054e6924b19310939c14e2f5d164f1fba97f8683437ddf",
+     "4aca244d6e02542d2c054e6924b19310939c14e2f5d164f1fba97f8683437ddf"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 400004,
+    "clevel": 16,
+    "max_depth": 14,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 400004,
+    "clevel": 9,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-munchkin-limits-war": {
+   "streams": {
+    "keys.log": [
+     "9cea91709d8c3b9d6c4a42a271d740c4cbcd92f8658110c5d7f8f18fac3fe680",
+     "9cea91709d8c3b9d6c4a42a271d740c4cbcd92f8658110c5d7f8f18fac3fe680"
+    ],
+    "messages.log": [
+     "dad1b56bee6cc5f6d30eb5e8e21311dc873f6acd75766d3b8067e4d5b8d6f42e",
+     "dad1b56bee6cc5f6d30eb5e8e21311dc873f6acd75766d3b8067e4d5b8d6f42e"
+    ],
+    "state.log": [
+     "3136139ba898cb2f7fc5fa1e59aefe6847f2b646d050b0426c1d232ed3525614",
+     "3136139ba898cb2f7fc5fa1e59aefe6847f2b646d050b0426c1d232ed3525614"
+    ],
+    "final.save": [
+     "3815d17764ad22c3ef571355d8c0c65961c395ce34cb665be72e41d007c33577",
+     "3815d17764ad22c3ef571355d8c0c65961c395ce34cb665be72e41d007c33577"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 8,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 8,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-respawn-druid": {
+   "streams": {
+    "keys.log": [
+     "1942caeaf9e6ecb572b1fe452b0dad6293e7d9638456aa38572d2e4009030cbf",
+     "1942caeaf9e6ecb572b1fe452b0dad6293e7d9638456aa38572d2e4009030cbf"
+    ],
+    "messages.log": [
+     "551ba1d4fe561f10d58ad855955b49954937d41f4d2552fe9aed5452a5e7a1f3",
+     "551ba1d4fe561f10d58ad855955b49954937d41f4d2552fe9aed5452a5e7a1f3"
+    ],
+    "state.log": [
+     "fbd542bf837d0a0d516b279ab60e43d22d361f8a2d7327cd3e329504db119314",
+     "fbd542bf837d0a0d516b279ab60e43d22d361f8a2d7327cd3e329504db119314"
+    ],
+    "final.save": [
+     "b78500a5c66663959ac39533a64ad432eb5014ea14b59daa200aaeb4813a9533",
+     "b78500a5c66663959ac39533a64ad432eb5014ea14b59daa200aaeb4813a9533"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100009,
+    "clevel": 11,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "opt-respawn-random-druid": {
+   "streams": {
+    "keys.log": [
+     "5de3b819735096c9888ee7b4295cae248825cc9890d79cced3c52d58b4830df7",
+     "5de3b819735096c9888ee7b4295cae248825cc9890d79cced3c52d58b4830df7"
+    ],
+    "messages.log": [
+     "81f2a8477d5e00f15f69b6a7cb14a703561674e978c68c4a8e2e736b5ebb9add",
+     "81f2a8477d5e00f15f69b6a7cb14a703561674e978c68c4a8e2e736b5ebb9add"
+    ],
+    "state.log": [
+     "747a540862adb6506a8b334575050173bc61538f21d2c987f34164ed0ed9ccf1",
+     "747a540862adb6506a8b334575050173bc61538f21d2c987f34164ed0ed9ccf1"
+    ],
+    "final.save": [
+     "afa8cede56f17d2ecd70bb798b19ddfb0bd12b4ee9b009ca3014a7da95027c9b",
+     "afa8cede56f17d2ecd70bb798b19ddfb0bd12b4ee9b009ca3014a7da95027c9b"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 11,
+    "max_depth": 7,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "ext-rogue": {
+   "streams": {
+    "keys.log": [
+     "de925f7020004d6ca38f4de7ee53d021abb3c44aacb06c166fcd949b3652b58a",
+     "de925f7020004d6ca38f4de7ee53d021abb3c44aacb06c166fcd949b3652b58a"
+    ],
+    "messages.log": [
+     "8ae0a80cf33e40a156cd3c3147aa3d83df439499c2629a2ce10b10270b51a554",
+     "8ae0a80cf33e40a156cd3c3147aa3d83df439499c2629a2ce10b10270b51a554"
+    ],
+    "state.log": [
+     "f8be7c9908f7601635d8d95c4a0cbc155423b13d9ed7eb66dd886f574126e612",
+     "f8be7c9908f7601635d8d95c4a0cbc155423b13d9ed7eb66dd886f574126e612"
+    ],
+    "final.save": [
+     "55f904fd0bf8d4981daac633edab2e05097fe71f699a104ee3cc98fcb5882d35",
+     "55f904fd0bf8d4981daac633edab2e05097fe71f699a104ee3cc98fcb5882d35"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 2000007,
+    "clevel": 17,
+    "max_depth": 6,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 2000341,
+    "clevel": 16,
+    "max_depth": 12,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "end-depth50": {
+   "streams": {
+    "keys.log": [
+     "2be40ba32127ad6e7632b1cda8e27cca41a24009f259cfc16e3f45870b96bf7b",
+     "2be40ba32127ad6e7632b1cda8e27cca41a24009f259cfc16e3f45870b96bf7b"
+    ],
+    "messages.log": [
+     "b8b821e9a74f5b6ed32dfe38b16a53d394cefa5986158f34d87bf78b3a86a019",
+     "b8b821e9a74f5b6ed32dfe38b16a53d394cefa5986158f34d87bf78b3a86a019"
+    ],
+    "state.log": [
+     "b5f2e316b015515f11f7d3b311d6fe2d798dd9500a6d6a2413823fff4c564302",
+     "b5f2e316b015515f11f7d3b311d6fe2d798dd9500a6d6a2413823fff4c564302"
+    ],
+    "final.save": [
+     "ac86122d8464837d2d32b3f4c421db166db44fe28e28fb3cb93898c2d199c9cb",
+     "ac86122d8464837d2d32b3f4c421db166db44fe28e28fb3cb93898c2d199c9cb"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 50,
+    "max_depth": 91,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 50,
+    "max_depth": 55,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "end-depth98": {
+   "streams": {
+    "keys.log": [
+     "eab8444eb3eb759b2be87dc0d0993d2bd6a284f302b2afd0936b19e11a9b3ba1",
+     "eab8444eb3eb759b2be87dc0d0993d2bd6a284f302b2afd0936b19e11a9b3ba1"
+    ],
+    "messages.log": [
+     "04b24722aeb13f345574464c850e049c20c91b8cc55e2a962a1df0f61e8d4fda",
+     "04b24722aeb13f345574464c850e049c20c91b8cc55e2a962a1df0f61e8d4fda"
+    ],
+    "state.log": [
+     "e2b1fa3ca769fa138dfdbe80edc9a96ef7baae08dc0902228e89aa308555343b",
+     "e2b1fa3ca769fa138dfdbe80edc9a96ef7baae08dc0902228e89aa308555343b"
+    ],
+    "final.save": [
+     "599f68ab6d6443be2034958c8729a6677493a2793f96434aad962c1761054295",
+     "599f68ab6d6443be2034958c8729a6677493a2793f96434aad962c1761054295"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 50,
+    "max_depth": 98,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 50,
+    "max_depth": 98,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "end-depth99": {
+   "streams": {
+    "keys.log": [
+     "b438973dcb447ac67463d60185c5de6b43630c526d6b4b307c889ee4a9b6d5a0",
+     "b438973dcb447ac67463d60185c5de6b43630c526d6b4b307c889ee4a9b6d5a0"
+    ],
+    "messages.log": [
+     "ca1bf450e686a77b2d35f8920b9ff1b3ee123ac8e8277008124c5dfb6dfaa1e7",
+     "ca1bf450e686a77b2d35f8920b9ff1b3ee123ac8e8277008124c5dfb6dfaa1e7"
+    ],
+    "state.log": [
+     "36f2b1a6b7705deee2d25e7748feca8d6a3bb7ba9d4280d01bcd336b4f21c094",
+     "36f2b1a6b7705deee2d25e7748feca8d6a3bb7ba9d4280d01bcd336b4f21c094"
+    ],
+    "final.save": [
+     "949d22cb7b690970f5b8c8ec2ec3d480f54df25c88722e3c12d6ee771f4636cd",
+     "949d22cb7b690970f5b8c8ec2ec3d480f54df25c88722e3c12d6ee771f4636cd"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 50,
+    "max_depth": 15,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 50,
+    "max_depth": 99,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "end-depth100": {
+   "streams": {
+    "keys.log": [
+     "1fa8c1cf89cd77501a1b303e4a4b93e2702185c4cbdfe087d384c492de1440b5",
+     "1fa8c1cf89cd77501a1b303e4a4b93e2702185c4cbdfe087d384c492de1440b5"
+    ],
+    "messages.log": [
+     "7c82a9a092ffc75572064f27bad2d87082e8dd695c0e7efcb6d65d5cca6fe574",
+     "7c82a9a092ffc75572064f27bad2d87082e8dd695c0e7efcb6d65d5cca6fe574"
+    ],
+    "state.log": [
+     "01a01d9a7d897826960aa58f0654194940c82ee7fc85c6095d32e2eaac91f3cd",
+     "01a01d9a7d897826960aa58f0654194940c82ee7fc85c6095d32e2eaac91f3cd"
+    ],
+    "final.save": [
+     "a80c86405922dd3b70d1cfdab8778606ff806fe4efbda3646c8364b387b21ed5",
+     "a80c86405922dd3b70d1cfdab8778606ff806fe4efbda3646c8364b387b21ed5"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 50048,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 50048,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "end-near-morgoth": {
+   "streams": {
+    "keys.log": [
+     "822f5af9057d40d949bdc0b8a886cfa2f9527446a2ca40d17c75e6502191bea2",
+     "822f5af9057d40d949bdc0b8a886cfa2f9527446a2ca40d17c75e6502191bea2"
+    ],
+    "messages.log": [
+     "e885957b3c74fa67299f0afda78cca58cdd0dab6680ccaa268e8c66628a1aa5c",
+     "e885957b3c74fa67299f0afda78cca58cdd0dab6680ccaa268e8c66628a1aa5c"
+    ],
+    "state.log": [
+     "ea59565b3f43a4bf7322e947e537d397dc3f57ea838606dd60fd25f40e908948",
+     "ea59565b3f43a4bf7322e947e537d397dc3f57ea838606dd60fd25f40e908948"
+    ],
+    "final.save": [
+     "5efc92821871da3a8fd02cb5b8e73caf0abb98329148806b5a48738e1256ddc3",
+     "5efc92821871da3a8fd02cb5b8e73caf0abb98329148806b5a48738e1256ddc3"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 20001,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 20001,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "glyph-known-rune": {
+   "streams": {
+    "keys.log": [
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af"
+    ],
+    "messages.log": [
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130"
+    ],
+    "state.log": [
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    ],
+    "final.save": [
+     "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8",
+     "3b46f9e614c8457c270ffcaad50a8ef73b3a5b42fecf5dbd7a7e1838ea43aec8"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-known-decoy": {
+   "streams": {
+    "keys.log": [
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af"
+    ],
+    "messages.log": [
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130"
+    ],
+    "state.log": [
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    ],
+    "final.save": [
+     "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7",
+     "5988e9f230f2667ff644a4450e995105d9136db357d0f9301cdcf6d1eed0c9c7"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-known-trap": {
+   "streams": {
+    "keys.log": [
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af"
+    ],
+    "messages.log": [
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130"
+    ],
+    "state.log": [
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    ],
+    "final.save": [
+     "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166",
+     "dd5c9026ab182da410494db5f7bbc0c92ac856f94e6b8b7c3c09118b3a17d166"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-hidden-rune": {
+   "streams": {
+    "keys.log": [
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af"
+    ],
+    "messages.log": [
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130"
+    ],
+    "state.log": [
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92",
+     "589ed94662dd8b9ba97999e601e4ecb6df40b8865ab3cf652640dda87611eb92"
+    ],
+    "final.save": [
+     "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0",
+     "5e55ce144109970e40c91edd6d2e820255726bcfd65653ebadbd58c8429832c0"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-empty-floor": {
+   "streams": {
+    "keys.log": [
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af",
+     "611da3603b9b80b5148b7afddb4b46455d7c42e344f0e607e48e5bd8521459af"
+    ],
+    "messages.log": [
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130",
+     "01920743ec8fbe618b5e7fe1021865d5ecdeafb378b781908871940f10b6c130"
+    ],
+    "state.log": [
+     "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad",
+     "bfda33c44ac21f604da622f3c76773201917abcdcd7b0bce5ea1b6a844a282ad"
+    ],
+    "final.save": [
+     "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39",
+     "ba992641d464b1abedc5344e77e60e0dc2a6369f3d0c25364caa238227617f39"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-prelaid-ring": {
+   "streams": {
+    "keys.log": [
+     "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020",
+     "d9fdccafefc3261ce0b115be247c769a432ad3333bd08b2771eeb0c608642020"
+    ],
+    "messages.log": [
+     "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306",
+     "3d62257e5a763884202b35307968a51cd2458874f486d96fc30a93efa0fb6306"
+    ],
+    "state.log": [
+     "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb",
+     "d03a2ddc65060aa7238a46759871535a3b701123caa7cc2f4326d0d1ee2e2ddb"
+    ],
+    "final.save": [
+     "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e",
+     "f5226e5ce87c59d8e49ca1cf6184d1706d7024a3b6bf64c187f56db6fc88a86e"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-build-ready": {
+   "streams": {
+    "keys.log": [
+     "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c",
+     "4bf854afebb62f44cb6695485f6c55792879eb0ecaccbb1fc665cc4d234ea89c"
+    ],
+    "messages.log": [
+     "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650",
+     "25d435c2541c23fd44993a48bfc86e8cf6471667216f6123eb71a88a3bbdf650"
+    ],
+    "state.log": [
+     "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032",
+     "0d7a439320b56256d3d22557fd5b51bf8feccacaa711f95aafa3321d2b0fd032"
+    ],
+    "final.save": [
+     "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4",
+     "40dae27d9c5431936ff7e0317b5c83fc3afb2e9d969c1d94b54347c2093cf3f4"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "glyph-build-supply": {
+   "streams": {
+    "keys.log": [
+     "3f7e2ce8d1908b90a8611c8490a297c88e13fed4c78b7d9b8fb6fb453f181281",
+     "3f7e2ce8d1908b90a8611c8490a297c88e13fed4c78b7d9b8fb6fb453f181281"
+    ],
+    "messages.log": [
+     "4af7d0c0395f3ad33684534f71ba3b91257dc6ea6b6f206677b5dbe3d45f13bc",
+     "4af7d0c0395f3ad33684534f71ba3b91257dc6ea6b6f206677b5dbe3d45f13bc"
+    ],
+    "state.log": [
+     "0de7ce173d251b0e7d868e4f53791f2005a9d7a5df1c4ae9db2ffbbb489d1ead",
+     "0de7ce173d251b0e7d868e4f53791f2005a9d7a5df1c4ae9db2ffbbb489d1ead"
+    ],
+    "final.save": [
+     "8e7276be4bd8b24a961fb1a801873b99e196eae4f93d382924849d47ea59c2a1",
+     "8e7276be4bd8b24a961fb1a801873b99e196eae4f93d382924849d47ea59c2a1"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 500,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 500,
+    "clevel": 50,
+    "max_depth": 100,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "glyph-build-prelaid": {
+   "streams": {
+    "keys.log": [
+     "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5",
+     "7bbbf8664c40a8e9552fffbdf79cb281314fd72d30162339db998143d35af9d5"
+    ],
+    "messages.log": [
+     "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b",
+     "2208bd4ccd6a1e78611dca92a3a83354b4ed6b07ceb21372b5778d2f68ed2b7b"
+    ],
+    "state.log": [
+     "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d",
+     "10540854df9482eda33c73c65cabdc52b6ac2e73cccae13a854c08afaf27e01d"
+    ],
+    "final.save": [
+     "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c",
+     "4948cba80c8f12c5d05cc8b9b6de2a7b558c19b60800618b07c8e07a773dfb7c"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": []
+  },
+  "natural-warrior-78": {
+   "streams": {
+    "keys.log": [
+     "87b43ea1fe3c2c1127b92bd95de9e36fec23121b040f7a8a681633d16747562f",
+     "87b43ea1fe3c2c1127b92bd95de9e36fec23121b040f7a8a681633d16747562f"
+    ],
+    "messages.log": [
+     "2e78fb44db505847cd6d1c8af2bb9df4fc222ad17291811835410274e5f8c1c3",
+     "2e78fb44db505847cd6d1c8af2bb9df4fc222ad17291811835410274e5f8c1c3"
+    ],
+    "state.log": [
+     "ba2b8f99cb44d5c9e93b529bc294c4fd7dcdd8eddbfd6a2ea8f0b880a5d4b30a",
+     "ba2b8f99cb44d5c9e93b529bc294c4fd7dcdd8eddbfd6a2ea8f0b880a5d4b30a"
+    ],
+    "final.save": [
+     "de31a2394163cd92b3e7b6e4ca73785b1bbf3e16708ee30f3f88a3a273656b6d",
+     "de31a2394163cd92b3e7b6e4ca73785b1bbf3e16708ee30f3f88a3a273656b6d"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 3100002,
+    "clevel": 49,
+    "max_depth": 88,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 3100002,
+    "clevel": 50,
+    "max_depth": 87,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "natural-blackguard-40": {
+   "streams": {
+    "keys.log": [
+     "88960f4ebece519ac6384cabc94d2c4204854c61f7f10155c8bd15e62e648768",
+     "88960f4ebece519ac6384cabc94d2c4204854c61f7f10155c8bd15e62e648768"
+    ],
+    "messages.log": [
+     "2d12c54a4a909e66f54eedbc54ac736a19f9e3a11785bb036c6bd549e5deac48",
+     "2d12c54a4a909e66f54eedbc54ac736a19f9e3a11785bb036c6bd549e5deac48"
+    ],
+    "state.log": [
+     "824af731fdb0870b5eb5bbf27fe07cb09d51bbacba20ca4b5ae64bc77f1f32c4",
+     "824af731fdb0870b5eb5bbf27fe07cb09d51bbacba20ca4b5ae64bc77f1f32c4"
+    ],
+    "final.save": [
+     "0b96c628ae2655cc92f87f5a7c1e5e87029bb454d254870a8c8749cfa57ae405",
+     "0b96c628ae2655cc92f87f5a7c1e5e87029bb454d254870a8c8749cfa57ae405"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 3100395,
+    "clevel": 35,
+    "max_depth": 44,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 3100389,
+    "clevel": 35,
+    "max_depth": 41,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-warrior": {
+   "streams": {
+    "keys.log": [
+     "3e189eee67537c12e8a272da6eda6a0b40d848c5928677b5e698469b98d698d8",
+     "3e189eee67537c12e8a272da6eda6a0b40d848c5928677b5e698469b98d698d8"
+    ],
+    "messages.log": [
+     "881e82d6af3a141c5829cde5ffaf0f9b1cbc7ee599327becdabb77754d85ebac",
+     "881e82d6af3a141c5829cde5ffaf0f9b1cbc7ee599327becdabb77754d85ebac"
+    ],
+    "state.log": [
+     "4ba875c9ff9b85a0f63da8397d8b2bbdbdcf0924f0ea86aa4e60ac362e0e0081",
+     "4ba875c9ff9b85a0f63da8397d8b2bbdbdcf0924f0ea86aa4e60ac362e0e0081"
+    ],
+    "final.save": [
+     "35bcbdf03005bd13f92c002701cb66e7491d7447455546a7d00fa6c1ad42f1fd",
+     "35bcbdf03005bd13f92c002701cb66e7491d7447455546a7d00fa6c1ad42f1fd"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 8,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 8,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-mage": {
+   "streams": {
+    "keys.log": [
+     "4b4327175d40840d7142039003b45529db84bee43a89202ab355269423ec8dc8",
+     "4b4327175d40840d7142039003b45529db84bee43a89202ab355269423ec8dc8"
+    ],
+    "messages.log": [
+     "668aec9a4e704bed60f2a72057e2dd7f380d04cf0bead30191928c53e215f846",
+     "668aec9a4e704bed60f2a72057e2dd7f380d04cf0bead30191928c53e215f846"
+    ],
+    "state.log": [
+     "ba8abb2f63e50bda247179d165f4f57005b74114072926a59ef61ecfce2df8cf",
+     "ba8abb2f63e50bda247179d165f4f57005b74114072926a59ef61ecfce2df8cf"
+    ],
+    "final.save": [
+     "a2ae9d5b3c779f1cb790e65f974166b166508547784eacfc09959e31c7533016",
+     "a2ae9d5b3c779f1cb790e65f974166b166508547784eacfc09959e31c7533016"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100001,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-druid": {
+   "streams": {
+    "keys.log": [
+     "7f677398a63a5ff14ae4d4fedacb63d118f6282d069301996c2de34b15fde43b",
+     "7f677398a63a5ff14ae4d4fedacb63d118f6282d069301996c2de34b15fde43b"
+    ],
+    "messages.log": [
+     "7426e27f68a22ce615f8161bd7b0bd1a03f7be982f25d021a068154e60a38ff2",
+     "7426e27f68a22ce615f8161bd7b0bd1a03f7be982f25d021a068154e60a38ff2"
+    ],
+    "state.log": [
+     "17d2988b42ee2afa4699c213533b9f8edf7c72bce43a3ae109d111d536d2a113",
+     "17d2988b42ee2afa4699c213533b9f8edf7c72bce43a3ae109d111d536d2a113"
+    ],
+    "final.save": [
+     "0b28b6bfa3acb5a47899b8caa4b1b2183e55a604f37318ed93a5b0451851831a",
+     "0b28b6bfa3acb5a47899b8caa4b1b2183e55a604f37318ed93a5b0451851831a"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 5590,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a cutpurse"
+   },
+   "current": {
+    "stop_reason": "death",
+    "game_turns": 5102,
+    "clevel": 1,
+    "max_depth": 6,
+    "dead": true,
+    "death_cause": "a panther"
+   }
+  },
+  "live-priest": {
+   "streams": {
+    "keys.log": [
+     "616d978d6ca1f5eff6525497974dc7a196af58f9e80f8840d36857e085379320",
+     "616d978d6ca1f5eff6525497974dc7a196af58f9e80f8840d36857e085379320"
+    ],
+    "messages.log": [
+     "2c741c639152b6a52b1a3a54b8f0e2d4a284551b947fe8aeef7eaef712fe2b08",
+     "2c741c639152b6a52b1a3a54b8f0e2d4a284551b947fe8aeef7eaef712fe2b08"
+    ],
+    "state.log": [
+     "37f9ac7ea420f2772526c4b22b3489fc83b49d40727b895e61b853ac4546d486",
+     "37f9ac7ea420f2772526c4b22b3489fc83b49d40727b895e61b853ac4546d486"
+    ],
+    "final.save": [
+     "7f2afca18eb69c33040702835b9dd525e35fa374209281ab77e0c440bb546f62",
+     "7f2afca18eb69c33040702835b9dd525e35fa374209281ab77e0c440bb546f62"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100006,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 3,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-necromancer": {
+   "streams": {
+    "keys.log": [
+     "85152069d628cbd179933639f1cb4e9ba4612e77c6cfcf51452a12d82ade05b2",
+     "85152069d628cbd179933639f1cb4e9ba4612e77c6cfcf51452a12d82ade05b2"
+    ],
+    "messages.log": [
+     "4917528cf298ef1fdcd5d57cd88fd668212fb298f581afe5ebd567ae5903559a",
+     "4917528cf298ef1fdcd5d57cd88fd668212fb298f581afe5ebd567ae5903559a"
+    ],
+    "state.log": [
+     "27a4657a4dde04389af91f9b300f3c36dfacbaec2ab3e0a11f307ad6c1b4abec",
+     "27a4657a4dde04389af91f9b300f3c36dfacbaec2ab3e0a11f307ad6c1b4abec"
+    ],
+    "final.save": [
+     "a0e71c6dd6c4aceadcf08c487ec5b0c465350738ec4d8fbfa25227b1d15ca11f",
+     "a0e71c6dd6c4aceadcf08c487ec5b0c465350738ec4d8fbfa25227b1d15ca11f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100008,
+    "clevel": 5,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-paladin": {
+   "streams": {
+    "keys.log": [
+     "7a6a9d1b8f47b9bcb0c5ebf0bf2513567bd48d1b9817e60a23439e7c05e50082",
+     "7a6a9d1b8f47b9bcb0c5ebf0bf2513567bd48d1b9817e60a23439e7c05e50082"
+    ],
+    "messages.log": [
+     "ee2bdb2815242decb0a5efccd7e3330027dd38b2ee5bbf455ddcc34933ce5243",
+     "ee2bdb2815242decb0a5efccd7e3330027dd38b2ee5bbf455ddcc34933ce5243"
+    ],
+    "state.log": [
+     "3714fa613cd563f51ffde477380664913bd21820f3a44091cfd993e59a73d911",
+     "3714fa613cd563f51ffde477380664913bd21820f3a44091cfd993e59a73d911"
+    ],
+    "final.save": [
+     "bb42016c77bce70accc5706b19c01195a5431bf1f810877952548c6827605835",
+     "bb42016c77bce70accc5706b19c01195a5431bf1f810877952548c6827605835"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100147,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100004,
+    "clevel": 4,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-rogue": {
+   "streams": {
+    "keys.log": [
+     "889da0b05561edd7789a1ac4f22b6732e9f70f7364ff72047f642e14c09f43d8",
+     "889da0b05561edd7789a1ac4f22b6732e9f70f7364ff72047f642e14c09f43d8"
+    ],
+    "messages.log": [
+     "68076fe62f688b6ef798133589c3f113d1bfdb9fadb4fe40b3a691fb830c5f33",
+     "68076fe62f688b6ef798133589c3f113d1bfdb9fadb4fe40b3a691fb830c5f33"
+    ],
+    "state.log": [
+     "6d32c1731782509e79867ccc8acc652b8468adf30f0707ecffe938be4ac829c6",
+     "6d32c1731782509e79867ccc8acc652b8468adf30f0707ecffe938be4ac829c6"
+    ],
+    "final.save": [
+     "37ab8fba28d9393f80f5e85cb60bf643d2090ff080c7baacdb890e23b35f6475",
+     "37ab8fba28d9393f80f5e85cb60bf643d2090ff080c7baacdb890e23b35f6475"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 5600,
+    "clevel": 2,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a giant yellow centipede"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100000,
+    "clevel": 4,
+    "max_depth": 2,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-ranger": {
+   "streams": {
+    "keys.log": [
+     "8c6775962c39d5c9cbf8c51a5bc98b6d27c5f8d1b2aab026d1da8a8f54b29262",
+     "8c6775962c39d5c9cbf8c51a5bc98b6d27c5f8d1b2aab026d1da8a8f54b29262"
+    ],
+    "messages.log": [
+     "f87aed768a38d681c05e9ed1f5a85ef48a0b3e448f0767d6e748357addce24aa",
+     "f87aed768a38d681c05e9ed1f5a85ef48a0b3e448f0767d6e748357addce24aa"
+    ],
+    "state.log": [
+     "b61d913d39b5c10efc7d22b1fa004f75b958b3e5b5ab37d0cced26949ae385e3",
+     "b61d913d39b5c10efc7d22b1fa004f75b958b3e5b5ab37d0cced26949ae385e3"
+    ],
+    "final.save": [
+     "b50be918a721e42729e951bd380031dc65dfe57ef12a8bd83a37c36fe2db0389",
+     "b50be918a721e42729e951bd380031dc65dfe57ef12a8bd83a37c36fe2db0389"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "turns",
+    "game_turns": 100007,
+    "clevel": 6,
+    "max_depth": 3,
+    "dead": false,
+    "death_cause": ""
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100003,
+    "clevel": 6,
+    "max_depth": 4,
+    "dead": false,
+    "death_cause": ""
+   }
+  },
+  "live-blackguard": {
+   "streams": {
+    "keys.log": [
+     "06c4cf02a3fc317ea9538d93648be7daacb1ec7339183eeeab688f05f3f8710b",
+     "06c4cf02a3fc317ea9538d93648be7daacb1ec7339183eeeab688f05f3f8710b"
+    ],
+    "messages.log": [
+     "ba9133ac526c1ab19cceb79385dfe5a1c22712825de27a1464b4a5099ce4339d",
+     "ba9133ac526c1ab19cceb79385dfe5a1c22712825de27a1464b4a5099ce4339d"
+    ],
+    "state.log": [
+     "c7f182f1adadfe28c56a677cfaeba8b6e757d4433d1706d7d3f2e7c9aab509db",
+     "c7f182f1adadfe28c56a677cfaeba8b6e757d4433d1706d7d3f2e7c9aab509db"
+    ],
+    "final.save": [
+     "49619cd02d1eb3faf02e80f2634af55078bdb01659af46abef157f5548df267f",
+     "49619cd02d1eb3faf02e80f2634af55078bdb01659af46abef157f5548df267f"
+    ]
+   },
+   "summary_equal": true,
+   "parity": true,
+   "changed_vs_reference": [
+    "keys.log",
+    "messages.log",
+    "state.log",
+    "final.save"
+   ],
+   "reference": {
+    "stop_reason": "death",
+    "game_turns": 6231,
+    "clevel": 1,
+    "max_depth": 1,
+    "dead": true,
+    "death_cause": "a wild cat"
+   },
+   "current": {
+    "stop_reason": "turns",
+    "game_turns": 100002,
+    "clevel": 3,
+    "max_depth": 1,
+    "dead": false,
+    "death_cause": ""
+   }
+  }
+ },
+ "fault_controls": {
+  "I-001": {
+   "cases": 23,
+   "differing": [
+    "cls-bg-halforc",
+    "cls-bg-halftroll",
+    "cls-bg-human",
+    "cls-bg-kobold",
+    "deep-0-warrior",
+    "deep-7-ranger",
+    "full-0-warrior-3",
+    "full-2-druid-3",
+    "full-5-paladin-3",
+    "full-6-rogue-0",
+    "full-7-ranger-0",
+    "full-7-ranger-1",
+    "full-7-ranger-2"
+   ],
+   "detected": true,
+   "suite_done": true
+  },
+  "I-002": {
+   "cases": 23,
+   "differing": [
+    "cls-bg-halforc",
+    "cls-bg-halftroll",
+    "cls-bg-human",
+    "cls-bg-kobold",
+    "deep-0-warrior",
+    "deep-7-ranger",
+    "full-0-warrior-3",
+    "full-1-mage-3",
+    "full-1-mage-4",
+    "full-2-druid-4",
+    "full-5-paladin-3",
+    "full-6-rogue-0",
+    "full-7-ranger-0",
+    "full-7-ranger-1"
+   ],
+   "detected": true,
+   "suite_done": true
+  }
+ }
+}
