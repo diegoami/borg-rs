@@ -1316,12 +1316,9 @@ fn borg_best_stuff_aux(st: &mut BorgState, n: i32, test: &mut [u16], best: &mut 
             }
         }
 
-        /* don't test the same item in both ring slots */
-        if slot == inven_right() {
-            if i32::from(test[nu - 1]) == mark {
-                continue;
-            }
-        } else if slot == inven_left() && i32::from(test[nu + 1]) == mark {
+        /* don't test the same item in both ring slots; the left ring is
+         * chosen first, so only the right ring needs the check */
+        if slot == inven_right() && i32::from(test[nu - 1]) == mark {
             continue;
         }
 

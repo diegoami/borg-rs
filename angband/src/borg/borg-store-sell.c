@@ -517,6 +517,10 @@ static void borg_think_home_sell_best(int32_t * best_home_power)
             /* put item back into pack */
             item->iqty++;
 
+            /* for wands and staffs put the charges back too */
+            if (item->tval == TV_STAFF || item->tval == TV_WAND)
+                item->pval += charge_each;
+
             /* put the item back in the test array */
             test_item[n] = n;
         }
@@ -918,8 +922,7 @@ static bool borg_good_sell(borg_item *item, int who)
 
     /* Do not sell stuff that is not fully id'd and should be  */
     if (!item->ident && item->ego_idx && item->iqty < 2) {
-        if (borg_ego_has_random_power(
-                &e_info[borg_items[INVEN_OUTER].ego_idx])) {
+        if (borg_ego_has_random_power(&e_info[item->ego_idx])) {
             return false;
         }
     }

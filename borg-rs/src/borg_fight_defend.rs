@@ -493,7 +493,7 @@ fn borg_defend_aux_speed(st: &mut BorgState, p1: i32) -> i32 {
         borg_note(st, "# Attempting to cast Speed");
 
         /* No resting to recoup mana */
-        st.borg.no_rest_prep = (tr(st, BI_CLEVEL) * 1000) as i16;
+        st.borg.no_rest_prep = tr(st, BI_CLEVEL) * 1000;
 
         /* do it! */
         if borg_zap_rod(st, st.item_val.sv_rod_speed)
@@ -1082,7 +1082,7 @@ fn borg_defend_aux_prot_evil(st: &mut BorgState, mut p1: i32) -> i32 {
             || borg_read_scroll(st, st.item_val.sv_scroll_protection_from_evil)
         {
             /* No resting to recoup mana */
-            st.borg.no_rest_prep = (tr(st, BI_CLEVEL) * 1000) as i16;
+            st.borg.no_rest_prep = tr(st, BI_CLEVEL) * 1000;
         }
 
         /* Value */

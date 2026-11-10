@@ -197,22 +197,23 @@ pub fn borg_inventory(st: &mut BorgState) {
 }
 
 /// The first empty pack slot after the last used one, or -1
-/// (`borg_first_empty_inventory_slot`). An empty pack also gives -1
-/// (see docs/c-bugs.md).
+/// (`borg_first_empty_inventory_slot`). An empty pack gives slot 0.
 pub fn borg_first_empty_inventory_slot(st: &mut BorgState) -> i32 {
     /* PACK_SLOTS */
     let pack_slots = i32::from(engine::z_info().pack_size) - st.borg.tr(BI_QUIVER_SLOTS);
+
+    /* Find the last used slot (-1 when the pack is empty) */
     let mut i = pack_slots - 1;
-    while i >= 0 {
-        if st.items.items[i as usize].iqty != 0 {
-            if (i + 1) < pack_slots {
-                return i + 1;
-            }
-            break;
-        }
+    while i >= 0 && st.items.items[i as usize].iqty == 0 {
         i -= 1;
     }
-    -1
+
+    /* The slot after it is the first empty one, if the pack has room */
+    if (i + 1) < pack_slots {
+        i + 1
+    } else {
+        -1
+    }
 }
 
 /// Is it worth using ID on an item (`borg_item_worth_id`)? Also a general

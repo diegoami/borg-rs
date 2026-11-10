@@ -282,11 +282,10 @@ pub fn borg_flow_stair_more(st: &mut BorgState, why: i32, sneak: bool, brave: bo
     commit_and_step(st, c"down-stairs", why)
 }
 
-/// Note a spell cast before leaving the level and keep from resting
-/// (`no_rest_prep` is an `int16_t`: the value is truncated as in C).
+/// Note a spell cast before leaving the level and keep from resting.
 fn prep_cast(st: &mut BorgState, what: &str, no_rest: i32) -> bool {
     borg_io::borg_note(st, what);
-    st.borg.no_rest_prep = no_rest as i16;
+    st.borg.no_rest_prep = no_rest;
     true
 }
 

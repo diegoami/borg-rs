@@ -420,7 +420,7 @@ pub fn borg_eat_food_any(st: &mut BorgState) -> bool {
         return true;
     }
     /* Consume in order, when hurting */
-    if (st.borg.tr(BI_CURHP) < 4 || st.borg.tr(BI_CURHP) <= st.borg.tr(BI_MAXHP))
+    if (st.borg.tr(BI_CURHP) < 4 || st.borg.tr(BI_CURHP) < st.borg.tr(BI_MAXHP))
         && (borg_quaff_potion(st, st.item_val.sv_potion_cure_light)
             || borg_quaff_potion(st, st.item_val.sv_potion_cure_serious)
             || borg_quaff_potion(st, st.item_val.sv_potion_cure_critical)

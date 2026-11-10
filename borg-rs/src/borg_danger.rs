@@ -524,9 +524,8 @@ fn borg_danger_physical(
                 }
                 // Add fear for the effect
                 z += 150;
-                // extra scary to have con drain below 8 (C bug: tests STR,
-                // kept)
-                if st.borg.tr(BI_CSTR) < 8 {
+                // extra scary to have con drain below 8
+                if st.borg.tr(BI_CCON) < 8 {
                     z += 100;
                 }
                 if half {
@@ -654,14 +653,16 @@ fn borg_danger_physical(
         if !full_damage {
             // figure out chance that monster will hit you.
             // add a 50% bonus in to account for bad luck.
-            let chance = if st.borg.near.unique != 0 || (level + power) > 0 {
-                150 - (((i32::from(ac) * 300) / 4) + ((level + power) * 3))
+            let chance = if (level + power) > 0 {
+                150 - (((i32::from(ac) * 300) / 4) / ((level + power) * 3))
             } else {
                 -1
             };
 
             // always have a 5% chance of hitting.
             let chance = if chance < 5 { 5 } else { chance };
+            // never estimate more than the full damage of the blow.
+            let chance = if chance > 100 { 100 } else { chance };
 
             // Modify the damage by the chance of getting hit
             z = (z * chance) / 100;
@@ -1953,16 +1954,15 @@ fn borg_danger_spell(
 }
 
 /// Is the grid a wall/seam grid for the move simulation of
-/// `borg_danger_one_kill`? The first loop tests `feat == FEAT_GRANITE`,
-/// the second `feat >= FEAT_GRANITE` (as in C).
-fn wall_like(feat: u32, granite_or_more: bool) -> bool {
-    let granite = if granite_or_more { feat >= FEAT_GRANITE } else { feat == FEAT_GRANITE };
-    granite
-        || (feat == FEAT_MAGMA
-            || feat == FEAT_QUARTZ
-            || feat == FEAT_MAGMA_K
-            || feat == FEAT_QUARTZ_K
-            || feat == FEAT_RUBBLE)
+/// `borg_danger_one_kill`? Both loops test `feat == FEAT_GRANITE`: features
+/// above granite (permanent wall, lava, passable rubble) are not walls here.
+fn wall_like(feat: u32) -> bool {
+    feat == FEAT_GRANITE
+        || feat == FEAT_MAGMA
+        || feat == FEAT_QUARTZ
+        || feat == FEAT_MAGMA_K
+        || feat == FEAT_QUARTZ_K
+        || feat == FEAT_RUBBLE
 }
 
 /// The monster's sleep 2 spell condition on its level (v1 part).
@@ -2259,7 +2259,7 @@ fn danger_one_kill(
             }
 
             // Cannot occupy a wall/seam grid (unless pass_wall or kill_wall)
-            if wall_like(feat, false) {
+            if wall_like(feat) {
                 // legally on a wall of some sort, check for closeness
                 if rf(kill, RF_PASS_WALL) && borg_distance(y_temp, x_temp, y, x) == 1 {
                     b_v1 = v1;
@@ -2374,7 +2374,7 @@ fn danger_one_kill(
             }
 
             // Cannot occupy a wall/seam grid (unless pass_wall or kill_wall)
-            if wall_like(feat, true) {
+            if wall_like(feat) {
                 // legally on a wall of some sort, check for LOS
                 if rf(kill, RF_PASS_WALL) && borg_projectable(st, y_temp, x_temp, y, x) {
                     b_v2 = v2 * b_q / 10;
@@ -2438,9 +2438,9 @@ fn danger_one_kill(
         }
     }
 
-    // C bug: this second crush check clears v1 again, not v2 (kept)
+    // Clear the ranged danger when Crush would kill the monster.
     if flags.crush_spell && crushable(st, kill) {
-        v1 = 0;
+        v2 = 0;
     }
 
     // Reduce danger from sleeping monsters with the sleep 1,3 spell
@@ -2595,11 +2595,13 @@ mod tests {
     }
 
     #[test]
-    fn wall_tests_differ_as_in_c() {
-        assert!(wall_like(FEAT_GRANITE, false) && wall_like(FEAT_GRANITE, true));
-        assert!(wall_like(FEAT_RUBBLE, false) && wall_like(FEAT_MAGMA_K, true));
-        // lava (23) only counts in the `>=` test
-        assert!(!wall_like(23, false) && wall_like(23, true));
-        assert!(!wall_like(FEAT_CLOSED, true));
+    fn wall_tests_match_v11() {
+        assert!(wall_like(FEAT_GRANITE));
+        assert!(wall_like(FEAT_RUBBLE));
+        assert!(wall_like(FEAT_MAGMA_K));
+        assert!(wall_like(FEAT_QUARTZ_K));
+        // lava (23), permanent wall and closed doors are not wall/seam grids
+        assert!(!wall_like(23));
+        assert!(!wall_like(FEAT_CLOSED));
     }
 }

@@ -1777,8 +1777,6 @@ fn hall_wall(st: &BorgState, x: i32, y: i32) -> bool {
 /// Prepare to "flow" towards monsters to "kill" (`borg_flow_kill`)
 /// But in a few phases, viewable, near and far.
 /// Note that monsters under the player are always deleted
-///
-/// C bug 24: `hall_walls` and `skip_monster` are not reset per monster.
 pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     let mut b_j: i32 = -1;
     let mut b_stair: i32 = -1;
@@ -1863,6 +1861,9 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
         let kill = st.kills.kills[i as usize];
         let x9 = kill.pos.x;
         let y9 = kill.pos.y;
+
+        // Each monster starts with a clean slate
+        skip_monster = false;
 
         // Skip dead monsters
         if kill.r_idx == 0 {
@@ -1950,6 +1951,7 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
         // Avoid getting surrounded
         if borg_in_hall && rf_has(kill.r_idx, RF_GROUP_AI) {
             // check to see if monster is in a hall
+            hall_walls = 0;
             for hall_x in -1..=1 {
                 for hall_y in -1..=1 {
                     if !engine::square_in_bounds_fully(hall_x + x, hall_y + y) {
@@ -1960,14 +1962,14 @@ pub fn borg_flow_kill(st: &mut BorgState, viewable: bool, nearness: i32) -> bool
                     if hall_wall(st, hall_x + x, hall_y + y) {
                         hall_walls += 1;
                     }
-
-                    // we want the monster to be in a hall also
-                    if hall_walls < 4 {
-                        // This monster is not in a hallway.
-                        // It may not be safe to fight.
-                        skip_monster = true;
-                    }
                 }
+            }
+
+            // we want the monster to be in a hall also
+            if hall_walls < 4 {
+                // This monster is not in a hallway.
+                // It may not be safe to fight.
+                skip_monster = true;
             }
         }
 
@@ -2810,8 +2812,6 @@ pub fn borg_near_monster_type(st: &mut BorgState, dist: i32) {
 /// tolerate. The pattern of ShootN'Scoot: shoot a far monster as it walks
 /// closer; when it gets within 1 grid of the borg, phase away; repeat.
 ///
-/// C bug 24: the danger of an adjacent monster is computed for the kill
-/// index `i` of the direction loop (0..7), not for `ag->kill`.
 pub fn borg_shoot_scoot_safe(st: &mut BorgState, emergency: i32, turns: i32, b_p: i32) -> bool {
     let dis = 10;
     let min = dis / 2;
@@ -2889,8 +2889,15 @@ pub fn borg_shoot_scoot_safe(st: &mut BorgState, emergency: i32, turns: i32, b_p
             if borg_spell_okay(st, MAGIC_MISSILE)
                 || borg_spell_okay(st, ORB_OF_DRAINING)
                 || borg_spell_okay(st, NETHER_BOLT)
-                || borg_danger_one_kill(st, kill.pos.y, kill.pos.x, 1, i as i32, true, false)
-                > i32::from(st.borg.avoidance) * 3 / 10
+                || borg_danger_one_kill(
+                    st,
+                    kill.pos.y,
+                    kill.pos.x,
+                    1,
+                    i32::from(ag_kill),
+                    true,
+                    false,
+                ) > i32::from(st.borg.avoidance) * 3 / 10
                 || ((!engine::race(r).friends.is_null()
                     || !engine::race(r).friends_base.is_null()) // monster has friends
                     && i32::from(kill.level) >= st.borg.tr(BI_CLEVEL) - 5) // close levels

@@ -46,6 +46,13 @@ The milestone9 carries in [adoption/c-m9](adoption/c-m9/README.md)
 are marked with "Milestone9" bullets. 0098 replaces the local #295
 correction; 0098 and 0099 are each carried with a local crash guard.
 
+The owner-directed v11R carry in [adoption/c-v11r](adoption/c-v11r/README.md)
+(the consumer's `4.2.6-impact-v11`, 18 units 0100-0117) is marked with
+"v11R" bullets. It is the Rust counterpart of the consumer's milestone 11,
+not an automatic post-M10 adoption queue. The C Borg sources in this tree
+were updated to the same consumer blobs so the existing C oracle can check
+the Rust changes.
+
 Format: file, function, (seed, turn when observed), explanation.
 
 Each slip is also filed as a lead in
@@ -284,7 +291,9 @@ with its issues.
   there is no used slot and it returns -1 ("no room"), not 0, so the
   buy/wear/remove code that needs a hole gives up. (Unlikely in play:
   the Borg nearly always carries something.)
-* Rust (`borg_inventory.rs`): both kept.
+* Rust (`borg_inventory.rs`): the pval slip is kept.
+* v11R ([0111](adoption/c-v11r/README.md)): an empty pack returns slot 0,
+  not -1, in C and Rust.
 ## 17. Danger slips (danger)
 
 * `borg-danger.c`, found by code reading; all are in every danger
@@ -328,6 +337,16 @@ with its issues.
   the Teleport Other list only below its count, in C and Rust.
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source62 removes the dead HURT stun test (patch 0085, an
   owner-decided cleanup with no behaviour change).
+* v11R ([adoption/c-v11r](adoption/c-v11r/README.md)):
+  * [0103](adoption/c-v11r/README.md): the partial melee hit chance divides
+    the armour term by `(level + power) * 3` and is capped at 100%, in C and
+    Rust.
+  * [0107](adoption/c-v11r/README.md): LOSE_CON fear tests `BI_CCON`, not
+    `BI_CSTR`.
+  * [0108](adoption/c-v11r/README.md): the ranged Crush check clears `v2`.
+  * [0109](adoption/c-v11r/README.md): the ranged move simulation treats only
+    granite (and the same seam types) as a wall, not everything above it.
+  * The COLD, bolt/summon and dead-stun findings remain in the sections above.
 
 ## 18. Item value: stat bonuses tested as object flags (item analyze)
 
@@ -370,9 +389,16 @@ with its issues.
 * `observe_take_move()`: the attr test only applies when the kind's char
   is `'!'` and its attr is not 11; for every other kind the attr is not
   compared at all.
-* Rust (`borg_flow_take.rs`): all kept.
+* Rust (`borg_flow_take.rs`): the remaining findings are kept.
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source72 skips dead entries (`kidx == 0`) in
   `borg_flow_take_lunal()` (patch 0088), in C and Rust.
+* v11R ([adoption/c-v11r](adoption/c-v11r/README.md)):
+  * [0104](adoption/c-v11r/README.md): the three flows keep the *nearest*
+    up staircase (first of equally near ones), in C and Rust.
+  * [0101/0101a](adoption/c-v11r/README.md): the Lunal take routine skips an
+    `item_bad` object outside munchkin mode. The runtime `borg.munchkin_mode`
+    gate is used, not the class/config flag.
+  * The `k_ptr`, `borg_follow_take` and `observe_take_move` findings remain.
 
 ## 20. Device use slips (item use)
 
@@ -402,6 +428,9 @@ with its issues.
   `borg_item_use.rs`.
 * Milestone4 ([Rust#11](https://github.com/diegoami/borg-rs/issues/11)): source81 quaffs a recognised Enlightenment potion in
   the dungeon (never in town), in C and Rust.
+* v11R ([0112](adoption/c-v11r/README.md)): `borg_eat_food_any()` uses
+  `BI_CURHP < BI_MAXHP`, so a full-health Borg does not quaff cures for food,
+  in C and Rust.
 ## 21. Equipment swaps and the "best" list (item wear)
 
 * `borg-item-wear.c`, found by code reading.
@@ -435,6 +464,9 @@ with its issues.
   Other findings remain; `swap_letter(-1)` itself still gives the 0 key.
 * Milestone7 ([Rust#17](https://github.com/diegoami/borg-rs/issues/17)): source85 sets `skipping` once, before the loop in
   `borg_one_step_wearing_best()` (patch 0075), in C and Rust.
+* v11R ([0113](adoption/c-v11r/README.md)): the stale left-ring duplicate
+  check in `borg_best_stuff_aux()` is removed; the left ring is chosen first,
+  so only the right ring needs it, in C and Rust.
 
 ## 22. Light beam edge test and lantern refuel scan (light)
 
@@ -509,7 +541,14 @@ with its issues.
 * `borg_locate_kill()`: `my_strnicmp(who, "It", 2)` treats any name that
   starts with "it" (any case) as an invisible monster.
 * Rust (`borg_flow_kill.rs`): milestone2/source102 requires the exact unseen
-  name "It" (case-insensitive, C-string termination semantics). Other findings remain.
+  name "It" (case-insensitive, C-string termination semantics).
+* v11R ([adoption/c-v11r](adoption/c-v11r/README.md)):
+  * [0102](adoption/c-v11r/README.md): `skip_monster` is cleared and
+    `hall_walls` zeroed for each monster; the "fewer than four walls" test
+    runs once after the nine-grid scan.
+  * [0110](adoption/c-v11r/README.md): `borg_shoot_scoot_safe()` passes the
+    adjacent monster's kill index (`ag->kill`), not the direction index.
+  * The other findings in this section remain.
 
 ## 25. Enchant item prompt keys (item enchant)
 
@@ -553,8 +592,10 @@ with its issues.
   and borg-fight-perm.c have the same assignment.
 * `borg_flow_cost_stair()` does not check `b_stair` against
   `track_less.num` (it reads any allocated entry).
-* Rust (`borg_flow_stairs.rs`): kept (`no_rest as i16` truncates the same
-  way; `b_stair` is only checked against the allocated size).
+* Rust (`borg_flow_stairs.rs`): the `b_stair` check remains as before.
+* v11R ([0105](adoption/c-v11r/README.md)): `no_rest_prep` is an `int` in C
+  and `i32` in Rust, so the timer no longer wraps at character level 33; the
+  three assignment sites follow the same type.
 
 ## 28. Perma-spell simulation and costs (fight perm)
 
@@ -703,6 +744,12 @@ with its issues.
   single item in `borg_count_sell()`.
 * Milestone9 ([Rust#21](https://github.com/diegoami/borg-rs/issues/21)): source20 makes `sold_item_num` count the newest sale (patch
   0094), in C and Rust.
+* v11R ([adoption/c-v11r](adoption/c-v11r/README.md)):
+  * [0116](adoption/c-v11r/README.md): after each home-sell trial the pack
+    item's staff/wand charges are restored with its quantity, in C and Rust.
+  * [0117](adoption/c-v11r/README.md): `borg_good_sell()` checks the sold
+    item's own ego for an unknown random power, not the worn cloak's.
+  * The other findings in this section remain.
 ## 34. Shopping slips (store buy)
 
 * `borg-store-buy.c`, found by code reading.
@@ -742,6 +789,12 @@ with its issues.
   Alchemist and fixes the Remove Hunger test (0090); source19 restores the
   home ware when a home-buy trial is skipped (0093); source20 makes
   `bought_item_num` count the newest purchase (0094), in C and Rust.
+* v11R ([adoption/c-v11r](adoption/c-v11r/README.md)):
+  * [0115](adoption/c-v11r/README.md): `borg_think_home_grab_useless()`
+    resets `skip_it` for every home ware.
+  * [0114](adoption/c-v11r/README.md): the home-swap trial slot is restored
+    from `safe_items` after each candidate, not just its `iqty` cleared.
+  * The Black Market Rod and `bought_item_num` findings above remain.
 
 ## 35. Escape slips (escape)
 
@@ -767,9 +820,13 @@ with its issues.
   box (offsets -50..49) that is in bounds, without checking that it is a
   known floor grid without a monster, or in range of the spell; it ignores
   the result of `borg_spell()`.
-* Rust (`borg_escape.rs`): all kept.
+* Rust (`borg_escape.rs`): the remaining findings are kept.
 * Milestone8 ([Rust#19](https://github.com/diegoami/borg-rs/issues/19)): source21 aims Dimension Door only at a known floor grid
   without a monster (patch 0086), in C and Rust.
+* v11R ([0100](adoption/c-v11r/README.md)): danger levels 3.1, 4.1, 5.1,
+  6.1 and 8 treat the stair escape as a complete alternative. Either the
+  Borg climbs, or it phases when the landing zone and timers allow; it no
+  longer queues `<` and then phase keys behind it, in C and Rust.
 ## 36. Shop choice slips (think store)
 
 * `borg-think-store.c`, found by code reading.
@@ -1249,12 +1306,14 @@ with its issues.
   `BORG_GLOW` ("Not Lit") and then sets `BORG_GLOW` again under the
   comment "Dark" (surely meant `BORG_DARK`), so the excavated grid is
   remembered as glowing.
-* Rust (`borg_think_dungeon_util.rs`): all kept. The `borg_prepared_buffer`
-  aliasing is kept through `bridge::borg_prepared_buf`/`prepared_buffer`
-  (the reason is read from the buffer at each use, as C does). A
+* Rust (`borg_think_dungeon_util.rs`): the remaining findings are kept. A
   `borg_feeling_stuff` outside 0..11 panics in
   `borg_time_to_stay_on_level` (C reads past `borg_stuff_feeling`), and a
   grid outside the map panics (C reads outside `borg_grids`).
+* v11R ([0106](adoption/c-v11r/README.md)): `borg_leave_level()` copies the
+  current depth's reason immediately, before the later `borg_prepared()`
+  calls overwrite the static buffer; the notes and the "Collect from house"
+  test use the copy, in C and Rust.
 * Milestone6 ([Rust#15](https://github.com/diegoami/borg-rs/issues/15)): source235 keeps a drained Borg from diving whenever
   `BI_ISFIXEXP` is set (the dead `g` gate is gone).
 * Milestone5 ([Rust#13](https://github.com/diegoami/borg-rs/issues/13)): source231 scans the Borg's own grid in the Call Light
