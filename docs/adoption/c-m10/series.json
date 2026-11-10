@@ -1,0 +1,58 @@
+{
+  "schema": "better-borg-c/patch-series@1",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "consumer_pin": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+  "note": "C milestone10 adds no new ledger ordinal. patches/series.json still holds its 98 entries and patches/ its 98 patch files; this file records the two local improvement units (I-001, I-002), which the consumer tracks separately in patches/improvements.json, and the crash correction attached to the existing 0099 entry.",
+  "improvements": [
+    {
+      "id": "I-001",
+      "title": "Do not retreat from a lone adjacent monster that one blow would kill",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/324",
+      "contract": "https://github.com/diegoami/better-borg-c/issues/324#issuecomment-6749373608",
+      "consumer_merge": {
+        "pr": 394,
+        "commit": "8a0c1ba09f5a1927080f56458b35be4ab45126e0"
+      },
+      "consumer_files": [
+        "src/borg/borg-caution.c",
+        "src/borg/borg-fight-attack.c",
+        "src/borg/borg-fight-attack.h"
+      ],
+      "credit": "Diego Amicabile (local improvement unit; never proposed upstream)",
+      "verification_status": "consumer: gate green (965/965 + 5/5, tooling 136/136); targeted life diverges at turn 6017 and reaches turn_cap alive at 320,000 turns against the recorded death by poison at 27,770; regression matrix 225/225 with zero row changes (the guard never fires in any fixture, so there is no native fixture for this unit); paired cohort v1 (seeds 11/29/47) 6/6 alive at cap on both binaries, seed 11 deeper at identical HP/CL"
+    },
+    {
+      "id": "I-002",
+      "title": "Let borg_caution heal while fleeing at survivable danger",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/408",
+      "contract": "https://github.com/diegoami/better-borg-c/issues/408#issuecomment-6756334861",
+      "consumer_merge": {
+        "pr": 414,
+        "commit": "861ecb2da"
+      },
+      "consumer_files": [
+        "src/borg/borg-caution.c",
+        "tools/fleeing-heal-scenario.c",
+        "tools/regression-matrix.py",
+        "docs/measurement/IMPACT-IMPROVEMENT2.md"
+      ],
+      "credit": "Diego Amicabile (local improvement unit; never proposed upstream)",
+      "verification_status": "consumer: gate green; scenario fixture fleeheal-408 fails before (recorded recall rest R500, heal=0 rest=1) and passes after (Herbal Curing cure mac, heal=1 rest=0) at the recorded D0017 fatal state, with flee-highdanger / noflee-wounded / flee-full byte-identical across builds; regression matrix 234/234; paired cohort v1 6/6 alive on both binaries, seed 11 diverged at turn 4481 with zero heal notes and no consumable spent (progress inconclusive at n=3)"
+    }
+  ],
+  "crash_corrections": [
+    {
+      "id": "0099-crash-correction",
+      "base_entry": "NECROLIGHT-296",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/377",
+      "consumer_merge": {
+        "pr": 398,
+        "commit": "dbc2bed77"
+      },
+      "defect": "square_islit(cave, borg.c) on a stale recorded position (pre-map-update) reads outside a smaller new level; borg-rs#21 SIGSEGV at the first town return",
+      "fix": "square_in_bounds(cave, borg.c) guard; a stale position is treated as unlit",
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "consumer: fixture necrolight-296-crash (5 cases), fail-before (square_in_bounds assert abort pre-fix; the NDEBUG product segfault per borg-rs) / pass-after; the in-bounds controls lit / dark / mage-lit lock 0099's behaviour"
+    }
+  ]
+}

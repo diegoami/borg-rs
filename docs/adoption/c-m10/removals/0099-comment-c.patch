@@ -1,0 +1,22 @@
+diff --git a/angband/src/borg/borg-magic.c b/angband/src/borg/borg-magic.c
+index cf82691..963cd24 100644
+--- a/angband/src/borg/borg-magic.c
++++ b/angband/src/borg/borg-magic.c
+@@ -530,11 +530,13 @@ int borg_spell_fail_rate(const enum borg_spells spell)
+     }
+ 
+     /* Necromancers are punished by being on lit squares, whatever lights
+-     * them (their own light, permanent light, a monster's light) */
+-    /* FORK (0099 guard): just after a level change the Borg's position
+-     * can still be on the previous, larger level */
++     * them (their own light, permanent light, a monster's light).  The
++     * recorded position can predate the map update of a freshly entered,
++     * smaller level and lie outside its bounds; treat such a square as
++     * unlit instead of reading outside the array. */
+     if (borg.trait[BI_CLASS] == CLASS_NECROMANCER &&
+-        square_in_bounds(cave, borg.c) && square_islit(cave, borg.c)) {
++        square_in_bounds(cave, borg.c) &&
++        square_islit(cave, borg.c)) {
+         chance += 25;
+ 
+     }

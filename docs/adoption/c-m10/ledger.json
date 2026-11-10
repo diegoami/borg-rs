@@ -1,0 +1,95 @@
+{
+  "consumer_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+  "consumer_tag": "4.2.6-impact-v10",
+  "previous_consumer_commit": "33207fbeeb582e67d6b18e9f40613617667905ae",
+  "consumer_package": "docs/measurement/IMPACT-MILESTONE10.md (added after the snapshot)",
+  "c_review": "https://github.com/diegoami/better-borg-c/issues/420",
+  "issue": "https://github.com/diegoami/borg-rs/issues/24",
+  "previous_batch": "https://github.com/diegoami/borg-rs/issues/21",
+  "starting_main": "8a7579d",
+  "starting_tag": "4.2.6-impact-v9",
+  "engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "retained_local_corrections": [
+    322
+  ],
+  "superseded_local_corrections": {},
+  "local_corrections_added": {},
+  "retained_engine_corrections": [
+    "cure-all known curses (neo-angband-tracker#474)"
+  ],
+  "counts": {
+    "consumer_carries": 3,
+    "carried_c_and_rust": 3,
+    "removal_units": {
+      "c": 3,
+      "rust": 2
+    }
+  },
+  "unit_kinds": {
+    "I-001": "local improvement unit (owner-directed, never proposed upstream); carried in C and Rust for C/Rust parity",
+    "I-002": "local improvement unit (owner-directed, never proposed upstream); carried in C and Rust for C/Rust parity",
+    "0099-crash-correction": "crash correction attached to the existing 0099 ledger entry; borg-rs already carried the same guard from milestone9, so the C side needed a comment sync only"
+  },
+  "patches": [
+    {
+      "id": "I-001",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/324",
+      "consumer_merge": {
+        "pr": 394,
+        "commit": "8a0c1ba09f5a1927080f56458b35be4ab45126e0"
+      },
+      "credit": "Diego Amicabile (local improvement unit; never proposed upstream)",
+      "verification_status": "consumer: gate green; targeted life diverges at turn 6017 and reaches turn_cap alive at 320,000 turns against the recorded death by poison at 27,770; regression matrix 225/225 with zero row changes; paired cohort v1 6/6 alive at cap on both binaries",
+      "reconciliation": "new behaviour; absent in the pre-adoption C/Rust (4.2.6-impact-v9). A local improvement unit, not an upstream bug carry: it changes Borg behaviour, so it is carried only to keep the Rust Borg's keypress stream identical to the consumer's C Borg.",
+      "disposition": "carried in C/Rust",
+      "rust_module": [
+        "borg-rs/src/borg_caution.rs",
+        "borg-rs/src/borg_fight_attack.rs"
+      ],
+      "local_removal_units": {
+        "c": "removals/I-001-c.patch",
+        "rust": "removals/I-001-rust.patch"
+      },
+      "native_fixture": null,
+      "native_fixture_note": "The consumer declares no native fixture for this unit: its guard never fires in any fixture (the consumer's own matrix shows zero row changes). Its evidence is the targeted life and the paired cohort, both outside the Rust lane's reach. Rust coverage is the C/Rust parity matrix and the translation review."
+    },
+    {
+      "id": "I-002",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/408",
+      "consumer_merge": {
+        "pr": 414,
+        "commit": "861ecb2da"
+      },
+      "credit": "Diego Amicabile (local improvement unit; never proposed upstream)",
+      "verification_status": "consumer: gate green; scenario fixture fleeheal-408 fails before (recorded recall rest R500, heal=0 rest=1) and passes after (Herbal Curing cure mac, heal=1 rest=0) at the recorded D0017 fatal state, with three controls byte-identical across builds; regression matrix 234/234; paired cohort v1 6/6 alive on both binaries, seed 11 diverged at turn 4481 with zero heal notes and no consumable spent (progress inconclusive at n=3)",
+      "reconciliation": "new behaviour; absent in the pre-adoption C/Rust (4.2.6-impact-v9). A local improvement unit, not an upstream bug carry: it changes Borg behaviour, so it is carried only to keep the Rust Borg's keypress stream identical to the consumer's C Borg.",
+      "disposition": "carried in C/Rust",
+      "rust_module": [
+        "borg-rs/src/borg_caution.rs"
+      ],
+      "local_removal_units": {
+        "c": "removals/I-002-c.patch",
+        "rust": "removals/I-002-rust.patch"
+      },
+      "native_fixture": "fleeheal"
+    },
+    {
+      "id": "0099-crash-correction",
+      "base_entry": "NECROLIGHT-296",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/377",
+      "consumer_merge": {
+        "pr": 398,
+        "commit": "dbc2bed77"
+      },
+      "credit": "Diego Amicabile (native proposal/evidence)",
+      "verification_status": "consumer: fixture necrolight-296-crash (5 cases), fail-before (square_in_bounds assert abort pre-fix; the NDEBUG product segfault per borg-rs) / pass-after; the in-bounds controls lit / dark / mage-lit lock 0099's behaviour",
+      "reconciliation": "already present in borg-rs since milestone9, which carried the same square_in_bounds guard as a local crash correction (FORK-CORRECTIONS) after the C SIGSEGV reported on better-borg-c#377. The consumer has now adopted the identical fix, so the C side needs a comment sync only; the Rust side needs no change.",
+      "disposition": "already carried (C comment sync only)",
+      "rust_module": [],
+      "local_removal_units": {
+        "c": "removals/0099-comment-c.patch"
+      },
+      "native_fixture": "necrolight-crash"
+    }
+  ]
+}
