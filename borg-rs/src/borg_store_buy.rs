@@ -444,6 +444,8 @@ fn borg_buy_identify(st: &mut BorgState) -> bool {
     }
 
     if b_k >= 0 {
+        let item = *ware(st, b_k, b_n);
+        note_desc(st, "# Learning '", &item, "'");
         set_buy_goal(st, b_k, b_n);
         return true;
     }

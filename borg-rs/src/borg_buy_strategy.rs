@@ -182,11 +182,18 @@ pub fn is_learning_kind(st: &BorgState, item: &borg_item) -> bool {
                 || sval == st.item_val.sv_scroll_monster_confusion))
 }
 
+/// Whether a learning-list item is still unlearned, given the player's
+/// awareness of its kind. Split from the engine lookup so the gate is
+/// unit-testable without an engine entry.
+pub fn is_learning_candidate_kind(st: &BorgState, item: &borg_item, aware: bool) -> bool {
+    is_learning_kind(st, item) && !aware
+}
+
 /// A learning-list kind the player has not already learned. Shop analysis
 /// records the real kind index; the engine changes `kind->aware` after the
 /// purchase, which makes the next copy ineligible.
 pub fn is_learning_candidate(st: &BorgState, item: &borg_item) -> bool {
-    is_learning_kind(st, item) && !engine::kind(item.kind as usize).aware
+    is_learning_candidate_kind(st, item, engine::kind(item.kind as usize).aware)
 }
 
 /// An item counted toward, and therefore retained for, the #410 reserve.
@@ -396,6 +403,26 @@ mod tests {
             item.sval = sval;
             assert_eq!(is_learning_kind(&st, &item), expected);
         }
+    }
+
+    #[test]
+    fn learning_candidate_rejects_an_aware_kind() {
+        let mut st = state(0);
+        st.item_val.sv_scroll_detect_invis = 31;
+        st.item_val.sv_scroll_satisfy_hunger = 30;
+        let mut item = blank_item();
+        item.tval = TV_SCROLL as u8;
+        item.sval = 31;
+        assert!(is_learning_candidate_kind(&st, &item, false));
+        assert!(!is_learning_candidate_kind(&st, &item, true));
+        /* Another learning-list kind follows the same gate. */
+        item.sval = 30;
+        assert!(is_learning_candidate_kind(&st, &item, false));
+        assert!(!is_learning_candidate_kind(&st, &item, true));
+        /* Not on the learning list, aware or not. */
+        item.sval = 99;
+        assert!(!is_learning_candidate_kind(&st, &item, false));
+        assert!(!is_learning_candidate_kind(&st, &item, true));
     }
 
     #[test]

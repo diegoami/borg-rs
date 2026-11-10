@@ -32,7 +32,10 @@ def is_executed_purchase(line):
     In-shop goal notes quote the ware, e.g.
     `# Buying 'Potions of Cure Light Wounds {unseen}'(a) at ...`.
     """
-    return "# Buying '" not in line
+    return "# Buying '" not in line and line.rstrip().endswith(".")
+
+
+LEARNING_NOTE = "# Learning '"
 
 
 def main():
@@ -59,6 +62,17 @@ def main():
         buys = [line for line in lines if "# Buying" in line and is_executed_purchase(line)]
 
         for kind in LEARNING_KINDS:
+            # The learning policy only ever selects an unlearned kind, so every
+            # learning note must name an {unseen} description. An aware repeat
+            # would print without the marker and fail here.
+            notes = [
+                line
+                for line in lines
+                if LEARNING_NOTE in line and kind in line
+            ]
+            for line in notes:
+                assert "{unseen}" in line, (name, kind, line)
+
             # One real (unseen) purchase per kind. Later copies are allowed only
             # after the engine marks the kind aware, so they carry no {unseen}.
             unseen = [line for line in buys if kind in line and "{unseen}" in line]
@@ -66,13 +80,19 @@ def main():
             if unseen:
                 bought_at = next(i for i, line in enumerate(lines) if line == unseen[0])
                 # After the engine's completed sale, kind->aware must suppress
-                # every later {unseen} goal for the same kind.
+                # every later {unseen} goal and every later learning note.
                 later_unseen_goals = [
                     line
                     for line in lines[bought_at + 1:]
                     if "# Buying '" in line and kind in line and "{unseen}" in line
                 ]
                 assert not later_unseen_goals, (name, kind, later_unseen_goals)
+                later_learning = [
+                    line
+                    for line in lines[bought_at + 1:]
+                    if LEARNING_NOTE in line and kind in line
+                ]
+                assert not later_learning, (name, kind, later_learning)
 
         independent = any(
             kind in line and "{unseen}" in line
@@ -91,8 +111,9 @@ def main():
 
     print(
         "PASS: 4 buy-to-identify cases; effective settings, one unseen purchase "
-        "per kind, no unseen goal after awareness, independent learning in 3 "
-        "cases, and only the documented reserve preemption unchanged"
+        "per kind, learning notes only for unseen kinds and none after "
+        "awareness, independent learning in 3 cases, and only the documented "
+        "reserve preemption unchanged"
     )
 
 

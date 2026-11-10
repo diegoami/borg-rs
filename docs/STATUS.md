@@ -21,9 +21,12 @@ smoke streams; the explicit family validator passes 8/8 cases. The follow-up
 default-off `borg_buy_identify` policy with a four-case validator: exactly three
 independent learning cases, at most one executed `{unseen}` purchase per kind,
 no `{unseen}` goal after the engine marks awareness, and only the documented
-reserve410 preemption unchanged. Both new policies keep light at radius 1 or
-below on the existing urgent spare-torch path. These are not variant
-acceptance, zoo outcomes, or derived-tag decisions.
+reserve410 preemption unchanged. Each learning decision is noted
+`# Learning '<desc>'`; the validator requires every such note to name an
+`{unseen}` kind and none to follow that kind's completed sale, and a mutation
+control (awareness check removed) confirms the validator fails. Both new
+policies keep light at radius 1 or below on the existing urgent spare-torch
+path. These are not variant acceptance, zoo outcomes, or derived-tag decisions.
 
 Accepted family variants can receive derived tags of the form
 `4.2.6-impact-v10-<variant>` (for example `4.2.6-impact-v10-r` or

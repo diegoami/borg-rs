@@ -103,11 +103,11 @@ population claim belongs to this tranche.
 
 ### Executed implementation checks (2026-11-10)
 
-- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **113 passed, one
+- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **114 passed, one
   existing ignored**. This includes selection precedence, invalid/conflicting
   configuration, urgent/completed gates (including light at radius 1 or below),
   item classification, home-sell retention, the pending-sale goal reset and the
-  buy-to-identify gate/list.
+  buy-to-identify gate/list/awareness predicate.
 - `cargo clippy --release --all-targets --manifest-path borg-rs/Cargo.toml --
   -D warnings`: clean.
 - Fresh C and Rust builds plus `harness/check-no-c-borg.sh`: pass; no C Borg is
@@ -126,13 +126,18 @@ population claim belongs to this tranche.
 - `BORG_IMPL=rust harness/suite.sh family-identify harness/out/family-identify`
   followed by `python3 harness/regress/family-identify-test.py
   harness/out/family-identify --baseline harness/out/family-buying`: **PASS**.
-  All four cases complete. Each learning kind has at most one executed
-  `{unseen}` purchase, and no `{unseen}` goal follows the engine's completed
-  sale. Exactly three cases show independent (non-reserve) learning and the
+  All four cases complete. Every learning decision is noted as
+  `# Learning '<desc>'`; each such note names an `{unseen}` kind and none
+  follows the engine's completed sale of that kind, so the awareness gate is
+  visible in the stream. Each learning kind also has at most one executed
+  `{unseen}` purchase, and no `{unseen}` goal follows the completed sale.
+  Exactly three cases show independent (non-reserve) learning and the
   documented on/off changes; the reserve410/Warrior case is the one expected
   preemption and stays byte-identical. That case leaves town before the
   learning stage, so it is a valid no-effect case, not evidence of a behaviour
-  flip.
+  flip. A mutation control on 2026-11-10 removed the `kind->aware` check from
+  the candidate predicate: the validator then fails (the Mage buys 16 Cure
+  Light Wounds instead of 5), and it passes again with the check restored.
 
 `harness/run.sh` accepts digits in `borg_*` option names so the reserve410
 settings work through the existing generic `NAME=VALUE` flags. The failed
