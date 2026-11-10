@@ -4,6 +4,13 @@ Unless explicitly corrected under `docs/FORK-CORRECTIONS.md`, the Rust port
 keeps these as C behaves. Entries preserve the original findings and identify
 the owner-authorized exceptions so changes are deliberate and reviewable.
 
+This file is not where new findings get catalogued any more. It is the
+record of what was found through M5; existing sections only grow a new
+"MilestoneN" bullet when a better-borg-c adoption supersedes them (see
+[C-CONSUMER-ADOPTION.md](C-CONSUMER-ADOPTION.md)). A new suspected C defect
+is coordinated through the C consumer's own ownership/tracker instead of
+being added here fresh.
+
 The seven milestone2 carries in [adoption/c-m2](adoption/c-m2/README.md)
 correct selected findings below in local C and Rust. Their source ownership
 and historical descriptions remain; consumer adoption is not upstream closure.

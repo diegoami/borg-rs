@@ -118,7 +118,17 @@ shared lock or any game. Noninteractive callers explicitly use `--yes`.
 ./replay-borg.py RECORDING --from-turn 500
 ./replay-borg.py RECORDING --view-only --dump-turn 500
 ./replay-borg.py RECORDING --view-only --combat-log
+./replay-borg.py RECORDING --verify-only --engine /path/to/other/game/angband --output harness/out/COUNTERFACTUAL
 ```
+
+`--engine PATH` reruns the recording against a different built executable
+instead of the one frozen in the bundle, to see whether another build plays
+a historical life the same way. It needs an existing binary and an explicit
+`--output` directory; it refuses `--view-only`, `--combat-log` and
+`--play-from-turn`. It never produces a verified certificate: any divergence
+from the original recording raises, with the first differing stream/row/field
+in the error and retained in `--output`, and `--output/verification.json` is
+never written to the bundle's own cached certificate.
 
 A recording directory contains `recording.json`. A death dossier contains
 `record.json` and a hash-qualified reference to that original raw recording.

@@ -52,6 +52,8 @@ def run(args):
         command += ['--view-only']
     if args.verify_only:
         command += ['--verify-only']
+    if getattr(args, 'combat_log', False):
+        command += ['--combat-log']
     if play_turn is not None:
         command += ['--play-from-turn', str(play_turn)]
     if getattr(args, 'prepare_only', False):
@@ -74,6 +76,7 @@ def main(argv=None):
     view.add_argument('--play-from-turn', type=int, metavar='TURN', help='create an independent human save at/after this turn')
     parser.add_argument('--prepare-only', action='store_true')
     parser.add_argument('--timeout', type=int, default=600)
+    parser.add_argument('--combat-log', action='store_true', help='open captured native fighting log; missing legacy data remains unavailable')
     args = parser.parse_args(argv)
     if (args.prepare_only and args.play_from_turn is None) or (args.play_from_turn is not None and (args.play_from_turn < 0 or args.from_turn is not None)):
         parser.error('--prepare-only needs --play-from-turn; use a nonnegative turn without --from-turn')

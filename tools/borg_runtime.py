@@ -371,7 +371,9 @@ def compare_observation_extension(original, extended):
 
 @serialized
 def verify(bundle, output=None, timeout=None, *, engine=None, observation_extension=False):
-    if (engine is not None) != observation_extension or (observation_extension and output is None):
+    if engine is not None and output is None:
+        raise ValueError('An engine override needs retained output')
+    if observation_extension and engine is None:
         raise ValueError('Observation rebuild verification requires its engine and retained output')
     bundle = bundle.resolve()
     record = validate(bundle)
@@ -443,8 +445,13 @@ def verify(bundle, output=None, timeout=None, *, engine=None, observation_extens
     proof = {'verified': True, 'manifest_sha256': manifest_hash, 'verifier_sha256': source_hash,
              'model': record['verification_model'], 'original_death_not_new_sample': record['summary']['dead'],
              'native_archive_body_verified': True, 'native_death_log_wall_clock_differences': native_clock_differences}
-    if observation_extension:
-        proof['observation_extension'] = {'fields': sorted(OBSERVATION_FIELDS), 'engine_sha256': sha(Path(engine)), 'original_engine_sha256': sha(bundle / 'runtime/game/angband'), 'scope': 'historical-source observation-only rebuild; every original channel/value and native save matches'}
+    if engine is not None:
+        proof['engine_sha256'] = sha(Path(engine))
+        proof['original_engine_sha256'] = sha(bundle / 'runtime/game/angband')
+        if observation_extension:
+            proof['observation_extension'] = {'fields': sorted(OBSERVATION_FIELDS), 'scope': 'historical-source observation-only rebuild; every original channel/value and native save matches'}
+        else:
+            proof['engine_mode'] = 'counterfactual engine override; a divergence from the original raises instead of being silently accepted'
     else:
         write(cached, proof)
     if output is not None:

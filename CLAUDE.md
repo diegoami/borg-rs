@@ -128,6 +128,14 @@ remains the acceptance criterion for the `current` control, but post-M10 family
 variants may intentionally diverge under borg-rs#25 and later owner-directed
 family issues.
 
+Owner update (2026-11-10): byte-identical keypress parity with C was feasible
+while pinned to one fixed engine version, but is too much of a limitation to
+carry forward across engine upgrades. For the eventual move off the pinned
+engine (`e473720ed`), parity stops being the acceptance bar; see
+`docs/ENGINE-UPGRADE.md` for the prospective procedure and what replaces it.
+This does not relax parity for the currently pinned engine or its
+better-borg-c milestone adoptions, which keep following the rule above.
+
 ## Historical source-report routing (M1-M4)
 
 The original lane filed every C bug as an issue in

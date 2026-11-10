@@ -48,6 +48,7 @@ def main(argv=None):
     parser.add_argument('--view-only', '--recording-only', dest='recording_only', action='store_true', help='view with an UNVERIFIED badge')
     parser.add_argument('--output', type=Path, help='new directory retaining verification evidence, or the independent human branch with --play-from-turn')
     parser.add_argument('--timeout', type=int, help='positive wall limit for the verification run')
+    parser.add_argument('--engine', type=Path, help='counterfactual engine override; a divergence from the recorded original is reported and never verified')
     args = parser.parse_args(argv)
     if args.play_from_turn is not None:
         if args.play_from_turn < 0 or args.turn is not None or args.dump_turn is not None or args.dump or args.verify_only or args.recording_only:
@@ -60,6 +61,12 @@ def main(argv=None):
         parser.error('Use nonnegative engine turns and a positive timeout')
     if args.recording_only and args.output:
         parser.error('--output retains verification evidence; omit it with --view-only')
+    if args.engine is not None and (args.combat_log or args.recording_only or args.play_from_turn is not None
+                                     or args.output is None or not args.engine.is_file()):
+        parser.error('An engine override needs an existing binary, an explicit --output directory, '
+                     'and cannot be combined with --view-only/--combat-log/--play-from-turn')
+    if args.engine is not None:
+        args.engine = args.engine.resolve()
     existed = args.output.exists() if args.output else False
     try:
         directory = resolve_recording(args.recording)
@@ -78,8 +85,13 @@ def main(argv=None):
         backend.validate(directory, require_complete=not args.recording_only)
         verified = not args.recording_only
         if verified:
-            proof = backend.verify(directory, output=args.output, timeout=args.timeout)
-            print('VERIFIED frozen-origin rerun: ' + proof['model'], flush=True)
+            if args.engine is not None:
+                print('Rerunning the recording against the counterfactual engine override...', flush=True)
+                backend.verify(directory, output=args.output, timeout=args.timeout, engine=args.engine)
+                print('No divergence from the original recording at ' + str(args.output), flush=True)
+            else:
+                proof = backend.verify(directory, output=args.output, timeout=args.timeout)
+                print('VERIFIED frozen-origin rerun: ' + proof['model'], flush=True)
         if not args.verify_only:
             frames = directory if (directory / 'frames.jsonl.gz').exists() else directory / 'run'
             display = frames

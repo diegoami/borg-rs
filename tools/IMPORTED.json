@@ -86,7 +86,27 @@
     "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
     "path": "replay_next_death.py",
     "original_sha256": "40614ef48e82b9d7b1d2d875608aac135edb0fbd87d10a1a255bcf10f44969be",
-    "adaptation": "Rust dossier schemas, canonical continuation families and verified replay/view-only routing"
+    "adaptation": "Rust dossier schemas, canonical continuation families and verified replay/view-only routing",
+    "additional_reference": {
+      "commit": "8b6dae0e7648a77cc13d8816260386381db322f7",
+      "path": "replay_next_death.py",
+      "sha256": "df5d589feb617d6c0736e97e923618f4d1568b5f254521ee42b4d6ccc028e54a",
+      "adaptation": "Added the missing --combat-log passthrough to replay-borg.py (2026-11-10 tooling parity check)"
+    }
+  },
+  "list_games.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "8b6dae0e7648a77cc13d8816260386381db322f7",
+    "path": "list_games.py",
+    "original_sha256": "9e17842a1cda1378fd49511342e1d04bad484db2c487236122c10df134995607",
+    "adaptation": "Was entirely absent from borg-rs (2026-11-10 tooling parity check); ported with Rust-specific layout changes: recordings live under a game's recordings/<stamp>/ subdirectory rather than the game directory itself, so games/dossiers/branches are matched by that bundle path; summary.json field names follow tools/run_report.py (engine_ticks, requested_seed); manual-takeover branches are read from .angband-rust/human-branches/*/human-branch.json (original_recording key) and show only their branch point, since borg-rs does not record a per-session outcome for a resumed branch the way better-borg-c's sessions/*/result.json does"
+  },
+  "tools/test_list_games.py": {
+    "repository": "diegoami/better-borg-c",
+    "commit": "8b6dae0e7648a77cc13d8816260386381db322f7",
+    "path": "tools/test_list_games.py",
+    "original_sha256": "04b21245651b94860b9a66b5bcdab626e27654ee1baa7b95e34b6753efb6fbd4",
+    "adaptation": "Fixtures adapted to the Rust bundle/summary layout described in list_games.py's entry above"
   },
   "tools/death_workflow.py": {
     "repository": "diegoami/better-borg-c",

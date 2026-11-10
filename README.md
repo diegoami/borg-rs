@@ -114,6 +114,7 @@ Bounded death collection and an explicit owner-review queue:
 ./replay_next_death.py --list
 ./replay_next_death.py --from-turn 37000 # Verify and view the next unreviewed recording
 ./replay_next_death.py --mark-reviewed D0005
+./list_games.py --pending                # List a collection's games with ready-to-paste commands
 ```
 
 Closing replay does not mark it reviewed. Collection uses private fresh profiles

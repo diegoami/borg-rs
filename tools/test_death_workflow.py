@@ -64,7 +64,8 @@ class OwnerQueue(unittest.TestCase):
     def args(self, **kw):
         return SimpleNamespace(mark_reviewed=kw.get('mark_reviewed'), mark_unreviewed=kw.get('mark_unreviewed'),
             list=kw.get('list', False), json=False, case=kw.get('case'), timeout=90, from_turn=0,
-            view_only=kw.get('view_only', False), verify_only=kw.get('verify_only', False))
+            view_only=kw.get('view_only', False), verify_only=kw.get('verify_only', False),
+            combat_log=kw.get('combat_log', False))
 
     def test_family_mark_is_explicit_and_does_not_touch_assessment(self):
         self.case('D0001', 'original', False)
@@ -97,6 +98,12 @@ class OwnerQueue(unittest.TestCase):
         self.assertIn('--verify-only', command)
         self.assertIn('0', command)
         self.assertFalse((workflow.artifacts() / 'owner-reviews.json').exists())
+
+    def test_combat_log_is_passed_through_to_replay(self):
+        self.case('D0001', 'new')
+        with mock.patch.object(queue.subprocess, 'run', return_value=SimpleNamespace(returncode=0)) as execute:
+            self.assertEqual(queue.run(self.args(view_only=True, combat_log=True)), 0)
+        self.assertIn('--combat-log', execute.call_args.args[0])
 
     def test_view_only_omits_verification_output_and_preserves_review_state(self):
         self.case('D0001', 'new')

@@ -240,6 +240,20 @@ fixes or C milestone are imported by these commands.
 ./replay_next_death.py --from-turn 37000
 ./replay_next_death.py --mark-reviewed D0005
 ./replay_next_death.py --mark-unreviewed D0005
+./replay_next_death.py --case D0005 --combat-log
+```
+
+`list_games.py` (also adapted from the committed C workflow) prints, for
+every game in a collection, its outcome, owner-review status and the exact
+`replay-borg.py`/`play-from-replay.py`/`replay_next_death.py` commands to
+watch, play or review it; it only reads reports/dossiers and never runs a
+game.
+
+```
+./list_games.py                       # Latest collection under harness/out/death-workflow
+./list_games.py --collection NAME
+./list_games.py --file saved-produce-death-transcript.txt
+./list_games.py --pending --json      # Unreviewed deaths only, machine-readable
 ```
 
 The collector freezes the committed Rust `--ref` (default HEAD), prospective

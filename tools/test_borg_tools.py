@@ -102,6 +102,42 @@ class RecordingSafety(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'Unsupported'):
             runtime.verify(copy)
 
+    def test_engine_override_needs_explicit_output(self):
+        with self.assertRaisesRegex(ValueError, 'retained output'):
+            runtime.verify(self.recording, engine=self.recording / 'runtime/game/angband')
+
+    def test_byte_identical_engine_override_does_not_pollute_the_original_cache(self):
+        cache = self.recording / 'verification.json'
+        cached_before = cache.read_bytes() if cache.exists() else None
+        copy = self.clone()
+        engine_dir = tempfile.TemporaryDirectory(prefix='borg-engine-copy-')
+        self.addCleanup(engine_dir.cleanup)
+        engine = Path(engine_dir.name) / 'angband'
+        shutil.copy2(self.recording / 'runtime/game/angband', engine)
+        out_dir = tempfile.TemporaryDirectory(prefix='borg-engine-output-')
+        self.addCleanup(out_dir.cleanup)
+        output = Path(out_dir.name) / 'proof'
+        proof = runtime.verify(copy, output=output, timeout=30, engine=engine)
+        self.assertTrue(proof['verified'])
+        self.assertEqual(proof['engine_sha256'], runtime.sha(engine))
+        self.assertNotIn('observation_extension', proof)
+        self.assertTrue((output / 'verification.json').exists())
+        self.assertEqual(cache.read_bytes() if cache.exists() else None, cached_before)
+
+    def test_diverging_engine_override_is_reported_not_silently_accepted(self):
+        copy = self.clone()
+        engine_dir = tempfile.TemporaryDirectory(prefix='borg-engine-broken-')
+        self.addCleanup(engine_dir.cleanup)
+        engine = Path(engine_dir.name) / 'angband'
+        engine.write_text('#!/bin/sh\nexit 7\n')
+        engine.chmod(0o755)
+        out_dir = tempfile.TemporaryDirectory(prefix='borg-engine-diverge-')
+        self.addCleanup(out_dir.cleanup)
+        output = Path(out_dir.name) / 'proof'
+        with self.assertRaises(ValueError):
+            runtime.verify(copy, output=output, timeout=30, engine=engine)
+        self.assertFalse(json.loads((output / 'verification.json').read_text())['verified'])
+
     def test_incomplete_recording_is_only_viewable_unverified(self):
         copy = self.clone()
         record = json.loads((copy / 'recording.json').read_text())
