@@ -1,6 +1,33 @@
 # borg-rs status
 
-## Current task: adopt better-borg-c milestone 10 (impact v10)
+## Current direction: a Borg family after impact v10
+
+Starting from the owner-accepted `4.2.6-impact-v10` snapshot, borg-rs diverges
+from better-borg-c and develops a family of Borgs rather than automatically
+carrying later C milestones. New variants may intentionally change the keypress
+stream; the accepted v10 behaviour remains the `current` control. The first
+bounded lane is [borg-rs#25](https://github.com/diegoami/borg-rs/issues/25):
+buying strategies selectable by class and munchkin/non-munchkin mode, beginning
+with `current` and the experimental `reserve410` strategy, with a small future
+zoo matrix rather than an immediate broad tuning campaign. It references
+[better-borg-c#410](https://github.com/diegoami/better-borg-c/issues/410) as a
+rejected upstream proposal and preserves its negative evidence.
+
+Implementation of #25 has begun: the strategy seam, configuration, reserve and
+home-sell guard, focused tests, eight-case runtime suite and registry exist.
+The current control passes 3/3 C/Rust smoke parity and matches the retained v10
+smoke streams; the explicit family validator passes 8/8 cases. This is not
+variant acceptance, a zoo outcome, or a derived-tag decision.
+
+Accepted family variants can receive derived tags of the form
+`4.2.6-impact-v10-<variant>` (for example `4.2.6-impact-v10-r` or
+`4.2.6-impact-v10-s`) after independent validation and explicit owner
+acceptance. No derived tag is placed by the direction or scoping issue itself.
+The root `CLAUDE.md` is the current repository rule, and
+[docs/FAMILY.md](FAMILY.md) is the strategy/configuration registry; the old
+C-consumer adoption contract is retained for the completed M2-M10 carry lane.
+
+## Previous: adopt better-borg-c milestone 10 (impact v10)
 
 C milestone 10 (`4.2.6-impact-v10`) carries no new bug ordinal: its units are
 two owner-directed local improvement units (I-001, I-002; never proposed

@@ -21,6 +21,7 @@
 //! (struct copies: a copied item's `note` keeps pointing into the
 //! original's `desc`, as with `memcpy`).
 
+use crate::borg_buy_strategy::{reserve410_unmet, retain_reserve410_item};
 use crate::borg_home_notice::borg_notice_home;
 use crate::borg_home_power::borg_power_home;
 use crate::borg_inventory::borg_item_worth_id;
@@ -617,6 +618,17 @@ pub fn borg_think_home_sell_useful(st: &mut BorgState, best_home_power: &mut i32
         pack_item(st, last).iqty != 0
     } {
         return false;
+    }
+
+    // #410's reserve pass must not buy items that the home-best pass stores
+    // immediately afterward (the rejected upstream v1 buy/store loop). Keep
+    // carried reserve items in the pack until the deficit closes (#25).
+    if reserve410_unmet(st) {
+        for i in 0..pack_slots(st) {
+            if retain_reserve410_item(st, &st.items.items[i as usize]) {
+                return false;
+            }
+        }
     }
 
     // clear test arrays (test[i] == i is no change)

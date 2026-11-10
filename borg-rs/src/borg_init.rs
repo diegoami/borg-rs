@@ -128,6 +128,12 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     b(c"borg_restore_ignore_settings", false),
     b(c"borg_munchkin_by_class", true),
     i(c"borg_munchkin_class_depth", 6),
+    i(c"borg_buy_strategy_default", 0),
+    i(c"borg_buy_strategy_munchkin", -1),
+    i(c"borg_buy_strategy_current_classes", 0),
+    i(c"borg_buy_strategy_reserve410_classes", 0),
+    i(c"borg_buy_strategy_current_munchkin_classes", 0),
+    i(c"borg_buy_strategy_reserve410_munchkin_classes", 0),
 ];
 
 /// Class indexes of borg-trait.h used by the munchkin class rule.
@@ -479,6 +485,13 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
     // make sure it continues to run if reset
     if cfg[BORG_RESPAWN_WINNERS as usize] != 0 {
         cfg[BORG_STOP_KING as usize] = 0;
+    }
+
+    // Post-M10 family settings are Rust-only behaviour. The C parser carries
+    // the same fields so the default `current` control keeps identical input.
+    if let Some(error) = crate::borg_buy_strategy::config_error(cfg) {
+        env.warning(error);
+        env.st().init.init_failure = true;
     }
 
     // Success
@@ -1103,13 +1116,43 @@ mod tests {
     }
 
     #[test]
+    fn buying_strategy_settings_parse_and_validate() {
+        use crate::borg_headers::borg_h::*;
+        let (cfg, _) = cfg_of(
+            b"borg_buy_strategy_default = 1\nborg_buy_strategy_munchkin = 0\n\
+              borg_buy_strategy_current_classes = 1\nborg_buy_strategy_reserve410_classes = 2\n\
+              borg_buy_strategy_current_munchkin_classes = 4\n\
+              borg_buy_strategy_reserve410_munchkin_classes = 8\n",
+        );
+        assert_eq!(cfg[BORG_BUY_STRATEGY_DEFAULT as usize], 1);
+        assert_eq!(cfg[BORG_BUY_STRATEGY_MUNCHKIN as usize], 0);
+        assert_eq!(cfg[BORG_BUY_STRATEGY_CURRENT_CLASSES as usize], 1);
+        assert_eq!(cfg[BORG_BUY_STRATEGY_RESERVE410_CLASSES as usize], 2);
+        assert_eq!(cfg[BORG_BUY_STRATEGY_CURRENT_MUNCHKIN_CLASSES as usize], 4);
+        assert_eq!(cfg[BORG_BUY_STRATEGY_RESERVE410_MUNCHKIN_CLASSES as usize], 8);
+
+        let mut env = FakeTxt::new(
+            b"borg_buy_strategy_current_classes = 1\nborg_buy_strategy_reserve410_classes = 1\n",
+        );
+        let (found, old) = read_txt_settings(&mut env);
+        finish_txt_settings(&mut env, found, old);
+        assert!(env.st.init.init_failure);
+        assert!(env.out.iter().any(|line| line.contains("masks conflict")));
+    }
+
+    #[test]
     fn default_file_matches_c() {
         let text: Vec<u8> = default_txt_file().concat();
         let text = String::from_utf8(text).unwrap();
         assert!(text.starts_with("# BORG.txt default settings \n"));
         assert!(text.contains("\n\nborg_verbose = FALSE\nborg_munchkin_start = FALSE\n"));
         assert!(text.contains("\nborg_respawn_class = -1\n"));
-        assert!(text.ends_with("borg_munchkin_by_class = TRUE\nborg_munchkin_class_depth = 6\n"));
+        assert!(text.ends_with(
+            "borg_buy_strategy_default = 0\nborg_buy_strategy_munchkin = -1\n\
+             borg_buy_strategy_current_classes = 0\nborg_buy_strategy_reserve410_classes = 0\n\
+             borg_buy_strategy_current_munchkin_classes = 0\n\
+             borg_buy_strategy_reserve410_munchkin_classes = 0\n"
+        ));
     }
 
     /// Differential check against the C parser: for every file in

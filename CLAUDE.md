@@ -1,6 +1,30 @@
 # Rules for work on borg-rs
 
-Owner-approved current direction (2026-11-07): M5 is owner-accepted and
+Owner-approved current direction (2026-11-10): **starting from the accepted
+`4.2.6-impact-v10` snapshot, borg-rs diverges from better-borg-c and develops a
+family of Borgs.** Accepted BBC milestones through M10 remain the historical
+baseline; later BBC milestones are not an automatic adoption queue, and new
+family variants need not reproduce the BBC keypress stream. Existing adoption
+records, reviews, source references and tags remain unchanged.
+
+The first family lane is [borg-rs#25](https://github.com/diegoami/borg-rs/issues/25)
+(the strategy registry is [docs/FAMILY.md](docs/FAMILY.md)):
+buying-strategy variants selectable by class and by munchkin/non-munchkin mode,
+for later bounded zoo comparison. It references the rejected upstream proposal
+[better-borg-c#410](https://github.com/diegoami/better-borg-c/issues/410) as
+requirements and negative evidence, not as a successful fix to carry. Major
+refactoring is allowed, but the issue's two-strategy initial scope is deliberate:
+do not expand it into an unbounded strategy catalogue or zoo/tuning campaign.
+
+Family members derive from the accepted M10 base. Canonical derived tags use the
+`4.2.6-impact-v10-<variant>` form (for example `4.2.6-impact-v10-r` or
+`4.2.6-impact-v10-s`), with the suffix assigned to the variant. A configuration
+combination or experiment is not automatically a tagged family member: derived
+tags follow independent validation and explicit owner acceptance, and go on the
+accepted runtime snapshot rather than a package-only commit. Do not place them
+without owner direction.
+
+Historical direction through impact v10 (2026-11-07): M5 is owner-accepted and
 annotated tag `m5` points to `0203227`, after independent pass with no open
 findings for candidate `28468aa` plus that follow-up. Review#2 is closed.
 Read [docs/M5-PLAN.md](docs/M5-PLAN.md),
@@ -67,11 +91,11 @@ Author-validated on branch `claude/m10-carry` (131/131 C/Rust full-save
 parity). Independent review: qualified pass, no acceptance blockers
 (issue23); findings addressed in `dd9983b`; the owner accepted it as impact
 milestone 10 (tag `4.2.6-impact-v10`).
-Exact accepted C milestone pins now
-drive Rust adoption. Existing neo-angband-tracker links stay source/history
-provenance; its queue does not independently schedule post-M5 work. The
-adoption contract supersedes older routing/fidelity wording for the new lane;
-preserve old reports and references.
+Through M10, exact accepted C milestone pins drove Rust adoption. Existing
+neo-angband-tracker links stay source/history provenance; its queue does not
+independently schedule post-M5 work. The adoption contract governed the
+historical carry lane and is preserved below; it does not schedule post-M10
+family development. Preserve old reports and references.
 
 
 Owner update (2026-11-06): targeted C/Rust corrections for crashes and
@@ -79,9 +103,12 @@ blatant play blockers are allowed; other conflicts are case by case.
 See `docs/FORK-CORRECTIONS.md`, which supersedes earlier absolute fidelity
 restrictions for those corrections. Broader divergence follows a milestone
 and owner-created tag.
-Read `docs/REVIEW.md` and `docs/STATUS.md`; `docs/M4-PLAN.md` records the earlier completed sequence. In short: this is a faithful Rust port of the
-Angband C Borg. The Rust Borg must produce the same keypress stream as the C
-Borg. Known C bugs are kept on purpose and listed in `docs/c-bugs.md`.
+Read `docs/REVIEW.md` and `docs/STATUS.md`; `docs/M4-PLAN.md` records the earlier completed sequence. Through the accepted M10 parity baseline, this was a faithful Rust port of the
+Angband C Borg: the Rust Borg had to produce the same keypress stream as the C
+Borg, and known C bugs were kept on purpose in `docs/c-bugs.md`. That parity rule
+remains the acceptance criterion for the `current` control, but post-M10 family
+variants may intentionally diverge under borg-rs#25 and later owner-directed
+family issues.
 
 ## Historical source-report routing (M1-M4)
 

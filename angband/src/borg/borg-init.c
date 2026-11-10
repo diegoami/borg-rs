@@ -92,6 +92,14 @@ struct borg_setting borg_settings[] = {
     { "borg_restore_ignore_settings", 'b', false},
     { "borg_munchkin_by_class", 'b', true },
     { "borg_munchkin_class_depth", 'i', 6 },
+    /* Borg-family configuration: the C oracle always uses `current` buying
+     * behaviour. Rust uses these to select its explicit variants (#25). */
+    { "borg_buy_strategy_default", 'i', 0 },
+    { "borg_buy_strategy_munchkin", 'i', -1 },
+    { "borg_buy_strategy_current_classes", 'i', 0 },
+    { "borg_buy_strategy_reserve410_classes", 'i', 0 },
+    { "borg_buy_strategy_current_munchkin_classes", 'i', 0 },
+    { "borg_buy_strategy_reserve410_munchkin_classes", 'i', 0 },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */
