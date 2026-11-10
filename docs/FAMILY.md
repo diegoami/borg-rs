@@ -83,10 +83,10 @@ population claim belongs to this tranche.
 
 ### Executed implementation checks (2026-11-10)
 
-- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **110 passed, one
+- `cargo test --release --manifest-path borg-rs/Cargo.toml`: **111 passed, one
   existing ignored**. This includes selection precedence, invalid/conflicting
-  configuration, urgent/completed gates, item classification and home-sell
-  retention.
+  configuration, urgent/completed gates (including light at radius 1 or below),
+  item classification, home-sell retention and the pending-sale goal reset.
 - `cargo clippy --release --all-targets --manifest-path borg-rs/Cargo.toml --
   -D warnings`: clean.
 - Fresh C and Rust builds plus `harness/check-no-c-borg.sh`: pass; no C Borg is
