@@ -13,7 +13,7 @@ configuration combination does not automatically earn one.
 | Strategy | Behaviour | Default / evidence status |
 | --- | --- | --- |
 | `current` (`0`) | Accepted impact-v10 power-valuation buying | Default for every unspecified class and mode; C/Rust parity remains its control |
-| `reserve410` (`1`) | Through `BI_MAXCLEVEL <= 7`, hold four Phase Doors and three CLW/CSW/CCW potions. While a deficit remains, buy the cheapest affordable deficit item and suppress other useful purchases. No food, no light, cuts and poison retain the existing urgent paths. A home-sell guard keeps reserve items in the pack until the deficit closes. | Experimental Rust-only variant; not a survival/progress claim |
+| `reserve410` (`1`) | Through `BI_MAXCLEVEL <= 7`, hold four Phase Doors and three CLW/CSW/CCW potions. While a deficit remains, buy the cheapest affordable deficit item and suppress other useful purchases. Food, cuts, poison and light at radius 1 or below retain the existing urgent paths. A home-sell guard keeps reserve items in the pack until the deficit closes. | Experimental Rust-only variant; not a survival/progress claim |
 
 `reserve410` is inspired by
 [better-borg-c#410](https://github.com/diegoami/better-borg-c/issues/410),
@@ -22,6 +22,12 @@ a buy/store loop. Its second version prevented the loop by retaining reserve
 items, but still failed the declared survival and max-depth-loss margins and
 was rejected. The family experiment exists to make such policy differences
 selectable and measurable, not to erase that evidence.
+
+The home-sell guard stops the guard-controlled sell/buy pass while the deficit
+is open. It does **not** remove the broader store→refill cycle seen in the #410
+experiment: the bounded Warrior/munchkin run still sells reserve items to the
+home and buys them again after returning. This variant is an experiment, not a
+fix for that cycle.
 
 ## Configuration and precedence
 

@@ -50,7 +50,7 @@ fn class_bit(class: i32) -> i32 {
     }
 }
 
-/// Validate the six family settings. A class may override a less specific
+/// Validate the seven family settings. A class may override a less specific
 /// selection in either direction, but current and reserve masks at the same
 /// precedence may not conflict.
 pub fn config_error(cfg: &[i32]) -> Option<&'static str> {
@@ -132,11 +132,13 @@ pub fn selected_for(st: &BorgState) -> BuyingStrategy {
 }
 
 /// Whether the experimental early reserve is active and still has a deficit.
+/// A radius-1 light (`BI_LIGHT == 1`) counts as urgent: the existing
+/// spare-torch top-up keeps priority over reserve buying.
 pub fn reserve410_unmet(st: &BorgState) -> bool {
     if selected_for(st) != BuyingStrategy::Reserve410
         || st.borg.tr(BI_MAXCLEVEL) > RESERVE410_MAXCLEVEL
         || st.borg.tr(BI_FOOD) == 0
-        || st.borg.tr(BI_LIGHT) == 0
+        || st.borg.tr(BI_LIGHT) <= 1
         || st.borg.tr(BI_ISCUT) != 0
         || st.borg.tr(BI_ISPOISONED) != 0
     {
@@ -181,7 +183,8 @@ mod tests {
         st.core.cfg[BORG_BUY_STRATEGY_DEFAULT as usize] = strategy;
         st.borg.trait_ = vec![0; BI_MAX as usize];
         st.borg.trait_[BI_FOOD as usize] = 1;
-        st.borg.trait_[BI_LIGHT as usize] = 1;
+        // A carried torch: LIGHT_2 sets BI_LIGHT to 2.
+        st.borg.trait_[BI_LIGHT as usize] = 2;
         st.borg.trait_[BI_MAXCLEVEL as usize] = 1;
         st
     }
@@ -267,13 +270,16 @@ mod tests {
         assert!(!reserve410_unmet(&st));
         st.borg.trait_[BI_MAXCLEVEL as usize] = 1;
         assert!(reserve410_unmet(&st));
-        for index in [BI_FOOD, BI_LIGHT, BI_ISCUT, BI_ISPOISONED] {
+        // Both a dead light (0) and a radius-1 light (1) leave the spare-torch
+        // top-up in front of the reserve.
+        for light in [0, 1] {
+            st.borg.trait_[BI_LIGHT as usize] = light;
+            assert!(!reserve410_unmet(&st));
+        }
+        st.borg.trait_[BI_LIGHT as usize] = 2;
+        for index in [BI_FOOD, BI_ISCUT, BI_ISPOISONED] {
             let old = st.borg.trait_[index as usize];
-            st.borg.trait_[index as usize] = if index == BI_FOOD || index == BI_LIGHT {
-                0
-            } else {
-                1
-            };
+            st.borg.trait_[index as usize] = if index == BI_FOOD { 0 } else { 1 };
             assert!(!reserve410_unmet(&st));
             st.borg.trait_[index as usize] = old;
         }
