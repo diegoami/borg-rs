@@ -1,0 +1,50 @@
+{
+  "consumer_pin": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+  "previous_consumer_pin": "33207fbeeb582e67d6b18e9f40613617667905ae",
+  "baseline": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "fixtures": [
+    {
+      "name": "necrolight-crash",
+      "unit": "0099",
+      "consumer_issue": 377,
+      "evidence_repository": "diegoami/better-borg-c",
+      "evidence_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+      "evidence_path": "docs/audit/c-reports/necrolight-296-crash/scenario.c",
+      "config_path": "docs/audit/c-reports/necrolight-296-crash/profile/borg.txt",
+      "original_sha256": "1e4c1f09319c8b174fd9b03a25d9d3b7fc7c2c67c6e4c5153e2780cd5af2ee81",
+      "scenario_sha256": "1e4c1f09319c8b174fd9b03a25d9d3b7fc7c2c67c6e4c5153e2780cd5af2ee81",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "NL296",
+      "marker": "native-c/necrolight-296-crash finished: 1/1 passed",
+      "modes": [
+        "stale-far",
+        "stale-town",
+        "lit",
+        "dark",
+        "mage-lit"
+      ],
+      "sanitizer": "asan"
+    },
+    {
+      "name": "fleeheal",
+      "unit": "I-002",
+      "consumer_issue": 408,
+      "evidence_repository": "diegoami/better-borg-c",
+      "evidence_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+      "evidence_path": "tools/fleeing-heal-scenario.c",
+      "config_path": "docs/audit/c-reports/fleeheal-408/profile/borg.txt",
+      "original_sha256": "73c6ca12b90d2f38a67a186b05c960bf1926e0c98328e64d88f84cb014f40719",
+      "scenario_sha256": "73c6ca12b90d2f38a67a186b05c960bf1926e0c98328e64d88f84cb014f40719",
+      "config_sha256": "80738da248ed74e343925e0348fc75da993d8c03ffff03c7bce1a9090005be47",
+      "env_prefix": "IM2",
+      "marker": "native-c/fleeheal-408 finished: 1/1 passed",
+      "modes": [
+        "flee-low",
+        "flee-highdanger",
+        "noflee-wounded",
+        "flee-full"
+      ],
+      "sanitizer": null
+    }
+  ]
+}

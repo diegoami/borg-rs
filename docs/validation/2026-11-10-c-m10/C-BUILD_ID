@@ -1,0 +1,9 @@
+impl=c
+git_rev=ef8b063366d9907133ece36aff20b9dc5c69b891
+git_dirty=no
+inputs_dirty=no
+source_sha256=eb0c22979558759458b2b2c1b4330ef9eed39b43e2c80f9a56c448fe132ca8f9
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=9432ca125f44e178df3736ac38b609f5c7c8d46a00abdfb2cb37a982ba9fddce
+cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+built_utc=2026-11-10T12:56:14Z

@@ -1,4 +1,102 @@
-# Local checkpoint — 2026-11-08
+# Local checkpoint — 2026-11-10 (C milestone10)
+
+## C milestone10 adoption (current)
+
+Owner direction (2026-11-10): after `4.2.6-impact-v9`, carry C milestone10.
+Target better-borg-c `6944d88e87d02e9d24e85438d25f0c6ef864c170`, tag
+`4.2.6-impact-v10`. Tracking [Rust#23](https://github.com/diegoami/borg-rs/issues/23).
+Record `docs/adoption/c-m10`; receipt `docs/validation/2026-11-10-c-m10`.
+C review: better-borg-c#420 (approve with corrections M10-R-01..07, applied
+in the snapshot commit, re-reviewed approve at `46057bc4a`).
+
+**Milestone 10 carries no new bug ordinal.** Its units are two owner-directed
+local improvement units (I-001, I-002; never proposed upstream, charter in the
+consumer's PR 389) and one crash correction attached to the already-carried
+0099 entry. The consumer's ledger is unchanged (98 entries, 98 patch files);
+the two improvement units live in its separate `patches/improvements.json`.
+
+Carried in C and Rust, for C/Rust parity (the units change Borg behaviour by
+design, so not carrying them would leave Rust behind the accepted C target):
+
+- **I-001** (consumer PR 394, issue #324): a lone adjacent known monster that
+  one blow would kill no longer justifies a strategic retreat. New
+  `borg_adjacent_kill_in_one_blow()` in `borg-caution.c`; `borg_thrust_damage_one()`
+  becomes non-static. **The guard is in the strategic-retreat condition only**;
+  the C back-away condition does not carry it. Rust factors the shared guard
+  clauses into `may_move_away()`, so that helper takes a `retreat: bool` to
+  select the I-001 face and leave the back-away call unchanged.
+- **I-002** (consumer PR 414, issue #408): `borg_caution()` tends wounds,
+  poison and cuts while fleeing when the grid is survivable this round
+  (`pos_danger < BI_CURHP`). The flee goal itself is untouched and
+  `borg_heal()`'s own danger gates still apply.
+- **0099 crash correction** (consumer PR 398, fix `dbc2bed77`): the consumer
+  adopted the `square_in_bounds(cave, borg.c)` guard that **borg-rs already
+  carried since milestone9**, so the C side needed a comment sync only and the
+  Rust side needed no change.
+
+C files: `borg-fight-attack.h` and `borg-magic.c` are byte-identical to the
+consumer's blobs at `6944d88e8`; `borg-fight-attack.c` keeps local #322;
+`borg-caution.c` differs only by pre-existing local history outside the m10
+hunks.
+
+**Validation (author, not independent review or acceptance).** 131/131 cases of
+the exact milestone2 plan complete in both roles with full C/Rust parity on
+keys, messages, state and the terminal native save; `harness/diff` exit 0
+(131/131 identical). Native fixtures 8/9 normal before → 9/9 after; the
+fail→pass is the I-002 anchor `fleeheal flee-low` (before: the recall rest,
+`heal=0 rest=1`; after: the Herbal Curing cure, `heal=1 rest=0`), and the
+three I-002 controls are byte-identical across the builds; ASan 5/5 modes with
+no report. Per-unit Rust fault controls: I-001 13/23 cases differ, I-002
+14/23 — both units are reached by the ordinary suite. Behaviour change against
+milestone9: 94/131 cases, deaths 13 → 14. The `cfg-munchkin-dunadan-bg`
+livelock case from the milestone9 receipt now completes in both roles; the
+mechanism is unchanged, the units reach a different path, and the earlier
+report on better-borg-c#204 stands.
+
+Removal units: five (three C, two Rust) in `docs/adoption/c-m10/removals`.
+Each reverse-applies on its own; together they restore `8a7579d` exactly for
+the changed C and Rust files; the implementation diff's hunks are partitioned
+across the units. There is no Rust unit for the 0099 correction (the Rust
+guard was already present and is unchanged).
+
+Merged to main as `44a96af` "Impact v10: carry better-borg-c milestone 10",
+followed by `9674ca0` (dropped the empty fixture link logs). Pushed to
+`origin/main` and to `origin/claude/m10-carry`.
+
+**Independent review: qualified pass, no acceptance blockers**
+([borg-rs#23](https://github.com/diegoami/borg-rs/issues/23#issuecomment-6770750242)).
+The reviewer found no C/Rust semantic mismatch in the three units and judged
+the parity reasoning for the two improvement units sound. Four findings:
+M10-R-01 (minor — the committed `C-BUILD_ID` was not the matrix's actual C
+binary identity; fixed by adding `MATRIX-C-BUILD_ID`/`MATRIX-RUST-BUILD_ID`
+and a `build_id` field in the compact summary, with no gate rerun and no
+evidence relabelled), M10-R-02 (minor — the `borg-caution.c` include is
+placed in the local sorted block, not as in the consumer; README wording
+narrowed, no C source change), M10-R-03 (observation — I-001's evidence is
+adequate for a bounded parity adoption but is not a direct edge-case or
+policy-benefit oracle; limitation preserved), M10-R-04 (note — `status.json`
+said "units" for fault-detected cases; now "cases").
+
+**Owner accepted the batch as impact v10** (tag `4.2.6-impact-v10`). The
+findings were addressed in `dd9983b`; the acceptance is recorded in the
+commit that follows. No tag is placed by the session: per the v8/v9
+precedent it is an annotated tag on the merged main commit, and the session
+git proxy refuses tag pushes, so the owner pushes it.
+
+Two things a reviewer should look at first (the review confirmed both):
+
+1. **I-001's Rust placement.** The C applies the guard only to the strategic
+   retreat; Rust's shared `may_move_away()` helper now takes a `retreat`
+   flag. If that flag were dropped or mis-set, the change would silently
+   widen to the back-away path.
+2. **I-001 has no native fixture.** The consumer declares the absence (its
+   guard never fires in any of its fixtures, and its own matrix shows zero
+   row changes). Its evidence is a targeted life and a paired cohort, both
+   the consumer's own runs and outside this lane's reach. The Rust coverage
+   is the parity matrix, the 13/23 fault control, and the translation review.
+   This is the thinnest part of the batch and the record says so.
+
+## Local checkpoint — 2026-11-08
 
 ## C milestone2 adoption
 

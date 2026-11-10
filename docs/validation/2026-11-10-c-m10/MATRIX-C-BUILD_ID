@@ -1,0 +1,47 @@
+# The actual binary identity of the milestone10 131-case game matrix.
+
+# This is the C build the 131-case matrix actually ran against, read from
+# the raw suite manifest (harness/out/c-m10/g-c/manifest). It is NOT the
+# later clean build recorded in C-BUILD_ID, which was made afterwards for
+# the remaining checks.
+#
+# The C image was built before the m10 commits were committed, from a
+# working tree that carried the same source changes over an uncommitted
+# tree: build_id_git_rev is 8a7579d (the milestone9 tip) with
+# git_dirty=yes and inputs_dirty=yes. The source_sha256 below is the
+# authoritative identity, and it equals the clean C-BUILD_ID's
+# source_sha256: the C source was byte-identical in both builds.
+#
+# Why the matrix result still stands: the C and Rust runs are compared
+# per case on the streams, not on the binaries, and both sides' source
+# hashes are the ones the clean builds record. The independent review
+# (borg-rs#23) verified that its own clean C build reproduced all 23
+# rerun cases' streams exactly, and that all 131 raw C process records
+# have stable before/after executable hashes.
+#
+# Recorded after review finding M10-R-01 (borg-rs#23). No gate was rerun
+# and no original evidence was relabelled.
+
+impl=c
+binary=/home/diego/projects/borg-rs/build/c/game/angband
+binary_sha256=9a7fb7c4009880356592a63121b742ad0d45a8079abf429c9068e6bfe76ec170
+binary_elf_impl=c
+binary_cmake_borg_impl=c
+build_id_impl=c
+build_id_git_rev=8a7579d11998c76b28c6e4f0f749b15d32fb7ba1
+build_id_git_dirty=yes
+build_id_inputs_dirty=yes
+build_id_source_sha256=eb0c22979558759458b2b2c1b4330ef9eed39b43e2c80f9a56c448fe132ca8f9
+build_id_binary_sha256=9a7fb7c4009880356592a63121b742ad0d45a8079abf429c9068e6bfe76ec170
+build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+build_id_built_utc=2026-11-10T12:22:54Z
+checkout_source_sha256=eb0c22979558759458b2b2c1b4330ef9eed39b43e2c80f9a56c448fe132ca8f9
+git_rev=8a7579d11998c76b28c6e4f0f749b15d32fb7ba1
+git_dirty=yes
+binary_sha256_end=9a7fb7c4009880356592a63121b742ad0d45a8079abf429c9068e6bfe76ec170
+started_utc=2026-11-10T12:25:30Z
+finished_utc=2026-11-10T12:44:02Z
+result=OK
+suite=adoption-suite-final
+suite_sha256=9428a8085d6d8828312b57323e8b04d2ac639596cbffec33cce0cd1dbd402dd8
+borg_txt_sha256=2b047f4d3880457fb71732f948dd0f86f307cf0289cc4707045fb362619d628f
