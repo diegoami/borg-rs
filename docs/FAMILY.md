@@ -13,7 +13,7 @@ configuration combination does not automatically earn one.
 | Strategy | Behaviour | Default / evidence status |
 | --- | --- | --- |
 | `current` (`0`) | Accepted impact-v10 power-valuation buying | Default for every unspecified class and mode; C/Rust parity remains its control |
-| `reserve410` (`1`) | Through `BI_MAXCLEVEL <= 7`, hold four Phase Doors and three CLW/CSW/CCW potions. While a deficit remains, buy the cheapest affordable deficit item and suppress other useful purchases. No food, no light, cuts and poison retain the existing urgent paths. A home-sell guard keeps reserve items in the pack until the deficit closes. | Experimental Rust-only variant; not a survival/progress claim |
+| `reserve410` (`1`) | Through `BI_MAXCLEVEL <= 7`, hold four Phase Doors and three CLW/CSW/CCW potions. While a deficit remains, buy the cheapest affordable deficit item and suppress other useful purchases. Food, cuts, poison and light at radius 1 or below retain the existing urgent paths. A home-sell guard keeps reserve items in the pack until the deficit closes. | Experimental Rust-only variant; not a survival/progress claim |
 
 `reserve410` is inspired by
 [better-borg-c#410](https://github.com/diegoami/better-borg-c/issues/410),
@@ -22,6 +22,12 @@ a buy/store loop. Its second version prevented the loop by retaining reserve
 items, but still failed the declared survival and max-depth-loss margins and
 was rejected. The family experiment exists to make such policy differences
 selectable and measurable, not to erase that evidence.
+
+The home-sell guard stops the guard-controlled sell/buy pass while the deficit
+is open. It does **not** remove the broader store→refill cycle seen in the #410
+experiment: the bounded Warrior/munchkin run still sells reserve items to the
+home and buys them again after returning. This variant is an experiment, not a
+fix for that cycle.
 
 ### Independent buy-to-identify policy (#27)
 
@@ -32,23 +38,26 @@ Wounds, Cure Serious Wounds, Remove Hunger, Detect Invisible and Monster
 Confusion. The engine's real `kind->aware` flag determines eligibility, so a
 kind is not learned repeatedly after its first purchase.
 
-Urgent food/light/cut/poison paths run first, then any unmet `reserve410`
-deficit, then learning purchases, then the old valuation. Missing or
-unaffordable learning stock falls through to the old valuation instead of
-suppressing it. This is [better-borg-c#412](https://github.com/diegoami/better-borg-c/issues/412)
+Food, cuts, poison and light at radius 1 or below keep the existing urgent
+paths and run first; then any unmet `reserve410` deficit, then learning
+purchases, then the old valuation. Missing or unaffordable learning stock falls
+through to the old valuation instead of suppressing it. While an unmet reserve
+cannot be afforded, the strict reserve policy still blocks learning and the old
+valuation together. This is [better-borg-c#412](https://github.com/diegoami/better-borg-c/issues/412)
 independently selectable in borg-rs, not a carry or a benefit claim. It can be
 combined with either buying strategy without changing the default.
 
 ## Configuration and precedence
 
-The C and Rust parsers carry the same six integer fields. C always executes the
-`current` policy; Rust resolves the selected family policy when making a buying
-or home-selling decision.
+The C and Rust parsers carry the same seven integer fields. C ignores both the
+strategy selection and `borg_buy_identify` and always executes the `current`
+policy; Rust resolves the selected family policy when making a buying or
+home-selling decision.
 
 | Setting | Default | Meaning |
 | --- | --- | --- |
 | `borg_buy_strategy_default` | `0` | Global strategy: `0` current, `1` reserve410 |
-| `borg_buy_identify` | `0` | Independent early learning policy: `0` off, `1` on |
+| `borg_buy_identify` | `0` | Independent early learning policy: `0` off, `1` on; parsed but ignored by C |
 | `borg_buy_strategy_munchkin` | `-1` | Munchkin override: `-1` inherit, `0` current, `1` reserve410 |
 | `borg_buy_strategy_current_classes` | `0` | Class mask forcing current in either mode |
 | `borg_buy_strategy_reserve410_classes` | `0` | Class mask forcing reserve410 in either mode |

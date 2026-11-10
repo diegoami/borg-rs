@@ -360,6 +360,15 @@ fn borg_good_buy(st: &mut BorgState, who: i32, ware_n: i32) -> bool {
     true
 }
 
+/// Point the Borg at one shop ware for purchase. A pending pack-sale goal
+/// (`goal.item`) is cleared first: `borg_think_shop_sell` would otherwise sell
+/// it on entering the chosen shop instead of buying the ware.
+fn set_buy_goal(st: &mut BorgState, k: i32, n: i32) {
+    st.borg.goal.item = -1;
+    st.borg.goal.shop = k as i16;
+    st.borg.goal.ware = n as i16;
+}
+
 /// Buy the cheapest affordable deficit toward the experimental #410 reserve.
 /// While that reserve is unmet, every other purchase in this function is
 /// suppressed. This is deliberately opt-in: upstream rejected the strict
@@ -402,8 +411,7 @@ fn borg_buy_reserve410(st: &mut BorgState) -> bool {
     }
 
     if b_kr >= 0 {
-        st.borg.goal.shop = b_kr as i16;
-        st.borg.goal.ware = b_nr as i16;
+        set_buy_goal(st, b_kr, b_nr);
         return true;
     }
 
@@ -436,8 +444,7 @@ fn borg_buy_identify(st: &mut BorgState) -> bool {
     }
 
     if b_k >= 0 {
-        st.borg.goal.shop = b_k as i16;
-        st.borg.goal.ware = b_n as i16;
+        set_buy_goal(st, b_k, b_n);
         return true;
     }
     false
@@ -1462,6 +1469,16 @@ mod tests {
         let b = BuyState::default();
         assert_eq!(b.bought_item_num, -1);
         assert_eq!(b.bought_item_nxt, 0);
+    }
+
+    #[test]
+    fn buy_goal_clears_a_pending_pack_sale() {
+        let mut st = BorgState::default();
+        st.borg.goal.item = 5;
+        set_buy_goal(&mut st, 4, 2);
+        assert_eq!(st.borg.goal.item, -1);
+        assert_eq!(st.borg.goal.shop, 4);
+        assert_eq!(st.borg.goal.ware, 2);
     }
 
     #[test]
