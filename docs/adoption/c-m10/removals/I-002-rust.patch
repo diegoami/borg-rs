@@ -1,0 +1,21 @@
+diff --git a/borg-rs/src/borg_caution.rs b/borg-rs/src/borg_caution.rs
+index 9b3a35a..070e371 100644
+--- a/borg-rs/src/borg_caution.rs
++++ b/borg-rs/src/borg_caution.rs
+@@ -1547,6 +1598,16 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
+                 return true;
+             }
+         }
++    } else if pos_danger < st.borg.tr(BI_CURHP) {
++        // Fleeing, but this grid is survivable this round: still tend to
++        // wounds, poison and cuts instead of staying untreated for the
++        // rest of the level. The flee goal itself is untouched, and
++        // borg_heal()'s own danger gates still apply.
++        //
++        // (Consumer improvement unit I-002, better-borg-c `4.2.6-impact-v10`.)
++        if borg_heal(st, pos_danger) {
++            return true;
++        }
+     }
+ 
+     // do some swapping before running away!

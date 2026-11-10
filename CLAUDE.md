@@ -56,6 +56,15 @@ with a local bounds guard (better-borg-c#377); see FORK-CORRECTIONS. #322
 remains. One plan case (cfg-munchkin-dunadan-bg) is a recorded pre-existing
 munchkin livelock (better-borg-c#204). Independent review: pass on re-review
 (issue21); owner accepted it as impact milestone 9 (tag `4.2.6-impact-v9`).
+Owner then directed C milestone10 (target 6944d88e8, `4.2.6-impact-v10`),
+tracking [borg-rs#24](https://github.com/diegoami/borg-rs/issues/24), record
+[adoption/c-m10](docs/adoption/c-m10/README.md). Milestone 10 carries **no
+new bug ordinal**: two owner-directed local improvement units (I-001, I-002;
+never proposed upstream) and the 0099 crash correction, which borg-rs already
+carried since milestone 9, so its C side needed a comment sync only. The
+improvement units change Borg behaviour and are carried for C/Rust parity.
+Author-validated on branch `claude/m10-carry` (131/131 C/Rust full-save
+parity); independent review and owner acceptance are pending.
 Exact accepted C milestone pins now
 drive Rust adoption. Existing neo-angband-tracker links stay source/history
 provenance; its queue does not independently schedule post-M5 work. The
