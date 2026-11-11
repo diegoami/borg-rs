@@ -141,7 +141,8 @@ loop:
 ### 6. The executor and the record - what already exists
 
 - the executors are reused as they are: a decision names a `(shop, ware)` goal and the existing code presses the keys (`borg_think_shop_buy`, `borg_store_buy.rs:1388`; `borg_think_shop_sell`, `borg_store_sell.rs:1117`);
-- the **record** is the key log, and it has to show a *plan*: for each action, what it was for and what it displaced. The current notes (`# Buying '<item>'(<letter>) at '<shop>'`) say what happened; the redesign adds why.
+- the **record** is the key log, and it has to show a *plan*: for each action, what it was for and what it displaced. The current notes (`# Buying '<item>'(<letter>) at '<shop>'`) say what happened; the redesign adds why;
+- the key log is also the **parity surface**. The receipt compares the C's and the Rust's complete key logs - `harness/diff` over `keys.log`, `messages.log` and `state.log`, driven by `measurement-receipt.py` (`m2-parity`, and `parity-<suite>` for captured-rogue, endgame, extended, lunal-investigation and synthetic-tactics) and by `measurement-test.py`, which asserts `log('c', name) == log('rust', name)` for every configuration. **Every sale and every purchase the Borg makes is pinned byte-for-byte against the C Borg.** Changing the town strategy therefore breaks parity by construction - which is the real cost of the redesign, and the reason the arms are Rust-only.
 
 ### 7. The configuration
 
@@ -166,7 +167,7 @@ These are the specifications the redesign needs and does not have yet. Each is a
 | P10 | **the equipment** | whether the plan manages the worn kit - the try-on evaluates a candidate by swapping the equipment out, and the plan has to decide whether to keep that or to treat the worn kit as fixed | the implementation |
 | P11 | **the Home** | overflow of the pack, or depot for the next trip - two different objectives - and what happens when the Home is full | the owner |
 | P12 | **the routing** | whether the floors keep the fast route they have today (food and light from the General store, cures from the Alchemy shop only) or whether the plan routes them like any other purchase | the implementation, from the floors |
-| P13 | **the observability** | exactly what the key log records - the plan, the displacement, the utility values, the solver's choice - and what the new suites assert. The sell side has no suite today at all | the owner, then the implementation |
+| P13 | **the observability** | exactly what the key log records - the plan, the displacement, the utility values - and what the new suites assert. There is no *content* assertion about selling anywhere: the family validators count purchase anchors (`# Buying Scrolls of Phase Door`, `# Buying Potions of Cure Light Wounds`) and nothing checks a sale. The sell behaviour is pinned only transitively, by the parity receipt's key-log comparison | the owner, then the implementation |
 | P14 | **the migration** | when the default moves, and what the receipt requires to be re-earned. The v11R receipt is 45/45 on the full suite and 105/105 runs; a new default voids it | the owner |
 
 ## What is not in the redesign
@@ -179,6 +180,7 @@ These are the specifications the redesign needs and does not have yet. Each is a
 ## Compatibility
 
 - the plan is **off by default** on the branch; `main` is untouched and keeps its receipt;
+- **the redesign voids the C/Rust town parity, and that is not a choice.** The receipt compares the complete key logs, so any change to what the Borg buys or sells diverges from the C Borg by construction. The C Borg stays the oracle for the old algorithm; the new town behaviour has no C counterpart, which is why the arms are Rust-only and the Rust default is their control;
 - the two existing gates (`borg_buy_strategy`, `borg_buy_identify`) stay as they are until the plan replaces them, and the plan's arms are what the zoo measures;
 - the suites that assert the current algorithm's shape - `family-buying`, `family-identify` - are reworked when the plan lands, not extended;
 - the C files the port touches stay byte-identical unless the redesign needs to change a shared rule, in which case the receipt is re-earned.
