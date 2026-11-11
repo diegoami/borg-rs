@@ -104,11 +104,6 @@ fn pack_size() -> i32 {
     i32::from(engine::z_info().pack_size)
 }
 
-/// `INVEN_OUTER`
-fn inven_outer() -> i32 {
-    inven_wield() + 7
-}
-
 /// `INVEN_TOTAL`
 fn inven_total() -> i32 {
     inven_wield() + 12
@@ -592,9 +587,14 @@ fn borg_think_home_sell_best(st: &mut BorgState, best_home_power: &mut i32) {
             st.store.shops[BORG_HOME].ware[n as usize] =
                 st.store.safe_shops[BORG_HOME].ware[n as usize];
 
-            // put item back into pack (the charges are not put back: C bug 33)
+            // put item back into pack
             let item = pack_item(st, i);
             item.iqty = item.iqty.wrapping_add(1);
+
+            // for wands and staffs put the charges back too
+            if is_charged(item) {
+                item.pval = (i32::from(item.pval) + charge_each) as i16;
+            }
 
             // put the item back in the test array
             st.store_sell.test_item[n as usize] = n as u8;
@@ -921,12 +921,12 @@ fn borg_good_sell(st: &mut BorgState, i: i32, who: i32) -> bool {
     }
 
     // Do not sell stuff that is not fully id'd and should be
-    // (C tests the ego of the cloak slot, not of the item: C bug 33)
-    if !item.ident && item.ego_idx != 0 && item.iqty < 2 {
-        let outer_ego = st.items.items[inven_outer() as usize].ego_idx;
-        if borg_ego_has_random_power(usize::from(outer_ego)) {
-            return false;
-        }
+    if !item.ident
+        && item.ego_idx != 0
+        && item.iqty < 2
+        && borg_ego_has_random_power(usize::from(item.ego_idx))
+    {
+        return false;
     }
 
     // Do not sell it if I just bought one

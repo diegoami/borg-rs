@@ -765,13 +765,16 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
 
     /* In the Dungeon */
     let prep_cur_depth = prepared(st, st.borg.tr(BI_CDEPTH));
+    /* borg_prepared() formats every reason into one static buffer, so the
+     * calls below overwrite the current depth's reason before it is used.
+     * Keep a private copy of the text. */
+    let prep_cur_text = prep_cur_depth.as_ref().map(|p| prep_text(st, p));
     let prep_next_depth = prepared(st, st.borg.tr(BI_CDEPTH) + 1);
 
     /* if not prepared for this level, head upward */
-    if let Some(p) = &prep_cur_depth {
+    if let Some(t) = &prep_cur_text {
         g = -1;
-        let t = prep_text(st, p);
-        note_with(st, b"# heading up, not prep for current level: ", &t, b")");
+        note_with(st, b"# heading up, not prep for current level: ", t, b")");
     }
 
     /* Count sellable items */
@@ -820,7 +823,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
     }
 
     /* Power-climb upwards when needed */
-    if let Some(p) = &prep_cur_depth {
+    if let Some(t) = &prep_cur_text {
         /* Certain checks are bypassed if Unique monster on level */
         if st.borg.mon.unique == 0 {
             /* if I am really out of depth go to town */
@@ -828,12 +831,10 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
                 && prepared(st, st.borg.tr(BI_MAXDEPTH) * 5 / 10).is_some()
                 && st.borg.tr(BI_MAXDEPTH) > 65
             {
-                let t = prep_text(st, p);
-                note_with(st, b"# Returning to town (too deep: ", &t, b")");
+                note_with(st, b"# Returning to town (too deep: ", t, b")");
                 st.borg.goal.rising = true;
             } else {
-                let t = prep_text(st, p);
-                note_with(st, b"# Climbing (too deep: ", &t, b")");
+                note_with(st, b"# Climbing (too deep: ", t, b")");
                 g = -1;
             }
         }
@@ -850,7 +851,6 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
         }
 
         /* I must return to collect stock from the house. */
-        let t = prep_text(st, p);
         if t.windows(18).any(|w| w == b"Collect from house") {
             borg_note(st, "# Returning to town to Collect stock.");
             st.borg.goal.rising = true;

@@ -439,11 +439,10 @@ pub fn observe_take_move(st: &mut BorgState, y: i32, x: i32, d: i32, a: u8, c: w
     false
 }
 
-/// The "up stairs" scan the three flows share: the index of the up stair
-/// (`track_less`) farthest from the Borg (C keeps a stair only when it is
-/// farther than the best so far; the first of equally far ones wins), and
-/// its distance. `(-1, -1)` when there is none.
-fn far_up_stair(st: &mut BorgState) -> (i32, i32) {
+/// The "up stairs" scan the three flows share: the index of the nearest up
+/// stair (`track_less`, the first of equally near ones) and its distance.
+/// `(-1, -1)` when there is none.
+fn nearest_up_stair(st: &mut BorgState) -> (i32, i32) {
     let mut b_stair = -1;
     let mut b_j = -1;
     let mut i: i32 = 0;
@@ -453,8 +452,8 @@ fn far_up_stair(st: &mut BorgState) -> (i32, i32) {
         /* How far is the nearest up stairs */
         let j = engine::distance(st.borg.c, crate::headers::z_type_h::loc { x, y });
 
-        /* skip the closer ones */
-        if b_j < j {
+        /* skip the farther ones */
+        if b_j == -1 || j < b_j {
             /* track it */
             b_j = j;
             b_stair = i;
@@ -535,7 +534,7 @@ fn take_select(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     st.flow.temp_n = 0;
 
     /* Check distance away from stairs, used later */
-    let (b_stair, b_j) = far_up_stair(st);
+    let (b_stair, b_j) = nearest_up_stair(st);
 
     /* Scan the object list */
     let mut i: i32 = 1;
@@ -661,7 +660,7 @@ fn scum_select(st: &mut BorgState, viewable: bool) -> bool {
     st.flow.temp_n = 0;
 
     /* Check for an existing "up stairs" */
-    let (b_stair, _) = far_up_stair(st);
+    let (b_stair, _) = nearest_up_stair(st);
 
     /* Scan the object list -- set filter*/
     let mut i: i32 = 1;
@@ -722,9 +721,9 @@ fn scum_flow(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
 /// Prepare to "flow" towards special objects to "take"
 /// (`borg_flow_take_lunal`).
 ///
-/// As in C, every entry below `borg_takes_nxt` is a target, dead ones
-/// (at 0,0) included, and the "bad item" verdict is worked out (with its
-/// notes) but never used; see docs/c-bugs.md.
+/// As in C, dead entries (`kidx == 0`) are skipped, and the "bad item"
+/// verdict is used: an item the routine marked bad is not a target outside
+/// munchkin mode (0101/0101a); see docs/c-bugs.md.
 pub fn borg_flow_take_lunal(st: &mut BorgState, viewable: bool, nearness: i32) -> bool {
     if !lunal_select(st, viewable) {
         return false;
@@ -741,7 +740,7 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
     }
 
     /* Check for an existing "up stairs" */
-    let (b_stair, _) = far_up_stair(st);
+    let (b_stair, _) = nearest_up_stair(st);
 
     /* Nothing yet */
     st.flow.temp_n = 0;
@@ -872,8 +871,10 @@ fn lunal_select(st: &mut BorgState, viewable: bool) -> bool {
                 }
             }
         }
-        /* (the verdict is not used, as in C) */
-        let _ = item_bad;
+        /* Skip items the Borg does not want (outside munchkin collection) */
+        if item_bad && !st.borg.munchkin_mode {
+            continue;
+        }
 
         /* Require line of sight if requested */
         if viewable && st.cave.grid(x, y).info & BORG_VIEW == 0 {
@@ -948,5 +949,24 @@ mod tests {
         assert_eq!((st.takes.cnt, st.takes.nxt), (0, 1));
         borg_free_flow_take(&mut st);
         assert!(st.takes.takes.is_empty());
+    }
+
+    #[test]
+    fn nearest_up_stair_is_the_closest_and_first_on_a_tie() {
+        let mut st = BorgState::default();
+        st.borg.c.x = 0;
+        st.borg.c.y = 0;
+        st.stairs.less.init(3);
+        st.stairs.less.num = 2;
+        // Farther stair first: v11 keeps the nearer one.
+        st.stairs.less.x[0] = 10;
+        st.stairs.less.y[0] = 0;
+        st.stairs.less.x[1] = 2;
+        st.stairs.less.y[1] = 0;
+        assert_eq!(nearest_up_stair(&mut st), (1, 2));
+
+        // Equal distance: the first one wins.
+        st.stairs.less.x[0] = 2;
+        assert_eq!(nearest_up_stair(&mut st), (0, 2));
     }
 }

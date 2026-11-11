@@ -1,0 +1,220 @@
+{
+  "schema": "borg-rs/c-consumer-adoption@1",
+  "milestone": "c-v11r",
+  "title": "better-borg-c milestone 11 carried as v11R",
+  "target_repository": "https://github.com/diegoami/better-borg-c",
+  "target_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
+  "target_tag": "4.2.6-impact-v11",
+  "previous_commit": "6944d88e87d02e9d24e85438d25f0c6ef864c170",
+  "previous_tag": "4.2.6-impact-v10",
+  "rust_base_commit": "399c907950b1fd474ddfc1c5a5d4f86063778aac",
+  "review_issue": "https://github.com/diegoami/better-borg-c/issues/471",
+  "package_pr": "https://github.com/diegoami/better-borg-c/pull/472",
+  "tag_record_pr": "https://github.com/diegoami/better-borg-c/pull/474",
+  "units": [
+    {
+      "ordinal": "0100",
+      "name": "STAIRPHASE-34",
+      "source": "diegoami/neo-angband-tracker#34",
+      "consumer_merge": "c54393aa6",
+      "patch": "patches/0100-stairphase-escape.patch",
+      "c_files": ["src/borg/borg-escape.c"],
+      "rust_files": ["borg-rs/src/borg_escape.rs"],
+      "disposition": "carried",
+      "note": "Stair escape is a complete alternative at five danger levels."
+    },
+    {
+      "ordinal": "0101/0101a",
+      "name": "LUNALTAKE-73",
+      "source": "diegoami/neo-angband-tracker#73",
+      "consumer_merge": ["c16c56405", "9ca986616"],
+      "patch": ["patches/0101-lunaltake-skip-bad.patch", "patches/0101a-lunaltake-mode-gate.patch"],
+      "c_files": ["src/borg/borg-flow-take.c"],
+      "rust_files": ["borg-rs/src/borg_flow_take.rs"],
+      "disposition": "carried",
+      "note": "Skip item_bad outside munchkin mode; 0101a uses runtime borg.munchkin_mode."
+    },
+    {
+      "ordinal": "0102",
+      "name": "FLOWKILLHALL-98",
+      "source": "diegoami/neo-angband-tracker#98",
+      "consumer_merge": "281e3dd8d",
+      "patch": "patches/0102-flowkill-per-monster.patch",
+      "c_files": ["src/borg/borg-flow-kill.c"],
+      "rust_files": ["borg-rs/src/borg_flow_kill.rs"],
+      "disposition": "carried",
+      "note": "Per-monster skip_monster and hall_walls; test the wall count after the scan."
+    },
+    {
+      "ordinal": "0103",
+      "name": "HITCHANCE-63",
+      "source": "diegoami/neo-angband-tracker#63",
+      "consumer_merge": "d624c29db",
+      "patch": "patches/0103-hitchance-armour-tohit.patch",
+      "c_files": ["src/borg/borg-danger.c"],
+      "rust_files": ["borg-rs/src/borg_danger.rs"],
+      "disposition": "carried",
+      "note": "Divide armour by monster to-hit; cap the partial hit chance at 100%."
+    },
+    {
+      "ordinal": "0104",
+      "name": "TAKESTAIR-71",
+      "source": "diegoami/neo-angband-tracker#71",
+      "consumer_merge": "4002d0308",
+      "patch": "patches/0104-takestair-nearest-stair.patch",
+      "c_files": ["src/borg/borg-flow-take.c"],
+      "rust_files": ["borg-rs/src/borg_flow_take.rs"],
+      "disposition": "carried",
+      "note": "Rust's shared nearest_up_stair helper is corrected once for all three flows."
+    },
+    {
+      "ordinal": "0105",
+      "name": "RESTPREP-108",
+      "source": "diegoami/neo-angband-tracker#108",
+      "consumer_merge": "423b9fc87",
+      "patch": "patches/0105-restprep-timer-width.patch",
+      "c_files": ["src/borg/borg.h"],
+      "rust_files": [
+        "borg-rs/src/borg.rs",
+        "borg-rs/src/borg_fight_defend.rs",
+        "borg-rs/src/borg_fight_perm.rs",
+        "borg-rs/src/borg_flow_stairs.rs",
+        "borg-rs/src/borg_update.rs"
+      ],
+      "disposition": "carried",
+      "note": "no_rest_prep widened from i16 to i32; truncating casts removed."
+    },
+    {
+      "ordinal": "0106",
+      "name": "PREPREASON-234",
+      "source": "diegoami/neo-angband-tracker#234",
+      "consumer_merge": "293e153ec",
+      "patch": "patches/0106-prepreason-copy.patch",
+      "c_files": ["src/borg/borg-think-dungeon-util.c"],
+      "rust_files": ["borg-rs/src/borg_think_dungeon_util.rs"],
+      "disposition": "carried",
+      "note": "Current depth reason copied before later borg_prepared calls overwrite the buffer."
+    },
+    {
+      "ordinal": "0107",
+      "name": "LOSECON-61",
+      "source": "diegoami/neo-angband-tracker#61",
+      "consumer_merge": "0b5889caf",
+      "patch": "patches/0107-losecon-con-fear.patch",
+      "c_files": ["src/borg/borg-danger.c"],
+      "rust_files": ["borg-rs/src/borg_danger.rs"],
+      "disposition": "carried",
+      "note": "LOSE_CON fear uses BI_CCON."
+    },
+    {
+      "ordinal": "0108",
+      "name": "CRUSHV2-66",
+      "source": "diegoami/neo-angband-tracker#66",
+      "consumer_merge": "b663b28b0",
+      "patch": "patches/0108-crushv2-ranged-danger.patch",
+      "c_files": ["src/borg/borg-danger.c"],
+      "rust_files": ["borg-rs/src/borg_danger.rs"],
+      "disposition": "carried",
+      "note": "The ranged Crush block clears v2, not v1."
+    },
+    {
+      "ordinal": "0109",
+      "name": "GRANITESIM-68",
+      "source": "diegoami/neo-angband-tracker#68",
+      "consumer_merge": "5f7597bb7",
+      "patch": "patches/0109-granitesim-ranged-wall.patch",
+      "c_files": ["src/borg/borg-danger.c"],
+      "rust_files": ["borg-rs/src/borg_danger.rs"],
+      "disposition": "carried",
+      "note": "Both move simulations test exactly granite; the Rust boolean is removed."
+    },
+    {
+      "ordinal": "0110",
+      "name": "SCOOTIDX-100",
+      "source": "diegoami/neo-angband-tracker#100",
+      "consumer_merge": "4ab32de77",
+      "patch": "patches/0110-scootidx-adjacent-monster.patch",
+      "c_files": ["src/borg/borg-flow-kill.c"],
+      "rust_files": ["borg-rs/src/borg_flow_kill.rs"],
+      "disposition": "carried",
+      "note": "Shoot'N'Scoot passes ag->kill, not the direction index."
+    },
+    {
+      "ordinal": "0111",
+      "name": "EMPTYSLOT-60",
+      "source": "diegoami/neo-angband-tracker#60",
+      "consumer_merge": "3e7732edd",
+      "patch": "patches/0111-emptyslot-empty-pack.patch",
+      "c_files": ["src/borg/borg-inventory.c"],
+      "rust_files": ["borg-rs/src/borg_inventory.rs"],
+      "disposition": "carried",
+      "note": "An empty pack returns first empty slot 0."
+    },
+    {
+      "ordinal": "0112",
+      "name": "EATHURT-80",
+      "source": "diegoami/neo-angband-tracker#80",
+      "consumer_merge": "536534d2d",
+      "patch": "patches/0112-eathurt-when-hurt.patch",
+      "c_files": ["src/borg/borg-item-use.c"],
+      "rust_files": ["borg-rs/src/borg_item_use.rs"],
+      "disposition": "carried",
+      "note": "The food-cure branch requires CURHP < MAXHP."
+    },
+    {
+      "ordinal": "0113",
+      "name": "RINGSLOT-86",
+      "source": "diegoami/neo-angband-tracker#86",
+      "consumer_merge": "4a58046f8",
+      "patch": "patches/0113-ringslot-left-duplicate.patch",
+      "c_files": ["src/borg/borg-item-wear.c"],
+      "rust_files": ["borg-rs/src/borg_item_wear.rs"],
+      "disposition": "carried",
+      "note": "The stale left-ring duplicate check is removed."
+    },
+    {
+      "ordinal": "0114",
+      "name": "SWAPTRIAL-31",
+      "source": "diegoami/neo-angband-tracker#31",
+      "consumer_merge": "b77f5ae00",
+      "patch": "patches/0114-swaptrial-restore-hole.patch",
+      "c_files": ["src/borg/borg-store-buy.c"],
+      "rust_files": ["borg-rs/src/borg_store_buy.rs"],
+      "disposition": "carried",
+      "note": "The home-swap trial slot is restored from safe_items."
+    },
+    {
+      "ordinal": "0115",
+      "name": "HOMESKIP-29",
+      "source": "diegoami/neo-angband-tracker#29",
+      "consumer_merge": "2d0840571",
+      "patch": "patches/0115-homeskip-per-ware.patch",
+      "c_files": ["src/borg/borg-store-buy.c"],
+      "rust_files": ["borg-rs/src/borg_store_buy.rs"],
+      "disposition": "carried",
+      "note": "skip_it resets for each home ware."
+    },
+    {
+      "ordinal": "0116",
+      "name": "SELLCHARGES-132",
+      "source": "diegoami/neo-angband-tracker#132",
+      "consumer_merge": "858774476",
+      "patch": "patches/0116-sellcharges-restore.patch",
+      "c_files": ["src/borg/borg-store-sell.c"],
+      "rust_files": ["borg-rs/src/borg_store_sell.rs"],
+      "disposition": "carried",
+      "note": "Staff/wand charges are restored with the quantity after a home-sell trial."
+    },
+    {
+      "ordinal": "0117",
+      "name": "EGOSELL-133",
+      "source": "diegoami/neo-angband-tracker#133",
+      "consumer_merge": "39268ca8a",
+      "patch": "patches/0117-egosell-item-ego.patch",
+      "c_files": ["src/borg/borg-store-sell.c"],
+      "rust_files": ["borg-rs/src/borg_store_sell.rs"],
+      "disposition": "carried",
+      "note": "borg_good_sell checks the sold item's own ego."
+    }
+  ]
+}

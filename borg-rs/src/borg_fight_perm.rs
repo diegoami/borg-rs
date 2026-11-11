@@ -93,10 +93,9 @@ fn blind_or_confused(st: &BorgState) -> bool {
     st.borg.tr(BI_ISBLIND) != 0 || st.borg.tr(BI_ISCONFUSED) != 0
 }
 
-/// `borg.trait[BI_CLEVEL] * 1000` stored in the `int16_t`
-/// `borg.no_rest_prep` (truncates from level 33 on, as in C).
-fn level_times_1000(st: &BorgState) -> i16 {
-    (st.borg.tr(BI_CLEVEL) * 1000) as i16
+/// `borg.trait[BI_CLEVEL] * 1000` stored in `borg.no_rest_prep`.
+fn level_times_1000(st: &BorgState) -> i32 {
+    st.borg.tr(BI_CLEVEL) * 1000
 }
 
 /// Prayer to prepare for battle
@@ -757,4 +756,20 @@ pub fn borg_perma_spell(st: &mut BorgState) -> bool {
 
     /* Success */
     true
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::borg_headers::borg_trait_h::BI_MAX;
+
+    #[test]
+    fn no_rest_prep_does_not_wrap_at_high_level() {
+        let mut st = BorgState::default();
+        st.borg.trait_ = vec![0; BI_MAX as usize];
+        st.borg.trait_[BI_CLEVEL as usize] = 35;
+        st.borg.no_rest_prep = level_times_1000(&st);
+        assert_eq!(st.borg.no_rest_prep, 35_000);
+        assert!(st.borg.no_rest_prep > 0);
+    }
 }

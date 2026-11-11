@@ -899,12 +899,13 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
             && (st.borg.tr(BI_AMISSILES) <= 0 && st.borg.tr(BI_CLASS) == CLASS_WARRIOR))
     {
         // Phase door, if useful
-        if (borg_escape_stair(st) || borg_caution_phase(st, 25, 2))
-            && borg_timer(st, st.borg.time.antisummon) > 50
-            && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
-                || borg_spell_fail(st, PORTAL, allow_fail)
-                || borg_activate_item(st, st.act.tele_phase)
-                || borg_read_scroll(st, st.item_val.sv_scroll_phase_door))
+        if borg_escape_stair(st)
+            || (borg_caution_phase(st, 25, 2)
+                && borg_timer(st, st.borg.time.antisummon) > 50
+                && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
+                    || borg_spell_fail(st, PORTAL, allow_fail)
+                    || borg_activate_item(st, st.act.tele_phase)
+                    || borg_read_scroll(st, st.item_val.sv_scroll_phase_door)))
         {
             // Flee!
             phase_not_escape(st);
@@ -997,13 +998,14 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
         || (b_q > avoid(st, 6, rb) && st.borg.tr(BI_CLEVEL) <= 35)
     {
         // Phase door, if useful
-        if (borg_escape_stair(st) || borg_caution_phase(st, 20, 2))
-            && borg_timer(st, st.borg.time.antisummon) > 50
-            && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
-                || borg_spell_fail(st, PORTAL, allow_fail)
-                || borg_activate_item(st, st.act.tele_phase)
-                || borg_shadow_shift(st, allow_fail)
-                || borg_read_scroll(st, st.item_val.sv_scroll_phase_door))
+        if borg_escape_stair(st)
+            || (borg_caution_phase(st, 20, 2)
+                && borg_timer(st, st.borg.time.antisummon) > 50
+                && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
+                    || borg_spell_fail(st, PORTAL, allow_fail)
+                    || borg_activate_item(st, st.act.tele_phase)
+                    || borg_shadow_shift(st, allow_fail)
+                    || borg_read_scroll(st, st.item_val.sv_scroll_phase_door)))
         {
             // Flee!
             phase_not_escape(st);
@@ -1079,12 +1081,13 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
         && (b_q > avoid(st, 5, rb) || (b_q > avoid(st, 7, rb) && near_unique_1_8(st)))
     {
         // Phase door, if useful
-        if (borg_escape_stair(st) || borg_caution_phase(st, 20, 2))
-            && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
-                || borg_spell_fail(st, PORTAL, allow_fail)
-                || borg_activate_item(st, st.act.tele_phase)
-                || borg_shadow_shift(st, allow_fail)
-                || borg_read_scroll(st, st.item_val.sv_scroll_phase_door))
+        if borg_escape_stair(st)
+            || (borg_caution_phase(st, 20, 2)
+                && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
+                    || borg_spell_fail(st, PORTAL, allow_fail)
+                    || borg_activate_item(st, st.act.tele_phase)
+                    || borg_shadow_shift(st, allow_fail)
+                    || borg_read_scroll(st, st.item_val.sv_scroll_phase_door)))
         {
             // Flee!
             borg_note(st, "# Danger Level 5.1");
@@ -1157,12 +1160,13 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
         && (st.borg.tr(BI_CURSP) <= st.borg.tr(BI_MAXSP) / 10 && st.borg.tr(BI_MAXSP) >= 100)
     {
         // Phase door, if useful
-        if (borg_escape_stair(st) || borg_caution_phase(st, 20, 2))
-            && borg_timer(st, st.borg.time.antisummon) > 50
-            && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
-                || borg_spell_fail(st, PORTAL, allow_fail)
-                || borg_activate_item(st, st.act.tele_phase)
-                || borg_read_scroll(st, st.item_val.sv_scroll_phase_door))
+        if borg_escape_stair(st)
+            || (borg_caution_phase(st, 20, 2)
+                && borg_timer(st, st.borg.time.antisummon) > 50
+                && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
+                    || borg_spell_fail(st, PORTAL, allow_fail)
+                    || borg_activate_item(st, st.act.tele_phase)
+                    || borg_read_scroll(st, st.item_val.sv_scroll_phase_door)))
         {
             // Flee!
             borg_note(st, "# Danger Level 6.1");
@@ -1210,12 +1214,13 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
     // 8- not too scary but twitching
     if st.borg.times_twitch > 50 {
         // Phase door, if useful
-        if (borg_escape_stair(st) || borg_caution_phase(st, 20, 2))
-            && borg_timer(st, st.borg.time.antisummon) > 50
-            && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
-                || borg_spell_fail(st, PORTAL, allow_fail)
-                || borg_activate_item(st, st.act.tele_phase)
-                || borg_read_scroll(st, st.item_val.sv_scroll_phase_door))
+        if borg_escape_stair(st)
+            || (borg_caution_phase(st, 20, 2)
+                && borg_timer(st, st.borg.time.antisummon) > 50
+                && (borg_spell_fail(st, PHASE_DOOR, allow_fail)
+                    || borg_spell_fail(st, PORTAL, allow_fail)
+                    || borg_activate_item(st, st.act.tele_phase)
+                    || borg_read_scroll(st, st.item_val.sv_scroll_phase_door)))
         {
             // Flee!
             borg_note(st, "# Danger Level 8");

@@ -370,7 +370,7 @@ static int borg_danger_physical(int i, bool full_damage)
             /* Add fear for the effect */
             z += 150;
             /* extra scary to have con drain below 8 */
-            if (borg.trait[BI_CSTR] < 8)
+            if (borg.trait[BI_CCON] < 8)
                 z += 100;
             if ((pfe) && !borg_attacking)
                 z /= 2;
@@ -517,16 +517,19 @@ static int borg_danger_physical(int i, bool full_damage)
         if (!full_damage) {
             /* figure out chance that monster will hit you. */
             /* add a 50% bonus in to account for bad luck. */
-            if (borg.near.unique || (r_ptr->level + power) > 0)
-                chance
-                    = 150
-                      - (((ac * 300) / 4) / 1 + ((r_ptr->level + power) * 3));
+            if ((r_ptr->level + power) > 0)
+                chance = 150
+                         - (((ac * 300) / 4) / ((r_ptr->level + power) * 3));
             else
                 chance = -1;
 
             /* always have a 5% chance of hitting. */
             if (chance < 5)
                 chance = 5;
+
+            /* never estimate more than the full damage of the blow. */
+            if (chance > 100)
+                chance = 100;
 
             /* Modify the damage by the chance of getting hit */
             z = (z * chance) / 100;
@@ -2659,7 +2662,7 @@ int borg_danger_one_kill(
                 continue;
 
             /* Cannot occupy a wall/seam grid (unless pass_wall or kill_wall) */
-            if (borg_grids[y_temp][x_temp].feat >= FEAT_GRANITE
+            if (borg_grids[y_temp][x_temp].feat == FEAT_GRANITE
                 || (borg_grids[y_temp][x_temp].feat == FEAT_MAGMA
                     || borg_grids[y_temp][x_temp].feat == FEAT_QUARTZ
                     || borg_grids[y_temp][x_temp].feat == FEAT_MAGMA_K
@@ -2738,7 +2741,7 @@ int borg_danger_one_kill(
         if ((kill->power * (100 - kill->injury)) / 100 < borg.trait[BI_CLEVEL] * 4) {
             borg_grid* ag = &borg_grids[y9][x9];
             if (ag->info & BORG_VIEW && borg_cave_floor_grid(ag))
-                v1 = 0;
+                v2 = 0;
         }
     }
 

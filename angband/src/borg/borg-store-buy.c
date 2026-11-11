@@ -887,6 +887,7 @@ bool borg_think_home_grab_useless(void)
             continue;
 
         /* skip stuff if we sold bought it */
+        skip_it = false;
         for (p = 0; p < sold_item_num; p++) {
             if (sold_item_tval[p] == item->tval
                 && sold_item_sval[p] == item->sval
@@ -1021,8 +1022,8 @@ bool borg_think_home_buy_swap_weapon(void)
             p = weapon_swap_value;
         }
 
-        /* Restore hole */
-        borg_items[hole].iqty = 0;
+        /* Restore hole (the current swap, if the trial used its slot) */
+        memcpy(&borg_items[hole], &safe_items[hole], sizeof(borg_item));
 
         /* Restore shop item */
         memcpy(&borg_shops[BORG_HOME].ware[n], &borg_safe_shops[BORG_HOME].ware[n],
@@ -1130,8 +1131,8 @@ bool borg_think_home_buy_swap_armour(void)
         /* Evaluate the new equipment */
         p = armour_swap_value;
 
-        /* Restore hole */
-        borg_items[hole].iqty = 0;
+        /* Restore hole (the current swap, if the trial used its slot) */
+        memcpy(&borg_items[hole], &safe_items[hole], sizeof(borg_item));
 
         /* Restore shop item */
         memcpy(&borg_shops[BORG_HOME].ware[n],

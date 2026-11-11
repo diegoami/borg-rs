@@ -2191,7 +2191,7 @@ fn old_level(st: &mut BorgState) {
     // reduce the No-resting-because-I-just-did-a-prep-spell
     if st.borg.no_rest_prep >= 1 {
         let r = st.traits.game_ratio;
-        st.borg.no_rest_prep = (i32::from(st.borg.no_rest_prep) - i32::from(r)) as i16;
+        st.borg.no_rest_prep -= i32::from(r);
     }
 
     // Count down to blast off

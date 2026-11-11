@@ -1,0 +1,9 @@
+impl=c
+git_rev=e8f939a9f8834d656d8ec2bee43a407c89b40d5a
+git_dirty=no
+inputs_dirty=no
+source_sha256=e1e65f643e599e66b222d2622652e7e82dd56cabbacc89097ba6357abdf536d5
+binary=/tmp/opencode/v11r-final/build/c/game/angband
+binary_sha256=9b61185e0ad0d378af815db46c0135abaf99a61ae8e750a3a545f06d1e4f6695
+cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+built_utc=2026-11-10T20:26:49Z

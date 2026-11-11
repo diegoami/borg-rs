@@ -1005,10 +1005,8 @@ pub fn borg_think_shop_grab_interesting(st: &mut BorgState) -> bool {
 pub fn borg_think_home_grab_useless(st: &mut BorgState) -> bool {
     let home = BORG_HOME as i32;
     let mut b_n: i32 = -1;
-    // these keep their values from one ware to the next, as in C (the
-    // skip flag is never reset: docs/c-bugs.md)
+    // this keeps its value from one ware to the next, as in C
     let mut charge_each: i32 = 0;
-    let mut skip_it = false;
     let hole = borg_first_empty_inventory_slot(st);
 
     /* Require two empty slots */
@@ -1033,6 +1031,7 @@ pub fn borg_think_home_grab_useless(st: &mut BorgState) -> bool {
         }
 
         /* skip stuff if we sold bought it */
+        let mut skip_it = false;
         let mut p = 0;
         while p < st.store_sell.sold_item_num {
             let (s_tval, s_sval, s_store) = crate::borg_store_sell::sold_item(st, p as usize);
@@ -1212,8 +1211,8 @@ fn home_buy_swap(st: &mut BorgState, which: Swap) -> bool {
         /* Evaluate the new equipment */
         p = swap_value(st, which);
 
-        /* Restore hole */
-        item_mut(st, hole).iqty = 0;
+        /* Restore hole (the current swap, if the trial used its slot) */
+        item_from_safe(st, hole, hole);
 
         /* Restore shop item */
         restore_ware(st, home, n);

@@ -7,6 +7,14 @@ Read [docs/M5-PLAN.md](docs/M5-PLAN.md),
 [docs/C-CONSUMER-ADOPTION.md](docs/C-CONSUMER-ADOPTION.md) and
 [review#2](https://github.com/diegoami/borg-rs/issues/2) first.
 
+Owner update (2026-11-10): one owner-directed carry of better-borg-c
+milestone 11 was made as **v11R** (record
+[docs/adoption/c-v11r](docs/adoption/c-v11r/README.md)). It updates the C
+oracle to the consumer's `4.2.6-impact-v11` blobs and ports the same 18
+runtime units to Rust. This is a deliberate exception, not a resumption of an
+automatic later-milestone queue; later BBC targets still need explicit owner
+direction.
+
 The owner selected better-borg-c milestone2 on2026-11-08 and requested
 adoption issue [borg-rs#6](https://github.com/diegoami/borg-rs/issues/6).
 Target2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f contains seven fixes,
