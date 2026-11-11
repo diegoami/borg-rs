@@ -1,6 +1,43 @@
 # borg-rs status
 
-## Current task: carry better-borg-c milestone 11 as v11R (impact v11R)
+## Current direction: a Borg family after impact v10
+
+Starting from the owner-accepted `4.2.6-impact-v10` snapshot, borg-rs diverges
+from better-borg-c and develops a family of Borgs rather than automatically
+carrying later C milestones. New variants may intentionally change the keypress
+stream; the accepted v10 behaviour remains the `current` control. The first
+bounded lane is [borg-rs#25](https://github.com/diegoami/borg-rs/issues/25):
+buying strategies selectable by class and munchkin/non-munchkin mode, beginning
+with `current` and the experimental `reserve410` strategy, with a small future
+zoo matrix rather than an immediate broad tuning campaign. It references
+[better-borg-c#410](https://github.com/diegoami/better-borg-c/issues/410) as a
+rejected upstream proposal and preserves its negative evidence.
+
+Implementation of #25 has begun: the strategy seam, configuration, reserve and
+home-sell guard, focused tests, eight-case runtime suite and registry exist.
+The current control passes 3/3 C/Rust smoke parity and matches the retained v10
+smoke streams; the explicit family validator passes 8/8 cases. This is not
+variant acceptance, a zoo outcome, or a derived-tag decision.
+
+Accepted family variants can receive derived tags of the form
+`4.2.6-impact-v10-<variant>` (for example `4.2.6-impact-v10-r` or
+`4.2.6-impact-v10-s`) after independent validation and explicit owner
+acceptance. No derived tag is placed by the direction or scoping issue itself.
+The root `CLAUDE.md` is the current repository rule, and
+[docs/FAMILY.md](FAMILY.md) is the strategy/configuration registry; the old
+C-consumer adoption contract is retained for the completed M2-M10 carry lane.
+
+**Update 2026-11-11:** the first tranche of #25 was independently reviewed
+(qualified pass, no acceptance blocker; a static code review and a
+compile-surface check, without a local suite re-run), accepted by the owner and
+merged as [PR #26](https://github.com/diegoami/borg-rs/pull/26) from the
+reviewed head `be5f4891f`. The stacked #27 tranche (buy-to-identify,
+[PR #28](https://github.com/diegoami/borg-rs/pull/28)) follows it. No derived
+variant tag is placed: the family lane remains an experiment with no benefit
+claim.
+
+
+## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
 
 Owner direction (2026-11-10): carry the consumer's milestone 11
 (`4.2.6-impact-v11`, `39268ca8a`) into borg-rs as **v11R**, the Rust
@@ -18,8 +55,10 @@ binary links no C Borg. Receipt:
 Independent review of [PR #30](https://github.com/diegoami/borg-rs/pull/30):
 **approve**, with one minor doc finding (F1, fixed in `e8f939a`). The reviewer
 also reproduced deep 9/9, classes 16/16, config 7/7 and options 25/25 parity.
-Owner acceptance and any `v11R` tag decision remain; the post-M10 family lane
-is separate and unaffected.
+Owner accepted it on 2026-11-11 and it was merged as
+[PR #30](https://github.com/diegoami/borg-rs/pull/30) at
+`f4149b4cc84af7e4c680f90d4db9f61ba8b660f3`. The `v11R` tag decision remains with
+the owner; the post-M10 family lane is separate and unaffected.
 
 ## Previous: adopt better-borg-c milestone 10 (impact v10)
 
