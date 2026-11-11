@@ -27,6 +27,39 @@ The root `CLAUDE.md` is the current repository rule, and
 [docs/FAMILY.md](FAMILY.md) is the strategy/configuration registry; the old
 C-consumer adoption contract is retained for the completed M2-M10 carry lane.
 
+**Update 2026-11-11:** the first tranche of #25 was independently reviewed
+(qualified pass, no acceptance blocker; a static code review and a
+compile-surface check, without a local suite re-run), accepted by the owner and
+merged as [PR #26](https://github.com/diegoami/borg-rs/pull/26) from the
+reviewed head `be5f4891f`. The stacked #27 tranche (buy-to-identify,
+[PR #28](https://github.com/diegoami/borg-rs/pull/28)) follows it. No derived
+variant tag is placed: the family lane remains an experiment with no benefit
+claim.
+
+
+## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
+
+Owner direction (2026-11-10): carry the consumer's milestone 11
+(`4.2.6-impact-v11`, `39268ca8a`) into borg-rs as **v11R**, the Rust
+counterpart of its 18 runtime units 0100-0117. This is an explicit carry, not
+an automatic post-M10 queue. The 11 C Borg files in this tree are the
+consumer's v11 blobs, so the C oracle and the Rust Borg carry the same fixes.
+Record: [docs/adoption/c-v11r](adoption/c-v11r/README.md);
+`docs/c-bugs.md` marks the fixed findings.
+
+Validation: 105 Rust tests (one existing ignored), clippy clean, C/Rust smoke
+**3/3** and full **45/45** identical on keys, messages and state; the Rust
+binary links no C Borg. Receipt:
+[docs/validation/2026-11-10-c-v11r](validation/2026-11-10-c-v11r/README.md).
+
+Independent review of [PR #30](https://github.com/diegoami/borg-rs/pull/30):
+**approve**, with one minor doc finding (F1, fixed in `e8f939a`). The reviewer
+also reproduced deep 9/9, classes 16/16, config 7/7 and options 25/25 parity.
+Owner accepted it on 2026-11-11 and it was merged as
+[PR #30](https://github.com/diegoami/borg-rs/pull/30) at
+`f4149b4cc84af7e4c680f90d4db9f61ba8b660f3`. The `v11R` tag decision remains with
+the owner; the post-M10 family lane is separate and unaffected.
+
 ## Previous: adopt better-borg-c milestone 10 (impact v10)
 
 C milestone 10 (`4.2.6-impact-v10`) carries no new bug ordinal: its units are
