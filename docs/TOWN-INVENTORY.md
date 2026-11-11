@@ -155,6 +155,82 @@ loop:
 - a setting that turns the plan on, **default off**, so `main` keeps its behaviour, its suites and its validation receipt while the redesign is built;
 - the weight vector, and the parameters (`k` for the share cap, the decay shape), settable per arm.
 
+## The optimisation problem
+
+## The optimisation problem
+
+The whole town visit reduces to **one program over a decision vector**, with the arms differing only in a vector of parameters. This is the specification the implementation follows.
+
+### The state (given)
+
+The character, its pack, the Home, and every shop's stock and prices - all already available: `borg_notice_store` (`borg_store.rs:159-199`) refreshes the shops, and the Borg's traits carry the rest.
+
+### The variables
+
+| variable | domain | what it decides |
+|---|---|---|
+| `q_w` | 0 .. the stack of that ware | how many copies of each ware to buy |
+| `d_i` | keep, store, sell, drop | what to do with each item in the pack |
+| `e_j` | keep, take, sell | what to do with each item in the Home |
+| `n_K` | 0 .. n | how many copies of each kind the character ends up carrying |
+
+### The objective
+
+```
+maximise   Σ_K U_K(n_K)  +  Σ_{equipment} U(w)
+```
+
+where `U_K` is the usefulness of carrying `n` copies of kind `K`, and `U_K` is **concave in `n`** - the first copy is worth more than the second, because the deficit it closes is smaller by then.
+
+The objective is evaluated on the **final kit**: what the character carries into the dungeon, after the sales, the stores, the withdrawals and the purchases. That is what makes the dispositions and the purchases *one* problem rather than two - selling an item is not a decision about that item, it is a decision to convert it into something else.
+
+### The constraints
+
+| constraint | statement |
+|---|---|
+| **gold** | `Σ_w q_w · price(w) ≤ gold + Σ_i [d_i = sell]·price(i) + Σ_j [e_j = sell]·price(j)` |
+| **pack slots** | `#{K : n_K > 0} + #{equipment} ≤ free_pack_slots` (23, counted per distinct stack) |
+| **home slots** | the number of items stored in the Home ≤ the Home's slots |
+| **weight** | the carried weight ≤ the carry allowance (encumbrance, already priced by `borg_power.rs:1773-1824`) |
+| **floors** | `n_food ≥ 1`, `n_light ≥ 1`, not bleeding, not poisoned |
+
+The gold constraint is where the two sides couple: the proceeds of a sale are budget for a purchase.
+
+### The parameters (the arm)
+
+| parameter | what it is | swept? |
+|---|---|---|
+| `w_light, w_food, w_bleeding, w_poison, w_escape, w_knowledge, w_power, w_trip` | the owner's priority per need; the weight is what the **whole** need is worth | **yes** |
+| `k_share` | the Black Market's share cap: `cost ≤ purse / k` | **yes** |
+| the trip model's parameters | how `required_food(trip)`, `required_light(depth)` and `escapes_needed(ahead)` are computed | **yes** |
+| the floor levels | light ≥ 1, food ≥ 1, not bleeding, not poisoned | decided |
+| the catalogue of useful kinds | which kinds the knowledge need counts | derived |
+| the decay | the fall of `U_K` - it is the deficit closing, not a rule | derived |
+
+**One arm is one parameter vector.** Everything else is derived from the state, so the experiment is clean: the same mechanism, the same seeds, the same suite, and a different point in the parameter space.
+
+### The solver
+
+The objective is **separable and concave per kind**, which is the structure that makes this tractable:
+
+- **gold only** - a group knapsack with concave group values: for each kind, try every count from 0 up, and DP over the budget. `O(budget × kinds × copies)` ≈ 30,000 × 30 × 20 = 18M operations, milliseconds;
+- **the floors** - solved first as a feasibility pass: the minimum purchase set that satisfies them, whose cost comes off the budget. That is the "floors first" rule, expressed as a lexicographic constraint rather than as a price;
+- **the pack slots** - a second dimension, `#{K : n_K > 0} ≤ slots`. Adding it to the DP makes it `O(budget × slots × kinds × copies)` ≈ 400M, which is too slow for a decision per turn;
+- **the weight** - a third dimension, and the same problem.
+
+So there are two candidate solvers, and the choice is a build decision that the zoo can measure:
+
+1. **exact** - the DP over the budget, with the floors first and the slot and weight constraints checked afterwards and repaired if they fail;
+2. **near-exact** - the greedy over marginal gains (take the copies with the best marginal usefulness per gold, respecting the floors), then a repair pass that drops or swaps what breaks the slot or weight constraint.
+
+The greedy is the one the old strategy approximates, except that the old one takes the single biggest gain and re-evaluates, which is neither of these.
+
+### What the reduction does not settle
+
+- **the trip model** - the target levels come from it, and it does not exist yet;
+- **the joint treatment** - the program above is joint (the dispositions and the purchases share the gold constraint). Solving it in two stages - decide the dispositions, then buy with what they fetch - is simpler and loses the trades that only exist jointly, such as selling a nearly worthless item to buy the last torch. Whether the two-stage form is good enough is measurable;
+- **the option value of an unidentified item** - a range rather than a number, so it does not fit the objective cleanly.
+
 ## The parts that are to be defined
 
 These are the specifications the redesign needs and does not have yet. Each is a decision, not a line of code.
@@ -174,6 +250,8 @@ These are the specifications the redesign needs and does not have yet. Each is a
 | P11 | **the Home** | overflow of the pack, or depot for the next trip - two different objectives - and what happens when the Home is full | the owner |
 | P12 | **the routing** | whether the floors keep the fast route they have today (food and light from the General store, cures from the Alchemy shop only) or whether the plan routes them like any other purchase | the implementation, from the floors |
 | P13 | **the observability** | exactly what the key log records - the plan, the displacement, the utility values - and what the new suites assert. There is no *content* assertion about selling anywhere: the family validators count purchase anchors (`# Buying Scrolls of Phase Door`, `# Buying Potions of Cure Light Wounds`) and nothing checks a sale. The sell behaviour is pinned only transitively, by the parity receipt's key-log comparison | the owner, then the implementation |
+| P15 | **the solver's exact form** | the objective is separable and concave per kind, so the gold-only problem is an exact group knapsack (`O(budget × kinds × copies)` ≈ 18M) - but the pack-slot constraint adds a second dimension (≈ 400M, too slow per decision) and the weight a third. Whether the plan uses the exact DP with a repair pass, or the greedy over marginal gains with a repair pass, is a build decision the zoo can measure | the implementation |
+| P16 | **the joint treatment** | whether the dispositions and the purchases are solved jointly (one program, sharing the gold constraint) or in two stages, and what the two-stage form loses - the trades that only exist jointly, such as selling a nearly worthless item to buy the last torch | the implementation, then the sweep |
 | P14 | **the migration** | when the default moves, and what the receipt requires to be re-earned. The v11R receipt is 45/45 on the full suite and 105/105 runs; a new default voids it | the owner |
 
 ## What is not in the redesign
