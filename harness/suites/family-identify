@@ -1,0 +1,6 @@
+# Bounded buy-to-identify checks (borg-rs#27), Rust-only: the C parser accepts
+# borg_buy_identify but ignores it, so a C run would never learn.
+identify-current-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_identify=1
+identify-reserve-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_identify=1
+identify-current-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_identify=1
+identify-reserve-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_identify=1

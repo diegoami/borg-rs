@@ -356,6 +356,8 @@ suite output).
 | `classes` | 15 x 100k + 1 x 1M cheat death, flag `menu` | Blackguard with 7 races, Dunadan, High-Elf and Kobold with 7 other classes, a real Half-Elf Ranger; the 1M Dunadan Blackguard reaches clevel 26, max depth 22 |
 | `config` | 6 runs of 100k/20k + 1 x 1M, flags `menu,cheat` plus `munchkin` or `lunal` | Borg config options: munchkin start and lunal mode (see below) |
 | `options` | 25 runs (22 x 100k, 200k, 400k, 1M), flag `menu`, `cheat` or `cheatlive`, one `NAME=VALUE` option each | the other borg.txt options: money scum, self scum, dynamic calcs, worships, risky, uniques, swaps, depth/level stops, autosave, verbose, chests, munchkin limits, respawn (see below) |
+| `family-buying` | 8 x 20k, Rust-only | current vs reserve410, direct and class/mode-selected pairs; validator `harness/regress/family-buying-test.py` |
+| `family-identify` | 4 x 20k, Rust-only | `borg_buy_identify = 1` across both strategies; C ignores the switch and never learns, so a C run would fail the validator |
 
 `harness/reference/<suite>/<run>/{keys.log.xz,summary.json}` are the C
 Borg's logs for each suite, made from the C build. Each run dir also has

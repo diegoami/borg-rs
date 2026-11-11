@@ -336,6 +336,14 @@ borg_buy_strategy_reserve410_classes = 0
 borg_buy_strategy_current_munchkin_classes = 0
 borg_buy_strategy_reserve410_munchkin_classes = 0
 
+# Rust-only learning policy (borg-rs#27); the C parser reads this field but
+# ignores it. Buy one affordable copy of each still-unaware learning-list kind
+# through CL7. Urgent needs (including light at radius 1 or below) and unmet
+# reserve410 deficits come first; when the reserve is satisfied, learning never
+# suppresses the old valuation if stock is absent or unaffordable.
+
+borg_buy_identify = 0
+
 
 ### Enchant Limit ###
 

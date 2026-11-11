@@ -134,6 +134,7 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_buy_strategy_reserve410_classes", 0),
     i(c"borg_buy_strategy_current_munchkin_classes", 0),
     i(c"borg_buy_strategy_reserve410_munchkin_classes", 0),
+    i(c"borg_buy_identify", 0),
 ];
 
 /// Class indexes of borg-trait.h used by the munchkin class rule.
@@ -1122,7 +1123,8 @@ mod tests {
             b"borg_buy_strategy_default = 1\nborg_buy_strategy_munchkin = 0\n\
               borg_buy_strategy_current_classes = 1\nborg_buy_strategy_reserve410_classes = 2\n\
               borg_buy_strategy_current_munchkin_classes = 4\n\
-              borg_buy_strategy_reserve410_munchkin_classes = 8\n",
+              borg_buy_strategy_reserve410_munchkin_classes = 8\n\
+              borg_buy_identify = 1\n",
         );
         assert_eq!(cfg[BORG_BUY_STRATEGY_DEFAULT as usize], 1);
         assert_eq!(cfg[BORG_BUY_STRATEGY_MUNCHKIN as usize], 0);
@@ -1130,6 +1132,7 @@ mod tests {
         assert_eq!(cfg[BORG_BUY_STRATEGY_RESERVE410_CLASSES as usize], 2);
         assert_eq!(cfg[BORG_BUY_STRATEGY_CURRENT_MUNCHKIN_CLASSES as usize], 4);
         assert_eq!(cfg[BORG_BUY_STRATEGY_RESERVE410_MUNCHKIN_CLASSES as usize], 8);
+        assert_eq!(cfg[BORG_BUY_IDENTIFY as usize], 1);
 
         let mut env = FakeTxt::new(
             b"borg_buy_strategy_current_classes = 1\nborg_buy_strategy_reserve410_classes = 1\n",
@@ -1151,7 +1154,8 @@ mod tests {
             "borg_buy_strategy_default = 0\nborg_buy_strategy_munchkin = -1\n\
              borg_buy_strategy_current_classes = 0\nborg_buy_strategy_reserve410_classes = 0\n\
              borg_buy_strategy_current_munchkin_classes = 0\n\
-             borg_buy_strategy_reserve410_munchkin_classes = 0\n"
+             borg_buy_strategy_reserve410_munchkin_classes = 0\n\
+             borg_buy_identify = 0\n"
         ));
     }
 
