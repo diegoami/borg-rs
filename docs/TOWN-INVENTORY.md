@@ -231,6 +231,52 @@ The greedy is the one the old strategy approximates, except that the old one tak
 - **the joint treatment** - the program above is joint (the dispositions and the purchases share the gold constraint). Solving it in two stages - decide the dispositions, then buy with what they fetch - is simpler and loses the trades that only exist jointly, such as selling a nearly worthless item to buy the last torch. Whether the two-stage form is good enough is measurable;
 - **the option value of an unidentified item** - a range rather than a number, so it does not fit the objective cleanly.
 
+## Worked examples
+
+### P15 - what the solver's form actually costs
+
+The objective is separable and concave per kind, so for each kind the plan knows a table: `n` copies of kind `K` cost `n · price(K)` and are worth `U_K(n)`, with `U_K` concave.
+
+**The gold-only problem is an exact DP.** With `dp[b]` = the best usefulness obtainable with gold `≤ b` from the kinds processed so far, and each kind as a group:
+
+```
+dp_new[b] = max over n in 0..copies_of(K) of  dp_old[b - n·price(K)] + U_K(n)
+```
+
+`O(budget × kinds × copies)` ≈ 30,000 × 30 × 20 = **18M operations - milliseconds**, and it is exact, because the groups do not interact.
+
+**The pack-slot constraint is a different kind of constraint.** It counts *distinct kinds*, not copies, and the first copy of a kind costs a slot while the second does not. Adding it to the DP means a second dimension, `dp[b][k]` over the kinds used, with the transition tracking whether kind `K` was already started:
+
+```
+dp_new[b][k] = max( dp_old[b][k],                                   # take none of K
+                    max over n>=1 of dp_old[b - n·price(K)][k-1] + U_K(n) )
+```
+
+`O(budget × slots × kinds × copies)` ≈ 30,000 × 23 × 30 × 20 = **414M - seconds, per re-solve**. The plan re-solves after every action, and the harness runs 165 cases per backend, so the exact DP is not affordable at one decision per turn.
+
+Three ways to handle the slot and weight constraints:
+
+1. **exact DP + repair** - solve the gold-only DP exactly, then drop or swap the kinds that break the slot and weight limits;
+2. **Lagrangian relaxation on the kind count** - solve the gold-only DP with a penalty `λ` per kind, and sweep `λ` until the kind count fits. The gold-only DP is cheap, so a binary search over `λ` costs a handful of 18M passes. This is the standard treatment of a knapsack with a cardinality constraint, and it is usually exact or within one item;
+3. **greedy over marginal gains + repair** - take the copies with the best marginal usefulness per gold, then repair. This is the cheap one, and it is *not* exact even for the gold-only case.
+
+**What the greedy gives up.** With concave per-kind values, taking the best ratio first can be wrong: kind A gives 10 usefulness for 6 gold and another 10 for 10 gold; kind B gives 11 for 11 gold. The greedy takes A (10/6), then cannot afford B, and scores 10 - where the optimum is B alone, 11. So the greedy is a heuristic, not a bound; the exact DP is worth its 18M when the constraints allow it.
+
+Which is why P15 is a **build decision the zoo can measure** rather than a preference: the exact form and the near-exact form produce different kits, and the difference shows up in the key log.
+
+### P16 - what the two-stage form loses
+
+The program above is joint because of one line: the proceeds of a sale are budget for a purchase. Deciding the dispositions first, without knowing what will be bought, throws that away.
+
+A concrete case. The character carries an item worth **100** in use and sells for **50**, and has **20 gold**. The shop has one item worth **200** for **20 gold**, and another worth **150** for **20 gold**.
+
+- **joint**: sell the carried item, so the purse is 70; buy both shop items; the kit is worth `0 + 200 + 150 = 350`;
+- **two stages**: stage 1 sees use value 100 against a price of 50 and **keeps** it, because it is worth more than it sells for; stage 2 has 20 gold, buys one of the two; the kit is worth `100 + 200 = 300`.
+
+**The two-stage solver never sells an item whose use value exceeds its price**, and that is exactly the "keep the valuable unidentified ware" veto the owner decided to remove. Only a joint program - or a first stage that knows what the money would buy - lets the plan trade a valuable item away when the gold buys more elsewhere.
+
+So P16 is where that decision actually bites: with the veto removed in the extraction, the mechanism that honours it has to be the joint program, not a per-item rule.
+
 ## The parts that are to be defined
 
 These are the specifications the redesign needs and does not have yet. Each is a decision, not a line of code.
