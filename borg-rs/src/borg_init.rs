@@ -135,6 +135,7 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_buy_strategy_current_munchkin_classes", 0),
     i(c"borg_buy_strategy_reserve410_munchkin_classes", 0),
     i(c"borg_buy_identify", 0),
+    b(c"borg_town_no_stores", false),
 ];
 
 /// Class indexes of borg-trait.h used by the munchkin class rule.

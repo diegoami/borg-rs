@@ -116,6 +116,18 @@ These are the values to argue about; the machinery around them is not in questio
 
 The plan is off by default, so `main` and the 45/45 receipt are untouched while the branch is built. With the plan on, the key log diverges from the C Borg by construction - the town parity is void for the arm - and the arm is measured against the Rust default. The receipt is re-earned when the default moves.
 
+## The negative baseline
+
+The redesign needs a floor under its own measurement: an arm in which the town inventory strategy does **nothing** at all.
+
+`borg_town_no_stores = TRUE` (a new setting, default FALSE) makes the Borg perform **no store interaction of any kind**: it never buys, never sells, never uses the home as a stash, never grabs from the home, never swaps a spare weapon or armour out of the home, and never walks into a shop. Everything else about it is unchanged - it still recalls to town, still equips itself, still dives.
+
+The gate is one check at the top of `borg_choose_shop` (`borg-rs/src/borg_think_store.rs`): with the setting on it returns false before any goal is set, so the whole store sequence (steps 1 to 7 and the immediate-buy path) never starts. Because the Borg never sets `goal.shop`, it never enters a shop in the first place - the walk to the shop is skipped too, not just the trade.
+
+This is the **null arm**: it measures what the town economy is worth, with nothing else changed. It is not a candidate strategy and it is not expected to be competitive - a Borg that cannot sell keeps a full pack of loot and cannot buy food, light or gear. What it is good for is the other direction: if an arm's gain over the control is real, this arm shows how much of the effect comes from the town at all, and it exposes the degenerate cases (a character that dies before it can trade anything) that a per-class comparison would otherwise average away.
+
+The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `borg_buy_identify`; the Rust Borg is the only implementation. The arm is selected with the harness flag `borg_town_no_stores=TRUE`, which rewrites the one `borg_town_no_stores = ` line in `harness/borg.txt`.
+
 ## The risks
 
 - **the trip model is provisional** - it decides every deficit, and it is the biggest unknown in the plan;

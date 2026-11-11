@@ -101,6 +101,10 @@ struct borg_setting borg_settings[] = {
     { "borg_buy_strategy_current_munchkin_classes", 'i', 0 },
     { "borg_buy_strategy_reserve410_munchkin_classes", 'i', 0 },
     { "borg_buy_identify", 'i', 0 },
+    /* The negative-baseline arm for the town inventory redesign (borg-rs#36):
+     * when true, the Rust borg performs no store interaction at all. The C
+     * oracle reads this field and ignores it. */
+    { "borg_town_no_stores", 'b', false },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */

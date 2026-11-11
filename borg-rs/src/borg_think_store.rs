@@ -59,7 +59,7 @@ use crate::borg_store_sell::{
     borg_think_home_sell_useful, borg_think_shop_sell, borg_think_shop_sell_useless,
 };
 use crate::engine;
-use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM};
+use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM, BORG_TOWN_NO_STORES};
 use crate::borg_headers::borg_trait_h::{
     BI_CDEPTH, BI_CLEVEL, BI_FOOD, BI_GOLD, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
 };
@@ -133,6 +133,18 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
 
     /* Must be in town */
     if st.borg.tr(BI_CDEPTH) != 0 {
+        return false;
+    }
+
+    /* The negative-baseline arm (borg_town_no_stores): the town inventory
+     * strategy does nothing at all. The borg never buys, never sells, never
+     * uses the home as a stash, never grabs from the home, never swaps a
+     * spare weapon or armour out of the home, and never walks into a shop.
+     * Everything else is unchanged: it still recalls to town, still equips
+     * itself, still dives. The C borg reads this field and ignores it.
+     */
+    if st.cfg(BORG_TOWN_NO_STORES) != 0 {
+        clear_shop_goal(st);
         return false;
     }
 

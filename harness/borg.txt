@@ -344,6 +344,12 @@ borg_buy_strategy_reserve410_munchkin_classes = 0
 
 borg_buy_identify = 0
 
+# The negative-baseline arm for the town inventory redesign (borg-rs#36):
+# when TRUE, the Rust borg performs no store interaction at all - it never
+# buys, never sells, and never uses the home as a stash or a swap source.
+# The C parser reads this field but ignores it.
+borg_town_no_stores = FALSE
+
 
 ### Enchant Limit ###
 
