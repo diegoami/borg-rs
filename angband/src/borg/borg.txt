@@ -318,6 +318,25 @@ borg_munchkin_by_class = TRUE
 borg_munchkin_class_depth = 6
 
 
+### Buying Strategy Family (borg-rs#25) ###
+
+# 0 = current (the accepted impact-v10 behaviour), 1 = reserve410 (the
+# experimental early reserve inspired by rejected better-borg-c#410).
+# Munchkin is -1 = inherit, 0 = current, 1 = reserve410. Class masks use
+# 1<<class: Warrior 1, Mage 2, Druid 4, Priest 8, Necromancer 16, Paladin 32,
+# Rogue 64, Ranger 128, Blackguard 256. Class+munchkin masks apply only in
+# munchkin mode; the ordinary class masks apply in either mode. Precedence is
+# class+munchkin, class, munchkin, global default. Conflicting current/reserve
+# masks at one precedence are invalid. Unspecified combinations use current.
+
+borg_buy_strategy_default = 0
+borg_buy_strategy_munchkin = -1
+borg_buy_strategy_current_classes = 0
+borg_buy_strategy_reserve410_classes = 0
+borg_buy_strategy_current_munchkin_classes = 0
+borg_buy_strategy_reserve410_munchkin_classes = 0
+
+
 ### Enchant Limit ###
 
 # The borg knows how to enchant his equipment using scrolls and spells.

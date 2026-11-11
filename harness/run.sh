@@ -85,7 +85,7 @@ if [ "$FLAGS" != "-" ]; then
                 ;;
             *=*)
                 name="${fl%%=*}"; val="${fl#*=}"
-                [[ "$name" =~ ^borg_[a-z_]+$ ]] || {
+                [[ "$name" =~ ^borg_[a-z0-9_]+$ ]] || {
                     echo "run.sh: flag '$fl': bad option name '$name'" >&2; exit 2; }
                 [[ "$val" =~ ^(TRUE|FALSE|-?[0-9]+)$ ]] || {
                     echo "run.sh: flag '$fl': value must be TRUE, FALSE or an integer" >&2; exit 2; }

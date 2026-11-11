@@ -23,6 +23,7 @@
 //! pointer does). C's pointer `item` into a ware is read again
 //! at each use (`ware`), never cached across a call.
 
+use crate::borg_buy_strategy::{reserve410_unmet, RESERVE410_CURE, RESERVE410_PHASE};
 use crate::borg_home_notice::borg_notice_home;
 use crate::borg_home_power::borg_power_home;
 use crate::borg_inventory::{borg_first_empty_inventory_slot, borg_slot, borg_wield_slot};
@@ -35,9 +36,10 @@ use crate::engine;
 use crate::borg_headers::borg_h::{BORG_MONEY_SCUM_AMOUNT, BORG_SELF_SCUM, BORG_VERBOSE};
 use crate::borg_headers::borg_item_h::borg_item;
 use crate::borg_headers::borg_trait_h::{
-    BI_ALITE, BI_CCON, BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR, BI_CWIS, BI_DEX_INDEX,
-    BI_FIRST_CURSED, BI_FOOD, BI_GOLD, BI_GOOD_W_CHG, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
-    BI_MAXCLEVEL, BI_QUIVER_SLOTS, BI_SAURON_DEAD,
+    BI_ACCW, BI_ACLW, BI_ACSW, BI_ALITE, BI_APHASE, BI_CCON, BI_CDEX, BI_CINT, BI_CLASS,
+    BI_CLEVEL, BI_CSTR, BI_CWIS, BI_DEX_INDEX, BI_FIRST_CURSED, BI_FOOD, BI_GOLD,
+    BI_GOOD_W_CHG, BI_ISCUT, BI_ISPOISONED, BI_LIGHT, BI_MAXCLEVEL, BI_QUIVER_SLOTS,
+    BI_SAURON_DEAD,
 };
 use crate::headers::list_object_flags_h::{OF_BURNS_OUT, OF_TAKES_FUEL};
 use crate::headers::list_tvals_h::*;
@@ -355,6 +357,67 @@ fn borg_good_buy(st: &mut BorgState, who: i32, ware_n: i32) -> bool {
     true
 }
 
+/// Point the Borg at one shop ware for purchase. A pending pack-sale goal
+/// (`goal.item`) is cleared first: `borg_think_shop_sell` would otherwise sell
+/// it on entering the chosen shop instead of buying the ware.
+fn set_buy_goal(st: &mut BorgState, k: i32, n: i32) {
+    st.borg.goal.item = -1;
+    st.borg.goal.shop = k as i16;
+    st.borg.goal.ware = n as i16;
+}
+
+/// Buy the cheapest affordable deficit toward the experimental #410 reserve.
+/// While that reserve is unmet, every other purchase in this function is
+/// suppressed. This is deliberately opt-in: upstream rejected the strict
+/// policy after its declared survival/progress margins failed (borg-rs#25).
+fn borg_buy_reserve410(st: &mut BorgState) -> bool {
+    let need_phase = RESERVE410_PHASE - st.borg.tr(BI_APHASE);
+    let held_cure = st.borg.tr(BI_ACLW) + st.borg.tr(BI_ACSW) + st.borg.tr(BI_ACCW);
+    let need_cure = RESERVE410_CURE - held_cure;
+    let mut b_kr = -1;
+    let mut b_nr = -1;
+    let mut b_cr = 0;
+
+    for k in 0..(store_max() - 1) {
+        for n in 0..store_inven_max() {
+            let item = *ware(st, k, n);
+            if item.iqty == 0 || !borg_good_buy(st, k, n) {
+                continue;
+            }
+
+            let tval = u32::from(item.tval);
+            let sval = i32::from(item.sval);
+            let phase_ware = need_phase > 0
+                && tval == TV_SCROLL
+                && sval == st.item_val.sv_scroll_phase_door;
+            let cure_ware = need_cure > 0
+                && tval == TV_POTION
+                && (sval == st.item_val.sv_potion_cure_light
+                    || sval == st.item_val.sv_potion_cure_serious
+                    || sval == st.item_val.sv_potion_cure_critical);
+            if (!phase_ware && !cure_ware) || st.borg.tr(BI_GOLD) < item.cost {
+                continue;
+            }
+            if b_kr >= 0 && item.cost >= b_cr {
+                continue;
+            }
+            b_kr = k;
+            b_nr = n;
+            b_cr = item.cost;
+        }
+    }
+
+    if b_kr >= 0 {
+        set_buy_goal(st, b_kr, b_nr);
+        return true;
+    }
+
+    // Unaffordable or out of stock: retain the gold rather than spending it
+    // on the old valuation's gear. This strictness is part of the experiment,
+    // including the trade-off recorded by the rejected upstream cohorts.
+    false
+}
+
 /// Step 3 -- buy "useful" things from a shop (to be used)
 /// (`borg_think_shop_buy_useful`).
 pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
@@ -374,6 +437,12 @@ pub fn borg_think_shop_buy_useful(st: &mut BorgState) -> bool {
     /* Already have a target 9-4-05*/
     if st.borg.goal.ware != -1 {
         return false;
+    }
+
+    // Post-M10 family variant: only an explicitly selected reserve410 changes
+    // this decision. `current` goes straight to the v10 valuation below.
+    if reserve410_unmet(st) {
+        return borg_buy_reserve410(st);
     }
 
     /* Extract the "power" */
@@ -1364,6 +1433,16 @@ mod tests {
         let b = BuyState::default();
         assert_eq!(b.bought_item_num, -1);
         assert_eq!(b.bought_item_nxt, 0);
+    }
+
+    #[test]
+    fn buy_goal_clears_a_pending_pack_sale() {
+        let mut st = BorgState::default();
+        st.borg.goal.item = 5;
+        set_buy_goal(&mut st, 4, 2);
+        assert_eq!(st.borg.goal.item, -1);
+        assert_eq!(st.borg.goal.shop, 4);
+        assert_eq!(st.borg.goal.ware, 2);
     }
 
     #[test]

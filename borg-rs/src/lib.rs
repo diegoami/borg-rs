@@ -26,6 +26,7 @@ pub(crate) mod cctype;
 pub(crate) mod headers;
 
 pub(crate) mod borg;
+pub(crate) mod borg_buy_strategy;
 pub(crate) mod borg_attack_munchkin;
 pub(crate) mod borg_cave;
 pub(crate) mod borg_caution;

@@ -1,4 +1,13 @@
-# Follow verified better-borg-c milestones after M5
+# Historical: follow verified better-borg-c milestones after M5
+
+> **Superseded for new development after impact v10 (2026-11-10).** Starting
+> from the accepted `4.2.6-impact-v10` snapshot, borg-rs diverges from BBC and
+> develops a family of Borgs under the root `CLAUDE.md` rules and
+> [borg-rs#25](https://github.com/diegoami/borg-rs/issues/25). Later BBC
+> milestones are not an automatic queue, and new family variants need not match
+> the C keypress stream. This contract remains the record and acceptance rule
+> for the completed M2-M10 carry lane, including its `current`-control heritage;
+> it does not schedule post-M10 family work.
 
 Owner-approved direction, 2026-11-07: M5 freezes the completed port plus
 post-M4 corrections/tooling; subsequent Rust bug-fix work tracks the maintained
