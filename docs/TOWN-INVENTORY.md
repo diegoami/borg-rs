@@ -85,9 +85,12 @@ pub struct Weights {
 }
 
 pub fn usefulness(w: &Candidate, st: &BorgState, weights: &Weights) -> i64;
-pub fn deficit(need: Need, st: &BorgState) -> i64;      // how much of it is unmet
+pub fn deficit(need: Need, st: &BorgState) -> i64;      // the target gap
+pub fn floor(need: Need, st: &BorgState) -> i64;         // the minimum that keeps it alive
 pub fn reduction(w: &Candidate, need: Need, st: &BorgState) -> i64;  // how much this closes
 ```
+
+**The units.** The reductions are in different units - light in torches, food in rations, bleeding in wounds, power in power points - so they are normalised to **the fraction of the need closed** and the weight is what the *whole* need is worth. Each need is also split in two: the **floor** is the minimum that keeps the character alive (light at least 1, food at least 1, not bleeding, not poisoned) and is a constraint that is never traded; the **target** is what the coming trip needs, and the gap between what the character has and the target is what gets priced. That split is the line the old emergency path drew by accident, and it is what makes the weights comparable. The normalisation is a proposal, not a decision - see #35.
 
 - **the deficit** - how much of each need is unmet, from the character's state: `required_light(depth) - BI_LIGHT`, `required_food(trip) - BI_FOOD`, the bleed (`BI_ISCUT`), the poison (`BI_ISPOISONED` and `BI_ACUREPOIS == 0`), `escapes_needed(ahead) - phase_doors_carried`, the still-unaware useful kinds, the marginal power, and the supplies the descent ahead needs. The raw material is already tracked (`borg_trait.rs`);
 - **the reduction** - what the item closes. Each need defines its own arithmetic: light in torches, bleeding as a condition, power as a difference;
