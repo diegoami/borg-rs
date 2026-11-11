@@ -18,7 +18,7 @@ and then it chooses **what to buy**, subject to the same budget. The plan is re-
 Three things separate this from the strategy it replaces:
 
 1. **The floors come first.** Food > 0, light > 0, no cut, no poison. They are a constraint on the plan, never traded, and not priced - surviving is invaluable.
-2. **The evaluation is a parameter.** Four axes - survival, power, knowledge, trip - combined by weights. One weight vector is one zoo arm; the mechanism is written once and the judgement is measured.
+2. **The usefulness function is a parameter.** Worth is not a property of an object: it is the fraction of a **deficit** the item closes. The needs are light, food, bleeding, poison, escape, knowledge, power and trip, each with its own deficit arithmetic, and the weights are the owner's priorities over them. One weight vector is one zoo arm; the mechanism is written once and the judgement is measured.
 3. **Everything is one optimisation.** The greedy comparison, the two gates in front of it, the exclusion-based sell decision and the Home's local search all go. What replaces them is a candidate list, a budget, an evaluation and a solver.
 
 ## The components
@@ -69,29 +69,32 @@ pub struct Budget {
 }
 ```
 
-### 3. The evaluation - what it is worth
+### 3. The usefulness function - what the character lacks
 
-`borg_town_eval.rs` (new)
+`borg_town_usefulness.rs` (new)
 
-One function, four axes, one decay, one caution.
+One function: the needs, their deficits, the weights, one caution.
 
 ```rust
+pub enum Need { Light, Food, Bleeding, Poison, Escape, Knowledge, Power, Trip }
+
 pub struct Weights {
-    pub survival: i64,   // poison and wound coverage, food, light
-    pub power: i64,      // what the item does for this character now
-    pub knowledge: i64,  // a still-unaware useful kind
-    pub trip: i64,       // what this completes in the coming trip
+    pub light: i64, pub food: i64, pub bleeding: i64, pub poison: i64,
+    pub escape: i64, pub knowledge: i64, pub power: i64, pub trip: i64,
     pub caution: i64,    // the Black Market's share of the purse
 }
 
-pub fn utility(w: &Candidate, st: &BorgState, weights: &Weights) -> i64;
-pub fn marginal(kind: u16, count: usize, st: &BorgState, weights: &Weights) -> i64;
+pub fn usefulness(w: &Candidate, st: &BorgState, weights: &Weights) -> i64;
+pub fn deficit(need: Need, st: &BorgState) -> i64;      // how much of it is unmet
+pub fn reduction(w: &Candidate, need: Need, st: &BorgState) -> i64;  // how much this closes
 ```
 
-- **the decay** - the k-th copy of kind K is worth `utility(K, n_K + k)`, decreasing in k. The current model has hard caps instead (`count_up`, `borg_power.rs:90-95`);
-- **the power axis** - the existing try-on (`borg_store_buy.rs:457-696`) already computes the marginal power of a candidate; the axis reuses it;
-- **the knowledge axis** - two routes, compared: buy an unidentified copy of the kind (the price of the item, and the purchase identifies every copy of that kind the character carries) against an Identify Rune (200 at base, one unknown per scroll, and **no shop sells one** - it is a find, or a 600-gold Black Market purchase);
-- **the caution** - a shop 6 candidate has to clear a share cap on the purse (`cost <= purse / k`) on top of the ordinary utility-versus-cost test.
+- **the deficit** - how much of each need is unmet, from the character's state: `required_light(depth) - BI_LIGHT`, `required_food(trip) - BI_FOOD`, the bleed (`BI_ISCUT`), the poison (`BI_ISPOISONED` and `BI_ACUREPOIS == 0`), `escapes_needed(ahead) - phase_doors_carried`, the still-unaware useful kinds, the marginal power, and the supplies the descent ahead needs. The raw material is already tracked (`borg_trait.rs`);
+- **the reduction** - what the item closes. Each need defines its own arithmetic: light in torches, bleeding as a condition, power as a difference;
+- **the decay comes for free** - the second copy is worth what is left of the deficit after the first, so the value falls by itself. The current model has hard caps instead (`count_up`, `borg_power.rs:90-95`), which are an ad-hoc guess at "enough for a trip";
+- **the power need** - the existing try-on (`borg_store_buy.rs:457-696`) already computes the marginal power of a candidate; the need reuses it;
+- **the knowledge need** - two routes, compared: buy an unidentified copy of the kind (the price of the item, and the purchase identifies every copy of that kind the character carries) against an Identify Rune (200 at base, one unknown per scroll, and **no shop sells one** - it is a find, or a 600-gold Black Market purchase);
+- **the caution** - a shop 6 candidate has to clear a share cap on the purse (`cost <= purse / k`) on top of the ordinary usefulness-versus-cost test.
 
 ### 4. The solver - what to buy
 
@@ -157,8 +160,8 @@ These are the specifications the redesign needs and does not have yet. Each is a
 |---|---|---|---|
 | P1 | **the floor set** | exactly which floors, and how each is computed: food > 0 and light > 0 are minima, but "enough food for the trip" is a need, and the line between them is nowhere in the current code | the owner |
 | P2 | **the trip model** | the plan prices `trip_value`, so it needs to know where the character is going: the depth target, the expected turns, the expected fights. None of that exists today | the owner, then the implementation |
-| P3 | **the axes** | the numerical meaning of `survival_value`, `power_value`, `knowledge_value` and `trip_value` - they are in different units, and how they are normalised before the weights combine them is undefined | the owner |
-| P4 | **the decay** | its shape per kind (linear to zero, exponential, a cap with a taper) and whether it is uniform across kinds - a food, a potion and a wand do not decay alike | the owner; then the sweep |
+| P3 | **the needs and their deficits** | the arithmetic behind each deficit - `required_light(depth)`, `required_food(trip)`, the bleed rate, the poison damage rate - and the units: each need is in its own, and how a deficit is normalised before the weights compare it is undefined. The proposal is that each need is normalised to the fraction of it closed, so a weight is the worth of the whole need | the owner |
+| P4 | **the decay** | no longer a thing to specify: with a usefulness function the value of the k-th copy is what is left of the deficit after the first, so it falls by itself. What remains is whether the deficits are right - bleeding and poison are conditions today, not numbers | the owner |
 | P5 | **the alternatives** | how the plan decides that two wares are alternatives: by kind, by effect, by what they do for this character. The same kind at 1x is obvious; a different potion with the same effect is not | the implementation, then the sweep |
 | P6 | **the caution** | the exact shape of the share cap (`cost <= purse / k`, with `k` as a parameter) and whether it applies to every shop 6 candidate or only to the ones whose kind is otherwise available | the owner |
 | P7 | **keep, store, sell, drop** | the thresholds: what makes an item worth storing rather than selling, what makes it worth keeping rather than storing. The Home's slots and the gold are the two currencies | the owner |
