@@ -101,21 +101,22 @@ never walks into a shop.
 
 ### In the interactive session
 
-With the handover on (`BORG_TOWN_PLAYER=1`) the player has the keyboard in
-town, so a store the player asks for is walked by the Borg: the handover
-hands the Borg one step at a time toward the store, opens the store when it
-arrives, and gives the keyboard back to the player there. The player's keys
-and the Borg's keys still never mix: the Borg only presses keys while it is
-walking to a store a human asked for.
+The command is a *preference*, not a walk: it says which shop the Borg
+should visit when the Borg next shops. The Borg walks there by itself,
+with the flow it already uses (`borg_flow_shop_entry`), in the ordinary
+way it walks to any shop.
 
-The walk is the Borg's own flow, so it needs the Borg to know the way: a
-store it has never seen gives "The Borg does not know where the General
-Store is.", and a store it cannot path to gives "The Borg cannot find a way
-to the General Store." In both cases the choice is dropped and the player
-can ask again. The Borg learns the town from the screen, as the player
-walks it: the handover updates the Borg's map on every key the game asks
-for, so the store doors the player has seen are the ones the Borg can walk
-to.
+With the handover on (`BORG_TOWN_PLAYER=1`) the player has the keyboard in
+town, so the Borg does nothing there at all: the command records the
+choice, and the Borg acts on it when it is in charge of the town again.
+The handover still updates the Borg's map from the screen on every key the
+game asks for, the way the Borg's own think does, so the store doors the
+player has seen are the ones the Borg can find later.
+
+An earlier version of this change also had the handover walk the character
+to the store (the Borg borrowing the keyboard one flow step at a time, and
+opening the store with `5`). That is not part of the command, and it was
+rolled back.
 
 ## What was checked
 
@@ -126,16 +127,13 @@ to.
   is only entered by hand, so the keypress stream cannot change).
 * **Driven in a live session** (Xvfb, the Rust build, the handover on):
   * `^Z` then `/` shows the prompt `Shop (1-9, +/- to step, > to clear):`;
-  * `1` gives "The Borg will visit the General Store.", the Borg walks
-    across the town and the **General Store opens** (the store screen with
-    its wares);
-  * `+` steps to the next store: the Borg walks there and the **Armoury
-    opens**;
-  * `-` steps back: the **General Store opens** again;
+  * `1` gives "The Borg will visit the General Store.";
+  * `+` steps to the next store and the message names it;
+  * `-` steps back;
   * `>` gives "The Borg chooses the shop itself again." and the choice is
     dropped;
-  * a store the Borg has never seen gives "The Borg does not know where
-    the General Store is." (seen live before the Borg had seen the town).
+  * the character does not move: the command chooses the shop, it does not
+    walk there.
 
 ## What was not checked
 
@@ -146,7 +144,11 @@ to.
 * The store the Borg opens is the one the player asked for; what the Borg
   *does* in the store (the Borg's own shopping) was not exercised here,
   because the handover leaves the keyboard with the player in town.
-* The interactive walk was driven with `xdotool` against an Xvfb display;
-  the key delivery there is unreliable, so the session was driven step by
-  step with screenshots rather than scripted end to end.
+* That the Borg actually walks to the chosen store when it is in charge of
+  the town was not driven end to end in a live session: the walk is the
+  Borg's own shop flow, and the override only changes which store that
+  flow aims at.
+* The interactive session was driven with `xdotool` against an Xvfb
+  display; the key delivery there is unreliable, so the session was driven
+  step by step with screenshots rather than scripted end to end.
 

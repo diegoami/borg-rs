@@ -430,61 +430,6 @@ fn player_in_town(st: &BorgState) -> bool {
     on && st.borg.tr(BI_CDEPTH) == 0
 }
 
-/// What came of a walk toward a store.
-enum Walk {
-    /// A keypress for the game: the step toward the store.
-    Step(u32),
-    /// The Borg has never seen the store, so it does not know where it is.
-    Unknown,
-    /// The Borg knows the store but has no path to it (yet).
-    Blocked,
-}
-
-/// Walk one step toward the store a human asked for.
-///
-/// The Borg's flow does the walking, exactly as it does when it walks to a
-/// store on its own, so it needs the Borg to know the way: a store it has
-/// never seen is `Unknown`, and a store it cannot path to is `Blocked`.
-fn walk_to_shop(st: &mut BorgState, shop: i16) -> Walk {
-    let Some(idx) = usize::try_from(shop).ok() else {
-        return Walk::Blocked;
-    };
-    let (Some(&x), Some(&y)) = (
-        st.flow_misc.track_shop_x.get(idx),
-        st.flow_misc.track_shop_y.get(idx),
-    ) else {
-        return Walk::Blocked;
-    };
-    if x == 0 || y == 0 {
-        // The Borg does not know where the store is.
-        return Walk::Unknown;
-    }
-
-    // The flow starts from the Borg's known position: refresh it, the
-    // player may have moved since the last update.
-    st.borg.c = engine::player_grid();
-
-    // Standing on the store's grid: the Borg opens the store, and the
-    // override has been served.
-    let at_shop = st.borg.c.x == x && st.borg.c.y == y;
-
-    // Drop whatever the Borg queued before the handover: the game must get
-    // the step that this walk queues, not an older key.
-    borg_flush(st);
-
-    if !crate::borg_flow_misc::borg_flow_shop_entry(st, i32::from(shop)) {
-        return Walk::Blocked;
-    }
-    let code = borg_inkey(st, true);
-    if code == 0 {
-        return Walk::Blocked;
-    }
-    if at_shop {
-        st.borg.shop_override = None;
-    }
-    Walk::Step(code)
-}
-
 /// Return one keypress to the game (`generate_keypress`).
 fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     let mut key = keypress { type_0: EVT_KBRD, code: 0, mods: 0 };
@@ -504,51 +449,11 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     // read first, so the record is of the state the player is looking at.
     if player_in_town(st) {
         // Look at the screen, so the Borg knows the town the player is
-        // walking through (the store doors, the walls, the player).
+        // walking through (the store doors, the walls, the player). The
+        // Borg needs that to visit a store on its own later.
         crate::borg_update::borg_update(st);
         crate::borg_item::borg_find_all_items(st);
         crate::borg_town_dump::dump_town_state(st);
-
-        // A store the human asked for in the Borg's command menu: the
-        // Borg walks there and opens the store, and the keyboard goes
-        // back to the player when it arrives.
-        if let Some(shop) = st.borg.shop_override {
-            if !crate::borg_think_store::town_strategy_disabled(st) {
-                match walk_to_shop(st, shop) {
-                    Walk::Step(code) => {
-                        key.code = code;
-                        return key;
-                    }
-                    Walk::Unknown => {
-                        // The Borg cannot go to a store it has never seen.
-                        // Say so, and let the player ask again once the
-                        // Borg knows the way.
-                        let name = engine::store_feat_name(shop as usize);
-                        engine::msg(
-                            st,
-                            format!(
-                                "The Borg does not know where the {} is.",
-                                String::from_utf8_lossy(&name)
-                            )
-                            .as_bytes(),
-                        );
-                        st.borg.shop_override = None;
-                    }
-                    Walk::Blocked => {
-                        let name = engine::store_feat_name(shop as usize);
-                        engine::msg(
-                            st,
-                            format!(
-                                "The Borg cannot find a way to the {}.",
-                                String::from_utf8_lossy(&name)
-                            )
-                            .as_bytes(),
-                        );
-                        st.borg.shop_override = None;
-                    }
-                }
-            }
-        }
 
         key.type_0 = EVT_NONE;
         return key;
