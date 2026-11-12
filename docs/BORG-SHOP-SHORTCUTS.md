@@ -35,41 +35,46 @@ visual order.
 
 ## The key question
 
-The owner's shape was `/1`, `/2`, `/3`, ..., `/+`, `/-`, `/>`: a prefix and a
-selector. Two things decide the prefix.
+The owner's shape was `1`, `2`, `3`, ..., `+`, `-`, `>`: a key that names
+the shop. The question was where those keys may live.
 
-**ESC cannot be the prefix.** It is the cancel key of every prompt in the
-game and of the Borg's own menu (`get_com` returns "not ok" on ESC). A
-prefix that swallows ESC would break the cancel convention everywhere.
+**ESC cannot be one of them.** It is the cancel key of every prompt in the
+game and of the Borg's own menu (`get_com` returns "not ok" on ESC).
 
-**The four proposed keys are all taken in the game.** The game's command
-lookup is a single-key table (`cmd_lookup` over `converted_list[mode][key]`
-in `angband/src/ui-game.c`); there is no general prefix mechanism, only the
+**The keys are taken in the game.** The game's command lookup is a
+single-key table (`cmd_lookup` over `converted_list[mode][key]` in
+`angband/src/ui-game.c`); there is no general prefix mechanism, only the
 three built-in prefixes in `textui_get_command` (`angband/src/ui-input.c`):
 `0` (a count), `\` (keymap bypass) and `^` (a control character).
 
 | key | in the game | in the Borg's command menu |
 |---|---|---|
+| `1` .. `9` | the movement keys (the keypad) | **free** (but `0` is the stats) |
 | `/` | "Identify symbol" (`ui-game.c:190`) | **free** |
 | `+` | "Alter a grid" (`ui-game.c:222`) | **free** |
 | `-` | "Walk into a trap" (`ui-game.c:160`) | **free** |
 | `>` | "Go down staircase" (`ui-game.c:155`) | **free** |
 
-So the owner's exact keys work as a prefix **in the Borg's own command
-menu** (reached with `^Z`; its keys are `?$zxmGID@Ffucs^ythpP!C0wSloRv`, so
-`/`, `+`, `-`, `>` and every digit but `0` are unused) and would each collide
-with an existing command **in the game**.
+So the owner's exact keys work **in the Borg's own command menu** (reached
+with `^Z`; its keys are `?$zxmGID@Ffucs^ythpP!C0wSloRv`, so `/`, `+`, `-`,
+`>` and every digit but `0` are unused) and would each collide with an
+existing command **in the game**.
 
 At the game level the free printable ASCII is `! # $ % & ' ( 0-9 B J N Y ^ \``
 and `y`; the digits are used by the store and inventory interfaces, so the
 practical game-level prefixes are `#`, `%`, `&`, `'` and `(`.
 
+**The prefix is not needed.** The first version of this change took `/` as
+a prefix and then a key ("`/1`", "`/+`"), which cost a second keypress and
+a second prompt. The Borg's menu has the digits free, so the shop keys are
+the keys themselves: `^Z` then `1` is the whole command.
+
 ## What was built, and why there
 
-The shortcut lives in **the Borg's command menu**, with `/` as the prefix:
+The shortcut lives in **the Borg's command menu**, on the keys themselves:
 
-* the prefix is free there, so no existing command is unbound;
-* the menu is a `get_com` prompt, so a prefix costs one extra key read;
+* no prefix, so no keypress is spent on entering a mode;
+* the keys are free there, so no existing command is unbound;
 * the Borg's mechanism for it already exists (`goal.shop` +
   `borg_flow_shop_entry`), so the change is small and Rust-only;
 * it needs no change to the C engine, so it is not a fork decision.
@@ -78,20 +83,19 @@ The player-side variant ("the *player* walks to shop N") is a different
 thing and is **not** in this change: it needs a new command in the C engine
 (a new game feature in the fork, which is the owner's call), and the pathing
 it would use lives in `angband/src/player-path.c` (`find_path`,
-`pathfind_direction_to`). If the owner wants that too, the prefix there
-would have to be one of the free game keys above, not `/`.
+`pathfind_direction_to`). If the owner wants that too, the key there would
+have to be one of the free game keys above, not a digit.
 
 ### The commands
 
-In the Borg's command menu (`^Z`, then `/`):
+In the Borg's command menu (`^Z`, then the key):
 
 | keys | effect |
 |---|---|
-| `/1` .. `/8` | visit that store, by the Borg's own numbering |
-| `/+` | the next store (wraps around) |
-| `/-` | the previous store (wraps around) |
-| `/>` | drop the choice: the strategy picks the store again |
-| `ESC` | cancel, the choice is left as it was |
+| `1` .. `8` | visit that store, by the Borg's own numbering |
+| `+` | the next store (wraps around) |
+| `-` | the previous store (wraps around) |
+| `>` | drop the choice: the strategy picks the shop again |
 
 The choice is an override (`borg.shop_override`): it outranks the strategy's
 own pick until the Borg has been to that store, and then it is dropped and
@@ -126,12 +130,13 @@ rolled back.
 * `harness/diff --suite smoke --expect-impl rust`: 3/3 identical (the menu
   is only entered by hand, so the keypress stream cannot change).
 * **Driven in a live session** (Xvfb, the Rust build, the handover on):
-  * `^Z` then `/` shows the prompt `Shop (1-9, +/- to step, > to clear):`;
-  * `1` gives "The Borg will visit the General Store.";
-  * `+` steps to the next store and the message names it;
-  * `-` steps back;
+  * `^Z` then `1` gives "The Borg will visit the General Store." — one
+    keypress, no prefix and no second prompt;
+  * `+` steps to the next store: "The Borg will visit the Armoury.";
   * `>` gives "The Borg chooses the shop itself again." and the choice is
     dropped;
+  * `?` (the menu's help) lists the new keys:
+    "Commands '1'-'9', '+', '-', '>': the shop the Borg visits";
   * the character does not move: the command chooses the shop, it does not
     walk there.
 

@@ -193,6 +193,16 @@ fn borg_cmd_help(st: &mut BorgState) {
         line += 1;
     }
 
+    // The shop selector is not in the table (it is a set of keys, not one
+    // key), so it gets its own line.
+    engine::term_putstr(
+        2,
+        line + 1,
+        -1,
+        i32::from(COLOUR_WHITE),
+        b"Commands '1'-'9', '+', '-', '>': the shop the Borg visits",
+    );
+
     do_cmd_borg(st);
 
     // Refresh the screen
@@ -1431,14 +1441,15 @@ pub fn shop_choice(key: u8, base: i16, count: i16) -> Option<ShopChoice> {
     }
 }
 
-/// The shop selector (`/1` .. `/9`, `/+`, `/-`, `/>`).
+/// The shop selector (`1` .. `9`, `+`, `-`, `>`).
 ///
-/// The prefix is `/`, which the Borg's own command menu leaves free (the
-/// game's `/` is "Identify symbol", and this menu is the Borg's). The
+/// The keys are the ones the Borg's own command menu leaves free: a digit
+/// picks a store by the Borg's own numbering (`1` is the first store),
+/// `+` and `-` step through the stores and `>` drops the override. The
 /// choice overrides the strategy's own: the Borg walks to that store,
 /// opens it and buys there as it normally would; `>` gives the choice
 /// back to the strategy.
-fn borg_cmd_shop(st: &mut BorgState) {
+fn borg_cmd_shop(st: &mut BorgState, key: u8) {
     let count = engine::store_max() as i16;
     if count <= 0 {
         msg(st, "There are no shops to visit.");
@@ -1456,12 +1467,6 @@ fn borg_cmd_shop(st: &mut BorgState) {
             None
         })
         .unwrap_or(0);
-
-    let (ok, key) = get_com_text(st, b"Shop (1-9, +/- to step, > to clear): ");
-    if !ok {
-        // ESC: the choice is left as it was.
-        return;
-    }
 
     match shop_choice(key, base, count) {
         Some(ShopChoice::Shop(shop)) => {
@@ -1499,10 +1504,11 @@ pub fn do_cmd_borg(st: &mut BorgState) {
         return;
     }
 
-    // The shop selector is a prefix: "/1" .. "/9", "/+", "/-", "/>". The
-    // Borg's menu leaves "/" free; the game's "/" is "Identify symbol".
-    if cmd == b'/' {
-        borg_cmd_shop(st);
+    // The shop selector: "1" .. "9", "+", "-", ">". The Borg's menu leaves
+    // the digits (but "0", the stats) and those three free; in the game
+    // the digits are the movement keys, and this menu is the Borg's.
+    if matches!(cmd, b'1'..=b'9' | b'+' | b'-' | b'>') {
+        borg_cmd_shop(st, cmd);
         return;
     }
 
