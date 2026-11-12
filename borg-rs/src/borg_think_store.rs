@@ -129,6 +129,19 @@ fn leave(st: &mut BorgState) {
     borg_keypress(st, ESCAPE);
 }
 
+/// The negative-baseline arm's gate, extracted pure so a test binary can
+/// link it: `borg_choose_shop`'s call graph reaches engine FFI symbols the
+/// test binary cannot resolve. Returns true when `borg_town_no_stores`
+/// forbids the visit; the shop goal is cleared so that no TownAction is
+/// ever executed (borg-rs#36).
+fn null_arm_gate(st: &mut BorgState) -> bool {
+    if st.cfg(BORG_TOWN_NO_STORES) != 0 {
+        clear_shop_goal(st);
+        return true;
+    }
+    false
+}
+
 /// Choose a shop to visit (`borg_choose_shop`).
 ///
 /// When the Borg takes a town decision, the town-visit dump records that
@@ -158,8 +171,7 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
      * Everything else is unchanged: it still recalls to town, still equips
      * itself, still dives. The C borg reads this field and ignores it.
      */
-    if st.cfg(BORG_TOWN_NO_STORES) != 0 {
-        clear_shop_goal(st);
+    if null_arm_gate(st) {
         return false;
     }
 
@@ -433,4 +445,47 @@ pub fn borg_think_store(st: &mut BorgState) -> bool {
 
     /* Done */
     true
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::borg_init::BORG_SETTINGS;
+
+    fn state(no_stores: i32) -> BorgState {
+        let mut st = BorgState::default();
+        st.core.cfg = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
+        st.core.cfg[BORG_TOWN_NO_STORES as usize] = no_stores;
+        st
+    }
+
+    /// The null arm fires: the visit is forbidden and a standing shop goal
+    /// is cleared, so no TownAction is ever executed (borg-rs#36). The
+    /// wiring into `borg_choose_shop` is the zoo endpoint's invariant
+    /// (goal.shop stays -1 for the whole run, borg-zoo#81): calling the
+    /// wrapper from a test would drag engine FFI symbols into the test
+    /// binary, so the gate is tested here in its pure form.
+    #[test]
+    fn no_stores_fires_and_clears_the_goal() {
+        let mut st = state(1);
+        st.borg.goal.shop = 0;
+        st.borg.goal.ware = 3;
+        st.borg.goal.item = 2;
+        assert!(null_arm_gate(&mut st));
+        assert_eq!(st.borg.goal.shop, -1);
+        assert_eq!(st.borg.goal.ware, -1);
+        assert_eq!(st.borg.goal.item, -1);
+    }
+
+    #[test]
+    fn no_stores_false_is_inert() {
+        let mut st = state(0);
+        st.borg.goal.shop = 0;
+        st.borg.goal.ware = 3;
+        st.borg.goal.item = 2;
+        assert!(!null_arm_gate(&mut st));
+        assert_eq!(st.borg.goal.shop, 0);
+        assert_eq!(st.borg.goal.ware, 3);
+        assert_eq!(st.borg.goal.item, 2);
+    }
 }
