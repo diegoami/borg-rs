@@ -33,6 +33,15 @@ const PW_BORG_1: u32 = 0x4000;
 /// `COLOUR_WHITE`
 const COLOUR_WHITE: i32 = 1;
 
+/// The keypresses queued but not yet sent (`borg_key_queue`): the number of
+/// keys the Borg has decided on and the game has not taken yet. Zero means
+/// the Borg has not pressed anything.
+#[cfg(test)]
+pub fn queued_keys(st: &BorgState) -> i16 {
+    let size = st.io.key_queue.len().max(1) as i16;
+    (st.io.key_head - st.io.key_tail).rem_euclid(size)
+}
+
 /// borg-io.c globals.
 #[derive(Default)]
 pub struct IoState {

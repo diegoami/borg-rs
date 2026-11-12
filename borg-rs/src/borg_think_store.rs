@@ -129,6 +129,25 @@ fn leave(st: &mut BorgState) {
     borg_keypress(st, ESCAPE);
 }
 
+/// The null arm's gate (`borg_town_no_stores`).
+///
+/// With the setting on, the town inventory strategy does nothing at all: the
+/// shop goal is cleared and the caller stops before any store step, so no
+/// `TownAction` is ever executed.
+///
+/// This is the only reader of the setting, so this function is the whole of
+/// the arm's Rust-side contract. Phase 4 replaces the orchestrator that
+/// calls it, and what has to survive is the contract and not the location:
+/// the zoo observer (borg-zoo#81) checks the effect - no `# Buying` or
+/// `# Selling` notes, no store keys, `shop_num` stays -1.
+pub fn town_gate_closed(st: &mut BorgState) -> bool {
+    if st.cfg(BORG_TOWN_NO_STORES) == 0 {
+        return false;
+    }
+    clear_shop_goal(st);
+    true
+}
+
 /// Choose a shop to visit (`borg_choose_shop`).
 ///
 /// When the Borg takes a town decision, the town-visit dump records that
@@ -158,8 +177,7 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
      * Everything else is unchanged: it still recalls to town, still equips
      * itself, still dives. The C borg reads this field and ignores it.
      */
-    if st.cfg(BORG_TOWN_NO_STORES) != 0 {
-        clear_shop_goal(st);
+    if town_gate_closed(st) {
         return false;
     }
 
@@ -433,4 +451,55 @@ pub fn borg_think_store(st: &mut BorgState) -> bool {
 
     /* Done */
     true
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::borg_headers::borg_h::BORG_MAX_SETTINGS;
+    use crate::borg_headers::borg_trait_h::BI_MAX;
+
+    /// A state in town, with a shop goal already set.
+    fn town_state() -> BorgState {
+        let mut st = BorgState::default();
+        st.borg.trait_ = vec![0; BI_MAX as usize];
+        st.core.cfg = vec![0; BORG_MAX_SETTINGS as usize];
+        st.borg.goal.shop = 0;
+        st.borg.goal.ware = 3;
+        st.borg.goal.item = 7;
+        st
+    }
+
+    /// The null arm's Rust-side contract: the gate closes, the shop goal is
+    /// cleared, and nothing is pressed.
+    ///
+    /// The gate is the only reader of the setting, so this is the whole of
+    /// the contract on this side. That the caller stops on it - no store
+    /// step runs - is the zoo observer's check (borg-zoo#81: no `# Buying`
+    /// or `# Selling` notes, no store keys, `shop_num` stays -1).
+    #[test]
+    fn no_stores_arm_clears_the_shop_goal() {
+        let mut st = town_state();
+        st.core.cfg[BORG_TOWN_NO_STORES as usize] = 1;
+
+        assert!(town_gate_closed(&mut st));
+        assert_eq!(st.borg.goal.shop, -1);
+        assert_eq!(st.borg.goal.ware, -1);
+        assert_eq!(st.borg.goal.item, -1);
+        /* The gate pressed nothing. */
+        assert_eq!(crate::borg_io::queued_keys(&st), 0);
+    }
+
+    /// The gate fires because of the setting and nothing else: with the
+    /// setting off the goal survives it.
+    #[test]
+    fn the_shop_goal_survives_without_the_setting() {
+        let mut st = town_state();
+        st.core.cfg[BORG_TOWN_NO_STORES as usize] = 0;
+
+        assert!(!town_gate_closed(&mut st));
+        assert_eq!(st.borg.goal.shop, 0);
+        assert_eq!(st.borg.goal.ware, 3);
+        assert_eq!(st.borg.goal.item, 7);
+    }
 }

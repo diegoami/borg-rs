@@ -26,6 +26,23 @@
 //! stock (the wares that were *not* bought are the contrastive signal),
 //! and it keeps the non-purchases (a decision to buy nothing is a
 //! decision).
+//!
+//! ## The integer projection
+//!
+//! `BORG_TOWN_DUMP_INTEGERS=<file>` writes a second file: the same records
+//! with **integers only**, a fixed field order and a version tag. The
+//! descriptive records carry names, and a name is not comparable between two
+//! runs; an integer is.
+//!
+//! That is the shape the record schema (P13) asks for: a versioned,
+//! machine-readable line, integers only, a stable field order, a total
+//! ordering. So the projection is here to be specified against, and to make
+//! the two sides of a shadow-mode comparison (today's action and the plan's)
+//! diffable as numbers.
+//!
+//! The projection is not the record schema: P13 wants the line to carry the
+//! plan's decision as well, and to be replayable from its own logged
+//! inputs. This one carries today's side only.
 
 use std::cell::RefCell;
 use std::fs::{File, OpenOptions};
@@ -42,11 +59,34 @@ use crate::borg_store::BORG_HOME;
 use crate::engine;
 use crate::state::BorgState;
 
-/// The dump file, opened once per process.
-fn dump_file() -> Option<&'static Mutex<File>> {
-    static FILE: OnceLock<Option<Mutex<File>>> = OnceLock::new();
-    FILE.get_or_init(|| {
-        let Ok(path) = std::env::var("BORG_TOWN_DUMP") else {
+/// The version of the integer record's schema.
+const INTEGER_SCHEMA: i64 = 1;
+
+/// The action codes of the integer record.
+mod action {
+    /// No ware and no item: the Borg is only walking to a shop.
+    pub const VISIT: i64 = 0;
+    /// Buy a ware from a shop.
+    pub const BUY: i64 = 1;
+    /// Take a ware out of the Home.
+    pub const TAKE_HOME: i64 = 2;
+    /// Sell an item to a shop.
+    pub const SELL: i64 = 3;
+    /// Sell an item into the Home.
+    pub const SELL_HOME: i64 = 4;
+}
+
+/// Open the dump file, once per process.
+fn open_dump(path_var: &str) -> Option<&'static Mutex<File>> {
+    static DESCRIPTIVE: OnceLock<Option<Mutex<File>>> = OnceLock::new();
+    static INTEGERS: OnceLock<Option<Mutex<File>>> = OnceLock::new();
+    let cell = if path_var == "BORG_TOWN_DUMP" {
+        &DESCRIPTIVE
+    } else {
+        &INTEGERS
+    };
+    cell.get_or_init(|| {
+        let Ok(path) = std::env::var(path_var) else {
             return None;
         };
         if path.is_empty() {
@@ -55,12 +95,22 @@ fn dump_file() -> Option<&'static Mutex<File>> {
         match OpenOptions::new().create(true).append(true).open(&path) {
             Ok(file) => Some(Mutex::new(file)),
             Err(err) => {
-                eprintln!("borg: BORG_TOWN_DUMP {path}: {err}");
+                eprintln!("borg: {path_var} {path}: {err}");
                 None
             }
         }
     })
     .as_ref()
+}
+
+/// The descriptive dump file.
+fn dump_file() -> Option<&'static Mutex<File>> {
+    open_dump("BORG_TOWN_DUMP")
+}
+
+/// The integer projection of the dump.
+fn integers_file() -> Option<&'static Mutex<File>> {
+    open_dump("BORG_TOWN_DUMP_INTEGERS")
 }
 
 /// The record number, over the whole run.
@@ -83,8 +133,8 @@ fn take_reason() -> Vec<u8> {
 }
 
 /// Append one record.
-fn write_record(out: &str) {
-    let Some(file) = dump_file() else { return };
+fn write_record(file: Option<&Mutex<File>>, out: &str) {
+    let Some(file) = file else { return };
     let Ok(mut file) = file.lock() else { return };
     let _ = file.write_all(out.as_bytes());
     let _ = file.write_all(b"\n");
@@ -162,6 +212,41 @@ fn push_item(out: &mut String, item: &borg_item, slot: usize, price: bool) {
     out.push('}');
 }
 
+/// One item as integers: slot, kind, subkind, quantity, and the value (the
+/// pack, the equipment, the home) or the price (a ware).
+fn push_item_integers(out: &mut String, item: &borg_item, slot: usize, price: bool) {
+    out.push('[');
+    push_num(out, slot);
+    out.push(',');
+    push_num(out, item.tval);
+    out.push(',');
+    push_num(out, item.sval);
+    out.push(',');
+    push_num(out, item.iqty);
+    out.push(',');
+    push_num(out, if price { item.cost } else { item.value });
+    out.push(']');
+}
+
+/// The decision's action: the integer code and the name.
+fn decision_action(shop: i16, ware: i16, item: i16) -> (i64, &'static str) {
+    if ware >= 0 {
+        if shop == BORG_HOME as i16 {
+            (action::TAKE_HOME, "take_home")
+        } else {
+            (action::BUY, "buy")
+        }
+    } else if item >= 0 {
+        if shop == BORG_HOME as i16 {
+            (action::SELL_HOME, "sell_home")
+        } else {
+            (action::SELL, "sell")
+        }
+    } else {
+        (action::VISIT, "visit")
+    }
+}
+
 /// The state the town strategy reads.
 fn push_state(out: &mut String, st: &BorgState) {
     let notice = engine::player_notice();
@@ -197,26 +282,72 @@ fn push_state(out: &mut String, st: &BorgState) {
     out.push('}');
 }
 
-/// Record one town visit: the state, the shop stock, and the decision the
-/// current policy took with the Borg's own reason for it.
-pub fn dump_town_visit(st: &mut BorgState) {
-    if dump_file().is_none() {
-        return;
-    }
-    let reason = take_reason();
+/// The integer projection of one town visit.
+///
+/// Every value is an integer and the field order is fixed, so two runs'
+/// projections diff as numbers rather than as text. The records are totally
+/// ordered by `seq`.
+fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
+    let notice = engine::player_notice();
+    let shop = st.borg.goal.shop;
+    let ware = st.borg.goal.ware;
+    let item = st.borg.goal.item;
+    let (code, _) = decision_action(shop, ware, item);
 
-    let mut out = String::with_capacity(4096);
-    out.push_str("{\"type\":\"decision\",\"seq\":");
-    push_num(&mut out, SEQ.fetch_add(1, Ordering::Relaxed));
-    out.push(',');
-    push_state(&mut out, st);
+    out.push_str("{\"v\":");
+    push_num(out, INTEGER_SCHEMA);
+    out.push_str(",\"seq\":");
+    push_num(out, seq);
+    out.push_str(",\"turn\":");
+    push_num(out, st.borg.time.now);
+    out.push_str(",\"depth\":");
+    push_num(out, st.borg.tr(BI_CDEPTH));
+    out.push_str(",\"level\":");
+    push_num(out, st.borg.tr(BI_CLEVEL));
+    out.push_str(",\"chp\":");
+    push_num(out, notice.chp);
+    out.push_str(",\"mhp\":");
+    push_num(out, notice.mhp);
+    out.push_str(",\"gold\":");
+    push_num(out, st.borg.tr(BI_GOLD));
+    out.push_str(",\"race\":");
+    push_num(out, engine::race_ridx());
+    out.push_str(",\"class\":");
+    push_num(out, engine::class_cidx_if_set().unwrap_or(u32::MAX));
+    out.push_str(",\"light\":");
+    push_num(out, st.borg.tr(BI_LIGHT));
+    out.push_str(",\"food\":");
+    push_num(out, st.borg.tr(BI_FOOD));
+    out.push_str(",\"cut\":");
+    push_num(out, st.borg.tr(BI_ISCUT));
+    out.push_str(",\"poison\":");
+    push_num(out, st.borg.tr(BI_ISPOISONED));
+    out.push_str(",\"action\":");
+    push_num(out, code);
+    out.push_str(",\"shop\":");
+    push_num(out, shop);
+    out.push_str(",\"ware\":");
+    push_num(out, ware);
+    out.push_str(",\"item\":");
+    push_num(out, item);
+    out.push_str(",\"price\":");
+    if ware >= 0 {
+        match st.store.shops.get(shop as usize).and_then(|s| s.ware.get(ware as usize)) {
+            Some(w) => push_num(out, w.cost),
+            None => push_num(out, -1),
+        }
+    } else {
+        push_num(out, -1);
+    }
 
     // The pack (slots 0..pack_size) and the equipment (the next twelve).
     let pack_end = inven_wield() as usize;
     let mut first = true;
     out.push_str(",\"pack\":[");
     for slot in 0..pack_end {
-        let item = &st.items.items[slot];
+        let Some(item) = st.items.items.get(slot) else {
+            break;
+        };
         if item.iqty == 0 {
             continue;
         }
@@ -224,9 +355,9 @@ pub fn dump_town_visit(st: &mut BorgState) {
             out.push(',');
         }
         first = false;
-        push_item(&mut out, item, slot, false);
+        push_item_integers(out, item, slot, false);
     }
-    out.push_str("],\"equipment\":[");
+    out.push_str("],\"equip\":[");
     first = true;
     for slot in pack_end..pack_end + 12 {
         let Some(item) = st.items.items.get(slot) else {
@@ -239,16 +370,81 @@ pub fn dump_town_visit(st: &mut BorgState) {
             out.push(',');
         }
         first = false;
-        push_item(&mut out, item, slot, false);
+        push_item_integers(out, item, slot, false);
     }
     out.push(']');
 
     // The home.
     out.push_str(",\"home\":[");
+    first = true;
     if let Some(home) = st.store.shops.get(BORG_HOME) {
-        first = true;
-        for slot in 0..home.ware.len() {
-            let item = &home.ware[slot];
+        for (slot, item) in home.ware.iter().enumerate() {
+            if item.iqty == 0 {
+                continue;
+            }
+            if !first {
+                out.push(',');
+            }
+            first = false;
+            push_item_integers(out, item, slot, false);
+        }
+    }
+    out.push(']');
+
+    // The stock of every shop, with the price of every ware.
+    out.push_str(",\"shops\":[");
+    first = true;
+    for shop in 0..st.store.shops.len() {
+        if !first {
+            out.push(',');
+        }
+        first = false;
+        out.push('[');
+        push_num(out, shop);
+        out.push_str(",[");
+        let mut first_ware = true;
+        for (slot, item) in st.store.shops[shop].ware.iter().enumerate() {
+            if item.iqty == 0 {
+                continue;
+            }
+            if !first_ware {
+                out.push(',');
+            }
+            first_ware = false;
+            push_item_integers(out, item, slot, true);
+        }
+        out.push_str("]]");
+    }
+    out.push(']');
+    out.push('}');
+}
+
+/// Record one town visit: the state, the shop stock, and the decision the
+/// current policy took with the Borg's own reason for it.
+pub fn dump_town_visit(st: &mut BorgState) {
+    let descriptive = dump_file();
+    let integers = integers_file();
+    if descriptive.is_none() && integers.is_none() {
+        return;
+    }
+    let seq = SEQ.fetch_add(1, Ordering::Relaxed);
+    let reason = take_reason();
+
+    if descriptive.is_some() {
+        let mut out = String::with_capacity(4096);
+        out.push_str("{\"type\":\"decision\",\"seq\":");
+        push_num(&mut out, seq);
+        out.push(',');
+        push_state(&mut out, st);
+
+        // The pack (slots 0..pack_size) and the equipment (the next twelve).
+        let pack_end = inven_wield() as usize;
+        let mut first = true;
+        out.push_str(",\"pack\":[");
+        for slot in 0..pack_end {
+            let Some(item) = st.items.items.get(slot) else {
+                break;
+            };
             if item.iqty == 0 {
                 continue;
             }
@@ -258,129 +454,178 @@ pub fn dump_town_visit(st: &mut BorgState) {
             first = false;
             push_item(&mut out, item, slot, false);
         }
-    }
-    out.push(']');
-
-    // The stock of every shop, with the price of every ware. The wares that
-    // were not bought are the contrastive signal, so the whole stock is
-    // kept.
-    out.push_str(",\"shops\":[");
-    first = true;
-    for shop in 0..st.store.shops.len() {
-        if !first {
-            out.push(',');
-        }
-        first = false;
-        out.push_str("{\"shop\":");
-        push_num(&mut out, shop);
-        out.push_str(",\"name\":");
-        push_str(&mut out, &engine::store_feat_name(shop));
-        out.push_str(",\"wares\":[");
-        let wares = &st.store.shops[shop].ware;
-        let mut first_ware = true;
-        for (slot, item) in wares.iter().enumerate() {
+        out.push_str("],\"equipment\":[");
+        first = true;
+        for slot in pack_end..pack_end + 12 {
+            let Some(item) = st.items.items.get(slot) else {
+                break;
+            };
             if item.iqty == 0 {
                 continue;
             }
-            if !first_ware {
+            if !first {
                 out.push(',');
             }
-            first_ware = false;
-            push_item(&mut out, item, slot, true);
+            first = false;
+            push_item(&mut out, item, slot, false);
         }
-        out.push_str("]}");
-    }
-    out.push(']');
+        out.push(']');
 
-    // The decision.
-    let shop = st.borg.goal.shop;
-    let ware = st.borg.goal.ware;
-    let item = st.borg.goal.item;
-    let action = if ware >= 0 {
-        if shop == BORG_HOME as i16 {
-            "take_home"
-        } else {
-            "buy"
+        // The home.
+        out.push_str(",\"home\":[");
+        if let Some(home) = st.store.shops.get(BORG_HOME) {
+            first = true;
+            for (slot, item) in home.ware.iter().enumerate() {
+                if item.iqty == 0 {
+                    continue;
+                }
+                if !first {
+                    out.push(',');
+                }
+                first = false;
+                push_item(&mut out, item, slot, false);
+            }
         }
-    } else if item >= 0 {
-        if shop == BORG_HOME as i16 {
-            "sell_home"
-        } else {
-            "sell"
-        }
-    } else {
-        "visit"
-    };
+        out.push(']');
 
-    out.push_str(",\"decision\":{\"action\":");
-    push_str(&mut out, action.as_bytes());
-    out.push_str(",\"shop\":");
-    push_num(&mut out, shop);
-    out.push_str(",\"shop_name\":");
-    if shop >= 0 && usize::from(shop as u16) < st.store.shops.len() {
-        push_str(&mut out, &engine::store_feat_name(shop as usize));
-    } else {
-        push_str(&mut out, b"");
-    }
-    out.push_str(",\"ware\":");
-    push_num(&mut out, ware);
-    out.push_str(",\"ware_desc\":");
-    if ware >= 0 {
-        if let Some(shops) = st.store.shops.get(shop as usize) {
-            if let Some(w) = shops.ware.get(ware as usize) {
-                push_str(&mut out, &desc_bytes(w));
+        // The stock of every shop, with the price of every ware. The wares
+        // that were not bought are the contrastive signal, so the whole
+        // stock is kept.
+        out.push_str(",\"shops\":[");
+        first = true;
+        for shop in 0..st.store.shops.len() {
+            if !first {
+                out.push(',');
+            }
+            first = false;
+            out.push_str("{\"shop\":");
+            push_num(&mut out, shop);
+            out.push_str(",\"name\":");
+            push_str(&mut out, &engine::store_feat_name(shop));
+            out.push_str(",\"wares\":[");
+            let mut first_ware = true;
+            for (slot, item) in st.store.shops[shop].ware.iter().enumerate() {
+                if item.iqty == 0 {
+                    continue;
+                }
+                if !first_ware {
+                    out.push(',');
+                }
+                first_ware = false;
+                push_item(&mut out, item, slot, true);
+            }
+            out.push_str("]}");
+        }
+        out.push(']');
+
+        // The decision.
+        let shop = st.borg.goal.shop;
+        let ware = st.borg.goal.ware;
+        let item = st.borg.goal.item;
+        let (_, action_name) = decision_action(shop, ware, item);
+
+        out.push_str(",\"decision\":{\"action\":");
+        push_str(&mut out, action_name.as_bytes());
+        out.push_str(",\"shop\":");
+        push_num(&mut out, shop);
+        out.push_str(",\"shop_name\":");
+        if shop >= 0 && usize::from(shop as u16) < st.store.shops.len() {
+            push_str(&mut out, &engine::store_feat_name(shop as usize));
+        } else {
+            push_str(&mut out, b"");
+        }
+        out.push_str(",\"ware\":");
+        push_num(&mut out, ware);
+        out.push_str(",\"ware_desc\":");
+        if ware >= 0 {
+            if let Some(shops) = st.store.shops.get(shop as usize) {
+                if let Some(w) = shops.ware.get(ware as usize) {
+                    push_str(&mut out, &desc_bytes(w));
+                } else {
+                    push_str(&mut out, b"");
+                }
             } else {
                 push_str(&mut out, b"");
             }
         } else {
             push_str(&mut out, b"");
         }
-    } else {
-        push_str(&mut out, b"");
-    }
-    out.push_str(",\"item\":");
-    push_num(&mut out, item);
-    out.push_str(",\"item_desc\":");
-    if item >= 0 {
-        if let Some(it) = st.items.items.get(item as usize) {
-            push_str(&mut out, &desc_bytes(it));
+        out.push_str(",\"item\":");
+        push_num(&mut out, item);
+        out.push_str(",\"item_desc\":");
+        if item >= 0 {
+            if let Some(it) = st.items.items.get(item as usize) {
+                push_str(&mut out, &desc_bytes(it));
+            } else {
+                push_str(&mut out, b"");
+            }
         } else {
             push_str(&mut out, b"");
         }
-    } else {
-        push_str(&mut out, b"");
-    }
-    out.push_str(",\"reason\":");
-    push_str(&mut out, &reason);
-    out.push_str("}}");
+        out.push_str(",\"reason\":");
+        push_str(&mut out, &reason);
+        out.push_str("}}");
 
-    write_record(&out);
+        write_record(descriptive, &out);
+    }
+
+    if integers.is_some() {
+        let mut out = String::with_capacity(2048);
+        push_integer_record(&mut out, st, seq);
+        write_record(integers, &out);
+    }
 }
 
 /// Record a purchase that was actually carried out.
 pub fn dump_purchase(st: &mut BorgState, shop: i32, item: &borg_item) {
-    if dump_file().is_none() {
+    let descriptive = dump_file();
+    let integers = integers_file();
+    if descriptive.is_none() && integers.is_none() {
         return;
     }
 
-    let mut out = String::with_capacity(512);
-    out.push_str("{\"type\":\"purchase\",\"seq\":");
-    push_num(&mut out, SEQ.fetch_add(1, Ordering::Relaxed));
-    out.push_str(",\"turn\":");
-    push_num(&mut out, st.borg.time.now);
-    out.push_str(",\"shop\":");
-    push_num(&mut out, shop);
-    out.push_str(",\"shop_name\":");
-    if shop >= 0 && usize::from(shop as u16) < st.store.shops.len() {
-        push_str(&mut out, &engine::store_feat_name(shop as usize));
-    } else {
-        push_str(&mut out, b"");
-    }
-    out.push_str(",\"gold_before\":");
-    push_num(&mut out, st.borg.tr(BI_GOLD));
-    out.push_str(",\"ware\":");
-    push_item(&mut out, item, 0, true);
-    out.push('}');
+    let seq = SEQ.fetch_add(1, Ordering::Relaxed);
+    if descriptive.is_some() {
+        let mut out = String::with_capacity(512);
+        out.push_str("{\"type\":\"purchase\",\"seq\":");
+        push_num(&mut out, seq);
+        out.push_str(",\"turn\":");
+        push_num(&mut out, st.borg.time.now);
+        out.push_str(",\"shop\":");
+        push_num(&mut out, shop);
+        out.push_str(",\"shop_name\":");
+        if shop >= 0 && usize::from(shop as u16) < st.store.shops.len() {
+            push_str(&mut out, &engine::store_feat_name(shop as usize));
+        } else {
+            push_str(&mut out, b"");
+        }
+        out.push_str(",\"gold_before\":");
+        push_num(&mut out, st.borg.tr(BI_GOLD));
+        out.push_str(",\"ware\":");
+        push_item(&mut out, item, 0, true);
+        out.push('}');
 
-    write_record(&out);
+        write_record(descriptive, &out);
+    }
+
+    if integers.is_some() {
+        let mut out = String::with_capacity(256);
+        out.push_str("{\"v\":");
+        push_num(&mut out, INTEGER_SCHEMA);
+        out.push_str(",\"seq\":");
+        push_num(&mut out, seq);
+        out.push_str(",\"turn\":");
+        push_num(&mut out, st.borg.time.now);
+        out.push_str(",\"shop\":");
+        push_num(&mut out, shop);
+        out.push_str(",\"price\":");
+        push_num(&mut out, item.cost);
+        out.push_str(",\"gold_before\":");
+        push_num(&mut out, st.borg.tr(BI_GOLD));
+        out.push_str(",\"ware\":");
+        push_item_integers(&mut out, item, 0, true);
+        out.push('}');
+
+        write_record(integers, &out);
+    }
 }
