@@ -1588,6 +1588,11 @@ pub fn feat_shopnum(feat: usize) -> u8 {
     unsafe { (*crate::headers::cave_h::f_info.add(feat)).shopnum }
 }
 
+/// `z_info->store_max`: the number of stores.
+pub fn store_max() -> u16 {
+    z_info().store_max
+}
+
 /// `f_info[stores[store].feat].name` (bytes up to the NUL).
 pub fn store_feat_name(store: usize) -> Vec<u8> {
     assert!(store < usize::from(z_info().store_max), "store index out of range");
