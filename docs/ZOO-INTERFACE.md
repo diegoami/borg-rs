@@ -26,7 +26,7 @@ test `upstream_defaults_are_unchanged` is what keeps that true. **No setting
 the upstream had has a different default here**, in either the table or the
 configuration.
 
-Nine settings are not in the upstream. They are listed below.
+Ten settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
@@ -57,6 +57,7 @@ did, so an unconfigured Borg is the original C Borg.
 | `borg_buy_strategy_current_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_reserve410_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_identify` | int | 0 | 0 is off, and the original C Borg never bought to identify | 0 | no | borg-rs PR #28 |
+| `borg_town_no_stores` | bool | FALSE | FALSE is what a Borg does today: the store exists, the Borg does not use it | FALSE | no - FALSE is today's behaviour | borg-rs PR #42, the negative-baseline arm for the town inventory redesign (borg-rs#36) |
 
 **One departure, and it is deliberate.** `borg_munchkin_by_class` is the only
 setting whose built-in default and configured value differ. The built-in
