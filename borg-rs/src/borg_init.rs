@@ -136,6 +136,18 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_buy_strategy_reserve410_munchkin_classes", 0),
     i(c"borg_buy_identify", 0),
     b(c"borg_town_no_stores", false),
+    i(c"borg_town_plan", 0),
+    i(c"borg_town_w_light", 100),
+    i(c"borg_town_w_food", 100),
+    i(c"borg_town_w_bleeding", 100),
+    i(c"borg_town_w_poison", 100),
+    i(c"borg_town_w_escape", 50),
+    i(c"borg_town_w_knowledge", 25),
+    i(c"borg_town_w_power", 50),
+    i(c"borg_town_w_trip", 50),
+    i(c"borg_town_share", 10),
+    i(c"borg_town_light_depth", 15),
+    i(c"borg_town_food_trip", 10),
 ];
 
 /// Class indexes of borg-trait.h used by the munchkin class rule.
@@ -726,6 +738,8 @@ pub fn borg_init(st: &mut BorgState) {
     engine::term_fresh();
 
     // Mega-Hack -- verify memory (C allocates and frees 400k zero bytes)
+    let memory_test: Vec<u8> = vec![0; 400 * 1024];
+    drop(memory_test);
 
     // Prapare a local random number seed (randint1)
     if st.core.rand_local == 0 {
@@ -776,7 +790,7 @@ pub fn borg_init(st: &mut BorgState) {
 
     // set the continuous play mode if the game cheat death is on
     if engine::player_opt(OPT_cheat_live) {
-        st.borg.status.cheat_death = true;
+        borg.status.cheat_death = true;
     }
 
     // Initialize
@@ -1024,6 +1038,11 @@ mod tests {
             BORG_SETTINGS[BORG_RESTORE_IGNORE_SETTINGS as usize].name,
             c"borg_restore_ignore_settings"
         );
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_PLAN as usize].name, c"borg_town_plan");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_LIGHT as usize].name, c"borg_town_w_light");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_TRIP as usize].name, c"borg_town_w_trip");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_SHARE as usize].name, c"borg_town_share");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_FOOD_TRIP as usize].name, c"borg_town_food_trip");
     }
 
     /// Expected values from the C parser (borg-init.c with stubs).
@@ -1175,9 +1194,38 @@ mod tests {
              borg_buy_strategy_current_classes = 0\nborg_buy_strategy_reserve410_classes = 0\n\
              borg_buy_strategy_current_munchkin_classes = 0\n\
              borg_buy_strategy_reserve410_munchkin_classes = 0\n\
-             borg_buy_identify = 0\nborg_town_no_stores = FALSE\n"
+             borg_buy_identify = 0\nborg_town_no_stores = FALSE\n\
+             borg_town_plan = 0\nborg_town_w_light = 100\nborg_town_w_food = 100\n\
+             borg_town_w_bleeding = 100\nborg_town_w_poison = 100\nborg_town_w_escape = 50\n\
+             borg_town_w_knowledge = 25\nborg_town_w_power = 50\nborg_town_w_trip = 50\n\
+             borg_town_share = 10\nborg_town_light_depth = 15\nborg_town_food_trip = 10\n"
         ));
         assert!(text.contains("\nborg_munchkin_by_class = FALSE\n"));
+    }
+
+    /// The town inventory redesign's parameter vector (borg-rs#36): the
+    /// twelve settings parse like any other int setting.
+    #[test]
+    fn town_settings_parse() {
+        use crate::borg_headers::borg_h::*;
+        let (cfg, _) = cfg_of(
+            b"borg_town_plan = 1\nborg_town_w_light = 90\nborg_town_w_food = 80\n\
+              borg_town_w_bleeding = 70\nborg_town_w_poison = 60\nborg_town_w_escape = 55\n\
+              borg_town_w_knowledge = 45\nborg_town_w_power = 35\nborg_town_w_trip = 25\n\
+              borg_town_share = 4\nborg_town_light_depth = 20\nborg_town_food_trip = 12\n",
+        );
+        assert_eq!(cfg[BORG_TOWN_PLAN as usize], 1);
+        assert_eq!(cfg[BORG_TOWN_W_LIGHT as usize], 90);
+        assert_eq!(cfg[BORG_TOWN_W_FOOD as usize], 80);
+        assert_eq!(cfg[BORG_TOWN_W_BLEEDING as usize], 70);
+        assert_eq!(cfg[BORG_TOWN_W_POISON as usize], 60);
+        assert_eq!(cfg[BORG_TOWN_W_ESCAPE as usize], 55);
+        assert_eq!(cfg[BORG_TOWN_W_KNOWLEDGE as usize], 45);
+        assert_eq!(cfg[BORG_TOWN_W_POWER as usize], 35);
+        assert_eq!(cfg[BORG_TOWN_W_TRIP as usize], 25);
+        assert_eq!(cfg[BORG_TOWN_SHARE as usize], 4);
+        assert_eq!(cfg[BORG_TOWN_LIGHT_DEPTH as usize], 20);
+        assert_eq!(cfg[BORG_TOWN_FOOD_TRIP as usize], 12);
     }
 
     /// Differential check against the C parser: for every file in
@@ -1265,6 +1313,18 @@ mod tests {
         ("borg_buy_strategy_reserve410_munchkin_classes", b'i', 0, "0"),
         ("borg_buy_identify", b'i', 0, "0"),
         ("borg_town_no_stores", b'b', 0, "FALSE"),
+        ("borg_town_plan", b'i', 0, "0"),
+        ("borg_town_w_light", b'i', 100, "100"),
+        ("borg_town_w_food", b'i', 100, "100"),
+        ("borg_town_w_bleeding", b'i', 100, "100"),
+        ("borg_town_w_poison", b'i', 100, "100"),
+        ("borg_town_w_escape", b'i', 50, "50"),
+        ("borg_town_w_knowledge", b'i', 25, "25"),
+        ("borg_town_w_power", b'i', 50, "50"),
+        ("borg_town_w_trip", b'i', 50, "50"),
+        ("borg_town_share", b'i', 10, "10"),
+        ("borg_town_light_depth", b'i', 15, "15"),
+        ("borg_town_food_trip", b'i', 10, "10"),
     ];
 
     /// The setting lines of a borg.txt: the name and the value, in order.
