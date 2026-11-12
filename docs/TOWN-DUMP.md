@@ -175,9 +175,9 @@ run that is happening. The **baseline** is the frozen half of it - the
 distinct decisions the current policy makes, at real states, in a form a
 decision function can be run against.
 
-- `fixtures/town-baseline.jsonl` - the distinct decisions, in the integer
-  projection's frozen shape (schema version 2). Each record is a state and
-  the control's choice in it.
+- `fixtures/town-baseline-*.jsonl` - the distinct decisions, one file per
+  class, in the integer projection's frozen shape (schema version 2). Each
+  record is a state and the control's choice in it.
 - `docs/TOWN-BASELINE.md` - the readable half: the choices with their names,
   the gold, the depth and the Borg's own reason, and the provenance.
 - `tools/town_baseline.py` - what made them, from the runs.

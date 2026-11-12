@@ -2,7 +2,13 @@
 
 What the current Borg does in town, at real states, so that the new
 algorithm can be checked against it. The fixture is the
-machine-readable half (`town-baseline.jsonl`); this is the readable half.
+machine-readable half; this is the readable half.
+
+| fixture | records |
+| --- | --- |
+| `town-baseline-mage.jsonl` | 126 |
+| `town-baseline-priest.jsonl` | 104 |
+| `town-baseline-warrior.jsonl` | 71 |
 
 ## The runs
 
@@ -130,7 +136,7 @@ tools/town_baseline.py \
     --run priest-401 /workspace/corpus/priest-401/i32.jsonl /workspace/corpus/priest-401/desc.jsonl "BORG_TOWN_DUMP=corpus/priest-401/desc.jsonl BORG_TOWN_DUMP_INTEGERS=corpus/priest-401/i32.jsonl BORG_IMPL=rust ./harness/run.sh corpus/priest-401/out 401 5 3 20000" \
     --run priest-402 /workspace/corpus/priest-402/i32.jsonl /workspace/corpus/priest-402/desc.jsonl "BORG_TOWN_DUMP=corpus/priest-402/desc.jsonl BORG_TOWN_DUMP_INTEGERS=corpus/priest-402/i32.jsonl BORG_IMPL=rust ./harness/run.sh corpus/priest-402/out 402 5 3 20000" \
     --run priest-403 /workspace/corpus/priest-403/i32.jsonl /workspace/corpus/priest-403/desc.jsonl "BORG_TOWN_DUMP=corpus/priest-403/desc.jsonl BORG_TOWN_DUMP_INTEGERS=corpus/priest-403/i32.jsonl BORG_IMPL=rust ./harness/run.sh corpus/priest-403/out 403 5 3 20000" \
-    --out fixtures/town-baseline.jsonl \
+    --out-dir fixtures \
     --summary docs/TOWN-BASELINE.md
 ```
 

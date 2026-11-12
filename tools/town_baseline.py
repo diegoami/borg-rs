@@ -21,9 +21,14 @@ This turns a set of runs into the baseline:
 The fixture is regenerated from the runs, never edited by hand: the summary
 carries the command that made it.
 
+The fixture is written **one file per group**, the group being the first
+word of the run's label (the class, here). One file for the whole corpus
+is several hundred kilobytes, which is more than a pull request wants to
+carry in one piece.
+
 Usage:
     tools/town_baseline.py --run LABEL INT_DUMP DESC_DUMP COMMAND [--run ...] \\
-        --control COMMIT --out FIXTURE.jsonl --summary SUMMARY.md
+        --control COMMIT --out-dir DIR --summary SUMMARY.md
 """
 import argparse
 import json
@@ -36,7 +41,8 @@ parser.add_argument('--run', nargs=4, action='append', required=True,
                          'and the command that produced them')
 parser.add_argument('--control', required=True,
                     help='the commit the control policy was harvested at')
-parser.add_argument('--out', type=Path, required=True, help='the fixture to write')
+parser.add_argument('--out-dir', type=Path, required=True,
+                    help='the directory the fixture files are written to')
 parser.add_argument('--summary', type=Path, required=True, help='the summary to write')
 args = parser.parse_args()
 
@@ -157,9 +163,19 @@ for entry in distinct:
 # The fixture: the distinct pairs, run by run, in the order they were first
 # made. The seq is the one the run gave it, so each record points back at
 # the run it came from.
+#
+# One file per group: the group is the first word of the run's label, and
+# the fixture file is named after it.
 fixture = [entry['record'] for entry in distinct]
-args.out.write_text(''.join(json.dumps(record, separators=(',', ':')) + '\n'
-                            for record in fixture))
+group_of = {id(entry['record']): entry['label'].split('-')[0] for entry in distinct}
+args.out_dir.mkdir(parents=True, exist_ok=True)
+fixture_files = []
+for group in sorted({g for g in group_of.values()}):
+    records = [r for r in fixture if group_of[id(r)] == group]
+    path = args.out_dir / f'town-baseline-{group}.jsonl'
+    path.write_text(''.join(json.dumps(record, separators=(',', ':')) + '\n'
+                            for record in records))
+    fixture_files.append((group, path, len(records)))
 
 # The summary.
 lines = []
@@ -167,7 +183,12 @@ lines.append('# The baseline of inventory choices')
 lines.append('')
 lines.append('What the current Borg does in town, at real states, so that the new')
 lines.append('algorithm can be checked against it. The fixture is the')
-lines.append('machine-readable half (`%s`); this is the readable half.' % args.out.name)
+lines.append('machine-readable half; this is the readable half.')
+lines.append('')
+lines.append('| fixture | records |')
+lines.append('| --- | --- |')
+for group, path, count in fixture_files:
+    lines.append(f'| `{path.name}` | {count} |')
 lines.append('')
 lines.append('## The runs')
 lines.append('')
@@ -258,7 +279,7 @@ lines.append('```sh')
 command = ['tools/town_baseline.py', '--control', args.control]
 for label, int_path, desc_path, run_command in args.run:
     command.append('--run {} {} {} "{}"'.format(label, int_path, desc_path, run_command))
-command.append('--out {}'.format(args.out))
+command.append('--out-dir {}'.format(args.out_dir))
 command.append('--summary {}'.format(args.summary))
 lines.append(' \\\n    '.join(command))
 lines.append('```')
@@ -283,5 +304,6 @@ args.summary.write_text('\n'.join(lines) + '\n')
 
 print(f'{visits} visits -> {len(distinct)} distinct (state, choice) pairs, '
       f'{len(states)} states, {len(choices)} choices')
-print(f'fixture: {args.out} ({args.out.stat().st_size} bytes)')
+for group, path, count in fixture_files:
+    print(f'fixture: {path} ({count} records, {path.stat().st_size} bytes)')
 print(f'summary: {args.summary}')
