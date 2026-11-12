@@ -25,6 +25,14 @@
 //! the kind's stack limit; the builder [`Stock::build`] takes it as a
 //! closure so a test binary can run without the engine.
 //!
+//! Two known approximations, both on the safe side of the slot count:
+//! ammunition is accounted against the pack, though the game puts it in
+//! the quiver (whose occupied slots come off the pack's capacity, which
+//! the budget reads through `BI_QUIVER_SLOTS`); and the stack
+//! classes ask `borg_object_similar`, whose stack limit is checked
+//! against the *held* stack's count, so two large shop stacks of one kind
+//! can land in separate classes and count a slot each.
+//!
 //! What the stock does **not** carry: the reduction table that maps a ware
 //! to the (need, reduction) pairs it serves. Its catalogue of useful kinds
 //! is still open (#35 item 4), so it is not invented here; the candidates
@@ -66,7 +74,8 @@ pub struct Candidate {
     pub weight: i32,
     /// 0 if a copy stacks into a stack the pack already holds, else 1.
     pub slots_cost: i32,
-    /// How many copies of this kind the pack already carries.
+    /// How many copies of this kind the pack already carries (the pack
+    /// only: a worn copy or a quiver stack is not counted).
     pub stack_count: i32,
     /// The stack class: wares of one kind that stack with each other (or
     /// into the same pack stack) share a class, so buying from several of

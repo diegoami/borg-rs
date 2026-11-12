@@ -116,8 +116,10 @@ fn floor_pass(
     // The cheapest ware for each distinct way of serving the floors
     // (ties: the earliest candidate). Any optimal set can use these
     // representatives instead of its own wares at no extra cost.
+    // `serves` is asked once per candidate: in production it reaches the
+    // engine's effect tables, and the subset loop below must not.
     let full = (1u32 << need.len()) - 1;
-    let mut best: Vec<Option<usize>> = vec![None; (full + 1) as usize];
+    let mut best: Vec<Option<(usize, u32)>> = vec![None; (full + 1) as usize];
     for (i, c) in cands.iter().enumerate() {
         if c.qty < 1 {
             continue;
@@ -132,31 +134,23 @@ fn floor_pass(
             continue;
         }
         let slot = &mut best[mask as usize];
-        if slot.is_none_or(|j| c.price < cands[j].price) {
-            *slot = Some(i);
+        if slot.is_none_or(|(j, _)| c.price < cands[j].price) {
+            *slot = Some((i, mask));
         }
     }
-    let reps: Vec<usize> = best.into_iter().flatten().collect();
+    let reps: Vec<(usize, u32)> = best.into_iter().flatten().collect();
 
     // Every subset of the representatives (at most 2^15).
     let mut choice: Option<(u32, i64, Vec<usize>)> = None;
     for sub in 0u32..(1u32 << reps.len()) {
-        let mut picked: Vec<usize> = (0..reps.len())
-            .filter(|b| sub & (1 << b) != 0)
-            .map(|b| reps[b])
-            .collect();
+        let chosen = (0..reps.len()).filter(|b| sub & (1 << b) != 0).map(|b| reps[b]);
+        let covered = chosen.clone().fold(0u32, |m, (_, mask)| m | mask);
+        let mut picked: Vec<usize> = chosen.map(|(i, _)| i).collect();
         picked.sort_unstable();
         let cost: i64 = picked.iter().map(|&i| i64::from(cands[i].price)).sum();
         if cost > gold {
             continue;
         }
-        let covered = picked.iter().fold(0u32, |m, &i| {
-            let served = serves(&cands[i]);
-            need.iter()
-                .enumerate()
-                .filter(|(_, n)| served.contains(n))
-                .fold(m, |m, (b, _)| m | (1 << b))
-        });
         let better = match &choice {
             None => true,
             Some((cov, c, p)) => {
@@ -423,6 +417,35 @@ mod tests {
         let b = Budget::build(&facts(100), &s, &[Need::Bleeding], serves);
         assert!(s.candidates[b.floors[0].candidate].is_black_market());
         assert_eq!(b.gold, 40);
+    }
+
+    /// `serves` is asked once per candidate in the floor pass and once per
+    /// floor purchase after it - never per subset, because in production
+    /// it reaches the engine's effect tables.
+    #[test]
+    fn serves_is_asked_once_per_candidate() {
+        use std::cell::Cell;
+        // fifteen candidates across the four floors' masks
+        let t = town([
+            &[item(TORCH, 1, 2), item(RATION, 1, 4), item(FOOD_POISON, 1, 9)],
+            &[item(TORCH, 1, 3), item(RATION, 1, 5)],
+            &[],
+            &[],
+            &[item(CLW, 1, 20), item(CURE_POISON, 1, 30), item(CLW, 1, 21)],
+            &[item(CURE_POISON, 1, 31)],
+            &[item(TORCH, 1, 6), item(CLW, 1, 60)],
+            &[],
+        ]);
+        let s = build(&t, &[]);
+        let calls = Cell::new(0);
+        let counting = |c: &Candidate| {
+            calls.set(calls.get() + 1);
+            serves(c)
+        };
+        let unmet = [Need::Light, Need::Food, Need::Bleeding, Need::Poison];
+        let b = Budget::build(&facts(1000), &s, &unmet, counting);
+        assert!(b.unmet.is_empty());
+        assert_eq!(calls.get(), s.candidates.len() + b.floors.len());
     }
 
     /// The same inputs give the same budget.
