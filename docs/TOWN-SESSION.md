@@ -96,15 +96,18 @@ starts.
 
 ## What was not checked
 
-- The native recording in the interactive session: the build used for the
-  check above has the recording *off* (the cmake default), so the inputs
-  were not logged in that run. The recording is the C side's own, already
-  used by the replay tooling; the interactive session's use of it is not
-  verified here.
 - The pairing of the player's purchases with the states they happened in:
-  that needs the recording (see below), and the clock for it is still open.
-  Store commands do not consume game turns, so several purchases in one
-  visit share a turn, and the native recorder's frame counter (the clock
-  its messages carry) is not readable from the Rust side today.
+  the recording settles the clock question. The messages carry the frame
+  number they happened in (`{"frame": 26, "turn": 1, ...}`), and the frames
+  carry the state at every frame, so a purchase is paired with a state
+  through the recording, not through the game's turn (store commands do
+  not consume turns, so several purchases in one visit share a turn). The
+  curation that does the pairing is not written yet.
 - The death and the next character: the harness plays several characters in
   several directories, but the loop was not driven through a death here.
+
+The native recording in the interactive session was checked with a build
+that has it (`BORG_RECORDING=1`): the run left `events.txt` (the player's
+inputs), `actions.txt` (the Borg's keys), `frames.jsonl` (the state at
+every frame), `native-messages.jsonl` (the messages with their frame) and
+`record-complete.json`.
