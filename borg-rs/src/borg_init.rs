@@ -1156,7 +1156,7 @@ mod tests {
              borg_buy_strategy_current_classes = 0\nborg_buy_strategy_reserve410_classes = 0\n\
              borg_buy_strategy_current_munchkin_classes = 0\n\
              borg_buy_strategy_reserve410_munchkin_classes = 0\n\
-             borg_buy_identify = 0\n"
+             borg_buy_identify = 0\nborg_town_no_stores = FALSE\n"
         ));
     }
 

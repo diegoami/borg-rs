@@ -96,6 +96,8 @@ fn goal_shop_name(st: &BorgState) -> Vec<u8> {
 /// `borg_note(format(...))` from byte pieces.
 fn note(st: &mut BorgState, parts: &[&[u8]]) {
     let s = parts.concat();
+    // The town-visit dump reads this back as the reason for the decision.
+    crate::borg_town_dump::record_reason(&s);
     borg_note_bytes(st, &s);
 }
 
@@ -128,7 +130,20 @@ fn leave(st: &mut BorgState) {
 }
 
 /// Choose a shop to visit (`borg_choose_shop`).
+///
+/// When the Borg takes a town decision, the town-visit dump records that
+/// decision together with the state and the shop stock. The dump is
+/// observation only, so the keypress stream is unchanged.
 pub fn borg_choose_shop(st: &mut BorgState) -> bool {
+    let decided = borg_choose_shop_inner(st);
+    if decided {
+        crate::borg_town_dump::dump_town_visit(st);
+    }
+    decided
+}
+
+/// The body of `borg_choose_shop`.
+fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
     let mut best_home_power: i32 = 0;
 
     /* Must be in town */

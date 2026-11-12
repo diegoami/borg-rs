@@ -1405,6 +1405,9 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         /* Log */
         note_desc(st, "# Buying ", &item, ".");
 
+        /* Town-visit dump: the purchase that was actually carried out. */
+        crate::borg_town_dump::dump_purchase(st, shop, &item);
+
         /* Buy the desired item */
         borg_keypress(st, purchase_target);
         borg_keypress(st, keycode_t::from(b'p'));
