@@ -286,7 +286,8 @@ fn push_state(out: &mut String, st: &BorgState) {
 ///
 /// Every value is an integer and the field order is fixed, so two runs'
 /// projections diff as numbers rather than as text. The records are totally
-/// ordered by `seq`.
+/// ordered by `seq`. An absent value is `-1`, like `shop`, `ware` and
+/// `item`: a class that is not set is `-1`, not a magic number.
 fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
     let notice = engine::player_notice();
     let shop = st.borg.goal.shop;
@@ -313,7 +314,11 @@ fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
     out.push_str(",\"race\":");
     push_num(out, engine::race_ridx());
     out.push_str(",\"class\":");
-    push_num(out, engine::class_cidx_if_set().unwrap_or(u32::MAX));
+    /* The absent value is -1, like every other absent value in the record. */
+    push_num(
+        out,
+        engine::class_cidx_if_set().map(i64::from).unwrap_or(-1),
+    );
     out.push_str(",\"light\":");
     push_num(out, st.borg.tr(BI_LIGHT));
     out.push_str(",\"food\":");

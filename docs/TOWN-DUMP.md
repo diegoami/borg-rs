@@ -89,12 +89,22 @@ one carries today's side only.
 | `v` | the schema version |
 | `seq` | the record number over the run; the records are totally ordered by it |
 | `turn`, `depth`, `level`, `chp`, `mhp`, `gold` | where the Borg was |
-| `race`, `class` | the game's indexes, not the names |
+| `race`, `class` | the game's indexes, not the names; `-1` if the class is not set |
 | `light`, `food`, `cut`, `poison` | the traits |
 | `action` | 0 visit, 1 buy, 2 take_home, 3 sell, 4 sell_home |
 | `shop`, `ware`, `item`, `price` | the goal, and the price of the goal ware |
 | `pack`, `equip`, `home` | `[slot, kind, subkind, quantity, value]` each |
 | `shops` | `[shop, [[slot, kind, subkind, quantity, price], ...]]` each |
+
+The file holds two record shapes. A **decision** record is the table above; a
+**purchase** record is the transaction that was carried out: `v`, `seq`,
+`turn`, `shop`, `price`, `gold_before`, and the `ware` as
+`[slot, kind, subkind, quantity, price]`. A decision record carries an
+`action`; a purchase record carries the gold before it. The renderer tells
+the two apart on that.
+
+An absent value is `-1`, everywhere: no goal ware, no goal item, no price,
+no class.
 
 To read it:
 

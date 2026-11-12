@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-"""Render a town-visit dump as a sheet the owner can label.
+"""Render a town-visit dump as a readable sheet.
 
 The dump itself is written by the Rust Borg (borg-rs/src/borg_town_dump.rs);
 see docs/TOWN-DUMP.md. This reads the JSONL it writes and prints one block
-per town visit: the state, the shop stock, the decision the current policy
-took, and an empty label line for the owner to fill in.
+per town visit: the state, the shop stock, and the decision the current
+policy took.
 
 Usage:
     tools/town_dump_report.py DUMP [--limit N] [--action A] [--distinct] [--full] [--markdown]
@@ -81,9 +81,9 @@ def render(record, index, markdown):
     state = (f"turn {record.get('turn')}, {record.get('class')} level {record.get('level')}, "
              f"depth {record.get('depth')}, gold {record.get('gold')}, hp {record.get('hp')}")
 
-    # The state and the stock are the context; the decision, the reason and
-    # the label are what the owner reads. In Markdown the context is folded
-    # away, so a batch of visits can be scanned in one screen.
+    # The state and the stock are the context; the decision and the reason
+    # are what the owner reads. In Markdown the context is folded away, so a
+    # batch of visits can be scanned in one screen.
     detail = []
     detail.append(f"traits: light {traits.get('light')}, food {traits.get('food')}, "
                   f"cut {traits.get('cut')}, poisoned {traits.get('poisoned')}")
@@ -123,13 +123,11 @@ def render(record, index, markdown):
         lines.append("")
         lines.append(f"**decision**: {decision_line}")
         lines.append(f"**reason**: {reason}")
-        lines.append("**label**:")
     else:
         lines.append(f"Visit {record.get('seq')} - {state}")
         lines.extend(f"  {line}" for line in detail)
         lines.append(f"  decision: {decision_line}")
         lines.append(f"  reason: {reason}")
-        lines.append("  label: " + ("_" * 60))
     lines.append("")
     return "\n".join(lines) + "\n"
 
@@ -139,7 +137,15 @@ def render_integer(record, markdown):
 
     The integer projection has no names, so there is nothing to read but the
     numbers: the state, the action, and what the character carried.
+
+    The file holds two record shapes - the decision (a town visit) and the
+    purchase (a transaction that was carried out) - and they are told apart
+    by the fields they carry, not by a type tag: a decision record has an
+    `action`, a purchase record has the gold before it.
     """
+    if 'action' not in record:
+        return render_integer_purchase(record, markdown)
+
     action = ACTION_CODES.get(record.get('action'), '?')
     pack = record.get('pack') or []
     equip = record.get('equip') or []
@@ -152,6 +158,27 @@ def render_integer(record, markdown):
             f"poison {record.get('poison')} | {action} shop {record.get('shop')} "
             f"ware {record.get('ware')} item {record.get('item')} price {record.get('price')} "
             f"| pack {len(pack)} equip {len(equip)} home {len(home)} wares {wares}")
+    if markdown:
+        return f"`{line}`\n"
+    return f"{line}\n"
+
+
+def render_integer_purchase(record, markdown):
+    """One purchase in the integer projection: the transaction, in numbers.
+
+    A purchase carries no state and no action - the transaction is the whole
+    record - so it gets its own line rather than a decision line full of
+    absent values.
+    """
+    ware = record.get('ware') or []
+    if len(ware) == 5:
+        ware_line = (f"ware slot {ware[0]} kind {ware[1]} subkind {ware[2]} "
+                     f"qty {ware[3]} price {ware[4]}")
+    else:
+        ware_line = f"ware {ware}"
+    line = (f"seq {record.get('seq')} | purchase | turn {record.get('turn')} "
+            f"| shop {record.get('shop')} | price {record.get('price')} "
+            f"| gold_before {record.get('gold_before')} | {ware_line}")
     if markdown:
         return f"`{line}`\n"
     return f"{line}\n"
