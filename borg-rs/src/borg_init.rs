@@ -126,7 +126,7 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     b(c"borg_allow_strange_opts", false),
     b(c"borg_autosave", false),
     b(c"borg_restore_ignore_settings", false),
-    b(c"borg_munchkin_by_class", true),
+    b(c"borg_munchkin_by_class", false),
     i(c"borg_munchkin_class_depth", 6),
     i(c"borg_buy_strategy_default", 0),
     i(c"borg_buy_strategy_munchkin", -1),
@@ -1092,23 +1092,42 @@ mod tests {
             let c = &env.st.core.cfg;
             (c[BORG_MUNCHKIN_START as usize], c[BORG_MUNCHKIN_DEPTH as usize])
         };
-        // the three classes, by default
-        for class in [0, 2, 7] {
-            assert_eq!(run(b"", Some(class)), (1, 6), "class {class}");
-        }
-        // every other class, and no player class yet
-        for class in [1, 3, 4, 5, 6, 8] {
+        // with no borg.txt the rule is off: the original C Borg's behaviour
+        for class in [0, 1, 2, 3, 4, 5, 6, 7, 8] {
             assert_eq!(run(b"", Some(class)), (0, 16), "class {class}");
         }
         assert_eq!(run(b"", None), (0, 16));
+        // the rule on: the three classes take the munchkin start at depth 6
+        for class in [0, 2, 7] {
+            assert_eq!(
+                run(b"borg_munchkin_by_class = TRUE\n", Some(class)),
+                (1, 6),
+                "class {class}"
+            );
+        }
+        // every other class, and no player class yet
+        for class in [1, 3, 4, 5, 6, 8] {
+            assert_eq!(
+                run(b"borg_munchkin_by_class = TRUE\n", Some(class)),
+                (0, 16),
+                "class {class}"
+            );
+        }
+        assert_eq!(run(b"borg_munchkin_by_class = TRUE\n", None), (0, 16));
         // the rule off, a munchkin start from borg.txt, the depth setting
         assert_eq!(run(b"borg_munchkin_by_class = FALSE\n", Some(0)), (0, 16));
         assert_eq!(run(b"borg_munchkin_start = TRUE\n", Some(0)), (1, 16));
-        assert_eq!(run(b"borg_munchkin_class_depth = 9\n", Some(2)), (1, 9));
-        assert_eq!(run(b"borg_munchkin_class_depth = 0\n", Some(7)), (1, 8));
+        assert_eq!(
+            run(b"borg_munchkin_by_class = TRUE\nborg_munchkin_class_depth = 9\n", Some(2)),
+            (1, 9)
+        );
+        assert_eq!(
+            run(b"borg_munchkin_by_class = TRUE\nborg_munchkin_class_depth = 0\n", Some(7)),
+            (1, 8)
+        );
 
         // a reincarnation into another class restores the borg.txt values
-        let mut env = FakeTxt::new(b"");
+        let mut env = FakeTxt::new(b"borg_munchkin_by_class = TRUE\n");
         env.class = Some(0);
         let (found, old) = read_txt_settings(&mut env);
         finish_txt_settings(&mut env, found, old);
@@ -1158,6 +1177,7 @@ mod tests {
              borg_buy_strategy_reserve410_munchkin_classes = 0\n\
              borg_buy_identify = 0\nborg_town_no_stores = FALSE\n"
         ));
+        assert!(text.contains("\nborg_munchkin_by_class = FALSE\n"));
     }
 
     /// Differential check against the C parser: for every file in
@@ -1180,4 +1200,214 @@ mod tests {
         let text: Vec<u8> = default_txt_file().concat();
         std::fs::write(format!("{dir}/default.rust.out"), text).unwrap();
     }
+
+    /// The original C Borg's settings, with the defaults Angband's own C Borg
+    /// had at the upstream pin `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
+    /// (the tree vendored under `angband/`). Every one of them keeps that
+    /// default in borg-rs; a setting the upstream did not have is declared in
+    /// `NEW_SETTINGS` instead.
+    const UPSTREAM_SETTINGS: &[(&str, u8, i32)] = &[
+        ("borg_verbose", b'b', 0),
+        ("borg_munchkin_start", b'b', 0),
+        ("borg_munchkin_level", b'i', 12),
+        ("borg_munchkin_depth", b'i', 16),
+        ("borg_worships_damage", b'b', 0),
+        ("borg_worships_speed", b'b', 0),
+        ("borg_worships_hp", b'b', 0),
+        ("borg_worships_mana", b'b', 0),
+        ("borg_worships_ac", b'b', 0),
+        ("borg_worships_gold", b'b', 0),
+        ("borg_plays_risky", b'b', 0),
+        ("borg_kills_uniques", b'b', 0),
+        ("borg_uses_swaps", b'b', 1),
+        ("borg_uses_dynamic_calcs", b'b', 0),
+        ("borg_stop_dlevel", b'i', 128),
+        ("borg_stop_clevel", b'i', 51),
+        ("borg_no_deeper", b'i', 127),
+        ("borg_stop_king", b'b', 1),
+        ("borg_cheat_death", b'b', 0),
+        ("borg_respawn_winners", b'b', 0),
+        ("borg_respawn_class", b'i', -1),
+        ("borg_respawn_race", b'i', -1),
+        ("borg_chest_fail_tolerance", b'i', 7),
+        ("borg_delay_factor", b'i', 0),
+        ("borg_money_scum_amount", b'i', 0),
+        ("borg_self_scum", b'b', 1),
+        ("borg_lunal_mode", b'b', 0),
+        ("borg_self_lunal", b'b', 0),
+        ("borg_enchant_limit", b'i', 12),
+        ("borg_dump_level", b'i', 1),
+        ("borg_save_death", b'i', 1),
+        ("borg_stop_on_bell", b'b', 0),
+        ("borg_allow_strange_opts", b'b', 0),
+        ("borg_autosave", b'b', 0),
+        ("borg_restore_ignore_settings", b'b', 0),
+    ];
+
+    /// The settings the upstream C Borg did not have: name, kind, the built-in
+    /// default, and the value the two borg.txt files give them. A setting
+    /// whose two values differ is a product choice, named here; every other
+    /// new setting reproduces the behaviour the original C Borg had.
+    ///
+    /// `borg_munchkin_by_class` is the one that differs: the built-in default
+    /// is FALSE, the original C Borg's behaviour, and the product's milestone
+    /// 8 decision (better-borg-c PR302, `fd683ced`) is carried by the two
+    /// borg.txt files instead. `docs/ZOO-INTERFACE.md` is the prose version
+    /// of this table, and the audit behind it.
+    const NEW_SETTINGS: &[(&str, u8, i32, &str)] = &[
+        ("borg_munchkin_by_class", b'b', 0, "TRUE"),
+        ("borg_munchkin_class_depth", b'i', 6, "6"),
+        ("borg_buy_strategy_default", b'i', 0, "0"),
+        ("borg_buy_strategy_munchkin", b'i', -1, "-1"),
+        ("borg_buy_strategy_current_classes", b'i', 0, "0"),
+        ("borg_buy_strategy_reserve410_classes", b'i', 0, "0"),
+        ("borg_buy_strategy_current_munchkin_classes", b'i', 0, "0"),
+        ("borg_buy_strategy_reserve410_munchkin_classes", b'i', 0, "0"),
+        ("borg_buy_identify", b'i', 0, "0"),
+    ];
+
+    /// The setting lines of a borg.txt: the name and the value, in order.
+    /// Comment lines and the formula section carry no setting lines.
+    fn borg_txt_settings(text: &str) -> Vec<(String, String)> {
+        text.lines()
+            .filter(|l| !l.trim_start().starts_with('#'))
+            .filter_map(|l| {
+                let (name, value) = l.split_once('=')?;
+                let name = name.trim();
+                if !name.starts_with("borg_") {
+                    return None;
+                }
+                Some((name.to_string(), value.trim().to_string()))
+            })
+            .collect()
+    }
+
+    /// The table entry for a setting name.
+    fn setting(name: &str) -> Option<&'static BorgSetting> {
+        BORG_SETTINGS.iter().find(|s| s.name.to_str().ok() == Some(name))
+    }
+
+    /// The upstream C Borg's defaults are the ones borg-rs keeps (RULES 1 of
+    /// the zoo: a parameter enters it with a default that reproduces the
+    /// original behaviour).
+    #[test]
+    fn upstream_defaults_are_unchanged() {
+        for (name, kind, default) in UPSTREAM_SETTINGS {
+            let s = setting(name).unwrap_or_else(|| panic!("{name} is missing from the table"));
+            assert_eq!(s.kind, *kind, "{name}");
+            assert_eq!(s.default_value, *default, "{name}");
+        }
+    }
+
+    /// Every setting is either an upstream setting or a declared new one, and
+    /// a declared one says what it is: adding a setting is a deliberate act.
+    #[test]
+    fn every_setting_is_declared() {
+        for s in BORG_SETTINGS.iter() {
+            let name = s.name.to_str().unwrap();
+            let upstream = UPSTREAM_SETTINGS.iter().any(|(n, ..)| *n == name);
+            let new = NEW_SETTINGS.iter().find(|(n, ..)| *n == name);
+            assert!(
+                upstream || new.is_some(),
+                "{name} is neither an upstream setting nor a declared new one"
+            );
+            if let Some((_, kind, default, _)) = new {
+                assert_eq!(s.kind, *kind, "{name}");
+                assert_eq!(s.default_value, *default, "{name}");
+            }
+        }
+        for (name, ..) in NEW_SETTINGS {
+            assert!(setting(name).is_some(), "{name} is declared but not in the table");
+        }
+    }
+
+    /// The C parser table and the Rust table carry the same settings, in the
+    /// same order, with the same kinds and defaults: the C Borg reads them
+    /// (and ignores the Rust-only ones), so a drift between the two would
+    /// make the two backends read different configurations.
+    #[test]
+    fn the_c_table_matches_the_rust_table() {
+        let c = include_str!("../../angband/src/borg/borg-init.c");
+        let mut entries: Vec<(&str, u8, i32)> = Vec::new();
+        for line in c.lines() {
+            let line = line.trim();
+            let Some(rest) = line.strip_prefix("{ \"") else {
+                continue;
+            };
+            let Some((name, rest)) = rest.split_once("\", '") else {
+                continue;
+            };
+            let Some((kind, rest)) = rest.split_once('\'') else {
+                continue;
+            };
+            let default = rest
+                .trim()
+                .trim_start_matches(',')
+                .trim()
+                .trim_end_matches(',')
+                .trim()
+                .trim_end_matches('}')
+                .trim();
+            let value = match default {
+                "true" => 1,
+                "false" => 0,
+                v => v.parse().unwrap(),
+            };
+            entries.push((name, kind.as_bytes()[0], value));
+        }
+        assert_eq!(entries.len(), BORG_SETTINGS.len());
+        for (i, (name, kind, value)) in entries.iter().enumerate() {
+            let s = &BORG_SETTINGS[i];
+            assert_eq!(s.name.to_str().unwrap(), *name);
+            assert_eq!(s.kind, *kind);
+            assert_eq!(s.default_value, *value);
+        }
+    }
+
+    /// The two borg.txt copies carry the same settings, and between them they
+    /// name every setting in the table.
+    #[test]
+    fn the_borg_txt_copies_agree_and_name_every_setting() {
+        let harness = borg_txt_settings(include_str!("../../harness/borg.txt"));
+        let shipped = borg_txt_settings(include_str!("../../angband/src/borg/borg.txt"));
+        assert_eq!(harness, shipped, "the two borg.txt copies disagree");
+        for s in BORG_SETTINGS.iter() {
+            let name = s.name.to_str().unwrap();
+            assert!(
+                harness.iter().any(|(n, _)| n == name),
+                "{name} is missing from the borg.txt files"
+            );
+        }
+    }
+
+    /// The configured values follow the declaration: an upstream setting keeps
+    /// its upstream default in the config, and a new setting carries the value
+    /// `NEW_SETTINGS` names. A configured value that differs from the built-in
+    /// default is a product choice, and it is listed.
+    #[test]
+    fn the_borg_txt_values_follow_the_declaration() {
+        let harness = borg_txt_settings(include_str!("../../harness/borg.txt"));
+        // the configured values are compared case-insensitively: one of the
+        // borg.txt lines says "false" in lower case
+        let value_of = |name: &str| -> String {
+            harness
+                .iter()
+                .find(|(n, _)| n == name)
+                .unwrap_or_else(|| panic!("{name} is missing from borg.txt"))
+                .1
+                .to_ascii_uppercase()
+        };
+        for (name, _, default) in UPSTREAM_SETTINGS {
+            let want = if setting(name).unwrap().kind == b'b' {
+                if *default != 0 { "TRUE" } else { "FALSE" }.to_string()
+            } else {
+                default.to_string()
+            };
+            assert_eq!(value_of(name), want, "{name}");
+        }
+        for (name, _, _, configured) in NEW_SETTINGS {
+            assert_eq!(value_of(name), configured.to_ascii_uppercase(), "{name}");
+        }
+    }
+
 }
