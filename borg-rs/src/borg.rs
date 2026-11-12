@@ -404,6 +404,26 @@ fn user_abort(st: &mut BorgState) -> bool {
     false
 }
 
+/// The human-in-the-loop handover (`BORG_TOWN_PLAYER=1`).
+///
+/// While the character is in town, the Borg's input hook returns no key at
+/// all, and the engine reads the keyboard instead: the player has the
+/// controls in town, and the Borg has them in the dungeon. The Borg also
+/// does nothing in town - no shop, no equipment, no decision - which is
+/// what makes the handover safe: its keys and the player's keys never mix.
+///
+/// Off unless the environment variable says so, so the headless arms (the
+/// null arm among them) are untouched.
+fn player_in_town(st: &BorgState) -> bool {
+    static ON: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+    let on = *ON.get_or_init(|| {
+        std::env::var("BORG_TOWN_PLAYER")
+            .map(|value| value == "1" || value.eq_ignore_ascii_case("true"))
+            .unwrap_or(false)
+    });
+    on && st.borg.tr(BI_CDEPTH) == 0
+}
+
 /// Return one keypress to the game (`generate_keypress`).
 fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     let mut key = keypress { type_0: EVT_KBRD, code: 0, mods: 0 };
@@ -416,6 +436,15 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     crate::borg_trait::borg_notice_player(st);
 
     if check_for_deactivate_or_death(st, &mut key) {
+        return key;
+    }
+
+    // The handover: in town, the player has the keyboard. The state is
+    // read first, so the record is of the state the player is looking at.
+    if player_in_town(st) {
+        crate::borg_item::borg_find_all_items(st);
+        crate::borg_town_dump::dump_town_state(st);
+        key.type_0 = EVT_NONE;
         return key;
     }
 

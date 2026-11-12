@@ -71,6 +71,68 @@ use crate::state::BorgState;
 /// is read as version 1, whatever wrote it.
 const INTEGER_SCHEMA: i64 = 2;
 
+/// The version of the state record's schema.
+///
+/// Version 3 is the **state record**: the decision record's shape with no
+/// decision in it (`action` is `-1`), and the **game's** turn rather than
+/// the Borg's. The game's turn is the clock the message log is on, and the
+/// message log is where a human player's purchases are - so a state and the
+/// choice made in it have to be on the same clock.
+///
+/// The version tag is what tells a reader which shape a file is.
+const STATE_SCHEMA: i64 = 3;
+
+/// The state file's record number.
+static STATE_SEQ: AtomicU64 = AtomicU64::new(0);
+
+thread_local! {
+    /// The last state written, so the same state is not written twice.
+    static LAST_STATE: RefCell<String> = const { RefCell::new(String::new()) };
+}
+
+/// Record the state the character is in, while in town.
+///
+/// `BORG_TOWN_STATE=<file>` writes the states, not the decisions. A
+/// human-in-the-loop session needs this: the human's choices come from the
+/// game's messages, and the states they were made in come from here. The
+/// decision dump cannot do it - with the null arm on (`borg_town_no_stores`)
+/// the Borg makes no decision in town at all, which is exactly the point of
+/// that arm.
+///
+/// One record per distinct state: the Borg thinks again and again while
+/// the game waits for a key, and the state does not change between those
+/// thinks. The state *does* change when the player buys, and that change
+/// is what the next record carries.
+pub fn dump_town_state(st: &mut BorgState) {
+    let states = states_file();
+    if states.is_none() {
+        return;
+    }
+    /* Only in town: the baseline is about the town. */
+    if st.borg.tr(BI_CDEPTH) != 0 {
+        return;
+    }
+
+    let seq = STATE_SEQ.fetch_add(1, Ordering::Relaxed);
+    let mut out = String::with_capacity(2048);
+    push_integer_record_at(&mut out, st, seq, STATE_SCHEMA, i64::from(engine::game_turn()), false);
+    /* The same state again: the Borg is thinking while the game waits for a
+     * key. Compare everything after the seq, which is bookkeeping. */
+    let comparable = out.split_once(",\"seq\":").map(|(_, rest)| rest).unwrap_or(&out);
+    let same = LAST_STATE.with(|last| {
+        if last.borrow().as_str() == comparable {
+            true
+        } else {
+            *last.borrow_mut() = comparable.to_string();
+            false
+        }
+    });
+    if same {
+        return;
+    }
+    write_record(states, &out);
+}
+
 /// The action codes of the integer record.
 mod action {
     /// No ware and no item: the Borg is only walking to a shop.
@@ -89,10 +151,13 @@ mod action {
 fn open_dump(path_var: &str) -> Option<&'static Mutex<File>> {
     static DESCRIPTIVE: OnceLock<Option<Mutex<File>>> = OnceLock::new();
     static INTEGERS: OnceLock<Option<Mutex<File>>> = OnceLock::new();
+    static STATES: OnceLock<Option<Mutex<File>>> = OnceLock::new();
     let cell = if path_var == "BORG_TOWN_DUMP" {
         &DESCRIPTIVE
-    } else {
+    } else if path_var == "BORG_TOWN_DUMP_INTEGERS" {
         &INTEGERS
+    } else {
+        &STATES
     };
     cell.get_or_init(|| {
         let Ok(path) = std::env::var(path_var) else {
@@ -120,6 +185,11 @@ fn dump_file() -> Option<&'static Mutex<File>> {
 /// The integer projection of the dump.
 fn integers_file() -> Option<&'static Mutex<File>> {
     open_dump("BORG_TOWN_DUMP_INTEGERS")
+}
+
+/// The state file: the states the character was in while in town.
+fn states_file() -> Option<&'static Mutex<File>> {
+    open_dump("BORG_TOWN_STATE")
 }
 
 /// The record number, over the whole run.
@@ -349,18 +419,35 @@ fn push_state(out: &mut String, st: &BorgState) {
 /// ordered by `seq`. An absent value is `-1`, like `shop`, `ware` and
 /// `item`: a class that is not set is `-1`, not a magic number.
 fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
+    push_integer_record_at(out, st, seq, INTEGER_SCHEMA, i64::from(st.borg.time.now), true);
+}
+
+/// The integer projection of one record: the state, and the decision in it.
+///
+/// `version` is the record's schema version, `turn` the clock the record is
+/// on, and `decision` says whether the record carries a decision. A record
+/// without a decision is a **state record**: the state on its own, which is
+/// what a human-in-the-loop session needs (the human's choices come from
+/// the messages, the states they were made in come from here).
+fn push_integer_record_at(
+    out: &mut String,
+    st: &BorgState,
+    seq: u64,
+    version: i64,
+    turn: i64,
+    decision: bool,
+) {
     let notice = engine::player_notice();
     let shop = st.borg.goal.shop;
     let ware = st.borg.goal.ware;
     let item = st.borg.goal.item;
-    let (code, _) = decision_action(shop, ware, item);
 
     out.push_str("{\"v\":");
-    push_num(out, INTEGER_SCHEMA);
+    push_num(out, version);
     out.push_str(",\"seq\":");
     push_num(out, seq);
     out.push_str(",\"turn\":");
-    push_num(out, st.borg.time.now);
+    push_num(out, turn);
     out.push_str(",\"depth\":");
     push_num(out, st.borg.tr(BI_CDEPTH));
     out.push_str(",\"level\":");
@@ -384,15 +471,33 @@ fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
     out.push(',');
     push_traits(out, st);
     out.push_str(",\"action\":");
-    push_num(out, code);
+    if decision {
+        let (code, _) = decision_action(shop, ware, item);
+        push_num(out, code);
+    } else {
+        /* No decision in this record: the state on its own. */
+        push_num(out, -1);
+    }
     out.push_str(",\"shop\":");
-    push_num(out, shop);
+    if decision {
+        push_num(out, shop);
+    } else {
+        push_num(out, -1);
+    }
     out.push_str(",\"ware\":");
-    push_num(out, ware);
+    if decision {
+        push_num(out, ware);
+    } else {
+        push_num(out, -1);
+    }
     out.push_str(",\"item\":");
-    push_num(out, item);
+    if decision {
+        push_num(out, item);
+    } else {
+        push_num(out, -1);
+    }
     out.push_str(",\"price\":");
-    if ware >= 0 {
+    if decision && ware >= 0 {
         match st.store.shops.get(shop as usize).and_then(|s| s.ware.get(ware as usize)) {
             Some(w) => push_num(out, w.cost),
             None => push_num(out, -1),
