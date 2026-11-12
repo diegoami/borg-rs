@@ -86,25 +86,43 @@ one carries today's side only.
 
 | field | what it holds |
 | --- | --- |
-| `v` | the schema version |
+| `v` | the schema version; **2** is the frozen shape (P13) |
 | `seq` | the record number over the run; the records are totally ordered by it |
 | `turn`, `depth`, `level`, `chp`, `mhp`, `gold` | where the Borg was |
 | `race`, `class` | the game's indexes, not the names; `-1` if the class is not set |
-| `light`, `food`, `cut`, `poison` | the traits |
+| `traits` | the **whole** trait vector, sparsely: `[index, value]` each, and a trait that is absent is zero |
 | `action` | 0 visit, 1 buy, 2 take_home, 3 sell, 4 sell_home |
 | `shop`, `ware`, `item`, `price` | the goal, and the price of the goal ware |
-| `pack`, `equip`, `home` | `[slot, kind, subkind, quantity, value]` each |
-| `shops` | `[shop, [[slot, kind, subkind, quantity, price], ...]]` each |
+| `pack`, `equip`, `home` | `[slot, kind, subkind, quantity, value, flags]` each |
+| `shops` | `[shop, [[slot, kind, subkind, quantity, price, flags], ...]]` each |
 
 The file holds two record shapes. A **decision** record is the table above; a
 **purchase** record is the transaction that was carried out: `v`, `seq`,
 `turn`, `shop`, `price`, `gold_before`, and the `ware` as
-`[slot, kind, subkind, quantity, price]`. A decision record carries an
+`[slot, kind, subkind, quantity, price, flags]`. A decision record carries an
 `action`; a purchase record carries the gold before it. The renderer tells
 the two apart on that.
 
 An absent value is `-1`, everywhere: no goal ware, no goal item, no price,
 no class.
+
+**Why the whole trait vector.** Version 1 carried the four traits the town
+strategy reads today - light, food, cut, poisoned. Version 2 carries every
+trait that is not zero, by index, because the usefulness function reads
+traits nobody has written down yet (the poison-cure capability among them),
+and a record that carries only what happens to be read today cannot be
+replayed against one that reads something else. The descriptive record keeps
+its named handful - it is the human view, not the machine one.
+
+**The awareness flags** are a bitmask on every item: bit 0 is "the character
+knows what this is", bit 1 is "this item is not identified yet". They travel
+with the item because the knowledge need reads them.
+
+**Version 2 is frozen.** P13 wants the record schema fixed before phase 4,
+and this is it: the shape the baseline is built on, and the shape the
+shadow-plan mode will carry both sides in. A change to the field set is a
+new version, not an edit - the tag is what tells a reader which shape a file
+is.
 
 To read it:
 
@@ -150,6 +168,23 @@ Two limits are worth keeping in mind:
   policies, including the `borg_town_no_stores` baseline, widens the
   sample.
 
+## The baseline
+
+The dump is a **live log**: it records what the current policy does, in the
+run that is happening. The **baseline** is the frozen half of it - the
+distinct decisions the current policy makes, at real states, in a form a
+decision function can be run against.
+
+- `fixtures/town-baseline.jsonl` - the distinct decisions, in the integer
+  projection's frozen shape (schema version 2). Each record is a state and
+  the control's choice in it.
+- `docs/TOWN-BASELINE.md` - the readable half: the choices with their names,
+  the gold, the depth and the Borg's own reason, and the provenance.
+- `tools/town_baseline.py` - what made them, from the runs.
+
+The baseline is what the new algorithm is checked against. It does not claim
+the current choices are right; it says what they are.
+
 ## Where the code is
 
 - `borg-rs/src/borg_town_dump.rs` - the dump and its integer projection.
@@ -161,3 +196,5 @@ Two limits are worth keeping in mind:
 - `borg-rs/src/borg_io.rs` - `queued_keys`, the test's window on the key
   queue.
 - `tools/town_dump_report.py` - the renderer.
+- `tools/town_baseline.py` - the curation: the runs to the baseline fixture
+  and its summary.

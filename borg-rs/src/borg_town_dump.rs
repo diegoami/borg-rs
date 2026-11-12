@@ -52,7 +52,7 @@ use std::sync::{Mutex, OnceLock};
 
 use crate::borg_headers::borg_item_h::borg_item;
 use crate::borg_headers::borg_trait_h::{
-    BI_CDEPTH, BI_CLEVEL, BI_FOOD, BI_GOLD, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
+    BI_ACUREPOIS, BI_CDEPTH, BI_CLEVEL, BI_FOOD, BI_GOLD, BI_ISCUT, BI_ISPOISONED, BI_LIGHT,
 };
 use crate::borg_item::inven_wield;
 use crate::borg_store::BORG_HOME;
@@ -60,7 +60,16 @@ use crate::engine;
 use crate::state::BorgState;
 
 /// The version of the integer record's schema.
-const INTEGER_SCHEMA: i64 = 1;
+///
+/// Version 1 was the draft projection: the named traits the town strategy
+/// reads, and no awareness. Version 2 is the **frozen** shape (P13): the
+/// whole trait vector, sparsely, and the awareness of every item, so the
+/// record carries everything the usefulness function reads and a decision
+/// can be replayed from the record alone.
+///
+/// The version tag is there for exactly this: a file that claims version 1
+/// is read as version 1, whatever wrote it.
+const INTEGER_SCHEMA: i64 = 2;
 
 /// The action codes of the integer record.
 mod action {
@@ -213,7 +222,11 @@ fn push_item(out: &mut String, item: &borg_item, slot: usize, price: bool) {
 }
 
 /// One item as integers: slot, kind, subkind, quantity, and the value (the
-/// pack, the equipment, the home) or the price (a ware).
+/// pack, the equipment, the home) or the price (a ware), and the item's
+/// awareness as a bitmask.
+///
+/// The awareness bits are what the knowledge need reads - whether the
+/// character knows what the item is - so they travel with the item.
 fn push_item_integers(out: &mut String, item: &borg_item, slot: usize, price: bool) {
     out.push('[');
     push_num(out, slot);
@@ -225,6 +238,49 @@ fn push_item_integers(out: &mut String, item: &borg_item, slot: usize, price: bo
     push_num(out, item.iqty);
     out.push(',');
     push_num(out, if price { item.cost } else { item.value });
+    out.push(',');
+    push_num(out, awareness_flags(item));
+    out.push(']');
+}
+
+/// The item's awareness, as a bitmask: bit 0 is "the character knows what
+/// this is", bit 1 is "this item is not identified yet".
+fn awareness_flags(item: &borg_item) -> i64 {
+    let mut flags = 0i64;
+    if item.aware {
+        flags |= 1;
+    }
+    if item.needs_ident {
+        flags |= 2;
+    }
+    flags
+}
+
+/// The character's traits, sparsely: every trait that is not zero, as
+/// (index, value) pairs.
+///
+/// The whole vector, not the handful the town strategy reads today: the
+/// usefulness function reads traits nobody has written down yet (the
+/// poison-cure capability among them), and a record that only carries the
+/// ones that happen to be read today cannot be replayed against one that
+/// reads another. A trait that is absent is zero.
+fn push_traits(out: &mut String, st: &BorgState) {
+    out.push_str("\"traits\":[");
+    let mut first = true;
+    for (index, value) in st.borg.trait_.iter().enumerate() {
+        if *value == 0 {
+            continue;
+        }
+        if !first {
+            out.push(',');
+        }
+        first = false;
+        out.push('[');
+        push_num(out, index);
+        out.push(',');
+        push_num(out, value);
+        out.push(']');
+    }
     out.push(']');
 }
 
@@ -279,6 +335,10 @@ fn push_state(out: &mut String, st: &BorgState) {
     push_num(out, st.borg.tr(BI_ISCUT));
     out.push_str(",\"poisoned\":");
     push_num(out, st.borg.tr(BI_ISPOISONED));
+    /* The poison-cure capability: the plan's poison need reads it, and the
+     * town strategy does not, so it would otherwise never be written down. */
+    out.push_str(",\"acurepois\":");
+    push_num(out, st.borg.tr(BI_ACUREPOIS));
     out.push('}');
 }
 
@@ -319,14 +379,10 @@ fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
         out,
         engine::class_cidx_if_set().map(i64::from).unwrap_or(-1),
     );
-    out.push_str(",\"light\":");
-    push_num(out, st.borg.tr(BI_LIGHT));
-    out.push_str(",\"food\":");
-    push_num(out, st.borg.tr(BI_FOOD));
-    out.push_str(",\"cut\":");
-    push_num(out, st.borg.tr(BI_ISCUT));
-    out.push_str(",\"poison\":");
-    push_num(out, st.borg.tr(BI_ISPOISONED));
+    /* The whole trait vector, sparsely: the record carries what the
+     * usefulness function reads, not what the town strategy reads today. */
+    out.push(',');
+    push_traits(out, st);
     out.push_str(",\"action\":");
     push_num(out, code);
     out.push_str(",\"shop\":");

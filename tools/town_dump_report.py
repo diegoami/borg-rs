@@ -40,6 +40,47 @@ args = parser.parse_args()
 # The action codes of the integer projection (borg_town_dump.rs).
 ACTION_CODES = {0: 'visit', 1: 'buy', 2: 'take_home', 3: 'sell', 4: 'sell_home'}
 
+# The traits the integer record is read by name (borg_trait_h.rs). The
+# record carries the whole trait vector, sparsely; these are the ones a
+# reader wants in a line.
+TRAIT_NAMES = {26: 'light', 39: 'food', 115: 'poison', 116: 'cut', 222: 'acurepois'}
+
+
+def trait_view(record):
+    """The named traits of an integer record, as a dict.
+
+    The record carries every trait that is not zero, by index. The named
+    ones are what a reader wants; the rest are there for the replay.
+    """
+    traits = {}
+    for pair in record.get('traits') or []:
+        if len(pair) != 2:
+            continue
+        index, value = pair
+        name = TRAIT_NAMES.get(index)
+        if name is not None:
+            traits[name] = value
+    return traits
+
+
+def int_item(item, last='value'):
+    """One item of the integer projection, as a readable line.
+
+    The item is `[slot, kind, subkind, quantity, value, flags]`, where the
+    flags are a bitmask: bit 0 is "the character knows what this is", bit 1
+    is "this item is not identified yet". The fifth field is the item's
+    value in the pack and its price in a shop.
+    """
+    fields = list(item) + [0] * 6
+    slot, kind, subkind, qty, fifth, flags = fields[:6]
+    marks = []
+    if flags & 1:
+        marks.append('known')
+    if flags & 2:
+        marks.append('unidentified')
+    mark = f" [{', '.join(marks)}]" if marks else ''
+    return f"slot {slot} kind {kind} subkind {subkind} qty {qty} {last} {fifth}{mark}"
+
 
 def read_records(path):
     """The dump's records, in order. A malformed line is reported, not fatal."""
@@ -147,6 +188,7 @@ def render_integer(record, markdown):
         return render_integer_purchase(record, markdown)
 
     action = ACTION_CODES.get(record.get('action'), '?')
+    traits = trait_view(record)
     pack = record.get('pack') or []
     equip = record.get('equip') or []
     home = record.get('home') or []
@@ -154,8 +196,8 @@ def render_integer(record, markdown):
     wares = sum(len(s[1]) for s in shops if len(s) > 1)
     line = (f"seq {record.get('seq')} | turn {record.get('turn')} | depth {record.get('depth')} "
             f"| level {record.get('level')} | gold {record.get('gold')} | hp {record.get('chp')}/{record.get('mhp')} "
-            f"| light {record.get('light')} food {record.get('food')} cut {record.get('cut')} "
-            f"poison {record.get('poison')} | {action} shop {record.get('shop')} "
+            f"| light {traits.get('light', 0)} food {traits.get('food', 0)} cut {traits.get('cut', 0)} "
+            f"poison {traits.get('poison', 0)} | {action} shop {record.get('shop')} "
             f"ware {record.get('ware')} item {record.get('item')} price {record.get('price')} "
             f"| pack {len(pack)} equip {len(equip)} home {len(home)} wares {wares}")
     if markdown:
@@ -170,15 +212,9 @@ def render_integer_purchase(record, markdown):
     record - so it gets its own line rather than a decision line full of
     absent values.
     """
-    ware = record.get('ware') or []
-    if len(ware) == 5:
-        ware_line = (f"ware slot {ware[0]} kind {ware[1]} subkind {ware[2]} "
-                     f"qty {ware[3]} price {ware[4]}")
-    else:
-        ware_line = f"ware {ware}"
     line = (f"seq {record.get('seq')} | purchase | turn {record.get('turn')} "
             f"| shop {record.get('shop')} | price {record.get('price')} "
-            f"| gold_before {record.get('gold_before')} | {ware_line}")
+            f"| gold_before {record.get('gold_before')} | ware {int_item(record.get('ware') or [], 'price')}")
     if markdown:
         return f"`{line}`\n"
     return f"{line}\n"
