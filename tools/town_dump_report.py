@@ -72,22 +72,20 @@ def render(record, index, markdown):
     traits = record.get('traits', {})
     state = (f"turn {record.get('turn')}, {record.get('class')} level {record.get('level')}, "
              f"depth {record.get('depth')}, gold {record.get('gold')}, hp {record.get('hp')}")
-    lines = []
 
-    if markdown:
-        lines.append(f"### Visit {record.get('seq')} - {state}")
-    else:
-        lines.append(f"Visit {record.get('seq')} - {state}")
-
-    lines.append(f"  traits: light {traits.get('light')}, food {traits.get('food')}, "
-                 f"cut {traits.get('cut')}, poisoned {traits.get('poisoned')}")
+    # The state and the stock are the context; the decision, the reason and
+    # the label are what the owner reads. In Markdown the context is folded
+    # away, so a batch of visits can be scanned in one screen.
+    detail = []
+    detail.append(f"traits: light {traits.get('light')}, food {traits.get('food')}, "
+                  f"cut {traits.get('cut')}, poisoned {traits.get('poisoned')}")
 
     pack = record.get('pack') or []
     equip = record.get('equipment') or []
     home = record.get('home') or []
-    lines.append(f"  pack ({len(pack)}): " + ("; ".join(item_line(i) for i in pack) or "empty"))
-    lines.append(f"  equipment ({len(equip)}): " + ("; ".join(item_line(i) for i in equip) or "empty"))
-    lines.append(f"  home ({len(home)}): " + ("; ".join(item_line(i) for i in home) or "empty"))
+    detail.append(f"pack ({len(pack)}): " + ("; ".join(item_line(i) for i in pack) or "empty"))
+    detail.append(f"equipment ({len(equip)}): " + ("; ".join(item_line(i) for i in equip) or "empty"))
+    detail.append(f"home ({len(home)}): " + ("; ".join(item_line(i) for i in home) or "empty"))
 
     # The stock: the shop of the decision always, every shop with --full.
     shops = record.get('shops') or []
@@ -97,14 +95,33 @@ def render(record, index, markdown):
             continue
         wares = shop.get('wares') or []
         mark = ' (decision)' if shop.get('shop') == chosen else ''
-        lines.append(f"  shop {shop.get('shop')} {shop.get('name')}{mark} ({len(wares)} wares):")
+        detail.append(f"shop {shop.get('shop')} {shop.get('name')}{mark} ({len(wares)} wares):")
         for ware in wares:
-            lines.append(f"    - {item_line(ware)}")
+            detail.append(f"  - {item_line(ware)}")
 
-    lines.append(f"  decision: {decision.get('action')} {decision.get('ware_desc') or decision.get('item_desc') or ''}"
-                 f" at {decision.get('shop_name')}")
-    lines.append(f"  reason: {decision.get('reason') or '(none recorded)'}")
-    lines.append("  label: " + ("_" * 60))
+    decision_line = (f"{decision.get('action')} {decision.get('ware_desc') or decision.get('item_desc') or ''}"
+                     f" at {decision.get('shop_name')}")
+    reason = decision.get('reason') or '(none recorded)'
+
+    lines = []
+    if markdown:
+        lines.append(f"### Visit {record.get('seq')} - {state}")
+        lines.append("")
+        lines.append("<details><summary>state and shop stock</summary>")
+        lines.append("")
+        lines.extend(detail)
+        lines.append("")
+        lines.append("</details>")
+        lines.append("")
+        lines.append(f"**decision**: {decision_line}")
+        lines.append(f"**reason**: {reason}")
+        lines.append("**label**:")
+    else:
+        lines.append(f"Visit {record.get('seq')} - {state}")
+        lines.extend(f"  {line}" for line in detail)
+        lines.append(f"  decision: {decision_line}")
+        lines.append(f"  reason: {reason}")
+        lines.append("  label: " + ("_" * 60))
     lines.append("")
     return "\n".join(lines) + "\n"
 

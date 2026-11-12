@@ -37,6 +37,10 @@ the first visit of each distinct decision: the Borg re-decides the same
 thing every turn while it walks to the shop, so the repeats are the same
 decision again and only the first visit carries its reason.
 
+In `--markdown` the state and the stock are folded into a `<details>`
+block and the decision, the reason and the label stay visible, so a batch
+of visits can be scanned on one screen.
+
 ## The records
 
 A `decision` record is one town visit:
