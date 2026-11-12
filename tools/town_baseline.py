@@ -2,17 +2,18 @@
 """Curate the baseline of inventory choices.
 
 The town-visit dump records what the Borg decided at every town visit. The
-Borg re-decides the same thing every turn while it walks to the shop, so
-the raw dump repeats each decision a dozen times; what is worth keeping is
-the **distinct decision** - the choice, and the state it was made in.
+Borg re-decides the same thing every turn while it walks to the shop, and
+the state does not change while it walks, so the raw dump repeats each
+decision many times over. What is worth keeping is the **distinct state**:
+the state, and the choice the control made in it.
 
 This turns a set of runs into the baseline:
 
-- a **fixture** - the distinct decisions, in the integer projection's
-  frozen shape (schema version 2), one JSON object per line. It is
-  replayable: it carries the whole trait vector, the inventory, the stock
-  and the control's choice, so a decision function can be run against it
-  and compared with what the control did.
+- a **fixture** - the distinct (state, choice) pairs, in the integer
+  projection's frozen shape (schema version 2), one JSON object per line.
+  It is replayable: it carries the whole trait vector, the inventory, the
+  stock and the control's choice, so a decision function can be run against
+  it and compared with what the control did.
 - a **summary** - the same baseline for a reader: the distinct choices with
   the names, the gold, the depth and the Borg's own reason, and the
   provenance of every run.
@@ -41,6 +42,10 @@ args = parser.parse_args()
 
 ACTION_NAMES = {0: 'visit', 1: 'buy', 2: 'take_home', 3: 'sell', 4: 'sell_home'}
 
+# The bookkeeping: the version, the record number and the turn. Two records
+# that differ only in those are the same decision in the same state.
+BOOKKEEPING = ('v', 'seq', 'turn')
+
 
 def read_records(path):
     """The records of one file, in order. A malformed line is reported."""
@@ -56,20 +61,47 @@ def read_records(path):
     return records
 
 
-def decision_key(record):
-    """What makes a decision the same decision: the action and its target."""
-    return (record.get('action'), record.get('shop'),
-            record.get('ware'), record.get('item'))
+def signature(record):
+    """The record without its bookkeeping: the state and the choice."""
+    return json.dumps({k: v for k, v in sorted(record.items())
+                       if k not in BOOKKEEPING}, sort_keys=True)
 
 
 def state_signature(record):
-    """The state of a decision, without the run-specific bookkeeping.
+    """The state alone, without the choice.
 
-    Two records with the same signature are the same decision made in the
-    same state - which is what makes the repeats redundant.
+    The control's choice is not a function of the state: it carries a
+    standing goal from the turn before. So a state can carry more than one
+    choice, and the two are kept apart.
     """
     return json.dumps({k: v for k, v in sorted(record.items())
-                       if k not in ('v', 'seq')}, sort_keys=True)
+                       if k not in BOOKKEEPING and k not in ('action', 'shop', 'ware',
+                                                            'item', 'price')},
+                      sort_keys=True)
+
+
+def choice_identity(record):
+    """What the choice *is*, by the kind of the thing chosen.
+
+    The slot is not the identity: a shop's stock shifts, so the same kind
+    can sit in different slots in different states, and two different kinds
+    can sit in the same slot in two different states.
+    """
+    action = record.get('action')
+    if action in (1, 2):
+        for shop in record.get('shops') or []:
+            if shop and shop[0] == record.get('shop'):
+                for ware in shop[1]:
+                    if ware[0] == record.get('ware'):
+                        return (action, record.get('shop'), 'ware', ware[1], ware[2])
+        return (action, record.get('shop'), 'ware', None, None)
+    if action in (3, 4):
+        for group in ('pack', 'equip', 'home'):
+            for item in record.get(group) or []:
+                if item[0] == record.get('item'):
+                    return (action, record.get('shop'), 'item', item[1], item[2])
+        return (action, record.get('shop'), 'item', None, None)
+    return (action, record.get('shop'), 'visit', None, None)
 
 
 runs = []
@@ -87,31 +119,44 @@ for label, int_path, desc_path, command in args.run:
         'descriptive_by_seq': descriptive,
     })
 
-# The distinct decisions, in the order they were first made.
+# The distinct (state, choice) pairs, in the order they were first made.
 distinct = []
 seen = {}
 for run in runs:
     for record in run['decisions']:
-        key = decision_key(record)
+        key = signature(record)
         entry = seen.get(key)
         if entry is None:
             entry = {
-                'key': key,
                 'record': record,
                 'label': run['label'],
                 'seq': record.get('seq'),
                 'times': 0,
-                'signatures': set(),
+                'states': set(),
                 'desc': run['descriptive_by_seq'].get(record.get('seq'), {}),
             }
             seen[key] = entry
             distinct.append(entry)
         entry['times'] += 1
-        entry['signatures'].add(state_signature(record))
+        entry['states'].add(state_signature(record))
 
-# The fixture: the distinct decisions, run by run, in the order they were
-# first made. The seq is the one the run gave it, so the fixture keeps the
-# provenance of the run it came from.
+# The distinct choices, by what they are.
+choices = {}
+for entry in distinct:
+    identity = choice_identity(entry['record'])
+    choice = choices.get(identity)
+    if choice is None:
+        choice = {'identity': identity, 'record': entry['record'], 'desc': entry['desc'],
+                  'states': 0, 'visits': 0, 'gold': [], 'depth': []}
+        choices[identity] = choice
+    choice['states'] += 1
+    choice['visits'] += entry['times']
+    choice['gold'].append(entry['record'].get('gold'))
+    choice['depth'].append(entry['record'].get('depth'))
+
+# The fixture: the distinct pairs, run by run, in the order they were first
+# made. The seq is the one the run gave it, so each record points back at
+# the run it came from.
 fixture = [entry['record'] for entry in distinct]
 args.out.write_text(''.join(json.dumps(record, separators=(',', ':')) + '\n'
                             for record in fixture))
@@ -120,8 +165,8 @@ args.out.write_text(''.join(json.dumps(record, separators=(',', ':')) + '\n'
 lines = []
 lines.append('# The baseline of inventory choices')
 lines.append('')
-lines.append('What the current Borg does in town, at real states, so that the')
-lines.append('new algorithm can be checked against it. The fixture is the')
+lines.append('What the current Borg does in town, at real states, so that the new')
+lines.append('algorithm can be checked against it. The fixture is the')
 lines.append('machine-readable half (`%s`); this is the readable half.' % args.out.name)
 lines.append('')
 lines.append('## The runs')
@@ -130,14 +175,16 @@ lines.append(f"Harvested at the control commit `{args.control}`, with the Rust B
 lines.append('the dump on. The dump is observation only, so the control policy is')
 lines.append("today's behaviour and the keypress stream is the same as the C Borg's.")
 lines.append('')
-lines.append('| run | visits | distinct decisions |')
+lines.append('| run | visits | distinct states |')
 lines.append('| --- | --- | --- |')
 for run in runs:
-    keys = {decision_key(r) for r in run['decisions']}
+    keys = {signature(r) for r in run['decisions']}
     lines.append(f"| `{run['label']}` | {len(run['decisions'])} | {len(keys)} |")
 lines.append('')
-lines.append(f"Together: **{sum(len(r['decisions']) for r in runs)} visits, "
-             f"{len(distinct)} distinct decisions**.")
+visits = sum(len(r['decisions']) for r in runs)
+states = {state_signature(e['record']) for e in distinct}
+lines.append(f"Together: **{visits} visits, {len(distinct)} distinct (state, choice) pairs, "
+             f"{len(states)} distinct states, {len(choices)} distinct choices**.")
 lines.append('')
 lines.append('Each run was:')
 lines.append('')
@@ -148,37 +195,53 @@ lines.append('```')
 lines.append('')
 lines.append('## The distinct choices')
 lines.append('')
-lines.append('| choice | target | shop | gold | depth | the Borg\'s reason | seen |')
-lines.append('| --- | --- | --- | --- | --- | --- | --- |')
-for entry in distinct:
-    record = entry['record']
-    desc = entry['desc']
+lines.append('What the control actually chooses, by the kind of the thing chosen. The')
+lines.append('slot is not the identity: a shop\'s stock shifts, so the same kind sits')
+lines.append('in different slots in different states.')
+lines.append('')
+lines.append('| choice | target | shop | gold | depth | the Borg\'s reason | states | visits |')
+lines.append('| --- | --- | --- | --- | --- | --- | --- | --- |')
+for choice in choices.values():
+    record = choice['record']
+    desc = choice['desc']
     decision = desc.get('decision', {}) if desc else {}
     action = ACTION_NAMES.get(record.get('action'), '?')
     target = (decision.get('ware_desc') or decision.get('item_desc') or '').strip()
     shop = decision.get('shop_name') or ''
     reason = (decision.get('reason') or '').strip()
-    lines.append('| {} | {} | {} | {} | {} | {} | {} |'.format(
-        action, target or '-', shop or '-', record.get('gold'), record.get('depth'),
-        reason or '-', entry['times']))
+    gold = sorted(set(g for g in choice['gold'] if g is not None))
+    depth = sorted(set(d for d in choice['depth'] if d is not None))
+    gold_text = str(gold[0]) if len(gold) == 1 else f"{gold[0]}-{gold[-1]}"
+    depth_text = str(depth[0]) if len(depth) == 1 else f"{depth[0]}-{depth[-1]}"
+    lines.append('| {} | {} | {} | {} | {} | {} | {} | {} |'.format(
+        action, target or '-', shop or '-', gold_text, depth_text,
+        reason or '-', choice['states'], choice['visits']))
 lines.append('')
 lines.append('## How the fixture was made')
 lines.append('')
 lines.append('The Borg re-decides the same thing every turn while it walks to the')
-lines.append('shop, so the raw dump repeats each decision. A repeat is the same')
-lines.append('decision in the same state: the state signature - the record without')
-lines.append('its seq - is the same for all the repeats of a decision in all but')
-lines.append('one case.')
+lines.append('shop, and the state does not change while it walks, so the raw dump')
+lines.append('repeats each decision. The fixture keeps one record per distinct')
+lines.append('(state, choice) pair: the state signature - the record without its')
+lines.append('version, its record number and its turn - is what decides.')
 lines.append('')
-repeat_groups = sum(1 for e in distinct if e['times'] > 1)
-same_state = sum(1 for e in distinct if len(e['signatures']) == 1)
-lines.append(f'- **{repeat_groups}** of the {len(distinct)} distinct decisions were made more than once;')
-lines.append(f'- **{same_state}** of them were made in exactly one state (every repeat had the same');
-lines.append('  state signature), so the repeats carry no new information.')
+lines.append(f'- **{visits} visits** became **{len(distinct)} records**;')
+lines.append(f'- those are **{len(states)} distinct states**, and **{len(choices)} distinct choices**.')
 lines.append('')
-lines.append('The fixture keeps the first record of each distinct decision, in the')
-lines.append('order the runs were made. The `seq` is the one the run gave it, so')
-lines.append('each record points back at the run it came from:')
+ambiguous = len(states) - len({state_signature(e['record']) for e in distinct})
+multi = sum(1 for s in states
+            if len({e['record'].get('action') for e in distinct
+                    if state_signature(e['record']) == s}) > 1)
+lines.append(f'**The control\'s choice is not a function of the state.** It carries a')
+lines.append('standing goal from the turn before, so the same state can carry two')
+lines.append(f'choices: **{multi}** of the {len(states)} states do. The fixture keeps')
+lines.append('both, because each is a fact about the control. A new algorithm that')
+lines.append('is a function of the state will agree with at most one of them, and')
+lines.append('that is the comparison.')
+lines.append('')
+lines.append('The fixture keeps the first record of each pair, in the order the runs')
+lines.append('were made. The `seq` is the one the run gave it, so each record points')
+lines.append('back at the run it came from:')
 lines.append('')
 lines.append('| run | the fixture records it contributed |')
 lines.append('| --- | --- |')
@@ -218,7 +281,7 @@ lines.append('  they are.')
 lines.append('')
 args.summary.write_text('\n'.join(lines) + '\n')
 
-print(f'{len(distinct)} distinct decisions from '
-      f'{sum(len(r["decisions"]) for r in runs)} visits')
+print(f'{visits} visits -> {len(distinct)} distinct (state, choice) pairs, '
+      f'{len(states)} states, {len(choices)} choices')
 print(f'fixture: {args.out} ({args.out.stat().st_size} bytes)')
 print(f'summary: {args.summary}')
