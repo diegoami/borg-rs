@@ -87,6 +87,18 @@ Two limits are worth keeping in mind:
   algorithm is not obviously wrong. Harvesting from several policies,
   including the `borg_town_no_stores` baseline, widens the sample.
 
+## The labels
+
+The dump says what the Borg did. The labels say what it should have done,
+and they are the owner's. They are collected in [TOWN-LABELS.md](TOWN-LABELS.md),
+which is edited on the branch and committed; the labels are then read back
+from there and become the golden cases of phase 1's usefulness-function
+suite.
+
+A blank label means the Borg's decision is agreed. The non-purchases count
+as much as the purchases: "I would not buy the armour here" is what tells a
+decay apart from a fixed ranking.
+
 ## Where the code is
 
 * `borg-rs/src/borg_town_dump.rs` - the dump.
