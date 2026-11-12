@@ -30,17 +30,33 @@ Nine settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
-| setting | kind | built-in default | the two `borg.txt` files | changes an unconfigured run? | added by |
-|---|---|---|---|---|---|
-| `borg_munchkin_by_class` | bool | **FALSE** (the original behaviour) | **TRUE** | **yes, through the config**: a Borg that reads the delivered `borg.txt` plays Warrior, Druid and Ranger with the stair-scum start; a Borg that reads no `borg.txt` does not | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
-| `borg_munchkin_class_depth` | int | 6 | 6 | no - it is the depth of the class rule, and inert while the rule is off | M8, with the rule |
-| `borg_buy_strategy_default` | int | 0 | 0 | no - 0 is the original buying | borg-rs PR #26/#28 |
-| `borg_buy_strategy_munchkin` | int | -1 | -1 | no - -1 inherits | borg-rs PR #26/#28 |
-| `borg_buy_strategy_current_classes` | int | 0 | 0 | no | borg-rs PR #26/#28 |
-| `borg_buy_strategy_reserve410_classes` | int | 0 | 0 | no | borg-rs PR #26/#28 |
-| `borg_buy_strategy_current_munchkin_classes` | int | 0 | 0 | no | borg-rs PR #26/#28 |
-| `borg_buy_strategy_reserve410_munchkin_classes` | int | 0 | 0 | no | borg-rs PR #26/#28 |
-| `borg_buy_identify` | int | 0 | 0 | no - 0 is off | borg-rs PR #28 |
+The rule for a setting the upstream never had:
+
+1. **Its built-in default is the original C Borg's behaviour.** That is what
+   the zoo's RULES 1 asks of a new parameter, and it is what an unconfigured
+   Borg must do.
+2. **The product's decision goes in the two `borg.txt` files**, which name the
+   setting. A decision that belongs to the product is visible in the
+   configuration, not buried in a default.
+3. **It is declared.** The declaration table in `borg-rs/src/borg_init.rs`
+   (`NEW_SETTINGS`) names the setting, its kind, its built-in default and the
+   value the configuration gives it, and `every_setting_is_declared` fails if
+   a setting is added without that. Adding a setting is a deliberate act.
+
+All nine keep rule 1: their built-in default does what the original C Borg
+did, so an unconfigured Borg is the original C Borg.
+
+| setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
+|---|---|---|---|---|---|---|
+| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **TRUE** | **yes, through the config**: a Borg that reads the delivered `borg.txt` plays Warrior, Druid and Ranger with the stair-scum start; a Borg that reads no `borg.txt` does not | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
+| `borg_munchkin_class_depth` | int | 6 | inert: the rule is off, so the class depth never applies | 6 | no | M8, with the rule |
+| `borg_buy_strategy_default` | int | 0 | 0 is the original buying | 0 | no | borg-rs PR #26/#28 |
+| `borg_buy_strategy_munchkin` | int | -1 | -1 is every class, which is the original buying | -1 | no | borg-rs PR #26/#28 |
+| `borg_buy_strategy_current_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
+| `borg_buy_strategy_reserve410_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
+| `borg_buy_strategy_current_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
+| `borg_buy_strategy_reserve410_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
+| `borg_buy_identify` | int | 0 | 0 is off, and the original C Borg never bought to identify | 0 | no | borg-rs PR #28 |
 
 **One departure, and it is deliberate.** `borg_munchkin_by_class` is the only
 setting whose built-in default and configured value differ. The built-in
@@ -53,6 +69,8 @@ decision is carried by the two `borg.txt` files, which say TRUE. So:
   behaviour;
 - every tool that runs a Borg **names the setting**, so the difference never
   reaches a measurement by accident.
+
+The owner decided this on 2026-11-12, after the defaults audit.
 
 The C parser registers `borg_munchkin_by_class` and the C Borg reads it, so
 the two backends agree on both sides of that line.
