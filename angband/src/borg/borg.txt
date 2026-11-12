@@ -686,7 +686,7 @@ Power
 	condition(value(trait, curse stone) and (value(trait, speed) >= 140)): reward(-10000);
 	condition(value(trait, curse steel) and (value(trait, speed) >= 140)): reward(-10000);
 	condition(value(trait, no teleport)): reward(-700000);
-	condition(value(trait, treach wep)): reward(-10000);
+	condition(value(trait, treach wep)): reward(-100000);
 	condition(value(trait, air swing)): reward(-10000);
 	condition(value(trait, unknown curse)): reward(-9999999);
 
@@ -1109,12 +1109,12 @@ Depth Requirement
 	depth(21): condition(value(trait, cur con) < 7);
 
 # skipping these because they seem redundant given the "go no deeper than your char level" check earlier
-#	depth(21): condition((value(class, warrior) or value(class, blackguard)) and value(trait, max clevel) < (value(range, n) - 5) and value(range, n) <= 38 and !value(config, plays_risky));
-#	depth(21): condition(value(class, rogue) and value(trait, max clevel) < value(range, n) + 10 and value(range, n) <= 46 and !value(config, plays_risky));
-#	depth(21): condition((value(class, priest) or value(class, druid)) and value(trait, max clevel) < value(range, n) + 13 and value(range, n) <= 46 and !value(config, plays_risky));
-#	depth(21): condition(value(class, paladin) and value(trait, max clevel) < value(range, n) + 7 and value(range, n) <= 40 and !value(config, plays_risky));
-#	depth(21): condition(value(class, ranger) and value(trait, max clevel) < value(range, n) + 8 and value(range, n) <= 41 and value(range, n) > 28 and !value(config, plays_risky));
-#	depth(21): condition((value(class, mage) or value(class, necromancer)) and value(trait, max clevel) < value(range, n) + 8 and value(range, n) <= 38 and !value(config, plays_risky));
+#	depth(21): condition((value(class, warrior) or value(class, blackguard)) and value(trait, max clevel) < (value(range, n) - 5) and value(trait, max clevel) <= 38 and !value(config, plays_risky));
+#	depth(21): condition(value(class, rogue) and value(trait, max clevel) < value(range, n) + 10 and value(trait, max clevel) <= 46 and !value(config, plays_risky));
+#	depth(21): condition((value(class, priest) or value(class, druid)) and value(trait, max clevel) < value(range, n) + 13 and value(trait, max clevel) <= 46 and !value(config, plays_risky));
+#	depth(21): condition(value(class, paladin) and value(trait, max clevel) < value(range, n) + 7 and value(trait, max clevel) <= 40 and !value(config, plays_risky));
+#	depth(21): condition(value(class, ranger) and value(trait, max clevel) < value(range, n) + 8 and value(trait, max clevel) <= 41 and value(trait, max clevel) > 28 and !value(config, plays_risky));
+#	depth(21): condition((value(class, mage) or value(class, necromancer)) and value(trait, max clevel) < value(range, n) + 8 and value(trait, max clevel) <= 38 and !value(config, plays_risky));
 #	depth(21): condition((value(class, mage) or value(class, necromancer)) and ((value(trait, max clevel) - 38) * 2 + 30) < value(range, n) and value(trait, max clevel) <= 44 and value(trait, max clevel) > 38 and !value(config, plays_risky));
 
 	depth(26): condition(!value(trait, resist cold with swap));
