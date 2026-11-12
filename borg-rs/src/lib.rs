@@ -82,6 +82,7 @@ pub(crate) mod borg_think_dungeon;
 pub(crate) mod borg_think_dungeon_util;
 pub(crate) mod borg_think_store;
 pub(crate) mod borg_town_dump;
+pub(crate) mod borg_town_usefulness;
 pub(crate) mod borg_trait;
 pub(crate) mod borg_trait_swap;
 pub(crate) mod borg_update;

@@ -1,21 +1,20 @@
 # The town inventory strategy: the implementation plan
 
-Status: **for review**.
-
-> **Superseded in part, 2026-11-12.** The owner decision entry in #36 (full record on PR #42) supersedes parts of this plan: the value curve is flat-then-capped, `U_K(n) = w_K · min(1, n·r/g)`; the alternatives are kind-only, priced cumulative-cheapest-n across shops; the floors are kit predicates with a defined infeasibility outcome (#37's Stay rules - buy what is possible, record the unmet floor, the give-up limits take the character out of town); the record schema (P13) is fixed before phase 4 and the sell-side suite moves into phase 4; the shadow-plan mode lands in phase 4; the settings count is thirteen - `borg_town_no_stores` is a control *outside* the parameter vector; the trip model and the power target are phase-1 dependencies; `w_light = 100` is the numeraire; "each phase is independently measurable" holds at the unit level for phases 0-3 only; phase 0 is where the receipt is re-run and re-earned. The full amendments land with the phase-1 commit; until then the decision log is authoritative.
+Status: **accepted**. Phases 0-1 landed 2026-11-12; the owner decisions of
+2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
 Epic: borg-rs#36. Issues: #37 (the extraction), #35 (the usefulness function), #38 (the architecture), #39 (the optimisation problem), #40 (the joint treatment).
 Branch: `feature/town-inventory-strategy`.
 
 ## What is being built
 
-One town visit becomes one plan. For every item the character has and every ware the shops hold, the plan decides **keep, store, sell or drop**, and then chooses **what to buy**, subject to one gold budget, 23 pack slots counted per distinct stack, the Home's slots, the carry allowance, and the floors - food > 0, light > 0, no cut, no poison - which are bought first and never traded.
+One town visit becomes one plan. For every item the character has and every ware the shops hold, the plan decides **keep, store, sell or drop**, and then chooses **what to buy**, subject to one gold budget, 23 pack slots counted per distinct stack, the Home's slots, the carry allowance, and the floors - the kit predicates: at least one food, at least one light, a cure for the condition the character has, and the poison-cure capability - which are bought first and never traded. A floor the shops cannot meet does not block the visit: the plan buys what is possible, records the unmet floor, and #37's Stay rules decide whether the character leaves town with it unmet.
 
 The judgement is a **usefulness function**: an item's worth is the fraction of a *deficit* it closes, and the deficits are light, food, bleeding, poison, escape, knowledge, power and trip. One weight vector over those needs is one zoo arm; everything else is derived from the state.
 
 This plan implements the decisions in the epic's log. It does not re-open them.
 
-## The parameter vector, and the four places a setting has to land
+## The parameter vector, and the six places a setting has to land
 
 Every arm is a point in this space:
 
@@ -31,47 +30,84 @@ Every arm is a point in this space:
 | `borg_town_w_power` | 50 | the weight of the power need |
 | `borg_town_w_trip` | 50 | the weight of the trip need |
 | `borg_town_share` | 10 | the Black Market's share cap `k`: `cost <= purse / k` |
-| `borg_town_light_depth` | 15 | the depth at which a second light is wanted (provisional) |
+| `borg_town_light_depth` | 15 | the descent target at which a second light is wanted (provisional) |
 | `borg_town_food_trip` | 10 | rations per expected trip (provisional) |
 
-**A setting has to land in four places, or the parity check breaks.**
+`w_light = 100` is the numeraire, so the vector has seven free weights. A
+thirteenth setting, `borg_town_no_stores`, is **not** part of the vector: it
+is the negative-baseline control (see "The negative baseline"), incompatible
+with money-scumming, and it lands in the same six places.
 
-1. `angband/src/borg/borg.h` - the `BORG_*` enum. The Rust table must match it; `borg_init.rs:1017` (`table_matches_enum`) asserts that they do.
-2. `angband/src/borg/borg-init.c` - the C parser table. The C Borg **registers and ignores** these, exactly as it does the seven family settings (`borg-init.c:97-103`). This is not optional: the parity compares the two backends' *effective settings*, so a setting the C side does not know would make the two disagree.
-3. `borg-rs/src/borg_headers/borg_h.rs` and `borg-rs/src/borg_init.rs` - the Rust enum mirror, the Rust table and the defaults (the family settings sit at `borg_init.rs:131-137`).
+**A setting has to land in six places, or the parity check breaks.**
+
+1. `angband/src/borg/borg.h` - the `BORG_*` enum. The Rust table must match it; `table_matches_enum` asserts that they do.
+2. `angband/src/borg/borg-init.c` - the C parser table. The C Borg **registers and ignores** these, exactly as it does the seven family settings. This is not optional: the parity compares the two backends' *effective settings*, so a setting the C side does not know would make the two disagree.
+3. `borg-rs/src/borg_headers/borg_h.rs` and `borg-rs/src/borg_init.rs` - the Rust enum mirror, the Rust table and the defaults.
 4. `harness/borg.txt` - the pinned config, with the comment lines, because the harness rewrites one config line per flag and **fails the run if a flag did not change a line**.
+5. `angband/src/borg/borg.txt` - the shipped config. The two `borg.txt` copies are read by different tools, and `the_borg_txt_copies_agree_and_name_every_setting` fails when they drift.
+6. The declaration: `NEW_SETTINGS` in `borg-rs/src/borg_init.rs`, with `docs/ZOO-INTERFACE.md` as its prose twin. Since the defaults audit (merged 2026-11-12) `every_setting_is_declared` fails when a setting is added without a declaration - adding a setting is a deliberate act.
 
 The twelve settings are the price of a swept parameter vector. The alternative - a per-arm settings file the harness reads - would keep them out of the parser, but then the arms would not be settings at all, and the C Borg would have to be told to ignore a file it does not understand.
 
 ## The phases
 
-Each phase is one commit, each lands with its own suite, and each is independently measurable.
+Each phase is one commit and each lands with its own suite. "Independently
+measurable" holds at the unit level for phases 0-3; from phase 4 on the arms
+are the measurement (S8).
 
 ### Phase 0 - the settings (no behaviour change)
 
-The twelve settings in the four places above, the defaults in `borg.txt`, and `table_matches_enum` still passing. **Proves:** the parameter vector is expressible, and the two backends report the same effective settings. **Proves nothing about behaviour**, which is the point.
+The twelve settings in the six places above, the defaults in both `borg.txt`
+copies, the declaration rows, and the null arm's gate test: the gate is
+extracted pure (`null_arm_gate`) so the test binary can link it, and
+`no_stores_fires_and_clears_the_goal` pins the contract that no TownAction is
+ever executed. **Proves:** the parameter vector is expressible, and the two
+backends report the same effective settings. **Proves nothing about
+behaviour**, which is the point.
+
+Phase 0 is where the receipt is re-run and re-earned: the settings plumbing
+changes the corpus identity, so the phase-0 commit re-runs the headless
+comparison with the new settings in the pinned config and the plan off.
+
+Landed 2026-11-12.
 
 ### Phase 1 - the usefulness function
 
-`borg-rs/src/borg_town_usefulness.rs`: the needs, the deficits, the weights, the caution. Nothing calls it yet.
+`borg-rs/src/borg_town_usefulness.rs`: the needs, the deficits, the weights,
+the caution, and the value curve - `U_K(n) = w_K * min(1, n*r/g)`, flat then
+capped. The marginal value of a copy is the constant `w*r/g` until the
+deficit closes, and zero at or above the target: a met need prices nothing.
+The curve is weakly concave, which is what keeps phase 3's DP exact (P15).
+Nothing calls the module yet; every public item carries a self-removing
+`expect(dead_code)` marker that the first production caller fulfils.
 
-Its suite asserts the **values** for fixed states - a table of states and their expected usefulness - so a failure points at the judgement and not at the planner. This is the first artefact in the plan that carries the owner's judgement, and it is the one to read first.
+Its suite asserts the **values** for fixed states - a table of states and
+their expected usefulness - so a failure points at the judgement and not at
+the planner, and the curve's shape as properties: flat then capped, zero at
+or above the target, weakly concave and capped by the weight. This is the
+first artefact in the plan that carries the owner's judgement, and it is the
+one to read first.
 
-**Depends on:** phase 0.
+**Depends on:** phase 0. The trip model and the power target are phase-1
+dependencies and landed with it, provisionally (see "The provisional
+values").
+
+Landed 2026-11-12.
 
 ### Phase 2 - the stock and the budget
 
-`borg-rs/src/borg_town_stock.rs` and `borg-rs/src/borg_town_budget.rs`: the candidates (every ware in every shop, the pack and the Home as groups of stacks, and the alternatives - the same kind at 1x elsewhere), and the budget (the floors, the gold, the pack slots per distinct stack, the Home's slots, the carry allowance).
+`borg-rs/src/borg_town_stock.rs` and `borg-rs/src/borg_town_budget.rs`: the candidates (every ware in every shop, the pack and the Home as groups of stacks, and the alternatives - kind-only, priced cumulative-cheapest-n across the shops), and the budget (the floors, the gold, the pack slots per distinct stack, the Home's slots, the carry allowance). The slot accounting (S3) - 23 pack slots counted per distinct stack - is pinned by a contract test.
 
 **Depends on:** phase 1.
 
 ### Phase 3 - the solver
 
-`borg-rs/src/borg_town_solve.rs`: the exact DP over the gold (the group knapsack with concave per-kind values), the Lagrangian sweep on the kind count for the pack slots, the repair for the slot and weight constraints, and the floors as a lexicographic first pass.
+`borg-rs/src/borg_town_solve.rs`: the exact DP over the gold (the group knapsack with weakly concave per-kind values), the Lagrangian sweep on the kind count for the pack slots, the repair for the slot and weight constraints, and the floors as a lexicographic first pass. The gold bound is `min(purse + proceeds, the sum of all candidate costs)`.
 
-Its suite asserts the chosen set for a small instance with a known optimum, and the instance from the worked example - the greedy scores 10 where the optimum is 11 - so the greedy cannot pass it by accident.
+Its suite asserts the chosen set for a small instance with a known optimum, and the instance from the worked example - the greedy scores 12 where the optimum is 18 - so the greedy cannot pass it by accident; plus the boundary cases (an infeasible floor, a forbidden ware, a purse that covers everything) and a determinism test.
 
-**Depends on:** phases 1-2.
+**Depends on:** phases 1-2. **Entry criterion:** the B2 write-up - the
+decision record for the value curve - lands first.
 
 ### Phase 4 - the plan
 
@@ -79,13 +115,18 @@ Its suite asserts the chosen set for a small instance with a known optimum, and 
 
 **The test that matters here:** with the plan off, the **key log is byte-identical** to today's. That is the strongest guarantee available, and it is what keeps `main`'s receipt valid while the branch is built.
 
-**Depends on:** phase 3.
+**Depends on:** phase 3. **Entry criteria:** #37's Stay rules and the floors'
+infeasibility outcome are decided; the record schema (P13) is fixed before
+the phase starts; the sell-side suite moves into this phase; and the
+shadow-plan mode lands here - the plan computed but not executed, the record
+diffed against the current policy's visit.
 
 ### Phase 5 - the joint treatment
 
 The iterated form of #40: alternate between solving the purchase knapsack and re-deciding the dispositions against what the money would buy, with the round cap and the tie-break fixed.
 
-**Depends on:** phase 4.
+**Depends on:** phase 4. **Entry criterion:** #40's decisions - the round cap
+and the tie-break - land first.
 
 ### Phase 6 - the arms
 
@@ -95,13 +136,16 @@ The harness suites - the reworked `family-buying` and `family-identify`, and a n
 
 ## The provisional values
 
-The trip model and the deficits' arithmetic do not exist yet (#35's open items 1 and 3, and #38's P2 and P3). The plan proceeds with explicit provisional values so that phase 1 can start, and they are **settings**, so they can be swept:
+The trip model and the deficits' arithmetic landed provisionally with phase 1 (#35's open items 1 and 3, and #38's P2 and P3 stay open until the zoo argues them). They are explicit provisional values, and the two that are **settings** can be swept:
 
 | quantity | provisional | note |
 |---|---|---|
-| `required_light(depth)` | 1 below depth 15, 2 at or above it | `borg_town_light_depth` |
-| `required_food(trip)` | 10 rations per expected trip | `borg_town_food_trip`; the expected trip is assumed to be the last dive plus five levels |
+| the trip's depth target | the deepest level visited plus five | the trip model, stated once |
+| the trip's turns per level | 1000 | anchored on the 2000-turn give-up |
+| `required_light(depth)` | 1 while the descent target is below depth 15, 2 at or above it | `borg_town_light_depth` |
+| `required_food(trip)` | 10 rations per expected trip | `borg_town_food_trip` |
 | `escapes_needed(ahead)` | 1 Phase Door per 10 levels of the expected trip | |
+| the power target | 2000 x the depth target | the weakest of the provisional values |
 | the bleed deficit | 1 while `BI_ISCUT` is set | the game's own bleed rate is the better number |
 | the poison deficit | 1 while `BI_ISPOISONED` is set, plus a capability deficit while `BI_ACUREPOIS == 0` | the game's poison damage rate is the better number |
 
@@ -117,7 +161,7 @@ These are the values to argue about; the machinery around them is not in questio
 
 ## The parity and the receipt
 
-The plan is off by default, so `main` and the 45/45 receipt are untouched while the branch is built. With the plan on, the key log diverges from the C Borg by construction - the town parity is void for the arm - and the arm is measured against the Rust default. The receipt is re-earned when the default moves.
+The plan is off by default, so `main` and the settings receipt are untouched while the branch is built - the receipt is re-run and re-earned at phase 0 (now 57/57), because the settings plumbing changes the corpus identity. With the plan on, the key log diverges from the C Borg by construction - the town parity is void for the arm - and the arm is measured against the Rust default. The receipt is re-earned when the default moves.
 
 ## The negative baseline
 
@@ -127,6 +171,14 @@ The redesign needs a floor under its own measurement: an arm in which the town i
 
 The gate is one check at the top of `borg_choose_shop` (`borg-rs/src/borg_think_store.rs`): with the setting on it returns false before any goal is set, so the whole store sequence (steps 1 to 7 and the immediate-buy path) never starts. Because the Borg never sets `goal.shop`, it never enters a shop in the first place - the walk to the shop is skipped too, not just the trade.
 
+The contract is that **no TownAction is ever executed**. The check itself is
+extracted pure (`null_arm_gate`) so a test binary can link it, and
+`no_stores_fires_and_clears_the_goal` pins it: the visit is forbidden and a
+standing shop goal is cleared. The wiring is the zoo endpoint's invariant -
+`goal.shop` stays -1 for the whole run (borg-zoo#81). The arm's scope is
+trade and stash combined: no buying, no selling, no home use. And it is
+incompatible with money-scumming: an arm that cannot sell cannot scum.
+
 This is the **null arm**: it measures what the town economy is worth, with nothing else changed. It is not a candidate strategy and it is not expected to be competitive - a Borg that cannot sell keeps a full pack of loot and cannot buy food, light or gear. What it is good for is the other direction: if an arm's gain over the control is real, this arm shows how much of the effect comes from the town at all, and it exposes the degenerate cases (a character that dies before it can trade anything) that a per-class comparison would otherwise average away.
 
 The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `borg_buy_identify`; the Rust Borg is the only implementation. The arm is selected with the harness flag `borg_town_no_stores=TRUE`, which rewrites the one `borg_town_no_stores = ` line in `harness/borg.txt`.
@@ -134,28 +186,29 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 ## The risks
 
 - **the trip model is provisional** - it decides every deficit, and it is the biggest unknown in the plan;
-- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case; to be measured, not assumed;
+- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed;
+- **the try-on's mutate/restore cost** - the plan evaluates candidates against a mutated copy of the state, and the restore has to be exact or the visit leaks into the next one;
 - **the joint treatment's convergence** - the round cap and the tie-break are not decided (#40);
 - **the option value of an unidentified item is a range, not a number**, and does not fit the objective cleanly;
 - **the two-stage loss** - 350 against 300 in the worked example - if phase 5 is not implemented;
-- **the settings must land in four places**, or the parity's effective-settings comparison breaks;
+- **the settings must land in six places**, or the parity's effective-settings comparison breaks;
 - **the harness's per-run timeout** (180s in the measurement controls) against the solver's cost.
 
 ## What a reviewer should check
 
 1. the **phase order** and the dependencies between them;
 2. the **provisional values** - they are the judgement, and they are the part most worth arguing about;
-3. the **settings list** and the four places each has to land;
-4. that **each phase is independently measurable**, and that phases 0-4 do not change the default path;
+3. the **settings list** and the six places each has to land;
+4. that **each phase is independently measurable** at the unit level for phases 0-3, and that phases 0-4 do not change the default path;
 5. that the **record** (what each action was for) is enough to read a plan out of the key log.
 
 ## What is still under-specified
 
-Nothing here blocks phase 1, because the provisional values stand in for the missing pieces. Still open, and worth settling before phase 6:
+The provisional values stand in for the missing pieces, so nothing here blocks the landed phases. Still open, by the phase that needs it:
 
-- the trip model's arithmetic (#35 item 3, #38 P2);
-- the deficits' arithmetic, in the game's own numbers rather than booleans (#35 item 1, #38 P3);
-- the opportunity value of a gold, the round cap and the tie-break (#40);
-- the fraction of the whole gap or of the gap above the floor (#35 item 6);
-- the catalogue of useful kinds, and the alternative comparison (#35 items 4 and 5);
-- the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36).
+- **phase 2**: the catalogue of useful kinds (#35 item 4); the alternatives are kind-only (decided 2026-11-12, #35 item 5);
+- **phase 3**: the B2 write-up (the value-curve decision record);
+- **phase 4**: the floors' infeasibility outcome (#37's Stay rules), the record schema (P13), the sell-side suite, the shadow-plan mode;
+- **phase 5**: the opportunity value of a gold, the round cap and the tie-break (#40);
+- **phase 6**: the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36);
+- **any phase**: the trip model's arithmetic (#35 item 3, #38 P2) and the deficits' arithmetic in the game's own numbers rather than booleans (#35 item 1, #38 P3) - the provisionals stand until the zoo argues them; the fraction of the whole gap or of the gap above the floor (#35 item 6).
