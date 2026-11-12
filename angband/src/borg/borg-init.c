@@ -90,7 +90,7 @@ struct borg_setting borg_settings[] = {
     { "borg_allow_strange_opts", 'b', false},
     { "borg_autosave", 'b', false},
     { "borg_restore_ignore_settings", 'b', false},
-    { "borg_munchkin_by_class", 'b', true },
+    { "borg_munchkin_by_class", 'b', false },
     { "borg_munchkin_class_depth", 'i', 6 },
     /* Borg-family configuration: the C oracle always uses `current` buying
      * behaviour. Rust uses these to select its explicit variants (#25). */

@@ -30,6 +30,13 @@ applied when borg.txt is read and again after a reincarnation. On the owner's
 decision (2026-11-09: carry the whole pinned tree), it is carried in C and
 Rust, and `harness/borg.txt` follows the consumer's `borg.txt`.
 
+**Amendment (2026-11-12).** The built-in default of `borg_munchkin_by_class`
+was restored to FALSE, the original C Borg's behaviour, after the defaults
+audit; the product behaviour (TRUE) is carried by `harness/borg.txt` and
+`angband/src/borg/borg.txt`, which name it. The audit and the contract are in
+`docs/ZOO-INTERFACE.md`. The M8 record above is left as it was: at M8 the
+default was TRUE, as carried here.
+
 There are no engine, data or FFI-declaration changes. The Rust engine wrapper
 gains `class_cidx_if_set()`, which reads `player->class` only when it is set.
 Rust starts from main `ce27f5e` (`4.2.6-impact-v7`).
