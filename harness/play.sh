@@ -63,7 +63,6 @@ else
 fi
 
 # The pinned config, with the player's flags applied.
-CONFIG_SED=()
 SET_SED=()
 SET_CHECK=()
 if [ -n "$FLAGS" ]; then
@@ -83,7 +82,7 @@ cd "$(dirname "$BIN")"   # the game finds ./lib relative to the cwd
 for ((c = 1; c <= CHARACTERS; c++)); do
     DIR="$OUT/char-$c"
     mkdir -p "$DIR"/{user,save,archive,panic,scores,native}
-    sed "${CONFIG_SED[@]}" "$ROOT/harness/borg.txt" > "$DIR/user/borg.txt"
+    cp "$ROOT/harness/borg.txt" "$DIR/user/borg.txt"
     if [ ${#SET_SED[@]} -gt 0 ]; then
         sed -i "${SET_SED[@]}" "$DIR/user/borg.txt"
         for line in "${SET_CHECK[@]}"; do
