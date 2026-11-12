@@ -17,9 +17,11 @@
 //! by at most one — rounding noise, not shape.) The curve is weakly
 //! concave, so the group knapsack DP of phase 3 is exact (P15).
 //!
-//! Nothing calls this module yet: the plan itself is phase 3, and the
-//! reduction table that maps a ware to its (need, reduction) pairs is
-//! phase 2. Every public item therefore carries
+//! Nothing calls this module yet: the plan itself is phase 4, and the
+//! reduction table that maps a ware to its (need, reduction) pairs lands
+//! with the catalogue of useful kinds (#35 item 4; planned for phase 2,
+//! moved 2026-11-12 because the catalogue is still open). Every public
+//! item therefore carries
 //! `#[cfg_attr(not(test), expect(dead_code))]`: a marker that removes
 //! itself when the first production caller lands.
 
@@ -53,13 +55,13 @@ pub enum Need {
     Poison,
     /// Phase Door scrolls, the per-level escape.
     Escape,
-    /// Identify and friends. The catalogue (#35 item 4) prices these in
-    /// phase 2; until then the deficit reads 0.
+    /// Identify and friends. The catalogue (#35 item 4) prices these
+    /// when it lands; until then the deficit reads 0.
     Knowledge,
     /// Borg power against the trip's depth target.
     Power,
-    /// Word of Recall and the trip itself. Priced from the phase-2 stock
-    /// table; until then the deficit reads 0.
+    /// Word of Recall and the trip itself. Priced from the stock's
+    /// reduction table when it lands; until then the deficit reads 0.
     Trip,
 }
 
@@ -270,8 +272,8 @@ pub fn marginal(weight: i64, reduction: i64, gap: i64, copy: i64) -> i64 {
 /// prices nothing. Bleeding and Poison are the provisional booleans
 /// decided on 2026-11-12: 1 while cut; 1 while poisoned, plus 1 while no
 /// poison-cure capability is carried. Knowledge reads 0 until the
-/// catalogue (#35 item 4) prices it in phase 2, Trip reads 0 until the
-/// phase-2 stock table prices the recall.
+/// catalogue (#35 item 4) prices it, Trip reads 0 until the stock's
+/// reduction table prices the recall.
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
     let d = match need {
@@ -469,7 +471,7 @@ mod tests {
         assert_eq!(usefulness(Need::Food, 1, 7, &st, &trip, &w), 100);
         assert_eq!(usefulness(Need::Escape, 1, 1, &st, &trip, &w), 0);
         assert_eq!(usefulness(Need::Power, 1500, 1, &st, &trip, &w), 7);
-        // Knowledge and Trip read 0 until phase 2 prices them
+        // Knowledge and Trip read 0 until the catalogue prices them
         assert_eq!(usefulness(Need::Knowledge, 1, 1, &st, &trip, &w), 0);
         assert_eq!(usefulness(Need::Trip, 1, 1, &st, &trip, &w), 0);
     }

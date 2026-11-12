@@ -1,6 +1,6 @@
 # The town inventory strategy: the implementation plan
 
-Status: **accepted**. Phases 0-1 landed 2026-11-12; the owner decisions of
+Status: **accepted**. Phases 0-2 landed 2026-11-12; the owner decisions of
 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
 Epic: borg-rs#36. Issues: #37 (the extraction), #35 (the usefulness function), #38 (the architecture), #39 (the optimisation problem), #40 (the joint treatment).
@@ -96,9 +96,13 @@ Landed 2026-11-12.
 
 ### Phase 2 - the stock and the budget
 
-`borg-rs/src/borg_town_stock.rs` and `borg-rs/src/borg_town_budget.rs`: the candidates (every ware in every shop, the pack and the Home as groups of stacks, and the alternatives - kind-only, priced cumulative-cheapest-n across the shops), and the budget (the floors, the gold, the pack slots per distinct stack, the Home's slots, the carry allowance). The slot accounting (S3) - 23 pack slots counted per distinct stack - is pinned by a contract test.
+`borg-rs/src/borg_town_stock.rs` and `borg-rs/src/borg_town_budget.rs`: the candidates (every ware in every shop, the pack and the Home as groups of stacks, and the alternatives - kind-only, priced cumulative-cheapest-n across the shops), and the budget (the floors, the gold, the pack slots per distinct stack, the Home's slots, the carry allowance). The slot accounting (S3) - 23 pack slots counted per distinct stack - is pinned by a contract test (`pack_slots_are_counted_per_distinct_stack`).
+
+The floors' pass is exact over the at most four unmet floors - the most floors met, then the least gold, then the fewest wares - and bounded by the gold alone; a floor it cannot meet is recorded as unmet, not blocking. The reduction table is **not** in this phase (corrected 2026-11-12): it keys on the catalogue of useful kinds (#35 item 4), which is still open, so the candidates carry kind, tval and sval for it and the table lands with the catalogue. The floors' classification, the one piece of it the budget needs, mirrors `borg_trait`'s counting.
 
 **Depends on:** phase 1.
+
+Landed 2026-11-12.
 
 ### Phase 3 - the solver
 
@@ -206,7 +210,7 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 
 The provisional values stand in for the missing pieces, so nothing here blocks the landed phases. Still open, by the phase that needs it:
 
-- **phase 2**: the catalogue of useful kinds (#35 item 4); the alternatives are kind-only (decided 2026-11-12, #35 item 5);
+- **phase 2** (landed): the alternatives are kind-only (decided 2026-11-12, #35 item 5); the catalogue of useful kinds (#35 item 4), and the reduction table that keys on it, moved past phase 2 and are needed by phase 3's evaluation;
 - **phase 3**: the B2 write-up (the value-curve decision record);
 - **phase 4**: the floors' infeasibility outcome (#37's Stay rules), the record schema (P13), the sell-side suite, the shadow-plan mode;
 - **phase 5**: the opportunity value of a gold, the round cap and the tie-break (#40);

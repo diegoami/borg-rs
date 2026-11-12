@@ -177,7 +177,7 @@ fn is_swap(st: &mut BorgState, i: i32) -> bool {
 ///
 /// Ego items may stack as long as they have the same ego-item type.
 /// This is primarily to allow ego-missiles to stack.
-fn borg_object_similar(st: &BorgState, o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
+pub(crate) fn borg_object_similar(st: &BorgState, o_ptr: &borg_item, j_ptr: &borg_item) -> bool {
     // NOTE: This assumes the giving of one item at a time
     let total = i32::from(o_ptr.iqty) + 1;
 

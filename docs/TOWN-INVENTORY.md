@@ -1,6 +1,6 @@
 # The town inventory strategy: architecture
 
-Status: **accepted, in implementation**. Phases 0-1 landed 2026-11-12 (the twelve settings in their six places; the usefulness function and the trip model). The owner decisions of 2026-11-12 (the epic log, full record on PR #42) are applied inline.
+Status: **accepted, in implementation**. Phases 0-2 landed 2026-11-12 (the twelve settings in their six places; the usefulness function and the trip model; the stock and the budget). The owner decisions of 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
 The decisions this rests on are recorded in borg-rs#36 (the epic), #37 (the extraction of the old strategy) and #35 (the evaluation). Where this document and an issue disagree, the epic's decision log (#36) wins and this document is wrong.
 
@@ -39,13 +39,21 @@ Turns the world into the plan's input: the wares of every shop, the pack, the Ho
 pub struct Candidate {
     pub shop: u8,        // 0..6; the Home is not a shop
     pub slot: u8,        // the slot in that shop's stock
-    pub kind: u16,
-    pub price: i32,      // what this shop charges (3x at the Black Market)
+    pub kind: u32,
+    pub tval: u8, pub sval: u8,
+    pub price: i32,      // per copy; what this shop charges (3x at the Black Market)
+    pub qty: i32,        // the copies the shop holds
+    pub weight: i32,     // per copy
     pub slots_cost: i32, // 0 if it stacks into an occupied slot, else 1
     pub stack_count: i32,// how many of this kind are already carried
-    pub utility: i64,    // filled in by the evaluation
+    pub class: u16,      // the stack class: wares that stack together open one slot
 }
+
+pub struct KindOffer { pub kind: u32, pub wares: Vec<usize> } // cheapest first
+// cost(n), weight(n), slots_cost(n), split(n): cumulative cheapest-n
 ```
+
+As landed in phase 2 the candidate carries no `utility`: the evaluation is the solver's (phase 3), and it prices a kind's copies through the value curve rather than storing one number per ware. The stacking predicate is `borg_object_similar` in production and a parameter of the builder, so the suite runs without the engine.
 
 ### 2. The budget - what is feasible
 
@@ -61,13 +69,16 @@ Turns the state into the constraints the solver respects.
 
 ```rust
 pub struct Budget {
-    pub gold: i32,
+    pub gold: i64,
     pub pack_slots: i32,
     pub home_slots: i32,
-    pub weight: i32,
-    pub floors: Vec<Candidate>,   // bought first, never traded
+    pub weight: i64,
+    pub floors: Vec<FloorPurchase>, // bought first, never traded; one copy each
+    pub unmet: Vec<Need>,           // the floors the visit cannot meet
 }
 ```
+
+As landed in phase 2: the floor pass is exact over the at most four unmet floors, ordered by the most floors met, then the least gold, then the fewest wares, then the earliest wares; it is bounded by the gold alone. The floors are not priced, so the caution cap does not bind them. A floor no shop serves or the purse cannot pay for goes to `unmet` for #37's Stay rules (the infeasibility outcome itself stays a phase-4 entry criterion). The weight allowance is half of `BI_CARRY`, where `borg_trait` starts charging the encumbrance. The slot, Home and weight figures are signed: a negative one says the dispositions have to free room before the floors fit.
 
 ### 3. The usefulness function - what the character lacks
 
@@ -95,7 +106,7 @@ pub fn usefulness(need: Need, reduction: i64, copies: i64,
 pub fn unmet_floors(st: &BorgState) -> Vec<Need>;   // the kit predicates
 ```
 
-The **reduction** is per-kind and arrives with the stock in phase 2, so the phase-1 API takes it as a parameter; the knowledge and trip deficits read 0 until their phases (the catalogue's arrival for knowledge, the stock's for the trip itself).
+The **reduction** is per-kind, so the phase-1 API takes it as a parameter. It was planned to arrive with the stock in phase 2; **corrected 2026-11-12**: the reduction table keys on the catalogue of useful kinds (#35 item 4), which is still open, so it lands with the catalogue - the phase-2 stock carries kind, tval and sval for it to key on, and the only part of the table phase 2 needs, the floors' classification, landed with the budget; the knowledge and trip deficits read 0 until their phases (the catalogue's arrival for knowledge, the stock's for the trip itself).
 
 **The units.** The reductions are in different units - light in torches, food in rations, bleeding in wounds, power in power points - so they are normalised to **the fraction of the need closed** and the weight is what the *whole* need is worth. Each need is also split in two: the **floor** is the minimum that keeps the character alive - the kit predicates: at least one light, at least one food, a cure for the current condition, a poison-cure capability - and is a constraint that is never traded; the **target** is what the coming trip needs, and the gap between what the character has and the target is what gets priced. That split is the line the old emergency path drew by accident, and it is what makes the weights comparable. **Decided 2026-11-11** (the alternatives - gold as the unit, or the natural unit with the weight as the conversion - are not used); see #35.
 
