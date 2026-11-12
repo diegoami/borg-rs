@@ -111,7 +111,11 @@ Landed 2026-11-12.
 Its suite asserts the chosen set for a small instance with a known optimum, and the instance from the worked example - the greedy scores 12 where the optimum is 18 - so the greedy cannot pass it by accident; plus the boundary cases (an infeasible floor, a forbidden ware, a purse that covers everything) and a determinism test.
 
 **Depends on:** phases 1-2. **Entry criterion:** the B2 write-up - the
-decision record for the value curve - lands first.
+kind-only alternatives and the separability they leave the DP - lands
+first; drafted in `docs/TOWN-INVENTORY-B2.md` for owner acceptance.
+(Corrected 2026-11-12: this said "the decision record for the value
+curve", but the value curve is B1 and already decided; B2 is the
+alternatives, per the epic's log and the PR #42 record.)
 
 ### Phase 4 - the plan
 
@@ -211,7 +215,7 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 The provisional values stand in for the missing pieces, so nothing here blocks the landed phases. Still open, by the phase that needs it:
 
 - **phase 2** (landed): the alternatives are kind-only (decided 2026-11-12, #35 item 5); the catalogue of useful kinds (#35 item 4), and the reduction table that keys on it, moved past phase 2 and are needed by phase 3's evaluation;
-- **phase 3**: the B2 write-up (the value-curve decision record);
+- **phase 3**: the B2 write-up - the kind-only alternatives and what they leave the solver, drafted in `docs/TOWN-INVENTORY-B2.md` for owner acceptance (corrected 2026-11-12: this line called it "the value-curve decision record", but the value curve is B1, decided; B2 is the alternatives, per the epic's log and PR #42);
 - **phase 4**: the floors' infeasibility outcome (#37's Stay rules), the record schema (P13), the sell-side suite, the shadow-plan mode;
 - **phase 5**: the opportunity value of a gold, the round cap and the tie-break (#40);
 - **phase 6**: the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36);
