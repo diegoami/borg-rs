@@ -22,8 +22,9 @@ SRC_BEFORE=$("$ID" source-hash "$IMPL")
 # configured with another value would otherwise keep it.
 # BORG_RECORDING=1 adds the native recording (the C side's
 # SUPPORT_BORG_RECORDING): the interactive sessions record the player's
-# inputs with it, the headless arms do not need it.
-RECORDING_FLAG=()
+# inputs with it, the headless arms do not need it. The flag is always
+# passed, because the cmake cache would otherwise keep the old value.
+RECORDING_FLAG=(-DSUPPORT_BORG_RECORDING=OFF)
 [ "${BORG_RECORDING:-0}" = 1 ] && RECORDING_FLAG=(-DSUPPORT_BORG_RECORDING=ON)
 cmake -S "$ROOT/angband" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release \
     -DSUPPORT_BORG_HARNESS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
