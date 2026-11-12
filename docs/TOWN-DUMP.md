@@ -87,17 +87,33 @@ Two limits are worth keeping in mind:
   algorithm is not obviously wrong. Harvesting from several policies,
   including the `borg_town_no_stores` baseline, widens the sample.
 
-## The labels
+## What the dump is for
 
-The dump says what the Borg did. The labels say what it should have done,
-and they are the owner's. They are collected in [TOWN-LABELS.md](TOWN-LABELS.md),
-which is edited on the branch and committed; the labels are then read back
-from there and become the golden cases of phase 1's usefulness-function
-suite.
+The owner's judgement in this plan enters at exactly one place: the
+**usefulness table of phase 1** (#41) - the table of states and their
+expected usefulness that phase 1's suite asserts. That table is the door
+the owner reads, and it is the one to read first. The dump is not a
+second door.
 
-A blank label means the Borg's decision is agreed. The non-purchases count
-as much as the purchases: "I would not buy the armour here" is what tells a
-decay apart from a fixed ranking.
+It is what that table is built from:
+
+- **the states are real.** The dump carries the town visits of headless
+  runs, each with the state and the stock: the inputs a usefulness
+  function needs. Phase 1's table can be seeded from the discriminating
+  visits rather than from invented states.
+- **the diff is automatic.** Once the usefulness function exists, the
+  dump says what the current policy bought at every visit and the new
+  function says what it would buy. The disagreements come out on their
+  own; the owner reads those, not every visit.
+- **it is the debugging view for phases 1 to 4**, which is where a
+  usefulness function needs one.
+
+The labelling route - the owner naming the need for every visit - was
+dropped on 2026-11-12. The need list (#35), the decay (P4), the
+alternatives (P5) and the floors were all decided in the epic's log that
+day, and the weights are the free parameters the zoo sweeps in phase 4;
+so the labels re-derived what was already settled, at eighteen times the
+effort.
 
 ## Where the code is
 

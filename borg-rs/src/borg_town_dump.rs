@@ -20,11 +20,12 @@
 //! * `purchase` - a transaction that was actually carried out: the ware, the
 //!   price and the gold before and after.
 //!
-//! The point of the dump is to be labelled: the owner reads a decision
-//! record and says what should have been bought instead, and why. So the
-//! record keeps the whole shop stock (the wares that were *not* bought are
-//! the contrastive signal), and it keeps the non-purchases (a decision to
-//! buy nothing is a decision).
+//! The dump's job is to be the fixture the usefulness table is built from
+//! and the diff against the current policy: the states are real, and the
+//! disagreements come out on their own. So the record keeps the whole shop
+//! stock (the wares that were *not* bought are the contrastive signal),
+//! and it keeps the non-purchases (a decision to buy nothing is a
+//! decision).
 
 use std::cell::RefCell;
 use std::fs::{File, OpenOptions};
