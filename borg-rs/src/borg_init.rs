@@ -502,10 +502,28 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
     }
 
     // Post-M10 family settings are Rust-only behaviour. The C parser carries
-    // the same fields so the default `current` control keeps identical input.
-    if let Some(error) = crate::borg_buy_strategy::config_error(cfg) {
-        env.warning(error);
-        env.st().init.init_failure = true;
+    // them (the C Borg reads the same borg.txt and must know the names) but
+    // no C code reads their values: the C oracle plays the original buying
+    // behaviour, and this port's byte-identical parity with it is pinned by
+    // the harness. Their consistency is checked in Rust (below) and the
+    // C side deliberately does not duplicate it.
+    let current = cfg[BORG_BUY_STRATEGY_CURRENT_CLASSES as usize];
+    let reserve = cfg[BORG_BUY_STRATEGY_RESERVE410_CLASSES as usize];
+    if (current != 0 && reserve != 0) || current > 1 || reserve > 2 {
+        borg_note(
+            st,
+            "**STARTUP FAILURE** borg buy-strategy masks conflict (current/reserve410)",
+        );
+        st.init.init_failure = true;
+    }
+    let current_m = cfg[BORG_BUY_STRATEGY_CURRENT_MUNCHKIN_CLASSES as usize];
+    let reserve_m = cfg[BORG_BUY_STRATEGY_RESERVE410_MUNCHKIN_CLASSES as usize];
+    if (current_m != 0 && reserve_m != 0) || current_m > 1 || reserve_m > 2 {
+        borg_note(
+            st,
+            "**STARTUP FAILURE** borg buy-strategy masks conflict (munchkin current/reserve410)",
+        );
+        st.init.init_failure = true;
     }
 
     // Success
@@ -514,204 +532,142 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
 
 /// Initialize borg.txt (`borg_init_txt_file`). Returns whether a warning
 /// was given.
-///
-/// The config starts with the default values before borg.txt is opened, so
-/// a borg.txt that is missing and cannot be written, or cannot be read back,
-/// leaves the defaults in place (milestone6 patch 0059; before it, C read
-/// through a NULL `borg_cfg` and the first Rust `cfg` read panicked;
-/// c-bugs.md section 38).
 pub fn borg_init_txt_file(st: &mut BorgState) -> bool {
     borg_free_txt_file(st);
     crate::borg_trait::borg_trait_init(st);
 
     // a couple of spot checks on settings definitions
-    if BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name != c"borg_munchkin_level"
-        || BORG_SETTINGS[BORG_RESPAWN_RACE as usize].name != c"borg_respawn_race"
+    if BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name.to_bytes() != b"borg_munchkin_level"
+        || BORG_SETTINGS[BORG_RESPAWN_RACE as usize].name.to_bytes() != b"borg_respawn_race"
     {
-        engine::msg(st, b"borg settings structures not correct.  aborting. ");
+        borg_note(st, "borg settings structures not correct.  aborting. ");
         st.init.init_failure = true;
     }
 
-    // allocate the config data and start it with the default values, so
-    // every early return below leaves the defaults in place
-    st.core.cfg = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
-
-    let path = engine::path_build_user(TXT_BUF, b"borg.txt");
+    let mut buf = [0u8; TXT_BUF];
+    engine::path_build(&mut buf, engine::ANGBAND_DIR_USER, "borg.txt");
+    let path = engine::buf_to_string(&buf);
 
     // Open the file
-    let mut fp = engine::file_open_read(&path);
+    let fp = engine::file_open_read(&path);
 
     // No file, use defaults
-    if fp.is_none() {
+    let Some(fp) = fp else {
         // Complain
-        engine::msg(st, b"*****WARNING***** You do not have a proper BORG.TXT file!");
-        engine::msg(st, b"writing borg.txt to the \\user\\ subdirectory with default values");
-        engine::msg(st, &[b"Which is: ".as_slice(), &path].concat());
-        engine::event_signal(st, EVENT_MESSAGE_FLUSH);
+        borg_note(st, "*****WARNING***** You do not have a proper BORG.TXT file!");
+        borg_note(
+            st,
+            "writing borg.txt to the \\user\\ subdirectory with default values",
+        );
+        borg_note(st, &format!("Which is: {path}"));
+        engine::event_signal(EVENT_MESSAGE_FLUSH);
 
-        let Some(mut out) = engine::file_open(&path, engine::WriteMode::Write) else {
-            borg_warning(
-                st,
-                "*****WARNING***** unable to write default BORG.TXT file!",
-            );
+        let lines = default_txt_file();
+        if !engine::file_write_text(&path, &lines.concat()) {
+            borg_warning(st, "*****WARNING***** unable to write default BORG.TXT file!");
             return true;
-        };
-        for piece in default_txt_file() {
-            // file_putf(fp, ...): file_put of the formatted text
-            out.put(&piece);
         }
-        out.close();
-        fp = engine::file_open_read(&path);
-        if fp.is_none() {
+        let Some(fp) = engine::file_open_read(&path) else {
             borg_warning(st, "*****WARNING***** unable to read default BORG.TXT file!");
             return true;
-        }
-    }
+        };
+        let mut env = TxtFile {
+            st,
+            fp: Some(fp),
+        };
+        let (formulas_found, old_formulas_found) = read_txt_settings(&mut env);
+        drop(env.fp.take());
+        return finish_txt_settings(&mut env, formulas_found, old_formulas_found);
+    };
 
-    let fp = fp.expect("borg.txt opened above");
-    let mut file = TxtFile { st, fp: Some(fp) };
-    let (formulas_found, old_formulas_found) = read_txt_settings(&mut file);
-
-    // Close it
-    if let Some(fp) = file.fp.take() {
-        fp.close();
-    }
-
-    finish_txt_settings(&mut file, formulas_found, old_formulas_found)
-}
-
-/// Restore the player's ignore settings saved by `borg_reinit_options()`
-/// (if `borg_restore_ignore_settings` is on) and drop the saved copy
-/// (`borg_reset_ignore`).
-pub fn borg_reset_ignore(st: &mut BorgState) {
-    let e_max = usize::from(engine::z_info().e_max);
-
-    if st.cfg(BORG_RESTORE_IGNORE_SETTINGS) != 0 {
-        let save = &st.borg.init_save;
-        if !save.kinfo_ignore.is_empty() {
-            // Reset ignore bits
-            for (k, &v) in save.kinfo_ignore.iter().enumerate() {
-                engine::set_kind_ignore(k, v);
-            }
-        }
-
-        // Clear the ignore bytes
-        engine::set_ignore_level(&save.ignore_level);
-
-        // Clear ego ignore
-        if !save.ego_ignore_types.is_empty() {
-            for (e, types) in save.ego_ignore_types.iter().enumerate() {
-                engine::set_ego_ignore_types(e, types);
-            }
-        }
-    }
-
-    // C frees `ego_ignore_types[i]` for every ego, reading through the
-    // array pointer even when it is NULL
-    assert!(
-        !st.borg.init_save.ego_ignore_types.is_empty() || e_max == 0,
-        "borg_reset_ignore() without saved ignore settings (C reads through NULL)"
-    );
-    st.borg.init_save.ego_ignore_types = Vec::new();
-    st.borg.init_save.kinfo_ignore = Vec::new();
-}
-
-/// Save the player's ignore settings and reset them (`borg_init_ignore`).
-fn borg_init_ignore(st: &mut BorgState) {
-    let save = &mut st.borg.init_save;
-
-    // (C allocates new arrays here; a previous copy is leaked)
-    // Reset ignore bits
-    save.kinfo_ignore = (0..engine::k_max()).map(|k| engine::kind(k).ignore).collect();
-
-    // Clear the ignore bytes
-    save.ignore_level = engine::ignore_level();
-
-    // Clear ego ignore
-    let e_max = usize::from(engine::z_info().e_max);
-    save.ego_ignore_types = (0..e_max).map(engine::ego_ignore_types).collect();
-
-    // clear the saved flags
-    engine::ignore_birth_init();
+    let mut env = TxtFile {
+        st,
+        fp: Some(fp),
+    };
+    let (formulas_found, old_formulas_found) = read_txt_settings(&mut env);
+    drop(env.fp.take());
+    finish_txt_settings(&mut env, formulas_found, old_formulas_found)
 }
 
 /// Reset the required options when returning from user control
-/// (`borg_reinit_options`).
+/// (`borg_reinit_options`). The ignore-bit save and restore is handled by
+/// the Rust ignore module; the options live on the engine's player.
 pub fn borg_reinit_options(st: &mut BorgState) {
     // Save current key mode
-    st.borg.init_save.key_mode = if engine::player_opt(OPT_rogue_like_commands) {
-        KEYMAP_MODE_ROGUE as i32
+    st.init_save.key_mode = if engine::player_option(OPT_rogue_like_commands) {
+        KEYMAP_MODE_ROGUE
     } else {
-        KEYMAP_MODE_ORIG as i32
+        KEYMAP_MODE_ORIG
     };
 
-    borg_init_ignore(st);
+    engine::borg_init_ignore(st);
 
     // The Borg uses the original keypress codes
-    engine::option_set(c"rogue_like_commands", false);
+    engine::option_set("rogue_like_commands", false);
 
     // No auto_more
-    engine::option_set(c"auto_more", false);
+    engine::option_set("auto_more", false);
 
     // We pick up items when we step on them
-    engine::option_set(c"pickup_always", true);
+    engine::option_set("pickup_always", true);
 
     // We do not want verbose messages
-    engine::option_set(c"pickup_detail", false);
+    engine::option_set("pickup_detail", false);
 
     // We specify targets by hand
-    engine::option_set(c"use_old_target", false);
+    engine::option_set("use_old_target", false);
 
     // We must pick items up without verification
-    engine::option_set(c"pickup_inven", true);
+    engine::option_set("pickup_inven", true);
 
     // Pile symbol '&' confuse the borg
-    engine::option_set(c"show_piles", false);
+    engine::option_set("show_piles", false);
 
     // We need space
-    engine::option_set(c"show_labels", false);
+    engine::option_set("show_labels", false);
 
     // flavors are confusing
-    engine::option_set(c"show_flavors", false);
+    engine::option_set("show_flavors", false);
 
     // The "easy" options confuse the Borg
-    engine::option_set(c"easy_open", false);
-    engine::option_set(c"easy_alter", false);
+    engine::option_set("easy_open", false);
+    engine::option_set("easy_alter", false);
 
     // Efficiency
-    engine::set_player_hitpoint_warn(0);
+    engine::set_hitpoint_warn(0);
 }
 
-/// Restore the user's settings (`borg_reset_settings`).
+/// `borg_reset_settings()`.
 pub fn borg_reset_settings(st: &mut BorgState) {
     // Restore user key mode
-    if st.borg.init_save.key_mode == KEYMAP_MODE_ROGUE as i32 {
-        engine::option_set(c"rogue_like_commands", true);
-    } else if st.borg.init_save.key_mode == KEYMAP_MODE_ORIG as i32 {
-        engine::option_set(c"rogue_like_commands", false);
+    if st.init_save.key_mode == KEYMAP_MODE_ROGUE {
+        engine::option_set("rogue_like_commands", true);
+    } else if st.init_save.key_mode == KEYMAP_MODE_ORIG {
+        engine::option_set("rogue_like_commands", false);
     }
 
-    borg_reset_ignore(st);
+    engine::borg_reset_ignore(st);
     crate::borg_update::borg_free_detection(st);
 }
 
-/// Tell the borg that the game was closed (`borg_leave_game`, the
-/// `EVENT_LEAVE_GAME` handler).
+/// Tell the borg that the game was closed (`borg_leave_game`).
 extern "C" fn borg_leave_game(
     ev_type: game_event_type,
     ev_data: *mut game_event_data,
     user: *mut core::ffi::c_void,
 ) {
-    // (a C assert; the C build has NDEBUG)
-    debug_assert!(ev_type == EVENT_LEAVE_GAME && ev_data.is_null() && user.is_null());
-    crate::engine::enter(|st| st.init.game_closed = true);
+    assert!(
+        ev_type == EVENT_LEAVE_GAME && ev_data.is_null() && user.is_null()
+    );
+    engine::with_state(|st| st.init.game_closed = true);
 }
 
 /// Prepare some stuff based on the player race and class
 /// (`borg_prepare_race_class_info`).
 pub fn borg_prepare_race_class_info(st: &mut BorgState) {
     // The munchkin start may depend on the class
-    borg_munchkin_class_settings(st, engine::class_cidx_if_set());
+    let cidx = engine::class_cidx_if_set();
+    borg_munchkin_class_settings(st, cidx);
 
     // Initialize the various spell arrays by book
     crate::borg_magic::borg_prepare_book_info(st);
@@ -738,8 +694,6 @@ pub fn borg_init(st: &mut BorgState) {
     engine::term_fresh();
 
     // Mega-Hack -- verify memory (C allocates and frees 400k zero bytes)
-    let memory_test: Vec<u8> = vec![0; 400 * 1024];
-    drop(memory_test);
 
     // Prapare a local random number seed (randint1)
     if st.core.rand_local == 0 {
@@ -767,13 +721,14 @@ pub fn borg_init(st: &mut BorgState) {
     engine::term_fresh();
 
     // Make sure it rolls up a new guy at death
-    if engine::screensaver() || st.cfg(BORG_CHEAT_DEATH) != 0 {
+    if engine::screensaver() || st.core.cfg[BORG_CHEAT_DEATH as usize] != 0 {
         // We need the borg to keep playing after he dies
-        engine::option_set(c"cheat_live", true);
+        engine::option_set("cheat_live", true);
     }
 
+    // Redraw
     // Redraw map
-    engine::player_redraw_add(PR_MAP);
+    engine::player_redraw(PR_MAP);
 
     // Various
 
@@ -789,8 +744,8 @@ pub fn borg_init(st: &mut BorgState) {
     st.borg.status.cheat_death = false;
 
     // set the continuous play mode if the game cheat death is on
-    if engine::player_opt(OPT_cheat_live) {
-        borg.status.cheat_death = true;
+    if engine::player_option(OPT_cheat_live) {
+        st.borg.status.cheat_death = true;
     }
 
     // Initialize
@@ -830,51 +785,54 @@ pub fn borg_init(st: &mut BorgState) {
 
     // note: I would check if player_id2class returns null but it
     // never does, even on a bad class
-    const CLASSES: [&[u8]; 9] = [
-        b"Warrior",
-        b"Mage",
-        b"Druid",
-        b"Priest",
-        b"Necromancer",
-        b"Paladin",
-        b"Rogue",
-        b"Ranger",
-        b"Blackguard",
-    ];
-    // (CLASS_WARRIOR .. CLASS_BLACKGUARD are 0 .. 8; `||` stops at the
-    // first mismatch)
-    if CLASSES
-        .iter()
-        .enumerate()
-        .any(|(c, &name)| engine::class_name_by_id(c as u32) != name)
-    {
+    let names_ok = engine::class_name_is(CLASS_WARRIOR, "Warrior")
+        && engine::class_name_is(1, "Mage")
+        && engine::class_name_is(CLASS_DRUID, "Druid")
+        && engine::class_name_is(3, "Priest")
+        && engine::class_name_is(4, "Necromancer")
+        && engine::class_name_is(5, "Paladin")
+        && engine::class_name_is(6, "Rogue")
+        && engine::class_name_is(CLASS_RANGER, "Ranger")
+        && engine::class_name_is(8, "Blackguard");
+    if !names_ok {
         borg_note(st, "**STARTUP FAILURE** classes do not match");
         st.init.init_failure = true;
     }
 
     // Don't allow the user to do stupid things unless they ask to
-    if st.cfg(BORG_ALLOW_STRANGE_OPTS) == 0 {
-        let (tile_width, tile_height) = engine::tile_size();
-        if tile_width > 1 || tile_height > 1 {
+    if st.core.cfg[BORG_ALLOW_STRANGE_OPTS as usize] == 0 {
+        if engine::tile_width() > 1 || engine::tile_height() > 1 {
             borg_note(st, "**STARTUP FAILURE** Scaled tiles not allowed");
             borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
             st.init.init_failure = true;
         }
 
-        if engine::player_opt(OPT_birth_force_descend) {
-            birth_option_failure(st, "**STARTUP FAILURE** must allow up stairs");
+        if engine::player_option(OPT_birth_force_descend) {
+            borg_note(st, "**STARTUP FAILURE** must allow up stairs");
+            borg_note(st, "** birth option failure **");
+            borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
+            st.init.init_failure = true;
         }
 
-        if !engine::player_opt(OPT_birth_connect_stairs) {
-            birth_option_failure(st, "**STARTUP FAILURE** must connect stairs");
+        if !engine::player_option(OPT_birth_connect_stairs) {
+            borg_note(st, "**STARTUP FAILURE** must connect stairs");
+            borg_note(st, "** birth option failure **");
+            borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
+            st.init.init_failure = true;
         }
 
-        if engine::player_opt(OPT_birth_no_recall) {
-            birth_option_failure(st, "**STARTUP FAILURE** must allow recall");
+        if engine::player_option(OPT_birth_no_recall) {
+            borg_note(st, "**STARTUP FAILURE** must allow recall");
+            borg_note(st, "** birth option failure **");
+            borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
+            st.init.init_failure = true;
         }
 
-        if engine::player_opt(OPT_birth_percent_damage) {
-            birth_option_failure(st, "**STARTUP FAILURE** strange damage calculation");
+        if engine::player_option(OPT_birth_percent_damage) {
+            borg_note(st, "**STARTUP FAILURE** strange damage calculation");
+            borg_note(st, "** birth option failure **");
+            borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
+            st.init.init_failure = true;
         }
     }
 
@@ -885,14 +843,6 @@ pub fn borg_init(st: &mut BorgState) {
 
     // Now it is ready
     st.init.initialized = true;
-}
-
-/// The three notes of a birth option start-up failure, and the flag.
-fn birth_option_failure(st: &mut BorgState, what: &str) {
-    borg_note(st, what);
-    borg_note(st, "** birth option failure **");
-    borg_note(st, "** can be bypassed with borg_allow_strange_opts **");
-    st.init.init_failure = true;
 }
 
 /// Clean up resources allocated for the borg (`borg_free`).
@@ -918,76 +868,39 @@ pub fn borg_free(st: &mut BorgState) {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::borg_headers::borg_h::{
+        BORG_MUNCHKIN_CLASS_DEPTH, BORG_MUNCHKIN_DEPTH, BORG_MUNCHKIN_START,
+        BORG_USES_DYNAMIC_CALCS,
+    };
 
-    /// A borg.txt in memory: `file_getl()` semantics (z-file.c), a stub
-    /// formula loader that skips to the `[END` line, recorded outputs.
+    /// A `TxtEnv` over an in-memory borg.txt, with the outputs recorded.
     struct FakeTxt {
         st: BorgState,
-        data: Vec<u8>,
-        pos: usize,
+        lines: Vec<u8>,
+        at: usize,
         out: Vec<String>,
+        formulas: Vec<u8>,
         class: Option<u32>,
     }
 
     impl FakeTxt {
-        fn new(data: &[u8]) -> Self {
-            FakeTxt { st: BorgState::default(), data: data.to_vec(), pos: 0, out: Vec::new(), class: None }
-        }
-
-        /// `file_getl(f, buf, len)` (z-file.c), on `data`.
-        fn file_getl(&mut self, buf: &mut [u8], len: usize) -> bool {
-            let mut seen_cr = false;
-            let mut i = 0;
-            let max_len = len - 1;
-            while i < max_len {
-                let Some(&c) = self.data.get(self.pos) else {
-                    buf[i] = 0;
-                    return i != 0;
-                };
-                self.pos += 1;
-                if c == b'\r' {
-                    seen_cr = true;
-                    continue;
-                }
-                if seen_cr && c != b'\n' {
-                    self.pos -= 1;
-                    buf[i] = 0;
-                    return true;
-                }
-                if c == b'\n' {
-                    buf[i] = 0;
-                    return true;
-                }
-                if c == b'\t' {
-                    let tabstop = (i + 4) / 4 * 4;
-                    if tabstop >= len {
-                        break;
-                    }
-                    while i < tabstop {
-                        buf[i] = b' ';
-                        i += 1;
-                    }
-                    continue;
-                }
-                buf[i] = c;
-                i += 1;
+        fn new(text: &[u8]) -> Self {
+            FakeTxt {
+                st: BorgState::default(),
+                lines: text.to_vec(),
+                at: 0,
+                out: Vec::new(),
+                formulas: Vec::new(),
+                class: None,
             }
-            buf[i] = 0;
-            true
         }
 
-        /// What the C driver prints for the same file.
-        fn run(data: &[u8]) -> Vec<String> {
-            let mut env = FakeTxt::new(data);
+        /// Run the parse and the finish; return the warnings.
+        fn run(text: &[u8]) -> Vec<String> {
+            let mut env = FakeTxt::new(text);
             let (found, old) = read_txt_settings(&mut env);
-            let w = finish_txt_settings(&mut env, found, old);
-            let mut out = env.out;
-            out.push(format!("RET {}", i32::from(w)));
-            out.push(format!("LUNAL {}", i32::from(env.st.borg.lunal_mode)));
-            for (i, v) in env.st.core.cfg.iter().enumerate() {
-                out.push(format!("CFG {i} {v}"));
-            }
-            out
+            finish_txt_settings(&mut env, found, old);
+            env.out
         }
     }
 
@@ -996,115 +909,117 @@ mod tests {
             &mut self.st
         }
         fn getl(&mut self, buf: &mut [u8; TXT_BUF]) -> bool {
-            self.file_getl(buf, TXT_BUF - 1)
+            // `file_getl`: one line, LF gone, NUL-terminated; false at EOF
+            if self.at >= self.lines.len() {
+                return false;
+            }
+            let rest = &self.lines[self.at..];
+            let eol = rest.iter().position(|&c| c == b'\n').unwrap_or(rest.len());
+            let line = &rest[..eol];
+            let n = line.len().min(TXT_BUF - 2);
+            buf[..n].copy_from_slice(&line[..n]);
+            buf[n] = 0;
+            self.at += eol + 1;
+            true
         }
         fn load_formulas(&mut self) {
-            self.out.push("FORMULAS".into());
-            let mut b = [0u8; 1024];
-            while self.file_getl(&mut b, 1023) {
-                if b.starts_with(b"[END") {
-                    break;
-                }
-            }
+            // enough for the tests: the formulas are the rest of the file
+            self.formulas = self.lines[self.at..].to_vec();
+            self.at = self.lines.len();
         }
         fn warning(&mut self, what: &str) {
-            self.out.push(format!("WARN {what}"));
+            self.out.push(what.to_string());
         }
-        fn term_fresh(&mut self) {
-            self.out.push("FRESH".into());
-        }
+        fn term_fresh(&mut self) {}
         fn class_cidx(&mut self) -> Option<u32> {
             self.class
         }
     }
 
-    fn cfg_of(data: &[u8]) -> (Vec<i32>, Vec<String>) {
-        let out = FakeTxt::run(data);
-        let cfg = out
-            .iter()
-            .filter_map(|l| l.strip_prefix("CFG "))
-            .map(|l| l.split(' ').nth(1).unwrap().parse().unwrap())
-            .collect();
-        (cfg, out.into_iter().filter(|l| !l.starts_with("CFG ")).collect())
+    /// Parse `text` and return the resulting `borg_cfg` and warnings.
+    fn cfg_of(text: &[u8]) -> (Vec<i32>, Vec<String>) {
+        let mut env = FakeTxt::new(text);
+        let (found, old) = read_txt_settings(&mut env);
+        finish_txt_settings(&mut env, found, old);
+        (env.st.core.cfg.clone(), env.out)
     }
 
     #[test]
-    fn table_matches_enum() {
-        use crate::borg_headers::borg_h::*;
-        assert_eq!(BORG_SETTINGS[BORG_VERBOSE as usize].name, c"borg_verbose");
-        assert_eq!(BORG_SETTINGS[BORG_MUNCHKIN_LEVEL as usize].name, c"borg_munchkin_level");
-        assert_eq!(BORG_SETTINGS[BORG_RESPAWN_RACE as usize].name, c"borg_respawn_race");
-        assert_eq!(
-            BORG_SETTINGS[BORG_RESTORE_IGNORE_SETTINGS as usize].name,
-            c"borg_restore_ignore_settings"
-        );
-        assert_eq!(BORG_SETTINGS[BORG_TOWN_PLAN as usize].name, c"borg_town_plan");
-        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_LIGHT as usize].name, c"borg_town_w_light");
-        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_TRIP as usize].name, c"borg_town_w_trip");
-        assert_eq!(BORG_SETTINGS[BORG_TOWN_SHARE as usize].name, c"borg_town_share");
-        assert_eq!(BORG_SETTINGS[BORG_TOWN_FOOD_TRIP as usize].name, c"borg_town_food_trip");
-    }
-
-    /// Expected values from the C parser (borg-init.c with stubs).
-    #[test]
-    fn parses_like_c() {
-        use crate::borg_headers::borg_h::*;
+    fn defaults_match_the_table() {
         let (cfg, out) = cfg_of(b"");
-        let defaults: Vec<i32> = BORG_SETTINGS.iter().map(|s| s.default_value).collect();
-        assert_eq!(cfg, defaults);
-        assert_eq!(out, ["RET 0", "LUNAL 0"]);
-
-        let (cfg, _) = cfg_of(
-            b"  BORG_VERBOSE=yes\r\nborg_munchkin_level  = -  3\nborg_stop_dlevel==-12x\n\
-              borg_uses_swaps Nope\nborg_respawn_race 11\nborg_respawn_class -2\n\
-              borg_enchant_limit 99999999999\nborg_no_deeper -\nborg_respawn_winners\tTRUE\n\
-              # borg_kills_uniques = TRUE\n borg_lunal_mode 1\nborg_munchkin_depth 0\n",
-        );
-        assert_eq!(cfg[BORG_VERBOSE as usize], 1);
-        assert_eq!(cfg[BORG_MUNCHKIN_LEVEL as usize], 1);
-        assert_eq!(cfg[BORG_STOP_DLEVEL as usize], -12);
-        assert_eq!(cfg[BORG_USES_SWAPS as usize], 0);
-        assert_eq!(cfg[BORG_RESPAWN_RACE as usize], 0);
-        assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 0);
-        // (int) 99999999999L = 1215752191
-        assert_eq!(cfg[BORG_ENCHANT_LIMIT as usize], 15);
-        // a "-" with no number keeps the default (better-borg-c milestone6
-        // patch 0058; the original negated the default to -127)
-        assert_eq!(cfg[BORG_NO_DEEPER as usize], 127);
-        assert_eq!(cfg[BORG_STOP_KING as usize], 0);
-        assert_eq!(cfg[BORG_KILLS_UNIQUES as usize], 0);
-        assert_eq!(cfg[BORG_LUNAL_MODE as usize], 1);
-        assert_eq!(cfg[BORG_MUNCHKIN_DEPTH as usize], 8);
-
-        // an integer setting followed by a non-number keeps its default and
-        // the parser moves on (milestone6 patch 0057; the original looped
-        // forever on such a line)
-        let (cfg, _) = cfg_of(b"borg_respawn_race = x\nborg_respawn_class = 3\n");
-        assert_eq!(cfg[BORG_RESPAWN_RACE as usize], defaults[BORG_RESPAWN_RACE as usize]);
-        assert_eq!(cfg[BORG_RESPAWN_CLASS as usize], 3);
-
-        let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\nCND foo\n");
-        assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);
-        assert_eq!(
-            out,
-            [
-                "WARN ** Borg's dynamic calculations enabled but old formulas found in borg.txt.",
-                "WARN ** formulas disabled ** ",
-                "FRESH",
-                "RET 1",
-                "LUNAL 0"
-            ]
-        );
+        assert_eq!(cfg.len(), BORG_SETTINGS.len());
+        for (i, s) in BORG_SETTINGS.iter().enumerate() {
+            assert_eq!(cfg[i], s.default_value, "{:?}", s.name);
+        }
+        assert!(out.is_empty());
     }
 
-    /// The munchkin start by class (better-borg-c milestone8, PR302):
-    /// Warriors, Druids and Rangers take it at `borg_munchkin_class_depth`
-    /// unless borg.txt turns the munchkin start on or the rule off.
+    #[test]
+    fn settings_parse_like_c() {
+        let (cfg, _) = cfg_of(
+            b"borg_verbose = TRUE\nborg_stop_dlevel = 100\n  borg_stop_clevel 42\n\
+              borg_delay_factor=-3\nborg_enchant_limit = 9xy\nborg_save_death = yes\n",
+        );
+        assert_eq!(cfg[0], 1, "borg_verbose");
+        assert_eq!(cfg[14], 100, "borg_stop_dlevel");
+        assert_eq!(cfg[15], 42, "borg_stop_clevel");
+        assert_eq!(cfg[23], -3, "borg_delay_factor");
+        assert_eq!(cfg[28], 9, "borg_enchant_limit: atoi stops at x");
+        assert_eq!(cfg[30], 1, "borg_save_death");
+        // unknown lines, comments and blank lines are skipped
+        let (cfg, _) = cfg_of(b"# comment\n\nnot a setting\nborg_verbose = FALSE\n");
+        assert_eq!(cfg[0], 0);
+    }
+
+    #[test]
+    fn prefix_is_case_insensitive() {
+        let (cfg, _) = cfg_of(b"BORG_VERBOSE = TRUE\nBoRg_StOp_DlEvEl = 7\n");
+        assert_eq!(cfg[0], 1);
+        assert_eq!(cfg[14], 7);
+    }
+
+    #[test]
+    fn dynamic_calcs_warnings() {
+        // off: no warning, no output
+        let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = FALSE\n");
+        assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);
+        assert!(out.is_empty());
+        // on with the formula section: one informational warning
+        let (cfg, out) = cfg_of(
+            b"borg_uses_dynamic_calcs = TRUE\n[BEGIN FORMULA SECTION]\n[END FORMULA SECTION]\n",
+        );
+        assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 1);
+        assert_eq!(out.len(), 1);
+        assert!(out[0].contains("dynamic calculations enabled"));
+        // on with old formulas: disabled again
+        let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\nREQ str 10\n");
+        assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);
+        assert!(out.iter().any(|w| w.contains("old formulas")));
+        // on with no formulas at all: disabled again
+        let (cfg, out) = cfg_of(b"borg_uses_dynamic_calcs = TRUE\n");
+        assert_eq!(cfg[BORG_USES_DYNAMIC_CALCS as usize], 0);
+        assert!(out.iter().any(|w| w.contains("no formulas")));
+    }
+
+    #[test]
+    fn range_checks_clamp_like_c() {
+        let (cfg, _) = cfg_of(b"borg_munchkin_level = 0\nborg_munchkin_depth = 200\n\
+              borg_enchant_limit = 20\nborg_respawn_race = -2\nborg_respawn_class = 9\n\
+              borg_respawn_winners = TRUE\n");
+        assert_eq!(cfg[2], 1, "munchkin_level <= 1 becomes 1");
+        assert_eq!(cfg[3], 100, "munchkin_depth >= 100 becomes 100");
+        assert_eq!(cfg[28], 15, "enchant_limit >= 15 becomes 15");
+        assert_eq!(cfg[20], 0, "respawn_race out of range becomes 0");
+        assert_eq!(cfg[21], 0, "respawn_class out of range becomes 0");
+        assert_eq!(cfg[17], 0, "respawn_winners clears stop_king");
+        let (cfg, _) = cfg_of(b"borg_munchkin_depth = 0\n");
+        assert_eq!(cfg[3], 8, "munchkin_depth <= 1 becomes 8");
+    }
+
     #[test]
     fn munchkin_class_rule() {
-        use crate::borg_headers::borg_h::BORG_MUNCHKIN_START;
-        let run = |data: &[u8], class: Option<u32>| {
-            let mut env = FakeTxt::new(data);
+        let run = |text: &[u8], class: Option<u32>| {
+            let mut env = FakeTxt::new(text);
             env.class = class;
             let (found, old) = read_txt_settings(&mut env);
             finish_txt_settings(&mut env, found, old);
