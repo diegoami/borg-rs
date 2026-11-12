@@ -113,12 +113,15 @@ pub fn dump_town_state(st: &mut BorgState) {
         return;
     }
 
-    let seq = STATE_SEQ.fetch_add(1, Ordering::Relaxed);
+    /* The record number is taken only when the record is written, so the
+     * file's seq stays contiguous. The Borg runs on the game's one thread,
+     * so nothing takes a number between the load and the store. */
+    let seq = STATE_SEQ.load(Ordering::Relaxed);
     let mut out = String::with_capacity(2048);
     push_integer_record_at(&mut out, st, seq, STATE_SCHEMA, i64::from(engine::game_turn()), false);
     /* The same state again: the Borg is thinking while the game waits for a
-     * key. Compare everything after the seq, which is bookkeeping. */
-    let comparable = out.split_once(",\"seq\":").map(|(_, rest)| rest).unwrap_or(&out);
+     * key. */
+    let comparable = state_key(&out);
     let same = LAST_STATE.with(|last| {
         if last.borrow().as_str() == comparable {
             true
@@ -130,7 +133,16 @@ pub fn dump_town_state(st: &mut BorgState) {
     if same {
         return;
     }
+    STATE_SEQ.store(seq + 1, Ordering::Relaxed);
     write_record(states, &out);
+}
+
+/// What makes two state records the same state: everything from the
+/// clock on. The version and the seq come before it, and the seq is
+/// bookkeeping - a key that kept it would never match (the first form of
+/// this compared from the seq's *value* on, so it never deduplicated).
+fn state_key(record: &str) -> &str {
+    record.find(",\"turn\":").map_or(record, |at| &record[at..])
 }
 
 /// The action codes of the integer record.
@@ -793,5 +805,28 @@ pub fn dump_purchase(st: &mut BorgState, shop: i32, item: &borg_item) {
         out.push('}');
 
         write_record(integers, &out);
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::state_key;
+
+    /// Two records of the same state that differ only in their seq have
+    /// the same key: the seq is bookkeeping, not state.
+    #[test]
+    fn the_seq_is_not_part_of_the_state() {
+        let a = r#"{"v":3,"seq":7,"turn":120,"depth":0,"gold":50}"#;
+        let b = r#"{"v":3,"seq":8,"turn":120,"depth":0,"gold":50}"#;
+        assert_eq!(state_key(a), state_key(b));
+        assert_eq!(state_key(a), r#","turn":120,"depth":0,"gold":50}"#);
+    }
+
+    /// A change anywhere from the clock on is a different state.
+    #[test]
+    fn a_change_after_the_seq_is_a_new_state() {
+        let a = r#"{"v":3,"seq":7,"turn":120,"depth":0,"gold":50}"#;
+        assert_ne!(state_key(a), state_key(r#"{"v":3,"seq":8,"turn":120,"depth":0,"gold":49}"#));
+        assert_ne!(state_key(a), state_key(r#"{"v":3,"seq":8,"turn":121,"depth":0,"gold":50}"#));
     }
 }

@@ -444,6 +444,17 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     if player_in_town(st) {
         crate::borg_item::borg_find_all_items(st);
         crate::borg_town_dump::dump_town_state(st);
+        // The Borg does not run borg_update while the player has the
+        // town, and borg_update is where it notices a new level (the
+        // depth against old_depth). Record that it was in town, so the
+        // next level is a new level even at the depth it left from (up
+        // the stairs from DL1 and back down; recall up and down to the
+        // same max depth), and new_level restarts the town clock.
+        st.borg.status.old_depth = 0;
+        // A key the Borg queued before the handover must not be pressed
+        // on the next level: generate_keypress hands queued keys out
+        // before the Borg thinks.
+        borg_flush(st);
         key.type_0 = EVT_NONE;
         return key;
     }
