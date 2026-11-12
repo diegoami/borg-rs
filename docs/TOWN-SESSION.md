@@ -64,9 +64,13 @@ Per character, in `OUTDIR/char-N`:
 ## Running it
 
 ```
-BORG_RECORDING=1 BORG_IMPL=rust harness/build.sh
-harness/play.sh /tmp/session 1
+BORG_RECORDING=1 BORG_IMPL=rust bash harness/build.sh
+bash harness/play.sh /tmp/session 1
 ```
+
+(The connector that pushes the branch writes the shell scripts without the
+executable bit, so `bash harness/build.sh` is the form to use; the bit is
+set in the local commit.)
 
 The game needs a display (the interactive front end this build has is X11;
 there is no terminal front end in the cmake build). In the game: CTRL-Z,
