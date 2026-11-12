@@ -20,8 +20,11 @@
 //! * `purchase` - a transaction that was actually carried out: the ware, the
 //!   price and the gold before and after.
 //!
-//! The dump's job is to be the fixture the usefulness table is built from
-//! and the diff against the current policy: the states are real, and the
+//! The dump's job is to be the fixture the usefulness function is checked
+//! against (real states, not a labelling input: the function is the
+//! weighted deficit model of `borg_town_usefulness`, decided 2026-11-12,
+//! not a table fitted to the dump) and the diff against the current
+//! policy: the states are real, and the
 //! disagreements come out on their own. So the record keeps the whole shop
 //! stock (the wares that were *not* bought are the contrastive signal),
 //! and it keeps the non-purchases (a decision to buy nothing is a
