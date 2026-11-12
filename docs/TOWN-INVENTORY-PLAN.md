@@ -159,7 +159,3 @@ Nothing here blocks phase 1, because the provisional values stand in for the mis
 - the fraction of the whole gap or of the gap above the floor (#35 item 6);
 - the catalogue of useful kinds, and the alternative comparison (#35 items 4 and 5);
 - the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36).
-
-## What a reviewer should check
-
-(see the list above; the review and the verdict are on PR #42 and #41)
