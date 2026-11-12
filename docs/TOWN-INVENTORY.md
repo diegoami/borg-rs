@@ -2,7 +2,9 @@
 
 Status: design in progress. This document describes the shape of the redesign agreed so far and names the parts that still have to be defined before the first commit on `feature/town-inventory-strategy`.
 
-The decisions this rests on are recorded in borg-rs#36 (the epic), #37 (the extraction of the old strategy) and #35 (the evaluation). Where this document and an issue disagree, the issue wins and this document is wrong.
+> **Superseded in part, 2026-11-12.** The owner decision entry in #36 (full record on PR #42) supersedes: the "decay comes for free" paragraph and P4 - the value curve is flat-then-capped, `U_K(n) = w_K · min(1, n·r/g)`, constant marginal value up to the cap, then zero; every "concave in n - the first copy is worth more than the second" phrasing (the curve is only weakly concave); "marginal ordering - exact when each kind's value decays" (the group DP is exact, the greedy is a heuristic, and P15's greedy instance is to be restated with flat values and caps, its second copy dearer through the 1x-then-3x alternative); the floor set ("not bleeding, not poisoned" becomes kit predicates - at least 1 food, at least 1 light, a cure for the current condition, a poison-cure capability - and a character may leave town with an unmet floor, per #37's Stay rules); and the alternatives (kind-only). The full amendments land with the phase-1 commit; until then the decision log is authoritative.
+
+The decisions this rests on are recorded in borg-rs#36 (the epic), #37 (the extraction of the old strategy) and #35 (the evaluation). Where this document and an issue disagree, the epic's decision log (#36) wins and this document is wrong.
 
 ## The shape
 

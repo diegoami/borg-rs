@@ -1,6 +1,9 @@
 # The town inventory strategy: the implementation plan
 
 Status: **for review**.
+
+> **Superseded in part, 2026-11-12.** The owner decision entry in #36 (full record on PR #42) supersedes parts of this plan: the value curve is flat-then-capped, `U_K(n) = w_K · min(1, n·r/g)`; the alternatives are kind-only, priced cumulative-cheapest-n across shops; the floors are kit predicates with a defined infeasibility outcome (#37's Stay rules - buy what is possible, record the unmet floor, the give-up limits take the character out of town); the record schema (P13) is fixed before phase 4 and the sell-side suite moves into phase 4; the shadow-plan mode lands in phase 4; the settings count is thirteen - `borg_town_no_stores` is a control *outside* the parameter vector; the trip model and the power target are phase-1 dependencies; `w_light = 100` is the numeraire; "each phase is independently measurable" holds at the unit level for phases 0-3 only; phase 0 is where the receipt is re-run and re-earned. The full amendments land with the phase-1 commit; until then the decision log is authoritative.
+
 Epic: borg-rs#36. Issues: #37 (the extraction), #35 (the usefulness function), #38 (the architecture), #39 (the optimisation problem), #40 (the joint treatment).
 Branch: `feature/town-inventory-strategy`.
 
@@ -156,3 +159,7 @@ Nothing here blocks phase 1, because the provisional values stand in for the mis
 - the fraction of the whole gap or of the gap above the floor (#35 item 6);
 - the catalogue of useful kinds, and the alternative comparison (#35 items 4 and 5);
 - the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36).
+
+## What a reviewer should check
+
+(see the list above; the review and the verdict are on PR #42 and #41)
