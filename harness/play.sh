@@ -39,20 +39,34 @@
 # no terminal front end in the cmake build), so the game needs a display.
 # BORG_UI_MODE=x11 is the default.
 #
-# The font: the X11 driver's own default for the main window is 10x20, the
-# legacy bitmap font, and it is small. ANGBAND_X11_FONT overrides it for
-# every window; the default here is 12x24 (the largest of the legacy
-# bitmaps xfonts-base ships), and an ANGBAND_X11_FONT already in the
-# environment wins. Set it to 10x20 to go back to the driver's default.
+# The font and the window size. The X11 driver's own default for the main
+# window is 10x20, the legacy bitmap font, at 80x24 cells - small on a
+# modern screen. ANGBAND_X11_FONT overrides the font for every window;
+# the default here is 12x24, the largest of the legacy bitmaps xfonts-base
+# ships. ANGBAND_X11_COLS_0 and ANGBAND_X11_ROWS_0 set the main window's
+# cell count; the default here is 120x40.
+#
+# Each is a default, not a requirement: a value already in the environment
+# wins, so an ANGBAND_X11_FONT=10x20 (or any other) is left alone.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMPL="${BORG_IMPL:-rust}"
 UI_MODE="${BORG_UI_MODE:-x11}"
 BIN="${ANGBAND_BIN:-$ROOT/build/$IMPL/game/angband}"
 [ -x "$BIN" ] || { echo "missing $BIN (run harness/build.sh)" >&2; exit 2; }
-if [ "$UI_MODE" = "x11" ] && [ -z "${ANGBAND_X11_FONT:-}" ]; then
-    ANGBAND_X11_FONT=12x24
-    export ANGBAND_X11_FONT
+if [ "$UI_MODE" = "x11" ]; then
+    if [ -z "${ANGBAND_X11_FONT:-}" ]; then
+        ANGBAND_X11_FONT=12x24
+        export ANGBAND_X11_FONT
+    fi
+    if [ -z "${ANGBAND_X11_COLS_0:-}" ]; then
+        ANGBAND_X11_COLS_0=120
+        export ANGBAND_X11_COLS_0
+    fi
+    if [ -z "${ANGBAND_X11_ROWS_0:-}" ]; then
+        ANGBAND_X11_ROWS_0=40
+        export ANGBAND_X11_ROWS_0
+    fi
 fi
 OUT="$(realpath -m "$1")"; shift
 CHARACTERS=1
