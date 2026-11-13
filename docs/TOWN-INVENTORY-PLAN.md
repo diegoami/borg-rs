@@ -165,6 +165,8 @@ the phase starts; the sell-side suite moves into this phase; and the
 shadow-plan mode lands here - the plan computed but not executed, the record
 diffed against the current policy's visit.
 
+**Readiness** (2026-11-13): `docs/TOWN-INVENTORY-PHASE4.md`, a draft for owner acceptance - #37's Stay rows as the plan implements them (Part A) and the plan record, version 4 (P13, Part B).
+
 **To decide in this phase** (from the re-review of phase 3, `09726fb`): the
 solver refuses inputs past its packed score's fields with a panic, which
 the release profile turns into an abort. The game's inputs are far inside
