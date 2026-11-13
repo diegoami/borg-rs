@@ -1,7 +1,9 @@
 # B2: the kind-only alternatives, and what they leave the solver
 
-Status: **draft, for owner acceptance** (2026-11-12). Phase 3's entry
-criterion. Epic borg-rs#36; the blocker and its answer are on PR #42
+Status: **accepted** (owner, 2026-11-13: the three recommendations below
+are accepted as stated - Q1 the multiple-choice group per equipment slot,
+Q2 the caution per group, Q3 exact for the separable surrogate). Phase 3's
+entry criterion, now met. Drafted 2026-11-12. Epic borg-rs#36; the blocker and its answer are on PR #42
 (review comment of 2026-11-11, "B2. The solver assumes groups do not
 interact, but phase 2 builds alternatives"; owner answer the same night,
 "B2 — alternatives are kind-only"). Where this document and the epic's
@@ -212,6 +214,9 @@ not priced and are not capped (phase 2, `borg_town_budget.rs`).
 - if Q1 is accepted: two wearables for one slot never both chosen.
 
 ## Questions for the owner
+
+**Decided 2026-11-13: all three recommendations accepted** (Q1 accept,
+Q2 per group, Q3 accept). The questions are kept as they were asked.
 
 - **Q1 - the equipment slot.** Wearables as one multiple-choice group per
   equipment slot (at most one purchase per slot per solve), section 4.

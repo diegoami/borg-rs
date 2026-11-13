@@ -1,6 +1,6 @@
 # The town inventory strategy: the implementation plan
 
-Status: **accepted**. Phases 0-2 landed 2026-11-12; the owner decisions of
+Status: **accepted**. Phases 0-2 landed 2026-11-12, phase 3 on 2026-11-13; the owner decisions of
 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
 Epic: borg-rs#36. Issues: #37 (the extraction), #35 (the usefulness function), #38 (the architecture), #39 (the optimisation problem), #40 (the joint treatment).
@@ -116,6 +116,23 @@ first; drafted in `docs/TOWN-INVENTORY-B2.md` for owner acceptance.
 (Corrected 2026-11-12: this said "the decision record for the value
 curve", but the value curve is B1 and already decided; B2 is the
 alternatives, per the epic's log and the PR #42 record.)
+**Met 2026-11-13**: the owner accepted the B2 write-up with its three
+recommendations (Q1 wearables as one multiple-choice group per equipment
+slot; Q2 the caution per group; Q3 exact for the separable surrogate).
+
+Landed 2026-11-13. As built: the solver takes groups of options (a stack
+class's 0..n cheapest copies, or one equipment slot's "none or one ware")
+and the limits after the floors, so the floors' "lexicographic first pass"
+is phase 2's budget, and `groups()` removes the floors' copies before it
+builds the tables. The values come in as a closure (the reduction table
+keys on the still-open catalogue, #35 item 4; phase 4 supplies it from the
+usefulness function). The gold bound is `min(gold, the sum of every
+group's dearest option)`; the proceeds join it in phase 5. Above 65,536
+gold the costs are scaled, rounded up, and the solution says it is not
+exact; a negative slot limit buys only what stacks, and says so. The
+Lagrangian sweep is not guaranteed exact (P15: "usually exact or within
+one item"); the suite checks it against brute force on a binding instance
+and the gold DP against brute force on 200 seeded instances.
 
 ### Phase 4 - the plan
 
@@ -194,7 +211,7 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 ## The risks
 
 - **the trip model is provisional** - it decides every deficit, and it is the biggest unknown in the plan;
-- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed;
+- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed. **Measured 2026-11-13** (phase 3, `solve_cost_at_full_size`, a 2.3 GHz Xeon, release): the plan's own size - 30,000 gold x 30 kinds x 20 copies, the slots binding - takes **199 ms** per solve, about 7 sweep passes of 28 ms; a pessimistic 168 groups x 5 options at 65,536 gold takes 680 ms. A cold sweep on every re-solve is therefore above the estimate (15 re-solves ~ 3 s a visit); the obvious remedy - starting each re-solve's sweep from the previous lambda - belongs to phase 4's re-solve loop;
 - **the try-on's mutate/restore cost** - the plan evaluates candidates against a mutated copy of the state, and the restore has to be exact or the visit leaks into the next one;
 - **the joint treatment's convergence** - the round cap and the tie-break are not decided (#40);
 - **the option value of an unidentified item is a range, not a number**, and does not fit the objective cleanly;
@@ -215,7 +232,7 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 The provisional values stand in for the missing pieces, so nothing here blocks the landed phases. Still open, by the phase that needs it:
 
 - **phase 2** (landed): the alternatives are kind-only (decided 2026-11-12, #35 item 5); the catalogue of useful kinds (#35 item 4), and the reduction table that keys on it, moved past phase 2 and are needed by phase 3's evaluation;
-- **phase 3**: the B2 write-up - the kind-only alternatives and what they leave the solver, drafted in `docs/TOWN-INVENTORY-B2.md` for owner acceptance (corrected 2026-11-12: this line called it "the value-curve decision record", but the value curve is B1, decided; B2 is the alternatives, per the epic's log and PR #42);
+- **phase 3**: the B2 write-up - accepted 2026-11-13 with its three recommendations (`docs/TOWN-INVENTORY-B2.md`); the kind-only alternatives and what they leave the solver (corrected 2026-11-12: this line called it "the value-curve decision record", but the value curve is B1, decided; B2 is the alternatives, per the epic's log and PR #42);
 - **phase 4**: the floors' infeasibility outcome (#37's Stay rules), the record schema (P13), the sell-side suite, the shadow-plan mode;
 - **phase 5**: the opportunity value of a gold, the round cap and the tie-break (#40);
 - **phase 6**: the endpoint for the arms, and how many arms the zoo can afford (#38 P14, #36);
