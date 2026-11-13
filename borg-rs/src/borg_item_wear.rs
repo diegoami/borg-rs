@@ -647,8 +647,8 @@ fn backup_forbidden(st: &BorgState, i: i32) -> [bool; 2] {
 /// see docs/c-bugs.md) is worn when it lowers the danger `p` enough.
 /// The borg is forbidden to swap out certain resistances.
 pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
-    let mut b_p1: i32 = 0;
-    let mut b_p2: i32 = 0;
+    let mut b_p1: i32 = 9999;
+    let mut b_p2: i32 = 9999;
 
     let mut save_rconf: i32 = 0;
     let mut save_rblind: i32 = 0;
@@ -669,11 +669,6 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
 
     /* (`armour_swap` / `weapon_swap` are read where C reads them:
      * `borg_notice(true)` recomputes them) */
-
-    /* make sure we have an appropriate swap */
-    if st.trait_swap.armour_swap == 0 && st.trait_swap.weapon_swap == 0 {
-        return false;
-    }
 
     if st.trait_swap.armour_swap != 0 {
         /* Save our normal condition */
@@ -767,10 +762,8 @@ pub fn borg_backup_swap(st: &mut BorgState, p: i32) -> bool {
         }
     }
 
-    /* Prefer the lower danger among available swaps. */
-    let (b_p, swap) = if st.trait_swap.weapon_swap != 0
-        && (st.trait_swap.armour_swap == 0 || b_p2 <= b_p1)
-    {
+    /* Pass on the swap which yields the best result */
+    let (b_p, swap) = if b_p2 <= b_p1 {
         (b_p2, st.trait_swap.weapon_swap - 1)
     } else {
         (b_p1, st.trait_swap.armour_swap - 1)
