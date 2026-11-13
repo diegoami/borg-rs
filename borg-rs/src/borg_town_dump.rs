@@ -575,7 +575,7 @@ fn push_integer_record_at(
     // The stock of every shop, with the price of every ware.
     out.push_str(",\"shops\":[");
     first = true;
-    for shop in 0..st.store.shops.len() {
+    for (shop, stock) in st.store.shops.iter().enumerate() {
         if !first {
             out.push(',');
         }
@@ -584,7 +584,7 @@ fn push_integer_record_at(
         push_num(out, shop);
         out.push_str(",[");
         let mut first_ware = true;
-        for (slot, item) in st.store.shops[shop].ware.iter().enumerate() {
+        for (slot, item) in stock.ware.iter().enumerate() {
             if item.iqty == 0 {
                 continue;
             }
@@ -674,7 +674,7 @@ pub fn dump_town_visit(st: &mut BorgState) {
         // stock is kept.
         out.push_str(",\"shops\":[");
         first = true;
-        for shop in 0..st.store.shops.len() {
+        for (shop, stock) in st.store.shops.iter().enumerate() {
             if !first {
                 out.push(',');
             }
@@ -685,7 +685,7 @@ pub fn dump_town_visit(st: &mut BorgState) {
             push_str(&mut out, &engine::store_feat_name(shop));
             out.push_str(",\"wares\":[");
             let mut first_ware = true;
-            for (slot, item) in st.store.shops[shop].ware.iter().enumerate() {
+            for (slot, item) in stock.ware.iter().enumerate() {
                 if item.iqty == 0 {
                     continue;
                 }

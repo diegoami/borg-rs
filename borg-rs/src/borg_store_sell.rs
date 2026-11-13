@@ -224,6 +224,13 @@ pub(crate) fn borg_object_similar(st: &BorgState, o_ptr: &borg_item, j_ptr: &bor
 
         // Weapons and Armor (fall through), Rings, Amulets, Lites:
         // require full knowledge of both items (fall through)
+        //
+        // Not clippy's `aware` (needless_bool, clippy 1.100): the `return`
+        // leaves the whole function ("not similar") for an unaware item,
+        // while the arm's value only sets `bonuses`. The suggestion would
+        // let an unaware weapon fall through with `bonuses = false` and
+        // change what stacks, and so the key log.
+        #[allow(clippy::needless_bool)]
         TV_BOW | TV_DIGGING | TV_HAFTED | TV_POLEARM | TV_SWORD | TV_BOOTS | TV_GLOVES
         | TV_HELM | TV_CROWN | TV_SHIELD | TV_CLOAK | TV_SOFT_ARMOR | TV_HARD_ARMOR
         | TV_DRAG_ARMOR | TV_RING | TV_AMULET | TV_LIGHT => {
