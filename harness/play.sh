@@ -10,17 +10,15 @@
 #
 # Options (X11 only):
 #
-#   --font-size=N  the font size in pixels (default 36). The font is a
+#   --font-size=N  the font size in pixels (default 30). The font is a
 #                  scalable one, so the size is a number, not a name from a
 #                  fixed list.
 #   --font=NAME    the X11 font name to use instead of the scalable default
 #   --cols=N       the main window's width in cells (default 80)
 #   --rows=N       the main window's height in cells (default 30)
 #
-# The window's pixel size follows from the font's size and the cell count,
-# so a big font wants a small cell count to stay on the screen: 80x30
-# cells at 36px is about 2900x1100. The window can be resized in the
-# window manager afterwards.
+# The window's pixel size follows from the font metrics and cell count.
+# The window can be resized in the window manager afterwards.
 #
 # The handover (`BORG_TOWN_PLAYER=1`): while the character is in town, the
 # Borg's input hook gives the keyboard back and the engine reads it, so the
@@ -66,23 +64,14 @@
 # window is 10x20, the legacy bitmap font, at 80x24 cells - small on a
 # modern screen.
 #
-# The font is a scalable one (the "misc-fixed" family the X server carries),
-# so the size is a number the player chooses:
-#
-#   --font-size=N     the font size in pixels (default 36)
-#   --font=NAME       the X11 font name to use instead
-#   --cols=N          the main window's width in cells
-#   --rows=N          the main window's height in cells
-#
-# The window follows the font: the cell size is the font's size, so the
-# window's pixels are (cols * size, rows * size) plus the border. With
-# the default 120x40 cells at 36px the window is about 4300x1450, which is
-# wider than a 2560 screen - so the default cell count is smaller, and
-# the window is left to the player to resize.
+# The default font is scalable Adobe Courier at 30px, with 80x30 cells.
+# --font-size=N changes Courier's pixel size; --font=NAME selects another
+# X11 font. --cols=N and --rows=N change the main window's cell count.
+# Pixel dimensions depend on the loaded font's actual character metrics.
 #
 # Each setting is a default and not a requirement: a value already in the
-# environment wins, so ANGBAND_X11_FONT, ANGBAND_X11_COLS_0 and
-# ANGBAND_X11_ROWS_0 are left alone.
+# environment wins, so ANGBAND_X11_FONT (or ANGBAND_X11_FONT_0),
+# ANGBAND_X11_COLS_0 and ANGBAND_X11_ROWS_0 are left alone.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMPL="${BORG_IMPL:-rust}"
@@ -90,10 +79,10 @@ UI_MODE="${BORG_UI_MODE:-x11}"
 BIN="${ANGBAND_BIN:-$ROOT/build/$IMPL/game/angband}"
 [ -x "$BIN" ] || { echo "missing $BIN (run harness/build.sh)" >&2; exit 2; }
 
-FONT_SIZE="${BORG_FONT_SIZE:-36}"
+FONT_SIZE="${BORG_FONT_SIZE:-30}"
 FONT_NAME="${BORG_FONT_NAME:-}"
-FONT_COLS="${BORG_FONT_COLS:-}"
-FONT_ROWS="${BORG_FONT_ROWS:-}"
+FONT_COLS="${BORG_FONT_COLS:-80}"
+FONT_ROWS="${BORG_FONT_ROWS:-30}"
 
 # The options are parsed before the positional arguments, so they can be
 # written in any order.
@@ -125,13 +114,12 @@ done
 set -- "${ARGS[@]+"${ARGS[@]}"}"
 
 if [ "$UI_MODE" = "x11" ]; then
-    # The scalable font: the X server carries "misc-fixed" at any size, so
-    # the size is the player's choice rather than a name from a fixed list.
+    # Scalable Courier keeps --font-size independent of bitmap font sizes.
     if [ -z "${ANGBAND_X11_FONT:-}" ]; then
         if [ -n "$FONT_NAME" ]; then
             ANGBAND_X11_FONT="$FONT_NAME"
         else
-            ANGBAND_X11_FONT="-misc-fixed-medium-r-normal--${FONT_SIZE}-*-*-*-c-*-iso8859-1"
+            ANGBAND_X11_FONT="-adobe-courier-medium-r-normal--${FONT_SIZE}-*-*-*-p-*-iso8859-1"
         fi
         export ANGBAND_X11_FONT
     fi
