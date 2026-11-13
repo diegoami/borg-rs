@@ -101,4 +101,6 @@ OP(birth_levels_persist,  "Persistent levels (experimental)",
 BIRTH, false)
 OP(birth_percent_damage,  "To-damage is a percentage of dice (experimental)",
 BIRTH, false)
+OP(store_buy_direct,      "Buy an item by pressing its key in a store",
+INTERFACE, false)
 

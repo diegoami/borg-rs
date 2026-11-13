@@ -112,6 +112,10 @@ struct store_context {
 	int flags;				/* Display flags */
 	bool inspect_only;		/* Only allow looking */
 
+	/* The command keys, when the direct buy adds the letters of the list
+	 * to them (the menu's own string is not ours to change). */
+	char cmd_keys[128];
+
 	/* Places for the various things displayed onscreen */
 	unsigned int scr_places_x[LOC_MAX];
 	unsigned int scr_places_y[LOC_MAX];
@@ -591,8 +595,14 @@ static bool store_sell(struct store_context *ctx)
 
 /**
  * Buy an object from a store
+ *
+ * When direct is true, the purchase happens without the questions: the
+ * quantity is the most the gold allows and the price is not confirmed.
+ * That is what the direct buy (the store_buy_direct option) does, so the
+ * key on the list buys the item and nothing else.
  */
-static bool store_purchase(struct store_context *ctx, int item, bool single)
+static bool store_purchase(struct store_context *ctx, int item, bool single,
+	bool direct)
 {
 	struct store *store = ctx->store;
 
@@ -676,10 +686,12 @@ static bool store_purchase(struct store_context *ctx, int item, bool single)
 				num ? format(" (you have %d)", num) : "", amt);
 
 		/* Get a quantity */
-		amt = get_quantity(o_name, amt);
+		if (!direct) {
+			amt = get_quantity(o_name, amt);
 
-		/* Allow user abort */
-		if (amt <= 0) return false;
+			/* Allow user abort */
+			if (amt <= 0) return false;
+		}
 	}
 
 	/* Get desired object */
@@ -713,10 +725,14 @@ static bool store_purchase(struct store_context *ctx, int item, bool single)
 		prt(format("Price: %ld", (long)price), 1, 0);
 
 		/* Confirm purchase */
-		response = store_get_check(format("Buy %s?%s %s",
-					o_name,
-					obj_can_use ? "" : " (Can't use!)",
-					"[ESC, any other key to accept]"));
+		if (direct) {
+			response = true;
+		} else {
+			response = store_get_check(format("Buy %s?%s %s",
+						o_name,
+						obj_can_use ? "" : " (Can't use!)",
+						"[ESC, any other key to accept]"));
+		}
 
 		screen_load();
 
@@ -803,6 +819,16 @@ static void store_menu_set_selections(struct menu *menu, bool knowledge_menu)
 			/* These two can't intersect! */
 			menu->cmd_keys = "\x05\x010?={|}~CEIbdegiklpstwx"; /* \x05 = ^E, \x10 = ^p */
 			menu->selections = "acfhjmnoqruvyzABDFGHJKLMNOPQRSTUVWXYZ";
+		}
+		/* The direct buy (the store_buy_direct option): the key on the
+		 * list buys that item. The letters of the list become command
+		 * keys, so the menu hands them to the store instead of moving
+		 * the cursor to the row. */
+		if (OPT(player, store_buy_direct)) {
+			struct store_context *ctx = menu_priv(menu);
+			snprintf(ctx->cmd_keys, sizeof(ctx->cmd_keys), "%s%s",
+				menu->cmd_keys, menu->selections);
+			menu->cmd_keys = ctx->cmd_keys;
 		}
 	}
 }
@@ -1019,11 +1045,39 @@ static bool context_menu_store_item(struct store_context *ctx, const int oid, in
 			store_examine(ctx, oid);
 			return false;
 		case ACT_BUY:
-			return store_purchase(ctx, oid, false);
+			return store_purchase(ctx, oid, false, false);
 		case ACT_BUY_ONE:
-			return store_purchase(ctx, oid, true);
+			return store_purchase(ctx, oid, true, false);
 	}
 	return false;
+}
+
+/**
+ * The item a key on the list names, or -1.
+ *
+ * The list tags every item with a letter ("a", "c", "f", ...), and the tag
+ * of the nth item is the nth letter of the menu's selections. The
+ * selections depend on the command keyset, so they are read from the menu
+ * rather than hardcoded here.
+ */
+static int store_direct_buy_index(struct menu *m, struct store_context *ctx, int key)
+{
+	const char *selections = m->selections;
+	int idx;
+
+	if (!selections) return -1;
+	if (key < 0 || key > 0xff) return -1;
+
+	for (idx = 0; selections[idx] != '\0'; idx++) {
+		if (selections[idx] == key) break;
+	}
+	if (selections[idx] != key) return -1;
+
+	/* Only the items that are on the list can be bought. */
+	if (idx >= ctx->store->stock_num) return -1;
+	if (!ctx->list[idx]) return -1;
+
+	return idx;
 }
 
 /**
@@ -1095,6 +1149,34 @@ static bool store_menu_handle(struct menu *m, const ui_event *event, int oid)
 			}
 		}
 	} else if (event->type == EVT_KBRD) {
+		/* The direct buy (the store_buy_direct option): the key on the
+		 * list buys that item right away, without the "Purchase which
+		 * item?" prompt. The option is off by default, so the keypress
+		 * stream of a run without it is the stream it has always been. */
+		if (OPT(player, store_buy_direct) && !ctx->inspect_only) {
+			int idx = store_direct_buy_index(m, ctx, event->key.code);
+			if (idx >= 0) {
+				bool purchased = store_purchase(ctx, idx, false, true);
+				ctx->flags |= (STORE_FRAME_CHANGE | STORE_GOLD_CHANGE);
+
+				/* Let the game handle any core commands (equipping, etc) */
+				cmdq_pop(CTX_STORE);
+
+				/* Notice and handle stuff */
+				notice_stuff(player);
+				handle_stuff(player);
+
+				if (purchased) {
+					/* Display the store */
+					store_display_recalc(ctx);
+					store_menu_recalc(m);
+					store_redraw(ctx);
+				}
+
+				return true;
+			}
+		}
+
 		switch (event->key.code) {
 			case 's':
 			case 'd': store_sell(ctx); break;
@@ -1113,7 +1195,7 @@ static bool store_menu_handle(struct menu *m, const ui_event *event, int oid)
 				oid = store_get_stock(m, oid);
 				prt("", 0, 0);
 				if (oid >= 0) {
-					store_purchase(ctx, oid, false);
+					store_purchase(ctx, oid, false, false);
 				}
 				break;
 			case 'l':
