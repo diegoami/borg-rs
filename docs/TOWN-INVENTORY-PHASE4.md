@@ -132,6 +132,34 @@ can be recomputed from it and give the same `plan` and `solve`:
 Phase 4's suite then gets its strongest test for free: **replay every
 record a run writes and require the same plan**.
 
+### B.4 Corrected 2026-11-13, in the implementation (slice 1, `borg_town_record.rs`)
+
+Building the record showed three things B.1-B.3 got wrong. The decisions
+stand (version 4, v2's fields first and unchanged, "displaced" = the
+runner-up); the field list is corrected:
+
+- **`tryon` is not the only value a replay cannot recompute.** v2's ware
+  tuple carries the *tval* in the position the table calls "kind", and no
+  weight; and which need a ware serves, by how much, which floors it
+  discharges, its stack class and whether it joins a carried stack are all
+  decided by the engine's item tables or the stacking predicate. So v4
+  carries a **`wares`** field: `[shop, slot, kind, class, slots_cost,
+  weight, need, reduction, serves]` per ware, `need` an index into the
+  needs (-1 none) and `serves` a floor bitmask.
+- **v2's ware tuple is therefore not changed at all.** The stack class
+  travels in `wares` instead of being appended (B.3's called-out change is
+  withdrawn); a v2 reader reads a v4 line's v2 fields exactly.
+- **The plan's action is `paction`, not `action`.** v2 already has an
+  `action` (the Borg's goal), and one object cannot carry the key twice;
+  v2's `action` keeps its meaning. `tryon` also carries the equipment slot,
+  `[shop, slot, eq_slot, value]`, since Q1 groups the wearables by it.
+
+The replay recomputes the stock from v2's `shops` and v4's `wares`, the
+budget from `limits` and `floors` (the floor pass is not replayed; its
+result is the step's input and the pass has its own suite), and the values
+from `traits`, `power`, `params` and `wares` - through the same `step()`
+the producer runs, so the two cannot drift apart.
+
 ## Part C - to decide in phase 4 (from the phase-3 re-review)
 
 Not entry criteria; recorded so that they are decided in the phase, not

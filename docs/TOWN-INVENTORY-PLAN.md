@@ -165,6 +165,8 @@ the phase starts; the sell-side suite moves into this phase; and the
 shadow-plan mode lands here - the plan computed but not executed, the record
 diffed against the current policy's visit.
 
+**Slice 1 landed 2026-11-13**: the plan record (version 4) and its replay, `borg-rs/src/borg_town_record.rs` - pure, nothing calls it yet; the record's three corrections are in the readiness document's B.4. Next, slice 2: the plan computed in shadow mode at every town visit.
+
 **Readiness** (2026-11-13): `docs/TOWN-INVENTORY-PHASE4.md` - #37's Stay rows as the plan implements them (Part A) and the plan record, version 4 (P13, Part B). **Accepted by the owner 2026-11-13: the entry criteria are met.**
 
 **To decide in this phase** (from the re-review of phase 3, `09726fb`): the
