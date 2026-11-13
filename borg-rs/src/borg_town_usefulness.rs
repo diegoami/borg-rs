@@ -34,6 +34,7 @@ use crate::borg_headers::borg_trait_h::{
     BI_ACCW, BI_ACLW, BI_ACSW, BI_ACUREPOIS, BI_APHASE, BI_FOOD, BI_ISCUT, BI_ISPOISONED,
     BI_LIGHT, BI_MAXDEPTH,
 };
+use crate::headers::list_tvals_h::TV_LIGHT;
 use crate::state::BorgState;
 
 /// The eight needs a purchase can serve, as the epic log decided them on
@@ -41,7 +42,6 @@ use crate::state::BorgState;
 /// must satisfy. An unmet floor is not a purchase candidate; it feeds
 /// #37's Stay rules, and the character may leave town with the floor
 /// unmet.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Need {
     /// Light sources carried; the descent target decides how many.
@@ -67,7 +67,6 @@ pub enum Need {
 
 impl Need {
     /// All needs, in enum order.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub const ALL: [Need; 8] = [
         Need::Light,
         Need::Food,
@@ -90,7 +89,6 @@ pub fn is_floor(need: Need) -> bool {
 /// "at least one carried"; Bleeding is "cut, and no cure of any strength
 /// carried"; Poison is "no poison-cure capability carried", poisoned or
 /// not.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn unmet_floors(st: &BorgState) -> Vec<Need> {
     let mut out = Vec::new();
     if st.borg.tr(BI_LIGHT) < 1 {
@@ -140,7 +138,6 @@ impl Trip {
     pub const POWER_PER_DEPTH: i32 = 2000;
 
     /// The trip the current state plans for.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn of(st: &BorgState) -> Self {
         Trip {
             depth_target: st.borg.tr(BI_MAXDEPTH) + Self::LEVELS_PER_TRIP,
@@ -153,7 +150,6 @@ impl Trip {
 
     /// One light source, two once the descent target reaches
     /// `light_depth`.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn required_light(&self) -> i32 {
         if self.depth_target < self.light_depth {
             1
@@ -163,19 +159,16 @@ impl Trip {
     }
 
     /// The food rations carried per trip.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn required_food(&self) -> i32 {
         self.food_trip
     }
 
     /// One escape per ten levels of trip, rounded up.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn escapes_needed(&self) -> i32 {
         (self.levels_per_trip + 9) / 10
     }
 
     /// `POWER_PER_DEPTH * depth_target`.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn power_target(&self) -> i32 {
         Self::POWER_PER_DEPTH * self.depth_target
     }
@@ -184,7 +177,6 @@ impl Trip {
 /// The free parameters the zoo sweeps in phase 4: the eight need weights
 /// (`w_light = 100` is the numeraire, so seven are free) and the caution
 /// `k`, the purse-share cap of a single purchase.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug)]
 pub struct Weights {
     /// `borg_town_w_light` (numeraire, 100).
@@ -209,7 +201,6 @@ pub struct Weights {
 
 impl Weights {
     /// The weights as borg.txt gives them.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn of(cfg: &[i32]) -> Self {
         Weights {
             light: i64::from(cfg[BORG_TOWN_W_LIGHT as usize]),
@@ -225,7 +216,6 @@ impl Weights {
     }
 
     /// The weight of a need.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn get(&self, need: Need) -> i64 {
         match need {
             Need::Light => self.light,
@@ -251,7 +241,6 @@ impl Weights {
 /// `w * min(n*r, g) / g`. Zero weight, reduction, gap or count prices
 /// nothing; at or above the target the gap is closed and nothing is
 /// priced.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn value(weight: i64, reduction: i64, gap: i64, copies: i64) -> i64 {
     if weight <= 0 || reduction <= 0 || gap <= 0 || copies <= 0 {
         return 0;
@@ -267,6 +256,20 @@ pub fn marginal(weight: i64, reduction: i64, gap: i64, copy: i64) -> i64 {
     value(weight, reduction, gap, copy) - value(weight, reduction, gap, copy - 1)
 }
 
+/// The light sources the character carries, worn and spare: every item
+/// of the light tval, by count. The light **need** counts sources (decided
+/// 2026-11-13: a second light is wanted past the descent target, and a
+/// spare matters because torches burn out); the light **floor**
+/// ([`unmet_floors`]) keeps `BI_LIGHT >= 1`, "the character can see".
+pub fn carried_lights(st: &BorgState) -> i32 {
+    st.items
+        .items
+        .iter()
+        .filter(|it| it.iqty != 0 && u32::from(it.tval) == TV_LIGHT)
+        .map(|it| i32::from(it.iqty))
+        .sum()
+}
+
 /// The deficit of a need in the game's own units: how far the carried
 /// kit is below the target. Never negative; a met need has no deficit and
 /// prices nothing. Bleeding and Poison are the provisional booleans
@@ -274,10 +277,9 @@ pub fn marginal(weight: i64, reduction: i64, gap: i64, copy: i64) -> i64 {
 /// poison-cure capability is carried. Knowledge reads 0 until the
 /// catalogue (#35 item 4) prices it, Trip reads 0 until the stock's
 /// reduction table prices the recall.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
     let d = match need {
-        Need::Light => trip.required_light() - st.borg.tr(BI_LIGHT),
+        Need::Light => trip.required_light() - carried_lights(st),
         Need::Food => trip.required_food() - st.borg.tr(BI_FOOD),
         Need::Bleeding => (st.borg.tr(BI_ISCUT) != 0) as i32,
         Need::Poison => {
@@ -293,7 +295,6 @@ pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
 
 /// The usefulness of `copies` of a purchase that reduces `need`'s
 /// deficit by `reduction` each: `value(w, reduction, deficit, copies)`.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn usefulness(
     need: Need,
     reduction: i64,
@@ -451,15 +452,21 @@ mod tests {
         assert_eq!(unmet_floors(&st), []);
     }
 
-    /// maxdepth 10, so the depth target is 15: one more light (gap 1,
-    /// worth 100), six more rations (gap 6: 16 for the first, 100 at six
+    /// maxdepth 10, so the depth target is 15: one light source carried
+    /// of the two wanted (gap 1, worth 100 - the need counts sources since
+    /// 2026-11-13, not the radius), six more rations (gap 6: 16 for the first, 100 at six
     /// and no more after), escapes already met (gap 0), and power 10000
     /// short of the 30000 target: a +1500 item is worth 50*1500/10000 = 7.
     #[test]
     fn usefulness_values_for_fixed_states() {
         let mut st = state();
         st.borg.trait_[BI_MAXDEPTH as usize] = 10;
-        st.borg.trait_[BI_LIGHT as usize] = 1;
+        st.borg.trait_[BI_LIGHT as usize] = 2; // a torch's radius: not the count
+        let mut torch = crate::borg_item::blank_item();
+        torch.tval = TV_LIGHT as u8;
+        torch.iqty = 1;
+        st.items.items = vec![torch];
+        assert_eq!(carried_lights(&st), 1);
         st.borg.trait_[BI_FOOD as usize] = 4;
         st.borg.trait_[BI_APHASE as usize] = 1;
         st.borg.power = 20000;

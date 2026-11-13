@@ -165,7 +165,7 @@ the phase starts; the sell-side suite moves into this phase; and the
 shadow-plan mode lands here - the plan computed but not executed, the record
 diffed against the current policy's visit.
 
-**Slice 1 landed 2026-11-13**: the plan record (version 4) and its replay, `borg-rs/src/borg_town_record.rs` - pure, nothing calls it yet; the record's three corrections are in the readiness document's B.4. Next, slice 2: the plan computed in shadow mode at every town visit.
+**Slice 1 landed 2026-11-13**: the plan record (version 4) and its replay, `borg-rs/src/borg_town_record.rs` - pure, nothing calls it yet; the record's three corrections are in the readiness document's B.4. **Slice 2 landed 2026-11-13**: the plan in shadow mode, `borg-rs/src/borg_town_shadow.rs` - with `BORG_TOWN_PLAN_RECORD=<file>` every town decision also writes a v4 plan record (today's decision in its v2 fields, the plan's after them); observation only, the key log byte-identical with and without it. The reduction table prices light (sources), food, bleeding, poison and escape; power (the wearables' try-on) is its own slice, knowledge and trip read 0 until the catalogue (#35 item 4). First runs (warrior 101, mage 301, priest 401, under the 2026-11-14 configs - the class-based munchkin start off; 282 records, all replayed): every solve proved optimal; the poison-cure floor unmet in most records - the standing capability, which the shops often cannot meet; the discretionary buying all food, the provisional `borg_town_food_trip = 10` being well above what the Borg carries.
 
 **Readiness** (2026-11-13): `docs/TOWN-INVENTORY-PHASE4.md` - #37's Stay rows as the plan implements them (Part A) and the plan record, version 4 (P13, Part B). **Accepted by the owner 2026-11-13: the entry criteria are met.**
 
@@ -198,7 +198,7 @@ The trip model and the deficits' arithmetic landed provisionally with phase 1 (#
 |---|---|---|
 | the trip's depth target | the deepest level visited plus five | the trip model, stated once |
 | the trip's turns per level | 1000 | anchored on the 2000-turn give-up |
-| `required_light(depth)` | 1 while the descent target is below depth 15, 2 at or above it | `borg_town_light_depth` |
+| `required_light(depth)` | 1 while the descent target is below depth 15, 2 at or above it - light **sources** carried, worn and spare (decided 2026-11-13; it had been compared with `BI_LIGHT`, the radius) | `borg_town_light_depth` |
 | `required_food(trip)` | 10 rations per expected trip | `borg_town_food_trip` |
 | `escapes_needed(ahead)` | 1 Phase Door per 10 levels of the expected trip | |
 | the power target | 2000 x the depth target | the weakest of the provisional values |

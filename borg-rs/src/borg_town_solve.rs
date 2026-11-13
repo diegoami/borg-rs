@@ -51,11 +51,9 @@ use crate::borg_town_stock::{Candidate, Stock};
 /// The largest gold bound the DP runs on as is. Above it the costs are
 /// scaled down (each rounded *up*, so a solution never overspends) and
 /// the solution is marked inexact.
-#[cfg_attr(not(test), expect(dead_code))]
 pub const GOLD_LIMIT: i64 = 1 << 16;
 
 /// What a group is: one stack class, or one equipment slot.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd)]
 pub enum GroupKey {
     /// The wares of one stack class; option `n` is `n` copies.
@@ -65,7 +63,6 @@ pub enum GroupKey {
 }
 
 /// One option of a group: what it buys and what it costs.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Choice {
     /// (candidate index, copies) bought by this option.
@@ -79,7 +76,6 @@ pub struct Choice {
 }
 
 /// A group: its key and its options, option 0 always "buy nothing".
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Group {
     pub key: GroupKey,
@@ -87,7 +83,6 @@ pub struct Group {
 }
 
 /// The constraints the solver respects (the budget after the floors).
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Limits {
     pub gold: i64,
@@ -97,14 +92,12 @@ pub struct Limits {
 
 impl Limits {
     /// The limits a budget leaves.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn of(budget: &Budget) -> Self {
         Limits { gold: budget.gold, pack_slots: budget.pack_slots, weight: budget.weight }
     }
 }
 
 /// The chosen set.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Solution {
     /// The option chosen in each group, by group index (0 = nothing).
@@ -145,7 +138,6 @@ impl Solution {
     /// first, then the cheaper, then the fewer slots, then the earlier
     /// group (B2 section 6 item 6). The plan (phase 4) executes the first
     /// and re-solves.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn ranked(&self, groups: &[Group]) -> Vec<(usize, usize)> {
         let mut out: Vec<(usize, usize)> = self
             .chosen
@@ -253,7 +245,6 @@ const SLOT_FIELD: i64 = 1 << 16;
 /// silently wrong set. The game's inputs are far inside them; whether the
 /// plan degrades instead (scaling further, or clamping the bound) is a
 /// phase-4 decision.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
     // The gold bound: the purse, or less when every group's dearest
     // option together costs less.
@@ -418,7 +409,6 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
 ///   first copy of a large gap worth 0 - does not end it. A count the
 ///   caution forbids ends it, since the Black Market copies only grow
 ///   with the count.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn groups(
     stock: &Stock,
     budget: &Budget,

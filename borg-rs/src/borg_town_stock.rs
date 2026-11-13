@@ -52,11 +52,9 @@ use crate::state::BorgState;
 
 /// The Black Market's shop index (`feat_store(FEAT_STORE_BLACK)`, as
 /// `borg_store_buy.rs` hard-codes it in its `who == 6` test).
-#[cfg_attr(not(test), expect(dead_code))]
 pub const BORG_BLACK_MARKET: usize = 6;
 
 /// One ware a shop offers: a purchase candidate.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Candidate {
     /// 0..6; the Home is not a shop.
@@ -85,14 +83,12 @@ pub struct Candidate {
 
 impl Candidate {
     /// Is this ware sold at the Black Market?
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn is_black_market(&self) -> bool {
         usize::from(self.shop) == BORG_BLACK_MARKET
     }
 }
 
 /// One stack the pack or the Home holds.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Stack {
     /// The slot in the pack or in the Home's stock.
@@ -106,7 +102,6 @@ pub struct Stack {
 }
 
 /// The stacks of one kind, in slot order.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Group {
     pub kind: u32,
@@ -115,13 +110,11 @@ pub struct Group {
 
 impl Group {
     /// The copies of the kind across its stacks.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn count(&self) -> i32 {
         self.stacks.iter().map(|s| s.qty).sum()
     }
 
     /// The slots the kind occupies: one per distinct stack.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn slots(&self) -> i32 {
         self.stacks.len() as i32
     }
@@ -129,7 +122,6 @@ impl Group {
 
 /// The wares of one kind across the shops, cheapest first: the kind-only
 /// alternatives.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct KindOffer {
     pub kind: u32,
@@ -252,7 +244,6 @@ impl Stock {
     /// included or not: the Home's index is skipped), the pack and the
     /// Home. `stacks_with(held, ware)` says whether one copy of `ware`
     /// joins the stack `held`; in production it is `borg_object_similar`.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn build(
         shops: &[&[borg_item]],
         pack: &[borg_item],
@@ -343,7 +334,6 @@ impl Stock {
     /// The stock the Borg sees now: the shops as `borg_notice_store` last
     /// read them, the pack, and the Home, with `borg_object_similar` as
     /// the stacking predicate.
-    #[expect(dead_code)]
     pub fn of(st: &BorgState) -> Self {
         let pack_slots = usize::from(crate::engine::z_info().pack_size);
         let shops: Vec<&[borg_item]> = st.store.shops.iter().map(|s| s.ware.as_slice()).collect();
@@ -365,13 +355,11 @@ impl Stock {
     }
 
     /// The pack slots the carried stacks occupy: one per distinct stack.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn pack_slots_used(&self) -> i32 {
         self.pack.iter().map(Group::slots).sum()
     }
 
     /// The Home slots its stacks occupy.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn home_slots_used(&self) -> i32 {
         self.home.iter().map(Group::slots).sum()
     }
@@ -383,7 +371,6 @@ impl Stock {
 /// Critical Wounds for Bleeding (`BI_ACLW`/`BI_ACSW`/`BI_ACCW`); and
 /// Neutralize Poison or a poison-curing food for Poison
 /// (`BI_ACUREPOIS`).
-#[expect(dead_code)]
 pub fn floors_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
     use crate::borg_item_analyze::borg_obj_has_effect;
     use crate::headers::list_effects_h::{EF_CRUNCH, EF_CURE, EF_NOURISH, EF_TIMED_INC};

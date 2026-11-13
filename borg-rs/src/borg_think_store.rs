@@ -158,6 +158,8 @@ pub fn borg_choose_shop(st: &mut BorgState) -> bool {
     let decided = borg_choose_shop_inner(st);
     if decided {
         crate::borg_town_dump::dump_town_visit(st);
+        // The plan in shadow mode, on the same state: observation only.
+        crate::borg_town_shadow::shadow_visit(st);
     }
     decided
 }

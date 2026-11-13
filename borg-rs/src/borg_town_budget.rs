@@ -37,7 +37,6 @@ use crate::borg_town_usefulness::{unmet_floors, Need};
 use crate::state::BorgState;
 
 /// The raw numbers the budget is computed from.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Facts {
     /// `BI_GOLD`.
@@ -54,7 +53,6 @@ pub struct Facts {
 
 impl Facts {
     /// The facts of the current state.
-    #[expect(dead_code)]
     pub fn of(st: &BorgState) -> Self {
         let z = crate::engine::z_info();
         Facts {
@@ -68,7 +66,6 @@ impl Facts {
 
     /// The weight that can still be carried before the encumbrance
     /// starts: `BI_CARRY / 2 - BI_WEIGHT`.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn allowance(&self) -> i64 {
         i64::from(self.carry / 2) - i64::from(self.weight)
     }
@@ -76,7 +73,6 @@ impl Facts {
 
 /// One floor purchase: one copy of a candidate, and the floors it
 /// discharges.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct FloorPurchase {
     /// Index into [`Stock::candidates`].
@@ -86,7 +82,6 @@ pub struct FloorPurchase {
 }
 
 /// What the solver may spend, after the floors.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Budget {
     /// The purse minus the floors' cost.
@@ -171,7 +166,6 @@ impl Budget {
     /// The budget from its facts, the stock and the unmet floors.
     /// `serves(c)` names the floors one copy of `c` discharges; in
     /// production it is `floors_served`.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn build(
         facts: &Facts,
         stock: &Stock,
@@ -227,7 +221,6 @@ impl Budget {
     }
 
     /// The budget of the current state over a stock built from it.
-    #[expect(dead_code)]
     pub fn of(st: &BorgState, stock: &Stock) -> Self {
         Self::build(&Facts::of(st), stock, &unmet_floors(st), |c| {
             let ware = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];

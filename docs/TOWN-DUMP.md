@@ -185,6 +185,23 @@ decision function can be run against.
 The baseline is what the new algorithm is checked against. It does not claim
 the current choices are right; it says what they are.
 
+## The plan record (version 4)
+
+`BORG_TOWN_PLAN_RECORD=<file>` writes the plan's side next to today's: at
+every town decision (the same call that writes the v2 decision record) the
+plan's step runs on the same state, in **shadow mode** - computed, never
+executed - and one line is written: v2's fields for that state, today's
+decision among them, with `"v":4`, then the plan's fields
+(`docs/TOWN-INVENTORY-PHASE4.md`, Part B and its correction B.4). Every line
+replays to its own plan from the line alone:
+
+```sh
+BORG_TOWN_PLAN_RECORD=OUT/plan.jsonl harness/run.sh OUT 101 0 0 20000
+PLAN_RECORD_FILE=OUT/plan.jsonl cargo test --release -- --ignored a_run_s_records_all_replay
+```
+
+The record is observation only: the key log is the same with it and without.
+
 ## Where the code is
 
 - `borg-rs/src/borg_town_dump.rs` - the dump and its integer projection.

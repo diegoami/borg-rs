@@ -167,10 +167,13 @@ fn open_dump(path_var: &str) -> Option<&'static Mutex<File>> {
     static DESCRIPTIVE: OnceLock<Option<Mutex<File>>> = OnceLock::new();
     static INTEGERS: OnceLock<Option<Mutex<File>>> = OnceLock::new();
     static STATES: OnceLock<Option<Mutex<File>>> = OnceLock::new();
+    static PLANS: OnceLock<Option<Mutex<File>>> = OnceLock::new();
     let cell = if path_var == "BORG_TOWN_DUMP" {
         &DESCRIPTIVE
     } else if path_var == "BORG_TOWN_DUMP_INTEGERS" {
         &INTEGERS
+    } else if path_var == "BORG_TOWN_PLAN_RECORD" {
+        &PLANS
     } else {
         &STATES
     };
@@ -203,6 +206,12 @@ fn integers_file() -> Option<&'static Mutex<File>> {
 }
 
 /// The state file: the states the character was in while in town.
+/// The plan records (version 4): the shadow plan at every town decision
+/// (`borg_town_shadow`).
+pub(crate) fn plan_record_file() -> Option<&'static Mutex<File>> {
+    open_dump("BORG_TOWN_PLAN_RECORD")
+}
+
 fn states_file() -> Option<&'static Mutex<File>> {
     open_dump("BORG_TOWN_STATE")
 }
@@ -227,7 +236,7 @@ fn take_reason() -> Vec<u8> {
 }
 
 /// Append one record.
-fn write_record(file: Option<&Mutex<File>>, out: &str) {
+pub(crate) fn write_record(file: Option<&Mutex<File>>, out: &str) {
     let Some(file) = file else { return };
     let Ok(mut file) = file.lock() else { return };
     let _ = file.write_all(out.as_bytes());
@@ -444,7 +453,7 @@ fn push_integer_record(out: &mut String, st: &BorgState, seq: u64) {
 /// without a decision is a **state record**: the state on its own, which is
 /// what a human-in-the-loop session needs (the human's choices come from
 /// the messages, the states they were made in come from here).
-fn push_integer_record_at(
+pub(crate) fn push_integer_record_at(
     out: &mut String,
     st: &BorgState,
     seq: u64,

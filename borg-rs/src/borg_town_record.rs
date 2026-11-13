@@ -35,12 +35,10 @@ use crate::state::BorgState;
 
 /// The plan record's schema version (v2: the decision record, v3: the
 /// handover's state record).
-#[cfg_attr(not(test), expect(dead_code))]
 pub const PLAN_SCHEMA: i64 = 4;
 
 /// The twelve town settings, `borg_town_plan` (index 45) through
 /// `borg_town_food_trip` (56), contiguous in the settings table.
-#[cfg_attr(not(test), expect(dead_code))]
 pub const PARAMS: usize = 12;
 
 /// The action codes: v2's, extended for the plan.
@@ -57,7 +55,6 @@ pub mod action {
 }
 
 /// The `solve` flags, as bits.
-#[cfg_attr(not(test), expect(dead_code))]
 pub mod flag {
     pub const OPTIMAL: i64 = 1;
     pub const GOLD_EXACT: i64 = 2;
@@ -67,7 +64,6 @@ pub mod flag {
 }
 
 /// The engine-decided facts of one ware (the `wares` field).
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct WareFact {
     pub shop: u8,
@@ -90,7 +86,6 @@ pub struct WareFact {
 
 /// A wearable's try-on (the `tryon` field): the equipment slot and the
 /// power gained by wearing it.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct TryOn {
     pub shop: u8,
@@ -100,7 +95,6 @@ pub struct TryOn {
 }
 
 /// One chosen option of the plan (the `plan` field), or the runner-up.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct PlanEntry {
     /// 0 a stack class, 1 an equipment slot.
@@ -114,7 +108,6 @@ pub struct PlanEntry {
 }
 
 /// The v4 fields (after v2's).
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PlanRecord {
     /// 0 shadow (computed, not executed), 1 live.
@@ -195,7 +188,6 @@ impl PlanRecord {
     /// Append the v4 fields, each with its leading comma, in the fixed
     /// order: the caller writes v2's fields (with `"v":4`) before them and
     /// the closing brace after.
-    #[cfg_attr(not(test), expect(dead_code))]
     pub fn push_fields(&self, out: &mut String) {
         let field = |out: &mut String, name: &str| {
             out.push_str(",\"");
@@ -491,7 +483,6 @@ impl PlanRecord {
 // --- the step: the one core the producer and the replay share ------------
 
 /// What a step reads.
-#[cfg_attr(not(test), expect(dead_code))]
 pub struct StepInput<'a> {
     /// The candidates, in stock order.
     pub candidates: Vec<Candidate>,
@@ -503,10 +494,12 @@ pub struct StepInput<'a> {
     /// The whole trait vector.
     pub traits: &'a [i32],
     pub power: i64,
+    /// The carried items (pack and equipment) as `(tval, quantity)`: the
+    /// light need counts the light sources among them.
+    pub carried: &'a [(u8, i32)],
 }
 
 /// What a step produces.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug)]
 pub struct StepOutput {
     pub groups: Vec<Group>,
@@ -518,8 +511,17 @@ pub struct StepOutput {
 
 /// A state the usefulness function can read: the traits, the power, and
 /// the settings with the twelve town settings from `params`.
-fn state_of(traits: &[i32], power: i64, params: &[i64; PARAMS]) -> BorgState {
+fn state_of(traits: &[i32], power: i64, params: &[i64; PARAMS], carried: &[(u8, i32)]) -> BorgState {
     let mut st = BorgState::default();
+    st.items.items = carried
+        .iter()
+        .map(|&(tval, qty)| {
+            let mut it = crate::borg_item::blank_item();
+            it.tval = tval;
+            it.iqty = qty.clamp(0, 255) as u8;
+            it
+        })
+        .collect();
     st.core.cfg = crate::borg_init::BORG_SETTINGS.iter().map(|s| s.default_value).collect();
     for (i, &p) in params.iter().enumerate() {
         st.core.cfg[BORG_TOWN_PLAN as usize + i] = p as i32;
@@ -570,9 +572,8 @@ fn runner_up(groups: &[Group], s: &Solution) -> Option<PlanEntry> {
 }
 
 /// One plan step: the groups, the solve, the ranked plan and the runner-up.
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn step(input: &StepInput) -> StepOutput {
-    let st = state_of(input.traits, input.power, &input.params);
+    let st = state_of(input.traits, input.power, &input.params, input.carried);
     let trip = Trip::of(&st);
     let weights = Weights::of(&st.core.cfg);
     let facts: BTreeMap<(u8, u8), &WareFact> = input.facts.iter().map(|f| ((f.shop, f.slot), f)).collect();
@@ -614,6 +615,38 @@ pub fn step(input: &StepInput) -> StepOutput {
     let solve_row = [solution.value, solution.bound, solution.lambda, flags];
     let displaced = runner_up(&groups, &solution);
     StepOutput { groups, solution, plan, solve: solve_row, displaced }
+}
+
+/// The step's action: the floors first (B3, Part A), then the first ranked
+/// option of the plan, else leave. Returns `(paction, act, for, floor)`,
+/// `act` = `[shop, slot, copies, price]`; a purchase takes its cheapest
+/// ware first, as the cost table does.
+pub fn first_action(
+    candidates: &[Candidate],
+    floors: &[FloorPurchase],
+    out: &StepOutput,
+    facts: &[WareFact],
+) -> (i64, [i64; 4], i64, bool) {
+    let need_of = |c: &Candidate| {
+        facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot).map_or(-1, |f| i64::from(f.need))
+    };
+    if let Some(f) = floors.first() {
+        let c = &candidates[f.candidate];
+        let need = f.needs.first().and_then(|n| Need::ALL.iter().position(|x| x == n)).map_or(-1, |i| i as i64);
+        return (action::BUY, [i64::from(c.shop), i64::from(c.slot), 1, i64::from(c.price)], need, true);
+    }
+    if let Some(&(g, o)) = out.solution.ranked(&out.groups).first() {
+        if let Some(&(i, copies)) = out.groups[g].options[o].picks.first() {
+            let c = &candidates[i];
+            return (
+                action::BUY,
+                [i64::from(c.shop), i64::from(c.slot), i64::from(copies), i64::from(c.price)],
+                need_of(c),
+                false,
+            );
+        }
+    }
+    (action::LEAVE, [-1, -1, -1, -1], -1, false)
 }
 
 // --- replay --------------------------------------------------------------
@@ -683,6 +716,16 @@ pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
         }
     }
 
+    // v2's pack and equipment: [slot, tval, sval, quantity, value, flags].
+    let mut carried = Vec::new();
+    for key in ["pack", "equip"] {
+        for it in j.get(key)?.arr()? {
+            if let [_, tval, _, qty, ..] = it.ints()?[..] {
+                carried.push((tval as u8, qty as i32));
+            }
+        }
+    }
+
     let limits = Limits { gold: rec.limits[0], pack_slots: rec.limits[1] as i32, weight: rec.limits[3] };
     let out = step(&StepInput {
         candidates,
@@ -693,6 +736,7 @@ pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
         params: rec.params,
         traits: &traits,
         power: rec.power,
+        carried: &carried,
     });
     Ok((rec, out))
 }
@@ -747,7 +791,8 @@ mod tests {
             traits.iter().enumerate().filter(|(_, &v)| v != 0).map(|(i, v)| format!("[{i},{v}]")).collect();
         out.push_str(&tr.join(","));
         out.push_str("],\"action\":0,\"shop\":-1,\"ware\":-1,\"item\":-1,\"price\":-1,");
-        out.push_str("\"pack\":[],\"equip\":[],\"home\":[],\"shops\":[");
+        // the carried light: one torch worn, of the two wanted
+        out.push_str("\"pack\":[],\"equip\":[[29,19,0,1,0,1]],\"home\":[],\"shops\":[");
         let mut by_shop: BTreeMap<u8, Vec<String>> = BTreeMap::new();
         for c in &stock.candidates {
             by_shop
@@ -796,6 +841,7 @@ mod tests {
             params: params(),
             traits,
             power: 1000,
+            carried: &carried(),
         });
         let mask = |ns: &[Need]| {
             ns.iter().fold(0u8, |m, n| m | (1 << Need::ALL.iter().position(|x| x == n).unwrap()))
@@ -830,6 +876,12 @@ mod tests {
         rec.push_fields(&mut line);
         line.push('}');
         (line, rec)
+    }
+
+    /// The carried items as the step reads them: one torch (the light
+    /// tval), matching v2_prefix's equipment row.
+    fn carried() -> Vec<(u8, i32)> {
+        vec![(crate::headers::list_tvals_h::TV_LIGHT as u8, 1)]
     }
 
     fn traits() -> Vec<i32> {
@@ -968,6 +1020,85 @@ mod tests {
         let chosen = out.solution.chosen.iter().filter(|&&o| o != 0).count();
         assert_eq!(chosen, rec.plan.len());
         assert!(out.groups.len() >= chosen);
+    }
+
+    /// The step's action: a floor before anything else; else the plan's
+    /// first ranked purchase; else leave.
+    #[test]
+    fn the_first_action_is_the_floor_then_the_plan_then_leave() {
+        let s = stock();
+        let wares = |s: &Stock| -> Vec<WareFact> {
+            s.candidates
+                .iter()
+                .map(|c| {
+                    let (need, reduction, serves) = role(c.kind);
+                    WareFact { shop: c.shop, slot: c.slot, kind: c.kind, class: c.class, slots_cost: 1, weight: 10, need, reduction, serves }
+                })
+                .collect()
+        };
+        let run = |gold: i64, unmet: &[Need]| {
+            let (line, _) = produce(&s, gold, &traits(), &[], unmet);
+            let (rec, out) = replay(&line).unwrap();
+            let idx: BTreeMap<(u8, u8), usize> = s.candidates.iter().enumerate().map(|(i, c)| ((c.shop, c.slot), i)).collect();
+            let floors: Vec<FloorPurchase> = rec
+                .floors
+                .iter()
+                .map(|&(sh, sl, n)| FloorPurchase {
+                    candidate: idx[&(sh, sl)],
+                    needs: Need::ALL.iter().enumerate().filter(|(b, _)| n & (1 << b) != 0).map(|(_, &x)| x).collect(),
+                })
+                .collect();
+            first_action(&s.candidates, &floors, &out, &wares(&s))
+        };
+        // the food floor unmet: the floor purchase comes first
+        let (a, act, need, floor) = run(300, &[Need::Food]);
+        assert_eq!((a, need, floor), (action::BUY, 1, true));
+        assert_eq!(act[0], 0, "the general store's ration");
+        // no floor: the plan's first purchase
+        let (a, _, _, floor) = run(300, &[]);
+        assert_eq!((a, floor), (action::BUY, false));
+        // nothing affordable: leave
+        let (a, act, _, _) = run(0, &[]);
+        assert_eq!((a, act), (action::LEAVE, [-1, -1, -1, -1]));
+    }
+
+    /// The light need counts light sources: the replay reads them from
+    /// v2's pack and equipment rows, so a line with a spare torch in the
+    /// pack prices one light less than one without.
+    #[test]
+    fn the_replay_counts_the_carried_lights() {
+        let s = stock();
+        let (line, _) = produce(&s, 2_000, &traits(), &[], &[]);
+        let (_, out) = replay(&line).unwrap();
+        let spare = line.replacen("\"pack\":[]", "\"pack\":[[0,19,0,1,0,1]]", 1);
+        assert_ne!(spare, line);
+        let (_, out2) = replay(&spare).unwrap();
+        let light = |o: &StepOutput| o.plan.iter().find(|e| e.key_kind == 0 && e.key == 0).map(|e| e.value);
+        assert_eq!(light(&out), Some(100), "one torch of two: the second is worth the whole gap");
+        assert_eq!(light(&out2), None, "two carried: light is met");
+    }
+
+    /// Every record of a real run replays to its own plan. Run by hand on
+    /// a file written with `BORG_TOWN_PLAN_RECORD`:
+    /// `PLAN_RECORD_FILE=... cargo test --release -- --ignored --nocapture
+    /// a_run_s_records_all_replay`.
+    #[test]
+    #[ignore]
+    fn a_run_s_records_all_replay() {
+        let path = std::env::var("PLAN_RECORD_FILE").expect("PLAN_RECORD_FILE");
+        let text = std::fs::read_to_string(&path).unwrap();
+        let (mut n, mut planned, mut floors) = (0, 0, 0);
+        for (i, line) in text.lines().enumerate() {
+            let (rec, out) = replay(line).unwrap_or_else(|e| panic!("line {}: {e}", i + 1));
+            assert_eq!(out.plan, rec.plan, "line {}: plan", i + 1);
+            assert_eq!(out.solve, rec.solve, "line {}: solve", i + 1);
+            assert_eq!(out.displaced, rec.displaced, "line {}: runner-up", i + 1);
+            n += 1;
+            planned += usize::from(!rec.plan.is_empty());
+            floors += usize::from(rec.floor);
+        }
+        assert!(n > 0, "no records");
+        println!("replayed {n} records: {planned} with a plan, {floors} taking a floor first");
     }
 
     /// A version-2 line is not read as a plan record.

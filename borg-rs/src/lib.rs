@@ -85,6 +85,7 @@ pub(crate) mod borg_think_store;
 pub(crate) mod borg_town_budget;
 pub(crate) mod borg_town_dump;
 pub(crate) mod borg_town_record;
+pub(crate) mod borg_town_shadow;
 pub(crate) mod borg_town_solve;
 pub(crate) mod borg_town_stock;
 pub(crate) mod borg_town_usefulness;
