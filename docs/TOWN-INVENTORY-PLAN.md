@@ -165,6 +165,14 @@ the phase starts; the sell-side suite moves into this phase; and the
 shadow-plan mode lands here - the plan computed but not executed, the record
 diffed against the current policy's visit.
 
+**To decide in this phase** (from the re-review of phase 3, `09726fb`): the
+solver refuses inputs past its packed score's fields with a panic, which
+the release profile turns into an abort. The game's inputs are far inside
+them; the plan either keeps the abort deliberately or degrades instead
+(scales the gold further, or clamps the bound). The plan also reads
+`optimal` together with `slots_met` and `weight_met`, which say why a set
+is not proved.
+
 ### Phase 5 - the joint treatment
 
 The iterated form of #40: alternate between solving the purchase knapsack and re-deciding the dispositions against what the money would buy, with the round cap and the tie-break fixed.
@@ -231,7 +239,7 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 
 - **the trip model is provisional** - it decides every deficit, and it is the biggest unknown in the plan;
 - **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed. **Measured 2026-11-13** (phase 3, `solve_cost_at_full_size`, a 2.3 GHz Xeon, release): the plan's own size - 30,000 gold x 30 kinds x 20 copies, the slots binding - takes **199 ms** per solve, about 7 sweep passes of 28 ms; a pessimistic 168 groups x 5 options at 65,536 gold takes 680 ms. A cold sweep on every re-solve is therefore above the estimate (15 re-solves ~ 3 s a visit); the obvious remedy - starting each re-solve's sweep from the previous lambda - belongs to phase 4's re-solve loop. The numbers do not travel: the reviewers measured 159/528 ms, 309/962 ms and 485/1,448 ms on other machines, the first call cold up to 2.6x slower (812 ms / 2.38 s), and each solve allocates and frees about 150 MB of DP back-pointers at the pessimistic size; the fixes of the review (the fill, the best-feasible bookkeeping) add roughly 5-15%, within this machine's noise;
-- **the weight repair is myopic** - a repair, not an optimiser (P15's option 1): when the carry allowance binds, it can drop an option whose replacement elsewhere it never considers (smallest case in the review: value 0 where 5 fits). Measured in the suite: 153 gaps in 3,000 instances with the weight binding, against 12 with it slack; the limits always hold and `optimal` is never claimed falsely, so the gap is visible to phase 4;
+- **the weight repair is myopic** - a repair, not an optimiser (P15's option 1): when the carry allowance binds, it can drop an option whose replacement elsewhere it never considers (smallest case in the review: value 0 where 5 fits). Measured in the suite: 153 gaps in 3,000 instances with the weight binding, against 12 with it slack; the limits always hold and `optimal` is never claimed falsely, so the gap is visible to phase 4. Its steps are also the efficient-count grid: `groups()` keeps only the counts that raise the value, so where 4 copies are dominated the repair goes from 5 to 3, losing more than a gentler step would (re-review of `09726fb`, N3);
 - **the try-on's mutate/restore cost** - the plan evaluates candidates against a mutated copy of the state, and the restore has to be exact or the visit leaks into the next one;
 - **the joint treatment's convergence** - the round cap and the tie-break are not decided (#40);
 - **the option value of an unidentified item is a range, not a number**, and does not fit the objective cleanly;

@@ -32,7 +32,11 @@
 //!   per weight freed is least, among those that keep the gold and the
 //!   slots within their limits, until the carry allowance holds;
 //! * the **ties**, deterministic: more usefulness, then less gold, then
-//!   fewer slots, then the earlier group's choice kept.
+//!   fewer slots, then the earlier group's choice kept. The DP and the
+//!   choice among the sweep's feasible sets honour this order exactly;
+//!   the fill is a greedy over single-group changes and honours it only
+//!   at each step, so the final set need not be the tie order's choice
+//!   among the sets of its value.
 //!
 //! The floors are not here: the budget (phase 2) bought them first, and
 //! [`groups`] removes their copies from the wares before it builds the
@@ -115,10 +119,12 @@ pub struct Solution {
     /// the gold and the slots (the weight is not in it). Meaningful only
     /// when `gold_exact`.
     pub bound: i64,
-    /// True when the value reaches `bound` with the gold unscaled: the set
-    /// is then provably optimal for the gold and the slots. False says
-    /// only that it was not proved - a sweep gap, a weight repair, or a
-    /// scaled purse.
+    /// True when the set meets every limit (gold, slots and weight) and
+    /// its value reaches `bound` with the gold unscaled: it is then
+    /// provably optimal under all three (the weight-constrained optimum
+    /// cannot exceed the bound). False says only that it was not proved -
+    /// a sweep gap, a weight repair, a scaled purse, or a limit missed
+    /// (`slots_met` / `weight_met` say which).
     pub optimal: bool,
     /// False when the gold had to be scaled (bound above [`GOLD_LIMIT`]).
     pub gold_exact: bool,
@@ -240,6 +246,13 @@ const COST_FIELD: i64 = 1 << 47;
 const SLOT_FIELD: i64 = 1 << 16;
 
 /// Solve: the chosen option per group under the limits.
+///
+/// Panics (an abort, under the release profile's `panic = "abort"`) when
+/// the inputs are past the packed score's fields - a gold bound of 2^47
+/// or more, 2^16 slots or more, or a negative cost - rather than return a
+/// silently wrong set. The game's inputs are far inside them; whether the
+/// plan degrades instead (scaling further, or clamping the bound) is a
+/// phase-4 decision.
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
     // The gold bound: the purse, or less when every group's dearest
@@ -379,7 +392,9 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         weight,
         lambda,
         bound: dual,
-        optimal: gold_exact && value >= dual,
+        // The dual is built on the slot limit clamped at 0 and ignores the
+        // weight, so it proves nothing about a set that misses either.
+        optimal: gold_exact && slots <= limits.pack_slots && weight <= limits.weight && value >= dual,
         gold_exact,
         slots_met: slots <= limits.pack_slots,
         weight_met: weight <= limits.weight,
@@ -660,6 +675,7 @@ mod tests {
         assert_eq!(s.chosen, [0, 1]);
         assert_eq!(s.slots, 0);
         assert!(!s.slots_met, "the limit was negative: the dispositions must free room");
+        assert!(!s.optimal, "a set that misses a limit is never called optimal");
         let s = solve(&g, &Limits { pack_slots: 1, ..l });
         assert!(s.slots_met);
     }
@@ -825,6 +841,7 @@ mod tests {
         let s = solve(&g, &Limits { gold: 10, pack_slots: 5, weight: -1 });
         assert_eq!(s.weight, 0);
         assert!(!s.weight_met);
+        assert!(!s.optimal, "a set that misses a limit is never called optimal");
     }
 
     /// The fuzz behind the two tests below: `n` seeded instances, slot
