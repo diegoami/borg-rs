@@ -1,0 +1,1418 @@
+{
+ "c": {
+  "classes": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/c/game/angband",
+    "binary_cmake_borg_impl": "c",
+    "binary_elf_impl": "c",
+    "binary_impl": "c",
+    "binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "binary_sha256_end": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "borg_impl_env": "c",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "build_id_built_utc": "2026-11-13T14:39:02Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "build_id_impl": "c",
+    "build_id_inputs_dirty": "no",
+    "build_id_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkout_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T16:08:32Z result=OK",
+    "git_dirty": "yes",
+    "git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.cls-bg-dunadan": "menu b880401d638d2abc0fd157c8c7381e27e4551d96aa9893eeeeb2148720e789f9",
+    "run_config.cls-bg-dwarf": "menu 1e48dd76144d07a4662d76dc6e067ab6cca707ca8cd184ce5302c3e21c688094",
+    "run_config.cls-bg-halforc": "menu 338ad8cf13b783ca415cac4abd1417eb0462d7bd94382ae7b32618c9b3789234",
+    "run_config.cls-bg-halftroll": "menu 4e3537dea95252c5781676e56712d03cdc8e263de3dcb68fc2b6825ff351d63c",
+    "run_config.cls-bg-highelf": "menu bf30c6ba3a34ee61a4f95a4c9b5a282a5d1de3f405a060fc9d280e8358bae17d",
+    "run_config.cls-bg-human": "menu 55b874d008a1219a348438e39cd32d770a77bd4011fae500598760d604d93b2a",
+    "run_config.cls-bg-kobold": "menu 5f671ec41ef5d0ce4bb6e69ec3c30170e6b371d04eda53ec6e1d9b05abe6b849",
+    "run_config.cls-deep-bg-dunadan": "cheat,menu 08fa6fd4da6577e3e04c62c1858d5c2a89cc98a2ccc7072e25210675ec6047ac",
+    "run_config.cls-dunadan-paladin": "menu ed4f74dbbd4dfeef6bfb07fe25b344c129c4150e871b9c4897ce0a85476acd5b",
+    "run_config.cls-dunadan-ranger": "menu 435634e0c6906ca2698cfe31b388f564fdf089ef01b3b40351cad61bed366f51",
+    "run_config.cls-halfelf-ranger": "menu d5e5fcd1a84f05992bf22993c1d2a186488d3aeda3d07b92b7372d8833a94cbc",
+    "run_config.cls-highelf-mage": "menu a4b48dfba7d11e19d832680a10d1c2478505bc93fbf22536ba68ae654f770ea2",
+    "run_config.cls-highelf-priest": "menu fbb53539025b907d2312c34178c49918eaa5500a864695aa0a2eb70463ac16f7",
+    "run_config.cls-kobold-necro": "menu c5c3656818d8ddee35fa9095ef8ac24a82bd70bdd081c206ae2f3b28484bf224",
+    "run_config.cls-kobold-rogue": "menu 9fe533349067a891562ceba7a31aa5918636fb0cf1209e2894c9288f0aa131e8",
+    "run_config.cls-kobold-warrior": "menu c89745ba2ace30b268064827affeadd9be4ebf3bfe0715f6f81f0ae3e4c79368",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T15:47:53Z",
+    "suite": "classes",
+    "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+   },
+   "runs": {
+    "cls-bg-dunadan": {
+     "config.txt": "2bf45d44c9bfd03b152cef8da16fa3a796e0f015a8b2ae7126db1928c00325bc",
+     "keys.log": "7830c97798af01b4d5499a0fb2a9cda298f95903fa26e208e3f8f5a5e0d67bb4",
+     "messages.log": "bf5e97f317e82136a43b91f9d08cd69fa35dd2c189f93e316d388e23c54a4775",
+     "state.log": "136fcfd92e00849793ed930d53d3d9841a35ac42e68b7712398800d41837ef7a",
+     "summary.json": "e107b0af5bea89b16f8bba19cd2343106040210e4973b8273472b21c49ee00de"
+    },
+    "cls-bg-dwarf": {
+     "config.txt": "3693e6402cfc4c8118a50a3862f1fc0c1b29287c5d587add43adf87ad8a7095b",
+     "keys.log": "f75f21316dcf84a540d82cf415dea3814b342be36a7908b12cdad94c52035428",
+     "messages.log": "62926d2bdd456b0bda1f3825a5dff009e312d51deb29482df4303b0414a34928",
+     "state.log": "24b2d8030bdee188cf83ef040f13d40ff154be6d35fc8f99734161753a81dae8",
+     "summary.json": "57cca2dd314c61f6c89e0a366e94cd3d0e392b1ea8a6ad5ab2cdd3996006d12f"
+    },
+    "cls-bg-halforc": {
+     "config.txt": "87133c45e7aa49d786a46fd3fe7aa5b423312e3eb18f92fb48d720a514cd05fa",
+     "keys.log": "da5b8cc653c2533cbfc77fcbf625dd43475f216941211c4a63fb1032697238ac",
+     "messages.log": "7b78d9021c558fa494f3d751560956058be9137363cf49aeb1cbef7e35dbc0a0",
+     "state.log": "af28861590e2c1d8486f5e944cefb81a7ae8c48bee41b1ad3d9e97eb5480910c",
+     "summary.json": "2a067dff866f6e9096edc6f7064bcd9a942a5eb7914df0e28cf4abf5d50cbe1e"
+    },
+    "cls-bg-halftroll": {
+     "config.txt": "d942b77227a3ef3c62cd19445e7d28073c10f4b2594b383a0eb765b5dc26b782",
+     "keys.log": "83da9911021f562db08939d5cb9e7202fa52babdd9415decbe80a87ab656c309",
+     "messages.log": "b5a673cc825d3642ba1aea00451715a1ec48c34cdae90cd3c30e6c44096a2fcc",
+     "state.log": "adcc9d33a430a1c762673366805119cf561c72f317d263ae1654b2412e59f788",
+     "summary.json": "d07b6003bce97714ab23abf972f0a8afaf4d2d18e644b6699aedaff1eaf80a51"
+    },
+    "cls-bg-highelf": {
+     "config.txt": "419ad3cd685f10b27425958d44358f47506288088de68ed73a9c959be6df0b3a",
+     "keys.log": "06a9f445937011a1d1bd47ae6d7bf3adb73acdbe6f1b27fdc27beff33332501d",
+     "messages.log": "c25af7f0e5476c7ea1f4c9e64797773c6ffc1077dbce024e2260eaa624dfd51e",
+     "state.log": "796e6464bfea8f5d9f0c5045c1e24cbc6c375918496675997a612c949f8eff25",
+     "summary.json": "5522ad60c6ab9a62b2931040a9a85c979cff892f18ea1b49533edea3fd45e37e"
+    },
+    "cls-bg-human": {
+     "config.txt": "c3eb267c292df01e6feb95e2c612a191ff584f3dbcf0a1a7d31c9407f987f51b",
+     "keys.log": "43475b47fa16171e324724034192fc1bc4b968c45c73e2bef5e6daef6f8bcad2",
+     "messages.log": "30721aeaecd2a37334ac78ff789ab5c2ad02c44bfdc32019dc26cb6389aa63cb",
+     "state.log": "b1ea0fe20a41a77cfa6e9ca1ab4bb0eb45f7822054ecb6b366a395b7e6ac4a15",
+     "summary.json": "304a648a5e6bff0414b59d05bd9c16a7bdda29f0ad9db00a1cd5c4b7a771c65c"
+    },
+    "cls-bg-kobold": {
+     "config.txt": "9367a216a6c4aceb8fd8437d86d72ad76a019fa3f79b7a75f804de086e9fe2d1",
+     "keys.log": "0e5ab724b8c24b18ccf48b6c66ef7ff87e77db9c19a1b067a5554039e54fba13",
+     "messages.log": "47c67dcdf866f6093fece2e1f2e2c565d64a09441d7242db3340a93bb625bfe9",
+     "state.log": "8f0dec59316f67ebb1dc438546f65d83b0641dc48cb0109a7bffc8626db0f2cd",
+     "summary.json": "8f4c25e27ee140c1c7e2c6470095ab92b9e8b9b16ca1b3313d4d76d8e5dd068c"
+    },
+    "cls-deep-bg-dunadan": {
+     "config.txt": "4096ccc5bdee3869d509d6c8a2e706e3e9992b9d6ed61dc59852792c0bcf58e0",
+     "keys.log": "c9b4c17a72bf5c0e2f5d5a92ae13676b38764f45ac3f57979ea6f4b99e1a74e0",
+     "messages.log": "180db6ea3c5b9c7695eb641a36fdbf637bc55733bf8d6a65808cddc6fea5bb1e",
+     "state.log": "8666f31b0caa965bf640d989caf491ec1f8f7725d086cfa56f2bf51dc047d224",
+     "summary.json": "dda838899bc1960902905775eb72f227743693abb84588609ec035107b9201cc"
+    },
+    "cls-dunadan-paladin": {
+     "config.txt": "e2fc47629769c37166b3fe9cbb7dfce7aeda442156ea8376327a7e1ba04029af",
+     "keys.log": "11a5cf0320ecd64ed88bafa0cb3e6326ba41421355b59e28e5a1142a597a990a",
+     "messages.log": "8f7988045112887c74429ee902dacfaf0eb5bf3de2932ae5bbc899eba7f7aa94",
+     "state.log": "1fbca1ac2696ecfbc4884dc751da62172b43fd24cbd87fec6ebc1af12cd0eb50",
+     "summary.json": "0e0e205fbd73dc3fc547861ccdabeeccdf4ea86a9ca93da00180996fcfb1e263"
+    },
+    "cls-dunadan-ranger": {
+     "config.txt": "f3294ac1403fe0456b091456503972155480b10efa79ef71351bc4746ce8f967",
+     "keys.log": "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+     "messages.log": "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+     "state.log": "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+     "summary.json": "bec87a34c1e033e2d43177bd335321ff69558f20dc3d28bf9494efdcc87977b8"
+    },
+    "cls-halfelf-ranger": {
+     "config.txt": "0fbe5b1feb26177e0b381a698b9c7a4cb35f918373a6779884550e459521a876",
+     "keys.log": "f742e97b63dac16f79d45cff01280122c74b5a7df1ac59550da601d013d2d678",
+     "messages.log": "0905858ad43344d2a6e00c55d59a8e24cca9d194807e5f1e75c55646b7f3e898",
+     "state.log": "7ad176e5a549ff2210b6a25b0a60a082ee35389b6f9c37e32c29ce6736a3ba30",
+     "summary.json": "71b07498f6d64b09e78f1ac2c4dcf4a1ede5bfe23a7859963990cd47bf182351"
+    },
+    "cls-highelf-mage": {
+     "config.txt": "03b494c5905926ebe6f8afedec51d555772b33c9b9a7cfcd769a555e4c3d0040",
+     "keys.log": "aa6e7e87aafec925b55ad51e0e77d86a80e56d2da03a91c3d2b2ef8f196f187b",
+     "messages.log": "a871f4e2b8532076255152fa59a14876e6756ad4b1d3b282d58426e235a97565",
+     "state.log": "06bb1fdb137f080d957f58e2029a22e840cae500c96c0e1856e0c3593a5abe19",
+     "summary.json": "f3f2d34bd0d68092d2ca5d47be8547161a53f99e1b4e9bcbc34871d35c9a654b"
+    },
+    "cls-highelf-priest": {
+     "config.txt": "66957e75cd48c344ac31bd1a80ecba5613ec01422a3884eec81e5f25a018954a",
+     "keys.log": "72b63da7f71f2afcc7dc0070ad72dcdf1ad1c4500881e6b581ab12ee671ca8b5",
+     "messages.log": "fba13b7c1f8ae2848bfe6a42af92010bb598973f5afe64c319cf7e1382c43fe1",
+     "state.log": "f4fc2aa9ec1db65eacc9887e8b725acfcde1d003be7da3df6bd52fc722cfa996",
+     "summary.json": "881b6794c11b0d67b0f4d8d9c0bd34d4283a96eda675626f56bc459bed8abd67"
+    },
+    "cls-kobold-necro": {
+     "config.txt": "f9e0c96fd07640b479342191f00accd7c4a8500bd0be61f81e50ee4d00c739a2",
+     "keys.log": "94b68bd8cbf2eabe2f32155793f54b79c2ffaadb11d7b9be10d4e4fdf47ce62a",
+     "messages.log": "59f5bef71534bcb1ec13d5b89ca6d0d0e3c460dd21e0bce0510dacc02e5c1222",
+     "state.log": "4b678b1f76054e98d572e4dc45e927556b9d2fe19b1f612c77ad2f197e5e2272",
+     "summary.json": "7a0b6d8e3728f581c8b679b35046e4a0d033e044a3459bdd22ef8e37ba28ed1f"
+    },
+    "cls-kobold-rogue": {
+     "config.txt": "fe4b6e5a8901ac6b8652ba8effea7a31b3a80193579b09ede7f9b8d2d749969c",
+     "keys.log": "ce13795d001370b15a5ccc5bfd8b1d1128ec50e2a6af08fd4d1fbf10884b35c7",
+     "messages.log": "bb36e9b32127a2031aeb5900cfbb533973943bf3bfe66942f2f1b2edae466af9",
+     "state.log": "c92f7dcd75610fb9b840bae232aa0631ab4f8413204c2838d01891d946e0af38",
+     "summary.json": "2d49d6d22ecd0956028667fb423161313dd7ab8bee4a1e8055661efd235cad1c"
+    },
+    "cls-kobold-warrior": {
+     "config.txt": "b8d8b263994907fb33e5a224751249e815eb1025e2d06847e3dd27775ec5854d",
+     "keys.log": "7b63a05a233fcec2947736a6f1d04f49dc647cb979b9f1ab1e8815aef9780714",
+     "messages.log": "49351738c6ccf42501edadee6d4eed1f364d5d907316bd745a2eca752c3d0435",
+     "state.log": "01b1ee88a42256fa5137a4e31dffb059d59461fc3d388b87c2520093d47c0cbf",
+     "summary.json": "03eacf5038ac2f46559bdbfff1640f02c597244d4611e503505a71d5f55c47c2"
+    }
+   }
+  },
+  "config-six": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/c/game/angband",
+    "binary_cmake_borg_impl": "c",
+    "binary_elf_impl": "c",
+    "binary_impl": "c",
+    "binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "binary_sha256_end": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "borg_impl_env": "c",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "build_id_built_utc": "2026-11-13T14:39:02Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "build_id_impl": "c",
+    "build_id_inputs_dirty": "no",
+    "build_id_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkout_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T19:26:34Z result=OK",
+    "git_dirty": "yes",
+    "git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.cfg-lunal-dunadan-bg": "menu,cheat,lunal e0eaa45f0326ed8c0df1ecb626e702c17934afc98b7d617d7f6de6d28f867007",
+    "run_config.cfg-lunal-halfelf-mage": "menu,cheat,lunal 6ad13ebab852ea57086ffeabd8343eafd91f162fb13997ed7282b6c42b89d440",
+    "run_config.cfg-lunal-human-war": "menu,cheat,lunal e4f86009d980f59d11954c87b8b3686ff6a06266ebf207fe823573e8405b5521",
+    "run_config.cfg-munchkin-dunadan-bg": "menu,cheat,munchkin cf1cb6458a14ede85a9a2b300df8992763bb6189177d9277f3611dc63e62e371",
+    "run_config.cfg-munchkin-halfelf-mage": "menu,cheat,munchkin b7b880520646f8f06e2842afe2c039ded4f13d7ac0572b23a0d267a2ed5bf902",
+    "run_config.cfg-munchkin-human-war": "menu,cheat,munchkin c8f25dbe02c7b0ed75c6e95d76bafd1ace7e4b6a33c9719ba5e1007aefab5943",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T18:59:15Z",
+    "suite": "config-six",
+    "suite_sha256": "04540eeb54b522c764d4e7286fdd7bb2efbab632b7a0eb9fdb72030d5e23ab22"
+   },
+   "runs": {
+    "cfg-lunal-dunadan-bg": {
+     "config.txt": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299",
+     "keys.log": "8de8693dc612bf2994ec16bdcae69509a967307bb92ded06b8d4d8903d19d0e9",
+     "messages.log": "2c0268ac45e7d2b2ae439069e190a28d66b527fb039db58937dcaf4f11a80f35",
+     "state.log": "c74c0077eb4d5e3d34b8b8968736f1180fff6e04aa98f2a66d40264d4ec6f30b",
+     "summary.json": "9b8bdffb45b2108b2165d3b697e84303c37ed0f643b5b56cd01ea0efe8f46c3f"
+    },
+    "cfg-lunal-halfelf-mage": {
+     "config.txt": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1",
+     "keys.log": "ba4167d093389b4375f8fa52097960df8c2536ba0af34dacdb61bc32c25adc1c",
+     "messages.log": "edde5735edb06c6e86a0b200854491550f15933590c001132afa03d3dbab80b3",
+     "state.log": "bbd17a59219737cb37015dcbf3351856bd8e223dd00c25ff92d62f92946aa6ab",
+     "summary.json": "42917ac6bafc5e4fb1a890b9a7f19d4cabab6c9a9801998efcc0210999d945d0"
+    },
+    "cfg-lunal-human-war": {
+     "config.txt": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46",
+     "keys.log": "301eaa3cc894c4130df2706d48ebd31f7e8ef6d13dac707b963df24dcfdd300e",
+     "messages.log": "7b8cc86634c23f129ec05df104145074c5228bf858e1a99dd2b2cf668690187c",
+     "state.log": "54bf5daee2b1fd0d8dc707db6c76bf05d004c470735a30888b01ea90b8aad700",
+     "summary.json": "663885f284b429acab7d7c8f37bc89a2918c8a87329457855cb13de1b895cd48"
+    },
+    "cfg-munchkin-dunadan-bg": {
+     "config.txt": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16",
+     "keys.log": "5d7ae5f4023875537d0bbf529cb38a73b38c1028ed63bf6edce454647806e733",
+     "messages.log": "4a723a9466a5b52abda043be80bb9135e61bd1f065681aa80460abbb5eb1b451",
+     "state.log": "564c20b9f43190a2c4c8deaf45580a9c6beffcef8e1659d71262de5e0588a16c",
+     "summary.json": "237222dc0c4963b2dbb2bd9eeb305d9172665fc365afea8cb5cc75aadbc6d8f2"
+    },
+    "cfg-munchkin-halfelf-mage": {
+     "config.txt": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065",
+     "keys.log": "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+     "messages.log": "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+     "state.log": "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+     "summary.json": "e224fe28f5673aaf503c0af6b5578a5629d5403d6800ac4ec084376cf4cedde6"
+    },
+    "cfg-munchkin-human-war": {
+     "config.txt": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b",
+     "keys.log": "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "messages.log": "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0",
+     "state.log": "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "summary.json": "a59e372517819668c9dfb23da6e0a374e32398f1039120639164b23606385fd6"
+    }
+   }
+  },
+  "full": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/c/game/angband",
+    "binary_cmake_borg_impl": "c",
+    "binary_elf_impl": "c",
+    "binary_impl": "c",
+    "binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "binary_sha256_end": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "borg_impl_env": "c",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "build_id_built_utc": "2026-11-13T14:39:02Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "build_id_impl": "c",
+    "build_id_inputs_dirty": "no",
+    "build_id_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkout_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T15:47:48Z result=OK",
+    "git_dirty": "no",
+    "git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.full-0-warrior-0": "- 766d4b11ce03827df119b911aa898d3efdb38a74c69b237e1ed93ed43284f3ee",
+    "run_config.full-0-warrior-1": "- 495f3461c997126198d69caa14a21cf58cf79fbccb223dfb5e1bf09a4f397610",
+    "run_config.full-0-warrior-2": "- d2dfcde1a5e5c00f991b2d45b2d0ab3b38695bf9afa81032859f753fe85d6614",
+    "run_config.full-0-warrior-3": "- 7adaefb08a33968c589870fc80daf2f2776ca20f0d6bf9dde6aff7c24302288d",
+    "run_config.full-0-warrior-4": "- 61d0e1e3886c53520501de414b72542293386e5ad26106cf55e6a0a527542545",
+    "run_config.full-1-mage-0": "- cfe4510f93a0d362922a88903efb019829e49074b28dbc785838df9c5eb2fb6f",
+    "run_config.full-1-mage-1": "- d60d27905fe3a3259937f2fcd71c049179d523d2065f1c2bbaee55a29e65bb11",
+    "run_config.full-1-mage-2": "- a1a735ea25d0d6748995d4dab4e75328a75fb1d187480b2d062b33efbdd5f105",
+    "run_config.full-1-mage-3": "- 1dca71e4c1cf1a5b53843981011da3c2941a55e902d0934f2cdde7c0f4c628e4",
+    "run_config.full-1-mage-4": "- b14911250df5495cb8060f1496095546d3f0c7f73225661b64bed70f775c4dfd",
+    "run_config.full-2-druid-0": "- 94f240dca22046ee4c2b35bcd6625c563dcb594bfeb12bb865937d6f2a33589a",
+    "run_config.full-2-druid-1": "- 22f26b18b131354886de8f90b14c79bb98f839609094abd4f50213900fd416b4",
+    "run_config.full-2-druid-2": "- 2aee5a565a0b09037b9740ed4a64bffeec3d39c54ec64d131c465f100c327f23",
+    "run_config.full-2-druid-3": "- f5b3195d6bb0f3d80077eedab891244a3f9c12ae77e3def26cb09c2b7c8ceae7",
+    "run_config.full-2-druid-4": "- 8b4854592916d77b18ec3e19c1d84b1dd060778e2234b3df1b1018951545a22b",
+    "run_config.full-3-priest-0": "- 7179037f87b3f44ac34480c1911816916ef2c2b034dfea2fef05eb8aaa73cbd7",
+    "run_config.full-3-priest-1": "- 710860556a3e5b1a3814aa47d791941fd75f69e8c7adab11cb502fc37cdb60a8",
+    "run_config.full-3-priest-2": "- 86c1295633033d2783d802782bf7d8aaede3dcb9340fdd42ec3a51fa97e59414",
+    "run_config.full-3-priest-3": "- b3fba54f77d0fb932a824d3e305e0697ca5170915772bb0d52d7276042d30e5b",
+    "run_config.full-3-priest-4": "- b994b99efeccba1aa72fcccbfb2b594010b558dde3dc91a1916e5b8bead9020e",
+    "run_config.full-4-necro-0": "- 2d799e4ab6f0448ceec16194d0fcc06bfc1a2a9792e9054a94a0d67b732fbefe",
+    "run_config.full-4-necro-1": "- 825fb1ef2419e3c2bb30229edd14d95a4356b695dadc2b7303e9e2c034efe5a7",
+    "run_config.full-4-necro-2": "- d56e1fe212b46267323e07cfb42b3a062616517b18d96a3537a82ea8d5d83faf",
+    "run_config.full-4-necro-3": "- 509d922935b9d3aaf66c4caafc8cdbaa160c9f94cf2626b4c6b7f05e39e2883c",
+    "run_config.full-4-necro-4": "- 5862cb040622746e4fafd2198b15480a3a18dd640133260a251ecfd068aaf2db",
+    "run_config.full-5-paladin-0": "- 188af23a667118f3a59723b1aa5efac280ecc7f566e016ae36cfb0086fe98933",
+    "run_config.full-5-paladin-1": "- ccdf2801bcd4c9e7520008f52b12f23d4b07d74d4ba0a997bd150f743cf011a4",
+    "run_config.full-5-paladin-2": "- 3684d62e4cae778762336baa0b5c783e1eddd688f96fb8f0d57486f2ac0a0ae5",
+    "run_config.full-5-paladin-3": "- ed4f74dbbd4dfeef6bfb07fe25b344c129c4150e871b9c4897ce0a85476acd5b",
+    "run_config.full-5-paladin-4": "- 5402f6fe7bde7d15c27f1b45e4c5ac52686c81eaa7bc4c0305b1e3245591097a",
+    "run_config.full-6-rogue-0": "- 9740be01bde113fd4708752d34d4c6511a4f70316a7c8d598a1a44ac274b8413",
+    "run_config.full-6-rogue-1": "- 9dafd6b4a1b110523af9987198876fb2899e2c8ade0f045fbbdd45f6b4ace48b",
+    "run_config.full-6-rogue-2": "- 3a63cd7d7ebb016711045e4e75b44139a3f105d21bb232ba202f6cb8dd9eec62",
+    "run_config.full-6-rogue-3": "- 253a0af1d5f14b7c3279f284d2acb89f224e3f43561b38a0a5389b66ade30d87",
+    "run_config.full-6-rogue-4": "- 9fe533349067a891562ceba7a31aa5918636fb0cf1209e2894c9288f0aa131e8",
+    "run_config.full-7-ranger-0": "- d7cdd275e88d8d7f9905731de4cedd269705dffd717d9c8287ed5cf6cb76d094",
+    "run_config.full-7-ranger-1": "- 435634e0c6906ca2698cfe31b388f564fdf089ef01b3b40351cad61bed366f51",
+    "run_config.full-7-ranger-2": "- ec59d6265d460488c0acbc482dd16c531396b359915ecc5434547cb06a00bcc3",
+    "run_config.full-7-ranger-3": "- a6e186ac0902b7cb63872e4af3b9cc08c7924b3e091495a75fae02d637005d67",
+    "run_config.full-7-ranger-4": "- c8d5f464f92d413e156e7f09d9a3d22e3564fd8dade85277e83a871bc16f7c20",
+    "run_config.full-8-blackguard-0": "- b880401d638d2abc0fd157c8c7381e27e4551d96aa9893eeeeb2148720e789f9",
+    "run_config.full-8-blackguard-1": "- bf30c6ba3a34ee61a4f95a4c9b5a282a5d1de3f405a060fc9d280e8358bae17d",
+    "run_config.full-8-blackguard-2": "- 5f671ec41ef5d0ce4bb6e69ec3c30170e6b371d04eda53ec6e1d9b05abe6b849",
+    "run_config.full-8-blackguard-3": "- 55b874d008a1219a348438e39cd32d770a77bd4011fae500598760d604d93b2a",
+    "run_config.full-8-blackguard-4": "- 488eec53ca3f58c9634d0b7f5b23560cf50aa35e20e7a1478af039c1cb03c762",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T14:45:07Z",
+    "suite": "full",
+    "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+   },
+   "runs": {
+    "full-0-warrior-0": {
+     "config.txt": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f",
+     "keys.log": "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+     "messages.log": "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+     "state.log": "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+     "summary.json": "ae63cba777eda756a18921f958aed67e56b781869e62351eb1371565a277406b"
+    },
+    "full-0-warrior-1": {
+     "config.txt": "d13806552d2adac67628ed17a1bc973087bd4dec880da6e19b2342140a6302ee",
+     "keys.log": "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+     "messages.log": "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+     "state.log": "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+     "summary.json": "e1c19121c06171fa6d35f223d7ae93734b7b66fdce95cef70012f8e20732dca7"
+    },
+    "full-0-warrior-2": {
+     "config.txt": "3e96a20d1c634d26c7297f8e6d8bb0c4f6555b66a23a3004cbead8d774291b9f",
+     "keys.log": "3c02ae1e7ead0373aef2a4cff15b99b07d1ee2768549fe686c69bbe7204978c0",
+     "messages.log": "1ab72b01cf82e18969fccf1db327bd64037d0b76af9691f4e433fe252825ad42",
+     "state.log": "e4256650f402cd371f69b90fe2b97e607adf94f1ffa767c4151507b6d1df70ec",
+     "summary.json": "68943ad9c0d9806434723f46656f90872a8f07eebe81008b893ce38829ed25f9"
+    },
+    "full-0-warrior-3": {
+     "config.txt": "c188bfac82ad77b1249b8473a77efa7c761179ad28a2cb7ca79091e58fe7a93d",
+     "keys.log": "b0a52ca412def041073d465ee1e418f030e276357b9096413ddd2b6e5382c208",
+     "messages.log": "41d9a304c74d94ad39039958c49953991f9adccba9a2d0dd5d4f46a28bb19e13",
+     "state.log": "702d3f44b0bc5f5aa96bc5725bed132e7d64053db37739874ec37c65f6f7a737",
+     "summary.json": "c597777b51e6bb087253e0d7a744c3ce7e24fe02ce625b8040c3f4fbb090c509"
+    },
+    "full-0-warrior-4": {
+     "config.txt": "256a607ebeb30746560be52c421b95efcc989a3ff51f73dd2d139c747aa75f7d",
+     "keys.log": "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+     "messages.log": "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+     "state.log": "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+     "summary.json": "86e4a859f09a3eb5bd6f5033841671f938f25b0349b33b3c17e5f0618d10458b"
+    },
+    "full-1-mage-0": {
+     "config.txt": "2a741f44e2bc1f453837e3a3795b2f4461cf1ea35734573940a39f2b66614dfc",
+     "keys.log": "8a9a5e0c7c33e6f6d92729037ba4e5f21202dcf9cfca9298db5d6257c057730c",
+     "messages.log": "a04d3fa0b8aa907ff15212db7739e7ebf94eaf3ffdeff7d2ad4c694dcf402fda",
+     "state.log": "d431237c0274cbf0c400d591b727fa267270cceb5dca4e906bf303149b4519ec",
+     "summary.json": "6e2ba68ce244f5184d8e540d91b9e5a4b3e30803a6ea0a6844fb0fa4ba5495dc"
+    },
+    "full-1-mage-1": {
+     "config.txt": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65",
+     "keys.log": "6c02605eeaacdc178886a85ff7e8bb10d96de559550b884ab6dc02be2e966794",
+     "messages.log": "e7e746305a86b3ed391460fb114ae90b280ae206ac8536ae21c1245d7380d180",
+     "state.log": "9932a3bfa185dc02f4956ee17a7a2dc342ebeeb2918459972ed10a82666b352a",
+     "summary.json": "1994fda4393e70bfee2c34cee086e52a5d9a2b15f692b065e776c3f787cc5e8b"
+    },
+    "full-1-mage-2": {
+     "config.txt": "58057595c9d5d4a288893fc6e2ef583ddbab2ff506cc3c4bbb2d864cb4e08ce7",
+     "keys.log": "33a9e1b9efef4e1fd1060fab66665a4fc904c613fa2d496ebd87ea1e87da686b",
+     "messages.log": "964b0d92630002474a3b4c3938317b48588be63a37b075a93ff04bf8f1736752",
+     "state.log": "83ce4dcc87efd93c94b595fffa41c4caf766172fa540c6d079cef075c261710f",
+     "summary.json": "cceed1e6d02e20c863a8060ce3e4e4c185b129e45d53e057b688b9a1f1fb1d55"
+    },
+    "full-1-mage-3": {
+     "config.txt": "ce51c67f3fb1ef7ee0c772ab57c3c8d71a6d4180c13b5132183e64a67acc5fbe",
+     "keys.log": "8180b0901103cd96fde8bedcff6887c0d0fce4d873af9ae27be97efecbbf4f61",
+     "messages.log": "4f998f74caaa6043d012f775c448f3e6c0d632a32cb73876b3651f658cfa35b5",
+     "state.log": "aacf7e4770d8d01af084f0acdb5f5a438b46b649b4ed4dc0eedce7952d42499e",
+     "summary.json": "f3cab5bcaf12920443214dfc1d3fac2fcffab022bfa4902ff5b2ee9a55eb3295"
+    },
+    "full-1-mage-4": {
+     "config.txt": "ce02254e5262341b6a9045d244100bf8d0b623905eb073693fc6d1355d967323",
+     "keys.log": "ea3cbe1895c1b1d993899da62d0050cc6eaf0e8e457e8b45624e2ba051cfb7bb",
+     "messages.log": "828f394cb3e3f0b8e722e9c338ec1e3a165af5e2fb61f5f6355627e319034fbf",
+     "state.log": "6ddc05337c22d1fe679c389983af5e03e5c5d56423b03dd2cc52e9311c1c423a",
+     "summary.json": "41b0a429bedf4e4694d702652e5ffe5c35cdf3221e836ae9c7f7012513996da9"
+    },
+    "full-2-druid-0": {
+     "config.txt": "0b02646137486cfb1599c309c9ac1a498b5a2c616480876d62240e156b80bbb7",
+     "keys.log": "42c17d0d67dfef1bf3ed2e883005057c182511131437b74fd62b1775ae87d077",
+     "messages.log": "51043424b5c66e32d05b5abc11f2ed5f7521cc7b37231fcb2bf73f70f13071f7",
+     "state.log": "fa5405441cb0acb0c89459f652c633dc96a4b3c756e49eec64d2144f8e11cf8e",
+     "summary.json": "90f6027069880868f5176f084667bca441df8bfeec8eab41f85bf3ed7c200498"
+    },
+    "full-2-druid-1": {
+     "config.txt": "1ffb727ae19a09ac939bb7d9693b1efc19259a79868bedc7261bfe504e43d96c",
+     "keys.log": "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+     "messages.log": "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+     "state.log": "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+     "summary.json": "b8654b7f10a34ad8e77ec35584d0c174e9fb3adc91cb7c19bf2281bb45ade7af"
+    },
+    "full-2-druid-2": {
+     "config.txt": "227ce9c8924ef9b71d589cfeb7e45b046dabac98994187d5f9c140339943f920",
+     "keys.log": "7438defb71e8e7eccbb29497f1d2a5ac9a9dac863b4c3e9c423118b5fd1c5f28",
+     "messages.log": "8562d2db19adffed0f6c9ce8c51072fc6b86ffabcd8ec8be03cc51cb52103f33",
+     "state.log": "731d3eee730e9f2d31ad71c9f7f187f123ddd295987903ccf9d626e8f6e99e4b",
+     "summary.json": "ad4273ca1aa854f9f33f42a98aab7167b600a8aa11af80977f65d47b675e9562"
+    },
+    "full-2-druid-3": {
+     "config.txt": "0a712fb76e914ccb6a687c24f2d6922d75a862bb112ab6123aa45e452930b1cd",
+     "keys.log": "0e621f2830fe1041cdd327ddb6af1d99a3e276462a3c2c958ec74b623530e0b0",
+     "messages.log": "dec38121aade30a81a502cc049c26767e60b384d88cebe15547905661b48bdb0",
+     "state.log": "7fc259062b24a8ca6d1b549b61ecc16977d506a229df7772d3c45573691bab04",
+     "summary.json": "d892083d666c21f2b4053688716fc05a51968339d0228ea8178271d13e074f83"
+    },
+    "full-2-druid-4": {
+     "config.txt": "21631d1195d9ea8a98483cd124dcfa64669d1ccb20e80b0ebe9530914ab51f46",
+     "keys.log": "1b353537d61f93d903db94a66e52756daf70ca43d8e620de0a6e8fed5f0f9d1f",
+     "messages.log": "053f73dfc54b8d704bd6c81dca9411d6651350ac8f28763452ffbe2e52d5f387",
+     "state.log": "57535ef527c2fdded75f7879eb4e100add7986a58e5a46859f0c2b23d21b72b2",
+     "summary.json": "ee73131f8dd863e46533812a47afe855811430511496d04428d7621c76e5151e"
+    },
+    "full-3-priest-0": {
+     "config.txt": "f25c1d61cf7ec8b89d850f87567b58d1348c7a3922b6fa8525ad2e17da0e9f61",
+     "keys.log": "379d35933ed6502d47253207ad58503b35fe4482c3cead7ee7d8c5c2ca23f253",
+     "messages.log": "25bc6f4196c74f9dcb850b8fbdc6ad995c8a3316001f3b1ef38de86a563ca5fd",
+     "state.log": "ae9c7e1e715236bbda374ca5ddc36be4516d1b4dc6b312c80c0ba0c028449bf2",
+     "summary.json": "d02613890076f7ddec93cde71dff8304fd44f84eb8901c18556ed337dd9d5ca3"
+    },
+    "full-3-priest-1": {
+     "config.txt": "f2e317ce07dc1bbf144fe1d6a29ea11cf5ec891118bb91bd01f4abbc6f239c3f",
+     "keys.log": "a48f1c9145414dbe4386e508e5ca5679c10dd1e309942a41af7e4e4474a84e2d",
+     "messages.log": "0c66cad66082cae4772fe825ef3208d4387394737a756d4f49ef8790878f5431",
+     "state.log": "0a47490f632e0b3ad4ee29c388e334c966fcf4ac0a357f036f68b08e2eb59f19",
+     "summary.json": "204524e09499188af5d8e10bc1015fd21f190b66485e2fa5b7a18b2fd0683f95"
+    },
+    "full-3-priest-2": {
+     "config.txt": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5",
+     "keys.log": "31d2b0b746281d62f23727b14975bac45e967bb0665ecc808d63255993c23502",
+     "messages.log": "4bce9f97aaeb3d798b90a065d40bd25928db92e10e6e28e7a2842983e13f0ade",
+     "state.log": "fd7b19c1205390a8c8ae8e2885de3badf715108e56d9578fe22b3d5129e7b05f",
+     "summary.json": "7a515cf3f48925dd8f762d062f030c6ab2e2e6542f57907e557cf037843d47d4"
+    },
+    "full-3-priest-3": {
+     "config.txt": "603bb9eeb0bd5378955bd4cbc73c7bef664b17c8f7ef624f6df586d185406354",
+     "keys.log": "0f66110cc0687ee27ef1edecc931a3eb9029008513f9f78041d90a5fb7163550",
+     "messages.log": "fc5efcdeaa5b858833af36b4eff6e4f900a1ab40f2867babf4d033968bf378fc",
+     "state.log": "cf0cbe9ee65186f5524118d8c3660342e97591030769e03ab6031dbb6e5bb87f",
+     "summary.json": "b195152254a0d22beb647adf9f9f724431b86b7b2ca0e9abd37aaa7492642dd2"
+    },
+    "full-3-priest-4": {
+     "config.txt": "b8c77b5f78cd80ffa3f25651d9bddf8b1f7bb6e298f460d2cc679825ce0f61a4",
+     "keys.log": "abd54f34fe5a0986a88820ba9b78ec3492e8c228345712782ef7c5eabd259fe5",
+     "messages.log": "e8d1cd646a94d3e3b8379b08371d34f45593bc462b54cea8789882b24763e0c6",
+     "state.log": "3c074b3c2ef27fafe450abe14601d172adb86f54e70f90fed75836b2a0d18b3a",
+     "summary.json": "31542612d1ff7f1c896f53f9734950971813cecb47ec7921a10b3ecc17afcd0a"
+    },
+    "full-4-necro-0": {
+     "config.txt": "58444dd1729ca4064b612f6b4e0fb813fb3b69ad38490dd581d7c22970724d0c",
+     "keys.log": "d09cb01382534138c337e986c581b703cd5617f01292108fe861076c8f4463b4",
+     "messages.log": "c9a707ed23c0e6aec4ba470a0d1502a8f24aa449e78faa32b6216c21173c3b89",
+     "state.log": "c03b17037094048c731f565c09065ce55b12e90d9665d7e8f946892493b154b6",
+     "summary.json": "4a040feda43b4a05fbe7fe60f05f915976a85894ec35564f1b8e5475916e2e84"
+    },
+    "full-4-necro-1": {
+     "config.txt": "f17966026bfb759248fa114e7b39e38aacb1bb48a10bc9faea418504d16c0762",
+     "keys.log": "f70d13b48c2a133e2bef86cd8bca8b70626147e1d48a0601d28e217e6b054b8d",
+     "messages.log": "3faddc157ff568e2799cb68aa6f059dbbee897e3df0e2931b620edb23eb32a72",
+     "state.log": "3b20266f04281a510ab7dee2533360e9f8c860d57596be634228490225904c13",
+     "summary.json": "a09fb6ef192238ee2662e89e866d78048ceacb9ad541175b544892b9d33864d2"
+    },
+    "full-4-necro-2": {
+     "config.txt": "5bdab35206ff0c91b00e66d05753cb45e6b2fe7d146c79664b45de69fabc68fc",
+     "keys.log": "7d08e9bb59d8a1043789e2cf9be2cf913c5612294bdb39b27aa8e2f0cbdf1ed3",
+     "messages.log": "e69678c927f121ca1e73d20a772e4689a34f6703e7e7a364457418da43470644",
+     "state.log": "eb7fdbb4896cd099a9cd75e625accf1974f4706ad3fe05b598964fa092356316",
+     "summary.json": "5925de3a7afa599820230508238a492f4192c362979803186c6c21901cbbb961"
+    },
+    "full-4-necro-3": {
+     "config.txt": "a386432300e282d953d72392cee6ccc48317fcd9326ad7000edb8811a36417b2",
+     "keys.log": "1c78d7d5d0652d9f5c3124b0c9effd0fdadf7bc60192b3ee43a03e0cb2ab5130",
+     "messages.log": "bc58c459fc76e63c77868f500796d418bd3da55448d058bcd1926fda5d8e616e",
+     "state.log": "415a854b6aaa411bb2d11f65e183aaafc65799e10d2630f96f842831b5ef18a1",
+     "summary.json": "3935ef8c3d1cc52c8da369b0feb1173e2be78a39a5b0cff12519465689c7d009"
+    },
+    "full-4-necro-4": {
+     "config.txt": "77fe191e95748cf9a576b55c26f54dac8606e7cc62dfea7b3ed8b12cca35ae11",
+     "keys.log": "3fb2316bbc2bcbdfd6028c61e46e0fd1bae2623c5246bf00c0161744a264e845",
+     "messages.log": "4efbf706fc346c70119db3d34b6e89444a3b793845014ac831232669cdafe280",
+     "state.log": "5aedb1bedba8e7eb4fe79f5e8de7825655a066cd94433ee9805ea254433c8833",
+     "summary.json": "c22ac2f62e6668f0ab1a928329a35109ea8bdca6b8883b53c5e2511e0ecff24c"
+    },
+    "full-5-paladin-0": {
+     "config.txt": "5ae4694ed60058f96d394f090027b6dc96db875adace65ff1d20fefdd0e00770",
+     "keys.log": "53808eda8834c18c27d59643e16d85ab9a67dc1ac821d66e4eb344f76b5e7a02",
+     "messages.log": "a647185382543b5ddb1f22191af784ab0f681c5347a56603f3ad1271c1d9e9e0",
+     "state.log": "28e28fea6096bda2a61c0da188b60c349d2af4eea410d1e818b14cb347272140",
+     "summary.json": "3f6af1ed6385b3a833d651f1252e0b24371d778721af55f72324959756b49deb"
+    },
+    "full-5-paladin-1": {
+     "config.txt": "f16502c8609a8832383b6baa277cf2709d2e630e28ff8655554f0047169a5484",
+     "keys.log": "ebbf9fe2b681a82fa756a8783c01330be3e931b53bf012f3cf1b46a58ac3ece2",
+     "messages.log": "6b8e45d0e27a79dfede8918121c2023e9f3d8b9321f29695b1b40e943ac107f8",
+     "state.log": "b23f9156d95d4c5e45e849a102ce1ee72cc58a99ad2c25bb71257982715d1d56",
+     "summary.json": "f46cd3122c1a0c882d18d50b494c36b34b3bc011adccbdfca3b291a385208aa9"
+    },
+    "full-5-paladin-2": {
+     "config.txt": "e538528f3a6c6916258ce59868d885c38122fd65bad6799968193d374091e0eb",
+     "keys.log": "9c6b52c395a71be7f4099c425acfb0c0780c3c933a743a523769f0a481bee008",
+     "messages.log": "eb9cae1cf21b6557e519cc460897da5735a9f9327aacb4c48854ad64f0d1a0aa",
+     "state.log": "c8b225000e80f07c08fe64b16fb7619c9e5cd48486275a50086788cf92c0cd7f",
+     "summary.json": "fa44fa8030d9412a0bfb6e14440cb504c70dd910d53130210fbfec1effb935dd"
+    },
+    "full-5-paladin-3": {
+     "config.txt": "68769e90f395296bc327af893691f12259e3cc72ba38b0dc52b8dad7a8e8a75d",
+     "keys.log": "4ade13f44e3052625c15d359fbf3fbbf506e4c3dc1710504863000bf8b09c3f9",
+     "messages.log": "56480dd659dcb951a985584b488243a50bfe61fbd60d093552e50d50f5e17f93",
+     "state.log": "a7da0330f1a7771a2ff8ad7cda03d9fa1d2971623adf4110d9bb83e3b3c022ec",
+     "summary.json": "2e0c8c01ee5937cb8cc51ada6ffd63276fdc794358f8a27056a18427803f5fc3"
+    },
+    "full-5-paladin-4": {
+     "config.txt": "4806d58167916e298aabd55dde493fce7100780ffff2eec81e9f2e2e10ca1142",
+     "keys.log": "a87d41eb5dc306259cec1bdbf640b4fa5a5da6a4678d71c95dfe222763cffe0b",
+     "messages.log": "c6f2704b4e48e9153a60b0432ff895ba02913b016b9fc5d56ad520b4dde3705b",
+     "state.log": "d3b6c3f2c4d5948051a30d274aca53cef48d312e05b7ad76f842c77d89a31525",
+     "summary.json": "46ff80975e29e2cd656fbe6685429e32de0a96d32bdf7c04bfd4d8d07e67a074"
+    },
+    "full-6-rogue-0": {
+     "config.txt": "98bed1fd140276a90bfd4d8004f2513b249e619c2e8630466cf7364bdaa8de18",
+     "keys.log": "36cc40b02fe7059f30515584bf22aea2e8a4549546a98fedf2b3f4eb733d8366",
+     "messages.log": "e5bb2a7dd524e5c32e0fdcd0780cb76f350113a2009aaf29b30d2ce519fc6a28",
+     "state.log": "0d9faabf75e92b21ec4388a6e19564e7719e2316a38f057537102ad57ee2666d",
+     "summary.json": "a9ebfce72c8dd92a850034e076ca8f40c1bbc033d4fe24ec5b6f760b997bad31"
+    },
+    "full-6-rogue-1": {
+     "config.txt": "f3594a1f035856e33834a6cfda1f1f7218bf75e0f6be0fd50fd77e14119ef42c",
+     "keys.log": "6c0613849ef16ddebcccdc4df9f63e8f36552473fdddbc11040bef2b84db8e7f",
+     "messages.log": "b3a04d169ccc1d6b89835aeb4e46959c77e35d253cf43113dc58de8a0f2ad5da",
+     "state.log": "fb3845875e465eed496f7790d8d0dc42ca2c06a1942eb32bc3a07207e0ca77b3",
+     "summary.json": "28f7fb1ec71256a01d1688ef0bd2dc303b6085ed2c915b598f8562746866c618"
+    },
+    "full-6-rogue-2": {
+     "config.txt": "85c69abf53d5871d603d39b2ce7b8e1e728d3a582081fbab333833e6b537b56c",
+     "keys.log": "bc2647ec6af23e6f8e8b41c5c839fa9f2d17c70b898152e866de504cb5399b84",
+     "messages.log": "679fdbef16a43bcd890fbc51c7d2cb352dfefbf00b07a9791aeb6d14d9689fd4",
+     "state.log": "826ced139a4c4e865b796705cf1bd7a39df61de741a58c313280b7b54a403095",
+     "summary.json": "aa6001775b3f75d54d673dce22cd30aa28425ab1bbc2c60c63dcd30117353d95"
+    },
+    "full-6-rogue-3": {
+     "config.txt": "f08e6e0455411e3053a5b700af9053cd722eb753c352d33efb5ebd5caf17f76a",
+     "keys.log": "8bbfc012915dad0b1a8b002d96fc9f55c5465147674999e3cd7d311b10036ee2",
+     "messages.log": "4b28d9b1241365d15b0359f9681a05505750e4dfaf0a8a92375bedd43274eda7",
+     "state.log": "876962233b43252591692fd71f6a75ec58e8bd2c347a5fb40bbb51d81ebd7b7b",
+     "summary.json": "6b24dd2e644af86218ddd51f4028159fcb7d14710f380bcb1f9888c1d67872fd"
+    },
+    "full-6-rogue-4": {
+     "config.txt": "1f0a924770ddd4599ca1bb37c4e561efe338773c4afbc41fd12ae504ae71d8ec",
+     "keys.log": "7e4d4fd842bb7559b18fb9807c704a51359829e8954c552000cea6cd0a0eee6b",
+     "messages.log": "2490115f621fea76b48c9da83fa73cf1e05794d5f2bf7705632a9c715e3c3523",
+     "state.log": "5ffb0b165274b6aefd43b3d061a2ce0a2e615be71b3045fb76d54c49d27be90b",
+     "summary.json": "c74974e2046ffeffae5bc0aeb3abaa80bd4d13974c162f955ec0ed9903e6c981"
+    },
+    "full-7-ranger-0": {
+     "config.txt": "0446575bdd3cc07b07ae50d63c77be334613e03ac403be393ec3ccba401cbb86",
+     "keys.log": "3f6f604a174d282d909bef0a4d00ad483d262268f0920c81f0f587333b1fd933",
+     "messages.log": "1282e291318e669658b48d47bf9c4413a990f2730ed4096eb3716e2b6b0c43e8",
+     "state.log": "62f4349672de9f81e7a0c14a461f3866c38c5bd5b1d486fe5dde403b74752bbe",
+     "summary.json": "45d3ae963bdd9e7786868824532ea453e62fad5acb911b4bb5441e53a6c0a754"
+    },
+    "full-7-ranger-1": {
+     "config.txt": "e699c15de43a6d273d8e2ac0cb77e4331807d0dbf88ce3c6da097d8f70436671",
+     "keys.log": "4ddd036805c124c0ef7811fcf6955f8fa9bcabc89112b37e372b8ff8b4507784",
+     "messages.log": "a77c65426d8d24c6076368462ef954a1a92b7084bacafe028f37abf3570622bc",
+     "state.log": "14b6ee5cbd27e8d618aeef62fb9f268b06c34239f41bb98c0d559a4c620bc9b1",
+     "summary.json": "910823a94be36bd4f156638515cd755ef76a7b3b1b032584aa9665fa82de432b"
+    },
+    "full-7-ranger-2": {
+     "config.txt": "798354512b8dbe825b8f6fb46c24660b50f3f75de529807f9a4bd1a00deed415",
+     "keys.log": "3942e3cb226eea265d99f4da5f335fac099e7388bf09ede9746d7026e3a580b0",
+     "messages.log": "eac68d4b08cfcb5bb97a5729af6725cd8d1c8c591bfa342d40655403287b669e",
+     "state.log": "11d0a597aab514743428c97152a9b196f9cc03186de35187aa2b17ed619e29e6",
+     "summary.json": "99cb362d5e3d630e630c86219cbfb9c3ec0c8ef48661d9c58234d0643d2af0fa"
+    },
+    "full-7-ranger-3": {
+     "config.txt": "5f11346e40ebe4c5f5625f9eaa20cafb4a5da60cd38006fd3b93602848d46cf2",
+     "keys.log": "2dcf0e57f8ef947acf1ada7662e891e0c5ce65a53c19a7c8b3ad199f897d2586",
+     "messages.log": "47ea6d98a31920f57f58c8ca1f55ec2358766e0ad976dc2f7d14f781a65cb712",
+     "state.log": "781ba137529d7f84bcc3d7d79a391b51c6397acf67659299312583a84e16b114",
+     "summary.json": "dcb3baac82ce49c06aa6d7f9cab27f502db67e9de474d910fd34a2b57ccc8a44"
+    },
+    "full-7-ranger-4": {
+     "config.txt": "3c2fc499e285142fa59b9c000871db73d33a4156da77314fac4d89cf753e322b",
+     "keys.log": "4ba116ee25ab4324b5fcac6d13832deec709cc3dcf531e2bbc39bd26b1741b9a",
+     "messages.log": "c4a4fbe8632680cfcbf4bd76591296c76c465827c29b8f03686933805121f775",
+     "state.log": "1918e0cf2661d09d403c2480e116cad1eceef95b2dfa03b7d9771e12ca0f5b04",
+     "summary.json": "fd404ea761b057d5694e632a22b20c1ce67832d5bc4117c9e50b75a7e8e4686e"
+    },
+    "full-8-blackguard-0": {
+     "config.txt": "8eedb3d22ab5fd478f8b1de98d78ba2f37ae4e0e0ee6984fbc1bc51d64d3db0a",
+     "keys.log": "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+     "messages.log": "b018237575bc1b9024fc582cdc56081decfecb3c53c5404135eb54d4ee6e8e32",
+     "state.log": "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+     "summary.json": "876654d125994bcde6dfb92aa9b1a61a97ecc0309eb5ba9001d6d2e428f77d54"
+    },
+    "full-8-blackguard-1": {
+     "config.txt": "ce73be440e0a35a70e8a2dcc767c6b6a9e72d63d33d304b52afedbc21df2a5f1",
+     "keys.log": "dedb21f28ea6764363bb9c02248f307922a57f1b44b1e6a8ee4926e69a00c73c",
+     "messages.log": "2496319aeb32c133ca846498ce63b2ebe5b195006bc456b48641d61d4d9fb7ac",
+     "state.log": "1eb82b89981cd6369d570d70e823146b7fdf9e80a1e992ba912ca5b31b2106ae",
+     "summary.json": "33d6a7cadbdb7ad979e76a956ae107bb141dced350e42227f01d9bdb69ed0f12"
+    },
+    "full-8-blackguard-2": {
+     "config.txt": "584c21928863b8a949783769b982751ebeb7ba5f069bdb2c832d981216a9692e",
+     "keys.log": "26b14b29fa6206757eb830d67fad646671871eddd04453b7d47ba7e197ed41e6",
+     "messages.log": "a7bb14404d245d86660c958b176c3f66e0eada41d5147cd68ef5db24304c3187",
+     "state.log": "16a262cb0071eced0548c489efd418d725082f19352eaf92d8235d4b7ccfd409",
+     "summary.json": "4ad7fa873b4a0f92d6eed3a517662db81b87f72116c4eb8043b6722eac736398"
+    },
+    "full-8-blackguard-3": {
+     "config.txt": "ac869ebcf1d6333c95de4c575e5a79dfabca4c90f906fb74ed49abdfbc6b580d",
+     "keys.log": "e9201a941189bb6d31cfbb919b747b1885d0195160207a383c0439eaa79a8d65",
+     "messages.log": "b3fe01dbcb16205df646d72885d6bf684cfd1a4e847c433de4b11416a4476c34",
+     "state.log": "1a56ffce002276ec05fb4d6547fa7b6fab807bd70c4944c3653b41b7e1a3dc7c",
+     "summary.json": "7df4916272b044008d2170ebffc8ddcc3e0b56dec691b5cac84bb9f968e23b89"
+    },
+    "full-8-blackguard-4": {
+     "config.txt": "fb5056645d230d47c7950fa4233fef3f8a6596db0473debef8c678ec3911d482",
+     "keys.log": "0db36eee087249c9ef3f5a23f69cabfd14678fb948aa29fe6a71ef2b03e35488",
+     "messages.log": "401bbbae501f313590bb12bb3065c9c42e9d61f158e398e830c8a982718e9cbf",
+     "state.log": "3ee6558c711634f5d7ac36f3d2c5729a8199eb5dfd79d11b3cbfacb702531f3d",
+     "summary.json": "ed062cfb5e225022de63293af59ab06776bbeec1a852f068c4437dcee94a8810"
+    }
+   }
+  },
+  "smoke": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/c/game/angband",
+    "binary_cmake_borg_impl": "c",
+    "binary_elf_impl": "c",
+    "binary_impl": "c",
+    "binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "binary_sha256_end": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "borg_impl_env": "c",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f",
+    "build_id_built_utc": "2026-11-13T14:39:02Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "build_id_impl": "c",
+    "build_id_inputs_dirty": "no",
+    "build_id_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkout_source_sha256": "28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T14:45:02Z result=OK",
+    "git_dirty": "no",
+    "git_rev": "748968da0a31f58d3a246634b0954b2344cbc1e0",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.smoke-mage-2": "- d60d27905fe3a3259937f2fcd71c049179d523d2065f1c2bbaee55a29e65bb11",
+    "run_config.smoke-priest-3": "- 86c1295633033d2783d802782bf7d8aaede3dcb9340fdd42ec3a51fa97e59414",
+    "run_config.smoke-warrior-1": "- 766d4b11ce03827df119b911aa898d3efdb38a74c69b237e1ed93ed43284f3ee",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T14:42:01Z",
+    "suite": "smoke",
+    "suite_sha256": "b895f144088de8e502c6ad83768b2a9e260cb69a8f1a92ba85d98e504d4910d2"
+   },
+   "runs": {
+    "smoke-mage-2": {
+     "config.txt": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65",
+     "keys.log": "adfc8bedd55060a2304930672e3766c1bb0ad75565e6fb6baad95b1b023f2a0b",
+     "messages.log": "25dc872ddbc2a38cce4ae4fbeed265f9b54d4d51e7872b106206536de7bfbe67",
+     "state.log": "d7f6ea04cc388441edb3b131bb21bd71f595ad801920bf58a2dea0d7c763dc5d",
+     "summary.json": "777f3ca1a608db431da1d185f72a26861305dffb029c8918fac378b0b1f9ea41"
+    },
+    "smoke-priest-3": {
+     "config.txt": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5",
+     "keys.log": "d4021d533f8ad27b515a5c427d9f9e6865964466e2358e38d812e21afe8e750f",
+     "messages.log": "943bca96861a3c188be2024c5466fe80ee920f161d85f9578bee5e0a8092d1cf",
+     "state.log": "41b13ce721bbac56cb965ec6691218ebb9f3f866ee0964a739adf3d670cc64ee",
+     "summary.json": "f10af0ddfe439b555bfa6ff89c8ee42338d7a251764bcf1adfe567b33ecc4f51"
+    },
+    "smoke-warrior-1": {
+     "config.txt": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f",
+     "keys.log": "c58c9025ce55109569aac0fb7bbe42b100a2c017bb84b0a8efcde62861bd5cd4",
+     "messages.log": "741f1904b46597579b9df81a41dc9667b0f4b90aea0c6f6b2527a08b75265376",
+     "state.log": "fd92c287296f4d0de9c6b08e8777c93230b5302d73a9eb4fb26a2e98ac15c4dd",
+     "summary.json": "8113366633d379a622c71324876b23b741e388e7b62cc5d1b7e5deea1f099820"
+    }
+   }
+  }
+ },
+ "rust": {
+  "classes": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/rust/game/angband",
+    "binary_cmake_borg_impl": "rust",
+    "binary_elf_impl": "rust",
+    "binary_impl": "rust",
+    "binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "binary_sha256_end": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "borg_impl_env": "rust",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "build_id_built_utc": "2026-11-13T16:47:05Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "build_id_impl": "rust",
+    "build_id_inputs_dirty": "no",
+    "build_id_rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "build_id_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkout_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T18:17:00Z result=OK",
+    "git_dirty": "yes",
+    "git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.cls-bg-dunadan": "menu b880401d638d2abc0fd157c8c7381e27e4551d96aa9893eeeeb2148720e789f9",
+    "run_config.cls-bg-dwarf": "menu 1e48dd76144d07a4662d76dc6e067ab6cca707ca8cd184ce5302c3e21c688094",
+    "run_config.cls-bg-halforc": "menu 338ad8cf13b783ca415cac4abd1417eb0462d7bd94382ae7b32618c9b3789234",
+    "run_config.cls-bg-halftroll": "menu 4e3537dea95252c5781676e56712d03cdc8e263de3dcb68fc2b6825ff351d63c",
+    "run_config.cls-bg-highelf": "menu bf30c6ba3a34ee61a4f95a4c9b5a282a5d1de3f405a060fc9d280e8358bae17d",
+    "run_config.cls-bg-human": "menu 55b874d008a1219a348438e39cd32d770a77bd4011fae500598760d604d93b2a",
+    "run_config.cls-bg-kobold": "menu 5f671ec41ef5d0ce4bb6e69ec3c30170e6b371d04eda53ec6e1d9b05abe6b849",
+    "run_config.cls-deep-bg-dunadan": "cheat,menu 08fa6fd4da6577e3e04c62c1858d5c2a89cc98a2ccc7072e25210675ec6047ac",
+    "run_config.cls-dunadan-paladin": "menu ed4f74dbbd4dfeef6bfb07fe25b344c129c4150e871b9c4897ce0a85476acd5b",
+    "run_config.cls-dunadan-ranger": "menu 435634e0c6906ca2698cfe31b388f564fdf089ef01b3b40351cad61bed366f51",
+    "run_config.cls-halfelf-ranger": "menu d5e5fcd1a84f05992bf22993c1d2a186488d3aeda3d07b92b7372d8833a94cbc",
+    "run_config.cls-highelf-mage": "menu a4b48dfba7d11e19d832680a10d1c2478505bc93fbf22536ba68ae654f770ea2",
+    "run_config.cls-highelf-priest": "menu fbb53539025b907d2312c34178c49918eaa5500a864695aa0a2eb70463ac16f7",
+    "run_config.cls-kobold-necro": "menu c5c3656818d8ddee35fa9095ef8ac24a82bd70bdd081c206ae2f3b28484bf224",
+    "run_config.cls-kobold-rogue": "menu 9fe533349067a891562ceba7a31aa5918636fb0cf1209e2894c9288f0aa131e8",
+    "run_config.cls-kobold-warrior": "menu c89745ba2ace30b268064827affeadd9be4ebf3bfe0715f6f81f0ae3e4c79368",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T17:55:58Z",
+    "suite": "classes",
+    "suite_sha256": "57e458495944ce4a35f35e0737fc6bfb48b36fa5db7430ff9f3eb7bcada6d0c2"
+   },
+   "runs": {
+    "cls-bg-dunadan": {
+     "config.txt": "2bf45d44c9bfd03b152cef8da16fa3a796e0f015a8b2ae7126db1928c00325bc",
+     "keys.log": "7830c97798af01b4d5499a0fb2a9cda298f95903fa26e208e3f8f5a5e0d67bb4",
+     "messages.log": "bf5e97f317e82136a43b91f9d08cd69fa35dd2c189f93e316d388e23c54a4775",
+     "state.log": "136fcfd92e00849793ed930d53d3d9841a35ac42e68b7712398800d41837ef7a",
+     "summary.json": "667a3c5a1af2c727fd7a5c8f7f755b829fa04eab2500331829341f321622bea1"
+    },
+    "cls-bg-dwarf": {
+     "config.txt": "3693e6402cfc4c8118a50a3862f1fc0c1b29287c5d587add43adf87ad8a7095b",
+     "keys.log": "f75f21316dcf84a540d82cf415dea3814b342be36a7908b12cdad94c52035428",
+     "messages.log": "62926d2bdd456b0bda1f3825a5dff009e312d51deb29482df4303b0414a34928",
+     "state.log": "24b2d8030bdee188cf83ef040f13d40ff154be6d35fc8f99734161753a81dae8",
+     "summary.json": "e7a4f95a4bf3e6ce65f989ab0c8db0105269d71466625f45c85c6c9d90ad3eb9"
+    },
+    "cls-bg-halforc": {
+     "config.txt": "87133c45e7aa49d786a46fd3fe7aa5b423312e3eb18f92fb48d720a514cd05fa",
+     "keys.log": "da5b8cc653c2533cbfc77fcbf625dd43475f216941211c4a63fb1032697238ac",
+     "messages.log": "7b78d9021c558fa494f3d751560956058be9137363cf49aeb1cbef7e35dbc0a0",
+     "state.log": "af28861590e2c1d8486f5e944cefb81a7ae8c48bee41b1ad3d9e97eb5480910c",
+     "summary.json": "caf1af8fb2d94b647f1d72c7993302f04493ba93e638db4a78f8bf0acd98d372"
+    },
+    "cls-bg-halftroll": {
+     "config.txt": "d942b77227a3ef3c62cd19445e7d28073c10f4b2594b383a0eb765b5dc26b782",
+     "keys.log": "83da9911021f562db08939d5cb9e7202fa52babdd9415decbe80a87ab656c309",
+     "messages.log": "b5a673cc825d3642ba1aea00451715a1ec48c34cdae90cd3c30e6c44096a2fcc",
+     "state.log": "adcc9d33a430a1c762673366805119cf561c72f317d263ae1654b2412e59f788",
+     "summary.json": "7429810fe79b1ba53c055923d2e083e2d39e38e0c4b54f55cbc34170e5ab894c"
+    },
+    "cls-bg-highelf": {
+     "config.txt": "419ad3cd685f10b27425958d44358f47506288088de68ed73a9c959be6df0b3a",
+     "keys.log": "06a9f445937011a1d1bd47ae6d7bf3adb73acdbe6f1b27fdc27beff33332501d",
+     "messages.log": "c25af7f0e5476c7ea1f4c9e64797773c6ffc1077dbce024e2260eaa624dfd51e",
+     "state.log": "796e6464bfea8f5d9f0c5045c1e24cbc6c375918496675997a612c949f8eff25",
+     "summary.json": "0aaa32aac53bb5db69c6f62404e92cb8885d63d23e3b236d3324c8349e5dddc2"
+    },
+    "cls-bg-human": {
+     "config.txt": "c3eb267c292df01e6feb95e2c612a191ff584f3dbcf0a1a7d31c9407f987f51b",
+     "keys.log": "43475b47fa16171e324724034192fc1bc4b968c45c73e2bef5e6daef6f8bcad2",
+     "messages.log": "30721aeaecd2a37334ac78ff789ab5c2ad02c44bfdc32019dc26cb6389aa63cb",
+     "state.log": "b1ea0fe20a41a77cfa6e9ca1ab4bb0eb45f7822054ecb6b366a395b7e6ac4a15",
+     "summary.json": "c302ce1e81deaa2a8a8b597a9a5c21afd6ca31b0fa1f8f618fcf39a3a2ad1a5c"
+    },
+    "cls-bg-kobold": {
+     "config.txt": "9367a216a6c4aceb8fd8437d86d72ad76a019fa3f79b7a75f804de086e9fe2d1",
+     "keys.log": "0e5ab724b8c24b18ccf48b6c66ef7ff87e77db9c19a1b067a5554039e54fba13",
+     "messages.log": "47c67dcdf866f6093fece2e1f2e2c565d64a09441d7242db3340a93bb625bfe9",
+     "state.log": "8f0dec59316f67ebb1dc438546f65d83b0641dc48cb0109a7bffc8626db0f2cd",
+     "summary.json": "585caa0ca65a2802104f281eff6de6f46501b5709b97d003a98ba37b6e71bc2d"
+    },
+    "cls-deep-bg-dunadan": {
+     "config.txt": "4096ccc5bdee3869d509d6c8a2e706e3e9992b9d6ed61dc59852792c0bcf58e0",
+     "keys.log": "c9b4c17a72bf5c0e2f5d5a92ae13676b38764f45ac3f57979ea6f4b99e1a74e0",
+     "messages.log": "180db6ea3c5b9c7695eb641a36fdbf637bc55733bf8d6a65808cddc6fea5bb1e",
+     "state.log": "8666f31b0caa965bf640d989caf491ec1f8f7725d086cfa56f2bf51dc047d224",
+     "summary.json": "4ee401bc54416689950dea647f22f894e09718d94f3b3407fa1076a683ba6f55"
+    },
+    "cls-dunadan-paladin": {
+     "config.txt": "e2fc47629769c37166b3fe9cbb7dfce7aeda442156ea8376327a7e1ba04029af",
+     "keys.log": "11a5cf0320ecd64ed88bafa0cb3e6326ba41421355b59e28e5a1142a597a990a",
+     "messages.log": "8f7988045112887c74429ee902dacfaf0eb5bf3de2932ae5bbc899eba7f7aa94",
+     "state.log": "1fbca1ac2696ecfbc4884dc751da62172b43fd24cbd87fec6ebc1af12cd0eb50",
+     "summary.json": "5a902472059a4c873e72c511c4ab7799d5dc102beefa55c7ea73e4e5c64f70bd"
+    },
+    "cls-dunadan-ranger": {
+     "config.txt": "f3294ac1403fe0456b091456503972155480b10efa79ef71351bc4746ce8f967",
+     "keys.log": "bd563c65582f4e3f1c64b2dc0a978b041b9a13a427aee49cf4ee1709f9942729",
+     "messages.log": "99b69b863cfd666c97b155944c883676a11b9eb8956e5c62c7dac2620e50f458",
+     "state.log": "07bd72fd1631059533591cd02421740ceb629570c7b72018c60e4cc14ed757df",
+     "summary.json": "76ad4550ea1655267ed8b5932031ed263489525990663b4f8a528316e9bb70a0"
+    },
+    "cls-halfelf-ranger": {
+     "config.txt": "0fbe5b1feb26177e0b381a698b9c7a4cb35f918373a6779884550e459521a876",
+     "keys.log": "f742e97b63dac16f79d45cff01280122c74b5a7df1ac59550da601d013d2d678",
+     "messages.log": "0905858ad43344d2a6e00c55d59a8e24cca9d194807e5f1e75c55646b7f3e898",
+     "state.log": "7ad176e5a549ff2210b6a25b0a60a082ee35389b6f9c37e32c29ce6736a3ba30",
+     "summary.json": "25d2f9a4c7d3e48fa0dcef2c3c3f52b3660b07d6fe15bb8d594a2109b99ff20d"
+    },
+    "cls-highelf-mage": {
+     "config.txt": "03b494c5905926ebe6f8afedec51d555772b33c9b9a7cfcd769a555e4c3d0040",
+     "keys.log": "aa6e7e87aafec925b55ad51e0e77d86a80e56d2da03a91c3d2b2ef8f196f187b",
+     "messages.log": "a871f4e2b8532076255152fa59a14876e6756ad4b1d3b282d58426e235a97565",
+     "state.log": "06bb1fdb137f080d957f58e2029a22e840cae500c96c0e1856e0c3593a5abe19",
+     "summary.json": "d03005e1c9ddaec80a4f290361c3fe98288523742b347d422f42580e3e79f840"
+    },
+    "cls-highelf-priest": {
+     "config.txt": "66957e75cd48c344ac31bd1a80ecba5613ec01422a3884eec81e5f25a018954a",
+     "keys.log": "72b63da7f71f2afcc7dc0070ad72dcdf1ad1c4500881e6b581ab12ee671ca8b5",
+     "messages.log": "fba13b7c1f8ae2848bfe6a42af92010bb598973f5afe64c319cf7e1382c43fe1",
+     "state.log": "f4fc2aa9ec1db65eacc9887e8b725acfcde1d003be7da3df6bd52fc722cfa996",
+     "summary.json": "ef81dd3680d2491174cd7e1da702597ae57958037a1a713519ff7351bc4bea2c"
+    },
+    "cls-kobold-necro": {
+     "config.txt": "f9e0c96fd07640b479342191f00accd7c4a8500bd0be61f81e50ee4d00c739a2",
+     "keys.log": "94b68bd8cbf2eabe2f32155793f54b79c2ffaadb11d7b9be10d4e4fdf47ce62a",
+     "messages.log": "59f5bef71534bcb1ec13d5b89ca6d0d0e3c460dd21e0bce0510dacc02e5c1222",
+     "state.log": "4b678b1f76054e98d572e4dc45e927556b9d2fe19b1f612c77ad2f197e5e2272",
+     "summary.json": "f118b6c86c3d230fc562ac0ec9ae97e2294d5870ca4ef15e6589b39233f5551d"
+    },
+    "cls-kobold-rogue": {
+     "config.txt": "fe4b6e5a8901ac6b8652ba8effea7a31b3a80193579b09ede7f9b8d2d749969c",
+     "keys.log": "ce13795d001370b15a5ccc5bfd8b1d1128ec50e2a6af08fd4d1fbf10884b35c7",
+     "messages.log": "bb36e9b32127a2031aeb5900cfbb533973943bf3bfe66942f2f1b2edae466af9",
+     "state.log": "c92f7dcd75610fb9b840bae232aa0631ab4f8413204c2838d01891d946e0af38",
+     "summary.json": "d2b514833fa6418de5396983dc1b9dac3fd87ac57cda9cea7a0e0a49bb27a095"
+    },
+    "cls-kobold-warrior": {
+     "config.txt": "b8d8b263994907fb33e5a224751249e815eb1025e2d06847e3dd27775ec5854d",
+     "keys.log": "7b63a05a233fcec2947736a6f1d04f49dc647cb979b9f1ab1e8815aef9780714",
+     "messages.log": "49351738c6ccf42501edadee6d4eed1f364d5d907316bd745a2eca752c3d0435",
+     "state.log": "01b1ee88a42256fa5137a4e31dffb059d59461fc3d388b87c2520093d47c0cbf",
+     "summary.json": "da700061b1c832ebb5dc8b60d742195d126a7bcad493552aef5c23809212f090"
+    }
+   }
+  },
+  "config-six": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/rust/game/angband",
+    "binary_cmake_borg_impl": "rust",
+    "binary_elf_impl": "rust",
+    "binary_impl": "rust",
+    "binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "binary_sha256_end": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "borg_impl_env": "rust",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "build_id_built_utc": "2026-11-13T16:47:05Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "build_id_impl": "rust",
+    "build_id_inputs_dirty": "no",
+    "build_id_rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "build_id_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkout_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T19:54:01Z result=OK",
+    "git_dirty": "yes",
+    "git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.cfg-lunal-dunadan-bg": "menu,cheat,lunal e0eaa45f0326ed8c0df1ecb626e702c17934afc98b7d617d7f6de6d28f867007",
+    "run_config.cfg-lunal-halfelf-mage": "menu,cheat,lunal 6ad13ebab852ea57086ffeabd8343eafd91f162fb13997ed7282b6c42b89d440",
+    "run_config.cfg-lunal-human-war": "menu,cheat,lunal e4f86009d980f59d11954c87b8b3686ff6a06266ebf207fe823573e8405b5521",
+    "run_config.cfg-munchkin-dunadan-bg": "menu,cheat,munchkin cf1cb6458a14ede85a9a2b300df8992763bb6189177d9277f3611dc63e62e371",
+    "run_config.cfg-munchkin-halfelf-mage": "menu,cheat,munchkin b7b880520646f8f06e2842afe2c039ded4f13d7ac0572b23a0d267a2ed5bf902",
+    "run_config.cfg-munchkin-human-war": "menu,cheat,munchkin c8f25dbe02c7b0ed75c6e95d76bafd1ace7e4b6a33c9719ba5e1007aefab5943",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T19:26:40Z",
+    "suite": "config-six",
+    "suite_sha256": "04540eeb54b522c764d4e7286fdd7bb2efbab632b7a0eb9fdb72030d5e23ab22"
+   },
+   "runs": {
+    "cfg-lunal-dunadan-bg": {
+     "config.txt": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299",
+     "keys.log": "8de8693dc612bf2994ec16bdcae69509a967307bb92ded06b8d4d8903d19d0e9",
+     "messages.log": "2c0268ac45e7d2b2ae439069e190a28d66b527fb039db58937dcaf4f11a80f35",
+     "state.log": "c74c0077eb4d5e3d34b8b8968736f1180fff6e04aa98f2a66d40264d4ec6f30b",
+     "summary.json": "aec86b521e48cca96ec2d1afa21e3e6df1576c0f6021350e17bf22d0d09850da"
+    },
+    "cfg-lunal-halfelf-mage": {
+     "config.txt": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1",
+     "keys.log": "ba4167d093389b4375f8fa52097960df8c2536ba0af34dacdb61bc32c25adc1c",
+     "messages.log": "edde5735edb06c6e86a0b200854491550f15933590c001132afa03d3dbab80b3",
+     "state.log": "bbd17a59219737cb37015dcbf3351856bd8e223dd00c25ff92d62f92946aa6ab",
+     "summary.json": "97623d8eeb4d9b5abfab5b1376bc7fec6352edc5ae5c86f1f0a5420c63cf3f23"
+    },
+    "cfg-lunal-human-war": {
+     "config.txt": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46",
+     "keys.log": "301eaa3cc894c4130df2706d48ebd31f7e8ef6d13dac707b963df24dcfdd300e",
+     "messages.log": "7b8cc86634c23f129ec05df104145074c5228bf858e1a99dd2b2cf668690187c",
+     "state.log": "54bf5daee2b1fd0d8dc707db6c76bf05d004c470735a30888b01ea90b8aad700",
+     "summary.json": "7392fb49cc362acc71d92d9099f47e847aa14bb32fd39b79140429fd8baac674"
+    },
+    "cfg-munchkin-dunadan-bg": {
+     "config.txt": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16",
+     "keys.log": "5d7ae5f4023875537d0bbf529cb38a73b38c1028ed63bf6edce454647806e733",
+     "messages.log": "4a723a9466a5b52abda043be80bb9135e61bd1f065681aa80460abbb5eb1b451",
+     "state.log": "564c20b9f43190a2c4c8deaf45580a9c6beffcef8e1659d71262de5e0588a16c",
+     "summary.json": "716f5bc5aa0e16b701389fb08c5252885ec49e9daf6db29769b4d59088ad6af0"
+    },
+    "cfg-munchkin-halfelf-mage": {
+     "config.txt": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065",
+     "keys.log": "d3a0bbd5cf3ab7f108e1a87b77a51c28c27a33dbddba2dbcb69476737c32552e",
+     "messages.log": "04f99f1661c8977a42f19b307c62380a8badd0098880d2c4606135fcf8e9adc6",
+     "state.log": "f658383470fd48f37b6162924d06b8e48f2cd138c79c82b7699332a27745af7a",
+     "summary.json": "652f8a7c9373ce7e621ae299940c56077974a769700acaa2477f98bdb3e3158e"
+    },
+    "cfg-munchkin-human-war": {
+     "config.txt": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b",
+     "keys.log": "83e1daaf1799dca91281942c1a3b1672b61f191342d9099febe3ec970259b0c1",
+     "messages.log": "edcefe88fe03744a6a83217980dfd71a76439c4a1148086f5fd41e7c0c79d6a0",
+     "state.log": "2cccb5573fb6fdb74c99b9dd0711e5900cb1cdf157726efffeb0f9f924d276b7",
+     "summary.json": "3f34090dd6b6791f608c5bc1cbb068283049ac708c68a56aa70373d1faaefcf9"
+    }
+   }
+  },
+  "full": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/rust/game/angband",
+    "binary_cmake_borg_impl": "rust",
+    "binary_elf_impl": "rust",
+    "binary_impl": "rust",
+    "binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "binary_sha256_end": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "borg_impl_env": "rust",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "build_id_built_utc": "2026-11-13T16:47:05Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "build_id_impl": "rust",
+    "build_id_inputs_dirty": "no",
+    "build_id_rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "build_id_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkout_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T17:53:25Z result=OK",
+    "git_dirty": "yes",
+    "git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.full-0-warrior-0": "- 766d4b11ce03827df119b911aa898d3efdb38a74c69b237e1ed93ed43284f3ee",
+    "run_config.full-0-warrior-1": "- 495f3461c997126198d69caa14a21cf58cf79fbccb223dfb5e1bf09a4f397610",
+    "run_config.full-0-warrior-2": "- d2dfcde1a5e5c00f991b2d45b2d0ab3b38695bf9afa81032859f753fe85d6614",
+    "run_config.full-0-warrior-3": "- 7adaefb08a33968c589870fc80daf2f2776ca20f0d6bf9dde6aff7c24302288d",
+    "run_config.full-0-warrior-4": "- 61d0e1e3886c53520501de414b72542293386e5ad26106cf55e6a0a527542545",
+    "run_config.full-1-mage-0": "- cfe4510f93a0d362922a88903efb019829e49074b28dbc785838df9c5eb2fb6f",
+    "run_config.full-1-mage-1": "- d60d27905fe3a3259937f2fcd71c049179d523d2065f1c2bbaee55a29e65bb11",
+    "run_config.full-1-mage-2": "- a1a735ea25d0d6748995d4dab4e75328a75fb1d187480b2d062b33efbdd5f105",
+    "run_config.full-1-mage-3": "- 1dca71e4c1cf1a5b53843981011da3c2941a55e902d0934f2cdde7c0f4c628e4",
+    "run_config.full-1-mage-4": "- b14911250df5495cb8060f1496095546d3f0c7f73225661b64bed70f775c4dfd",
+    "run_config.full-2-druid-0": "- 94f240dca22046ee4c2b35bcd6625c563dcb594bfeb12bb865937d6f2a33589a",
+    "run_config.full-2-druid-1": "- 22f26b18b131354886de8f90b14c79bb98f839609094abd4f50213900fd416b4",
+    "run_config.full-2-druid-2": "- 2aee5a565a0b09037b9740ed4a64bffeec3d39c54ec64d131c465f100c327f23",
+    "run_config.full-2-druid-3": "- f5b3195d6bb0f3d80077eedab891244a3f9c12ae77e3def26cb09c2b7c8ceae7",
+    "run_config.full-2-druid-4": "- 8b4854592916d77b18ec3e19c1d84b1dd060778e2234b3df1b1018951545a22b",
+    "run_config.full-3-priest-0": "- 7179037f87b3f44ac34480c1911816916ef2c2b034dfea2fef05eb8aaa73cbd7",
+    "run_config.full-3-priest-1": "- 710860556a3e5b1a3814aa47d791941fd75f69e8c7adab11cb502fc37cdb60a8",
+    "run_config.full-3-priest-2": "- 86c1295633033d2783d802782bf7d8aaede3dcb9340fdd42ec3a51fa97e59414",
+    "run_config.full-3-priest-3": "- b3fba54f77d0fb932a824d3e305e0697ca5170915772bb0d52d7276042d30e5b",
+    "run_config.full-3-priest-4": "- b994b99efeccba1aa72fcccbfb2b594010b558dde3dc91a1916e5b8bead9020e",
+    "run_config.full-4-necro-0": "- 2d799e4ab6f0448ceec16194d0fcc06bfc1a2a9792e9054a94a0d67b732fbefe",
+    "run_config.full-4-necro-1": "- 825fb1ef2419e3c2bb30229edd14d95a4356b695dadc2b7303e9e2c034efe5a7",
+    "run_config.full-4-necro-2": "- d56e1fe212b46267323e07cfb42b3a062616517b18d96a3537a82ea8d5d83faf",
+    "run_config.full-4-necro-3": "- 509d922935b9d3aaf66c4caafc8cdbaa160c9f94cf2626b4c6b7f05e39e2883c",
+    "run_config.full-4-necro-4": "- 5862cb040622746e4fafd2198b15480a3a18dd640133260a251ecfd068aaf2db",
+    "run_config.full-5-paladin-0": "- 188af23a667118f3a59723b1aa5efac280ecc7f566e016ae36cfb0086fe98933",
+    "run_config.full-5-paladin-1": "- ccdf2801bcd4c9e7520008f52b12f23d4b07d74d4ba0a997bd150f743cf011a4",
+    "run_config.full-5-paladin-2": "- 3684d62e4cae778762336baa0b5c783e1eddd688f96fb8f0d57486f2ac0a0ae5",
+    "run_config.full-5-paladin-3": "- ed4f74dbbd4dfeef6bfb07fe25b344c129c4150e871b9c4897ce0a85476acd5b",
+    "run_config.full-5-paladin-4": "- 5402f6fe7bde7d15c27f1b45e4c5ac52686c81eaa7bc4c0305b1e3245591097a",
+    "run_config.full-6-rogue-0": "- 9740be01bde113fd4708752d34d4c6511a4f70316a7c8d598a1a44ac274b8413",
+    "run_config.full-6-rogue-1": "- 9dafd6b4a1b110523af9987198876fb2899e2c8ade0f045fbbdd45f6b4ace48b",
+    "run_config.full-6-rogue-2": "- 3a63cd7d7ebb016711045e4e75b44139a3f105d21bb232ba202f6cb8dd9eec62",
+    "run_config.full-6-rogue-3": "- 253a0af1d5f14b7c3279f284d2acb89f224e3f43561b38a0a5389b66ade30d87",
+    "run_config.full-6-rogue-4": "- 9fe533349067a891562ceba7a31aa5918636fb0cf1209e2894c9288f0aa131e8",
+    "run_config.full-7-ranger-0": "- d7cdd275e88d8d7f9905731de4cedd269705dffd717d9c8287ed5cf6cb76d094",
+    "run_config.full-7-ranger-1": "- 435634e0c6906ca2698cfe31b388f564fdf089ef01b3b40351cad61bed366f51",
+    "run_config.full-7-ranger-2": "- ec59d6265d460488c0acbc482dd16c531396b359915ecc5434547cb06a00bcc3",
+    "run_config.full-7-ranger-3": "- a6e186ac0902b7cb63872e4af3b9cc08c7924b3e091495a75fae02d637005d67",
+    "run_config.full-7-ranger-4": "- c8d5f464f92d413e156e7f09d9a3d22e3564fd8dade85277e83a871bc16f7c20",
+    "run_config.full-8-blackguard-0": "- b880401d638d2abc0fd157c8c7381e27e4551d96aa9893eeeeb2148720e789f9",
+    "run_config.full-8-blackguard-1": "- bf30c6ba3a34ee61a4f95a4c9b5a282a5d1de3f405a060fc9d280e8358bae17d",
+    "run_config.full-8-blackguard-2": "- 5f671ec41ef5d0ce4bb6e69ec3c30170e6b371d04eda53ec6e1d9b05abe6b849",
+    "run_config.full-8-blackguard-3": "- 55b874d008a1219a348438e39cd32d770a77bd4011fae500598760d604d93b2a",
+    "run_config.full-8-blackguard-4": "- 488eec53ca3f58c9634d0b7f5b23560cf50aa35e20e7a1478af039c1cb03c762",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T16:50:21Z",
+    "suite": "full",
+    "suite_sha256": "949b423fc94533b52d92b66a8c72843c0108465e21fdb8a82e6d332709560806"
+   },
+   "runs": {
+    "full-0-warrior-0": {
+     "config.txt": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f",
+     "keys.log": "50938135474b7544a96f7aa21c013338b1291fe97526a79b544a965bd2b2c9fe",
+     "messages.log": "38136e606ec9298d9c0fa2aba21f3d0695ff7a06c82ea471093ccb0c251efb09",
+     "state.log": "7f761867c611b3ef648a45aaccc564d1b57ab2d81a9130c8957619e53fa75d71",
+     "summary.json": "d4f68d164d0a7e8bb681061e6fb5b2081c1c2e72871b5d524002a528a56da6c1"
+    },
+    "full-0-warrior-1": {
+     "config.txt": "d13806552d2adac67628ed17a1bc973087bd4dec880da6e19b2342140a6302ee",
+     "keys.log": "cd2afac79fc047acd53c33bd12b4db2ee6815b30b6fa0aec767d339703f6a29e",
+     "messages.log": "b7c6bc387b91a5980dd507b7bf17cb3ab93404ec37bec2819124db623a9f35ef",
+     "state.log": "3163fbc31a0afe0b5e542bd3a65c0715645234416172cab3ed9d39db8a4fb881",
+     "summary.json": "6b00c6a4951ecb1146eea4d34bdcff752fc1693578c527b650c4089e2392c528"
+    },
+    "full-0-warrior-2": {
+     "config.txt": "3e96a20d1c634d26c7297f8e6d8bb0c4f6555b66a23a3004cbead8d774291b9f",
+     "keys.log": "3c02ae1e7ead0373aef2a4cff15b99b07d1ee2768549fe686c69bbe7204978c0",
+     "messages.log": "1ab72b01cf82e18969fccf1db327bd64037d0b76af9691f4e433fe252825ad42",
+     "state.log": "e4256650f402cd371f69b90fe2b97e607adf94f1ffa767c4151507b6d1df70ec",
+     "summary.json": "8b3418b28f7e0a94ef3990c5adf3c84a1670e274a398b3c3d6aa68a2f3d88158"
+    },
+    "full-0-warrior-3": {
+     "config.txt": "c188bfac82ad77b1249b8473a77efa7c761179ad28a2cb7ca79091e58fe7a93d",
+     "keys.log": "b0a52ca412def041073d465ee1e418f030e276357b9096413ddd2b6e5382c208",
+     "messages.log": "41d9a304c74d94ad39039958c49953991f9adccba9a2d0dd5d4f46a28bb19e13",
+     "state.log": "702d3f44b0bc5f5aa96bc5725bed132e7d64053db37739874ec37c65f6f7a737",
+     "summary.json": "14ded60d956ba6e985ec7405096b4b9fae5fe74846b04b14ad9e46d2e4f7a98f"
+    },
+    "full-0-warrior-4": {
+     "config.txt": "256a607ebeb30746560be52c421b95efcc989a3ff51f73dd2d139c747aa75f7d",
+     "keys.log": "973386392466d5045dbd1d2d7b3f022cf1c8c9b8364940c878258b6e0f51f708",
+     "messages.log": "5efea5e059d2a475cd087b476e9582a1defe1e24a0408845938c7ed5cbbd3282",
+     "state.log": "0002fe369b61dcb8ef3ae2b7e7d0da0cb1a49b45026a75da138a4ffa38f93802",
+     "summary.json": "dac5e13233bf549887c8317cb15c4c2687a987a0bc9398fbcd14081e00bceeec"
+    },
+    "full-1-mage-0": {
+     "config.txt": "2a741f44e2bc1f453837e3a3795b2f4461cf1ea35734573940a39f2b66614dfc",
+     "keys.log": "8a9a5e0c7c33e6f6d92729037ba4e5f21202dcf9cfca9298db5d6257c057730c",
+     "messages.log": "a04d3fa0b8aa907ff15212db7739e7ebf94eaf3ffdeff7d2ad4c694dcf402fda",
+     "state.log": "d431237c0274cbf0c400d591b727fa267270cceb5dca4e906bf303149b4519ec",
+     "summary.json": "ee19a40f622586f9e7fbc1338b82b85f144ddc7f8d1c0a40e9ea1254170961a3"
+    },
+    "full-1-mage-1": {
+     "config.txt": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65",
+     "keys.log": "6c02605eeaacdc178886a85ff7e8bb10d96de559550b884ab6dc02be2e966794",
+     "messages.log": "e7e746305a86b3ed391460fb114ae90b280ae206ac8536ae21c1245d7380d180",
+     "state.log": "9932a3bfa185dc02f4956ee17a7a2dc342ebeeb2918459972ed10a82666b352a",
+     "summary.json": "899f0d1a04c2a515e5cf3ad41947e411f516ac48ab73da522ad2d0ff66e8edd9"
+    },
+    "full-1-mage-2": {
+     "config.txt": "58057595c9d5d4a288893fc6e2ef583ddbab2ff506cc3c4bbb2d864cb4e08ce7",
+     "keys.log": "33a9e1b9efef4e1fd1060fab66665a4fc904c613fa2d496ebd87ea1e87da686b",
+     "messages.log": "964b0d92630002474a3b4c3938317b48588be63a37b075a93ff04bf8f1736752",
+     "state.log": "83ce4dcc87efd93c94b595fffa41c4caf766172fa540c6d079cef075c261710f",
+     "summary.json": "a33a8caf1b031f9105de62f4b6ba5ce9174debcd76ab0a8a33d56b76ed1e0599"
+    },
+    "full-1-mage-3": {
+     "config.txt": "ce51c67f3fb1ef7ee0c772ab57c3c8d71a6d4180c13b5132183e64a67acc5fbe",
+     "keys.log": "8180b0901103cd96fde8bedcff6887c0d0fce4d873af9ae27be97efecbbf4f61",
+     "messages.log": "4f998f74caaa6043d012f775c448f3e6c0d632a32cb73876b3651f658cfa35b5",
+     "state.log": "aacf7e4770d8d01af084f0acdb5f5a438b46b649b4ed4dc0eedce7952d42499e",
+     "summary.json": "dcf19cda5cb817499b3232b0403531156eda2059f9bf03cf28e8a8f0b1a99f10"
+    },
+    "full-1-mage-4": {
+     "config.txt": "ce02254e5262341b6a9045d244100bf8d0b623905eb073693fc6d1355d967323",
+     "keys.log": "ea3cbe1895c1b1d993899da62d0050cc6eaf0e8e457e8b45624e2ba051cfb7bb",
+     "messages.log": "828f394cb3e3f0b8e722e9c338ec1e3a165af5e2fb61f5f6355627e319034fbf",
+     "state.log": "6ddc05337c22d1fe679c389983af5e03e5c5d56423b03dd2cc52e9311c1c423a",
+     "summary.json": "3afb86e20487180bc8b2a2715c1fbe2e3e9baa27abf950df074ea74a676dd6f0"
+    },
+    "full-2-druid-0": {
+     "config.txt": "0b02646137486cfb1599c309c9ac1a498b5a2c616480876d62240e156b80bbb7",
+     "keys.log": "42c17d0d67dfef1bf3ed2e883005057c182511131437b74fd62b1775ae87d077",
+     "messages.log": "51043424b5c66e32d05b5abc11f2ed5f7521cc7b37231fcb2bf73f70f13071f7",
+     "state.log": "fa5405441cb0acb0c89459f652c633dc96a4b3c756e49eec64d2144f8e11cf8e",
+     "summary.json": "6b9ff64a33469d12f21e46a243c016871da898683f2893e62f2a4bfdf878558b"
+    },
+    "full-2-druid-1": {
+     "config.txt": "1ffb727ae19a09ac939bb7d9693b1efc19259a79868bedc7261bfe504e43d96c",
+     "keys.log": "2192c646391de080cee8fc37633ab9210098761f67f6a897e50707be7e0ede0b",
+     "messages.log": "d74ec5bd8acb04981bcbce756a680d8a62262ca11c42e634874dd260bd4f42a3",
+     "state.log": "82127e32d5ceede3b4ae7fade7faead94b869118b1f4d6f164cea6f8d0f12d69",
+     "summary.json": "d7d6c930d7fa71f8dfb4b95eaefe6c6a862a11a6a2976b5254d47359b3e87cad"
+    },
+    "full-2-druid-2": {
+     "config.txt": "227ce9c8924ef9b71d589cfeb7e45b046dabac98994187d5f9c140339943f920",
+     "keys.log": "7438defb71e8e7eccbb29497f1d2a5ac9a9dac863b4c3e9c423118b5fd1c5f28",
+     "messages.log": "8562d2db19adffed0f6c9ce8c51072fc6b86ffabcd8ec8be03cc51cb52103f33",
+     "state.log": "731d3eee730e9f2d31ad71c9f7f187f123ddd295987903ccf9d626e8f6e99e4b",
+     "summary.json": "a238775e273508c7317b14e85e9677e285fc7e019dc1a71e0acd5907320a0156"
+    },
+    "full-2-druid-3": {
+     "config.txt": "0a712fb76e914ccb6a687c24f2d6922d75a862bb112ab6123aa45e452930b1cd",
+     "keys.log": "0e621f2830fe1041cdd327ddb6af1d99a3e276462a3c2c958ec74b623530e0b0",
+     "messages.log": "dec38121aade30a81a502cc049c26767e60b384d88cebe15547905661b48bdb0",
+     "state.log": "7fc259062b24a8ca6d1b549b61ecc16977d506a229df7772d3c45573691bab04",
+     "summary.json": "a795a72202de3914df2432873b98eb4f2ec6b88afb4393f6f7d98bc9bbcef7d0"
+    },
+    "full-2-druid-4": {
+     "config.txt": "21631d1195d9ea8a98483cd124dcfa64669d1ccb20e80b0ebe9530914ab51f46",
+     "keys.log": "1b353537d61f93d903db94a66e52756daf70ca43d8e620de0a6e8fed5f0f9d1f",
+     "messages.log": "053f73dfc54b8d704bd6c81dca9411d6651350ac8f28763452ffbe2e52d5f387",
+     "state.log": "57535ef527c2fdded75f7879eb4e100add7986a58e5a46859f0c2b23d21b72b2",
+     "summary.json": "f65705fefb706b9486fc9c14049901b6f8f892824dde410004b2a28146c0ac50"
+    },
+    "full-3-priest-0": {
+     "config.txt": "f25c1d61cf7ec8b89d850f87567b58d1348c7a3922b6fa8525ad2e17da0e9f61",
+     "keys.log": "379d35933ed6502d47253207ad58503b35fe4482c3cead7ee7d8c5c2ca23f253",
+     "messages.log": "25bc6f4196c74f9dcb850b8fbdc6ad995c8a3316001f3b1ef38de86a563ca5fd",
+     "state.log": "ae9c7e1e715236bbda374ca5ddc36be4516d1b4dc6b312c80c0ba0c028449bf2",
+     "summary.json": "20848a6b2c3bb1e476086eb6df860c721ee6dbeb759bd9a4e0bccecf7c7bb747"
+    },
+    "full-3-priest-1": {
+     "config.txt": "f2e317ce07dc1bbf144fe1d6a29ea11cf5ec891118bb91bd01f4abbc6f239c3f",
+     "keys.log": "a48f1c9145414dbe4386e508e5ca5679c10dd1e309942a41af7e4e4474a84e2d",
+     "messages.log": "0c66cad66082cae4772fe825ef3208d4387394737a756d4f49ef8790878f5431",
+     "state.log": "0a47490f632e0b3ad4ee29c388e334c966fcf4ac0a357f036f68b08e2eb59f19",
+     "summary.json": "ea496440b9946ea9ef05e5f458c20c780dfbaa7ecad4f87da23d08e77c8a2d9c"
+    },
+    "full-3-priest-2": {
+     "config.txt": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5",
+     "keys.log": "31d2b0b746281d62f23727b14975bac45e967bb0665ecc808d63255993c23502",
+     "messages.log": "4bce9f97aaeb3d798b90a065d40bd25928db92e10e6e28e7a2842983e13f0ade",
+     "state.log": "fd7b19c1205390a8c8ae8e2885de3badf715108e56d9578fe22b3d5129e7b05f",
+     "summary.json": "54907b43cae9f4cdcae91fe0e845f7cc95bbc8f1c131e015449534142ece7757"
+    },
+    "full-3-priest-3": {
+     "config.txt": "603bb9eeb0bd5378955bd4cbc73c7bef664b17c8f7ef624f6df586d185406354",
+     "keys.log": "0f66110cc0687ee27ef1edecc931a3eb9029008513f9f78041d90a5fb7163550",
+     "messages.log": "fc5efcdeaa5b858833af36b4eff6e4f900a1ab40f2867babf4d033968bf378fc",
+     "state.log": "cf0cbe9ee65186f5524118d8c3660342e97591030769e03ab6031dbb6e5bb87f",
+     "summary.json": "aa5a1a37300df4356464a7ab7bf454e70e2ee1e195ba5c7211f4fbf562769ef0"
+    },
+    "full-3-priest-4": {
+     "config.txt": "b8c77b5f78cd80ffa3f25651d9bddf8b1f7bb6e298f460d2cc679825ce0f61a4",
+     "keys.log": "abd54f34fe5a0986a88820ba9b78ec3492e8c228345712782ef7c5eabd259fe5",
+     "messages.log": "e8d1cd646a94d3e3b8379b08371d34f45593bc462b54cea8789882b24763e0c6",
+     "state.log": "3c074b3c2ef27fafe450abe14601d172adb86f54e70f90fed75836b2a0d18b3a",
+     "summary.json": "821dddb0dbf5c195488ec969a0ee82e6d7d97213d6d456a5406635ee43c7ccb0"
+    },
+    "full-4-necro-0": {
+     "config.txt": "58444dd1729ca4064b612f6b4e0fb813fb3b69ad38490dd581d7c22970724d0c",
+     "keys.log": "d09cb01382534138c337e986c581b703cd5617f01292108fe861076c8f4463b4",
+     "messages.log": "c9a707ed23c0e6aec4ba470a0d1502a8f24aa449e78faa32b6216c21173c3b89",
+     "state.log": "c03b17037094048c731f565c09065ce55b12e90d9665d7e8f946892493b154b6",
+     "summary.json": "ac50f85df6975f2a1ae69870e31fd0fabbe9d94c606a04fd44192947d77ba3d2"
+    },
+    "full-4-necro-1": {
+     "config.txt": "f17966026bfb759248fa114e7b39e38aacb1bb48a10bc9faea418504d16c0762",
+     "keys.log": "f70d13b48c2a133e2bef86cd8bca8b70626147e1d48a0601d28e217e6b054b8d",
+     "messages.log": "3faddc157ff568e2799cb68aa6f059dbbee897e3df0e2931b620edb23eb32a72",
+     "state.log": "3b20266f04281a510ab7dee2533360e9f8c860d57596be634228490225904c13",
+     "summary.json": "00677202b946552589b1b2542dc76017d1bbb34a1ad7d0ff19db377989c2f759"
+    },
+    "full-4-necro-2": {
+     "config.txt": "5bdab35206ff0c91b00e66d05753cb45e6b2fe7d146c79664b45de69fabc68fc",
+     "keys.log": "7d08e9bb59d8a1043789e2cf9be2cf913c5612294bdb39b27aa8e2f0cbdf1ed3",
+     "messages.log": "e69678c927f121ca1e73d20a772e4689a34f6703e7e7a364457418da43470644",
+     "state.log": "eb7fdbb4896cd099a9cd75e625accf1974f4706ad3fe05b598964fa092356316",
+     "summary.json": "ed2e5cee7b83aeacae0386fb5701357ab32dc4a51bea83ca6e198c23a315e696"
+    },
+    "full-4-necro-3": {
+     "config.txt": "a386432300e282d953d72392cee6ccc48317fcd9326ad7000edb8811a36417b2",
+     "keys.log": "1c78d7d5d0652d9f5c3124b0c9effd0fdadf7bc60192b3ee43a03e0cb2ab5130",
+     "messages.log": "bc58c459fc76e63c77868f500796d418bd3da55448d058bcd1926fda5d8e616e",
+     "state.log": "415a854b6aaa411bb2d11f65e183aaafc65799e10d2630f96f842831b5ef18a1",
+     "summary.json": "37a7ff6d6f73085d89fdaf3fb03855d7c2ca20e682f7b995ce1253d0ee971854"
+    },
+    "full-4-necro-4": {
+     "config.txt": "77fe191e95748cf9a576b55c26f54dac8606e7cc62dfea7b3ed8b12cca35ae11",
+     "keys.log": "3fb2316bbc2bcbdfd6028c61e46e0fd1bae2623c5246bf00c0161744a264e845",
+     "messages.log": "4efbf706fc346c70119db3d34b6e89444a3b793845014ac831232669cdafe280",
+     "state.log": "5aedb1bedba8e7eb4fe79f5e8de7825655a066cd94433ee9805ea254433c8833",
+     "summary.json": "3c968033497e75299d43832a8a28ac13f0e5dd3d59e857db998a5868ee0d1971"
+    },
+    "full-5-paladin-0": {
+     "config.txt": "5ae4694ed60058f96d394f090027b6dc96db875adace65ff1d20fefdd0e00770",
+     "keys.log": "53808eda8834c18c27d59643e16d85ab9a67dc1ac821d66e4eb344f76b5e7a02",
+     "messages.log": "a647185382543b5ddb1f22191af784ab0f681c5347a56603f3ad1271c1d9e9e0",
+     "state.log": "28e28fea6096bda2a61c0da188b60c349d2af4eea410d1e818b14cb347272140",
+     "summary.json": "18e923e7c34c2d4ba5d02bd6c99328f56b41b9210ca661ed7ae2a67927d3f924"
+    },
+    "full-5-paladin-1": {
+     "config.txt": "f16502c8609a8832383b6baa277cf2709d2e630e28ff8655554f0047169a5484",
+     "keys.log": "ebbf9fe2b681a82fa756a8783c01330be3e931b53bf012f3cf1b46a58ac3ece2",
+     "messages.log": "6b8e45d0e27a79dfede8918121c2023e9f3d8b9321f29695b1b40e943ac107f8",
+     "state.log": "b23f9156d95d4c5e45e849a102ce1ee72cc58a99ad2c25bb71257982715d1d56",
+     "summary.json": "e9a6ebac9eda177a8c1b71752854d2a01f96e3e9428be57c19a5ace793e48650"
+    },
+    "full-5-paladin-2": {
+     "config.txt": "e538528f3a6c6916258ce59868d885c38122fd65bad6799968193d374091e0eb",
+     "keys.log": "9c6b52c395a71be7f4099c425acfb0c0780c3c933a743a523769f0a481bee008",
+     "messages.log": "eb9cae1cf21b6557e519cc460897da5735a9f9327aacb4c48854ad64f0d1a0aa",
+     "state.log": "c8b225000e80f07c08fe64b16fb7619c9e5cd48486275a50086788cf92c0cd7f",
+     "summary.json": "8e93ab038ccc61a58e385d40938f94416d0c348b1d9e3ea477de801f5df59950"
+    },
+    "full-5-paladin-3": {
+     "config.txt": "68769e90f395296bc327af893691f12259e3cc72ba38b0dc52b8dad7a8e8a75d",
+     "keys.log": "4ade13f44e3052625c15d359fbf3fbbf506e4c3dc1710504863000bf8b09c3f9",
+     "messages.log": "56480dd659dcb951a985584b488243a50bfe61fbd60d093552e50d50f5e17f93",
+     "state.log": "a7da0330f1a7771a2ff8ad7cda03d9fa1d2971623adf4110d9bb83e3b3c022ec",
+     "summary.json": "1d14c4440a6baf4f3eb85283d44f0da32acfc9c187f8dc050c79affa1207ccaa"
+    },
+    "full-5-paladin-4": {
+     "config.txt": "4806d58167916e298aabd55dde493fce7100780ffff2eec81e9f2e2e10ca1142",
+     "keys.log": "a87d41eb5dc306259cec1bdbf640b4fa5a5da6a4678d71c95dfe222763cffe0b",
+     "messages.log": "c6f2704b4e48e9153a60b0432ff895ba02913b016b9fc5d56ad520b4dde3705b",
+     "state.log": "d3b6c3f2c4d5948051a30d274aca53cef48d312e05b7ad76f842c77d89a31525",
+     "summary.json": "efbce3c9e7433370e3235fb886a14f35a344cb13b1cd8e525271b2eedd4f4c27"
+    },
+    "full-6-rogue-0": {
+     "config.txt": "98bed1fd140276a90bfd4d8004f2513b249e619c2e8630466cf7364bdaa8de18",
+     "keys.log": "36cc40b02fe7059f30515584bf22aea2e8a4549546a98fedf2b3f4eb733d8366",
+     "messages.log": "e5bb2a7dd524e5c32e0fdcd0780cb76f350113a2009aaf29b30d2ce519fc6a28",
+     "state.log": "0d9faabf75e92b21ec4388a6e19564e7719e2316a38f057537102ad57ee2666d",
+     "summary.json": "b6dff4785269ea1981c9023378698a9075817f1d314d64a8a06adb7eb829d1cb"
+    },
+    "full-6-rogue-1": {
+     "config.txt": "f3594a1f035856e33834a6cfda1f1f7218bf75e0f6be0fd50fd77e14119ef42c",
+     "keys.log": "6c0613849ef16ddebcccdc4df9f63e8f36552473fdddbc11040bef2b84db8e7f",
+     "messages.log": "b3a04d169ccc1d6b89835aeb4e46959c77e35d253cf43113dc58de8a0f2ad5da",
+     "state.log": "fb3845875e465eed496f7790d8d0dc42ca2c06a1942eb32bc3a07207e0ca77b3",
+     "summary.json": "15ee4a228c7719cd1565594350a359723dbc020d3ccd464c52deabba38890540"
+    },
+    "full-6-rogue-2": {
+     "config.txt": "85c69abf53d5871d603d39b2ce7b8e1e728d3a582081fbab333833e6b537b56c",
+     "keys.log": "bc2647ec6af23e6f8e8b41c5c839fa9f2d17c70b898152e866de504cb5399b84",
+     "messages.log": "679fdbef16a43bcd890fbc51c7d2cb352dfefbf00b07a9791aeb6d14d9689fd4",
+     "state.log": "826ced139a4c4e865b796705cf1bd7a39df61de741a58c313280b7b54a403095",
+     "summary.json": "a2e259dbf61e5f1f9c1ca40404b0d37d603245a24d5208151f321136c3bd55d7"
+    },
+    "full-6-rogue-3": {
+     "config.txt": "f08e6e0455411e3053a5b700af9053cd722eb753c352d33efb5ebd5caf17f76a",
+     "keys.log": "8bbfc012915dad0b1a8b002d96fc9f55c5465147674999e3cd7d311b10036ee2",
+     "messages.log": "4b28d9b1241365d15b0359f9681a05505750e4dfaf0a8a92375bedd43274eda7",
+     "state.log": "876962233b43252591692fd71f6a75ec58e8bd2c347a5fb40bbb51d81ebd7b7b",
+     "summary.json": "c1a07c155790191fbc4e6144977fa75076f1c554f4b3e10aea57a018eca61a6b"
+    },
+    "full-6-rogue-4": {
+     "config.txt": "1f0a924770ddd4599ca1bb37c4e561efe338773c4afbc41fd12ae504ae71d8ec",
+     "keys.log": "7e4d4fd842bb7559b18fb9807c704a51359829e8954c552000cea6cd0a0eee6b",
+     "messages.log": "2490115f621fea76b48c9da83fa73cf1e05794d5f2bf7705632a9c715e3c3523",
+     "state.log": "5ffb0b165274b6aefd43b3d061a2ce0a2e615be71b3045fb76d54c49d27be90b",
+     "summary.json": "75c429496c6b3e440fd957c43d90d6f85b5e7fae2ff55d75719879382dfcc78e"
+    },
+    "full-7-ranger-0": {
+     "config.txt": "0446575bdd3cc07b07ae50d63c77be334613e03ac403be393ec3ccba401cbb86",
+     "keys.log": "3f6f604a174d282d909bef0a4d00ad483d262268f0920c81f0f587333b1fd933",
+     "messages.log": "1282e291318e669658b48d47bf9c4413a990f2730ed4096eb3716e2b6b0c43e8",
+     "state.log": "62f4349672de9f81e7a0c14a461f3866c38c5bd5b1d486fe5dde403b74752bbe",
+     "summary.json": "e056428d570c234d6dbea59560f3389d06f3a38df6ac6bfeec3b15404a00e8bf"
+    },
+    "full-7-ranger-1": {
+     "config.txt": "e699c15de43a6d273d8e2ac0cb77e4331807d0dbf88ce3c6da097d8f70436671",
+     "keys.log": "4ddd036805c124c0ef7811fcf6955f8fa9bcabc89112b37e372b8ff8b4507784",
+     "messages.log": "a77c65426d8d24c6076368462ef954a1a92b7084bacafe028f37abf3570622bc",
+     "state.log": "14b6ee5cbd27e8d618aeef62fb9f268b06c34239f41bb98c0d559a4c620bc9b1",
+     "summary.json": "52c519e0408bf95e1e0e728376a57a1dca36cb7c8014f7a72def4432e0025412"
+    },
+    "full-7-ranger-2": {
+     "config.txt": "798354512b8dbe825b8f6fb46c24660b50f3f75de529807f9a4bd1a00deed415",
+     "keys.log": "3942e3cb226eea265d99f4da5f335fac099e7388bf09ede9746d7026e3a580b0",
+     "messages.log": "eac68d4b08cfcb5bb97a5729af6725cd8d1c8c591bfa342d40655403287b669e",
+     "state.log": "11d0a597aab514743428c97152a9b196f9cc03186de35187aa2b17ed619e29e6",
+     "summary.json": "7514232a4e3213917c15a5913286a9d1a2d65bda77865a8ae73e04b87ca4b927"
+    },
+    "full-7-ranger-3": {
+     "config.txt": "5f11346e40ebe4c5f5625f9eaa20cafb4a5da60cd38006fd3b93602848d46cf2",
+     "keys.log": "2dcf0e57f8ef947acf1ada7662e891e0c5ce65a53c19a7c8b3ad199f897d2586",
+     "messages.log": "47ea6d98a31920f57f58c8ca1f55ec2358766e0ad976dc2f7d14f781a65cb712",
+     "state.log": "781ba137529d7f84bcc3d7d79a391b51c6397acf67659299312583a84e16b114",
+     "summary.json": "96a0bc65ba04aaf5b9413c1353e190a7c3f075a7a537a40a9685c7fdcce12de8"
+    },
+    "full-7-ranger-4": {
+     "config.txt": "3c2fc499e285142fa59b9c000871db73d33a4156da77314fac4d89cf753e322b",
+     "keys.log": "4ba116ee25ab4324b5fcac6d13832deec709cc3dcf531e2bbc39bd26b1741b9a",
+     "messages.log": "c4a4fbe8632680cfcbf4bd76591296c76c465827c29b8f03686933805121f775",
+     "state.log": "1918e0cf2661d09d403c2480e116cad1eceef95b2dfa03b7d9771e12ca0f5b04",
+     "summary.json": "14d50baa59ad9a3ad061c421ee6606b6644039df656f88638048a106fb69d03e"
+    },
+    "full-8-blackguard-0": {
+     "config.txt": "8eedb3d22ab5fd478f8b1de98d78ba2f37ae4e0e0ee6984fbc1bc51d64d3db0a",
+     "keys.log": "a95346484768dab5f72ff48f2b41a3cfbbb83f63f52ad95ed517088223936158",
+     "messages.log": "b018237575bc1b9024fc582cdc56081decfecb3c53c5404135eb54d4ee6e8e32",
+     "state.log": "915b3f3751e48bc8f5f927a7ea04d71bc97055f5be7f4fce8e26dc4c5da6be93",
+     "summary.json": "cec46b94e74efc8269a9392406694c171ea62d26bf5858141b691c363f0de395"
+    },
+    "full-8-blackguard-1": {
+     "config.txt": "ce73be440e0a35a70e8a2dcc767c6b6a9e72d63d33d304b52afedbc21df2a5f1",
+     "keys.log": "dedb21f28ea6764363bb9c02248f307922a57f1b44b1e6a8ee4926e69a00c73c",
+     "messages.log": "2496319aeb32c133ca846498ce63b2ebe5b195006bc456b48641d61d4d9fb7ac",
+     "state.log": "1eb82b89981cd6369d570d70e823146b7fdf9e80a1e992ba912ca5b31b2106ae",
+     "summary.json": "d513e70c3be39042da75873aa763ad0193083af35bdfb1d7b4e0ce60fd14b735"
+    },
+    "full-8-blackguard-2": {
+     "config.txt": "584c21928863b8a949783769b982751ebeb7ba5f069bdb2c832d981216a9692e",
+     "keys.log": "26b14b29fa6206757eb830d67fad646671871eddd04453b7d47ba7e197ed41e6",
+     "messages.log": "a7bb14404d245d86660c958b176c3f66e0eada41d5147cd68ef5db24304c3187",
+     "state.log": "16a262cb0071eced0548c489efd418d725082f19352eaf92d8235d4b7ccfd409",
+     "summary.json": "5ebe7397d2b5e21503299fc14cab90dd3075b42b684531d66d88bf3beb3362a3"
+    },
+    "full-8-blackguard-3": {
+     "config.txt": "ac869ebcf1d6333c95de4c575e5a79dfabca4c90f906fb74ed49abdfbc6b580d",
+     "keys.log": "e9201a941189bb6d31cfbb919b747b1885d0195160207a383c0439eaa79a8d65",
+     "messages.log": "b3fe01dbcb16205df646d72885d6bf684cfd1a4e847c433de4b11416a4476c34",
+     "state.log": "1a56ffce002276ec05fb4d6547fa7b6fab807bd70c4944c3653b41b7e1a3dc7c",
+     "summary.json": "916b707e56bbf1b0bc4b80eb7b8cb38aeafcb9afc3537f12521bcb3fe99594b0"
+    },
+    "full-8-blackguard-4": {
+     "config.txt": "fb5056645d230d47c7950fa4233fef3f8a6596db0473debef8c678ec3911d482",
+     "keys.log": "0db36eee087249c9ef3f5a23f69cabfd14678fb948aa29fe6a71ef2b03e35488",
+     "messages.log": "401bbbae501f313590bb12bb3065c9c42e9d61f158e398e830c8a982718e9cbf",
+     "state.log": "3ee6558c711634f5d7ac36f3d2c5729a8199eb5dfd79d11b3cbfacb702531f3d",
+     "summary.json": "0e8fe7d483e358fd0119aa9350853a735ded6e408b57a15a899c13444d575480"
+    }
+   }
+  },
+  "smoke": {
+   "manifest": {
+    "binary": "/workspace/borg-rs/build/rust/game/angband",
+    "binary_cmake_borg_impl": "rust",
+    "binary_elf_impl": "rust",
+    "binary_impl": "rust",
+    "binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "binary_sha256_end": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "borg_impl_env": "rust",
+    "borg_txt_sha256": "11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d",
+    "build_check": "ok",
+    "build_id_binary_sha256": "f99fe0af5c11423bac0c39b64e9a136b4f012e4ec3559a368f88d2bb84c9734e",
+    "build_id_built_utc": "2026-11-13T16:47:05Z",
+    "build_id_cc": "cc (Debian 12.2.0-14+deb12u1) 12.2.0",
+    "build_id_git_dirty": "no",
+    "build_id_git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "build_id_impl": "rust",
+    "build_id_inputs_dirty": "no",
+    "build_id_rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "build_id_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkout_source_sha256": "62d09c9253264684d4f67aea8bdc266b42e899197a4d7ca838a010e553afe44b",
+    "checkpoint_every": "0",
+    "finished_utc": "2026-11-13T16:50:12Z result=OK",
+    "git_dirty": "no",
+    "git_rev": "fe368224d570b15944c4f9b28d17190d472a3db9",
+    "impl_check": "ok",
+    "jobs": "2",
+    "overrides": "none",
+    "run_config.smoke-mage-2": "- d60d27905fe3a3259937f2fcd71c049179d523d2065f1c2bbaee55a29e65bb11",
+    "run_config.smoke-priest-3": "- 86c1295633033d2783d802782bf7d8aaede3dcb9340fdd42ec3a51fa97e59414",
+    "run_config.smoke-warrior-1": "- 766d4b11ce03827df119b911aa898d3efdb38a74c69b237e1ed93ed43284f3ee",
+    "run_timeout_seconds": "0",
+    "save_root": "/workspace/borg-rs/harness/saves",
+    "started_utc": "2026-11-13T16:47:12Z",
+    "suite": "smoke",
+    "suite_sha256": "b895f144088de8e502c6ad83768b2a9e260cb69a8f1a92ba85d98e504d4910d2"
+   },
+   "runs": {
+    "smoke-mage-2": {
+     "config.txt": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65",
+     "keys.log": "adfc8bedd55060a2304930672e3766c1bb0ad75565e6fb6baad95b1b023f2a0b",
+     "messages.log": "25dc872ddbc2a38cce4ae4fbeed265f9b54d4d51e7872b106206536de7bfbe67",
+     "state.log": "d7f6ea04cc388441edb3b131bb21bd71f595ad801920bf58a2dea0d7c763dc5d",
+     "summary.json": "510f48a157797fcc78644ef1a1e5d82309362b8ca97888e5838f9f21a499bdd6"
+    },
+    "smoke-priest-3": {
+     "config.txt": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5",
+     "keys.log": "d4021d533f8ad27b515a5c427d9f9e6865964466e2358e38d812e21afe8e750f",
+     "messages.log": "943bca96861a3c188be2024c5466fe80ee920f161d85f9578bee5e0a8092d1cf",
+     "state.log": "41b13ce721bbac56cb965ec6691218ebb9f3f866ee0964a739adf3d670cc64ee",
+     "summary.json": "b0c79bac1b231c6d0ca82d2e95e03ecdf12ef4f2f68bcf09f36122633525c802"
+    },
+    "smoke-warrior-1": {
+     "config.txt": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f",
+     "keys.log": "c58c9025ce55109569aac0fb7bbe42b100a2c017bb84b0a8efcde62861bd5cd4",
+     "messages.log": "741f1904b46597579b9df81a41dc9667b0f4b90aea0c6f6b2527a08b75265376",
+     "state.log": "fd92c287296f4d0de9c6b08e8777c93230b5302d73a9eb4fb26a2e98ac15c4dd",
+     "summary.json": "71139a2c5677121e2603bf6de301b9895ada1afbe4b220ed54e821d068faabcb"
+    }
+   }
+  }
+ }
+}

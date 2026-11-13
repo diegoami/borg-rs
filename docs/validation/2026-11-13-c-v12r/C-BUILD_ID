@@ -1,0 +1,9 @@
+impl=c
+git_rev=748968da0a31f58d3a246634b0954b2344cbc1e0
+git_dirty=no
+inputs_dirty=no
+source_sha256=28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231
+binary=/workspace/borg-rs/build/c/game/angband
+binary_sha256=2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f
+cc=cc (Debian 12.2.0-14+deb12u1) 12.2.0
+built_utc=2026-11-13T14:39:02Z

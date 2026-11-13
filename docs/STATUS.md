@@ -66,10 +66,18 @@ upstream form of the emergency swap in `borg_item_wear.rs`. Record:
 [adoption/c-v12r](adoption/c-v12r/README.md); `docs/c-bugs.md` marks the
 corrected findings.
 
-Validation: the C and Rust roles are byte-identical on the retained
-suites, the Rust binary links no C Borg, and the Rust tests and clippy are
-clean. Receipt:
+Validation: **70/70 runs identical** between the C and the Rust role on
+keys, messages and state (smoke 3/3, full 45/45, classes 16/16, the six
+review config runs 6/6); the Rust binary links no C Borg; 122 Rust tests
+pass (one existing ignored); the seven clippy findings are the ones that
+already exist on main with this sandbox's newer toolchain, and the carry
+adds none. Receipt:
 [docs/validation/2026-11-13-c-v12r](validation/2026-11-13-c-v12r/README.md).
+
+The import changes engine behaviour, so the standing C reference (recorded
+on the `e473720ed` engine) no longer describes the Borg: the new C build
+matches 0/45 of `harness/reference/full`. That is the expected consequence
+of the import, and the standing reference is kept unchanged as history.
 
 The carry is author-validated and awaits independent review; the v12R tag
 decision remains with the owner.
