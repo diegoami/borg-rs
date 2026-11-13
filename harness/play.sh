@@ -1,12 +1,26 @@
 #!/usr/bin/env bash
 # An interactive session: the Borg plays the dungeon, the player plays the town.
 #
-# Usage: harness/play.sh OUTDIR [CHARACTERS] [FLAGS]
+# Usage: harness/play.sh OUTDIR [CHARACTERS] [FLAGS] [OPTIONS]
 #
 #   OUTDIR      where the session is recorded (it must not exist)
 #   CHARACTERS  how many characters to play (default 1)
 #   FLAGS       NAME=VALUE rewrites one line of harness/borg.txt, the way
 #               run.sh's config flags do: "NAME=VALUE,NAME=VALUE".
+#
+# Options (X11 only):
+#
+#   --font-size=N  the font size in pixels (default 36). The font is a
+#                  scalable one, so the size is a number, not a name from a
+#                  fixed list.
+#   --font=NAME    the X11 font name to use instead of the scalable default
+#   --cols=N       the main window's width in cells (default 80)
+#   --rows=N       the main window's height in cells (default 30)
+#
+# The window's pixel size follows from the font's size and the cell count,
+# so a big font wants a small cell count to stay on the screen: 80x30
+# cells at 36px is about 2900x1100. The window can be resized in the
+# window manager afterwards.
 #
 # The handover (`BORG_TOWN_PLAYER=1`): while the character is in town, the
 # Borg's input hook gives the keyboard back and the engine reads it, so the
@@ -41,30 +55,85 @@
 #
 # The font and the window size. The X11 driver's own default for the main
 # window is 10x20, the legacy bitmap font, at 80x24 cells - small on a
-# modern screen. ANGBAND_X11_FONT overrides the font for every window;
-# the default here is 12x24, the largest of the legacy bitmaps xfonts-base
-# ships. ANGBAND_X11_COLS_0 and ANGBAND_X11_ROWS_0 set the main window's
-# cell count; the default here is 120x40.
+# modern screen.
 #
-# Each is a default, not a requirement: a value already in the environment
-# wins, so an ANGBAND_X11_FONT=10x20 (or any other) is left alone.
+# The font is a scalable one (the "misc-fixed" family the X server carries),
+# so the size is a number the player chooses:
+#
+#   --font-size=N     the font size in pixels (default 36)
+#   --font=NAME       the X11 font name to use instead
+#   --cols=N          the main window's width in cells
+#   --rows=N          the main window's height in cells
+#
+# The window follows the font: the cell size is the font's size, so the
+# window's pixels are (cols * size, rows * size) plus the border. With
+# the default 120x40 cells at 36px the window is about 4300x1450, which is
+# wider than a 2560 screen - so the default cell count is smaller, and
+# the window is left to the player to resize.
+#
+# Each setting is a default and not a requirement: a value already in the
+# environment wins, so ANGBAND_X11_FONT, ANGBAND_X11_COLS_0 and
+# ANGBAND_X11_ROWS_0 are left alone.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMPL="${BORG_IMPL:-rust}"
 UI_MODE="${BORG_UI_MODE:-x11}"
 BIN="${ANGBAND_BIN:-$ROOT/build/$IMPL/game/angband}"
 [ -x "$BIN" ] || { echo "missing $BIN (run harness/build.sh)" >&2; exit 2; }
+
+FONT_SIZE="${BORG_FONT_SIZE:-36}"
+FONT_NAME="${BORG_FONT_NAME:-}"
+FONT_COLS="${BORG_FONT_COLS:-}"
+FONT_ROWS="${BORG_FONT_ROWS:-}"
+
+# The options are parsed before the positional arguments, so they can be
+# written in any order.
+ARGS=()
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --font-size=*)
+            FONT_SIZE="${1#*=}"
+            [[ "$FONT_SIZE" =~ ^[0-9]+$ ]] && [ "$FONT_SIZE" -ge 8 ] || {
+                echo "play.sh: --font-size must be a number >= 8" >&2; exit 2; }
+            shift;;
+        --font=*)
+            FONT_NAME="${1#*=}"
+            shift;;
+        --cols=*)
+            FONT_COLS="${1#*=}"
+            [[ "$FONT_COLS" =~ ^[0-9]+$ ]] || {
+                echo "play.sh: --cols must be a number" >&2; exit 2; }
+            shift;;
+        --rows=*)
+            FONT_ROWS="${1#*=}"
+            [[ "$FONT_ROWS" =~ ^[0-9]+$ ]] || {
+                echo "play.sh: --rows must be a number" >&2; exit 2; }
+            shift;;
+        --) shift; break;;
+        *) ARGS+=("$1"); shift;;
+    esac
+done
+set -- "${ARGS[@]+"${ARGS[@]}"}"
+
 if [ "$UI_MODE" = "x11" ]; then
+    # The scalable font: the X server carries "misc-fixed" at any size, so
+    # the size is the player's choice rather than a name from a fixed list.
     if [ -z "${ANGBAND_X11_FONT:-}" ]; then
-        ANGBAND_X11_FONT=12x24
+        if [ -n "$FONT_NAME" ]; then
+            ANGBAND_X11_FONT="$FONT_NAME"
+        else
+            ANGBAND_X11_FONT="-misc-fixed-medium-r-normal--${FONT_SIZE}-*-*-*-c-*-iso8859-1"
+        fi
         export ANGBAND_X11_FONT
     fi
+    # The cell count: the default keeps the window inside a 2560 screen at
+    # the default font size.
     if [ -z "${ANGBAND_X11_COLS_0:-}" ]; then
-        ANGBAND_X11_COLS_0=120
+        ANGBAND_X11_COLS_0="${FONT_COLS:-80}"
         export ANGBAND_X11_COLS_0
     fi
     if [ -z "${ANGBAND_X11_ROWS_0:-}" ]; then
-        ANGBAND_X11_ROWS_0=40
+        ANGBAND_X11_ROWS_0="${FONT_ROWS:-30}"
         export ANGBAND_X11_ROWS_0
     fi
 fi
@@ -124,6 +193,9 @@ for ((c = 1; c <= CHARACTERS; c++)); do
         echo "character=$c"
         echo "flags=$FLAGS"
         echo "native_recording=$RECORDING"
+        echo "font=${ANGBAND_X11_FONT:-<driver default>}"
+        echo "cols=${ANGBAND_X11_COLS_0:-<driver default>}"
+        echo "rows=${ANGBAND_X11_ROWS_0:-<driver default>}"
         echo "borg_txt_sha256=$(sha256sum < "$DIR/user/borg.txt" | cut -d' ' -f1)"
     } > "$DIR/config.txt"
 
