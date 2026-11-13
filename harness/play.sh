@@ -54,7 +54,7 @@
 #                 Borg makes no decision in town).
 #
 # The player quits the game when the character is done; the next character
-# starts then, in its own directory.
+# starts then, in its own directory. Each character starts a new game.
 #
 # The front end: the interactive front end this build has is X11 (there is
 # no terminal front end in the cmake build), so the game needs a display.
@@ -206,15 +206,17 @@ for ((c = 1; c <= CHARACTERS; c++)); do
 
     echo "play.sh: character $c of $CHARACTERS - CTRL-Z, then y, then z starts the Borg."
     echo "play.sh: the player has the controls in town; the Borg plays the dungeon."
+    # -u resolves the save path immediately, so it must follow -dsave.
     BORG_TOWN_PLAYER=1 \
     BORG_RECORD_DIR="$DIR/native" \
     BORG_TOWN_STATE="$DIR/state.jsonl" \
     BORG_TOWN_DUMP="$DIR/dump.jsonl" \
     BORG_TOWN_DUMP_INTEGERS="$DIR/dump.i32.jsonl" \
     BORG_OBJECT_LOG="$DIR/objects.log" \
-        "$BIN" "-m$UI_MODE" -uBorg \
+        "$BIN" "-m$UI_MODE" -n \
         -duser="$DIR/user" -dsave="$DIR/save" -darchive="$DIR/archive" \
         -dpanic="$DIR/panic" -dscores="$DIR/scores" \
+        -uBorg \
         || echo "play.sh: character $c ended with rc=$?"
     # The end of the run: the owner's feedback on it.
     bash "$ROOT/harness/feedback.sh" "$DIR"
