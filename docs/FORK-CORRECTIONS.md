@@ -227,18 +227,20 @@ the evidence channel without rewriting the original source-qualified receipts.
 not accepted, and it is off by default.** The owner has been told and the
 decision is theirs.
 
-The change: the store screen gives every ware a letter, and the letter only
-moves the cursor today - buying takes `g` (or `p`), the letter again, ENTER,
-ENTER. The new interface option `store_buy_direct` makes the letter buy the
-item straight away, as many as the gold allows, with no quantity prompt and
-no confirmation.
+The change: the store screen gives every ware a letter; pressing the letter
+selects the row and opens that ware's menu (*Examine*, *Buy*, *Buy one*), and
+*Buy* then asks how many (the default is one) and asks to confirm. The new
+interface option `store_buy_direct` makes the letter buy the item straight
+away: one of it - the same amount the old flow bought by default - with no
+question asked.
 
 - `angband/src/ui-store.c`: the store's `struct store_context` carries the
   menu's command keys; the option appends the list's letters to them, so the
   menu framework hands the key to the store's handler instead of turning it
   into a cursor move. The purchase path takes a `direct` flag, which skips
-  the quantity prompt and the confirmation. The knowledge (inspect-only)
-  menu is not touched.
+  the quantity prompt and the confirmation; the amount is the one the old
+  flow bought by default, so the option changes the keys and not the
+  purchases. The knowledge (inspect-only) menu is not touched.
 - `angband/src/list-options.h`: the option itself, at the end of the list,
   so no other option's index moves.
 - `angband/src/borg/borg-store-buy.c` and `borg-rs/src/borg_store_buy.rs`:

@@ -460,7 +460,6 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
         // up in the pack, and the pack is the only place they show up.
         crate::borg_object_log::log_acquisitions(st);
 
-
         key.type_0 = EVT_NONE;
         return key;
     }

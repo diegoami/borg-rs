@@ -12,20 +12,22 @@
 //!
 //! ```text
 //! 0007 turn 142 depth 23 quaff a Potion of Healing
-//! 0008 turn 150 depth 0 buy a Scroll of Light at the General Store for 25 gold
+//! 0008 turn 150 depth 0 buy a Scroll of Light at the General Store, cost 25 gold
 //! 0009 turn 150 depth 0 acquire 2 x a Potion of Healing
 //! ```
 //!
 //! Three kinds of event:
 //!
 //! * `quaff`, `read`, `use`, `zap` - the Borg used an object it carried.
-//! * `buy` - the Borg bought an object, with the store and the price.
+//! * `buy` - the Borg bought an object, with the store and the item's cost
+//!   (the price the Borg judged it at, not the store's own price).
 //! * `acquire` - something appeared in the pack that was not there before.
 //!   This is the player's side of the session: with the handover the player
 //!   shops in town, and the pack is the only place that shows it. It cannot
-//!   tell a purchase from a pickup, so it says `acquire` and not `buy`.
+//!   tell a purchase from a pickup, so it says `acquire` and not `buy`. The
+//!   Borg's own purchases are not reported twice: they are the `buy` lines.
 
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
 use std::sync::atomic::{AtomicU64, Ordering};
@@ -48,6 +50,18 @@ fn log_file() -> Option<&'static Mutex<File>> {
         };
         if path.is_empty() {
             return None;
+        }
+        // A file that is used again does not repeat its numbers: the count
+        // starts where the file left off.
+        match std::fs::read_to_string(&path) {
+            Ok(text) => {
+                let lines = text.lines().filter(|line| !line.trim().is_empty()).count();
+                COUNT.store(lines as u64, Ordering::Relaxed);
+            }
+            Err(err) if err.kind() == std::io::ErrorKind::NotFound => {}
+            Err(err) => {
+                eprintln!("borg: {path_var} {path}: {err}");
+            }
         }
         match OpenOptions::new().create(true).append(true).open(&path) {
             Ok(file) => Some(Mutex::new(file)),
@@ -95,13 +109,24 @@ pub fn log_use(st: &BorgState, action: &str, item: &borg_item) {
     emit(st, action, &item_desc(item));
 }
 
-/// The Borg bought an object: the store and the price with it.
-pub fn log_buy(st: &BorgState, item: &borg_item, shop: &str, price: i32) {
+/// What makes two items the same kind of thing.
+type Kind = (u8, u8, i16);
+
+/// The Borg bought an object: the store and the item's cost with it.
+pub fn log_buy(st: &BorgState, item: &borg_item, shop: &str, cost: i32) {
     emit(
         st,
         "buy",
-        &format!("{} at the {} for {price} gold", item_desc(item), shop),
+        &format!("{} at the {}, cost {cost} gold", item_desc(item), shop),
     );
+
+    // The pack will show this purchase too; it is not an acquisition.
+    let mut pending = pending_buys().lock().unwrap_or_else(|err| err.into_inner());
+    pending.push(PendingBuy {
+        kind: (item.tval, item.sval, item.pval),
+        count: 1,
+        turn: st.borg.time.now,
+    });
 }
 
 /// Something new appeared in the pack.
@@ -142,11 +167,67 @@ fn current_pack(st: &BorgState) -> Vec<Slot> {
     out
 }
 
+/// Count every kind in a pack snapshot. The map is ordered, so the report
+/// is the same every time.
+fn counts(slots: &[Slot]) -> BTreeMap<Kind, u32> {
+    let mut out: BTreeMap<Kind, u32> = BTreeMap::new();
+    for (tval, sval, pval, qty, _) in slots {
+        *out.entry((*tval, *sval, *pval)).or_insert(0) += u32::from(*qty);
+    }
+    out
+}
+
+/// What grew between two packs: the kind, and how much.
+fn grown(old: &BTreeMap<Kind, u32>, new: &BTreeMap<Kind, u32>) -> Vec<(Kind, u32)> {
+    new.iter()
+        .filter_map(|(kind, count)| {
+            let before = old.get(kind).copied().unwrap_or(0);
+            (*count > before).then_some((*kind, count - before))
+        })
+        .collect()
+}
+
+/// A purchase the Borg made that the pack has not caught up with yet.
+#[derive(Clone, Copy)]
+struct PendingBuy {
+    kind: Kind,
+    count: u32,
+    turn: i32,
+}
+
+/// How many turns a purchase can wait for the pack to show it.
+const BUY_WINDOW: i32 = 3;
+
+/// The purchases the pack has not caught up with yet.
+fn pending_buys() -> &'static Mutex<Vec<PendingBuy>> {
+    static PENDING: OnceLock<Mutex<Vec<PendingBuy>>> = OnceLock::new();
+    PENDING.get_or_init(|| Mutex::new(Vec::new()))
+}
+
+/// Take the purchases of a kind that the pack has now caught up with.
+///
+/// A purchase that the pack never shows (the store refused it) is dropped
+/// when it gets too old to be one.
+fn take_pending(kind: &Kind, turn: i32, pending: &mut Vec<PendingBuy>) -> u32 {
+    let mut taken = 0;
+    pending.retain(|buy| {
+        if turn > buy.turn && turn - buy.turn > BUY_WINDOW {
+            return false;
+        }
+        if buy.kind == *kind && turn >= buy.turn {
+            taken += buy.count;
+            return false;
+        }
+        true
+    });
+    taken
+}
+
 /// Report what appeared in the pack since the last look.
 ///
 /// The first look only takes the baseline: the starting kit is not an
 /// acquisition. After that, every kind that grew is reported with the number
-/// it grew by.
+/// it grew by - less what the Borg bought (those are the `buy` lines).
 pub fn log_acquisitions(st: &BorgState) {
     let now = current_pack(st);
     let mut previous = previous_pack().lock().unwrap_or_else(|err| err.into_inner());
@@ -155,30 +236,87 @@ pub fn log_acquisitions(st: &BorgState) {
         return;
     };
 
-    // Count every kind in the old pack and in the new one.
-    let mut old_counts: HashMap<(u8, u8, i16), u32> = HashMap::new();
-    for (tval, sval, pval, qty, _) in old {
-        *old_counts.entry((*tval, *sval, *pval)).or_insert(0) += u32::from(*qty);
-    }
-    let mut new_counts: HashMap<(u8, u8, i16), u32> = HashMap::new();
-    for (tval, sval, pval, qty, _) in &now {
-        *new_counts.entry((*tval, *sval, *pval)).or_insert(0) += u32::from(*qty);
-    }
+    let turn = st.borg.time.now;
+    let old_counts = counts(old);
+    let new_counts = counts(&now);
+    let mut pending = pending_buys().lock().unwrap_or_else(|err| err.into_inner());
 
-    for ((tval, sval, pval), count) in &new_counts {
-        let before = old_counts.get(&(*tval, *sval, *pval)).copied().unwrap_or(0);
-        if *count <= before {
+    for (kind, count) in grown(&old_counts, &new_counts) {
+        // The Borg's own purchases are already logged: they are not
+        // acquisitions.
+        let bought = take_pending(&kind, turn, &mut pending);
+        let acquired = count.saturating_sub(bought);
+        if acquired == 0 {
             continue;
         }
-        let grown = count - before;
         // The description of the kind: the first slot that holds it.
         if let Some((_, _, _, _, desc)) = now
             .iter()
-            .find(|(t, s, p, _, _)| (*t, *s, *p) == (*tval, *sval, *pval))
+            .find(|(t, s, p, _, _)| (*t, *s, *p) == kind)
         {
-            log_acquire(st, desc, grown);
+            log_acquire(st, desc, acquired);
         }
     }
 
     *previous = Some(now);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn slot(tval: u8, sval: u8, pval: i16, qty: u8, desc: &str) -> Slot {
+        (tval, sval, pval, qty, desc.to_string())
+    }
+
+    #[test]
+    fn only_what_grew_is_reported() {
+        let old = counts(&[slot(1, 2, 3, 1, "a")]);
+        let new = counts(&[slot(1, 2, 3, 2, "a"), slot(4, 5, 6, 1, "b")]);
+        assert_eq!(
+            grown(&old, &new),
+            vec![((1, 2, 3), 1), ((4, 5, 6), 1)]
+        );
+    }
+
+    #[test]
+    fn the_report_is_in_a_fixed_order() {
+        let old = counts(&[]);
+        let new = counts(&[slot(9, 9, 9, 1, "c"), slot(1, 1, 1, 1, "a")]);
+        let report: Vec<Kind> = grown(&old, &new).into_iter().map(|(kind, _)| kind).collect();
+        assert_eq!(report, vec![(1, 1, 1), (9, 9, 9)]);
+    }
+
+    #[test]
+    fn a_purchase_is_not_reported_twice() {
+        let mut pending = vec![PendingBuy {
+            kind: (1, 2, 3),
+            count: 1,
+            turn: 10,
+        }];
+        assert_eq!(take_pending(&(1, 2, 3), 11, &mut pending), 1);
+        assert!(pending.is_empty());
+    }
+
+    #[test]
+    fn a_purchase_of_another_kind_is_kept() {
+        let mut pending = vec![PendingBuy {
+            kind: (1, 2, 3),
+            count: 1,
+            turn: 10,
+        }];
+        assert_eq!(take_pending(&(4, 5, 6), 11, &mut pending), 0);
+        assert_eq!(pending.len(), 1);
+    }
+
+    #[test]
+    fn a_purchase_that_never_shows_is_dropped() {
+        let mut pending = vec![PendingBuy {
+            kind: (1, 2, 3),
+            count: 1,
+            turn: 10,
+        }];
+        assert_eq!(take_pending(&(9, 9, 9), 20, &mut pending), 0);
+        assert!(pending.is_empty());
+    }
 }

@@ -73,7 +73,7 @@ and the file always agree:
 
 ```text
 0007 turn 142 depth 23 quaff a Potion of Healing
-0008 turn 150 depth 0 buy a Scroll of Light at the General Store for 25 gold
+0008 turn 150 depth 0 buy a Scroll of Light at the General Store, cost 25 gold
 0009 turn 150 depth 0 acquire 2 x a Potion of Healing
 ```
 
@@ -81,11 +81,13 @@ Three kinds of event:
 
 - `quaff`, `read`, `use`, `zap` - the Borg used an object it carried. Food is
   left out: eating is not a decision worth a line.
-- `buy` - the Borg bought an object, with the store and the price.
+- `buy` - the Borg bought an object, with the store and the item's *cost* (the
+  price the Borg judged it at; a store can charge its own price on top).
 - `acquire` - something appeared in the pack that was not there before. With
   the handover the player is the one who shops, and the pack is the only place
   that shows it. The log cannot tell a purchase from a pickup, so it says
-  `acquire` and not `buy`.
+  `acquire` and not `buy`. The Borg's own purchases are not counted twice:
+  they are the `buy` lines, and the pack does not report them again.
 
 The log never presses a key and never changes a decision, so a run with the
 log is the run without it, key for key. With the variable unset nothing
@@ -93,12 +95,15 @@ happens at all: no file is opened, no line is printed.
 
 ## Buying with one keypress
 
-The store's list gives every ware a letter, and today the letter only
-*moves the cursor*; buying takes `g` (or `p`), then the letter again, then
-ENTER, then ENTER. The new interface option `store_buy_direct` ("Buy an item
-by pressing its key in a store") makes the letter buy the item straight
-away, as many as the gold allows, with no quantity prompt and no
-confirmation.
+The store's list gives every ware a letter. Pressing the letter selects the
+row and opens that ware's menu (*Examine*, *Buy*, *Buy one*); *Buy* then asks
+how many (the default is one) and asks to confirm, so buying takes the letter,
+`p`, ENTER and ENTER.
+
+The new interface option `store_buy_direct` ("Buy an item by pressing its key
+in a store") makes the letter buy the item straight away: one of it - the same
+amount the old flow bought by default - with no question asked. It is the
+"Buy one" action without the confirmation.
 
 The option is off by default, so the stored reference runs and the control
 arm are untouched. It is a game option: it can be set in the game (the `=`
@@ -115,8 +120,10 @@ BORG_OPTIONS_FILE=/path/to/customized_interface_options.txt bash harness/play.sh
 ```
 
 The Borg uses the same shortcut when the option is on: it presses the list
-key and nothing else. The C and the Rust Borg do the same thing, so their
-keypress streams stay equal with the option on and with it off.
+key and nothing else. What the Borg *buys* does not change with the option -
+the same ware, the same amount - only the number of keys does. The C and the
+Rust Borg do the same thing, so their keypress streams stay equal with the
+option on and with it off.
 
 This is the *store's* side, and it is not the Borg's shop command: the Borg's
 own command ("which shop does the Borg visit") is a separate thing, in

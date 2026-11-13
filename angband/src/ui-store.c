@@ -597,9 +597,9 @@ static bool store_sell(struct store_context *ctx)
  * Buy an object from a store
  *
  * When direct is true, the purchase happens without the questions: the
- * quantity is the most the gold allows and the price is not confirmed.
- * That is what the direct buy (the store_buy_direct option) does, so the
- * key on the list buys the item and nothing else.
+ * price is not confirmed. The amount is the one single was asked for (one),
+ * the same amount the old flow bought by default, so the direct buy (the
+ * store_buy_direct option) changes the keys and not the purchases.
  */
 static bool store_purchase(struct store_context *ctx, int item, bool single,
 	bool direct)
@@ -1150,13 +1150,14 @@ static bool store_menu_handle(struct menu *m, const ui_event *event, int oid)
 		}
 	} else if (event->type == EVT_KBRD) {
 		/* The direct buy (the store_buy_direct option): the key on the
-		 * list buys that item right away, without the "Purchase which
-		 * item?" prompt. The option is off by default, so the keypress
-		 * stream of a run without it is the stream it has always been. */
+		 * list buys that item right away - one of it, the amount the
+		 * old flow bought by default, and with no question asked. The
+		 * option is off by default, so the keypress stream of a run
+		 * without it is the stream it has always been. */
 		if (OPT(player, store_buy_direct) && !ctx->inspect_only) {
 			int idx = store_direct_buy_index(m, ctx, event->key.code);
 			if (idx >= 0) {
-				bool purchased = store_purchase(ctx, idx, false, true);
+				bool purchased = store_purchase(ctx, idx, true, true);
 				ctx->flags |= (STORE_FRAME_CHANGE | STORE_GOLD_CHANGE);
 
 				/* Let the game handle any core commands (equipping, etc) */
