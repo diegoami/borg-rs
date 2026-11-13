@@ -115,7 +115,10 @@ town, so the Borg does nothing there at all: the command records the
 choice, and the Borg acts on it when it is in charge of the town again.
 The handover still updates the Borg's map from the screen on every key the
 game asks for, the way the Borg's own think does, so the store doors the
-player has seen are the ones the Borg can find later.
+player has seen are the ones the Borg can find later. The update also reads
+the game's messages, and the Borg notes each new one in the message log
+(`# <message> (+)`), so in town the player sees their own messages echoed as
+Borg notes - as they are when the Borg plays.
 
 An earlier version of this change also had the handover walk the character
 to the store (the Borg borrowing the keyboard one flow step at a time, and
@@ -136,7 +139,9 @@ rolled back.
   * `>` gives "The Borg chooses the shop itself again." and the choice is
     dropped;
   * `?` (the menu's help) lists the new keys:
-    "Commands '1'-'9', '+', '-', '>': the shop the Borg visits";
+    "Commands '1'-'9', '+', '-', '>': the shop the Borg visits" - the keys
+    the menu reads; with the town's eight stores, `9` answers "That is not a
+    legal shop.";
   * the character does not move: the command chooses the shop, it does not
     walk there.
 

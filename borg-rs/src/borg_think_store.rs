@@ -182,8 +182,8 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
         return false;
     }
 
-    /* A shop the human asked for in the Borg's command menu ("/1" and
-     * friends): it overrides the strategy's own choice and holds until
+    /* A shop the human asked for in the Borg's command menu ("1" .. "8",
+     * "+", "-"): it overrides the strategy's own choice and holds until
      * the Borg has been to that shop. */
     if let Some(shop) = st.borg.shop_override {
         st.borg.goal.shop = shop;

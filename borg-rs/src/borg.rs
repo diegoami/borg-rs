@@ -82,8 +82,8 @@ pub struct Borg {
     pub book_idx: [i16; 9],
     pub need_statgain: [bool; 5],
     pub amt_statgain: [i16; 5],
-    /// The shop a human asked for in the Borg's command menu (`/1` and
-    /// friends), overriding the strategy's own choice. `None` = the
+    /// The shop a human asked for in the Borg's command menu (`1` .. `8`,
+    /// `+`, `-`), overriding the strategy's own choice. `None` = the
     /// strategy decides. The Borg walks to that shop and the override is
     /// dropped once it has been there. Rust-only: the C borg has no such
     /// field and its command menu has no such command.
