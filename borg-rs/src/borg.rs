@@ -82,6 +82,12 @@ pub struct Borg {
     pub book_idx: [i16; 9],
     pub need_statgain: [bool; 5],
     pub amt_statgain: [i16; 5],
+    /// The shop a human asked for in the Borg's command menu (`1` .. `8`,
+    /// `+`, `-`), overriding the strategy's own choice. `None` = the
+    /// strategy decides. The Borg walks to that shop and the override is
+    /// dropped once it has been there. Rust-only: the C borg has no such
+    /// field and its command menu has no such command.
+    pub shop_override: Option<i16>,
 }
 
 #[derive(Copy, Clone, Default)]
@@ -442,14 +448,18 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     // The handover: in town, the player has the keyboard. The state is
     // read first, so the record is of the state the player is looking at.
     if player_in_town(st) {
+        // Look at the screen, so the Borg knows the town the player is
+        // walking through (the store doors, the walls, the player). The
+        // Borg needs that to visit a store on its own later.
+        crate::borg_update::borg_update(st);
         crate::borg_item::borg_find_all_items(st);
         crate::borg_town_dump::dump_town_state(st);
-        // The Borg does not run borg_update while the player has the
-        // town, and borg_update is where it notices a new level (the
-        // depth against old_depth). Record that it was in town, so the
-        // next level is a new level even at the depth it left from (up
-        // the stairs from DL1 and back down; recall up and down to the
-        // same max depth), and new_level restarts the town clock.
+        // borg_update above is where the Borg notices a new level (the
+        // depth against old_depth), so it already records the town here.
+        // The line below says the same thing once more, so the next level
+        // is a new level even at the depth it left from (up the stairs
+        // from DL1 and back down; recall up and down to the same max
+        // depth) should the update above ever move: redundant, harmless.
         st.borg.status.old_depth = 0;
         // A key the Borg queued before the handover must not be pressed
         // on the next level: generate_keypress hands queued keys out

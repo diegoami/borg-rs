@@ -129,13 +129,20 @@ fn leave(st: &mut BorgState) {
     borg_keypress(st, ESCAPE);
 }
 
+/// The negative-baseline arm is on (`borg_town_no_stores`): the town
+/// inventory strategy does nothing at all and the Borg never walks into
+/// a shop, not even the one a human asked for.
+pub fn town_strategy_disabled(st: &BorgState) -> bool {
+    st.cfg(BORG_TOWN_NO_STORES) != 0
+}
+
 /// The negative-baseline arm's gate, extracted pure so a test binary can
 /// link it: `borg_choose_shop`'s call graph reaches engine FFI symbols the
 /// test binary cannot resolve. Returns true when `borg_town_no_stores`
 /// forbids the visit; the shop goal is cleared so that no TownAction is
 /// ever executed (borg-rs#36).
 fn null_arm_gate(st: &mut BorgState) -> bool {
-    if st.cfg(BORG_TOWN_NO_STORES) != 0 {
+    if town_strategy_disabled(st) {
         clear_shop_goal(st);
         return true;
     }
@@ -173,6 +180,16 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
      */
     if null_arm_gate(st) {
         return false;
+    }
+
+    /* A shop the human asked for in the Borg's command menu ("1" .. "8",
+     * "+", "-"): it overrides the strategy's own choice and holds until
+     * the Borg has been to that shop. */
+    if let Some(shop) = st.borg.shop_override {
+        st.borg.goal.shop = shop;
+        st.borg.goal.ware = -1;
+        st.borg.goal.item = -1;
+        return true;
     }
 
     /* Forbid if been sitting on level forever */
@@ -372,6 +389,12 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
 pub fn borg_think_store(st: &mut BorgState) -> bool {
     /* Cheat the store number */
     st.think.shop_num = engine::player_square_shopnum() as i16;
+
+    /* The Borg is in the store the human asked for: the override has been
+     * served, so the strategy chooses the next shop itself. */
+    if st.borg.shop_override == Some(st.think.shop_num) {
+        st.borg.shop_override = None;
+    }
 
     /* Clear the goal (the goal was probably going to a shop number) */
     st.borg.goal.type_0 = 0;
