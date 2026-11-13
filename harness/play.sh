@@ -29,6 +29,15 @@
 #   state.jsonl   the states the character was in, in town, in the integer
 #                 record's shape (schema version 3: the state on its own,
 #                 with no decision in it).
+#   objects.log   the objects the run touched: what the Borg used, bought
+#                 and picked up, numbered. The same lines are printed on
+#                 the console while the run goes on.
+#   feedback.md   the owner's feedback on the run, asked for when the
+#                 character ends: how the run went, what they thought of
+#                 the buying strategy, and the corrections.
+#   corrections.jsonl
+#                 the corrections on their own, one record each, with the
+#                 number of the object log line they are about.
 #   dump.jsonl    the Borg's own town decisions (none: with the handover the
 #                 Borg makes no decision in town).
 #
@@ -83,6 +92,14 @@ for ((c = 1; c <= CHARACTERS; c++)); do
     DIR="$OUT/char-$c"
     mkdir -p "$DIR"/{user,save,archive,panic,scores,native}
     cp "$ROOT/harness/borg.txt" "$DIR/user/borg.txt"
+    # The game's options (the store's direct buy, for one) can be set from a
+    # file: the game reads customized_interface_options.txt when the player
+    # is made, so the file has to be there before the game starts.
+    if [ -n "${BORG_OPTIONS_FILE:-}" ]; then
+        [ -f "$BORG_OPTIONS_FILE" ] || {
+            echo "play.sh: no such options file: $BORG_OPTIONS_FILE" >&2; exit 2; }
+        cp "$BORG_OPTIONS_FILE" "$DIR/user/customized_interface_options.txt"
+    fi
     if [ ${#SET_SED[@]} -gt 0 ]; then
         sed -i "${SET_SED[@]}" "$DIR/user/borg.txt"
         for line in "${SET_CHECK[@]}"; do
@@ -106,9 +123,12 @@ for ((c = 1; c <= CHARACTERS; c++)); do
     BORG_TOWN_STATE="$DIR/state.jsonl" \
     BORG_TOWN_DUMP="$DIR/dump.jsonl" \
     BORG_TOWN_DUMP_INTEGERS="$DIR/dump.i32.jsonl" \
+    BORG_OBJECT_LOG="$DIR/objects.log" \
         "$BIN" "-m$UI_MODE" -uBorg \
         -duser="$DIR/user" -dsave="$DIR/save" -darchive="$DIR/archive" \
         -dpanic="$DIR/panic" -dscores="$DIR/scores" \
         || echo "play.sh: character $c ended with rc=$?"
+    # The end of the run: the owner's feedback on it.
+    bash "$ROOT/harness/feedback.sh" "$DIR"
 done
 echo "play.sh: done - $OUT"
