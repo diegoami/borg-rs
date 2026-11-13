@@ -132,5 +132,3 @@ for ((c = 1; c <= CHARACTERS; c++)); do
     bash "$ROOT/harness/feedback.sh" "$DIR"
 done
 echo "play.sh: done - $OUT"
-
-# exec-bit probe
