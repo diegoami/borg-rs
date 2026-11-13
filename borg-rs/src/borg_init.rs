@@ -1295,13 +1295,11 @@ mod tests {
     /// whose two values differ is a product choice, named here; every other
     /// new setting reproduces the behaviour the original C Borg had.
     ///
-    /// `borg_munchkin_by_class` is the one that differs: the built-in default
-    /// is FALSE, the original C Borg's behaviour, and the product's milestone
-    /// 8 decision (better-borg-c PR302, `fd683ced`) is carried by the two
-    /// borg.txt files instead. `docs/ZOO-INTERFACE.md` is the prose version
-    /// of this table, and the audit behind it.
+    /// `borg_munchkin_by_class` was enabled in the delivered configs for M8.
+    /// Owner direction on 2026-11-14 disables that override by default; it
+    /// remains available as an explicit opt-in. See `docs/ZOO-INTERFACE.md`.
     const NEW_SETTINGS: &[(&str, u8, i32, &str)] = &[
-        ("borg_munchkin_by_class", b'b', 0, "TRUE"),
+        ("borg_munchkin_by_class", b'b', 0, "FALSE"),
         ("borg_munchkin_class_depth", b'i', 6, "6"),
         ("borg_buy_strategy_default", b'i', 0, "0"),
         ("borg_buy_strategy_munchkin", b'i', -1, "-1"),

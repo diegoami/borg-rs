@@ -309,12 +309,11 @@ borg_munchkin_start = FALSE
 borg_munchkin_level = 12
 borg_munchkin_depth = 16
 
-# Munchkin start by class: with borg_munchkin_start FALSE, Warriors, Druids
-# and Rangers still take the munchkin start, stair-scumming at
-# borg_munchkin_class_depth. Every other class plays without it. Set this
-# FALSE to play every class as borg_munchkin_start says.
+# Optional munchkin start by class: when TRUE, Warriors, Druids and Rangers
+# take the munchkin start even with borg_munchkin_start FALSE, stair-scumming
+# at borg_munchkin_class_depth. Leave FALSE to disable this class override.
 
-borg_munchkin_by_class = TRUE
+borg_munchkin_by_class = FALSE
 borg_munchkin_class_depth = 6
 
 

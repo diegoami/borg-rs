@@ -51,7 +51,7 @@ of them is inert in an unconfigured run.
 
 | setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
 |---|---|---|---|---|---|---|
-| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **TRUE** | **yes, through the config**: a Borg that reads the delivered `borg.txt` plays Warrior, Druid and Ranger with the stair-scum start; a Borg that reads no `borg.txt` does not | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
+| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **FALSE** | no: class-based munchkin start requires an explicit opt-in | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
 | `borg_munchkin_class_depth` | int | 6 | inert: the rule is off, so the class depth never applies | 6 | no | M8, with the rule |
 | `borg_buy_strategy_default` | int | 0 | 0 is the original buying | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_munchkin` | int | -1 | -1 is every class, which is the original buying | -1 | no | borg-rs PR #26/#28 |
@@ -74,22 +74,14 @@ of them is inert in an unconfigured run.
 | `borg_town_light_depth` | int | 15 | inert while `borg_town_plan = 0` | 15 | no | with `borg_town_plan`; the trip model's light threshold |
 | `borg_town_food_trip` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the trip model's ration count |
 
-**One departure, and it is deliberate.** `borg_munchkin_by_class` is the only
-setting whose built-in default and configured value differ. The built-in
-default is FALSE - what the original C Borg did - and the product's milestone 8
-decision is carried by the two `borg.txt` files, which say TRUE. So:
+The built-in and delivered defaults now agree: `borg_munchkin_start` and
+`borg_munchkin_by_class` are both FALSE. No class gets a munchkin start
+unless the run explicitly enables it. Profiles still name their mode flags.
 
-- a Borg that reads **no** `borg.txt` plays the **original C Borg's**
-  behaviour;
-- a Borg that reads the **delivered** `borg.txt` plays the **product's**
-  behaviour;
-- every tool that runs a Borg **names the setting**, so the difference never
-  reaches a measurement by accident.
-
-The owner decided this on 2026-11-12, after the defaults audit.
-
-The C parser registers `borg_munchkin_by_class` and the C Borg reads it, so
-the two backends agree on both sides of that line.
+Historically, M8 enabled the class override in both delivered configs, and
+that choice was retained in the 2026-11-12 defaults audit. The owner reversed
+that default on 2026-11-14 after finding it active in interactive play.
+The optional class rule remains available in both C and Rust.
 
 ## The zoo contract
 
