@@ -220,3 +220,44 @@ prelaid ring changes normal gameplay keys/messages/state/final-save bytes when
 not independently prove recognition; their discriminating evidence is the
 observer's map/tracking state and its verified noninterference. This clarifies
 the evidence channel without rewriting the original source-qualified receipts.
+
+## Proposed: the store's direct buy (awaiting the owner's decision)
+
+**This is a new game feature in the C engine, so it is a fork decision. It is
+not accepted, and it is off by default.** The owner has been told and the
+decision is theirs.
+
+The change: the store screen gives every ware a letter, and the letter only
+moves the cursor today - buying takes `g` (or `p`), the letter again, ENTER,
+ENTER. The new interface option `store_buy_direct` makes the letter buy the
+item straight away, as many as the gold allows, with no quantity prompt and
+no confirmation.
+
+- `angband/src/ui-store.c`: the store's `struct store_context` carries the
+  menu's command keys; the option appends the list's letters to them, so the
+  menu framework hands the key to the store's handler instead of turning it
+  into a cursor move. The purchase path takes a `direct` flag, which skips
+  the quantity prompt and the confirmation. The knowledge (inspect-only)
+  menu is not touched.
+- `angband/src/list-options.h`: the option itself, at the end of the list,
+  so no other option's index moves.
+- `angband/src/borg/borg-store-buy.c` and `borg-rs/src/borg_store_buy.rs`:
+  with the option on, the Borg presses only the list key. C and Rust do the
+  same, so their keypress streams stay equal with the option on and off.
+
+What was checked: the option is off by default, and the smoke suite's
+parity is byte-identical between the C and the Rust build with it off and
+with it on; in a live session under a virtual X server, one keypress bought
+the wares with no prompt ("Accepted! You bought 40 Rations of Food for 120
+gold.").
+
+What was not checked: the option's own keypress stream against the stored
+reference runs (those are the option-off runs, and the option-off stream is
+unchanged); the direct buy in the other seven shops; the option in the
+knowledge menu (it is not wired there on purpose).
+
+If the owner wants this in the fork, the tracker issue for the engine's own
+process would be
+[neo-angband-tracker](https://github.com/diegoami/neo-angband-tracker) with
+the `upstream-c` label, in the conventions of that repository. Nothing has
+been filed there yet.

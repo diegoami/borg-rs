@@ -162,6 +162,10 @@ pub fn borg_think(st: &mut BorgState) -> bool {
     /* find all items currently in use */
     crate::borg_item::borg_find_all_items(st);
 
+    /* The session object log: what appeared in the pack since the last
+     * look. */
+    crate::borg_object_log::log_acquisitions(st);
+
     /* Record the state, if the state file is on and the character is in
      * town. A human-in-the-loop session needs this: the human's choices
      * come from the game's messages, and the states they were made in come

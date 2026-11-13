@@ -123,6 +123,14 @@ sed -e "s/^borg_respawn_race = .*/borg_respawn_race = $RACE/" \
     -e "s/^borg_cheat_death = .*/borg_cheat_death = $CHEAT/" \
     "${CONFIG_SED[@]}" \
     "$ROOT/harness/borg.txt" > "$OUT/user/borg.txt"
+# The game's options (the store's direct buy, for one) can be set from a
+# file: the game reads customized_interface_options.txt when the player is
+# made, so the file has to be there before the game starts.
+if [ -n "${BORG_OPTIONS_FILE:-}" ]; then
+    [ -f "$BORG_OPTIONS_FILE" ] || {
+        echo "run.sh: no such options file: $BORG_OPTIONS_FILE" >&2; exit 2; }
+    cp "$BORG_OPTIONS_FILE" "$OUT/user/customized_interface_options.txt"
+fi
 if [ ${#SET_SED[@]} -gt 0 ]; then
     sed -i "${SET_SED[@]}" "$OUT/user/borg.txt"
     for line in "${SET_CHECK[@]}"; do
