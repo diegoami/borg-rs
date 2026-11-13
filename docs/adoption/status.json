@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v11r_accepted",
+  "phase": "impact_v12r_author_validated",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -20,6 +20,30 @@
     "review_package_commit": "9929eb4eb16412ef2415a5711a3eecab92fa1288"
   },
   "adopted_batches": [
+    {
+      "id": "c-v12r",
+      "target_commit": "4e1b912cbf6d2b8a0243b19ebddfb2d26e7509f2",
+      "target_tag": "4.2.6-impact-v12",
+      "previous_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
+      "state": "author_validated_pending_independent_review",
+      "units": 3,
+      "consumer_carries": 1,
+      "official_import": true,
+      "upstream_head": "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
+      "retired_local_carries": {
+        "0001 (CBUG-0066 safer emergency swap)": "upstream bc67c099e",
+        "0002 (CBUG-0002 knockout reaction gate)": "upstream 9d062a64d, 8c75bdccb, 42cd156ac"
+      },
+      "tracking_issue": "https://github.com/diegoami/borg-rs/issues/57",
+      "receipt": "docs/validation/2026-11-13-c-v12r/README.md",
+      "record": "docs/adoption/c-v12r/README.md",
+      "series": "docs/adoption/c-v12r/series.json",
+      "rust_base_commit": "4ed3263ba340ce907484465f2d3addbdf5eab8ed",
+      "implementation_commit": "b938452",
+      "owner_direction": "carry BBC milestone 12 changes as milestone v12R (owner-directed, 2026-11-13)",
+      "note": "One consumer carry (0118 NEWKILL-95) and the official angband import since impact v11; the consumer's carries 0001 and 0002 are retired because upstream now carries that logic. The C blobs are the consumer's v12 files and the vendored engine moves to 42cd156ac; the Rust carries the same three Borg-side changes. No cohort or benefit claim.",
+      "rust_milestone_accepted": false
+    },
     {
       "id": "c-v11r",
       "target_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
@@ -442,9 +466,9 @@
       }
     }
   ],
-  "unchanged_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+  "unchanged_engine_base": "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "v11R is owner-accepted and merged as PR #30 at f4149b4cc84af7e4c680f90d4db9f61ba8b660f3. The v11R tag decision remains with the owner. The post-M10 family lane (PR #26 and PR #28) is merged separately, is opt-in and carries no derived tag and no benefit claim. No later C milestone is selected automatically.",
+  "next_action": "v12R is author-validated on branch claude/v12r-carry: the consumer's milestone 12 (0118 NEWKILL-95 and the official import) is carried in C and Rust. It awaits independent review and owner acceptance; no v12R tag is placed. The post-M10 family lane is separate and unaffected.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -468,15 +492,13 @@
     "tagging_delegated": true
   },
   "active_batch": {
-    "id": "c-v11r",
-    "starting_rust_main": "399c907950b1fd474ddfc1c5a5d4f86063778aac",
-    "state": "accepted_impact_v11r",
-    "record": "docs/adoption/c-v11r/README.md",
-    "receipt": "docs/validation/2026-11-10-c-v11r/README.md",
-    "branch": "claude/v11r-carry",
-    "merge_pr": "https://github.com/diegoami/borg-rs/pull/30",
-    "merge_commit": "f4149b4cc84af7e4c680f90d4db9f61ba8b660f3",
-    "owner_acceptance_date": "2026-11-11"
+    "id": "c-v12r",
+    "starting_rust_main": "4ed3263ba340ce907484465f2d3addbdf5eab8ed",
+    "state": "author_validated_pending_independent_review",
+    "record": "docs/adoption/c-v12r/README.md",
+    "receipt": "docs/validation/2026-11-13-c-v12r/README.md",
+    "branch": "claude/v12r-carry",
+    "tracking_issue": "https://github.com/diegoami/borg-rs/issues/57"
   },
   "m2_active_batch_record": {
     "id": "c-m2",
@@ -514,5 +536,6 @@
       "reconciliation": "Corrected on 2026-11-11: the owner-pushed annotated tag 4.2.6-impact-v2 (2026-11-08T04:20:01Z) and the docs/STATUS.md statement are the acceptance record; this mirror had not been updated.",
       "tag_target_commit": "383215189a20a3c47158c8e641d1b99723f84891"
     }
-  }
+  },
+  "engine_base_note": "The official import in the consumer milestone 12 moves the vendored engine base from e473720ed88a0f0c7ca66815cef3000eb4a38bc3 to the imported 42cd156ac9f95ddf4311e88dd7ad462292d6d1d6; borg-rs's own fork corrections (docs/FORK-CORRECTIONS.md) and harness hooks are unchanged."
 }

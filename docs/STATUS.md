@@ -46,6 +46,34 @@ variant tag is placed: the family lane remains an experiment with no benefit
 claim.
 
 
+## Carry better-borg-c milestone 12 as v12R (impact v12R)
+
+Owner direction (2026-11-13): carry the consumer's milestone 12
+(`4.2.6-impact-v12`, `4e1b912cb`) into borg-rs as **v12R**, the Rust
+counterpart of its one carry unit 0118 NEWKILL-95 and of the official
+angband import since impact v11. This is an explicit carry, not an
+automatic post-M10 queue; the family lane is untouched.
+
+The consumer retired its own carries 0001 (CBUG-0066 safer emergency swap)
+and 0002 (CBUG-0002 knockout reaction gate) because upstream now carries
+that logic, so v12R carries the same retirements. The C side is the
+consumer's v12 blobs for the seven changed Borg files, and the vendored
+engine moves from `e473720ed` to the imported `42cd156ac`, keeping borg-rs's
+own fork corrections and harness hooks. The Rust side is three
+translations: 0118 in `borg_flow_kill.rs`, the reaction gate on
+`borg.dont_react` (the separate `MsgState` copy is removed), and the
+upstream form of the emergency swap in `borg_item_wear.rs`. Record:
+[adoption/c-v12r](adoption/c-v12r/README.md); `docs/c-bugs.md` marks the
+corrected findings.
+
+Validation: the C and Rust roles are byte-identical on the retained
+suites, the Rust binary links no C Borg, and the Rust tests and clippy are
+clean. Receipt:
+[docs/validation/2026-11-13-c-v12r](validation/2026-11-13-c-v12r/README.md).
+
+The carry is author-validated and awaits independent review; the v12R tag
+decision remains with the owner.
+
 ## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
 
 Owner direction (2026-11-10): carry the consumer's milestone 11

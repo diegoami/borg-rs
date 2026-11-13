@@ -1,0 +1,142 @@
+{
+  "schema": "borg-rs/c-consumer-adoption@1",
+  "milestone": "c-v12r",
+  "title": "better-borg-c milestone 12 carried as v12R",
+  "target_repository": "https://github.com/diegoami/better-borg-c",
+  "target_commit": "4e1b912cbf6d2b8a0243b19ebddfb2d26e7509f2",
+  "target_tag": "4.2.6-impact-v12",
+  "previous_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
+  "previous_tag": "4.2.6-impact-v11",
+  "rust_base_commit": "4ed3263ba340ce907484465f2d3addbdf5eab8ed",
+  "review_issue": "https://github.com/diegoami/better-borg-c/pull/478",
+  "package_pr": "https://github.com/diegoami/better-borg-c/pull/478",
+  "tag_record_pr": "https://github.com/diegoami/better-borg-c/pull/480",
+  "upstream_import": {
+    "official_head": "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
+    "previous_engine_base": "e473720ed88a0f0c7ca66815cef3000eb4a38bc3",
+    "upstream_commits": [
+      "9d062a64d0f540b880976e7dd0bcd8a31583e0a7",
+      "d0f43cec1",
+      "5fc6cf976",
+      "619ff658b",
+      "f987eef82",
+      "727138d71",
+      "d26e723bf",
+      "41319eef9",
+      "8c75bdccbcb4d60d5aefad9d3b60ea3c0d3f1eed",
+      "d90bdfcc7",
+      "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
+      "bc67c099e32e26b5fdcbafecfae20326345dcb3c"
+    ],
+    "borg_commits": [
+      "9d062a64d0f540b880976e7dd0bcd8a31583e0a7",
+      "bc67c099e32e26b5fdcbafecfae20326345dcb3c",
+      "8c75bdccbcb4d60d5aefad9d3b60ea3c0d3f1eed",
+      "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
+      "d90bdfcc7"
+    ],
+    "note": "The consumer merged the official master past e473720ed; borg-rs applies the same window to its vendored engine tree."
+  },
+  "units": [
+    {
+      "ordinal": "0118",
+      "name": "NEWKILL-95",
+      "source": "diegoami/neo-angband-tracker#95 (CBUG-0079)",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/475",
+      "consumer_merge": "a39d23d8f",
+      "patch": "patches/0118-newkill-keep-wall.patch",
+      "c_files": [
+        "src/borg/borg-flow-kill.c"
+      ],
+      "rust_files": [
+        "borg-rs/src/borg_flow_kill.rs"
+      ],
+      "disposition": "carried",
+      "note": "borg_new_kill() no longer forces a newly seen monster's grid to floor/granite from the slot's previous race; the stale-race read goes with it."
+    },
+    {
+      "ordinal": "import/0001",
+      "name": "SAFERSWAP-0066",
+      "source": "diegoami/neo-angband-tracker#82 (CBUG-0066)",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/4",
+      "upstream_commit": "bc67c099e32e26b5fdcbafecfae20326345dcb3c",
+      "consumer_merge": "4e1b912cb",
+      "patch": "patches/0001-safer-emergency-swap.patch",
+      "c_files": [
+        "src/borg/borg-item-wear.c"
+      ],
+      "rust_files": [
+        "borg-rs/src/borg_item_wear.rs"
+      ],
+      "disposition": "retired_upstream",
+      "note": "The consumer's local carry is retired: upstream now compares the armour and weapon candidates by lower danger. Both candidates start at 9999, the early 'no appropriate swap' return is gone, and the lower danger wins with the weapon on a tie."
+    },
+    {
+      "ordinal": "import/0002",
+      "name": "KNOCKOUT-0002",
+      "source": "diegoami/neo-angband-tracker#14 (CBUG-0002)",
+      "consumer_issue": "https://github.com/diegoami/better-borg-c/issues/7",
+      "upstream_commits": [
+        "9d062a64d0f540b880976e7dd0bcd8a31583e0a7",
+        "8c75bdccbcb4d60d5aefad9d3b60ea3c0d3f1eed",
+        "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6"
+      ],
+      "consumer_merge": "4e1b912cb",
+      "patch": "patches/0002-knockout-reaction-reset.patch",
+      "c_files": [
+        "src/borg/borg.c",
+        "src/borg/borg-messages.c",
+        "src/borg/borg-messages-react.c",
+        "src/borg/borg-messages-react.h",
+        "src/borg/borg-caution.c"
+      ],
+      "rust_files": [
+        "borg-rs/src/borg.rs",
+        "borg-rs/src/borg_messages.rs",
+        "borg-rs/src/borg_messages_react.rs",
+        "borg-rs/src/borg_caution.rs"
+      ],
+      "disposition": "retired_upstream",
+      "note": "The reaction gate is unified on the borg struct field borg.dont_react; the static global borg_dont_react is removed and the reset in borg.c clears the field that borg_react() reads, so the knockout window is transient."
+    },
+    {
+      "ordinal": "import/engine",
+      "name": "OFFICIAL-IMPORT-42cd156ac",
+      "source": "angband/angband 42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
+      "consumer_merge": "4e1b912cb",
+      "patch": null,
+      "c_files": [
+        "src/cmd-cave.c",
+        "src/game-world.c",
+        "src/player-timed.c",
+        "src/player-timed.h",
+        "src/player-util.c",
+        "src/ui-command.c",
+        "src/ui-game.c",
+        "src/ui-mon-lore.c",
+        "src/ui-options.c",
+        "src/ui-signals.c",
+        "src/ui-term.c",
+        "src/ui-term.h",
+        "src/Makefile.src",
+        "src/Makefile.nmake",
+        "src/cmake/macros/WINDOWS_Frontend.cmake",
+        "src/main-cocoa.m",
+        "src/main-gcu.c",
+        "src/main-sdl2.c",
+        "src/main-win.c",
+        "src/tests/parse/ptimed.c",
+        "src/win/opendlg.c",
+        "src/win/opendlg.h",
+        "lib/gamedata/player_timed.txt",
+        "CMakeLists.txt",
+        "configure.ac"
+      ],
+      "rust_files": [
+        "borg-rs/src/headers/ui_term_h.rs"
+      ],
+      "disposition": "carried",
+      "note": "The vendored engine moves from e473720ed to the imported 42cd156ac: the complete-rest flag on timed effects, the command-queue flush on deep descent, the rest-command background marking, the interrupted-rest state, the terminal clear/fresh split and the Windows open dialog. borg-rs keeps its own fork corrections and harness hooks; the tree matches upstream 42cd156ac byte for byte outside those local deltas."
+    }
+  ]
+}
