@@ -38,12 +38,22 @@
 # The front end: the interactive front end this build has is X11 (there is
 # no terminal front end in the cmake build), so the game needs a display.
 # BORG_UI_MODE=x11 is the default.
+#
+# The font: the X11 driver's own default for the main window is 10x20, the
+# legacy bitmap font, and it is small. ANGBAND_X11_FONT overrides it for
+# every window; the default here is 12x24 (the largest of the legacy
+# bitmaps xfonts-base ships), and an ANGBAND_X11_FONT already in the
+# environment wins. Set it to 10x20 to go back to the driver's default.
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMPL="${BORG_IMPL:-rust}"
 UI_MODE="${BORG_UI_MODE:-x11}"
 BIN="${ANGBAND_BIN:-$ROOT/build/$IMPL/game/angband}"
 [ -x "$BIN" ] || { echo "missing $BIN (run harness/build.sh)" >&2; exit 2; }
+if [ "$UI_MODE" = "x11" ] && [ -z "${ANGBAND_X11_FONT:-}" ]; then
+    ANGBAND_X11_FONT=12x24
+    export ANGBAND_X11_FONT
+fi
 OUT="$(realpath -m "$1")"; shift
 CHARACTERS=1
 if [ $# -gt 0 ] && [[ "$1" =~ ^[0-9]+$ ]]; then CHARACTERS="$1"; shift; fi
@@ -54,7 +64,11 @@ if [ $# -gt 0 ]; then FLAGS="$1"; shift; fi
 mkdir -p "$OUT"
 
 # The native recording is an opt-in build (the C side's SUPPORT_BORG_RECORDING).
-if strings "$BIN" | grep -q "Cannot open recording"; then
+# The grep is not in a pipeline: `grep -q` exits as soon as it matches, which
+# kills `strings` with SIGPIPE, and under `pipefail` that makes the whole
+# pipeline look like a failure - a recording build would then be reported as
+# having no recording. The match is taken with a command substitution.
+if grep -qa "Cannot open recording" "$BIN"; then
     RECORDING=yes
 else
     RECORDING=no
