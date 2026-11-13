@@ -1,6 +1,9 @@
 # Phase 4 readiness: the Stay rules as the plan implements them, and the plan record (P13)
 
-Status: **draft, for owner acceptance** (2026-11-13). Epic borg-rs#36; the
+Status: **accepted** (owner, 2026-11-13): Part A as drafted, both literal
+changes intended and the Home a floor source; #37's four open questions as
+recommended; Part B with "displaced" = the runner-up and the stack class
+appended to the ware tuple; Part C's abort kept. Drafted the same day. Epic borg-rs#36; the
 phase is `docs/TOWN-INVENTORY-PLAN.md`, "Phase 4 - the plan". Where this
 document and the epic's decision log disagree, the log wins and this
 document is wrong.
@@ -9,13 +12,13 @@ Phase 4's entry criteria, and where each stands:
 
 | criterion | state |
 |---|---|
-| #37's Stay rules | **drafted** in #37's table; not yet accepted. Part A below is the table as phase 4 would implement it, reconciled with the decisions taken after it (B3, P1). |
-| the floors' infeasibility outcome | **decided** (B3, 2026-11-12): it falls back to #37's Stay rules - so it is settled once Part A is accepted. |
-| the record schema (P13) | **partly done**: #46 froze the integer projection at version 2 (the state and today's decision). P13 also wants the plan's decision, what it displaced, and replay from the record's own inputs. Part B drafts version 4. |
+| #37's Stay rules | **accepted 2026-11-13** as Part A below: the table as phase 4 implements it, reconciled with the decisions taken after it (B3, P1). |
+| the floors' infeasibility outcome | **decided** (B3, 2026-11-12): it falls back to #37's Stay rules, accepted with Part A. |
+| the record schema (P13) | **fixed 2026-11-13** as version 4 (Part B) on top of #46's frozen version 2. |
 | the sell-side suite, the shadow-plan mode | land *in* phase 4 (not entry criteria) |
 | (from the phase-3 re-review) the solver's refusal and reading `optimal` | to decide *in* phase 4; Part C |
 
-Accepting Parts A and B - as they stand or amended - is what starts phase 4.
+Parts A and B are accepted: **phase 4's entry criteria are met.**
 
 ## Part A - the Stay rules, as the plan implements them
 
@@ -135,7 +138,7 @@ Not entry criteria; recorded so that they are decided in the phase, not
 discovered after it:
 
 - **the solver's refusal**: past its packed score's fields it panics,
-  which the release profile turns into an abort. Proposed: keep the abort
+  which the release profile turns into an abort. **Decided 2026-11-13**: keep the abort
   (the game's inputs are far inside the fields) and record `guard = 3` if
   it is ever reached in a test build;
 - **reading `optimal`**: the plan treats `optimal = false` as information,
