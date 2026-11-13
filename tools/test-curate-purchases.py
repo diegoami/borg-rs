@@ -131,41 +131,103 @@ def test_the_frame_zero_message_replay_is_not_a_purchase():
 def test_the_real_session_matches_the_games_purchase_messages():
     """The end-to-end check: the purchases the curation finds are the
     purchases the game announced, at the same prices."""
-    session = os.path.expanduser("~/angbsession/1")
-    if not os.path.isdir(session):
-        print("skipped: no session at ~/angbsession/1")
+    corpus = os.path.expanduser("~/angbsession")
+    if not os.path.isdir(corpus):
+        print("skipped: no corpus at ~/angbsession")
         return
-    char_dir = curate.find_char_dir(session)
-    frames = list(curate.read_jsonl(os.path.join(char_dir, "native", "frames.jsonl")))
-    found = curate.purchases(frames)
+    bought = curate.curate(corpus)
+    assert bought, "no purchases found in the corpus"
 
-    messages = list(
-        curate.read_jsonl(os.path.join(char_dir, "native", "native-messages.jsonl"))
-    )
-    announced = []
-    for message in messages:
-        text = message.get("text", "")
-        if "You bought" not in text:
-            continue
-        if message["frame"] == 0 and message["turn"] == 0:
-            # The message log replay at startup: an earlier session.
-            continue
-        announced.append(text)
+    # Every session's purchases, against that session's own messages.
+    for session_name, session_path in curate.find_sessions(corpus):
+        for char_name, char_path in curate.char_dirs(session_path):
+            messages_path = os.path.join(
+                char_path, "native", "native-messages.jsonl"
+            )
+            if not os.path.exists(messages_path):
+                continue
+            announced = []
+            for message in curate.read_jsonl(messages_path):
+                text = message.get("text", "")
+                if "You bought" not in text:
+                    continue
+                if message["frame"] == 0 and message["turn"] == 0:
+                    # The message log replay at startup: an earlier session.
+                    continue
+                announced.append(text)
 
-    assert len(found) == len(announced), (len(found), len(announced))
-    # The prices: the game says "for N gold", the curation says the gold
-    # dropped by N.
-    import re
+            mine = [
+                b
+                for b in bought
+                if b["session"] == session_name and b["char"] == char_name
+            ]
+            assert len(mine) == len(announced), (
+                session_name,
+                char_name,
+                len(mine),
+                len(announced),
+            )
+            # The prices: the game says "for N gold", the curation says the
+            # gold dropped by N.
+            import re
 
-    prices = []
-    for text in announced:
-        match = re.search(r"for (\d+) gold", text)
-        assert match, text
-        prices.append(int(match.group(1)))
-    assert [f["price"] for f in found] == prices, (
-        [f["price"] for f in found],
-        prices,
-    )
+            prices = []
+            for text in announced:
+                match = re.search(r"for (\d+) gold", text)
+                assert match, text
+                prices.append(int(match.group(1)))
+            assert [b["price"] for b in mine] == prices, (
+                [b["price"] for b in mine],
+                prices,
+            )
+
+
+def test_a_corpus_root_finds_the_sessions_under_it():
+    """The corpus root holds one directory per session; the curation walks
+    them all and names each purchase after its session."""
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as root:
+        for session in ("1", "2"):
+            char_dir = os.path.join(root, session, "char-1")
+            os.makedirs(os.path.join(char_dir, "native"))
+            with open(
+                os.path.join(char_dir, "native", "frames.jsonl"), "w", encoding="utf-8"
+            ) as handle:
+                for f in (
+                    frame(1, 10, 100, ["2 Rations of Food"]),
+                    frame(2, 10, 80, ["2 Rations of Food", "5 Flasks of oil"]),
+                ):
+                    handle.write(json.dumps(f) + "\n")
+
+        sessions = curate.find_sessions(root)
+        assert [name for name, _ in sessions] == ["1", "2"], sessions
+
+        bought = curate.curate(root)
+        assert len(bought) == 2, bought
+        assert {b["session"] for b in bought} == {"1", "2"}, bought
+        assert all(b["char"] == "char-1" for b in bought), bought
+
+
+def test_a_session_directory_gives_that_one_session():
+    """Pointed at a session, the curation gives that session only."""
+    import tempfile
+
+    with tempfile.TemporaryDirectory() as root:
+        char_dir = os.path.join(root, "1", "char-1")
+        os.makedirs(os.path.join(char_dir, "native"))
+        with open(
+            os.path.join(char_dir, "native", "frames.jsonl"), "w", encoding="utf-8"
+        ) as handle:
+            for f in (
+                frame(1, 10, 100, ["2 Rations of Food"]),
+                frame(2, 10, 80, ["2 Rations of Food", "5 Flasks of oil"]),
+            ):
+                handle.write(json.dumps(f) + "\n")
+
+        bought = curate.curate(os.path.join(root, "1"))
+        assert len(bought) == 1, bought
+        assert bought[0]["session"] == "1", bought
 
 
 def main():
