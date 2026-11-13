@@ -20,10 +20,17 @@
 //!   bound `min(gold, the sum of every group's dearest option)`;
 //! * the **pack slots**: the Lagrangian sweep, a penalty `lambda` per slot
 //!   an option opens, binary-searched to the smallest `lambda` whose
-//!   solution fits (P15's recommendation; usually exact or within one
-//!   option, and not guaranteed exact - the solution says so);
-//! * the **weight**: a repair after the sweep - downgrade the option whose
-//!   loss per weight freed is least, until the carry allowance holds;
+//!   solution fits (P15's recommendation). The relaxation has a gap - a
+//!   tie at the critical `lambda` can drop every slot-opening option at
+//!   once, down to the empty plan - so the solver keeps the best
+//!   *feasible* set any `lambda` produced, and then **fills**: it adds or
+//!   upgrades, one group at a time, while every limit holds. It is still
+//!   not guaranteed optimal; the Lagrangian dual gives an upper bound on
+//!   the optimum, and [`Solution::optimal`] is true only when the value
+//!   reaches it;
+//! * the **weight**: a repair after the sweep - the change whose value lost
+//!   per weight freed is least, among those that keep the gold and the
+//!   slots within their limits, until the carry allowance holds;
 //! * the **ties**, deterministic: more usefulness, then less gold, then
 //!   fewer slots, then the earlier group's choice kept.
 //!
@@ -104,20 +111,34 @@ pub struct Solution {
     pub weight: i64,
     /// The slot penalty the sweep settled on (0 when slots never bound).
     pub lambda: i64,
+    /// The Lagrangian dual: an upper bound on the value of any set within
+    /// the gold and the slots (the weight is not in it). Meaningful only
+    /// when `gold_exact`.
+    pub bound: i64,
+    /// True when the value reaches `bound` with the gold unscaled: the set
+    /// is then provably optimal for the gold and the slots. False says
+    /// only that it was not proved - a sweep gap, a weight repair, or a
+    /// scaled purse.
+    pub optimal: bool,
     /// False when the gold had to be scaled (bound above [`GOLD_LIMIT`]).
     pub gold_exact: bool,
-    /// False when the slot limit could not be met (it was negative: the
-    /// dispositions must free room first) - nothing slot-opening is
-    /// bought then.
+    /// The set opens no more slots than the limit. False when the limit
+    /// was negative (the floors overfilled the pack): nothing
+    /// slot-opening is bought then, and the dispositions must free room
+    /// first.
     pub slots_met: bool,
-    /// False when the weight repair had to drop or reduce an option.
+    /// The set weighs no more than the carry allowance. False only when
+    /// the allowance was negative and nothing the plan can drop fixes it.
+    pub weight_met: bool,
+    /// True when the weight repair had to reduce or change an option.
     pub weight_repaired: bool,
 }
 
 impl Solution {
     /// The chosen options as (group, option), ranked: the most useful
-    /// first, then the cheaper, then the earlier group. The plan (phase 4)
-    /// executes the first and re-solves.
+    /// first, then the cheaper, then the fewer slots, then the earlier
+    /// group (B2 section 6 item 6). The plan (phase 4) executes the first
+    /// and re-solves.
     #[cfg_attr(not(test), expect(dead_code))]
     pub fn ranked(&self, groups: &[Group]) -> Vec<(usize, usize)> {
         let mut out: Vec<(usize, usize)> = self
@@ -129,7 +150,7 @@ impl Solution {
             .collect();
         out.sort_by_key(|&(g, o)| {
             let c = &groups[g].options[o];
-            (std::cmp::Reverse(c.value), c.cost, g)
+            (std::cmp::Reverse(c.value), c.cost, c.slots, g)
         });
         out
     }
@@ -213,6 +234,11 @@ fn totals(groups: &[Group], chosen: &[usize]) -> (i64, i64, i32, i64) {
     })
 }
 
+/// The packed score's fields (see [`Score`]): a selection's total cost
+/// must stay below 2^47 and its slots below 2^16.
+const COST_FIELD: i64 = 1 << 47;
+const SLOT_FIELD: i64 = 1 << 16;
+
 /// Solve: the chosen option per group under the limits.
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
@@ -222,15 +248,42 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         .iter()
         .map(|g| g.options.iter().map(|o| o.cost).max().unwrap_or(0))
         .sum();
-    let bound = limits.gold.max(0).min(dearest);
+    let gold = limits.gold.max(0);
+    let bound = gold.min(dearest);
+    // The packed score is exact only inside its fields: a wrong answer
+    // past them would be silent, so refuse instead.
+    let most_slots: i64 = groups
+        .iter()
+        .map(|g| g.options.iter().map(|o| i64::from(o.slots)).max().unwrap_or(0))
+        .sum();
+    assert!(bound < COST_FIELD, "solve: gold bound {bound} past the score's cost field");
+    assert!(most_slots < SLOT_FIELD, "solve: {most_slots} slots past the score's slot field");
+    assert!(groups.iter().all(|g| g.options.iter().all(|o| o.cost >= 0)), "solve: a negative cost");
     let scale = if bound > GOLD_LIMIT { (bound + GOLD_LIMIT - 1) / GOLD_LIMIT } else { 1 };
 
-    // The slots: the sweep, when the gold-only optimum does not fit.
     let slot_limit = limits.pack_slots.max(0);
-    let fits = |ch: &[usize]| totals(groups, ch).2 <= slot_limit;
+    let within = |c: i64, s: i32| c <= gold && s <= slot_limit;
+
+    // The sweep. Every lambda tried is a dual bound, and every feasible
+    // set it produces is a candidate: the best of them is kept, not only
+    // the one at the smallest fitting lambda.
+    let mut dual = i64::MAX;
+    let mut best: Option<(Vec<usize>, (i64, i64, i32))> = None;
+    let mut consider = |lambda: i64, ch: Vec<usize>| -> bool {
+        let (v, c, s, _) = totals(groups, &ch);
+        dual = dual.min(v - lambda * i64::from(s) + lambda * i64::from(slot_limit));
+        let fits = within(c, s);
+        if fits {
+            // More value, then less gold, then fewer slots.
+            let key = (v, -c, -s);
+            if best.as_ref().is_none_or(|(_, k)| key > *k) {
+                best = Some((ch, key));
+            }
+        }
+        fits
+    };
     let mut lambda = 0;
-    let mut chosen = dp(groups, bound, scale, 0);
-    if !fits(&chosen) {
+    if !consider(0, dp(groups, bound, scale, 0)) {
         // Above the largest option value, nothing slot-opening pays.
         let mut hi = groups
             .iter()
@@ -238,38 +291,42 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
             .max()
             .unwrap_or(0)
             + 1;
-        // (Computed only if the search never finds a smaller one.)
-        let mut hi_choice = None;
         let mut lo = 0;
+        let mut found = false;
         while hi - lo > 1 {
             let mid = lo + (hi - lo) / 2;
-            let c = dp(groups, bound, scale, mid);
-            if fits(&c) {
+            if consider(mid, dp(groups, bound, scale, mid)) {
                 hi = mid;
-                hi_choice = Some(c);
+                found = true;
             } else {
                 lo = mid;
             }
         }
+        if !found {
+            consider(hi, dp(groups, bound, scale, hi));
+        }
         lambda = hi;
-        chosen = hi_choice.unwrap_or_else(|| dp(groups, bound, scale, hi));
     }
+    let mut chosen = best.map_or_else(|| vec![0; groups.len()], |(ch, _)| ch);
 
-    // The weight: downgrade until it holds.
+    // The weight: the change losing the least value per weight freed,
+    // among those that keep the gold and the slots within their limits.
+    // Option 0 always qualifies (it frees all, costs nothing, opens
+    // nothing), so the loop ends.
     let mut weight_repaired = false;
     loop {
-        let (_, _, _, w) = totals(groups, &chosen);
-        if w <= limits.weight {
+        let (_, c, s, w) = totals(groups, &chosen);
+        if w <= limits.weight || w <= 0 {
             break;
         }
-        // The downgrade losing the least value per weight freed; ties to
-        // the earlier group, then the larger remaining option.
+        // (group, option, value lost, weight freed); ties to the earlier
+        // group, then the lower option.
         let mut pick: Option<(usize, usize, i64, i64)> = None;
         for (g, &o) in chosen.iter().enumerate() {
             let cur = &groups[g].options[o];
-            for (j, alt) in groups[g].options.iter().enumerate().take(o) {
+            for (j, alt) in groups[g].options.iter().enumerate() {
                 let freed = cur.weight - alt.weight;
-                if freed <= 0 {
+                if j == o || freed <= 0 || !within(c - cur.cost + alt.cost, s - cur.slots + alt.slots) {
                     continue;
                 }
                 let loss = cur.value - alt.value;
@@ -287,7 +344,33 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         weight_repaired = true;
     }
 
+    // The fill: the single-group change that adds the most value while
+    // the gold, the slots and the weight hold (the weight may not grow
+    // past the allowance, nor at all while it is over); ties to less gold,
+    // then fewer slots, then the earlier group, then the lower option.
+    loop {
+        let (_, c, s, w) = totals(groups, &chosen);
+        let mut pick: Option<(usize, usize, (i64, i64, i32))> = None;
+        for (g, &o) in chosen.iter().enumerate() {
+            let cur = &groups[g].options[o];
+            for (j, alt) in groups[g].options.iter().enumerate() {
+                let gain = alt.value - cur.value;
+                let (nc, ns, nw) = (c - cur.cost + alt.cost, s - cur.slots + alt.slots, w - cur.weight + alt.weight);
+                if gain <= 0 || !within(nc, ns) || (nw > limits.weight && nw > w) {
+                    continue;
+                }
+                let key = (gain, -(alt.cost - cur.cost), -(alt.slots - cur.slots));
+                if pick.is_none_or(|(_, _, k)| key > k) {
+                    pick = Some((g, j, key));
+                }
+            }
+        }
+        let Some((g, j, _)) = pick else { break };
+        chosen[g] = j;
+    }
+
     let (value, cost, slots, weight) = totals(groups, &chosen);
+    let gold_exact = scale == 1;
     Solution {
         chosen,
         value,
@@ -295,8 +378,11 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         slots,
         weight,
         lambda,
-        gold_exact: scale == 1,
-        slots_met: limits.pack_slots >= 0 || slots == 0,
+        bound: dual,
+        optimal: gold_exact && value >= dual,
+        gold_exact,
+        slots_met: slots <= limits.pack_slots,
+        weight_met: weight <= limits.weight,
         weight_repaired,
     }
 }
@@ -309,8 +395,14 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
 /// * `wearable(c)` names the equipment slot a ware is worn in and the
 ///   value of wearing it (the try-on), or `None` for a ware that stacks;
 /// * `value(c, n)` is the usefulness of `n` copies of `c`'s class - the
-///   flat-then-capped curve of phase 1 in production. The table stops
-///   where it stops rising (the cap), and where the copies run out.
+///   flat-then-capped curve of phase 1 in production. Every copy count
+///   up to the copies available is priced, and an option is kept only
+///   when it raises the value above every smaller one: so the table ends
+///   at the first count that reaches the maximum (B2 section 6 item 3),
+///   and an early flat step - the curve's integer rounding can make the
+///   first copy of a large gap worth 0 - does not end it. A count the
+///   caution forbids ends it, since the Black Market copies only grow
+///   with the count.
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn groups(
     stock: &Stock,
@@ -343,8 +435,11 @@ pub fn groups(
     for (class, mut wares) in by_class {
         let cands = &stock.candidates;
         wares.sort_by_key(|&i| (cands[i].price, cands[i].shop, cands[i].slot));
-        // A class opens a slot unless a carried stack absorbs it.
-        let opens = i32::from(wares.iter().all(|&i| cands[i].slots_cost != 0));
+        // A class opens a slot if any of its wares would. The production
+        // stacking predicate makes a class's wares agree (stacking is an
+        // equivalence within a kind); should they ever not, `any` errs to
+        // the safe side - a slot counted that may not be needed.
+        let opens = i32::from(wares.iter().any(|&i| cands[i].slots_cost != 0));
         let rep = &cands[wares[0]];
         let mut options = vec![Choice::default()];
         let mut prev = 0;
@@ -367,10 +462,6 @@ pub fn groups(
             if left > 0 {
                 break; // the copies ran out
             }
-            let v = value(rep, n);
-            if v <= prev {
-                break; // the cap: more copies add nothing
-            }
             let cost = picks.iter().map(|&(i, k)| i64::from(cands[i].price) * i64::from(k)).sum();
             let bm: i64 = picks
                 .iter()
@@ -379,6 +470,10 @@ pub fn groups(
                 .sum();
             if !allowed(bm) {
                 break; // the caution truncates the table
+            }
+            let v = value(rep, n);
+            if v <= prev {
+                continue; // no more than a smaller count: dominated
             }
             let weight = picks.iter().map(|&(i, k)| i64::from(cands[i].weight) * i64::from(k)).sum();
             options.push(Choice { picks, cost, value: v, slots: opens, weight });
@@ -437,20 +532,46 @@ mod tests {
     /// Brute force over every combination: the best value under gold
     /// and slots (and the tie order).
     fn brute(groups: &[Group], l: &Limits) -> i64 {
-        fn go(g: &[Group], i: usize, gold: i64, slots: i32, acc: i64, best: &mut i64) {
+        fn go(g: &[Group], i: usize, left: (i64, i32, i64), acc: i64, best: &mut i64) {
             if i == g.len() {
                 *best = (*best).max(acc);
                 return;
             }
+            let (gold, slots, weight) = left;
             for o in &g[i].options {
-                if o.cost <= gold && o.slots <= slots {
-                    go(g, i + 1, gold - o.cost, slots - o.slots, acc + o.value, best);
+                if o.cost <= gold && o.slots <= slots && o.weight <= weight {
+                    go(g, i + 1, (gold - o.cost, slots - o.slots, weight - o.weight), acc + o.value, best);
                 }
             }
         }
         let mut best = 0;
-        go(groups, 0, l.gold, l.pack_slots, 0, &mut best);
+        go(groups, 0, (l.gold, l.pack_slots, l.weight), 0, &mut best);
         best
+    }
+
+    /// The greedy the old strategy approximates: the best value per gold
+    /// first, one option per group, while the purse lasts.
+    fn greedy(groups: &[Group], gold: i64) -> i64 {
+        let mut opts: Vec<&Choice> = groups.iter().flat_map(|g| g.options.iter().skip(1).take(1)).collect();
+        opts.sort_by(|a, b| (b.value * a.cost).cmp(&(a.value * b.cost)));
+        let (mut left, mut v) = (gold, 0);
+        for o in opts {
+            if o.cost <= left {
+                left -= o.cost;
+                v += o.value;
+            }
+        }
+        v
+    }
+
+    /// A slot group (one equipment slot) from (cost, value, slots, weight).
+    fn slot_group(key: u8, opts: &[(i64, i64, i32, i64)]) -> Group {
+        let mut options = vec![Choice::default()];
+        options.extend(opts.iter().enumerate().map(|(i, &(c, v, s, w))| Choice {
+            picks: vec![(i, 1)],
+            ..opt(c, v, s, w)
+        }));
+        Group { key: GroupKey::Slot(key), options }
     }
 
     /// P15, the worked instance: A worth 12 for 6 (cap 1), B worth 9 a
@@ -459,8 +580,10 @@ mod tests {
     #[test]
     fn p15_the_greedy_scores_12_the_optimum_is_18() {
         let g = [class(0, &[(6, 12)]), class(1, &[(5, 9), (10, 18)])];
+        assert_eq!(greedy(&g, 10), 12, "the greedy takes A first and is stuck");
         let s = solve(&g, &limits(10));
         assert_eq!(s.value, 18);
+        assert!(s.optimal);
         assert_eq!(s.chosen, [0, 2]);
         assert_eq!(s.cost, 10);
         assert!(s.gold_exact);
@@ -535,7 +658,10 @@ mod tests {
         let l = Limits { gold: 100, pack_slots: -1, weight: 1_000_000 };
         let s = solve(&g, &l);
         assert_eq!(s.chosen, [0, 1]);
-        assert!(s.slots_met, "zero slots opened");
+        assert_eq!(s.slots, 0);
+        assert!(!s.slots_met, "the limit was negative: the dispositions must free room");
+        let s = solve(&g, &Limits { pack_slots: 1, ..l });
+        assert!(s.slots_met);
     }
 
     /// The weight repair drops the least value per weight freed.
@@ -631,6 +757,168 @@ mod tests {
         println!("solve: 30 groups x 20 options, gold 30000, lambda {}: {took:?}", s.lambda);
     }
 
+    // --- the review of 5c9eb30 (PR #42): its failing instances, kept ---
+
+    /// The sweep's tie at the critical lambda dropped every option, and
+    /// the solver returned nothing while one 10 fitted. The best feasible
+    /// set and the fill find it.
+    #[test]
+    fn the_sweep_never_returns_nothing_when_something_fits() {
+        let g = [class(0, &[(5, 10)]), class(1, &[(4, 10)]), class(2, &[(4, 10)])];
+        let l = Limits { gold: 9, pack_slots: 1, weight: 1_000_000 };
+        let s = solve(&g, &l);
+        assert_eq!(s.value, 10);
+        assert_eq!(s.value, brute(&g, &l));
+        let g = [class(0, &[(10, 10)]), class(1, &[(10, 10)]), Group {
+            key: GroupKey::Class(2),
+            options: vec![Choice::default(), opt(20, 19, 2, 0)],
+        }];
+        let l = Limits { gold: 20, pack_slots: 1, weight: 1_000_000 };
+        assert_eq!(solve(&g, &l).value, brute(&g, &l));
+    }
+
+    /// The gap was not "one item": one 100 and nine 60s with five slots
+    /// returned 100 where 340 fits.
+    #[test]
+    fn the_sweep_gap_is_filled() {
+        let mut g = vec![class(0, &[(1, 100)])];
+        for k in 1..=9u16 {
+            g.push(class(k, &[(1, 60)]));
+        }
+        let l = Limits { gold: 1000, pack_slots: 5, weight: 1_000_000 };
+        let s = solve(&g, &l);
+        assert_eq!(s.value, 340);
+        assert!(s.slots_met);
+    }
+
+    /// The weight repair "downgraded" a slot group to a dearer ware and
+    /// overspent the purse (500 against 100); now it keeps the gold.
+    #[test]
+    fn the_weight_repair_keeps_the_gold() {
+        let g = [slot_group(3, &[(500, 40, 1, 5), (10, 50, 1, 95), (15, 10, 1, 80)])];
+        let l = Limits { gold: 100, pack_slots: 23, weight: 60 };
+        let s = solve(&g, &l);
+        assert!(s.cost <= 100, "cost {}", s.cost);
+        assert!(s.weight_met && s.weight <= 60);
+        assert_eq!(s.value, brute(&g, &l));
+        let g = [slot_group(3, &[(100, 40, 1, 20), (10, 50, 1, 100)])];
+        let l = Limits { gold: 50, pack_slots: 5, weight: 30 };
+        let s = solve(&g, &l);
+        assert!(s.cost <= 50 && s.weight <= 30);
+    }
+
+    /// ... and the slots: the repair opened a slot the limit forbade.
+    #[test]
+    fn the_weight_repair_keeps_the_slots() {
+        let g = [slot_group(3, &[(10, 29, 1, 10), (20, 30, 0, 100)])];
+        let l = Limits { gold: 100, pack_slots: 0, weight: 60 };
+        let s = solve(&g, &l);
+        assert!(s.slots <= 0, "slots {}", s.slots);
+        assert!(s.slots_met && s.weight <= 60);
+    }
+
+    /// A negative carry allowance: nothing the plan buys can fix it, and
+    /// the solution says so instead of pretending.
+    #[test]
+    fn a_negative_weight_limit_is_reported() {
+        let g = [Group { key: GroupKey::Class(0), options: vec![Choice::default(), opt(1, 10, 0, 5)] }];
+        let s = solve(&g, &Limits { gold: 10, pack_slots: 5, weight: -1 });
+        assert_eq!(s.weight, 0);
+        assert!(!s.weight_met);
+    }
+
+    /// The fuzz behind the two tests below: `n` seeded instances, slot
+    /// groups whose option costs are not monotone among them; every limit
+    /// must hold, the dual must bound the optimum, and "optimal" must
+    /// never be claimed falsely. Returns (gaps, proved).
+    fn fuzz(seed: u64, n: usize, weight_binds: bool) -> (usize, usize) {
+        let mut seed = seed;
+        let mut rnd = |m: i64| {
+            seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1442695040888963407);
+            ((seed >> 33) as i64) % m
+        };
+        let (mut gaps, mut proved) = (0, 0);
+        for _ in 0..n {
+            let groups: Vec<Group> = (0..1 + rnd(5))
+                .map(|k| {
+                    if rnd(3) == 0 {
+                        let opts: Vec<(i64, i64, i32, i64)> = (0..1 + rnd(3))
+                            .map(|_| (rnd(15), 1 + rnd(20), rnd(2) as i32, rnd(30)))
+                            .collect();
+                        slot_group(k as u8, &opts)
+                    } else {
+                        let (mut c, mut v, mut w) = (0, 0, 0);
+                        let slots = rnd(2) as i32;
+                        let mut options = vec![Choice::default()];
+                        for _ in 0..1 + rnd(3) {
+                            c += 1 + rnd(8);
+                            v += 1 + rnd(9);
+                            w += rnd(12);
+                            options.push(opt(c, v, slots, w));
+                        }
+                        Group { key: GroupKey::Class(k as u16), options }
+                    }
+                })
+                .collect();
+            let weight = if weight_binds { rnd(60) } else { 1 << 40 };
+            let l = Limits { gold: rnd(40), pack_slots: rnd(4) as i32, weight };
+            let s = solve(&groups, &l);
+            let b = brute(&groups, &l);
+            assert!(s.cost <= l.gold && s.slots <= l.pack_slots && s.weight <= l.weight, "{groups:?} {l:?} {s:?}");
+            assert!(s.slots_met && s.weight_met);
+            assert!(s.value <= b);
+            assert!(s.bound >= brute(&groups, &Limits { weight: i64::MAX, ..l }), "the dual is a bound");
+            if s.optimal {
+                assert_eq!(s.value, b, "optimal claimed falsely: {groups:?} {l:?}");
+                proved += 1;
+            }
+            if s.value < b {
+                gaps += 1;
+            }
+        }
+        (gaps, proved)
+    }
+
+    /// The gold and the slots binding, the weight slack: the sweep plus
+    /// the fill. Measured at this commit: 12 gaps and 2,981 proved
+    /// optimal in 3,000 (the sweep alone gapped on 1.9-5.8% in the
+    /// review). The bounds below are regression lines, not guarantees.
+    #[test]
+    fn every_limit_holds_and_the_sweep_gap_is_rare() {
+        let (gaps, proved) = fuzz(0xb2b2, 3000, false);
+        assert!(gaps <= 30, "{gaps} gaps in 3000");
+        assert!(proved >= 2900, "only {proved} proved");
+    }
+
+    /// The weight binding as well: the repair is a myopic repair, not an
+    /// optimiser (P15's option 1), so the gaps are more frequent - 153 in
+    /// 3,000 at this commit. Every limit still holds and "optimal" is
+    /// still never claimed falsely.
+    #[test]
+    fn every_limit_holds_when_the_weight_binds() {
+        let (gaps, _) = fuzz(0xb2b2, 3000, true);
+        assert!(gaps <= 300, "{gaps} gaps in 3000");
+    }
+
+    /// The packed score's fields are enforced: past them the answer would
+    /// be silently wrong, so the solver refuses.
+    #[test]
+    #[should_panic(expected = "past the score's cost field")]
+    fn a_purse_past_the_score_field_is_refused() {
+        let big = 1i64 << 48;
+        let g = [class(0, &[(big, 1)]), class(1, &[(big, 1)])];
+        solve(&g, &Limits { gold: big, pack_slots: 23, weight: 1_000_000 });
+    }
+
+    /// The ranking's ties: equal value and cost go to the fewer slots.
+    #[test]
+    fn the_ranking_prefers_fewer_slots() {
+        let mut g = vec![class(0, &[(2, 9)]), class(1, &[(2, 9)])];
+        g[1].options[1].slots = 0;
+        let s = solve(&g, &limits(10));
+        assert_eq!(s.ranked(&g), [(1, 1), (0, 1)]);
+    }
+
     // --- the groups from the stock (B2 section 7) ---
 
     fn budget(gold: i64) -> Budget {
@@ -715,6 +1003,35 @@ mod tests {
         b.floors = vec![FloorPurchase { candidate: 0, needs: vec![] }];
         let g = groups(&s, &b, 10, |_| None, capped(5, 10));
         assert_eq!(g[0].options.len(), 2, "one copy left after the floor");
+    }
+
+    /// The cap is where the value reaches its maximum, not where it first
+    /// fails to rise: with w = 25 and a gap of 50 the curve's rounding
+    /// makes the first copy worth 0, and the class must not vanish.
+    #[test]
+    fn an_early_flat_step_does_not_end_the_table() {
+        let t = town([&[item(1, 60, 1)], &[], &[], &[], &[], &[], &[], &[]]);
+        let s = build(&t, &[]);
+        let need = |_: &Candidate, n: i32| curve(25, 1, 50, i64::from(n));
+        assert_eq!((need(&s.candidates[0], 1), need(&s.candidates[0], 2)), (0, 1));
+        let g = groups(&s, &budget(1_000), 10, |_| None, need);
+        assert_eq!(g.len(), 1, "the class is kept");
+        let last = g[0].options.last().unwrap();
+        assert_eq!(last.value, 25);
+        assert_eq!(last.picks, [(0, 50)], "the table ends where the value reaches its maximum");
+        assert!(g[0].options.windows(2).all(|w| w[1].value > w[0].value), "dominated counts dropped");
+    }
+
+    /// A class whose wares disagree on joining a carried stack counts the
+    /// slot (the safe side).
+    #[test]
+    fn a_class_that_disagrees_counts_the_slot() {
+        let t = town([&[item(1, 1, 10)], &[], &[], &[], &[item(1, 1, 12)], &[], &[], &[]]);
+        let mut s = build(&t, &[]);
+        assert_eq!(s.candidates[0].class, s.candidates[1].class);
+        s.candidates[0].slots_cost = 0;
+        let g = groups(&s, &budget(1_000), 10, |_| None, capped(2, 10));
+        assert!(g[0].options.iter().skip(1).all(|o| o.slots == 1));
     }
 
     /// Q3, the surrogate pinned as intended: two kinds of one need, each

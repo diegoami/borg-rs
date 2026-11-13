@@ -106,7 +106,7 @@ Landed 2026-11-12.
 
 ### Phase 3 - the solver
 
-`borg-rs/src/borg_town_solve.rs`: the exact DP over the gold (the group knapsack with weakly concave per-kind values), the Lagrangian sweep on the kind count for the pack slots, the repair for the slot and weight constraints, and the floors as a lexicographic first pass. The gold bound is `min(purse + proceeds, the sum of all candidate costs)`.
+`borg-rs/src/borg_town_solve.rs`: the exact DP over the gold (the group knapsack with weakly concave per-kind values), the Lagrangian sweep on the pack slots (a penalty per slot an option opens - B2 section 6 item 5; P15 says "the kind count", which is the same for one slot per class, and B2 wins), the repair for the weight, and the floors as a lexicographic first pass. The gold bound is `min(purse + proceeds, the sum of all candidate costs)` in the plan; as built (below) it is `min(gold, the sum of every group's dearest option)`, the proceeds joining in phase 5.
 
 Its suite asserts the chosen set for a small instance with a known optimum, and the instance from the worked example - the greedy scores 12 where the optimum is 18 - so the greedy cannot pass it by accident; plus the boundary cases (an infeasible floor, a forbidden ware, a purse that covers everything) and a determinism test.
 
@@ -133,6 +133,25 @@ exact; a negative slot limit buys only what stacks, and says so. The
 Lagrangian sweep is not guaranteed exact (P15: "usually exact or within
 one item"); the suite checks it against brute force on a binding instance
 and the gold DP against brute force on 200 seeded instances.
+
+Corrected 2026-11-13, after the review of `5c9eb30` on PR #42 (three
+passes, changes requested). The review showed that the sweep's gap is not
+"within one item" - a tie at the critical lambda can drop every
+slot-opening option at once, down to the empty plan (1.9-5.8% of binding
+instances) - that the weight repair could overspend the gold and break the
+slot limit in a wearable slot group, that `slots_met` could never be
+false, and that the table's cap ended a class at an early flat step. As
+fixed: the solver keeps the best feasible set any lambda produced and then
+fills (single-group changes that add value while every limit holds); the
+repair only takes changes that keep the gold and the slots; `bound` (the
+Lagrangian dual) and `optimal` (the value reaches it, gold unscaled) say
+when the set is provably optimal, and `slots_met` / `weight_met` mean the
+limits held; the table keeps every count that raises the value, up to its
+maximum; the score's fields are asserted. The suite fuzzes 3,000 seeded
+instances against brute force in each of two regimes - every limit held
+and `optimal` never claimed falsely in all of them; with the weight slack,
+12 gaps and 2,981 proved optimal; with the weight binding, 153 gaps (the
+repair is myopic - see the risks).
 
 ### Phase 4 - the plan
 
@@ -211,7 +230,8 @@ The C Borg registers the setting and ignores it, like `borg_buy_strategy` and `b
 ## The risks
 
 - **the trip model is provisional** - it decides every deficit, and it is the biggest unknown in the plan;
-- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed. **Measured 2026-11-13** (phase 3, `solve_cost_at_full_size`, a 2.3 GHz Xeon, release): the plan's own size - 30,000 gold x 30 kinds x 20 copies, the slots binding - takes **199 ms** per solve, about 7 sweep passes of 28 ms; a pessimistic 168 groups x 5 options at 65,536 gold takes 680 ms. A cold sweep on every re-solve is therefore above the estimate (15 re-solves ~ 3 s a visit); the obvious remedy - starting each re-solve's sweep from the previous lambda - belongs to phase 4's re-solve loop;
+- **the solver's cost per decision** - estimated at about 10ms for the 18M-operation DP, so 0.1-0.75s per case, assuming 1-5 town visits per decision point and at most 15 re-solves per visit; to be measured, not assumed. **Measured 2026-11-13** (phase 3, `solve_cost_at_full_size`, a 2.3 GHz Xeon, release): the plan's own size - 30,000 gold x 30 kinds x 20 copies, the slots binding - takes **199 ms** per solve, about 7 sweep passes of 28 ms; a pessimistic 168 groups x 5 options at 65,536 gold takes 680 ms. A cold sweep on every re-solve is therefore above the estimate (15 re-solves ~ 3 s a visit); the obvious remedy - starting each re-solve's sweep from the previous lambda - belongs to phase 4's re-solve loop. The numbers do not travel: the reviewers measured 159/528 ms, 309/962 ms and 485/1,448 ms on other machines, the first call cold up to 2.6x slower (812 ms / 2.38 s), and each solve allocates and frees about 150 MB of DP back-pointers at the pessimistic size; the fixes of the review (the fill, the best-feasible bookkeeping) add roughly 5-15%, within this machine's noise;
+- **the weight repair is myopic** - a repair, not an optimiser (P15's option 1): when the carry allowance binds, it can drop an option whose replacement elsewhere it never considers (smallest case in the review: value 0 where 5 fits). Measured in the suite: 153 gaps in 3,000 instances with the weight binding, against 12 with it slack; the limits always hold and `optimal` is never claimed falsely, so the gap is visible to phase 4;
 - **the try-on's mutate/restore cost** - the plan evaluates candidates against a mutated copy of the state, and the restore has to be exact or the visit leaks into the next one;
 - **the joint treatment's convergence** - the round cap and the tie-break are not decided (#40);
 - **the option value of an unidentified item is a range, not a number**, and does not fit the objective cleanly;
