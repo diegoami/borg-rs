@@ -69,6 +69,7 @@ pub(crate) mod borg_magic;
 pub(crate) mod borg_magic_play;
 pub(crate) mod borg_messages;
 pub(crate) mod borg_messages_react;
+pub(crate) mod borg_object_log;
 pub(crate) mod borg_power;
 pub(crate) mod borg_prepared;
 pub(crate) mod borg_projection;

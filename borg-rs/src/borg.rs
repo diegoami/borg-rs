@@ -465,6 +465,11 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
         // on the next level: generate_keypress hands queued keys out
         // before the Borg thinks.
         borg_flush(st);
+
+        // The session object log: the player's purchases and pickups show
+        // up in the pack, and the pack is the only place they show up.
+        crate::borg_object_log::log_acquisitions(st);
+
         key.type_0 = EVT_NONE;
         return key;
     }

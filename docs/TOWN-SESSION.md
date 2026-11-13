@@ -60,6 +60,116 @@ Per character, in `OUTDIR/char-N`:
   messages; the frames carry the character's state at every frame.
 - `dump.jsonl` - the Borg's own town decisions. With the handover there are
   none: the Borg makes no decision in town.
+- `objects.log` - the objects the Borg used, bought and picked up, one per
+  line, numbered. See below.
+- `feedback.md` and `corrections.jsonl` - what the owner said about the run
+  when it was over. See "The end of the session".
+
+## The objects the Borg uses
+
+`BORG_OBJECT_LOG=<file>` turns on the object log. Every event is printed on
+the console *and* appended to the file, with the same line, so the console
+and the file always agree:
+
+```text
+0007 turn 142 depth 23 quaff a Potion of Healing
+0008 turn 150 depth 0 buy a Scroll of Light at the General Store, cost 25 gold
+0009 turn 150 depth 0 acquire 2 x a Potion of Healing
+```
+
+Four kinds of event:
+
+- `quaff`, `read`, `use`, `zap`, `aim`, `activate` - the Borg used an object
+  it carried: a potion, a scroll, a staff, a rod, a wand, or an activation of
+  a ring, a dragon armour or an artifact. Food is left out: eating is not a
+  decision worth a line.
+- `buy` - the Borg bought an object, with the store and the item's *cost* (the
+  price the Borg judged it at; a store can charge its own price on top).
+- `take` - the Borg took an object back from its home (there is no price).
+- `acquire` - something appeared in the pack that was not there before. With
+  the handover the player is the one who shops, and the pack is the only place
+  that shows it. The log cannot tell a purchase from a pickup, so it says
+  `acquire` and not `buy`. The Borg's own purchases are not counted twice:
+  they are the `buy` lines, and the pack does not report them again.
+
+Two items are the same kind when their `tval` and `sval` agree. The `pval` is
+left out: for a wand or a staff it is the number of charges, and a charge
+spent, a recharge, or the charges becoming known must not look like a new
+item in the pack.
+
+The console line is written with the error ignored: a console that has gone
+away (a closed pipe) does not stop the game.
+
+The log never presses a key and never changes a decision, so a run with the
+log is the run without it, key for key. With the variable unset nothing
+happens at all: no file is opened, no line is printed.
+
+## Buying with one keypress
+
+The store's list gives every ware a letter. Pressing the letter selects the
+row and opens that ware's menu (*Examine*, *Buy*, *Buy one*); *Buy* then asks
+how many (the default is one) and asks to confirm, so buying takes the letter,
+`p`, ENTER and ENTER.
+
+The new interface option `store_buy_direct` ("Buy an item by pressing its key
+in a store") makes the letter buy the item straight away: one of it - the same
+amount the old flow bought by default - with no question asked. It is the
+"Buy one" action without the confirmation.
+
+Two things follow that are worth knowing before the option is turned on:
+
+- It applies to the home too: in the home the letter takes one of the item
+  back, with no question.
+- It applies to the player, not only the Borg: with no confirmation, a stray
+  letter in a store is a purchase.
+
+The option is off by default, so the stored reference runs and the control
+arm are untouched. It is a game option: it can be set in the game (the `=`
+key, "User interface options") or from a file:
+
+```
+option:store_buy_direct:yes
+```
+
+The harness takes that file through `BORG_OPTIONS_FILE`:
+
+```
+BORG_OPTIONS_FILE=/path/to/customized_interface_options.txt bash harness/play.sh /tmp/session 1
+```
+
+The Borg uses the same shortcut when the option is on: it presses the list
+key and nothing else. What the Borg *buys* does not change with the option -
+the same ware, the same amount - only the number of keys does. The C and the
+Rust Borg do the same thing, so their keypress streams stay equal with the
+option on and with it off.
+
+This is the *store's* side, and it is not the Borg's shop command: the Borg's
+own command ("which shop does the Borg visit") is a separate thing, in
+[PR #48](https://github.com/diegoami/borg-rs/pull/48), and it does not need
+this option.
+
+This is a change to the engine's store screen, not to the Borg: see
+[FORK-CORRECTIONS.md](FORK-CORRECTIONS.md) for the fork question it raises.
+
+## The end of the session
+
+When the game is over, `harness/feedback.sh` asks three questions and
+writes the answers next to the run:
+
+1. How was the run?
+2. How was the buying strategy?
+3. Anything that was wrong? ("bought scroll on accident", "not sure about
+   this one", ...) - one correction per line, each starting with the number
+   of the object log line it is about.
+
+The answers go to `feedback.md` (the three sections, with the run's
+metadata) and to `corrections.jsonl` (one JSON object per correction:
+`{"line": 12, "text": "bought scroll on accident"}`, and `"line": null` when
+the correction names no line). The corrections are the labels the phase-1
+usefulness table needs, in the shape the strategy work can read them from.
+
+The script asks nothing when the terminal is not interactive (a scripted run):
+it writes an empty feedback file and an empty corrections file instead.
 
 ## Running it
 
@@ -75,11 +185,23 @@ set in the local commit.)
 The game needs a display (the interactive front end this build has is X11;
 there is no terminal front end in the cmake build). In the game: CTRL-Z,
 then `y`, then `z`. The player buys what they want in town and dives; the
-Borg plays the dungeon and recalls when it wants to trade.
+Borg plays the dungeon. With the handover the Borg does nothing at all while
+the character is in town: the player shops, the Borg dungeons.
 
 `harness/play.sh OUTDIR CHARACTERS` plays several characters, one directory
 each: the player quits the game when a character is done, and the next one
-starts.
+starts. After each character the script runs `harness/feedback.sh`, which
+asks the three questions above (nothing is asked when the terminal is not
+interactive).
+
+The environment variables the session uses:
+
+| Variable | What it does |
+| --- | --- |
+| `BORG_TOWN_PLAYER` | `1` hands the controls to the player in town. Off otherwise. |
+| `BORG_TOWN_STATE` | The file the town states are written to, one record per distinct state. |
+| `BORG_OBJECT_LOG` | The file the objects the Borg uses, buys and picks up are logged to. |
+| `BORG_OPTIONS_FILE` | A game options file (`customized_interface_options.txt`) copied into the run's user directory. |
 
 ## What was checked
 
