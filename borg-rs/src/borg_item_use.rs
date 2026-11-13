@@ -621,6 +621,9 @@ pub fn borg_use_staff_fail(st: &mut BorgState, sval: i32) -> bool {
     /* Log the message */
     note_desc(st, b"# Using ", i as usize, b".");
 
+    /* The session object log: what the Borg uses. */
+    crate::borg_object_log::log_use(st, "use", &st.items.items[i as usize]);
+
     /* Perform the action */
     borg_keypress(st, key(b'u'));
     borg_keypress(st, letter(i));
@@ -697,6 +700,9 @@ pub fn borg_aim_wand(st: &mut BorgState, sval: i32) -> bool {
 
     /* Log the message */
     note_desc(st, b"# Aiming ", i as usize, b".");
+
+    /* The session object log: what the Borg uses. */
+    crate::borg_object_log::log_use(st, "aim", &st.items.items[i as usize]);
 
     /* Perform the action */
     borg_keypress(st, key(b'a'));
@@ -809,6 +815,9 @@ pub fn borg_activate_ring(st: &mut BorgState, ring_sval: i32) -> bool {
         /* Log the message */
         note_desc(st, b"# Activating ring ", i as usize, b".");
 
+        /* The session object log: what the Borg uses. */
+        crate::borg_object_log::log_use(st, "activate", &st.items.items[i as usize]);
+
         /* Perform the action */
         borg_keypress(st, key(b'A'));
         borg_keypress(st, letter(i - inven_wield()));
@@ -904,6 +913,9 @@ pub fn borg_activate_dragon(st: &mut BorgState, drag_sval: i32) -> bool {
     /* Log the message */
     note_desc(st, b"# Activating dragon scale ", body as usize, b".");
 
+    /* The session object log: what the Borg uses. */
+    crate::borg_object_log::log_use(st, "activate", &st.items.items[body as usize]);
+
     /* Perform the action */
     borg_keypress(st, key(b'A'));
     borg_keypress(st, letter(body - inven_wield()));
@@ -939,6 +951,9 @@ pub fn borg_activate_item(st: &mut BorgState, activation: i32) -> bool {
 
         /* Log the message */
         note_desc(st, b"# Activating item ", i as usize, b".");
+
+        /* The session object log: what the Borg uses. */
+        crate::borg_object_log::log_use(st, "activate", &st.items.items[i as usize]);
 
         /* Perform the action */
         borg_keypress(st, key(b'A'));

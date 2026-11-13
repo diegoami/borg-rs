@@ -1406,10 +1406,10 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         note_desc(st, "# Buying ", &item, ".");
 
         /* The session object log: what the Borg bought, with the store and
-         * the price. */
+         * the price (or, in the home, what it took back). */
         let shop_name =
             String::from_utf8_lossy(&crate::engine::store_feat_name(shop as usize)).to_string();
-        crate::borg_object_log::log_buy(st, &item, &shop_name, item.cost);
+        crate::borg_object_log::log_buy(st, &item, &shop_name, item.cost, shop == BORG_HOME as i32);
 
         /* Town-visit dump: the purchase that was actually carried out. */
         crate::borg_town_dump::dump_purchase(st, shop, &item);

@@ -249,9 +249,16 @@ question asked.
 
 What was checked: the option is off by default, and the smoke suite's
 parity is byte-identical between the C and the Rust build with it off and
-with it on; in a live session under a virtual X server, one keypress bought
-the wares with no prompt ("Accepted! You bought 40 Rations of Food for 120
-gold.").
+with it on; on the smoke suite's warrior run the Borg made the same 16
+purchases with the option on and off (one Wooden Torch each, 3 keys fewer per
+purchase). An earlier live session under a virtual X server showed one
+keypress buying with no prompt ("Accepted! You bought 40 Rations of Food for
+120 gold."), but that was the version before the direct buy was limited to
+one item; the one-item version has not been captured live.
+
+Two consequences: the letter also takes one item back in the home, with no
+question; and the player loses the confirmation too, so a stray letter in a
+store is a purchase.
 
 What was not checked: the option's own keypress stream against the stored
 reference runs (those are the option-off runs, and the option-off stream is

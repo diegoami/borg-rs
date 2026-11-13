@@ -77,17 +77,28 @@ and the file always agree:
 0009 turn 150 depth 0 acquire 2 x a Potion of Healing
 ```
 
-Three kinds of event:
+Four kinds of event:
 
-- `quaff`, `read`, `use`, `zap` - the Borg used an object it carried. Food is
-  left out: eating is not a decision worth a line.
+- `quaff`, `read`, `use`, `zap`, `aim`, `activate` - the Borg used an object
+  it carried: a potion, a scroll, a staff, a rod, a wand, or an activation of
+  a ring, a dragon armour or an artifact. Food is left out: eating is not a
+  decision worth a line.
 - `buy` - the Borg bought an object, with the store and the item's *cost* (the
   price the Borg judged it at; a store can charge its own price on top).
+- `take` - the Borg took an object back from its home (there is no price).
 - `acquire` - something appeared in the pack that was not there before. With
   the handover the player is the one who shops, and the pack is the only place
   that shows it. The log cannot tell a purchase from a pickup, so it says
   `acquire` and not `buy`. The Borg's own purchases are not counted twice:
   they are the `buy` lines, and the pack does not report them again.
+
+Two items are the same kind when their `tval` and `sval` agree. The `pval` is
+left out: for a wand or a staff it is the number of charges, and a charge
+spent, a recharge, or the charges becoming known must not look like a new
+item in the pack.
+
+The console line is written with the error ignored: a console that has gone
+away (a closed pipe) does not stop the game.
 
 The log never presses a key and never changes a decision, so a run with the
 log is the run without it, key for key. With the variable unset nothing
@@ -104,6 +115,13 @@ The new interface option `store_buy_direct` ("Buy an item by pressing its key
 in a store") makes the letter buy the item straight away: one of it - the same
 amount the old flow bought by default - with no question asked. It is the
 "Buy one" action without the confirmation.
+
+Two things follow that are worth knowing before the option is turned on:
+
+- It applies to the home too: in the home the letter takes one of the item
+  back, with no question.
+- It applies to the player, not only the Borg: with no confirmation, a stray
+  letter in a store is a purchase.
 
 The option is off by default, so the stored reference runs and the control
 arm are untouched. It is a game option: it can be set in the game (the `=`

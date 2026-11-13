@@ -21,11 +21,17 @@
 //! * `quaff`, `read`, `use`, `zap` - the Borg used an object it carried.
 //! * `buy` - the Borg bought an object, with the store and the item's cost
 //!   (the price the Borg judged it at, not the store's own price).
+//! * `take` - the Borg took an object back from its home (no price).
 //! * `acquire` - something appeared in the pack that was not there before.
 //!   This is the player's side of the session: with the handover the player
 //!   shops in town, and the pack is the only place that shows it. It cannot
 //!   tell a purchase from a pickup, so it says `acquire` and not `buy`. The
 //!   Borg's own purchases are not reported twice: they are the `buy` lines.
+//!
+//! Two items are the same kind when their `tval` and `sval` agree. The `pval`
+//! is left out on purpose: for wands and staffs it is the number of charges,
+//! so using one, recharging one, or learning its charges would otherwise
+//! make it look like a new item in the pack.
 
 use std::collections::BTreeMap;
 use std::fs::{File, OpenOptions};
@@ -96,7 +102,10 @@ fn emit(st: &BorgState, action: &str, details: &str) {
     let line = format!("{n:04} turn {turn} depth {depth} {action} {details}\n");
 
     // The console: the owner watches the run and sees the objects go by.
-    print!("{line}");
+    // A console that has gone away (a closed pipe) must not stop the game:
+    // the error is ignored, where `print!` would panic.
+    let _ = std::io::stdout().write_all(line.as_bytes());
+    let _ = std::io::stdout().flush();
 
     if let Ok(mut file) = file.lock() {
         let _ = file.write_all(line.as_bytes());
@@ -109,21 +118,31 @@ pub fn log_use(st: &BorgState, action: &str, item: &borg_item) {
     emit(st, action, &item_desc(item));
 }
 
-/// What makes two items the same kind of thing.
-type Kind = (u8, u8, i16);
+/// What makes two items the same kind of thing: `tval` and `sval`. Not the
+/// `pval`, which counts a wand's or a staff's charges.
+type Kind = (u8, u8);
 
-/// The Borg bought an object: the store and the item's cost with it.
-pub fn log_buy(st: &BorgState, item: &borg_item, shop: &str, cost: i32) {
-    emit(
-        st,
-        "buy",
-        &format!("{} at the {}, cost {cost} gold", item_desc(item), shop),
-    );
+/// The Borg bought an object: the store and the item's cost with it. In the
+/// home nothing is bought: the Borg takes the object back, at no price.
+pub fn log_buy(st: &BorgState, item: &borg_item, shop: &str, cost: i32, home: bool) {
+    if home {
+        emit(
+            st,
+            "take",
+            &format!("{} from the {}", item_desc(item), shop),
+        );
+    } else {
+        emit(
+            st,
+            "buy",
+            &format!("{} at the {}, cost {cost} gold", item_desc(item), shop),
+        );
+    }
 
     // The pack will show this purchase too; it is not an acquisition.
     let mut pending = pending_buys().lock().unwrap_or_else(|err| err.into_inner());
     pending.push(PendingBuy {
-        kind: (item.tval, item.sval, item.pval),
+        kind: (item.tval, item.sval),
         count: 1,
         turn: st.borg.time.now,
     });
@@ -138,8 +157,9 @@ fn log_acquire(st: &BorgState, desc: &str, count: u32) {
     }
 }
 
-/// One pack slot, as the snapshot keeps it.
-type Slot = (u8, u8, i16, u8, String);
+/// One pack slot, as the snapshot keeps it: the kind, the quantity and the
+/// description.
+type Slot = (u8, u8, u8, String);
 
 /// The pack as it was the last time we looked.
 fn previous_pack() -> &'static Mutex<Option<Vec<Slot>>> {
@@ -156,13 +176,7 @@ fn current_pack(st: &BorgState) -> Vec<Slot> {
         if item.iqty == 0 {
             continue;
         }
-        out.push((
-            item.tval,
-            item.sval,
-            item.pval,
-            item.iqty,
-            item_desc(item),
-        ));
+        out.push((item.tval, item.sval, item.iqty, item_desc(item)));
     }
     out
 }
@@ -171,8 +185,8 @@ fn current_pack(st: &BorgState) -> Vec<Slot> {
 /// is the same every time.
 fn counts(slots: &[Slot]) -> BTreeMap<Kind, u32> {
     let mut out: BTreeMap<Kind, u32> = BTreeMap::new();
-    for (tval, sval, pval, qty, _) in slots {
-        *out.entry((*tval, *sval, *pval)).or_insert(0) += u32::from(*qty);
+    for (tval, sval, qty, _) in slots {
+        *out.entry((*tval, *sval)).or_insert(0) += u32::from(*qty);
     }
     out
 }
@@ -230,7 +244,9 @@ fn take_pending(kind: &Kind, turn: i32, pending: &mut Vec<PendingBuy>) -> u32 {
 /// it grew by - less what the Borg bought (those are the `buy` lines).
 pub fn log_acquisitions(st: &BorgState) {
     let now = current_pack(st);
-    let mut previous = previous_pack().lock().unwrap_or_else(|err| err.into_inner());
+    let mut previous = previous_pack()
+        .lock()
+        .unwrap_or_else(|err| err.into_inner());
     let Some(old) = previous.as_ref() else {
         *previous = Some(now);
         return;
@@ -250,10 +266,7 @@ pub fn log_acquisitions(st: &BorgState) {
             continue;
         }
         // The description of the kind: the first slot that holds it.
-        if let Some((_, _, _, _, desc)) = now
-            .iter()
-            .find(|(t, s, p, _, _)| (*t, *s, *p) == kind)
-        {
+        if let Some((_, _, _, desc)) = now.iter().find(|(t, s, _, _)| (*t, *s) == kind) {
             log_acquire(st, desc, acquired);
         }
     }
@@ -265,58 +278,66 @@ pub fn log_acquisitions(st: &BorgState) {
 mod tests {
     use super::*;
 
-    fn slot(tval: u8, sval: u8, pval: i16, qty: u8, desc: &str) -> Slot {
-        (tval, sval, pval, qty, desc.to_string())
+    fn slot(tval: u8, sval: u8, qty: u8, desc: &str) -> Slot {
+        (tval, sval, qty, desc.to_string())
     }
 
     #[test]
     fn only_what_grew_is_reported() {
-        let old = counts(&[slot(1, 2, 3, 1, "a")]);
-        let new = counts(&[slot(1, 2, 3, 2, "a"), slot(4, 5, 6, 1, "b")]);
-        assert_eq!(
-            grown(&old, &new),
-            vec![((1, 2, 3), 1), ((4, 5, 6), 1)]
-        );
+        let old = counts(&[slot(1, 2, 1, "a")]);
+        let new = counts(&[slot(1, 2, 2, "a"), slot(4, 5, 1, "b")]);
+        assert_eq!(grown(&old, &new), vec![((1, 2), 1), ((4, 5), 1)]);
     }
 
     #[test]
     fn the_report_is_in_a_fixed_order() {
         let old = counts(&[]);
-        let new = counts(&[slot(9, 9, 9, 1, "c"), slot(1, 1, 1, 1, "a")]);
-        let report: Vec<Kind> = grown(&old, &new).into_iter().map(|(kind, _)| kind).collect();
-        assert_eq!(report, vec![(1, 1, 1), (9, 9, 9)]);
+        let new = counts(&[slot(9, 9, 1, "c"), slot(1, 1, 1, "a")]);
+        let report: Vec<Kind> = grown(&old, &new)
+            .into_iter()
+            .map(|(kind, _)| kind)
+            .collect();
+        assert_eq!(report, vec![(1, 1), (9, 9)]);
+    }
+
+    #[test]
+    fn a_wand_that_spent_a_charge_is_not_new() {
+        // The description changes with the charges; the kind does not.
+        let old = counts(&[slot(65, 3, 1, "a Wand of Magic Missile (5 charges)")]);
+        let new = counts(&[slot(65, 3, 1, "a Wand of Magic Missile (4 charges)")]);
+        assert!(grown(&old, &new).is_empty());
     }
 
     #[test]
     fn a_purchase_is_not_reported_twice() {
         let mut pending = vec![PendingBuy {
-            kind: (1, 2, 3),
+            kind: (1, 2),
             count: 1,
             turn: 10,
         }];
-        assert_eq!(take_pending(&(1, 2, 3), 11, &mut pending), 1);
+        assert_eq!(take_pending(&(1, 2), 11, &mut pending), 1);
         assert!(pending.is_empty());
     }
 
     #[test]
     fn a_purchase_of_another_kind_is_kept() {
         let mut pending = vec![PendingBuy {
-            kind: (1, 2, 3),
+            kind: (1, 2),
             count: 1,
             turn: 10,
         }];
-        assert_eq!(take_pending(&(4, 5, 6), 11, &mut pending), 0);
+        assert_eq!(take_pending(&(4, 5), 11, &mut pending), 0);
         assert_eq!(pending.len(), 1);
     }
 
     #[test]
     fn a_purchase_that_never_shows_is_dropped() {
         let mut pending = vec![PendingBuy {
-            kind: (1, 2, 3),
+            kind: (1, 2),
             count: 1,
             turn: 10,
         }];
-        assert_eq!(take_pending(&(9, 9, 9), 20, &mut pending), 0);
+        assert_eq!(take_pending(&(9, 9), 20, &mut pending), 0);
         assert!(pending.is_empty());
     }
 }
