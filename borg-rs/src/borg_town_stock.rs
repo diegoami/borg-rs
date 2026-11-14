@@ -203,7 +203,6 @@ impl KindOffer {
 
 /// The plan's input: the candidates, the pack and the Home as groups of
 /// stacks, and the kind-only alternatives.
-#[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Debug, Default)]
 pub struct Stock {
     /// Every ware of every purchasable shop, in (shop, slot) order.

@@ -49,3 +49,6 @@ extern "C" {
 extern "C" {
     pub fn store_stock_list(store: *mut store, list: *mut *mut object, n: ::core::ffi::c_int);
 }
+extern "C" {
+    pub fn price_item(store: *mut store, obj: *const object, store_buying: bool, qty: ::core::ffi::c_int) -> ::core::ffi::c_int;
+}

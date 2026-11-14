@@ -241,3 +241,11 @@ engine data at replay. The reader also accepts historical v4 records with their
 12 parameters, 11-field kit rows and old fixed-target code path. Unit and utility
 semantics are chosen by the schema, never inferred from the numeric magnitudes.
 See [TOWN-UTILITY](TOWN-UTILITY.md) for equations and policy assumptions.
+
+## Live record revision 6
+
+The [experimental live executor](TOWN-LIVE.md) emits revision 6 with the same
+row layouts and 24 parameters. Mode 1 records actual quote-based live planning;
+mode 0 remains observational. Purchases are applied one copy at a time. The
+revision also distinguishes the empty-value Home-cycle correction from schema
+5's historical dispositions; schemas 4/5 still replay with their original rules.

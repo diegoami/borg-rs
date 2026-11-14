@@ -287,7 +287,7 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
             }
         });
         let protected = it.unknown || it.just_bought || urgent_loss;
-        let store = !urgent_loss && (home_free > 0 || spare.is_some()) && (future - home_cost > loss - cost ||
+        let store = !urgent_loss && (input.revision < 6 || future > 0 || protected || loss > 0) && (home_free > 0 || spare.is_some()) && (future - home_cost > loss - cost ||
             input.limits.weight + freed.weight < 0 && (loss > 0 || future > 0 || protected));
         let action = if store { Disposition::Store }
             else if !protected && loss <= cost && future <= home_cost {
@@ -334,7 +334,7 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
             freed.pack_slots -= 1;
             freed.home_slots += 1;
             freed.weight -= weight;
-        } else if value == 0 && future_loss == 0 && !it.unknown && it.proceeds > 0 && it.sell_shop >= 0 {
+        } else if value == 0 && future_loss == 0 && !it.unknown && (input.revision < 6 || !it.just_bought) && it.proceeds > 0 && it.sell_shop >= 0 {
             out[i] = Disposition::Sell;
             freed.home_slots += 1;
             freed.gold += it.proceeds;
@@ -353,7 +353,7 @@ pub fn shared_groups(groups: Vec<Group>, input: &StepInput, candidates: &[crate:
     let mut by_need: BTreeMap<u8, Vec<Group>> = BTreeMap::new();
     let mut out = Vec::new();
     let input = StepInput {
-        utility: input.utility, candidates: candidates.to_vec(), facts: input.facts, tryon: input.tryon, limits: input.limits,
+        revision: input.revision, utility: input.utility, candidates: candidates.to_vec(), facts: input.facts, tryon: input.tryon, limits: input.limits,
         urgent: input.urgent.clone(), params: input.params, traits: input.traits, power: input.power, carried: input.carried,
         cure_spell: input.cure_spell, kit: input.kit, home_slots: input.home_slots };
     let input = &input;
@@ -503,7 +503,7 @@ mod tests {
     }
 
     fn input<'a>(kit: &'a [KitItem]) -> StepInput<'a> {
-        StepInput { utility: true, candidates: Vec::new(), facts: &[], tryon: &[],
+        StepInput { revision: 6, utility: true, candidates: Vec::new(), facts: &[], tryon: &[],
             limits: Limits { gold: 300, pack_slots: 15, weight: 1000 }, urgent: Vec::new(),
             params: [0; PARAMS], traits: &[], power: 0, carried: &[], cure_spell: false, kit, home_slots: 20 }
     }

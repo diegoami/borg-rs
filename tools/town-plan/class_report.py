@@ -37,7 +37,7 @@ def report(root):
                 spends, retained = [], []
                 records = [json.loads(line) for line in (out / 'plan.jsonl').read_text().splitlines()]
                 for r in records:
-                    if r['v'] != 5 or r['params'] != vectors:
+                    if r['v'] not in (5, 6) or r['params'] != vectors:
                         raise ValueError('recorded parameters differ from actual runtime')
                     gold = r['limits'][0] + sum(k[8] for k, d in zip(r['kit'], r['dispose']) if d == 2)
                     spent = sum(e[4] for e in r['plan'])

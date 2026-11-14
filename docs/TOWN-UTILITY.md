@@ -238,3 +238,13 @@ nine classes; probe overrides are validation fixtures. See
 [TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
 validation and the live-testing/confirmation gates. New runner manifests are
 reported per class, including failures and Ranger/Blackguard.
+
+## Live execution
+
+The owner has now requested the experimental executor and local full-suite
+comparison. See [TOWN-LIVE](TOWN-LIVE.md). The default remains current-policy
+mode 0; explicit `borg_town_plan = 1` executes the planner. Live exports use
+separate `rs-town-live-*` names. The bounded class-calibration runner continues
+to protect its shadow-only contract; the dedicated live-suite runner performs
+the matched outcome comparison. New records are revision 6; old v5 evidence
+and class-profile receipts remain historical and reproducible.

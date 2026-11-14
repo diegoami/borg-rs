@@ -1533,6 +1533,16 @@ impl StoreObject<'_> {
         buf[..n].to_vec()
     }
 
+    /// The actual displayed unit purchase quote (not the legacy Borg's
+    /// appraisal, which can be zero for an unidentified negative-bonus ware).
+    pub fn purchase_price(self, store: usize) -> i32 {
+        self.check_value_qty(1);
+        assert!(store < usize::from(z_info().store_max), "store index out of range");
+        // SAFETY: the handle is a live stock object; stores has the checked
+        // index and an initialized owner. price_item only reads both at qty 1.
+        unsafe { crate::headers::store_h::price_item(crate::headers::store_h::stores.add(store), self.0, false, 1) }
+    }
+
     /// `tval_can_have_charges(obj)`
     pub fn can_have_charges(self) -> bool {
         // SAFETY: self is a live store object; the call only reads it.

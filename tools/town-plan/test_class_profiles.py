@@ -149,6 +149,16 @@ class Profiles(unittest.TestCase):
         allowed = self.load(j)
         self.assertEqual(cp.resolve(allowed, 'reference', 'Mage')[0]['borg_town_target_depth'], 2)
 
+    def test_live_exports_are_explicit_and_have_distinct_native_names(self):
+        before = copy.deepcopy(self.profiles)
+        live = cp.export_zoo(self.profiles, ['reference', 'cash-cautious'], execution='live')['profiles']
+        self.assertEqual(live['rs-town-live-reference-normal']['settings']['borg_town_plan'], 1)
+        self.assertEqual(live['rs-town-live-cash-cautious-normal']['settings']['borg_town_w_gold'], 50)
+        self.assertEqual(cp.export_zoo(self.profiles, ['reference'])['profiles']['rs-town-reference-normal']['settings']['borg_town_plan'], 0)
+        self.assertEqual(self.profiles, before)
+        for arm in ('shallow', 'class-selection-probe'):
+            with self.assertRaises(ValueError): cp.export_zoo(self.profiles, [arm], execution='live')
+
     def test_unknown_arm_and_class_are_errors(self):
         with self.assertRaises(ValueError):
             cp.resolve(self.profiles, 'typo', 'Mage')

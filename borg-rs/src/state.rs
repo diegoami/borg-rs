@@ -48,6 +48,8 @@ pub struct BorgState {
     /// made from `&st.access` cannot be kept across an engine call that
     /// takes `&mut BorgState` (docs/SELF-REVIEW.md L4).
     pub access: crate::engine::Access,
+    /// Opt-in town executor intent; separate from the current-policy control.
+    pub town_live: crate::borg_town_live::LiveState,
     /// borg.c: `borg` (what the Borg knows about itself)
     pub borg: Borg,
     /// borg.c: the other globals (`borg_cfg`, `borg_rand_local`, ...)

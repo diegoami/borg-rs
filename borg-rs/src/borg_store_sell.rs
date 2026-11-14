@@ -1127,7 +1127,8 @@ pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
         let idx = st.borg.goal.item as usize;
         let item = st.items.items[idx];
 
-        let qty = borg_min_item_quantity(st, &item);
+        let live_qty = crate::borg_town_live::quantity(st, true);
+        let qty = live_qty.unwrap_or_else(|| borg_min_item_quantity(st, &item)).clamp(1, i32::from(item.iqty).max(1));
 
         // Log
         let mut note = b"# Selling ".to_vec();
@@ -1143,16 +1144,19 @@ pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
 
         // Sell a single item
         if st.items.items[idx].iqty > 1 || qty >= 2 {
-            if qty == 5 {
+            if live_qty.is_some() {
+                for digit in qty.to_string().bytes() { borg_keypress(st, u32::from(digit)); }
+            }
+            if live_qty.is_none() && qty == 5 {
                 borg_keypress(st, keycode_t::from(b'5'));
             }
-            if qty == 4 {
+            if live_qty.is_none() && qty == 4 {
                 borg_keypress(st, keycode_t::from(b'4'));
             }
-            if qty == 3 {
+            if live_qty.is_none() && qty == 3 {
                 borg_keypress(st, keycode_t::from(b'3'));
             }
-            if qty == 2 {
+            if live_qty.is_none() && qty == 2 {
                 borg_keypress(st, keycode_t::from(b'2'));
             }
             borg_keypress(st, KC_ENTER);

@@ -87,6 +87,7 @@ pub(crate) mod borg_town_dispose;
 pub(crate) mod borg_town_dump;
 pub(crate) mod borg_town_record;
 pub(crate) mod borg_town_shadow;
+pub(crate) mod borg_town_live;
 pub(crate) mod borg_town_solve;
 pub(crate) mod borg_town_stock;
 pub(crate) mod borg_town_usefulness;

@@ -1419,6 +1419,11 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         if !crate::engine::player_opt(crate::headers::list_options_h::OPT_store_buy_direct) {
             borg_keypress(st, keycode_t::from(b'p'));
 
+            if shop == BORG_HOME as i32 && item.iqty > 1 {
+                if let Some(qty) = crate::borg_town_live::quantity(st, false) {
+                    for digit in qty.clamp(1, i32::from(item.iqty)).to_string().bytes() { borg_keypress(st, u32::from(digit)); }
+                }
+            }
             /* Mega-Hack -- Accept the purchase */
             borg_keypress(st, KC_ENTER);
             borg_keypress(st, KC_ENTER);
@@ -1440,6 +1445,8 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         }
 
         /* Remember what we bought to avoid buy/sell loops */
+        let transferring_for_sale = crate::borg_town_live::enabled(st) && st.town_live.action == crate::borg_town_record::action::SELL_HOME;
+        if !transferring_for_sale {
         let b = &mut st.buy;
         if b.bought_item_nxt >= 9 {
             b.bought_item_nxt = 0;
@@ -1454,6 +1461,7 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
             b.bought_item_num = b.bought_item_nxt;
         }
 
+        }
         purchase_done(st);
 
         /* leave the store */

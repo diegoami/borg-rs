@@ -291,11 +291,16 @@ static STEP: AtomicU64 = AtomicU64::new(0);
 /// same state and record it. Does nothing unless `BORG_TOWN_PLAN_RECORD`
 /// is set, or outside the town.
 pub fn shadow_visit(st: &mut BorgState) {
-    let Some(file) = crate::borg_town_dump::plan_record_file() else {
-        return;
-    };
+    let _ = plan_visit(st, 0);
+}
+
+/// Shared producer for observational and opt-in live decisions. Live works
+/// without a recording file; writing evidence never controls execution.
+pub fn plan_visit(st: &mut BorgState, mode: u8) -> Option<PlanRecord> {
+    let file = crate::borg_town_dump::plan_record_file();
+    if mode == 0 && file.is_none() { return None; }
     if st.borg.tr(BI_CDEPTH) != 0 {
-        return;
+        return None;
     }
 
     // A new visit when the level clock moved (new_level restarts it on
@@ -308,6 +313,8 @@ pub fn shadow_visit(st: &mut BorgState) {
     let visit = VISIT.load(Ordering::Relaxed);
     let step_no = STEP.fetch_add(1, Ordering::Relaxed);
 
+    if mode == 1 { crate::borg_town_live::refresh_prices(st); }
+
     // A curing spell cures cuts and poison, and no trait counts it.
     let cure_spell = crate::borg_magic::borg_spell_legal_fail(
         st,
@@ -317,6 +324,7 @@ pub fn shadow_visit(st: &mut BorgState) {
     let mut trip = Trip::of(st);
     trip.cure_spell = cure_spell;
     let mut stock = Stock::of(st);
+    if mode == 1 { crate::borg_town_live::exclude_sold(st, &mut stock); }
     // The wearables: their power gain, and their slot cost (the worn item
     // moves to the pack).
     let (tryon, wear_slots) = try_on(st, &stock);
@@ -369,6 +377,7 @@ pub fn shadow_visit(st: &mut BorgState) {
         .collect();
     let limits = Limits::of(&budget);
     let out = step(&StepInput {
+        revision: crate::borg_town_record::PLAN_SCHEMA,
         utility: true,
         candidates: stock.candidates.clone(),
         facts: &wares,
@@ -385,9 +394,9 @@ pub fn shadow_visit(st: &mut BorgState) {
     });
     let (paction, act, for_need, now) = first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit);
 
-    let rec = PlanRecord {
+    let mut rec = PlanRecord {
         schema: crate::borg_town_record::PLAN_SCHEMA,
-        mode: 0,
+        mode,
         visit,
         step: step_no,
         gturn: i64::from(engine::game_turn()),
@@ -422,8 +431,22 @@ pub fn shadow_visit(st: &mut BorgState) {
         guard: 0,
     };
 
+    if mode == 1 {
+        if rec.action == crate::borg_town_record::action::BUY
+            || (matches!(rec.action, crate::borg_town_record::action::TAKE_HOME | crate::borg_town_record::action::SELL_HOME)
+                && engine::player_opt(crate::headers::list_options_h::OPT_store_buy_direct)) { rec.act[2] = 1; }
+        let required = rec.unmet | rec.urgent.iter().fold(0, |m, &(_, _, n)| m | n);
+        if let Some((slot, need)) = crate::borg_town_live::home_urgent(&rec.kit, required) {
+            rec.action = crate::borg_town_record::action::TAKE_HOME;
+            rec.act = [7, i64::from(slot), 1, 0];
+            rec.for_need = i64::from(need);
+            rec.now = true;
+        }
+    }
+
     // v2's fields for this state (today's decision among them), with the
     // version tag 4, then the plan's.
+    if let Some(file) = file {
     let mut line = String::with_capacity(4096);
     crate::borg_town_dump::push_integer_record_at(
         &mut line,
@@ -439,6 +462,8 @@ pub fn shadow_visit(st: &mut BorgState) {
     rec.push_fields(&mut line);
     line.push('}');
     crate::borg_town_dump::write_record(Some(file), &line);
+    }
+    Some(rec)
 }
 
 #[cfg(test)]

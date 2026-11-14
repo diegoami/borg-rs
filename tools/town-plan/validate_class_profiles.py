@@ -117,7 +117,7 @@ def main():
                 checks['selector_matches_export'] = expected_profile == selected_profile(profiles, arm, cell['class'])
                 lines = (native_out / 'plan.jsonl').read_text().splitlines()
                 rows = [json.loads(line) for line in lines]
-                checks['observed'] = bool(rows) and all(r['v'] == 5 for r in rows)
+                checks['observed'] = bool(rows) and all(r['v'] in (5, 6) for r in rows)
                 # Parameters are contiguous 45..68 in the actual engine table.
                 all_town = [name for name in summary['effective_settings'] if name.startswith('borg_town_') and name != 'borg_town_no_stores']
                 checks['recorded_vector'] = all(len(r['params']) == 24 and r['params'] == [summary['effective_settings'][k] for k in all_town] for r in rows)

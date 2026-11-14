@@ -36,7 +36,7 @@ use crate::state::BorgState;
 
 /// The plan record's schema version (v2: the decision record, v3: the
 /// handover's state record).
-pub const PLAN_SCHEMA: i64 = 5;
+pub const PLAN_SCHEMA: i64 = 6;
 
 /// The 24 town settings, `borg_town_plan` (45) through
 /// `borg_town_power_scale` (68), contiguous; v4 stores the first 12.
@@ -470,7 +470,7 @@ impl PlanRecord {
     #[cfg_attr(not(test), expect(dead_code))]
     pub fn from_json(j: &Json) -> Result<PlanRecord, String> {
         let schema = j.get("v")?.int()?;
-        if schema != 4 && schema != PLAN_SCHEMA { return Err("not a supported plan record".into()); }
+        if schema != 4 && schema != 5 && schema != PLAN_SCHEMA { return Err("not a supported plan record".into()); }
         let raw_params = j.get("params")?.ints()?;
         if raw_params.len() != if schema == 4 { 12 } else { PARAMS } { return Err("params has the wrong length".into()); }
         let mut params = [0; PARAMS];
@@ -565,6 +565,7 @@ impl PlanRecord {
 
 /// What a step reads.
 pub struct StepInput<'a> {
+    pub revision: i64,
     pub utility: bool,
     /// The candidates, in stock order.
     pub candidates: Vec<Candidate>,
@@ -908,6 +909,7 @@ impl ReplayParts {
     /// The step input over these parts and the record's facts.
     pub fn input<'a>(&'a self, rec: &'a PlanRecord) -> StepInput<'a> {
         StepInput {
+            revision: rec.schema,
             utility: rec.schema >= 5,
             candidates: self.candidates.clone(),
             facts: &rec.wares,
@@ -1131,6 +1133,7 @@ mod tests {
             .collect();
         let limits = Limits::of(&budget);
         let out = step(&StepInput {
+            revision: 4,
             utility: false,
             candidates: stock.candidates.clone(),
             facts: &wares,

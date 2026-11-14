@@ -155,11 +155,12 @@ fn null_arm_gate(st: &mut BorgState) -> bool {
 /// decision together with the state and the shop stock. The dump is
 /// observation only, so the keypress stream is unchanged.
 pub fn borg_choose_shop(st: &mut BorgState) -> bool {
+    st.town_live.direct = false;
     let decided = borg_choose_shop_inner(st);
     if decided {
         crate::borg_town_dump::dump_town_visit(st);
         // The plan in shadow mode, on the same state: observation only.
-        crate::borg_town_shadow::shadow_visit(st);
+        if !crate::borg_town_live::enabled(st) { crate::borg_town_shadow::shadow_visit(st); }
     }
     decided
 }
@@ -197,10 +198,16 @@ fn borg_choose_shop_inner(st: &mut BorgState) -> bool {
     /* Forbid if been sitting on level forever */
     /*    Just come back and work through the loop later */
     if borg_timer(st, st.borg.time.level) > 2000 {
+        if crate::borg_town_live::enabled(st) { clear_shop_goal(st); }
         return false;
     }
     if i32::from(st.borg.antibounce_count) > 1350 {
+        if crate::borg_town_live::enabled(st) { clear_shop_goal(st); }
         return false;
+    }
+
+    if crate::borg_town_live::enabled(st) {
+        return crate::borg_town_live::choose(st);
     }
 
     /* Already flowing to a store to sell something */

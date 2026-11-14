@@ -11,7 +11,8 @@ new class branches inside the evaluator.
 Status: **configuration mechanism verified, class tuning pending live tests**.
 The shared `reference` profile remains identical for all nine classes;
 `class_defaults` is empty. The validation probe's values demonstrate routing,
-not accepted class recommendations. All new town execution remains shadow-only.
+not accepted class recommendations. The class-calibration runner remains shadow-only; the separately requested
+[live executor](TOWN-LIVE.md) is now available for the local outcome comparison.
 
 ## Resolution and the zoo format
 

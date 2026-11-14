@@ -120,27 +120,35 @@ def resolve(profiles, arm_name, class_name):
     return settings, sources
 
 
-def export_zoo(profiles, arm_names=None):
+def export_zoo(profiles, arm_names=None, execution="shadow"):
     """Use existing borg-zoo ordinary + by_class/otherwise profiles.
 
     An unchanged class falls back to the shared ordinary profile. A class
     override becomes a complete ordinary profile, not an in-game class rule.
     """
+    if execution not in ('shadow', 'live'):
+        raise ValueError('execution must be shadow or live')
+    prefix = 'rs-town-' if execution == 'shadow' else 'rs-town-live-'
     exported = {}
     for name in arm_names or profiles['arms']:
         arm = profiles['arms'][name]
+        if execution == 'live' and (arm.get('probe_only') or arm.get('calibration_only')):
+            raise ValueError(f'{name}: a validation fixture is not a live candidate')
         common = profiles['base'] | arm.get('settings', {})
-        ordinary = f'rs-town-{name}-normal'
+        if execution == 'live': common['borg_town_plan'] = 1
+        ordinary = f'{prefix}{name}-normal'
         description = ('Bounded fixed-journey calibration only: ' if arm.get('calibration_only') else '') + arm.get('description', name) + ' (shadow configuration; no live-policy outcome claim)'
+        if execution == 'live': description = name + ' experimental live utility candidate; no improvement claim'
         exported[ordinary] = {'description': description, 'settings': common}
         selected = {}
         for cls in CLASSES:
             values, _ = resolve(profiles, name, cls)
+            if execution == 'live': values['borg_town_plan'] = 1
             if values != common:
-                class_profile = f'rs-town-{name}-{cls.lower()}-normal'
+                class_profile = f'{prefix}{name}-{cls.lower()}-normal'
                 exported[class_profile] = {'description': description + f'; {cls}', 'settings': values}
                 selected[cls] = class_profile
-        exported[f'rs-town-{name}-by-class-normal'] = {
+        exported[f'{prefix}{name}-by-class-normal'] = {
             'description': description + '; class selection with shared fallback',
             'by_class': selected, 'otherwise': ordinary}
     return {'schema': 'borg-zoo/profiles@1', 'profiles': exported}
