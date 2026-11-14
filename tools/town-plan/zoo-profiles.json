@@ -1,5 +1,5 @@
 {
-  "schema": 1,
+  "schema": 2,
   "purpose": "shadow calibration; these profiles do not change actual game decisions",
   "base": {
     "borg_munchkin_start": false,
@@ -33,31 +33,74 @@
     "borg_town_power_scale": 40000
   },
   "arms": {
-    "reference": {},
+    "reference": {
+      "description": "reference sensitivity candidate; not an accepted class policy",
+      "settings": {}
+    },
     "shallow": {
-      "borg_town_target_depth": 2,
-      "borg_town_trip_turns": 1000
+      "description": "shallow sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_target_depth": 2,
+        "borg_town_trip_turns": 1000
+      },
+      "calibration_only": true
     },
     "long-shallow": {
-      "borg_town_target_depth": 2,
-      "borg_town_trip_turns": 5000
+      "description": "long shallow sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_target_depth": 2,
+        "borg_town_trip_turns": 5000
+      },
+      "calibration_only": true
     },
     "greater-ambition": {
-      "borg_town_depth_gain": 3,
-      "borg_town_risk": 1500
+      "description": "greater ambition sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_depth_gain": 3,
+        "borg_town_risk": 1500
+      }
     },
     "cash-cautious": {
-      "borg_town_w_gold": 50
+      "description": "cash cautious sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_w_gold": 50
+      }
     },
     "home-favoured": {
-      "borg_town_home_discount": 750,
-      "borg_town_w_space": 50
+      "description": "home favoured sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_home_discount": 750,
+        "borg_town_w_space": 50
+      }
     },
     "no-cash-value": {
-      "borg_town_w_gold": 0
+      "description": "no cash value sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_w_gold": 0
+      }
     },
     "no-future-home-value": {
-      "borg_town_home_discount": 0
+      "description": "no future home value sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_home_discount": 0
+      }
+    },
+    "class-selection-probe": {
+      "description": "Validation only: Mage cash=50, Ranger future Home=750, Blackguard risk=1500; other classes use shared defaults",
+      "settings": {},
+      "probe_only": true,
+      "class_overrides": {
+        "Mage": {
+          "borg_town_w_gold": 50
+        },
+        "Ranger": {
+          "borg_town_home_discount": 750
+        },
+        "Blackguard": {
+          "borg_town_risk": 1500
+        }
+      }
     }
-  }
+  },
+  "class_defaults": {}
 }

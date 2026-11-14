@@ -1,0 +1,257 @@
+{
+  "schema": "borg-rs/town-class-report@1",
+  "purpose": "shadow configuration/sensitivity; no survival ranking",
+  "planned_cells": 18,
+  "retained_cells": 18,
+  "outcomes": {
+    "turns": 18
+  },
+  "per_class": [
+    {
+      "arm": "reference",
+      "class": "Warrior",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 39,
+      "median_planned_spend": 81
+    },
+    {
+      "arm": "reference",
+      "class": "Mage",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 24,
+      "median_planned_spend": 204.0
+    },
+    {
+      "arm": "reference",
+      "class": "Druid",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 40,
+      "median_planned_spend": 251.0
+    },
+    {
+      "arm": "reference",
+      "class": "Priest",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 39,
+      "median_planned_spend": 45
+    },
+    {
+      "arm": "reference",
+      "class": "Necromancer",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 13,
+      "median_planned_spend": 245
+    },
+    {
+      "arm": "reference",
+      "class": "Paladin",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 34,
+      "median_planned_spend": 189.0
+    },
+    {
+      "arm": "reference",
+      "class": "Rogue",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 36,
+      "median_planned_spend": 130.0
+    },
+    {
+      "arm": "reference",
+      "class": "Ranger",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 34,
+      "median_planned_spend": 65.0
+    },
+    {
+      "arm": "reference",
+      "class": "Blackguard",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 32,
+      "median_planned_spend": 75.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Warrior",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 39,
+      "median_planned_spend": 81
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Mage",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 24,
+      "median_planned_spend": 169.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Druid",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 40,
+      "median_planned_spend": 251.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Priest",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 39,
+      "median_planned_spend": 45
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Necromancer",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 13,
+      "median_planned_spend": 245
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Paladin",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 34,
+      "median_planned_spend": 189.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Rogue",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 36,
+      "median_planned_spend": 130.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Ranger",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 34,
+      "median_planned_spend": 65.0
+    },
+    {
+      "arm": "class-selection-probe",
+      "class": "Blackguard",
+      "planned_cells": 1,
+      "outcomes": {
+        "turns": 1
+      },
+      "snapshots": 32,
+      "median_planned_spend": 65.0
+    }
+  ],
+  "paired_comparisons": [
+    {
+      "class": "Warrior",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Mage",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Druid",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Priest",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Necromancer",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Paladin",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Rogue",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Ranger",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Blackguard",
+      "seed": 2901,
+      "arm": "class-selection-probe",
+      "comparable": true,
+      "gameplay_identical": true
+    }
+  ],
+  "raw_directory": "/tmp/borg-rs-town-inventory/harness/out/rust/town-class-cli"
+}

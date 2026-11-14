@@ -207,7 +207,8 @@ rates `e`, `s`, `f`, `l`, `r`, the default equations become `T=e*A+2*s*D`,
 [Portable sample arms](../tools/town-plan/zoo-profiles.json) declare normal mode
 and all active utility parameters. They are dictionaries for configuring runs,
 not a claim of compatibility with the zoo's native import schema. The bounded
-runner uses seeds 501–507, race 0, classes 0–6, 30000 game turns each by default:
+runner now uses seeds 501–509, race 0, all nine classes, 30000 game turns each by default
+(the original seven-class receipt remains frozen):
 
 ```sh
 # Inspect the seven exact commands without starting games:
@@ -227,3 +228,13 @@ normal/munchkin mode explicit under [the zoo contract](ZOO-INTERFACE.md).
 **These arms measure shadow-plan choices, not different survival outcomes.**
 Actual decisions still come from the current Borg, so gameplay and survival
 should remain identical until live-mode integration is separately authorised.
+
+## Class-aware calibration
+
+Shared defaults, optional class baselines and per-arm class overrides are now
+resolved before birth. The native export uses the zoo's existing `by_class`
+and `otherwise` selector. The reference still uses one shared vector for all
+nine classes; probe overrides are validation fixtures. See
+[TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
+validation and the live-testing/confirmation gates. New runner manifests are
+reported per class, including failures and Ranger/Blackguard.

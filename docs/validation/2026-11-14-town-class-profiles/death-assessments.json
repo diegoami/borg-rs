@@ -1,0 +1,36 @@
+[
+  {
+    "class": "Druid",
+    "seed": 1901,
+    "turn": 1164,
+    "cause": "a crow",
+    "raw_directory": "/tmp/borg-rs-town-inventory/harness/out/rust/town-class-native/work/town-class-druid/rs-town-class-shadow/rs-town-reference-by-class-normal/1901",
+    "source_commit": "785f5064c60db8e8809a7a8eb6900cb7d9fe887f",
+    "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537",
+    "profile_sha256": "d229908a7d5479d7e5cd6c369188c7d32df08b87c9ed657af4e75cec338908c9",
+    "config_sha256": "bbaf0742fd7bdcc1c7eee7d3005e5bce19c8daf96a4fce38ca87e73125bee281",
+    "keys_sha256": "bf680049e0dd314c6f4a7d5f049ad05b70d9648071d2e9babcb784557ce6e4e7",
+    "assessment": "Natural death in unchanged current control; no tactical defect or guaranteed rescue established.",
+    "qualification": "Zoo key/summary/archive evidence; no native recording manifest or original-frame windows. Not a replay-qualified death dossier.",
+    "action": "Preserve original input/build and death keys; investigate only if owner requests, through borg-rs#3.",
+    "discussion": "https://github.com/diegoami/borg-rs/issues/3",
+    "repeat_note": "The matching probe execution repeats the same trajectory and is not another independent life."
+  },
+  {
+    "class": "Priest",
+    "seed": 1901,
+    "turn": 1849,
+    "cause": "Grip, Farmer Maggot's Dog",
+    "raw_directory": "/tmp/borg-rs-town-inventory/harness/out/rust/town-class-native/work/town-class-priest/rs-town-class-shadow/rs-town-reference-by-class-normal/1901",
+    "source_commit": "785f5064c60db8e8809a7a8eb6900cb7d9fe887f",
+    "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537",
+    "profile_sha256": "d229908a7d5479d7e5cd6c369188c7d32df08b87c9ed657af4e75cec338908c9",
+    "config_sha256": "040fcb15c3a152aa3995af6d8cd22f127c9b9e72d079408ea5e4054b5e28ef1f",
+    "keys_sha256": "2194fe776be31a4830ca6f8109327cfd0ffbfda47a3d053b4d3f81ac7d937e95",
+    "assessment": "Natural death in unchanged current control; no tactical defect or guaranteed rescue established.",
+    "qualification": "Zoo key/summary/archive evidence; no native recording manifest or original-frame windows. Not a replay-qualified death dossier.",
+    "action": "Preserve original input/build and death keys; investigate only if owner requests, through borg-rs#3.",
+    "discussion": "https://github.com/diegoami/borg-rs/issues/3",
+    "repeat_note": "The matching probe execution repeats the same trajectory and is not another independent life."
+  }
+]

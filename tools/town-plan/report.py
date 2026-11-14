@@ -22,6 +22,18 @@ def main():
     parser.add_argument('--root', type=Path, default=ROOT / 'harness/out/rust/town-utility')
     parser.add_argument('--records-out', type=Path)
     args = parser.parse_args()
+    if (args.root / 'experiment.json').exists():
+        from class_report import report
+        result = report(args.root)
+        if args.records_out:
+            lines = []
+            for cell in result['cells']:
+                source = args.root / cell['arm'] / f"{cell['seed']}-class{cell['class_idx']}" / 'plan.jsonl'
+                if source.exists():
+                    lines.extend(source.read_text().splitlines())
+            args.records_out.write_text('\n'.join(lines) + '\n')
+        print(json.dumps(result, indent=2))
+        return
     constants = (ROOT / 'borg-rs/src/borg_headers/borg_h.rs').read_text()
     names = {int(n): key.lower() for key, n in re.findall(r'pub const (BORG_TOWN_\w+):[^=]+ = (\d+);', constants)}
     parameter_names = [names[i] for i in range(45, 69)]

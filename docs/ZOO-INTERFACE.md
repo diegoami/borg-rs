@@ -152,3 +152,13 @@ git show e473720ed88a0f0c7ca66815cef3000eb4a38bc3:src/borg/borg.txt     # the or
 Compare them with `angband/src/borg/borg-init.c`, `borg-rs/src/borg_init.rs`,
 `harness/borg.txt` and `angband/src/borg/borg.txt`. The audit was done on
 2026-11-12 and the result is the table above.
+
+## Class-aware calibration
+
+Shared defaults, optional class baselines and per-arm class overrides are now
+resolved before birth. The native export uses the zoo's existing `by_class`
+and `otherwise` selector. The reference still uses one shared vector for all
+nine classes; probe overrides are validation fixtures. See
+[TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
+validation and the live-testing/confirmation gates. New runner manifests are
+reported per class, including failures and Ranger/Blackguard.

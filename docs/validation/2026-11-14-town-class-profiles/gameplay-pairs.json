@@ -1,0 +1,110 @@
+[
+  {
+    "class": "Blackguard",
+    "seed": 901,
+    "gameplay_summary_sha256": "126fa3ef6e02a3a338b46c714d079d889c3a62b5126fd7095d330da907962d43",
+    "matched": true
+  },
+  {
+    "class": "Blackguard",
+    "seed": 1901,
+    "gameplay_summary_sha256": "b58db23d4ef20f4cc7019e9364ca5032b0c190c07a51c6f53118c6dc81c1bae2",
+    "matched": true
+  },
+  {
+    "class": "Druid",
+    "seed": 901,
+    "gameplay_summary_sha256": "69d56862f8a4433e25a48388155f4044bcc0ac2b5f5d63ea04da45cace93939b",
+    "matched": true
+  },
+  {
+    "class": "Druid",
+    "seed": 1901,
+    "gameplay_summary_sha256": "ade29a3a7c45d4f6e556aee55691e309cbe99016eaae03550b31164750a080f7",
+    "matched": true
+  },
+  {
+    "class": "Mage",
+    "seed": 901,
+    "gameplay_summary_sha256": "14ff57bc8a4381df959031b6cc67a36114d1130f6bef56fc126762daf870c9f4",
+    "matched": true
+  },
+  {
+    "class": "Mage",
+    "seed": 1901,
+    "gameplay_summary_sha256": "4eb825d6ca5337564b102b6e43f9c42212ab5251873aaa61a248c3ad0ce04b15",
+    "matched": true
+  },
+  {
+    "class": "Necromancer",
+    "seed": 901,
+    "gameplay_summary_sha256": "17b53e285b75717e926cbc7e57c55947df6494419fb592400c399da9d21441ee",
+    "matched": true
+  },
+  {
+    "class": "Necromancer",
+    "seed": 1901,
+    "gameplay_summary_sha256": "f1a212a9bce9665636ab45efb8c5643646533329a6e48f33c268bdee91b3d1ef",
+    "matched": true
+  },
+  {
+    "class": "Paladin",
+    "seed": 901,
+    "gameplay_summary_sha256": "8bef05d51f375d7f093d44fae7848805079a941816ef2875d69a5e0c94b61f06",
+    "matched": true
+  },
+  {
+    "class": "Paladin",
+    "seed": 1901,
+    "gameplay_summary_sha256": "ac0fc0d98677adf4cce11b1c355aeaaa1db96db2b494708adf256acbdf0cb3af",
+    "matched": true
+  },
+  {
+    "class": "Priest",
+    "seed": 901,
+    "gameplay_summary_sha256": "8bb8cf4d4a78744b9a53bf5abbc9db2ed639f2f1fd4907502aa9d88ca001e88e",
+    "matched": true
+  },
+  {
+    "class": "Priest",
+    "seed": 1901,
+    "gameplay_summary_sha256": "db981cea21023594ffec47875c1004473981c3207f19aadd5feb59ff997d726d",
+    "matched": true
+  },
+  {
+    "class": "Ranger",
+    "seed": 901,
+    "gameplay_summary_sha256": "ee90a17c9fa7cc2be3609c33daa9e30847bac85fddf488957c97baba4c0be461",
+    "matched": true
+  },
+  {
+    "class": "Ranger",
+    "seed": 1901,
+    "gameplay_summary_sha256": "60aa0f0f663492df3f4cc466ee26c083d37b651a6a4f07f0774bdaf21c7854eb",
+    "matched": true
+  },
+  {
+    "class": "Rogue",
+    "seed": 901,
+    "gameplay_summary_sha256": "74d910b2e6ed1b66c6c6051f48dab00a92ddfa7bca1c3ca9f873df8c41789eec",
+    "matched": true
+  },
+  {
+    "class": "Rogue",
+    "seed": 1901,
+    "gameplay_summary_sha256": "d7d4e6d90451bd9e1384fac48fc65d4c21a807237a66d0f706be37904614fd6d",
+    "matched": true
+  },
+  {
+    "class": "Warrior",
+    "seed": 901,
+    "gameplay_summary_sha256": "325f327e118ce8431640a6e5ebf030053d839d81ef63e2910696a7b02fad1144",
+    "matched": true
+  },
+  {
+    "class": "Warrior",
+    "seed": 1901,
+    "gameplay_summary_sha256": "3adc87fbe17753abcd23fb9788860e937873e07acbda74dfa976d06d7191dfbe",
+    "matched": true
+  }
+]
