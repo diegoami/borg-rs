@@ -2127,9 +2127,7 @@ fn borg_notice_inventory(st: &mut BorgState) {
     }
 
     /* Reset books */
-    for i in 0..9 {
-        st.borg.amt_book[i] = 0;
-    }
+    st.borg.amt_book.fill(0);
 
     /*** Process the inventory ***/
 

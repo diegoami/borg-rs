@@ -26,7 +26,7 @@ test `upstream_defaults_are_unchanged` is what keeps that true. **No setting
 the upstream had has a different default here**, in either the table or the
 configuration.
 
-Nine settings are not in the upstream. They are listed below.
+Twenty-two settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
@@ -43,12 +43,15 @@ The rule for a setting the upstream never had:
    value the configuration gives it, and `every_setting_is_declared` fails if
    a setting is added without that. Adding a setting is a deliberate act.
 
-All nine keep rule 1: their built-in default does what the original C Borg
-did, so an unconfigured Borg is the original C Borg.
+All twenty-one keep rule 1: their built-in default does what the original C
+Borg did, so an unconfigured Borg is the original C Borg. Twelve of them are
+the town inventory redesign's parameter vector (borg-rs#36): they are read
+only when `borg_town_plan = 1`, and the plan is off by default, so every one
+of them is inert in an unconfigured run.
 
 | setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
 |---|---|---|---|---|---|---|
-| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **TRUE** | **yes, through the config**: a Borg that reads the delivered `borg.txt` plays Warrior, Druid and Ranger with the stair-scum start; a Borg that reads no `borg.txt` does not | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
+| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **FALSE** | no: class-based munchkin start requires an explicit opt-in | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
 | `borg_munchkin_class_depth` | int | 6 | inert: the rule is off, so the class depth never applies | 6 | no | M8, with the rule |
 | `borg_buy_strategy_default` | int | 0 | 0 is the original buying | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_munchkin` | int | -1 | -1 is every class, which is the original buying | -1 | no | borg-rs PR #26/#28 |
@@ -57,23 +60,28 @@ did, so an unconfigured Borg is the original C Borg.
 | `borg_buy_strategy_current_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_reserve410_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_identify` | int | 0 | 0 is off, and the original C Borg never bought to identify | 0 | no | borg-rs PR #28 |
+| `borg_town_no_stores` | bool | FALSE | FALSE is what a Borg does today: the store exists, the Borg does not use it | FALSE | no - FALSE is today's behaviour | borg-rs PR #42, the negative-baseline arm for the town inventory redesign (borg-rs#36) |
+| `borg_town_plan` | int | 0 | 0 is off: the plan does not run, which is today's behaviour | 0 | no | borg-rs PR #42, the town inventory redesign's parameter vector (borg-rs#36) |
+| `borg_town_w_light` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan`; the phase-1 numeraire |
+| `borg_town_w_food` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_bleeding` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_poison` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_escape` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_w_knowledge` | int | 25 | inert while `borg_town_plan = 0` | 25 | no | with `borg_town_plan` |
+| `borg_town_w_power` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_w_trip` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_share` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the purse-share cap |
+| `borg_town_light_depth` | int | 15 | inert while `borg_town_plan = 0` | 15 | no | with `borg_town_plan`; the trip model's light threshold |
+| `borg_town_food_trip` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the trip model's ration count |
 
-**One departure, and it is deliberate.** `borg_munchkin_by_class` is the only
-setting whose built-in default and configured value differ. The built-in
-default is FALSE - what the original C Borg did - and the product's milestone 8
-decision is carried by the two `borg.txt` files, which say TRUE. So:
+The built-in and delivered defaults now agree: `borg_munchkin_start` and
+`borg_munchkin_by_class` are both FALSE. No class gets a munchkin start
+unless the run explicitly enables it. Profiles still name their mode flags.
 
-- a Borg that reads **no** `borg.txt` plays the **original C Borg's**
-  behaviour;
-- a Borg that reads the **delivered** `borg.txt` plays the **product's**
-  behaviour;
-- every tool that runs a Borg **names the setting**, so the difference never
-  reaches a measurement by accident.
-
-The owner decided this on 2026-11-12, after the defaults audit.
-
-The C parser registers `borg_munchkin_by_class` and the C Borg reads it, so
-the two backends agree on both sides of that line.
+Historically, M8 enabled the class override in both delivered configs, and
+that choice was retained in the 2026-11-12 defaults audit. The owner reversed
+that default on 2026-11-14 after finding it active in interactive play.
+The optional class rule remains available in both C and Rust.
 
 ## The zoo contract
 

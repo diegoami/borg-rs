@@ -101,6 +101,25 @@ struct borg_setting borg_settings[] = {
     { "borg_buy_strategy_current_munchkin_classes", 'i', 0 },
     { "borg_buy_strategy_reserve410_munchkin_classes", 'i', 0 },
     { "borg_buy_identify", 'i', 0 },
+    /* The negative-baseline arm for the town inventory redesign (borg-rs#36):
+     * when true, the Rust borg performs no store interaction at all. The C
+     * oracle reads this field and ignores it. */
+    { "borg_town_no_stores", 'b', false },
+    /* The town inventory redesign's parameter vector (borg-rs#36): the
+     * twelve settings the phase-1 usefulness function and the trip model
+     * read. The C oracle reads these fields and ignores them. */
+    { "borg_town_plan", 'i', 0 },
+    { "borg_town_w_light", 'i', 100 },
+    { "borg_town_w_food", 'i', 100 },
+    { "borg_town_w_bleeding", 'i', 100 },
+    { "borg_town_w_poison", 'i', 100 },
+    { "borg_town_w_escape", 'i', 50 },
+    { "borg_town_w_knowledge", 'i', 25 },
+    { "borg_town_w_power", 'i', 50 },
+    { "borg_town_w_trip", 'i', 50 },
+    { "borg_town_share", 'i', 10 },
+    { "borg_town_light_depth", 'i', 15 },
+    { "borg_town_food_trip", 'i', 10 },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */

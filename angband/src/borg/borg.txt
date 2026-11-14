@@ -309,12 +309,11 @@ borg_munchkin_start = FALSE
 borg_munchkin_level = 12
 borg_munchkin_depth = 16
 
-# Munchkin start by class: with borg_munchkin_start FALSE, Warriors, Druids
-# and Rangers still take the munchkin start, stair-scumming at
-# borg_munchkin_class_depth. Every other class plays without it. Set this
-# FALSE to play every class as borg_munchkin_start says.
+# Optional munchkin start by class: when TRUE, Warriors, Druids and Rangers
+# take the munchkin start even with borg_munchkin_start FALSE, stair-scumming
+# at borg_munchkin_class_depth. Leave FALSE to disable this class override.
 
-borg_munchkin_by_class = TRUE
+borg_munchkin_by_class = FALSE
 borg_munchkin_class_depth = 6
 
 
@@ -343,6 +342,33 @@ borg_buy_strategy_reserve410_munchkin_classes = 0
 # suppresses the old valuation if stock is absent or unaffordable.
 
 borg_buy_identify = 0
+
+# The negative-baseline arm for the town inventory redesign (borg-rs#36):
+# when TRUE, the Rust borg performs no store interaction at all - it never
+# buys, never sells, and never uses the home as a stash or a swap source.
+# The C parser reads this field but ignores it.
+borg_town_no_stores = FALSE
+
+# The town inventory redesign's parameter vector (borg-rs#36). The C parser
+# reads these fields but ignores them; the Rust borg reads them when
+# borg_town_plan = 1 (0 keeps today's behaviour: the plan is off).
+# borg_town_w_* are the phase-1 usefulness weights, with w_light = 100 the
+# numeraire. borg_town_share is the purse-share cap k: a single purchase may
+# cost at most purse / k (0 disables the cap). borg_town_light_depth is the
+# descent target from which a second light source is required, and
+# borg_town_food_trip the food rations carried per trip.
+borg_town_plan = 0
+borg_town_w_light = 100
+borg_town_w_food = 100
+borg_town_w_bleeding = 100
+borg_town_w_poison = 100
+borg_town_w_escape = 50
+borg_town_w_knowledge = 25
+borg_town_w_power = 50
+borg_town_w_trip = 50
+borg_town_share = 10
+borg_town_light_depth = 15
+borg_town_food_trip = 10
 
 
 ### Enchant Limit ###

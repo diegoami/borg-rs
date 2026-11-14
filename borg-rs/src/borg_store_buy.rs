@@ -1405,13 +1405,24 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         /* Log */
         note_desc(st, "# Buying ", &item, ".");
 
+        /* The session object log: what the Borg bought, with the store and
+         * the price (or, in the home, what it took back). */
+        let shop_name =
+            String::from_utf8_lossy(&crate::engine::store_feat_name(shop as usize)).to_string();
+        crate::borg_object_log::log_buy(st, &item, &shop_name, item.cost, shop == BORG_HOME as i32);
+
+        /* Town-visit dump: the purchase that was actually carried out. */
+        crate::borg_town_dump::dump_purchase(st, shop, &item);
+
         /* Buy the desired item */
         borg_keypress(st, purchase_target);
-        borg_keypress(st, keycode_t::from(b'p'));
+        if !crate::engine::player_opt(crate::headers::list_options_h::OPT_store_buy_direct) {
+            borg_keypress(st, keycode_t::from(b'p'));
 
-        /* Mega-Hack -- Accept the purchase */
-        borg_keypress(st, KC_ENTER);
-        borg_keypress(st, KC_ENTER);
+            /* Mega-Hack -- Accept the purchase */
+            borg_keypress(st, KC_ENTER);
+            borg_keypress(st, KC_ENTER);
+        }
 
         /* if the borg is scumming and bought it.,
          * reset the scum amount.
