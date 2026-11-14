@@ -37,7 +37,7 @@
       "owner_direction": "carry BBC milestone 13 changes as milestone v13R (owner-directed, 2026-11-14: 'you can do v13r')",
       "note": "Nineteen consumer carry units (patches 0119-0137): heal amounts, cure lists, BI_PSTUN, elemental vulnerability in the danger model, swap fear, wand svals by name, dead-unique bookkeeping, respawn birth-menu letters, glyph-flow fixes, three dead-code removals, two comments. The consumer's post-tag carries 0138-0140 are milestone-14 scope there and are not taken. The consumer's own milestone-13 review (better-borg-c#521) returned approve with corrections on 2026-11-14; the corrections are docs/fixture-tooling only on the consumer side (PR 531, 72cdf63bb, after the tag) - no src/borg code changed, so the carried snapshot is the approved state. No cohort or benefit claim.",
       "rust_milestone_accepted": false,
-      "c_rust_parity": "111/111 identical on keys, messages and state (smoke 3/3, full 45/45, classes 16/16, config 7/7, config-six 6/6, options 25/25, deep 9/9) after a full two-pass oracle re-record; 104 of the 111 runs are byte-identical to the previous corpus",
+      "c_rust_parity": "111/111 identical on keys, messages and state (smoke 3/3, full 45/45, classes 16/16, config 7/7, config-six 6/6, options 25/25, deep 9/9) after a full two-pass oracle re-record; 103 of the 111 runs are byte-identical to the previous corpus, 8 changed (review F1 corrected the count)",
       "rust_tests": "123 passed, 1 existing ignored (new: the 0132 swap-fear pin)",
       "clippy": "clean on rustc 1.98.1",
       "no_c_borg": "OK: the Rust binary links no C Borg (154/154 engine objects identical)",

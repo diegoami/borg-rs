@@ -98,8 +98,9 @@ under `harness/out/` outside Git.
 
 ### What the milestone changed in the corpus
 
-Against the previous (munchkin-off) oracle, **7 of the 111 runs changed**;
-the other 104 are byte-identical, so the v13 branches never fire there:
+Against the previous (munchkin-off) oracle, **8 of the 111 runs changed**
+(the review's F1 corrected this sentence: an earlier draft said 7/104);
+the other 103 are byte-identical, so the v13 branches never fire there:
 
 - `config`: `cfg-lunal-deep-warrior` (first divergence at game turn
   373,119 - the heal-amount, cure-list and danger changes reach the

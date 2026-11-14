@@ -82,9 +82,11 @@ evidence. The consumer's post-tag carries 0138-0140 (sources 154, 590,
 Validation: 123 Rust tests (one existing ignored), clippy clean, no C
 Borg in the Rust binary, and a full two-pass oracle re-record with the
 Rust role on every suite: **111/111 runs identical** on keys, messages
-and state in all three columns. Against the previous corpus 104 of the
-111 runs are byte-identical; the 7 that changed are listed in the
-receipt. Receipt:
+and state in all three columns. Against the previous corpus 103 of the
+111 runs are byte-identical; the 8 that changed are listed in the
+receipt. Independent review: **approve with corrections** - one low
+finding (F1, this count was first written as 7/104), corrected here.
+Receipt:
 [docs/validation/2026-11-14-c-v13r](validation/2026-11-14-c-v13r/README.md).
 The implementation branch is `claude/v13r-carry`; owner acceptance and
 the tag decision remain with the owner.
