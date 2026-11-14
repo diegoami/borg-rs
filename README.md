@@ -144,7 +144,8 @@ it chooses a random first seed. All runs, including deaths/timeouts, retain
 their observed status and local evidence. Only completed recordings can be
 published; an execution/publication failure stops the batch and retains the
 existing data. Named headless continuation is still available through
-`run-borg-headless.py NAME --turns N`; `--new` starts a new birth with backups.
+`run-borg-headless.py NAME --turns N`, also with optional `--auto-push`; `--new`
+starts a new birth with backups.
 
 ## Tools
 

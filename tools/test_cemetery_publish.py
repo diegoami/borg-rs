@@ -37,6 +37,7 @@ class Publication(unittest.TestCase):
         self.bundle.mkdir(parents=True)
         files = {'runtime/game/angband': b'\x7fELFnot an executed test binary',
                  'runtime/game/lib/gamedata/test.txt': b'game data',
+                 'runtime/harness/run.sh': b'#!/bin/sh\nexit 0\n',
                  'run/events.txt': b'poll\n', 'run/record-complete.json': b'{"inputs":1,"frames":1}\n',
                  'run/frames.jsonl': b'{"hp":20}\n', 'frames.jsonl.gz': b'compressed-frame fixture',
                  'final.save': b'saved character'}
@@ -47,6 +48,7 @@ class Publication(unittest.TestCase):
             path.write_bytes(data)
             hashes[name] = hashlib.sha256(data).hexdigest()
         (self.bundle / 'runtime/game/angband').chmod(0o500)
+        (self.bundle / 'runtime/harness/run.sh').chmod(0o755)
         record = {'schema':'borg-rs-gui-recording@1','status':'complete','character':'Test',
                   'build_id':{'git_rev':'test-source','binary':str(self.bundle / 'runtime/game/angband')},
                   'files_sha256':hashes}
@@ -74,6 +76,7 @@ class Publication(unittest.TestCase):
         for path in self.bundle.rglob('*'):
             if path.is_file():
                 self.assertEqual(path.read_bytes(), (restored / path.relative_to(self.bundle)).read_bytes())
+        self.assertTrue((restored / 'runtime/harness/run.sh').stat().st_mode & 0o111)
         self.assertEqual(pub.publish(self.bundle, self.root), commit)  # retry is idempotent
 
     def test_dirty_or_staged_owner_work_is_never_committed(self):

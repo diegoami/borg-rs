@@ -89,7 +89,7 @@ def binary(path, name):
 def member(archive, name, source, expected):
     info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
     info.compress_type = zipfile.ZIP_DEFLATED
-    info.external_attr = (stat.S_IFREG | 0o644) << 16
+    info.external_attr = (stat.S_IFREG | (source.stat().st_mode & 0o777)) << 16
     digest = hashlib.sha256()
     with source.open('rb') as inp, archive.open(info, 'w', force_zip64=True) as out:
         for chunk in iter(lambda: inp.read(1024 * 1024), b''):
@@ -274,6 +274,7 @@ def restore(archive, output, executable=None):
             target.parent.mkdir(parents=True, exist_ok=True)
             with source.open(item) as inp, target.open('xb') as out:
                 shutil.copyfileobj(inp, out)
+            target.chmod((item.external_attr >> 16) & 0o777)
         for name, original in binaries.items():
             target = safe_path(output, name)
             target.parent.mkdir(parents=True, exist_ok=True)

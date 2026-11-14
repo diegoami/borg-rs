@@ -38,7 +38,8 @@ def atomic_json(path, value):
 
 
 def registry_root():
-    return Path(os.environ.get('BORG_DEATH_RECORDS_DIR', runtime.data_root() / 'deaths')).resolve()
+    explicit = os.environ.get('BORG_DEATH_RECORDS_DIR')
+    return Path(explicit).expanduser().resolve() if explicit else runtime.data_root() / 'deaths'
 
 
 def discussion_issue():
