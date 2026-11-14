@@ -1,0 +1,20 @@
+3222 22230 0 # Loc:55,111 Dep:1 Lev:3 HP:2/39 SP:2/2 Danger:p=10
+3222 22230 0 # Fleeing and leaving the level. (scaryguy)
+3222 22230 0 # Backing up to 110,55 (10 > 0)
+3223 22240 0 # Tracking a monster 'giant white mouse' at (55,111) from (55,112)
+3223 22240 0 # There was a monster 'giant white mouse' at (56,112)
+3223 22240 0 # Forgetting a monster 'giant white mouse' at (56,112)
+3223 22240 0 # Scary guy on level.
+3223 22240 0 # Loc:55,110 Dep:1 Lev:3 HP:1/39 SP:2/2 Danger:p=5
+3223 22240 0 # Fleeing and leaving the level. (scaryguy)
+3223 22240 0 # Backing up to 109,55 (5 > 0)
+3224 22250 0 # There was a monster 'giant white mouse' at (55,111)
+3224 22250 0 # Forgetting a monster 'giant white mouse' at (55,111)
+3224 22250 0 # Scary guy on level.
+3224 22250 0 # Fleeing and leaving the level. (scaryguy)
+3224 22250 0 # Fleeing and leaving the level. (Looking for any stair)
+3224 22250 0 # Flowing toward stairs at cost 53
+3225 22250 8 You die.
+3226 22250 0 Score not registered for borgs.
+3226 22250 0 # Aborting (death).
+3226 22250 0 # Aborting (player died).

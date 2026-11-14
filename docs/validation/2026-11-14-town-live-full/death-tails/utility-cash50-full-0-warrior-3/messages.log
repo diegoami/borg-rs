@@ -1,0 +1,20 @@
+996 7253 39 Grip, Farmer Maggot's Dog, bites you.
+998 7257 0 # HIT:Grip, Farmer Maggot's Dog (+)
+998 7257 0 # MISS:Grip, Farmer Maggot's Dog (+)
+998 7257 0 # HIT_BY:Grip, Farmer Maggot's Dog (+)
+998 7257 0 # HIT:Grip, Farmer Maggot's Dog (2)
+998 7257 0 # MISS:Grip, Farmer Maggot's Dog (2)
+998 7257 0 # HIT_BY:Grip, Farmer Maggot's Dog (3)
+998 7257 0 # Scary guy on level.
+998 7257 0 # Loc:44,29 Dep:1 Lev:2 HP:0/33 SP:0/0 Danger:p=8
+998 7257 0 # Fleeing and leaving the level. (scaryguy)
+998 7257 0 # Performing attack type 1 with value 52.
+998 7257 0 # Facing Grip, Farmer Maggot's Dog at (45,30) who has 19 Hit Points.
+998 7257 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+1000 7257 2 You hit Grip, Farmer Maggot's Dog.
+1000 7257 2 You hit Grip, Farmer Maggot's Dog.
+1000 7258 39 Grip, Farmer Maggot's Dog, bites you.
+1001 7258 8 You die.
+1002 7258 0 Score not registered for borgs.
+1002 7258 0 # Aborting (death).
+1002 7258 0 # Aborting (player died).

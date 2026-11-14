@@ -1,6 +1,16 @@
 # The town inventory strategy: the implementation plan
 
-**Utility revision (2026-11-14):** the owner rejected fixed
+> Current repair: [capability coverage and calibration](TOWN-CAPABILITIES.md). The schema-7 implementation builds on the combined M12 runtime; the studies below remain pinned to their original source.
+
+**Owner-directed live comparison (2026-11-14):** opt-in `borg_town_plan = 1`
+now executes the planner; default 0 remains the parity control. The matched
+45-start/four-arm local full suite is complete (180 valid outcomes).
+[Results and parameter subset](validation/2026-11-14-town-live-full/README.md) ·
+[live contract](TOWN-LIVE.md). New records are revision 6; older shadow slice
+notes below describe historical checkpoints. No default change, accepted
+class tuning, tag or PR merge is implied.
+
+**Current shadow-model revision (2026-11-14):** the owner rejected fixed
 stock targets that ignored level, ambition, shallow walking returns and cash.
 [Trip-relative utility](TOWN-UTILITY.md) replaces those targets in schema 5;
 [the catalogue](TOWN-ITEM-CATALOGUE.md) now describes supply units rather than
@@ -8,9 +18,7 @@ quotas. New settings declare destination, duration and retained-gold priority.
 Historical slice notes below describe the earlier v4 model and remain replayable.
 Bounded validation passes: 229 tests, both Clippy versions, C/Rust smoke 3/3,
 21 calibration executions and all 1827 records replayed;
-[receipt](validation/2026-11-14-town-utility/README.md). Those receipts cover comparison mode. Subsequent owner direction enables
-opt-in live execution with `borg_town_plan=1` and combines it with the trip
-policy; see [the current runtime and trials](JOINT-POLICY-TRIALS.md).
+[receipt](validation/2026-11-14-town-utility/README.md). This is still shadow mode.
 
 Status: **accepted**. Phases 0-2 landed 2026-11-12, phase 3 on 2026-11-13; the owner decisions of
 2026-11-12 (the epic log, full record on PR #42) are applied inline.

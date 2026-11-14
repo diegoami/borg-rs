@@ -1,0 +1,13 @@
+{
+  "specimens": {
+    "4.2.6-rs-town-live": {
+      "kind": "borg-rs",
+      "impl": "rust",
+      "repository": "diegoami/borg-rs",
+      "ref": "ac63c5e914f18ba10aa491736ef8453ee59e9aef",
+      "mode_side": "post",
+      "depth_stream": true,
+      "label": "Experimental live town utility; default remains current; measured local full-suite runtime; no derived tag or improvement claim"
+    }
+  }
+}

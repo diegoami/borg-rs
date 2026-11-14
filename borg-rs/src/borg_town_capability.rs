@@ -261,7 +261,9 @@ fn supplies(item: &borg_item, ctx: &Context) -> Vec<(usize, i64)> {
         else if tval == TV_ROD {
             // MINIMISE/AVERAGE are pure; the rod's physical cooldown is not a level gate.
             let turns = engine::kind_recharge_average(item.kind as usize).max(1);
-            (ctx.journey.turns / i64::from(turns)).max(1) * UNIT
+            let ready_after = i64::from(item.timeout).max(0) / qty;
+            if ctx.journey.turns < ready_after { 0 }
+            else { (1 + (ctx.journey.turns - ready_after) / i64::from(turns)) * UNIT }
         } else { UNIT };
     for (_, units) in &mut out { *units = *units * uses / UNIT; }
     out.retain(|&(_, units)| units > 0);
@@ -496,6 +498,8 @@ mod tests {
         use crate::headers::list_projections_h::*;
         assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_AWAY_ALL as i32, 100)], 20), [(OTHER, UNIT)]);
         assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_KILL_WALL as i32, 30)], 20), [(DIG, UNIT)]);
+        let light = effect_supply(&[(EF_LINE as u16, PROJ_LIGHT_WEAK as i32, 6)], 20);
+        assert_eq!(light, [(ATTACK, 6 * UNIT)], "the shop's Wand of Light has a LINE effect");
         for projection in [PROJ_MON_HEAL, PROJ_MON_SPEED, PROJ_MON_CLONE, PROJ_MON_POLY] {
             assert!(effect_supply(&[(EF_BOLT as u16, projection as i32, 100)], 20).is_empty());
         }
@@ -545,6 +549,26 @@ mod tests {
         assert!(m.take(&home) < first);
         m.curves[ATTACK][4] = UNIT;
         assert!(m.reserve(&home, -1, 500) < 0);
+    }
+    #[test]
+    fn selling_or_storing_the_recharge_target_removes_the_purchase_demand() {
+        let mut m = model();
+        m.curves[RECHARGE_TARGET][1] = 0;
+        m.curves[RECHARGE_TARGET][3] = UNIT;
+        m.supplies.push([PACK, 0, RECHARGE_TARGET as i64, UNIT]);
+        assert!(m.gain(&[(RECHARGE, UNIT)]) > 0);
+        m.change(&item(Place::Pack, 0, 1), -1);
+        assert_eq!(m.gain(&[(RECHARGE, UNIT)]), 0);
+    }
+    #[test]
+    fn owning_a_usable_class_book_closes_access_without_a_duplicate_stock_target() {
+        let mut m = model();
+        m.curves[BOOKS][2] = -UNIT;
+        m.supplies.push([4, 0, BOOKS as i64, UNIT]);
+        assert!(m.ware(4, 0, 1) > 0);
+        assert_eq!(m.ware(4, 0, 2), m.ware(4, 0, 1));
+        m.curves[BOOKS][3] = UNIT;
+        assert_eq!(m.ware(4, 0, 1), 0);
     }
     #[test]
     fn malformed_replay_facts_cannot_index_outside_the_capability_table() {

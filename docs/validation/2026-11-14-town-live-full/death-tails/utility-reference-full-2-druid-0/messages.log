@@ -1,0 +1,20 @@
+2564 21190 0 # Loc:23,105 Dep:1 Lev:1 HP:4/11 SP:2/2 Danger:p=5
+2564 21190 0 # Performing attack type 1 with value 3.
+2564 21190 0 # Facing large white snake at (22,104) who has 6 Hit Points.
+2564 21190 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+2566 21190 2 You hit the large white snake.
+2567 21200 0 # HIT:the large white snake (+)
+2567 21200 0 # Tracking a monster 'giant green frog' at (23,104) from (23,103)
+2567 21200 0 # HIT:the large white snake (2)
+2567 21200 0 # Loc:23,105 Dep:1 Lev:1 HP:4/11 SP:2/2 Danger:p=8
+2567 21200 0 # Performing attack type 1 with value 3.
+2567 21200 0 # Facing large white snake at (22,104) who has 5 Hit Points.
+2567 21200 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+2569 21200 3 You miss the large white snake.
+2569 21202 39 The large white snake bites you.
+2569 21202 42 The large white snake crushes you.
+2570 21208 39 The giant green frog bites you.
+2570 21208 8 You die.
+2572 21208 0 Score not registered for borgs.
+2572 21208 0 # Aborting (death).
+2572 21208 0 # Aborting (player died).

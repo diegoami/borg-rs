@@ -1,0 +1,20 @@
+1317 9536 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1319 9536 2 You hit the small kobold.
+1319 9538 34 The small kobold hits you.
+1320 9546 0 # HIT:the small kobold (+)
+1320 9546 0 # HIT_BY:The small kobold (+)
+1320 9546 0 # HIT:the small kobold (2)
+1320 9546 0 # HIT_BY:The small kobold (3)
+1320 9546 0 # Scary guy on level.
+1320 9546 0 # Loc:45,100 Dep:1 Lev:1 HP:2/11 SP:2/2 Danger:p=10
+1320 9546 0 # Fleeing and leaving the level. (scaryguy)
+1320 9546 0 # Adjacent to monster on Scaryguy Level.
+1320 9546 0 # Performing attack type 1 with value 16.
+1320 9546 0 # Facing small kobold at (45,101) who has 6 Hit Points.
+1320 9546 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1322 9546 3 You miss the small kobold.
+1322 9547 34 The small kobold hits you.
+1322 9547 8 You die.
+1323 9547 0 Score not registered for borgs.
+1323 9547 0 # Aborting (death).
+1323 9547 0 # Aborting (player died).

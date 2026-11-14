@@ -1,0 +1,20 @@
+6137 48193 34 The soldier hits you.
+6138 48198 0 # HIT:the soldier (+)
+6138 48198 0 # HIT_BY:The soldier (+)
+6138 48198 0 # HIT_BY:The soldier (+)
+6138 48198 0 # HIT:the soldier (2)
+6138 48198 0 # HIT_BY:The soldier (3)
+6138 48198 0 # HIT_BY:The soldier (3)
+6138 48198 0 # Scary guy on level.
+6138 48198 0 # Loc:22,100 Dep:1 Lev:3 HP:2/27 SP:2/2 Danger:p=41
+6138 48198 0 # Fleeing and leaving the level. (scaryguy)
+6138 48198 0 # Bored, or recalling and fighting a monster on Scaryguy Level.
+6138 48198 0 # Performing attack type 1 with value 82.
+6138 48198 0 # Facing soldier at (23,100) who has 5 Hit Points.
+6138 48198 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+6140 48198 3 You miss the soldier.
+6140 48204 34 The soldier hits you.
+6140 48204 8 You die.
+6141 48204 0 Score not registered for borgs.
+6141 48204 0 # Aborting (death).
+6141 48204 0 # Aborting (player died).

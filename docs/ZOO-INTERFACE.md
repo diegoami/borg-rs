@@ -172,3 +172,27 @@ git show e473720ed88a0f0c7ca66815cef3000eb4a38bc3:src/borg/borg.txt     # the or
 Compare them with `angband/src/borg/borg-init.c`, `borg-rs/src/borg_init.rs`,
 `harness/borg.txt` and `angband/src/borg/borg.txt`. The audit was done on
 2026-11-12 and the result is the table above.
+
+## Class-aware calibration
+
+Shared defaults, optional class baselines and per-arm class overrides are now
+resolved before birth. The native export uses the zoo's existing `by_class`
+and `otherwise` selector. The reference still uses one shared vector for all
+nine classes; probe overrides are validation fixtures. See
+[TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
+validation and the live-testing/confirmation gates. New runner manifests are
+reported per class, including failures and Ranger/Blackguard.
+
+Class-profile export, per-cell shadow capture and parsed-settings verification
+are requested in [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
+The request does not authorise a live executor or a hosted experiment dispatch.
+
+## Live local outcome pilot
+
+The owner requested the experimental executor and a local full-suite comparison.
+`borg_town_plan = 1` now executes the utility strategy; default 0 remains the
+unchanged current control. The [live outcome report](validation/2026-11-14-town-live-full/README.md)
+records all 180 matched attempts and the focused Knowledge/Home grid for a
+later zoo development run. Six native profiles and the measured source pin
+are in `tools/town-plan/zoo-live-grid-{profiles,specimen,experiment}.json`.
+The existing zoo planner validates 10800 cells; no workflow is dispatched.

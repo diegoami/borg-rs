@@ -258,6 +258,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             crate::borg_trait::borg_notice(st, true);
             let gain = i64::from(crate::borg_power::borg_power_equipment(st)) - base_light;
             st.items.items[light_slot] = items[light_slot];
+            crate::borg_trait::borg_notice(st, true);
             kit.push(fact(st, &it, Place::Pack, slot, gain.max(0)));
             continue;
         }
@@ -269,6 +270,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
         crate::borg_trait::borg_notice(st, true);
         let loss = base - i64::from(crate::borg_power::borg_power(st));
         st.items.items[slot] = it;
+        crate::borg_trait::borg_notice(st, true);
         kit.push(fact(st, &it, Place::Pack, slot, loss));
     }
     let home: Vec<borg_item> = st.store.shops.get(BORG_HOME).map_or(Vec::new(), |h| h.ware.clone());
@@ -292,6 +294,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             }
             None => 0,
         } };
+        crate::borg_trait::borg_notice(st, true);
         kit.push(fact(st, it, Place::Home, slot, gain));
     }
 

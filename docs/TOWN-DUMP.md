@@ -241,3 +241,29 @@ engine data at replay. The reader also accepts historical v4 records with their
 12 parameters, 11-field kit rows and old fixed-target code path. Unit and utility
 semantics are chosen by the schema, never inferred from the numeric magnitudes.
 See [TOWN-UTILITY](TOWN-UTILITY.md) for equations and policy assumptions.
+
+## Live record revision 6
+
+The [experimental live executor](TOWN-LIVE.md) emits revision 6 with the same
+row layouts and 24 parameters. Mode 1 records actual quote-based live planning;
+mode 0 remains observational. Purchases are applied one copy at a time. The
+revision also distinguishes the empty-value Home-cycle correction from schema
+5's historical dispositions; schemas 4/5 still replay with their original rules.
+
+### Capability records (v7)
+
+The combined capability repair adds integer tables `capability_curves`
+(`[id, evaluated_weight, demand, carried_units, Home_units]`) and
+`capability_supplies` (`[scope, slot, id, units_per_copy]`). Scopes 0–6 are
+shops, 8 is the pack and 9 is the Home. IDs are append-only in
+`borg_town_capability::NAMES`; the recharge-target row is a zero-weight
+prerequisite marker. Negative demand denotes a one-time access/repair
+requirement, positive demand a diminishing stock-coverage scale. All native
+class, item-effect and spell facts necessary for pricing are materialized;
+replay does not consult live game data. Raw new calibration settings remain
+visible in native `effective_settings` and the run's config; derived weights
+and demands are sufficient to reproduce each individual solve.
+
+Versions 4, 5 and 6 keep their historical replay paths. Version 7 uses capability
+facts consistently for pack/Home dispositions and purchases. The version-6
+worthless-storage and just-bought Home-sale guards are retained.

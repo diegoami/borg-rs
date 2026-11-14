@@ -1,0 +1,1840 @@
+{
+  "runs": [
+    {
+      "arm": "current",
+      "name": "full-0-warrior-0",
+      "class": "Warrior",
+      "seed": 1000,
+      "race_idx": 0,
+      "class_idx": 0,
+      "messages_sha256": "08e8672bd8b451f59adb031dea01f9f6f689c33d1e4fc88650a077dd3525783d",
+      "state_sha256": "f314fb3036be7539a415e3dcd84349eec17180b427c8482b2390c1b73d7c2384"
+    },
+    {
+      "arm": "current",
+      "name": "full-0-warrior-1",
+      "class": "Warrior",
+      "seed": 1001,
+      "race_idx": 1,
+      "class_idx": 0,
+      "messages_sha256": "e0fca7be50a7918d3092d3ccf3488d3de69c73ab2949bf303e2964a5ca1b2ff6",
+      "state_sha256": "305869ea0d991c5649c2632ea2724582e1ddb3f6616660461b5fc55fa22df9b3"
+    },
+    {
+      "arm": "current",
+      "name": "full-0-warrior-2",
+      "class": "Warrior",
+      "seed": 1002,
+      "race_idx": 2,
+      "class_idx": 0,
+      "messages_sha256": "f09e40116d9a833a3517d9d3dde01d8f9aa4392cdef8eb081c6fad6f0f4bd15e",
+      "state_sha256": "b491f24fbf4f24f06cbe5ae4691b36d94cf6bf2bbcac993e6321ed9b53f61c51"
+    },
+    {
+      "arm": "current",
+      "name": "full-0-warrior-3",
+      "class": "Warrior",
+      "seed": 1003,
+      "race_idx": 3,
+      "class_idx": 0,
+      "messages_sha256": "238edc3aa9ce27e2e3e2b78eebe82a7cd2a437e9998956eca96df513a7ad7144",
+      "state_sha256": "02905be4257a6db8c2ae1bb8d4cb882099e37144396ae2e5e9841f37d726333d"
+    },
+    {
+      "arm": "current",
+      "name": "full-0-warrior-4",
+      "class": "Warrior",
+      "seed": 1004,
+      "race_idx": 4,
+      "class_idx": 0,
+      "messages_sha256": "f52790873f5ae09489400c825cf40da2e339297f2823c53801ef908e0da79f49",
+      "state_sha256": "307172b099d9a639d34f5e2d2fd4914744771b4c2b8d13b36407e0d37c564246"
+    },
+    {
+      "arm": "current",
+      "name": "full-1-mage-0",
+      "class": "Mage",
+      "seed": 1010,
+      "race_idx": 1,
+      "class_idx": 1,
+      "messages_sha256": "a04d3fa0b8aa907ff15212db7739e7ebf94eaf3ffdeff7d2ad4c694dcf402fda",
+      "state_sha256": "d431237c0274cbf0c400d591b727fa267270cceb5dca4e906bf303149b4519ec"
+    },
+    {
+      "arm": "current",
+      "name": "full-1-mage-1",
+      "class": "Mage",
+      "seed": 1011,
+      "race_idx": 2,
+      "class_idx": 1,
+      "messages_sha256": "e7e746305a86b3ed391460fb114ae90b280ae206ac8536ae21c1245d7380d180",
+      "state_sha256": "9932a3bfa185dc02f4956ee17a7a2dc342ebeeb2918459972ed10a82666b352a"
+    },
+    {
+      "arm": "current",
+      "name": "full-1-mage-2",
+      "class": "Mage",
+      "seed": 1012,
+      "race_idx": 3,
+      "class_idx": 1,
+      "messages_sha256": "964b0d92630002474a3b4c3938317b48588be63a37b075a93ff04bf8f1736752",
+      "state_sha256": "83ce4dcc87efd93c94b595fffa41c4caf766172fa540c6d079cef075c261710f"
+    },
+    {
+      "arm": "current",
+      "name": "full-1-mage-3",
+      "class": "Mage",
+      "seed": 1013,
+      "race_idx": 4,
+      "class_idx": 1,
+      "messages_sha256": "4f998f74caaa6043d012f775c448f3e6c0d632a32cb73876b3651f658cfa35b5",
+      "state_sha256": "aacf7e4770d8d01af084f0acdb5f5a438b46b649b4ed4dc0eedce7952d42499e"
+    },
+    {
+      "arm": "current",
+      "name": "full-1-mage-4",
+      "class": "Mage",
+      "seed": 1014,
+      "race_idx": 5,
+      "class_idx": 1,
+      "messages_sha256": "828f394cb3e3f0b8e722e9c338ec1e3a165af5e2fb61f5f6355627e319034fbf",
+      "state_sha256": "6ddc05337c22d1fe679c389983af5e03e5c5d56423b03dd2cc52e9311c1c423a"
+    },
+    {
+      "arm": "current",
+      "name": "full-2-druid-0",
+      "class": "Druid",
+      "seed": 1020,
+      "race_idx": 2,
+      "class_idx": 2,
+      "messages_sha256": "51043424b5c66e32d05b5abc11f2ed5f7521cc7b37231fcb2bf73f70f13071f7",
+      "state_sha256": "fa5405441cb0acb0c89459f652c633dc96a4b3c756e49eec64d2144f8e11cf8e"
+    },
+    {
+      "arm": "current",
+      "name": "full-2-druid-1",
+      "class": "Druid",
+      "seed": 1021,
+      "race_idx": 3,
+      "class_idx": 2,
+      "messages_sha256": "014f872fde7331df78cef361e6a1da21a4c4f21d03a05a6fd430ad399340e8ae",
+      "state_sha256": "56a1c8c0e3a065cc92297cbfa9461dc04b357d6153d0eff5d4d29dece5f308e1"
+    },
+    {
+      "arm": "current",
+      "name": "full-2-druid-2",
+      "class": "Druid",
+      "seed": 1022,
+      "race_idx": 4,
+      "class_idx": 2,
+      "messages_sha256": "aa4bf9d500633b218ab722007177f53c379e514213f8aef11ebd74a46e137590",
+      "state_sha256": "e8699cec479acd7785cad91a2fd411c7be494007617f4826666b138b2cb01405"
+    },
+    {
+      "arm": "current",
+      "name": "full-2-druid-3",
+      "class": "Druid",
+      "seed": 1023,
+      "race_idx": 5,
+      "class_idx": 2,
+      "messages_sha256": "773e8d04dec1f5dec7b3c546c921bc0bf57004a6cf32ee3abe565028b5f6f306",
+      "state_sha256": "917208c762248a29dddc26c30de61b6bdfaf93bd95f08ff78c81c2404db7a7b2"
+    },
+    {
+      "arm": "current",
+      "name": "full-2-druid-4",
+      "class": "Druid",
+      "seed": 1024,
+      "race_idx": 6,
+      "class_idx": 2,
+      "messages_sha256": "187c20e704877ab57585915e6ca8428e26d32d2f4f14ac23c2fdf56811ada9bb",
+      "state_sha256": "4bf2405736f78198fd7debb679a04227ead8ee183ad69111b6b25c305f71e3bc"
+    },
+    {
+      "arm": "current",
+      "name": "full-3-priest-0",
+      "class": "Priest",
+      "seed": 1030,
+      "race_idx": 3,
+      "class_idx": 3,
+      "messages_sha256": "25bc6f4196c74f9dcb850b8fbdc6ad995c8a3316001f3b1ef38de86a563ca5fd",
+      "state_sha256": "ae9c7e1e715236bbda374ca5ddc36be4516d1b4dc6b312c80c0ba0c028449bf2"
+    },
+    {
+      "arm": "current",
+      "name": "full-3-priest-1",
+      "class": "Priest",
+      "seed": 1031,
+      "race_idx": 4,
+      "class_idx": 3,
+      "messages_sha256": "9c7155735a6ab44b8d8e833c417123f78be105b9807d923d0ebb561feb81bdd2",
+      "state_sha256": "0a47490f632e0b3ad4ee29c388e334c966fcf4ac0a357f036f68b08e2eb59f19"
+    },
+    {
+      "arm": "current",
+      "name": "full-3-priest-2",
+      "class": "Priest",
+      "seed": 1032,
+      "race_idx": 5,
+      "class_idx": 3,
+      "messages_sha256": "4bce9f97aaeb3d798b90a065d40bd25928db92e10e6e28e7a2842983e13f0ade",
+      "state_sha256": "fd7b19c1205390a8c8ae8e2885de3badf715108e56d9578fe22b3d5129e7b05f"
+    },
+    {
+      "arm": "current",
+      "name": "full-3-priest-3",
+      "class": "Priest",
+      "seed": 1033,
+      "race_idx": 6,
+      "class_idx": 3,
+      "messages_sha256": "fc5efcdeaa5b858833af36b4eff6e4f900a1ab40f2867babf4d033968bf378fc",
+      "state_sha256": "cf0cbe9ee65186f5524118d8c3660342e97591030769e03ab6031dbb6e5bb87f"
+    },
+    {
+      "arm": "current",
+      "name": "full-3-priest-4",
+      "class": "Priest",
+      "seed": 1034,
+      "race_idx": 7,
+      "class_idx": 3,
+      "messages_sha256": "467ac761e4b57f86cdf763c47f494855e507d0826ca5f84114bb826d97379d49",
+      "state_sha256": "308fb9b3d03e1c93b3114208483cb9310f26f5a7ca5ebc3bc6d70b655cb2a35e"
+    },
+    {
+      "arm": "current",
+      "name": "full-4-necro-0",
+      "class": "Necromancer",
+      "seed": 1040,
+      "race_idx": 4,
+      "class_idx": 4,
+      "messages_sha256": "c9a707ed23c0e6aec4ba470a0d1502a8f24aa449e78faa32b6216c21173c3b89",
+      "state_sha256": "c03b17037094048c731f565c09065ce55b12e90d9665d7e8f946892493b154b6"
+    },
+    {
+      "arm": "current",
+      "name": "full-4-necro-1",
+      "class": "Necromancer",
+      "seed": 1041,
+      "race_idx": 5,
+      "class_idx": 4,
+      "messages_sha256": "3faddc157ff568e2799cb68aa6f059dbbee897e3df0e2931b620edb23eb32a72",
+      "state_sha256": "3b20266f04281a510ab7dee2533360e9f8c860d57596be634228490225904c13"
+    },
+    {
+      "arm": "current",
+      "name": "full-4-necro-2",
+      "class": "Necromancer",
+      "seed": 1042,
+      "race_idx": 6,
+      "class_idx": 4,
+      "messages_sha256": "e69678c927f121ca1e73d20a772e4689a34f6703e7e7a364457418da43470644",
+      "state_sha256": "eb7fdbb4896cd099a9cd75e625accf1974f4706ad3fe05b598964fa092356316"
+    },
+    {
+      "arm": "current",
+      "name": "full-4-necro-3",
+      "class": "Necromancer",
+      "seed": 1043,
+      "race_idx": 7,
+      "class_idx": 4,
+      "messages_sha256": "cee9a64ae4e746bac275591bc0c0fbed22e26aaf2c7b63c010fc05dea0481a88",
+      "state_sha256": "1de72900747d7120e6ce2a2505cb8237ff78a20d6d0d7cf4f14f605b8c9258ef"
+    },
+    {
+      "arm": "current",
+      "name": "full-4-necro-4",
+      "class": "Necromancer",
+      "seed": 1044,
+      "race_idx": 8,
+      "class_idx": 4,
+      "messages_sha256": "c8f4e27afe382a2dcd8ecd8727da26a2d86dc470935f4d9c11b920978a073bc6",
+      "state_sha256": "d7cbbcdbff08ffea4a679b13849ab9f6c5c61ca802b67eb328107599664b9a65"
+    },
+    {
+      "arm": "current",
+      "name": "full-5-paladin-0",
+      "class": "Paladin",
+      "seed": 1050,
+      "race_idx": 5,
+      "class_idx": 5,
+      "messages_sha256": "a647185382543b5ddb1f22191af784ab0f681c5347a56603f3ad1271c1d9e9e0",
+      "state_sha256": "28e28fea6096bda2a61c0da188b60c349d2af4eea410d1e818b14cb347272140"
+    },
+    {
+      "arm": "current",
+      "name": "full-5-paladin-1",
+      "class": "Paladin",
+      "seed": 1051,
+      "race_idx": 6,
+      "class_idx": 5,
+      "messages_sha256": "6b8e45d0e27a79dfede8918121c2023e9f3d8b9321f29695b1b40e943ac107f8",
+      "state_sha256": "b23f9156d95d4c5e45e849a102ce1ee72cc58a99ad2c25bb71257982715d1d56"
+    },
+    {
+      "arm": "current",
+      "name": "full-5-paladin-2",
+      "class": "Paladin",
+      "seed": 1052,
+      "race_idx": 7,
+      "class_idx": 5,
+      "messages_sha256": "70825d60ef62a60fa0405269abcf153cc83018881740b4895f69389796e9db02",
+      "state_sha256": "81fb40d9e12103296ac87b61d9efdf26be1d400b8e771ae2e01d739c26f9390c"
+    },
+    {
+      "arm": "current",
+      "name": "full-5-paladin-3",
+      "class": "Paladin",
+      "seed": 1053,
+      "race_idx": 8,
+      "class_idx": 5,
+      "messages_sha256": "bf6a39c339367fae629a2e692b148081c997273d0d368148ef3407af92b79184",
+      "state_sha256": "94a8f4592924c2939a240d35487bb6702d62f8d8b546fcd6cac92b4b357f33c6"
+    },
+    {
+      "arm": "current",
+      "name": "full-5-paladin-4",
+      "class": "Paladin",
+      "seed": 1054,
+      "race_idx": 9,
+      "class_idx": 5,
+      "messages_sha256": "a9a5cd6c6c8bcdeb80ec9a5801dccd4d46049393b5e6daa2cc465a2facbaa01f",
+      "state_sha256": "5ac04d453dfbdbf9f29cf0dc116e4e34185970ee9c90b4bfb8c99c4b5783f6ec"
+    },
+    {
+      "arm": "current",
+      "name": "full-6-rogue-0",
+      "class": "Rogue",
+      "seed": 1060,
+      "race_idx": 6,
+      "class_idx": 6,
+      "messages_sha256": "e5bb2a7dd524e5c32e0fdcd0780cb76f350113a2009aaf29b30d2ce519fc6a28",
+      "state_sha256": "0d9faabf75e92b21ec4388a6e19564e7719e2316a38f057537102ad57ee2666d"
+    },
+    {
+      "arm": "current",
+      "name": "full-6-rogue-1",
+      "class": "Rogue",
+      "seed": 1061,
+      "race_idx": 7,
+      "class_idx": 6,
+      "messages_sha256": "7d467c62b2fdf8826b1c9dd6d572d39e1d87d4c6a6c51e3c96ced8cde042574e",
+      "state_sha256": "e7360a19a90116ef6fe65be3c28c3d95752d7a9651c3b020a430731776ae266a"
+    },
+    {
+      "arm": "current",
+      "name": "full-6-rogue-2",
+      "class": "Rogue",
+      "seed": 1062,
+      "race_idx": 8,
+      "class_idx": 6,
+      "messages_sha256": "d446d25170aa7cfbfd379fbbadaeebb3c94c09f31899c5f41286635b99a1c96c",
+      "state_sha256": "09a5c7bafd60af9fc4f7966cb30962ebfb2c6dc92afc839ab61b8873e4674b36"
+    },
+    {
+      "arm": "current",
+      "name": "full-6-rogue-3",
+      "class": "Rogue",
+      "seed": 1063,
+      "race_idx": 9,
+      "class_idx": 6,
+      "messages_sha256": "a399d7770344a6095001565cf81e2b794553554166a03fbe3e3dce9e7113a355",
+      "state_sha256": "34461e617e7e5097a5dc8a5d99d95bd3febbac1352a3c64ecf6bd4d4b275cc19"
+    },
+    {
+      "arm": "current",
+      "name": "full-6-rogue-4",
+      "class": "Rogue",
+      "seed": 1064,
+      "race_idx": 10,
+      "class_idx": 6,
+      "messages_sha256": "e8d210f31e547de34ba644b7ac23a66af502a99ddab0b796a3daf0205f6345d6",
+      "state_sha256": "f50ecb73a20e4cb6c3f230633e26b4ac6b3ed85b79f8e22e48cf02d487fa721a"
+    },
+    {
+      "arm": "current",
+      "name": "full-7-ranger-0",
+      "class": "Ranger",
+      "seed": 1070,
+      "race_idx": 7,
+      "class_idx": 7,
+      "messages_sha256": "1aebf6d5671e0dc064387ff73f94a0af09d2dc1e3186c728ebba885c90cf2078",
+      "state_sha256": "3c36ff9c4e2998d93251990283c3b53bb1b1a3c2b7c46aba00baadf3e0cfad14"
+    },
+    {
+      "arm": "current",
+      "name": "full-7-ranger-1",
+      "class": "Ranger",
+      "seed": 1071,
+      "race_idx": 8,
+      "class_idx": 7,
+      "messages_sha256": "1401943c0ca312722051976a4962fd6925f5dd6a19fe15bab911b3378eb7bfc2",
+      "state_sha256": "c78d53f4e461d0eedacc48f75ed75260772dcfe32d9668ba9ec50767bf43fa37"
+    },
+    {
+      "arm": "current",
+      "name": "full-7-ranger-2",
+      "class": "Ranger",
+      "seed": 1072,
+      "race_idx": 9,
+      "class_idx": 7,
+      "messages_sha256": "b89d60b88825fe925622ebcc83cb2b29f0612cd64cd9fb89d29b569321246adb",
+      "state_sha256": "79300448e13f2cc613b7cc51c223d3d60732203909b575c698ad6a7c9aaba3be"
+    },
+    {
+      "arm": "current",
+      "name": "full-7-ranger-3",
+      "class": "Ranger",
+      "seed": 1073,
+      "race_idx": 10,
+      "class_idx": 7,
+      "messages_sha256": "85e3d7dc696f47786af5487551e1598fe900fbea194543d18fa7acc3999568db",
+      "state_sha256": "6949a36c95e5c39386c550a1472829e00e8eb8ea711ccc7e3977ed28a7178964"
+    },
+    {
+      "arm": "current",
+      "name": "full-7-ranger-4",
+      "class": "Ranger",
+      "seed": 1074,
+      "race_idx": 0,
+      "class_idx": 7,
+      "messages_sha256": "342b55931eb619d14999ca410324a61d17333d7111e10b37fc5d6dd5f61b0bf5",
+      "state_sha256": "a5e3a7b7af2bb038bce9e01143105587d5850dd32031b304f1a2c44b95694b55"
+    },
+    {
+      "arm": "current",
+      "name": "full-8-blackguard-0",
+      "class": "Blackguard",
+      "seed": 1080,
+      "race_idx": 8,
+      "class_idx": 8,
+      "messages_sha256": "701b82bcc4f99903bae4f0cd20698a97df03efb3b220625b0a7939f239e274f5",
+      "state_sha256": "46bba4f265cad6da18743fb74f287eb975b650b9f9813ea01c379db396c8c845"
+    },
+    {
+      "arm": "current",
+      "name": "full-8-blackguard-1",
+      "class": "Blackguard",
+      "seed": 1081,
+      "race_idx": 9,
+      "class_idx": 8,
+      "messages_sha256": "8dc94806a5be535a07a5f1fb34917c83927c834e18470d98317e0802f1ac4f78",
+      "state_sha256": "78d7e065e7fe11ef778cdd4c699959ed6c520054ad9e4faf278a88e82906d60b"
+    },
+    {
+      "arm": "current",
+      "name": "full-8-blackguard-2",
+      "class": "Blackguard",
+      "seed": 1082,
+      "race_idx": 10,
+      "class_idx": 8,
+      "messages_sha256": "72219fb2c90f0c6413cb0c62d943ea494c537a742910d6f5094bbb6a3e02c988",
+      "state_sha256": "498c65acf8f4d1ce908e65b952c932ed14bc4440b13391a7524f75a9bc802c9c"
+    },
+    {
+      "arm": "current",
+      "name": "full-8-blackguard-3",
+      "class": "Blackguard",
+      "seed": 1083,
+      "race_idx": 0,
+      "class_idx": 8,
+      "messages_sha256": "cd4433609fd02d39b55d0708f9cdd49b1e89d797aeca1e8dbf0170a43ad26102",
+      "state_sha256": "f4488cc27cf54c35197b4e7eba1887b5a26b6da84c77e70c81f761343c75f2d5"
+    },
+    {
+      "arm": "current",
+      "name": "full-8-blackguard-4",
+      "class": "Blackguard",
+      "seed": 1084,
+      "race_idx": 1,
+      "class_idx": 8,
+      "messages_sha256": "95bf55c13bef96628468e42195246a33da2432d4574caea49ef040f64de3e98e",
+      "state_sha256": "cf1fa4c16c82329bae5ce3f59a0f1a4b2fa0f7063aee708f53fae0394c7f9640"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-0-warrior-0",
+      "class": "Warrior",
+      "seed": 1000,
+      "race_idx": 0,
+      "class_idx": 0,
+      "messages_sha256": "b60f3b17428d92edd55795591f846ec5486a9018554dbae30eb3e8933c29fb2e",
+      "state_sha256": "df1ce4131d0259e00199e48a1b81a1a26a7a8bb1d437732a208e50b9978cfc7d"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-0-warrior-1",
+      "class": "Warrior",
+      "seed": 1001,
+      "race_idx": 1,
+      "class_idx": 0,
+      "messages_sha256": "5858a9992a977ee0574e2dee24105db705802f7a6b798193571749b4c4c78ef7",
+      "state_sha256": "7dcc09ef97f57ec360d2676f452528f8dc402edc4aaf87cfaf95547b87acb989"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-0-warrior-2",
+      "class": "Warrior",
+      "seed": 1002,
+      "race_idx": 2,
+      "class_idx": 0,
+      "messages_sha256": "a697a90e51d7657ba72f3ac6397e9e8a64aa378b955d36d10f8378255272846d",
+      "state_sha256": "23ae17e49aae753dc5d7e9df8b2d9a10acb4da521bfe841424a1f6167f3a086f"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-0-warrior-3",
+      "class": "Warrior",
+      "seed": 1003,
+      "race_idx": 3,
+      "class_idx": 0,
+      "messages_sha256": "0be1de0e56219dc2da04f93ba27d6b7a036759c543b872958c7c1d9813721f1d",
+      "state_sha256": "fd3208fd326ff61683a6175ebb215a1abdce6aee210fab22d2a82c24aa234abb"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-0-warrior-4",
+      "class": "Warrior",
+      "seed": 1004,
+      "race_idx": 4,
+      "class_idx": 0,
+      "messages_sha256": "42db847d43243894cb4a0cc473b222b36decc06b9acea47901ebde4b22282443",
+      "state_sha256": "970486fa6cc41445fd3017345534d1a6bb201e7b1b9dc7ddd2d3c3a9732a437a"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-1-mage-0",
+      "class": "Mage",
+      "seed": 1010,
+      "race_idx": 1,
+      "class_idx": 1,
+      "messages_sha256": "bab1da1155ce9a6bc26f63991b64e142694c233a8a4ce619088370526e63e194",
+      "state_sha256": "50042c07359d517b47c2b3928d6dd5848a55967259f09cac122092a65947db92"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-1-mage-1",
+      "class": "Mage",
+      "seed": 1011,
+      "race_idx": 2,
+      "class_idx": 1,
+      "messages_sha256": "082f25f8655ba0323d88e3253c431fd18ec41b1f20660cd1618fa6ed44066d9c",
+      "state_sha256": "f65306050fca34aac4102fae3df2f24ff353576040879cbd786818ddf1410cba"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-1-mage-2",
+      "class": "Mage",
+      "seed": 1012,
+      "race_idx": 3,
+      "class_idx": 1,
+      "messages_sha256": "b6fd7378f0c08b5914e0442e4402e488dd74426ee8c4d865d8a63ddb5306c920",
+      "state_sha256": "9f6718b06b131cc6dd61421bf4d282d9427e1eea3d342c8cd082468e8abe05e9"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-1-mage-3",
+      "class": "Mage",
+      "seed": 1013,
+      "race_idx": 4,
+      "class_idx": 1,
+      "messages_sha256": "8a911d5a723fb07d159634ef530556bdff4af16b43569b19632e39399bcfa895",
+      "state_sha256": "421b1f85c5f6f33db1570f97c611204ca834f8d8757b837528afe6306f7ad7cf"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-1-mage-4",
+      "class": "Mage",
+      "seed": 1014,
+      "race_idx": 5,
+      "class_idx": 1,
+      "messages_sha256": "4c0f6a3d1391c00706e5e8a5de61fd309d02cbdd5af14f4ec6c3ad38208eb1a1",
+      "state_sha256": "88ebd06034b655384bf84b03838ac2fd918be56e41fcf19ec18c87ff691664d7"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-2-druid-0",
+      "class": "Druid",
+      "seed": 1020,
+      "race_idx": 2,
+      "class_idx": 2,
+      "messages_sha256": "90500a5b9e68f911118bff7c1b6ac38032b3efc4405972e5f20da6fb8c379f33",
+      "state_sha256": "332f6618f86167aba45199d2663cfc89e1c4cf6e8c4117449474e66ffd027631"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-2-druid-1",
+      "class": "Druid",
+      "seed": 1021,
+      "race_idx": 3,
+      "class_idx": 2,
+      "messages_sha256": "dd72b629accf86857a6b0e1ea69eccabd1ea9ed02c6de136292bd7f9a509c2c2",
+      "state_sha256": "529e8d51127ae61c89f34dcef5a92632850042041ba9b5a218fb5de5cc1f5595"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-2-druid-2",
+      "class": "Druid",
+      "seed": 1022,
+      "race_idx": 4,
+      "class_idx": 2,
+      "messages_sha256": "e342a62e58b58e7d875e7f615589f6372776492ce5be91c457167a02c6cdca3a",
+      "state_sha256": "99c64e744b68f04ec79cc3b4a2faa697a59fc6f64a7fe0a27d30499b0a4d5f13"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-2-druid-3",
+      "class": "Druid",
+      "seed": 1023,
+      "race_idx": 5,
+      "class_idx": 2,
+      "messages_sha256": "e81336b0816a82f1600ac6627e370a1351427fab879503a14792c50ebced00cd",
+      "state_sha256": "0b936502e44459e37f5276aaf46791f5a26b6d50cf71870188cbc424057c386b"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-2-druid-4",
+      "class": "Druid",
+      "seed": 1024,
+      "race_idx": 6,
+      "class_idx": 2,
+      "messages_sha256": "be025cbcc9daedb538bc8b93c047bec29f60d4aa45d0901d7f618cf453df1b2c",
+      "state_sha256": "f43d2d855731ff96827f48d62616b61f7b342d25c6fd659b41bc1e1854c7db07"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-3-priest-0",
+      "class": "Priest",
+      "seed": 1030,
+      "race_idx": 3,
+      "class_idx": 3,
+      "messages_sha256": "67693e8709390c1d353fc2b924ce672965f090964f4fbfb61b30dcbd2674c0ba",
+      "state_sha256": "d0d037e9170aefeeb0a6864b478c2c201128633fee14017f3ce7f345ccb0b89f"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-3-priest-1",
+      "class": "Priest",
+      "seed": 1031,
+      "race_idx": 4,
+      "class_idx": 3,
+      "messages_sha256": "26f92ec428d05133bd82d73621b9dbd3ec74af3cbc5fab940f94c5512fae50f2",
+      "state_sha256": "b8397dbba7d09bffc76f19f464e3c2e8447e259bb70824060bad305d96c475de"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-3-priest-2",
+      "class": "Priest",
+      "seed": 1032,
+      "race_idx": 5,
+      "class_idx": 3,
+      "messages_sha256": "c408d40c38a10b355de3653b2d76fd0d5596032c43a08349beeced34ffabe857",
+      "state_sha256": "b325560d13efd0d0e930dfed0c01630bed11f91fe50f3e127a01a60c80edbf72"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-3-priest-3",
+      "class": "Priest",
+      "seed": 1033,
+      "race_idx": 6,
+      "class_idx": 3,
+      "messages_sha256": "cf86a392c3b58743e1dcb42d26600d53ff711a2f47cefc5afb9bdcddf8919029",
+      "state_sha256": "f63e164409b446fa1fe3cead9414f8f751576f68b9e99b2cce4d03a03a072355"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-3-priest-4",
+      "class": "Priest",
+      "seed": 1034,
+      "race_idx": 7,
+      "class_idx": 3,
+      "messages_sha256": "2950ae0049917e49aeae0be9a6cd62c48db3bff9e94a524aecf94ef38686aad1",
+      "state_sha256": "24a425f1b6d6a5d65901df9cb2adf92685a3b8e3e090c639138a795b35f7e7a6"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-4-necro-0",
+      "class": "Necromancer",
+      "seed": 1040,
+      "race_idx": 4,
+      "class_idx": 4,
+      "messages_sha256": "d6c8bdc240e8e44c311465793ddb6f58674ea5a13b58bbfd24693997cd976584",
+      "state_sha256": "faa4b10ba153a33f788fd318bf7993110dec1332b7ae57bf20a93d447e4a0793"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-4-necro-1",
+      "class": "Necromancer",
+      "seed": 1041,
+      "race_idx": 5,
+      "class_idx": 4,
+      "messages_sha256": "e34662f6b153b172ae7e13fa5dbb1e17d79613375eaa3e6b79ef90cd53d8ffdc",
+      "state_sha256": "cd01df6510418f59bd1bb60a0921750c0c22d56025fe4a81b6a093c834ed70f5"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-4-necro-2",
+      "class": "Necromancer",
+      "seed": 1042,
+      "race_idx": 6,
+      "class_idx": 4,
+      "messages_sha256": "f7e7a76aefd4d54e95253628bdf5907b2ec5090e852a1dcb446dee783cfad729",
+      "state_sha256": "d09b0bebf222f0144b51bf94ec92c5671ee34599e4a80adb49e7ab00a1163865"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-4-necro-3",
+      "class": "Necromancer",
+      "seed": 1043,
+      "race_idx": 7,
+      "class_idx": 4,
+      "messages_sha256": "3441440f652e606af07573255c40258e727de942c4cfb439666533491446fd34",
+      "state_sha256": "3d562032e9843b392117d821dfcb0ef3ea7875602b7a46453ca51cd40181d2e8"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-4-necro-4",
+      "class": "Necromancer",
+      "seed": 1044,
+      "race_idx": 8,
+      "class_idx": 4,
+      "messages_sha256": "fd47d467675a58265717b071dcc88ced90e311933f653d438e49137de51bbb80",
+      "state_sha256": "1e2e6f6e1212e8d75b96ab8250b7d4d433687e476148ca6feab62b1d61768ca6"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-5-paladin-0",
+      "class": "Paladin",
+      "seed": 1050,
+      "race_idx": 5,
+      "class_idx": 5,
+      "messages_sha256": "e811e9508a6e5d488c25486cb138529d4a48a9b54c6100b5acecf44a953c74ba",
+      "state_sha256": "cb57faa21dc71f8aa36411fb87d1cb0e1bd1b0eba2ba33088bbd50b2c5ca80e8"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-5-paladin-1",
+      "class": "Paladin",
+      "seed": 1051,
+      "race_idx": 6,
+      "class_idx": 5,
+      "messages_sha256": "5761d7e13d3f68cf97e4aded510bdcf1ce724a2c3e2b808fbac7414aa8a8549e",
+      "state_sha256": "94202a17a7d49ffd02d9c3a1afb9368f09262f0d6f7834ca9001150fa57e9fd5"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-5-paladin-2",
+      "class": "Paladin",
+      "seed": 1052,
+      "race_idx": 7,
+      "class_idx": 5,
+      "messages_sha256": "0972144bb86de2ee90f7d776b3dc9376896a2967325f700a81095cfcf73aef9c",
+      "state_sha256": "b5165796bb1f5cedaa27e07dad666fc45e8959e8c983a65657d84cad40d3a1ef"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-5-paladin-3",
+      "class": "Paladin",
+      "seed": 1053,
+      "race_idx": 8,
+      "class_idx": 5,
+      "messages_sha256": "238a220d5ceacc02dbef76d8079105bbbf0c46c357522ec30d898682b275a8f5",
+      "state_sha256": "a4f2bdae5ab7228063b26105a836e7e5e76fa02a02f861672b0adc37f74272ed"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-5-paladin-4",
+      "class": "Paladin",
+      "seed": 1054,
+      "race_idx": 9,
+      "class_idx": 5,
+      "messages_sha256": "6f453769c0fabe7c5863aa5444ab4880b0919e35b756eac2b1134f8b1c089527",
+      "state_sha256": "425023e95baf12e82b0fb81b47a7be0bb18adc3268ebce0aa5a9fb323c04cda0"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-6-rogue-0",
+      "class": "Rogue",
+      "seed": 1060,
+      "race_idx": 6,
+      "class_idx": 6,
+      "messages_sha256": "fdbac78b75057714fcff98dada677e95f200e3c87ec762e062da0c34987dbe3f",
+      "state_sha256": "94672ef62ec7f04a39eadc3a7d119f2b90abe4247d36504d60e9456c5b202a3b"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-6-rogue-1",
+      "class": "Rogue",
+      "seed": 1061,
+      "race_idx": 7,
+      "class_idx": 6,
+      "messages_sha256": "76bfb3d28c58d2e8b4adb751d576fe1252d325e1cf7baa68fbe82e479edcf7bd",
+      "state_sha256": "1b0a1f6e35fd1c59074aa402f4334a7d44b5721685aedb6517413c423dee5f30"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-6-rogue-2",
+      "class": "Rogue",
+      "seed": 1062,
+      "race_idx": 8,
+      "class_idx": 6,
+      "messages_sha256": "b790133368691793f8b45f08697902e9371b2d98fe9dc27639853f3b63f005b6",
+      "state_sha256": "c97badf1cade356c09b7c8d98e69211cf31a1ce35979355712ec6612abf01c4b"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-6-rogue-3",
+      "class": "Rogue",
+      "seed": 1063,
+      "race_idx": 9,
+      "class_idx": 6,
+      "messages_sha256": "ce49443aa6115f0da431db282402ffa317ead115c3155cc9b4baa56abd996083",
+      "state_sha256": "ce8159e546a61f098e80073d95f649b7050a64edcb5d0ce79d14cf2e53510fc7"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-6-rogue-4",
+      "class": "Rogue",
+      "seed": 1064,
+      "race_idx": 10,
+      "class_idx": 6,
+      "messages_sha256": "57c89274faca6cb59e5ea642141313df8b18675f383d674d17fa26323ab06b36",
+      "state_sha256": "de290d4a85fb871630f90106d00502708ad93d188116b1c9144465f9a93bee44"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-7-ranger-0",
+      "class": "Ranger",
+      "seed": 1070,
+      "race_idx": 7,
+      "class_idx": 7,
+      "messages_sha256": "8511de9001ad96d4796101d9ecfc425c1b971c59145b18aee1978d6640fb24ad",
+      "state_sha256": "e94b44bb376a2c37165b8533dcc19ff3330da9e5162800355fb33bb775613c85"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-7-ranger-1",
+      "class": "Ranger",
+      "seed": 1071,
+      "race_idx": 8,
+      "class_idx": 7,
+      "messages_sha256": "128b9a65f4eb04b3ed1aeca1168e1599a925d336731a934d8a726eed404d111e",
+      "state_sha256": "6285da745efac65c9fe3d117b70b60bf05fb08c73a595d240220e2c91a0efa2f"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-7-ranger-2",
+      "class": "Ranger",
+      "seed": 1072,
+      "race_idx": 9,
+      "class_idx": 7,
+      "messages_sha256": "600c4ea2df721ce3032a9127a564bdb8bb0ae8d490ae474cce85abaca67ca223",
+      "state_sha256": "3c2b382e7809cce758c3cbc98479b36e24e4b832073d9a07f3113a877e3c0ff4"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-7-ranger-3",
+      "class": "Ranger",
+      "seed": 1073,
+      "race_idx": 10,
+      "class_idx": 7,
+      "messages_sha256": "1c6c8018457c162b6c3f5a3d748ea4a36e26a30f3a66adbe9cefa7e85fedd1be",
+      "state_sha256": "06f8616940be58ca73f7589619ebad3293927c47fd45b7db70068bc09594cb1c"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-7-ranger-4",
+      "class": "Ranger",
+      "seed": 1074,
+      "race_idx": 0,
+      "class_idx": 7,
+      "messages_sha256": "de434b3d692f70cde46c8b801f29f83a39937f9b9dbaac8fd8b1d1040a714e5a",
+      "state_sha256": "4f62202b9d602a569a0186cafc0a5fff3d1a7d9d6a2611ea482663bc5a367e45"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-8-blackguard-0",
+      "class": "Blackguard",
+      "seed": 1080,
+      "race_idx": 8,
+      "class_idx": 8,
+      "messages_sha256": "dbc33ea1bb54a1c2d0e7998e3676a84a49c35c3c4f2e6ab99cbbae131d601216",
+      "state_sha256": "107f3eda7eb856e265ffb5fde3623279424cd43ca3ac678a4ed01d0d32281a94"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-8-blackguard-1",
+      "class": "Blackguard",
+      "seed": 1081,
+      "race_idx": 9,
+      "class_idx": 8,
+      "messages_sha256": "a87128e22398c28dd5d3dba4380ef9cf96afcbb593b64d33c4f8054c1dbfcf9a",
+      "state_sha256": "169b8dea1b75b10967e561ea81482413fde8749efd7d5af622fee9024f006bd8"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-8-blackguard-2",
+      "class": "Blackguard",
+      "seed": 1082,
+      "race_idx": 10,
+      "class_idx": 8,
+      "messages_sha256": "62ae4d838cfb4ef0425a2a425783ee465a94b9c22274f00bf1cb6743d3ad6034",
+      "state_sha256": "206aa96c4506cdc8637768055d74ea316fd9bb330314b7564b5e31d49dff9b39"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-8-blackguard-3",
+      "class": "Blackguard",
+      "seed": 1083,
+      "race_idx": 0,
+      "class_idx": 8,
+      "messages_sha256": "0a2287b55b813f6b8d3a031722d515d02a6e2d2218c8f9c110ded81c007cc437",
+      "state_sha256": "4e9738873ed0521716e69ade9d5a3d031c280db9249936608de142d9d564f6b0"
+    },
+    {
+      "arm": "no-shops",
+      "name": "full-8-blackguard-4",
+      "class": "Blackguard",
+      "seed": 1084,
+      "race_idx": 1,
+      "class_idx": 8,
+      "messages_sha256": "fa6acda41a72769e496df5f2749d904ff13201c59a172ef3bff82212f9bea5d3",
+      "state_sha256": "509daa3c91cc530c8e4b6c0162469d32daa1da2c311c5603401b300f503f56ed"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-0-warrior-0",
+      "class": "Warrior",
+      "seed": 1000,
+      "race_idx": 0,
+      "class_idx": 0,
+      "messages_sha256": "f1c4a942b6cead3adb7ccd9c1fd75ca89833511786048c174b29846e1493232a",
+      "state_sha256": "370eaca50ecdcf3e3cccb05daabb0805b7135fb25233ca54414c0aa6a8cad581"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-0-warrior-1",
+      "class": "Warrior",
+      "seed": 1001,
+      "race_idx": 1,
+      "class_idx": 0,
+      "messages_sha256": "3746b29de1f04c22008b7e0b2afbf74af916f795d428f88fc8b8aaa8d4dc0909",
+      "state_sha256": "a18d60ee000fc0b2c2e7dd91b1eb97620f154779e9a877e3f11ada111567afad"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-0-warrior-2",
+      "class": "Warrior",
+      "seed": 1002,
+      "race_idx": 2,
+      "class_idx": 0,
+      "messages_sha256": "53272f816fcb7dcb474c230e5bc81fcf7a95ed125fa54f429258341198526db9",
+      "state_sha256": "c697453c37df488c2474634777cf59a56aa1689998c0859bd77883d3c26e5096"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-0-warrior-3",
+      "class": "Warrior",
+      "seed": 1003,
+      "race_idx": 3,
+      "class_idx": 0,
+      "messages_sha256": "976a3316ad1496d88c668fcaad5325690e9a443f1a5343a90de0eb72535818b7",
+      "state_sha256": "3b9c73688e0ce0a1e9277eb169252f831953b25b10176df96e8d4200c1882eff"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-0-warrior-4",
+      "class": "Warrior",
+      "seed": 1004,
+      "race_idx": 4,
+      "class_idx": 0,
+      "messages_sha256": "4601b3783b474b5736c8f768007db87bfdcd89de0777570287d3d0fb51e54428",
+      "state_sha256": "c06e1718fdd2f844f784a9f3e8fec72413e9461f2d3027d7984d42b4bc6b4c49"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-1-mage-0",
+      "class": "Mage",
+      "seed": 1010,
+      "race_idx": 1,
+      "class_idx": 1,
+      "messages_sha256": "50a0c600b7467746cdba269d47391b88a3c0e1b3b6df9f899780ee2346045fb0",
+      "state_sha256": "41c6ba6fc6d7a8e5f19e23c7d23678aef6426a8224752afc8dc98b45d5c10273"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-1-mage-1",
+      "class": "Mage",
+      "seed": 1011,
+      "race_idx": 2,
+      "class_idx": 1,
+      "messages_sha256": "f988c4a5d045ed37ac76ddf564f5c9f238a4a5b3438df48a72d86db03c3ecd91",
+      "state_sha256": "70f46f2f7c734b8ae86838671eb98cc9b4fccef9cc54ce44e7d5c4e30984f36a"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-1-mage-2",
+      "class": "Mage",
+      "seed": 1012,
+      "race_idx": 3,
+      "class_idx": 1,
+      "messages_sha256": "dfe855ce4c810b4ac62e4d3a661326af153834ff0d6959b49ae73b3fd2534a8a",
+      "state_sha256": "86ca1a82f8e205929578eac7fc82e0f826381c6bf6253b919ff16205dc99b3ee"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-1-mage-3",
+      "class": "Mage",
+      "seed": 1013,
+      "race_idx": 4,
+      "class_idx": 1,
+      "messages_sha256": "d62229bf3c3157e6bffb5deea1a03e49ee2aabbc807b967ffafe74df30611cd8",
+      "state_sha256": "7b77330cea5b95ba5f4d70ee709b5858b7f3ef0da32289ef5a8ec8d65f6a008c"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-1-mage-4",
+      "class": "Mage",
+      "seed": 1014,
+      "race_idx": 5,
+      "class_idx": 1,
+      "messages_sha256": "b3023bd45f56f8ac21bb908a49a708f9f0ed39278d0b378ac98264df3fdac298",
+      "state_sha256": "5a39b258a1f9542ef40ef29f9a26401fd03077a13fdf1a16a615cc8570caf33d"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-2-druid-0",
+      "class": "Druid",
+      "seed": 1020,
+      "race_idx": 2,
+      "class_idx": 2,
+      "messages_sha256": "1cbc4437e6732aed479830991429614dd696c06f08c2becddfa584024eeae1c5",
+      "state_sha256": "a1bb6ce27377a071f5a2f0d85436d1aada77822cbc6a68f76d7564b89b2ca571"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-2-druid-1",
+      "class": "Druid",
+      "seed": 1021,
+      "race_idx": 3,
+      "class_idx": 2,
+      "messages_sha256": "454d509734df77937d767bfb8450e5c27ab927fe8ec3ad27150bed371e035efc",
+      "state_sha256": "3de19773af0cafbe6f4a774a903d6feede68930b341421daf6478926c7c5b962"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-2-druid-2",
+      "class": "Druid",
+      "seed": 1022,
+      "race_idx": 4,
+      "class_idx": 2,
+      "messages_sha256": "7ceeb99c2a9ccf9a7d2f8b019fffaad868b47046257bcc219a08f4fa532bd3a8",
+      "state_sha256": "1b13c1bd9a819dc88bed70b28c493e4a7b1d5bbca7c001e9a6183d7c82eda735"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-2-druid-3",
+      "class": "Druid",
+      "seed": 1023,
+      "race_idx": 5,
+      "class_idx": 2,
+      "messages_sha256": "410b1db2bfc1f75297efbc76b606e871ac3a24b3cea8920e89d9cbb511c9d1b1",
+      "state_sha256": "5b501c4e1162abc0afec4a48b87ce212de6a759fc4fd3ece17c87116c57074ea"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-2-druid-4",
+      "class": "Druid",
+      "seed": 1024,
+      "race_idx": 6,
+      "class_idx": 2,
+      "messages_sha256": "53919ddf580a9585e3e9edbf4d9d0c4e62d31cb4d8f94549119d8cacb4963675",
+      "state_sha256": "66452e695c7111fe6d76b1c80a2e4bd2910f7ce9dd0c856851f05391d32a8a91"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-3-priest-0",
+      "class": "Priest",
+      "seed": 1030,
+      "race_idx": 3,
+      "class_idx": 3,
+      "messages_sha256": "c13ab8ebd80e27be68f18e9e4b1cb18ee7a1c602cf79d8d5bd1f5ccd7b6f4997",
+      "state_sha256": "e23c33b9fe32978c6a5b9d64ed1e2025cb28ecacb741b6b7e53e9e3a9caf91f4"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-3-priest-1",
+      "class": "Priest",
+      "seed": 1031,
+      "race_idx": 4,
+      "class_idx": 3,
+      "messages_sha256": "47b69b3e740b1d0bdd6149911a53d8b55178f241aaa7ba9a93426721de57da42",
+      "state_sha256": "4ce4226a43a1e329c7bf958823475243756572bc4fa37452452cdec42cdfeee3"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-3-priest-2",
+      "class": "Priest",
+      "seed": 1032,
+      "race_idx": 5,
+      "class_idx": 3,
+      "messages_sha256": "571532f3d7b3c4ff36d18c0b412c24553d798f0cf3798a7a80d0b5913b2a45a3",
+      "state_sha256": "bb0cd5c46d30cc26e7bad629c3ce203f7938fe7b18dae41711690915fa1139d6"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-3-priest-3",
+      "class": "Priest",
+      "seed": 1033,
+      "race_idx": 6,
+      "class_idx": 3,
+      "messages_sha256": "c19fd264c065d547447977365dd63ccc25d5d0b68e3faf8b2575afe9bda45851",
+      "state_sha256": "db0da4317a4c830cb38f6a89bbc4f945a3f7c03c4f8bb6cbb8c69b5f51c1741e"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-3-priest-4",
+      "class": "Priest",
+      "seed": 1034,
+      "race_idx": 7,
+      "class_idx": 3,
+      "messages_sha256": "a95f5cdb96af494501673d71331d7e8d14173f054e7b7109700051e980d54205",
+      "state_sha256": "d6deb6f800c7ad64c5ba44c7184716221cd343935ffdfcf1237cb54fb77810c8"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-4-necro-0",
+      "class": "Necromancer",
+      "seed": 1040,
+      "race_idx": 4,
+      "class_idx": 4,
+      "messages_sha256": "2618e66094488645ebf7938a71601a70656d0f74995edba511083be9b49a8387",
+      "state_sha256": "96018f556c73e1073d9c366e573a84907949e3dc070f7e8562c675e0eb296077"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-4-necro-1",
+      "class": "Necromancer",
+      "seed": 1041,
+      "race_idx": 5,
+      "class_idx": 4,
+      "messages_sha256": "e958440f8bcdca9a483d5fec45960d0398143d435bc0a972bdc67196cd0f0faf",
+      "state_sha256": "e229e318af541b2813c889cab51183a3df13f3520cdeeaa849ccaa8fd66db5b7"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-4-necro-2",
+      "class": "Necromancer",
+      "seed": 1042,
+      "race_idx": 6,
+      "class_idx": 4,
+      "messages_sha256": "a411f35c6213ab9248d6417bf91a6374ef4ff2038eaae406d30f6e05bb6f9383",
+      "state_sha256": "4a2564251208bfbcbea7afc51fda3302fccd4e15075c1af1f889ea3878c302bc"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-4-necro-3",
+      "class": "Necromancer",
+      "seed": 1043,
+      "race_idx": 7,
+      "class_idx": 4,
+      "messages_sha256": "6ab5aa0fd91ba778ffa2af90cd81b340c2418ec45864875ac10d309ab73e88c2",
+      "state_sha256": "6a4fc1cd1e5f7f9f0f0ded4a088e1a9d9886b1db104767cf44521084a2716e5c"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-4-necro-4",
+      "class": "Necromancer",
+      "seed": 1044,
+      "race_idx": 8,
+      "class_idx": 4,
+      "messages_sha256": "229e04afbc6502f3f8f676a61111871ddb7b413eb92d449986219a30bc2b96fb",
+      "state_sha256": "997c0c972c788c8de3a4936f68545902592469468cdbf99a0fbfbac348ea9cf8"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-5-paladin-0",
+      "class": "Paladin",
+      "seed": 1050,
+      "race_idx": 5,
+      "class_idx": 5,
+      "messages_sha256": "076145a79598c496b41a00677612c7f5f6f97a627700cdff993894d9e99eefb5",
+      "state_sha256": "4e5aecdab02f5e29cdc83625220c8526d5f2088154620a3a5cd5b84072560862"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-5-paladin-1",
+      "class": "Paladin",
+      "seed": 1051,
+      "race_idx": 6,
+      "class_idx": 5,
+      "messages_sha256": "8291ef2c51f861a2f182d22a6152d370c3c3c2820e808ccc1c849c3fc0298473",
+      "state_sha256": "8d3e794e7d5ca2f7641a3a4b037a26fe827997090c6f0b8c955e805ed42e130c"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-5-paladin-2",
+      "class": "Paladin",
+      "seed": 1052,
+      "race_idx": 7,
+      "class_idx": 5,
+      "messages_sha256": "35ba58a18003c1fad151a7ea77e494dd42ded580ff0302de6a3b0d992fd14b25",
+      "state_sha256": "24e2f3fcdb1f1b65c98478c0fb9b8278e930e99259e8fb8ae880121853cbaf33"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-5-paladin-3",
+      "class": "Paladin",
+      "seed": 1053,
+      "race_idx": 8,
+      "class_idx": 5,
+      "messages_sha256": "990d0bc45f07beed8013921eeec7694387b9bbfaab2e666cd1b299e57e3be13f",
+      "state_sha256": "c78c61d37b80cd510029f307b49eb8d27a75065ef3911ab619e1ccf3a729a1ba"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-5-paladin-4",
+      "class": "Paladin",
+      "seed": 1054,
+      "race_idx": 9,
+      "class_idx": 5,
+      "messages_sha256": "e4e035035355245b32e9cd5292008eed8a5a0d1771a1662701e6bcaa464d45de",
+      "state_sha256": "fbb1d9791dbbeb23231210d4f2d9be9f72c6a9fc7e92f5ef121f78e1b0f55014"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-6-rogue-0",
+      "class": "Rogue",
+      "seed": 1060,
+      "race_idx": 6,
+      "class_idx": 6,
+      "messages_sha256": "e406297f9ec981a29ce75bea054e17cb72e2a54c026c17942637190cafc07e0c",
+      "state_sha256": "d9ef8bc4f1744e8518fad0d06859bb4519b6fe7bae5f933f216171d9c2144a31"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-6-rogue-1",
+      "class": "Rogue",
+      "seed": 1061,
+      "race_idx": 7,
+      "class_idx": 6,
+      "messages_sha256": "e67c0147dc8f31d54bed0132c8eab9dd85acc24718a771201eae9ab908052ac6",
+      "state_sha256": "3379ae9299aae4ae424d39cb12ba47a76d72726b68dc184357e3d509615c7adc"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-6-rogue-2",
+      "class": "Rogue",
+      "seed": 1062,
+      "race_idx": 8,
+      "class_idx": 6,
+      "messages_sha256": "037154fcebd6d263635658621a4a29044ea705e34ce9bfdfae5b195049e2ae5e",
+      "state_sha256": "0e2bda43ce2925a31ca5340caf2d83ea3393863ae35944c4e1fd4d7e97c0063f"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-6-rogue-3",
+      "class": "Rogue",
+      "seed": 1063,
+      "race_idx": 9,
+      "class_idx": 6,
+      "messages_sha256": "44cdfd1f5ee907e273032ab9dff47f371e7269692b7f66f2e0f1cbe8338a5a79",
+      "state_sha256": "788575afbc6e761e81bc14b296d4aeec11a0ff4c327bd574a6b96462101c8a9d"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-6-rogue-4",
+      "class": "Rogue",
+      "seed": 1064,
+      "race_idx": 10,
+      "class_idx": 6,
+      "messages_sha256": "aba94a35067a3fad75451cf86c64a270309fec7720b8f29580132be8cc386d55",
+      "state_sha256": "58ac1194af0cc32b566bc6b13627a5a1fb405809b09dfd043ba7aa7c3c569cc4"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-7-ranger-0",
+      "class": "Ranger",
+      "seed": 1070,
+      "race_idx": 7,
+      "class_idx": 7,
+      "messages_sha256": "8942f6fe956e0c97e63cdea19a7dbb91121f234545e743ad957ec90478040184",
+      "state_sha256": "13e2d5bf46f0d1bb5a4d2b3e74ff632a43c70e48ee4bb7c04482f24c4d1052d7"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-7-ranger-1",
+      "class": "Ranger",
+      "seed": 1071,
+      "race_idx": 8,
+      "class_idx": 7,
+      "messages_sha256": "1ce1d96144995e2fd5f7ac6d43699885273a3157a3719431319ae1e0595df8e1",
+      "state_sha256": "49cb1489b77fbf4edae1840b104c3461a1be4745ba05e79820b5ca93eb97683c"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-7-ranger-2",
+      "class": "Ranger",
+      "seed": 1072,
+      "race_idx": 9,
+      "class_idx": 7,
+      "messages_sha256": "6b440d3a5b189e99cc7db13b68922b0fdee5f583e758e93148ed49f957fd0bd5",
+      "state_sha256": "61f4d0241fa001e8cdd3254a6d10f609b3e328b29b95e3f358698c57edbdd4fa"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-7-ranger-3",
+      "class": "Ranger",
+      "seed": 1073,
+      "race_idx": 10,
+      "class_idx": 7,
+      "messages_sha256": "4d3daa9ee55aaca854bcc251b5feb3a3388bb701e05ee845c685de3ec89689a9",
+      "state_sha256": "423f7fcca40ea5a7f86fda6b05ac53f81a28478366b0d01dc7c1907620fbfd49"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-7-ranger-4",
+      "class": "Ranger",
+      "seed": 1074,
+      "race_idx": 0,
+      "class_idx": 7,
+      "messages_sha256": "b54a8ebf7dc32551a4dd760214e421d1fa68c64503c827346a7b5c87393035ce",
+      "state_sha256": "126daf9073f0c20308ec7d2916e4e67085897e2302ce4c9d6f389aef5adbf3a9"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-8-blackguard-0",
+      "class": "Blackguard",
+      "seed": 1080,
+      "race_idx": 8,
+      "class_idx": 8,
+      "messages_sha256": "eae4180ed7bd8d4dd7d487614243dd0e356a83ff8eee26227044e689929ca737",
+      "state_sha256": "5b5d6ea885ff63870d586367e8e5a7d95759d65b4a03479f4979e6fda70e26a9"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-8-blackguard-1",
+      "class": "Blackguard",
+      "seed": 1081,
+      "race_idx": 9,
+      "class_idx": 8,
+      "messages_sha256": "0ff9fa47a5a890852f7ec5822f314366d4b596cc73aef59e76c89e06409928c0",
+      "state_sha256": "30f198149db31f56761b29d2c38c8ff8d74c1526f0f68d1cdaf1fdf58960dde1"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-8-blackguard-2",
+      "class": "Blackguard",
+      "seed": 1082,
+      "race_idx": 10,
+      "class_idx": 8,
+      "messages_sha256": "9bf36b09ab3534896fc56c8fcfe67231225722cefc2b6825a877c69525a8bb6a",
+      "state_sha256": "665df373b68ff7479d81742e67345966b738742c6741fd1afaddd5fb21651b83"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-8-blackguard-3",
+      "class": "Blackguard",
+      "seed": 1083,
+      "race_idx": 0,
+      "class_idx": 8,
+      "messages_sha256": "b8feb8399c974473c159721738f25ad9fe9d6f7d6571f1add33a4b0a5fddc025",
+      "state_sha256": "06532d329baf546f1af5680685de8bd4a568c3d4d60cd747dd605e4827fc789e"
+    },
+    {
+      "arm": "utility-reference",
+      "name": "full-8-blackguard-4",
+      "class": "Blackguard",
+      "seed": 1084,
+      "race_idx": 1,
+      "class_idx": 8,
+      "messages_sha256": "aef5c201035ac581ff8e67cd53fa939b2c684e21137631393a7015edeb72f90f",
+      "state_sha256": "9711ae9cd80a37b00843d04a9cc72e6b3300f6a2b99176441ad0156422f9a6de"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-0-warrior-0",
+      "class": "Warrior",
+      "seed": 1000,
+      "race_idx": 0,
+      "class_idx": 0,
+      "messages_sha256": "08429a56e0ad5f8a67c08910e35e9a3715b3de529288e9f2bfabbb86ace8f2fa",
+      "state_sha256": "1375349cddb1ec14177069c8cd3b26d9973a0f58b895713dee00b4e1434105bf"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-0-warrior-1",
+      "class": "Warrior",
+      "seed": 1001,
+      "race_idx": 1,
+      "class_idx": 0,
+      "messages_sha256": "8b26ee886a0b2f6e903e17a53411b62fa2f3cbcd6d95cd0374fa87ed73e84856",
+      "state_sha256": "f2a6a2419bbfbdc0de0f6003f183eb7cac99a4bca6642dd21268245debf14a33"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-0-warrior-2",
+      "class": "Warrior",
+      "seed": 1002,
+      "race_idx": 2,
+      "class_idx": 0,
+      "messages_sha256": "82d5ed3659f88e9ebfc585ebf2e7c76ccc43d1941be491eb39d0060bc5df6909",
+      "state_sha256": "4b12e27edadc757905a65d03bc0271aa11351b7f149429ab3a5217938c6eadc4"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-0-warrior-3",
+      "class": "Warrior",
+      "seed": 1003,
+      "race_idx": 3,
+      "class_idx": 0,
+      "messages_sha256": "beed4ba5962ffeb9b04ac9725ccf416bb495cd8874f0528ab872ad9b5254261d",
+      "state_sha256": "faa088751fb6cb240ffca170137544cab16075e760d74df6688eb9c9fce8a849"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-0-warrior-4",
+      "class": "Warrior",
+      "seed": 1004,
+      "race_idx": 4,
+      "class_idx": 0,
+      "messages_sha256": "b1ed0a08a8c92a07def1ea6af62abd7baea364fbefc97951a18ad3235b7ecd86",
+      "state_sha256": "162f968bb4d8e122458cdf56af050734a8086619d953c82800899cdde4786ef5"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-1-mage-0",
+      "class": "Mage",
+      "seed": 1010,
+      "race_idx": 1,
+      "class_idx": 1,
+      "messages_sha256": "bb48c6b54611b8b87664df64faf2a7151fdd23ab592bdbc0dd12801d1c7ce998",
+      "state_sha256": "dee177ee37b5cd920a861b3283482e982156a0c8498042afd7240a136ac0fdf6"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-1-mage-1",
+      "class": "Mage",
+      "seed": 1011,
+      "race_idx": 2,
+      "class_idx": 1,
+      "messages_sha256": "abec828dc24a46cdb4a3c2c8d83ffbccde32f5f75fd2a657b40dfe7c8a0574e4",
+      "state_sha256": "4e344aa1eb953740120cd0f6607f78b90913893c373e4b50f8c8424e8c625994"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-1-mage-2",
+      "class": "Mage",
+      "seed": 1012,
+      "race_idx": 3,
+      "class_idx": 1,
+      "messages_sha256": "fe6d29a9cf1d9f28540e8af2059188bfea87620e0514aae6d5940da1451f082d",
+      "state_sha256": "cf519cb85accafb4862db03dd461539d30d01dce895b4fb8b0ccdf8f38961550"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-1-mage-3",
+      "class": "Mage",
+      "seed": 1013,
+      "race_idx": 4,
+      "class_idx": 1,
+      "messages_sha256": "2a8a88da4b34fe3530af2e133b4bea06260caf3995b970f0a223404526cf8682",
+      "state_sha256": "b86057a7c2fab5effe865cb9b0246152c2698b1c26b249cf06cb311a362f6463"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-1-mage-4",
+      "class": "Mage",
+      "seed": 1014,
+      "race_idx": 5,
+      "class_idx": 1,
+      "messages_sha256": "cecef95d548bb0a45a2bea098c75152eae6b7552e3201d4ba60c646dff4aba84",
+      "state_sha256": "bc8b07c4ee3420bd60640ceda4579766d185195bcb4d5c8c28b40408c6d0b80e"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-2-druid-0",
+      "class": "Druid",
+      "seed": 1020,
+      "race_idx": 2,
+      "class_idx": 2,
+      "messages_sha256": "91952c71a993f3cd6f9597e97dbc79f3c12aa3f24e1ffc72b1ac3be67814163c",
+      "state_sha256": "4edf9e903e2abcdb56fb275d8f086dd0c8b05e541a2ee7173e5801dfbe2034cc"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-2-druid-1",
+      "class": "Druid",
+      "seed": 1021,
+      "race_idx": 3,
+      "class_idx": 2,
+      "messages_sha256": "65e7c14ff2b239af6a517f5f6c7ab46856e09ed66ba5c9c90f9e166c5ff43ec0",
+      "state_sha256": "e1d8dbb7ff3a997c35685487cfedac5a26429d09800ca560ec3394bd53e68978"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-2-druid-2",
+      "class": "Druid",
+      "seed": 1022,
+      "race_idx": 4,
+      "class_idx": 2,
+      "messages_sha256": "6151872126be2158f6480529faca6b60249fd62d7f5377b660a9e8b515493422",
+      "state_sha256": "c0a6544914c6903606afa5881f7e757371845f89aed0a19c3d51e2afb92e7fdb"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-2-druid-3",
+      "class": "Druid",
+      "seed": 1023,
+      "race_idx": 5,
+      "class_idx": 2,
+      "messages_sha256": "0e34a35c1922541b9fd85e3057fc39d6ef22b25fe75d801541ac449b38258996",
+      "state_sha256": "640f71de27780001db72faa216bc454fe017b542e8f15f970e6abb6dc890bdda"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-2-druid-4",
+      "class": "Druid",
+      "seed": 1024,
+      "race_idx": 6,
+      "class_idx": 2,
+      "messages_sha256": "c5cfeab72955131afe029f8191088fcf5c8757e55d93a30464cc1b23d19230ea",
+      "state_sha256": "0912356c9261b9662c35c15a23341f7e5d4ab6aaad078d7e78100199405ce847"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-3-priest-0",
+      "class": "Priest",
+      "seed": 1030,
+      "race_idx": 3,
+      "class_idx": 3,
+      "messages_sha256": "6e3461f3ec3145a93fcb7714e454c942c716274e591b74f9d8dd01f4bee36ff0",
+      "state_sha256": "c5fc763da4732acf4ce2b6c711e9d706537e932878fa387e6c4bb307d4b35f46"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-3-priest-1",
+      "class": "Priest",
+      "seed": 1031,
+      "race_idx": 4,
+      "class_idx": 3,
+      "messages_sha256": "c4c75cf2231eacde3e42b246ad5452017cd0ed1d3dbcd8a27733e49249ef4b08",
+      "state_sha256": "ad69fde99c681a280eab3df84a8093b6a00dac2fbef52844348d3fa4b7f0b4e2"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-3-priest-2",
+      "class": "Priest",
+      "seed": 1032,
+      "race_idx": 5,
+      "class_idx": 3,
+      "messages_sha256": "e65d6a6796107c5638562eb40c98edc10fa75c0dcbd676571eb08377d27d4a30",
+      "state_sha256": "69ca3352c792ebc8163119e7e97755a3df01125bcaf5831c703287349864c084"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-3-priest-3",
+      "class": "Priest",
+      "seed": 1033,
+      "race_idx": 6,
+      "class_idx": 3,
+      "messages_sha256": "03bbecaec3f3491601389e8c673a11aadaf9896fd1610f40f5f0df6c6049181b",
+      "state_sha256": "10833112bd4018f0ff4817f1a36c0ea2afffcf37642ea09143212b3a0b9135b6"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-3-priest-4",
+      "class": "Priest",
+      "seed": 1034,
+      "race_idx": 7,
+      "class_idx": 3,
+      "messages_sha256": "e17b5cd1697da22f3ddca45f8a54a2680864a16e2e5c16385dd04cb7b0dae7c3",
+      "state_sha256": "32eb774451e1bc53a5aa17825a52228dd6b1c5e04e6cc02877b0e9da51e400c3"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-4-necro-0",
+      "class": "Necromancer",
+      "seed": 1040,
+      "race_idx": 4,
+      "class_idx": 4,
+      "messages_sha256": "6fe2ec49dd03f05122d00133b862fda5dd43b034b00711a3844ffa59c37a8e8b",
+      "state_sha256": "cdb99e9721b16a1621d343c2431f0d3d5a07918a7b7ca68f719f368f587995a0"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-4-necro-1",
+      "class": "Necromancer",
+      "seed": 1041,
+      "race_idx": 5,
+      "class_idx": 4,
+      "messages_sha256": "018fd499ecb833ef85420a3821482f82e30f4e81fdf0858a547bd1088de29576",
+      "state_sha256": "a615da7c01c28ed2a3c585623751b8087c4a0a3b053b4e392710eebb5f38fa24"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-4-necro-2",
+      "class": "Necromancer",
+      "seed": 1042,
+      "race_idx": 6,
+      "class_idx": 4,
+      "messages_sha256": "b3fe1a4a6d3c561dd4275ee472c96ab293cb196f05537b1cc1fd63927e2432af",
+      "state_sha256": "b3830d0d019a1262e5d49dd789fe87c699a7c5f43d0bc838abeac532404fd18a"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-4-necro-3",
+      "class": "Necromancer",
+      "seed": 1043,
+      "race_idx": 7,
+      "class_idx": 4,
+      "messages_sha256": "b879e73bb024d0058cb93fd62bfde66006169fae6e9b27d25191092462d9fbee",
+      "state_sha256": "7ea11cea7aadda2c4b40fb556e65b0d0be74e3a96b5c99764464e637b79ae8a1"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-4-necro-4",
+      "class": "Necromancer",
+      "seed": 1044,
+      "race_idx": 8,
+      "class_idx": 4,
+      "messages_sha256": "e79d4760e75dbce0b6564c37f30bc9d47af7b3d1a2e8e4c88f60b511a9487a36",
+      "state_sha256": "d684d58da39a912dadd4e4c9daf7666d0ea288335b35497fb615d23e1bed9f0a"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-5-paladin-0",
+      "class": "Paladin",
+      "seed": 1050,
+      "race_idx": 5,
+      "class_idx": 5,
+      "messages_sha256": "450424c880e70760812ce42c3d48b4f49184b07759fc8c0ce670828c6cc70f84",
+      "state_sha256": "3e84f601b8deec4be244391348e8f0e6b8082c2188066b3adcb41727ff9412a3"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-5-paladin-1",
+      "class": "Paladin",
+      "seed": 1051,
+      "race_idx": 6,
+      "class_idx": 5,
+      "messages_sha256": "3dfc64feefd1352c85c8d0305c4e00a8a16350df3a50cb1464543bc77933f640",
+      "state_sha256": "3463e5ec0ce5c4fba9fb0e33de89c7b3253aa17054c4a279d8d3b60bd266a0fd"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-5-paladin-2",
+      "class": "Paladin",
+      "seed": 1052,
+      "race_idx": 7,
+      "class_idx": 5,
+      "messages_sha256": "3c27de9109636aa6569a957320e85aa60836c91092bcdffbb9157f3069be2b86",
+      "state_sha256": "ceb79b5c8211286548dfbd99c4425046577cb34d3e10e9f24d0f5ccf36f1c325"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-5-paladin-3",
+      "class": "Paladin",
+      "seed": 1053,
+      "race_idx": 8,
+      "class_idx": 5,
+      "messages_sha256": "e74059a9d0b008660b105d0ca310d5df8b4d5046255493df890042f347d9e28c",
+      "state_sha256": "3c8e914caa58388b8609d2da0f43a9854d09c22612951f529d923b6023bb79c1"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-5-paladin-4",
+      "class": "Paladin",
+      "seed": 1054,
+      "race_idx": 9,
+      "class_idx": 5,
+      "messages_sha256": "af8be310bacbc8a7ee9c8148c5c7fd193a658fb59517058e49397ad5b85df0d2",
+      "state_sha256": "f11ecae68462b80a712cc5c3d49b756950525fdc69f13c39c807975babe926ad"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-6-rogue-0",
+      "class": "Rogue",
+      "seed": 1060,
+      "race_idx": 6,
+      "class_idx": 6,
+      "messages_sha256": "220f26b739bf15dc6b85b5ad0ec7b2a75185cdf733dc86c03d6a3cb144805614",
+      "state_sha256": "dd9425e995364258b3b91e14c81a5a281360f62ea1e24ec9303d33bc767e3427"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-6-rogue-1",
+      "class": "Rogue",
+      "seed": 1061,
+      "race_idx": 7,
+      "class_idx": 6,
+      "messages_sha256": "b5db7e59121f445617406243fcdde1f0db58b01f4f3877799f5282072ee14f1f",
+      "state_sha256": "3d6bd9e00ede72e239b2d033d5846e63b07863dd4bc7428e5889c714685c862f"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-6-rogue-2",
+      "class": "Rogue",
+      "seed": 1062,
+      "race_idx": 8,
+      "class_idx": 6,
+      "messages_sha256": "e5ab1de36865a01750ddf0395da76673fe720dd1006107f999d8402ee3e1a157",
+      "state_sha256": "86a6260db99610743ebda8d5ccd58e2e467391509611dfab231e905f7907eb57"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-6-rogue-3",
+      "class": "Rogue",
+      "seed": 1063,
+      "race_idx": 9,
+      "class_idx": 6,
+      "messages_sha256": "7edf087888e826f1aaadb6b5a0eb413f651e0f3fc7d75c65c5c97a59bb1cbc52",
+      "state_sha256": "30dfdb20f30bfaa9f1c72701fbf725e5f704a47fdc619bd961409c77055f88d7"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-6-rogue-4",
+      "class": "Rogue",
+      "seed": 1064,
+      "race_idx": 10,
+      "class_idx": 6,
+      "messages_sha256": "8d05a02e83551745aac47a54291d8063d82a440fec9482e7353fb0ab25d60cf2",
+      "state_sha256": "f910a76586d9dc5cb4f76fdf95071a2fdc51e44e9ea3bffb90a8ec6c34a5630a"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-7-ranger-0",
+      "class": "Ranger",
+      "seed": 1070,
+      "race_idx": 7,
+      "class_idx": 7,
+      "messages_sha256": "cc2ab6725419a808f95d354e457b930d555f798dba897af93a02679f739a583c",
+      "state_sha256": "fa011c828691bacf607c5a7aef9043b43c36ad2d192a64cdb1a4a8ccd5e97d1a"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-7-ranger-1",
+      "class": "Ranger",
+      "seed": 1071,
+      "race_idx": 8,
+      "class_idx": 7,
+      "messages_sha256": "c932b75381856b180ed47daf51ff68d8615b00675190cb9f1ae75f90bd38c813",
+      "state_sha256": "821d004bbf013d006986248d2c7dec945505d32c85444c28f630e6300227769e"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-7-ranger-2",
+      "class": "Ranger",
+      "seed": 1072,
+      "race_idx": 9,
+      "class_idx": 7,
+      "messages_sha256": "7fbb70134a42f2bf7426e597a013bf671266e45c45c0a20d436c70806fa8e59d",
+      "state_sha256": "6983a31245ab28fa7a7244323a337261f703d7f742cb589bb27ff00bebdf2822"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-7-ranger-3",
+      "class": "Ranger",
+      "seed": 1073,
+      "race_idx": 10,
+      "class_idx": 7,
+      "messages_sha256": "f36f90aa04538079324109568900c0d03ea695994667ceaad7ea3e1f8f12da00",
+      "state_sha256": "71ed52f57e04a2157f6b50c429ce75fe1903d87b62f0850a93d4850529236cb3"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-7-ranger-4",
+      "class": "Ranger",
+      "seed": 1074,
+      "race_idx": 0,
+      "class_idx": 7,
+      "messages_sha256": "d8f2a3c686dab2172d8c18547651da4ae439a387eb5fced6167757d634e34151",
+      "state_sha256": "7d1c8ccfe09f85cfc9485a9b1d4d86561542424bfc41ca194a71f394b3e3bac0"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-8-blackguard-0",
+      "class": "Blackguard",
+      "seed": 1080,
+      "race_idx": 8,
+      "class_idx": 8,
+      "messages_sha256": "7e77769474f116dace849c505d278fbb3baf2c05e13b37c4d780cdf1979ad5ad",
+      "state_sha256": "c66d3b341474d9b26bc888a8d1203a12019cf22bae2b48e0ff4364764cc9cbd7"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-8-blackguard-1",
+      "class": "Blackguard",
+      "seed": 1081,
+      "race_idx": 9,
+      "class_idx": 8,
+      "messages_sha256": "adf1871ac17d89b667039ab41f94821ee5a0c4c97af9e603ac0991e9648dc9e2",
+      "state_sha256": "dd02c9410e40b5358f3be81a1f5312ea270e81743dfb023f94a222ce2d27fa3c"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-8-blackguard-2",
+      "class": "Blackguard",
+      "seed": 1082,
+      "race_idx": 10,
+      "class_idx": 8,
+      "messages_sha256": "f70c66e726bb09bc2473b5584d817e8e4dc212f899795a8906aff769bcb0c76c",
+      "state_sha256": "588376e23b22b3729344f3d8020c6efcd3eead2752795e120fd625bb1181646d"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-8-blackguard-3",
+      "class": "Blackguard",
+      "seed": 1083,
+      "race_idx": 0,
+      "class_idx": 8,
+      "messages_sha256": "aefe7f00ee8aaa347f577f2af787a3a0b207f278e521d5794ccf3edb5a847ea2",
+      "state_sha256": "07f08b9fb05c418d92760a8a0f6f0742f2802d33c4a2721d6d7d290daf67e183"
+    },
+    {
+      "arm": "utility-cash50",
+      "name": "full-8-blackguard-4",
+      "class": "Blackguard",
+      "seed": 1084,
+      "race_idx": 1,
+      "class_idx": 8,
+      "messages_sha256": "697dd7ee1b4052319c0a3e9ed7d8f9cec1117361523398e690426d3ced8f0852",
+      "state_sha256": "5284fb2585898b753b0d5aab230e7f026fdbbe7df2dfad08baee8347bdc71d09"
+    }
+  ],
+  "totals": {
+    "current": {
+      "confirmed_buys": 1714,
+      "units_bought": 1714,
+      "gold_spent": 38339,
+      "confirmed_home_stores": 176,
+      "confirmed_home_takes": 7,
+      "confirmed_market_sales": 974
+    },
+    "no-shops": {
+      "confirmed_buys": 0,
+      "units_bought": 0,
+      "gold_spent": 0,
+      "confirmed_home_stores": 0,
+      "confirmed_home_takes": 0,
+      "confirmed_market_sales": 0
+    },
+    "utility-reference": {
+      "confirmed_buys": 1373,
+      "units_bought": 1373,
+      "gold_spent": 35458,
+      "confirmed_home_stores": 490,
+      "confirmed_home_takes": 3,
+      "confirmed_market_sales": 675
+    },
+    "utility-cash50": {
+      "confirmed_buys": 1367,
+      "units_bought": 1367,
+      "gold_spent": 33661,
+      "confirmed_home_stores": 505,
+      "confirmed_home_takes": 4,
+      "confirmed_market_sales": 689
+    }
+  },
+  "confirmed_buy_wallet_checks": 4454,
+  "unconfirmed_commands": []
+}
