@@ -157,9 +157,10 @@ worktree while the suites ran; the C build inputs (`angband/`,
 **The oracle describes the Rust Borg too.** The Rust output of the v12R
 validation (`harness/out/rust/`) was compared with the new oracles:
 **3/3** of `smoke` and **45/45** of `full` runs are identical on keys,
-messages and state, and the same holds for `classes` and `config-six`. The
-oracle is therefore a target both roles can be checked against, not only the
-C build.
+messages and state, and the same holds for `classes` and `config-six`;
+when `options` and `deep` were refreshed (below), their Rust roles matched
+**25/25** and **9/9**. The oracle is therefore a target both roles can be
+checked against, not only the C build.
 
 **Delivery.** The refreshed corpus is about 20 MB of `.xz` logs. The API
 channel that pushes this branch carries text only: a 600 KB call is refused
@@ -177,30 +178,47 @@ so the unpacked corpus can be checked against this receipt. This branch
 carries the text side of the refresh (the provenance map, this receipt and
 the digests); the archive carries the `.xz` logs.
 
-**What was not refreshed.** Two suites are still the M1/M4-era recordings:
-`options` and `deep`.
+**`options` and `deep` were also refreshed (2026-11-14).** They were the
+last two M1/M4-era recordings: on the imported engine the Borg acts in
+about 80,000 of an `options` run's 100,000 turns instead of about 14,000
+(`opt-wdam-war`: 80,635 keys here too, the same count the first refresh
+measured), and in the sandbox each active run wrote about 1.4 GB to a
+network filesystem, which made one C pass cost about four hours there. The
+refresh was therefore done on the owner's machine, with local disk and
+more cores, where the same two-pass method cost about four minutes per
+pass for `options` (25 runs, JOBS=13) and about six minutes for `deep`
+(9 runs, JOBS=9):
 
-`options` was not re-made because on the imported engine it is far more
-expensive than it was: the Borg now acts in about 80,000 of a run's 100,000
-turns instead of about 14,000 (`opt-wdam-war`: 80,635 keys and 1,655 s here
-against 14,156 keys and 11.3 s for the M1-era build, 146x), and each active
-run writes about 1.4 GB to this sandbox's network filesystem, so one C pass
-of the suite costs about four hours and the two passes the method asks for
-about eight. The `options` oracle therefore still describes the old engine
-and must not be read as if it described the imported Borg. The command to
-refresh it is in `harness/reference/README.md`.
+| oracle | runs | the two C passes | pass 2 vs the oracle | the Rust role vs the oracle |
+|---|---|---|---|---|
+| `options` | 25 | identical | **25/25** | **25/25** |
+| `deep` | 9 | identical | **9/9** | **9/9** |
 
-The `deep` suite (9 runs of 1,000,000 turns) was not re-made either: two C
-passes cost about four hours on this two-core sandbox.
+Both suites were compared on `keys.log`, `messages.log`, `state.log` and
+`summary.json` (apart from `wall_seconds`), and one pass was stored in the
+same format as the other oracles. The Rust roles were run for this refresh
+(the v12R validation had not run these two suites in either role): the
+**25/25** and **9/9** matches above are the first C/Rust parity check of
+`options` and `deep` on the imported engine.
 
-The investigation corpora under `harness/reference/` (`captured-rogue`,
+**Provenance of the second refresh.** The C build was made from this
+branch's head `d3d280e` (`git_dirty=no`, `inputs_dirty=no`,
+`binary_sha256=d80abb4b6cd49f9e06fdcce5cb7a63d036812112ba979bd36ef72aa28036854c`,
+a different compiler from the sandbox's but the same source of truth: its
+`checkout_source_sha256` is
+`28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231`, the
+same build-input digest the five first-refresh manifests record). A fresh
+`smoke` run of this build against the installed `smoke` oracle gives 3/3
+identical, so the whole standing corpus describes one C source of truth.
+`oracle-digests.json` now covers all seven suites (576 files). The
+investigation corpora under `harness/reference/` (`captured-rogue`,
 `crash-fixes*`, `endgame`, `extended*`, `glyph-*`, `lunal-investigation`,
 `natural`, `normal-live`, `synthetic-tactics*`, `better-borg-c/m2-*`) are
 records of past investigations on the `e473720ed` engine and are kept
 unchanged: rewriting them would destroy the evidence they are.
 `harness/reference/README.md` maps every corpus to what it is. The previous
-suite oracles (the M1/M4-era recordings) are preserved in the repository's
-history; they were superseded, not deleted.
+M1/M4-era recordings of `options` and `deep` are preserved in the
+repository's history; they were superseded, not deleted.
 
 ## Independent review
 

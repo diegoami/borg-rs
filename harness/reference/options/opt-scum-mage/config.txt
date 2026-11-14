@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_money_scum_amount=5000
-borg_txt_sha256=4836bd3b139e30e55d002326b3e284e1f818611fd4f5ef6410f517688841e1fb
+borg_txt_sha256=9f0562313ea68e76f31c6aadf2c3b73a9c12c6ca10c92dd974e1a0ed10a075a0

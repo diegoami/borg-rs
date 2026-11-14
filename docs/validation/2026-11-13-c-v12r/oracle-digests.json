@@ -1,1602 +1,2306 @@
 {
- "harness/reference/classes/DONE": {
-  "bytes": 0,
-  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
- },
- "harness/reference/classes/cls-bg-dunadan/config.txt": {
-  "bytes": 92,
-  "sha256": "2bf45d44c9bfd03b152cef8da16fa3a796e0f015a8b2ae7126db1928c00325bc"
- },
- "harness/reference/classes/cls-bg-dunadan/keys.log.xz": {
-  "bytes": 6584,
-  "sha256": "a494007a1dcb3bc80ebe08aa3869a71fa7aa2fd6b7a41cfff67b5daaff9ff2a5"
- },
- "harness/reference/classes/cls-bg-dunadan/messages.log.xz": {
-  "bytes": 34128,
-  "sha256": "fca6943bd526e8518c8041d6d6f7914486f99e6a5eae7dd550409b8eb5ef3450"
- },
- "harness/reference/classes/cls-bg-dunadan/state.log.xz": {
-  "bytes": 16324,
-  "sha256": "3359484a431fd1a19fa03c26680d5cfef1bf2ad4ddaddbff8af93cc289c74da9"
- },
- "harness/reference/classes/cls-bg-dunadan/summary.json": {
-  "bytes": 2029,
-  "sha256": "aed5a47cb9a94a90929af97ae2b3b5a27ffc17d87fe3af6e3b27af73eebca486"
- },
- "harness/reference/classes/cls-bg-dwarf/config.txt": {
-  "bytes": 92,
-  "sha256": "3693e6402cfc4c8118a50a3862f1fc0c1b29287c5d587add43adf87ad8a7095b"
- },
- "harness/reference/classes/cls-bg-dwarf/keys.log.xz": {
-  "bytes": 3216,
-  "sha256": "211a265ccfb95b2fcae147cbd2207bd63f38105f3a1911890ca9fb2ae6ddb0c2"
- },
- "harness/reference/classes/cls-bg-dwarf/messages.log.xz": {
-  "bytes": 16952,
-  "sha256": "ce630dd6c9a18e22f169ed066a1744878a4689cff152378a3cc3370f337523c8"
- },
- "harness/reference/classes/cls-bg-dwarf/state.log.xz": {
-  "bytes": 7428,
-  "sha256": "b1741a59a1e333df8b717a4cd0127d1da7166ba0402ef64d611f5583fd7b2801"
- },
- "harness/reference/classes/cls-bg-dwarf/summary.json": {
-  "bytes": 2045,
-  "sha256": "a8dece4ac650d5cd1fba3aba3ba139e6080b73c565ef214c7b8eeeb0e77ab5e9"
- },
- "harness/reference/classes/cls-bg-halforc/config.txt": {
-  "bytes": 92,
-  "sha256": "87133c45e7aa49d786a46fd3fe7aa5b423312e3eb18f92fb48d720a514cd05fa"
- },
- "harness/reference/classes/cls-bg-halforc/keys.log.xz": {
-  "bytes": 8364,
-  "sha256": "75cac27d2c9f1eefdd7766272144799cfb05430225271945095d65e2c10c93a5"
- },
- "harness/reference/classes/cls-bg-halforc/messages.log.xz": {
-  "bytes": 44080,
-  "sha256": "ec410a678d42b761e5c9d4cd590f2b5df5902081b9c8d262b12d7217fc6a83e5"
- },
- "harness/reference/classes/cls-bg-halforc/state.log.xz": {
-  "bytes": 19608,
-  "sha256": "50056729121dfae6b2246fbbf19e8d834ff74ec9b2097da1185f87432d6c5c92"
- },
- "harness/reference/classes/cls-bg-halforc/summary.json": {
-  "bytes": 2032,
-  "sha256": "e269d866ee473b1b625dd57583cc0a4c844079a7f07aac1ed16d24bb3e8bf8b3"
- },
- "harness/reference/classes/cls-bg-halftroll/config.txt": {
-  "bytes": 92,
-  "sha256": "d942b77227a3ef3c62cd19445e7d28073c10f4b2594b383a0eb765b5dc26b782"
- },
- "harness/reference/classes/cls-bg-halftroll/keys.log.xz": {
-  "bytes": 10392,
-  "sha256": "294f01f01e96982d1273a672c9701c09b68bed517ec785764afa4abd47dc6b4f"
- },
- "harness/reference/classes/cls-bg-halftroll/messages.log.xz": {
-  "bytes": 53176,
-  "sha256": "44cfd5e08f67848cbe2711cdf62cb5de78ab84c107d8884b008a62f25306bca9"
- },
- "harness/reference/classes/cls-bg-halftroll/state.log.xz": {
-  "bytes": 25604,
-  "sha256": "5271b7fef5c9e7fb56779b458ee1bffcd4bd85f0a1a3dc0155aa764ffd5077a0"
- },
- "harness/reference/classes/cls-bg-halftroll/summary.json": {
-  "bytes": 2032,
-  "sha256": "454ed76b912a5f5fadaf5716f4f4ea75f4ed6ba00aceaafbe8b263d6dcfcd55e"
- },
- "harness/reference/classes/cls-bg-highelf/config.txt": {
-  "bytes": 92,
-  "sha256": "419ad3cd685f10b27425958d44358f47506288088de68ed73a9c959be6df0b3a"
- },
- "harness/reference/classes/cls-bg-highelf/keys.log.xz": {
-  "bytes": 15644,
-  "sha256": "2e6c306c7210d06f82ae2699418992618e410fe727000e767b54e4ad4b25c944"
- },
- "harness/reference/classes/cls-bg-highelf/messages.log.xz": {
-  "bytes": 68884,
-  "sha256": "c39228e6c32e453440ab034b061c293d0a2abf3f66164dec0298a3dbc54efb58"
- },
- "harness/reference/classes/cls-bg-highelf/state.log.xz": {
-  "bytes": 36188,
-  "sha256": "23f2726067f8cf4ddffe8a4417f8a2357b9be0c9b34f636df35da1b306c4c3ed"
- },
- "harness/reference/classes/cls-bg-highelf/summary.json": {
-  "bytes": 2030,
-  "sha256": "624ab59b1e3e3303591cc140f063d738cd826f1391a3b891cfc8e3148f142734"
- },
- "harness/reference/classes/cls-bg-human/config.txt": {
-  "bytes": 92,
-  "sha256": "c3eb267c292df01e6feb95e2c612a191ff584f3dbcf0a1a7d31c9407f987f51b"
- },
- "harness/reference/classes/cls-bg-human/keys.log.xz": {
-  "bytes": 6952,
-  "sha256": "f42d59026b2d9f336aa09ae8452de5cbf3438477df3c49387b4cd4407310f2ba"
- },
- "harness/reference/classes/cls-bg-human/messages.log.xz": {
-  "bytes": 34856,
-  "sha256": "ab05dac2654133ce374259f5e81c73f131319f8a1192859f7560ebb82e672c8a"
- },
- "harness/reference/classes/cls-bg-human/state.log.xz": {
-  "bytes": 16716,
-  "sha256": "e022a9aaa0127ed19a67e0f2aa473ac24f47e4d943545bdfd962f1d8842e3295"
- },
- "harness/reference/classes/cls-bg-human/summary.json": {
-  "bytes": 2027,
-  "sha256": "ec638f9fc618243a7d200fd6e3925fd340262a1c4e0d98f4034be0c3073cffbc"
- },
- "harness/reference/classes/cls-bg-kobold/config.txt": {
-  "bytes": 92,
-  "sha256": "9367a216a6c4aceb8fd8437d86d72ad76a019fa3f79b7a75f804de086e9fe2d1"
- },
- "harness/reference/classes/cls-bg-kobold/keys.log.xz": {
-  "bytes": 15296,
-  "sha256": "546fa8c6b69a6802f670f229938edf14cf9cc1a06c4325adab784d14a9955747"
- },
- "harness/reference/classes/cls-bg-kobold/messages.log.xz": {
-  "bytes": 82656,
-  "sha256": "4e6af89c85b673589af980163515b266d012aecb4f53ad5cd1a38a63695559b7"
- },
- "harness/reference/classes/cls-bg-kobold/state.log.xz": {
-  "bytes": 57192,
-  "sha256": "175d32b7223b66ba6e211fae0a6368ae751f68e29aa2d27ee7fdc47c7f9333e9"
- },
- "harness/reference/classes/cls-bg-kobold/summary.json": {
-  "bytes": 2044,
-  "sha256": "b2452fc4c370e95736b5e68ce4ce397da6083f426c46ada8d824d7dd35484f37"
- },
- "harness/reference/classes/cls-deep-bg-dunadan/config.txt": {
-  "bytes": 98,
-  "sha256": "4096ccc5bdee3869d509d6c8a2e706e3e9992b9d6ed61dc59852792c0bcf58e0"
- },
- "harness/reference/classes/cls-deep-bg-dunadan/keys.log.xz": {
-  "bytes": 172472,
-  "sha256": "690f0b44579d94a9fbe3ed54b42217c5f7a11772d7ffcc7b92f32159c0654a0a"
- },
- "harness/reference/classes/cls-deep-bg-dunadan/messages.log.xz": {
-  "bytes": 643388,
-  "sha256": "80f4127e615585a219fe592de31608f604019e70d5a5f8725ff40af2f0d2bb36"
- },
- "harness/reference/classes/cls-deep-bg-dunadan/state.log.xz": {
-  "bytes": 445548,
-  "sha256": "731dcbfa80b12fc74f5e5d88807c502857cd846caa86839b4555695ac61bc580"
- },
- "harness/reference/classes/cls-deep-bg-dunadan/summary.json": {
-  "bytes": 2042,
-  "sha256": "3e2db9c7a10a3475c9a9ad1804964c7575e4c2c8d4ed624be56ddada6faae36d"
- },
- "harness/reference/classes/cls-dunadan-paladin/config.txt": {
-  "bytes": 92,
-  "sha256": "e2fc47629769c37166b3fe9cbb7dfce7aeda442156ea8376327a7e1ba04029af"
- },
- "harness/reference/classes/cls-dunadan-paladin/keys.log.xz": {
-  "bytes": 9756,
-  "sha256": "a40acf16312d805c4ea69f6807f9de7d556f838afbe0b220c7043e00c3c3356f"
- },
- "harness/reference/classes/cls-dunadan-paladin/messages.log.xz": {
-  "bytes": 45324,
-  "sha256": "f6a6f63a3f8dc8a7de7165f59bb305eff68bee1d8fbe6161e7f671fe21c25fc3"
- },
- "harness/reference/classes/cls-dunadan-paladin/state.log.xz": {
-  "bytes": 51028,
-  "sha256": "15484057ff6942c54af582cf347ac62eef8b74c6c126290ff97a1732f7a15652"
- },
- "harness/reference/classes/cls-dunadan-paladin/summary.json": {
-  "bytes": 2026,
-  "sha256": "4e0713a64a12ba06eca3228cc05f2a9d718d8b7e3ae6a021732b6baf53279753"
- },
- "harness/reference/classes/cls-dunadan-ranger/config.txt": {
-  "bytes": 92,
-  "sha256": "f3294ac1403fe0456b091456503972155480b10efa79ef71351bc4746ce8f967"
- },
- "harness/reference/classes/cls-dunadan-ranger/keys.log.xz": {
-  "bytes": 8952,
-  "sha256": "8fc2dade74aa9fb1dbc5732ef38d163eb9a7dfe3446d106a1f9eeffed6c96ad4"
- },
- "harness/reference/classes/cls-dunadan-ranger/messages.log.xz": {
-  "bytes": 138412,
-  "sha256": "0a12ba18be797eafdbcd1d94aa3b07efd1f981d832911903d791a4df3226ac53"
- },
- "harness/reference/classes/cls-dunadan-ranger/state.log.xz": {
-  "bytes": 50616,
-  "sha256": "ca465ee0dc30302a78284afe3d5641eef0f006c4c47e618ba4101d23dbb1eafa"
- },
- "harness/reference/classes/cls-dunadan-ranger/summary.json": {
-  "bytes": 2025,
-  "sha256": "9f7520b92296ef391512353e20bfb454b854cbf3c6245ac3c896b2d9dc609876"
- },
- "harness/reference/classes/cls-halfelf-ranger/config.txt": {
-  "bytes": 92,
-  "sha256": "0fbe5b1feb26177e0b381a698b9c7a4cb35f918373a6779884550e459521a876"
- },
- "harness/reference/classes/cls-halfelf-ranger/keys.log.xz": {
-  "bytes": 16984,
-  "sha256": "11764b837f56b77cc44c23e0678e8747c18f8de15ae685c2c7df4edcf934349b"
- },
- "harness/reference/classes/cls-halfelf-ranger/messages.log.xz": {
-  "bytes": 203036,
-  "sha256": "71dfde847e636256f537b190b7301100660b3234f1541a984a82c93097179b13"
- },
- "harness/reference/classes/cls-halfelf-ranger/state.log.xz": {
-  "bytes": 77716,
-  "sha256": "38ff7dfba91ea37d933bb6d7ba71d7a7712f5824356ebaf032a5f9e06e70d3ff"
- },
- "harness/reference/classes/cls-halfelf-ranger/summary.json": {
-  "bytes": 2027,
-  "sha256": "8ad67cf83455e3243713541f869adde43125e0adf944fa6c6749f0c1a0587cb1"
- },
- "harness/reference/classes/cls-highelf-mage/config.txt": {
-  "bytes": 92,
-  "sha256": "03b494c5905926ebe6f8afedec51d555772b33c9b9a7cfcd769a555e4c3d0040"
- },
- "harness/reference/classes/cls-highelf-mage/keys.log.xz": {
-  "bytes": 1248,
-  "sha256": "73f221be2913f584eb9bea3bd63829bb39056ca80b4e7dfaa17d4f8b1478d4ee"
- },
- "harness/reference/classes/cls-highelf-mage/messages.log.xz": {
-  "bytes": 6828,
-  "sha256": "f27f8c89501c0d740d0acae8d10959d7161fd1970fe6e7dc2503e01489c17361"
- },
- "harness/reference/classes/cls-highelf-mage/state.log.xz": {
-  "bytes": 3156,
-  "sha256": "764bb17bbdeeec0627f67a3d724c713f86a4b477b602b8f277247e622f92fd0e"
- },
- "harness/reference/classes/cls-highelf-mage/summary.json": {
-  "bytes": 2036,
-  "sha256": "8a681591f72d2e3e8e800c147fa9a8556e4c5530298e75c47566caf5ad25b5bc"
- },
- "harness/reference/classes/cls-highelf-priest/config.txt": {
-  "bytes": 92,
-  "sha256": "66957e75cd48c344ac31bd1a80ecba5613ec01422a3884eec81e5f25a018954a"
- },
- "harness/reference/classes/cls-highelf-priest/keys.log.xz": {
-  "bytes": 11024,
-  "sha256": "f05fd29660de4fbc20f64f93d325c978f3b390b65157e6fe127e02cf7dbc67b0"
- },
- "harness/reference/classes/cls-highelf-priest/messages.log.xz": {
-  "bytes": 50192,
-  "sha256": "2d61ffd72254fbc425bc8c1a01a0f3bdf103a2db04c94a0abfa3036b8344f735"
- },
- "harness/reference/classes/cls-highelf-priest/state.log.xz": {
-  "bytes": 31952,
-  "sha256": "56b1ec2c5a570843f0212b680c13ee551ab1c2476c4d41f306f7a0993b0016be"
- },
- "harness/reference/classes/cls-highelf-priest/summary.json": {
-  "bytes": 2026,
-  "sha256": "19df53a463db2355a6754bd44e4d2771b30a71cb1f1ba261e235ef0dc5074bae"
- },
- "harness/reference/classes/cls-kobold-necro/config.txt": {
-  "bytes": 92,
-  "sha256": "f9e0c96fd07640b479342191f00accd7c4a8500bd0be61f81e50ee4d00c739a2"
- },
- "harness/reference/classes/cls-kobold-necro/keys.log.xz": {
-  "bytes": 6092,
-  "sha256": "c1da4d7becf5eda7cfe219eadba341eb2afaeb3d4f4d8ded1cfd0ee03ea98edf"
- },
- "harness/reference/classes/cls-kobold-necro/messages.log.xz": {
-  "bytes": 23596,
-  "sha256": "b290d2f6722a72f5129aa715aac9e51d02d085af576dcdbab800a1be4460334a"
- },
- "harness/reference/classes/cls-kobold-necro/state.log.xz": {
-  "bytes": 11104,
-  "sha256": "e7ce2f57f72af6f3f957a377289df0711924a0b8e402fe893ecfdd0a360356c8"
- },
- "harness/reference/classes/cls-kobold-necro/summary.json": {
-  "bytes": 2030,
-  "sha256": "033fc96bf7d98e9c951b7147cae2f6d551e5c1c13892c85af5e0e22edc517e5e"
- },
- "harness/reference/classes/cls-kobold-rogue/config.txt": {
-  "bytes": 92,
-  "sha256": "fe4b6e5a8901ac6b8652ba8effea7a31b3a80193579b09ede7f9b8d2d749969c"
- },
- "harness/reference/classes/cls-kobold-rogue/keys.log.xz": {
-  "bytes": 14348,
-  "sha256": "42f15847cb24098c44913dc2bd4f46b4f5acda6490748af419fe7884cad94189"
- },
- "harness/reference/classes/cls-kobold-rogue/messages.log.xz": {
-  "bytes": 69656,
-  "sha256": "3c16ec46178b3631a130e6a6b0f7f10ea8405e7b920ac914d0704da2bc28c665"
- },
- "harness/reference/classes/cls-kobold-rogue/state.log.xz": {
-  "bytes": 42192,
-  "sha256": "082e4f5d342476f9105d727936ab41cfb22f2e7421194b888e30ed7e8a384be2"
- },
- "harness/reference/classes/cls-kobold-rogue/summary.json": {
-  "bytes": 2024,
-  "sha256": "2fd8e7575395b683ed7bd8a2d23d43381a01559289456d7372cd373732f8d3e8"
- },
- "harness/reference/classes/cls-kobold-warrior/config.txt": {
-  "bytes": 92,
-  "sha256": "b8d8b263994907fb33e5a224751249e815eb1025e2d06847e3dd27775ec5854d"
- },
- "harness/reference/classes/cls-kobold-warrior/keys.log.xz": {
-  "bytes": 13240,
-  "sha256": "48bc2dd420c6848d988ac0d4c9fdc3b88a23dcbf5bbb48264a615a8c97e9b200"
- },
- "harness/reference/classes/cls-kobold-warrior/messages.log.xz": {
-  "bytes": 162092,
-  "sha256": "613e504e353ee2e96fb1362285d4fded51413f12836307baf3340f4955d04f82"
- },
- "harness/reference/classes/cls-kobold-warrior/state.log.xz": {
-  "bytes": 64276,
-  "sha256": "bff8a9e023f3fb15082d7a91a28aa58dc2f191c470231f1be800dcc360ee4432"
- },
- "harness/reference/classes/cls-kobold-warrior/summary.json": {
-  "bytes": 2025,
-  "sha256": "abd49760fff617e7543efba110737410c76f1675041b5f9ab7d6b0fbf96b6695"
- },
- "harness/reference/classes/manifest": {
-  "bytes": 2775,
-  "sha256": "0ef279309cfa91c0c3ef338fef1af4094dd055ca0e2a90420edf3e6a61202c0b"
- },
- "harness/reference/classes/timing.txt": {
-  "bytes": 1737,
-  "sha256": "f06dca6f5d88bcef6b62ee60167fc4546a26bb6d8f615a3256250317b8fc1d0b"
- },
- "harness/reference/config-six/DONE": {
-  "bytes": 0,
-  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
- },
- "harness/reference/config-six/cfg-lunal-dunadan-bg/config.txt": {
-  "bytes": 104,
-  "sha256": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299"
- },
- "harness/reference/config-six/cfg-lunal-dunadan-bg/keys.log.xz": {
-  "bytes": 3056,
-  "sha256": "5e426b395e058f40c3a699a76991f453f7ff9f44a40300606521ccc315a7a254"
- },
- "harness/reference/config-six/cfg-lunal-dunadan-bg/messages.log.xz": {
-  "bytes": 17072,
-  "sha256": "7bb7d94d2e0628d2305754f511d688b8bb78c53c04c6d8fdec8df2fc3e96d4e0"
- },
- "harness/reference/config-six/cfg-lunal-dunadan-bg/state.log.xz": {
-  "bytes": 7208,
-  "sha256": "791ee83bd75784d1fc9c3e745db409e237d9732dbabf4e039e606614def9621c"
- },
- "harness/reference/config-six/cfg-lunal-dunadan-bg/summary.json": {
-  "bytes": 2025,
-  "sha256": "1e2ff44fb628ae8b34432af1f1f04ff42013eeb1b9f0be8df183ffe825d1b49b"
- },
- "harness/reference/config-six/cfg-lunal-halfelf-mage/config.txt": {
-  "bytes": 104,
-  "sha256": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1"
- },
- "harness/reference/config-six/cfg-lunal-halfelf-mage/keys.log.xz": {
-  "bytes": 7528,
-  "sha256": "21e04f86cb0be8ad35cf57ce01fd75d8c76192f1dfb50a2cb9882736e7508e18"
- },
- "harness/reference/config-six/cfg-lunal-halfelf-mage/messages.log.xz": {
-  "bytes": 37980,
-  "sha256": "52c63fc1193629d6ad9e0f4bf62351fb1ca9e2ac85cd680f03019bce0b41478d"
- },
- "harness/reference/config-six/cfg-lunal-halfelf-mage/state.log.xz": {
-  "bytes": 16016,
-  "sha256": "12706eab148825e9f189464559f5cfc77ccf3a2d3be83583dfcb70e67a78f3d7"
- },
- "harness/reference/config-six/cfg-lunal-halfelf-mage/summary.json": {
-  "bytes": 2023,
-  "sha256": "25ca99ea6d434f70faf415e8813e40daee6c82509863ead99d0d26aeda43bd94"
- },
- "harness/reference/config-six/cfg-lunal-human-war/config.txt": {
-  "bytes": 104,
-  "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
- },
- "harness/reference/config-six/cfg-lunal-human-war/keys.log.xz": {
-  "bytes": 6004,
-  "sha256": "086d73d83d8bceaf43d4c14d2271abff1cebd4b657c87a3f65adcf53921f6a61"
- },
- "harness/reference/config-six/cfg-lunal-human-war/messages.log.xz": {
-  "bytes": 95624,
-  "sha256": "5f51c97cdac4d18b1f67e9505719192191103d133dcf3ec7ec423fb3fb0823c9"
- },
- "harness/reference/config-six/cfg-lunal-human-war/state.log.xz": {
-  "bytes": 35920,
-  "sha256": "cdaed3c42b95f33294fb344fceebe76cdb40b04fe1d008a24abc52247920502a"
- },
- "harness/reference/config-six/cfg-lunal-human-war/summary.json": {
-  "bytes": 2023,
-  "sha256": "df9e4c47db971df02fcd0d5fcb52932e5f5d72184d0167cda1788fdac1e25035"
- },
- "harness/reference/config-six/cfg-munchkin-dunadan-bg/config.txt": {
-  "bytes": 107,
-  "sha256": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16"
- },
- "harness/reference/config-six/cfg-munchkin-dunadan-bg/keys.log.xz": {
-  "bytes": 6028,
-  "sha256": "59bcf5a6eff562d3e95830eade87324c4d48172ae83c13b1a9cf12eacea0b10f"
- },
- "harness/reference/config-six/cfg-munchkin-dunadan-bg/messages.log.xz": {
-  "bytes": 244852,
-  "sha256": "594b75d398f5348e1bff2f375203bd0190cd4c2f4691c4a973a065015fefb3e9"
- },
- "harness/reference/config-six/cfg-munchkin-dunadan-bg/state.log.xz": {
-  "bytes": 100788,
-  "sha256": "245ce543f714308deac4ceaa1e3fe422e2cce9c255d437ebb3900d454a00513f"
- },
- "harness/reference/config-six/cfg-munchkin-dunadan-bg/summary.json": {
-  "bytes": 2029,
-  "sha256": "9e20c039e9734cb2e5d1d871699032afdb44d8f88abd3a812f053924a3bcf800"
- },
- "harness/reference/config-six/cfg-munchkin-halfelf-mage/config.txt": {
-  "bytes": 107,
-  "sha256": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065"
- },
- "harness/reference/config-six/cfg-munchkin-halfelf-mage/keys.log.xz": {
-  "bytes": 7056,
-  "sha256": "03cbd451d7c3353d2936f7f736c4cd21f8d1deb049b58a352b4273d6739a6620"
- },
- "harness/reference/config-six/cfg-munchkin-halfelf-mage/messages.log.xz": {
-  "bytes": 88120,
-  "sha256": "3d3e00f2f471d12990dcc9a8fe4c2cd5ab53301d46b6afafc5dac1096c644eca"
- },
- "harness/reference/config-six/cfg-munchkin-halfelf-mage/state.log.xz": {
-  "bytes": 31264,
-  "sha256": "abd05a7d7ef81dbefbe8661fdab8fb6da4515a4d7974e5e484fc18961558e9b6"
- },
- "harness/reference/config-six/cfg-munchkin-halfelf-mage/summary.json": {
-  "bytes": 2026,
-  "sha256": "1e72a89bb6825bcfcd1f3cecfc232adbee72816d9469d95589d6a6218a1556de"
- },
- "harness/reference/config-six/cfg-munchkin-human-war/config.txt": {
-  "bytes": 107,
-  "sha256": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b"
- },
- "harness/reference/config-six/cfg-munchkin-human-war/keys.log.xz": {
-  "bytes": 23340,
-  "sha256": "04c9d1f1f693f0656413416ac41c12e048b76b3bfa06309140bf6fe043687605"
- },
- "harness/reference/config-six/cfg-munchkin-human-war/messages.log.xz": {
-  "bytes": 389268,
-  "sha256": "3d770a73383c1b4df04a23f4e22f42639f221d5bdac36d2da69c2ee9d40c0714"
- },
- "harness/reference/config-six/cfg-munchkin-human-war/state.log.xz": {
-  "bytes": 168332,
-  "sha256": "2a5dc739a069bdcd9ead92d068ccce086705befa50d2b38e09a2ed3e7e3dced7"
- },
- "harness/reference/config-six/cfg-munchkin-human-war/summary.json": {
-  "bytes": 2029,
-  "sha256": "65820071f1373d1e4a763b39fd5f377b1932ebb57dde4005cf5c5dc81fe16121"
- },
- "harness/reference/config-six/manifest": {
-  "bytes": 1928,
-  "sha256": "c0a79cf2afa73e040c109d8af1354a22e9d0b00cdbb2ee08a3a627a77a563367"
- },
- "harness/reference/config-six/timing.txt": {
-  "bytes": 837,
-  "sha256": "caa8a9dc1cf9256ae997a01d62da4ac4fb9b7a811bd93a8db53566f87caed528"
- },
- "harness/reference/config/DONE": {
-  "bytes": 0,
-  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
- },
- "harness/reference/config/cfg-lunal-deep-warrior/config.txt": {
-  "bytes": 104,
-  "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
- },
- "harness/reference/config/cfg-lunal-deep-warrior/keys.log.xz": {
-  "bytes": 165436,
-  "sha256": "38698db36a99bbe8231c120dd13291b984f85dbda34fe867a91428a04030879a"
- },
- "harness/reference/config/cfg-lunal-deep-warrior/messages.log.xz": {
-  "bytes": 1160552,
-  "sha256": "4ded747e47cffbf833e3aab6fac65742b33f519c54be72c80bafde26b4eb527d"
- },
- "harness/reference/config/cfg-lunal-deep-warrior/state.log.xz": {
-  "bytes": 578488,
-  "sha256": "aadcbea1c130d1f7563203319d3a99532dd960eec3e176d92378ea4eb41e3c04"
- },
- "harness/reference/config/cfg-lunal-deep-warrior/summary.json": {
-  "bytes": 2036,
-  "sha256": "628a8bb4968d36ac3617a965815821aabb02259b8db6130eb693ee9e844584b1"
- },
- "harness/reference/config/cfg-lunal-dunadan-bg/config.txt": {
-  "bytes": 104,
-  "sha256": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299"
- },
- "harness/reference/config/cfg-lunal-dunadan-bg/keys.log.xz": {
-  "bytes": 3056,
-  "sha256": "5e426b395e058f40c3a699a76991f453f7ff9f44a40300606521ccc315a7a254"
- },
- "harness/reference/config/cfg-lunal-dunadan-bg/messages.log.xz": {
-  "bytes": 17072,
-  "sha256": "7bb7d94d2e0628d2305754f511d688b8bb78c53c04c6d8fdec8df2fc3e96d4e0"
- },
- "harness/reference/config/cfg-lunal-dunadan-bg/state.log.xz": {
-  "bytes": 7208,
-  "sha256": "791ee83bd75784d1fc9c3e745db409e237d9732dbabf4e039e606614def9621c"
- },
- "harness/reference/config/cfg-lunal-dunadan-bg/summary.json": {
-  "bytes": 2025,
-  "sha256": "1e2ff44fb628ae8b34432af1f1f04ff42013eeb1b9f0be8df183ffe825d1b49b"
- },
- "harness/reference/config/cfg-lunal-halfelf-mage/config.txt": {
-  "bytes": 104,
-  "sha256": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1"
- },
- "harness/reference/config/cfg-lunal-halfelf-mage/keys.log.xz": {
-  "bytes": 7528,
-  "sha256": "21e04f86cb0be8ad35cf57ce01fd75d8c76192f1dfb50a2cb9882736e7508e18"
- },
- "harness/reference/config/cfg-lunal-halfelf-mage/messages.log.xz": {
-  "bytes": 37980,
-  "sha256": "52c63fc1193629d6ad9e0f4bf62351fb1ca9e2ac85cd680f03019bce0b41478d"
- },
- "harness/reference/config/cfg-lunal-halfelf-mage/state.log.xz": {
-  "bytes": 16016,
-  "sha256": "12706eab148825e9f189464559f5cfc77ccf3a2d3be83583dfcb70e67a78f3d7"
- },
- "harness/reference/config/cfg-lunal-halfelf-mage/summary.json": {
-  "bytes": 2023,
-  "sha256": "25ca99ea6d434f70faf415e8813e40daee6c82509863ead99d0d26aeda43bd94"
- },
- "harness/reference/config/cfg-lunal-human-war/config.txt": {
-  "bytes": 104,
-  "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
- },
- "harness/reference/config/cfg-lunal-human-war/keys.log.xz": {
-  "bytes": 6004,
-  "sha256": "086d73d83d8bceaf43d4c14d2271abff1cebd4b657c87a3f65adcf53921f6a61"
- },
- "harness/reference/config/cfg-lunal-human-war/messages.log.xz": {
-  "bytes": 95624,
-  "sha256": "5f51c97cdac4d18b1f67e9505719192191103d133dcf3ec7ec423fb3fb0823c9"
- },
- "harness/reference/config/cfg-lunal-human-war/state.log.xz": {
-  "bytes": 35920,
-  "sha256": "cdaed3c42b95f33294fb344fceebe76cdb40b04fe1d008a24abc52247920502a"
- },
- "harness/reference/config/cfg-lunal-human-war/summary.json": {
-  "bytes": 2023,
-  "sha256": "df9e4c47db971df02fcd0d5fcb52932e5f5d72184d0167cda1788fdac1e25035"
- },
- "harness/reference/config/cfg-munchkin-dunadan-bg/config.txt": {
-  "bytes": 107,
-  "sha256": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16"
- },
- "harness/reference/config/cfg-munchkin-dunadan-bg/keys.log.xz": {
-  "bytes": 6028,
-  "sha256": "59bcf5a6eff562d3e95830eade87324c4d48172ae83c13b1a9cf12eacea0b10f"
- },
- "harness/reference/config/cfg-munchkin-dunadan-bg/messages.log.xz": {
-  "bytes": 244852,
-  "sha256": "594b75d398f5348e1bff2f375203bd0190cd4c2f4691c4a973a065015fefb3e9"
- },
- "harness/reference/config/cfg-munchkin-dunadan-bg/state.log.xz": {
-  "bytes": 100788,
-  "sha256": "245ce543f714308deac4ceaa1e3fe422e2cce9c255d437ebb3900d454a00513f"
- },
- "harness/reference/config/cfg-munchkin-dunadan-bg/summary.json": {
-  "bytes": 2029,
-  "sha256": "9e20c039e9734cb2e5d1d871699032afdb44d8f88abd3a812f053924a3bcf800"
- },
- "harness/reference/config/cfg-munchkin-halfelf-mage/config.txt": {
-  "bytes": 107,
-  "sha256": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065"
- },
- "harness/reference/config/cfg-munchkin-halfelf-mage/keys.log.xz": {
-  "bytes": 7056,
-  "sha256": "03cbd451d7c3353d2936f7f736c4cd21f8d1deb049b58a352b4273d6739a6620"
- },
- "harness/reference/config/cfg-munchkin-halfelf-mage/messages.log.xz": {
-  "bytes": 88120,
-  "sha256": "3d3e00f2f471d12990dcc9a8fe4c2cd5ab53301d46b6afafc5dac1096c644eca"
- },
- "harness/reference/config/cfg-munchkin-halfelf-mage/state.log.xz": {
-  "bytes": 31264,
-  "sha256": "abd05a7d7ef81dbefbe8661fdab8fb6da4515a4d7974e5e484fc18961558e9b6"
- },
- "harness/reference/config/cfg-munchkin-halfelf-mage/summary.json": {
-  "bytes": 2026,
-  "sha256": "1e72a89bb6825bcfcd1f3cecfc232adbee72816d9469d95589d6a6218a1556de"
- },
- "harness/reference/config/cfg-munchkin-human-war/config.txt": {
-  "bytes": 107,
-  "sha256": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b"
- },
- "harness/reference/config/cfg-munchkin-human-war/keys.log.xz": {
-  "bytes": 23340,
-  "sha256": "04c9d1f1f693f0656413416ac41c12e048b76b3bfa06309140bf6fe043687605"
- },
- "harness/reference/config/cfg-munchkin-human-war/messages.log.xz": {
-  "bytes": 389268,
-  "sha256": "3d770a73383c1b4df04a23f4e22f42639f221d5bdac36d2da69c2ee9d40c0714"
- },
- "harness/reference/config/cfg-munchkin-human-war/state.log.xz": {
-  "bytes": 168332,
-  "sha256": "2a5dc739a069bdcd9ead92d068ccce086705befa50d2b38e09a2ed3e7e3dced7"
- },
- "harness/reference/config/cfg-munchkin-human-war/summary.json": {
-  "bytes": 2029,
-  "sha256": "65820071f1373d1e4a763b39fd5f377b1932ebb57dde4005cf5c5dc81fe16121"
- },
- "harness/reference/config/manifest": {
-  "bytes": 2023,
-  "sha256": "673115a72100b2efb1ceda44b0aef29e2fb4b15daef8247f3d26d64c6c6f0688"
- },
- "harness/reference/config/timing.txt": {
-  "bytes": 837,
-  "sha256": "caa8a9dc1cf9256ae997a01d62da4ac4fb9b7a811bd93a8db53566f87caed528"
- },
- "harness/reference/full/DONE": {
-  "bytes": 0,
-  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
- },
- "harness/reference/full/full-0-warrior-0/config.txt": {
-  "bytes": 89,
-  "sha256": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f"
- },
- "harness/reference/full/full-0-warrior-0/keys.log.xz": {
-  "bytes": 8840,
-  "sha256": "d027c27f901f0856b6f461460f3ac7732eaad4ce95760a856d0a9d0ef55c0052"
- },
- "harness/reference/full/full-0-warrior-0/messages.log.xz": {
-  "bytes": 140932,
-  "sha256": "ae61949dc7d0067492fbc5799465443d6308b53058fa29a0f8aa480750b0f686"
- },
- "harness/reference/full/full-0-warrior-0/state.log.xz": {
-  "bytes": 57412,
-  "sha256": "a8bfbc0e1cc2edffbb55a67e9a6e48e8529b3bf26cd3a2f4b7fb045d719c6391"
- },
- "harness/reference/full/full-0-warrior-0/summary.json": {
-  "bytes": 1998,
-  "sha256": "75dd78e1f27ee047039a03531d1797b697a039fe83ec60e091546ec9777271a5"
- },
- "harness/reference/full/full-0-warrior-1/config.txt": {
-  "bytes": 89,
-  "sha256": "d13806552d2adac67628ed17a1bc973087bd4dec880da6e19b2342140a6302ee"
- },
- "harness/reference/full/full-0-warrior-1/keys.log.xz": {
-  "bytes": 8276,
-  "sha256": "ef9b8128deae5ce22efda94e5490e6ffc79a745eb09a2f5c1a5e3b6fbc6f336e"
- },
- "harness/reference/full/full-0-warrior-1/messages.log.xz": {
-  "bytes": 120300,
-  "sha256": "2b15f860a718e667079b93f53e93d98f75448cac6a6b54a0bf16034d2028b527"
- },
- "harness/reference/full/full-0-warrior-1/state.log.xz": {
-  "bytes": 42444,
-  "sha256": "cae2e3bc60a0d5efdcdc281b96e8fdb7f5f149b7eb8583560e6f6be939bceaa6"
- },
- "harness/reference/full/full-0-warrior-1/summary.json": {
-  "bytes": 2004,
-  "sha256": "fd7ea95612160c5076389718ddbe027dffd4dd4a53ce06d1180263cb489f7e95"
- },
- "harness/reference/full/full-0-warrior-2/config.txt": {
-  "bytes": 89,
-  "sha256": "3e96a20d1c634d26c7297f8e6d8bb0c4f6555b66a23a3004cbead8d774291b9f"
- },
- "harness/reference/full/full-0-warrior-2/keys.log.xz": {
-  "bytes": 9244,
-  "sha256": "f4a9897c5236c1a9acf10c562208bd31fbaade02ba34b7b87e40e7483babf702"
- },
- "harness/reference/full/full-0-warrior-2/messages.log.xz": {
-  "bytes": 105796,
-  "sha256": "58820b7bf65f2223618e798f1488414fddc767a0f27510baf0c422c71b3b835a"
- },
- "harness/reference/full/full-0-warrior-2/state.log.xz": {
-  "bytes": 39144,
-  "sha256": "3bf749c686b35b0ea32a4e8a6527d52a4149331b8cf13b1990c837ad7bde62d7"
- },
- "harness/reference/full/full-0-warrior-2/summary.json": {
-  "bytes": 1997,
-  "sha256": "eea7a81cdb79392db8a8926354d1a274409eb8d80364e90c5afe0de6fd45d2cc"
- },
- "harness/reference/full/full-0-warrior-3/config.txt": {
-  "bytes": 89,
-  "sha256": "c188bfac82ad77b1249b8473a77efa7c761179ad28a2cb7ca79091e58fe7a93d"
- },
- "harness/reference/full/full-0-warrior-3/keys.log.xz": {
-  "bytes": 9364,
-  "sha256": "cd4e252dc385dc9fc8f23f5e032f8e91d7b22eb04c5a6fbfef8c2340116dfeb8"
- },
- "harness/reference/full/full-0-warrior-3/messages.log.xz": {
-  "bytes": 136844,
-  "sha256": "3186ca795237da26f1ca23bdd0508b6af046c4898843f06e3e43c7837931f167"
- },
- "harness/reference/full/full-0-warrior-3/state.log.xz": {
-  "bytes": 52868,
-  "sha256": "45bc3c70dce2faaeee8c610386a72569e7af9247008edcf4750ba40827b9bbd3"
- },
- "harness/reference/full/full-0-warrior-3/summary.json": {
-  "bytes": 2001,
-  "sha256": "82319297fe90ec9dbae1ce07579c06f93bc62802fb1a5605eef1fd08056c8b76"
- },
- "harness/reference/full/full-0-warrior-4/config.txt": {
-  "bytes": 89,
-  "sha256": "256a607ebeb30746560be52c421b95efcc989a3ff51f73dd2d139c747aa75f7d"
- },
- "harness/reference/full/full-0-warrior-4/keys.log.xz": {
-  "bytes": 6276,
-  "sha256": "46e117eb71f837aa35cbf2c758caa4e98af00987587c98f4c8ba037b1911f068"
- },
- "harness/reference/full/full-0-warrior-4/messages.log.xz": {
-  "bytes": 108652,
-  "sha256": "0b7cecdff97df4e0297efb3ce08f693e75e625a7df412c49aef6a148b35a0106"
- },
- "harness/reference/full/full-0-warrior-4/state.log.xz": {
-  "bytes": 38884,
-  "sha256": "c07f54b6603592c7932b54074ab0c733c9215b51dcb5b6484823cd2fa2348b6d"
- },
- "harness/reference/full/full-0-warrior-4/summary.json": {
-  "bytes": 2000,
-  "sha256": "74945121637c9cd35ad8f94bd56b23ad407cbaa14103ad114f888f67d8e0e985"
- },
- "harness/reference/full/full-1-mage-0/config.txt": {
-  "bytes": 89,
-  "sha256": "2a741f44e2bc1f453837e3a3795b2f4461cf1ea35734573940a39f2b66614dfc"
- },
- "harness/reference/full/full-1-mage-0/keys.log.xz": {
-  "bytes": 8816,
-  "sha256": "5e301e6adf1368309de2cde86aea19270fd7006ed3fac6905e931b2f23eddb27"
- },
- "harness/reference/full/full-1-mage-0/messages.log.xz": {
-  "bytes": 39284,
-  "sha256": "800318b5e10dd177680e450801203fe58d37d6ea0b94d4a4e1f5ba24e9dd922b"
- },
- "harness/reference/full/full-1-mage-0/state.log.xz": {
-  "bytes": 37900,
-  "sha256": "b44afc0e4c89f86059a5afd0cd0a8f3d2072e2a34f2a22807a14086241a16580"
- },
- "harness/reference/full/full-1-mage-0/summary.json": {
-  "bytes": 1999,
-  "sha256": "aaff45db68499ccfc8919c029d40e71fe28d6a7c068dfce44251260e1bc92d18"
- },
- "harness/reference/full/full-1-mage-1/config.txt": {
-  "bytes": 89,
-  "sha256": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65"
- },
- "harness/reference/full/full-1-mage-1/keys.log.xz": {
-  "bytes": 2508,
-  "sha256": "5f29d9d65f28c99ba0232b47197faca8fb34880795000eac3b07f6ada76026b3"
- },
- "harness/reference/full/full-1-mage-1/messages.log.xz": {
-  "bytes": 12672,
-  "sha256": "af34309a6b1e4a8b80556892f91937a00a43e9d330e17f3a423c0d05c65e0cf0"
- },
- "harness/reference/full/full-1-mage-1/state.log.xz": {
-  "bytes": 7564,
-  "sha256": "e9891f87c892758afc6cc48c895bf3f2f6825b8ae0b81fd2687521c2edba1ff6"
- },
- "harness/reference/full/full-1-mage-1/summary.json": {
-  "bytes": 2001,
-  "sha256": "e353d3681fbf344d4afa25ffa506d6182dcf4f99d6af4be88bf2af3e4b03b9bb"
- },
- "harness/reference/full/full-1-mage-2/config.txt": {
-  "bytes": 89,
-  "sha256": "58057595c9d5d4a288893fc6e2ef583ddbab2ff506cc3c4bbb2d864cb4e08ce7"
- },
- "harness/reference/full/full-1-mage-2/keys.log.xz": {
-  "bytes": 9004,
-  "sha256": "8535519e8155f8331f3e39b3fdda86ed55020306c340fffbb4fb12647bc90b61"
- },
- "harness/reference/full/full-1-mage-2/messages.log.xz": {
-  "bytes": 36644,
-  "sha256": "fca46e10e6a7056fd7eae46fa9b59d738736292c67d57cde74460bf8fcbf168b"
- },
- "harness/reference/full/full-1-mage-2/state.log.xz": {
-  "bytes": 21672,
-  "sha256": "af60b464f7846a08c174dc20e616662cb18aedaf0326dc39529693f21788bccd"
- },
- "harness/reference/full/full-1-mage-2/summary.json": {
-  "bytes": 1996,
-  "sha256": "ef556d7410a994cc5853d1dc9f5cdd82378d5b951323873056e3f85aa01007f6"
- },
- "harness/reference/full/full-1-mage-3/config.txt": {
-  "bytes": 89,
-  "sha256": "ce51c67f3fb1ef7ee0c772ab57c3c8d71a6d4180c13b5132183e64a67acc5fbe"
- },
- "harness/reference/full/full-1-mage-3/keys.log.xz": {
-  "bytes": 8228,
-  "sha256": "bbe537375ac366967b2748e458c382d275ab98403e7e1e23f3828103d64913d4"
- },
- "harness/reference/full/full-1-mage-3/messages.log.xz": {
-  "bytes": 39848,
-  "sha256": "3ee49dff0137cf05177028015a7cda9d044e99d91faffbf9b6074497f2518d70"
- },
- "harness/reference/full/full-1-mage-3/state.log.xz": {
-  "bytes": 18872,
-  "sha256": "3ac225bc9b9b622c80232d2b40240994ffcb1b541f32b319bf30eabf30933398"
- },
- "harness/reference/full/full-1-mage-3/summary.json": {
-  "bytes": 1997,
-  "sha256": "2357fb994d210fdcb97d1fde80eca4215592dfe01ca9c2566d475db88b6c74b3"
- },
- "harness/reference/full/full-1-mage-4/config.txt": {
-  "bytes": 89,
-  "sha256": "ce02254e5262341b6a9045d244100bf8d0b623905eb073693fc6d1355d967323"
- },
- "harness/reference/full/full-1-mage-4/keys.log.xz": {
-  "bytes": 9880,
-  "sha256": "16960dc799d503036fbd5cb4d2811fbdd46412a154abfc93dc2404cea5b130cb"
- },
- "harness/reference/full/full-1-mage-4/messages.log.xz": {
-  "bytes": 64140,
-  "sha256": "2acf4b2866fc4ef25561d3e43c7673b01662f2ae1df8a8710e0cebad79d3454d"
- },
- "harness/reference/full/full-1-mage-4/state.log.xz": {
-  "bytes": 21916,
-  "sha256": "f37c39a61408e4a9436ed8b8a5a7909e2740a98d9033066cbbe996dc46872e08"
- },
- "harness/reference/full/full-1-mage-4/summary.json": {
-  "bytes": 1996,
-  "sha256": "2396c4e6f1c6b65186874b203c936e9de67b2310f97bd9235d07f2f67b3db009"
- },
- "harness/reference/full/full-2-druid-0/config.txt": {
-  "bytes": 89,
-  "sha256": "0b02646137486cfb1599c309c9ac1a498b5a2c616480876d62240e156b80bbb7"
- },
- "harness/reference/full/full-2-druid-0/keys.log.xz": {
-  "bytes": 1708,
-  "sha256": "3961112a3737d4e1a8068ae8d5222758f62f93e4c8b6ca1b167ff8a940b1019c"
- },
- "harness/reference/full/full-2-druid-0/messages.log.xz": {
-  "bytes": 9512,
-  "sha256": "05ed2a0826da770e1952ac78b5c337e8c06a9d33b03cf8e234bd9674577797f1"
- },
- "harness/reference/full/full-2-druid-0/state.log.xz": {
-  "bytes": 4828,
-  "sha256": "93b4d315cca98a90f5d9d006925ea6428b3aad28ef550d4683a07f1b78c30296"
- },
- "harness/reference/full/full-2-druid-0/summary.json": {
-  "bytes": 1999,
-  "sha256": "547706cf2644c9fc503c45e34f344ab8851b802a591f627fbbc583e1d29a2bbe"
- },
- "harness/reference/full/full-2-druid-1/config.txt": {
-  "bytes": 89,
-  "sha256": "1ffb727ae19a09ac939bb7d9693b1efc19259a79868bedc7261bfe504e43d96c"
- },
- "harness/reference/full/full-2-druid-1/keys.log.xz": {
-  "bytes": 1172,
-  "sha256": "ba7ecf33a7dc7fd0e6b1abbf495ac76425278f59c6edd534f7d7b9e655d5827a"
- },
- "harness/reference/full/full-2-druid-1/messages.log.xz": {
-  "bytes": 15768,
-  "sha256": "2cdf95cf97d65d5a5ec1b2bf82a55872054a2176c9ea29ebfc436bdefd07a2c8"
- },
- "harness/reference/full/full-2-druid-1/state.log.xz": {
-  "bytes": 5980,
-  "sha256": "f901862a819fb0aebac8bd0bdad54a6335ccdf8c96a69970983e424506bf81da"
- },
- "harness/reference/full/full-2-druid-1/summary.json": {
-  "bytes": 2013,
-  "sha256": "3ae53176f6749044ae1b772952ad62edd36bdbec2a86764018170a115adb3173"
- },
- "harness/reference/full/full-2-druid-2/config.txt": {
-  "bytes": 89,
-  "sha256": "227ce9c8924ef9b71d589cfeb7e45b046dabac98994187d5f9c140339943f920"
- },
- "harness/reference/full/full-2-druid-2/keys.log.xz": {
-  "bytes": 11796,
-  "sha256": "c2cc566097f84310d158efdc3cb688575a0cca8bb9a8debcd5dc9198a9de093d"
- },
- "harness/reference/full/full-2-druid-2/messages.log.xz": {
-  "bytes": 113024,
-  "sha256": "d7b00a3438fff29f85d723a6becba4b8d3b9acdcf0cd266a23fd3296e5f8a9e0"
- },
- "harness/reference/full/full-2-druid-2/state.log.xz": {
-  "bytes": 41360,
-  "sha256": "413dd257d4b57f4a05439d784732277fd15ca10dda1759d9099de5bf1fc3122a"
- },
- "harness/reference/full/full-2-druid-2/summary.json": {
-  "bytes": 2001,
-  "sha256": "5f1672399b610bec9f219c8a0b493daf76dbf121d8d1e6e0cd8431d7b3a00c43"
- },
- "harness/reference/full/full-2-druid-3/config.txt": {
-  "bytes": 89,
-  "sha256": "0a712fb76e914ccb6a687c24f2d6922d75a862bb112ab6123aa45e452930b1cd"
- },
- "harness/reference/full/full-2-druid-3/keys.log.xz": {
-  "bytes": 13476,
-  "sha256": "f6eec967816373d4dba6ba4f4a7ed612720d266c32a425bb884d8fac164d3b59"
- },
- "harness/reference/full/full-2-druid-3/messages.log.xz": {
-  "bytes": 131584,
-  "sha256": "c2f07d55228c4d17d448992d72591a3773c844b53af03cb7eccd99e019076ece"
- },
- "harness/reference/full/full-2-druid-3/state.log.xz": {
-  "bytes": 50156,
-  "sha256": "6988c8f1c2e58adb523a2cd5029d37d48b1f2d3cd878b7e63a163296c5437f86"
- },
- "harness/reference/full/full-2-druid-3/summary.json": {
-  "bytes": 2003,
-  "sha256": "b3526d870e1c90f123de389f11128cd79c6d784039b6d093c60dc37fc0aedb06"
- },
- "harness/reference/full/full-2-druid-4/config.txt": {
-  "bytes": 89,
-  "sha256": "21631d1195d9ea8a98483cd124dcfa64669d1ccb20e80b0ebe9530914ab51f46"
- },
- "harness/reference/full/full-2-druid-4/keys.log.xz": {
-  "bytes": 9788,
-  "sha256": "4c169acee6f04c6bfbfcfc4ce3d6e1241e305c259172e989d55a716f1fe5a8d4"
- },
- "harness/reference/full/full-2-druid-4/messages.log.xz": {
-  "bytes": 136404,
-  "sha256": "c07eafe39dd70db190248c146ca0ed135eb684a4bc76fee77cbc81763ebc8901"
- },
- "harness/reference/full/full-2-druid-4/state.log.xz": {
-  "bytes": 50196,
-  "sha256": "6d2c2be827cec7f0fae378e0d7fdb7f41243f079686ddce5f186cc5216542534"
- },
- "harness/reference/full/full-2-druid-4/summary.json": {
-  "bytes": 2002,
-  "sha256": "ed47171d89858a7d6d520a59906128edae955879bc25fb81168a4e56420bed98"
- },
- "harness/reference/full/full-3-priest-0/config.txt": {
-  "bytes": 89,
-  "sha256": "f25c1d61cf7ec8b89d850f87567b58d1348c7a3922b6fa8525ad2e17da0e9f61"
- },
- "harness/reference/full/full-3-priest-0/keys.log.xz": {
-  "bytes": 10300,
-  "sha256": "3edd38b42575f4eb7830ac144e74d8c27d9d6d2c734a286a23fa4058d1b44773"
- },
- "harness/reference/full/full-3-priest-0/messages.log.xz": {
-  "bytes": 51056,
-  "sha256": "a71605318d059d944c1b242eb94ab42b754715cf0d943eba3868d147a6262e05"
- },
- "harness/reference/full/full-3-priest-0/state.log.xz": {
-  "bytes": 24956,
-  "sha256": "10c720566c95172ffde48448483351df40aef0ed6f763a3f0e373209f438ec00"
- },
- "harness/reference/full/full-3-priest-0/summary.json": {
-  "bytes": 2000,
-  "sha256": "9412383af0625835842536466507774ffe75953d36b3403cb399cd05ee40d266"
- },
- "harness/reference/full/full-3-priest-1/config.txt": {
-  "bytes": 89,
-  "sha256": "f2e317ce07dc1bbf144fe1d6a29ea11cf5ec891118bb91bd01f4abbc6f239c3f"
- },
- "harness/reference/full/full-3-priest-1/keys.log.xz": {
-  "bytes": 9564,
-  "sha256": "305f4e402046780b5e930b3ca501a6019a8b5f6d423c41009260adaa9713af8e"
- },
- "harness/reference/full/full-3-priest-1/messages.log.xz": {
-  "bytes": 45888,
-  "sha256": "017c50badb7ecfe14dcce5818ad3922fdfd1eb6a45408b6b6e3affa34387f049"
- },
- "harness/reference/full/full-3-priest-1/state.log.xz": {
-  "bytes": 25160,
-  "sha256": "39ae1887aff750177abcdaaf9f06652cf2bb0600937392c683b08feee5b9e0f0"
- },
- "harness/reference/full/full-3-priest-1/summary.json": {
-  "bytes": 1996,
-  "sha256": "2ba7534c4e8202156bf26b74d530ec9203afe4f779914c167db24bf395786c90"
- },
- "harness/reference/full/full-3-priest-2/config.txt": {
-  "bytes": 89,
-  "sha256": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5"
- },
- "harness/reference/full/full-3-priest-2/keys.log.xz": {
-  "bytes": 8760,
-  "sha256": "7e74b3f049e79e9299e8dcc0125535d68f6544d1b41beb2bea7adcc977dd58e4"
- },
- "harness/reference/full/full-3-priest-2/messages.log.xz": {
-  "bytes": 41896,
-  "sha256": "b8d17cd4a7650285771d73e865114b66f5e0c61f4e19c030f679ac379bd2d895"
- },
- "harness/reference/full/full-3-priest-2/state.log.xz": {
-  "bytes": 20660,
-  "sha256": "8bae82f4f3e1e637f67836fd8b7aed099781990f7bfa2a4579e00e62feca0a42"
- },
- "harness/reference/full/full-3-priest-2/summary.json": {
-  "bytes": 1999,
-  "sha256": "ceec0ec705433ecfd57fd387c2a363c74f750ed3eb42ef9cbe7ebd53aeb93044"
- },
- "harness/reference/full/full-3-priest-3/config.txt": {
-  "bytes": 89,
-  "sha256": "603bb9eeb0bd5378955bd4cbc73c7bef664b17c8f7ef624f6df586d185406354"
- },
- "harness/reference/full/full-3-priest-3/keys.log.xz": {
-  "bytes": 8220,
-  "sha256": "088e30ea59c8c708298b0807e254cb015a995a12f4ea3cda132a23185bcadfc5"
- },
- "harness/reference/full/full-3-priest-3/messages.log.xz": {
-  "bytes": 44092,
-  "sha256": "3e46fab8483b9d90f95bf77f76d9739da04822b28add33e80c7747f55f245498"
- },
- "harness/reference/full/full-3-priest-3/state.log.xz": {
-  "bytes": 18796,
-  "sha256": "826648f571a3a4cbc0f02ecfab8cae051364a3072a7e8385ad1775151f2515a6"
- },
- "harness/reference/full/full-3-priest-3/summary.json": {
-  "bytes": 2001,
-  "sha256": "afedc359f27d0d99de889a95696ab6f6bc7222635993af7bda3e5c68bcd8b944"
- },
- "harness/reference/full/full-3-priest-4/config.txt": {
-  "bytes": 89,
-  "sha256": "b8c77b5f78cd80ffa3f25651d9bddf8b1f7bb6e298f460d2cc679825ce0f61a4"
- },
- "harness/reference/full/full-3-priest-4/keys.log.xz": {
-  "bytes": 4840,
-  "sha256": "daec8c0f70e3be54564e6cf79f66829929f95fc866d389bcab9ddce29b4da029"
- },
- "harness/reference/full/full-3-priest-4/messages.log.xz": {
-  "bytes": 22668,
-  "sha256": "1e85da5e8d22bc7673d451f7c7b17283efe41b7b0bde441275b71672202f5e06"
- },
- "harness/reference/full/full-3-priest-4/state.log.xz": {
-  "bytes": 11688,
-  "sha256": "9ab026a6f6a708b3d860844509bd7d13177af000622f769703a04b269fcd9321"
- },
- "harness/reference/full/full-3-priest-4/summary.json": {
-  "bytes": 2001,
-  "sha256": "d935cde395d5a831fda8dfb5fc800dcec97e847c8fcc96b191dec434bf82efb3"
- },
- "harness/reference/full/full-4-necro-0/config.txt": {
-  "bytes": 89,
-  "sha256": "58444dd1729ca4064b612f6b4e0fb813fb3b69ad38490dd581d7c22970724d0c"
- },
- "harness/reference/full/full-4-necro-0/keys.log.xz": {
-  "bytes": 6796,
-  "sha256": "664a20da6bad9d5ee55fa82db9a273b0461394ced086ceea8cd9098533921125"
- },
- "harness/reference/full/full-4-necro-0/messages.log.xz": {
-  "bytes": 31976,
-  "sha256": "de4e8baeeca7e1b2d387da454104c867b8510163bdd7a3df2df2a57c6b867d5d"
- },
- "harness/reference/full/full-4-necro-0/state.log.xz": {
-  "bytes": 12892,
-  "sha256": "a259893c14b545864309afd5f88c1384a8370e7e1c9ee736d814a6e2d20e1ea9"
- },
- "harness/reference/full/full-4-necro-0/summary.json": {
-  "bytes": 2004,
-  "sha256": "978e3feb13dba6ba6e341d3a7e2b2fceaebc1f8a09ec742cfa3413b0fd71f9f2"
- },
- "harness/reference/full/full-4-necro-1/config.txt": {
-  "bytes": 89,
-  "sha256": "f17966026bfb759248fa114e7b39e38aacb1bb48a10bc9faea418504d16c0762"
- },
- "harness/reference/full/full-4-necro-1/keys.log.xz": {
-  "bytes": 6356,
-  "sha256": "6fa7f70091aae6432730a99aff125f0972f10da0ff3faf9dc83c83dc7d4eaabc"
- },
- "harness/reference/full/full-4-necro-1/messages.log.xz": {
-  "bytes": 25240,
-  "sha256": "5246bd06e177484566250ebb339c104e68354f98a4ed3f3d2edb7e0e4e015449"
- },
- "harness/reference/full/full-4-necro-1/state.log.xz": {
-  "bytes": 11784,
-  "sha256": "9e2b58e54208dbb5156d947dc771a80a25b60b500d3301bf2a72adf52d3a0636"
- },
- "harness/reference/full/full-4-necro-1/summary.json": {
-  "bytes": 2002,
-  "sha256": "7b0bac4d4cf9c1a0dc6679259ec540968f63bde463abae06160f5d05a01017dc"
- },
- "harness/reference/full/full-4-necro-2/config.txt": {
-  "bytes": 89,
-  "sha256": "5bdab35206ff0c91b00e66d05753cb45e6b2fe7d146c79664b45de69fabc68fc"
- },
- "harness/reference/full/full-4-necro-2/keys.log.xz": {
-  "bytes": 5880,
-  "sha256": "293a047b745ead610aa151f775fb57e455f73529a13307a2ee43bcdac4e1db71"
- },
- "harness/reference/full/full-4-necro-2/messages.log.xz": {
-  "bytes": 22880,
-  "sha256": "555a84c8a83249e9c3d33b553700e5000107a028b3e97d5b6116970f29bbd346"
- },
- "harness/reference/full/full-4-necro-2/state.log.xz": {
-  "bytes": 9928,
-  "sha256": "21fe0f52674a25ef021cb1545c1a623118ea77980de1f6d7b4cb2adf21796728"
- },
- "harness/reference/full/full-4-necro-2/summary.json": {
-  "bytes": 2007,
-  "sha256": "8d38cdb6c3d640c432e83082f481b734afcbec8bffa43ca27c0f6c310bcd5d74"
- },
- "harness/reference/full/full-4-necro-3/config.txt": {
-  "bytes": 89,
-  "sha256": "a386432300e282d953d72392cee6ccc48317fcd9326ad7000edb8811a36417b2"
- },
- "harness/reference/full/full-4-necro-3/keys.log.xz": {
-  "bytes": 4132,
-  "sha256": "f58f5cffd83a80f8e60fa72997de115d3fd26bfc3501784c22a50baa13064be2"
- },
- "harness/reference/full/full-4-necro-3/messages.log.xz": {
-  "bytes": 19620,
-  "sha256": "8a7cdf7e060542b523db842178b49d89163e3bc6d1015d788b06711820fcb91c"
- },
- "harness/reference/full/full-4-necro-3/state.log.xz": {
-  "bytes": 8092,
-  "sha256": "ae181c52a65197e356eef424cedee6f6afabdc0b4c8ea86f222681a5e83f46d6"
- },
- "harness/reference/full/full-4-necro-3/summary.json": {
-  "bytes": 2010,
-  "sha256": "1545a3f62458b82c3fb52d6ec06919f4ea912455d1ce2e2c894b0a9f6b50417d"
- },
- "harness/reference/full/full-4-necro-4/config.txt": {
-  "bytes": 89,
-  "sha256": "77fe191e95748cf9a576b55c26f54dac8606e7cc62dfea7b3ed8b12cca35ae11"
- },
- "harness/reference/full/full-4-necro-4/keys.log.xz": {
-  "bytes": 8872,
-  "sha256": "1789623fe59c32bfd8b975967d919fb20a96f1d4e54d4c2496a9bdf129a8bf88"
- },
- "harness/reference/full/full-4-necro-4/messages.log.xz": {
-  "bytes": 38072,
-  "sha256": "d4a42ae5e0696d743e986904f507a023a88a269d7dcb4c76d41b75cfca064fa5"
- },
- "harness/reference/full/full-4-necro-4/state.log.xz": {
-  "bytes": 15908,
-  "sha256": "a3c01f2245b31107d461f4ecce2d6c7c3344d88be28a23e91e57387c56a647e8"
- },
- "harness/reference/full/full-4-necro-4/summary.json": {
-  "bytes": 2007,
-  "sha256": "4b92e1c8cf2be15e9767ffa4477f94ed3fe2a30ea1dd23b0cf92bb3ef0362f92"
- },
- "harness/reference/full/full-5-paladin-0/config.txt": {
-  "bytes": 89,
-  "sha256": "5ae4694ed60058f96d394f090027b6dc96db875adace65ff1d20fefdd0e00770"
- },
- "harness/reference/full/full-5-paladin-0/keys.log.xz": {
-  "bytes": 3432,
-  "sha256": "539dbf976308f7bb218887a78aa4dff69c3a3f69dd269ec7f0ecb74effa004ee"
- },
- "harness/reference/full/full-5-paladin-0/messages.log.xz": {
-  "bytes": 20944,
-  "sha256": "fc8b7f20737c317ef2690e5f59da9fc5a5a0e33fd034df459bcd6e76181fb707"
- },
- "harness/reference/full/full-5-paladin-0/state.log.xz": {
-  "bytes": 9132,
-  "sha256": "f8672424839a684f46e5d33b07d97013c3601e0875db1afa11bfbd0db19d3f4e"
- },
- "harness/reference/full/full-5-paladin-0/summary.json": {
-  "bytes": 2005,
-  "sha256": "72233130f0f4677566beb348802ec9d72cefa1d1e01b1ac8713222a4e0785618"
- },
- "harness/reference/full/full-5-paladin-1/config.txt": {
-  "bytes": 89,
-  "sha256": "f16502c8609a8832383b6baa277cf2709d2e630e28ff8655554f0047169a5484"
- },
- "harness/reference/full/full-5-paladin-1/keys.log.xz": {
-  "bytes": 7696,
-  "sha256": "da687310dbaef430d5db9a6b678952b5a7f40a9d1e64ae15ba0f8c36a4ebfc90"
- },
- "harness/reference/full/full-5-paladin-1/messages.log.xz": {
-  "bytes": 37920,
-  "sha256": "7cd1aa0ee8243270d4239ff3b764e4e88c14a4c3506e5517b4fa3139ff1c00b3"
- },
- "harness/reference/full/full-5-paladin-1/state.log.xz": {
-  "bytes": 19544,
-  "sha256": "704b2b5a6b3034a51459db1a41e0233e03f4cf063d138ba309e6cb08f5b26431"
- },
- "harness/reference/full/full-5-paladin-1/summary.json": {
-  "bytes": 2003,
-  "sha256": "0740047e2903e5a24b1da8e11cf218316daefeb5542a8f5aaf3e669ff504cbd5"
- },
- "harness/reference/full/full-5-paladin-2/config.txt": {
-  "bytes": 89,
-  "sha256": "e538528f3a6c6916258ce59868d885c38122fd65bad6799968193d374091e0eb"
- },
- "harness/reference/full/full-5-paladin-2/keys.log.xz": {
-  "bytes": 6716,
-  "sha256": "bd428ad17f181b8dbdfa175d2fa00ffaefbecf931b634ea488f26197eaa6e852"
- },
- "harness/reference/full/full-5-paladin-2/messages.log.xz": {
-  "bytes": 49884,
-  "sha256": "15ce725388fea04045fe221ac54dbd78c029ed8b585ad2219b1a0fbb2f86a722"
- },
- "harness/reference/full/full-5-paladin-2/state.log.xz": {
-  "bytes": 22008,
-  "sha256": "6a532dbba0690154bf406ff75b65d34268ff5909513616e1abc5d83e5bcb236c"
- },
- "harness/reference/full/full-5-paladin-2/summary.json": {
-  "bytes": 1999,
-  "sha256": "dfe6ea432477a1d69bdd006c8e2a9126e148c218dfb27b870325ea36d9425155"
- },
- "harness/reference/full/full-5-paladin-3/config.txt": {
-  "bytes": 89,
-  "sha256": "68769e90f395296bc327af893691f12259e3cc72ba38b0dc52b8dad7a8e8a75d"
- },
- "harness/reference/full/full-5-paladin-3/keys.log.xz": {
-  "bytes": 10552,
-  "sha256": "fe7281a9060a7369159552d5c3759b80f59bc4fa8413c339abed2724a49473dc"
- },
- "harness/reference/full/full-5-paladin-3/messages.log.xz": {
-  "bytes": 48616,
-  "sha256": "3f0523bbcb0af55c80de9c9088ce01476f344fcbc2c9efeb750a132c76afb0a4"
- },
- "harness/reference/full/full-5-paladin-3/state.log.xz": {
-  "bytes": 32536,
-  "sha256": "9f65b71a6ac792c57befd1ebe4874a4422faed56851a0c7f7fa36da05a890640"
- },
- "harness/reference/full/full-5-paladin-3/summary.json": {
-  "bytes": 2003,
-  "sha256": "221e36353ef0e9ffa8f0821f9690f671877fc5e66a01010c310847f5ca8ba680"
- },
- "harness/reference/full/full-5-paladin-4/config.txt": {
-  "bytes": 89,
-  "sha256": "4806d58167916e298aabd55dde493fce7100780ffff2eec81e9f2e2e10ca1142"
- },
- "harness/reference/full/full-5-paladin-4/keys.log.xz": {
-  "bytes": 1732,
-  "sha256": "5f25581a7b0e788f98ed05746015d529976d7aac09b15d6ba14d4a047a12851b"
- },
- "harness/reference/full/full-5-paladin-4/messages.log.xz": {
-  "bytes": 10444,
-  "sha256": "21a6cec4210fc0d94008d67d39c8d55b14b61ddb5cb14acfbd52b0f2b383586d"
- },
- "harness/reference/full/full-5-paladin-4/state.log.xz": {
-  "bytes": 4812,
-  "sha256": "6cb13e51c5573da6d1763e3bab9a259e73cc0c86973729ef8b2133ea113dc9d6"
- },
- "harness/reference/full/full-5-paladin-4/summary.json": {
-  "bytes": 2003,
-  "sha256": "506de474e941dc4f0b416dcd4f1243fd180458dc32f70d5e74c6deb3c9074029"
- },
- "harness/reference/full/full-6-rogue-0/config.txt": {
-  "bytes": 89,
-  "sha256": "98bed1fd140276a90bfd4d8004f2513b249e619c2e8630466cf7364bdaa8de18"
- },
- "harness/reference/full/full-6-rogue-0/keys.log.xz": {
-  "bytes": 14684,
-  "sha256": "bbcf0cec373479469906c593ded0a85761ccef4ae9be25f71a17880880acb55c"
- },
- "harness/reference/full/full-6-rogue-0/messages.log.xz": {
-  "bytes": 64580,
-  "sha256": "e126d666b46debd40fbaef3fe290ab94e658749bdf5c7b9a40ac249f8b12da66"
- },
- "harness/reference/full/full-6-rogue-0/state.log.xz": {
-  "bytes": 41356,
-  "sha256": "6f25c38c0abbc1bdc0a6d4cc29a98b8f853741d945e76b5f72c42d68e7293270"
- },
- "harness/reference/full/full-6-rogue-0/summary.json": {
-  "bytes": 2000,
-  "sha256": "5f33226b97264ce496fc55ca046cae0ee746ab11e5a0bec3411a3cf0f7637c13"
- },
- "harness/reference/full/full-6-rogue-1/config.txt": {
-  "bytes": 89,
-  "sha256": "f3594a1f035856e33834a6cfda1f1f7218bf75e0f6be0fd50fd77e14119ef42c"
- },
- "harness/reference/full/full-6-rogue-1/keys.log.xz": {
-  "bytes": 13760,
-  "sha256": "7c9dc5bb57bec82131ffc57bb7a4ac639709a12965b5b4e77c320e08575e815c"
- },
- "harness/reference/full/full-6-rogue-1/messages.log.xz": {
-  "bytes": 63516,
-  "sha256": "20d41dd93468185931c6236189f1676907e35f58ed8a2d68755845cef41923bc"
- },
- "harness/reference/full/full-6-rogue-1/state.log.xz": {
-  "bytes": 44044,
-  "sha256": "c0052aa339d9f1c056cdeea1377f1aee7062a0fe5bca0203f4885923cf7fc44b"
- },
- "harness/reference/full/full-6-rogue-1/summary.json": {
-  "bytes": 1996,
-  "sha256": "c50cfd3175e709cd5a453d99f01631e622f52733fe3f00f3d7dd3ca5ab1dec4b"
- },
- "harness/reference/full/full-6-rogue-2/config.txt": {
-  "bytes": 89,
-  "sha256": "85c69abf53d5871d603d39b2ce7b8e1e728d3a582081fbab333833e6b537b56c"
- },
- "harness/reference/full/full-6-rogue-2/keys.log.xz": {
-  "bytes": 14524,
-  "sha256": "b51241e19e3ac90f5201f7c0f349b39814e37f1682fc034ade3c430ec8b71731"
- },
- "harness/reference/full/full-6-rogue-2/messages.log.xz": {
-  "bytes": 62644,
-  "sha256": "eab0b15ba962356a36b2a579f93141810dd99472344ba2efba9dfd527e34e2c3"
- },
- "harness/reference/full/full-6-rogue-2/state.log.xz": {
-  "bytes": 38192,
-  "sha256": "a9e10df3ed6bf384f0e48ed4e04241d64d8022b2d28d7fe8f26ac91baaf78b01"
- },
- "harness/reference/full/full-6-rogue-2/summary.json": {
-  "bytes": 2003,
-  "sha256": "8c6f03dbe262f90da75241bc7db6a21912bcca3caf15ab54137152dc36a06c58"
- },
- "harness/reference/full/full-6-rogue-3/config.txt": {
-  "bytes": 89,
-  "sha256": "f08e6e0455411e3053a5b700af9053cd722eb753c352d33efb5ebd5caf17f76a"
- },
- "harness/reference/full/full-6-rogue-3/keys.log.xz": {
-  "bytes": 13116,
-  "sha256": "36d0693c0655ff11ad10615f61e661997772e64bacc2fcfc941f9fb4a7f056bd"
- },
- "harness/reference/full/full-6-rogue-3/messages.log.xz": {
-  "bytes": 75120,
-  "sha256": "3dace04f7e42335fd83910fd2e6914f8408cff6a3fb7901a0091d1f97713812e"
- },
- "harness/reference/full/full-6-rogue-3/state.log.xz": {
-  "bytes": 40904,
-  "sha256": "2ed5b136108feab0f6aeee30afed0bd25230216d45de75be69a3b37778967d77"
- },
- "harness/reference/full/full-6-rogue-3/summary.json": {
-  "bytes": 2004,
-  "sha256": "164c41c662aee657ecc9ac752956d4c05e676d9e6e01ca003264e4e4b7095afd"
- },
- "harness/reference/full/full-6-rogue-4/config.txt": {
-  "bytes": 89,
-  "sha256": "1f0a924770ddd4599ca1bb37c4e561efe338773c4afbc41fd12ae504ae71d8ec"
- },
- "harness/reference/full/full-6-rogue-4/keys.log.xz": {
-  "bytes": 13492,
-  "sha256": "671bdeadb371e7c5d6aa510dc2d5fdfade1963dd1f3c21a2a017d6f0ca93f1e5"
- },
- "harness/reference/full/full-6-rogue-4/messages.log.xz": {
-  "bytes": 72452,
-  "sha256": "9758c763850a79f62e16a4d3a51677eb7abebbdd63c9559bd2abf7845a050114"
- },
- "harness/reference/full/full-6-rogue-4/state.log.xz": {
-  "bytes": 42132,
-  "sha256": "20bdccbb87f571b09c8898eb2a4988dd6b1d059728b4ed1039602b9b138cace9"
- },
- "harness/reference/full/full-6-rogue-4/summary.json": {
-  "bytes": 1999,
-  "sha256": "1bcdffe45d350a6d2bd8ca8a273b9471edca6fce38209ec8c55f7a5e71a22a3d"
- },
- "harness/reference/full/full-7-ranger-0/config.txt": {
-  "bytes": 89,
-  "sha256": "0446575bdd3cc07b07ae50d63c77be334613e03ac403be393ec3ccba401cbb86"
- },
- "harness/reference/full/full-7-ranger-0/keys.log.xz": {
-  "bytes": 6752,
-  "sha256": "6d833d3dd8eb6cfac535d7498217ebd5849b49e7b6aff27a4b07386712a088d8"
- },
- "harness/reference/full/full-7-ranger-0/messages.log.xz": {
-  "bytes": 126412,
-  "sha256": "6df54bfcfb5516f56dba567867043029ec4c4886f7f5befa637f696b0d60ea98"
- },
- "harness/reference/full/full-7-ranger-0/state.log.xz": {
-  "bytes": 50680,
-  "sha256": "65bbdc71a83a776746a2171d091165b3486f7279bb67e2f2e367361e978b0a1b"
- },
- "harness/reference/full/full-7-ranger-0/summary.json": {
-  "bytes": 2003,
-  "sha256": "5f6a582e63a2b0e4e17f6d30b639094fd7bdac949974d204bd4747d45ee860f1"
- },
- "harness/reference/full/full-7-ranger-1/config.txt": {
-  "bytes": 89,
-  "sha256": "e699c15de43a6d273d8e2ac0cb77e4331807d0dbf88ce3c6da097d8f70436671"
- },
- "harness/reference/full/full-7-ranger-1/keys.log.xz": {
-  "bytes": 25900,
-  "sha256": "954eef92d73a6138615d182366b65cec7319c1d4751a595f7e68085e47c73b43"
- },
- "harness/reference/full/full-7-ranger-1/messages.log.xz": {
-  "bytes": 423856,
-  "sha256": "b056c37730586fa6f62ce2e26bde4ed070dd74a9805597ab44d82852d8b56dfe"
- },
- "harness/reference/full/full-7-ranger-1/state.log.xz": {
-  "bytes": 167920,
-  "sha256": "3b326b9d6e4ab822b8812d5cf86b2e05fd3373daa1a006ef59fcb846f6323db0"
- },
- "harness/reference/full/full-7-ranger-1/summary.json": {
-  "bytes": 2010,
-  "sha256": "0870f0d4a6a808d05c15622d7593f21b4bcaaad3ee0606ccb45c23fff6726813"
- },
- "harness/reference/full/full-7-ranger-2/config.txt": {
-  "bytes": 89,
-  "sha256": "798354512b8dbe825b8f6fb46c24660b50f3f75de529807f9a4bd1a00deed415"
- },
- "harness/reference/full/full-7-ranger-2/keys.log.xz": {
-  "bytes": 564,
-  "sha256": "146f3fe1bfafd816b7a4d269a2b3a0b6e72bd3ac5ff0638427b744837eb37ef0"
- },
- "harness/reference/full/full-7-ranger-2/messages.log.xz": {
-  "bytes": 3772,
-  "sha256": "15122d2948c9ca2e726c66951d7ba8fb657fbaa712880e6798b6e17924e668e5"
- },
- "harness/reference/full/full-7-ranger-2/state.log.xz": {
-  "bytes": 1236,
-  "sha256": "78a8795b2541fb1dd3eefa12088efe3755d13059ada08a10af7a48b95793d231"
- },
- "harness/reference/full/full-7-ranger-2/summary.json": {
-  "bytes": 2004,
-  "sha256": "42df2a96b3722d584f39cd5f35059c6e4254f66de80ad5284130b0c32255575c"
- },
- "harness/reference/full/full-7-ranger-3/config.txt": {
-  "bytes": 89,
-  "sha256": "5f11346e40ebe4c5f5625f9eaa20cafb4a5da60cd38006fd3b93602848d46cf2"
- },
- "harness/reference/full/full-7-ranger-3/keys.log.xz": {
-  "bytes": 7904,
-  "sha256": "f467663f923551745d6b7cd3a3bf90a8df4089a49afc12c92fb103282aaaa8e2"
- },
- "harness/reference/full/full-7-ranger-3/messages.log.xz": {
-  "bytes": 128840,
-  "sha256": "2484bab001d199e649239750da286d3c8f4cc10ed4df5743315afea056498617"
- },
- "harness/reference/full/full-7-ranger-3/state.log.xz": {
-  "bytes": 48956,
-  "sha256": "ebb898f6f47df885511cd0486030a4abd63b14c1081404a01cd67059e5268481"
- },
- "harness/reference/full/full-7-ranger-3/summary.json": {
-  "bytes": 2003,
-  "sha256": "1a58ec2a5833835aad49056b069421d804b0012806f75026ff014b610ef3fc77"
- },
- "harness/reference/full/full-7-ranger-4/config.txt": {
-  "bytes": 89,
-  "sha256": "3c2fc499e285142fa59b9c000871db73d33a4156da77314fac4d89cf753e322b"
- },
- "harness/reference/full/full-7-ranger-4/keys.log.xz": {
-  "bytes": 7860,
-  "sha256": "5a3ea10cda360cf40418ad9df7b8d7007cb38dc8af98c4906c96a5b871b9dc8c"
- },
- "harness/reference/full/full-7-ranger-4/messages.log.xz": {
-  "bytes": 110172,
-  "sha256": "2ec7d3db4a8b9193c6eb34c3f2e5b13f378723ee38b41d22b563b5ddf3c1a61e"
- },
- "harness/reference/full/full-7-ranger-4/state.log.xz": {
-  "bytes": 43800,
-  "sha256": "36b9eea74a162408bb1e17b0d8ec14ea4c42f3d4bba7c1680ce0645f5234949c"
- },
- "harness/reference/full/full-7-ranger-4/summary.json": {
-  "bytes": 2003,
-  "sha256": "600c4fe1808228ff29a375f6923386d0168b1f82e7a8e506a690260f2746bd6d"
- },
- "harness/reference/full/full-8-blackguard-0/config.txt": {
-  "bytes": 89,
-  "sha256": "8eedb3d22ab5fd478f8b1de98d78ba2f37ae4e0e0ee6984fbc1bc51d64d3db0a"
- },
- "harness/reference/full/full-8-blackguard-0/keys.log.xz": {
-  "bytes": 9100,
-  "sha256": "f5fbfd90ec78fdff74b994b4058443f0435c2010390240efeae6c8913dcbd22d"
- },
- "harness/reference/full/full-8-blackguard-0/messages.log.xz": {
-  "bytes": 142996,
-  "sha256": "e1d87df8ed932019eab952b4f1210d94d9f7801b5ade583cb75dc2f8d93c889f"
- },
- "harness/reference/full/full-8-blackguard-0/state.log.xz": {
-  "bytes": 49772,
-  "sha256": "ce1c77ac4da38c3225f047815dbcb70cf74ead6248f0eb1c55e5c300494f8846"
- },
- "harness/reference/full/full-8-blackguard-0/summary.json": {
-  "bytes": 2005,
-  "sha256": "07f2a03ce9862c87dc0d1768ac6ea988e729b736b54feeca46e6e7be6d69c0fb"
- },
- "harness/reference/full/full-8-blackguard-1/config.txt": {
-  "bytes": 89,
-  "sha256": "ce73be440e0a35a70e8a2dcc767c6b6a9e72d63d33d304b52afedbc21df2a5f1"
- },
- "harness/reference/full/full-8-blackguard-1/keys.log.xz": {
-  "bytes": 8820,
-  "sha256": "19ab5955cb31d2486f58c50ad5a01ec17fd1f79aad964fb0171339e52ca5f984"
- },
- "harness/reference/full/full-8-blackguard-1/messages.log.xz": {
-  "bytes": 121768,
-  "sha256": "f8f941a571f54a462c678ff64866299195d20ebbbd8a64c996568b65358d9942"
- },
- "harness/reference/full/full-8-blackguard-1/state.log.xz": {
-  "bytes": 42724,
-  "sha256": "d43202e757df18af2e6b18a63487607eab24fdcc31b3e21cb77bda0c7ff47a04"
- },
- "harness/reference/full/full-8-blackguard-1/summary.json": {
-  "bytes": 2000,
-  "sha256": "4421aac0f0851301393fa91d5882b0abf16f345a27d08daa67bd837a35b1def2"
- },
- "harness/reference/full/full-8-blackguard-2/config.txt": {
-  "bytes": 89,
-  "sha256": "584c21928863b8a949783769b982751ebeb7ba5f069bdb2c832d981216a9692e"
- },
- "harness/reference/full/full-8-blackguard-2/keys.log.xz": {
-  "bytes": 8868,
-  "sha256": "98178217be454503e2f3964d7bac0f7c59c14ff93e034dc30fedc26574146c8d"
- },
- "harness/reference/full/full-8-blackguard-2/messages.log.xz": {
-  "bytes": 118756,
-  "sha256": "e5baeee966056885ab9cde11cf6af45107eb88afe773355ca18f753e3eb621e4"
- },
- "harness/reference/full/full-8-blackguard-2/state.log.xz": {
-  "bytes": 95808,
-  "sha256": "73b1983bb4a1a4489723c6428b549aced2902b5dc8efc409ae155add60790e47"
- },
- "harness/reference/full/full-8-blackguard-2/summary.json": {
-  "bytes": 2011,
-  "sha256": "1e12954cb79c805d753fd8a2a3618e18afce8165f2320045e895e85de66e73ea"
- },
- "harness/reference/full/full-8-blackguard-3/config.txt": {
-  "bytes": 89,
-  "sha256": "ac869ebcf1d6333c95de4c575e5a79dfabca4c90f906fb74ed49abdfbc6b580d"
- },
- "harness/reference/full/full-8-blackguard-3/keys.log.xz": {
-  "bytes": 13440,
-  "sha256": "12fe4d78779c9e1faaa5cf55afaa2f206c17f4520492d373756aec61ec2c00ab"
- },
- "harness/reference/full/full-8-blackguard-3/messages.log.xz": {
-  "bytes": 177528,
-  "sha256": "ef36c9fde7fe3e5ff1540de0af8cfe2ab0df488f8af56716d324cb2e794cd737"
- },
- "harness/reference/full/full-8-blackguard-3/state.log.xz": {
-  "bytes": 62488,
-  "sha256": "b3de423cf573886e01d91523beeaa20edf86a8ab41fd702f06487d973eb22e47"
- },
- "harness/reference/full/full-8-blackguard-3/summary.json": {
-  "bytes": 2001,
-  "sha256": "bdf1d37ef32066121600996958a28ea9c45c0f4940e6c2dc0a4fd14e428e0ced"
- },
- "harness/reference/full/full-8-blackguard-4/config.txt": {
-  "bytes": 89,
-  "sha256": "fb5056645d230d47c7950fa4233fef3f8a6596db0473debef8c678ec3911d482"
- },
- "harness/reference/full/full-8-blackguard-4/keys.log.xz": {
-  "bytes": 12464,
-  "sha256": "3a40423cf0d38c4d2cd331fda5c28e41765240122de5f45af33d2a3524829721"
- },
- "harness/reference/full/full-8-blackguard-4/messages.log.xz": {
-  "bytes": 172500,
-  "sha256": "fb28360607626ef51daee05e4b6159903f4101a906e8662eabda605f7710d7bb"
- },
- "harness/reference/full/full-8-blackguard-4/state.log.xz": {
-  "bytes": 70244,
-  "sha256": "60c13f9276d548364f93cb60d22ae42b47080da07417caad941bc613c0ef0603"
- },
- "harness/reference/full/full-8-blackguard-4/summary.json": {
-  "bytes": 2003,
-  "sha256": "3aabe7e46cfedadca8738325cc1008b2a85ff3159958c3213a7cf51a4f14d6fe"
- },
- "harness/reference/full/manifest": {
-  "bytes": 5436,
-  "sha256": "5a9cdb923ee792fd2b3825800d2ad40d11f4177ee625810d1040d00350713977"
- },
- "harness/reference/full/timing.txt": {
-  "bytes": 4603,
-  "sha256": "6ef849d6184ca118e28308265b86f66128e782d14ea75ae5d77371c6d5af6b90"
- },
- "harness/reference/smoke/DONE": {
-  "bytes": 0,
-  "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
- },
- "harness/reference/smoke/manifest": {
-  "bytes": 1480,
-  "sha256": "53dad2ead0570fe3804e7ad26ce11fbb06149247a9d64d59e964a1557ac06c12"
- },
- "harness/reference/smoke/smoke-mage-2/config.txt": {
-  "bytes": 89,
-  "sha256": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65"
- },
- "harness/reference/smoke/smoke-mage-2/keys.log.xz": {
-  "bytes": 2184,
-  "sha256": "5d7ea5ac4b34e5566553474cd51abc79eba5dc1f0aad4dfa97c25b52184df376"
- },
- "harness/reference/smoke/smoke-mage-2/messages.log.xz": {
-  "bytes": 9964,
-  "sha256": "4b217a6094ff4fd1eeca5456d9dccca947aae5022355c387743133cb744c8c08"
- },
- "harness/reference/smoke/smoke-mage-2/state.log.xz": {
-  "bytes": 5328,
-  "sha256": "6bc16f17dd026c423f7ab283e401bf61ee0c69497cfa26e04d0ccd862595a5f0"
- },
- "harness/reference/smoke/smoke-mage-2/summary.json": {
-  "bytes": 1990,
-  "sha256": "67b86767770b645471cfbf1c76f2732e23b8b3e4f662fe9ce2ee7142eb9b4768"
- },
- "harness/reference/smoke/smoke-priest-3/config.txt": {
-  "bytes": 89,
-  "sha256": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5"
- },
- "harness/reference/smoke/smoke-priest-3/keys.log.xz": {
-  "bytes": 2492,
-  "sha256": "a8108cee0da1d98885226c4ee1d4a34ffb40515ea568b2363c4d41f48ee4c8ff"
- },
- "harness/reference/smoke/smoke-priest-3/messages.log.xz": {
-  "bytes": 12796,
-  "sha256": "85f45d38eb7a855f3cf71cdce3008ed84226c1c91c916b69600646aa1b0dc375"
- },
- "harness/reference/smoke/smoke-priest-3/state.log.xz": {
-  "bytes": 7388,
-  "sha256": "d77780500fb12c31abdc071a3acf35daa25edd3b4a188b4df28fe90b5d40975d"
- },
- "harness/reference/smoke/smoke-priest-3/summary.json": {
-  "bytes": 1993,
-  "sha256": "78b12678dcd6d00f30362bab8bb1a4317a938ccfa1dab9a8570290656c39ff5c"
- },
- "harness/reference/smoke/smoke-warrior-1/config.txt": {
-  "bytes": 89,
-  "sha256": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f"
- },
- "harness/reference/smoke/smoke-warrior-1/keys.log.xz": {
-  "bytes": 4692,
-  "sha256": "3842bcb68576fe2fe95effde48ab112e6fe3ec29dfee1755b84670cb659d2a79"
- },
- "harness/reference/smoke/smoke-warrior-1/messages.log.xz": {
-  "bytes": 66620,
-  "sha256": "69b9499cea3febdf0ecf5842ada40f7e39553dd1a58f8d8937a5187a3b051715"
- },
- "harness/reference/smoke/smoke-warrior-1/state.log.xz": {
-  "bytes": 24220,
-  "sha256": "679d51b493bd5fb79441a296ec99ef3519934a65162fbccb1d1ed0b33d80f932"
- },
- "harness/reference/smoke/smoke-warrior-1/summary.json": {
-  "bytes": 1996,
-  "sha256": "934a2251dd5499a956c0333a920de00df3fe0d48d68abccecfb156228f9a2449"
- },
- "harness/reference/smoke/timing.txt": {
-  "bytes": 344,
-  "sha256": "f6f0173ed467e4d8b760222d180d4739a0afbce32fa30898e11077df59c1b56c"
- }
+  "harness/reference/classes/DONE": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness/reference/classes/cls-bg-dunadan/config.txt": {
+    "bytes": 92,
+    "sha256": "2bf45d44c9bfd03b152cef8da16fa3a796e0f015a8b2ae7126db1928c00325bc"
+  },
+  "harness/reference/classes/cls-bg-dunadan/keys.log.xz": {
+    "bytes": 6584,
+    "sha256": "a494007a1dcb3bc80ebe08aa3869a71fa7aa2fd6b7a41cfff67b5daaff9ff2a5"
+  },
+  "harness/reference/classes/cls-bg-dunadan/messages.log.xz": {
+    "bytes": 34128,
+    "sha256": "fca6943bd526e8518c8041d6d6f7914486f99e6a5eae7dd550409b8eb5ef3450"
+  },
+  "harness/reference/classes/cls-bg-dunadan/state.log.xz": {
+    "bytes": 16324,
+    "sha256": "3359484a431fd1a19fa03c26680d5cfef1bf2ad4ddaddbff8af93cc289c74da9"
+  },
+  "harness/reference/classes/cls-bg-dunadan/summary.json": {
+    "bytes": 2029,
+    "sha256": "aed5a47cb9a94a90929af97ae2b3b5a27ffc17d87fe3af6e3b27af73eebca486"
+  },
+  "harness/reference/classes/cls-bg-dwarf/config.txt": {
+    "bytes": 92,
+    "sha256": "3693e6402cfc4c8118a50a3862f1fc0c1b29287c5d587add43adf87ad8a7095b"
+  },
+  "harness/reference/classes/cls-bg-dwarf/keys.log.xz": {
+    "bytes": 3216,
+    "sha256": "211a265ccfb95b2fcae147cbd2207bd63f38105f3a1911890ca9fb2ae6ddb0c2"
+  },
+  "harness/reference/classes/cls-bg-dwarf/messages.log.xz": {
+    "bytes": 16952,
+    "sha256": "ce630dd6c9a18e22f169ed066a1744878a4689cff152378a3cc3370f337523c8"
+  },
+  "harness/reference/classes/cls-bg-dwarf/state.log.xz": {
+    "bytes": 7428,
+    "sha256": "b1741a59a1e333df8b717a4cd0127d1da7166ba0402ef64d611f5583fd7b2801"
+  },
+  "harness/reference/classes/cls-bg-dwarf/summary.json": {
+    "bytes": 2045,
+    "sha256": "a8dece4ac650d5cd1fba3aba3ba139e6080b73c565ef214c7b8eeeb0e77ab5e9"
+  },
+  "harness/reference/classes/cls-bg-halforc/config.txt": {
+    "bytes": 92,
+    "sha256": "87133c45e7aa49d786a46fd3fe7aa5b423312e3eb18f92fb48d720a514cd05fa"
+  },
+  "harness/reference/classes/cls-bg-halforc/keys.log.xz": {
+    "bytes": 8364,
+    "sha256": "75cac27d2c9f1eefdd7766272144799cfb05430225271945095d65e2c10c93a5"
+  },
+  "harness/reference/classes/cls-bg-halforc/messages.log.xz": {
+    "bytes": 44080,
+    "sha256": "ec410a678d42b761e5c9d4cd590f2b5df5902081b9c8d262b12d7217fc6a83e5"
+  },
+  "harness/reference/classes/cls-bg-halforc/state.log.xz": {
+    "bytes": 19608,
+    "sha256": "50056729121dfae6b2246fbbf19e8d834ff74ec9b2097da1185f87432d6c5c92"
+  },
+  "harness/reference/classes/cls-bg-halforc/summary.json": {
+    "bytes": 2032,
+    "sha256": "e269d866ee473b1b625dd57583cc0a4c844079a7f07aac1ed16d24bb3e8bf8b3"
+  },
+  "harness/reference/classes/cls-bg-halftroll/config.txt": {
+    "bytes": 92,
+    "sha256": "d942b77227a3ef3c62cd19445e7d28073c10f4b2594b383a0eb765b5dc26b782"
+  },
+  "harness/reference/classes/cls-bg-halftroll/keys.log.xz": {
+    "bytes": 10392,
+    "sha256": "294f01f01e96982d1273a672c9701c09b68bed517ec785764afa4abd47dc6b4f"
+  },
+  "harness/reference/classes/cls-bg-halftroll/messages.log.xz": {
+    "bytes": 53176,
+    "sha256": "44cfd5e08f67848cbe2711cdf62cb5de78ab84c107d8884b008a62f25306bca9"
+  },
+  "harness/reference/classes/cls-bg-halftroll/state.log.xz": {
+    "bytes": 25604,
+    "sha256": "5271b7fef5c9e7fb56779b458ee1bffcd4bd85f0a1a3dc0155aa764ffd5077a0"
+  },
+  "harness/reference/classes/cls-bg-halftroll/summary.json": {
+    "bytes": 2032,
+    "sha256": "454ed76b912a5f5fadaf5716f4f4ea75f4ed6ba00aceaafbe8b263d6dcfcd55e"
+  },
+  "harness/reference/classes/cls-bg-highelf/config.txt": {
+    "bytes": 92,
+    "sha256": "419ad3cd685f10b27425958d44358f47506288088de68ed73a9c959be6df0b3a"
+  },
+  "harness/reference/classes/cls-bg-highelf/keys.log.xz": {
+    "bytes": 15644,
+    "sha256": "2e6c306c7210d06f82ae2699418992618e410fe727000e767b54e4ad4b25c944"
+  },
+  "harness/reference/classes/cls-bg-highelf/messages.log.xz": {
+    "bytes": 68884,
+    "sha256": "c39228e6c32e453440ab034b061c293d0a2abf3f66164dec0298a3dbc54efb58"
+  },
+  "harness/reference/classes/cls-bg-highelf/state.log.xz": {
+    "bytes": 36188,
+    "sha256": "23f2726067f8cf4ddffe8a4417f8a2357b9be0c9b34f636df35da1b306c4c3ed"
+  },
+  "harness/reference/classes/cls-bg-highelf/summary.json": {
+    "bytes": 2030,
+    "sha256": "624ab59b1e3e3303591cc140f063d738cd826f1391a3b891cfc8e3148f142734"
+  },
+  "harness/reference/classes/cls-bg-human/config.txt": {
+    "bytes": 92,
+    "sha256": "c3eb267c292df01e6feb95e2c612a191ff584f3dbcf0a1a7d31c9407f987f51b"
+  },
+  "harness/reference/classes/cls-bg-human/keys.log.xz": {
+    "bytes": 6952,
+    "sha256": "f42d59026b2d9f336aa09ae8452de5cbf3438477df3c49387b4cd4407310f2ba"
+  },
+  "harness/reference/classes/cls-bg-human/messages.log.xz": {
+    "bytes": 34856,
+    "sha256": "ab05dac2654133ce374259f5e81c73f131319f8a1192859f7560ebb82e672c8a"
+  },
+  "harness/reference/classes/cls-bg-human/state.log.xz": {
+    "bytes": 16716,
+    "sha256": "e022a9aaa0127ed19a67e0f2aa473ac24f47e4d943545bdfd962f1d8842e3295"
+  },
+  "harness/reference/classes/cls-bg-human/summary.json": {
+    "bytes": 2027,
+    "sha256": "ec638f9fc618243a7d200fd6e3925fd340262a1c4e0d98f4034be0c3073cffbc"
+  },
+  "harness/reference/classes/cls-bg-kobold/config.txt": {
+    "bytes": 92,
+    "sha256": "9367a216a6c4aceb8fd8437d86d72ad76a019fa3f79b7a75f804de086e9fe2d1"
+  },
+  "harness/reference/classes/cls-bg-kobold/keys.log.xz": {
+    "bytes": 15296,
+    "sha256": "546fa8c6b69a6802f670f229938edf14cf9cc1a06c4325adab784d14a9955747"
+  },
+  "harness/reference/classes/cls-bg-kobold/messages.log.xz": {
+    "bytes": 82656,
+    "sha256": "4e6af89c85b673589af980163515b266d012aecb4f53ad5cd1a38a63695559b7"
+  },
+  "harness/reference/classes/cls-bg-kobold/state.log.xz": {
+    "bytes": 57192,
+    "sha256": "175d32b7223b66ba6e211fae0a6368ae751f68e29aa2d27ee7fdc47c7f9333e9"
+  },
+  "harness/reference/classes/cls-bg-kobold/summary.json": {
+    "bytes": 2044,
+    "sha256": "b2452fc4c370e95736b5e68ce4ce397da6083f426c46ada8d824d7dd35484f37"
+  },
+  "harness/reference/classes/cls-deep-bg-dunadan/config.txt": {
+    "bytes": 98,
+    "sha256": "4096ccc5bdee3869d509d6c8a2e706e3e9992b9d6ed61dc59852792c0bcf58e0"
+  },
+  "harness/reference/classes/cls-deep-bg-dunadan/keys.log.xz": {
+    "bytes": 172472,
+    "sha256": "690f0b44579d94a9fbe3ed54b42217c5f7a11772d7ffcc7b92f32159c0654a0a"
+  },
+  "harness/reference/classes/cls-deep-bg-dunadan/messages.log.xz": {
+    "bytes": 643388,
+    "sha256": "80f4127e615585a219fe592de31608f604019e70d5a5f8725ff40af2f0d2bb36"
+  },
+  "harness/reference/classes/cls-deep-bg-dunadan/state.log.xz": {
+    "bytes": 445548,
+    "sha256": "731dcbfa80b12fc74f5e5d88807c502857cd846caa86839b4555695ac61bc580"
+  },
+  "harness/reference/classes/cls-deep-bg-dunadan/summary.json": {
+    "bytes": 2042,
+    "sha256": "3e2db9c7a10a3475c9a9ad1804964c7575e4c2c8d4ed624be56ddada6faae36d"
+  },
+  "harness/reference/classes/cls-dunadan-paladin/config.txt": {
+    "bytes": 92,
+    "sha256": "e2fc47629769c37166b3fe9cbb7dfce7aeda442156ea8376327a7e1ba04029af"
+  },
+  "harness/reference/classes/cls-dunadan-paladin/keys.log.xz": {
+    "bytes": 9756,
+    "sha256": "a40acf16312d805c4ea69f6807f9de7d556f838afbe0b220c7043e00c3c3356f"
+  },
+  "harness/reference/classes/cls-dunadan-paladin/messages.log.xz": {
+    "bytes": 45324,
+    "sha256": "f6a6f63a3f8dc8a7de7165f59bb305eff68bee1d8fbe6161e7f671fe21c25fc3"
+  },
+  "harness/reference/classes/cls-dunadan-paladin/state.log.xz": {
+    "bytes": 51028,
+    "sha256": "15484057ff6942c54af582cf347ac62eef8b74c6c126290ff97a1732f7a15652"
+  },
+  "harness/reference/classes/cls-dunadan-paladin/summary.json": {
+    "bytes": 2026,
+    "sha256": "4e0713a64a12ba06eca3228cc05f2a9d718d8b7e3ae6a021732b6baf53279753"
+  },
+  "harness/reference/classes/cls-dunadan-ranger/config.txt": {
+    "bytes": 92,
+    "sha256": "f3294ac1403fe0456b091456503972155480b10efa79ef71351bc4746ce8f967"
+  },
+  "harness/reference/classes/cls-dunadan-ranger/keys.log.xz": {
+    "bytes": 8952,
+    "sha256": "8fc2dade74aa9fb1dbc5732ef38d163eb9a7dfe3446d106a1f9eeffed6c96ad4"
+  },
+  "harness/reference/classes/cls-dunadan-ranger/messages.log.xz": {
+    "bytes": 138412,
+    "sha256": "0a12ba18be797eafdbcd1d94aa3b07efd1f981d832911903d791a4df3226ac53"
+  },
+  "harness/reference/classes/cls-dunadan-ranger/state.log.xz": {
+    "bytes": 50616,
+    "sha256": "ca465ee0dc30302a78284afe3d5641eef0f006c4c47e618ba4101d23dbb1eafa"
+  },
+  "harness/reference/classes/cls-dunadan-ranger/summary.json": {
+    "bytes": 2025,
+    "sha256": "9f7520b92296ef391512353e20bfb454b854cbf3c6245ac3c896b2d9dc609876"
+  },
+  "harness/reference/classes/cls-halfelf-ranger/config.txt": {
+    "bytes": 92,
+    "sha256": "0fbe5b1feb26177e0b381a698b9c7a4cb35f918373a6779884550e459521a876"
+  },
+  "harness/reference/classes/cls-halfelf-ranger/keys.log.xz": {
+    "bytes": 16984,
+    "sha256": "11764b837f56b77cc44c23e0678e8747c18f8de15ae685c2c7df4edcf934349b"
+  },
+  "harness/reference/classes/cls-halfelf-ranger/messages.log.xz": {
+    "bytes": 203036,
+    "sha256": "71dfde847e636256f537b190b7301100660b3234f1541a984a82c93097179b13"
+  },
+  "harness/reference/classes/cls-halfelf-ranger/state.log.xz": {
+    "bytes": 77716,
+    "sha256": "38ff7dfba91ea37d933bb6d7ba71d7a7712f5824356ebaf032a5f9e06e70d3ff"
+  },
+  "harness/reference/classes/cls-halfelf-ranger/summary.json": {
+    "bytes": 2027,
+    "sha256": "8ad67cf83455e3243713541f869adde43125e0adf944fa6c6749f0c1a0587cb1"
+  },
+  "harness/reference/classes/cls-highelf-mage/config.txt": {
+    "bytes": 92,
+    "sha256": "03b494c5905926ebe6f8afedec51d555772b33c9b9a7cfcd769a555e4c3d0040"
+  },
+  "harness/reference/classes/cls-highelf-mage/keys.log.xz": {
+    "bytes": 1248,
+    "sha256": "73f221be2913f584eb9bea3bd63829bb39056ca80b4e7dfaa17d4f8b1478d4ee"
+  },
+  "harness/reference/classes/cls-highelf-mage/messages.log.xz": {
+    "bytes": 6828,
+    "sha256": "f27f8c89501c0d740d0acae8d10959d7161fd1970fe6e7dc2503e01489c17361"
+  },
+  "harness/reference/classes/cls-highelf-mage/state.log.xz": {
+    "bytes": 3156,
+    "sha256": "764bb17bbdeeec0627f67a3d724c713f86a4b477b602b8f277247e622f92fd0e"
+  },
+  "harness/reference/classes/cls-highelf-mage/summary.json": {
+    "bytes": 2036,
+    "sha256": "8a681591f72d2e3e8e800c147fa9a8556e4c5530298e75c47566caf5ad25b5bc"
+  },
+  "harness/reference/classes/cls-highelf-priest/config.txt": {
+    "bytes": 92,
+    "sha256": "66957e75cd48c344ac31bd1a80ecba5613ec01422a3884eec81e5f25a018954a"
+  },
+  "harness/reference/classes/cls-highelf-priest/keys.log.xz": {
+    "bytes": 11024,
+    "sha256": "f05fd29660de4fbc20f64f93d325c978f3b390b65157e6fe127e02cf7dbc67b0"
+  },
+  "harness/reference/classes/cls-highelf-priest/messages.log.xz": {
+    "bytes": 50192,
+    "sha256": "2d61ffd72254fbc425bc8c1a01a0f3bdf103a2db04c94a0abfa3036b8344f735"
+  },
+  "harness/reference/classes/cls-highelf-priest/state.log.xz": {
+    "bytes": 31952,
+    "sha256": "56b1ec2c5a570843f0212b680c13ee551ab1c2476c4d41f306f7a0993b0016be"
+  },
+  "harness/reference/classes/cls-highelf-priest/summary.json": {
+    "bytes": 2026,
+    "sha256": "19df53a463db2355a6754bd44e4d2771b30a71cb1f1ba261e235ef0dc5074bae"
+  },
+  "harness/reference/classes/cls-kobold-necro/config.txt": {
+    "bytes": 92,
+    "sha256": "f9e0c96fd07640b479342191f00accd7c4a8500bd0be61f81e50ee4d00c739a2"
+  },
+  "harness/reference/classes/cls-kobold-necro/keys.log.xz": {
+    "bytes": 6092,
+    "sha256": "c1da4d7becf5eda7cfe219eadba341eb2afaeb3d4f4d8ded1cfd0ee03ea98edf"
+  },
+  "harness/reference/classes/cls-kobold-necro/messages.log.xz": {
+    "bytes": 23596,
+    "sha256": "b290d2f6722a72f5129aa715aac9e51d02d085af576dcdbab800a1be4460334a"
+  },
+  "harness/reference/classes/cls-kobold-necro/state.log.xz": {
+    "bytes": 11104,
+    "sha256": "e7ce2f57f72af6f3f957a377289df0711924a0b8e402fe893ecfdd0a360356c8"
+  },
+  "harness/reference/classes/cls-kobold-necro/summary.json": {
+    "bytes": 2030,
+    "sha256": "033fc96bf7d98e9c951b7147cae2f6d551e5c1c13892c85af5e0e22edc517e5e"
+  },
+  "harness/reference/classes/cls-kobold-rogue/config.txt": {
+    "bytes": 92,
+    "sha256": "fe4b6e5a8901ac6b8652ba8effea7a31b3a80193579b09ede7f9b8d2d749969c"
+  },
+  "harness/reference/classes/cls-kobold-rogue/keys.log.xz": {
+    "bytes": 14348,
+    "sha256": "42f15847cb24098c44913dc2bd4f46b4f5acda6490748af419fe7884cad94189"
+  },
+  "harness/reference/classes/cls-kobold-rogue/messages.log.xz": {
+    "bytes": 69656,
+    "sha256": "3c16ec46178b3631a130e6a6b0f7f10ea8405e7b920ac914d0704da2bc28c665"
+  },
+  "harness/reference/classes/cls-kobold-rogue/state.log.xz": {
+    "bytes": 42192,
+    "sha256": "082e4f5d342476f9105d727936ab41cfb22f2e7421194b888e30ed7e8a384be2"
+  },
+  "harness/reference/classes/cls-kobold-rogue/summary.json": {
+    "bytes": 2024,
+    "sha256": "2fd8e7575395b683ed7bd8a2d23d43381a01559289456d7372cd373732f8d3e8"
+  },
+  "harness/reference/classes/cls-kobold-warrior/config.txt": {
+    "bytes": 92,
+    "sha256": "b8d8b263994907fb33e5a224751249e815eb1025e2d06847e3dd27775ec5854d"
+  },
+  "harness/reference/classes/cls-kobold-warrior/keys.log.xz": {
+    "bytes": 13240,
+    "sha256": "48bc2dd420c6848d988ac0d4c9fdc3b88a23dcbf5bbb48264a615a8c97e9b200"
+  },
+  "harness/reference/classes/cls-kobold-warrior/messages.log.xz": {
+    "bytes": 162092,
+    "sha256": "613e504e353ee2e96fb1362285d4fded51413f12836307baf3340f4955d04f82"
+  },
+  "harness/reference/classes/cls-kobold-warrior/state.log.xz": {
+    "bytes": 64276,
+    "sha256": "bff8a9e023f3fb15082d7a91a28aa58dc2f191c470231f1be800dcc360ee4432"
+  },
+  "harness/reference/classes/cls-kobold-warrior/summary.json": {
+    "bytes": 2025,
+    "sha256": "abd49760fff617e7543efba110737410c76f1675041b5f9ab7d6b0fbf96b6695"
+  },
+  "harness/reference/classes/manifest": {
+    "bytes": 2775,
+    "sha256": "0ef279309cfa91c0c3ef338fef1af4094dd055ca0e2a90420edf3e6a61202c0b"
+  },
+  "harness/reference/classes/timing.txt": {
+    "bytes": 1737,
+    "sha256": "f06dca6f5d88bcef6b62ee60167fc4546a26bb6d8f615a3256250317b8fc1d0b"
+  },
+  "harness/reference/config-six/DONE": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness/reference/config-six/cfg-lunal-dunadan-bg/config.txt": {
+    "bytes": 104,
+    "sha256": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299"
+  },
+  "harness/reference/config-six/cfg-lunal-dunadan-bg/keys.log.xz": {
+    "bytes": 3056,
+    "sha256": "5e426b395e058f40c3a699a76991f453f7ff9f44a40300606521ccc315a7a254"
+  },
+  "harness/reference/config-six/cfg-lunal-dunadan-bg/messages.log.xz": {
+    "bytes": 17072,
+    "sha256": "7bb7d94d2e0628d2305754f511d688b8bb78c53c04c6d8fdec8df2fc3e96d4e0"
+  },
+  "harness/reference/config-six/cfg-lunal-dunadan-bg/state.log.xz": {
+    "bytes": 7208,
+    "sha256": "791ee83bd75784d1fc9c3e745db409e237d9732dbabf4e039e606614def9621c"
+  },
+  "harness/reference/config-six/cfg-lunal-dunadan-bg/summary.json": {
+    "bytes": 2025,
+    "sha256": "1e2ff44fb628ae8b34432af1f1f04ff42013eeb1b9f0be8df183ffe825d1b49b"
+  },
+  "harness/reference/config-six/cfg-lunal-halfelf-mage/config.txt": {
+    "bytes": 104,
+    "sha256": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1"
+  },
+  "harness/reference/config-six/cfg-lunal-halfelf-mage/keys.log.xz": {
+    "bytes": 7528,
+    "sha256": "21e04f86cb0be8ad35cf57ce01fd75d8c76192f1dfb50a2cb9882736e7508e18"
+  },
+  "harness/reference/config-six/cfg-lunal-halfelf-mage/messages.log.xz": {
+    "bytes": 37980,
+    "sha256": "52c63fc1193629d6ad9e0f4bf62351fb1ca9e2ac85cd680f03019bce0b41478d"
+  },
+  "harness/reference/config-six/cfg-lunal-halfelf-mage/state.log.xz": {
+    "bytes": 16016,
+    "sha256": "12706eab148825e9f189464559f5cfc77ccf3a2d3be83583dfcb70e67a78f3d7"
+  },
+  "harness/reference/config-six/cfg-lunal-halfelf-mage/summary.json": {
+    "bytes": 2023,
+    "sha256": "25ca99ea6d434f70faf415e8813e40daee6c82509863ead99d0d26aeda43bd94"
+  },
+  "harness/reference/config-six/cfg-lunal-human-war/config.txt": {
+    "bytes": 104,
+    "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
+  },
+  "harness/reference/config-six/cfg-lunal-human-war/keys.log.xz": {
+    "bytes": 6004,
+    "sha256": "086d73d83d8bceaf43d4c14d2271abff1cebd4b657c87a3f65adcf53921f6a61"
+  },
+  "harness/reference/config-six/cfg-lunal-human-war/messages.log.xz": {
+    "bytes": 95624,
+    "sha256": "5f51c97cdac4d18b1f67e9505719192191103d133dcf3ec7ec423fb3fb0823c9"
+  },
+  "harness/reference/config-six/cfg-lunal-human-war/state.log.xz": {
+    "bytes": 35920,
+    "sha256": "cdaed3c42b95f33294fb344fceebe76cdb40b04fe1d008a24abc52247920502a"
+  },
+  "harness/reference/config-six/cfg-lunal-human-war/summary.json": {
+    "bytes": 2023,
+    "sha256": "df9e4c47db971df02fcd0d5fcb52932e5f5d72184d0167cda1788fdac1e25035"
+  },
+  "harness/reference/config-six/cfg-munchkin-dunadan-bg/config.txt": {
+    "bytes": 107,
+    "sha256": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16"
+  },
+  "harness/reference/config-six/cfg-munchkin-dunadan-bg/keys.log.xz": {
+    "bytes": 6028,
+    "sha256": "59bcf5a6eff562d3e95830eade87324c4d48172ae83c13b1a9cf12eacea0b10f"
+  },
+  "harness/reference/config-six/cfg-munchkin-dunadan-bg/messages.log.xz": {
+    "bytes": 244852,
+    "sha256": "594b75d398f5348e1bff2f375203bd0190cd4c2f4691c4a973a065015fefb3e9"
+  },
+  "harness/reference/config-six/cfg-munchkin-dunadan-bg/state.log.xz": {
+    "bytes": 100788,
+    "sha256": "245ce543f714308deac4ceaa1e3fe422e2cce9c255d437ebb3900d454a00513f"
+  },
+  "harness/reference/config-six/cfg-munchkin-dunadan-bg/summary.json": {
+    "bytes": 2029,
+    "sha256": "9e20c039e9734cb2e5d1d871699032afdb44d8f88abd3a812f053924a3bcf800"
+  },
+  "harness/reference/config-six/cfg-munchkin-halfelf-mage/config.txt": {
+    "bytes": 107,
+    "sha256": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065"
+  },
+  "harness/reference/config-six/cfg-munchkin-halfelf-mage/keys.log.xz": {
+    "bytes": 7056,
+    "sha256": "03cbd451d7c3353d2936f7f736c4cd21f8d1deb049b58a352b4273d6739a6620"
+  },
+  "harness/reference/config-six/cfg-munchkin-halfelf-mage/messages.log.xz": {
+    "bytes": 88120,
+    "sha256": "3d3e00f2f471d12990dcc9a8fe4c2cd5ab53301d46b6afafc5dac1096c644eca"
+  },
+  "harness/reference/config-six/cfg-munchkin-halfelf-mage/state.log.xz": {
+    "bytes": 31264,
+    "sha256": "abd05a7d7ef81dbefbe8661fdab8fb6da4515a4d7974e5e484fc18961558e9b6"
+  },
+  "harness/reference/config-six/cfg-munchkin-halfelf-mage/summary.json": {
+    "bytes": 2026,
+    "sha256": "1e72a89bb6825bcfcd1f3cecfc232adbee72816d9469d95589d6a6218a1556de"
+  },
+  "harness/reference/config-six/cfg-munchkin-human-war/config.txt": {
+    "bytes": 107,
+    "sha256": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b"
+  },
+  "harness/reference/config-six/cfg-munchkin-human-war/keys.log.xz": {
+    "bytes": 23340,
+    "sha256": "04c9d1f1f693f0656413416ac41c12e048b76b3bfa06309140bf6fe043687605"
+  },
+  "harness/reference/config-six/cfg-munchkin-human-war/messages.log.xz": {
+    "bytes": 389268,
+    "sha256": "3d770a73383c1b4df04a23f4e22f42639f221d5bdac36d2da69c2ee9d40c0714"
+  },
+  "harness/reference/config-six/cfg-munchkin-human-war/state.log.xz": {
+    "bytes": 168332,
+    "sha256": "2a5dc739a069bdcd9ead92d068ccce086705befa50d2b38e09a2ed3e7e3dced7"
+  },
+  "harness/reference/config-six/cfg-munchkin-human-war/summary.json": {
+    "bytes": 2029,
+    "sha256": "65820071f1373d1e4a763b39fd5f377b1932ebb57dde4005cf5c5dc81fe16121"
+  },
+  "harness/reference/config-six/manifest": {
+    "bytes": 1928,
+    "sha256": "c0a79cf2afa73e040c109d8af1354a22e9d0b00cdbb2ee08a3a627a77a563367"
+  },
+  "harness/reference/config-six/timing.txt": {
+    "bytes": 837,
+    "sha256": "caa8a9dc1cf9256ae997a01d62da4ac4fb9b7a811bd93a8db53566f87caed528"
+  },
+  "harness/reference/config/DONE": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness/reference/config/cfg-lunal-deep-warrior/config.txt": {
+    "bytes": 104,
+    "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
+  },
+  "harness/reference/config/cfg-lunal-deep-warrior/keys.log.xz": {
+    "bytes": 165436,
+    "sha256": "38698db36a99bbe8231c120dd13291b984f85dbda34fe867a91428a04030879a"
+  },
+  "harness/reference/config/cfg-lunal-deep-warrior/messages.log.xz": {
+    "bytes": 1160552,
+    "sha256": "4ded747e47cffbf833e3aab6fac65742b33f519c54be72c80bafde26b4eb527d"
+  },
+  "harness/reference/config/cfg-lunal-deep-warrior/state.log.xz": {
+    "bytes": 578488,
+    "sha256": "aadcbea1c130d1f7563203319d3a99532dd960eec3e176d92378ea4eb41e3c04"
+  },
+  "harness/reference/config/cfg-lunal-deep-warrior/summary.json": {
+    "bytes": 2036,
+    "sha256": "628a8bb4968d36ac3617a965815821aabb02259b8db6130eb693ee9e844584b1"
+  },
+  "harness/reference/config/cfg-lunal-dunadan-bg/config.txt": {
+    "bytes": 104,
+    "sha256": "95c6c68bc8da7a053099cf2c4b3d81a501973c2737542eeae3777e1c44441299"
+  },
+  "harness/reference/config/cfg-lunal-dunadan-bg/keys.log.xz": {
+    "bytes": 3056,
+    "sha256": "5e426b395e058f40c3a699a76991f453f7ff9f44a40300606521ccc315a7a254"
+  },
+  "harness/reference/config/cfg-lunal-dunadan-bg/messages.log.xz": {
+    "bytes": 17072,
+    "sha256": "7bb7d94d2e0628d2305754f511d688b8bb78c53c04c6d8fdec8df2fc3e96d4e0"
+  },
+  "harness/reference/config/cfg-lunal-dunadan-bg/state.log.xz": {
+    "bytes": 7208,
+    "sha256": "791ee83bd75784d1fc9c3e745db409e237d9732dbabf4e039e606614def9621c"
+  },
+  "harness/reference/config/cfg-lunal-dunadan-bg/summary.json": {
+    "bytes": 2025,
+    "sha256": "1e2ff44fb628ae8b34432af1f1f04ff42013eeb1b9f0be8df183ffe825d1b49b"
+  },
+  "harness/reference/config/cfg-lunal-halfelf-mage/config.txt": {
+    "bytes": 104,
+    "sha256": "277279d4ffc9d7ef57cfa379c9b15068aac4d78e9e520fbea577208eb2bc08a1"
+  },
+  "harness/reference/config/cfg-lunal-halfelf-mage/keys.log.xz": {
+    "bytes": 7528,
+    "sha256": "21e04f86cb0be8ad35cf57ce01fd75d8c76192f1dfb50a2cb9882736e7508e18"
+  },
+  "harness/reference/config/cfg-lunal-halfelf-mage/messages.log.xz": {
+    "bytes": 37980,
+    "sha256": "52c63fc1193629d6ad9e0f4bf62351fb1ca9e2ac85cd680f03019bce0b41478d"
+  },
+  "harness/reference/config/cfg-lunal-halfelf-mage/state.log.xz": {
+    "bytes": 16016,
+    "sha256": "12706eab148825e9f189464559f5cfc77ccf3a2d3be83583dfcb70e67a78f3d7"
+  },
+  "harness/reference/config/cfg-lunal-halfelf-mage/summary.json": {
+    "bytes": 2023,
+    "sha256": "25ca99ea6d434f70faf415e8813e40daee6c82509863ead99d0d26aeda43bd94"
+  },
+  "harness/reference/config/cfg-lunal-human-war/config.txt": {
+    "bytes": 104,
+    "sha256": "f96e42d6918570e515ddc91bd5ab05f3d18f935c68f55d34f160d6e7607f6c46"
+  },
+  "harness/reference/config/cfg-lunal-human-war/keys.log.xz": {
+    "bytes": 6004,
+    "sha256": "086d73d83d8bceaf43d4c14d2271abff1cebd4b657c87a3f65adcf53921f6a61"
+  },
+  "harness/reference/config/cfg-lunal-human-war/messages.log.xz": {
+    "bytes": 95624,
+    "sha256": "5f51c97cdac4d18b1f67e9505719192191103d133dcf3ec7ec423fb3fb0823c9"
+  },
+  "harness/reference/config/cfg-lunal-human-war/state.log.xz": {
+    "bytes": 35920,
+    "sha256": "cdaed3c42b95f33294fb344fceebe76cdb40b04fe1d008a24abc52247920502a"
+  },
+  "harness/reference/config/cfg-lunal-human-war/summary.json": {
+    "bytes": 2023,
+    "sha256": "df9e4c47db971df02fcd0d5fcb52932e5f5d72184d0167cda1788fdac1e25035"
+  },
+  "harness/reference/config/cfg-munchkin-dunadan-bg/config.txt": {
+    "bytes": 107,
+    "sha256": "7565f58e93280d2b2590b2f5ff07580f632926c484d2494724a5b8b8e1102d16"
+  },
+  "harness/reference/config/cfg-munchkin-dunadan-bg/keys.log.xz": {
+    "bytes": 6028,
+    "sha256": "59bcf5a6eff562d3e95830eade87324c4d48172ae83c13b1a9cf12eacea0b10f"
+  },
+  "harness/reference/config/cfg-munchkin-dunadan-bg/messages.log.xz": {
+    "bytes": 244852,
+    "sha256": "594b75d398f5348e1bff2f375203bd0190cd4c2f4691c4a973a065015fefb3e9"
+  },
+  "harness/reference/config/cfg-munchkin-dunadan-bg/state.log.xz": {
+    "bytes": 100788,
+    "sha256": "245ce543f714308deac4ceaa1e3fe422e2cce9c255d437ebb3900d454a00513f"
+  },
+  "harness/reference/config/cfg-munchkin-dunadan-bg/summary.json": {
+    "bytes": 2029,
+    "sha256": "9e20c039e9734cb2e5d1d871699032afdb44d8f88abd3a812f053924a3bcf800"
+  },
+  "harness/reference/config/cfg-munchkin-halfelf-mage/config.txt": {
+    "bytes": 107,
+    "sha256": "056d1e29d70d72d644c04eb78dea191625f163e72e7fdd30102fbd64d5ba6065"
+  },
+  "harness/reference/config/cfg-munchkin-halfelf-mage/keys.log.xz": {
+    "bytes": 7056,
+    "sha256": "03cbd451d7c3353d2936f7f736c4cd21f8d1deb049b58a352b4273d6739a6620"
+  },
+  "harness/reference/config/cfg-munchkin-halfelf-mage/messages.log.xz": {
+    "bytes": 88120,
+    "sha256": "3d3e00f2f471d12990dcc9a8fe4c2cd5ab53301d46b6afafc5dac1096c644eca"
+  },
+  "harness/reference/config/cfg-munchkin-halfelf-mage/state.log.xz": {
+    "bytes": 31264,
+    "sha256": "abd05a7d7ef81dbefbe8661fdab8fb6da4515a4d7974e5e484fc18961558e9b6"
+  },
+  "harness/reference/config/cfg-munchkin-halfelf-mage/summary.json": {
+    "bytes": 2026,
+    "sha256": "1e72a89bb6825bcfcd1f3cecfc232adbee72816d9469d95589d6a6218a1556de"
+  },
+  "harness/reference/config/cfg-munchkin-human-war/config.txt": {
+    "bytes": 107,
+    "sha256": "4dd43f550bcab683b0fd0795ad1bc25a590025ddca2179980ca1a3ed2624644b"
+  },
+  "harness/reference/config/cfg-munchkin-human-war/keys.log.xz": {
+    "bytes": 23340,
+    "sha256": "04c9d1f1f693f0656413416ac41c12e048b76b3bfa06309140bf6fe043687605"
+  },
+  "harness/reference/config/cfg-munchkin-human-war/messages.log.xz": {
+    "bytes": 389268,
+    "sha256": "3d770a73383c1b4df04a23f4e22f42639f221d5bdac36d2da69c2ee9d40c0714"
+  },
+  "harness/reference/config/cfg-munchkin-human-war/state.log.xz": {
+    "bytes": 168332,
+    "sha256": "2a5dc739a069bdcd9ead92d068ccce086705befa50d2b38e09a2ed3e7e3dced7"
+  },
+  "harness/reference/config/cfg-munchkin-human-war/summary.json": {
+    "bytes": 2029,
+    "sha256": "65820071f1373d1e4a763b39fd5f377b1932ebb57dde4005cf5c5dc81fe16121"
+  },
+  "harness/reference/config/manifest": {
+    "bytes": 2023,
+    "sha256": "673115a72100b2efb1ceda44b0aef29e2fb4b15daef8247f3d26d64c6c6f0688"
+  },
+  "harness/reference/config/timing.txt": {
+    "bytes": 837,
+    "sha256": "caa8a9dc1cf9256ae997a01d62da4ac4fb9b7a811bd93a8db53566f87caed528"
+  },
+  "harness/reference/deep/DONE": {
+    "bytes": 21,
+    "sha256": "3cb163e4c9c2fbd78860ee49755889ac33fba4bf78be67f84fb7cba035630d25"
+  },
+  "harness/reference/deep/deep-0-warrior/config.txt": {
+    "bytes": 93,
+    "sha256": "0efc8f8078fff0f9bcce35f33c87f1c39e5cb3adf66c91726e916212c67c8097"
+  },
+  "harness/reference/deep/deep-0-warrior/keys.log.xz": {
+    "bytes": 85244,
+    "sha256": "0619a8edb652468fb09381c0613488079c6fb552a8b48fb21fad6258e382b5f6"
+  },
+  "harness/reference/deep/deep-0-warrior/messages.log.xz": {
+    "bytes": 903524,
+    "sha256": "b42128e3e44a0e5917935622f6b31964c19d56ec457ed7a6437798396f9b3eea"
+  },
+  "harness/reference/deep/deep-0-warrior/state.log.xz": {
+    "bytes": 407760,
+    "sha256": "0b71a024ab06748739e98785f0448ca6dfffe30f61dfab9dde4cf42ce65036b2"
+  },
+  "harness/reference/deep/deep-0-warrior/summary.json": {
+    "bytes": 2009,
+    "sha256": "a7213a57e25094fd4be90468b3af62868889f265a571cf05821252aa89d11a76"
+  },
+  "harness/reference/deep/deep-1-mage/config.txt": {
+    "bytes": 93,
+    "sha256": "88561a2c0d923a48cd1a62c3268b9e63510b34c770d9974c9724d73022bb7377"
+  },
+  "harness/reference/deep/deep-1-mage/keys.log.xz": {
+    "bytes": 119076,
+    "sha256": "70667c9b593d8f607802b20b6af37853152289f081fc536db590ab8ecd315218"
+  },
+  "harness/reference/deep/deep-1-mage/messages.log.xz": {
+    "bytes": 401680,
+    "sha256": "4102941db02884d870a8815dba0105b332a830b4da44d0078ab1b79bde6af4d5"
+  },
+  "harness/reference/deep/deep-1-mage/state.log.xz": {
+    "bytes": 259116,
+    "sha256": "94bf6cf859dc67fbe0f97147a2eef0bd8fb278ce52d3e3a6c26a3a129d31a99b"
+  },
+  "harness/reference/deep/deep-1-mage/summary.json": {
+    "bytes": 2005,
+    "sha256": "75b50f1c80f8e3f72ec075cd388bce5d6ae3d9a6b6e5b180cafc8d4e5ffabd26"
+  },
+  "harness/reference/deep/deep-2-druid/config.txt": {
+    "bytes": 93,
+    "sha256": "20f91bb2e9e94397cf732adfb58513e0c92ba356669eb41a93d51bce77c1dd88"
+  },
+  "harness/reference/deep/deep-2-druid/keys.log.xz": {
+    "bytes": 124668,
+    "sha256": "bbc1d64154ddedd2ae7fca6878ae0987479a67a5f809f118b889426055345965"
+  },
+  "harness/reference/deep/deep-2-druid/messages.log.xz": {
+    "bytes": 637000,
+    "sha256": "f02327ac875e3924bca55d392e03ef9b83828f8bca0defd35fdd07c4d6528600"
+  },
+  "harness/reference/deep/deep-2-druid/state.log.xz": {
+    "bytes": 385132,
+    "sha256": "53c7e5bb48dfc5361c870335b7792bacd2dc13355cffc47bccbd3e8d27945fda"
+  },
+  "harness/reference/deep/deep-2-druid/summary.json": {
+    "bytes": 2007,
+    "sha256": "d0156d7038c36f2aca7b794af2b9508bbe8371aefc182fb9e08bbcaa3c271de0"
+  },
+  "harness/reference/deep/deep-3-priest/config.txt": {
+    "bytes": 93,
+    "sha256": "f2d847de0ec0914788cebaf7f8630f07fefe18528c1da7972d1745c872b29732"
+  },
+  "harness/reference/deep/deep-3-priest/keys.log.xz": {
+    "bytes": 72804,
+    "sha256": "b2f2ce32d0e80fcd6c8348359ddcb830c34f0ae9716c28eb375697bc868b10c3"
+  },
+  "harness/reference/deep/deep-3-priest/messages.log.xz": {
+    "bytes": 227524,
+    "sha256": "1158bcea618d807919426ab940f35bdf27671092d30aee91b6d970ad7055d22a"
+  },
+  "harness/reference/deep/deep-3-priest/state.log.xz": {
+    "bytes": 174584,
+    "sha256": "acd22eedbe807ccc01590afaa4caee44a277f49460f9e7e293b237a0470db4c2"
+  },
+  "harness/reference/deep/deep-3-priest/summary.json": {
+    "bytes": 2003,
+    "sha256": "dfd6f1e645cef31834eda29142f8b6bb1a16fba9fcab8e40df60deb81b3e07c6"
+  },
+  "harness/reference/deep/deep-4-necro/config.txt": {
+    "bytes": 93,
+    "sha256": "c41dcdea0cc70111e9a2920dc2132fbcadae448c0fbf7922b7940c511bd778bf"
+  },
+  "harness/reference/deep/deep-4-necro/keys.log.xz": {
+    "bytes": 69968,
+    "sha256": "62958ee3c413edfdae5ba8f8e932e1cba354d9665daf38944e6a842efc97c88b"
+  },
+  "harness/reference/deep/deep-4-necro/messages.log.xz": {
+    "bytes": 223756,
+    "sha256": "c5964cce030d96313588f38b8f333a1a5324b33d6ec917adfe833591b5652a72"
+  },
+  "harness/reference/deep/deep-4-necro/state.log.xz": {
+    "bytes": 141908,
+    "sha256": "ecccb1e779a23835b7041a5bb3ee8e814a787b6c1313aade8173af88b42f82c9"
+  },
+  "harness/reference/deep/deep-4-necro/summary.json": {
+    "bytes": 2013,
+    "sha256": "171dc336ad122cb232fb8f3c9e773078b129ad0e010a63f3a5719fbb0b2679ac"
+  },
+  "harness/reference/deep/deep-5-paladin/config.txt": {
+    "bytes": 93,
+    "sha256": "4fb76c82c882d81a3e6c66c8e1dbac735ac217ffb3b02c0c7a26637dbac13eed"
+  },
+  "harness/reference/deep/deep-5-paladin/keys.log.xz": {
+    "bytes": 135520,
+    "sha256": "b41733c3de2803abd53b6c043e8d145887b4a38f2a449cdb9398b50cb97f0d3e"
+  },
+  "harness/reference/deep/deep-5-paladin/messages.log.xz": {
+    "bytes": 503916,
+    "sha256": "9153dbe6f4d554fdbb059bf8c5f63fac5585c9e9cddac4fa691b218186bd0918"
+  },
+  "harness/reference/deep/deep-5-paladin/state.log.xz": {
+    "bytes": 363280,
+    "sha256": "95ebc3d5c7e07f2a3cc545c00748962aa82e46b87c4b56408526a890f64e9117"
+  },
+  "harness/reference/deep/deep-5-paladin/summary.json": {
+    "bytes": 2018,
+    "sha256": "b32da32ddca72899157e64022d1d3dc3c05b04b16a4019557a06820bf42dd3a0"
+  },
+  "harness/reference/deep/deep-6-rogue/config.txt": {
+    "bytes": 93,
+    "sha256": "b3fcaa7249936a540570b8d809b65684ee2df664a795faa0ce10d350d386935e"
+  },
+  "harness/reference/deep/deep-6-rogue/keys.log.xz": {
+    "bytes": 163744,
+    "sha256": "a8f5c3db3b57fc5b3a6b4a1c3a047e6b67db0265497ca057352f6fd65225895d"
+  },
+  "harness/reference/deep/deep-6-rogue/messages.log.xz": {
+    "bytes": 594068,
+    "sha256": "6cafe0a20618102fab9c6e9f5b2e1d1d252e6cffe49148c66b0c25ed5e2106ce"
+  },
+  "harness/reference/deep/deep-6-rogue/state.log.xz": {
+    "bytes": 461452,
+    "sha256": "463deefc827433e3c8fd5cc0e4404ecd5fa1fd5959847e92e586d04ce1fc05e3"
+  },
+  "harness/reference/deep/deep-6-rogue/summary.json": {
+    "bytes": 2009,
+    "sha256": "22d55059861493d9cf668c64f82fcc0f1cffc20252b4141dbf05b9ae5292a35f"
+  },
+  "harness/reference/deep/deep-7-ranger/config.txt": {
+    "bytes": 93,
+    "sha256": "5347f26f1c121a1dd10f62b4b099fcaa57eded4efdc3a81f9343bc823c9e9ea6"
+  },
+  "harness/reference/deep/deep-7-ranger/keys.log.xz": {
+    "bytes": 193088,
+    "sha256": "ffe4071d327a69399ccc1088b3f7420db2b82b5abebfc3a964cee7394524da63"
+  },
+  "harness/reference/deep/deep-7-ranger/messages.log.xz": {
+    "bytes": 1196100,
+    "sha256": "fe472de7b2c98fa3a3bb8a86f7d8a4f5ccf8ce8665dad7dcd2f1402cb4dc0bd6"
+  },
+  "harness/reference/deep/deep-7-ranger/state.log.xz": {
+    "bytes": 623436,
+    "sha256": "1cd808197702acbcf5e036fb5f83a8402e613e87b16579bfe55d82e225b9ea9d"
+  },
+  "harness/reference/deep/deep-7-ranger/summary.json": {
+    "bytes": 2011,
+    "sha256": "86ada5fbe9cd9822570059be8280edca1e7738cd36d1975b70fb228124b21f20"
+  },
+  "harness/reference/deep/deep-8-blackguard/config.txt": {
+    "bytes": 93,
+    "sha256": "a742262bbb58a5c41074ba51209d0f3aeccbb7a0bf3b8b34bee1ad66143f9e02"
+  },
+  "harness/reference/deep/deep-8-blackguard/keys.log.xz": {
+    "bytes": 120400,
+    "sha256": "49ef23f548eec664f436abdac87edd1680dbd2d81154376c5a074e0bc7cd5506"
+  },
+  "harness/reference/deep/deep-8-blackguard/messages.log.xz": {
+    "bytes": 1033452,
+    "sha256": "31eb72a1a1663920ed3afac8a425ca5ea909fa9dda033a02a69d22365cb1f824"
+  },
+  "harness/reference/deep/deep-8-blackguard/state.log.xz": {
+    "bytes": 528184,
+    "sha256": "f05f57d5dd58e00bf54d600ceed40898c77512b76b9297791c4dd0c952b5e854"
+  },
+  "harness/reference/deep/deep-8-blackguard/summary.json": {
+    "bytes": 2008,
+    "sha256": "33ed310326ad70bb4f6842a7b36caebab006d63bf72934d38c842c9e96e7e122"
+  },
+  "harness/reference/deep/manifest": {
+    "bytes": 2106,
+    "sha256": "16faddb882753ba1fcca202cc5553a51adfaa13d460b2a25be9decd323594421"
+  },
+  "harness/reference/deep/timing.txt": {
+    "bytes": 995,
+    "sha256": "0b3151a88869f33002799eca2219b9954bd82c986f5fd26d92dcebaea808fbc2"
+  },
+  "harness/reference/full/DONE": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness/reference/full/full-0-warrior-0/config.txt": {
+    "bytes": 89,
+    "sha256": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f"
+  },
+  "harness/reference/full/full-0-warrior-0/keys.log.xz": {
+    "bytes": 8840,
+    "sha256": "d027c27f901f0856b6f461460f3ac7732eaad4ce95760a856d0a9d0ef55c0052"
+  },
+  "harness/reference/full/full-0-warrior-0/messages.log.xz": {
+    "bytes": 140932,
+    "sha256": "ae61949dc7d0067492fbc5799465443d6308b53058fa29a0f8aa480750b0f686"
+  },
+  "harness/reference/full/full-0-warrior-0/state.log.xz": {
+    "bytes": 57412,
+    "sha256": "a8bfbc0e1cc2edffbb55a67e9a6e48e8529b3bf26cd3a2f4b7fb045d719c6391"
+  },
+  "harness/reference/full/full-0-warrior-0/summary.json": {
+    "bytes": 1998,
+    "sha256": "75dd78e1f27ee047039a03531d1797b697a039fe83ec60e091546ec9777271a5"
+  },
+  "harness/reference/full/full-0-warrior-1/config.txt": {
+    "bytes": 89,
+    "sha256": "d13806552d2adac67628ed17a1bc973087bd4dec880da6e19b2342140a6302ee"
+  },
+  "harness/reference/full/full-0-warrior-1/keys.log.xz": {
+    "bytes": 8276,
+    "sha256": "ef9b8128deae5ce22efda94e5490e6ffc79a745eb09a2f5c1a5e3b6fbc6f336e"
+  },
+  "harness/reference/full/full-0-warrior-1/messages.log.xz": {
+    "bytes": 120300,
+    "sha256": "2b15f860a718e667079b93f53e93d98f75448cac6a6b54a0bf16034d2028b527"
+  },
+  "harness/reference/full/full-0-warrior-1/state.log.xz": {
+    "bytes": 42444,
+    "sha256": "cae2e3bc60a0d5efdcdc281b96e8fdb7f5f149b7eb8583560e6f6be939bceaa6"
+  },
+  "harness/reference/full/full-0-warrior-1/summary.json": {
+    "bytes": 2004,
+    "sha256": "fd7ea95612160c5076389718ddbe027dffd4dd4a53ce06d1180263cb489f7e95"
+  },
+  "harness/reference/full/full-0-warrior-2/config.txt": {
+    "bytes": 89,
+    "sha256": "3e96a20d1c634d26c7297f8e6d8bb0c4f6555b66a23a3004cbead8d774291b9f"
+  },
+  "harness/reference/full/full-0-warrior-2/keys.log.xz": {
+    "bytes": 9244,
+    "sha256": "f4a9897c5236c1a9acf10c562208bd31fbaade02ba34b7b87e40e7483babf702"
+  },
+  "harness/reference/full/full-0-warrior-2/messages.log.xz": {
+    "bytes": 105796,
+    "sha256": "58820b7bf65f2223618e798f1488414fddc767a0f27510baf0c422c71b3b835a"
+  },
+  "harness/reference/full/full-0-warrior-2/state.log.xz": {
+    "bytes": 39144,
+    "sha256": "3bf749c686b35b0ea32a4e8a6527d52a4149331b8cf13b1990c837ad7bde62d7"
+  },
+  "harness/reference/full/full-0-warrior-2/summary.json": {
+    "bytes": 1997,
+    "sha256": "eea7a81cdb79392db8a8926354d1a274409eb8d80364e90c5afe0de6fd45d2cc"
+  },
+  "harness/reference/full/full-0-warrior-3/config.txt": {
+    "bytes": 89,
+    "sha256": "c188bfac82ad77b1249b8473a77efa7c761179ad28a2cb7ca79091e58fe7a93d"
+  },
+  "harness/reference/full/full-0-warrior-3/keys.log.xz": {
+    "bytes": 9364,
+    "sha256": "cd4e252dc385dc9fc8f23f5e032f8e91d7b22eb04c5a6fbfef8c2340116dfeb8"
+  },
+  "harness/reference/full/full-0-warrior-3/messages.log.xz": {
+    "bytes": 136844,
+    "sha256": "3186ca795237da26f1ca23bdd0508b6af046c4898843f06e3e43c7837931f167"
+  },
+  "harness/reference/full/full-0-warrior-3/state.log.xz": {
+    "bytes": 52868,
+    "sha256": "45bc3c70dce2faaeee8c610386a72569e7af9247008edcf4750ba40827b9bbd3"
+  },
+  "harness/reference/full/full-0-warrior-3/summary.json": {
+    "bytes": 2001,
+    "sha256": "82319297fe90ec9dbae1ce07579c06f93bc62802fb1a5605eef1fd08056c8b76"
+  },
+  "harness/reference/full/full-0-warrior-4/config.txt": {
+    "bytes": 89,
+    "sha256": "256a607ebeb30746560be52c421b95efcc989a3ff51f73dd2d139c747aa75f7d"
+  },
+  "harness/reference/full/full-0-warrior-4/keys.log.xz": {
+    "bytes": 6276,
+    "sha256": "46e117eb71f837aa35cbf2c758caa4e98af00987587c98f4c8ba037b1911f068"
+  },
+  "harness/reference/full/full-0-warrior-4/messages.log.xz": {
+    "bytes": 108652,
+    "sha256": "0b7cecdff97df4e0297efb3ce08f693e75e625a7df412c49aef6a148b35a0106"
+  },
+  "harness/reference/full/full-0-warrior-4/state.log.xz": {
+    "bytes": 38884,
+    "sha256": "c07f54b6603592c7932b54074ab0c733c9215b51dcb5b6484823cd2fa2348b6d"
+  },
+  "harness/reference/full/full-0-warrior-4/summary.json": {
+    "bytes": 2000,
+    "sha256": "74945121637c9cd35ad8f94bd56b23ad407cbaa14103ad114f888f67d8e0e985"
+  },
+  "harness/reference/full/full-1-mage-0/config.txt": {
+    "bytes": 89,
+    "sha256": "2a741f44e2bc1f453837e3a3795b2f4461cf1ea35734573940a39f2b66614dfc"
+  },
+  "harness/reference/full/full-1-mage-0/keys.log.xz": {
+    "bytes": 8816,
+    "sha256": "5e301e6adf1368309de2cde86aea19270fd7006ed3fac6905e931b2f23eddb27"
+  },
+  "harness/reference/full/full-1-mage-0/messages.log.xz": {
+    "bytes": 39284,
+    "sha256": "800318b5e10dd177680e450801203fe58d37d6ea0b94d4a4e1f5ba24e9dd922b"
+  },
+  "harness/reference/full/full-1-mage-0/state.log.xz": {
+    "bytes": 37900,
+    "sha256": "b44afc0e4c89f86059a5afd0cd0a8f3d2072e2a34f2a22807a14086241a16580"
+  },
+  "harness/reference/full/full-1-mage-0/summary.json": {
+    "bytes": 1999,
+    "sha256": "aaff45db68499ccfc8919c029d40e71fe28d6a7c068dfce44251260e1bc92d18"
+  },
+  "harness/reference/full/full-1-mage-1/config.txt": {
+    "bytes": 89,
+    "sha256": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65"
+  },
+  "harness/reference/full/full-1-mage-1/keys.log.xz": {
+    "bytes": 2508,
+    "sha256": "5f29d9d65f28c99ba0232b47197faca8fb34880795000eac3b07f6ada76026b3"
+  },
+  "harness/reference/full/full-1-mage-1/messages.log.xz": {
+    "bytes": 12672,
+    "sha256": "af34309a6b1e4a8b80556892f91937a00a43e9d330e17f3a423c0d05c65e0cf0"
+  },
+  "harness/reference/full/full-1-mage-1/state.log.xz": {
+    "bytes": 7564,
+    "sha256": "e9891f87c892758afc6cc48c895bf3f2f6825b8ae0b81fd2687521c2edba1ff6"
+  },
+  "harness/reference/full/full-1-mage-1/summary.json": {
+    "bytes": 2001,
+    "sha256": "e353d3681fbf344d4afa25ffa506d6182dcf4f99d6af4be88bf2af3e4b03b9bb"
+  },
+  "harness/reference/full/full-1-mage-2/config.txt": {
+    "bytes": 89,
+    "sha256": "58057595c9d5d4a288893fc6e2ef583ddbab2ff506cc3c4bbb2d864cb4e08ce7"
+  },
+  "harness/reference/full/full-1-mage-2/keys.log.xz": {
+    "bytes": 9004,
+    "sha256": "8535519e8155f8331f3e39b3fdda86ed55020306c340fffbb4fb12647bc90b61"
+  },
+  "harness/reference/full/full-1-mage-2/messages.log.xz": {
+    "bytes": 36644,
+    "sha256": "fca46e10e6a7056fd7eae46fa9b59d738736292c67d57cde74460bf8fcbf168b"
+  },
+  "harness/reference/full/full-1-mage-2/state.log.xz": {
+    "bytes": 21672,
+    "sha256": "af60b464f7846a08c174dc20e616662cb18aedaf0326dc39529693f21788bccd"
+  },
+  "harness/reference/full/full-1-mage-2/summary.json": {
+    "bytes": 1996,
+    "sha256": "ef556d7410a994cc5853d1dc9f5cdd82378d5b951323873056e3f85aa01007f6"
+  },
+  "harness/reference/full/full-1-mage-3/config.txt": {
+    "bytes": 89,
+    "sha256": "ce51c67f3fb1ef7ee0c772ab57c3c8d71a6d4180c13b5132183e64a67acc5fbe"
+  },
+  "harness/reference/full/full-1-mage-3/keys.log.xz": {
+    "bytes": 8228,
+    "sha256": "bbe537375ac366967b2748e458c382d275ab98403e7e1e23f3828103d64913d4"
+  },
+  "harness/reference/full/full-1-mage-3/messages.log.xz": {
+    "bytes": 39848,
+    "sha256": "3ee49dff0137cf05177028015a7cda9d044e99d91faffbf9b6074497f2518d70"
+  },
+  "harness/reference/full/full-1-mage-3/state.log.xz": {
+    "bytes": 18872,
+    "sha256": "3ac225bc9b9b622c80232d2b40240994ffcb1b541f32b319bf30eabf30933398"
+  },
+  "harness/reference/full/full-1-mage-3/summary.json": {
+    "bytes": 1997,
+    "sha256": "2357fb994d210fdcb97d1fde80eca4215592dfe01ca9c2566d475db88b6c74b3"
+  },
+  "harness/reference/full/full-1-mage-4/config.txt": {
+    "bytes": 89,
+    "sha256": "ce02254e5262341b6a9045d244100bf8d0b623905eb073693fc6d1355d967323"
+  },
+  "harness/reference/full/full-1-mage-4/keys.log.xz": {
+    "bytes": 9880,
+    "sha256": "16960dc799d503036fbd5cb4d2811fbdd46412a154abfc93dc2404cea5b130cb"
+  },
+  "harness/reference/full/full-1-mage-4/messages.log.xz": {
+    "bytes": 64140,
+    "sha256": "2acf4b2866fc4ef25561d3e43c7673b01662f2ae1df8a8710e0cebad79d3454d"
+  },
+  "harness/reference/full/full-1-mage-4/state.log.xz": {
+    "bytes": 21916,
+    "sha256": "f37c39a61408e4a9436ed8b8a5a7909e2740a98d9033066cbbe996dc46872e08"
+  },
+  "harness/reference/full/full-1-mage-4/summary.json": {
+    "bytes": 1996,
+    "sha256": "2396c4e6f1c6b65186874b203c936e9de67b2310f97bd9235d07f2f67b3db009"
+  },
+  "harness/reference/full/full-2-druid-0/config.txt": {
+    "bytes": 89,
+    "sha256": "0b02646137486cfb1599c309c9ac1a498b5a2c616480876d62240e156b80bbb7"
+  },
+  "harness/reference/full/full-2-druid-0/keys.log.xz": {
+    "bytes": 1708,
+    "sha256": "3961112a3737d4e1a8068ae8d5222758f62f93e4c8b6ca1b167ff8a940b1019c"
+  },
+  "harness/reference/full/full-2-druid-0/messages.log.xz": {
+    "bytes": 9512,
+    "sha256": "05ed2a0826da770e1952ac78b5c337e8c06a9d33b03cf8e234bd9674577797f1"
+  },
+  "harness/reference/full/full-2-druid-0/state.log.xz": {
+    "bytes": 4828,
+    "sha256": "93b4d315cca98a90f5d9d006925ea6428b3aad28ef550d4683a07f1b78c30296"
+  },
+  "harness/reference/full/full-2-druid-0/summary.json": {
+    "bytes": 1999,
+    "sha256": "547706cf2644c9fc503c45e34f344ab8851b802a591f627fbbc583e1d29a2bbe"
+  },
+  "harness/reference/full/full-2-druid-1/config.txt": {
+    "bytes": 89,
+    "sha256": "1ffb727ae19a09ac939bb7d9693b1efc19259a79868bedc7261bfe504e43d96c"
+  },
+  "harness/reference/full/full-2-druid-1/keys.log.xz": {
+    "bytes": 1172,
+    "sha256": "ba7ecf33a7dc7fd0e6b1abbf495ac76425278f59c6edd534f7d7b9e655d5827a"
+  },
+  "harness/reference/full/full-2-druid-1/messages.log.xz": {
+    "bytes": 15768,
+    "sha256": "2cdf95cf97d65d5a5ec1b2bf82a55872054a2176c9ea29ebfc436bdefd07a2c8"
+  },
+  "harness/reference/full/full-2-druid-1/state.log.xz": {
+    "bytes": 5980,
+    "sha256": "f901862a819fb0aebac8bd0bdad54a6335ccdf8c96a69970983e424506bf81da"
+  },
+  "harness/reference/full/full-2-druid-1/summary.json": {
+    "bytes": 2013,
+    "sha256": "3ae53176f6749044ae1b772952ad62edd36bdbec2a86764018170a115adb3173"
+  },
+  "harness/reference/full/full-2-druid-2/config.txt": {
+    "bytes": 89,
+    "sha256": "227ce9c8924ef9b71d589cfeb7e45b046dabac98994187d5f9c140339943f920"
+  },
+  "harness/reference/full/full-2-druid-2/keys.log.xz": {
+    "bytes": 11796,
+    "sha256": "c2cc566097f84310d158efdc3cb688575a0cca8bb9a8debcd5dc9198a9de093d"
+  },
+  "harness/reference/full/full-2-druid-2/messages.log.xz": {
+    "bytes": 113024,
+    "sha256": "d7b00a3438fff29f85d723a6becba4b8d3b9acdcf0cd266a23fd3296e5f8a9e0"
+  },
+  "harness/reference/full/full-2-druid-2/state.log.xz": {
+    "bytes": 41360,
+    "sha256": "413dd257d4b57f4a05439d784732277fd15ca10dda1759d9099de5bf1fc3122a"
+  },
+  "harness/reference/full/full-2-druid-2/summary.json": {
+    "bytes": 2001,
+    "sha256": "5f1672399b610bec9f219c8a0b493daf76dbf121d8d1e6e0cd8431d7b3a00c43"
+  },
+  "harness/reference/full/full-2-druid-3/config.txt": {
+    "bytes": 89,
+    "sha256": "0a712fb76e914ccb6a687c24f2d6922d75a862bb112ab6123aa45e452930b1cd"
+  },
+  "harness/reference/full/full-2-druid-3/keys.log.xz": {
+    "bytes": 13476,
+    "sha256": "f6eec967816373d4dba6ba4f4a7ed612720d266c32a425bb884d8fac164d3b59"
+  },
+  "harness/reference/full/full-2-druid-3/messages.log.xz": {
+    "bytes": 131584,
+    "sha256": "c2f07d55228c4d17d448992d72591a3773c844b53af03cb7eccd99e019076ece"
+  },
+  "harness/reference/full/full-2-druid-3/state.log.xz": {
+    "bytes": 50156,
+    "sha256": "6988c8f1c2e58adb523a2cd5029d37d48b1f2d3cd878b7e63a163296c5437f86"
+  },
+  "harness/reference/full/full-2-druid-3/summary.json": {
+    "bytes": 2003,
+    "sha256": "b3526d870e1c90f123de389f11128cd79c6d784039b6d093c60dc37fc0aedb06"
+  },
+  "harness/reference/full/full-2-druid-4/config.txt": {
+    "bytes": 89,
+    "sha256": "21631d1195d9ea8a98483cd124dcfa64669d1ccb20e80b0ebe9530914ab51f46"
+  },
+  "harness/reference/full/full-2-druid-4/keys.log.xz": {
+    "bytes": 9788,
+    "sha256": "4c169acee6f04c6bfbfcfc4ce3d6e1241e305c259172e989d55a716f1fe5a8d4"
+  },
+  "harness/reference/full/full-2-druid-4/messages.log.xz": {
+    "bytes": 136404,
+    "sha256": "c07eafe39dd70db190248c146ca0ed135eb684a4bc76fee77cbc81763ebc8901"
+  },
+  "harness/reference/full/full-2-druid-4/state.log.xz": {
+    "bytes": 50196,
+    "sha256": "6d2c2be827cec7f0fae378e0d7fdb7f41243f079686ddce5f186cc5216542534"
+  },
+  "harness/reference/full/full-2-druid-4/summary.json": {
+    "bytes": 2002,
+    "sha256": "ed47171d89858a7d6d520a59906128edae955879bc25fb81168a4e56420bed98"
+  },
+  "harness/reference/full/full-3-priest-0/config.txt": {
+    "bytes": 89,
+    "sha256": "f25c1d61cf7ec8b89d850f87567b58d1348c7a3922b6fa8525ad2e17da0e9f61"
+  },
+  "harness/reference/full/full-3-priest-0/keys.log.xz": {
+    "bytes": 10300,
+    "sha256": "3edd38b42575f4eb7830ac144e74d8c27d9d6d2c734a286a23fa4058d1b44773"
+  },
+  "harness/reference/full/full-3-priest-0/messages.log.xz": {
+    "bytes": 51056,
+    "sha256": "a71605318d059d944c1b242eb94ab42b754715cf0d943eba3868d147a6262e05"
+  },
+  "harness/reference/full/full-3-priest-0/state.log.xz": {
+    "bytes": 24956,
+    "sha256": "10c720566c95172ffde48448483351df40aef0ed6f763a3f0e373209f438ec00"
+  },
+  "harness/reference/full/full-3-priest-0/summary.json": {
+    "bytes": 2000,
+    "sha256": "9412383af0625835842536466507774ffe75953d36b3403cb399cd05ee40d266"
+  },
+  "harness/reference/full/full-3-priest-1/config.txt": {
+    "bytes": 89,
+    "sha256": "f2e317ce07dc1bbf144fe1d6a29ea11cf5ec891118bb91bd01f4abbc6f239c3f"
+  },
+  "harness/reference/full/full-3-priest-1/keys.log.xz": {
+    "bytes": 9564,
+    "sha256": "305f4e402046780b5e930b3ca501a6019a8b5f6d423c41009260adaa9713af8e"
+  },
+  "harness/reference/full/full-3-priest-1/messages.log.xz": {
+    "bytes": 45888,
+    "sha256": "017c50badb7ecfe14dcce5818ad3922fdfd1eb6a45408b6b6e3affa34387f049"
+  },
+  "harness/reference/full/full-3-priest-1/state.log.xz": {
+    "bytes": 25160,
+    "sha256": "39ae1887aff750177abcdaaf9f06652cf2bb0600937392c683b08feee5b9e0f0"
+  },
+  "harness/reference/full/full-3-priest-1/summary.json": {
+    "bytes": 1996,
+    "sha256": "2ba7534c4e8202156bf26b74d530ec9203afe4f779914c167db24bf395786c90"
+  },
+  "harness/reference/full/full-3-priest-2/config.txt": {
+    "bytes": 89,
+    "sha256": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5"
+  },
+  "harness/reference/full/full-3-priest-2/keys.log.xz": {
+    "bytes": 8760,
+    "sha256": "7e74b3f049e79e9299e8dcc0125535d68f6544d1b41beb2bea7adcc977dd58e4"
+  },
+  "harness/reference/full/full-3-priest-2/messages.log.xz": {
+    "bytes": 41896,
+    "sha256": "b8d17cd4a7650285771d73e865114b66f5e0c61f4e19c030f679ac379bd2d895"
+  },
+  "harness/reference/full/full-3-priest-2/state.log.xz": {
+    "bytes": 20660,
+    "sha256": "8bae82f4f3e1e637f67836fd8b7aed099781990f7bfa2a4579e00e62feca0a42"
+  },
+  "harness/reference/full/full-3-priest-2/summary.json": {
+    "bytes": 1999,
+    "sha256": "ceec0ec705433ecfd57fd387c2a363c74f750ed3eb42ef9cbe7ebd53aeb93044"
+  },
+  "harness/reference/full/full-3-priest-3/config.txt": {
+    "bytes": 89,
+    "sha256": "603bb9eeb0bd5378955bd4cbc73c7bef664b17c8f7ef624f6df586d185406354"
+  },
+  "harness/reference/full/full-3-priest-3/keys.log.xz": {
+    "bytes": 8220,
+    "sha256": "088e30ea59c8c708298b0807e254cb015a995a12f4ea3cda132a23185bcadfc5"
+  },
+  "harness/reference/full/full-3-priest-3/messages.log.xz": {
+    "bytes": 44092,
+    "sha256": "3e46fab8483b9d90f95bf77f76d9739da04822b28add33e80c7747f55f245498"
+  },
+  "harness/reference/full/full-3-priest-3/state.log.xz": {
+    "bytes": 18796,
+    "sha256": "826648f571a3a4cbc0f02ecfab8cae051364a3072a7e8385ad1775151f2515a6"
+  },
+  "harness/reference/full/full-3-priest-3/summary.json": {
+    "bytes": 2001,
+    "sha256": "afedc359f27d0d99de889a95696ab6f6bc7222635993af7bda3e5c68bcd8b944"
+  },
+  "harness/reference/full/full-3-priest-4/config.txt": {
+    "bytes": 89,
+    "sha256": "b8c77b5f78cd80ffa3f25651d9bddf8b1f7bb6e298f460d2cc679825ce0f61a4"
+  },
+  "harness/reference/full/full-3-priest-4/keys.log.xz": {
+    "bytes": 4840,
+    "sha256": "daec8c0f70e3be54564e6cf79f66829929f95fc866d389bcab9ddce29b4da029"
+  },
+  "harness/reference/full/full-3-priest-4/messages.log.xz": {
+    "bytes": 22668,
+    "sha256": "1e85da5e8d22bc7673d451f7c7b17283efe41b7b0bde441275b71672202f5e06"
+  },
+  "harness/reference/full/full-3-priest-4/state.log.xz": {
+    "bytes": 11688,
+    "sha256": "9ab026a6f6a708b3d860844509bd7d13177af000622f769703a04b269fcd9321"
+  },
+  "harness/reference/full/full-3-priest-4/summary.json": {
+    "bytes": 2001,
+    "sha256": "d935cde395d5a831fda8dfb5fc800dcec97e847c8fcc96b191dec434bf82efb3"
+  },
+  "harness/reference/full/full-4-necro-0/config.txt": {
+    "bytes": 89,
+    "sha256": "58444dd1729ca4064b612f6b4e0fb813fb3b69ad38490dd581d7c22970724d0c"
+  },
+  "harness/reference/full/full-4-necro-0/keys.log.xz": {
+    "bytes": 6796,
+    "sha256": "664a20da6bad9d5ee55fa82db9a273b0461394ced086ceea8cd9098533921125"
+  },
+  "harness/reference/full/full-4-necro-0/messages.log.xz": {
+    "bytes": 31976,
+    "sha256": "de4e8baeeca7e1b2d387da454104c867b8510163bdd7a3df2df2a57c6b867d5d"
+  },
+  "harness/reference/full/full-4-necro-0/state.log.xz": {
+    "bytes": 12892,
+    "sha256": "a259893c14b545864309afd5f88c1384a8370e7e1c9ee736d814a6e2d20e1ea9"
+  },
+  "harness/reference/full/full-4-necro-0/summary.json": {
+    "bytes": 2004,
+    "sha256": "978e3feb13dba6ba6e341d3a7e2b2fceaebc1f8a09ec742cfa3413b0fd71f9f2"
+  },
+  "harness/reference/full/full-4-necro-1/config.txt": {
+    "bytes": 89,
+    "sha256": "f17966026bfb759248fa114e7b39e38aacb1bb48a10bc9faea418504d16c0762"
+  },
+  "harness/reference/full/full-4-necro-1/keys.log.xz": {
+    "bytes": 6356,
+    "sha256": "6fa7f70091aae6432730a99aff125f0972f10da0ff3faf9dc83c83dc7d4eaabc"
+  },
+  "harness/reference/full/full-4-necro-1/messages.log.xz": {
+    "bytes": 25240,
+    "sha256": "5246bd06e177484566250ebb339c104e68354f98a4ed3f3d2edb7e0e4e015449"
+  },
+  "harness/reference/full/full-4-necro-1/state.log.xz": {
+    "bytes": 11784,
+    "sha256": "9e2b58e54208dbb5156d947dc771a80a25b60b500d3301bf2a72adf52d3a0636"
+  },
+  "harness/reference/full/full-4-necro-1/summary.json": {
+    "bytes": 2002,
+    "sha256": "7b0bac4d4cf9c1a0dc6679259ec540968f63bde463abae06160f5d05a01017dc"
+  },
+  "harness/reference/full/full-4-necro-2/config.txt": {
+    "bytes": 89,
+    "sha256": "5bdab35206ff0c91b00e66d05753cb45e6b2fe7d146c79664b45de69fabc68fc"
+  },
+  "harness/reference/full/full-4-necro-2/keys.log.xz": {
+    "bytes": 5880,
+    "sha256": "293a047b745ead610aa151f775fb57e455f73529a13307a2ee43bcdac4e1db71"
+  },
+  "harness/reference/full/full-4-necro-2/messages.log.xz": {
+    "bytes": 22880,
+    "sha256": "555a84c8a83249e9c3d33b553700e5000107a028b3e97d5b6116970f29bbd346"
+  },
+  "harness/reference/full/full-4-necro-2/state.log.xz": {
+    "bytes": 9928,
+    "sha256": "21fe0f52674a25ef021cb1545c1a623118ea77980de1f6d7b4cb2adf21796728"
+  },
+  "harness/reference/full/full-4-necro-2/summary.json": {
+    "bytes": 2007,
+    "sha256": "8d38cdb6c3d640c432e83082f481b734afcbec8bffa43ca27c0f6c310bcd5d74"
+  },
+  "harness/reference/full/full-4-necro-3/config.txt": {
+    "bytes": 89,
+    "sha256": "a386432300e282d953d72392cee6ccc48317fcd9326ad7000edb8811a36417b2"
+  },
+  "harness/reference/full/full-4-necro-3/keys.log.xz": {
+    "bytes": 4132,
+    "sha256": "f58f5cffd83a80f8e60fa72997de115d3fd26bfc3501784c22a50baa13064be2"
+  },
+  "harness/reference/full/full-4-necro-3/messages.log.xz": {
+    "bytes": 19620,
+    "sha256": "8a7cdf7e060542b523db842178b49d89163e3bc6d1015d788b06711820fcb91c"
+  },
+  "harness/reference/full/full-4-necro-3/state.log.xz": {
+    "bytes": 8092,
+    "sha256": "ae181c52a65197e356eef424cedee6f6afabdc0b4c8ea86f222681a5e83f46d6"
+  },
+  "harness/reference/full/full-4-necro-3/summary.json": {
+    "bytes": 2010,
+    "sha256": "1545a3f62458b82c3fb52d6ec06919f4ea912455d1ce2e2c894b0a9f6b50417d"
+  },
+  "harness/reference/full/full-4-necro-4/config.txt": {
+    "bytes": 89,
+    "sha256": "77fe191e95748cf9a576b55c26f54dac8606e7cc62dfea7b3ed8b12cca35ae11"
+  },
+  "harness/reference/full/full-4-necro-4/keys.log.xz": {
+    "bytes": 8872,
+    "sha256": "1789623fe59c32bfd8b975967d919fb20a96f1d4e54d4c2496a9bdf129a8bf88"
+  },
+  "harness/reference/full/full-4-necro-4/messages.log.xz": {
+    "bytes": 38072,
+    "sha256": "d4a42ae5e0696d743e986904f507a023a88a269d7dcb4c76d41b75cfca064fa5"
+  },
+  "harness/reference/full/full-4-necro-4/state.log.xz": {
+    "bytes": 15908,
+    "sha256": "a3c01f2245b31107d461f4ecce2d6c7c3344d88be28a23e91e57387c56a647e8"
+  },
+  "harness/reference/full/full-4-necro-4/summary.json": {
+    "bytes": 2007,
+    "sha256": "4b92e1c8cf2be15e9767ffa4477f94ed3fe2a30ea1dd23b0cf92bb3ef0362f92"
+  },
+  "harness/reference/full/full-5-paladin-0/config.txt": {
+    "bytes": 89,
+    "sha256": "5ae4694ed60058f96d394f090027b6dc96db875adace65ff1d20fefdd0e00770"
+  },
+  "harness/reference/full/full-5-paladin-0/keys.log.xz": {
+    "bytes": 3432,
+    "sha256": "539dbf976308f7bb218887a78aa4dff69c3a3f69dd269ec7f0ecb74effa004ee"
+  },
+  "harness/reference/full/full-5-paladin-0/messages.log.xz": {
+    "bytes": 20944,
+    "sha256": "fc8b7f20737c317ef2690e5f59da9fc5a5a0e33fd034df459bcd6e76181fb707"
+  },
+  "harness/reference/full/full-5-paladin-0/state.log.xz": {
+    "bytes": 9132,
+    "sha256": "f8672424839a684f46e5d33b07d97013c3601e0875db1afa11bfbd0db19d3f4e"
+  },
+  "harness/reference/full/full-5-paladin-0/summary.json": {
+    "bytes": 2005,
+    "sha256": "72233130f0f4677566beb348802ec9d72cefa1d1e01b1ac8713222a4e0785618"
+  },
+  "harness/reference/full/full-5-paladin-1/config.txt": {
+    "bytes": 89,
+    "sha256": "f16502c8609a8832383b6baa277cf2709d2e630e28ff8655554f0047169a5484"
+  },
+  "harness/reference/full/full-5-paladin-1/keys.log.xz": {
+    "bytes": 7696,
+    "sha256": "da687310dbaef430d5db9a6b678952b5a7f40a9d1e64ae15ba0f8c36a4ebfc90"
+  },
+  "harness/reference/full/full-5-paladin-1/messages.log.xz": {
+    "bytes": 37920,
+    "sha256": "7cd1aa0ee8243270d4239ff3b764e4e88c14a4c3506e5517b4fa3139ff1c00b3"
+  },
+  "harness/reference/full/full-5-paladin-1/state.log.xz": {
+    "bytes": 19544,
+    "sha256": "704b2b5a6b3034a51459db1a41e0233e03f4cf063d138ba309e6cb08f5b26431"
+  },
+  "harness/reference/full/full-5-paladin-1/summary.json": {
+    "bytes": 2003,
+    "sha256": "0740047e2903e5a24b1da8e11cf218316daefeb5542a8f5aaf3e669ff504cbd5"
+  },
+  "harness/reference/full/full-5-paladin-2/config.txt": {
+    "bytes": 89,
+    "sha256": "e538528f3a6c6916258ce59868d885c38122fd65bad6799968193d374091e0eb"
+  },
+  "harness/reference/full/full-5-paladin-2/keys.log.xz": {
+    "bytes": 6716,
+    "sha256": "bd428ad17f181b8dbdfa175d2fa00ffaefbecf931b634ea488f26197eaa6e852"
+  },
+  "harness/reference/full/full-5-paladin-2/messages.log.xz": {
+    "bytes": 49884,
+    "sha256": "15ce725388fea04045fe221ac54dbd78c029ed8b585ad2219b1a0fbb2f86a722"
+  },
+  "harness/reference/full/full-5-paladin-2/state.log.xz": {
+    "bytes": 22008,
+    "sha256": "6a532dbba0690154bf406ff75b65d34268ff5909513616e1abc5d83e5bcb236c"
+  },
+  "harness/reference/full/full-5-paladin-2/summary.json": {
+    "bytes": 1999,
+    "sha256": "dfe6ea432477a1d69bdd006c8e2a9126e148c218dfb27b870325ea36d9425155"
+  },
+  "harness/reference/full/full-5-paladin-3/config.txt": {
+    "bytes": 89,
+    "sha256": "68769e90f395296bc327af893691f12259e3cc72ba38b0dc52b8dad7a8e8a75d"
+  },
+  "harness/reference/full/full-5-paladin-3/keys.log.xz": {
+    "bytes": 10552,
+    "sha256": "fe7281a9060a7369159552d5c3759b80f59bc4fa8413c339abed2724a49473dc"
+  },
+  "harness/reference/full/full-5-paladin-3/messages.log.xz": {
+    "bytes": 48616,
+    "sha256": "3f0523bbcb0af55c80de9c9088ce01476f344fcbc2c9efeb750a132c76afb0a4"
+  },
+  "harness/reference/full/full-5-paladin-3/state.log.xz": {
+    "bytes": 32536,
+    "sha256": "9f65b71a6ac792c57befd1ebe4874a4422faed56851a0c7f7fa36da05a890640"
+  },
+  "harness/reference/full/full-5-paladin-3/summary.json": {
+    "bytes": 2003,
+    "sha256": "221e36353ef0e9ffa8f0821f9690f671877fc5e66a01010c310847f5ca8ba680"
+  },
+  "harness/reference/full/full-5-paladin-4/config.txt": {
+    "bytes": 89,
+    "sha256": "4806d58167916e298aabd55dde493fce7100780ffff2eec81e9f2e2e10ca1142"
+  },
+  "harness/reference/full/full-5-paladin-4/keys.log.xz": {
+    "bytes": 1732,
+    "sha256": "5f25581a7b0e788f98ed05746015d529976d7aac09b15d6ba14d4a047a12851b"
+  },
+  "harness/reference/full/full-5-paladin-4/messages.log.xz": {
+    "bytes": 10444,
+    "sha256": "21a6cec4210fc0d94008d67d39c8d55b14b61ddb5cb14acfbd52b0f2b383586d"
+  },
+  "harness/reference/full/full-5-paladin-4/state.log.xz": {
+    "bytes": 4812,
+    "sha256": "6cb13e51c5573da6d1763e3bab9a259e73cc0c86973729ef8b2133ea113dc9d6"
+  },
+  "harness/reference/full/full-5-paladin-4/summary.json": {
+    "bytes": 2003,
+    "sha256": "506de474e941dc4f0b416dcd4f1243fd180458dc32f70d5e74c6deb3c9074029"
+  },
+  "harness/reference/full/full-6-rogue-0/config.txt": {
+    "bytes": 89,
+    "sha256": "98bed1fd140276a90bfd4d8004f2513b249e619c2e8630466cf7364bdaa8de18"
+  },
+  "harness/reference/full/full-6-rogue-0/keys.log.xz": {
+    "bytes": 14684,
+    "sha256": "bbcf0cec373479469906c593ded0a85761ccef4ae9be25f71a17880880acb55c"
+  },
+  "harness/reference/full/full-6-rogue-0/messages.log.xz": {
+    "bytes": 64580,
+    "sha256": "e126d666b46debd40fbaef3fe290ab94e658749bdf5c7b9a40ac249f8b12da66"
+  },
+  "harness/reference/full/full-6-rogue-0/state.log.xz": {
+    "bytes": 41356,
+    "sha256": "6f25c38c0abbc1bdc0a6d4cc29a98b8f853741d945e76b5f72c42d68e7293270"
+  },
+  "harness/reference/full/full-6-rogue-0/summary.json": {
+    "bytes": 2000,
+    "sha256": "5f33226b97264ce496fc55ca046cae0ee746ab11e5a0bec3411a3cf0f7637c13"
+  },
+  "harness/reference/full/full-6-rogue-1/config.txt": {
+    "bytes": 89,
+    "sha256": "f3594a1f035856e33834a6cfda1f1f7218bf75e0f6be0fd50fd77e14119ef42c"
+  },
+  "harness/reference/full/full-6-rogue-1/keys.log.xz": {
+    "bytes": 13760,
+    "sha256": "7c9dc5bb57bec82131ffc57bb7a4ac639709a12965b5b4e77c320e08575e815c"
+  },
+  "harness/reference/full/full-6-rogue-1/messages.log.xz": {
+    "bytes": 63516,
+    "sha256": "20d41dd93468185931c6236189f1676907e35f58ed8a2d68755845cef41923bc"
+  },
+  "harness/reference/full/full-6-rogue-1/state.log.xz": {
+    "bytes": 44044,
+    "sha256": "c0052aa339d9f1c056cdeea1377f1aee7062a0fe5bca0203f4885923cf7fc44b"
+  },
+  "harness/reference/full/full-6-rogue-1/summary.json": {
+    "bytes": 1996,
+    "sha256": "c50cfd3175e709cd5a453d99f01631e622f52733fe3f00f3d7dd3ca5ab1dec4b"
+  },
+  "harness/reference/full/full-6-rogue-2/config.txt": {
+    "bytes": 89,
+    "sha256": "85c69abf53d5871d603d39b2ce7b8e1e728d3a582081fbab333833e6b537b56c"
+  },
+  "harness/reference/full/full-6-rogue-2/keys.log.xz": {
+    "bytes": 14524,
+    "sha256": "b51241e19e3ac90f5201f7c0f349b39814e37f1682fc034ade3c430ec8b71731"
+  },
+  "harness/reference/full/full-6-rogue-2/messages.log.xz": {
+    "bytes": 62644,
+    "sha256": "eab0b15ba962356a36b2a579f93141810dd99472344ba2efba9dfd527e34e2c3"
+  },
+  "harness/reference/full/full-6-rogue-2/state.log.xz": {
+    "bytes": 38192,
+    "sha256": "a9e10df3ed6bf384f0e48ed4e04241d64d8022b2d28d7fe8f26ac91baaf78b01"
+  },
+  "harness/reference/full/full-6-rogue-2/summary.json": {
+    "bytes": 2003,
+    "sha256": "8c6f03dbe262f90da75241bc7db6a21912bcca3caf15ab54137152dc36a06c58"
+  },
+  "harness/reference/full/full-6-rogue-3/config.txt": {
+    "bytes": 89,
+    "sha256": "f08e6e0455411e3053a5b700af9053cd722eb753c352d33efb5ebd5caf17f76a"
+  },
+  "harness/reference/full/full-6-rogue-3/keys.log.xz": {
+    "bytes": 13116,
+    "sha256": "36d0693c0655ff11ad10615f61e661997772e64bacc2fcfc941f9fb4a7f056bd"
+  },
+  "harness/reference/full/full-6-rogue-3/messages.log.xz": {
+    "bytes": 75120,
+    "sha256": "3dace04f7e42335fd83910fd2e6914f8408cff6a3fb7901a0091d1f97713812e"
+  },
+  "harness/reference/full/full-6-rogue-3/state.log.xz": {
+    "bytes": 40904,
+    "sha256": "2ed5b136108feab0f6aeee30afed0bd25230216d45de75be69a3b37778967d77"
+  },
+  "harness/reference/full/full-6-rogue-3/summary.json": {
+    "bytes": 2004,
+    "sha256": "164c41c662aee657ecc9ac752956d4c05e676d9e6e01ca003264e4e4b7095afd"
+  },
+  "harness/reference/full/full-6-rogue-4/config.txt": {
+    "bytes": 89,
+    "sha256": "1f0a924770ddd4599ca1bb37c4e561efe338773c4afbc41fd12ae504ae71d8ec"
+  },
+  "harness/reference/full/full-6-rogue-4/keys.log.xz": {
+    "bytes": 13492,
+    "sha256": "671bdeadb371e7c5d6aa510dc2d5fdfade1963dd1f3c21a2a017d6f0ca93f1e5"
+  },
+  "harness/reference/full/full-6-rogue-4/messages.log.xz": {
+    "bytes": 72452,
+    "sha256": "9758c763850a79f62e16a4d3a51677eb7abebbdd63c9559bd2abf7845a050114"
+  },
+  "harness/reference/full/full-6-rogue-4/state.log.xz": {
+    "bytes": 42132,
+    "sha256": "20bdccbb87f571b09c8898eb2a4988dd6b1d059728b4ed1039602b9b138cace9"
+  },
+  "harness/reference/full/full-6-rogue-4/summary.json": {
+    "bytes": 1999,
+    "sha256": "1bcdffe45d350a6d2bd8ca8a273b9471edca6fce38209ec8c55f7a5e71a22a3d"
+  },
+  "harness/reference/full/full-7-ranger-0/config.txt": {
+    "bytes": 89,
+    "sha256": "0446575bdd3cc07b07ae50d63c77be334613e03ac403be393ec3ccba401cbb86"
+  },
+  "harness/reference/full/full-7-ranger-0/keys.log.xz": {
+    "bytes": 6752,
+    "sha256": "6d833d3dd8eb6cfac535d7498217ebd5849b49e7b6aff27a4b07386712a088d8"
+  },
+  "harness/reference/full/full-7-ranger-0/messages.log.xz": {
+    "bytes": 126412,
+    "sha256": "6df54bfcfb5516f56dba567867043029ec4c4886f7f5befa637f696b0d60ea98"
+  },
+  "harness/reference/full/full-7-ranger-0/state.log.xz": {
+    "bytes": 50680,
+    "sha256": "65bbdc71a83a776746a2171d091165b3486f7279bb67e2f2e367361e978b0a1b"
+  },
+  "harness/reference/full/full-7-ranger-0/summary.json": {
+    "bytes": 2003,
+    "sha256": "5f6a582e63a2b0e4e17f6d30b639094fd7bdac949974d204bd4747d45ee860f1"
+  },
+  "harness/reference/full/full-7-ranger-1/config.txt": {
+    "bytes": 89,
+    "sha256": "e699c15de43a6d273d8e2ac0cb77e4331807d0dbf88ce3c6da097d8f70436671"
+  },
+  "harness/reference/full/full-7-ranger-1/keys.log.xz": {
+    "bytes": 25900,
+    "sha256": "954eef92d73a6138615d182366b65cec7319c1d4751a595f7e68085e47c73b43"
+  },
+  "harness/reference/full/full-7-ranger-1/messages.log.xz": {
+    "bytes": 423856,
+    "sha256": "b056c37730586fa6f62ce2e26bde4ed070dd74a9805597ab44d82852d8b56dfe"
+  },
+  "harness/reference/full/full-7-ranger-1/state.log.xz": {
+    "bytes": 167920,
+    "sha256": "3b326b9d6e4ab822b8812d5cf86b2e05fd3373daa1a006ef59fcb846f6323db0"
+  },
+  "harness/reference/full/full-7-ranger-1/summary.json": {
+    "bytes": 2010,
+    "sha256": "0870f0d4a6a808d05c15622d7593f21b4bcaaad3ee0606ccb45c23fff6726813"
+  },
+  "harness/reference/full/full-7-ranger-2/config.txt": {
+    "bytes": 89,
+    "sha256": "798354512b8dbe825b8f6fb46c24660b50f3f75de529807f9a4bd1a00deed415"
+  },
+  "harness/reference/full/full-7-ranger-2/keys.log.xz": {
+    "bytes": 564,
+    "sha256": "146f3fe1bfafd816b7a4d269a2b3a0b6e72bd3ac5ff0638427b744837eb37ef0"
+  },
+  "harness/reference/full/full-7-ranger-2/messages.log.xz": {
+    "bytes": 3772,
+    "sha256": "15122d2948c9ca2e726c66951d7ba8fb657fbaa712880e6798b6e17924e668e5"
+  },
+  "harness/reference/full/full-7-ranger-2/state.log.xz": {
+    "bytes": 1236,
+    "sha256": "78a8795b2541fb1dd3eefa12088efe3755d13059ada08a10af7a48b95793d231"
+  },
+  "harness/reference/full/full-7-ranger-2/summary.json": {
+    "bytes": 2004,
+    "sha256": "42df2a96b3722d584f39cd5f35059c6e4254f66de80ad5284130b0c32255575c"
+  },
+  "harness/reference/full/full-7-ranger-3/config.txt": {
+    "bytes": 89,
+    "sha256": "5f11346e40ebe4c5f5625f9eaa20cafb4a5da60cd38006fd3b93602848d46cf2"
+  },
+  "harness/reference/full/full-7-ranger-3/keys.log.xz": {
+    "bytes": 7904,
+    "sha256": "f467663f923551745d6b7cd3a3bf90a8df4089a49afc12c92fb103282aaaa8e2"
+  },
+  "harness/reference/full/full-7-ranger-3/messages.log.xz": {
+    "bytes": 128840,
+    "sha256": "2484bab001d199e649239750da286d3c8f4cc10ed4df5743315afea056498617"
+  },
+  "harness/reference/full/full-7-ranger-3/state.log.xz": {
+    "bytes": 48956,
+    "sha256": "ebb898f6f47df885511cd0486030a4abd63b14c1081404a01cd67059e5268481"
+  },
+  "harness/reference/full/full-7-ranger-3/summary.json": {
+    "bytes": 2003,
+    "sha256": "1a58ec2a5833835aad49056b069421d804b0012806f75026ff014b610ef3fc77"
+  },
+  "harness/reference/full/full-7-ranger-4/config.txt": {
+    "bytes": 89,
+    "sha256": "3c2fc499e285142fa59b9c000871db73d33a4156da77314fac4d89cf753e322b"
+  },
+  "harness/reference/full/full-7-ranger-4/keys.log.xz": {
+    "bytes": 7860,
+    "sha256": "5a3ea10cda360cf40418ad9df7b8d7007cb38dc8af98c4906c96a5b871b9dc8c"
+  },
+  "harness/reference/full/full-7-ranger-4/messages.log.xz": {
+    "bytes": 110172,
+    "sha256": "2ec7d3db4a8b9193c6eb34c3f2e5b13f378723ee38b41d22b563b5ddf3c1a61e"
+  },
+  "harness/reference/full/full-7-ranger-4/state.log.xz": {
+    "bytes": 43800,
+    "sha256": "36b9eea74a162408bb1e17b0d8ec14ea4c42f3d4bba7c1680ce0645f5234949c"
+  },
+  "harness/reference/full/full-7-ranger-4/summary.json": {
+    "bytes": 2003,
+    "sha256": "600c4fe1808228ff29a375f6923386d0168b1f82e7a8e506a690260f2746bd6d"
+  },
+  "harness/reference/full/full-8-blackguard-0/config.txt": {
+    "bytes": 89,
+    "sha256": "8eedb3d22ab5fd478f8b1de98d78ba2f37ae4e0e0ee6984fbc1bc51d64d3db0a"
+  },
+  "harness/reference/full/full-8-blackguard-0/keys.log.xz": {
+    "bytes": 9100,
+    "sha256": "f5fbfd90ec78fdff74b994b4058443f0435c2010390240efeae6c8913dcbd22d"
+  },
+  "harness/reference/full/full-8-blackguard-0/messages.log.xz": {
+    "bytes": 142996,
+    "sha256": "e1d87df8ed932019eab952b4f1210d94d9f7801b5ade583cb75dc2f8d93c889f"
+  },
+  "harness/reference/full/full-8-blackguard-0/state.log.xz": {
+    "bytes": 49772,
+    "sha256": "ce1c77ac4da38c3225f047815dbcb70cf74ead6248f0eb1c55e5c300494f8846"
+  },
+  "harness/reference/full/full-8-blackguard-0/summary.json": {
+    "bytes": 2005,
+    "sha256": "07f2a03ce9862c87dc0d1768ac6ea988e729b736b54feeca46e6e7be6d69c0fb"
+  },
+  "harness/reference/full/full-8-blackguard-1/config.txt": {
+    "bytes": 89,
+    "sha256": "ce73be440e0a35a70e8a2dcc767c6b6a9e72d63d33d304b52afedbc21df2a5f1"
+  },
+  "harness/reference/full/full-8-blackguard-1/keys.log.xz": {
+    "bytes": 8820,
+    "sha256": "19ab5955cb31d2486f58c50ad5a01ec17fd1f79aad964fb0171339e52ca5f984"
+  },
+  "harness/reference/full/full-8-blackguard-1/messages.log.xz": {
+    "bytes": 121768,
+    "sha256": "f8f941a571f54a462c678ff64866299195d20ebbbd8a64c996568b65358d9942"
+  },
+  "harness/reference/full/full-8-blackguard-1/state.log.xz": {
+    "bytes": 42724,
+    "sha256": "d43202e757df18af2e6b18a63487607eab24fdcc31b3e21cb77bda0c7ff47a04"
+  },
+  "harness/reference/full/full-8-blackguard-1/summary.json": {
+    "bytes": 2000,
+    "sha256": "4421aac0f0851301393fa91d5882b0abf16f345a27d08daa67bd837a35b1def2"
+  },
+  "harness/reference/full/full-8-blackguard-2/config.txt": {
+    "bytes": 89,
+    "sha256": "584c21928863b8a949783769b982751ebeb7ba5f069bdb2c832d981216a9692e"
+  },
+  "harness/reference/full/full-8-blackguard-2/keys.log.xz": {
+    "bytes": 8868,
+    "sha256": "98178217be454503e2f3964d7bac0f7c59c14ff93e034dc30fedc26574146c8d"
+  },
+  "harness/reference/full/full-8-blackguard-2/messages.log.xz": {
+    "bytes": 118756,
+    "sha256": "e5baeee966056885ab9cde11cf6af45107eb88afe773355ca18f753e3eb621e4"
+  },
+  "harness/reference/full/full-8-blackguard-2/state.log.xz": {
+    "bytes": 95808,
+    "sha256": "73b1983bb4a1a4489723c6428b549aced2902b5dc8efc409ae155add60790e47"
+  },
+  "harness/reference/full/full-8-blackguard-2/summary.json": {
+    "bytes": 2011,
+    "sha256": "1e12954cb79c805d753fd8a2a3618e18afce8165f2320045e895e85de66e73ea"
+  },
+  "harness/reference/full/full-8-blackguard-3/config.txt": {
+    "bytes": 89,
+    "sha256": "ac869ebcf1d6333c95de4c575e5a79dfabca4c90f906fb74ed49abdfbc6b580d"
+  },
+  "harness/reference/full/full-8-blackguard-3/keys.log.xz": {
+    "bytes": 13440,
+    "sha256": "12fe4d78779c9e1faaa5cf55afaa2f206c17f4520492d373756aec61ec2c00ab"
+  },
+  "harness/reference/full/full-8-blackguard-3/messages.log.xz": {
+    "bytes": 177528,
+    "sha256": "ef36c9fde7fe3e5ff1540de0af8cfe2ab0df488f8af56716d324cb2e794cd737"
+  },
+  "harness/reference/full/full-8-blackguard-3/state.log.xz": {
+    "bytes": 62488,
+    "sha256": "b3de423cf573886e01d91523beeaa20edf86a8ab41fd702f06487d973eb22e47"
+  },
+  "harness/reference/full/full-8-blackguard-3/summary.json": {
+    "bytes": 2001,
+    "sha256": "bdf1d37ef32066121600996958a28ea9c45c0f4940e6c2dc0a4fd14e428e0ced"
+  },
+  "harness/reference/full/full-8-blackguard-4/config.txt": {
+    "bytes": 89,
+    "sha256": "fb5056645d230d47c7950fa4233fef3f8a6596db0473debef8c678ec3911d482"
+  },
+  "harness/reference/full/full-8-blackguard-4/keys.log.xz": {
+    "bytes": 12464,
+    "sha256": "3a40423cf0d38c4d2cd331fda5c28e41765240122de5f45af33d2a3524829721"
+  },
+  "harness/reference/full/full-8-blackguard-4/messages.log.xz": {
+    "bytes": 172500,
+    "sha256": "fb28360607626ef51daee05e4b6159903f4101a906e8662eabda605f7710d7bb"
+  },
+  "harness/reference/full/full-8-blackguard-4/state.log.xz": {
+    "bytes": 70244,
+    "sha256": "60c13f9276d548364f93cb60d22ae42b47080da07417caad941bc613c0ef0603"
+  },
+  "harness/reference/full/full-8-blackguard-4/summary.json": {
+    "bytes": 2003,
+    "sha256": "3aabe7e46cfedadca8738325cc1008b2a85ff3159958c3213a7cf51a4f14d6fe"
+  },
+  "harness/reference/full/manifest": {
+    "bytes": 5436,
+    "sha256": "5a9cdb923ee792fd2b3825800d2ad40d11f4177ee625810d1040d00350713977"
+  },
+  "harness/reference/full/timing.txt": {
+    "bytes": 4603,
+    "sha256": "6ef849d6184ca118e28308265b86f66128e782d14ea75ae5d77371c6d5af6b90"
+  },
+  "harness/reference/options/DONE": {
+    "bytes": 21,
+    "sha256": "1d6e92db296eb171e8e7d1ac988169fddc515032e2a6d6a04942dcdbf8819b79"
+  },
+  "harness/reference/options/manifest": {
+    "bytes": 4498,
+    "sha256": "7948a3d670a0ecdcbb6be675c58d7bb799d27a9a7716c666b69d9091781432bc"
+  },
+  "harness/reference/options/opt-autosave-war/config.txt": {
+    "bytes": 117,
+    "sha256": "0d4506534c31bd3aa03996b43c61d681920f0d2f4ceb1bd6bc7b6a8e892165e8"
+  },
+  "harness/reference/options/opt-autosave-war/keys.log.xz": {
+    "bytes": 23932,
+    "sha256": "e3af0a79e218f086b2578a80e3db325f47260bb4fcbdb3114ab83bb19f97b2d1"
+  },
+  "harness/reference/options/opt-autosave-war/messages.log.xz": {
+    "bytes": 390156,
+    "sha256": "62a277b97b07d5719d336f485118d388723ee6bd40a9b74d39e58b93a9e14e09"
+  },
+  "harness/reference/options/opt-autosave-war/state.log.xz": {
+    "bytes": 168288,
+    "sha256": "93648f368515925833ca1f930b617efcd15e734c604295897adf568187c5474e"
+  },
+  "harness/reference/options/opt-autosave-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "4e15fd6b92b0b32cef5d141f94e44bcd1bfa72fdeb7a90c1449c664b8c155709"
+  },
+  "harness/reference/options/opt-chest-war/config.txt": {
+    "bytes": 126,
+    "sha256": "334c44a527daa8eae6577941be1ce56f3c9ea2c0d5fabf4da5aae3890e3031a0"
+  },
+  "harness/reference/options/opt-chest-war/keys.log.xz": {
+    "bytes": 21752,
+    "sha256": "a02f1fcbedcaaef9a9917a8f81d56a2ed6f960dab9f735d18f97a6283d123f9a"
+  },
+  "harness/reference/options/opt-chest-war/messages.log.xz": {
+    "bytes": 383208,
+    "sha256": "6abe0d63998c13e4923860bd79fab2d19f88485d7af6955c0a3567a9a413117f"
+  },
+  "harness/reference/options/opt-chest-war/state.log.xz": {
+    "bytes": 146428,
+    "sha256": "9b57cd2734269f9b595310bbc3cc0ac200a2ef48b6fccaee4c11effd8cf70e1c"
+  },
+  "harness/reference/options/opt-chest-war/summary.json": {
+    "bytes": 2026,
+    "sha256": "aa4166b440b04a7857e9dea9f7eb03d94bbd3c5f5464ce9e5dcbff89acfa8612"
+  },
+  "harness/reference/options/opt-dyn-mage/config.txt": {
+    "bytes": 127,
+    "sha256": "5ac684e18c165c3a2b66b71762d710525d4f7b16633131a999e17f3381b119be"
+  },
+  "harness/reference/options/opt-dyn-mage/keys.log.xz": {
+    "bytes": 8228,
+    "sha256": "2363efc5c66bc2e1b629bb19714e0768629794dddcd34d095676a9f77ffb1cd8"
+  },
+  "harness/reference/options/opt-dyn-mage/messages.log.xz": {
+    "bytes": 43704,
+    "sha256": "99aeb73102b19010c08929ec20eab54cf28eccb049284acef2b2ee5977ca77a6"
+  },
+  "harness/reference/options/opt-dyn-mage/state.log.xz": {
+    "bytes": 17612,
+    "sha256": "be7d6f04c1ce8b4b395b74690cec1ceea54f1290cb50c1a1e6ac331ec6729743"
+  },
+  "harness/reference/options/opt-dyn-mage/summary.json": {
+    "bytes": 2043,
+    "sha256": "b23e57bad89394fee616ffdf5c677560aa3a00504f00a53f9afa3015dd446862"
+  },
+  "harness/reference/options/opt-dyn-priest/config.txt": {
+    "bytes": 127,
+    "sha256": "aa9a21f438db458d9d08bb2b30582a01bd9b425b73318015f5822b7d39fd67ff"
+  },
+  "harness/reference/options/opt-dyn-priest/keys.log.xz": {
+    "bytes": 7228,
+    "sha256": "0cc97d85c71a985b6f2ed5ad25611b817ad9899e15d58ba5a9a4e266dddc4aa0"
+  },
+  "harness/reference/options/opt-dyn-priest/messages.log.xz": {
+    "bytes": 32392,
+    "sha256": "90586a0d2f4c0dbe6afceebff14115a301c6986e6345f3582e04c777653090a9"
+  },
+  "harness/reference/options/opt-dyn-priest/state.log.xz": {
+    "bytes": 20404,
+    "sha256": "fb12116ff60260b8321c2da29a8b47e5f20e9c9627d18a30f87c2897cee7c418"
+  },
+  "harness/reference/options/opt-dyn-priest/summary.json": {
+    "bytes": 2042,
+    "sha256": "ebae0c6f40d817434e0700714980893041f247ce97064b6bb786ee06547bd637"
+  },
+  "harness/reference/options/opt-dyn-war/config.txt": {
+    "bytes": 127,
+    "sha256": "82864b6bf6e7329b60069d200b50284805901cd7976537f6cbd92950a675e3c5"
+  },
+  "harness/reference/options/opt-dyn-war/keys.log.xz": {
+    "bytes": 16808,
+    "sha256": "9bd4f386fc9944c214003d6c2f4c5c309eefd78fc51d455baeaf402be49acb94"
+  },
+  "harness/reference/options/opt-dyn-war/messages.log.xz": {
+    "bytes": 241760,
+    "sha256": "fc09fa535305ecfe7a78772a8356835addf4477362b89320d615bf708ddc9ce6"
+  },
+  "harness/reference/options/opt-dyn-war/state.log.xz": {
+    "bytes": 134132,
+    "sha256": "929db4122016e5312516062747148c44d5586ad5c3a0c32d07eb5ae9baef2b25"
+  },
+  "harness/reference/options/opt-dyn-war/summary.json": {
+    "bytes": 2045,
+    "sha256": "b4e2bcabaad796f4e8f91c237d6b66819e4dc7fd09a89e7d82c99927e0112d2f"
+  },
+  "harness/reference/options/opt-munchkin-limits-war/config.txt": {
+    "bytes": 151,
+    "sha256": "e68d0aabe7dc5e122d01164ae1002b0287a77b9d279ed4a70800f5a41717726e"
+  },
+  "harness/reference/options/opt-munchkin-limits-war/keys.log.xz": {
+    "bytes": 11084,
+    "sha256": "80ef3650c5a9af70121e5f1af937bbfad5b3772e121211406e45996034395610"
+  },
+  "harness/reference/options/opt-munchkin-limits-war/messages.log.xz": {
+    "bytes": 156136,
+    "sha256": "5f4ff7fc9f5b72004f693f067c9175011b24854d8d1e12cbe8916d1cccb66352"
+  },
+  "harness/reference/options/opt-munchkin-limits-war/state.log.xz": {
+    "bytes": 58120,
+    "sha256": "8abf73004616e9f36fc20531b0b7d5186894c2320600f096d373ea47684d41d4"
+  },
+  "harness/reference/options/opt-munchkin-limits-war/summary.json": {
+    "bytes": 2022,
+    "sha256": "055e2aff7c9bea4854de873d114f151344b0b00c630ff2006ad29fbcbf443b51"
+  },
+  "harness/reference/options/opt-nodeeper-war/config.txt": {
+    "bytes": 115,
+    "sha256": "42b29b598fd649838e0e1a98920448137e381fa441e97e06c3c8758c70af1c8d"
+  },
+  "harness/reference/options/opt-nodeeper-war/keys.log.xz": {
+    "bytes": 31144,
+    "sha256": "325ef2f2ebf0b7090f2d6e3525f22906f881d01af1275a1f9cfec99fea705697"
+  },
+  "harness/reference/options/opt-nodeeper-war/messages.log.xz": {
+    "bytes": 511508,
+    "sha256": "095c84a61c6c1756c04d694a6fc421f6b887fc345937f6e17340f0ff20e96c22"
+  },
+  "harness/reference/options/opt-nodeeper-war/state.log.xz": {
+    "bytes": 234476,
+    "sha256": "611be5c76b4f1e6baae5cbb0e762588be39c99159f1f91fee172d66b80c6c8e3"
+  },
+  "harness/reference/options/opt-nodeeper-war/summary.json": {
+    "bytes": 2025,
+    "sha256": "cb8a38a254412100b25a3b3ea7fcf743c7c43af4f98c1d96b067bd34885bb5c9"
+  },
+  "harness/reference/options/opt-noswap-war/config.txt": {
+    "bytes": 120,
+    "sha256": "aefb5bdcf3c770207f08df0adbb84ca85a33ddf629080e16a13310a96aad80e7"
+  },
+  "harness/reference/options/opt-noswap-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-noswap-war/messages.log.xz": {
+    "bytes": 389276,
+    "sha256": "fff9b96a9cc248d2c9251d9563b9df7b9f6d87190017fa5778e994b28aae5136"
+  },
+  "harness/reference/options/opt-noswap-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-noswap-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "3fe09d5ecdd47692f156df521f13f6b35f5db841e708d0074474610f4bd75037"
+  },
+  "harness/reference/options/opt-respawn-druid/config.txt": {
+    "bytes": 102,
+    "sha256": "a9891d3dfdd6f6cca3f72a66c5bc99ce6cc7532e19a05ba12f0843cd28ed0dbe"
+  },
+  "harness/reference/options/opt-respawn-druid/keys.log.xz": {
+    "bytes": 13472,
+    "sha256": "bfe1ae720036b444a1a88770be7b7c8f58d16734c391b327a22a8806e753dd0f"
+  },
+  "harness/reference/options/opt-respawn-druid/messages.log.xz": {
+    "bytes": 147712,
+    "sha256": "c7dd4301315604ef766a6ad9c093d38d4dc789ba039be186d1b05ef09e766991"
+  },
+  "harness/reference/options/opt-respawn-druid/state.log.xz": {
+    "bytes": 56796,
+    "sha256": "2a3343d90d0cecac2e5d6c5ba6aed8d45ed707544304c078d2086003908b9c20"
+  },
+  "harness/reference/options/opt-respawn-druid/summary.json": {
+    "bytes": 2063,
+    "sha256": "be6aff5848802095a2b15cc41c955e07100ac6ab14fb13dc92f7ec831270df98"
+  },
+  "harness/reference/options/opt-respawn-random-druid/config.txt": {
+    "bytes": 145,
+    "sha256": "dadd00d404806e132ae2331ec1196fb632508b3224ba4c8a84a1d5d97ba26fe0"
+  },
+  "harness/reference/options/opt-respawn-random-druid/keys.log.xz": {
+    "bytes": 21108,
+    "sha256": "7d6f9e82a02ddd698fe41ff0f55b38743649d448af54d3e2e97632cfd6f37493"
+  },
+  "harness/reference/options/opt-respawn-random-druid/messages.log.xz": {
+    "bytes": 303608,
+    "sha256": "0b07cfda5ae4b92896499ef520b7dafc26c3fd0e74518e9a52fe49d6a9b378ed"
+  },
+  "harness/reference/options/opt-respawn-random-druid/state.log.xz": {
+    "bytes": 127240,
+    "sha256": "81d421f256d12d2230897ff025ab839e5f198ad8e4802fd33a0e9bb0196e6a67"
+  },
+  "harness/reference/options/opt-respawn-random-druid/summary.json": {
+    "bytes": 2068,
+    "sha256": "e713406070d39cd5b10509b8406acbeadc5e0d56c37b3d02860819e6ef968599"
+  },
+  "harness/reference/options/opt-risky-war/config.txt": {
+    "bytes": 120,
+    "sha256": "c8e09d3d3f4adb5e308a57ac95768d4b7e8f357b413bfd795c3652fb178086e4"
+  },
+  "harness/reference/options/opt-risky-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-risky-war/messages.log.xz": {
+    "bytes": 389264,
+    "sha256": "2fb35adae8d6d16d9e34ba9262dc7c90274f044c85b438c58ae0957d67e074e6"
+  },
+  "harness/reference/options/opt-risky-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-risky-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "c411eee6803ecb4548e3c09c7725ca057a359f0db0ad966b940c913700ffcec1"
+  },
+  "harness/reference/options/opt-scum-done-mage/config.txt": {
+    "bytes": 146,
+    "sha256": "01302056b3974fdce1910b59eddcf3ae909828e2b6707bf733660e61ccad9d87"
+  },
+  "harness/reference/options/opt-scum-done-mage/keys.log.xz": {
+    "bytes": 84,
+    "sha256": "d682344320c1ef8980bdcb834c78b19c2d25243177d6ce34a8b253627dc6696f"
+  },
+  "harness/reference/options/opt-scum-done-mage/messages.log.xz": {
+    "bytes": 252,
+    "sha256": "09433dd4929848e49d0b206e85698815b9280a978c36148602438f977a67317d"
+  },
+  "harness/reference/options/opt-scum-done-mage/state.log.xz": {
+    "bytes": 184,
+    "sha256": "9a00912a2f476afe41a466f5e852c01e3eb27500a0379695f5eabbddd919c8ac"
+  },
+  "harness/reference/options/opt-scum-done-mage/summary.json": {
+    "bytes": 837,
+    "sha256": "2d13c6954a6f6921a8481ff7de798c783513eb6fe5ecaaf18022ec3fdf33cb0c"
+  },
+  "harness/reference/options/opt-scum-mage/config.txt": {
+    "bytes": 126,
+    "sha256": "9fb7b4932fdd2832fe2690a2b57c6b7f3d454f84c42648c42d030164213c7f6f"
+  },
+  "harness/reference/options/opt-scum-mage/keys.log.xz": {
+    "bytes": 3504,
+    "sha256": "3c72406ba1ac2515243f80de1bf5fa32ab99b1cad83b8906b0b714440735661e"
+  },
+  "harness/reference/options/opt-scum-mage/messages.log.xz": {
+    "bytes": 4396,
+    "sha256": "787fee695b9fdc2294aabe05043d947a124c6d9b34b357843a94768975ed472d"
+  },
+  "harness/reference/options/opt-scum-mage/state.log.xz": {
+    "bytes": 4508,
+    "sha256": "350603bed373c7224e352f9a98cac641de0fa677ff56745ca5684feed932c682"
+  },
+  "harness/reference/options/opt-scum-mage/summary.json": {
+    "bytes": 2024,
+    "sha256": "d2ce3b048f5bffd87c0f1e349180687558684378796b6acd18f9e4883023f7b9"
+  },
+  "harness/reference/options/opt-scum-noself-mage/config.txt": {
+    "bytes": 147,
+    "sha256": "1fd108ecf6c5e447630a76e4a83e918b63228e830afe94406126bbd2af1b87a9"
+  },
+  "harness/reference/options/opt-scum-noself-mage/keys.log.xz": {
+    "bytes": 3432,
+    "sha256": "2bd94447ab50821145d7be593117225ebb85c3b5eb82f88a32308ce35dfa689e"
+  },
+  "harness/reference/options/opt-scum-noself-mage/messages.log.xz": {
+    "bytes": 4392,
+    "sha256": "af7945e6bdd87289cc039e4780b752c7d128a90506773dc50657c51202972160"
+  },
+  "harness/reference/options/opt-scum-noself-mage/state.log.xz": {
+    "bytes": 4492,
+    "sha256": "d5ccf35df3e39e051de62c80c312400058e17b44cbe58ee178886ef9f2d1c66f"
+  },
+  "harness/reference/options/opt-scum-noself-mage/summary.json": {
+    "bytes": 2024,
+    "sha256": "af226c05b5f22ca89362e4002a61c94dfaad2d9a67e912ccab1b0020f6abe615"
+  },
+  "harness/reference/options/opt-scum-war/config.txt": {
+    "bytes": 126,
+    "sha256": "de7b0c06dab420dc0b377099e3d870512f8a62ec1ed5a8be79486038a4b1e99d"
+  },
+  "harness/reference/options/opt-scum-war/keys.log.xz": {
+    "bytes": 4288,
+    "sha256": "313a2b4c27aaebcb1d37c4b38aae9f28fe94ebd7c4feda751f14ba4c17bf3b77"
+  },
+  "harness/reference/options/opt-scum-war/messages.log.xz": {
+    "bytes": 7580,
+    "sha256": "63653694f149538b541a94d2b159aab33e6e140300e61c772cc8025e922293a5"
+  },
+  "harness/reference/options/opt-scum-war/state.log.xz": {
+    "bytes": 5560,
+    "sha256": "36a955920bbb3ee8913161b1555802c7f7d22cbda345be1a6609e965396e6ad4"
+  },
+  "harness/reference/options/opt-scum-war/summary.json": {
+    "bytes": 2021,
+    "sha256": "ed68b6ee64ef3cfc1264a8005ce9e12fed04eafc3c84f0d665371417bc523a74"
+  },
+  "harness/reference/options/opt-stopclevel-war/config.txt": {
+    "bytes": 117,
+    "sha256": "a065b97218684d147b546f7c7bc1ec6c5ec7876d185637828d5c14c8ee1a0f67"
+  },
+  "harness/reference/options/opt-stopclevel-war/keys.log.xz": {
+    "bytes": 1700,
+    "sha256": "daa9a1baf022971dcfc2f4086b82d8af41cce593f3b455bb1f4bf2f03035791e"
+  },
+  "harness/reference/options/opt-stopclevel-war/messages.log.xz": {
+    "bytes": 25000,
+    "sha256": "7195b60278ac2c455e53885848e7498a18cceebd82ac5978e8594a5f0300107f"
+  },
+  "harness/reference/options/opt-stopclevel-war/state.log.xz": {
+    "bytes": 9792,
+    "sha256": "5103c77a854138e0bbeec2984e679d65bd9d42303b8fab2234c9ee49130bcfaf"
+  },
+  "harness/reference/options/opt-stopclevel-war/summary.json": {
+    "bytes": 2021,
+    "sha256": "81087418782a644a6cc237c3b0ac4db95184e2e362831243bcd04b111b68462c"
+  },
+  "harness/reference/options/opt-stopdlevel-war/config.txt": {
+    "bytes": 117,
+    "sha256": "2ddc9c81072949d298d857ff0ba5585f0d0063b2c18d9961057d213bbb5287de"
+  },
+  "harness/reference/options/opt-stopdlevel-war/keys.log.xz": {
+    "bytes": 1092,
+    "sha256": "692cc4f9178e3fd65821159eb3640f5b532b31627a92e4f7d252ebf551d6602b"
+  },
+  "harness/reference/options/opt-stopdlevel-war/messages.log.xz": {
+    "bytes": 6304,
+    "sha256": "a9e2aee65fd2f7956ea085841d54fa5cad7b8b03c8e0891591a0661894b9daa5"
+  },
+  "harness/reference/options/opt-stopdlevel-war/state.log.xz": {
+    "bytes": 2644,
+    "sha256": "8c5c1bd9eb763e15083fd829ac1bc01fe67ae13d3f8ff47adc2d981d4d8a7d10"
+  },
+  "harness/reference/options/opt-stopdlevel-war/summary.json": {
+    "bytes": 2013,
+    "sha256": "bdfe4e3e995079119830b1a8c92fc183f4e0766b336e5c96fab40491f7822dc6"
+  },
+  "harness/reference/options/opt-uniques-war/config.txt": {
+    "bytes": 122,
+    "sha256": "08c2dd5fb0aec252ef271e4550242a31639da9ef0d59d1d867abbd7ec944a8b2"
+  },
+  "harness/reference/options/opt-uniques-war/keys.log.xz": {
+    "bytes": 25764,
+    "sha256": "0fe4ca4184b73ac299727ba5c3ee2d63c616b08f18d1c2305ff2eafd10956a81"
+  },
+  "harness/reference/options/opt-uniques-war/messages.log.xz": {
+    "bytes": 482768,
+    "sha256": "467d3366b867c38aceafe3e211746605cbce59b33bbfcc2e072a9cb691458193"
+  },
+  "harness/reference/options/opt-uniques-war/state.log.xz": {
+    "bytes": 196148,
+    "sha256": "80f696dd2509d03acc3601a4b25f2c01d5ce3dfec4aed7a711525430ea840e3c"
+  },
+  "harness/reference/options/opt-uniques-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "68a051b031bf9009dbb4942b539e15988360f869251b171eb6c7b73cf8af3501"
+  },
+  "harness/reference/options/opt-verbose-war/config.txt": {
+    "bytes": 116,
+    "sha256": "0c2d19d2e3d04665517a4f6d21f2070a3fffab9f3fd1ecf0832d706205f64bdd"
+  },
+  "harness/reference/options/opt-verbose-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-verbose-war/messages.log.xz": {
+    "bytes": 841044,
+    "sha256": "738fb16e05f85c0d121c4de81a87f9c9905f61a7f63a22035dc0074c309e83a7"
+  },
+  "harness/reference/options/opt-verbose-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-verbose-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "0b39f7c11130349ad293bdd12234cd6816cb6e96f18997009d5a5d32bbed4b5a"
+  },
+  "harness/reference/options/opt-wac-war/config.txt": {
+    "bytes": 120,
+    "sha256": "54d39258d932d15cf5900f0a1045e842c082cbaa9434265c664f6827f783695a"
+  },
+  "harness/reference/options/opt-wac-war/keys.log.xz": {
+    "bytes": 10076,
+    "sha256": "86744c404b39bc8eab0bebe4f1378945e4885820e0fd3856dc9cb3bc31285a59"
+  },
+  "harness/reference/options/opt-wac-war/messages.log.xz": {
+    "bytes": 161148,
+    "sha256": "1aa8629a914a89c4efd3282db6e326a9f51fb2f43fe9fb57f4c83be68cb59292"
+  },
+  "harness/reference/options/opt-wac-war/state.log.xz": {
+    "bytes": 63904,
+    "sha256": "7e121e9ae8effcf779bbbe4a30159d30533e4403f3aba8ecee3e8398b47d2359"
+  },
+  "harness/reference/options/opt-wac-war/summary.json": {
+    "bytes": 2023,
+    "sha256": "8d6c4e36c40c03974141d80aaf20cf79d4c36f90deeebad24522ff418a74ff70"
+  },
+  "harness/reference/options/opt-wdam-war/config.txt": {
+    "bytes": 124,
+    "sha256": "3d3293df2d97d7915ccb59c02022cd106de47289e02603b46d4ddbe55f003813"
+  },
+  "harness/reference/options/opt-wdam-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-wdam-war/messages.log.xz": {
+    "bytes": 390560,
+    "sha256": "11c57b6293944d72a3cfcaf30b0fbb1a4b73d3cf70c1bd4f905ca1d0f618c5ed"
+  },
+  "harness/reference/options/opt-wdam-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-wdam-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "672051a9c2ef2252db5e80ce6454c3ef7500787694b8f710d355669615dbbdc7"
+  },
+  "harness/reference/options/opt-wgold-war/config.txt": {
+    "bytes": 122,
+    "sha256": "6625e8e3e877dff7ce372bc69c505ee17cb768b9ccbab99bd45a43a1cc215569"
+  },
+  "harness/reference/options/opt-wgold-war/keys.log.xz": {
+    "bytes": 15184,
+    "sha256": "dc381c71f9849974bd37893a812fcf828f7a0632100dc616fd6bf30ab135fb8c"
+  },
+  "harness/reference/options/opt-wgold-war/messages.log.xz": {
+    "bytes": 248936,
+    "sha256": "6287d03fdf93784a2efb9f116957eac0ddaa06133e556f74b9d9eb6aeec4b3c2"
+  },
+  "harness/reference/options/opt-wgold-war/state.log.xz": {
+    "bytes": 98088,
+    "sha256": "186db376c32bb2dd93aa689382e1de0a60194ee0905375b878c19f7f1ac43462"
+  },
+  "harness/reference/options/opt-wgold-war/summary.json": {
+    "bytes": 2026,
+    "sha256": "254dafbc567bbf3f4cb6c37bdb9aa7f29e36c949b4f9c940a5cdb6c156dae08c"
+  },
+  "harness/reference/options/opt-whp-war/config.txt": {
+    "bytes": 120,
+    "sha256": "bb906455b0d84cd4363057d799d2c7609009f33348420a9d4a967b65e5b112ae"
+  },
+  "harness/reference/options/opt-whp-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-whp-war/messages.log.xz": {
+    "bytes": 389788,
+    "sha256": "2eb6aebfdc2fa7714f4c4568047805cdc2e63377039396f988084b4333232ae1"
+  },
+  "harness/reference/options/opt-whp-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-whp-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "ed78e946023ea9167e7791f7d8b5dc5e17a24d32f44eb197bc0d772ce66d8179"
+  },
+  "harness/reference/options/opt-wmana-rogue/config.txt": {
+    "bytes": 122,
+    "sha256": "3e736c48be37641f9f005e0c98e1667710a820d6f528429a5691bc82ec287c12"
+  },
+  "harness/reference/options/opt-wmana-rogue/keys.log.xz": {
+    "bytes": 163744,
+    "sha256": "a8f5c3db3b57fc5b3a6b4a1c3a047e6b67db0265497ca057352f6fd65225895d"
+  },
+  "harness/reference/options/opt-wmana-rogue/messages.log.xz": {
+    "bytes": 593940,
+    "sha256": "3ed4185c24574eb667878a1266bc00499c9fcecd9761ba6c64a7ba75672ad02c"
+  },
+  "harness/reference/options/opt-wmana-rogue/state.log.xz": {
+    "bytes": 461452,
+    "sha256": "463deefc827433e3c8fd5cc0e4404ecd5fa1fd5959847e92e586d04ce1fc05e3"
+  },
+  "harness/reference/options/opt-wmana-rogue/summary.json": {
+    "bytes": 2033,
+    "sha256": "1e6872dc84b25a85e8adc840affa46c0410a013501f626563eee38a298f99946"
+  },
+  "harness/reference/options/opt-wspeed-war/config.txt": {
+    "bytes": 123,
+    "sha256": "e0971b8c08a12c3327d755bd2760c56bae00b67130d9b14a4f7ffb98a6445d1c"
+  },
+  "harness/reference/options/opt-wspeed-war/keys.log.xz": {
+    "bytes": 23348,
+    "sha256": "a388369ce9df039001f26320cae7b5c79116244437d67e22eb78baf13d8967d8"
+  },
+  "harness/reference/options/opt-wspeed-war/messages.log.xz": {
+    "bytes": 389056,
+    "sha256": "ce9488afcf53a03856bad1e02bedc46965971fb20c82b8efae5a13646115323d"
+  },
+  "harness/reference/options/opt-wspeed-war/state.log.xz": {
+    "bytes": 168340,
+    "sha256": "1244ab6c375ff76cbb6d9d04631aff65ddf84f10faa8d8adab41caba767f128c"
+  },
+  "harness/reference/options/opt-wspeed-war/summary.json": {
+    "bytes": 2027,
+    "sha256": "3f6d5b76d3c519d64668c32b37c0d65aa5be65241e60ebbacb1f6ae9b697f3a4"
+  },
+  "harness/reference/options/timing.txt": {
+    "bytes": 2607,
+    "sha256": "cb8390f50199455db029a60d188496e74be3081334d7b2ab228a7aa63d449c5f"
+  },
+  "harness/reference/smoke/DONE": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "harness/reference/smoke/manifest": {
+    "bytes": 1480,
+    "sha256": "53dad2ead0570fe3804e7ad26ce11fbb06149247a9d64d59e964a1557ac06c12"
+  },
+  "harness/reference/smoke/smoke-mage-2/config.txt": {
+    "bytes": 89,
+    "sha256": "7442d4c4100c6533d506897f067cf42e834c45425f6d390b1319364942db1e65"
+  },
+  "harness/reference/smoke/smoke-mage-2/keys.log.xz": {
+    "bytes": 2184,
+    "sha256": "5d7ea5ac4b34e5566553474cd51abc79eba5dc1f0aad4dfa97c25b52184df376"
+  },
+  "harness/reference/smoke/smoke-mage-2/messages.log.xz": {
+    "bytes": 9964,
+    "sha256": "4b217a6094ff4fd1eeca5456d9dccca947aae5022355c387743133cb744c8c08"
+  },
+  "harness/reference/smoke/smoke-mage-2/state.log.xz": {
+    "bytes": 5328,
+    "sha256": "6bc16f17dd026c423f7ab283e401bf61ee0c69497cfa26e04d0ccd862595a5f0"
+  },
+  "harness/reference/smoke/smoke-mage-2/summary.json": {
+    "bytes": 1990,
+    "sha256": "67b86767770b645471cfbf1c76f2732e23b8b3e4f662fe9ce2ee7142eb9b4768"
+  },
+  "harness/reference/smoke/smoke-priest-3/config.txt": {
+    "bytes": 89,
+    "sha256": "d6bcff0148c0a6aca69e8c12399d7e0af00e362850a8152b6adbcea77aa83db5"
+  },
+  "harness/reference/smoke/smoke-priest-3/keys.log.xz": {
+    "bytes": 2492,
+    "sha256": "a8108cee0da1d98885226c4ee1d4a34ffb40515ea568b2363c4d41f48ee4c8ff"
+  },
+  "harness/reference/smoke/smoke-priest-3/messages.log.xz": {
+    "bytes": 12796,
+    "sha256": "85f45d38eb7a855f3cf71cdce3008ed84226c1c91c916b69600646aa1b0dc375"
+  },
+  "harness/reference/smoke/smoke-priest-3/state.log.xz": {
+    "bytes": 7388,
+    "sha256": "d77780500fb12c31abdc071a3acf35daa25edd3b4a188b4df28fe90b5d40975d"
+  },
+  "harness/reference/smoke/smoke-priest-3/summary.json": {
+    "bytes": 1993,
+    "sha256": "78b12678dcd6d00f30362bab8bb1a4317a938ccfa1dab9a8570290656c39ff5c"
+  },
+  "harness/reference/smoke/smoke-warrior-1/config.txt": {
+    "bytes": 89,
+    "sha256": "6f44ef352f99b0110bb0663bd90748c708e3058114e3c34e6e971c1a8c45712f"
+  },
+  "harness/reference/smoke/smoke-warrior-1/keys.log.xz": {
+    "bytes": 4692,
+    "sha256": "3842bcb68576fe2fe95effde48ab112e6fe3ec29dfee1755b84670cb659d2a79"
+  },
+  "harness/reference/smoke/smoke-warrior-1/messages.log.xz": {
+    "bytes": 66620,
+    "sha256": "69b9499cea3febdf0ecf5842ada40f7e39553dd1a58f8d8937a5187a3b051715"
+  },
+  "harness/reference/smoke/smoke-warrior-1/state.log.xz": {
+    "bytes": 24220,
+    "sha256": "679d51b493bd5fb79441a296ec99ef3519934a65162fbccb1d1ed0b33d80f932"
+  },
+  "harness/reference/smoke/smoke-warrior-1/summary.json": {
+    "bytes": 1996,
+    "sha256": "934a2251dd5499a956c0333a920de00df3fe0d48d68abccecfb156228f9a2449"
+  },
+  "harness/reference/smoke/timing.txt": {
+    "bytes": 344,
+    "sha256": "f6f0173ed467e4d8b760222d180d4739a0afbce32fa30898e11077df59c1b56c"
+  }
 }
