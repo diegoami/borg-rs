@@ -46,6 +46,58 @@ variant tag is placed: the family lane remains an experiment with no benefit
 claim.
 
 
+## Carry better-borg-c milestone 12 as v12R (impact v12R)
+
+Owner direction (2026-11-13): carry the consumer's milestone 12
+(`4.2.6-impact-v12`, `4e1b912cb`) into borg-rs as **v12R**, the Rust
+counterpart of its one carry unit 0118 NEWKILL-95 and of the official
+angband import since impact v11. This is an explicit carry, not an
+automatic post-M10 queue; the family lane is untouched.
+
+The consumer retired its own carries 0001 (CBUG-0066 safer emergency swap)
+and 0002 (CBUG-0002 knockout reaction gate) because upstream now carries
+that logic, so v12R carries the same retirements. The C side is the
+consumer's v12 blobs for the seven changed Borg files, and the vendored
+engine moves from `e473720ed` to the imported `42cd156ac`, keeping borg-rs's
+own fork corrections and harness hooks. The Rust side is three
+translations: 0118 in `borg_flow_kill.rs`, the reaction gate on
+`borg.dont_react` (the separate `MsgState` copy is removed), and the
+upstream form of the emergency swap in `borg_item_wear.rs`. Record:
+[adoption/c-v12r](adoption/c-v12r/README.md); `docs/c-bugs.md` marks the
+corrected findings.
+
+Validation: **70/70 runs identical** between the C and the Rust role on
+keys, messages and state (smoke 3/3, full 45/45, classes 16/16, the six
+review config runs 6/6); the Rust binary links no C Borg; 122 Rust tests
+pass (one existing ignored); the seven clippy findings are the ones that
+already exist on main with this sandbox's newer toolchain, and the carry
+adds none. Receipt:
+[docs/validation/2026-11-13-c-v12r](validation/2026-11-13-c-v12r/README.md).
+
+The import changes engine behaviour, so the standing C reference (recorded
+on the `e473720ed` engine) no longer described the Borg: the new C build
+matched 0/45 of `harness/reference/full`. That was the expected consequence
+of the import. On owner direction the oracle has since been refreshed: the
+suite oracles `smoke`, `full`, `classes`, `config` and `config-six` were
+re-made from the v12R C build, each suite run twice with the two passes
+identical, and the Rust role matches the new oracles 3/3, 45/45, 16/16 and
+6/6 on keys, messages and state. The `options` and `deep` oracles are still
+the M1-era recordings (on the imported engine `options` costs about four
+hours per C pass here), as are the investigation corpora;
+`harness/reference/README.md` maps every corpus to what it is.
+
+Independent review of [PR #58](https://github.com/diegoami/borg-rs/pull/58): one
+blocking finding - the branch did not compile, because `borg.rs:433` and
+`borg_caution.rs:1509` still read the removed `MsgState.dont_react` after the
+reaction gate moved to `borg.dont_react` (a stale push of those two files, not the
+carry). Fixed in `c1e5df3`; the recheck at `071c5c5` reports **no remaining
+findings**. The reviewer could not run the build or the tests (no Cargo on their
+side, and the repository has no CI workflow, so no Actions run exists for any head);
+the build and test evidence is the author's, taken on the exact pushed tree - 122
+tests pass, the same seven pre-existing clippy findings, 70/70 C/Rust parity and a
+fresh C run matching the installed oracle 3/3. The carry is reviewed and awaits
+owner acceptance; the v12R tag decision remains with the owner.
+
 ## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
 
 Owner direction (2026-11-10): carry the consumer's milestone 11

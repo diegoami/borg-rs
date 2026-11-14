@@ -15,5 +15,14 @@
   "dead": false,
   "death_cause": "",
   "keys": 2,
-  "wall_seconds": 0.022
+  "calendar": "fixed",
+  "max_clevel": 1,
+  "hp": 10,
+  "max_hp": 10,
+  "borg_decisions": 0,
+  "player_energy": 0,
+  "borg_rng": 0,
+  "game_rng": {"quick": false, "quick_rng": 698153504, "rng_index": 9, "rng": "5368426da26ce2ee3946fc339ae32b2cf9be9d7cbfb89c096f9605a56538252144a69b8a97410eda5a8fd7e1e663ba591f0cfbf84ace158326ef6276a4861e513592de95bb892424a708656ed4dfed8d600203b84a7bbf71bff8cbaf679c9114ce3eabca674edb7171156e30f6db02855fa9ca02e6c4f2b94d51a9d185a8c9dd"},
+  "effective_settings": {},
+  "wall_seconds": 0.026
 }

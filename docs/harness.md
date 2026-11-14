@@ -359,18 +359,26 @@ suite output).
 | `family-buying` | 8 x 20k, Rust-only | current vs reserve410, direct and class/mode-selected pairs; validator `harness/regress/family-buying-test.py` |
 | `family-identify` | 4 x 20k, Rust-only | `borg_buy_identify = 1` across both strategies; C ignores the switch and never learns, so a C run would fail the validator |
 
-`harness/reference/<suite>/<run>/{keys.log.xz,summary.json}` are the C
-Borg's logs for each suite, made from the C build. Each run dir also has
-`messages.log.xz` and `state.log.xz` (M4 step A), added later from the C
-build of `10303cba9`: that build ran every suite twice, both passes'
-`keys.log` and `summary.json` (apart from `wall_seconds`) were
-byte-identical to the stored ones, and the two passes' message and state
-logs were identical; the existing reference files were not changed. They
-add 10.9 MB (messages) and 6.9 MB (state) of xz to the 2.4 MB of key
-logs. Check a build with:
+`harness/reference/<suite>/<run>/{keys.log.xz,messages.log.xz,state.log.xz,summary.json,config.txt}`
+are the C Borg's logs for each suite, made from the C build. They are the
+oracle a build is checked against:
 
     BORG_IMPL=rust harness/suite.sh full
     harness/diff --suite full --expect-impl rust harness/out/rust/full harness/reference/full
+
+The suite oracles were refreshed for the v12R carry, on the imported
+`42cd156ac` engine with the consumer's milestone 12 Borg: the C build ran
+each suite **twice**, the two passes were identical on `keys.log`,
+`messages.log`, `state.log` and `summary.json` (apart from `wall_seconds`),
+and one pass was stored as the `.xz` logs above, with the suite's
+`manifest`, `timing.txt` and `DONE` marker. That covers `smoke`, `full`,
+`classes`, `config` and `config-six`; the `options` oracle is still the
+M1-era recording (on the imported engine that suite costs about four hours
+per C pass here, and it was not affordable in the refresh session). The
+digests of every stored file are in
+`docs/validation/2026-11-13-c-v12r/oracle-digests.json`; the map of
+which corpus is the current oracle and which is frozen investigation
+evidence is in [harness/reference/README.md](../harness/reference/README.md).
 
 The oracle (keys, messages, state digest) does not see screen output,
 the Borg's internal state (only through keys and notes), engine state

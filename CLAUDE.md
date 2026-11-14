@@ -39,6 +39,16 @@ runtime units to Rust. This is a deliberate exception, not a resumption of an
 automatic later-milestone queue; later BBC targets still need explicit owner
 direction.
 
+Owner update (2026-11-13): one owner-directed carry of better-borg-c
+milestone 12 was made as **v12R** (record
+[docs/adoption/c-v12r](docs/adoption/c-v12r/README.md)). It carries the
+consumer's 0118 NEWKILL-95 and the official angband import since impact
+v11 (`42cd156ac`), and retires the consumer's carries 0001 and 0002 because
+upstream now carries that logic. Like v11R, it is an explicit owner-directed
+carry, not a resumption of an automatic later-milestone queue; later BBC
+targets still need explicit owner direction, and the family lane is
+untouched.
+
 The owner selected better-borg-c milestone2 on2026-11-08 and requested
 adoption issue [borg-rs#6](https://github.com/diegoami/borg-rs/issues/6).
 Target2675d198e4c3fcb1c69ee63ef25a2b6ac27ab96f contains seven fixes,

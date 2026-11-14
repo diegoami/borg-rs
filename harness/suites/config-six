@@ -1,0 +1,24 @@
+# config (six review runs): Borg config options other than cheat death.
+# Each run rewrites one option of the stock borg.txt (harness/run.sh config
+# flags) and uses the birth menu's real letters (flag "menu") and Borg cheat
+# death.
+#
+# This is the `config` suite without its seventh run, the 1,000,000-turn
+# `cfg-lunal-deep-warrior` case: on a two-core sandbox that run alone costs
+# about two hours per role. The six runs below are the ones the second
+# external review (REVIEW-821cad310) ran by hand: munchkin start and lunal
+# mode, each with the same three characters. Blackguard munchkin is slow
+# (about 137k keys by turn 20k), so its runs stop at 20k game turns.
+#
+# Used by the v12R validation (docs/validation/2026-11-13-c-v12r); the full
+# seven-run suite is harness/suites/config.
+# NAME                    SEED   RACE CLASS TURNS   FLAGS
+# borg_munchkin_start = TRUE
+cfg-munchkin-human-war    42     0    0     100000  menu,cheat,munchkin
+cfg-munchkin-halfelf-mage 12345  1    1     100000  menu,cheat,munchkin
+cfg-munchkin-dunadan-bg   1080   8    8     20000   menu,cheat,munchkin
+# borg_lunal_mode = TRUE (does not by itself reach borg_think_dungeon_lunal,
+# see docs/harness.md)
+cfg-lunal-human-war       42     0    0     100000  menu,cheat,lunal
+cfg-lunal-halfelf-mage    12345  1    1     100000  menu,cheat,lunal
+cfg-lunal-dunadan-bg      1080   8    8     20000   menu,cheat,lunal
