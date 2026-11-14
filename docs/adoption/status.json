@@ -1,6 +1,6 @@
 {
   "schema": "borg-rs/c-consumer-adoption@1",
-  "phase": "impact_v12r_author_validated",
+  "phase": "impact_v12r_reviewed_pending_owner",
   "review_issue": "https://github.com/diegoami/borg-rs/issues/2",
   "m5_candidate": "28468aa9fdc74cbb65d351349b973835d8c42af9",
   "m5_accepted_source": "020322749026418a666da3209c169f48ec9d608c",
@@ -25,7 +25,7 @@
       "target_commit": "4e1b912cbf6d2b8a0243b19ebddfb2d26e7509f2",
       "target_tag": "4.2.6-impact-v12",
       "previous_commit": "39268ca8a470d1cbd44de27bf1fd1b3ee403bada",
-      "state": "author_validated_pending_independent_review",
+      "state": "reviewed_pass_pending_owner_acceptance",
       "units": 3,
       "consumer_carries": 1,
       "official_import": true,
@@ -51,6 +51,15 @@
       "suites_not_run": "deep (9 x 1,000,000 turns) and options (25 runs): on the imported engine an options C pass costs about four hours on this two-core sandbox",
       "standing_reference": "the standing C reference no longer applied (0/45 against harness/reference/full): the import changes engine behaviour, so it was refreshed on owner direction (2026-11-13)",
       "oracle_refresh": "smoke, full, classes, config and config-six re-made from the v12R C build, each suite run twice with the two passes identical; the Rust role matches the new oracles 3/3, 45/45, 16/16 and 6/6; digests in docs/validation/2026-11-13-c-v12r/oracle-digests.json; options and deep are still the M1-era recordings",
+      "independent_review": {
+        "verdict": "pass on re-review; no remaining findings",
+        "reviewed_source": "d1099ab (the finding), re-review 071c5c5",
+        "finding": "blocking: the branch did not compile - borg-rs/src/borg.rs:433 and borg-rs/src/borg_caution.rs:1509 still read st.msgs.dont_react after MsgState.dont_react was removed",
+        "author_fix": "c1e5df3 - both sites use st.borg.dont_react and the Borg struct field is the gate itself again",
+        "finding_reported": "the reviewer, by source inspection (the finding was relayed by the owner; no GitHub review or review comment exists)",
+        "qualification": "the build and the tests were not independently reproduced: the reviewer has no Cargo locally and the repository has no CI workflow (no .github/workflows at the root), so no Actions run exists for any head. The build/test evidence is the author's, taken on the exact pushed tree: 122 tests pass (1 ignored), clippy reports the same seven pre-existing findings, and a fresh C run matches the installed oracle 3/3",
+        "open_findings": []
+      },
       "receipt_digests": "docs/validation/2026-11-13-c-v12r/suite-digests.json"
     },
     {
@@ -477,7 +486,7 @@
   ],
   "unchanged_engine_base": "42cd156ac9f95ddf4311e88dd7ad462292d6d1d6",
   "policy": "docs/C-CONSUMER-ADOPTION.md",
-  "next_action": "v12R is author-validated on branch claude/v12r-carry: the consumer's milestone 12 (0118 NEWKILL-95 and the official import) is carried in C and Rust. It awaits independent review and owner acceptance; no v12R tag is placed. The post-M10 family lane is separate and unaffected.",
+  "next_action": "v12R has been independently reviewed on branch claude/v12r-carry (head 071c5c5): one blocking finding - the branch did not compile, two Rust files still read the removed MsgState.dont_react - was fixed in c1e5df3 and the re-review found no remaining findings. The build and the tests were not independently reproduced (no Cargo on the reviewer's side, and the repository has no CI workflow, so no Actions run exists for any head); the build/test evidence is the author's, taken on the exact pushed tree. v12R awaits owner acceptance and the tag decision; no v12R tag is placed. The post-M10 family lane is separate and unaffected.",
   "independent_review": {
     "verdict": "pass",
     "acceptance_blockers": false,
@@ -503,7 +512,7 @@
   "active_batch": {
     "id": "c-v12r",
     "starting_rust_main": "4ed3263ba340ce907484465f2d3addbdf5eab8ed",
-    "state": "author_validated_pending_independent_review",
+    "state": "reviewed_pass_pending_owner_acceptance",
     "record": "docs/adoption/c-v12r/README.md",
     "receipt": "docs/validation/2026-11-13-c-v12r/README.md",
     "branch": "claude/v12r-carry",

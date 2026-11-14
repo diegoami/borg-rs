@@ -202,6 +202,38 @@ unchanged: rewriting them would destroy the evidence they are.
 suite oracles (the M1/M4-era recordings) are preserved in the repository's
 history; they were superseded, not deleted.
 
+## Independent review
+
+The independent review of [PR #58](https://github.com/diegoami/borg-rs/pull/58) found
+**one blocking defect**: at the head it reviewed, `d1099ab`, the branch did not compile.
+`MsgState` no longer has a `dont_react` field (the reaction gate moved to
+`borg.dont_react` in this carry), but two sites still read the removed field -
+`borg-rs/src/borg.rs:433` (the per-message-pump clear) and
+`borg-rs/src/borg_caution.rs:1509` (the "Borg ignoring messages" note). The cause was
+a stale push of those two files, not the carry: the tree that produced the validation
+above already had the migration finished.
+
+The author fixed it in `c1e5df3` - both sites now use `st.borg.dont_react`, and the
+`Borg` struct field is the gate itself again. The fix was verified on the exact pushed
+tree: `cargo test --release` gives **122 passed, 0 failed, 1 ignored**, and
+`cargo clippy --release --all-targets -- -D warnings` gives the same **seven
+pre-existing** findings, none of them in the two changed files.
+
+The reviewer's recheck at **`071c5c5`** (the head that also carries the refreshed oracle
+corpus) reports **no remaining findings**.
+
+**Qualification.** The reviewer could not run the build or the tests: Cargo is not
+available on their side, and the repository has **no CI workflow** (there is no
+`.github/workflows` at the repository root on `main` or on this branch, so no Actions
+run exists for any head - the only workflows in the tree are the vendored
+`angband/.github/workflows/*`, which are upstream's and do not apply here). The build
+and test evidence is therefore the author's, taken on the exact pushed tree: 122 tests
+pass, clippy reports the same seven pre-existing findings, 70/70 C/Rust parity, and a
+fresh C run matches the oracle now installed on the branch 3/3. The finding itself was
+raised by source inspection and was confirmed by the reviewer that way.
+
+Owner acceptance and the tag decision remain with the owner; no `v12R` tag is placed.
+
 ## Limits
 
 - This receipt does **not** rerun the consumer's per-unit native fixtures or

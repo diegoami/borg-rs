@@ -86,8 +86,17 @@ the M1-era recordings (on the imported engine `options` costs about four
 hours per C pass here), as are the investigation corpora;
 `harness/reference/README.md` maps every corpus to what it is.
 
-The carry is author-validated and awaits independent review; the v12R tag
-decision remains with the owner.
+Independent review of [PR #58](https://github.com/diegoami/borg-rs/pull/58): one
+blocking finding - the branch did not compile, because `borg.rs:433` and
+`borg_caution.rs:1509` still read the removed `MsgState.dont_react` after the
+reaction gate moved to `borg.dont_react` (a stale push of those two files, not the
+carry). Fixed in `c1e5df3`; the recheck at `071c5c5` reports **no remaining
+findings**. The reviewer could not run the build or the tests (no Cargo on their
+side, and the repository has no CI workflow, so no Actions run exists for any head);
+the build and test evidence is the author's, taken on the exact pushed tree - 122
+tests pass, the same seven pre-existing clippy findings, 70/70 C/Rust parity and a
+fresh C run matching the installed oracle 3/3. The carry is reviewed and awaits
+owner acceptance; the v12R tag decision remains with the owner.
 
 ## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
 
