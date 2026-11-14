@@ -73,6 +73,14 @@ class RecordingSafety(unittest.TestCase):
         shutil.copytree(self.recording, target)
         return target
 
+    def test_cemetery_archive_restores_a_real_recording_for_verified_replay(self):
+        import cemetery_publish
+        with tempfile.TemporaryDirectory(prefix='cemetery-real-roundtrip-') as folder:
+            root = Path(folder)
+            archive, _ = cemetery_publish.build_export(self.recording, root / 'exports')
+            restored = cemetery_publish.restore(archive, root / 'restored')
+            self.assertTrue(runtime.verify(restored)['verified'])
+
     def test_real_recording_replays_exactly(self):
         self.assertTrue(runtime.verify(self.recording)['verified'])
 
