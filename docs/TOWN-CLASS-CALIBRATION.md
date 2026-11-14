@@ -1,5 +1,9 @@
 # Class profiles and the calibration sequence
 
+**Active combined study:** the owner has already dispatched the milestone-12
+trip + live inventory experiments. See [exact pins and evidence boundaries](ACTIVE-JOINT-EXPERIMENT.md).
+The standalone local results and unrun Knowledge/Home grid below remain separate.
+
 Zoo integration request: [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
 
 The town utility evaluator is shared by every class. Maximum HP, level,

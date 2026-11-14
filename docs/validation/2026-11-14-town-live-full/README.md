@@ -1,5 +1,9 @@
 # Live town utility: matched local full suite, 2026-11-14
 
+This report is the standalone town-branch experiment. The later
+[active combined M12 zoo studies](../../ACTIVE-JOINT-EXPERIMENT.md) use a different
+pinned runtime; these results and ledgers must not be presented as that study.
+
 This is an actual live-policy comparison, not shadow calibration. Measured
 runtime: `ac63c5e` on `feature/town-inventory-strategy`; the branch's existing
 v11R base is preserved. Source/binary/build identities are in

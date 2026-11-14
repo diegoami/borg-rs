@@ -1,5 +1,9 @@
 # Experimental live town executor and local comparison
 
+**Active combined study:** the owner has already dispatched the milestone-12
+trip + live inventory experiments. See [exact pins and evidence boundaries](ACTIVE-JOINT-EXPERIMENT.md).
+The standalone local results and unrun Knowledge/Home grid below remain separate.
+
 Owner-directed on 2026-11-14: execute the utility planner and produce a matched
 full-suite outcome table before choosing a small parameter subset for the zoo.
 `borg_town_plan = 1` now enables the experimental executor; **the default remains
