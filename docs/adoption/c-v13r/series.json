@@ -1,0 +1,55 @@
+{
+  "schema": "borg-rs/c-consumer-adoption@1",
+  "milestone": "c-v13r",
+  "title": "better-borg-c milestone 13 carried as v13R",
+  "target_repository": "https://github.com/diegoami/better-borg-c",
+  "target_commit": "9ccb2aaeebc56ad6aeb35b668f112f0f58b142f8",
+  "target_tag": "4.2.6-impact-v13",
+  "previous_commit": "4e1b912cbf6d2b8a0243b19ebddfb2d26e7509f2",
+  "previous_tag": "4.2.6-impact-v12",
+  "rust_base_commit": "a4739fa8c81e6183f17723733e899c0ed8e19dfb",
+  "package_pr": "https://github.com/diegoami/better-borg-c/pull/520",
+  "package_docs": [
+    "docs/measurement/IMPACT-MILESTONE13.md",
+    "docs/review/MILESTONE13.md"
+  ],
+  "consumer_review_issue": "https://github.com/diegoami/better-borg-c/issues/521",
+  "consumer_review_state": "open (reviewer assigned 2026-11-14; no verdict yet at carry time)",
+  "post_tag_note": "consumer carries 0138-0140 (sources 154, 590, 591) and later postdate the tag; they are milestone-14 scope and are not taken",
+  "not_carried_by_the_consumer": [
+    "source616 (byte-identical duplicate of carried 0004)",
+    "sources 13 and 249 (no released source fix), 250 (closed upstream as duplicate of carried 0067)",
+    "sources 595 and 615 (classified, owner decision pending on the consumer side)"
+  ],
+  "units": [
+    {"patch": "0119", "source": "116 (CBUG-0100)", "name": "GLYPHTRACK-116", "consumer_pr": 483, "what": "the Sea-of-Runes read on an already-tracked grid reports success", "c_files": ["borg-flow-glyph.c"], "rust_files": ["borg_flow_glyph.rs"], "disposition": "carried"},
+    {"patch": "0120", "source": "193", "name": "LUNALTELE-193", "consumer_pr": 485, "what": "Lunal mode is left when a monster teleports the Borg", "c_files": ["borg-update.c"], "rust_files": ["borg_update.rs"], "disposition": "carried"},
+    {"patch": "0121", "source": "101 (CBUG-0085)", "name": "DEADUNIQ-101", "consumer_pr": 487, "what": "the dead-unique seeding test is uninverted", "c_files": ["borg-flow-kill.c"], "rust_files": ["borg_flow_kill.rs"], "disposition": "carried"},
+    {"patch": "0122", "source": "94 (CBUG-0078)", "name": "UNIQUEDEAD-94", "consumer_pr": 489, "what": "race deaths are indexed by race, not by kill record", "c_files": ["borg-flow-kill.c"], "rust_files": ["borg_flow_kill.rs"], "disposition": "carried"},
+    {"patch": "0123", "source": "52 (CBUG-0036)", "name": "REBIRTHKEY-52", "consumer_pr": 491, "what": "respawn types the birth menu's own letters (all_letters_nohjkl)", "c_files": ["borg-reincarnate.c"], "rust_files": ["borg_reincarnate.rs"], "disposition": "carried"},
+    {"patch": "0124", "source": "69", "name": "DANGERFULL-69", "consumer_pr": 493, "what": "comment: grid danger always rates the full damage on purpose", "c_files": ["borg-danger.c"], "rust_files": ["borg_danger.rs"], "disposition": "carried"},
+    {"patch": "0125", "source": "111", "name": "VENOMCOST-111", "consumer_pr": 495, "what": "the dead Venom mana-cost test is removed", "c_files": ["borg-fight-perm.c"], "rust_files": ["borg_fight_perm.rs"], "disposition": "carried"},
+    {"patch": "0126", "source": "115", "name": "GLYPHTERM-115", "consumer_pr": 497, "what": "the always-zero glyph count is dropped from the outlying rune score", "c_files": ["borg-flow-glyph.c"], "rust_files": ["borg_flow_glyph.rs"], "disposition": "carried"},
+    {"patch": "0127", "source": "122", "name": "TRAPDEAD-122", "consumer_pr": 499, "what": "the unreachable visible-trap exploration case is removed", "c_files": ["borg-flow-dark.c"], "rust_files": ["borg_flow_dark.rs"], "disposition": "carried"},
+    {"patch": "0128", "source": "126", "name": "DOORCAP-126", "consumer_pr": 501, "what": "the unreachable 255-door cap is removed from borg_play_step", "c_files": ["borg-flow.c"], "rust_files": ["borg_flow.rs"], "disposition": "carried"},
+    {"patch": "0129", "source": "176", "name": "TELEOTIER-176", "consumer_pr": 503, "what": "the unreachable Teleport Other fail-rate tier is removed", "c_files": ["borg-fight-defend.c"], "rust_files": ["borg_fight_defend.rs"], "disposition": "carried"},
+    {"patch": "0130", "source": "486", "name": "RESTCOMMENT-486", "consumer_pr": 505, "what": "comment: why borg_check_rest rates a monster at its own grid", "c_files": ["borg-flow-misc.c"], "rust_files": ["borg_flow_misc.rs"], "disposition": "carried"},
+    {"patch": "0131", "source": "38 (CBUG-0022)", "name": "WANDNAMES-38", "consumer_pr": 507, "what": "the Confuse Monster and Lightning Balls wands are looked up by their own names", "c_files": ["borg-item-val.c"], "rust_files": ["borg_item_val.rs"], "disposition": "carried"},
+    {"patch": "0132", "source": "202", "name": "SWAPFEAR-202", "consumer_pr": 509, "what": "fear protection is recorded on swap weapons and armour (SwapFlags.resist_fear is now written and cleared; new unit test)", "c_files": ["borg-trait-swap.c"], "rust_files": ["borg_trait_swap.rs"], "disposition": "carried"},
+    {"patch": "0133", "source": "592", "name": "HEALAMOUNT-592", "consumer_pr": 511, "what": "fixed 20/40/60 heal amounts replace the 3.x percentages", "c_files": ["borg-caution.c"], "rust_files": ["borg_caution.rs"], "disposition": "carried"},
+    {"patch": "0134", "source": "596", "name": "CURELIST-596", "consumer_pr": 513, "what": "the stun and blindness cure lists drop the items that cannot cure", "c_files": ["borg-recover.c"], "rust_files": ["borg_recover.rs"], "disposition": "carried"},
+    {"patch": "0135", "source": "589", "name": "STUNPROT-589", "consumer_pr": 515, "what": "protection from stun is modelled separately (BI_PSTUN in the trait enum, prefix_pref, the notice and the danger stun cases)", "c_files": ["borg-trait.h", "borg-trait.c", "borg-danger.c"], "rust_files": ["borg_headers/borg_trait_h.rs", "borg_trait.rs", "borg_danger.rs"], "disposition": "carried"},
+    {"patch": "0136", "source": "594", "name": "VULNRES-594", "consumer_pr": 517, "what": "an elemental vulnerability cancels the matching permanent resistance", "c_files": ["borg-trait.c"], "rust_files": ["borg_trait.rs"], "disposition": "carried"},
+    {"patch": "0137", "source": "610", "name": "VULNMOD-610", "consumer_pr": 519, "what": "unresisted elemental vulnerability x4/3 and its temp-resistance interaction are modelled in borg_danger (stacked on 0136)", "c_files": ["borg-danger.c"], "rust_files": ["borg_danger.rs"], "disposition": "carried"}
+  ],
+  "local_deltas_preserved": {
+    "borg-caution.c": "the include order (v12R)",
+    "borg-update.c": "the 0098 guard (milestone 9; better-borg-c#375)",
+    "borg-fight-attack.c": "the stale-target fork comment (docs/c-bugs.md section 54)",
+    "borg-init.c": "the munchkin-off default and the family-lane buy-strategy settings",
+    "borg.h": "the family-lane BORG_* enum entries",
+    "borg.txt": "the munchkin-off default (owner decision 2026-11-14)"
+  },
+  "rust_trait_enum": "borg_headers/borg_trait_h.rs regenerated from borg-trait.h at the target (+BI_PSTUN, +BI_VFIRE/VELEC/VCOLD/VACID); borg_danger's physical cold keeps the upstream asymmetry (vulnerability penalty only, no temp-resistance condition change)",
+  "note": "No cohort, per-mode effect, survival or progress claim is made. The consumer's own native gates (965/965 unit, 5/5 frontend, 115-group matrix) remain the per-unit evidence; this repository checks the Rust translation against the carried C through the shared harness."
+}

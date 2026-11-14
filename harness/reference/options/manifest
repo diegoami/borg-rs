@@ -2,30 +2,30 @@ suite=options
 suite_sha256=8581eedd00a3fefdc047df2e192e25c1982202a81cd41f97ac41b826bcb86ab5
 borg_txt_sha256=9f49da8d4c9364ff2d04bd84e79309831b81f82b00b50e0503e8a5bfcf1939eb
 borg_impl_env=c
-binary=/home/diego/projects/borg-rs-v12r-build/build/c/game/angband
-binary_sha256=02a132a5ed08d7126a1b7d42b2eef9d9aaa2a0f2ff734505f64316feefcb22d3
+binary=/home/diego/projects/borg-rs-v13r-build/build/c/game/angband
+binary_sha256=dc38b2f0635abbbaf3919cf160ec6b7d124db5ef07446a41e8f8912bf8fff15c
 binary_impl=c
 binary_elf_impl=c
 binary_cmake_borg_impl=c
 build_id_impl=c
-build_id_git_rev=122185ba36c352bdbec455bd6c7c7e2dca3823fb
+build_id_git_rev=dc790dc46e131076c3ea6dad647d4d73d3c0d3d5
 build_id_git_dirty=no
 build_id_inputs_dirty=no
-build_id_source_sha256=28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231
-build_id_binary_sha256=02a132a5ed08d7126a1b7d42b2eef9d9aaa2a0f2ff734505f64316feefcb22d3
+build_id_source_sha256=41879551b0ff7eccbd3c3d38fcba7547ff310e9dc2e2762f31c18e4254878378
+build_id_binary_sha256=dc38b2f0635abbbaf3919cf160ec6b7d124db5ef07446a41e8f8912bf8fff15c
 build_id_cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
-build_id_built_utc=2026-11-14T13:55:59Z
-checkout_source_sha256=28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231
+build_id_built_utc=2026-11-14T16:46:01Z
+checkout_source_sha256=41879551b0ff7eccbd3c3d38fcba7547ff310e9dc2e2762f31c18e4254878378
 impl_check=ok
 build_check=ok
 overrides=none
-git_rev=122185ba36c352bdbec455bd6c7c7e2dca3823fb
+git_rev=dc790dc46e131076c3ea6dad647d4d73d3c0d3d5
 git_dirty=no
-jobs=9
+jobs=8
 checkpoint_every=0
 run_timeout_seconds=0
-save_root=/home/diego/projects/borg-rs-v12r-build/harness/saves
-started_utc=2026-11-14T13:58:02Z
+save_root=/home/diego/projects/borg-rs-v13r-build/harness/saves
+started_utc=2026-11-14T16:46:44Z
 run_config.opt-scum-war=menu,cheat,borg_money_scum_amount=5000 2b5165e72c3dbe4db6f54b9ff4225b885373205430c18bf44755fd166f095aa0
 run_config.opt-scum-mage=menu,cheat,borg_money_scum_amount=5000 2dafc8ee7c0fe319b766ec69f5ffd21e5535be53d11193d52721cf1e7f74290f
 run_config.opt-scum-noself-mage=menu,cheat,borg_money_scum_amount=1000,borg_self_scum=FALSE 15e4a8a032c71de00ff2fb03f7906ffdbb67ced5a774d77d92aede12a7e47cdd
@@ -51,5 +51,5 @@ run_config.opt-chest-war=menu,cheat,borg_chest_fail_tolerance=0 b0a16fdeefab13cb
 run_config.opt-munchkin-limits-war=menu,cheat,munchkin,borg_munchkin_level=5,borg_munchkin_depth=4 7221ba2e44af4639d9eff82599a188ace56b8245ca1c910d603e8b44a4d07cb7
 run_config.opt-respawn-druid=menu,cheatlive b6d6076fb43e0a86a963a615b4cfcf921f24607ca8205d8ea989c3fdf404a065
 run_config.opt-respawn-random-druid=menu,cheatlive,borg_respawn_race=-1,borg_respawn_class=-1 9f49da8d4c9364ff2d04bd84e79309831b81f82b00b50e0503e8a5bfcf1939eb
-binary_sha256_end=02a132a5ed08d7126a1b7d42b2eef9d9aaa2a0f2ff734505f64316feefcb22d3
-finished_utc=2026-11-14T14:13:00Z result=OK
+binary_sha256_end=dc38b2f0635abbbaf3919cf160ec6b7d124db5ef07446a41e8f8912bf8fff15c
+finished_utc=2026-11-14T16:51:11Z result=OK
