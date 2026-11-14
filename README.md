@@ -60,7 +60,7 @@ build step above produces one combined executable. Re-running the script
 only reconfigures/rebuilds when its inputs changed.
 
 Nothing is installed system-wide. Saves, settings, recordings and death dossiers
-use the sibling **borg-cemetery checkout**, shared by ordinary checkouts and
+use the sibling **player-cemetery checkout**, shared by ordinary checkouts and
 linked worktrees.
 
 ## Playing and recording
@@ -73,7 +73,7 @@ Rust Borg; an input key interrupts it.
 The permanent defaults on this machine are:
 
 ```sh
-export BORG_PLAY_DATA_DIR=/home/diego/projects/angband/borg-cemetery
+export BORG_PLAY_DATA_DIR=/home/diego/projects/angband/player-cemetery
 export BORG_DEATH_RECORDS_DIR="$BORG_PLAY_DATA_DIR/deaths"
 ```
 
@@ -91,9 +91,9 @@ From this project root:
 ./start-recording.sh --build-only                  # Build without playing
 ```
 
-Saves live in `borg-cemetery/save/NAME`, settings in `borg-cemetery/user/`,
-local complete bundles in `borg-cemetery/recordings/SESSION/`, and natural-death
-dossiers in `borg-cemetery/deaths/`. A resumed session preserves the saved
+Saves live in `player-cemetery/save/NAME`, settings in `player-cemetery/user/`,
+local complete bundles in `player-cemetery/recordings/SESSION/`, and natural-death
+dossiers in `player-cemetery/deaths/`. A resumed session preserves the saved
 engine/RNG, starts the Borg with fresh private memory, and creates a new
 recording bundle. This does not yet join sessions into one branch-tree file.
 
@@ -163,9 +163,9 @@ Named launch, backup restore, headless play and replay (adapted from
 ./start-recording.sh MyCharacter --from-backup=1
 ./run-borg-headless.py MyCharacter --turns 100000
 ./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
-./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --from-turn 5000
-./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --verify-only
-./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --dump-turn 5000
+./replay-borg.py /path/to/player-cemetery/recordings/SESSION --from-turn 5000
+./replay-borg.py /path/to/player-cemetery/recordings/SESSION --verify-only
+./replay-borg.py /path/to/player-cemetery/recordings/SESSION --dump-turn 5000
 ```
 
 Bounded death collection and an explicit owner-review queue:
@@ -183,7 +183,7 @@ and keeps every attempted outcome; it does not enlarge limits to force a death.
 See [workflow parameters and scope](tools/README.md#collecting-a-death-and-reviewing-the-next-encounter).
 
 GUI/headless launchers share a per-character lock and five rolling backups
-under `borg-cemetery/save/backups/NAME/save.1` through `save.5`. Restore keeps
+under `player-cemetery/save/backups/NAME/save.1` through `save.5`. Restore keeps
 the current save as `before-restore-TIMESTAMP.save`. Headless play preserves
 the saved engine RNG, starts a fresh Borg, and records its origin, frozen
 Rust executable/data/config, inputs, frames and engine saves. It uses world-
@@ -224,7 +224,7 @@ This verifies the historical run, copies a living native save at the first
 command boundary **at or after** your requested turn, and opens it with the
 Borg off. It prints the actual turn, save path and `play-branch.py` resume
 command. These are separate game sessions/saves, with originals preserved.
-Default copies live in `borg-cemetery/human-branches/`; use `--output NEW_DIR`
+Default copies live in `player-cemetery/human-branches/`; use `--output NEW_DIR`
 to choose a directory, or `--prepare-only` to create the save without opening
 X11. Ctrl-X saves; Escape closes the native exit screen. See
 [human takeover scope](tools/README.md#playing-from-a-recorded-turn).

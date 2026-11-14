@@ -177,7 +177,7 @@ class DefaultPaths(unittest.TestCase):
             command('git', '-C', root, 'commit', '-qm', 'Initial')
             tree = root / '.worktrees/task'
             command('git', '-C', root, 'worktree', 'add', '-q', '-b', 'task', tree)
-            self.assertEqual(recording_paths.data_root_for(tree), Path(folder) / 'borg-cemetery')
+            self.assertEqual(recording_paths.data_root_for(tree), Path(folder) / 'player-cemetery')
             with mock.patch.dict(os.environ, {'BORG_PLAY_DATA_DIR':str(Path(folder) / 'private')}):
                 self.assertEqual(recording_paths.data_root_for(tree), Path(folder) / 'private')
 

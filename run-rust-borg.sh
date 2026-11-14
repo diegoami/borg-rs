@@ -18,8 +18,8 @@ Builds the Rust Borg and starts Angband's graphical X11 frontend.
 Create or load a character, then press Ctrl-Z followed by z to start the Borg.
 Confirm the initial Borg warning if shown. Press any key to stop the Borg.
 
-Saves and settings: the sibling borg-cemetery checkout (preserved between builds).
-GUI sessions are recorded under borg-cemetery/recordings/ for verified replay.
+Saves and settings: the sibling player-cemetery checkout (preserved between builds).
+GUI sessions are recorded under player-cemetery/recordings/ for verified replay.
 The initial borg.txt uses the stock settings, with cheat death off.
 Pass -n to start a new character, or -uNAME to select another save name.
 --build-only builds and checks the executable without opening a window.

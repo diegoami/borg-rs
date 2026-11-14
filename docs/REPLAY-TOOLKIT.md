@@ -24,7 +24,7 @@ keys. Font selection actually probes X11 loading before build/launch. Precedence
 10x20, 9x18, fixed. Explicit invalid fonts fail without silently substituting one.
 No font installation or owner display manipulation is performed.
 
-Both launchers use `borg-cemetery/save/NAME` and the same per-character lock.
+Both launchers use `player-cemetery/save/NAME` and the same per-character lock.
 `BORG_PLAY_DATA_DIR` selects another profile, including its save/user/recordings
 folders. Different names can be open concurrently. A second launcher for the
 same name fails. There are five rolling **pre-launch** save backups under
@@ -249,7 +249,7 @@ prospective comparison, not one rescue or this smoke qualification.
 
 | Location | Contents |
 | --- | --- |
-| `borg-cemetery/` or BORG_PLAY_DATA_DIR | Named save/user/backups and raw session recordings |
+| `player-cemetery/` or BORG_PLAY_DATA_DIR | Named save/user/backups and raw session recordings |
 | `harness/out/death-workflow/` or BORG_DEATH_WORKFLOW_DIR | Collections, local review receipts, observer caches and historical helper builds |
 | `build/death-workflow/` | Immutable committed-source/native-build/tool snapshots; preserve dependencies |
 | Branch `runtime/`, `capture/`, `profile/recordings/` | Exact helper, qualified native snapshot and separately recorded manual sessions |
