@@ -24,9 +24,9 @@
 //! * **poison** - Neutralize Poison or a poison-curing food, one per copy;
 //! * **escape** - Phase Door, one per copy (`BI_APHASE`).
 //!
-//! Not yet: **power** (the wearables' try-on runs the engine's power code
-//! on a mutated, restored state - its own slice, so the `tryon` field is
-//! empty and no wearable is planned), and **knowledge** and **trip**,
+//! **Power** comes from the try-on ([`try_on`]): each wearable is put on
+//! a copy-and-restore of the state and `borg_power` measures the gain,
+//! which the power need's curve prices. Not yet: **knowledge** and **trip**,
 //! which read 0 until the catalogue of useful kinds (#35 item 4) exists,
 //! as phase 1 decided. A ware serves one need here; a food that also cures
 //! poison is priced as food, and its poison urgent need is still in `serves`.
@@ -38,7 +38,7 @@ use crate::borg_headers::borg_item_h::borg_item;
 use crate::borg_headers::borg_trait_h::BI_CDEPTH;
 use crate::borg_item::inven_wield;
 use crate::borg_town_budget::Budget;
-use crate::borg_town_record::{first_action, step, PlanRecord, StepInput, WareFact, PARAMS};
+use crate::borg_town_record::{first_action, step, PlanRecord, StepInput, TryOn, WareFact, PARAMS};
 use crate::borg_town_solve::Limits;
 use crate::borg_town_stock::{needs_served, Stock};
 use crate::borg_town_usefulness::{Need, Trip};
@@ -70,6 +70,82 @@ fn ware_role(st: &BorgState, item: &borg_item) -> (i8, i64) {
     }
 }
 
+/// The try-on: for every wearable ware, the power gained by wearing it -
+/// the ware put on in its equipment slot, the worn item moved into a free
+/// pack slot, `borg_notice` and `borg_power` run, exactly as the live
+/// strategy evaluates a purchase (`borg_think_shop_buy_useful`). Returns
+/// the try-ons and, per wearable candidate, its slot cost: one pack slot
+/// if something is worn there now (it moves to the pack), none if the
+/// slot is empty.
+///
+/// **The state is restored by assignment, not recomputed**: every part a
+/// try-on can write - `borg` (traits, `has`, activations, the stat-gain
+/// arrays, `ready_morgoth`), `traits`, `trait_swap`, the items,
+/// `prepared.buffer` and `think.do_spell` - is snapshotted first and put
+/// back after, so the observation stays observation. Light sources are not
+/// tried on (the light need prices them), nor diggers (the live strategy
+/// keeps them as a back-up, not as a weapon). Without a free pack slot
+/// there is nowhere to put the worn item, and nothing is tried on.
+fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) {
+    use crate::headers::list_tvals_h::{TV_DIGGING, TV_LIGHT};
+    let hole = crate::borg_inventory::borg_first_empty_inventory_slot(st);
+    let Ok(hole) = usize::try_from(hole) else {
+        return (Vec::new(), Vec::new());
+    };
+    let wield = inven_wield() as usize;
+    let wearables: Vec<(usize, usize)> = stock
+        .candidates
+        .iter()
+        .enumerate()
+        .filter_map(|(i, c)| {
+            let w = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
+            let tval = u32::from(w.tval);
+            if tval == TV_LIGHT || tval == TV_DIGGING {
+                return None;
+            }
+            let eq = crate::borg_inventory::borg_wield_slot(w);
+            usize::try_from(eq).ok().map(|eq| (i, eq))
+        })
+        .collect();
+    if wearables.is_empty() {
+        return (Vec::new(), Vec::new());
+    }
+
+    // The snapshot of everything a try-on can write.
+    let borg = st.borg.clone();
+    let traits = st.traits.clone();
+    let trait_swap = st.trait_swap.clone();
+    let items = st.items.items.clone();
+    let buffer = st.prepared.buffer.clone();
+    let do_spell = st.think.do_spell;
+
+    let base = i64::from(crate::borg_power::borg_power(st));
+    let mut tryon = Vec::new();
+    let mut slots = Vec::new();
+    for (i, eq) in wearables {
+        let c = &stock.candidates[i];
+        let mut ware = st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
+        ware.iqty = 1;
+        let worn = items[eq];
+        st.items.items[hole] = worn;
+        st.items.items[eq] = ware;
+        crate::borg_trait::borg_notice(st, true);
+        let p = i64::from(crate::borg_power::borg_power(st));
+        st.items.items[eq] = items[eq];
+        st.items.items[hole] = items[hole];
+        tryon.push(TryOn { shop: c.shop, slot: c.slot, eq_slot: (eq - wield) as u8, value: p - base });
+        slots.push((i, i32::from(worn.iqty != 0)));
+    }
+
+    st.borg = borg;
+    st.traits = traits;
+    st.trait_swap = trait_swap;
+    st.items.items = items;
+    st.prepared.buffer = buffer;
+    st.think.do_spell = do_spell;
+    (tryon, slots)
+}
+
 /// The record number over the run.
 static SEQ: AtomicU64 = AtomicU64::new(0);
 /// The town visit's number, and the level clock it was counted at.
@@ -81,7 +157,7 @@ static STEP: AtomicU64 = AtomicU64::new(0);
 /// Shadow the town decision just taken: compute the plan's step on the
 /// same state and record it. Does nothing unless `BORG_TOWN_PLAN_RECORD`
 /// is set, or outside the town.
-pub fn shadow_visit(st: &BorgState) {
+pub fn shadow_visit(st: &mut BorgState) {
     let Some(file) = crate::borg_town_dump::plan_record_file() else {
         return;
     };
@@ -107,7 +183,14 @@ pub fn shadow_visit(st: &BorgState) {
     );
     let mut trip = Trip::of(st);
     trip.cure_spell = cure_spell;
-    let stock = Stock::of(st);
+    let mut stock = Stock::of(st);
+    // The wearables: their power gain, and their slot cost (the worn item
+    // moves to the pack).
+    let (tryon, wear_slots) = try_on(st, &stock);
+    for &(i, cost) in &wear_slots {
+        stock.candidates[i].slots_cost = cost;
+    }
+    let st: &BorgState = st;
     let budget = Budget::of(st, &stock, &trip);
     let mask = |ns: &[Need]| ns.iter().fold(0u8, |m, &n| m | (1 << need_index(n)));
     let wares: Vec<WareFact> = stock
@@ -147,7 +230,7 @@ pub fn shadow_visit(st: &BorgState) {
     let out = step(&StepInput {
         candidates: stock.candidates.clone(),
         facts: &wares,
-        tryon: &[],
+        tryon: &tryon,
         limits,
         urgent: budget.urgent.clone(),
         params,
@@ -181,7 +264,7 @@ pub fn shadow_visit(st: &BorgState) {
             .collect(),
         unmet: mask(&budget.unmet),
         wares,
-        tryon: Vec::new(),
+        tryon,
         plan: out.plan.clone(),
         solve: out.solve,
         action: paction,

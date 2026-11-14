@@ -91,6 +91,8 @@ pub struct TryOn {
     pub shop: u8,
     pub slot: u8,
     pub eq_slot: u8,
+    /// The power gained by wearing it, in `borg_power` points; [`step`]
+    /// prices it through the power need's curve.
     pub value: i64,
 }
 
@@ -601,7 +603,13 @@ pub fn step(input: &StepInput) -> StepOutput {
         &stock,
         &budget,
         caution,
-        |c| tryon.get(&(c.shop, c.slot)).map(|t| (t.eq_slot, t.value)),
+        // A wearable's try-on gain is power points; the power need's curve
+        // prices it on the same scale as every other need.
+        |c| {
+            tryon.get(&(c.shop, c.slot)).map(|t| {
+                (t.eq_slot, usefulness(Need::Power, t.value, 1, &st, &trip, &weights))
+            })
+        },
         |c, n| match facts.get(&(c.shop, c.slot)) {
             Some(f) if f.need >= 0 => {
                 usefulness(Need::ALL[f.need as usize], f.reduction, i64::from(n), &st, &trip, &weights)
@@ -924,7 +932,12 @@ mod tests {
         s.candidates
             .iter()
             .filter(|c| c.kind == ARMOUR || c.kind == ARMOUR_2)
-            .map(|c| TryOn { shop: c.shop, slot: c.slot, eq_slot: 6, value: if c.kind == ARMOUR { 30 } else { 34 } })
+            .map(|c| TryOn {
+                shop: c.shop,
+                slot: c.slot,
+                eq_slot: 6,
+                value: if c.kind == ARMOUR { 6_000 } else { 8_000 },
+            })
             .collect()
     }
 
@@ -951,7 +964,10 @@ mod tests {
         assert!(!rec.plan.is_empty());
         let slot_picks: Vec<&PlanEntry> = rec.plan.iter().filter(|e| e.key_kind == 1).collect();
         assert_eq!(slot_picks.len(), 1, "one armour for one slot");
-        assert_eq!(slot_picks[0].value, 34);
+        // the try-on's power gain goes through the power need's curve:
+        // power 1000 against a 30000 target (depth 15) is a gap of 29000,
+        // w_power 50: 8000 points are worth 50*8000/29000 = 13
+        assert_eq!(slot_picks[0].value, 13);
         assert!(rec.solve[3] & flag::GOLD_EXACT != 0);
     }
 
