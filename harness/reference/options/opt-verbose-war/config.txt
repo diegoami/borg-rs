@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_verbose=TRUE
-borg_txt_sha256=13fa92e1140f687fa9953ad6668fd4a85b838535d336c5e031884db683066ce8
+borg_txt_sha256=dc6a82500d570adad52d300d104baa72b666530d4652b4df538638ecbae8ad03

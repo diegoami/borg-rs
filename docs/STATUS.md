@@ -46,6 +46,19 @@ variant tag is placed: the family lane remains an experiment with no benefit
 claim.
 
 
+**Update 2026-11-14, later: munchkin off.** Owner direction: turn the
+implicit munchkin start off (`borg_munchkin_by_class = FALSE` in
+`harness/borg.txt`; the global start was already FALSE). No class
+stair-scums at the start any more; the C/Rust code keeps the better-borg-c
+PR302 feature and the suite `munchkin` flag still forces it for the
+`cfg-munchkin-*` and `opt-munchkin-limits-war` runs. The whole standing
+oracle was re-made from the same v12R C build with the two-pass method and
+the Rust role ran every suite: **111/111 runs identical** in all columns
+(record: [docs/validation/2026-11-14-munchkin-off](validation/2026-11-14-munchkin-off/README.md)).
+The munchkin-flavoured runs collapsed (smoke warrior 9,681 -> 2,616 keys,
+`opt-wdam-war` 80,635 -> 14,278); no survival or progress claim is made
+for either setting.
+
 ## Carry better-borg-c milestone 12 as v12R (impact v12R)
 
 Owner direction (2026-11-13): carry the consumer's milestone 12

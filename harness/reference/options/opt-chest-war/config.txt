@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_chest_fail_tolerance=0
-borg_txt_sha256=c5b7ca83814a2dfba71772962577ba611eb2bbc8b1d17746bcfbde1fe5059e44
+borg_txt_sha256=b0a16fdeefab13cba200415b1e6c88ac41d90c1ac20e30f40d7f8ceea4e8f9be

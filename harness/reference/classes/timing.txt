@@ -1,17 +1,17 @@
-suite=classes impl=c jobs=2 wall_seconds=1318.8168333 result=OK
-cls-deep-bg-dunadan turns turns=1000004 pturns=100638 clev=17 maxdepth=15 keys=167739 wall=505.1 Dunadan Blackguard
-cls-bg-dunadan turns turns=101997 pturns=10318 clev=4 maxdepth=2 keys=5387 wall=34.9 Dunadan Blackguard
-cls-bg-highelf turns turns=100009 pturns=10175 clev=7 maxdepth=5 keys=15153 wall=68.3 High-Elf Blackguard
-cls-bg-kobold death turns=96939 pturns=9887 clev=10 maxdepth=8 keys=14534 wall=122.8 Kobold Blackguard
-cls-bg-human turns turns=104847 pturns=10622 clev=4 maxdepth=2 keys=5928 wall=97.3 Human Blackguard
-cls-bg-halftroll turns turns=100003 pturns=10134 clev=4 maxdepth=2 keys=9277 wall=59.7 Half-Troll Blackguard
-cls-bg-dwarf death turns=19620 pturns=2018 clev=2 maxdepth=1 keys=2512 wall=19.0 Dwarf Blackguard
-cls-bg-halforc turns turns=100000 pturns=10088 clev=8 maxdepth=3 keys=7296 wall=41.6 Half-Orc Blackguard
-cls-dunadan-ranger turns turns=100000 pturns=13568 clev=8 maxdepth=4 keys=25934 wall=336.8 Dunadan Ranger
-cls-dunadan-paladin turns turns=100352 pturns=10208 clev=6 maxdepth=4 keys=8263 wall=30.1 Dunadan Paladin
-cls-highelf-mage death turns=8129 pturns=838 clev=1 maxdepth=1 keys=930 wall=6.5 High-Elf Mage
-cls-highelf-priest turns turns=100005 pturns=10213 clev=5 maxdepth=2 keys=9609 wall=44.8 High-Elf Priest
-cls-kobold-rogue turns turns=100006 pturns=10228 clev=5 maxdepth=2 keys=13628 wall=44.4 Kobold Rogue
-cls-kobold-necro turns turns=100120 pturns=10088 clev=5 maxdepth=2 keys=4666 wall=17.3 Kobold Necromancer
-cls-kobold-warrior turns turns=100007 pturns=14494 clev=8 maxdepth=6 keys=29618 wall=392.8 Kobold Warrior
-cls-halfelf-ranger turns turns=100010 pturns=15721 clev=8 maxdepth=6 keys=35531 wall=531.8 Half-Elf Ranger
+suite=classes impl=c jobs=9 wall_seconds=831.089952297 result=OK
+cls-deep-bg-dunadan turns turns=1000004 pturns=100638 clev=17 maxdepth=15 keys=167739 wall=830.2 Dunadan Blackguard
+cls-bg-dunadan turns turns=101997 pturns=10318 clev=4 maxdepth=2 keys=5387 wall=92.6 Dunadan Blackguard
+cls-bg-highelf turns turns=100009 pturns=10175 clev=7 maxdepth=5 keys=15153 wall=186.5 High-Elf Blackguard
+cls-bg-kobold death turns=96939 pturns=9887 clev=10 maxdepth=8 keys=14534 wall=164.3 Kobold Blackguard
+cls-bg-human turns turns=104847 pturns=10622 clev=4 maxdepth=2 keys=5928 wall=110.8 Human Blackguard
+cls-bg-halftroll turns turns=100003 pturns=10134 clev=4 maxdepth=2 keys=9277 wall=150.9 Half-Troll Blackguard
+cls-bg-dwarf death turns=19620 pturns=2018 clev=2 maxdepth=1 keys=2512 wall=33.8 Dwarf Blackguard
+cls-bg-halforc turns turns=100000 pturns=10088 clev=8 maxdepth=3 keys=7296 wall=84.8 Half-Orc Blackguard
+cls-dunadan-ranger turns turns=100001 pturns=10157 clev=7 maxdepth=8 keys=13503 wall=171.3 Dunadan Ranger
+cls-dunadan-paladin turns turns=100352 pturns=10208 clev=6 maxdepth=4 keys=8263 wall=133.9 Dunadan Paladin
+cls-highelf-mage death turns=8129 pturns=838 clev=1 maxdepth=1 keys=930 wall=19.8 High-Elf Mage
+cls-highelf-priest turns turns=100005 pturns=10213 clev=5 maxdepth=2 keys=9609 wall=157.9 High-Elf Priest
+cls-kobold-rogue turns turns=100006 pturns=10228 clev=5 maxdepth=2 keys=13628 wall=136.3 Kobold Rogue
+cls-kobold-necro turns turns=100120 pturns=10088 clev=5 maxdepth=2 keys=4666 wall=72.2 Kobold Necromancer
+cls-kobold-warrior turns turns=100003 pturns=10190 clev=6 maxdepth=3 keys=15380 wall=124.5 Kobold Warrior
+cls-halfelf-ranger turns turns=100006 pturns=10160 clev=5 maxdepth=2 keys=12620 wall=145.0 Half-Elf Ranger

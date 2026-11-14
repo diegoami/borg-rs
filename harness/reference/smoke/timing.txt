@@ -1,4 +1,4 @@
-suite=smoke impl=c jobs=2 wall_seconds=173.2066339 result=OK
-smoke-warrior-1 turns turns=20006 pturns=4322 clev=9 maxdepth=6 keys=9681 wall=172.9 Human Warrior
-smoke-mage-2 turns turns=20008 pturns=2035 clev=2 maxdepth=2 keys=1639 wall=6.0 Elf Mage
-smoke-priest-3 turns turns=20879 pturns=2119 clev=2 maxdepth=2 keys=1913 wall=6.2 Dwarf Priest
+suite=smoke impl=c jobs=3 wall_seconds=10.115955563 result=OK
+smoke-warrior-1 turns turns=20001 pturns=2070 clev=3 maxdepth=2 keys=2616 wall=9.8 Human Warrior
+smoke-mage-2 turns turns=20008 pturns=2035 clev=2 maxdepth=2 keys=1639 wall=3.6 Elf Mage
+smoke-priest-3 turns turns=20879 pturns=2119 clev=2 maxdepth=2 keys=1913 wall=5.1 Dwarf Priest

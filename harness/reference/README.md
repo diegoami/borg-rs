@@ -55,11 +55,23 @@ about four minutes (`options`, 25 runs, JOBS=13) and about six minutes
 (`deep`, 9 runs, JOBS=9), and the same method was applied: the two passes
 were identical in both suites, one pass was stored, pass 2 was re-checked
 against the stored oracle, and the Rust role matches both oracles -
-**25/25** and **9/9** identical on keys, messages and state. That is also
-the first C/Rust parity check of these two suites on the imported engine.
-The refresh used a fresh build of the same branch head whose
-`checkout_source_sha256` equals the five earlier oracles' build inputs, so
-the whole standing corpus now describes one C source of truth.
+**25/25** and **9/9** identical on keys, messages and state.
+
+**All seven oracles were re-made again on 2026-11-14 (later the same
+day)**, when the owner turned the munchkin-by-class start off in
+`harness/borg.txt` (`borg_munchkin_by_class = FALSE`, after
+`borg_munchkin_start = FALSE`): no class takes the munchkin start any
+more unless a suite run forces it with the `munchkin` flag. The key
+streams of the Warrior/Druid/Ranger-flavoured runs changed, so the whole
+standing corpus was re-recorded from the same v12R C build with the
+two-pass method, and the Rust role ran every suite: **111/111 runs
+identical** in all three columns (two C passes, pass 2 vs the stored
+oracle, Rust vs the oracle). The record is
+[docs/validation/2026-11-14-munchkin-off](../../docs/validation/2026-11-14-munchkin-off/README.md);
+its `oracle-digests.json` covers all 576 stored files. That receipt also
+records a labelling quirk: the `deep` suite's run names predate a
+class-list change, so `deep-7-ranger` births a Warrior and
+`deep-8-blackguard` a Ranger.
 
 ## The frozen investigation corpora
 

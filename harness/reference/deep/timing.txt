@@ -1,10 +1,10 @@
-suite=deep impl=c jobs=9 wall_seconds=333.431547007 result=OK
-deep-0-warrior turns turns=1000007 pturns=111734 clev=14 maxdepth=7 keys=212712 wall=277.0 Human Warrior
-deep-1-mage turns turns=1000002 pturns=100625 clev=11 maxdepth=7 keys=113786 wall=150.0 Elf Mage
-deep-2-druid turns turns=1000000 pturns=98209 clev=16 maxdepth=6 keys=151966 wall=204.3 Hobbit Druid
-deep-3-priest turns turns=1000098 pturns=100378 clev=9 maxdepth=3 keys=65812 wall=74.1 Dwarf Priest
-deep-4-necro turns turns=1000621 pturns=100293 clev=10 maxdepth=8 keys=60663 wall=73.2 Human Necromancer
-deep-5-paladin turns turns=1000196 pturns=100364 clev=15 maxdepth=11 keys=131557 wall=158.2 Half-Troll Paladin
-deep-6-rogue turns turns=1000001 pturns=100494 clev=16 maxdepth=9 keys=160084 wall=203.7 Hobbit Rogue
-deep-7-ranger turns turns=1000053 pturns=129281 clev=22 maxdepth=13 keys=273979 wall=333.2 Human Warrior
-deep-8-blackguard turns turns=1000009 pturns=110500 clev=18 maxdepth=5 keys=226767 wall=299.5 Human Ranger
+suite=deep impl=c jobs=9 wall_seconds=996.692324898 result=OK
+deep-0-warrior turns turns=1000004 pturns=100146 clev=23 maxdepth=12 keys=214281 wall=808.6 Human Warrior
+deep-1-mage turns turns=1000002 pturns=100625 clev=11 maxdepth=7 keys=113786 wall=738.3 Elf Mage
+deep-2-druid turns turns=1000002 pturns=115847 clev=19 maxdepth=11 keys=136700 wall=783.4 Hobbit Druid
+deep-3-priest turns turns=1000098 pturns=100378 clev=9 maxdepth=3 keys=65812 wall=389.4 Dwarf Priest
+deep-4-necro turns turns=1000621 pturns=100293 clev=10 maxdepth=8 keys=60663 wall=397.3 Human Necromancer
+deep-5-paladin turns turns=1000196 pturns=100364 clev=15 maxdepth=11 keys=131557 wall=685.9 Half-Troll Paladin
+deep-6-rogue turns turns=1000001 pturns=100494 clev=16 maxdepth=9 keys=160084 wall=980.9 Hobbit Rogue
+deep-7-ranger turns turns=1000003 pturns=100592 clev=27 maxdepth=24 keys=248834 wall=995.0 Human Warrior
+deep-8-blackguard turns turns=1000008 pturns=100595 clev=19 maxdepth=13 keys=173790 wall=831.7 Human Ranger

@@ -1,2 +1,2 @@
 flags=menu,cheatlive,borg_respawn_race=-1,borg_respawn_class=-1
-borg_txt_sha256=11c8e24298612f8374a7fc57144a22f61eda9a2fe0439bb7bc5a544be64d1a6d
+borg_txt_sha256=9f49da8d4c9364ff2d04bd84e79309831b81f82b00b50e0503e8a5bfcf1939eb
