@@ -367,10 +367,8 @@ pub fn decide(i: &TripInputs, p: &TripParams) -> Decision {
 /// aims, how many levels it crosses from the recall depth, and how many
 /// Word of Recall scrolls it consumes.
 ///
-/// The town plan's `Trip` (borg_town_usefulness) is the intended reader;
-/// until it reads this (docs/TRIP-POLICY.md, "One trip model") the item
-/// carries the self-removing marker the town modules use.
-#[cfg_attr(not(test), expect(dead_code))]
+/// The town evaluator reads the target and levels when the policy acts.
+/// Recall utility remains the town model's marginal travel valuation.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PlannedTrip {
     pub depth_target: i32,
@@ -390,7 +388,6 @@ pub struct PlannedTrip {
 }
 
 /// The planned trip from the inputs (in town or in the dungeon).
-#[cfg_attr(not(test), expect(dead_code))]
 pub fn plan_trip(i: &TripInputs, p: &TripParams) -> PlannedTrip {
     let depth_target = planned_depth(i, p);
     let start = if i.max_depth >= RECALL_MIN_DEPTH { i.max_depth.min(depth_target) } else { 1 };

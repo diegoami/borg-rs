@@ -1386,6 +1386,15 @@ fn purchase_done(st: &mut BorgState) {
 
 /// Buy items from the current shop, if desired (`borg_think_shop_buy`).
 pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
+    buy_selected(st, true)
+}
+
+/// A Home withdrawal intended for sale is not a newly purchased keeper.
+pub fn take_selected_for_sale(st: &mut BorgState) -> bool {
+    buy_selected(st, false)
+}
+
+fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
     /* Buy something if requested */
     if i32::from(st.borg.goal.shop) == i32::from(st.think.shop_num) && st.borg.goal.ware >= 0 {
         let shop = st.borg.goal.shop as i32;
@@ -1439,6 +1448,7 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
             borg_note(st, &msg);
         }
 
+        if keep_purchase {
         /* Remember what we bought to avoid buy/sell loops */
         let b = &mut st.buy;
         if b.bought_item_nxt >= 9 {
@@ -1452,6 +1462,8 @@ pub fn borg_think_shop_buy(st: &mut BorgState) -> bool {
         b.bought_item_nxt += 1;
         if b.bought_item_num < b.bought_item_nxt {
             b.bought_item_num = b.bought_item_nxt;
+        }
+
         }
 
         purchase_done(st);

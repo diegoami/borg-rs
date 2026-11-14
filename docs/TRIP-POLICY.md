@@ -335,6 +335,9 @@ with one vote per unknown stack. This is a categorical 0/1 weighting by
 visible item type, not a fitted gold value. The old all-unknown count stays
 in the record alongside `unknown_gear_stacks`; record version 2 marks the
 changed decision semantics. No thresholds or default activation changed.
+Earliness alone does not make a return wrong. Excluding consumables is still
+an experimental classification, not a demonstrated benefit or an accepted
+owner preference; the owner's objective values learning and earlier returns.
 
 **Not yet:** a graded value for the unknowns; proof that town can resolve
 the particular backlog; protection against repeated trips with an unchanged
@@ -342,7 +345,7 @@ unresolved inventory; the town plan's own estimate of what the purse would
 buy (§9); trip duration. These
 are the next factors to consider once runs show they matter.
 
-The bounded follow-up captures the flat-count false alarm at turn 644 of
+The bounded follow-up captures the early flat-count trigger at turn 644 of
 seed 101: four unknown stacks, zero unknown gear, and a revised decision
 to descend. At 100,000 turns the enabled policy reaches clevel 7/depth 3 versus
 9/depth 5 for the off control; these are descriptive observations, not an
@@ -435,33 +438,29 @@ for the bounded functional runs and the existing no-upstairs routing fallback.
 
 ## 9. Coordination with the town plan
 
-**Owner decision (2026-11-14, resumed local session): leave shared
-`PlannedTrip` integration to the buying session.** This session updates
-and validates the trip branch; it does not wire the town-side model.
+**Updated owner direction (2026-11-14): integrate the inventory branch here
+and try both policies in actual play.** This supersedes the earlier
+assignment to the separate buying session. The combined tree includes town
+utility revision `785f506`; [live runtime and trials](JOINT-POLICY-TRIALS.md)
+describe execution and the bounded settings comparison.
 
-1. **One trip model.** The policy owns the planned trip:
-   `borg_trip::plan_trip -> PlannedTrip { depth_target, levels,
-   recall_scrolls, recall_carry }`. Proposed read by the town plan:
-   `Trip::of` takes `depth_target` from `plan_trip` instead of
-   `BI_MAXDEPTH + 5`, and `levels_per_trip` from `levels`; turns per level
-   stay the town's until trip duration is measured. Not wired yet: the
-   town side is another session's, and the change moves the town plan's
-   shadow records.
+1. **Shared planned target.** With the trip policy acting and the town
+   target automatic, the town evaluator reads `PlannedTrip.depth_target`
+   and `levels`. The v5 utility target is clamped to its 1..100 domain;
+   an explicit town target remains a deliberate planning override. The
+   record stores effective inputs in `params`, configured values in
+   `configured_params`, and replays the same solve. Duration and risk remain
+   explicit town forecasting parameters, not orders to remain underground.
 2. **One inventory valuation.** Pack pressure uses the town side's slot
    count (one per distinct stack, `pack_slots_used_of` in
    `borg_town_stock.rs`, the capacity from `Facts`). The dungeon and the
    town agree when a pack is full.
-3. **Word of Recall.** A trip reads one scroll down when the recall depth
-   is >= 5 and one back when the target is: `recall_scrolls`. It carries
-   one spare: `recall_carry` = reads + 1 (3 for the usual round trip, which
-   is what `leave_town` already demands before recalling down). The town
-   plan's trip need would price `recall_carry - BI_RECALL` under this
-   proposal. **Town-side owner decision, merged 2026-11-14:** the town
-   model now prices `RECALL_PER_TRIP = 2` (one return, one spare) against
-   `BI_RECALL`, which also counts the rod and spell. It does not read
-   `PlannedTrip` yet. Reconcile the two-scroll town target with the
-   three-scroll round-trip proposal before wiring them together; the
-   proposal does not supersede the town owner's decision.
+3. **Word of Recall.** The town v5 utility revision supersedes the fixed
+   two-scroll target and the earlier three-scroll buying proposal. Recall
+   competes by marginal walking avoided, purse utility and Home reserve
+   value. `PlannedTrip.recall_scrolls`/`recall_carry` remain descriptive
+   planning fields, not enforced purchase quotas. `BI_RECALL` includes
+   non-scroll capabilities and must not be read as a literal scroll count.
 4. **More frequent returns cost town solves.** Each return is a town visit
    (~0.2-1 s per cold solve, `docs/TOWN-INVENTORY-PLAN.md`). The evaluation
    counts visits (§10); the warm start on the town side becomes more
@@ -471,13 +470,11 @@ and validates the trip branch; it does not wire the town-side model.
    `NEW_SETTINGS`); the ten retired ones are out of the Rust four and stay
    in the C two (§4).
 
-The earlier handover's town calibration questions have moved on. The
-merged town model now values five wound potions per trip even while uncut;
-the recorded town-side shadow runs report no Recall or Cure Light Wounds
-sales. Under no-selling rules, worthless Home stacks stay unless their
-slots are needed. See `TOWN-INVENTORY-PLAN.md`, phase 4 slice 3, for the
-owner decisions and their evidence. These are town-side results, not a
-validation of the trip-policy formula or of a shared trip model.
+The old flat healing/Recall targets remain in historical v4 replay. New
+live plans use v5 trip-relative utility with no fixed supply quotas. The
+knowledge-return opportunity rule in §6 is still a proposal; this integration
+shares the trip target and enables real town actions without claiming that
+all weighted-knowledge ideas are implemented.
 
 ## 10. Evaluation plan
 
@@ -531,9 +528,9 @@ to.
    `rs-buy-*` and `town-negative` (borg-zoo PR #83); retire
    `munchkin-class`.
 3. **#59** (§11): the replay and the close.
-4. **The town plan's read of `PlannedTrip`** (§9): assigned by the owner
-   to the buying session on 2026-11-14; timing and Recall reconciliation
-   remain with that session.
+4. **The town plan's read of `PlannedTrip`** (§9): now wired for automatic
+   targets under the later owner direction to integrate here. Live joint
+   trials and parameter acceptance are separate; see `JOINT-POLICY-TRIALS.md`.
 5. **The parity receipt:** the settings corpus changed (ten settings out of
    the Rust Borg, five in both); the full suite receipt is to be re-earned
    on the owner's schedule. **Re-earned after the town merge on

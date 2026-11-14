@@ -1,6 +1,10 @@
 # Inventory value and a proposed knowledge-return rule
 
 Status: **proposal for owner review, not a new acting formula** (2026-11-14).
+The subsequent [live integration](../../JOINT-POLICY-TRIALS.md) supersedes
+the earlier session assignment below, but does not activate this proposed
+knowledge-opportunity rule.
+
 The task was to examine deeper inventories, then propose a rule covering
 learning/kit improvement, pack pressure and the town's ability to resolve
 the backlog. Shared town-model integration remains with the buying session.

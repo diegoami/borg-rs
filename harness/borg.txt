@@ -303,7 +303,10 @@ borg_town_no_stores = FALSE
 
 # The town inventory redesign's parameter vector (borg-rs#36). The C parser
 # reads these fields but ignores them; the Rust borg reads them when
-# borg_town_plan = 1 (0 keeps today's behaviour: the plan is off).
+# borg_town_plan = 1 (live utility planner); 0 keeps the historical chooser.
+# BORG_TOWN_PLAN_RECORD optionally records either mode; it is not needed
+# for live execution. Supply purchases use the marginal trip utility and
+# gold-retention model documented in docs/TOWN-UTILITY.md.
 # borg_town_w_* are the phase-1 usefulness weights, with w_light = 100 the
 # numeraire. borg_town_share is the purse-share cap k: a single purchase may
 # cost at most purse / k (0 disables the cap). borg_town_light_depth is the

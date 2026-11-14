@@ -1515,6 +1515,17 @@ pub fn store_stock(access: &Access, store: usize) -> Vec<StoreObject<'_>> {
 
 impl StoreObject<'_> {
 
+    /// The native shop quote for one copy, as displayed to the player.
+    /// This is not the historical Borg's optimistic price approximation.
+    pub fn purchase_quote(self, store: usize) -> i32 {
+        self.check_value_qty(1);
+        assert!(store < usize::from(z_info().store_max), "store index out of range");
+        // SAFETY: the handle borrows a live stock object; stores has the
+        // checked number of entries. price_item reads the object/player
+        // and returns the same public quote the store UI uses; no callbacks.
+        unsafe { crate::headers::store_h::price_item(crate::headers::store_h::stores.add(store), self.0, false, 1) }
+    }
+
     /// `object_desc(buf, 120, obj, mode, player)` (bytes up to the NUL).
     pub fn desc120(self, mode: u32) -> Vec<u8> {
         let mut buf = [0u8; 120];

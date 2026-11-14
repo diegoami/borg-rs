@@ -7,7 +7,11 @@ The owner left shared trip-model integration to the buying session.
 ## Reason for the change
 
 A flat unknown-stack count treats early potions and scrolls like reusable
-equipment hiding unknown powers. The replacement counts unknown equipment,
+equipment hiding unknown powers. Earliness alone is not a defect under the owner's clarified objective.
+The categorical exclusion remains an experimental proposal, not evidence
+that returning with unknown consumables was undesirable.
+
+The replacement counts unknown equipment,
 ammunition and devices (`TV_SHOT..=TV_ROD`) toward the existing threshold
 of four stacks. Consumables and books receive no independent knowledge
 vote, but still consume pack slots. This is a provisional categorical

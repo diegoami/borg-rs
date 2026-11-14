@@ -60,16 +60,27 @@ def inventory(record):
     pack = [item for item in record["pack"] if item[3] > 0]
     unknown = [item for item in pack if not item[5] & 1 or item[5] & 2]
     gear = [item for item in unknown if 2 <= item[1] <= 24]
+    home_unknown = [item for item in record.get("home", []) if item[3] > 0 and (not item[5] & 1 or item[5] & 2)]
+    home_gear = [item for item in home_unknown if 2 <= item[1] <= 24]
+    # Moving/merging a stack into Home must not masquerade as learning.
+    # Compare total copies with the same observed type/knowledge signature,
+    # not slot numbers or the number of resulting stacks.
+    gear_signature = Counter()
+    for item in gear + home_gear:
+        gear_signature[(item[1], item[2], item[5])] += item[3]
     traits = dict(record["traits"])
     return {
         "game_turn": record["turn"],
         "occupied_pack_entries": len(pack),
         "unknown_entries": len(unknown),
         "unknown_gear_entries": len(gear),
+        "unknown_entries_in_home": len(home_unknown),
+        "unknown_gear_entries_in_home": len(home_gear),
+        "unknown_gear_entries_total": len(gear) + len(home_gear),
         "food": traits.get(39, 0),
         "recall": traits.get(38, 0),
         "gold": record["gold"],
-    }, Counter((item[1], item[2], item[3], item[5]) for item in gear)
+    }, gear_signature
 
 
 def summarize(state_lines, trips, town):
@@ -124,7 +135,8 @@ def summarize(state_lines, trips, town):
                 "Town boundaries use final depth per native tick; same-tick excursions are not separate stays.",
                 "Initial shopping is not a return; a final town stay may be incomplete.",
                 "Snapshots bracket observed states, not exact transaction boundaries.",
-                "Fewer unknown entries can mean identification, disposal, use or equipping.",
+                "Fewer pack unknowns can mean identification, Home storage, disposal, use or equipping.",
+                "Combined unknown-gear signatures compare observed quantities, not unique object identities.",
                 "Net food, Recall and gold changes do not count individual transactions.",
                 "Policy return votes are observations, not causal attribution."]}
 

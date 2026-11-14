@@ -65,6 +65,17 @@ class TripReportTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "fresh run"):
             summarize([], [], [town(2, []), town(1, [])])
 
+    def test_home_storage_is_not_counted_as_resolving_unknown_gear(self):
+        gear = [0, 22, 1, 1, 70, 0]
+        before = town(2, [gear])
+        after = town(4, [])
+        after["home"] = [gear]
+        result = summarize([state(1, 1), state(2, 0), state(5, 1)], [], [before, after])
+        visit = result["town_stays"][0]
+        self.assertEqual(visit["observed_delta"]["unknown_gear_entries"], -1)
+        self.assertEqual(visit["observed_delta"]["unknown_gear_entries_total"], 0)
+        self.assertTrue(visit["unknown_gear_unchanged_between_snapshots"])
+
 
 if __name__ == "__main__":
     unittest.main()

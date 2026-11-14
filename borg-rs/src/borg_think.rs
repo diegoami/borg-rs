@@ -45,6 +45,8 @@ pub struct ThinkState {
     pub sv_savefile: Vec<u8>,
     /// `justSaved` (static in `borg_check_save`)
     pub just_saved: bool,
+    pub town_action: Option<crate::borg_town_shadow::TownAction>,
+    pub town_live: crate::borg_town_live::LiveState,
 }
 
 impl Default for ThinkState {
@@ -54,6 +56,8 @@ impl Default for ThinkState {
             do_spell: true,
             sv_savefile: vec![0; SAVEFILE_LEN],
             just_saved: false,
+            town_action: None,
+            town_live: crate::borg_town_live::LiveState::default(),
         }
     }
 }

@@ -19,9 +19,9 @@
 //! The urgent pass is not replayed: its result (`urgent needs`) is the step's
 //! input, and the pass has its own suite (phase 2).
 //!
-//! Nothing in production calls this module yet (slice 2 will, in shadow
-//! mode); every public item carries the self-removing `expect(dead_code)`
-//! marker of phases 1-3.
+//! Production uses the same core for opt-in live execution and optional
+//! comparison records. Historical v4 records retain their original model;
+//! current v5 records use trip-relative utility.
 
 use std::collections::BTreeMap;
 
@@ -39,7 +39,7 @@ use crate::state::BorgState;
 pub const PLAN_SCHEMA: i64 = 5;
 
 /// The 24 town settings, `borg_town_plan` through
-/// `borg_town_power_scale` (68), contiguous; v4 stores the first 12.
+/// `borg_town_power_scale`, contiguous; v4 stores the first 12.
 pub const PARAMS: usize = 24;
 
 /// The action codes: v2's, extended for the plan.
@@ -836,6 +836,22 @@ pub fn first_action(
     facts: &[WareFact],
     kit: &[KitItem],
 ) -> (i64, [i64; 4], i64, bool) {
+    first_action_with_room(candidates, urgent, out, facts, kit, None)
+}
+
+/// Respect a full Home's prerequisite: free a Home slot before depositing.
+/// Historical shadow records retain their original order through first_action.
+pub fn first_executable_action(
+    candidates: &[Candidate], urgent: &[UrgentPurchase], out: &StepOutput,
+    facts: &[WareFact], kit: &[KitItem], home_slots: i32,
+) -> (i64, [i64; 4], i64, bool) {
+    first_action_with_room(candidates, urgent, out, facts, kit, Some(home_slots))
+}
+
+fn first_action_with_room(
+    candidates: &[Candidate], urgent: &[UrgentPurchase], out: &StepOutput,
+    facts: &[WareFact], kit: &[KitItem], home_slots: Option<i32>,
+) -> (i64, [i64; 4], i64, bool) {
     let need_of = |c: &Candidate| {
         facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot).map_or(-1, |f| i64::from(f.need))
     };
@@ -847,13 +863,19 @@ pub fn first_action(
     // The dispositions before the purchases, in the order that frees room
     // first: the pack's sales and drops, then its stores, then the Home's
     // sales, then what comes back from the Home.
-    let order = [
+    let order = if home_slots.is_some_and(|n| n <= 0) { [
+        (Place::Pack, Disposition::Sell),
+        (Place::Pack, Disposition::Drop),
+        (Place::Home, Disposition::Sell),
+        (Place::Pack, Disposition::Store),
+        (Place::Home, Disposition::Take),
+    ] } else { [
         (Place::Pack, Disposition::Sell),
         (Place::Pack, Disposition::Drop),
         (Place::Pack, Disposition::Store),
         (Place::Home, Disposition::Sell),
         (Place::Home, Disposition::Take),
-    ];
+    ] };
     for (place, d) in order {
         if let Some((k, _)) = kit.iter().zip(&out.dispositions).find(|(k, &x)| k.place == place && x == d) {
             let (code, at) = match (place, d) {
@@ -1353,6 +1375,24 @@ mod tests {
             action::LEAVE,
         ];
         assert_eq!(codes, [0, 1, 2, 3, 4, 5, 6, 7]);
+    }
+
+    #[test]
+    fn live_execution_frees_a_full_home_before_attempting_a_deposit() {
+        let stock = stock();
+        let (line, _) = produce(&stock, 300, &traits(), &[], &[]);
+        let (_, mut out) = replay(&line).unwrap();
+        let pack = KitItem { place: Place::Pack, slot: 0, kind: 1, qty: 1,
+            weight: 1, need: -1, reduction: 0, power: 0, proceeds: 0,
+            sell_shop: 4, unknown: false, unknown_flavour: false,
+            just_bought: false, serves: 0 };
+        let home = KitItem { place: Place::Home, slot: 5, ..pack };
+        let kit = [pack, home];
+        out.dispositions = vec![Disposition::Store, Disposition::Sell];
+        assert_eq!(first_executable_action(&stock.candidates, &[], &out, &[], &kit, 0).0, action::SELL_HOME);
+        assert_eq!(first_executable_action(&stock.candidates, &[], &out, &[], &kit, 1).0, action::STORE);
+        assert_eq!(first_action(&stock.candidates, &[], &out, &[], &kit).0, action::STORE,
+            "historical shadow action order remains reproducible");
     }
 
     /// The step's solution and groups are the ones its plan and solve

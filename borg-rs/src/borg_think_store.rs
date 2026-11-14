@@ -155,11 +155,12 @@ fn null_arm_gate(st: &mut BorgState) -> bool {
 /// decision together with the state and the shop stock. The dump is
 /// observation only, so the keypress stream is unchanged.
 pub fn borg_choose_shop(st: &mut BorgState) -> bool {
-    let decided = borg_choose_shop_inner(st);
+    let live = crate::borg_town_live::active(st);
+    let decided = if live { crate::borg_town_live::choose(st) } else { borg_choose_shop_inner(st) };
     if decided {
         crate::borg_town_dump::dump_town_visit(st);
         // The plan in shadow mode, on the same state: observation only.
-        crate::borg_town_shadow::shadow_visit(st);
+        if !live { crate::borg_town_shadow::shadow_visit(st); }
     }
     decided
 }
@@ -437,6 +438,12 @@ pub fn borg_think_store(st: &mut BorgState) -> bool {
     /* Choose a shop to visit.  Goal_shop indicates he is trying to sell
      * something somewhere. */
     if borg_choose_shop(st) {
+        if crate::borg_town_live::active(st) {
+            if crate::borg_town_live::execute_store(st) { return true; }
+            leave(st);
+            st.borg.in_shop = false;
+            return true;
+        }
         /* Note Pref. */
         let shop_num = st.think.shop_num;
         if shop_num != st.borg.goal.shop {
@@ -463,6 +470,7 @@ pub fn borg_think_store(st: &mut BorgState) -> bool {
     }
 
     /* No shop */
+    if crate::borg_town_live::active(st) { st.borg.in_shop = false; }
     clear_shop_goal(st);
 
     /* Leave the store */

@@ -1122,12 +1122,20 @@ pub fn borg_think_shop_sell_useless(st: &mut BorgState) -> bool {
 
 /// Sell items to the current shop, if desired
 pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
+    sell_selected(st, false)
+}
+
+pub fn sell_one_selected(st: &mut BorgState) -> bool {
+    sell_selected(st, true)
+}
+
+fn sell_selected(st: &mut BorgState, one: bool) -> bool {
     // Sell something if requested
     if st.borg.goal.shop == st.think.shop_num && st.borg.goal.item >= 0 {
         let idx = st.borg.goal.item as usize;
         let item = st.items.items[idx];
 
-        let qty = borg_min_item_quantity(st, &item);
+        let qty = if one { 1 } else { borg_min_item_quantity(st, &item) };
 
         // Log
         let mut note = b"# Selling ".to_vec();

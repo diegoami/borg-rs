@@ -776,9 +776,10 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
         }
 
         if borg_choose_shop(st) {
+            if crate::borg_town_live::execute_outside(st) { return true; }
             /* Try and visit a shop, if so desired */
             let shop = i32::from(st.borg.goal.shop);
-            if borg_flow_shop_entry(st, shop) {
+            if shop >= 0 && borg_flow_shop_entry(st, shop) {
                 return true;
             }
         }
@@ -1327,9 +1328,10 @@ pub fn borg_think_dungeon(st: &mut BorgState) -> bool {
 
     /* Visit the shops */
     if borg_choose_shop(st) {
+        if crate::borg_town_live::execute_outside(st) { return true; }
         /* Try and visit a shop, if so desired */
         let shop = i32::from(st.borg.goal.shop);
-        if borg_flow_shop_entry(st, shop) {
+        if shop >= 0 && borg_flow_shop_entry(st, shop) {
             return true;
         }
     }

@@ -1,19 +1,10 @@
-//! Phase 4 of the town inventory redesign (borg-rs#36), slice 2: the plan
-//! in **shadow mode** - computed at every town decision, recorded, never
-//! executed.
+//! Town-plan evaluation shared by live execution and optional recording.
 //!
-//! Enabled with `BORG_TOWN_PLAN_RECORD=<file>`. Unset, this module does
-//! nothing at all. Set, it reads the state the current policy just decided
-//! in (the same call that writes the v2 decision record,
-//! `borg_town_dump::dump_town_visit`), runs the plan's step on it, and
-//! writes one plan record (integer version 4, `borg_town_record`): v2's
-//! fields for that state - today's decision included - then the plan's.
-//! The two sides of a shadow comparison are therefore on one line.
-//!
-//! **Observation only.** The step reads the state and the stores and
-//! writes the file; it presses no key, sets no goal, touches no setting
-//! and draws no random number. The keypress stream with the record on is
-//! the stream without it, and the parity suites stay valid.
+//! `borg_town_plan = 1` feeds the selected action to `borg_town_live`;
+//! no record file is required. With it off, the historical chooser acts,
+//! and `BORG_TOWN_PLAN_RECORD` optionally records a comparison only.
+//! The evaluator restores its try-on/try-off probes. Only the live executor
+//! queues shop actions. A record's `mode` distinguishes the two paths.
 //!
 //! What the step can price today:
 //!
@@ -182,6 +173,18 @@ fn has_inventory_power(it: &borg_item) -> bool {
     !matches!(u32::from(it.tval), TV_FLASK | TV_FOOD | TV_MUSHROOM | TV_POTION | TV_SCROLL)
 }
 
+fn unknown_durable(it: &borg_item) -> bool {
+    use crate::headers::list_tvals_h::{TV_FLASK, TV_FOOD, TV_MUSHROOM, TV_POTION, TV_SCROLL};
+    (!it.aware || it.needs_ident)
+        && !matches!(u32::from(it.tval), TV_FLASK | TV_FOOD | TV_MUSHROOM | TV_POTION | TV_SCROLL)
+}
+
+fn apparently_saleable(it: &borg_item) -> bool {
+    // The engine refuses apparently worthless goods. Unknown durable
+    // rune exceptions under no-selling are protected, not disposal stock.
+    it.value > 0
+}
+
 /// The kit: the pack's and the Home's stacks, with what the dispositions
 /// read (slice 3). The power of a pack stack is a **try-off** - its
 /// quantity set to 0, `borg_notice` and `borg_power` run - and of a Home
@@ -219,9 +222,11 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             power: if consumable { 0 } else { power },
             proceeds: if no_selling { 0 } else { i64::from(it.value) * i64::from(it.iqty) * 2 / 3 },
             sell_shop: (0..7i8)
-                .find(|&who| crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
+                .find(|&who| apparently_saleable(it)
+                    && !crate::borg_town_live::sale_rejected(st, i16::from(who), it)
+                    && crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
                 .unwrap_or(-1),
-            unknown: it.needs_ident && !consumable,
+            unknown: unknown_durable(it),
             unknown_flavour,
             just_bought,
         }
@@ -291,12 +296,38 @@ static STEP: AtomicU64 = AtomicU64::new(0);
 /// same state and record it. Does nothing unless `BORG_TOWN_PLAN_RECORD`
 /// is set, or outside the town.
 pub fn shadow_visit(st: &mut BorgState) {
-    let Some(file) = crate::borg_town_dump::plan_record_file() else {
-        return;
-    };
-    if st.borg.tr(BI_CDEPTH) != 0 {
-        return;
+    if crate::borg_town_dump::plan_record_file().is_some() && st.borg.tr(BI_CDEPTH) == 0 {
+        evaluate(st, false);
     }
+}
+
+/// The same solve used by recording, now available to the live executor.
+/// One purchased/taken/sold copy is executed before the next fresh solve.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct TownAction {
+    pub code: i64,
+    pub at: [i64; 4],
+}
+
+pub fn live_action(st: &mut BorgState) -> TownAction {
+    evaluate(st, true)
+}
+
+fn effective_params(mut params: [i64; PARAMS], forecast: Option<crate::borg_trip::PlannedTrip>) -> [i64; PARAMS] {
+    use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
+    let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
+    if params[index] == 0 {
+        if let Some(forecast) = forecast { params[index] = i64::from(forecast.depth_target.clamp(1, 100)); }
+    }
+    params
+}
+
+fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
+    let file = crate::borg_town_dump::plan_record_file();
+    let forecast = if crate::borg_trip::acting(st) {
+        let inputs = crate::borg_trip::observe(st, -1);
+        Some(crate::borg_trip::plan_trip(&inputs, &crate::borg_trip::TripParams::of(&st.core.cfg)))
+    } else { None };
 
     // A new visit when the level clock moved (new_level restarts it on
     // every arrival, the town included).
@@ -316,6 +347,10 @@ pub fn shadow_visit(st: &mut BorgState) {
     );
     let mut trip = Trip::of(st);
     trip.cure_spell = cure_spell;
+    if let Some(forecast) = forecast {
+        trip.depth_target = forecast.depth_target;
+        trip.levels_per_trip = forecast.levels;
+    }
     let mut stock = Stock::of(st);
     // The wearables: their power gain, and their slot cost (the worn item
     // moves to the pack).
@@ -357,6 +392,11 @@ pub fn shadow_visit(st: &mut BorgState) {
     for (i, p) in params.iter_mut().enumerate() {
         *p = i64::from(st.cfg(BORG_TOWN_PLAN + i as u32));
     }
+    let configured_params = params;
+    // Materialize the shared trip target in the effective model inputs;
+    // replay reads the identical effective parameters. Keep the configured
+    // parameters separately in the log, including any zero (automatic) value.
+    params = effective_params(params, forecast);
     // The pack and the equipment, as v2 writes them: the light need
     // counts the light sources among them.
     let carried: Vec<(u8, i32)> = st
@@ -383,11 +423,21 @@ pub fn shadow_visit(st: &mut BorgState) {
         kit: &kit,
         home_slots: budget.home_slots,
     });
-    let (paction, act, for_need, now) = first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit);
+    let (paction, mut act, for_need, now) = if live {
+        crate::borg_town_record::first_executable_action(&stock.candidates, &budget.urgent, &out, &wares, &kit, budget.home_slots)
+    } else { first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit) };
 
+    if live && paction != crate::borg_town_record::action::LEAVE && paction != crate::borg_town_record::action::DROP {
+        if matches!(paction, crate::borg_town_record::action::SELL | crate::borg_town_record::action::SELL_HOME) && act[2] > 0 {
+            act[3] /= act[2];
+        }
+        act[2] = 1;
+    }
+    let chosen = TownAction { code: paction, at: act };
+    if file.is_none() { return chosen; }
     let rec = PlanRecord {
         schema: crate::borg_town_record::PLAN_SCHEMA,
-        mode: 0,
+        mode: u8::from(live),
         visit,
         step: step_no,
         gturn: i64::from(engine::game_turn()),
@@ -437,14 +487,56 @@ pub fn shadow_visit(st: &mut BorgState) {
         line.pop();
     }
     rec.push_fields(&mut line);
-    line.push('}');
-    crate::borg_town_dump::write_record(Some(file), &line);
+    line.push_str(",\"configured_params\":[");
+    line.push_str(&configured_params.iter().map(i64::to_string).collect::<Vec<_>>().join(","));
+    line.push_str("]}");
+    crate::borg_town_dump::write_record(file, &line);
+    chosen
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::headers::list_tvals_h::*;
+
+    #[test]
+    fn unaware_devices_are_protected_even_when_no_runes_are_missing() {
+        let mut it = crate::borg_item::blank_item();
+        it.tval = TV_STAFF as u8;
+        it.value = 70;
+        assert!(unknown_durable(&it));
+        it.aware = true;
+        assert!(!unknown_durable(&it));
+        it.needs_ident = true;
+        assert!(unknown_durable(&it));
+        it.tval = TV_POTION as u8;
+        assert!(!unknown_durable(&it));
+    }
+
+    #[test]
+    fn known_worthless_potions_are_not_offered_to_a_merchant() {
+        let mut it = crate::borg_item::blank_item();
+        it.tval = TV_POTION as u8;
+        it.aware = true;
+        assert!(!apparently_saleable(&it));
+        it.aware = false;
+        it.value = 20;
+        assert!(apparently_saleable(&it), "an unknown flavour may still be sold to learn it");
+    }
+
+    #[test]
+    fn automatic_forecast_uses_trip_target_but_explicit_target_is_preserved() {
+        use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
+        let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
+        let automatic = [0; PARAMS];
+        let forecast = crate::borg_trip::PlannedTrip { depth_target: 18, levels: 3, recall_scrolls: 2, recall_carry: 3 };
+        assert_eq!(effective_params(automatic, Some(forecast))[index], 18);
+        assert_eq!(effective_params(automatic, None), automatic);
+        assert_eq!(automatic[index], 0, "configured inputs must remain intact for the record");
+        let mut explicit = automatic;
+        explicit[index] = 7;
+        assert_eq!(effective_params(explicit, Some(forecast)), explicit);
+    }
 
     #[test]
     fn consumables_do_not_inherit_inventory_powers_level_gates() {

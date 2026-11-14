@@ -1,11 +1,13 @@
-# Trip-relative town utility (shadow model v5)
+# Trip-relative town utility (model v5)
 
 Owner direction, 2026-11-14: replace fixed stock targets with utility that
 responds to level and ambition; do not spend the purse merely to complete a
 shopping list. Walking home from a shallow dive and storing Recall in the
 Home must compete with buying and carrying it. This supersedes the fixed
 v4 stock targets, its five-level default ambition, and the per-kind deficit
-surrogate for mapped supply purchases. Execution remains **shadow only**.
+surrogate for mapped supply purchases. Execution is now **opt-in live** with `borg_town_plan=1`; zero keeps the
+historical chooser, with optional comparison recording. See
+[the combined runtime and trials](JOINT-POLICY-TRIALS.md).
 
 ## What the plan compares
 

@@ -555,6 +555,10 @@ pub(crate) fn finish_txt_settings<E: TxtEnv>(
         env.warning(error);
         env.st().init.init_failure = true;
     }
+    if !matches!(env.st().cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN), 0 | 1) {
+        env.warning("borg_town_plan must be 0 (control) or 1 (live planner)");
+        env.st().init.init_failure = true;
+    }
     if let Some(error) = crate::borg_trip::config_error(&env.st().core.cfg) {
         env.warning(error);
         env.st().init.init_failure = true;

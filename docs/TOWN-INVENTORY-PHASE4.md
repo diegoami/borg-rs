@@ -1,11 +1,12 @@
 # Phase 4 readiness: the Stay rules as the plan implements them, and the plan record (P13)
 
 > **Utility revision, 2026-11-14 (owner direction):** fixed stock targets and
-> the five-level default ambition are superseded for new shadow records by
+> the five-level default ambition are superseded for current utility records by
 > [the trip-relative utility model](TOWN-UTILITY.md). Supply value scales with
 > journey duration, destination and character capability; retaining gold and
 > storing supplies for later trips compete with purchasing/carrying. v4 replay
-> preserves the historical model. No live execution is enabled.
+> preserves the historical model. Subsequent owner direction adds live
+> execution with `borg_town_plan=1`; see [the combined runtime](JOINT-POLICY-TRIALS.md).
 
 Status: **accepted** (owner, 2026-11-13): Part A as drafted, both literal
 changes intended and the Home a floor source; #37's four open questions as

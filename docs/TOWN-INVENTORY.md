@@ -1,11 +1,12 @@
 # The town inventory strategy: architecture
 
 > **Utility revision, 2026-11-14 (owner direction):** fixed stock targets and
-> the five-level default ambition are superseded for new shadow records by
+> the five-level default ambition are superseded for current utility records by
 > [the trip-relative utility model](TOWN-UTILITY.md). Supply value scales with
 > journey duration, destination and character capability; retaining gold and
 > storing supplies for later trips compete with purchasing/carrying. v4 replay
-> preserves the historical model. No live execution is enabled.
+> preserves the historical model. Subsequent owner direction adds live
+> execution with `borg_town_plan=1`; see [the combined runtime](JOINT-POLICY-TRIALS.md).
 
 Status: **accepted, in implementation**. Phases 0-2 landed 2026-11-12 (the twelve settings in their six places; the usefulness function and the trip model; the stock and the budget), phase 3 on 2026-11-13 (the solver, on the accepted B2 form). The owner decisions of 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
