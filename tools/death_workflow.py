@@ -76,9 +76,15 @@ def source_commit(ref):
     return git('rev-parse', '--verify', '--end-of-options', ref + '^{commit}').strip()
 
 
+def recorder_paths(commit):
+    # Old frozen engines predate the extraction and have no vendor/pin paths.
+    return [p for p in ('vendor/angband-recorder','recorder-pin.json')
+            if git('ls-tree','--name-only',commit,'--',p).strip()]
+
+
 def source_inputs(commit):
     rows = []
-    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', binary=True).split(b'\0'):
+    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', 'vendor/angband-recorder', 'recorder-pin.json', binary=True).split(b'\0'):
         if not item:
             continue
         metadata, name = item.split(b'\t', 1)
@@ -281,7 +287,7 @@ def prepare_runtime(args, commit, hashes):
             raise ValueError('Observation tool changed while freezing: ' + name)
     archive = cache / 'source.tar'
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=tar', '-o', str(archive), commit,
-                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt', 'harness/measurement'], check=True)
+                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt', 'harness/measurement', *recorder_paths(commit)], check=True)
     with tarfile.open(archive) as saved:
         saved.extractall(source, filter='data')
     frontend = (source / 'angband/src/main-borgh.c').read_text()

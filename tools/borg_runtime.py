@@ -261,7 +261,7 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
             and summary and summary.get('stop_reason') == 'wall_timeout' and (bundle / 'run/native/record-complete.json').exists())
         if result.returncode and not consistent_timeout:
             record['status'] = 'failed'
-            record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
+            record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*') if p.is_file() and p != bundle / 'recording.json'}
             write(bundle / 'recording.json', record)
             raise ValueError(f'Headless run failed; named save preserved. Evidence: {bundle}')
         final = bundle / 'run/final.save'
@@ -278,7 +278,7 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
         os.replace(compressed, bundle / 'frames.jsonl.gz')
         record.update(status='timeout' if consistent_timeout else 'complete', summary=summary, publication='pending', finalized=True)
         record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*')
-                                 if p.is_file() and p.name != 'recording.json'}
+                                 if p.is_file() and p != bundle / 'recording.json'}
         write(bundle / 'recording.json', record)
         validate(bundle, require_complete=not consistent_timeout)
         if consistent_timeout:

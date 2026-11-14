@@ -872,7 +872,11 @@ bool file_move(const char *fname, const char *newname)
 bool file_exists(const char *fname)
 {
 	struct stat st;
-	return (stat(fname, &st) == 0);
+#ifdef BORG_RECORDING
+    return ar_exists(stat(fname, &st) == 0);
+#else
+    return (stat(fname, &st) == 0);
+#endif
 }
 
 #elif defined(WINDOWS)
