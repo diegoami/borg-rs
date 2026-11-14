@@ -13,9 +13,9 @@
 #     finalsave writes final.save using the engine at the normal stop boundary.
 #   Config flags (each rewrites one line of the run's user/borg.txt; with
 #   none of them the file is the same as before, byte for byte):
-#     munchkin   sets borg_munchkin_start = TRUE
-#     lunal      sets borg_lunal_mode = TRUE
-#     selflunal  sets borg_self_lunal = TRUE
+#     munchkin, lunal, selflunal: refused. The modes were removed
+#                (borg-rs#60, docs/TRIP-POLICY.md); a historical mode run
+#                needs a checkout from before the removal.
 #     NAME=VALUE sets any option of borg.txt: the line "NAME = ..." becomes
 #                "NAME = VALUE", e.g. borg_money_scum_amount=5000 or
 #                borg_uses_swaps=FALSE. NAME must be the option's full
@@ -72,9 +72,9 @@ if [ "$FLAGS" != "-" ]; then
                 [[ "$key_limit" =~ ^[1-9][0-9]{0,8}$ ]] || { echo 'run.sh: key-limit must be 1..999999999' >&2; exit 2; }
                 BORGH_FLAGS+=(-keys "$key_limit");;
             cheatlive) BORGH_FLAGS+=(-cheat-live);;
-            munchkin) CONFIG_SED+=(-e "s/^borg_munchkin_start = .*/borg_munchkin_start = TRUE/");;
-            lunal) CONFIG_SED+=(-e "s/^borg_lunal_mode = .*/borg_lunal_mode = TRUE/");;
-            selflunal) CONFIG_SED+=(-e "s/^borg_self_lunal = .*/borg_self_lunal = TRUE/");;
+            munchkin|lunal|selflunal)
+                echo "run.sh: flag '$fl': the $fl mode was removed (borg-rs#60, docs/TRIP-POLICY.md); use a checkout from before the removal for a historical run" >&2
+                exit 2;;
             save=*)
                 [ -z "$SAVE_NAME" ] || { echo "run.sh: duplicate save flag" >&2; exit 2; }
                 SAVE_NAME="${fl#save=}"
@@ -138,15 +138,6 @@ if [ ${#SET_SED[@]} -gt 0 ]; then
             echo "run.sh: no '$line' line in the run's borg.txt" >&2; exit 2; }
     done
 fi
-# Each config flag must have changed its line (a renamed option would
-# otherwise be silently ignored).
-for fl in munchkin:borg_munchkin_start lunal:borg_lunal_mode selflunal:borg_self_lunal; do
-    case ",$FLAGS," in
-        *",${fl%%:*},"*)
-            grep -qx "${fl#*:} = TRUE" "$OUT/user/borg.txt" || {
-                echo "run.sh: flag ${fl%%:*}: no '${fl#*:} = TRUE' line in borg.txt" >&2; exit 2; };;
-    esac
-done
 {
     echo "flags=$FLAGS"
     echo "borg_txt_sha256=$(sha256sum < "$OUT/user/borg.txt" | cut -d' ' -f1)"

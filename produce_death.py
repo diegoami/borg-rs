@@ -216,7 +216,8 @@ def existing_collection(directory, reports=False):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--munchkin', action='store_true', help='explicitly enable new munchkin games; default off')
+    parser.add_argument('--munchkin', action='store_true',
+                        help='removed: the munchkin mode no longer exists (borg-rs#60); refused')
     parser.add_argument('--yes', action='store_true', help='accept a needed pinned build')
     parser.add_argument('--no-build', action='store_true', help='require a compatible existing toolkit build')
     parser.add_argument('--check-build', action='store_true', help='check compatibility, then exit without games/build/lock')
@@ -236,6 +237,9 @@ def main(argv=None):
     parser.add_argument('--keys', type=int, default=50000, help='independent Rust Borg event cap per game')
     parser.add_argument('--checkpoint-every', type=int, default=1000)
     args = parser.parse_args(argv)
+    if args.munchkin:
+        parser.error('--munchkin: the munchkin mode was removed (borg-rs#60, docs/TRIP-POLICY.md); '
+                     'collect historical munchkin cases from a checkout before the removal')
     if args.yes and args.no_build:
         parser.error('Choose --yes or --no-build')
     if (args.games is not None and not 1 <= args.games <= 1000) or not 1 <= args.turns <= 2147483647 or min(args.timeout, args.stall_timeout, args.checkpoint_every) < 1 or not 1 <= args.keys <= 999999999 or (args.seed is not None and not 0 <= args.seed <= 0xffffffff):

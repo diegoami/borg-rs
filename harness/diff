@@ -77,6 +77,31 @@ IGNORED_FIELDS = {"wall_seconds"}
 MEASUREMENT_FIELDS = {"calendar", "max_clevel", "hp", "max_hp", "borg_decisions",
                       "player_energy", "borg_rng", "game_rng", "effective_settings"}
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# The munchkin and lunal settings the Rust Borg retired (borg-rs#60), with
+# the one value each may have on the side that still reports it - the C
+# oracle, which keeps the old algorithm. A run with every removed mode off
+# reports these values, and the Rust Borg no longer reports the setting;
+# that difference is the documented boundary of the C oracle and is not a
+# divergence. Any other value means the C side ran a removed mode, which the
+# Rust side cannot match: reported as a difference.
+RETIRED_SETTINGS = {
+    "borg_munchkin_start": 0, "borg_munchkin_level": 12, "borg_munchkin_depth": 16,
+    "borg_lunal_mode": 0, "borg_self_lunal": 0,
+    "borg_munchkin_by_class": 0, "borg_munchkin_class_depth": 6,
+    "borg_buy_strategy_munchkin": -1,
+    "borg_buy_strategy_current_munchkin_classes": 0,
+    "borg_buy_strategy_reserve410_munchkin_classes": 0,
+}
+
+
+def effective_settings_view(settings, other):
+    """The effective settings to compare: a retired setting that only this
+    side reports, at its inert value, is dropped (see RETIRED_SETTINGS)."""
+    if not isinstance(settings, dict) or not isinstance(other, dict):
+        return settings
+    return {k: v for k, v in settings.items()
+            if not (k in RETIRED_SETTINGS and k not in other
+                    and v == RETIRED_SETTINGS[k])}
 
 
 def find_log(path):
@@ -306,9 +331,11 @@ def compare_run(name, da, db, allow_legacy=False):
                 continue
             if k in IGNORED_FIELDS:
                 continue
-            if sa.get(k, "<absent>") != sb.get(k, "<absent>"):
-                probs.append("summary %s: A=%r B=%r"
-                             % (k, sa.get(k, "<absent>"), sb.get(k, "<absent>")))
+            va, vb = sa.get(k, "<absent>"), sb.get(k, "<absent>")
+            if k == "effective_settings":
+                va, vb = effective_settings_view(va, vb), effective_settings_view(vb, va)
+            if va != vb:
+                probs.append("summary %s: A=%r B=%r" % (k, va, vb))
     if probs:
         print("== %s: %s" % (name, "; ".join(probs)))
         ok = False
@@ -342,7 +369,9 @@ def suite_spec(suite):
     return spec
 
 
-# config flags: these names plus any NAME=VALUE option setting (run.sh)
+# config flags: any NAME=VALUE option setting (run.sh). The munchkin,
+# lunal and selflunal flags went with the modes (borg-rs#60); suites of
+# historical references that still name them are read with this set.
 CONFIG_FLAGS = {"munchkin", "lunal", "selflunal"}
 
 

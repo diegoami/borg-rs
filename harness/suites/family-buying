@@ -1,9 +1,11 @@
 # Bounded Borg-family buying checks (borg-rs#25).
-# Direct global selections and equivalent class/mode selections must match.
+# Direct global selections and equivalent class selections must match.
+# (The warrior pair selected through the munchkin class masks until the
+# mode was removed, borg-rs#60; it now uses the class masks.)
 family-current-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=0
 family-reserve-warrior 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=1
-family-reserve-warrior-selected 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_strategy_reserve410_munchkin_classes=1
-family-current-warrior-selected 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_strategy_current_munchkin_classes=1
+family-reserve-warrior-selected 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_strategy_reserve410_classes=1
+family-current-warrior-selected 101 0 0 20000 menu,terminal-save,borg_buy_strategy_default=1,borg_buy_strategy_current_classes=1
 family-current-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=0
 family-reserve-mage 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=1
 family-reserve-mage-selected 102 2 1 20000 menu,terminal-save,borg_buy_strategy_default=0,borg_buy_strategy_reserve410_classes=2

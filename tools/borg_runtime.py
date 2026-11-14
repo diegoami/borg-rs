@@ -225,7 +225,8 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
         if not origin and args.race is None and args.cls is None:
             flags += ',random-birth'
         if getattr(args, 'munchkin', False):
-            flags += ',munchkin'
+            # harness/run.sh refuses the flag too; fail here with the reason
+            raise ValueError('the munchkin mode was removed (borg-rs#60); use a pre-removal checkout')
         if origin:
             shutil.copy2(save.parent / 'backups' / save.name / 'save.1', runtime / 'harness/saves/origin.save')
             if sha(runtime / 'harness/saves/origin.save') != initial:

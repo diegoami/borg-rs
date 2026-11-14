@@ -335,6 +335,8 @@ def prepare_runtime(args, commit, hashes):
         text, count = re.subn(r'^' + name + r' = .*$', name + ' = ' + value, text, flags=re.M)
         if count != 1:
             raise ValueError('Missing/ambiguous native safety setting: ' + name)
+    # A source commit from before borg-rs#60 still has the line; later ones
+    # do not, and the substitution is then a no-op.
     text = re.sub(r'^borg_munchkin_start = .*$', 'borg_munchkin_start = FALSE', text, flags=re.M)
     config.write_text(text)
     manifests = {str(p.relative_to(cache)): sha(p) for p in cache.rglob('*') if p.is_file() and p != manifest_path

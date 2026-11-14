@@ -356,13 +356,25 @@ impl Stock {
 
     /// The pack slots the carried stacks occupy: one per distinct stack.
     pub fn pack_slots_used(&self) -> i32 {
-        self.pack.iter().map(Group::slots).sum()
+        pack_slots_used_of_groups(&self.pack)
     }
 
     /// The Home slots its stacks occupy.
     pub fn home_slots_used(&self) -> i32 {
         self.home.iter().map(Group::slots).sum()
     }
+}
+
+/// The slots a list of groups occupies: one per distinct stack.
+fn pack_slots_used_of_groups(groups: &[Group]) -> i32 {
+    groups.iter().map(Group::slots).sum()
+}
+
+/// The pack slots a pack occupies, one per distinct stack, without
+/// building the stock: the count the trip policy's pack pressure reads
+/// (borg-rs#60), so the dungeon and the town agree when a pack is full.
+pub fn pack_slots_used_of(pack: &[borg_item]) -> i32 {
+    pack_slots_used_of_groups(&groups(pack))
 }
 
 /// The needs a ware meets now - what the urgent pass reads (the urgent needs

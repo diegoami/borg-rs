@@ -1167,9 +1167,9 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
         || prefix(msg, b"teleports you away.")
         || prefix(msg, b"gestures at your feet.")
     {
-        // If in Lunal mode better shut that off, he is not on the stairs
-        // anymore
-        st.borg.lunal_mode = false;
+        // The lunal mode is removed (borg-rs#60). The note is kept because
+        // it is in the C oracle's message log for every such spell, and the
+        // default-config parity compares messages.log byte for byte.
         borg_note(st, "# Disconnecting Lunal Mode due to monster spell.");
     }
 

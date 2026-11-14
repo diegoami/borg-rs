@@ -92,7 +92,6 @@ fn main() {
         "BORG_XCHECK_PROJECTION_SOURCE",
         "BORG_XCHECK_COMBAT_SOURCE",
         "BORG_XCHECK_GLYPH_SOURCE",
-        "BORG_XCHECK_LUNAL_SOURCE",
     ]
     .iter()
     .any(|name| env::var_os(name).is_some());
@@ -105,7 +104,6 @@ fn main() {
         "BORG_XCHECK_PROJECTION_SOURCE",
         "BORG_XCHECK_COMBAT_SOURCE",
         "BORG_XCHECK_GLYPH_SOURCE",
-        "BORG_XCHECK_LUNAL_SOURCE",
     ] {
         println!("cargo:rerun-if-env-changed={name}");
         if let Some(path) = env::var_os(name) {

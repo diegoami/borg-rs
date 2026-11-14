@@ -23,7 +23,9 @@ args = p.parse_args()
 args.output = args.output.resolve()
 args.output.mkdir(parents=True, exist_ok=False)
 rows = []
-for suite in ('smoke', 'config'):
+# ('config', the munchkin/lunal suite, was removed with the modes,
+# borg-rs#60; an M2 baseline that ran it is read from a pre-removal checkout.)
+for suite in ('smoke',):
     for line in (ROOT / 'harness/suites' / suite).read_text().splitlines():
         fields = line.split('#', 1)[0].split()
         if fields:

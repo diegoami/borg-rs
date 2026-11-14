@@ -72,17 +72,16 @@ def check_impl(impl):
     assert stall['stop_reason'] == 'stalled' and stall['stall_decisions'] == 1
     assert stall['stall_turn'] == stall['game_turns']
     assert log(impl, 'plain').startswith(log(impl, 'stall'))
-    lunal_flags = 'menu,selflunal,key-limit=3000,save=lunal-ready.save'
-    fixture_root = ROOT / 'harness/saves/synthetic-tactics'
-    run(impl, 'lunal-base', seed=7200, turns=10000, flags=lunal_flags, save_root=fixture_root)
-    lunal = run(impl, 'lunal-stall', seed=7200, turns=10000, flags=lunal_flags,
-                extra=['-stall-decisions', '100'], save_root=fixture_root)
-    assert lunal['stop_reason'] == 'stalled' and lunal['stall_decisions'] == 100
-    assert lunal['stall_energy_delta'] > 0
-    assert log(impl, 'lunal-base').startswith(log(impl, 'lunal-stall'))
-    configured = run(impl, 'config', turns=1000, flags='munchkin,borg_munchkin_level=7')
-    assert configured['effective_settings']['borg_munchkin_start'] == 1
-    assert configured['effective_settings']['borg_munchkin_level'] == 7
+    # (A self-lunal stall case ran here until the mode was removed,
+    # borg-rs#60; the stall case above covers -stall-decisions.)
+    configured = run(impl, 'config', turns=1000, flags='borg_trip_pack_slack=5')
+    assert configured['effective_settings']['borg_trip_pack_slack'] == 5
+    # the C oracle keeps the retired mode settings at their inert values;
+    # the Rust Borg no longer has them (harness/diff, RETIRED_SETTINGS)
+    if impl == 'c':
+        assert configured['effective_settings']['borg_munchkin_start'] == 0
+    else:
+        assert 'borg_munchkin_start' not in configured['effective_settings']
     # Frozen native-observer result.json births (source pins in birth-reference.json).
     for ref in json.loads((Path(__file__).with_name('measurement-birth-reference.json')).read_text()):
         label = 'random-' + str(ref['seed'])

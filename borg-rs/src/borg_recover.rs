@@ -36,7 +36,6 @@ use crate::borg_headers::borg_trait_h::{
     BI_ISFIXSTR, BI_ISFIXWIS, BI_ISHEAVYSTUN, BI_ISHUNGRY, BI_ISIMAGE, BI_ISPOISONED, BI_ISSTUN,
     BI_ISWEAK, BI_MAXHP, BI_MAXSP,
 };
-use crate::headers::list_terrain_h::{FEAT_LESS, FEAT_MORE};
 use crate::headers::list_tvals_h::{TV_FOOD, TV_MUSHROOM, TV_ROD};
 use crate::headers::ui_event_h::keycode_t;
 use crate::state::BorgState;
@@ -467,48 +466,8 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
         && st.borg.tr(BI_ISHUNGRY) == 0
         && st.borg.tr(BI_ISPOISONED) == 0
         && st.borg.tr(BI_FOOD) > 2
-        && !st.borg.munchkin_mode
     {
         borg_note(st, &format!("# Resting to gain Mana. (danger {p})..."));
-
-        // Rest until done
-        rest(st, b'*');
-
-        // I'm not in a store
-        st.borg.in_shop = false;
-
-        return true;
-    }
-
-    // Hack to recharge mana if a low level mage in munchkin mode
-    if st.borg.tr(BI_MAXSP) != 0
-        && st.borg.munchkin_mode
-        && (st.borg.tr(BI_CURSP) < st.borg.tr(BI_MAXSP) || st.borg.tr(BI_CURHP) < st.borg.tr(BI_MAXHP))
-        && borg_flow_misc::borg_check_rest(st, st.borg.c.y, st.borg.c.x)
-        && st.borg.tr(BI_ISWEAK) == 0
-        && st.borg.tr(BI_ISCUT) == 0
-        && st.borg.tr(BI_ISHUNGRY) == 0
-        && st.borg.tr(BI_ISPOISONED) == 0
-        && st.borg.tr(BI_FOOD) > 2
-        && (st.cave.grid(st.borg.c.x, st.borg.c.y).feat == FEAT_MORE as u8
-            || st.cave.grid(st.borg.c.x, st.borg.c.y).feat == FEAT_LESS as u8)
-    {
-        borg_note(st, &format!("# Resting to gain munchkin HP/mana. (danger {p})..."));
-
-        // Rest until done
-        rest(st, b'*');
-
-        // I'm not in a store
-        st.borg.in_shop = false;
-
-        return true;
-    }
-
-    // Hack to heal blindness if in munchkin mode
-    if st.borg.tr(BI_ISBLIND) != 0 && st.borg.munchkin_mode {
-        // C passes the format string to borg_note() without format(), so
-        // the note keeps a literal "%d" (C bug 26).
-        borg_note(st, "# Resting to cure problem. (danger %d)...");
 
         // Rest until done
         rest(st, b'*');

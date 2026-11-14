@@ -120,6 +120,14 @@ struct borg_setting borg_settings[] = {
     { "borg_town_share", 'i', 10 },
     { "borg_town_light_depth", 'i', 15 },
     { "borg_town_food_trip", 'i', 10 },
+    /* The trip policy (borg-rs#60): Rust-only, registered and ignored. The
+     * munchkin and lunal settings above are the C oracle's record of the
+     * removed modes; the Rust Borg retired them. */
+    { "borg_trip_policy", 'i', 0 },
+    { "borg_trip_depth_margin", 'i', 0 },
+    { "borg_trip_pack_slack", 'i', 2 },
+    { "borg_trip_unknown_stacks", 'i', 4 },
+    { "borg_trip_return_gold", 'i', 0 },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */
