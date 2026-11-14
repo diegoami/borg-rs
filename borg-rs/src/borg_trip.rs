@@ -521,10 +521,10 @@ static LAST_INPUTS: Mutex<Option<(i32, TripInputs)>> = Mutex::new(None);
 
 /// One record line: the version, the clock, the effective parameters, the
 /// inputs and the decision. Integers and fixed words only.
-pub fn record_line(turn: i32, i: &TripInputs, p: &TripParams, d: &Decision) -> String {
+pub fn record_line(turn: i32, game_turn: i32, i: &TripInputs, p: &TripParams, d: &Decision) -> String {
     let reasons: Vec<String> = d.reasons.iter().map(|r| format!("\"{}\"", r.text())).collect();
     format!(
-        "{{\"v\":2,\"turn\":{turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
+        "{{\"v\":2,\"turn\":{turn},\"game_turn\":{game_turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
          \"unknown_stacks\":{},\"return_gold\":{}}},\"inputs\":{{\"clevel\":{},\"max_clevel\":{},\
          \"class\":{},\"race\":{},\"depth\":{},\"max_depth\":{},\"prepared_depth\":{},\
          \"prepared_here\":{},\"restock\":{},\"gold\":{},\"sale_value\":{},\"sellable\":{},\
@@ -570,7 +570,7 @@ pub fn consult(st: &mut BorgState, sellable: i32) -> Option<Decision> {
             changed
         };
         if changed || inputs_changed {
-            let line = record_line(st.borg.time.now, &inputs, &params, &decision);
+            let line = record_line(st.borg.time.now, crate::engine::game_turn(), &inputs, &params, &decision);
             let mut f = f.lock().unwrap_or_else(|e| e.into_inner());
             let _ = writeln!(f, "{line}");
         }
@@ -842,8 +842,8 @@ mod tests {
         let p = params();
         let i = TripInputs { unknown_stacks: 5, unknown_gear_stacks: 5, ..base() };
         let d = decide(&i, &p);
-        let line = record_line(1234, &i, &p, &d);
-        assert!(line.starts_with("{\"v\":2,\"turn\":1234,\"params\":{\"policy\":0,"));
+        let line = record_line(1234, 5678, &i, &p, &d);
+        assert!(line.starts_with("{\"v\":2,\"turn\":1234,\"game_turn\":5678,\"params\":{\"policy\":0,"));
         assert!(line.contains("\"unknown_stacks\":5,"));
         assert!(line.contains("\"unknown_gear_stacks\":5,"));
         assert!(line.ends_with(

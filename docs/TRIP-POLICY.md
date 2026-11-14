@@ -387,13 +387,33 @@ and purse reasons; every other rule of the map stands.
   so the play is the same with and without it. Example:
 
   ```json
-  {"v":2,"turn":1234,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown-gear(5 >= 4)"]}}
+  {"v":2,"turn":1234,"game_turn":12345,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown-gear(5 >= 4)"]}}
   ```
 * With the policy acting, decision/level/reason changes also write a note in the
   message log: `# Trip: return via recall (plan 8): unknown-gear(5 >= 4)`.
 
 Owner feedback on a case should quote the record line; it names the input
 that decided and the threshold it was held to.
+
+`turn` is the Borg's clock. `game_turn` is the native game clock, added to
+v2 records to join decisions to actual town stays without mixing clocks.
+Capture `BORG_TOWN_STATE` alongside the trip record and use:
+
+```bash
+python3 tools/trip_policy_report.py RUN TRIP_JSONL TOWN_STATE_JSONL
+```
+
+The report derives stays from `RUN/state.log`, marks initial shopping
+separately, and compares the first/last observed town inventories. It uses
+the final depth per native tick: within-tick depth changes are reported
+apart, not counted as independent stays. Missing snapshots and unfinished
+visits stay explicit. Fewer unknown entries alone do not prove identification;
+they can also reflect disposal, use or equipping. Policy return votes in
+the inbound trip are evidence of intent, not proof that the policy caused
+every return. No descent-speed score or automatic usefulness label is assigned.
+
+See [the town-outcome trace](validation/2026-11-14-trip-policy/town-outcomes.md)
+for the bounded functional runs and the existing no-upstairs routing fallback.
 
 ## 9. Coordination with the town plan
 
