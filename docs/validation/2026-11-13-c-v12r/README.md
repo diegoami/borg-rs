@@ -115,8 +115,92 @@ The official import changes engine behaviour, so the standing C reference
 matches **0/45** of `harness/reference/full`. That is the expected
 consequence of the import, not a regression of the carry — the same C build
 is byte-identical to the consumer's v12 blobs, and the C/Rust parity above
-holds. The standing reference is kept unchanged as history; a future carry
-needs a fresh C oracle for the imported engine.
+holds. The standing reference is kept unchanged as history; the next
+section records the refresh that replaced it.
+
+### The standing oracle, refreshed
+
+Owner direction (2026-11-13, later the same day): "the standing C oracle is
+now stale, update it". The suite oracles were therefore re-made from the
+v12R C build with the method `docs/harness.md` prescribes: the C build ran
+each suite **twice**, the two passes were compared on `keys.log`,
+`messages.log`, `state.log` and `summary.json` (apart from `wall_seconds`),
+and one pass was stored as `.xz` logs plus `summary.json`, `config.txt`,
+`timing.txt`, the manifest and the `DONE` marker.
+
+| oracle | runs | the two C passes | pass 2 vs the oracle | the Rust role vs the oracle |
+|---|---|---|---|---|
+| `smoke` | 3 | identical | **3/3** | **3/3** |
+| `full` | 45 | identical | **45/45** | **45/45** |
+| `classes` | 16 | identical | **16/16** | **16/16** |
+| `config` | 7 | identical | **7/7** | (the Rust role ran `config-six`) |
+| `config-six` | 6 | the six `config` runs | - | **6/6** |
+
+**What the refresh did.** Each suite was run twice by the same C build
+(`binary_sha256=2aef1459477d2b4174374bf4123b51b28e02e781295079c0339a65a6a3122b5f`,
+built from `748968da0a31f58d3a246634b0954b2344cbc1e0`, `git_dirty=no`,
+`inputs_dirty=no`); the two passes were compared on `keys.log`,
+`messages.log`, `state.log` and `summary.json` (apart from `wall_seconds`)
+and were identical in every suite; one pass was then stored as `.xz` logs
+plus `summary.json`, `config.txt`, `timing.txt`, the suite manifest and the
+`DONE` marker, in the format the earlier references use.
+
+**Provenance.** Every suite manifest records
+`checkout_source_sha256=28974d08729bda49cd70affad36d1a4f27cf61d7672d81af23e887aeee19a231`,
+the same value as the build's `build_id_source_sha256`, and
+`binary_sha256_end == binary_sha256`: the C code that produced the corpus is
+the code that was built. The manifests also record `git_dirty=yes`, because
+the documentation and the oracle corpus itself were uncommitted in the
+worktree while the suites ran; the C build inputs (`angband/`,
+`harness/measurement/`) were untouched (`build_id_inputs_dirty=no`).
+
+**The oracle describes the Rust Borg too.** The Rust output of the v12R
+validation (`harness/out/rust/`) was compared with the new oracles:
+**3/3** of `smoke` and **45/45** of `full` runs are identical on keys,
+messages and state, and the same holds for `classes` and `config-six`. The
+oracle is therefore a target both roles can be checked against, not only the
+C build.
+
+**Delivery.** The refreshed corpus is about 20 MB of `.xz` logs. The API
+channel that pushes this branch carries text only: a 600 KB call is refused
+outright and a binary payload does not survive the round trip. The corpus
+is therefore delivered as the archive `c-oracle-v12r.tar.gz` and installed
+with:
+
+    tar xzf c-oracle-v12r.tar.gz          # writes harness/reference/<suite>/...
+    git add -A harness/reference
+    git commit -m "harness: refresh the standing C oracle for v12R"
+    git push origin claude/v12r-carry
+
+The digests of every stored file are in [oracle-digests.json](oracle-digests.json),
+so the unpacked corpus can be checked against this receipt. This branch
+carries the text side of the refresh (the provenance map, this receipt and
+the digests); the archive carries the `.xz` logs.
+
+**What was not refreshed.** Two suites are still the M1/M4-era recordings:
+`options` and `deep`.
+
+`options` was not re-made because on the imported engine it is far more
+expensive than it was: the Borg now acts in about 80,000 of a run's 100,000
+turns instead of about 14,000 (`opt-wdam-war`: 80,635 keys and 1,655 s here
+against 14,156 keys and 11.3 s for the M1-era build, 146x), and each active
+run writes about 1.4 GB to this sandbox's network filesystem, so one C pass
+of the suite costs about four hours and the two passes the method asks for
+about eight. The `options` oracle therefore still describes the old engine
+and must not be read as if it described the imported Borg. The command to
+refresh it is in `harness/reference/README.md`.
+
+The `deep` suite (9 runs of 1,000,000 turns) was not re-made either: two C
+passes cost about four hours on this two-core sandbox.
+
+The investigation corpora under `harness/reference/` (`captured-rogue`,
+`crash-fixes*`, `endgame`, `extended*`, `glyph-*`, `lunal-investigation`,
+`natural`, `normal-live`, `synthetic-tactics*`, `better-borg-c/m2-*`) are
+records of past investigations on the `e473720ed` engine and are kept
+unchanged: rewriting them would destroy the evidence they are.
+`harness/reference/README.md` maps every corpus to what it is. The previous
+suite oracles (the M1/M4-era recordings) are preserved in the repository's
+history; they were superseded, not deleted.
 
 ## Limits
 

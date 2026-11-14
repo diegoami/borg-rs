@@ -48,8 +48,9 @@
       "rust_tests": "122 passed, 1 existing ignored",
       "clippy": "7 pre-existing findings, identical on main with this sandbox toolchain (rustc 1.100.0); none from the carry",
       "no_c_borg": "OK: the Rust binary links no C Borg",
-      "suites_not_run": "deep (9 x 1,000,000 turns) and options (25 runs): the wall-clock cost on this two-core sandbox",
-      "standing_reference": "the standing C reference no longer applies (0/45 against harness/reference/full): the import changes engine behaviour; the reference is kept as history",
+      "suites_not_run": "deep (9 x 1,000,000 turns) and options (25 runs): on the imported engine an options C pass costs about four hours on this two-core sandbox",
+      "standing_reference": "the standing C reference no longer applied (0/45 against harness/reference/full): the import changes engine behaviour, so it was refreshed on owner direction (2026-11-13)",
+      "oracle_refresh": "smoke, full, classes, config and config-six re-made from the v12R C build, each suite run twice with the two passes identical; the Rust role matches the new oracles 3/3, 45/45, 16/16 and 6/6; digests in docs/validation/2026-11-13-c-v12r/oracle-digests.json; options and deep are still the M1-era recordings",
       "receipt_digests": "docs/validation/2026-11-13-c-v12r/suite-digests.json"
     },
     {

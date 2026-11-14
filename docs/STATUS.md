@@ -75,9 +75,16 @@ adds none. Receipt:
 [docs/validation/2026-11-13-c-v12r](validation/2026-11-13-c-v12r/README.md).
 
 The import changes engine behaviour, so the standing C reference (recorded
-on the `e473720ed` engine) no longer describes the Borg: the new C build
-matches 0/45 of `harness/reference/full`. That is the expected consequence
-of the import, and the standing reference is kept unchanged as history.
+on the `e473720ed` engine) no longer described the Borg: the new C build
+matched 0/45 of `harness/reference/full`. That was the expected consequence
+of the import. On owner direction the oracle has since been refreshed: the
+suite oracles `smoke`, `full`, `classes`, `config` and `config-six` were
+re-made from the v12R C build, each suite run twice with the two passes
+identical, and the Rust role matches the new oracles 3/3, 45/45, 16/16 and
+6/6 on keys, messages and state. The `options` and `deep` oracles are still
+the M1-era recordings (on the imported engine `options` costs about four
+hours per C pass here), as are the investigation corpora;
+`harness/reference/README.md` maps every corpus to what it is.
 
 The carry is author-validated and awaits independent review; the v12R tag
 decision remains with the owner.
