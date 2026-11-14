@@ -218,9 +218,10 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             serves: if unknown_flavour { 0 } else { needs_served(st, it).iter().fold(0u8, |m, &n| m | (1 << need_index(n))) },
             power: if consumable { 0 } else { power },
             proceeds: if no_selling { 0 } else { i64::from(it.value) * i64::from(it.iqty) * 2 / 3 },
-            sell_shop: (0..7i8)
-                .find(|&who| crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
-                .unwrap_or(-1),
+            sell_shop: if it.value <= 0 { -1 } else { (0..7i8)
+                .find(|&who| !crate::borg_town_live::rejected_sale(st, it, i16::from(who))
+                    && crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
+                .unwrap_or(-1) },
             unknown: it.needs_ident && !consumable,
             unknown_flavour,
             just_bought,

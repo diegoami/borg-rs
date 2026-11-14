@@ -25,7 +25,12 @@ the legacy Borg appraisal returned zero for an unidentified negative-bonus
 Black Market ring, while the game charged a positive price. The live planner
 now reads the actual shop UI quote through the engine's `price_item` function.
 The control retains its historical appraisal, preserving its parity surface.
-The corrected Priest rerun has no insufficient-gold purchase loop.
+The corrected Priest rerun has no insufficient-gold purchase loop. The first
+measured batch then exposed a separate worthless-cloak sale loop. Known
+worthless items are no longer sale candidates, and an observed unchanged
+inventory after a sale blocks that buyer for the visit. Refused unknown sales
+therefore terminate without reading hidden kind values. The original batch
+is retained separately; the corrected matrix keeps the same parameters.
 
 Preflight outputs remain outside Git under `harness/out/rust/town-live-*`;
 they are integration attempts, not entries in the measured full-suite table.

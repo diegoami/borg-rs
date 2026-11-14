@@ -26,6 +26,7 @@ def main():
     parser.add_argument('--run', action='store_true')
     parser.add_argument('--jobs', type=int, default=4)
     args = parser.parse_args()
+    args.out = args.out.resolve()
     if not 1 <= args.jobs <= 8: parser.error('--jobs must be 1..8')
     profiles = load_profiles()
     native = export_zoo(profiles, ['reference', 'cash-cautious'], execution='live')['profiles']

@@ -1130,6 +1130,7 @@ pub fn borg_think_shop_sell(st: &mut BorgState) -> bool {
         let live_qty = crate::borg_town_live::quantity(st, true);
         let qty = live_qty.unwrap_or_else(|| borg_min_item_quantity(st, &item)).clamp(1, i32::from(item.iqty).max(1));
 
+        crate::borg_town_live::remember_sale(st);
         // Log
         let mut note = b"# Selling ".to_vec();
         note.extend(item.desc.iter().take_while(|&&c| c != 0).map(|&c| c as u8));

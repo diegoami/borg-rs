@@ -15,6 +15,8 @@ pub struct LiveState {
     pub slot: i16,
     pub direct: bool,
     visit_clock: Option<i32>,
+    last_sale: Option<(i16, u8, u8, i32)>,
+    rejected_sales: Vec<(i16, u8, u8)>,
 }
 
 pub fn enabled(st: &BorgState) -> bool {
@@ -89,13 +91,42 @@ pub fn refresh_prices(st: &mut BorgState) {
     }
 }
 
+fn held(st: &BorgState, tval: u8, sval: u8) -> i32 {
+    st.items.items.iter().filter(|i| i.tval == tval && i.sval == sval).map(|i| i32::from(i.iqty)).sum()
+}
+
+pub fn rejected_sale(st: &BorgState, it: &crate::borg_headers::borg_item_h::borg_item, shop: i16) -> bool {
+    enabled(st) && st.town_live.rejected_sales.contains(&(shop, it.tval, it.sval))
+}
+
+/// Infer refusal only from the observed unchanged holdings after the queued
+/// transaction, never from the diagnostic hidden value of an unknown kind.
+pub fn remember_sale(st: &mut BorgState) {
+    if quantity(st, true).is_none() { return; }
+    let i = st.borg.goal.item as usize;
+    if let Some(it) = st.items.items.get(i) {
+        st.town_live.last_sale = Some((st.borg.goal.shop, it.tval, it.sval, held(st, it.tval, it.sval)));
+    }
+}
+
+fn observe_sale(st: &mut BorgState) {
+    if let Some((shop, tval, sval, before)) = st.town_live.last_sale.take() {
+        if held(st, tval, sval) >= before {
+            st.town_live.rejected_sales.push((shop, tval, sval));
+            st.borg.goal.shop = -1; st.borg.goal.item = -1; st.borg.goal.ware = -1;
+        }
+    }
+}
+
 pub fn choose(st: &mut BorgState) -> bool {
     st.town_live.direct = false;
     if st.town_live.visit_clock != Some(st.borg.time.level) {
         st.town_live.visit_clock = Some(st.borg.time.level);
+        st.town_live.last_sale = None; st.town_live.rejected_sales.clear();
         st.buy.bought_item_num = 0; st.buy.bought_item_nxt = 0;
         st.store_sell.sold_item_num = 0; st.store_sell.sold_item_nxt = 0;
     }
+    observe_sale(st);
     if !st.borg.in_shop && (0..8).contains(&st.borg.goal.shop) { return true; }
     let Some(record) = crate::borg_town_shadow::plan_visit(st, 1) else { return false; };
     if record.action == action::DROP && st.borg.in_shop {
@@ -174,6 +205,18 @@ mod tests {
         assert_eq!(stock.candidates.len(), 1);
         assert_eq!(stock.candidates[0].shop, 6);
         assert_eq!(stock.offers[0].wares, [0]);
+    }
+    #[test]
+    fn an_observed_refusal_blocks_only_that_buyer_and_success_does_not() {
+        let mut s = state(); s.core.cfg[BORG_TOWN_PLAN as usize] = 1;
+        let mut it = crate::borg_item::blank_item(); it.tval = 25; it.sval = 3; it.iqty = 2;
+        s.items.items = vec![it];
+        bind(&mut s, action::SELL, [4, 0, 1, 0]); remember_sale(&mut s);
+        s.items.items[0].iqty = 1; observe_sale(&mut s);
+        assert!(!rejected_sale(&s, &it, 4));
+        bind(&mut s, action::SELL, [4, 0, 1, 0]); remember_sale(&mut s); observe_sale(&mut s);
+        assert!(rejected_sale(&s, &it, 4)); assert!(!rejected_sale(&s, &it, 6));
+        assert_eq!(s.borg.goal.shop, -1);
     }
     #[test]
     fn invalid_routes_cannot_index_a_shop() {
