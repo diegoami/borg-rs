@@ -98,4 +98,11 @@ at the same positions (`prot stun`; the four `unresisted vuln` entries).
 
 See [the validation receipt](../../validation/2026-11-14-c-v13r/README.md).
 
-## Owner acceptance and the tag decision remain with the owner
+## Owner acceptance
+
+Owner direction (2026-11-14): accept and merge. PR #72 was merged at
+`5dcc1db` and the annotated tag **`4.2.6-impact-v13`** marks the merged
+main commit, continuing the series after `4.2.6-impact-v12`. The GitHub
+milestone "4.2.6 impact v13" is created and closed with tracking issue
+[#73](https://github.com/diegoami/borg-rs/issues/73). The post-M10
+family lane is separate and unaffected.

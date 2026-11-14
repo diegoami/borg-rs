@@ -37,9 +37,11 @@ logs or summaries. See `harness/saves/README.md` for recipes and limits.
 `harness/regress/save-load/run.sh` checks C/C and C/Rust replay and rejects
 missing saves, wrong races and mismatched fixture hashes.
 
-The harness runs the unmodified Angband engine (pinned upstream
-`e473720ed88a0f0c7ca66815cef3000eb4a38bc3`, in `angband/`) with a Borg
-behind the `inkey_hack` seam. It records every key the Borg returns, every
+The harness runs the vendored Angband engine — upstream Angband at
+`42cd156ac9f95ddf4311e88dd7ad462292d6d1d6` (the official import that
+moved the pin from `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`; v12R),
+with the gated `#ifdef BORG_HARNESS` hooks and the documented fork
+corrections on top — and a Borg behind the `inkey_hack` seam. It records every key the Borg returns, every
 message added to the game's message log (Borg notes included) and, per
 key, a digest of the engine state. Two Borg implementations (C and Rust)
 are equivalent when these three logs are byte-identical for the same

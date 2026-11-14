@@ -138,3 +138,6 @@ recordings are preserved in the repository's history.
   measured; this carry inherits that limit.
 - Per-unit dispositions, the not-carried list and the preserved local
   deltas are in [the adoption record](../../adoption/c-v13r/README.md).
+- Accepted by the owner on 2026-11-14 and merged as PR #72
+  (merge commit `5dcc1db`); the annotated tag `4.2.6-impact-v13` marks
+  the merged main commit.

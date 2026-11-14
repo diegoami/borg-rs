@@ -88,8 +88,13 @@ receipt. Independent review: **approve with corrections** - one low
 finding (F1, this count was first written as 7/104), corrected here.
 Receipt:
 [docs/validation/2026-11-14-c-v13r](validation/2026-11-14-c-v13r/README.md).
-The implementation branch is `claude/v13r-carry`; owner acceptance and
-the tag decision remain with the owner.
+The implementation branch is `claude/v13r-carry`.
+
+**Accepted 2026-11-14.** Owner direction: accept and merge. PR #72 was
+merged at `5dcc1db` and the annotated tag **`4.2.6-impact-v13`** marks
+the merged main commit, after `4.2.6-impact-v12`. Tracking issue
+[#73](https://github.com/diegoami/borg-rs/issues/73) is closed; the
+GitHub milestone "4.2.6 impact v13" is created and closed.
 
 ## Carry better-borg-c milestone 12 as v12R (impact v12R)
 

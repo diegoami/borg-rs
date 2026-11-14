@@ -13,10 +13,18 @@ If the two ever disagree, the tests fail.
 
 ## The upstream pin
 
-The original C Borg is Angband's own, at
-`e473720ed88a0f0c7ca66815cef3000eb4a38bc3` - `src/borg/` in the
-`angband/angband` repository. borg-rs's own C Borg, the oracle under
-`angband/src/borg/`, is the consumer's C Borg (better-borg-c milestone 11)
+The engine base moved with the v12R official import (2026-11-13): the
+vendored `angband/` is upstream Angband at
+`42cd156ac9f95ddf4311e88dd7ad462292d6d1d6` — twelve official commits
+past the earlier pin
+`e473720ed88a0f0c7ca66815cef3000eb4a38bc3`. The pin records the
+situation at each point in time; it is not a constraint, and it moves
+through a verified, owner-accepted import.
+
+The original C Borg is Angband's own; the audit below compared against
+its table at the earlier pin. borg-rs's own C Borg, the oracle under
+`angband/src/borg/`, is the consumer's C Borg (better-borg-c; this tree
+carries the milestone-13 blobs)
 plus this repository's additions; the audit compared the *upstream's* table
 and config against both the Rust table and the two `borg.txt` copies here.
 
