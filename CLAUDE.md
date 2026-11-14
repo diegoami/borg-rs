@@ -162,9 +162,11 @@ C consumer's ownership/source links, rather than a second direct tracker queue.
 
 ## Death record workflow
 
-Named GUI/headless launchers export completed natural deaths automatically.
-Read docs/deaths/README.md and FEEDBACK.md when collecting or investigating
-cases. Keep actual source/binary/input identity and curated original observations;
+Named GUI/headless launchers export completed natural deaths automatically,
+into the local registry `.angband-rust/deaths/` (or BORG_DEATH_RECORDS_DIR).
+Owner decision (2026-11-14, #62): death records are no longer committed; the
+six earlier dossiers stay in Git history (removed after `4ed3263`). Read
+docs/death-workflow/FEEDBACK.md when collecting or investigating cases. Keep actual source/binary/input identity and curated original observations;
 full raw bundles/saves/builds stay outside Git. Use tools/record-death.py and
 aggregate-deaths.py for qualified manual exports; historical cases without
 movies retain their weaker evidence. Keep assessment/actions/authorized feedback
@@ -176,7 +178,7 @@ work; no unattended monitoring or deletion of unique evidence.
 
 
 Updated death-analysis workflow: shared owner feedback hub is borg-rs#3;
-D0005 focused investigation is#4. Use docs/deaths/REVIEW-TEMPLATE.md for the
+D0005 focused investigation is#4. Use docs/death-workflow/REVIEW-TEMPLATE.md for the
 whole trajectory, native/player-known resources, competing explanations and
 ranked next evidence. Missing private gates or rescue evidence stays provisional;
 source reasoning is not runtime branch proof. Player-known inventory/spells

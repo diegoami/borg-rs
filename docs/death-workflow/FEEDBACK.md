@@ -1,7 +1,7 @@
 # Death feedback and investigation
 
 Adapted from better-borg-c's death workflow at f3ced6219768. Open the
-[registry](README.md) and use a case's Discuss link when assigned. Reports
+registry (the local `.angband-rust/deaths/README.md`, outside Git since #62) and use a case's Discuss link when assigned. Reports
 without an investigation link remain explicitly unassigned. Logging never
 creates issues or changes gameplay automatically. Supply --death-issue URL
 on the headless command, BORG_DEATH_ISSUE for GUI play, or --investigation URL
@@ -46,12 +46,12 @@ or stronger replay claim merely by entering the registry.
 
 ## Explicit owner replay queue
 
-Use ./replay_next_death.py --list, then the default command or --case D0005
+Use ./scripts/replay_next_death.py --list, then the default command or --case D0005
 with optional --from-turn. Only --mark-reviewed D0005 or --mark-unreviewed
 D0005 changes the family-level owner review ledger. Technical assessments,
 viewer exit, verification and issue closure never imply that the owner watched
 or accepted the encounter. Marks are local and do not rewrite assessment.json.
-./produce_death.py collects a bounded prospective set of new recorded games
+./scripts/produce_death.py collects a bounded prospective set of new recorded games
 when another death is needed. No automatic cohort expansion or issue posting.
 
 

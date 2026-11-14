@@ -155,7 +155,7 @@ To try your own choices from a recorded headless game:
 
 ```sh
 ./scripts/replay_next_death.py --case D0006 --play-from-turn 22794
-# Or: ./scripts/replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094
+# Or: ./scripts/replay-borg.py .angband-rust/deaths/D0005-recorded --play-from-turn 36094
 ```
 
 This verifies the historical run, copies a living native save at the first
@@ -169,10 +169,12 @@ X11. Ctrl-X saves; Escape closes the native exit screen. See
 
 ### Death records
 
-Completed natural deaths automatically create a dossier in `docs/deaths/`,
+Completed natural deaths automatically create a dossier in the local registry
+`.angband-rust/deaths/` (outside Git: the records are no longer committed, #62),
 with native maps/death logs, build/input hashes, actual pre-death observations,
 checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a
-dossier directory too. [Registry and existing cases](docs/deaths/README.md).
+dossier directory too. The process: [feedback](docs/death-workflow/FEEDBACK.md),
+[review template](docs/death-workflow/REVIEW-TEMPLATE.md).
 [Add owner feedback on death-review hub #3](https://github.com/diegoami/borg-rs/issues/3).
 Set `BORG_DEATH_RECORDS_DIR` for a separate registry; attach a discussion with
 headless `--death-issue URL` or GUI `BORG_DEATH_ISSUE`. No issue is posted

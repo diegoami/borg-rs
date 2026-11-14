@@ -54,14 +54,7 @@
     "original_sha256": "f9f3bb6ec29bd2ba515da1f7276e2c1feacd3708ae0cc71a60076fd3f0ab7ff4",
     "adaptation": "Rust death schema and noninflated attempts/families/actions"
   },
-  "docs/deaths/window-profile-v2.json": {
-    "repository": "diegoami/better-borg-c",
-    "commit": "f3ced6219768aca6382381236c7d938718f492d5",
-    "path": "docs/deaths/window-profile-v2.json",
-    "original_sha256": "3910aa540adca0a371a8bc948d637096c07c15f4a084a7d97aa2229911e72368",
-    "adaptation": "Rust schema; same seven engine-turn offsets"
-  },
-  "docs/deaths/FEEDBACK.md": {
+  "docs/death-workflow/FEEDBACK.md": {
     "repository": "diegoami/better-borg-c",
     "commit": "f3ced6219768aca6382381236c7d938718f492d5",
     "path": "docs/deaths/FEEDBACK.md",
@@ -136,7 +129,7 @@
     "original_sha256": "c3705d415abe77d08e0ed0602eb55f6864c410f6ca6c410ae8ba44a810999c8f",
     "adaptation": "ported log visibility/delta/history controls"
   },
-  "docs/deaths/REVIEW-TEMPLATE.md": {
+  "docs/death-workflow/REVIEW-TEMPLATE.md": {
     "repository": "diegoami/better-borg-c",
     "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
     "path": "docs/deaths/REVIEW-TEMPLATE.md",

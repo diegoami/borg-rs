@@ -111,7 +111,7 @@ resolve to their original bundle only when its manifest hash still matches.
 
 ```sh
 ./scripts/replay_next_death.py --case D0006 --play-from-turn 22794
-./scripts/replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094 --prepare-only --output .angband-rust/my-attempt
+./scripts/replay-borg.py .angband-rust/deaths/D0005-recorded --play-from-turn 36094 --prepare-only --output .angband-rust/my-attempt
 ./scripts/play-branch.py .angband-rust/my-attempt
 ```
 
@@ -161,8 +161,9 @@ independent world-turn/key/wall limits. These launchers are not fully identical
 argument sets. Donor death-issue defaults are not copied across repos.
 
 Both launchers export each confirmed natural terminal death after the session
-completes. The registry defaults to docs/deaths; BORG_DEATH_RECORDS_DIR overrides
-it for private/testing profiles. Registry allocation is locked and dossier
+completes. The registry defaults to .angband-rust/deaths (local, outside Git: the
+death records are no longer committed, see #62); BORG_DEATH_RECORDS_DIR
+overrides it for private/testing profiles. Registry allocation is locked and dossier
 publication uses a staged directory; original identity and evidence are not
 replaced by later builds. Caps, failures and retirement do not become deaths.
 Borg/game cheat-enabled cases are rejected from natural-death export. GUI mixed
@@ -300,7 +301,7 @@ Owner review is separate from assessment/classification/actions. Closing a
 viewer, passing verification, technical analysis or a later fix never marks a
 family reviewed. Only explicit --mark-reviewed/--mark-unreviewed changes the
 local atomic locked ledger, and it applies to the whole qualified family.
-The committed docs/deaths/owner-reviews.json is a baseline; local overrides in
+An owner-reviews.json in the registry is a baseline; local overrides in
 harness/out/death-workflow/owner-reviews.json take precedence. No C owner-review
 marks are copied. BORG_DEATH_WORKFLOW_DIR isolates the ledger and replay output
 for tests/private workflows. Existing dossier and assessment bytes stay intact.

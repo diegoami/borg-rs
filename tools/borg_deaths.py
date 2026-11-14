@@ -38,7 +38,7 @@ def atomic_json(path, value):
 
 
 def registry_root():
-    return Path(os.environ.get('BORG_DEATH_RECORDS_DIR', ROOT / 'docs/deaths')).resolve()
+    return Path(os.environ.get('BORG_DEATH_RECORDS_DIR', ROOT / '.angband-rust/deaths')).resolve()
 
 
 def discussion_issue():

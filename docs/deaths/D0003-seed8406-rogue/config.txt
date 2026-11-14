@@ -1,3 +1,0 @@
-flags=menu,living-save,key-limit=50000
-borg_txt_sha256=f70b4596abb6a2814da1d1893a0d761137e0d96076b60c62e90d9f4cf07eb77d
-checkpoint_every=1000
