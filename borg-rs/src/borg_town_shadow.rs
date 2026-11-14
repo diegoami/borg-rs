@@ -64,6 +64,9 @@ fn ware_role(st: &BorgState, item: &borg_item) -> (i8, i64) {
     if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_phase_door {
         return (need_index(Need::Escape), 1);
     }
+    if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_word_of_recall {
+        return (need_index(Need::Trip), 1);
+    }
     // The urgent needs' classification already mirrors borg_trait's counting
     // of food, cures and poison cures; its first need is the ware's.
     match needs_served(st, item).first() {
@@ -301,7 +304,12 @@ pub fn shadow_visit(st: &mut BorgState) {
                 weight: c.weight,
                 need,
                 reduction,
-                serves: mask(&needs_served(st, item)),
+                // The knowledge bit marks a learnable ware: an unaware kind
+                // ({unseen} in the shop) or unknown runes ({??}). Buying one
+                // makes the flavour aware and learns every rune
+                // (store.c, "Learn flavor, any effect and all the runes").
+                serves: mask(&needs_served(st, item))
+                    | if item.needs_ident { 1 << need_index(Need::Knowledge) } else { 0 },
             }
         })
         .collect();

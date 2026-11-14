@@ -100,7 +100,7 @@ As landed in phase 2: the floor pass is exact over the at most four unmet floors
 One function: the needs, their deficits, the weights, one caution. Landed in phase 1:
 
 ```rust
-pub enum Need { Light, Food, Bleeding, Poison, Escape, Knowledge, Power, Trip }
+pub enum Need { Light, Food, Healing, Poison, Escape, Knowledge, Power, Trip }  // Healing was Bleeding (2026-11-14)
 
 pub struct Trip { /* the trip model: depth target, required light and food,
                      escapes needed, power target */ }

@@ -32,7 +32,7 @@ use crate::borg_headers::borg_h::{
 };
 use crate::borg_headers::borg_trait_h::{
     BI_ACCW, BI_ACLW, BI_ACSW, BI_ACUREPOIS, BI_APHASE, BI_FOOD, BI_ISCUT, BI_ISHUNGRY,
-    BI_ISPOISONED, BI_ISWEAK, BI_LIGHT, BI_MAXDEPTH,
+    BI_ISPOISONED, BI_ISWEAK, BI_LIGHT, BI_MAXDEPTH, BI_RECALL,
 };
 use crate::headers::list_tvals_h::TV_LIGHT;
 use crate::state::BorgState;
@@ -49,21 +49,32 @@ pub enum Need {
     Light,
     /// Food rations carried.
     Food,
-    /// A cure for the bleeding the character suffers now, when it has none.
-    Bleeding,
+    /// Healing for the coming trip: a stock of wound potions (Cure Light,
+    /// Serious and Critical Wounds, and the cure devices), which restore
+    /// hit points at once and cost no mana - a healing spell does not
+    /// replace them (owner, 2026-11-14). Urgent when cut with no cure at
+    /// all. Was "Bleeding" (a cure for a cut only), which priced the
+    /// potions at nothing while the character was not cut. Weighted by the
+    /// `borg_town_w_bleeding` setting.
+    Healing,
     /// A cure for the poison the character suffers now, when it has none.
     /// Poison wears off, so a cure carried "just in case" is no need
     /// (2026-11-14).
     Poison,
     /// Phase Door scrolls, the per-level escape.
     Escape,
-    /// Identify and friends. The catalogue (#35 item 4) prices these
-    /// when it lands; until then the deficit reads 0.
+    /// Learning an unknown kind: a shop ware whose kind the character does
+    /// not know is worth buying once - the purchase teaches the kind, so
+    /// every copy found in the dungeon is recognised (owner, 2026-11-14,
+    /// "buy to identify"). Each unknown kind is worth the whole weight on
+    /// its own; a second copy teaches nothing. Priced per ware in the
+    /// plan's step, so the deficit here reads 0.
     Knowledge,
     /// Borg power against the trip's depth target.
     Power,
-    /// Word of Recall and the trip itself. Priced from the stock's
-    /// reduction table when it lands; until then the deficit reads 0.
+    /// Getting home: Word of Recall, `RECALL_PER_TRIP` of them - one to come
+    /// back, one spare (owner, 2026-11-14). Read from `BI_RECALL`, which
+    /// counts the scrolls, a usable rod, the spell and recall gear.
     Trip,
 }
 
@@ -72,7 +83,7 @@ impl Need {
     pub const ALL: [Need; 8] = [
         Need::Light,
         Need::Food,
-        Need::Bleeding,
+        Need::Healing,
         Need::Poison,
         Need::Escape,
         Need::Knowledge,
@@ -115,7 +126,7 @@ pub fn urgent_needs(st: &BorgState, trip: &Trip) -> Vec<Need> {
         out.push(Need::Food);
     }
     if st.borg.tr(BI_ISCUT) != 0 && wound_cures(st, trip) < 1 {
-        out.push(Need::Bleeding);
+        out.push(Need::Healing);
     }
     if st.borg.tr(BI_ISPOISONED) != 0 && poison_cures(st, trip) < 1 {
         out.push(Need::Poison);
@@ -159,6 +170,11 @@ impl Trip {
     /// `borg_power`'s own units: it credits 40,000 per level the Borg is
     /// prepared for (`borg_power`, "a bonus for deep level prep").
     pub const POWER_PER_LEVEL: i32 = 40_000;
+    /// The wound potions a trip wants (provisional, 2026-11-14).
+    pub const HEALING_PER_TRIP: i32 = 5;
+    /// The Word of Recall a trip wants: one to come back, one spare
+    /// (2026-11-14).
+    pub const RECALL_PER_TRIP: i32 = 2;
 
     /// The trip the current state plans for.
     pub fn of(st: &BorgState) -> Self {
@@ -190,6 +206,16 @@ impl Trip {
     /// One escape per ten levels of trip, rounded up.
     pub fn escapes_needed(&self) -> i32 {
         (self.levels_per_trip + 9) / 10
+    }
+
+    /// The wound potions a trip wants (provisional, for the zoo to sweep).
+    pub fn required_healing(&self) -> i32 {
+        Self::HEALING_PER_TRIP
+    }
+
+    /// The Word of Recall a trip wants: one to come back, one spare.
+    pub fn required_recall(&self) -> i32 {
+        Self::RECALL_PER_TRIP
     }
 
     /// The power gap a trip opens: a trip's levels of preparation,
@@ -251,7 +277,7 @@ impl Weights {
         match need {
             Need::Light => self.light,
             Need::Food => self.food,
-            Need::Bleeding => self.bleeding,
+            Need::Healing => self.bleeding,
             Need::Poison => self.poison,
             Need::Escape => self.escape,
             Need::Knowledge => self.knowledge,
@@ -301,9 +327,28 @@ pub fn carried_lights(st: &BorgState) -> i32 {
         .sum()
 }
 
+/// For a counted need (light, food, healing, escape, trip): what the
+/// character carries of it, in the need's units, and what the trip wants.
+/// `None` for the others. The keep value of a stack is the curve's value at
+/// `carried` against at `carried` less its copies - so surplus copies,
+/// past the target, are worth nothing.
+pub fn counted(need: Need, st: &BorgState, trip: &Trip) -> Option<(i64, i64)> {
+    let t = |i: u32| i64::from(st.borg.tr(i));
+    match need {
+        Need::Light => Some((i64::from(carried_lights(st)), i64::from(trip.required_light()))),
+        Need::Food => Some((t(BI_FOOD), i64::from(trip.required_food()))),
+        Need::Healing => Some((t(BI_ACLW) + t(BI_ACSW) + t(BI_ACCW), i64::from(trip.required_healing()))),
+        Need::Escape => Some((t(BI_APHASE), i64::from(trip.escapes_needed()))),
+        Need::Trip => Some((t(BI_RECALL), i64::from(trip.required_recall()))),
+        _ => None,
+    }
+}
+
 /// The deficit of a need in the game's own units: how far the carried
 /// kit is below the target. Never negative; a met need has no deficit and
-/// prices nothing. Bleeding and Poison are booleans: 1 while cut (or
+/// prices nothing. Healing is the trip's stock of wound potions short, at
+/// least 1 while cut with no cure (2026-11-14); Trip is the Recall short of
+/// `RECALL_PER_TRIP`. Poison is a boolean: 1 while poisoned (as Bleeding was while cut, or
 /// poisoned) with no cure of it (2026-11-14; until then poison also
 /// counted a standing capability, carried whether poisoned or not -
 /// poison wears off, so that is gone). Knowledge reads 0 until the
@@ -313,12 +358,19 @@ pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
     let d = match need {
         Need::Light => trip.required_light() - carried_lights(st),
         Need::Food => trip.required_food() - st.borg.tr(BI_FOOD),
-        Need::Bleeding => (st.borg.tr(BI_ISCUT) != 0 && wound_cures(st, trip) < 1) as i32,
+        // The stock for the trip, counted in potions and devices (a spell
+        // is no stock: potions cost no mana); at least 1 while cut with no
+        // cure at all, the spell included.
+        Need::Healing => {
+            let stock = trip.required_healing()
+                - (st.borg.tr(BI_ACLW) + st.borg.tr(BI_ACSW) + st.borg.tr(BI_ACCW));
+            stock.max(i32::from(st.borg.tr(BI_ISCUT) != 0 && wound_cures(st, trip) < 1))
+        }
         Need::Poison => (st.borg.tr(BI_ISPOISONED) != 0 && poison_cures(st, trip) < 1) as i32,
         Need::Escape => trip.escapes_needed() - st.borg.tr(BI_APHASE),
         Need::Knowledge => 0,
         Need::Power => trip.power_gap(),
-        Need::Trip => 0,
+        Need::Trip => trip.required_recall() - st.borg.tr(BI_RECALL),
     };
     i64::from(d).max(0)
 }
@@ -433,7 +485,7 @@ mod tests {
         assert_eq!(Need::ALL.len(), 8);
         assert_eq!(w.get(Need::Light), 100);
         assert_eq!(w.get(Need::Food), 100);
-        assert_eq!(w.get(Need::Bleeding), 100);
+        assert_eq!(w.get(Need::Healing), 100);
         assert_eq!(w.get(Need::Poison), 100);
         assert_eq!(w.get(Need::Escape), 50);
         assert_eq!(w.get(Need::Knowledge), 25);
@@ -488,7 +540,7 @@ mod tests {
         st.borg.trait_[BI_ISWEAK as usize] = 0;
         // cut with no cure: urgent; any wound cure, or the spell, is a way
         st.borg.trait_[BI_ISCUT as usize] = 1;
-        assert_eq!(urgent(&st, false), [Need::Bleeding]);
+        assert_eq!(urgent(&st, false), [Need::Healing]);
         assert_eq!(urgent(&st, true), []);
         st.borg.trait_[BI_ACSW as usize] = 1;
         assert_eq!(urgent(&st, false), []);
@@ -534,29 +586,39 @@ mod tests {
         assert_eq!(usefulness(Need::Escape, 1, 1, &st, &trip, &w), 0);
         assert_eq!(usefulness(Need::Power, 40_000, 1, &st, &trip, &w), 10);
         assert_eq!(usefulness(Need::Power, 250_000, 1, &st, &trip, &w), 50);
-        // Knowledge and Trip read 0 until the catalogue prices them
+        // Knowledge is priced per ware in the step, so its deficit reads 0;
+        // the trip wants two Recall and carries none: one is worth 50*1/2
         assert_eq!(usefulness(Need::Knowledge, 1, 1, &st, &trip, &w), 0);
-        assert_eq!(usefulness(Need::Trip, 1, 1, &st, &trip, &w), 0);
+        assert_eq!(usefulness(Need::Trip, 1, 1, &st, &trip, &w), 25);
+        assert_eq!(usefulness(Need::Trip, 1, 3, &st, &trip, &w), 50);
     }
 
-    /// The provisional booleans: a cut is a bleeding deficit of 1 (the
-    /// first cure is worth the full 100); poisoned with no cure carried
-    /// is a poison deficit of 2 (one cure 50, two 100).
+    /// Healing is a trip's stock of wound potions (5), urgent while cut
+    /// with no cure; poison is a condition only, with no standing need
+    /// (2026-11-14).
     #[test]
     fn usefulness_values_for_condition_states() {
         let mut st = state();
-        let trip = Trip::of(&st);
+        let mut trip = Trip::of(&st);
         let w = Weights::of(&cfg());
-        // a cut with no cure: gap 1, the first cure is worth the weight
-        st.borg.trait_[BI_ISCUT as usize] = 1;
-        assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 100);
-        // a cure carried: no deficit
-        st.borg.trait_[BI_ACLW as usize] = 1;
-        assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 0);
-        // not cut: no bleeding deficit
-        st.borg.trait_[BI_ISCUT as usize] = 0;
+        // no potions, not cut: the stock is 5 short, one potion is 100/5
+        assert_eq!(usefulness(Need::Healing, 1, 1, &st, &trip, &w), 20);
+        assert_eq!(usefulness(Need::Healing, 1, 5, &st, &trip, &w), 100);
+        // four carried: one more fills the stock, a sixth adds nothing
+        st.borg.trait_[BI_ACLW as usize] = 4;
+        assert_eq!(usefulness(Need::Healing, 1, 1, &st, &trip, &w), 100);
+        st.borg.trait_[BI_ACLW as usize] = 5;
+        assert_eq!(usefulness(Need::Healing, 1, 1, &st, &trip, &w), 0);
+        // a healing spell is no stock: potions cost no mana
         st.borg.trait_[BI_ACLW as usize] = 0;
-        assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 0);
+        trip.cure_spell = true;
+        assert_eq!(usefulness(Need::Healing, 1, 1, &st, &trip, &w), 20);
+        // cut with no cure at all: still at least the urgent 1 - with the
+        // spell, the cut is curable, and the stock alone counts
+        trip.cure_spell = false;
+        st.borg.trait_[BI_ACLW as usize] = 5;
+        st.borg.trait_[BI_ISCUT as usize] = 0;
+        assert_eq!(deficit(Need::Healing, &st, &trip), 0);
         // not poisoned: no poison need at all, cure or no cure (poison
         // wears off; the standing capability is gone, 2026-11-14)
         assert_eq!(usefulness(Need::Poison, 1, 1, &st, &trip, &w), 0);

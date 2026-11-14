@@ -702,6 +702,17 @@ pub fn step(input: &StepInput) -> StepOutput {
         unmet: Vec::new(),
     };
     let caution = weights.caution;
+    // Buy to identify (owner, 2026-11-14): a learnable ware - an unaware
+    // kind, or unknown runes - is worth the knowledge weight for its first
+    // copy; a second copy teaches nothing. Each unknown kind is worth the
+    // whole weight on its own.
+    let knowledge_bit = 1u8 << Need::ALL.iter().position(|&n| n == Need::Knowledge).unwrap_or(5);
+    let learn = |c: &Candidate, n: i32| -> i64 {
+        match facts.get(&(c.shop, c.slot)) {
+            Some(f) if f.serves & knowledge_bit != 0 && n >= 1 => weights.knowledge,
+            _ => 0,
+        }
+    };
     let groups = groups(
         &stock,
         &budget,
@@ -710,14 +721,17 @@ pub fn step(input: &StepInput) -> StepOutput {
         // prices it on the same scale as every other need.
         |c| {
             tryon.get(&(c.shop, c.slot)).map(|t| {
-                (t.eq_slot, usefulness(Need::Power, t.value, 1, &st, &trip, &weights))
+                (t.eq_slot, usefulness(Need::Power, t.value, 1, &st, &trip, &weights) + learn(c, 1))
             })
         },
-        |c, n| match facts.get(&(c.shop, c.slot)) {
-            Some(f) if f.need >= 0 => {
-                usefulness(Need::ALL[f.need as usize], f.reduction, i64::from(n), &st, &trip, &weights)
-            }
-            _ => 0,
+        |c, n| {
+            let need = match facts.get(&(c.shop, c.slot)) {
+                Some(f) if f.need >= 0 => {
+                    usefulness(Need::ALL[f.need as usize], f.reduction, i64::from(n), &st, &trip, &weights)
+                }
+                _ => 0,
+            };
+            need + learn(c, n)
         },
     );
     let solution = solve(&groups, &limits);
@@ -742,7 +756,7 @@ pub fn step(input: &StepInput) -> StepOutput {
 /// `BI_FOOD`, wound cures to `BI_ACLW`, poison cures to `BI_ACUREPOIS`,
 /// Phase Door to `BI_APHASE`. Other needs carry nothing countable.
 pub fn apply_need(st: &mut BorgState, need: i8, reduction: i64, qty: i32, sign: i32) {
-    use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_ACUREPOIS, BI_APHASE, BI_FOOD};
+    use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_ACUREPOIS, BI_APHASE, BI_FOOD, BI_RECALL};
     use crate::headers::list_tvals_h::TV_LIGHT;
     let n = sign * qty;
     let at = |st: &mut BorgState, t: u32, d: i32| {
@@ -769,6 +783,7 @@ pub fn apply_need(st: &mut BorgState, need: i8, reduction: i64, qty: i32, sign: 
         2 => at(st, BI_ACLW, n),
         3 => at(st, BI_ACUREPOIS, n),
         4 => at(st, BI_APHASE, n),
+        7 => at(st, BI_RECALL, n),
         _ => {}
     }
 }
@@ -1036,6 +1051,20 @@ mod tests {
         unmet: &[Need],
         kit: &[KitItem],
     ) -> (String, PlanRecord) {
+        produce_ident(stock, gold, traits, tryon, unmet, kit, &[])
+    }
+
+    /// As produce_kit, with the wares of the kinds in `unseen` marked as
+    /// unknown (`{unseen}` or `{??}`): a purchase teaches them.
+    fn produce_ident(
+        stock: &Stock,
+        gold: i64,
+        traits: &[i32],
+        tryon: &[TryOn],
+        unmet: &[Need],
+        kit: &[KitItem],
+        unseen: &[u32],
+    ) -> (String, PlanRecord) {
         let facts = Facts { gold, pack_capacity: 23, home_capacity: 24, carry: traits[BI_CARRY as usize], weight: 0 };
         let budget = Budget::build(&facts, stock, unmet, |c| {
             let (_, _, serves) = role(c.kind);
@@ -1045,7 +1074,10 @@ mod tests {
             .candidates
             .iter()
             .map(|c| {
-                let (need, reduction, serves) = role(c.kind);
+                let (need, reduction, mut serves) = role(c.kind);
+                if unseen.contains(&c.kind) {
+                    serves |= 1 << Need::ALL.iter().position(|&n| n == Need::Knowledge).unwrap();
+                }
                 WareFact {
                     shop: c.shop,
                     slot: c.slot,
@@ -1458,6 +1490,22 @@ mod tests {
         let urgent: Vec<UrgentPurchase> = Vec::new();
         let (a, act, _, _) = first_action(&s.candidates, &urgent, &out, &rec.wares, &rec.kit);
         assert_eq!((a, act[1]), (action::SELL, 4));
+    }
+
+    /// Buy to identify: an unknown ware's first copy is worth the
+    /// knowledge weight on top of its need, a second copy nothing more;
+    /// the plan buys one of an otherwise unwanted unknown ware.
+    #[test]
+    fn an_unknown_ware_is_bought_once_to_learn_it() {
+        let s = stock();
+        let mut t = traits();
+        t[BI_FOOD as usize] = 10; // no food gap: rations serve nothing
+        let rations = |r: &PlanRecord| r.plan.iter().filter(|e| e.key == 1 || e.key == 6).map(|e| e.copies).sum::<i32>();
+        let (_, known) = produce(&s, 2_000, &t, &[], &[]);
+        assert_eq!(rations(&known), 0, "a known ration with no gap is not bought");
+        let (line, unseen) = produce_ident(&s, 2_000, &t, &[], &[], &[], &[RATION]);
+        assert_eq!(rations(&unseen), 1, "one, to learn the flavour: {:?}", unseen.plan);
+        assert!(replays(&line).unwrap(), "the knowledge bonus replays");
     }
 
     /// A version-2 line is not read as a plan record.

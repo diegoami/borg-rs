@@ -251,7 +251,7 @@ mod tests {
         match c.kind {
             TORCH => vec![Need::Light],
             RATION => vec![Need::Food],
-            CLW => vec![Need::Bleeding],
+            CLW => vec![Need::Healing],
             CURE_POISON => vec![Need::Poison],
             FOOD_POISON => vec![Need::Food, Need::Poison],
             _ => vec![],
@@ -333,7 +333,7 @@ mod tests {
     #[test]
     fn the_urgent_needs_come_first() {
         let s = build(&general_and_alchemist(), &[]);
-        let unmet = [Need::Light, Need::Food, Need::Bleeding, Need::Poison];
+        let unmet = [Need::Light, Need::Food, Need::Healing, Need::Poison];
         let b = Budget::build(&facts(100), &s, &unmet, serves);
         let bought: Vec<u32> = b.urgent.iter().map(|f| s.candidates[f.candidate].kind).collect();
         assert_eq!(bought, [TORCH, RATION, CLW, CURE_POISON]);
@@ -393,9 +393,9 @@ mod tests {
     fn an_urgent_need_no_shop_serves_is_unmet() {
         let t = town([&[item(TORCH, 1, 2)], &[], &[], &[], &[], &[], &[], &[]]);
         let s = build(&t, &[]);
-        let b = Budget::build(&facts(10_000), &s, &[Need::Light, Need::Bleeding], serves);
+        let b = Budget::build(&facts(10_000), &s, &[Need::Light, Need::Healing], serves);
         assert_eq!(b.urgent.len(), 1);
-        assert_eq!(b.unmet, [Need::Bleeding]);
+        assert_eq!(b.unmet, [Need::Healing]);
     }
 
     /// The urgent needs take the cheapest source, Black Market included - they
@@ -405,12 +405,12 @@ mod tests {
     fn the_urgent_needs_take_the_cheapest_source() {
         let t = town([&[], &[], &[], &[], &[item(CLW, 1, 20)], &[item(CLW, 1, 20)], &[item(CLW, 1, 60)], &[]]);
         let s = build(&t, &[]);
-        let b = Budget::build(&facts(100), &s, &[Need::Bleeding], serves);
+        let b = Budget::build(&facts(100), &s, &[Need::Healing], serves);
         assert_eq!(s.candidates[b.urgent[0].candidate].shop, 4);
         // only the Black Market has it: it is bought, cap or no cap
         let t = town([&[], &[], &[], &[], &[], &[], &[item(CLW, 1, 60)], &[]]);
         let s = build(&t, &[]);
-        let b = Budget::build(&facts(100), &s, &[Need::Bleeding], serves);
+        let b = Budget::build(&facts(100), &s, &[Need::Healing], serves);
         assert!(s.candidates[b.urgent[0].candidate].is_black_market());
         assert_eq!(b.gold, 40);
     }
@@ -438,7 +438,7 @@ mod tests {
             calls.set(calls.get() + 1);
             serves(c)
         };
-        let unmet = [Need::Light, Need::Food, Need::Bleeding, Need::Poison];
+        let unmet = [Need::Light, Need::Food, Need::Healing, Need::Poison];
         let b = Budget::build(&facts(1000), &s, &unmet, counting);
         assert!(b.unmet.is_empty());
         assert_eq!(calls.get(), s.candidates.len() + b.urgent.len());
@@ -448,7 +448,7 @@ mod tests {
     #[test]
     fn the_budget_is_deterministic() {
         let s = build(&general_and_alchemist(), &[item(TORCH, 1, 0)]);
-        let unmet = [Need::Food, Need::Bleeding, Need::Poison];
+        let unmet = [Need::Food, Need::Healing, Need::Poison];
         let a = Budget::build(&facts(40), &s, &unmet, serves);
         let b = Budget::build(&facts(40), &s, &unmet, serves);
         assert_eq!(a, b);

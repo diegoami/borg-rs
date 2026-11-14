@@ -19,8 +19,10 @@
 //! * over the **weight** allowance, the kept stacks with the least value
 //!   per weight go to the Home while it has slots;
 //! * **Home** stacks with value are taken back while the pack has slots,
-//!   the most valuable first; Home stacks without value are sold (freeing
-//!   the Home's slots).
+//!   the most valuable first; Home stacks without value are sold only when
+//!   the sale pays gold, or when the Home needs the slot (owner,
+//!   2026-11-14: under `birth_no_selling` a sale pays nothing, and the Home
+//!   is a free stash).
 //!
 //! Two stages (owner, 2026-11-14): the dispositions are decided first,
 //! and what they free - pack slots, weight, the sale proceeds - is what
@@ -104,26 +106,35 @@ pub struct Freed {
 pub fn keep_value(item: &KitItem, st: &BorgState, trip: &Trip, weights: &Weights) -> i64 {
     let need = usize::try_from(item.need).ok().and_then(|i| Need::ALL.get(i)).copied();
     let need_value = match need {
-        Some(n @ (Need::Light | Need::Food | Need::Escape)) => {
-            let gap = crate::borg_town_usefulness::deficit(n, st, trip);
-            // Carried: its copies close part of what the gap would be
-            // without it. In the Home: they would close part of the gap.
-            let without = match item.place {
-                Place::Pack => gap + item.reduction * i64::from(item.qty),
-                Place::Home => gap,
+        Some(n @ (Need::Light | Need::Food | Need::Escape | Need::Healing | Need::Trip)) => {
+            // The curve's value with the copies against without them: a
+            // carried stack is worth what losing it costs, a Home stack what
+            // having it adds; copies past the target are worth nothing.
+            let (carried, target) = crate::borg_town_usefulness::counted(n, st, trip).unwrap_or((0, 0));
+            let u = |x: i64| value(weights.get(n), 1, target, x.max(0));
+            let copies = item.reduction * i64::from(item.qty);
+            let mut v = match item.place {
+                Place::Pack => u(carried) - u(carried - copies),
+                Place::Home => u(carried + copies) - u(carried),
             };
-            value(weights.get(n), item.reduction, without, i64::from(item.qty))
+            // Healing is also urgent while cut with no cure: the only cure
+            // carried keeps the whole need.
+            if n == Need::Healing && item.place == Place::Pack {
+                use crate::borg_headers::borg_trait_h::BI_ISCUT;
+                let others = crate::borg_town_usefulness::wound_cures(st, trip) - i32::try_from(copies).unwrap_or(i32::MAX);
+                if st.borg.tr(BI_ISCUT) != 0 && others < 1 {
+                    v = v.max(weights.get(n));
+                }
+            }
+            v
         }
         // A condition need: worth the whole need while the condition is on
         // and, without this stack, nothing else cures it. A carried cure is
         // in the cure count itself, so its own copies come off first.
-        Some(n @ (Need::Bleeding | Need::Poison)) => {
-            use crate::borg_headers::borg_trait_h::{BI_ISCUT, BI_ISPOISONED};
-            use crate::borg_town_usefulness::{poison_cures, wound_cures};
-            let (on, cures) = match n {
-                Need::Bleeding => (st.borg.tr(BI_ISCUT) != 0, wound_cures(st, trip)),
-                _ => (st.borg.tr(BI_ISPOISONED) != 0, poison_cures(st, trip)),
-            };
+        Some(n @ Need::Poison) => {
+            use crate::borg_headers::borg_trait_h::BI_ISPOISONED;
+            use crate::borg_town_usefulness::poison_cures;
+            let (on, cures) = (st.borg.tr(BI_ISPOISONED) != 0, poison_cures(st, trip));
             let own = if item.place == Place::Pack { item.qty } else { 0 };
             if on && cures - own < 1 {
                 weights.get(n)
@@ -167,15 +178,23 @@ pub fn dispose(
         }
     }
 
-    // The Home: sell what has no value, freeing its slots.
+    // The Home: a worthless stack is sold only when the sale pays gold
+    // (owner, 2026-11-14) - under birth_no_selling it pays nothing, and the
+    // Home is a free stash - or below, when the Home needs the slot.
+    let worthless = |i: usize, it: &KitItem| values[i] <= 0 && !it.unknown && it.sell_shop >= 0;
     for (i, it) in kit.iter().enumerate().filter(|(_, it)| it.place == Place::Home) {
-        if values[i] <= 0 && !it.unknown && it.sell_shop >= 0 {
+        if worthless(i, it) && it.proceeds > 0 {
             out[i] = Disposition::Sell;
             freed.home_slots += 1;
             freed.gold += it.proceeds;
         }
     }
     let mut home_free = home_free + freed.home_slots;
+    // The worthless Home stacks still kept: sold to make room for a store.
+    let mut spare: Vec<usize> = (0..kit.len())
+        .filter(|&i| kit[i].place == Place::Home && out[i] == Disposition::Keep && worthless(i, &kit[i]))
+        .collect();
+    spare.reverse();
 
     // Over the allowance: store the kept stacks with the least value per
     // weight, while the Home has slots. Ties to the earlier slot.
@@ -191,8 +210,16 @@ pub fn dispose(
                 .then(kit[a].slot.cmp(&kit[b].slot))
         });
         for i in kept {
-            if over <= 0 || home_free <= 0 {
+            if over <= 0 {
                 break;
+            }
+            if home_free <= 0 {
+                // Make room: sell a worthless Home stack, if there is one.
+                let Some(j) = spare.pop() else { break };
+                out[j] = Disposition::Sell;
+                freed.home_slots += 1;
+                freed.gold += kit[j].proceeds;
+                home_free += 1;
             }
             out[i] = Disposition::Store;
             let w = i64::from(kit[i].weight) * i64::from(kit[i].qty);
@@ -231,7 +258,7 @@ pub fn dispose(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_FOOD, BI_ISCUT, BI_MAX, BI_MAXDEPTH};
+    use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_FOOD, BI_ISCUT, BI_MAX, BI_MAXDEPTH, BI_RECALL};
     use crate::borg_init::BORG_SETTINGS;
 
     fn state() -> BorgState {
@@ -301,26 +328,66 @@ mod tests {
         assert_eq!(d, [Disposition::Keep, Disposition::Sell, Disposition::Keep]);
     }
 
-    /// A wound cure is worth the whole need while cut with no other cure,
-    /// and nothing otherwise (no floors).
+    /// Wound potions are a trip's healing stock (5): kept below it, the
+    /// surplus beyond it sold; the only cure is kept while cut.
     #[test]
-    fn a_cure_is_kept_while_it_is_the_only_one_needed() {
+    fn healing_potions_are_a_stock_and_the_only_cure_is_kept_while_cut() {
         let mut st = state();
         let cure = item(Place::Pack, 0, 2, 1);
+        st.borg.trait_[BI_ACLW as usize] = 1; // the carried one counts itself
         let (d, _) = run(&[cure], &st, 5, 5, 1000);
-        assert_eq!(d, [Disposition::Sell], "not cut: no use (no floors)");
-        st.borg.trait_[BI_ISCUT as usize] = 1;
+        assert_eq!(d, [Disposition::Keep], "below the stock: kept");
+        // six carried, this stack one of them: past the stock, no use
+        st.borg.trait_[BI_ACLW as usize] = 6;
         let (d, _) = run(&[cure], &st, 5, 5, 1000);
+        assert_eq!(d, [Disposition::Sell], "the surplus is sold");
+        // a stack of 3 where 7 are carried: 2 of them are surplus, but the
+        // stack still fills the stock, so it is kept whole
+        let mut three = cure;
+        three.qty = 3;
+        st.borg.trait_[BI_ACLW as usize] = 7;
+        let (d, _) = run(&[three], &st, 5, 5, 1000);
         assert_eq!(d, [Disposition::Keep]);
-        // as in play: the carried cure is in the cure count itself - it is
-        // still the only one, and kept
+        // cut, and this is the only cure: kept whatever the stock says
+        let mut st = state();
+        st.borg.trait_[BI_ISCUT as usize] = 1;
         st.borg.trait_[BI_ACLW as usize] = 1;
         let (d, _) = run(&[cure], &st, 5, 5, 1000);
         assert_eq!(d, [Disposition::Keep], "the only cure is never sold");
-        // with a second cure carried elsewhere, this one has no use
-        st.borg.trait_[BI_ACLW as usize] = 2;
-        let (d, _) = run(&[cure], &st, 5, 5, 1000);
-        assert_eq!(d, [Disposition::Sell]);
+    }
+
+    /// A worthless Home stack is sold only for gold or room: under
+    /// no_selling it stays, unless a store needs its slot.
+    #[test]
+    fn a_home_stack_is_sold_only_for_gold_or_room() {
+        let st = state();
+        let mut junk = item(Place::Home, 0, -1, 1);
+        junk.proceeds = 0;
+        let (d, _) = run(&[junk], &st, 5, 0, 1000);
+        assert_eq!(d, [Disposition::Keep], "no gold, no room wanted: stays");
+        // the pack is overweight with a low-value kept stack, the Home full
+        let mut st = state();
+        st.borg.trait_[BI_FOOD as usize] = 1; // the carried ration itself
+        let mut heavy = item(Place::Pack, 1, 1, 1);
+        heavy.weight = 2000;
+        let (d, f) = run(&[junk, heavy], &st, 5, 0, -1900);
+        assert_eq!(d, [Disposition::Sell, Disposition::Store], "{f:?}");
+    }
+
+    /// A Recall scroll is the trip need: the pack's is kept, a spare in
+    /// the Home taken back when none is carried.
+    #[test]
+    fn recall_is_kept_and_taken_back() {
+        let mut st = state();
+        let trip_need = Need::ALL.iter().position(|&n| n == Need::Trip).unwrap() as i8;
+        st.borg.trait_[BI_RECALL as usize] = 1;
+        let carried = item(Place::Pack, 0, trip_need, 1);
+        let (d, _) = run(&[carried], &st, 5, 5, 1000);
+        assert_eq!(d, [Disposition::Keep]);
+        st.borg.trait_[BI_RECALL as usize] = 0;
+        let spare = item(Place::Home, 1, trip_need, 1);
+        let (d, _) = run(&[spare], &st, 5, 5, 1000);
+        assert_eq!(d, [Disposition::Take]);
     }
 
     /// Over the weight allowance, the kept stacks with the least value per
