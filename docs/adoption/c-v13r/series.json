@@ -14,7 +14,7 @@
     "docs/review/MILESTONE13.md"
   ],
   "consumer_review_issue": "https://github.com/diegoami/better-borg-c/issues/521",
-  "consumer_review_state": "open (reviewer assigned 2026-11-14; no verdict yet at carry time)",
+  "consumer_review_state": "approve with corrections (verdict on better-borg-c#521, 2026-11-14); corrections M13-F1..F3 are docs/fixture-tooling only on the consumer side, merged in PR 531 (72cdf63bb) after the tag - no src/borg code changed, so the carried snapshot 9ccb2aaee is the approved state",
   "post_tag_note": "consumer carries 0138-0140 (sources 154, 590, 591) and later postdate the tag; they are milestone-14 scope and are not taken",
   "not_carried_by_the_consumer": [
     "source616 (byte-identical duplicate of carried 0004)",

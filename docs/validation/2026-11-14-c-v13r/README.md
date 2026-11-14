@@ -13,12 +13,14 @@ Implementation branch `claude/v13r-carry`.
 
 The consumer's own milestone-13 review
 ([better-borg-c#521](https://github.com/diegoami/better-borg-c/issues/521))
-was **open at carry time** (reviewer assigned the same day, no verdict).
-The v12 cycle had the same shape; the consumer's package, review map,
-per-unit verifiers, kits and native gates
-(`docs/measurement/IMPACT-MILESTONE13.md`, `docs/review/MILESTONE13.md`)
-are the review input, and borg-rs's own checks below are this
-repository's evidence.
+returned **approve with corrections** the same day: the corrections
+(M13-F1..F3, consumer PR 531, `72cdf63bb`) are docs/fixture-tooling only
+on the consumer's side and postdate the tag, so no `src/borg` code
+changed - the carried snapshot `9ccb2aaee` is exactly the approved state.
+The consumer's package, review map, per-unit verifiers, kits and native
+gates (`docs/measurement/IMPACT-MILESTONE13.md`,
+`docs/review/MILESTONE13.md`) are the review input, and borg-rs's own
+checks below are this repository's evidence.
 
 ## Scope
 

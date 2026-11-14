@@ -14,11 +14,15 @@ The previous accepted baseline is `4.2.6-impact-v12` (consumer
 (`docs/measurement/IMPACT-MILESTONE13.md`, review map
 `docs/review/MILESTONE13.md`, package PR
 [better-borg-c#520](https://github.com/diegoami/better-borg-c/pull/520)) and
-its review issue [#521](https://github.com/diegoami/better-borg-c/issues/521)
-— **open at carry time**: a reviewer was assigned the same day, no verdict
-yet. The v12 cycle had the same shape (the milestone-12 review was waived);
-borg-rs's own validation below and its independent review are this
-repository's evidence.
+its review issue [#521](https://github.com/diegoami/better-borg-c/issues/521).
+**The consumer's verdict landed the same day: approve with corrections.**
+The corrections (M13-F1..F3, merged in consumer PR 531, `72cdf63bb`) are
+docs/fixture-tooling only on the consumer's side - the fixtures gain a
+portable profile root, the review map and package ledger get doc fixes -
+and postdate the tag, so they belong to the consumer's milestone-14
+window. No `src/borg` code changed: the carried snapshot `9ccb2aaee` is
+exactly the approved state. borg-rs's own independent review happens on
+[the PR](https://github.com/diegoami/borg-rs/pull/72).
 
 ## Scope
 
