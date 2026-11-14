@@ -303,6 +303,7 @@ pub const PREFIX_PREF: [&[u8]; BI_MAX as usize] = [
     b"resist nether",
     b"resist chaos",
     b"resist dis",
+    b"prot stun",
     b"hold life",
     b"free action",
     b"resist fire with swap",
@@ -414,6 +415,10 @@ pub const PREFIX_PREF: [&[u8]; BI_MAX as usize] = [
     b"vuln elec",
     b"vuln cold",
     b"vuln acid",
+    b"unresisted vuln fire", /* Vulnerable, no permanent resistance left */
+    b"unresisted vuln elec",
+    b"unresisted vuln cold",
+    b"unresisted vuln acid",
     b"unknown curse",
     // weapon attributes
     b"wep slay animal",
@@ -833,6 +838,7 @@ fn borg_notice_equipment(st: &mut BorgState) {
             (OF_PROT_FEAR, BI_RFEAR),
             (OF_PROT_BLIND, BI_RBLIND),
             (OF_PROT_CONF, BI_RCONF),
+            (OF_PROT_STUN, BI_PSTUN),
             /* Sustain flags */
             (OF_SUST_STR, BI_SSTR),
             (OF_SUST_INT, BI_SINT),
@@ -1146,6 +1152,7 @@ fn borg_notice_equipment(st: &mut BorgState) {
             (OF_HOLD_LIFE, BI_HLIFE),
             (OF_PROT_CONF, BI_RCONF),
             (OF_PROT_BLIND, BI_RBLIND),
+            (OF_PROT_STUN, BI_PSTUN),
         ] {
             if of_has(&item.flags, flag) {
                 t[bi] = 1;
@@ -1706,6 +1713,46 @@ fn borg_notice_equipment(st: &mut BorgState) {
          */
         if t[BI_SAV] >= 100 && t[BI_RDARK] != 0 && t[BI_RLITE] != 0 {
             t[BI_RBLIND] = 1;
+        }
+    }
+
+    /*** A vulnerability cancels the matching permanent resistance (0136) ***/
+    {
+        let mut t = tr(st);
+        /* A vulnerability (such as the burning up, chilled to the bone or
+         * steelskin curse) takes away one level of the permanent resistance
+         * to that element unless immune (calc_bonuses()), so a single
+         * resistance and a vulnerability leave none, and a vulnerability with
+         * no resistance leaves the player vulnerable (x4/3 damage,
+         * adjust_dam()).  Temporary resistance is counted separately
+         * (borg.temp). */
+        if t[BI_CRSFVULN] != 0 && t[BI_IFIRE] == 0 {
+            if t[BI_RFIRE] != 0 {
+                t[BI_RFIRE] = 0;
+            } else {
+                t[BI_VFIRE] = 1;
+            }
+        }
+        if t[BI_CRSCVULN] != 0 && t[BI_ICOLD] == 0 {
+            if t[BI_RCOLD] != 0 {
+                t[BI_RCOLD] = 0;
+            } else {
+                t[BI_VCOLD] = 1;
+            }
+        }
+        if t[BI_CRSEVULN] != 0 && t[BI_IELEC] == 0 {
+            if t[BI_RELEC] != 0 {
+                t[BI_RELEC] = 0;
+            } else {
+                t[BI_VELEC] = 1;
+            }
+        }
+        if t[BI_CRSAVULN] != 0 && t[BI_IACID] == 0 {
+            if t[BI_RACID] != 0 {
+                t[BI_RACID] = 0;
+            } else {
+                t[BI_VACID] = 1;
+            }
         }
     }
 

@@ -32,9 +32,10 @@ use crate::borg_headers::borg_trait_h::{
     BI_AFUEL, BI_ARMOR, BI_CCON, BI_CDEPTH, BI_CDEX, BI_CINT, BI_CLASS, BI_CLEVEL, BI_CSTR,
     BI_CURHP, BI_CURSP, BI_CWIS, BI_DAM_RED, BI_DEX_INDEX, BI_FOOD, BI_FRACT, BI_GOLD, BI_HLIFE,
     BI_IACID, BI_ICOLD, BI_IELEC, BI_IFIRE, BI_IPOIS, BI_ISHEAVYSTUN, BI_ISSTUN, BI_MAXDEPTH,
-    BI_MAXHP, BI_MAXSP, BI_RACID, BI_RBLIND, BI_RCOLD, BI_RCONF, BI_RDARK, BI_RDIS, BI_RELEC,
-    BI_RFEAR, BI_RFIRE, BI_RKAOS, BI_RLITE, BI_RNTHR, BI_RNXUS, BI_RPOIS, BI_RSHRD, BI_RSND,
-    BI_SAV, BI_SCON, BI_SDEX, BI_SINT, BI_SPEED, BI_SSTR, BI_SWIS,
+    BI_MAXHP, BI_MAXSP, BI_PSTUN, BI_RACID, BI_RBLIND, BI_RCOLD, BI_RCONF, BI_RDARK, BI_RDIS,
+    BI_RELEC, BI_RFEAR, BI_RFIRE, BI_RKAOS, BI_RLITE, BI_RNTHR, BI_RNXUS, BI_RPOIS, BI_RSHRD,
+    BI_RSND, BI_SAV, BI_SCON, BI_SDEX, BI_SINT, BI_SPEED, BI_SSTR, BI_SWIS, BI_VACID, BI_VCOLD,
+    BI_VELEC, BI_VFIRE,
 };
 use crate::headers::list_mon_race_flags_h::{
     RF_EVIL, RF_KILL_WALL, RF_MULTIPLY, RF_NEVER_BLOW, RF_NEVER_MOVE, RF_NO_SLEEP, RF_PASS_WALL,
@@ -330,8 +331,11 @@ fn borg_danger_physical(
                 if st.borg.tr(BI_RACID) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_acid {
+                if st.borg.temp.res_acid && st.borg.tr(BI_VACID) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VACID) != 0 && !st.borg.temp.res_acid {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 z += 200; // We don't want our armour corroded.
@@ -349,8 +353,11 @@ fn borg_danger_physical(
                 if st.borg.tr(BI_RELEC) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_elec {
+                if st.borg.temp.res_elec && st.borg.tr(BI_VELEC) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VELEC) != 0 && !st.borg.temp.res_elec {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 z *= 2;
@@ -368,8 +375,11 @@ fn borg_danger_physical(
                 if st.borg.tr(BI_RFIRE) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_fire {
+                if st.borg.temp.res_fire && st.borg.tr(BI_VFIRE) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VFIRE) != 0 && !st.borg.temp.res_fire {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 z *= 2;
@@ -389,6 +399,9 @@ fn borg_danger_physical(
                 }
                 if st.borg.temp.res_cold {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VCOLD) != 0 && !st.borg.temp.res_cold {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 z *= 2;
@@ -831,8 +844,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RACID) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_acid {
+                if st.borg.temp.res_acid && st.borg.tr(BI_VACID) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VACID) != 0 && !st.borg.temp.res_acid {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -850,8 +866,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RELEC) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_elec {
+                if st.borg.temp.res_elec && st.borg.tr(BI_VELEC) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VELEC) != 0 && !st.borg.temp.res_elec {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -869,8 +888,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RFIRE) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_fire {
+                if st.borg.temp.res_fire && st.borg.tr(BI_VFIRE) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VFIRE) != 0 && !st.borg.temp.res_fire {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -888,8 +910,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RCOLD) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_cold {
+                if st.borg.temp.res_cold && st.borg.tr(BI_VCOLD) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VCOLD) != 0 && !st.borg.temp.res_cold {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -980,7 +1005,7 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RSND) != 0 {
                     z = (z * 5) / 9;
                 }
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_RSND) != 0 || st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1070,7 +1095,7 @@ fn borg_danger_spell(
                 }
                 // Add fear for the effect
                 p += 100;
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1104,7 +1129,7 @@ fn borg_danger_spell(
                 if z > 150 {
                     z = 150;
                 }
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // Pump this up if you have goi so that the borg is sure
@@ -1125,7 +1150,7 @@ fn borg_danger_spell(
                 if z > 200 {
                     z = 200;
                 }
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1165,8 +1190,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RACID) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_acid {
+                if st.borg.temp.res_acid && st.borg.tr(BI_VACID) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VACID) != 0 && !st.borg.temp.res_acid {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -1180,8 +1208,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RELEC) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_elec {
+                if st.borg.temp.res_elec && st.borg.tr(BI_VELEC) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VELEC) != 0 && !st.borg.temp.res_elec {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -1195,8 +1226,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RFIRE) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_fire {
+                if st.borg.temp.res_fire && st.borg.tr(BI_VFIRE) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VFIRE) != 0 && !st.borg.temp.res_fire {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -1210,8 +1244,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RCOLD) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_cold {
+                if st.borg.temp.res_cold && st.borg.tr(BI_VCOLD) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VCOLD) != 0 && !st.borg.temp.res_cold {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -1261,7 +1298,7 @@ fn borg_danger_spell(
 
             RSF_BA_WATE => 'b: {
                 z = (spell_power * 5) / 2 + 50;
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1331,7 +1368,7 @@ fn borg_danger_spell(
 
             RSF_STORM => 'b: {
                 z = 70 + (spell_power * 5);
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1383,8 +1420,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RACID) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_acid {
+                if st.borg.temp.res_acid && st.borg.tr(BI_VACID) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VACID) != 0 && !st.borg.temp.res_acid {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -1399,8 +1439,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RELEC) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_elec {
+                if st.borg.temp.res_elec && st.borg.tr(BI_VELEC) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VELEC) != 0 && !st.borg.temp.res_elec {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -1415,8 +1458,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RFIRE) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_fire {
+                if st.borg.temp.res_fire && st.borg.tr(BI_VFIRE) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VFIRE) != 0 && !st.borg.temp.res_fire {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 40;
@@ -1431,8 +1477,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RCOLD) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_cold {
+                if st.borg.temp.res_cold && st.borg.tr(BI_VCOLD) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VCOLD) != 0 && !st.borg.temp.res_cold {
+                    z = z * 4 / 3;
                 }
                 // Add fear for the effect
                 p += 20;
@@ -1468,7 +1517,7 @@ fn borg_danger_spell(
             RSF_BO_WATE => 'b: {
                 z = (10 * 10) + spell_power;
                 bolt = true;
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1498,7 +1547,7 @@ fn borg_danger_spell(
             RSF_BO_PLAS => 'b: {
                 z = 10 + (8 * 7) + spell_power;
                 bolt = true;
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1515,7 +1564,7 @@ fn borg_danger_spell(
                 bolt = true;
                 // Add fear for the effect
                 p += 20;
-                if st.borg.tr(BI_RSND) != 0 {
+                if st.borg.tr(BI_PSTUN) != 0 {
                     break 'b;
                 }
                 // if already stunned be REALLY nervous about this
@@ -1540,8 +1589,11 @@ fn borg_danger_spell(
                 if st.borg.tr(BI_RELEC) != 0 {
                     z = (z + 2) / 3;
                 }
-                if st.borg.temp.res_elec {
+                if st.borg.temp.res_elec && st.borg.tr(BI_VELEC) == 0 {
                     z = (z + 2) / 3;
+                }
+                if st.borg.tr(BI_VELEC) != 0 && !st.borg.temp.res_elec {
+                    z = z * 4 / 3;
                 }
                 bolt = true;
             }
@@ -2557,7 +2609,10 @@ pub fn borg_danger(
         p += i32::from(st.danger.fear_monsters[y as usize][x as usize]) * c;
     }
 
-    // C overrides the argument
+    // C overrides the argument.  Grid danger is always the full (worst case)
+    // damage, so the full_damage argument is deliberately overridden (0124).
+    // Reduced estimates come only from direct calls to
+    // borg_danger_one_kill().
     let _ = full_damage;
     let full_damage = true;
 

@@ -198,10 +198,12 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
 
     let hp_down = st.borg.tr(BI_MAXHP) - st.borg.tr(BI_CURHP);
     let pct_down = (st.borg.tr(BI_MAXHP) - st.borg.tr(BI_CURHP)) * 100 / st.borg.tr(BI_MAXHP);
-    let clw_heal = heal_amount(hp_down, 15, 15);
-    let csw_heal = heal_amount(hp_down, 20, 25);
-    let ccw_heal = heal_amount(hp_down, 25, 30);
+    // Cure Light, Serious and Critical Wounds heal a fixed 20, 40 and 60
+    // hit points (object.txt HEAL_HP dice, no percentage part) - patch 0133.
     // cmw_heal (30%, at least 50) is computed in C but never used.
+    let clw_heal = 20;
+    let csw_heal = 40;
+    let ccw_heal = 60;
     let heal_heal = heal_amount(hp_down, 35, 300);
 
     // Quick check for rod success (used later on)
@@ -440,7 +442,7 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
         return false;
     }
 
-    // Cure light Wounds (2d10)
+    // Cure light Wounds (20)
     if pct_down >= 30
         && (pct_down <= 40 || st.borg.tr(BI_CLEVEL) < 10)
         && danger < st.borg.tr(BI_CURHP) + clw_heal
@@ -452,7 +454,7 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
         borg_note(st, "# Healing Level 1.");
         return true;
     }
-    // Cure Serious Wounds (4d10)
+    // Cure Serious Wounds (40)
     if pct_down >= 40
         && (pct_down <= 50 || st.borg.tr(BI_CLEVEL) < 20)
         && danger < st.borg.tr(BI_CURHP) + csw_heal
@@ -464,7 +466,7 @@ fn borg_heal(st: &mut BorgState, danger: i32) -> bool {
         return true;
     }
 
-    // Cure Critical Wounds (6d10)
+    // Cure Critical Wounds (60)
     if (50..=55).contains(&pct_down)
         && danger < st.borg.tr(BI_CURHP) + ccw_heal
         && ccw_heal > danger / 3 // No rope-a-doping

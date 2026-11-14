@@ -262,13 +262,12 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
     /*** Use "expensive" cures ***/
 
     // Cure stun
+    // (the HEAL1 and HEAL2 activations cure only cuts, not stun; patch 0134)
     if st.borg.tr(BI_ISSTUN) != 0
         && q < 25
         && (borg_use_staff_fail(st, st.item_val.sv_staff_curing)
             || borg_zap_rod(st, st.item_val.sv_rod_curing)
             || borg_zap_rod(st, st.item_val.sv_rod_healing)
-            || borg_activate_item(st, st.act.heal1)
-            || borg_activate_item(st, st.act.heal2)
             || borg_quaff_crit(st, false))
     {
         return true;
@@ -280,9 +279,7 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
         && (borg_quaff_crit(st, true)
             || borg_use_staff_fail(st, st.item_val.sv_staff_curing)
             || borg_zap_rod(st, st.item_val.sv_rod_curing)
-            || borg_zap_rod(st, st.item_val.sv_rod_healing)
-            || borg_activate_item(st, st.act.heal1)
-            || borg_activate_item(st, st.act.heal2))
+            || borg_zap_rod(st, st.item_val.sv_rod_healing))
     {
         return true;
     }
@@ -317,16 +314,15 @@ pub fn borg_recover(st: &mut BorgState) -> bool {
     }
 
     // Cure blindness
+    // (Waybread cures only poison, so it is not tried here; patch 0134)
     if st.borg.tr(BI_ISBLIND) != 0
         && q < 25
         && (borg_eat(st, TV_MUSHROOM as i32, st.item_val.sv_mush_fast_recovery)
-            || borg_eat(st, TV_FOOD as i32, st.item_val.sv_food_waybread)
             || borg_quaff_potion(st, st.item_val.sv_potion_cure_light)
             || borg_quaff_potion(st, st.item_val.sv_potion_cure_serious)
             || borg_quaff_crit(st, false)
             || borg_use_staff_fail(st, st.item_val.sv_staff_curing)
-            || borg_zap_rod(st, st.item_val.sv_rod_curing)
-            || borg_activate_item(st, st.act.food_waybread))
+            || borg_zap_rod(st, st.item_val.sv_rod_curing))
     {
         return true;
     }

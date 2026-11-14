@@ -1178,9 +1178,6 @@ fn borg_defend_aux_tele_away(st: &mut BorgState, p1: i32) -> i32 {
     } else if p1 > a * 2 {
         /* scary */
         fail_allowed -= 5;
-    } else if p1 > (a * 5) / 2 {
-        /* a little scary */
-        fail_allowed += 5;
     }
 
     /* do I have the ability? */
