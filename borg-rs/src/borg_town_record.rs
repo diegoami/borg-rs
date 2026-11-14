@@ -673,6 +673,43 @@ pub fn first_action(
 /// and `displaced` ([`replays`] does).
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
+    let (rec, parts) = replay_parts(line)?;
+    let out = step(&parts.input(&rec));
+    Ok((rec, out))
+}
+
+/// A step's inputs as a replay rebuilds them from a v4 line (the
+/// borrowed parts of [`StepInput`] owned here).
+pub struct ReplayParts {
+    pub candidates: Vec<Candidate>,
+    pub urgent: Vec<UrgentPurchase>,
+    pub traits: Vec<i32>,
+    pub carried: Vec<(u8, i32)>,
+    pub limits: Limits,
+    pub tryon: Vec<TryOn>,
+    pub power: i64,
+}
+
+impl ReplayParts {
+    /// The step input over these parts and the record's facts.
+    pub fn input<'a>(&'a self, rec: &'a PlanRecord) -> StepInput<'a> {
+        StepInput {
+            candidates: self.candidates.clone(),
+            facts: &rec.wares,
+            tryon: &self.tryon,
+            limits: self.limits,
+            urgent: self.urgent.clone(),
+            params: rec.params,
+            traits: &self.traits,
+            power: self.power,
+            carried: &self.carried,
+            cure_spell: rec.spells & 1 != 0,
+        }
+    }
+}
+
+/// Rebuild a step's inputs from a v4 line alone.
+pub fn replay_parts(line: &str) -> Result<(PlanRecord, ReplayParts), String> {
     let j = Json::parse(line)?;
     let rec = PlanRecord::from_json(&j)?;
 
@@ -744,19 +781,16 @@ pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
     }
 
     let limits = Limits { gold: rec.limits[0], pack_slots: rec.limits[1] as i32, weight: rec.limits[3] };
-    let out = step(&StepInput {
+    let parts = ReplayParts {
         candidates,
-        facts: &rec.wares,
-        tryon: &rec.tryon,
-        limits,
         urgent: urgent_buys,
-        params: rec.params,
-        traits: &traits,
+        traits,
+        carried,
+        limits,
+        tryon: rec.tryon.clone(),
         power: rec.power,
-        carried: &carried,
-        cure_spell: rec.spells & 1 != 0,
-    });
-    Ok((rec, out))
+    };
+    Ok((rec, parts))
 }
 
 /// Does a v4 line replay to its own plan, solve and runner-up?
@@ -1127,6 +1161,81 @@ mod tests {
         }
         assert!(n > 0, "no records");
         println!("replayed {n} records: {planned} with a plan, {urgent} taking an urgent purchase first");
+    }
+
+    /// For the calibration demo: replay every record of a run and
+    /// **simulate the visit** the plan would make - take the first ranked
+    /// purchase, apply it, re-solve, until the plan says leave - so the
+    /// demo shows what would be bought, not the one-solve surrogate set
+    /// (which prices each kind against the whole gap, Q3). Applying a
+    /// purchase: food adds to BI_FOOD, a light source to the carried
+    /// lights, Phase Door to BI_APHASE, cures to their counts; a wearable
+    /// adds its try-on gain to the power and drops the other try-ons of
+    /// its slot (they were measured against the old gear). The gold, the
+    /// copies, the slots and the weight are spent. Run by hand:
+    /// `PLAN_RECORD_FILE=... PLAN_PICKS_OUT=... cargo test --release --
+    /// --ignored export_visits`.
+    #[test]
+    #[ignore]
+    fn export_visits() {
+        use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_ACUREPOIS, BI_APHASE};
+        use std::fmt::Write as _;
+        let path = std::env::var("PLAN_RECORD_FILE").expect("PLAN_RECORD_FILE");
+        let out_path = std::env::var("PLAN_PICKS_OUT").expect("PLAN_PICKS_OUT");
+        let mut out = String::new();
+        for line in std::fs::read_to_string(&path).unwrap().lines() {
+            let (rec, mut parts) = replay_parts(line).unwrap();
+            let mut facts = rec.wares.clone();
+            facts.sort_by_key(|f| (f.shop, f.slot));
+            let first = step(&parts.input(&rec));
+            let mut bought: Vec<String> = Vec::new();
+            for _ in 0..40 {
+                let o = step(&parts.input(&rec));
+                let Some(&(g, opt)) = o.solution.ranked(&o.groups).first() else { break };
+                let choice = o.groups[g].options[opt].clone();
+                let wearable = matches!(o.groups[g].key, GroupKey::Slot(_));
+                let mut ps = Vec::new();
+                for &(ci, k) in &choice.picks {
+                    let f = facts[ci];
+                    parts.candidates[ci].qty -= k;
+                    match f.need {
+                        0 => parts.carried.push((crate::headers::list_tvals_h::TV_LIGHT as u8, k)),
+                        1 => parts.traits[BI_FOOD as usize] += k * f.reduction as i32,
+                        2 => parts.traits[BI_ACLW as usize] += k,
+                        3 => parts.traits[BI_ACUREPOIS as usize] += k,
+                        4 => parts.traits[BI_APHASE as usize] += k,
+                        _ => {}
+                    }
+                    if wearable {
+                        if let Some(t) = parts.tryon.iter().find(|t| t.shop == f.shop && t.slot == f.slot).copied() {
+                            parts.power += t.value;
+                            parts.tryon.retain(|x| x.eq_slot != t.eq_slot);
+                        }
+                    }
+                    ps.push(format!("[{},{},{}]", f.shop, f.slot, k));
+                }
+                parts.limits.gold -= choice.cost;
+                parts.limits.pack_slots -= choice.slots;
+                parts.limits.weight -= choice.weight;
+                bought.push(format!(
+                    "{{\"kind\":{},\"picks\":[{}],\"cost\":{},\"value\":{}}}",
+                    i32::from(wearable),
+                    ps.join(","),
+                    choice.cost,
+                    choice.value
+                ));
+            }
+            writeln!(
+                out,
+                "{{\"turn\":{},\"bought\":[{}],\"one_solve_value\":{},\"one_solve_options\":{}}}",
+                rec.gturn,
+                bought.join(","),
+                first.solution.value,
+                first.plan.len()
+            )
+            .unwrap();
+        }
+        std::fs::write(&out_path, out).unwrap();
     }
 
     /// A version-2 line is not read as a plan record.
