@@ -71,6 +71,7 @@
         "branch_head": "b26d6d9b972c5128cf076d03140e162d068658e6",
         "tag": "4.2.6-impact-v12",
         "tag_target_commit": "e6d13fc9baff0ef7f06de6333fbda436c961e0bf",
+        "github_milestone": "4.2.6 impact v12 (milestone 2, closed; tracking issue #57 assigned)",
         "ci_workflow": ".github/workflows/rust-test.yml (added 6b066ea): checkout, Rust toolchain, cargo test --release --manifest-path borg-rs/Cargo.toml; green runs on the branch heads",
         "probe_branches_deleted": [
           "claude/v12r-oracle-probe",
