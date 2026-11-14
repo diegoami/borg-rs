@@ -162,3 +162,7 @@ nine classes; probe overrides are validation fixtures. See
 [TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
 validation and the live-testing/confirmation gates. New runner manifests are
 reported per class, including failures and Ranger/Blackguard.
+
+Class-profile export, per-cell shadow capture and parsed-settings verification
+are requested in [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
+The request does not authorise a live executor or a hosted experiment dispatch.

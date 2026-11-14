@@ -1,5 +1,7 @@
 # Class-profile validation, 2026-11-14
 
+Zoo integration request: [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
+
 Shared defaults and optional class overrides work through the existing zoo
 selector. The shared reference is unchanged for all nine classes. The probe
 changes one parameter each for Mage (cash 50), Ranger (Home discount 750), and

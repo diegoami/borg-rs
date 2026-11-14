@@ -1,5 +1,7 @@
 # Class profiles and the calibration sequence
 
+Zoo integration request: [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
+
 The town utility evaluator is shared by every class. Maximum HP, level,
 spells, supplies and intended journey already change its decisions. Optional
 class-specific **parameters** are resolved before birth by the runner and
