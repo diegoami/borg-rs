@@ -430,7 +430,7 @@ fn generate_keypress(st: &mut BorgState, flush_first: bool) -> keypress {
     }
 
     crate::borg_messages::borg_parse(st, None);
-    st.msgs.dont_react = false;
+    st.borg.dont_react = false;
 
     let borg_ch = borg_inkey(st, true);
     if borg_ch != 0 {
