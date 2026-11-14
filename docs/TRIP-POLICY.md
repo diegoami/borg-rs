@@ -5,6 +5,7 @@ Coordinates with the town plan ([borg-rs#36](https://github.com/diegoami/borg-rs
 whose decision log wins where documents disagree) and disposes of the
 pickup loop [borg-rs#59](https://github.com/diegoami/borg-rs/issues/59).
 Branch: `feature/trip-policy`, from `feature/town-inventory-strategy` at `c62e239`.
+Updated with town branch `b3f4285` by merge `ee54f13` (2026-11-14).
 
 Status (2026-11-14): **the modes are removed; the policy seam exists and
 records; its formula and parameters are a proposal, not accepted.** The
@@ -375,6 +376,10 @@ that decided and the threshold it was held to.
 
 ## 9. Coordination with the town plan
 
+**Owner decision (2026-11-14, resumed local session): leave shared
+`PlannedTrip` integration to the buying session.** This session updates
+and validates the trip branch; it does not wire the town-side model.
+
 1. **One trip model.** The policy owns the planned trip:
    `borg_trip::plan_trip -> PlannedTrip { depth_target, levels,
    recall_scrolls, recall_carry }`. Proposed read by the town plan:
@@ -391,7 +396,13 @@ that decided and the threshold it was held to.
    is >= 5 and one back when the target is: `recall_scrolls`. It carries
    one spare: `recall_carry` = reads + 1 (3 for the usual round trip, which
    is what `leave_town` already demands before recalling down). The town
-   plan's trip need prices `recall_carry - BI_RECALL`.
+   plan's trip need would price `recall_carry - BI_RECALL` under this
+   proposal. **Town-side owner decision, merged 2026-11-14:** the town
+   model now prices `RECALL_PER_TRIP = 2` (one return, one spare) against
+   `BI_RECALL`, which also counts the rod and spell. It does not read
+   `PlannedTrip` yet. Reconcile the two-scroll town target with the
+   three-scroll round-trip proposal before wiring them together; the
+   proposal does not supersede the town owner's decision.
 4. **More frequent returns cost town solves.** Each return is a town visit
    (~0.2-1 s per cold solve, `docs/TOWN-INVENTORY-PLAN.md`). The evaluation
    counts visits (§10); the warm start on the town side becomes more
@@ -400,6 +411,14 @@ that decided and the threshold it was held to.
    (`borg.h`, `borg-init.c`, `borg_h.rs`/`borg_init.rs`, both `borg.txt`,
    `NEW_SETTINGS`); the ten retired ones are out of the Rust four and stay
    in the C two (§4).
+
+The earlier handover's town calibration questions have moved on. The
+merged town model now values five wound potions per trip even while uncut;
+the recorded town-side shadow runs report no Recall or Cure Light Wounds
+sales. Under no-selling rules, worthless Home stacks stay unless their
+slots are needed. See `TOWN-INVENTORY-PLAN.md`, phase 4 slice 3, for the
+owner decisions and their evidence. These are town-side results, not a
+validation of the trip-policy formula or of a shared trip model.
 
 ## 10. Evaluation plan
 
@@ -449,9 +468,12 @@ to.
    `rs-buy-*` and `town-negative` (borg-zoo PR #83); retire
    `munchkin-class`.
 3. **#59** (§11): the replay and the close.
-4. **The town plan's read of `PlannedTrip`** (§9): when, and by which
-   session.
+4. **The town plan's read of `PlannedTrip`** (§9): assigned by the owner
+   to the buying session on 2026-11-14; timing and Recall reconciliation
+   remain with that session.
 5. **The parity receipt:** the settings corpus changed (ten settings out of
    the Rust Borg, five in both); the full suite receipt is to be re-earned
-   on the owner's schedule (this branch ran the smoke receipt and seed 101,
-   §10 and the PR).
+   on the owner's schedule. **Re-earned after the town merge on
+   2026-11-14:** smoke 3/3, full 45/45, deep 9/9, options 24/24 and
+   remaining synthetic tactics 3/3; family buying 8/8 and the seed-101 hash
+   also pass. See [the merge validation receipt](validation/2026-11-14-trip-policy/README.md).
