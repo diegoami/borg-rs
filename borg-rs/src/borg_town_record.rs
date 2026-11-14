@@ -936,7 +936,7 @@ mod tests {
                 shop: c.shop,
                 slot: c.slot,
                 eq_slot: 6,
-                value: if c.kind == ARMOUR { 6_000 } else { 8_000 },
+                value: if c.kind == ARMOUR { 60_000 } else { 80_000 },
             })
             .collect()
     }
@@ -965,9 +965,9 @@ mod tests {
         let slot_picks: Vec<&PlanEntry> = rec.plan.iter().filter(|e| e.key_kind == 1).collect();
         assert_eq!(slot_picks.len(), 1, "one armour for one slot");
         // the try-on's power gain goes through the power need's curve:
-        // power 1000 against a 30000 target (depth 15) is a gap of 29000,
-        // w_power 50: 8000 points are worth 50*8000/29000 = 13
-        assert_eq!(slot_picks[0].value, 13);
+        // the gap is a trip's preparation, 40000 x 5 = 200000, w_power 50:
+        // 80000 points are worth 50*80000/200000 = 20
+        assert_eq!(slot_picks[0].value, 20);
         assert!(rec.solve[3] & flag::GOLD_EXACT != 0);
     }
 

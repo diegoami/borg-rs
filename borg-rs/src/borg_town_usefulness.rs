@@ -126,7 +126,8 @@ pub fn urgent_needs(st: &BorgState, trip: &Trip) -> Vec<Need> {
 /// The trip model, stated once (decided 2026-11-12): the descent target
 /// is five levels past the deepest the borg has been, each level is
 /// expected to take a thousand turns (anchored on the 2000-turn give-up),
-/// and the power target is two thousand per level of depth — the weakest
+/// and the power gap is a trip's levels of preparation in `borg_power`'s
+/// units (since 2026-11-14; it was two thousand per level of depth, the weakest
 /// of the provisional values, to be revisited when the zoo sweeps.
 #[cfg_attr(not(test), expect(dead_code))]
 #[derive(Clone, Copy, Debug)]
@@ -154,8 +155,10 @@ impl Trip {
     pub const LEVELS_PER_TRIP: i32 = 5;
     /// Expected turns per level, anchored on the 2000-turn give-up.
     pub const TURNS_PER_LEVEL: i32 = 1000;
-    /// The provisional power target per level of depth.
-    pub const POWER_PER_DEPTH: i32 = 2000;
+    /// The power one dungeon level of preparation is worth, in
+    /// `borg_power`'s own units: it credits 40,000 per level the Borg is
+    /// prepared for (`borg_power`, "a bonus for deep level prep").
+    pub const POWER_PER_LEVEL: i32 = 40_000;
 
     /// The trip the current state plans for.
     pub fn of(st: &BorgState) -> Self {
@@ -189,9 +192,16 @@ impl Trip {
         (self.levels_per_trip + 9) / 10
     }
 
-    /// `POWER_PER_DEPTH * depth_target`.
-    pub fn power_target(&self) -> i32 {
-        Self::POWER_PER_DEPTH * self.depth_target
+    /// The power gap a trip opens: a trip's levels of preparation,
+    /// `POWER_PER_LEVEL * levels_per_trip` (decided 2026-11-14). It is a
+    /// standing gap, not a target minus the current power: the Borg's
+    /// power is 10^5-10^6 from the first levels on, so any absolute
+    /// target small enough to be met early is met everywhere (the
+    /// provisional `2000 x depth target` was 10,000-14,000 at DL0-2 against
+    /// a power of 0.5-1.6 million, and priced nothing). A wearable worth a
+    /// trip's preparation fills the need.
+    pub fn power_gap(&self) -> i32 {
+        Self::POWER_PER_LEVEL * self.levels_per_trip
     }
 }
 
@@ -307,7 +317,7 @@ pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
         Need::Poison => (st.borg.tr(BI_ISPOISONED) != 0 && poison_cures(st, trip) < 1) as i32,
         Need::Escape => trip.escapes_needed() - st.borg.tr(BI_APHASE),
         Need::Knowledge => 0,
-        Need::Power => trip.power_target() - st.borg.power,
+        Need::Power => trip.power_gap(),
         Need::Trip => 0,
     };
     i64::from(d).max(0)
@@ -396,7 +406,7 @@ mod tests {
 
     /// The trip model: depth target = maxdepth + 5, a thousand turns per
     /// level, light keyed to the descent target, food the per-trip
-    /// ration, one escape per ten levels, power = 2000 x depth.
+    /// ration, one escape per ten levels, power gap = 40000 x 5 levels.
     #[test]
     fn trip_model_reads_state_and_settings() {
         let mut st = state();
@@ -411,7 +421,7 @@ mod tests {
         assert_eq!(trip.required_light(), 2);
         assert_eq!(trip.required_food(), 10);
         assert_eq!(trip.escapes_needed(), 1);
-        assert_eq!(trip.power_target(), 30000);
+        assert_eq!(trip.power_gap(), 200_000);
         // a shallower target needs one light
         st.borg.trait_[BI_MAXDEPTH as usize] = 4;
         assert_eq!(Trip::of(&st).required_light(), 1);
@@ -499,8 +509,9 @@ mod tests {
     /// maxdepth 10, so the depth target is 15: one light source carried
     /// of the two wanted (gap 1, worth 100 - the need counts sources since
     /// 2026-11-13, not the radius), six more rations (gap 6: 16 for the first, 100 at six
-    /// and no more after), escapes already met (gap 0), and power 10000
-    /// short of the 30000 target: a +1500 item is worth 50*1500/10000 = 7.
+    /// and no more after), escapes already met (gap 0), and the power gap
+    /// of a trip, 200000: a +40000 item (one level of preparation) is worth
+    /// 50*40000/200000 = 10, and one worth the whole trip the full 50.
     #[test]
     fn usefulness_values_for_fixed_states() {
         let mut st = state();
@@ -521,7 +532,8 @@ mod tests {
         assert_eq!(usefulness(Need::Food, 1, 6, &st, &trip, &w), 100);
         assert_eq!(usefulness(Need::Food, 1, 7, &st, &trip, &w), 100);
         assert_eq!(usefulness(Need::Escape, 1, 1, &st, &trip, &w), 0);
-        assert_eq!(usefulness(Need::Power, 1500, 1, &st, &trip, &w), 7);
+        assert_eq!(usefulness(Need::Power, 40_000, 1, &st, &trip, &w), 10);
+        assert_eq!(usefulness(Need::Power, 250_000, 1, &st, &trip, &w), 50);
         // Knowledge and Trip read 0 until the catalogue prices them
         assert_eq!(usefulness(Need::Knowledge, 1, 1, &st, &trip, &w), 0);
         assert_eq!(usefulness(Need::Trip, 1, 1, &st, &trip, &w), 0);
