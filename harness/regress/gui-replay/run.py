@@ -26,7 +26,7 @@ def frames(bundle):
 def stage(project, output, env, profile, name, character='GuiHero', options=(), borg=False, fresh=False, resize=False, reload_preferences=False):
     before = set((profile / 'recordings').glob('*')) if (profile / 'recordings').exists() else set()
     with (output / (name + '.log')).open('w') as log:
-        game = subprocess.Popen([str(project / 'start-borg.sh'), character, *options], cwd='/tmp',
+        game = subprocess.Popen([str(project / 'start-recording.sh'), character, *options], cwd='/tmp',
                                 env={**env, 'BORG_PLAY_DATA_DIR': str(profile)}, stdout=log, stderr=subprocess.STDOUT)
         try:
             bundle = None

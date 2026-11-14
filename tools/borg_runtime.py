@@ -21,6 +21,7 @@ import time
 import signal
 
 from toolkit_common import serialized
+from recording_paths import data_root_for
 
 import borg_saves as saves
 
@@ -41,7 +42,7 @@ def sha(path):
 
 
 def data_root():
-    return Path(os.environ.get('BORG_PLAY_DATA_DIR', ROOT / '.angband-rust')).resolve()
+    return data_root_for(ROOT)
 
 
 def character_name(name):

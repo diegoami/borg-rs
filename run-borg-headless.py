@@ -8,10 +8,12 @@ import sys
 import subprocess
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / 'tools'))
+import cemetery_publish
 import borg_runtime
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('character', nargs='?', default='RustBorg')
+parser.add_argument('--auto-push', '--auto-commit-and-push', dest='auto_push', action='store_true', help='commit and push the completed recording export to the cemetery')
 parser.add_argument('--new', action='store_true', help='start a fresh birth; preserve the previous save in backups')
 parser.add_argument('--from-backup', nargs='?', type=int, const=1, choices=range(1, 6))
 parser.add_argument('--seed', type=int, default=None, help='birth seed; ignored for gameplay on saved-RNG continuations, retained as provenance')
@@ -38,6 +40,10 @@ try:
         raise ValueError('Stall timeout must be nonnegative')
     if args.turns > 2147483647 or args.keys > 999999999 or not 0 <= args.seed <= 4294967295:
         raise ValueError('Key budget or seed is outside the supported range')
-    borg_runtime.record_run(args)
+    if args.auto_push:
+        cemetery_publish.preflight(borg_runtime.data_root())
+    bundle = borg_runtime.record_run(args)
+    if args.auto_push:
+        cemetery_publish.publish(bundle, borg_runtime.data_root())
 except (ValueError, OSError, AssertionError, subprocess.SubprocessError) as error:
     parser.exit(1, str(error) + '\n')

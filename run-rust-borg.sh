@@ -4,7 +4,7 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 PLAY_BUILD="$PROJECT_ROOT/build/play-rust"
-PLAY_DATA="${BORG_PLAY_DATA_DIR:-$PROJECT_ROOT/.angband-rust}"
+PLAY_DATA="${BORG_PLAY_DATA_DIR:-$(python3 "$PROJECT_ROOT/tools/recording_paths.py")}"
 BUILD_ONLY=0
 PLAY_CHARACTER="${BORG_PLAY_CHARACTER:-RustBorg}"
 RESTORE_SLOT=""
@@ -18,8 +18,8 @@ Builds the Rust Borg and starts Angband's graphical X11 frontend.
 Create or load a character, then press Ctrl-Z followed by z to start the Borg.
 Confirm the initial Borg warning if shown. Press any key to stop the Borg.
 
-Saves and settings: .angband-rust/ (preserved between builds).
-GUI sessions are recorded in .angband-rust/recordings/ for verified replay.
+Saves and settings: the sibling borg-cemetery checkout (preserved between builds).
+GUI sessions are recorded under borg-cemetery/recordings/ for verified replay.
 The initial borg.txt uses the stock settings, with cheat death off.
 Pass -n to start a new character, or -uNAME to select another save name.
 --build-only builds and checks the executable without opening a window.
@@ -28,7 +28,7 @@ Uses the same 28-pixel Courier main-window font as better-borg-c/start-borg.sh.
 Set BORG_PLAY_FONT to override it.
 Opens one main window by default; arguments after -- override frontend options.
 Set BORG_PLAY_DATA_DIR to use a separate save/settings directory.
-Use ./start-borg.sh NAME to select a named character.
+Use ./start-recording.sh NAME to select a named character.
 --from-backup[=1..5] restores a rolling backup, preserving the current save.
 
 Requires CMake, a C compiler, Cargo/Rust, and X11 development libraries.

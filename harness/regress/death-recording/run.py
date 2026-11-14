@@ -18,7 +18,7 @@ with (out/'xvfb.log').open('w') as log:
    ready.register(server.stdout,selectors.EVENT_READ);assert ready.select(15) and server.stdout.readline().strip()==number
   env={**os.environ,'DISPLAY':':'+number,'BORG_PLAY_FONT':'fixed','BORG_PLAY_DATA_DIR':str(profile),'BORG_DEATH_RECORDS_DIR':str(out/'deaths')}
   with (out/'launcher.log').open('w') as log:
-   game=subprocess.Popen([str(project/'start-borg.sh'),'DeathTest'],env=env,stdout=log,stderr=subprocess.STDOUT)
+   game=subprocess.Popen([str(project/'start-recording.sh'),'DeathTest'],env=env,stdout=log,stderr=subprocess.STDOUT)
    try:
     for _ in range(150):
      assert game.poll() is None,(out/'launcher.log').read_text()
