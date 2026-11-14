@@ -400,9 +400,13 @@ pub fn needs_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
         out.push(Need::Light);
     }
     if tval == TV_FOOD || tval == TV_MUSHROOM {
-        let harmful = borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1)
+        let capability_mode = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+        let harmful = (!capability_mode && borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1))
             || borg_obj_has_effect(item.kind, EF_TIMED_INC as i32, TMD_CONFUSED as i32);
-        let nourishes = if tval == TV_MUSHROOM {
+        let nourishes = if capability_mode {
+            borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0)
+                || borg_obj_has_effect(item.kind, EF_NOURISH as i32, 3)
+        } else if tval == TV_MUSHROOM {
             borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0)
         } else {
             [

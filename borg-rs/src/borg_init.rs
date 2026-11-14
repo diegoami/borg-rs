@@ -151,6 +151,12 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_trip_pack_slack", 2),
     i(c"borg_trip_unknown_stacks", 4),
     i(c"borg_trip_return_gold", 0),
+    i(c"borg_town_w_attack", 100),
+    i(c"borg_town_w_magic", 100),
+    i(c"borg_town_w_support", 50),
+    i(c"borg_town_w_restore", 100),
+    i(c"borg_town_attack_turns", 100),
+    i(c"borg_town_support_turns", 1000),
 ];
 
 /// What a retired setting may still say in an old borg.txt (borg-rs#60).
@@ -1269,7 +1275,9 @@ mod tests {
              borg_town_target_depth = 0\nborg_town_trip_turns = 0\nborg_town_w_gold = 25\n\
              borg_town_depth_gain = 1\nborg_town_explore_turns = 1000\nborg_town_stair_turns = 50\nborg_town_food_turns = 3000\nborg_town_light_turns = 5000\nborg_town_risk = 1000\nborg_town_home_discount = 500\nborg_town_w_space = 25\nborg_town_power_scale = 40000\n\
              borg_trip_policy = 0\nborg_trip_depth_margin = 0\nborg_trip_pack_slack = 2\n\
-             borg_trip_unknown_stacks = 4\nborg_trip_return_gold = 0\n"
+             borg_trip_unknown_stacks = 4\nborg_trip_return_gold = 0\n\
+             borg_town_w_attack = 100\nborg_town_w_magic = 100\nborg_town_w_support = 50\n\
+             borg_town_w_restore = 100\nborg_town_attack_turns = 100\nborg_town_support_turns = 1000\n"
         ));
         assert!(!text.contains("munchkin") && !text.contains("lunal"));
     }
@@ -1408,6 +1416,13 @@ mod tests {
         ("borg_trip_pack_slack", b'i', 2, "2"),
         ("borg_trip_unknown_stacks", b'i', 4, "4"),
         ("borg_trip_return_gold", b'i', 0, "0"),
+        ("borg_town_w_attack", b'i', 100, "100"),
+        ("borg_town_w_magic", b'i', 100, "100"),
+        ("borg_town_w_support", b'i', 50, "50"),
+        ("borg_town_w_restore", b'i', 100, "100"),
+        ("borg_town_attack_turns", b'i', 100, "100"),
+        ("borg_town_support_turns", b'i', 1000, "1000"),
+
     ];
 
     /// The family settings borg-rs#60 retired (they were declared new

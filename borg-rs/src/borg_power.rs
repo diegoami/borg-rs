@@ -298,7 +298,7 @@ fn activation_bonus(a: &ActivationIds, class: i32, clevel: i32, act: i32) -> i32
 }
 
 /// Helper function -- calculate "power" of equipment
-fn borg_power_equipment(st: &BorgState) -> i32 {
+pub(crate) fn borg_power_equipment(st: &BorgState) -> i32 {
     let tr = |i: u32| st.borg.tr(i);
     let cfg = |i: u32| st.cfg(i) != 0;
     let items = &st.items.items;

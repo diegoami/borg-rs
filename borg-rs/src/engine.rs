@@ -2289,6 +2289,46 @@ pub fn kind_effects(kind: usize) -> Vec<(u16, i32)> {
     out
 }
 
+/// Mean loaded kind values for an explicitly hypothetical catalogue item.
+pub fn kind_value_average(value: crate::headers::z_rand_h::random_value) -> i32 {
+    // SAFETY: pure arithmetic; AVERAGE does not roll RNG.
+    unsafe { crate::headers::z_rand_h::randcalc(value, 0, crate::headers::z_rand_h::AVERAGE) }
+}
+
+/// Loaded rod cooldown, evaluated without drawing random numbers.
+pub fn kind_recharge_average(kind: usize) -> i32 {
+    // SAFETY: kind data lives for the game; AVERAGE draws no RNG values.
+    unsafe { crate::headers::z_rand_h::randcalc(self::kind(kind).time, 0, crate::headers::z_rand_h::AVERAGE) }
+}
+
+/// Average effect magnitudes, read without advancing the game's RNG.
+/// The list and dice expressions belong to immutable loaded kind data.
+pub fn kind_effect_values(kind: usize, level: i32) -> Vec<(u16, i32, i64)> {
+    effect_values(self::kind(kind).effect, level)
+}
+
+pub fn spell_effect_values(index: i32, level: i32) -> Vec<(u16, i32, i64)> {
+    effect_values(spell_by_index_ref(index).effect, level)
+}
+
+fn effect_values(mut e: *const crate::headers::object_h::effect, level: i32) -> Vec<(u16, i32, i64)> {
+    let mut out = Vec::new();
+    while !e.is_null() {
+        // SAFETY: same loaded NULL-terminated list as kind_effects; AVERAGE
+        // evaluates bound dice expressions without rolling random numbers.
+        unsafe {
+            let mut value = crate::headers::z_rand_h::random_value { base: 0, dice: 0, sides: 0, m_bonus: 0 };
+            let amount = if (*e).dice.is_null() { 0 } else {
+                crate::headers::z_dice_h::dice_evaluate((*e).dice, level,
+                    crate::headers::z_rand_h::AVERAGE, &mut value)
+            };
+            out.push(((*e).index, (*e).subtype, i64::from(amount)));
+            e = (*e).next;
+        }
+    }
+    out
+}
+
 // ---------------------------------------------------------------------------
 // Floor objects and object kinds (borg-flow-take.c)
 

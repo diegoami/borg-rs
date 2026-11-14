@@ -55,7 +55,7 @@ impl Journey {
             hp: i64::from(st.borg.tr(BI_MAXHP)).max(1) }
     }
 
-    fn exposure(self) -> i64 {
+    pub(crate) fn exposure(self) -> i64 {
         (self.turns * self.depth * self.risk / (UNIT * self.level)).max(0)
     }
 
@@ -79,6 +79,7 @@ fn coverage(weight: i64, amount: i64, demand: i64) -> i64 {
 
 #[derive(Clone, Debug)]
 pub struct Utility {
+    pub capability: Option<crate::borg_town_capability::Model>,
     pub journey: Journey,
     pub weights: Weights,
     pub carried: [i64; 8],
@@ -91,7 +92,7 @@ pub struct Utility {
     poison_cures: i64,
     pub gold_weight: i64,
     home_discount: i64,
-    space_weight: i64,
+    pub(crate) space_weight: i64,
 }
 impl Utility {
     pub fn of(st: &BorgState, kit: &[KitItem], cure_spell: bool) -> Self {
@@ -133,7 +134,7 @@ impl Utility {
                 if let Some(x) = home.get_mut(n) { *x += k.reduction * i64::from(k.qty); }
             }
         }
-        Self { journey: j, weights: Weights::of(&st.core.cfg), carried, home, sustainable,
+        Self { capability: None, journey: j, weights: Weights::of(&st.core.cfg), carried, home, sustainable,
             wound_cures: t(BI_ACLW) + t(BI_ACSW) + t(BI_ACCW) + t(BI_AHEAL) + t(BI_AEZHEAL) + t(BI_ALIFE) + i64::from(cure_spell),
             poison_cures: t(BI_ACUREPOIS) + t(BI_ACCW) + t(BI_AHEAL) + t(BI_AEZHEAL) + t(BI_ALIFE) + i64::from(cure_spell),
             poisoned: t(BI_ISPOISONED) > 0, cut: t(BI_ISCUT) > 0, cure_spell,
@@ -192,6 +193,7 @@ impl Utility {
     }
 
     fn change(&mut self, it: &KitItem, sign: i64) {
+        if let Some(model) = &mut self.capability { model.change(it, sign); }
         if it.serves & (1 << index(Need::Healing)) != 0 { self.wound_cures += sign * i64::from(it.qty); }
         if it.serves & (1 << index(Need::Poison)) != 0 {
             self.poison_cures += sign * i64::from(it.qty);
@@ -207,6 +209,7 @@ impl Utility {
     }
 
     fn keep(&self, it: &KitItem) -> i64 {
+        if let Some(model) = &self.capability { return model.keep(it) + self.power(it.power); }
         let units = it.reduction * i64::from(it.qty);
         let v = usize::try_from(it.need).ok().and_then(|n| Need::ALL.get(n)).map_or(0, |&need| {
             let held = self.carried[index(need)];
@@ -227,7 +230,7 @@ pub fn urgent_needs(st: &BorgState, trip: &crate::borg_town_usefulness::Trip) ->
 /// Opportunity cost of occupying pack room: the utility of finding an
 /// unknown item spread across the room remaining. There is no fixed
 /// pack reserve and encumbrance is still enforced by the solver.
-fn burden(space_weight: i64, slots: i32, weight: i64, free_slots: i32, carry: i64) -> i64 {
+pub(crate) fn burden(space_weight: i64, slots: i32, weight: i64, free_slots: i32, carry: i64) -> i64 {
     space_weight.max(0) * UNIT * i64::from(slots.max(0)) / (i64::from(free_slots.max(0)) + 1)
         + space_weight.max(0) * UNIT * weight.max(0) / carry.max(1)
 }
@@ -262,17 +265,20 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
         let weight = i64::from(it.weight) * i64::from(it.qty);
         let cost = burden(u.space_weight, 1, weight, input.limits.pack_slots + freed.pack_slots, carry);
         let need = usize::try_from(it.need).ok().and_then(|n| Need::ALL.get(n)).copied();
-        let future = need.map_or(0, |n| u.reserve_gain(n, it.reduction * i64::from(it.qty)))
-            + u.power(it.power) * u.home_discount / UNIT;
+        let future = u.capability.as_ref().map_or_else(
+            || need.map_or(0, |n| u.reserve_gain(n, it.reduction * i64::from(it.qty))),
+            |m| m.reserve(it, 1, u.home_discount)) + u.power(it.power) * u.home_discount / UNIT;
         // A worthless Home stack can pay for room even under no-selling.
         // Unknown durable items and this visit's purchases stay protected.
         let spare = input.kit.iter().enumerate().find(|(j, k)| k.place == Place::Home
             && out[*j] == Disposition::Keep && !k.unknown && !k.just_bought && k.sell_shop >= 0
-            && u.power(k.power) == 0 && (k.unknown_flavour ||
+            && u.power(k.power) == 0 && (if let Some(m) = &u.capability {
+                m.take(k) == 0 && m.reserve(k, -1, u.home_discount) == 0
+            } else { k.unknown_flavour ||
                 usize::try_from(k.need).ok().and_then(|n| Need::ALL.get(n)).is_none_or(|&n| {
                     let units = k.reduction * i64::from(k.qty);
                     u.gain(n, units) == 0 && u.reserve(n, u.home[index(n)]) == u.reserve(n, (u.home[index(n)] - units).max(0))
-                })) ).map(|(j, _)| j);
+                }) }) ).map(|(j, _)| j);
         let home_cost = u.space_weight.max(0) * UNIT / (i64::from(home_free.max(0)) + 1);
         let loses_cure = (u.cut && it.serves & (1 << index(Need::Healing)) != 0 && u.wound_cures <= i64::from(it.qty))
             || (u.poisoned && it.serves & (1 << index(Need::Poison)) != 0 && u.poison_cures <= i64::from(it.qty));
@@ -287,7 +293,7 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
             }
         });
         let protected = it.unknown || it.just_bought || urgent_loss;
-        let store = !urgent_loss && (home_free > 0 || spare.is_some()) && (future - home_cost > loss - cost ||
+        let store = !urgent_loss && (input.revision < 6 || future > 0 || protected || loss > 0) && (home_free > 0 || spare.is_some()) && (future - home_cost > loss - cost ||
             input.limits.weight + freed.weight < 0 && (loss > 0 || future > 0 || protected));
         let action = if store { Disposition::Store }
             else if !protected && loss <= cost && future <= home_cost {
@@ -309,6 +315,7 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
                 }
                 home_free -= 1;
                 freed.home_slots -= 1;
+                if let Some(m) = &mut u.capability { m.change_home(it, 1); }
                 if let Some(n) = need { u.home[index(n)] += it.reduction * i64::from(it.qty); }
             } else if action == Disposition::Sell { freed.gold += it.proceeds; }
         }
@@ -321,20 +328,21 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
         let slots = input.limits.pack_slots + freed.pack_slots;
         let need = usize::try_from(it.need).ok().and_then(|n| Need::ALL.get(n)).copied();
         let units = it.reduction * i64::from(it.qty);
-        let value = need.map_or(0, |n| u.gain(n, units)) + u.power(it.power);
-        let future_loss = need.map_or(0, |n| {
+        let value = u.capability.as_ref().map_or_else(|| need.map_or(0, |n| u.gain(n, units)), |m| m.take(it)) + u.power(it.power);
+        let future_loss = u.capability.as_ref().map_or_else(|| need.map_or(0, |n| {
             let h = u.home[index(n)];
             u.reserve(n, h) - u.reserve(n, (h - units).max(0))
-        }) + u.power(it.power) * u.home_discount / UNIT;
+        }), |m| -m.reserve(it, -1, u.home_discount)) + u.power(it.power) * u.home_discount / UNIT;
         let cost = burden(u.space_weight, 1, weight, slots, carry);
         if slots > 0 && weight <= input.limits.weight + freed.weight && value - cost > future_loss {
             out[i] = Disposition::Take;
             u.change(it, 1);
+            if let Some(m) = &mut u.capability { m.change_home(it, -1); }
             if let Some(n) = need { u.home[index(n)] = (u.home[index(n)] - units).max(0); }
             freed.pack_slots -= 1;
             freed.home_slots += 1;
             freed.weight -= weight;
-        } else if value == 0 && future_loss == 0 && !it.unknown && it.proceeds > 0 && it.sell_shop >= 0 {
+        } else if value == 0 && future_loss == 0 && !it.unknown && (input.revision < 6 || !it.just_bought) && it.proceeds > 0 && it.sell_shop >= 0 {
             out[i] = Disposition::Sell;
             freed.home_slots += 1;
             freed.gold += it.proceeds;
@@ -353,7 +361,7 @@ pub fn shared_groups(groups: Vec<Group>, input: &StepInput, candidates: &[crate:
     let mut by_need: BTreeMap<u8, Vec<Group>> = BTreeMap::new();
     let mut out = Vec::new();
     let input = StepInput {
-        utility: input.utility, candidates: candidates.to_vec(), facts: input.facts, tryon: input.tryon, limits: input.limits,
+        revision: input.revision, capability: input.capability, utility: input.utility, candidates: candidates.to_vec(), facts: input.facts, tryon: input.tryon, limits: input.limits,
         urgent: input.urgent.clone(), params: input.params, traits: input.traits, power: input.power, carried: input.carried,
         cure_spell: input.cure_spell, kit: input.kit, home_slots: input.home_slots };
     let input = &input;
@@ -503,7 +511,7 @@ mod tests {
     }
 
     fn input<'a>(kit: &'a [KitItem]) -> StepInput<'a> {
-        StepInput { utility: true, candidates: Vec::new(), facts: &[], tryon: &[],
+        StepInput { revision: 7, capability: None, utility: true, candidates: Vec::new(), facts: &[], tryon: &[],
             limits: Limits { gold: 300, pack_slots: 15, weight: 1000 }, urgent: Vec::new(),
             params: [0; PARAMS], traits: &[], power: 0, carried: &[], cure_spell: false, kit, home_slots: 20 }
     }

@@ -102,9 +102,9 @@ fn ware_role(st: &BorgState, item: &borg_item) -> (i8, i64) {
 /// try-on can write - `borg` (traits, `has`, activations, the stat-gain
 /// arrays, `ready_morgoth`), `traits`, `trait_swap`, the items,
 /// `prepared.buffer` and `think.do_spell` - is snapshotted first and put
-/// back after, so the observation stays observation. Light sources are not
-/// tried on (the light need prices them), nor diggers (the live strategy
-/// keeps them as a back-up, not as a weapon). Without a free pack slot
+/// back after, so the observation stays observation. Light sources use equipment-only power
+/// for their properties, with endurance supplied by the capability model.
+/// Diggers are evaluated as tools rather than worn as weapons. Without a free pack slot
 /// there is nowhere to put the worn item, and nothing is tried on.
 fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) {
     use crate::headers::list_tvals_h::{TV_DIGGING, TV_LIGHT};
@@ -120,7 +120,7 @@ fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) 
         .filter_map(|(i, c)| {
             let w = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
             let tval = u32::from(w.tval);
-            if tval == TV_LIGHT || tval == TV_DIGGING {
+            if tval == TV_DIGGING {
                 return None;
             }
             let eq = crate::borg_inventory::borg_wield_slot(w);
@@ -140,6 +140,7 @@ fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) 
     let do_spell = st.think.do_spell;
 
     let base = i64::from(crate::borg_power::borg_power(st));
+    let base_light = i64::from(crate::borg_power::borg_power_equipment(st));
     let mut tryon = Vec::new();
     let mut slots = Vec::new();
     for (i, eq) in wearables {
@@ -150,10 +151,12 @@ fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) 
         st.items.items[hole] = worn;
         st.items.items[eq] = ware;
         crate::borg_trait::borg_notice(st, true);
-        let p = i64::from(crate::borg_power::borg_power(st));
+        let (p, before) = if u32::from(ware.tval) == TV_LIGHT {
+            (i64::from(crate::borg_power::borg_power_equipment(st)), base_light)
+        } else { (i64::from(crate::borg_power::borg_power(st)), base) };
         st.items.items[eq] = items[eq];
         st.items.items[hole] = items[hole];
-        tryon.push(TryOn { shop: c.shop, slot: c.slot, eq_slot: (eq - wield) as u8, value: p - base });
+        tryon.push(TryOn { shop: c.shop, slot: c.slot, eq_slot: (eq - wield) as u8, value: p - before });
         slots.push((i, i32::from(worn.iqty != 0)));
     }
 
@@ -171,6 +174,7 @@ fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) 
 fn has_inventory_power(it: &borg_item) -> bool {
     use crate::headers::list_tvals_h::{TV_FLASK, TV_FOOD, TV_MUSHROOM, TV_POTION, TV_SCROLL};
     !matches!(u32::from(it.tval), TV_FLASK | TV_FOOD | TV_MUSHROOM | TV_POTION | TV_SCROLL)
+        && crate::borg_inventory::borg_wield_slot(it) >= 0
 }
 
 fn unknown_durable(it: &borg_item) -> bool {
@@ -241,10 +245,20 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
     let do_spell = st.think.do_spell;
     let hole = usize::try_from(crate::borg_inventory::borg_first_empty_inventory_slot(st)).ok();
     let base = i64::from(crate::borg_power::borg_power(st));
+    let base_light = i64::from(crate::borg_power::borg_power_equipment(st));
+    let light_slot = pack_end + 5;
 
     let mut kit = Vec::new();
     for (slot, &it) in items.iter().enumerate().take(pack_end) {
         if it.iqty == 0 {
+            continue;
+        }
+        if u32::from(it.tval) == crate::headers::list_tvals_h::TV_LIGHT {
+            st.items.items[light_slot] = it;
+            crate::borg_trait::borg_notice(st, true);
+            let gain = i64::from(crate::borg_power::borg_power_equipment(st)) - base_light;
+            st.items.items[light_slot] = items[light_slot];
+            kit.push(fact(st, &it, Place::Pack, slot, gain.max(0)));
             continue;
         }
         if !has_inventory_power(&it) {
@@ -262,7 +276,13 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
         if it.iqty == 0 {
             continue;
         }
-        let gain = match hole.filter(|_| has_inventory_power(it)) {
+        let gain = if u32::from(it.tval) == crate::headers::list_tvals_h::TV_LIGHT {
+            st.items.items[light_slot] = *it;
+            crate::borg_trait::borg_notice(st, true);
+            let gain = i64::from(crate::borg_power::borg_power_equipment(st)) - base_light;
+            st.items.items[light_slot] = items[light_slot];
+            gain.max(0)
+        } else { match hole.filter(|_| has_inventory_power(it)) {
             Some(h) => {
                 st.items.items[h] = *it;
                 crate::borg_trait::borg_notice(st, true);
@@ -271,7 +291,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
                 p - base
             }
             None => 0,
-        };
+        } };
         kit.push(fact(st, it, Place::Home, slot, gain));
     }
 
@@ -407,8 +427,17 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
         .filter(|it| it.iqty != 0)
         .map(|it| (it.tval, i32::from(it.iqty)))
         .collect();
+    let mut forecast_state = BorgState::default();
+    forecast_state.core.cfg = st.core.cfg.clone();
+    forecast_state.borg.trait_ = st.borg.trait_.clone();
+    for (i, &value) in params.iter().enumerate() { forecast_state.core.cfg[(BORG_TOWN_PLAN as usize) + i] = value as i32; }
+    let capability = crate::borg_town_capability::observe(st, &stock, &kit,
+        crate::borg_town_utility::Journey::of(&forecast_state));
+    crate::borg_town_capability::audit(st, crate::borg_town_utility::Journey::of(&forecast_state), &capability);
     let limits = Limits::of(&budget);
     let out = step(&StepInput {
+        revision: crate::borg_town_record::PLAN_SCHEMA,
+        capability: Some(&capability),
         utility: true,
         candidates: stock.candidates.clone(),
         facts: &wares,
@@ -436,6 +465,7 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     let chosen = TownAction { code: paction, at: act };
     if file.is_none() { return chosen; }
     let rec = PlanRecord {
+        capability: Some(capability),
         schema: crate::borg_town_record::PLAN_SCHEMA,
         mode: u8::from(live),
         visit,
@@ -540,12 +570,12 @@ mod tests {
 
     #[test]
     fn consumables_do_not_inherit_inventory_powers_level_gates() {
-        for tval in [TV_POTION, TV_SCROLL, TV_FOOD, TV_MUSHROOM, TV_FLASK] {
+        for tval in [TV_POTION, TV_SCROLL, TV_FOOD, TV_MUSHROOM, TV_FLASK, TV_WAND, TV_STAFF, TV_ROD, TV_ARROW, TV_MAGIC_BOOK] {
             let mut it = crate::borg_item::blank_item();
             it.tval = tval as u8;
             assert!(!has_inventory_power(&it));
         }
-        for tval in [TV_SWORD, TV_HARD_ARMOR, TV_RING, TV_WAND] {
+        for tval in [TV_SWORD, TV_HARD_ARMOR, TV_RING] {
             let mut it = crate::borg_item::blank_item();
             it.tval = tval as u8;
             assert!(has_inventory_power(&it));

@@ -373,6 +373,15 @@ borg_trip_pack_slack = 2
 borg_trip_unknown_stacks = 4
 borg_trip_return_gold = 0
 
+# Capability utility priorities and forecast actions per ranged/support use.
+borg_town_w_attack = 100
+borg_town_w_magic = 100
+borg_town_w_support = 50
+borg_town_w_restore = 100
+borg_town_attack_turns = 100
+borg_town_support_turns = 1000
+
+
 
 ### Enchant Limit ###
 
