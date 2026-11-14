@@ -28,7 +28,7 @@ TOOLS = ('produce_death.py', 'replay_next_death.py', 'replay-borg.py',
          'tools/death_workflow.py', 'tools/borg_runtime.py', 'tools/borg_deaths.py',
          'tools/borg_saves.py', 'tools/borg_gui.py', 'tools/borg_replay_viewer.py', 'tools/replay_observations.py',
          'harness/run.sh', 'harness/supervise.py', 'harness/identity.sh',
-         'tools/toolkit_native.py', 'tools/native-combat.h', 'tools/toolkit_common.py', 'tools/run_report.py', 'tools/display_font.py', 'tools/start_recorded_borg.py', 'tools/inspect-save.c')
+         'tools/toolkit_native.py', 'tools/native-combat.h', 'tools/toolkit_common.py', 'tools/run_report.py', 'tools/display_font.py', 'tools/start_recorded_borg.py', 'tools/recording_paths.py', 'tools/cemetery_publish.py', 'tools/inspect-save.c')
 LOADED_TOOLS = {name: runtime.sha(ROOT / name) for name in TOOLS}
 
 

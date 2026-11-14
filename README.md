@@ -59,31 +59,92 @@ repository already gives you both Angband and the Borg source, and the
 build step above produces one combined executable. Re-running the script
 only reconfigures/rebuilds when its inputs changed.
 
-Once built, the game, saves and settings live entirely under this project
-(`.angband-rust/` by default; see [Playing](#playing)) — nothing is
-installed system-wide.
+Nothing is installed system-wide. Saves, settings, recordings and death dossiers
+use the sibling **borg-cemetery checkout**, shared by ordinary checkouts and
+linked worktrees.
 
-## Playing
+## Playing and recording
 
-Run `./run-rust-borg.sh` to build and open the graphical X11 game with the
-Rust Borg. Create/load a character, then press **Ctrl-Z**, **z** (confirm
-the initial warning if shown). Any key stops the Borg. Saves and settings
-stay in `.angband-rust/`; the initial configuration has cheat death off.
-Use `./run-rust-borg.sh --help` for build and game arguments.
-The main window uses the same 28-pixel Courier font as `better-borg-c/start-borg.sh`;
-set `BORG_PLAY_FONT` to choose another X11 font. **Ctrl-X** saves and exits;
-the default save is `.angband-rust/save/RustBorg` (`-uNAME` selects another).
+`start-recording.sh` creates or resumes a named Angband character and records
+your play. **The Borg is off unless you start it yourself.** Ctrl-X saves and
+exits; run the same name again to resume. Ctrl-Z then z optionally starts the
+Rust Borg; an input key interrupts it.
+
+The permanent defaults on this machine are:
+
+```sh
+export BORG_PLAY_DATA_DIR=/home/diego/projects/angband/borg-cemetery
+export BORG_DEATH_RECORDS_DIR="$BORG_PLAY_DATA_DIR/deaths"
+```
+
+You do not need these exports for a normal sibling checkout: the launchers
+resolve them automatically, including from a task worktree. Environment
+variables can override them for isolated tests. Populate the cemetery checkout
+from its remote before the first session so existing death IDs are retained.
 
 From this project root:
 
 ```sh
-./run-rust-borg.sh                   # Resume RustBorg, or create it if absent
-./run-rust-borg.sh -uMyCharacter     # Select another named save
-./run-rust-borg.sh -n -uNewCharacter # Create a new named character
-./run-rust-borg.sh --build-only     # Build without opening a window
+./start-recording.sh MyHumanGame                    # New character or resume
+./start-recording.sh MyHumanGame --from-backup=1    # Resume a backup
+./start-recording.sh AnotherCharacter --seed 4242   # A separate new character
+./start-recording.sh --build-only                  # Build without playing
 ```
 
-Named saves use `.angband-rust/save/NAME`; settings are in `.angband-rust/user/`.
+Saves live in `borg-cemetery/save/NAME`, settings in `borg-cemetery/user/`,
+local complete bundles in `borg-cemetery/recordings/SESSION/`, and natural-death
+dossiers in `borg-cemetery/deaths/`. A resumed session preserves the saved
+engine/RNG, starts the Borg with fresh private memory, and creates a new
+recording bundle. This does not yet join sessions into one branch-tree file.
+
+To commit and push each completed session export:
+
+```sh
+./start-recording.sh MyHumanGame --auto-push
+```
+
+`--auto-push` (also `--auto-commit-and-push`) uses that cemetery's `origin` and
+current branch. It creates a compressed `.zip` and matching `.json` entry under
+`recordings/`, adds the associated death dossier if any, commits only those
+exports and the local-state ignore rules, and pushes normally. Live saves,
+settings and frozen executables are not committed. Existing staged/unrelated
+tracked edits or unpushed commits are refused. Push failure retains both the
+recording and the local commit, and prints a retry command; it never forces a
+push. Without the option, sessions are saved locally without a commit or push.
+
+Archives retain the original streams, frames, origin/checkpoint/final saves,
+configuration and build identity, but omit binaries. Restore with the original
+matching local executable (found automatically while the original bundle or
+build remains available), or supply it explicitly:
+
+```sh
+python3 tools/cemetery_publish.py restore /path/to/SESSION.zip \
+  --output /tmp/restored-session --binary /path/to/matching/angband
+./replay-borg.py /tmp/restored-session --verify-only
+```
+
+This is archival of the current recording format, not the later portable slim
+branch-tree format. Archives above 95 MiB are retained locally and refused for
+Git; they need the cemetery's separate release-asset workflow.
+
+## Random headless recordings
+
+Each game has a fresh birth with the engine's random race/class selection and
+its own save/recording. The batch runs in the foreground and stops at its
+requested count; turn, key and wall-time limits apply to every game.
+
+```sh
+./record-random-runs.py --runs 5 --turns 20000
+./record-random-runs.py --runs 5 --turns 20000 --auto-push
+./record-random-runs.py --runs 3 --seed 4242 --wall-seconds 300
+```
+
+`--seed` sets the first birth seed; later seeds increment modulo 2^32. Omitting
+it chooses a random first seed. All runs, including deaths/timeouts, retain
+their observed status and local evidence. Only completed recordings can be
+published; an execution/publication failure stops the batch and retains the
+existing data. Named headless continuation is still available through
+`run-borg-headless.py NAME --turns N`; `--new` starts a new birth with backups.
 
 ## Tools
 
@@ -97,13 +158,13 @@ Named launch, backup restore, headless play and replay (adapted from
 `better-borg-c`):
 
 ```sh
-./start-borg.sh MyCharacter
-./start-borg.sh MyCharacter --from-backup=1
+./start-recording.sh MyCharacter
+./start-recording.sh MyCharacter --from-backup=1
 ./run-borg-headless.py MyCharacter --turns 100000
 ./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
-./replay-borg.py .angband-rust/recordings/RUN --from-turn 5000
-./replay-borg.py .angband-rust/recordings/RUN --verify-only
-./replay-borg.py .angband-rust/recordings/RUN --dump-turn 5000
+./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --from-turn 5000
+./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --verify-only
+./replay-borg.py /path/to/borg-cemetery/recordings/SESSION --dump-turn 5000
 ```
 
 Bounded death collection and an explicit owner-review queue:
@@ -121,7 +182,7 @@ and keeps every attempted outcome; it does not enlarge limits to force a death.
 See [workflow parameters and scope](tools/README.md#collecting-a-death-and-reviewing-the-next-encounter).
 
 GUI/headless launchers share a per-character lock and five rolling backups
-under `.angband-rust/save/backups/NAME/save.1` through `save.5`. Restore keeps
+under `borg-cemetery/save/backups/NAME/save.1` through `save.5`. Restore keeps
 the current save as `before-restore-TIMESTAMP.save`. Headless play preserves
 the saved engine RNG, starts a fresh Borg, and records its origin, frozen
 Rust executable/data/config, inputs, frames and engine saves. It uses world-
@@ -162,7 +223,7 @@ This verifies the historical run, copies a living native save at the first
 command boundary **at or after** your requested turn, and opens it with the
 Borg off. It prints the actual turn, save path and `play-branch.py` resume
 command. These are separate game sessions/saves, with originals preserved.
-Default copies live in `.angband-rust/human-branches/`; use `--output NEW_DIR`
+Default copies live in `borg-cemetery/human-branches/`; use `--output NEW_DIR`
 to choose a directory, or `--prepare-only` to create the save without opening
 X11. Ctrl-X saves; Escape closes the native exit screen. See
 [human takeover scope](tools/README.md#playing-from-a-recorded-turn).
