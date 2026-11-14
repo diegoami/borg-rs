@@ -305,11 +305,13 @@ pub fn shadow_visit(st: &mut BorgState) {
                 need,
                 reduction,
                 // The knowledge bit marks a learnable ware: an unaware kind
-                // ({unseen} in the shop) or unknown runes ({??}). Buying one
+                // ({unseen} in the shop: `flavour_aware`, since `aware` is
+                // forced true in a store and an unaware potion or scroll has
+                // no unknown runes) or unknown runes ({??}). Buying one
                 // makes the flavour aware and learns every rune
                 // (store.c, "Learn flavor, any effect and all the runes").
                 serves: mask(&needs_served(st, item))
-                    | if item.needs_ident { 1 << need_index(Need::Knowledge) } else { 0 },
+                    | if item.needs_ident || !item.flavour_aware { 1 << need_index(Need::Knowledge) } else { 0 },
             }
         })
         .collect();
