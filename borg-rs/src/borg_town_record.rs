@@ -28,6 +28,7 @@ use std::collections::BTreeMap;
 use crate::borg_headers::borg_h::BORG_TOWN_PLAN;
 use crate::borg_headers::borg_trait_h::BI_MAX;
 use crate::borg_town_budget::{Budget, UrgentPurchase};
+use crate::borg_town_dispose::{dispose, Disposition, Freed, KitItem, Place};
 use crate::borg_town_solve::{groups, solve, Group, GroupKey, Limits, Solution};
 use crate::borg_town_stock::{Candidate, Stock};
 use crate::borg_town_usefulness::{usefulness, Need, Trip, Weights};
@@ -135,6 +136,11 @@ pub struct PlanRecord {
     pub unmet: u8,
     pub wares: Vec<WareFact>,
     pub tryon: Vec<TryOn>,
+    /// The pack's and the Home's stacks, for the dispositions (slice 3).
+    pub kit: Vec<KitItem>,
+    /// The disposition of each `kit` stack: 0 keep, 1 store, 2 sell,
+    /// 3 drop, 4 take.
+    pub dispose: Vec<u8>,
     /// The chosen set, ranked.
     pub plan: Vec<PlanEntry>,
     /// `[value, bound, lambda, flags]`.
@@ -187,6 +193,36 @@ fn entry(e: &PlanEntry) -> [i64; 7] {
         e.value,
         i64::from(e.slots),
     ]
+}
+
+/// A kit stack as the record writes it: `[place, slot, kind, qty, weight,
+/// need, reduction, power, proceeds, sell_shop, flags]`, `place` 0 pack 1
+/// Home, `flags` bit 0 unknown, bit 1 unknown flavour, bit 2 just bought.
+fn kit_row(k: &KitItem) -> [i64; 11] {
+    [
+        i64::from(k.place == Place::Home),
+        i64::from(k.slot),
+        i64::from(k.kind),
+        i64::from(k.qty),
+        i64::from(k.weight),
+        i64::from(k.need),
+        k.reduction,
+        k.power,
+        k.proceeds,
+        i64::from(k.sell_shop),
+        i64::from(k.unknown) | i64::from(k.unknown_flavour) << 1 | i64::from(k.just_bought) << 2,
+    ]
+}
+
+/// The disposition codes.
+pub fn dispose_code(d: Disposition) -> u8 {
+    match d {
+        Disposition::Keep => 0,
+        Disposition::Store => 1,
+        Disposition::Sell => 2,
+        Disposition::Drop => 3,
+        Disposition::Take => 4,
+    }
 }
 
 impl PlanRecord {
@@ -242,6 +278,10 @@ impl PlanRecord {
         arr(out, &self.tryon, |o, t| {
             ints(o, &[i64::from(t.shop), i64::from(t.slot), i64::from(t.eq_slot), t.value])
         });
+        field(out, "kit");
+        arr(out, &self.kit, |o, k| ints(o, &kit_row(k)));
+        field(out, "dispose");
+        arr(out, &self.dispose, |o, &d| num(o, d));
         field(out, "plan");
         arr(out, &self.plan, |o, e| ints(o, &entry(e)));
         field(out, "solve");
@@ -476,6 +516,28 @@ impl PlanRecord {
                     _ => Err("a try-on has 4 fields".to_string()),
                 })
                 .collect::<Result<_, _>>()?,
+            kit: rows("kit")?
+                .into_iter()
+                .map(|r| match r[..] {
+                    [place, slot, kind, qty, weight, need, reduction, power, proceeds, sell_shop, flags] => Ok(KitItem {
+                        place: if place == 1 { Place::Home } else { Place::Pack },
+                        slot: slot as u8,
+                        kind: kind as u32,
+                        qty: qty as i32,
+                        weight: weight as i32,
+                        need: need as i8,
+                        reduction,
+                        power,
+                        proceeds,
+                        sell_shop: sell_shop as i8,
+                        unknown: flags & 1 != 0,
+                        unknown_flavour: flags & 2 != 0,
+                        just_bought: flags & 4 != 0,
+                    }),
+                    _ => Err("a kit stack has 11 fields".to_string()),
+                })
+                .collect::<Result<_, _>>()?,
+            dispose: j.get("dispose")?.ints()?.into_iter().map(|d| d as u8).collect(),
             plan: rows("plan")?.iter().map(|r| entry_of(r)).collect::<Result<_, _>>()?,
             solve: fixed(j.get("solve")?.ints()?, "solve")?,
             action: small("paction")?,
@@ -507,6 +569,10 @@ pub struct StepInput<'a> {
     pub carried: &'a [(u8, i32)],
     /// A curing spell is usable (no trait counts it).
     pub cure_spell: bool,
+    /// The pack's and the Home's stacks, for the dispositions.
+    pub kit: &'a [KitItem],
+    /// The Home's free slots.
+    pub home_slots: i32,
 }
 
 /// What a step produces.
@@ -517,6 +583,11 @@ pub struct StepOutput {
     pub plan: Vec<PlanEntry>,
     pub solve: [i64; 4],
     pub displaced: Option<PlanEntry>,
+    /// Stage 1: the disposition of each `StepInput::kit` stack.
+    pub dispositions: Vec<Disposition>,
+    /// What the dispositions freed for the purchases.
+    #[cfg_attr(not(test), expect(dead_code))]
+    pub freed: Freed,
 }
 
 /// A state the usefulness function can read: the traits, the power, and
@@ -583,18 +654,50 @@ fn runner_up(groups: &[Group], s: &Solution) -> Option<PlanEntry> {
 
 /// One plan step: the groups, the solve, the ranked plan and the runner-up.
 pub fn step(input: &StepInput) -> StepOutput {
-    let st = state_of(input.traits, input.power, &input.params, input.carried);
+    let mut st = state_of(input.traits, input.power, &input.params, input.carried);
     let mut trip = Trip::of(&st);
     trip.cure_spell = input.cure_spell;
     let weights = Weights::of(&st.core.cfg);
+
+    // Stage 1 (owner, 2026-11-14: two stages): the dispositions of the
+    // pack and the Home, and what they free.
+    let (dispositions, freed) = dispose(
+        input.kit,
+        &st,
+        &trip,
+        &weights,
+        input.limits.pack_slots,
+        input.home_slots,
+        input.limits.weight,
+    );
+    // What they change in the needs the purchases see: a stack that leaves
+    // the pack takes its copies out of its need, one taken from the Home
+    // brings them in.
+    for (it, d) in input.kit.iter().zip(&dispositions) {
+        let sign = match (it.place, d) {
+            (Place::Pack, Disposition::Store | Disposition::Sell | Disposition::Drop) => -1,
+            (Place::Home, Disposition::Take) => 1,
+            _ => 0,
+        };
+        if sign != 0 {
+            apply_need(&mut st, it.need, it.reduction, it.qty, sign);
+        }
+    }
+    // Stage 2: the purchases, with what the dispositions freed.
+    let limits = Limits {
+        gold: input.limits.gold + freed.gold,
+        pack_slots: input.limits.pack_slots + freed.pack_slots,
+        weight: input.limits.weight + freed.weight,
+    };
+    let st = st;
     let facts: BTreeMap<(u8, u8), &WareFact> = input.facts.iter().map(|f| ((f.shop, f.slot), f)).collect();
     let tryon: BTreeMap<(u8, u8), &TryOn> = input.tryon.iter().map(|t| ((t.shop, t.slot), t)).collect();
     let stock = Stock { candidates: input.candidates.clone(), ..Stock::default() };
     let budget = Budget {
-        gold: input.limits.gold,
-        pack_slots: input.limits.pack_slots,
+        gold: limits.gold,
+        pack_slots: limits.pack_slots,
         home_slots: 0,
-        weight: input.limits.weight,
+        weight: limits.weight,
         urgent: input.urgent.clone(),
         unmet: Vec::new(),
     };
@@ -617,7 +720,7 @@ pub fn step(input: &StepInput) -> StepOutput {
             _ => 0,
         },
     );
-    let solution = solve(&groups, &input.limits);
+    let solution = solve(&groups, &limits);
     let plan = solution.ranked(&groups).into_iter().map(|(g, o)| plan_entry(&groups[g], o)).collect();
     let flags = [
         (solution.optimal, flag::OPTIMAL),
@@ -631,7 +734,43 @@ pub fn step(input: &StepInput) -> StepOutput {
     .fold(0, |m, (_, b)| m | b);
     let solve_row = [solution.value, solution.bound, solution.lambda, flags];
     let displaced = runner_up(&groups, &solution);
-    StepOutput { groups, solution, plan, solve: solve_row, displaced }
+    StepOutput { groups, solution, plan, solve: solve_row, displaced, dispositions, freed }
+}
+
+/// Add (`sign` 1) or remove (`sign` -1) `qty` copies' worth of a need in a
+/// step's state copy: light sources to the carried lights, food to
+/// `BI_FOOD`, wound cures to `BI_ACLW`, poison cures to `BI_ACUREPOIS`,
+/// Phase Door to `BI_APHASE`. Other needs carry nothing countable.
+pub fn apply_need(st: &mut BorgState, need: i8, reduction: i64, qty: i32, sign: i32) {
+    use crate::borg_headers::borg_trait_h::{BI_ACLW, BI_ACUREPOIS, BI_APHASE, BI_FOOD};
+    use crate::headers::list_tvals_h::TV_LIGHT;
+    let n = sign * qty;
+    let at = |st: &mut BorgState, t: u32, d: i32| {
+        if let Some(v) = st.borg.trait_.get_mut(t as usize) {
+            *v = (*v + d).max(0);
+        }
+    };
+    match need {
+        0 if sign > 0 => {
+            let mut it = crate::borg_item::blank_item();
+            it.tval = TV_LIGHT as u8;
+            it.iqty = qty.clamp(0, 255) as u8;
+            st.items.items.push(it);
+        }
+        0 => {
+            let mut left = qty;
+            for it in st.items.items.iter_mut().filter(|it| u32::from(it.tval) == TV_LIGHT) {
+                let take = left.min(i32::from(it.iqty));
+                it.iqty -= take as u8;
+                left -= take;
+            }
+        }
+        1 => at(st, BI_FOOD, n * reduction as i32),
+        2 => at(st, BI_ACLW, n),
+        3 => at(st, BI_ACUREPOIS, n),
+        4 => at(st, BI_APHASE, n),
+        _ => {}
+    }
 }
 
 /// The step's action: the urgent needs first (B3, Part A), then the first ranked
@@ -643,6 +782,7 @@ pub fn first_action(
     urgent: &[UrgentPurchase],
     out: &StepOutput,
     facts: &[WareFact],
+    kit: &[KitItem],
 ) -> (i64, [i64; 4], i64, bool) {
     let need_of = |c: &Candidate| {
         facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot).map_or(-1, |f| i64::from(f.need))
@@ -651,6 +791,28 @@ pub fn first_action(
         let c = &candidates[f.candidate];
         let need = f.needs.first().and_then(|n| Need::ALL.iter().position(|x| x == n)).map_or(-1, |i| i as i64);
         return (action::BUY, [i64::from(c.shop), i64::from(c.slot), 1, i64::from(c.price)], need, true);
+    }
+    // The dispositions before the purchases, in the order that frees room
+    // first: the pack's sales and drops, then its stores, then the Home's
+    // sales, then what comes back from the Home.
+    let order = [
+        (Place::Pack, Disposition::Sell),
+        (Place::Pack, Disposition::Drop),
+        (Place::Pack, Disposition::Store),
+        (Place::Home, Disposition::Sell),
+        (Place::Home, Disposition::Take),
+    ];
+    for (place, d) in order {
+        if let Some((k, _)) = kit.iter().zip(&out.dispositions).find(|(k, &x)| k.place == place && x == d) {
+            let (code, at) = match (place, d) {
+                (Place::Pack, Disposition::Sell) => (action::SELL, i64::from(k.sell_shop)),
+                (Place::Pack, Disposition::Drop) => (action::DROP, -1),
+                (Place::Pack, Disposition::Store) => (action::STORE, 7),
+                (Place::Home, Disposition::Sell) => (action::SELL_HOME, i64::from(k.sell_shop)),
+                _ => (action::TAKE_HOME, 7),
+            };
+            return (code, [at, i64::from(k.slot), i64::from(k.qty), k.proceeds], i64::from(k.need), false);
+        }
     }
     if let Some(&(g, o)) = out.solution.ranked(&out.groups).first() {
         if let Some(&(i, copies)) = out.groups[g].options[o].picks.first() {
@@ -704,6 +866,8 @@ impl ReplayParts {
             power: self.power,
             carried: &self.carried,
             cure_spell: rec.spells & 1 != 0,
+            kit: &rec.kit,
+            home_slots: rec.limits[2] as i32,
         }
     }
 }
@@ -797,7 +961,8 @@ pub fn replay_parts(line: &str) -> Result<(PlanRecord, ReplayParts), String> {
 #[cfg_attr(not(test), expect(dead_code))]
 pub fn replays(line: &str) -> Result<bool, String> {
     let (rec, out) = replay(line)?;
-    Ok(rec.plan == out.plan && rec.solve == out.solve && rec.displaced == out.displaced)
+    let dispose: Vec<u8> = out.dispositions.iter().map(|&d| dispose_code(d)).collect();
+    Ok(rec.plan == out.plan && rec.solve == out.solve && rec.displaced == out.displaced && rec.dispose == dispose)
 }
 
 #[cfg(test)]
@@ -860,6 +1025,17 @@ mod tests {
 
     /// A whole step as the producer will run it, written as a v4 line.
     fn produce(stock: &Stock, gold: i64, traits: &[i32], tryon: &[TryOn], unmet: &[Need]) -> (String, PlanRecord) {
+        produce_kit(stock, gold, traits, tryon, unmet, &[])
+    }
+
+    fn produce_kit(
+        stock: &Stock,
+        gold: i64,
+        traits: &[i32],
+        tryon: &[TryOn],
+        unmet: &[Need],
+        kit: &[KitItem],
+    ) -> (String, PlanRecord) {
         let facts = Facts { gold, pack_capacity: 23, home_capacity: 24, carry: traits[BI_CARRY as usize], weight: 0 };
         let budget = Budget::build(&facts, stock, unmet, |c| {
             let (_, _, serves) = role(c.kind);
@@ -895,6 +1071,8 @@ mod tests {
             power: 1000,
             carried: &carried(),
             cure_spell: false,
+            kit,
+            home_slots: budget.home_slots,
         });
         let mask = |ns: &[Need]| {
             ns.iter().fold(0u8, |m, n| m | (1 << Need::ALL.iter().position(|x| x == n).unwrap()))
@@ -917,6 +1095,8 @@ mod tests {
             unmet: mask(&budget.unmet),
             wares,
             tryon: tryon.to_vec(),
+            kit: kit.to_vec(),
+            dispose: out.dispositions.iter().map(|&d| dispose_code(d)).collect(),
             plan: out.plan.clone(),
             solve: out.solve,
             action: if out.plan.is_empty() { action::LEAVE } else { action::BUY },
@@ -1044,7 +1224,7 @@ mod tests {
         let keys = j.keys();
         let v4 = [
             "mode", "visit", "step", "gturn", "power", "spells", "params", "limits", "caps", "urgent", "unmet",
-            "wares", "tryon", "plan", "solve", "paction", "act", "for", "now", "displaced", "guard",
+            "wares", "tryon", "kit", "dispose", "plan", "solve", "paction", "act", "for", "now", "displaced", "guard",
         ];
         assert_eq!(&keys[keys.len() - v4.len()..], v4);
         assert_eq!(&keys[..2], ["v", "seq"]);
@@ -1110,7 +1290,7 @@ mod tests {
                     needs: Need::ALL.iter().enumerate().filter(|(b, _)| n & (1 << b) != 0).map(|(_, &x)| x).collect(),
                 })
                 .collect();
-            first_action(&s.candidates, &urgent, &out, &wares(&s))
+            first_action(&s.candidates, &urgent, &out, &wares(&s), &rec.kit)
         };
         // the food urgent need unmet: the urgent purchase comes first
         let (a, act, need, now) = run(300, &[Need::Food]);
@@ -1155,6 +1335,8 @@ mod tests {
             assert_eq!(out.plan, rec.plan, "line {}: plan", i + 1);
             assert_eq!(out.solve, rec.solve, "line {}: solve", i + 1);
             assert_eq!(out.displaced, rec.displaced, "line {}: runner-up", i + 1);
+            let dispose: Vec<u8> = out.dispositions.iter().map(|&d| dispose_code(d)).collect();
+            assert_eq!(dispose, rec.dispose, "line {}: dispositions", i + 1);
             n += 1;
             planned += usize::from(!rec.plan.is_empty());
             urgent += usize::from(rec.now);
@@ -1236,6 +1418,46 @@ mod tests {
             .unwrap();
         }
         std::fs::write(&out_path, out).unwrap();
+    }
+
+    /// Two stages (slice 3): the dispositions first, the purchases with
+    /// what they free. A worthless stack is sold (its slot freed), the
+    /// Home's rations are taken back (their food closes part of the gap,
+    /// so the purchases buy less food), and the record replays its
+    /// dispositions as well as its plan.
+    #[test]
+    fn the_step_disposes_then_buys() {
+        let s = stock();
+        let junk = KitItem {
+            place: Place::Pack,
+            slot: 4,
+            kind: 99,
+            qty: 1,
+            weight: 50,
+            need: -1,
+            reduction: 0,
+            power: 0,
+            proceeds: 7,
+            sell_shop: 0,
+            unknown: false,
+            unknown_flavour: false,
+            just_bought: false,
+        };
+        let rations = KitItem { place: Place::Home, slot: 0, kind: RATION, qty: 5, weight: 10, need: 1, reduction: 1, proceeds: 0, ..junk };
+        let (line, rec) = produce_kit(&s, 300, &traits(), &[], &[], &[junk, rations]);
+        assert_eq!(rec.dispose, [2, 4], "the junk sold, the rations taken");
+        assert!(replays(&line).unwrap(), "the dispositions replay");
+        let (_, out) = replay(&line).unwrap();
+        assert_eq!((out.freed.pack_slots, out.freed.gold), (0, 7), "one slot freed by the sale, one used by the take");
+        // the rations taken close 5 of the 7-ration gap: the purchases'
+        // food is 2 rations' worth, not 7
+        let (_, no_kit) = produce(&s, 300, &traits(), &[], &[]);
+        let food = |r: &PlanRecord| r.plan.iter().filter(|e| e.key == 1 || e.key == 6).map(|e| e.copies).sum::<i32>();
+        assert!(food(&rec) < food(&no_kit), "{} rations planned with the Home's, {} without", food(&rec), food(&no_kit));
+        // the first action is the sale, before any purchase
+        let urgent: Vec<UrgentPurchase> = Vec::new();
+        let (a, act, _, _) = first_action(&s.candidates, &urgent, &out, &rec.wares, &rec.kit);
+        assert_eq!((a, act[1]), (action::SELL, 4));
     }
 
     /// A version-2 line is not read as a plan record.

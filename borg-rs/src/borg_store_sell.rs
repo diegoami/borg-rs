@@ -792,7 +792,7 @@ fn borg_has_mutiple(st: &mut BorgState, idx: i32) -> bool {
     false
 }
 
-fn borg_store_buys(item: &borg_item, who: i32) -> bool {
+pub(crate) fn borg_store_buys(item: &borg_item, who: i32) -> bool {
     let tval = u32::from(item.tval);
     match who + 1 {
         // General Store
