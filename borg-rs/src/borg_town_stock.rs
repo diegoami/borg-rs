@@ -375,12 +375,15 @@ pub fn needs_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
     use crate::borg_item_analyze::borg_obj_has_effect;
     use crate::headers::list_effects_h::{EF_CRUNCH, EF_CURE, EF_NOURISH, EF_TIMED_INC};
     use crate::headers::list_player_timed_h::{TMD_CONFUSED, TMD_POISONED};
-    use crate::headers::list_tvals_h::{TV_FOOD, TV_LIGHT, TV_MUSHROOM, TV_POTION};
+    use crate::headers::list_tvals_h::{TV_FOOD, TV_LIGHT, TV_MUSHROOM, TV_POTION, TV_SCROLL};
 
     let v = &st.item_val;
     let tval = u32::from(item.tval);
     let sval = i32::from(item.sval);
     let mut out = Vec::new();
+    if tval == TV_SCROLL && sval == v.sv_scroll_satisfy_hunger {
+        out.push(Need::Food);
+    }
     if tval == TV_LIGHT {
         out.push(Need::Light);
     }
@@ -415,10 +418,13 @@ pub fn needs_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
         if sval == v.sv_potion_cure_light
             || sval == v.sv_potion_cure_serious
             || sval == v.sv_potion_cure_critical
+            || sval == v.sv_potion_healing
+            || sval == v.sv_potion_star_healing
+            || sval == v.sv_potion_life
         {
             out.push(Need::Healing);
         }
-        if sval == v.sv_potion_cure_poison || sval == v.sv_potion_cure_critical {
+        if [v.sv_potion_cure_poison, v.sv_potion_cure_critical, v.sv_potion_healing, v.sv_potion_star_healing, v.sv_potion_life].contains(&sval) {
             out.push(Need::Poison);
         }
     }

@@ -58,6 +58,8 @@ pub const GOLD_LIMIT: i64 = 1 << 16;
 pub enum GroupKey {
     /// The wares of one stack class; option `n` is `n` copies.
     Class(u16),
+    /// Alternatives serving one shared need (utility model, v5).
+    Need(u8),
     /// The wares that fit one equipment slot; at most one is bought.
     Slot(u8),
 }
@@ -171,7 +173,7 @@ fn score(value: i64, cost: i64, slots: i32) -> Score {
 /// The exact group DP at slot penalty `lambda`, on costs divided by
 /// `scale` (rounded up) under the scaled bound. Returns the option chosen
 /// per group.
-fn dp(groups: &[Group], bound: i64, scale: i64, lambda: i64) -> Vec<usize> {
+fn dp(groups: &[Group], bound: i64, scale: i64, lambda: i64, cash: Cash) -> Vec<usize> {
     let cap = usize::try_from(bound / scale).unwrap_or(0);
     let scaled = |c: i64| (c + scale - 1) / scale;
     let mut best: Vec<Score> = vec![0; cap + 1];
@@ -213,7 +215,13 @@ fn dp(groups: &[Group], bound: i64, scale: i64, lambda: i64) -> Vec<usize> {
     }
     // Walk back from the full bound.
     let mut chosen = vec![0usize; groups.len()];
-    let mut b = cap;
+    // best[b] is the best kit within b gold. Comparing all b prices
+    // retained cash against the WHOLE kit, not independently per ware.
+    let mut b = (0..=cap).max_by_key(|&b| {
+        let v = (best[b] + ((1i128 << 64) - 1)) >> 64;
+        let spent = (((v << 64) - best[b]) >> 16) as i64;
+        best[b] - (i128::from(cash.loss(spent)) << 64)
+    }).unwrap_or(0);
     for (gi, g) in groups.iter().enumerate().rev() {
         let oi = usize::from(arg[gi][b]);
         chosen[gi] = oi;
@@ -246,6 +254,23 @@ const SLOT_FIELD: i64 = 1 << 16;
 /// plan degrades instead (scaling further, or clamping the bound) is a
 /// phase-4 decision.
 pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
+    solve_cash(groups, limits, 0)
+}
+
+/// Convex cost of consuming the purse's future purchasing options.
+/// No fixed reserve: spending c loses w*c/(remaining+1), in utility units.
+#[derive(Clone, Copy)]
+struct Cash { gold: i64, weight: i64 }
+impl Cash {
+    fn loss(self, spent: i64) -> i64 {
+        self.weight.saturating_mul(spent.max(0)) / (self.gold - spent).max(0).saturating_add(1)
+    }
+}
+
+/// As solve, with utility for retaining gold. Values include the cash loss;
+/// costs, repairs, fills and the dual all use the same objective.
+pub fn solve_cash(groups: &[Group], limits: &Limits, gold_weight: i64) -> Solution {
+    let cash = Cash { gold: limits.gold.max(0), weight: gold_weight.max(0) };
     // The gold bound: the purse, or less when every group's dearest
     // option together costs less.
     let dearest: i64 = groups
@@ -274,7 +299,8 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
     let mut dual = i64::MAX;
     let mut best: Option<(Vec<usize>, (i64, i64, i32))> = None;
     let mut consider = |lambda: i64, ch: Vec<usize>| -> bool {
-        let (v, c, s, _) = totals(groups, &ch);
+        let (gross, c, s, _) = totals(groups, &ch);
+        let v = gross - cash.loss(c);
         dual = dual.min(v - lambda * i64::from(s) + lambda * i64::from(slot_limit));
         let fits = within(c, s);
         if fits {
@@ -287,7 +313,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         fits
     };
     let mut lambda = 0;
-    if !consider(0, dp(groups, bound, scale, 0)) {
+    if !consider(0, dp(groups, bound, scale, 0, cash)) {
         // Above the largest option value, nothing slot-opening pays.
         let mut hi = groups
             .iter()
@@ -299,7 +325,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         let mut found = false;
         while hi - lo > 1 {
             let mid = lo + (hi - lo) / 2;
-            if consider(mid, dp(groups, bound, scale, mid)) {
+            if consider(mid, dp(groups, bound, scale, mid, cash)) {
                 hi = mid;
                 found = true;
             } else {
@@ -307,7 +333,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
             }
         }
         if !found {
-            consider(hi, dp(groups, bound, scale, hi));
+            consider(hi, dp(groups, bound, scale, hi, cash));
         }
         lambda = hi;
     }
@@ -333,7 +359,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
                 if j == o || freed <= 0 || !within(c - cur.cost + alt.cost, s - cur.slots + alt.slots) {
                     continue;
                 }
-                let loss = cur.value - alt.value;
+                let loss = cur.value - alt.value - cash.loss(c) + cash.loss(c - cur.cost + alt.cost);
                 let better = match pick {
                     None => true,
                     Some((_, _, l, f)) => i128::from(loss) * i128::from(f) < i128::from(l) * i128::from(freed),
@@ -358,7 +384,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         for (g, &o) in chosen.iter().enumerate() {
             let cur = &groups[g].options[o];
             for (j, alt) in groups[g].options.iter().enumerate() {
-                let gain = alt.value - cur.value;
+                let gain = alt.value - cur.value + cash.loss(c) - cash.loss(c - cur.cost + alt.cost);
                 let (nc, ns, nw) = (c - cur.cost + alt.cost, s - cur.slots + alt.slots, w - cur.weight + alt.weight);
                 if gain <= 0 || !within(nc, ns) || (nw > limits.weight && nw > w) {
                     continue;
@@ -373,7 +399,8 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
         chosen[g] = j;
     }
 
-    let (value, cost, slots, weight) = totals(groups, &chosen);
+    let (gross, cost, slots, weight) = totals(groups, &chosen);
+    let value = gross - cash.loss(cost);
     let gold_exact = scale == 1;
     Solution {
         chosen,
@@ -620,6 +647,39 @@ mod tests {
             let s = solve(&groups, &l);
             assert_eq!(s.value, brute(&groups, &l), "{groups:?} {l:?}");
             assert!(s.cost <= l.gold);
+        }
+    }
+
+    /// Compare the cash-aware objective with exhaustive kit enumeration,
+    /// including free options and different purse sizes. This catches
+    /// fills or slot sweeps silently reverting to gross item value.
+    #[test]
+    fn cash_utility_matches_exhaustive_kits() {
+        for gold in 0..30 {
+            for weight in [0, 3, 25, 100] {
+                let groups = [class(0, &[(0, 2), (3, 14), (8, 20)]),
+                    class(1, &[(2, 11), (7, 17)]), class(2, &[(5, 18)])];
+                for slots in [1, 2, 3] {
+                    let l = Limits { gold, pack_slots: slots, weight: 1000 };
+                    let got = solve_cash(&groups, &l, weight);
+                    let mut best = 0;
+                    for a in &groups[0].options {
+                        for b in &groups[1].options {
+                            for c in &groups[2].options {
+                                let spent = a.cost + b.cost + c.cost;
+                                if spent <= gold && a.slots + b.slots + c.slots <= slots {
+                                    best = best.max(a.value + b.value + c.value - weight * spent / (gold - spent + 1));
+                                }
+                            }
+                        }
+                    }
+                    assert!(got.value <= best);
+                    assert!(got.cost <= gold && got.slots <= slots);
+                    if slots == 3 { assert_eq!(got.value, best, "gold={gold}, weight={weight}"); }
+                    if got.optimal { assert_eq!(got.value, best); }
+                    assert!(got.bound >= best, "dual bound gold={gold}, slots={slots}, weight={weight}");
+                }
+            }
         }
     }
 

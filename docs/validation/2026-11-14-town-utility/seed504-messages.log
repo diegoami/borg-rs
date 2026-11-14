@@ -1,0 +1,35 @@
+334 1741 0 # Fleeing and leaving the level. (scaryguy)
+334 1741 0 # Performing attack type 1 with value 44.
+334 1741 0 # Facing Fang, Farmer Maggot's Dog at (5,60) who has 25 Hit Points.
+334 1741 0 # Attacking with weapon 'Mace (2d4) (+0,+0)'
+336 1741 2 You hit Fang, Farmer Maggot's Dog.
+337 1751 0 # HIT:Fang, Farmer Maggot's Dog (+)
+337 1751 0 # Tracking a monster 'Fang, Farmer Maggot's Dog' at (4,60) from (5,60)
+337 1751 0 # HIT:Fang, Farmer Maggot's Dog (2)
+337 1751 0 # Scary guy on level.
+337 1751 0 # Loc:4,59 Dep:1 Lev:1 HP:3/13 SP:2/2 Danger:p=12
+337 1751 0 # Fleeing and leaving the level. (scaryguy)
+337 1751 0 # Performing attack type 1 with value 44.
+337 1751 0 # Facing Fang, Farmer Maggot's Dog at (4,60) who has 19 Hit Points.
+337 1751 0 # Attacking with weapon 'Mace (2d4) (+0,+0)'
+339 1751 2 You hit Fang, Farmer Maggot's Dog.
+339 1755 39 Fang, Farmer Maggot's Dog, bites you.
+339 1760 39 Fang, Farmer Maggot's Dog, bites you.
+341 1761 0 # HIT:Fang, Farmer Maggot's Dog (+)
+341 1761 0 # HIT_BY:Fang, Farmer Maggot's Dog (+)
+341 1761 0 # HIT_BY:Fang, Farmer Maggot's Dog (+)
+341 1761 0 # HIT:Fang, Farmer Maggot's Dog (2)
+341 1761 0 # HIT_BY:Fang, Farmer Maggot's Dog (3)
+341 1761 0 # HIT_BY:Fang, Farmer Maggot's Dog (3)
+341 1761 0 # Scary guy on level.
+341 1761 0 # Loc:4,59 Dep:1 Lev:1 HP:1/13 SP:2/2 Danger:p=12
+341 1761 0 # Fleeing and leaving the level. (scaryguy)
+341 1761 0 # Performing attack type 1 with value 44.
+341 1761 0 # Facing Fang, Farmer Maggot's Dog at (4,60) who has 10 Hit Points.
+341 1761 0 # Attacking with weapon 'Mace (2d4) (+0,+0)'
+343 1761 3 You miss Fang, Farmer Maggot's Dog.
+343 1765 39 Fang, Farmer Maggot's Dog, bites you.
+344 1765 8 You die.
+345 1765 0 Score not registered for borgs.
+345 1765 0 # Aborting (death).
+345 1765 0 # Aborting (player died).

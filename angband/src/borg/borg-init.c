@@ -120,6 +120,18 @@ struct borg_setting borg_settings[] = {
     { "borg_town_share", 'i', 10 },
     { "borg_town_light_depth", 'i', 15 },
     { "borg_town_food_trip", 'i', 10 },
+    { "borg_town_target_depth", 'i', 0 },
+    { "borg_town_trip_turns", 'i', 0 },
+    { "borg_town_w_gold", 'i', 25 },
+    { "borg_town_depth_gain", 'i', 1 },
+    { "borg_town_explore_turns", 'i', 1000 },
+    { "borg_town_stair_turns", 'i', 50 },
+    { "borg_town_food_turns", 'i', 3000 },
+    { "borg_town_light_turns", 'i', 5000 },
+    { "borg_town_risk", 'i', 1000 },
+    { "borg_town_home_discount", 'i', 500 },
+    { "borg_town_w_space", 'i', 25 },
+    { "borg_town_power_scale", 'i', 40000 },
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */

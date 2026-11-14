@@ -215,3 +215,29 @@ The record is observation only: the key log is the same with it and without.
 - `tools/town_dump_report.py` - the renderer.
 - `tools/town_baseline.py` - the curation: the runs to the baseline fixture
   and its summary.
+
+## Plan record v5: trip-relative utility (2026-11-14)
+
+Schema 5 supersedes the fixed-target shadow model for newly produced records.
+The v4 field order remains, with these explicit changes:
+
+- `params` has 24 entries: the original 12, followed by `target_depth`,
+  `trip_turns`, `w_gold`, `depth_gain`, `explore_turns`, `stair_turns`,
+  `food_turns`, `light_turns`, `risk`, `home_discount`, `w_space`, `power_scale`
+  (each prefixed `borg_town_`).
+- Ware and kit `reduction` use thousandths of a supply unit; Healing uses
+  thousandths of HP, with per-copy capacity capped at maximum HP.
+- Utility values use thousandths. `solve[0]` is net kit improvement after the
+  cost of spending the purse; individual plan-option values are gross.
+- `kit` rows append a twelfth field, `serves`, the secondary-capability bitmask.
+  CCW can therefore be protected as a poison cure independently of HP utility.
+- `plan` group key kind 2 identifies one shared need (key = Need enum index).
+  Key kinds 0 (stack class) and 1 (equipment slot) retain their meanings.
+- A solve certificate applies to the generated options; the shared-need mixed
+  option path is not an exhaustive enumeration of every possible mixture.
+
+The forecast derives from recorded traits and parameters; it reads no additional
+engine data at replay. The reader also accepts historical v4 records with their
+12 parameters, 11-field kit rows and old fixed-target code path. Unit and utility
+semantics are chosen by the schema, never inferred from the numeric magnitudes.
+See [TOWN-UTILITY](TOWN-UTILITY.md) for equations and policy assumptions.

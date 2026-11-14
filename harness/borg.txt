@@ -370,6 +370,28 @@ borg_town_share = 10
 borg_town_light_depth = 15
 borg_town_food_trip = 10
 
+# Shadow utility model: 0 depth means the next frontier (max depth + 1);
+# 0 turns estimates exploration plus walking from that destination.
+# Explicit depth/turns declare the intended journey; neither sets item quotas.
+# w_gold prices the option of leaving gold unspent (0 disables that value).
+# light_depth and food_trip above remain for replay of the old v4 model.
+borg_town_target_depth = 0
+borg_town_trip_turns = 0
+borg_town_w_gold = 25
+# Zoo calibration: rates and priorities, not item-count targets.
+# risk and home_discount are thousandths; 1000 risk is one max-HP buffer
+# per 1000 actions at equal destination depth and character level.
+# w_space is independent of the Knowledge priority.
+borg_town_depth_gain = 1
+borg_town_explore_turns = 1000
+borg_town_stair_turns = 50
+borg_town_food_turns = 3000
+borg_town_light_turns = 5000
+borg_town_risk = 1000
+borg_town_home_discount = 500
+borg_town_w_space = 25
+borg_town_power_scale = 40000
+
 
 ### Enchant Limit ###
 

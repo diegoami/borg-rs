@@ -148,6 +148,18 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_town_share", 10),
     i(c"borg_town_light_depth", 15),
     i(c"borg_town_food_trip", 10),
+    i(c"borg_town_target_depth", 0),
+    i(c"borg_town_trip_turns", 0),
+    i(c"borg_town_w_gold", 25),
+    i(c"borg_town_depth_gain", 1),
+    i(c"borg_town_explore_turns", 1000),
+    i(c"borg_town_stair_turns", 50),
+    i(c"borg_town_food_turns", 3000),
+    i(c"borg_town_light_turns", 5000),
+    i(c"borg_town_risk", 1000),
+    i(c"borg_town_home_discount", 500),
+    i(c"borg_town_w_space", 25),
+    i(c"borg_town_power_scale", 40000),
 ];
 
 /// Class indexes of borg-trait.h used by the munchkin class rule.
@@ -1041,6 +1053,18 @@ mod tests {
         assert_eq!(BORG_SETTINGS[BORG_TOWN_W_TRIP as usize].name, c"borg_town_w_trip");
         assert_eq!(BORG_SETTINGS[BORG_TOWN_SHARE as usize].name, c"borg_town_share");
         assert_eq!(BORG_SETTINGS[BORG_TOWN_FOOD_TRIP as usize].name, c"borg_town_food_trip");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_TARGET_DEPTH as usize].name, c"borg_town_target_depth");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_TRIP_TURNS as usize].name, c"borg_town_trip_turns");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_GOLD as usize].name, c"borg_town_w_gold");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_DEPTH_GAIN as usize].name, c"borg_town_depth_gain");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_EXPLORE_TURNS as usize].name, c"borg_town_explore_turns");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_STAIR_TURNS as usize].name, c"borg_town_stair_turns");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_FOOD_TURNS as usize].name, c"borg_town_food_turns");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_LIGHT_TURNS as usize].name, c"borg_town_light_turns");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_RISK as usize].name, c"borg_town_risk");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_HOME_DISCOUNT as usize].name, c"borg_town_home_discount");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_W_SPACE as usize].name, c"borg_town_w_space");
+        assert_eq!(BORG_SETTINGS[BORG_TOWN_POWER_SCALE as usize].name, c"borg_town_power_scale");
     }
 
     /// Expected values from the C parser (borg-init.c with stubs).
@@ -1196,7 +1220,9 @@ mod tests {
              borg_town_plan = 0\nborg_town_w_light = 100\nborg_town_w_food = 100\n\
              borg_town_w_bleeding = 100\nborg_town_w_poison = 100\nborg_town_w_escape = 50\n\
              borg_town_w_knowledge = 25\nborg_town_w_power = 50\nborg_town_w_trip = 50\n\
-             borg_town_share = 10\nborg_town_light_depth = 15\nborg_town_food_trip = 10\n"
+             borg_town_share = 10\nborg_town_light_depth = 15\nborg_town_food_trip = 10\n\
+             borg_town_target_depth = 0\nborg_town_trip_turns = 0\nborg_town_w_gold = 25\n\
+             borg_town_depth_gain = 1\nborg_town_explore_turns = 1000\nborg_town_stair_turns = 50\nborg_town_food_turns = 3000\nborg_town_light_turns = 5000\nborg_town_risk = 1000\nborg_town_home_discount = 500\nborg_town_w_space = 25\nborg_town_power_scale = 40000\n"
         ));
         assert!(text.contains("\nborg_munchkin_by_class = FALSE\n"));
     }
@@ -1321,6 +1347,18 @@ mod tests {
         ("borg_town_share", b'i', 10, "10"),
         ("borg_town_light_depth", b'i', 15, "15"),
         ("borg_town_food_trip", b'i', 10, "10"),
+        ("borg_town_target_depth", b'i', 0, "0"),
+        ("borg_town_trip_turns", b'i', 0, "0"),
+        ("borg_town_w_gold", b'i', 25, "25"),
+        ("borg_town_depth_gain", b'i', 1, "1"),
+        ("borg_town_explore_turns", b'i', 1000, "1000"),
+        ("borg_town_stair_turns", b'i', 50, "50"),
+        ("borg_town_food_turns", b'i', 3000, "3000"),
+        ("borg_town_light_turns", b'i', 5000, "5000"),
+        ("borg_town_risk", b'i', 1000, "1000"),
+        ("borg_town_home_discount", b'i', 500, "500"),
+        ("borg_town_w_space", b'i', 25, "25"),
+        ("borg_town_power_scale", b'i', 40000, "40000"),
     ];
 
     /// The setting lines of a borg.txt: the name and the value, in order.

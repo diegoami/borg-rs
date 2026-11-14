@@ -36,11 +36,11 @@ use crate::state::BorgState;
 
 /// The plan record's schema version (v2: the decision record, v3: the
 /// handover's state record).
-pub const PLAN_SCHEMA: i64 = 4;
+pub const PLAN_SCHEMA: i64 = 5;
 
-/// The twelve town settings, `borg_town_plan` (index 45) through
-/// `borg_town_food_trip` (56), contiguous in the settings table.
-pub const PARAMS: usize = 12;
+/// The 24 town settings, `borg_town_plan` (45) through
+/// `borg_town_power_scale` (68), contiguous; v4 stores the first 12.
+pub const PARAMS: usize = 24;
 
 /// The action codes: v2's, extended for the plan.
 #[cfg_attr(not(test), expect(dead_code))]
@@ -113,6 +113,8 @@ pub struct PlanEntry {
 /// The v4 fields (after v2's).
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct PlanRecord {
+    /// 4 historical flat/capped model, 5 trip-relative utility.
+    pub schema: i64,
     /// 0 shadow (computed, not executed), 1 live.
     pub mode: u8,
     pub visit: u64,
@@ -124,7 +126,7 @@ pub struct PlanRecord {
     /// The spell capabilities no trait counts, as bits: 1 a curing spell
     /// (Herbal Curing) is usable.
     pub spells: u8,
-    /// The twelve town settings, in index order.
+    /// Town settings in index order (v4: 12, v5: 24).
     pub params: [i64; PARAMS],
     /// `[gold, pack_slots, home_slots, weight]` after the urgent needs.
     pub limits: [i64; 4],
@@ -198,7 +200,7 @@ fn entry(e: &PlanEntry) -> [i64; 7] {
 /// A kit stack as the record writes it: `[place, slot, kind, qty, weight,
 /// need, reduction, power, proceeds, sell_shop, flags]`, `place` 0 pack 1
 /// Home, `flags` bit 0 unknown, bit 1 unknown flavour, bit 2 just bought.
-fn kit_row(k: &KitItem) -> [i64; 11] {
+fn kit_row(k: &KitItem) -> [i64; 12] {
     [
         i64::from(k.place == Place::Home),
         i64::from(k.slot),
@@ -211,6 +213,7 @@ fn kit_row(k: &KitItem) -> [i64; 11] {
         k.proceeds,
         i64::from(k.sell_shop),
         i64::from(k.unknown) | i64::from(k.unknown_flavour) << 1 | i64::from(k.just_bought) << 2,
+        i64::from(k.serves),
     ]
 }
 
@@ -248,7 +251,7 @@ impl PlanRecord {
         field(out, "spells");
         num(out, self.spells);
         field(out, "params");
-        ints(out, &self.params);
+        ints(out, &self.params[..if self.schema == 4 { 12 } else { PARAMS }]);
         field(out, "limits");
         ints(out, &self.limits);
         field(out, "caps");
@@ -279,7 +282,7 @@ impl PlanRecord {
             ints(o, &[i64::from(t.shop), i64::from(t.slot), i64::from(t.eq_slot), t.value])
         });
         field(out, "kit");
-        arr(out, &self.kit, |o, k| ints(o, &kit_row(k)));
+        arr(out, &self.kit, |o, k| ints(o, &kit_row(k)[..if self.schema == 4 { 11 } else { 12 }]));
         field(out, "dispose");
         arr(out, &self.dispose, |o, &d| num(o, d));
         field(out, "plan");
@@ -466,20 +469,24 @@ impl PlanRecord {
     /// Read the v4 fields of a parsed record.
     #[cfg_attr(not(test), expect(dead_code))]
     pub fn from_json(j: &Json) -> Result<PlanRecord, String> {
-        if j.get("v")?.int()? != PLAN_SCHEMA {
-            return Err("not a version 4 record".into());
-        }
+        let schema = j.get("v")?.int()?;
+        if schema != 4 && schema != PLAN_SCHEMA { return Err("not a supported plan record".into()); }
+        let raw_params = j.get("params")?.ints()?;
+        if raw_params.len() != if schema == 4 { 12 } else { PARAMS } { return Err("params has the wrong length".into()); }
+        let mut params = [0; PARAMS];
+        params[..raw_params.len()].copy_from_slice(&raw_params);
         let small = |k: &str| -> Result<i64, String> { j.get(k)?.int() };
         let rows = |k: &str| -> Result<Vec<Vec<i64>>, String> { j.get(k)?.arr()?.iter().map(Json::ints).collect() };
         let displaced = j.get("displaced")?.ints()?;
         Ok(PlanRecord {
+            schema,
             mode: small("mode")? as u8,
             visit: small("visit")? as u64,
             step: small("step")? as u64,
             gturn: small("gturn")?,
             power: small("power")?,
             spells: small("spells")? as u8,
-            params: fixed(j.get("params")?.ints()?, "params")?,
+            params,
             limits: fixed(j.get("limits")?.ints()?, "limits")?,
             caps: fixed(j.get("caps")?.ints()?, "caps")?,
             urgent: rows("urgent")?
@@ -518,7 +525,10 @@ impl PlanRecord {
                 .collect::<Result<_, _>>()?,
             kit: rows("kit")?
                 .into_iter()
-                .map(|r| match r[..] {
+                .map(|r| {
+                    if r.len() != if schema == 4 { 11 } else { 12 } { return Err("wrong kit row length".into()); }
+                    let serves = if schema == 4 { 0 } else { r[11] as u8 };
+                    match r[..11] {
                     [place, slot, kind, qty, weight, need, reduction, power, proceeds, sell_shop, flags] => Ok(KitItem {
                         place: if place == 1 { Place::Home } else { Place::Pack },
                         slot: slot as u8,
@@ -527,6 +537,7 @@ impl PlanRecord {
                         weight: weight as i32,
                         need: need as i8,
                         reduction,
+                        serves,
                         power,
                         proceeds,
                         sell_shop: sell_shop as i8,
@@ -534,8 +545,8 @@ impl PlanRecord {
                         unknown_flavour: flags & 2 != 0,
                         just_bought: flags & 4 != 0,
                     }),
-                    _ => Err("a kit stack has 11 fields".to_string()),
-                })
+                    _ => Err("a kit stack has 11 fields (v4), 12 (v5)".to_string()),
+                } })
                 .collect::<Result<_, _>>()?,
             dispose: j.get("dispose")?.ints()?.into_iter().map(|d| d as u8).collect(),
             plan: rows("plan")?.iter().map(|r| entry_of(r)).collect::<Result<_, _>>()?,
@@ -554,6 +565,7 @@ impl PlanRecord {
 
 /// What a step reads.
 pub struct StepInput<'a> {
+    pub utility: bool,
     /// The candidates, in stock order.
     pub candidates: Vec<Candidate>,
     pub facts: &'a [WareFact],
@@ -618,6 +630,7 @@ fn plan_entry(g: &Group, option: usize) -> PlanEntry {
     let c = &g.options[option];
     let (key_kind, key) = match g.key {
         GroupKey::Class(k) => (0, i64::from(k)),
+        GroupKey::Need(n) => (2, i64::from(n)),
         GroupKey::Slot(s) => (1, i64::from(s)),
     };
     PlanEntry {
@@ -661,7 +674,10 @@ pub fn step(input: &StepInput) -> StepOutput {
 
     // Stage 1 (owner, 2026-11-14: two stages): the dispositions of the
     // pack and the Home, and what they free.
-    let (dispositions, freed) = dispose(
+    let mut utility = crate::borg_town_utility::Utility::of(&st, input.kit, input.cure_spell);
+    let (dispositions, freed) = if input.utility {
+        crate::borg_town_utility::dispositions(input, &mut utility, &st)
+    } else { dispose(
         input.kit,
         &st,
         &trip,
@@ -669,7 +685,7 @@ pub fn step(input: &StepInput) -> StepOutput {
         input.limits.pack_slots,
         input.home_slots,
         input.limits.weight,
-    );
+    ) };
     // What they change in the needs the purchases see: a stack that leaves
     // the pack takes its copies out of its need, one taken from the Home
     // brings them in.
@@ -679,8 +695,19 @@ pub fn step(input: &StepInput) -> StepOutput {
             (Place::Home, Disposition::Take) => 1,
             _ => 0,
         };
-        if sign != 0 {
+        if sign != 0 && !input.utility {
             apply_need(&mut st, it.need, it.reduction, it.qty, sign);
+        }
+    }
+    if input.utility {
+        for purchase in &input.urgent {
+            let c = &input.candidates[purchase.candidate];
+            if let Some(f) = input.facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot) {
+                utility.add(f.need, f.reduction);
+                if purchase.needs.contains(&Need::Poison) && f.need != crate::borg_town_utility::index(Need::Poison) as i8 {
+                    utility.add(crate::borg_town_utility::index(Need::Poison) as i8, crate::borg_town_utility::UNIT);
+                }
+            }
         }
     }
     // Stage 2: the purchases, with what the dispositions freed.
@@ -692,7 +719,16 @@ pub fn step(input: &StepInput) -> StepOutput {
     let st = st;
     let facts: BTreeMap<(u8, u8), &WareFact> = input.facts.iter().map(|f| ((f.shop, f.slot), f)).collect();
     let tryon: BTreeMap<(u8, u8), &TryOn> = input.tryon.iter().map(|t| ((t.shop, t.slot), t)).collect();
-    let stock = Stock { candidates: input.candidates.clone(), ..Stock::default() };
+    let mut candidates = input.candidates.clone();
+    if input.utility {
+        for c in &mut candidates {
+            if !tryon.contains_key(&(c.shop, c.slot)) && input.kit.iter().zip(&dispositions).any(|(it, d)|
+                it.place == Place::Pack && it.kind == c.kind && *d != Disposition::Keep) {
+                c.slots_cost = 1;
+            }
+        }
+    }
+    let stock = Stock { candidates, ..Stock::default() };
     let budget = Budget {
         gold: limits.gold,
         pack_slots: limits.pack_slots,
@@ -709,7 +745,7 @@ pub fn step(input: &StepInput) -> StepOutput {
     let knowledge_bit = 1u8 << Need::ALL.iter().position(|&n| n == Need::Knowledge).unwrap_or(5);
     let learn = |c: &Candidate, n: i32| -> i64 {
         match facts.get(&(c.shop, c.slot)) {
-            Some(f) if f.serves & knowledge_bit != 0 && n >= 1 => weights.knowledge,
+            Some(f) if f.serves & knowledge_bit != 0 && n >= 1 => if input.utility { weights.knowledge * crate::borg_town_utility::UNIT } else { weights.knowledge },
             _ => 0,
         }
     };
@@ -721,20 +757,21 @@ pub fn step(input: &StepInput) -> StepOutput {
         // prices it on the same scale as every other need.
         |c| {
             tryon.get(&(c.shop, c.slot)).map(|t| {
-                (t.eq_slot, usefulness(Need::Power, t.value, 1, &st, &trip, &weights) + learn(c, 1))
+                (t.eq_slot, if input.utility { utility.power(t.value) + learn(c, 1) } else { usefulness(Need::Power, t.value, 1, &st, &trip, &weights) + learn(c, 1) })
             })
         },
         |c, n| {
-            let need = match facts.get(&(c.shop, c.slot)) {
+            let need = if input.utility { crate::borg_town_utility::purchase_value(&utility, facts.get(&(c.shop, c.slot)), n) } else { match facts.get(&(c.shop, c.slot)) {
                 Some(f) if f.need >= 0 => {
                     usefulness(Need::ALL[f.need as usize], f.reduction, i64::from(n), &st, &trip, &weights)
                 }
                 _ => 0,
-            };
+            } };
             need + learn(c, n)
         },
     );
-    let solution = solve(&groups, &limits);
+    let groups = if input.utility { crate::borg_town_utility::shared_groups(groups, input, &stock.candidates, &utility, &limits, &st) } else { groups };
+    let solution = if input.utility { crate::borg_town_solve::solve_cash(&groups, &limits, utility.gold_weight) } else { solve(&groups, &limits) };
     let plan = solution.ranked(&groups).into_iter().map(|(g, o)| plan_entry(&groups[g], o)).collect();
     let flags = [
         (solution.optimal, flag::OPTIMAL),
@@ -871,6 +908,7 @@ impl ReplayParts {
     /// The step input over these parts and the record's facts.
     pub fn input<'a>(&'a self, rec: &'a PlanRecord) -> StepInput<'a> {
         StepInput {
+            utility: rec.schema >= 5,
             candidates: self.candidates.clone(),
             facts: &rec.wares,
             tryon: &self.tryon,
@@ -1093,6 +1131,7 @@ mod tests {
             .collect();
         let limits = Limits::of(&budget);
         let out = step(&StepInput {
+            utility: false,
             candidates: stock.candidates.clone(),
             facts: &wares,
             tryon,
@@ -1110,13 +1149,14 @@ mod tests {
             ns.iter().fold(0u8, |m, n| m | (1 << Need::ALL.iter().position(|x| x == n).unwrap()))
         };
         let rec = PlanRecord {
+            schema: 4,
             mode: 0,
             visit: 3,
             step: 1,
             gturn: 12345,
             power: 1000,
             spells: 0,
-            params: params(),
+            params: { let mut p = params(); p[12..].fill(0); p },
             limits: [budget.gold, i64::from(budget.pack_slots), i64::from(budget.home_slots), budget.weight],
             caps: [23, 24],
             urgent: budget
@@ -1217,6 +1257,39 @@ mod tests {
         assert!(rec.solve[3] & flag::GOLD_EXACT != 0);
     }
 
+    /// v5 records carry their new units and parameters and replay through
+    /// the utility path, while all historical fixtures below remain v4.
+    #[test]
+    fn utility_records_replay_and_reject_changed_ambition() {
+        use crate::borg_town_utility::UNIT;
+        let s = stock();
+        let mut t = traits();
+        t[crate::borg_headers::borg_trait_h::BI_CLEVEL as usize] = 10;
+        t[crate::borg_headers::borg_trait_h::BI_MAXHP as usize] = 100;
+        let (line, _) = produce(&s, 300, &t, &armour_tryon(&s), &[]);
+        let (mut rec, parts) = replay_parts(&line).unwrap();
+        rec.schema = 5;
+        rec.params = params();
+        for f in &mut rec.wares {
+            f.reduction *= if f.need == 2 { 20 * UNIT } else { UNIT };
+        }
+        let o = step(&parts.input(&rec));
+        rec.plan = o.plan;
+        rec.solve = o.solve;
+        rec.displaced = o.displaced;
+        rec.dispose = o.dispositions.iter().map(|&d| dispose_code(d)).collect();
+        let mut v5 = v2_prefix(&s, &t, 300).replacen("\"v\":4", "\"v\":5", 1);
+        rec.push_fields(&mut v5);
+        v5.push('}');
+        assert!(replays(&v5).unwrap());
+        let parsed = PlanRecord::from_json(&Json::parse(&v5).unwrap()).unwrap();
+        assert_eq!(parsed, rec);
+        let before = format!("\"params\":[{}]", rec.params.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(","));
+        rec.params[13] = 100_000;
+        let after = format!("\"params\":[{}]", rec.params.iter().map(|x| x.to_string()).collect::<Vec<_>>().join(","));
+        assert!(!replays(&v5.replacen(&before, &after, 1)).unwrap());
+    }
+
     /// A record whose inputs were tampered with does not replay to its
     /// plan: replay is a real check, not an echo.
     #[test]
@@ -1232,8 +1305,8 @@ mod tests {
         let mut p = rec.params;
         p[1] = 0; // w_light
         let mut l2 = line.clone();
-        let from = format!("\"params\":[{}]", rec.params.map(|x| x.to_string()).join(","));
-        l2 = l2.replacen(&from, &format!("\"params\":[{}]", p.map(|x| x.to_string()).join(",")), 1);
+        let from = format!("\"params\":[{}]", rec.params[..12].iter().map(|x| x.to_string()).collect::<Vec<_>>().join(","));
+        l2 = l2.replacen(&from, &format!("\"params\":[{}]", p[..12].iter().map(|x| x.to_string()).collect::<Vec<_>>().join(",")), 1);
         assert!(!replays(&l2).unwrap());
     }
 
@@ -1399,6 +1472,7 @@ mod tests {
         let mut out = String::new();
         for line in std::fs::read_to_string(&path).unwrap().lines() {
             let (rec, mut parts) = replay_parts(line).unwrap();
+            assert_eq!(rec.schema, 4, "export_visits simulates legacy v4 only; use the v5 shadow records directly");
             let mut facts = rec.wares.clone();
             facts.sort_by_key(|f| (f.shop, f.slot));
             let first = step(&parts.input(&rec));
@@ -1461,6 +1535,7 @@ mod tests {
     fn the_step_disposes_then_buys() {
         let s = stock();
         let junk = KitItem {
+            serves: 0,
             place: Place::Pack,
             slot: 4,
             kind: 99,

@@ -26,7 +26,7 @@ test `upstream_defaults_are_unchanged` is what keeps that true. **No setting
 the upstream had has a different default here**, in either the table or the
 configuration.
 
-Twenty-two settings are not in the upstream. They are listed below.
+Thirty-four settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
@@ -43,11 +43,11 @@ The rule for a setting the upstream never had:
    value the configuration gives it, and `every_setting_is_declared` fails if
    a setting is added without that. Adding a setting is a deliberate act.
 
-All twenty-one keep rule 1: their built-in default does what the original C
-Borg did, so an unconfigured Borg is the original C Borg. Twelve of them are
+All thirty-four keep rule 1: their built-in default does what the original C
+Borg did, so an unconfigured Borg is the original C Borg. Twenty-four of them are
 the town inventory redesign's parameter vector (borg-rs#36): they are read
-only when `borg_town_plan = 1`, and the plan is off by default, so every one
-of them is inert in an unconfigured run.
+by the optional shadow observer (`BORG_TOWN_PLAN_RECORD`) while live execution
+remains off. Without that observer, they are inert in an unconfigured run.
 
 | setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
 |---|---|---|---|---|---|---|
@@ -73,6 +73,27 @@ of them is inert in an unconfigured run.
 | `borg_town_share` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the purse-share cap |
 | `borg_town_light_depth` | int | 15 | inert while `borg_town_plan = 0` | 15 | no | with `borg_town_plan`; the trip model's light threshold |
 | `borg_town_food_trip` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the trip model's ration count |
+
+
+The v5 shadow-utility revision adds twelve integer settings. Each has the
+same built-in and delivered default and changes no unconfigured run. The C
+control reads them without using them. Their full meaning, ranges and portable
+sample arms are in [TOWN-UTILITY](TOWN-UTILITY.md#zoo-calibration-parameters).
+
+| Setting suffix (`borg_town_…`) | Default |
+| --- | --- |
+| `target_depth` | 0 |
+| `trip_turns` | 0 |
+| `w_gold` | 25 |
+| `depth_gain` | 1 |
+| `explore_turns` | 1000 |
+| `stair_turns` | 50 |
+| `food_turns` | 3000 |
+| `light_turns` | 5000 |
+| `risk` | 1000 |
+| `home_discount` | 500 |
+| `w_space` | 25 |
+| `power_scale` | 40000 |
 
 The built-in and delivered defaults now agree: `borg_munchkin_start` and
 `borg_munchkin_by_class` are both FALSE. No class gets a munchkin start
