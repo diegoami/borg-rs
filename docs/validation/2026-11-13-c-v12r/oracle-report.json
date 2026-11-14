@@ -1,0 +1,28 @@
+{
+ "classes": {
+  "dest": "harness/reference/classes",
+  "deterministic": true,
+  "runs": 16
+ },
+ "config": {
+  "dest": "harness/reference/config",
+  "deterministic": true,
+  "runs": 7
+ },
+ "config-six": {
+  "dest": "harness/reference/config-six",
+  "deterministic": true,
+  "runs": 6,
+  "source": "config runs ['cfg-munchkin-human-war', 'cfg-munchkin-halfelf-mage', 'cfg-munchkin-dunadan-bg', 'cfg-lunal-human-war', 'cfg-lunal-halfelf-mage', 'cfg-lunal-dunadan-bg']"
+ },
+ "full": {
+  "dest": "harness/reference/full",
+  "deterministic": true,
+  "runs": 45
+ },
+ "smoke": {
+  "dest": "harness/reference/smoke",
+  "deterministic": true,
+  "runs": 3
+ }
+}

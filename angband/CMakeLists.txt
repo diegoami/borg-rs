@@ -29,6 +29,7 @@ if(SUPPORT_BORG_RECORDING)
 endif()
 option(SUPPORT_BORG_HARNESS "borg-rs: headless deterministic Borg harness front end." OFF)
 option(SUPPORT_WINDOWS_FRONTEND "Support for windows front end." OFF)
+option(SUPPORT_XP_COMPAT "With the windows front end, use the classic open file dialog so that Windows XP is supported." OFF)
 option(SUPPORT_BUNDLED_PNG "Use bundled Windows PNG+Zlib (32-bit x86 only)" OFF)
 option(SUPPORT_STATIC_LINKING "Enable static linking where possible" OFF)
 option(SUPPORT_STATS_BACKEND "Enable backend support for statistics and related debugging commands.  Implied by SUPPORT_STATS_FRONTEND." OFF)
@@ -445,6 +446,7 @@ add_executable(OurExecutable
         $<$<BOOL:${SUPPORT_SDL2_FRONTEND}>:src/sdl2/pui-misc.c>
         $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:${OUR_WINDOWS_RC}>
         $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:src/main-win.c>
+        $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:src/win/opendlg.c>
         $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:src/win/readdib.c>
         $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:src/win/readpng.c>
         $<$<BOOL:${SUPPORT_WINDOWS_FRONTEND}>:src/win/scrnshot.c>

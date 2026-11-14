@@ -1,0 +1,2 @@
+flags=cheat,menu
+borg_txt_sha256=08fa6fd4da6577e3e04c62c1858d5c2a89cc98a2ccc7072e25210675ec6047ac

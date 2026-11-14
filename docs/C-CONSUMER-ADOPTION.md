@@ -28,6 +28,14 @@ Owner update (2026-11-10): the consumer's milestone 11
 rules; record [adoption/c-v11r](adoption/c-v11r/README.md). It is an explicit
 carry, not an automatic queue for later targets.
 
+Owner update (2026-11-13): the consumer's milestone 12
+(`4.2.6-impact-v12`, `4e1b912cb`) is carried as **v12R** under the same
+pin-and-carry rules; record [adoption/c-v12r](adoption/c-v12r/README.md). It
+carries the consumer's 0118 NEWKILL-95 and the official angband import since
+impact v11, and retires the consumer's carries 0001 and 0002 because upstream
+now carries that logic. It is an explicit carry, not an automatic queue for
+later targets.
+
 ## Ownership and source of work
 
 - better-borg-c owns accepted C bug-fixing checkpoints, native controls,

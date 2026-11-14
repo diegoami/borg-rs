@@ -265,6 +265,13 @@ with its issues.
 * Original Rust reset the unused struct field. Milestone2/source14 now resets
   `st.msgs.dont_react` after parsing in `borg.rs`. The unrelated prompted-key
   return convention remains. Adoption: [Rust#6](https://github.com/diegoami/borg-rs/issues/6).
+* v12R ([adoption/c-v12r](adoption/c-v12r/README.md)): the defect is
+  gone upstream and in the C oracle. The official import unified the gate on
+  the borg struct field (`borg.dont_react`); the global `borg_dont_react` no
+  longer exists, and the reset in `borg.c` clears the field that
+  `borg_react()` reads, so the knockout window is transient. The Rust gate
+  moves to `st.borg.dont_react` to match the C, and the separate copy in
+  `MsgState` is removed.
 ## 15. Inscribing a quiver item types an equipment letter
 
 * `borg-item-id.c`, `borg_object_fully_id()`, by code reading. The loop
@@ -467,6 +474,14 @@ with its issues.
 * v11R ([0113](adoption/c-v11r/README.md)): the stale left-ring duplicate
   check in `borg_best_stuff_aux()` is removed; the left ring is chosen first,
   so only the right ring needs it, in C and Rust.
+* v12R ([adoption/c-v12r](adoption/c-v12r/README.md)): the "keeps the
+  higher danger" finding is fixed upstream (`bc67c099e`), and the consumer's
+  carry 0001 is retired in favour of that upstream form. Both candidates now
+  start at 9999, the early "make sure we have an appropriate swap" return is
+  gone, and the lower danger wins with the weapon on a tie. The Rust
+  `borg_backup_swap()` follows the same form, so the single-swap case no
+  longer needs the `weapon_swap &&` guard and the zero-danger armour swap
+  keeps its own index. C and Rust.
 
 ## 22. Light beam edge test and lantern refuel scan (light)
 
@@ -548,6 +563,10 @@ with its issues.
     runs once after the nine-grid scan.
   * [0110](adoption/c-v11r/README.md): `borg_shoot_scoot_safe()` passes the
     adjacent monster's kill index (`ag->kill`), not the direction index.
+  * v12R ([0118](adoption/c-v12r/README.md)): the "force the grid to floor /
+    granite" step is removed from `borg_new_kill()`, so a newly seen monster
+    keeps the grid it was seen on instead of one derived from the slot's
+    previous race; the stale-race read goes with it. C and Rust.
   * The other findings in this section remain.
 
 ## 25. Enchant item prompt keys (item enchant)

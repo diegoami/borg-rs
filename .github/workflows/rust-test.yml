@@ -1,0 +1,16 @@
+# Minimal build evidence for reviewers: build the Rust crate and run its
+# tests. This needs no C engine and no cmake: the Rust crate links no C
+# Borg (harness/check-no-c-borg.sh), so a stock runner suffices.
+#
+# Note: pushes made with a GitHub App token do not trigger workflow runs
+# (GitHub suppresses those events); owner pushes and manual dispatch do.
+name: rust-test
+on: [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: cargo test --release
+        run: cargo test --release --manifest-path borg-rs/Cargo.toml

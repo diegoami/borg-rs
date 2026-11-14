@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_uses_dynamic_calcs=TRUE
-borg_txt_sha256=875bd3fde83d606f4b8d1af5c92fd8eb9a449570b94a4dc66a8b1baf29abf8a3
+borg_txt_sha256=7b85c883a7675eeb517206c28be7ea3ebec74d921ac40936e5258c10e516d5d2
