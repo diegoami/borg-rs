@@ -28,7 +28,7 @@ class Navigation(unittest.TestCase):
 @unittest.skipUnless(os.environ.get('BORG_DEATH_TEST_RECORDING'), 'Set BORG_DEATH_TEST_RECORDING to a real bundle')
 class CompatibleCli(unittest.TestCase):
     def run_cli(self, *args):
-        return subprocess.run([str(ROOT / 'replay-borg.py'), os.environ['BORG_DEATH_TEST_RECORDING'], *args], capture_output=True, text=True)
+        return subprocess.run([str(ROOT / 'scripts/replay-borg.py'), os.environ['BORG_DEATH_TEST_RECORDING'], *args], capture_output=True, text=True)
 
     def test_from_turn_and_old_turn_choose_identical_original_frame(self):
         import gzip

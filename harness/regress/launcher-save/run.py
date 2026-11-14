@@ -43,7 +43,7 @@ def stage(project, output, environment, profile, name):
     save = profile / 'save/RustBorg'
     before = save.stat().st_mtime_ns
     with (output / (name + '.log')).open('w') as log:
-        game = subprocess.Popen([str(project / 'run-rust-borg.sh')], cwd='/tmp',
+        game = subprocess.Popen([str(project / 'scripts/run-rust-borg.sh')], cwd='/tmp',
                                 env={**environment, 'BORG_PLAY_DATA_DIR': str(profile)},
                                 stdout=log, stderr=subprocess.STDOUT)
         try:
@@ -87,7 +87,7 @@ def main():
     output.mkdir(parents=True)
     # Configure/build before the window timeout starts, in the supplied checkout.
     with (output / 'build.log').open('w') as log:
-        subprocess.run([str(project / 'run-rust-borg.sh'), '--build-only'],
+        subprocess.run([str(project / 'scripts/run-rust-borg.sh'), '--build-only'],
                        stdout=log, stderr=subprocess.STDOUT, check=True)
     proof = []
     expected = [row['sha256'] for row in json.loads(

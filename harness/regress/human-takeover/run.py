@@ -28,7 +28,7 @@ def stage(branch, output, env, name, manual=False, abort=False):
     before = set((profile / 'recordings').glob('*'))
     logpath = output / (name + '.log')
     with logpath.open('w') as log:
-        child = subprocess.Popen([str(ROOT / 'play-branch.py'), str(branch)], env=env, stdout=log, stderr=subprocess.STDOUT)
+        child = subprocess.Popen([str(ROOT / 'scripts/play-branch.py'), str(branch)], env=env, stdout=log, stderr=subprocess.STDOUT)
         try:
             bundle = None
             window = None

@@ -109,7 +109,7 @@ class DeathRecords(unittest.TestCase):
 
     def test_dossier_resolves_to_original_and_hash_mismatch_is_rejected(self):
         self.capture()
-        spec = importlib.util.spec_from_file_location('replay_cli', ROOT / 'replay-borg.py');cli = importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
+        spec = importlib.util.spec_from_file_location('replay_cli', ROOT / 'scripts/replay-borg.py');cli = importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
         self.assertEqual(cli.resolve_recording(self.output), self.bundle)
         path = self.bundle / 'recording.json';record = json.loads(path.read_text());record['character'] = 'changed';runtime.write(path, record)
         with self.assertRaisesRegex(ValueError, 'manifest differs'):
@@ -132,7 +132,7 @@ class DeathRecords(unittest.TestCase):
     def test_legacy_dossier_cannot_claim_recorded_movie(self):
         self.output.mkdir(parents=True)
         runtime.write(self.output / 'record.json', {'recording': None})
-        spec = importlib.util.spec_from_file_location('replay_cli_legacy', ROOT / 'replay-borg.py');cli = importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
+        spec = importlib.util.spec_from_file_location('replay_cli_legacy', ROOT / 'scripts/replay-borg.py');cli = importlib.util.module_from_spec(spec);spec.loader.exec_module(cli)
         with self.assertRaisesRegex(ValueError, 'no complete recording'):
             cli.resolve_recording(self.output)
 

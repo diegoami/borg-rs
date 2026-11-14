@@ -261,7 +261,7 @@ def write_dossier(bundle, output, case, issue=None, repeat=()):
                       recording={'schema': description['recording_schema'], 'raw_directory': str(bundle),
                                  'manifest_sha256': runtime.sha(bundle / 'recording.json'), 'frames_sha256': runtime.sha(bundle / 'frames.jsonl.gz'),
                                  'selected_original_frames': selected, 'unavailable_offsets': unavailable, 'nearby_original_anchors': anchors,
-                                 'replay_command': f'./replay-borg.py {output} --from-turn {max(0, description["terminal"]["turn"] - 105)}',
+                                 'replay_command': f'./scripts/replay-borg.py {output} --from-turn {max(0, description["terminal"]["turn"] - 105)}',
                                  'qualification': 'Original frames, not an assumed verified rerun or mid-run Borg-memory restore'})
         record['files_sha256'] = {str(p.relative_to(staging)): runtime.sha(p) for p in staging.rglob('*') if p.is_file()}
         runtime.write(staging / 'record.json', record)

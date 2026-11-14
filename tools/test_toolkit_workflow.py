@@ -18,7 +18,7 @@ import run_report
 import toolkit_common as ui
 
 ROOT = runtime.ROOT
-spec = importlib.util.spec_from_file_location('toolkit_producer', ROOT / 'produce_death.py')
+spec = importlib.util.spec_from_file_location('toolkit_producer', ROOT / 'scripts/produce_death.py')
 producer = importlib.util.module_from_spec(spec); spec.loader.exec_module(producer)
 
 

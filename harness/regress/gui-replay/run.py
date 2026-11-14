@@ -26,7 +26,7 @@ def frames(bundle):
 def stage(project, output, env, profile, name, character='GuiHero', options=(), borg=False, fresh=False, resize=False, reload_preferences=False):
     before = set((profile / 'recordings').glob('*')) if (profile / 'recordings').exists() else set()
     with (output / (name + '.log')).open('w') as log:
-        game = subprocess.Popen([str(project / 'start-borg.sh'), character, *options], cwd='/tmp',
+        game = subprocess.Popen([str(project / 'scripts/start-borg.sh'), character, *options], cwd='/tmp',
                                 env={**env, 'BORG_PLAY_DATA_DIR': str(profile)}, stdout=log, stderr=subprocess.STDOUT)
         try:
             bundle = None
@@ -144,7 +144,7 @@ def main():
     output.mkdir(parents=True, exist_ok=False)
     if not args.skip_build:
         with (output / 'build.log').open('w') as log:
-            subprocess.run([str(project / 'run-rust-borg.sh'), '--build-only'], stdout=log, stderr=subprocess.STDOUT, check=True)
+            subprocess.run([str(project / 'scripts/run-rust-borg.sh'), '--build-only'], stdout=log, stderr=subprocess.STDOUT, check=True)
     number = str(1000 + os.getpid() % 30000)
     with (output / 'xvfb.log').open('w') as log:
         server = subprocess.Popen(['Xvfb', ':' + number, '-displayfd', '1', '-screen', '0', '1600x1000x24', '-nolisten', 'tcp'],

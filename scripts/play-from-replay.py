@@ -5,12 +5,12 @@ from pathlib import Path
 import sys
 import subprocess
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import human_takeover as human
 import display_font
 import importlib.util
-spec = importlib.util.spec_from_file_location('replay_cli', ROOT / 'replay-borg.py')
+spec = importlib.util.spec_from_file_location('replay_cli', ROOT / 'scripts/replay-borg.py')
 replay = importlib.util.module_from_spec(spec); spec.loader.exec_module(replay)
 
 

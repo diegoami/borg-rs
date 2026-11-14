@@ -57,7 +57,7 @@ class TakeoverControls(unittest.TestCase):
         for args in [('--play-from-turn', '-1'), ('--prepare-only',), ('--play-from-turn', '2', '--view-only'),
                      ('--play-from-turn', '2', '--from-turn', '1'), ('--play-from-turn', '2', '--verify-only')]:
             with self.subTest(args=args):
-                result = subprocess.run([str(ROOT / 'replay-borg.py'), '/not/a/recording', *args], capture_output=True)
+                result = subprocess.run([str(ROOT / 'scripts/replay-borg.py'), '/not/a/recording', *args], capture_output=True)
                 self.assertEqual(result.returncode, 2)
 
 

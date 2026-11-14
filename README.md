@@ -46,8 +46,8 @@ links it into the game executable.
 **Build and run**, from the repository root:
 
 ```sh
-./run-rust-borg.sh --build-only   # Configure + build only, no window
-./run-rust-borg.sh                # Build (if needed) and launch the game
+./scripts/run-rust-borg.sh --build-only   # Configure + build only, no window
+./scripts/run-rust-borg.sh                # Build (if needed) and launch the game
 ```
 
 This runs Angband's CMake configure/build with `-DBORG_IMPL=rust` and the
@@ -65,11 +65,11 @@ installed system-wide.
 
 ## Playing
 
-Run `./run-rust-borg.sh` to build and open the graphical X11 game with the
+Run `./scripts/run-rust-borg.sh` to build and open the graphical X11 game with the
 Rust Borg. Create/load a character, then press **Ctrl-Z**, **z** (confirm
 the initial warning if shown). Any key stops the Borg. Saves and settings
 stay in `.angband-rust/`; the initial configuration has cheat death off.
-Use `./run-rust-borg.sh --help` for build and game arguments.
+Use `./scripts/run-rust-borg.sh --help` for build and game arguments.
 The main window uses the same 28-pixel Courier font as `better-borg-c/start-borg.sh`;
 set `BORG_PLAY_FONT` to choose another X11 font. **Ctrl-X** saves and exits;
 the default save is `.angband-rust/save/RustBorg` (`-uNAME` selects another).
@@ -77,10 +77,10 @@ the default save is `.angband-rust/save/RustBorg` (`-uNAME` selects another).
 From this project root:
 
 ```sh
-./run-rust-borg.sh                   # Resume RustBorg, or create it if absent
-./run-rust-borg.sh -uMyCharacter     # Select another named save
-./run-rust-borg.sh -n -uNewCharacter # Create a new named character
-./run-rust-borg.sh --build-only     # Build without opening a window
+./scripts/run-rust-borg.sh                   # Resume RustBorg, or create it if absent
+./scripts/run-rust-borg.sh -uMyCharacter     # Select another named save
+./scripts/run-rust-borg.sh -n -uNewCharacter # Create a new named character
+./scripts/run-rust-borg.sh --build-only     # Build without opening a window
 ```
 
 Named saves use `.angband-rust/save/NAME`; settings are in `.angband-rust/user/`.
@@ -97,23 +97,23 @@ Named launch, backup restore, headless play and replay (adapted from
 `better-borg-c`):
 
 ```sh
-./start-borg.sh MyCharacter
-./start-borg.sh MyCharacter --from-backup=1
-./run-borg-headless.py MyCharacter --turns 100000
-./run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
-./replay-borg.py .angband-rust/recordings/RUN --from-turn 5000
-./replay-borg.py .angband-rust/recordings/RUN --verify-only
-./replay-borg.py .angband-rust/recordings/RUN --dump-turn 5000
+./scripts/start-borg.sh MyCharacter
+./scripts/start-borg.sh MyCharacter --from-backup=1
+./scripts/run-borg-headless.py MyCharacter --turns 100000
+./scripts/run-borg-headless.py NewCharacter --new --seed 42 --class 0 --race 0
+./scripts/replay-borg.py .angband-rust/recordings/RUN --from-turn 5000
+./scripts/replay-borg.py .angband-rust/recordings/RUN --verify-only
+./scripts/replay-borg.py .angband-rust/recordings/RUN --dump-turn 5000
 ```
 
 Bounded death collection and an explicit owner-review queue:
 
 ```sh
-./produce_death.py                      # Up to 3 planned games; first death/failure stops
-./produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
-./replay_next_death.py --list
-./replay_next_death.py --from-turn 37000 # Verify and view the next unreviewed recording
-./replay_next_death.py --mark-reviewed D0005
+./scripts/produce_death.py                      # Up to 3 planned games; first death/failure stops
+./scripts/produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
+./scripts/replay_next_death.py --list
+./scripts/replay_next_death.py --from-turn 37000 # Verify and view the next unreviewed recording
+./scripts/replay_next_death.py --mark-reviewed D0005
 ```
 
 Closing replay does not mark it reviewed. Collection uses private fresh profiles
@@ -154,8 +154,8 @@ verification reruns the full original session, preserving private Borg history.
 To try your own choices from a recorded headless game:
 
 ```sh
-./replay_next_death.py --case D0006 --play-from-turn 22794
-# Or: ./replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094
+./scripts/replay_next_death.py --case D0006 --play-from-turn 22794
+# Or: ./scripts/replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094
 ```
 
 This verifies the historical run, copies a living native save at the first

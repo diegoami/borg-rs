@@ -21,7 +21,7 @@ def main():
     pid,fd=pty.fork()
     if pid==0:
         os.environ['TERM']='xterm-256color'
-        os.execv(sys.executable,[sys.executable,str(ROOT/'replay-borg.py'),str(bundle),'--view-only','--from-turn','500'])
+        os.execv(sys.executable,[sys.executable,str(ROOT/'scripts/replay-borg.py'),str(bundle),'--view-only','--from-turn','500'])
     fcntl.ioctl(fd,termios.TIOCSWINSZ,struct.pack('HHHH',45,150,0,0))
     transcript=bytearray()
     def drain(seconds):

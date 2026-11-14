@@ -474,7 +474,7 @@ executable. They use separate build/data directories. The owner also added
 game-start scripts to the next-session agenda; further requested changes were
 not specified, so clarify those when resuming and preserve existing saves.
 
-`./run-rust-borg.sh` builds ordinary X11/Rust in `build/play-rust` with harness
+`./scripts/run-rust-borg.sh` builds ordinary X11/Rust in `build/play-rust` with harness
 hooks off and verifies the binary's Rust identity. Main font is the C launcher's
 28-pixel Courier (BORG_PLAY_FONT override); explicit one-window layout verified
 1362x722. Ctrl-Z, confirm if needed, then z starts Borg; Ctrl-X saves/exits.

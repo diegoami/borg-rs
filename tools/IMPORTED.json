@@ -68,7 +68,7 @@
     "original_sha256": "8a8b91ac4e90c3595dbf3d027f7d063a81c0b83eece705489f3b3ab5b62070cf",
     "adaptation": "Rust repository ownership, feedback and no automatic posting"
   },
-  "produce_death.py": {
+  "scripts/produce_death.py": {
     "repository": "diegoami/better-borg-c",
     "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
     "path": "produce_death.py",
@@ -81,7 +81,7 @@
       "adaptation": "All-attempt collection, compatible native build offers, independent report/watch/manual delivery; Rust schema/source/link identity preserved"
     }
   },
-  "replay_next_death.py": {
+  "scripts/replay_next_death.py": {
     "repository": "diegoami/better-borg-c",
     "commit": "22f817c96843cc45da41dcefb0856ca507d8c66a",
     "path": "replay_next_death.py",
@@ -167,7 +167,7 @@
     "adaptation": "Target-owned disposable-export adapter around the existing Rust recorder; full native ticks, terminal stop frame, combat, timeout and no-advance formatting",
     "licence": "GPL-2.0-or-later or Angband licence; target adapters remain covered by repository licence"
   },
-  "play-from-replay.py": {
+  "scripts/play-from-replay.py": {
     "repository": "diegoami/better-borg-c",
     "commit": "a4084032485a7c7f29153d0b37ce63dede3e4d5a",
     "path": "play-from-replay.py",

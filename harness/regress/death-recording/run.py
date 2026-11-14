@@ -9,7 +9,7 @@ parser.add_argument('--project-root',type=Path,required=True,help='Disposable ch
 args=parser.parse_args()
 project=args.project_root.resolve();out=args.output.resolve();out.mkdir(parents=True);profile=out/'profile';(profile/'save').mkdir(parents=True)
 with (out/'build.log').open('w') as log:
- subprocess.run([str(project/'run-rust-borg.sh'),'--build-only'],stdout=log,stderr=subprocess.STDOUT,check=True)
+ subprocess.run([str(project/'scripts/run-rust-borg.sh'),'--build-only'],stdout=log,stderr=subprocess.STDOUT,check=True)
 shutil.copy2(root/'docs/validation/2026-11-07-post-m4-investigation/death-checkpoints/live-druid.save',profile/'save/DeathTest')
 with (out/'xvfb.log').open('w') as log:
  number=str(1000+os.getpid()%30000);server=subprocess.Popen(['Xvfb',':'+number,'-displayfd','1','-screen','0','1600x1000x24','-nolisten','tcp'],stdout=subprocess.PIPE,stderr=log,text=True)
@@ -18,7 +18,7 @@ with (out/'xvfb.log').open('w') as log:
    ready.register(server.stdout,selectors.EVENT_READ);assert ready.select(15) and server.stdout.readline().strip()==number
   env={**os.environ,'DISPLAY':':'+number,'BORG_PLAY_FONT':'fixed','BORG_PLAY_DATA_DIR':str(profile),'BORG_DEATH_RECORDS_DIR':str(out/'deaths')}
   with (out/'launcher.log').open('w') as log:
-   game=subprocess.Popen([str(project/'start-borg.sh'),'DeathTest'],env=env,stdout=log,stderr=subprocess.STDOUT)
+   game=subprocess.Popen([str(project/'scripts/start-borg.sh'),'DeathTest'],env=env,stdout=log,stderr=subprocess.STDOUT)
    try:
     for _ in range(150):
      assert game.poll() is None,(out/'launcher.log').read_text()
@@ -53,7 +53,7 @@ with (out/'xvfb.log').open('w') as log:
     record=json.loads((bundle/'recording.json').read_text());assert record['status']=='complete'
     assert not (profile/'archive/Borg.map').exists(), 'GUI polluted the shared archive'
     assert (bundle/'run/archive/Borg.map').is_file(), 'Missing per-session native map'
-    subprocess.run([str(root/'replay-borg.py'),str(bundle),'--verify-only','--output',str(out/'verification')],check=True)
+    subprocess.run([str(root/'scripts/replay-borg.py'),str(bundle),'--verify-only','--output',str(out/'verification')],check=True)
     dossier=next((out/'deaths').glob('D*/record.json'));case=json.loads(dossier.read_text());assert case['terminal']['dead']
     (out/'result.json').write_text(json.dumps({'bundle':str(bundle),'dossier':str(dossier.parent),'terminal':case['terminal'],'verified':True,'qualification':'loaded living Druid checkpoint; fresh Borg diagnostic branch, not original cohort replay or independent survival sample'},indent=2)+'\n')
     print((out/'result.json').read_text())

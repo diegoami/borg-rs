@@ -2,7 +2,7 @@
 # Build and launch interactive Angband with the Rust Borg backend.
 set -euo pipefail
 
-PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 PLAY_BUILD="$PROJECT_ROOT/build/play-rust"
 PLAY_DATA="${BORG_PLAY_DATA_DIR:-$PROJECT_ROOT/.angband-rust}"
 BUILD_ONLY=0
@@ -12,7 +12,7 @@ RESTORE_SLOT=""
 case "${1:-}" in
     -h|--help)
         cat <<'EOF'
-Usage: ./run-rust-borg.sh [--build-only] [Angband arguments]
+Usage: ./scripts/run-rust-borg.sh [--build-only] [Angband arguments]
 
 Builds the Rust Borg and starts Angband's graphical X11 frontend.
 Create or load a character, then press Ctrl-Z followed by z to start the Borg.
@@ -28,7 +28,7 @@ Uses the same 28-pixel Courier main-window font as better-borg-c/start-borg.sh.
 Set BORG_PLAY_FONT to override it.
 Opens one main window by default; arguments after -- override frontend options.
 Set BORG_PLAY_DATA_DIR to use a separate save/settings directory.
-Use ./start-borg.sh NAME to select a named character.
+Use ./scripts/start-borg.sh NAME to select a named character.
 --from-backup[=1..5] restores a rolling backup, preserving the current save.
 
 Requires CMake, a C compiler, Cargo/Rust, and X11 development libraries.

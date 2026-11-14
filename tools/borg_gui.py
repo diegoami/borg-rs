@@ -124,7 +124,7 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
     if env['TZ'] is None:
         raise ValueError('No timezone context recorded')
     print('Recording:', bundle, flush=True)
-    print('Replay:', ROOT / 'replay-borg.py', bundle, flush=True)
+    print('Replay:', ROOT / 'scripts/replay-borg.py', bundle, flush=True)
     started = time.monotonic()
     with (output / 'engine.log').open('w') as log:
         child = subprocess.Popen(command(frozen / 'angband', frozen / 'lib', profile, character, arguments, archive=session_archive),

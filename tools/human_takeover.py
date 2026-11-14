@@ -314,7 +314,7 @@ def _prepare(bundle, turn, output=None, timeout=600):
         runtime.write(output / 'human-branch.json', branch)
         print(f"Human save ready at turn {state['turn']}, depth {state['depth']}, position ({state['x']},{state['y']}), HP {state['hp']}, SP {state['sp']}.", flush=True)
         print('Save:', profile / 'save' / character, flush=True)
-        print('Launch/resume:', ROOT / 'play-branch.py', output, flush=True)
+        print('Launch/resume:', ROOT / 'scripts/play-branch.py', output, flush=True)
         return output
     except BaseException as error:
         runtime.write(output / 'failed.json', {'error': str(error), 'usable': False})
@@ -536,7 +536,7 @@ def _prepare_gui(bundle, turn, output=None, timeout=600):
             'full_control_receipt':str(receipt), 'full_control_sha256':runtime.sha(receipt),
             'independent_life':False, 'scope':'verified GUI original prefix; serialized native save; no private Borg memory restoration'}
         runtime.write(output / 'human-branch.json',branch)
-        print('GUI human save ready at tick',state['turn'],'; resume:',ROOT / 'play-branch.py',output,flush=True)
+        print('GUI human save ready at tick',state['turn'],'; resume:',ROOT / 'scripts/play-branch.py',output,flush=True)
         return output
     except BaseException as error:
         runtime.write(output / 'failed.json',{'error':str(error),'usable':False}); raise

@@ -10,7 +10,7 @@ import subprocess
 import signal
 from types import SimpleNamespace
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import death_workflow as workflow
 import borg_runtime as runtime
@@ -120,7 +120,7 @@ def collect(args, output, births, commit):
                     plan.update(status='natural_death_recorded', counts=dict(Counter(item['outcome'] for item in plan['runs'])))
                     workflow.write(output / 'collection.json', plan)
                     print('Natural death:', dossier, flush=True)
-                    print('Next: ./replay_next_death.py; viewing alone does not mark owner review complete.', flush=True)
+                    print('Next: ./scripts/replay_next_death.py; viewing alone does not mark owner review complete.', flush=True)
                 if entry['outcome'] not in ('death', 'turn_cap', 'key_cap', 'completion', 'wall_timeout'):
                     raise ValueError('Operational stop: ' + entry['outcome'])
             except (Exception, KeyboardInterrupt) as error:
@@ -172,8 +172,8 @@ def report_attempt(entry, bundle):
         print('Report:', report, 'Watch/manual unavailable: no captured movie.', flush=True)
         return
     entry['report'] = str(report)
-    commands = {'watch': [str(ROOT / 'replay-borg.py'), str(bundle)],
-                'manual': [str(ROOT / 'play-from-replay.py'), str(bundle), '--from-turn', 'latest']}
+    commands = {'watch': [str(ROOT / 'scripts/replay-borg.py'), str(bundle)],
+                'manual': [str(ROOT / 'scripts/play-from-replay.py'), str(bundle), '--from-turn', 'latest']}
     if entry['outcome'] == 'wall_timeout':
         commands['watch'].append('--view-only')
     entry['commands'] = {name: __import__('shlex').join(argv) for name, argv in commands.items()}

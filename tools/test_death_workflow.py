@@ -29,8 +29,8 @@ def load(name, path):
     return module
 
 
-queue = load('rust_review_queue', ROOT / 'replay_next_death.py')
-producer = load('rust_death_producer', ROOT / 'produce_death.py')
+queue = load('rust_review_queue', ROOT / 'scripts/replay_next_death.py')
+producer = load('rust_death_producer', ROOT / 'scripts/produce_death.py')
 
 
 class OwnerQueue(unittest.TestCase):

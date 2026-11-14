@@ -7,7 +7,7 @@ import subprocess
 import sys
 import json
 
-ROOT = Path(__file__).resolve().parent
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'tools'))
 import death_workflow as workflow
 
@@ -36,14 +36,14 @@ def run(args):
     selected = workflow.choose_case(args.case) if args.case else next((group['playable'] for group in groups if not group['reviewed'] and group['playable']), None)
     if selected is None:
         print('No unreviewed encounter with an available full recording.')
-        print('Use --list for legacy/missing/reviewed cases; ./produce_death.py collects new recorded games.')
+        print('Use --list for legacy/missing/reviewed cases; ./scripts/produce_death.py collects new recorded games.')
         return 0
     if selected['recording'] != 'recording available':
         raise ValueError(selected['recording'])
     print(f"Replay {selected['case']}: {selected['cause']} at turn {selected['turn']}.", flush=True)
-    print(f"When finished reviewing: ./replay_next_death.py --mark-reviewed {selected['case']}", flush=True)
+    print(f"When finished reviewing: ./scripts/replay_next_death.py --mark-reviewed {selected['case']}", flush=True)
     print('Closing the viewer does not mark a review complete.', flush=True)
-    command = [sys.executable, str(ROOT / 'replay-borg.py'), selected['directory'], '--timeout', str(args.timeout)]
+    command = [sys.executable, str(ROOT / 'scripts/replay-borg.py'), selected['directory'], '--timeout', str(args.timeout)]
     if not args.view_only and play_turn is None:
         command += ['--output', str(workflow.artifacts() / 'replays' / workflow.now().replace(':', '-'))]
     if args.from_turn is not None:

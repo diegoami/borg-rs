@@ -50,7 +50,7 @@ def main():
         exec(compile(source, str(Path(__file__)), 'exec'), namespace)
         results.append(namespace['stage'](ROOT, out, env, profile, 'loaded-borg-immediate-stop-save', character='ToolkitGui', borg=True))
         # Explicit invalid fonts must fail before any historical prefix/helper.
-        invalid = subprocess.run([str(ROOT/'play-from-replay.py'),results[0]['bundle'],'--from-turn','latest','--output',str(out/'bad-font-branch')],
+        invalid = subprocess.run([str(ROOT/'scripts/play-from-replay.py'),results[0]['bundle'],'--from-turn','latest','--output',str(out/'bad-font-branch')],
             env={**env,'BORG_PLAY_FONT':'borg-toolkit-font-that-does-not-exist'},capture_output=True,text=True)
         assert invalid.returncode != 0 and not (out/'bad-font-branch').exists()
         assert 'font' in invalid.stderr.lower() and 'Building historical' not in invalid.stdout

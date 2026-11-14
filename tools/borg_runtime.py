@@ -303,7 +303,7 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
         print(f"{summary['stop_reason']}: level{summary['clevel']}, depth{summary['depth']}, dead={summary['dead']}")
         print('Save:', save)
         print('Recording:', bundle)
-        print('Replay:', ROOT / 'replay-borg.py', bundle)
+        print('Replay:', ROOT / 'scripts/replay-borg.py', bundle)
         if export_death:
             import borg_deaths
             borg_deaths.maybe_register(bundle, issue=getattr(args, 'death_issue', None) or os.environ.get('BORG_DEATH_ISSUE'))

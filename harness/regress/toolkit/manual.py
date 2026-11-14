@@ -30,7 +30,7 @@ def main():
             for index in range(2):
                 before=set((profile/'recordings').glob('*'))
                 with (out/f'session-{index}.log').open('w') as session_log:
-                    child=subprocess.Popen([str(ROOT/'play-branch.py'),str(branch)],env=env,stdout=session_log,stderr=subprocess.STDOUT)
+                    child=subprocess.Popen([str(ROOT/'scripts/play-branch.py'),str(branch)],env=env,stdout=session_log,stderr=subprocess.STDOUT)
                     try:
                         splash_dismissed = False
                         for _ in range(200):

@@ -11,9 +11,9 @@ licensing are recorded in [IMPORTED.json](../tools/IMPORTED.json).
 ## Play or advance a named character
 
 ```sh
-./start-borg.sh MyBorg --seed 42
-./run-borg-headless.py MyBorg --turns 10000 --timeout 300
-./start-borg.sh MyBorg --from-backup=2
+./scripts/start-borg.sh MyBorg --seed 42
+./scripts/run-borg-headless.py MyBorg --turns 10000 --timeout 300
+./scripts/start-borg.sh MyBorg --from-backup=2
 ```
 
 Visible play loads/creates the character and leaves the Borg off. Create the
@@ -50,11 +50,11 @@ movies, saves, failures or helpers.
 ## Collect bounded games and read reports
 
 ```sh
-./produce_death.py --check-build
-./produce_death.py --yes --games 10 --seed 1001 --turns 200000 --timeout 120
-./produce_death.py --no-build --seeds 11 29 47 --turns 20000 --timeout 120
-./produce_death.py --commands harness/out/death-workflow/collections/COLLECTION
-./produce_death.py --reports harness/out/death-workflow/collections/COLLECTION
+./scripts/produce_death.py --check-build
+./scripts/produce_death.py --yes --games 10 --seed 1001 --turns 200000 --timeout 120
+./scripts/produce_death.py --no-build --seeds 11 29 47 --turns 20000 --timeout 120
+./scripts/produce_death.py --commands harness/out/death-workflow/collections/COLLECTION
+./scripts/produce_death.py --reports harness/out/death-workflow/collections/COLLECTION
 ```
 
 | Option | Meaning/default |
@@ -114,10 +114,10 @@ shared lock or any game. Noninteractive callers explicitly use `--yes`.
 ## Verify and inspect the original movie
 
 ```sh
-./replay-borg.py RECORDING --verify-only --timeout 300 --output harness/out/NEW-PROOF
-./replay-borg.py RECORDING --from-turn 500
-./replay-borg.py RECORDING --view-only --dump-turn 500
-./replay-borg.py RECORDING --view-only --combat-log
+./scripts/replay-borg.py RECORDING --verify-only --timeout 300 --output harness/out/NEW-PROOF
+./scripts/replay-borg.py RECORDING --from-turn 500
+./scripts/replay-borg.py RECORDING --view-only --dump-turn 500
+./scripts/replay-borg.py RECORDING --view-only --combat-log
 ```
 
 A recording directory contains `recording.json`. A death dossier contains
@@ -177,12 +177,12 @@ Rust observer values. Tick count alone is not progress.
 ## Play a human alternative
 
 ```sh
-./play-from-replay.py RECORDING --from-turn 500 --prepare-only --yes --output harness/out/MY-BRANCH
-./play-from-replay.py RECORDING --from-turn latest --yes
-./play-from-replay.py --resume harness/out/MY-BRANCH
+./scripts/play-from-replay.py RECORDING --from-turn 500 --prepare-only --yes --output harness/out/MY-BRANCH
+./scripts/play-from-replay.py RECORDING --from-turn latest --yes
+./scripts/play-from-replay.py --resume harness/out/MY-BRANCH
 # Existing compatible interfaces:
-./replay-borg.py RECORDING --play-from-turn 500 --prepare-only --yes
-./play-branch.py harness/out/MY-BRANCH
+./scripts/replay-borg.py RECORDING --play-from-turn 500 --prepare-only --yes
+./scripts/play-branch.py harness/out/MY-BRANCH
 ```
 
 Numeric selection chooses the first living native command at/after that absolute
@@ -214,10 +214,10 @@ excluded from independent Borg lives, death collection and owner queue counts.
 ## Death queue and diagnosis
 
 ```sh
-./replay_next_death.py --list --json
-./replay_next_death.py --case CASE_ID --view-only
-./replay_next_death.py --mark-reviewed CASE_ID
-./replay_next_death.py --mark-unreviewed CASE_ID
+./scripts/replay_next_death.py --list --json
+./scripts/replay_next_death.py --case CASE_ID --view-only
+./scripts/replay_next_death.py --mark-reviewed CASE_ID
+./scripts/replay_next_death.py --mark-unreviewed CASE_ID
 python3 tools/aggregate-deaths.py
 ```
 

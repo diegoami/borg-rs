@@ -76,8 +76,8 @@ recording cleanup deletes historical evidence.
 python3 tools/test_borg_tools.py
 python3 harness/regress/gui-replay/run.py /tmp/gui-proof --project-root /tmp/borg-rs-test-checkout
 BORG_GUI_TEST_RECORDING=/path/to/borg-intervention-recording python3 tools/test_gui_recording.py
-./run-borg-headless.py --help
-./replay-borg.py --help
+./scripts/run-borg-headless.py --help
+./scripts/replay-borg.py --help
 ```
 
 Tests cover five-slot rotation, restore preservation, outside-writer refusal,
@@ -110,9 +110,9 @@ resolve to their original bundle only when its manifest hash still matches.
 ### Playing from a recorded turn
 
 ```sh
-./replay_next_death.py --case D0006 --play-from-turn 22794
-./replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094 --prepare-only --output .angband-rust/my-attempt
-./play-branch.py .angband-rust/my-attempt
+./scripts/replay_next_death.py --case D0006 --play-from-turn 22794
+./scripts/replay-borg.py docs/deaths/D0005-recorded --play-from-turn 36094 --prepare-only --output .angband-rust/my-attempt
+./scripts/play-branch.py .angband-rust/my-attempt
 ```
 
 `--from-turn` continues to select viewing. `--play-from-turn` creates a
@@ -233,13 +233,13 @@ operational tools; the accepted m5 tag stays fixed, and no newer C Borg gameplay
 fixes or C milestone are imported by these commands.
 
 ```
-./produce_death.py
-./produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
-./replay_next_death.py --list
-./replay_next_death.py --verify-only
-./replay_next_death.py --from-turn 37000
-./replay_next_death.py --mark-reviewed D0005
-./replay_next_death.py --mark-unreviewed D0005
+./scripts/produce_death.py
+./scripts/produce_death.py --birth fixed --seeds 8400 8401 --turns 100000
+./scripts/replay_next_death.py --list
+./scripts/replay_next_death.py --verify-only
+./scripts/replay_next_death.py --from-turn 37000
+./scripts/replay_next_death.py --mark-reviewed D0005
+./scripts/replay_next_death.py --mark-unreviewed D0005
 ```
 
 The collector freezes the committed Rust `--ref` (default HEAD), prospective
