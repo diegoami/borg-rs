@@ -503,10 +503,11 @@ fn borg_update_kill_old(st: &mut BorgState, i: usize) {
 
     // Special check on uniques, sometimes the death
     // is not caught so he thinks they are still running
-    // around (C bug 24: indexed by the kill, not the race)
+    // around (patch 0122: index the death by the race,
+    // not by the kill record)
     let r = engine::race(usize::from(kill.r_idx));
     if rf_has(kill.r_idx, RF_UNIQUE) && r.max_num == 0 {
-        st.kills.race_death[i] = 1;
+        st.kills.race_death[kill.r_idx as usize] = 1;
     }
 
     update_kill_tail(st, i);
@@ -3200,8 +3201,9 @@ pub fn borg_init_flow_kill(st: &mut BorgState) {
 
     // *** XXX XXX XXX Hack -- Cheat ***
 
-    // Extract dead uniques (C bug 24: the test is inverted, so this marks
-    // non-uniques with max_num 0)
+    // Extract dead uniques (patch 0121: the test was inverted, which
+    // marked non-uniques with max_num 0; it now seeds the dead-unique
+    // table with the uniques)
     for i in 1..(r_max as i32 - 1) {
         let r = engine::race(i as usize);
 
@@ -3211,7 +3213,7 @@ pub fn borg_init_flow_kill(st: &mut BorgState) {
         }
 
         // Skip non-uniques
-        if rf_has(i as u32, RF_UNIQUE) {
+        if !rf_has(i as u32, RF_UNIQUE) {
             continue;
         }
 

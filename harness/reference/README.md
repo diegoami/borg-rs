@@ -73,6 +73,15 @@ records a labelling quirk: the `deep` suite's run names predate a
 class-list change, so `deep-7-ranger` births a Warrior and
 `deep-8-blackguard` a Ranger.
 
+**And once more the same day for v13R**: the milestone-13 carry (patches
+0119-0137, record
+[docs/validation/2026-11-14-c-v13r](../../docs/validation/2026-11-14-c-v13r/README.md))
+changes the C Borg sources, so the corpus was re-made again from the v13R
+C build with the same method and the same result - **111/111** in all
+three columns. Against the munchkin-off corpus, 104 of the 111 runs are
+byte-identical (the v13 branches never fire there); the 7 that changed
+are listed in that receipt.
+
 ## The frozen investigation corpora
 
 These are records of one past investigation, not live oracles. They are

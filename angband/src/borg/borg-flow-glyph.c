@@ -125,7 +125,7 @@ bool borg_flow_glyph(void)
                 /* Stop if we already new about this glyph */
                 if ((track_glyph.x[i] == borg.c.x)
                     && (track_glyph.y[i] == borg.c.y))
-                    return false;
+                    return true;
             }
 
             /* Track the newly discovered glyph */
@@ -251,7 +251,7 @@ bool borg_flow_glyph(void)
                         continue;
 
                     /* Tweak -- Reward certain floors, punish distance */
-                    v = 500 + (tmp_glyph * 500) - (cost * 1);
+                    v = 500 - (cost * 1);
 
                     /* The grid is not searchable */
                     if (v <= 0)

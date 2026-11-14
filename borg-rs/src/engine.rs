@@ -1007,6 +1007,8 @@ pub fn all_letters_nohjkl(i: i32) -> u8 {
 
 /// `all_letters[i]` (ui-menu.c): the menu letters a-z, A-Z (53 bytes with
 /// the NUL; panics past it, where C would read out of bounds).
+/// C mirror; the respawn birth menu now uses `all_letters_nohjkl` (0123).
+#[allow(dead_code)]
 pub fn all_letters(i: usize) -> u8 {
     // SAFETY: a constant array defined in ui-menu.c, declared with its C
     // length (`[c_char; 53]`); nothing writes it.
@@ -1836,6 +1838,9 @@ pub fn panel_contains(y: i32, x: i32) -> bool {
 
 /// `feat_is_trap_holding(feat)` (cave.c): can the terrain feature hold a
 /// trap?
+/// C mirror; the visible-trap exploration case was removed from the
+/// dark-flow scan (0127).
+#[allow(dead_code)]
 pub fn feat_is_trap_holding(feat: i32) -> bool {
     assert!((0..crate::headers::cave_h::FEAT_MAX as i32).contains(&feat), "feature out of range");
     // SAFETY: plain call; reads `f_info[feat]` (index checked above).

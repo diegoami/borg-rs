@@ -1838,6 +1838,17 @@ fn old_location_message(st: &mut BorgState, i: i32, msg: &[u8], hit_dist: i32) -
         if atoi(&msg[6..]) == RSF_TRAPS as i32 {
             return true;
         }
+
+        // Teleport-to and teleport-away move the borg off his grid.
+        // If in Lunal mode better shut that off, he is not on the
+        // stairs anymore (patch 0120).
+        let spell = atoi(&msg[6..]);
+        if (spell == RSF_TELE_TO as i32 || spell == RSF_TELE_AWAY as i32)
+            && st.borg.lunal_mode
+        {
+            st.borg.lunal_mode = false;
+            borg_note(st, "# Disconnecting Lunal Mode due to monster spell.");
+        }
     }
     false
 }

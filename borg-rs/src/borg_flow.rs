@@ -789,11 +789,6 @@ fn close_breeder_door(st: &mut BorgState, y2: i32, x2: i32) -> bool {
                 continue;
             }
 
-            /* Skip repeatedly closed doors */
-            if st.flow.track_door.num >= 255 {
-                continue;
-            }
-
             /* skip our original goal */
             if oy + cy == y2 && ox + cx == x2 {
                 continue;
