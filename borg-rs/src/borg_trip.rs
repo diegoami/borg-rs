@@ -517,7 +517,23 @@ static LAST: Mutex<Option<(i32, i32, String)>> = Mutex::new(None);
 /// Keep inventory/input changes visible even when the recommendation stays
 /// the same. Otherwise a suppressed knowledge trigger disappears from the
 /// evidence we need to assess it. This does not add gameplay notes.
-static LAST_INPUTS: Mutex<Option<(i32, TripInputs)>> = Mutex::new(None);
+static LAST_INPUTS: Mutex<Option<(i32, TripInputs, String)>> = Mutex::new(None);
+
+/// Player-known pack facts for auditing the value of a proposed return.
+/// `known_value` is the Borg's estimate (a generic guess for an unaware
+/// flavour), not the real object's hidden value or generation depth.
+fn pack_record(st: &BorgState, capacity: i32) -> String {
+    let stacks: Vec<String> = st.items.items.iter()
+        .take(usize::try_from(capacity).unwrap_or(0)).enumerate()
+        .filter(|(_, item)| item.iqty > 0)
+        .map(|(slot, item)| {
+            let runes_unknown = crate::borg_item_id::borg_item_note_needs_id(st, item);
+            let unknown = !item.aware || runes_unknown;
+            format!("{{\"slot\":{slot},\"tval\":{},\"qty\":{},\"known_value\":{},\"flavour_known\":{},\"runes_unknown\":{runes_unknown},\"unknown\":{unknown}}}",
+                item.tval, item.iqty, item.value, item.aware)
+        }).collect();
+    format!("[{}]", stacks.join(","))
+}
 
 /// One record line: the version, the clock, the effective parameters, the
 /// inputs and the decision. Integers and fixed words only.
@@ -562,15 +578,18 @@ pub fn consult(st: &mut BorgState, sellable: i32) -> Option<Decision> {
         changed
     };
     if let Some(f) = file {
+        let pack = pack_record(st, inputs.pack_capacity);
         let inputs_changed = {
-            let key = (st.borg.time.level, inputs);
+            let key = (st.borg.time.level, inputs, pack.clone());
             let mut last = LAST_INPUTS.lock().unwrap_or_else(|e| e.into_inner());
             let changed = last.as_ref() != Some(&key);
             *last = Some(key);
             changed
         };
         if changed || inputs_changed {
-            let line = record_line(st.borg.time.now, crate::engine::game_turn(), &inputs, &params, &decision);
+            let mut line = record_line(st.borg.time.now, crate::engine::game_turn(), &inputs, &params, &decision);
+            line.pop();
+            line.push_str(&format!(",\"pack\":{pack}}}"));
             let mut f = f.lock().unwrap_or_else(|e| e.into_inner());
             let _ = writeln!(f, "{line}");
         }
@@ -726,6 +745,29 @@ mod tests {
             TV_FOOD, TV_MUSHROOM, TV_MAGIC_BOOK, TV_GOLD] {
             assert!(!knowledge_backlog_type(tval as u8), "tval {tval}");
         }
+    }
+
+    #[test]
+    fn pack_evidence_excludes_hidden_generation_metadata_and_equipment() {
+        let mut st = BorgState::default();
+        let mut staff = crate::borg_item::blank_item();
+        staff.tval = crate::headers::list_tvals_h::TV_STAFF as u8;
+        staff.iqty = 1;
+        staff.value = 70;
+        // An empty slot and a second item beyond the declared pack must
+        // not appear as carried backlog.
+        st.items.items = vec![staff, crate::borg_item::blank_item(), staff];
+        let before = pack_record(&st, 2);
+        assert_eq!(before.matches("\"slot\"").count(), 1);
+        assert!(before.contains("\"unknown\":true"));
+        st.items.items[0].level = 99;
+        st.items.items[0].art_idx = 42;
+        st.items.items[0].ego_idx = 23;
+        assert_eq!(before, pack_record(&st, 2));
+        // A real change in the known estimate must make evidence change,
+        // even when every aggregate inventory count is unchanged.
+        st.items.items[0].value = 90;
+        assert_ne!(before, pack_record(&st, 2));
     }
 
     /// Pack pressure is counted per distinct stack: a pack of 21 stacks

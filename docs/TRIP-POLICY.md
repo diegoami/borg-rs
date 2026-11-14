@@ -351,6 +351,19 @@ returns are intended. The gear threshold never fires in either arm.
 See [the return-policy check](validation/2026-11-14-trip-policy/return-policy.md)
 for the run bounds and remaining limitations.
 
+**Deeper inventory investigation (2026-11-14):** five bounded checkpoint
+replays produced six curated samples; two Mage attempts stopped before a
+decision. The staff/rod unknowns were flavour gaps, not rune gaps, and pack
+pressure already requested a return. Their generic value guesses do not
+measure the benefit of learning their effects. The next proposed knowledge
+rule distinguishes the missing knowledge, matching town mechanisms and
+confirmed versus exploratory opportunities; known artifacts/random-power
+egos with a confirmed matching resource can receive priority. This is a
+proposal, not a change to the acting formula or thresholds. Read the
+[case-backed proposal](validation/2026-11-14-trip-policy/knowledge-value.md)
+and its linked curated snapshots before implementing weights. Town-side
+opportunity facts and shared-model integration remain with the buying session.
+
 ## 7. The seam: deciding is not moving
 
 `borg-rs/src/borg_trip.rs`:
@@ -391,6 +404,11 @@ and purse reasons; every other rule of the map stands.
   ```
 * With the policy acting, decision/level/reason changes also write a note in the
   message log: `# Trip: return via recall (plan 8): unknown-gear(5 >= 4)`.
+
+Records also include a player-known `pack` projection: slot, type, quantity,
+the Borg's value estimate, flavour awareness and unresolved-rune status.
+The estimate can be a generic type guess; it is not an identification payoff.
+Changes to these facts are recorded even when aggregate counts stay equal.
 
 Owner feedback on a case should quote the record line; it names the input
 that decided and the threshold it was held to.
