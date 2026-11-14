@@ -25,3 +25,8 @@ credits/tags and all historical bundles remain unchanged in meaning.
 The standalone initial release is a stream-directory format. The one-file
 branch tree, rolling saves, in-game menu and portable slim recordings remain
 future work in angband-recorder; no interactive-branch feature is claimed here.
+
+Existing harness checkpoint children explicitly call ar_snapshot_enter before
+saving. Otherwise a child can append to inherited recording streams or consume
+its own copy of a buffered replay cursor. The integration test exercises actual
+forked checkpoints and compares their save bytes as well as native streams.

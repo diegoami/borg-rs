@@ -14,3 +14,14 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: cargo test --release
         run: cargo test --release --manifest-path borg-rs/Cargo.toml
+
+  recorder:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libx11-dev
+      - run: cmake -S angband -B build/recorder -DBORG_IMPL=rust -DSUPPORT_BORG_RECORDING=ON -DSUPPORT_BORG_HARNESS=ON -DSUPPORT_TEST_FRONTEND=ON -DBUILD_DOC=OFF
+      - run: cmake --build build/recorder -j4
+      - run: python3 harness/check-recorder.py --binary build/recorder/game/angband --output "$RUNNER_TEMP/recorder-check"
