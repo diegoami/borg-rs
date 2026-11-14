@@ -127,6 +127,31 @@ See [the validation receipt](../../validation/2026-11-13-c-v12r/README.md).
 
 ## Independent review
 
-Not yet reviewed. The implementation branch is `claude/v12r-carry`; the
-tracking issue is [borg-rs#57](https://github.com/diegoami/borg-rs/issues/57).
-Owner acceptance and any v12R tag decision remain with the owner.
+[PR #58](https://github.com/diegoami/borg-rs/pull/58) was reviewed
+independently and returned **one blocking defect**: at the head it
+reviewed, `d1099ab`, the branch did not compile. `MsgState` no longer has
+a `dont_react` field - the reaction gate moved to `borg.dont_react` in this
+carry - but `borg-rs/src/borg.rs:433` (the per-message-pump clear) and
+`borg-rs/src/borg_caution.rs:1509` (the "Borg ignoring messages" note)
+still read the removed field. The cause was a stale push of those two
+files, not the carry: the tree that produced the validation below already
+had the migration finished.
+
+The author fixed it in `c1e5df3` - both sites use `st.borg.dont_react`
+and the `Borg` struct field is the gate itself again - and verified it on
+the exact pushed tree: 122 tests pass (one existing ignored) and clippy
+reports the same seven pre-existing findings, none of them in the two
+changed files. The reviewer's recheck at `071c5c5` (the head that also
+carries the refreshed oracle corpus) reports **no remaining findings**.
+
+The reviewer could not run the build or the tests: Cargo is not available
+on their side and the repository has **no CI workflow** (no
+`.github/workflows` at the repository root on `main` or on this branch, so
+no Actions run exists for any head), so the build and test evidence is
+the author's - taken on the exact pushed tree and recorded in [the
+receipt](../../validation/2026-11-13-c-v12r/README.md). The finding itself
+was raised by source inspection.
+
+The implementation branch is `claude/v12r-carry`; the tracking issue is
+[borg-rs#57](https://github.com/diegoami/borg-rs/issues/57). Owner
+acceptance and any v12R tag decision remain with the owner.
