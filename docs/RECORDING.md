@@ -137,7 +137,81 @@ What is missing for #62:
   same version, not only on the frozen local executable;
 * **size**: the inputs plus periodic snapshots, with frames derived on replay;
 * **starting from a save** (switching recording on in the middle of a game):
-  a 4.2 save holds the RNG state (`wr_randomizer`), so a save plus the keys
-  after it can replay the rest of the game. What else the run reads after the
-  save (the clock, files) still has to be captured, and that is the first
-  question to settle.
+  see the next section.
+
+## Starting a recording from a save
+
+What a recording must hold so that "a save, then everything after it"
+replays the rest of the game exactly. These findings come from reading the
+source (2026-11-14); nothing here has been run yet.
+
+### Already handled
+
+| Input | Why it matters | Covered by |
+| --- | --- | --- |
+| The RNG | every roll | the save: block `"rng"` (`wr_randomizer` / `rd_randomizer`) restores `Rand_value`, `state_i` and `STATE[]`, over whatever the clock and PID seeded at start-up. The headless front end keeps it with `-keep-load-rng`, which the toolkit already passes (`save=origin.save,keep-load-rng`) |
+| The options, messages, monster and object memory, quests, the player, gear, stores, the level, artifacts, history | the game state | the save's other blocks (`savefile.c`) |
+| The flavour and randart seeds | object names, randarts | the save (`seed_flavor`, `seed_randart` in `rd_misc`) |
+| The clock | `time()` is read during play, not only at start-up: `get_mon_num` (`mon-make.c`) reads the date on every monster generation (holiday monsters), as do the death screen and the file-dump names | the native recording wraps `time()` and records every call (`clock.txt`). The stream simply starts at the save |
+| Key timing | lazy movement and instant scans (`inkey_scan`, `ui-input.c`) depend on whether a key arrived before a timeout | the native recording records every terminal poll, the empty ones included, with its wait/take mode and the key queue's head and tail (`events.txt`) |
+| Files | keymaps, colours and window settings come from `.prf` files (`pref.prf`, `window.prf`, `user.prf`, the character's own `.prf`, read once at the end of start-up: `process_character_pref_files` in `ui_leave_init`, `ui-display.c`), and the Borg reads `borg.txt` | the native recording copies every file at the moment it is read (`file-inputs.txt`, `file-input-NNNNNN.bin`) |
+| The terminal size | the screen layout, the panel, `-more-` prompts | recorded with every input event; replay resizes |
+
+### Not in a save, and lost when the game is reloaded
+
+* the keymaps (they are in no save block: they come from the `.prf` files,
+  or from edits made in the game and not dumped);
+* the current target (`target.c`'s statics) and the command repeat state
+  (`cmd-core.c`);
+* the `-more-` and menu state on the screen, and any half-typed command;
+* the Borg's private memory: its map of the level, its goals and queues.
+
+### The trap: saving changes the running game
+
+The ordinary saver compacts the monster list (`compact_monsters` at the end
+of `wr_dungeon`, `save.c`) and changes save flags in the live game. That is
+why the checkpoints of §3 save in a forked child (see
+[checkpoints.md](checkpoints.md)), so that the running game is left
+unchanged. Either way, the running game and a fresh load of its save are
+not the same state:
+
+* with an in-process save, the running game has the compacted list, but it
+  still has the target, the repeat state, the screen and the Borg's memory
+  that a reload would not;
+* with a forked save, the running game also keeps its uncompacted monster
+  order, so its iteration order, and with it the order in which it consumes
+  the RNG, can differ from the reloaded copy.
+
+So a recording cannot just start "from now" in the running process: the
+same keys, replayed from the save, could diverge from what the original
+process went on to do.
+
+### The answer: switch on = save and reload
+
+Switching recording on in the middle of a game should do exactly what the
+replay will do:
+
+1. wait for a command boundary (no prompt open, the key queue empty);
+2. save;
+3. restart from that save, with the recording on from process start. This is
+   the existing native recording, started on an existing save, which the
+   toolkit already does for named characters.
+
+The original game and every replay then start from the same loaded state,
+so no key is lost: the recording begins with the state the next key acts
+on. What the reload drops (the target, the repeat state, the Borg's memory)
+is dropped in the original and in every replay alike, so it costs nothing
+in determinism. For the Borg, it means a Borg restarted at that point,
+which is also what branching from a turn does
+(`scripts/play-from-replay.py`).
+
+### Still to check by running it
+
+* Load a save, record a stretch of play, then replay it from the same save:
+  every channel must match (the existing `--verify-only` check, from a
+  mid-game save instead of a birth).
+* Look for anything else the game reads from outside after a load. The
+  read-time file capture and the `time()` wrapper should catch it, but an
+  unconsumed or missing stream is the signal.
+* The cost of the restart in the GUI: a visible flicker, or a reload in
+  place through the game's own load path instead of a new process.
