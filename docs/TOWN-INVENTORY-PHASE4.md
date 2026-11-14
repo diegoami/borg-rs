@@ -8,6 +8,19 @@ phase is `docs/TOWN-INVENTORY-PLAN.md`, "Phase 4 - the plan". Where this
 document and the epic's decision log disagree, the log wins and this
 document is wrong.
 
+> **Amended 2026-11-14 (owner): there are no floors.** Every object can
+> become redundant - there are other ways to eat (Remove Hunger scrolls,
+> spells), to see, and to cure - so none is a hard constraint. What replaces
+> the floors is the **urgent need**: needed **now** with **no other way** to
+> meet it (hungry or weak with nothing to eat; no light source at all; cut
+> with no wound cure; poisoned with no poison cure), bought before anything
+> else while it is urgent, skipped if unaffordable, never blocking the visit.
+> Poison wears off, so the standing poison-cure capability is gone; Cure
+> Critical Wounds and a curing spell count as cures. No early-game term:
+> the high early value of torches, food and potions is left to emerge from
+> the deficits. Where the text below says "floor", read "urgent need"; the
+> mechanism (the exact cheapest-cover pass, phase 2) is the same.
+
 Phase 4's entry criteria, and where each stands:
 
 | criterion | state |
@@ -159,6 +172,20 @@ budget from `limits` and `floors` (the floor pass is not replayed; its
 result is the step's input and the pass has its own suite), and the values
 from `traits`, `power`, `params` and `wares` - through the same `step()`
 the producer runs, so the two cannot drift apart.
+
+### B.5 Amended 2026-11-14, with the floors' removal
+
+- `floors` is **`urgent`** (`[shop, slot, needs]` of each urgent purchase) and
+  `unmet` holds the urgent needs no affordable ware met; the action's `floor`
+  flag is **`now`** (the action was an urgent purchase).
+- A new field **`spells`** follows `power`: the spell capabilities no trait
+  counts, as bits - bit 0, a curing spell (Herbal Curing) is usable. The
+  urgent and bleeding/poison needs read it, so the replay needs it.
+- In Part A, the emergency-path rows ("cut or poisoned → the Alchemist",
+  "no food or no light → the General store", "instant shopping") become the
+  urgent rule; the two "literal changes" of A.1 are moot (no light floor, no
+  standing poison capability); "the Home as a floor source" stays a gap,
+  now for the urgent pass. The guards, the exclusions and A.4 stand.
 
 ## Part C - to decide in phase 4 (from the phase-3 re-review)
 

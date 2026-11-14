@@ -31,27 +31,29 @@ use crate::borg_headers::borg_h::{
     BORG_TOWN_W_POISON, BORG_TOWN_W_POWER, BORG_TOWN_W_TRIP,
 };
 use crate::borg_headers::borg_trait_h::{
-    BI_ACCW, BI_ACLW, BI_ACSW, BI_ACUREPOIS, BI_APHASE, BI_FOOD, BI_ISCUT, BI_ISPOISONED,
-    BI_LIGHT, BI_MAXDEPTH,
+    BI_ACCW, BI_ACLW, BI_ACSW, BI_ACUREPOIS, BI_APHASE, BI_FOOD, BI_ISCUT, BI_ISHUNGRY,
+    BI_ISPOISONED, BI_ISWEAK, BI_LIGHT, BI_MAXDEPTH,
 };
 use crate::headers::list_tvals_h::TV_LIGHT;
 use crate::state::BorgState;
 
 /// The eight needs a purchase can serve, as the epic log decided them on
-/// 2026-11-12. The first four are the floors: kit predicates the pack
-/// must satisfy. An unmet floor is not a purchase candidate; it feeds
-/// #37's Stay rules, and the character may leave town with the floor
-/// unmet.
+/// 2026-11-12. There are **no floors** (owner decision, 2026-11-14): every
+/// object can become redundant - another way to eat, to see or to cure
+/// may exist - so none is a constraint. What replaces them is the
+/// **urgent** need ([`urgent_needs`]): needed now, with no other way to
+/// meet it, and then bought before anything else.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Need {
     /// Light sources carried; the descent target decides how many.
     Light,
     /// Food rations carried.
     Food,
-    /// A cure for the bleeding the character suffers now.
+    /// A cure for the bleeding the character suffers now, when it has none.
     Bleeding,
-    /// The capability to cure poison, carried whether or not the
-    /// character is poisoned now.
+    /// A cure for the poison the character suffers now, when it has none.
+    /// Poison wears off, so a cure carried "just in case" is no need
+    /// (2026-11-14).
     Poison,
     /// Phase Door scrolls, the per-level escape.
     Escape,
@@ -79,30 +81,43 @@ impl Need {
     ];
 }
 
-/// The floors are Light, Food, Bleeding and Poison.
-#[cfg_attr(not(test), expect(dead_code))]
-pub fn is_floor(need: Need) -> bool {
-    matches!(need, Need::Light | Need::Food | Need::Bleeding | Need::Poison)
+/// The wound cures the character has: Cure Light, Serious and Critical
+/// Wounds (potions, and the devices `borg_trait` adds 1000 for), and a
+/// curing spell.
+pub fn wound_cures(st: &BorgState, trip: &Trip) -> i32 {
+    st.borg.tr(BI_ACLW) + st.borg.tr(BI_ACSW) + st.borg.tr(BI_ACCW) + 1000 * i32::from(trip.cure_spell)
 }
 
-/// The floors the current kit fails, in enum order. Light and Food are
-/// "at least one carried"; Bleeding is "cut, and no cure of any strength
-/// carried"; Poison is "no poison-cure capability carried", poisoned or
-/// not.
-pub fn unmet_floors(st: &BorgState) -> Vec<Need> {
+/// The poison cures the character has: Neutralize Poison and the
+/// poison-curing foods (`BI_ACUREPOIS`), Cure Critical Wounds, and a
+/// curing spell (2026-11-14).
+pub fn poison_cures(st: &BorgState, trip: &Trip) -> i32 {
+    st.borg.tr(BI_ACUREPOIS) + st.borg.tr(BI_ACCW) + 1000 * i32::from(trip.cure_spell)
+}
+
+/// The urgent needs: needed **now**, with **no other way** to meet them,
+/// in enum order (owner decision, 2026-11-14). They replace the floors:
+/// the plan buys them before anything else while they are urgent, skips
+/// one it cannot afford, and never blocks the visit for one.
+///
+/// * **light** - no light source at all: none carried and none worn
+///   (`BI_LIGHT < 1` also catches a glowing artifact, which is a light);
+/// * **food** - hungry or weak, and nothing to eat: `BI_FOOD` already
+///   counts the rations, the Remove Hunger scrolls and the hunger spells;
+/// * **bleeding** - cut, and no wound cure ([`wound_cures`]);
+/// * **poison** - poisoned, and no poison cure ([`poison_cures`]).
+pub fn urgent_needs(st: &BorgState, trip: &Trip) -> Vec<Need> {
     let mut out = Vec::new();
-    if st.borg.tr(BI_LIGHT) < 1 {
+    if st.borg.tr(BI_LIGHT) < 1 && carried_lights(st) < 1 {
         out.push(Need::Light);
     }
-    if st.borg.tr(BI_FOOD) < 1 {
+    if (st.borg.tr(BI_ISHUNGRY) != 0 || st.borg.tr(BI_ISWEAK) != 0) && st.borg.tr(BI_FOOD) < 1 {
         out.push(Need::Food);
     }
-    if st.borg.tr(BI_ISCUT) != 0
-        && st.borg.tr(BI_ACLW) + st.borg.tr(BI_ACSW) + st.borg.tr(BI_ACCW) < 1
-    {
+    if st.borg.tr(BI_ISCUT) != 0 && wound_cures(st, trip) < 1 {
         out.push(Need::Bleeding);
     }
-    if st.borg.tr(BI_ACUREPOIS) < 1 {
+    if st.borg.tr(BI_ISPOISONED) != 0 && poison_cures(st, trip) < 1 {
         out.push(Need::Poison);
     }
     out
@@ -127,6 +142,11 @@ pub struct Trip {
     pub light_depth: i32,
     /// `borg_town_food_trip`: the food rations carried per trip.
     pub food_trip: i32,
+    /// A curing spell (Herbal Curing) is usable: it cures cuts and poison.
+    /// No trait counts it, so the caller sets it (the shadow producer from
+    /// the engine, the replay from the record's `spells`); `of` leaves it
+    /// false.
+    pub cure_spell: bool,
 }
 
 impl Trip {
@@ -145,6 +165,7 @@ impl Trip {
             turns_per_level: Self::TURNS_PER_LEVEL,
             light_depth: st.cfg(BORG_TOWN_LIGHT_DEPTH),
             food_trip: st.cfg(BORG_TOWN_FOOD_TRIP),
+            cure_spell: false,
         }
     }
 
@@ -259,8 +280,8 @@ pub fn marginal(weight: i64, reduction: i64, gap: i64, copy: i64) -> i64 {
 /// The light sources the character carries, worn and spare: every item
 /// of the light tval, by count. The light **need** counts sources (decided
 /// 2026-11-13: a second light is wanted past the descent target, and a
-/// spare matters because torches burn out); the light **floor**
-/// ([`unmet_floors`]) keeps `BI_LIGHT >= 1`, "the character can see".
+/// spare matters because torches burn out); the light is **urgent** only
+/// when there is none at all (2026-11-14, [`urgent_needs`]).
 pub fn carried_lights(st: &BorgState) -> i32 {
     st.items
         .items
@@ -272,19 +293,18 @@ pub fn carried_lights(st: &BorgState) -> i32 {
 
 /// The deficit of a need in the game's own units: how far the carried
 /// kit is below the target. Never negative; a met need has no deficit and
-/// prices nothing. Bleeding and Poison are the provisional booleans
-/// decided on 2026-11-12: 1 while cut; 1 while poisoned, plus 1 while no
-/// poison-cure capability is carried. Knowledge reads 0 until the
+/// prices nothing. Bleeding and Poison are booleans: 1 while cut (or
+/// poisoned) with no cure of it (2026-11-14; until then poison also
+/// counted a standing capability, carried whether poisoned or not -
+/// poison wears off, so that is gone). Knowledge reads 0 until the
 /// catalogue (#35 item 4) prices it, Trip reads 0 until the stock's
 /// reduction table prices the recall.
 pub fn deficit(need: Need, st: &BorgState, trip: &Trip) -> i64 {
     let d = match need {
         Need::Light => trip.required_light() - carried_lights(st),
         Need::Food => trip.required_food() - st.borg.tr(BI_FOOD),
-        Need::Bleeding => (st.borg.tr(BI_ISCUT) != 0) as i32,
-        Need::Poison => {
-            (st.borg.tr(BI_ISPOISONED) != 0) as i32 + (st.borg.tr(BI_ACUREPOIS) == 0) as i32
-        }
+        Need::Bleeding => (st.borg.tr(BI_ISCUT) != 0 && wound_cures(st, trip) < 1) as i32,
+        Need::Poison => (st.borg.tr(BI_ISPOISONED) != 0 && poison_cures(st, trip) < 1) as i32,
         Need::Escape => trip.escapes_needed() - st.borg.tr(BI_APHASE),
         Need::Knowledge => 0,
         Need::Power => trip.power_target() - st.borg.power,
@@ -424,32 +444,56 @@ mod tests {
         assert!(uncapped.caution_allows(999_999, 1));
     }
 
+    /// The urgent needs (2026-11-14): needed now, and no other way.
     #[test]
-    fn floors_are_kit_predicates() {
-        // the floors are exactly Light, Food, Bleeding and Poison
-        for need in Need::ALL {
-            assert_eq!(
-                is_floor(need),
-                matches!(need, Need::Light | Need::Food | Need::Bleeding | Need::Poison),
-            );
-        }
-        // the empty kit fails light, food and the poison capability
-        let st = state();
-        assert_eq!(unmet_floors(&st), [Need::Light, Need::Food, Need::Poison]);
-        // a cut with no cure of any strength carried adds Bleeding
+    fn urgent_means_needed_now_with_no_other_way() {
+        let urgent = |st: &BorgState, spell: bool| {
+            let mut trip = Trip::of(st);
+            trip.cure_spell = spell;
+            urgent_needs(st, &trip)
+        };
+        // the empty kit, fed and well: only the missing light is urgent -
+        // no floors, so no food or poison cure is wanted "just in case"
         let mut st = state();
+        assert_eq!(urgent(&st, false), [Need::Light]);
+        // a glowing artifact is a light; so is a torch carried unworn
         st.borg.trait_[BI_LIGHT as usize] = 1;
-        st.borg.trait_[BI_FOOD as usize] = 1;
-        st.borg.trait_[BI_ACUREPOIS as usize] = 1;
+        assert_eq!(urgent(&st, false), []);
+        st.borg.trait_[BI_LIGHT as usize] = 0;
+        let mut torch = crate::borg_item::blank_item();
+        torch.tval = TV_LIGHT as u8;
+        torch.iqty = 1;
+        st.items.items = vec![torch];
+        assert_eq!(urgent(&st, false), []);
+        // hungry with nothing to eat is urgent; a Remove Hunger scroll or
+        // a hunger spell is food (BI_FOOD counts them), so it is not
+        st.borg.trait_[BI_ISHUNGRY as usize] = 1;
+        assert_eq!(urgent(&st, false), [Need::Food]);
+        st.borg.trait_[BI_FOOD as usize] = 1000;
+        assert_eq!(urgent(&st, false), []);
+        st.borg.trait_[BI_ISHUNGRY as usize] = 0;
+        st.borg.trait_[BI_ISWEAK as usize] = 1;
+        st.borg.trait_[BI_FOOD as usize] = 0;
+        assert_eq!(urgent(&st, false), [Need::Food]);
+        st.borg.trait_[BI_ISWEAK as usize] = 0;
+        // cut with no cure: urgent; any wound cure, or the spell, is a way
         st.borg.trait_[BI_ISCUT as usize] = 1;
-        assert_eq!(unmet_floors(&st), [Need::Bleeding]);
-        // any cure strength discharges the bleeding floor
+        assert_eq!(urgent(&st, false), [Need::Bleeding]);
+        assert_eq!(urgent(&st, true), []);
         st.borg.trait_[BI_ACSW as usize] = 1;
-        assert_eq!(unmet_floors(&st), []);
-        // no cut, no floor
-        st.borg.trait_[BI_ACSW as usize] = 0;
+        assert_eq!(urgent(&st, false), []);
         st.borg.trait_[BI_ISCUT as usize] = 0;
-        assert_eq!(unmet_floors(&st), []);
+        st.borg.trait_[BI_ACSW as usize] = 0;
+        // poisoned with no cure: urgent; Neutralize Poison, CCW or the
+        // spell is a way
+        st.borg.trait_[BI_ISPOISONED as usize] = 1;
+        assert_eq!(urgent(&st, false), [Need::Poison]);
+        assert_eq!(urgent(&st, true), []);
+        st.borg.trait_[BI_ACCW as usize] = 1;
+        assert_eq!(urgent(&st, false), []);
+        st.borg.trait_[BI_ACCW as usize] = 0;
+        st.borg.trait_[BI_ACUREPOIS as usize] = 1;
+        assert_eq!(urgent(&st, false), []);
     }
 
     /// maxdepth 10, so the depth target is 15: one light source carried
@@ -491,20 +535,24 @@ mod tests {
         let mut st = state();
         let trip = Trip::of(&st);
         let w = Weights::of(&cfg());
-        // a cut: gap 1, the first cure is worth the full weight
+        // a cut with no cure: gap 1, the first cure is worth the weight
         st.borg.trait_[BI_ISCUT as usize] = 1;
         assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 100);
+        // a cure carried: no deficit
+        st.borg.trait_[BI_ACLW as usize] = 1;
+        assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 0);
         // not cut: no bleeding deficit
         st.borg.trait_[BI_ISCUT as usize] = 0;
+        st.borg.trait_[BI_ACLW as usize] = 0;
         assert_eq!(usefulness(Need::Bleeding, 1, 1, &st, &trip, &w), 0);
-        // poisoned, no capability: gap 2
+        // not poisoned: no poison need at all, cure or no cure (poison
+        // wears off; the standing capability is gone, 2026-11-14)
+        assert_eq!(usefulness(Need::Poison, 1, 1, &st, &trip, &w), 0);
+        // poisoned with no cure: gap 1
         st.borg.trait_[BI_ISPOISONED as usize] = 1;
-        assert_eq!(usefulness(Need::Poison, 1, 1, &st, &trip, &w), 50);
-        assert_eq!(usefulness(Need::Poison, 1, 2, &st, &trip, &w), 100);
-        // the capability alone halves it, curing the condition closes it
-        st.borg.trait_[BI_ACUREPOIS as usize] = 1;
         assert_eq!(usefulness(Need::Poison, 1, 1, &st, &trip, &w), 100);
-        st.borg.trait_[BI_ISPOISONED as usize] = 0;
+        // a CCW carried is a cure
+        st.borg.trait_[BI_ACCW as usize] = 1;
         assert_eq!(usefulness(Need::Poison, 1, 1, &st, &trip, &w), 0);
     }
 }

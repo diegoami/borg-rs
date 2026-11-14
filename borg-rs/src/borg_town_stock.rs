@@ -37,7 +37,7 @@
 //! to the (need, reduction) pairs it serves. Its catalogue of useful kinds
 //! is still open (#35 item 4), so it is not invented here; the candidates
 //! carry kind, tval and sval so the table can key on them when it lands.
-//! The floors' classification ([`floors_served`]) is the one part of that
+//! The urgent needs' classification ([`needs_served`]) is the one part of that
 //! table the phase-2 budget needs, and it mirrors what `borg_trait` counts.
 //!
 //! Nothing in production calls this module yet; every public item carries
@@ -365,13 +365,13 @@ impl Stock {
     }
 }
 
-/// The floors a ware discharges, by the same counting `borg_trait` does
-/// for the carried kit: a light source (`TV_LIGHT`) for Light; a food
-/// that `borg_trait` counts in `BI_FOOD` for Food; Cure Light, Serious or
-/// Critical Wounds for Bleeding (`BI_ACLW`/`BI_ACSW`/`BI_ACCW`); and
-/// Neutralize Poison or a poison-curing food for Poison
-/// (`BI_ACUREPOIS`).
-pub fn floors_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
+/// The needs a ware meets now - what the urgent pass reads (the urgent needs
+/// until 2026-11-14) - by the counting `borg_trait` does for the carried
+/// kit: a light source (`TV_LIGHT`) for Light; a food `borg_trait` counts
+/// in `BI_FOOD` for Food; Cure Light, Serious or Critical Wounds for
+/// Bleeding; and Neutralize Poison, a poison-curing food or Cure Critical
+/// Wounds for Poison (CCW added 2026-11-14).
+pub fn needs_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
     use crate::borg_item_analyze::borg_obj_has_effect;
     use crate::headers::list_effects_h::{EF_CRUNCH, EF_CURE, EF_NOURISH, EF_TIMED_INC};
     use crate::headers::list_player_timed_h::{TMD_CONFUSED, TMD_POISONED};
@@ -418,7 +418,7 @@ pub fn floors_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
         {
             out.push(Need::Bleeding);
         }
-        if sval == v.sv_potion_cure_poison {
+        if sval == v.sv_potion_cure_poison || sval == v.sv_potion_cure_critical {
             out.push(Need::Poison);
         }
     }

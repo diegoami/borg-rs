@@ -8,7 +8,7 @@
 //! it.
 //!
 //! **Replay** is the record's contract: from a v4 line alone, rebuild the
-//! candidates, the limits, the floors and the values, re-run the step, and
+//! candidates, the limits, the urgent needs and the values, re-run the step, and
 //! get the same plan, the same solve and the same runner-up. The facts a
 //! record cannot recompute without the engine travel in it: the try-on
 //! values (`tryon`) and, per ware, the facts the engine's item tables and
@@ -16,7 +16,7 @@
 //! the weights, the caution, the groups, the solve - is recomputed by the
 //! same code that produced it: [`step`] is the one core both sides call.
 //!
-//! The floor pass is not replayed: its result (`floors`) is the step's
+//! The urgent pass is not replayed: its result (`urgent needs`) is the step's
 //! input, and the pass has its own suite (phase 2).
 //!
 //! Nothing in production calls this module yet (slice 2 will, in shadow
@@ -27,7 +27,7 @@ use std::collections::BTreeMap;
 
 use crate::borg_headers::borg_h::BORG_TOWN_PLAN;
 use crate::borg_headers::borg_trait_h::BI_MAX;
-use crate::borg_town_budget::{Budget, FloorPurchase};
+use crate::borg_town_budget::{Budget, UrgentPurchase};
 use crate::borg_town_solve::{groups, solve, Group, GroupKey, Limits, Solution};
 use crate::borg_town_stock::{Candidate, Stock};
 use crate::borg_town_usefulness::{usefulness, Need, Trip, Weights};
@@ -80,7 +80,7 @@ pub struct WareFact {
     pub need: i8,
     /// What one copy closes of that need, in the need's own units.
     pub reduction: i64,
-    /// The floors it discharges, a bitmask in [`Need::ALL`] order.
+    /// The urgent needs it discharges, a bitmask in [`Need::ALL`] order.
     pub serves: u8,
 }
 
@@ -118,15 +118,18 @@ pub struct PlanRecord {
     pub gturn: i64,
     /// `borg.power`: the power need reads it, and it is no trait.
     pub power: i64,
+    /// The spell capabilities no trait counts, as bits: 1 a curing spell
+    /// (Herbal Curing) is usable.
+    pub spells: u8,
     /// The twelve town settings, in index order.
     pub params: [i64; PARAMS],
-    /// `[gold, pack_slots, home_slots, weight]` after the floors.
+    /// `[gold, pack_slots, home_slots, weight]` after the urgent needs.
     pub limits: [i64; 4],
     /// `[pack_capacity, home_capacity]`.
     pub caps: [i64; 2],
-    /// `(shop, slot, needs)` of each floor purchase, `needs` a bitmask.
-    pub floors: Vec<(u8, u8, u8)>,
-    /// The floors the visit could not meet, a bitmask.
+    /// `(shop, slot, needs)` of each urgent purchase, `needs` a bitmask.
+    pub urgent: Vec<(u8, u8, u8)>,
+    /// The urgent needs the visit could not meet, a bitmask.
     pub unmet: u8,
     pub wares: Vec<WareFact>,
     pub tryon: Vec<TryOn>,
@@ -142,8 +145,8 @@ pub struct PlanRecord {
     pub act: [i64; 4],
     /// The need the action served (0..7), -1 for none.
     pub for_need: i64,
-    /// 1 when the action was a floor purchase.
-    pub floor: bool,
+    /// 1 when the action was a urgent purchase.
+    pub now: bool,
     /// The runner-up: the best option the solve did not take.
     pub displaced: Option<PlanEntry>,
     /// 0 none, 1 the 2000-turn give-up, 2 the anti-bounce give-up, 3 the
@@ -204,14 +207,16 @@ impl PlanRecord {
         num(out, self.gturn);
         field(out, "power");
         num(out, self.power);
+        field(out, "spells");
+        num(out, self.spells);
         field(out, "params");
         ints(out, &self.params);
         field(out, "limits");
         ints(out, &self.limits);
         field(out, "caps");
         ints(out, &self.caps);
-        field(out, "floors");
-        arr(out, &self.floors, |o, &(s, sl, n)| ints(o, &[i64::from(s), i64::from(sl), i64::from(n)]));
+        field(out, "urgent");
+        arr(out, &self.urgent, |o, &(s, sl, n)| ints(o, &[i64::from(s), i64::from(sl), i64::from(n)]));
         field(out, "unmet");
         num(out, self.unmet);
         field(out, "wares");
@@ -245,8 +250,8 @@ impl PlanRecord {
         ints(out, &self.act);
         field(out, "for");
         num(out, self.for_need);
-        field(out, "floor");
-        num(out, i64::from(self.floor));
+        field(out, "now");
+        num(out, i64::from(self.now));
         field(out, "displaced");
         match &self.displaced {
             Some(e) => ints(out, &entry(e)),
@@ -431,14 +436,15 @@ impl PlanRecord {
             step: small("step")? as u64,
             gturn: small("gturn")?,
             power: small("power")?,
+            spells: small("spells")? as u8,
             params: fixed(j.get("params")?.ints()?, "params")?,
             limits: fixed(j.get("limits")?.ints()?, "limits")?,
             caps: fixed(j.get("caps")?.ints()?, "caps")?,
-            floors: rows("floors")?
+            urgent: rows("urgent")?
                 .into_iter()
                 .map(|r| match r[..] {
                     [s, sl, n] => Ok((s as u8, sl as u8, n as u8)),
-                    _ => Err("a floor has 3 fields".to_string()),
+                    _ => Err("an urgent purchase has 3 fields".to_string()),
                 })
                 .collect::<Result<_, _>>()?,
             unmet: small("unmet")? as u8,
@@ -473,7 +479,7 @@ impl PlanRecord {
             action: small("paction")?,
             act: fixed(j.get("act")?.ints()?, "act")?,
             for_need: small("for")?,
-            floor: small("floor")? != 0,
+            now: small("now")? != 0,
             displaced: if displaced == [-1] { None } else { Some(entry_of(&displaced)?) },
             guard: small("guard")? as u8,
         })
@@ -489,7 +495,7 @@ pub struct StepInput<'a> {
     pub facts: &'a [WareFact],
     pub tryon: &'a [TryOn],
     pub limits: Limits,
-    pub floors: Vec<FloorPurchase>,
+    pub urgent: Vec<UrgentPurchase>,
     pub params: [i64; PARAMS],
     /// The whole trait vector.
     pub traits: &'a [i32],
@@ -497,6 +503,8 @@ pub struct StepInput<'a> {
     /// The carried items (pack and equipment) as `(tval, quantity)`: the
     /// light need counts the light sources among them.
     pub carried: &'a [(u8, i32)],
+    /// A curing spell is usable (no trait counts it).
+    pub cure_spell: bool,
 }
 
 /// What a step produces.
@@ -574,7 +582,8 @@ fn runner_up(groups: &[Group], s: &Solution) -> Option<PlanEntry> {
 /// One plan step: the groups, the solve, the ranked plan and the runner-up.
 pub fn step(input: &StepInput) -> StepOutput {
     let st = state_of(input.traits, input.power, &input.params, input.carried);
-    let trip = Trip::of(&st);
+    let mut trip = Trip::of(&st);
+    trip.cure_spell = input.cure_spell;
     let weights = Weights::of(&st.core.cfg);
     let facts: BTreeMap<(u8, u8), &WareFact> = input.facts.iter().map(|f| ((f.shop, f.slot), f)).collect();
     let tryon: BTreeMap<(u8, u8), &TryOn> = input.tryon.iter().map(|t| ((t.shop, t.slot), t)).collect();
@@ -584,7 +593,7 @@ pub fn step(input: &StepInput) -> StepOutput {
         pack_slots: input.limits.pack_slots,
         home_slots: 0,
         weight: input.limits.weight,
-        floors: input.floors.clone(),
+        urgent: input.urgent.clone(),
         unmet: Vec::new(),
     };
     let caution = weights.caution;
@@ -617,20 +626,20 @@ pub fn step(input: &StepInput) -> StepOutput {
     StepOutput { groups, solution, plan, solve: solve_row, displaced }
 }
 
-/// The step's action: the floors first (B3, Part A), then the first ranked
-/// option of the plan, else leave. Returns `(paction, act, for, floor)`,
+/// The step's action: the urgent needs first (B3, Part A), then the first ranked
+/// option of the plan, else leave. Returns `(paction, act, for, urgent need)`,
 /// `act` = `[shop, slot, copies, price]`; a purchase takes its cheapest
 /// ware first, as the cost table does.
 pub fn first_action(
     candidates: &[Candidate],
-    floors: &[FloorPurchase],
+    urgent: &[UrgentPurchase],
     out: &StepOutput,
     facts: &[WareFact],
 ) -> (i64, [i64; 4], i64, bool) {
     let need_of = |c: &Candidate| {
         facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot).map_or(-1, |f| i64::from(f.need))
     };
-    if let Some(f) = floors.first() {
+    if let Some(f) = urgent.first() {
         let c = &candidates[f.candidate];
         let need = f.needs.first().and_then(|n| Need::ALL.iter().position(|x| x == n)).map_or(-1, |i| i as i64);
         return (action::BUY, [i64::from(c.shop), i64::from(c.slot), 1, i64::from(c.price)], need, true);
@@ -696,13 +705,13 @@ pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
         .collect::<Result<_, String>>()?;
     let index: BTreeMap<(u8, u8), usize> =
         candidates.iter().enumerate().map(|(i, c)| ((c.shop, c.slot), i)).collect();
-    let floors = rec
-        .floors
+    let urgent_buys = rec
+        .urgent
         .iter()
         .map(|&(s, sl, n)| {
-            let candidate = *index.get(&(s, sl)).ok_or("a floor ware not in wares")?;
+            let candidate = *index.get(&(s, sl)).ok_or("an urgent ware not in wares")?;
             let needs = Need::ALL.iter().enumerate().filter(|(b, _)| n & (1 << b) != 0).map(|(_, &x)| x).collect();
-            Ok(FloorPurchase { candidate, needs })
+            Ok(UrgentPurchase { candidate, needs })
         })
         .collect::<Result<_, String>>()?;
 
@@ -732,11 +741,12 @@ pub fn replay(line: &str) -> Result<(PlanRecord, StepOutput), String> {
         facts: &rec.wares,
         tryon: &rec.tryon,
         limits,
-        floors,
+        urgent: urgent_buys,
         params: rec.params,
         traits: &traits,
         power: rec.power,
         carried: &carried,
+        cure_spell: rec.spells & 1 != 0,
     });
     Ok((rec, out))
 }
@@ -763,7 +773,7 @@ mod tests {
     const ARMOUR: u32 = 7;
     const ARMOUR_2: u32 = 8;
 
-    /// The need and reduction a test kind serves, and the floors it
+    /// The need and reduction a test kind serves, and the urgent needs it
     /// discharges - the role the engine's tables play in production.
     fn role(kind: u32) -> (i8, i64, u8) {
         match kind {
@@ -837,11 +847,12 @@ mod tests {
             facts: &wares,
             tryon,
             limits,
-            floors: budget.floors.clone(),
+            urgent: budget.urgent.clone(),
             params: params(),
             traits,
             power: 1000,
             carried: &carried(),
+            cure_spell: false,
         });
         let mask = |ns: &[Need]| {
             ns.iter().fold(0u8, |m, n| m | (1 << Need::ALL.iter().position(|x| x == n).unwrap()))
@@ -852,11 +863,12 @@ mod tests {
             step: 1,
             gturn: 12345,
             power: 1000,
+            spells: 0,
             params: params(),
             limits: [budget.gold, i64::from(budget.pack_slots), i64::from(budget.home_slots), budget.weight],
             caps: [23, 24],
-            floors: budget
-                .floors
+            urgent: budget
+                .urgent
                 .iter()
                 .map(|f| (stock.candidates[f.candidate].shop, stock.candidates[f.candidate].slot, mask(&f.needs)))
                 .collect(),
@@ -868,7 +880,7 @@ mod tests {
             action: if out.plan.is_empty() { action::LEAVE } else { action::BUY },
             act: [-1, -1, -1, -1],
             for_need: -1,
-            floor: false,
+            now: false,
             displaced: out.displaced,
             guard: 0,
         };
@@ -981,8 +993,8 @@ mod tests {
         let j = Json::parse(&line).unwrap();
         let keys = j.keys();
         let v4 = [
-            "mode", "visit", "step", "gturn", "power", "params", "limits", "caps", "floors", "unmet", "wares",
-            "tryon", "plan", "solve", "paction", "act", "for", "floor", "displaced", "guard",
+            "mode", "visit", "step", "gturn", "power", "spells", "params", "limits", "caps", "urgent", "unmet",
+            "wares", "tryon", "plan", "solve", "paction", "act", "for", "now", "displaced", "guard",
         ];
         assert_eq!(&keys[keys.len() - v4.len()..], v4);
         assert_eq!(&keys[..2], ["v", "seq"]);
@@ -1022,10 +1034,10 @@ mod tests {
         assert!(out.groups.len() >= chosen);
     }
 
-    /// The step's action: a floor before anything else; else the plan's
+    /// The step's action: an urgent need before anything else; else the plan's
     /// first ranked purchase; else leave.
     #[test]
-    fn the_first_action_is_the_floor_then_the_plan_then_leave() {
+    fn the_first_action_is_the_urgent_then_the_plan_then_leave() {
         let s = stock();
         let wares = |s: &Stock| -> Vec<WareFact> {
             s.candidates
@@ -1040,23 +1052,23 @@ mod tests {
             let (line, _) = produce(&s, gold, &traits(), &[], unmet);
             let (rec, out) = replay(&line).unwrap();
             let idx: BTreeMap<(u8, u8), usize> = s.candidates.iter().enumerate().map(|(i, c)| ((c.shop, c.slot), i)).collect();
-            let floors: Vec<FloorPurchase> = rec
-                .floors
+            let urgent: Vec<UrgentPurchase> = rec
+                .urgent
                 .iter()
-                .map(|&(sh, sl, n)| FloorPurchase {
+                .map(|&(sh, sl, n)| UrgentPurchase {
                     candidate: idx[&(sh, sl)],
                     needs: Need::ALL.iter().enumerate().filter(|(b, _)| n & (1 << b) != 0).map(|(_, &x)| x).collect(),
                 })
                 .collect();
-            first_action(&s.candidates, &floors, &out, &wares(&s))
+            first_action(&s.candidates, &urgent, &out, &wares(&s))
         };
-        // the food floor unmet: the floor purchase comes first
-        let (a, act, need, floor) = run(300, &[Need::Food]);
-        assert_eq!((a, need, floor), (action::BUY, 1, true));
+        // the food urgent need unmet: the urgent purchase comes first
+        let (a, act, need, now) = run(300, &[Need::Food]);
+        assert_eq!((a, need, now), (action::BUY, 1, true));
         assert_eq!(act[0], 0, "the general store's ration");
-        // no floor: the plan's first purchase
-        let (a, _, _, floor) = run(300, &[]);
-        assert_eq!((a, floor), (action::BUY, false));
+        // no urgent need: the plan's first purchase
+        let (a, _, _, now) = run(300, &[]);
+        assert_eq!((a, now), (action::BUY, false));
         // nothing affordable: leave
         let (a, act, _, _) = run(0, &[]);
         assert_eq!((a, act), (action::LEAVE, [-1, -1, -1, -1]));
@@ -1087,7 +1099,7 @@ mod tests {
     fn a_run_s_records_all_replay() {
         let path = std::env::var("PLAN_RECORD_FILE").expect("PLAN_RECORD_FILE");
         let text = std::fs::read_to_string(&path).unwrap();
-        let (mut n, mut planned, mut floors) = (0, 0, 0);
+        let (mut n, mut planned, mut urgent) = (0, 0, 0);
         for (i, line) in text.lines().enumerate() {
             let (rec, out) = replay(line).unwrap_or_else(|e| panic!("line {}: {e}", i + 1));
             assert_eq!(out.plan, rec.plan, "line {}: plan", i + 1);
@@ -1095,10 +1107,10 @@ mod tests {
             assert_eq!(out.displaced, rec.displaced, "line {}: runner-up", i + 1);
             n += 1;
             planned += usize::from(!rec.plan.is_empty());
-            floors += usize::from(rec.floor);
+            urgent += usize::from(rec.now);
         }
         assert!(n > 0, "no records");
-        println!("replayed {n} records: {planned} with a plan, {floors} taking a floor first");
+        println!("replayed {n} records: {planned} with a plan, {urgent} taking an urgent purchase first");
     }
 
     /// A version-2 line is not read as a plan record.

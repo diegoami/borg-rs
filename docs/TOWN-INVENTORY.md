@@ -2,6 +2,19 @@
 
 Status: **accepted, in implementation**. Phases 0-2 landed 2026-11-12 (the twelve settings in their six places; the usefulness function and the trip model; the stock and the budget), phase 3 on 2026-11-13 (the solver, on the accepted B2 form). The owner decisions of 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
+> **Amended 2026-11-14 (owner): there are no floors.** Every object can
+> become redundant - there are other ways to eat (Remove Hunger scrolls,
+> spells), to see, and to cure - so none is a hard constraint. What replaces
+> the floors is the **urgent need**: needed **now** with **no other way** to
+> meet it (hungry or weak with nothing to eat; no light source at all; cut
+> with no wound cure; poisoned with no poison cure), bought before anything
+> else while it is urgent, skipped if unaffordable, never blocking the visit.
+> Poison wears off, so the standing poison-cure capability is gone; Cure
+> Critical Wounds and a curing spell count as cures. No early-game term:
+> the high early value of torches, food and potions is left to emerge from
+> the deficits. Where the text below says "floor", read "urgent need"; the
+> mechanism (the exact cheapest-cover pass, phase 2) is the same.
+
 The decisions this rests on are recorded in borg-rs#36 (the epic), #37 (the extraction of the old strategy) and #35 (the evaluation). Where this document and an issue disagree, the epic's decision log (#36) wins and this document is wrong.
 
 ## The shape
@@ -299,7 +312,7 @@ These are the specifications the redesign needs and does not have yet. Each is a
 
 | # | part | what is missing | decided by |
 |---|---|---|---|
-| P1 | **the floor set** | **decided 2026-11-12**: the kit predicates - at least 1 food, at least 1 light, a cure for the current condition, a poison-cure capability. A character may leave town with a floor unmet; what happens then is #37's Stay rules | the owner |
+| P1 | **the floor set** | **superseded 2026-11-14 (owner): no floors** - replaced by the urgent needs (banner above). Was **decided 2026-11-12**: the kit predicates - at least 1 food, at least 1 light, a cure for the current condition, a poison-cure capability. A character may leave town with a floor unmet; what happens then is #37's Stay rules | the owner |
 | P2 | **the trip model** | **landed provisionally with phase 1** (2026-11-12): depth target `BI_MAXDEPTH + 5`, 1000 turns per level (anchored on the 2000-turn give-up), one Phase Door per 10 levels, power target `2000 x depth target` - the weakest of the provisional values. The sweep refines them | the owner, then the implementation |
 | P3 | **the needs and their deficits** | the **units are decided** (2026-11-11): the fraction of the need closed, the weight the worth of the whole need, and every need split into a floor and a target. The phase-1 deficits landed 2026-11-12; knowledge and trip read 0 until their phases (the catalogue's arrival, #35 item 4, and the stock's) | the owner |
 | P5 | **the alternatives** | **decided 2026-11-12**: kind-only. The same kind at 1x in another shop is the alternative; effect-equivalence across kinds is not attempted | the owner |

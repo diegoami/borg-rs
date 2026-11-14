@@ -1,31 +1,32 @@
 //! Phase 2 of the town inventory redesign (borg-rs#36): the budget, the
 //! constraints the solver respects.
 //!
-//! * **the floors** - computed first and never traded. For the floors the
-//!   carried kit fails ([`unmet_floors`]), the floor pass picks the cheapest
-//!   set of wares that discharges as many of them as the purse allows: the
-//!   most floors met first, then the least gold, then the fewest wares,
-//!   then the earliest wares. It is exact (at most four floors, so at most
-//!   fifteen distinct ways a ware can serve them). A floor the shops cannot
-//!   meet, or the purse cannot pay for, is recorded as unmet and does not
-//!   block the visit; #37's Stay rules decide what happens then. The floors
-//!   are not priced (surviving is invaluable), so the Black Market's
-//!   caution cap does not apply to them;
-//! * **gold** - the purse minus what the floors cost. No trip reserve, no
+//! * **the urgent needs** - bought first, before anything else (owner
+//!   decision, 2026-11-14: there are no urgent needs; an urgent need is one the
+//!   character has **now** with **no other way** to meet it - see
+//!   [`urgent_needs`]). The urgent pass picks the cheapest set of wares
+//!   that meets as many of them as the purse allows: the most met first,
+//!   then the least gold, then the fewest wares, then the earliest wares.
+//!   It is exact (at most four urgent needs, so at most fifteen distinct
+//!   ways a ware can serve them). An urgent need no shop serves, or the
+//!   purse cannot pay for, is recorded as unmet and does not block the
+//!   visit. Urgent purchases are not priced, so the caution cap does not
+//!   apply to them;
+//! * **gold** - the purse minus what the urgent needs cost. No trip reserve, no
 //!   savings. The proceeds of sales join it in the joint treatment (phase
 //!   5), not here;
 //! * **pack slots** - the pack's capacity (`pack_size`, 23, less the slots
 //!   the quiver takes) minus one slot **per distinct stack** carried (S3),
-//!   minus the slots the floor purchases open;
+//!   minus the slots the urgent purchases open;
 //! * **Home slots** - the Home's capacity (`store_inven_max`, 24) minus its
 //!   stacks;
 //! * **weight** - the carry allowance minus the carried weight, minus the
-//!   floor purchases. The allowance is half of `BI_CARRY`, the point past
+//!   urgent purchases. The allowance is half of `BI_CARRY`, the point past
 //!   which `borg_trait` charges the encumbrance against the speed.
 //!
-//! The slot, Home and weight figures are signed: a floor purchase can push
+//! The slot, Home and weight figures are signed: a urgent purchase can push
 //! one below zero, which says the dispositions (phase 4) have to free room
-//! before the floors fit. The floor pass itself is bounded by the gold
+//! before the urgent needs fit. The urgent pass itself is bounded by the gold
 //! alone.
 //!
 //! Nothing in production calls this module yet; every public item carries
@@ -33,7 +34,7 @@
 
 use crate::borg_headers::borg_trait_h::{BI_CARRY, BI_GOLD, BI_QUIVER_SLOTS, BI_WEIGHT};
 use crate::borg_town_stock::{Candidate, Stock};
-use crate::borg_town_usefulness::{unmet_floors, Need};
+use crate::borg_town_usefulness::{urgent_needs, Need, Trip};
 use crate::state::BorgState;
 
 /// The raw numbers the budget is computed from.
@@ -71,44 +72,44 @@ impl Facts {
     }
 }
 
-/// One floor purchase: one copy of a candidate, and the floors it
+/// One urgent purchase: one copy of a candidate, and the urgent needs it
 /// discharges.
 #[derive(Clone, Debug, Eq, PartialEq)]
-pub struct FloorPurchase {
+pub struct UrgentPurchase {
     /// Index into [`Stock::candidates`].
     pub candidate: usize,
-    /// The unmet floors this copy discharges, in enum order.
+    /// The urgent needs this copy discharges, in enum order.
     pub needs: Vec<Need>,
 }
 
-/// What the solver may spend, after the floors.
+/// What the solver may spend, after the urgent needs.
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Budget {
-    /// The purse minus the floors' cost.
+    /// The purse minus the urgent needs' cost.
     pub gold: i64,
-    /// Free pack slots after the carried stacks and the floors.
+    /// Free pack slots after the carried stacks and the urgent needs.
     pub pack_slots: i32,
     /// Free Home slots.
     pub home_slots: i32,
-    /// The carry allowance left after the floors.
+    /// The carry allowance left after the urgent needs.
     pub weight: i64,
     /// Bought first, never traded; one copy each.
-    pub floors: Vec<FloorPurchase>,
-    /// The floors the visit cannot meet: no ware serves them, or the
+    pub urgent: Vec<UrgentPurchase>,
+    /// The urgent needs the visit cannot meet: no ware serves them, or the
     /// purse cannot pay. Recorded for #37's Stay rules.
     pub unmet: Vec<Need>,
 }
 
-/// The floor pass: for the unmet floors `need`, the purchase set chosen
-/// by (most floors met, least gold, fewest wares, earliest wares). Returns
+/// The urgent pass: for the urgent needs `need`, the purchase set chosen
+/// by (most urgent needs met, least gold, fewest wares, earliest wares). Returns
 /// the chosen candidate indices and the bit mask of `need` they cover.
-fn floor_pass(
+fn urgent_pass(
     cands: &[Candidate],
     need: &[Need],
     gold: i64,
     serves: &impl Fn(&Candidate) -> Vec<Need>,
 ) -> (Vec<usize>, u32) {
-    // The cheapest ware for each distinct way of serving the floors
+    // The cheapest ware for each distinct way of serving the urgent needs
     // (ties: the earliest candidate). Any optimal set can use these
     // representatives instead of its own wares at no extra cost.
     // `serves` is asked once per candidate: in production it reaches the
@@ -163,25 +164,25 @@ fn floor_pass(
 }
 
 impl Budget {
-    /// The budget from its facts, the stock and the unmet floors.
-    /// `serves(c)` names the floors one copy of `c` discharges; in
-    /// production it is `floors_served`.
+    /// The budget from its facts, the stock and the urgent needs.
+    /// `serves(c)` names the urgent needs one copy of `c` discharges; in
+    /// production it is `needs_served`.
     pub fn build(
         facts: &Facts,
         stock: &Stock,
-        unmet_floors: &[Need],
+        urgent_needs: &[Need],
         serves: impl Fn(&Candidate) -> Vec<Need>,
     ) -> Self {
         let cands = &stock.candidates;
-        let (picked, covered) = floor_pass(cands, unmet_floors, facts.gold.max(0), &serves);
+        let (picked, covered) = urgent_pass(cands, urgent_needs, facts.gold.max(0), &serves);
 
-        let floors: Vec<FloorPurchase> = picked
+        let urgent: Vec<UrgentPurchase> = picked
             .iter()
             .map(|&i| {
                 let served = serves(&cands[i]);
-                FloorPurchase {
+                UrgentPurchase {
                     candidate: i,
-                    needs: unmet_floors
+                    needs: urgent_needs
                         .iter()
                         .copied()
                         .filter(|n| served.contains(n))
@@ -189,14 +190,14 @@ impl Budget {
                 }
             })
             .collect();
-        let unmet = unmet_floors
+        let unmet = urgent_needs
             .iter()
             .enumerate()
             .filter(|(b, _)| covered & (1 << b) == 0)
             .map(|(_, &n)| n)
             .collect();
 
-        // The floor purchases' slots: one per distinct stack class that
+        // The urgent purchases' slots: one per distinct stack class that
         // no pack stack absorbs.
         let mut opened: Vec<u16> = picked
             .iter()
@@ -215,16 +216,18 @@ impl Budget {
             pack_slots: facts.pack_capacity - stock.pack_slots_used() - opened.len() as i32,
             home_slots: facts.home_capacity - stock.home_slots_used(),
             weight: facts.allowance() - weight,
-            floors,
+            urgent,
             unmet,
         }
     }
 
-    /// The budget of the current state over a stock built from it.
-    pub fn of(st: &BorgState, stock: &Stock) -> Self {
-        Self::build(&Facts::of(st), stock, &unmet_floors(st), |c| {
+    /// The budget of the current state over a stock built from it; the
+    /// trip carries what the urgent needs read beyond the traits (the
+    /// curing spell).
+    pub fn of(st: &BorgState, stock: &Stock, trip: &Trip) -> Self {
+        Self::build(&Facts::of(st), stock, &urgent_needs(st, trip), |c| {
             let ware = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
-            crate::borg_town_stock::floors_served(st, ware)
+            crate::borg_town_stock::needs_served(st, ware)
         })
     }
 }
@@ -297,7 +300,7 @@ mod tests {
         let mut f = facts(1000);
         f.pack_capacity = 23 - 2;
         assert_eq!(Budget::build(&f, &s, &[], serves).pack_slots, 16);
-        // a floor bought into a carried stack opens no slot ...
+        // an urgent need bought into a carried stack opens no slot ...
         let b = Budget::build(&facts(1000), &s, &[Need::Poison], serves);
         assert_eq!(b.pack_slots, 18 - 1, "the cure opens a new stack");
         let s = build(&t, &pack[..4]);
@@ -311,7 +314,7 @@ mod tests {
     /// With nothing unmet the budget is the purse, the free slots and the
     /// allowance: half the carry limit less the carried weight.
     #[test]
-    fn the_budget_without_floors() {
+    fn the_budget_without_urgent_needs() {
         let mut t = general_and_alchemist();
         t[7][0] = item(PHASE, 3, 0);
         t[7][1] = item(TORCH, 1, 0);
@@ -321,18 +324,18 @@ mod tests {
         assert_eq!(b.pack_slots, 22);
         assert_eq!(b.home_slots, 22);
         assert_eq!(b.weight, 1000 - 300);
-        assert!(b.floors.is_empty());
+        assert!(b.urgent.is_empty());
         assert!(b.unmet.is_empty());
     }
 
-    /// The floors come off the budget first: their gold, their slots and
+    /// The urgent needs come off the budget first: their gold, their slots and
     /// their weight.
     #[test]
-    fn the_floors_come_first() {
+    fn the_urgent_needs_come_first() {
         let s = build(&general_and_alchemist(), &[]);
         let unmet = [Need::Light, Need::Food, Need::Bleeding, Need::Poison];
         let b = Budget::build(&facts(100), &s, &unmet, serves);
-        let bought: Vec<u32> = b.floors.iter().map(|f| s.candidates[f.candidate].kind).collect();
+        let bought: Vec<u32> = b.urgent.iter().map(|f| s.candidates[f.candidate].kind).collect();
         assert_eq!(bought, [TORCH, RATION, CLW, CURE_POISON]);
         assert_eq!(b.gold, 100 - (2 + 4 + 20 + 30));
         assert_eq!(b.pack_slots, 23 - 4);
@@ -340,10 +343,10 @@ mod tests {
         assert!(b.unmet.is_empty());
     }
 
-    /// A ware that discharges two floors at once beats two that discharge
+    /// A ware that discharges two urgent needs at once beats two that discharge
     /// one each when it is cheaper.
     #[test]
-    fn the_floor_pass_is_exact() {
+    fn the_urgent_pass_is_exact() {
         let t = town([
             &[item(RATION, 5, 4), item(FOOD_POISON, 1, 10)],
             &[],
@@ -356,25 +359,25 @@ mod tests {
         ]);
         let s = build(&t, &[]);
         let b = Budget::build(&facts(100), &s, &[Need::Food, Need::Poison], serves);
-        assert_eq!(b.floors.len(), 1);
-        assert_eq!(s.candidates[b.floors[0].candidate].kind, FOOD_POISON);
-        assert_eq!(b.floors[0].needs, [Need::Food, Need::Poison]);
+        assert_eq!(b.urgent.len(), 1);
+        assert_eq!(s.candidates[b.urgent[0].candidate].kind, FOOD_POISON);
+        assert_eq!(b.urgent[0].needs, [Need::Food, Need::Poison]);
         assert_eq!(b.gold, 90);
     }
 
-    /// The purse bounds the floors: the most floors it can pay for are
+    /// The purse bounds the urgent: the most urgent needs it can pay for are
     /// met, the rest recorded unmet, and the visit is not blocked.
     #[test]
-    fn an_unaffordable_floor_is_recorded_not_blocking() {
+    fn an_unaffordable_urgent_need_is_recorded_not_blocking() {
         let s = build(&general_and_alchemist(), &[]);
         let unmet = [Need::Light, Need::Food, Need::Poison];
         // 2 + 4 = 6 is affordable; the 30-gold cure is not
         let b = Budget::build(&facts(10), &s, &unmet, serves);
-        let bought: Vec<u32> = b.floors.iter().map(|f| s.candidates[f.candidate].kind).collect();
+        let bought: Vec<u32> = b.urgent.iter().map(|f| s.candidates[f.candidate].kind).collect();
         assert_eq!(bought, [TORCH, RATION]);
         assert_eq!(b.unmet, [Need::Poison]);
         assert_eq!(b.gold, 4);
-        // with 32 gold two floors are still the most it can meet (all
+        // with 32 gold two urgent needs are still the most it can meet (all
         // three cost 36); of the pairs it can pay for, the cheapest wins
         let b = Budget::build(&facts(32), &s, &unmet, serves);
         assert_eq!(b.unmet, [Need::Poison]);
@@ -385,40 +388,40 @@ mod tests {
         assert_eq!(b.gold, 0);
     }
 
-    /// A floor no shop serves is unmet whatever the purse.
+    /// An urgent need no shop serves is unmet whatever the purse.
     #[test]
-    fn a_floor_no_shop_serves_is_unmet() {
+    fn an_urgent_need_no_shop_serves_is_unmet() {
         let t = town([&[item(TORCH, 1, 2)], &[], &[], &[], &[], &[], &[], &[]]);
         let s = build(&t, &[]);
         let b = Budget::build(&facts(10_000), &s, &[Need::Light, Need::Bleeding], serves);
-        assert_eq!(b.floors.len(), 1);
+        assert_eq!(b.urgent.len(), 1);
         assert_eq!(b.unmet, [Need::Bleeding]);
     }
 
-    /// The floors take the cheapest source, Black Market included - they
+    /// The urgent needs take the cheapest source, Black Market included - they
     /// are not priced, so the caution cap does not bind them - and equal
     /// prices go to the earliest ware.
     #[test]
-    fn the_floors_take_the_cheapest_source() {
+    fn the_urgent_needs_take_the_cheapest_source() {
         let t = town([&[], &[], &[], &[], &[item(CLW, 1, 20)], &[item(CLW, 1, 20)], &[item(CLW, 1, 60)], &[]]);
         let s = build(&t, &[]);
         let b = Budget::build(&facts(100), &s, &[Need::Bleeding], serves);
-        assert_eq!(s.candidates[b.floors[0].candidate].shop, 4);
+        assert_eq!(s.candidates[b.urgent[0].candidate].shop, 4);
         // only the Black Market has it: it is bought, cap or no cap
         let t = town([&[], &[], &[], &[], &[], &[], &[item(CLW, 1, 60)], &[]]);
         let s = build(&t, &[]);
         let b = Budget::build(&facts(100), &s, &[Need::Bleeding], serves);
-        assert!(s.candidates[b.floors[0].candidate].is_black_market());
+        assert!(s.candidates[b.urgent[0].candidate].is_black_market());
         assert_eq!(b.gold, 40);
     }
 
-    /// `serves` is asked once per candidate in the floor pass and once per
-    /// floor purchase after it - never per subset, because in production
+    /// `serves` is asked once per candidate in the urgent pass and once per
+    /// urgent purchase after it - never per subset, because in production
     /// it reaches the engine's effect tables.
     #[test]
     fn serves_is_asked_once_per_candidate() {
         use std::cell::Cell;
-        // fifteen candidates across the four floors' masks
+        // fifteen candidates across the four urgent needs' masks
         let t = town([
             &[item(TORCH, 1, 2), item(RATION, 1, 4), item(FOOD_POISON, 1, 9)],
             &[item(TORCH, 1, 3), item(RATION, 1, 5)],
@@ -438,7 +441,7 @@ mod tests {
         let unmet = [Need::Light, Need::Food, Need::Bleeding, Need::Poison];
         let b = Budget::build(&facts(1000), &s, &unmet, counting);
         assert!(b.unmet.is_empty());
-        assert_eq!(calls.get(), s.candidates.len() + b.floors.len());
+        assert_eq!(calls.get(), s.candidates.len() + b.urgent.len());
     }
 
     /// The same inputs give the same budget.

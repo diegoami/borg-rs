@@ -3,6 +3,19 @@
 Status: **accepted**. Phases 0-2 landed 2026-11-12, phase 3 on 2026-11-13; the owner decisions of
 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 
+> **Amended 2026-11-14 (owner): there are no floors.** Every object can
+> become redundant - there are other ways to eat (Remove Hunger scrolls,
+> spells), to see, and to cure - so none is a hard constraint. What replaces
+> the floors is the **urgent need**: needed **now** with **no other way** to
+> meet it (hungry or weak with nothing to eat; no light source at all; cut
+> with no wound cure; poisoned with no poison cure), bought before anything
+> else while it is urgent, skipped if unaffordable, never blocking the visit.
+> Poison wears off, so the standing poison-cure capability is gone; Cure
+> Critical Wounds and a curing spell count as cures. No early-game term:
+> the high early value of torches, food and potions is left to emerge from
+> the deficits. Where the text below says "floor", read "urgent need"; the
+> mechanism (the exact cheapest-cover pass, phase 2) is the same.
+
 Epic: borg-rs#36. Issues: #37 (the extraction), #35 (the usefulness function), #38 (the architecture), #39 (the optimisation problem), #40 (the joint treatment).
 Branch: `feature/town-inventory-strategy`.
 

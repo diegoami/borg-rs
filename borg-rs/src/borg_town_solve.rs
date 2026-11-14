@@ -38,7 +38,7 @@
 //!   at each step, so the final set need not be the tie order's choice
 //!   among the sets of its value.
 //!
-//! The floors are not here: the budget (phase 2) bought them first, and
+//! The urgent needs are not here: the budget (phase 2) bought them first, and
 //! [`groups`] removes their copies from the wares before it builds the
 //! tables. Nothing in production calls this module yet; every public item
 //! carries the self-removing `expect(dead_code)` marker of phases 1-2.
@@ -82,7 +82,7 @@ pub struct Group {
     pub options: Vec<Choice>,
 }
 
-/// The constraints the solver respects (the budget after the floors).
+/// The constraints the solver respects (the budget after the urgent needs).
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct Limits {
     pub gold: i64,
@@ -122,7 +122,7 @@ pub struct Solution {
     /// False when the gold had to be scaled (bound above [`GOLD_LIMIT`]).
     pub gold_exact: bool,
     /// The set opens no more slots than the limit. False when the limit
-    /// was negative (the floors overfilled the pack): nothing
+    /// was negative (the urgent needs overfilled the pack): nothing
     /// slot-opening is bought then, and the dispositions must free room
     /// first.
     pub slots_met: bool,
@@ -393,7 +393,7 @@ pub fn solve(groups: &[Group], limits: &Limits) -> Solution {
     }
 }
 
-/// Build the groups from the stock, after the budget's floors.
+/// Build the groups from the stock, after the budget's urgent needs.
 ///
 /// * `caution` is `k` of the share cap (`borg_town_share`; 0 disables
 ///   it): an option's Black Market copies may cost at most `purse / k`
@@ -416,9 +416,9 @@ pub fn groups(
     wearable: impl Fn(&Candidate) -> Option<(u8, i64)>,
     value: impl Fn(&Candidate, i32) -> i64,
 ) -> Vec<Group> {
-    // The copies left after the floors.
+    // The copies left after the urgent needs.
     let mut qty: Vec<i32> = stock.candidates.iter().map(|c| c.qty).collect();
-    for f in &budget.floors {
+    for f in &budget.urgent {
         qty[f.candidate] -= 1;
     }
     let purse = budget.gold.max(0);
@@ -515,7 +515,7 @@ pub fn groups(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::borg_town_budget::{Facts, FloorPurchase};
+    use crate::borg_town_budget::{Facts, UrgentPurchase};
     use crate::borg_town_stock::tests::{build, item, town};
     use crate::borg_town_usefulness::value as curve;
 
@@ -652,7 +652,7 @@ mod tests {
         assert_eq!(s.slots, 1);
     }
 
-    /// A negative slot limit (the floors overfilled the pack): nothing
+    /// A negative slot limit (the urgent needs overfilled the pack): nothing
     /// slot-opening is bought, and the solution says the limit was not
     /// met rather than pretending.
     #[test]
@@ -1001,15 +1001,15 @@ mod tests {
         assert_eq!(sol.value, 45);
     }
 
-    /// The floors' copies are gone before the tables are built.
+    /// The urgent needs' copies are gone before the tables are built.
     #[test]
-    fn the_floors_copies_are_removed() {
+    fn the_urgent_copies_are_removed() {
         let t = town([&[item(1, 2, 5)], &[], &[], &[], &[], &[], &[], &[]]);
         let s = build(&t, &[]);
         let mut b = budget(100);
-        b.floors = vec![FloorPurchase { candidate: 0, needs: vec![] }];
+        b.urgent = vec![UrgentPurchase { candidate: 0, needs: vec![] }];
         let g = groups(&s, &b, 10, |_| None, capped(5, 10));
-        assert_eq!(g[0].options.len(), 2, "one copy left after the floor");
+        assert_eq!(g[0].options.len(), 2, "one copy left after the urgent need");
     }
 
     /// The cap is where the value reaches its maximum, not where it first

@@ -29,7 +29,7 @@
 //! empty and no wearable is planned), and **knowledge** and **trip**,
 //! which read 0 until the catalogue of useful kinds (#35 item 4) exists,
 //! as phase 1 decided. A ware serves one need here; a food that also cures
-//! poison is priced as food, and its poison floor is still in `serves`.
+//! poison is priced as food, and its poison urgent need is still in `serves`.
 
 use std::sync::atomic::{AtomicU64, Ordering};
 
@@ -40,8 +40,8 @@ use crate::borg_item::inven_wield;
 use crate::borg_town_budget::Budget;
 use crate::borg_town_record::{first_action, step, PlanRecord, StepInput, WareFact, PARAMS};
 use crate::borg_town_solve::Limits;
-use crate::borg_town_stock::{floors_served, Stock};
-use crate::borg_town_usefulness::Need;
+use crate::borg_town_stock::{needs_served, Stock};
+use crate::borg_town_usefulness::{Need, Trip};
 use crate::engine;
 use crate::state::BorgState;
 
@@ -62,9 +62,9 @@ fn ware_role(st: &BorgState, item: &borg_item) -> (i8, i64) {
     if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_phase_door {
         return (need_index(Need::Escape), 1);
     }
-    // The floors' classification already mirrors borg_trait's counting
+    // The urgent needs' classification already mirrors borg_trait's counting
     // of food, cures and poison cures; its first need is the ware's.
-    match floors_served(st, item).first() {
+    match needs_served(st, item).first() {
         Some(&n) => (need_index(n), 1),
         None => (-1, 0),
     }
@@ -99,8 +99,16 @@ pub fn shadow_visit(st: &BorgState) {
     let visit = VISIT.load(Ordering::Relaxed);
     let step_no = STEP.fetch_add(1, Ordering::Relaxed);
 
+    // A curing spell cures cuts and poison, and no trait counts it.
+    let cure_spell = crate::borg_magic::borg_spell_legal_fail(
+        st,
+        crate::borg_headers::borg_magic_h::HERBAL_CURING,
+        80,
+    );
+    let mut trip = Trip::of(st);
+    trip.cure_spell = cure_spell;
     let stock = Stock::of(st);
-    let budget = Budget::of(st, &stock);
+    let budget = Budget::of(st, &stock, &trip);
     let mask = |ns: &[Need]| ns.iter().fold(0u8, |m, &n| m | (1 << need_index(n)));
     let wares: Vec<WareFact> = stock
         .candidates
@@ -117,7 +125,7 @@ pub fn shadow_visit(st: &BorgState) {
                 weight: c.weight,
                 need,
                 reduction,
-                serves: mask(&floors_served(st, item)),
+                serves: mask(&needs_served(st, item)),
             }
         })
         .collect();
@@ -141,13 +149,14 @@ pub fn shadow_visit(st: &BorgState) {
         facts: &wares,
         tryon: &[],
         limits,
-        floors: budget.floors.clone(),
+        urgent: budget.urgent.clone(),
         params,
         traits: &st.borg.trait_,
         power: i64::from(st.borg.power),
         carried: &carried,
+        cure_spell,
     });
-    let (paction, act, for_need, floor) = first_action(&stock.candidates, &budget.floors, &out, &wares);
+    let (paction, act, for_need, now) = first_action(&stock.candidates, &budget.urgent, &out, &wares);
 
     let rec = PlanRecord {
         mode: 0,
@@ -155,14 +164,15 @@ pub fn shadow_visit(st: &BorgState) {
         step: step_no,
         gturn: i64::from(engine::game_turn()),
         power: i64::from(st.borg.power),
+        spells: u8::from(cure_spell),
         params,
         limits: [budget.gold, i64::from(budget.pack_slots), i64::from(budget.home_slots), budget.weight],
         caps: [
             i64::from(engine::z_info().pack_size),
             i64::from(engine::z_info().store_inven_max),
         ],
-        floors: budget
-            .floors
+        urgent: budget
+            .urgent
             .iter()
             .map(|f| {
                 let c = &stock.candidates[f.candidate];
@@ -177,7 +187,7 @@ pub fn shadow_visit(st: &BorgState) {
         action: paction,
         act,
         for_need,
-        floor,
+        now,
         displaced: out.displaced,
         guard: 0,
     };
