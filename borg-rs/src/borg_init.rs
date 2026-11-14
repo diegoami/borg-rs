@@ -1254,7 +1254,7 @@ mod tests {
     /// borg.txt files instead. `docs/ZOO-INTERFACE.md` is the prose version
     /// of this table, and the audit behind it.
     const NEW_SETTINGS: &[(&str, u8, i32, &str)] = &[
-        ("borg_munchkin_by_class", b'b', 0, "TRUE"),
+        ("borg_munchkin_by_class", b'b', 0, "FALSE"),
         ("borg_munchkin_class_depth", b'i', 6, "6"),
         ("borg_buy_strategy_default", b'i', 0, "0"),
         ("borg_buy_strategy_munchkin", b'i', -1, "-1"),

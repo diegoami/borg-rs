@@ -7,7 +7,7 @@ owner's machine, not independent review.
 
 ## The change
 
-One line of configuration, no source change: `harness/borg.txt` sets
+One line of configuration: `harness/borg.txt` sets
 `borg_munchkin_by_class = FALSE` (commit on top of the v12R acceptance
 records). The global `borg_munchkin_start` was already FALSE, so with this
 change **no class takes the munchkin start any more**: every character
@@ -18,6 +18,18 @@ keep exercising it deliberately. The binaries are unchanged: `borg.txt` is
 runtime configuration both roles read, and the C build identity
 (`checkout_source_sha256=28974d08…`) still matches the previous corpus's
 build inputs.
+
+**CI caught the follow-ups (2026-11-14).** The repository's borg.txt
+invariant tests failed on the first push: the shipped copy
+`angband/src/borg/borg.txt` must carry the same settings as
+`harness/borg.txt`, and the `NEW_SETTINGS` table in `borg_init.rs` pins
+the configured value of every fork-added setting. The follow-up commit
+syncs the shipped copy to FALSE and records `"FALSE"` in the table. No
+harness run reads the shipped copy or that table - the runs' recorded
+`effective_settings` (`borg_munchkin_by_class: 0`) come from
+`harness/borg.txt` alone - so the oracle corpus below is unaffected;
+`cargo test` is 122 passed, 0 failed, 1 ignored after the fix, locally and
+in CI.
 
 Effect on the streams, measured on the new recordings: the munchkin
 flavour collapsed where it used to apply (smoke warrior 9,681 -> 2,616

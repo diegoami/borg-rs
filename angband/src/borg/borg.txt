@@ -309,12 +309,14 @@ borg_munchkin_start = FALSE
 borg_munchkin_level = 12
 borg_munchkin_depth = 16
 
-# Munchkin start by class: with borg_munchkin_start FALSE, Warriors, Druids
-# and Rangers still take the munchkin start, stair-scumming at
-# borg_munchkin_class_depth. Every other class plays without it. Set this
-# FALSE to play every class as borg_munchkin_start says.
+# Munchkin start by class: when borg_munchkin_by_class is TRUE, Warriors,
+# Druids and Rangers take the munchkin start even with borg_munchkin_start
+# FALSE, stair-scumming at borg_munchkin_class_depth (the better-borg-c
+# PR302 feature). It is FALSE here by owner decision (2026-11-14): every
+# class plays as borg_munchkin_start says. The C and Rust code keeps the
+# feature; only this default is off.
 
-borg_munchkin_by_class = TRUE
+borg_munchkin_by_class = FALSE
 borg_munchkin_class_depth = 6
 
 
