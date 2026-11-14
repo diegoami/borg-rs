@@ -1,0 +1,20 @@
+248 3121 0 You feel very good.
+248 3121 0 You have no more Potions of Cure Serious Wounds (c).
+248 3126 39 Fang, Farmer Maggot's Dog, bites you.
+249 3131 39 Fang, Farmer Maggot's Dog, bites you.
+251 3131 0 # HIT_BY:Fang, Farmer Maggot's Dog (+)
+251 3131 0 # HIT_BY:Fang, Farmer Maggot's Dog (+)
+251 3131 0 # HIT_BY:Fang, Farmer Maggot's Dog (3)
+251 3131 0 # HIT_BY:Fang, Farmer Maggot's Dog (3)
+251 3131 0 # Scary guy on level.
+251 3131 0 # Loc:47,158 Dep:1 Lev:1 HP:3/10 SP:2/2 Danger:p=12
+251 3131 0 # Fleeing and leaving the level. (scaryguy)
+251 3131 0 # Performing attack type 1 with value 38.
+251 3131 0 # Facing Fang, Farmer Maggot's Dog at (46,158) who has 18 Hit Points.
+251 3131 0 # Attacking with weapon 'Mace (2d4) (+0,+0)'
+253 3131 3 You miss Fang, Farmer Maggot's Dog.
+253 3136 39 Fang, Farmer Maggot's Dog, bites you.
+254 3136 8 You die.
+255 3136 0 Score not registered for borgs.
+255 3136 0 # Aborting (death).
+255 3136 0 # Aborting (player died).

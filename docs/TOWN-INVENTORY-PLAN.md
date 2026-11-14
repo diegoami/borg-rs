@@ -1,5 +1,13 @@
 # The town inventory strategy: the implementation plan
 
+**Owner-directed live comparison (2026-11-14):** opt-in `borg_town_plan = 1`
+now executes the planner; default 0 remains the parity control. The matched
+45-start/four-arm local full suite is complete (180 valid outcomes).
+[Results and parameter subset](validation/2026-11-14-town-live-full/README.md) ·
+[live contract](TOWN-LIVE.md). New records are revision 6; older shadow slice
+notes below describe historical checkpoints. No default change, accepted
+class tuning, tag or PR merge is implied.
+
 **Current shadow-model revision (2026-11-14):** the owner rejected fixed
 stock targets that ignored level, ambition, shallow walking returns and cash.
 [Trip-relative utility](TOWN-UTILITY.md) replaces those targets in schema 5;

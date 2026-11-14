@@ -84,9 +84,9 @@ pub fn home_urgent(kit: &[crate::borg_town_dispose::KitItem], required: u8) -> O
 /// only; the current control retains its historical appraisal and key stream.
 pub fn refresh_prices(st: &mut BorgState) {
     let BorgState { access, store, .. } = st;
-    for shop in 0..7 {
+    for (shop, stock) in store.shops.iter_mut().enumerate().take(7) {
         for (slot, object) in crate::engine::store_stock(access, shop).into_iter().enumerate() {
-            store.shops[shop].ware[slot].cost = object.purchase_price(shop);
+            stock.ware[slot].cost = object.purchase_price(shop);
         }
     }
 }

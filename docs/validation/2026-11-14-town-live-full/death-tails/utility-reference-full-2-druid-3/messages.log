@@ -1,0 +1,20 @@
+5573 50289 35 The yellow jelly touches you.
+5574 50289 56 You are more poisoned!
+5575 50289 0 # HIT:the yellow jelly (+)
+5575 50289 0 # MISS_BY:The yellow jelly (+)
+5575 50289 0 # HIT_BY:The yellow jelly (+)
+5575 50289 0 # HIT:the yellow jelly (2)
+5575 50289 0 # MISS_BY:The yellow jelly (3)
+5575 50289 0 # HIT_BY:The yellow jelly (3)
+5575 50289 0 # Scary guy on level.
+5575 50289 0 # Loc:6,87 Dep:2 Lev:3 HP:0/35 SP:0/6 Danger:p=809
+5575 50289 0 # Fleeing and leaving the level. (scaryguy)
+5575 50289 0 # Adjacent to monster on Scaryguy Level.
+5575 50289 0 # Performing attack type 1 with value 802.
+5575 50289 0 # Facing yellow jelly at (6,86) who has 27 Hit Points.
+5575 50289 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+5577 50289 2 You hit the yellow jelly.
+5577 50290 8 You die.
+5578 50290 0 Score not registered for borgs.
+5578 50290 0 # Aborting (death).
+5578 50290 0 # Aborting (player died).

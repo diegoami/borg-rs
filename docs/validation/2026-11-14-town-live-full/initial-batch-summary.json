@@ -1,0 +1,99 @@
+{
+  "source_commit": "492fce570136a450e86e05088bed9f82da764b25",
+  "runtime_inputs_sha256": "c870e5d03889438218eac0d489d7949d9b23d92385d14897722673afaae8eb80",
+  "binary_sha256": "72e45b2711e3b843094b0346c6025a901c142e59cc6a1e2fe6167acd4d61b35f",
+  "arms": {
+    "current": {
+      "attempts": 45,
+      "valid": 45,
+      "deaths": 13,
+      "failures": {},
+      "mean_character_level": 4.111111111111111,
+      "mean_deepest_level": 2.2444444444444445,
+      "reached_dl3": 9,
+      "mean_last_observed_gold": 274.64444444444445,
+      "mean_town_fraction": 0.22583782386240622,
+      "buy_commands": 1721,
+      "sell_commands": 1150,
+      "learning_buy_commands": 170,
+      "home_take_commands": 7,
+      "home_store_commands": 176,
+      "insufficient_gold_messages": 0
+    },
+    "no-shops": {
+      "attempts": 45,
+      "valid": 45,
+      "deaths": 19,
+      "failures": {},
+      "mean_character_level": 4.266666666666667,
+      "mean_deepest_level": 2.422222222222222,
+      "reached_dl3": 6,
+      "mean_last_observed_gold": 1418.1555555555556,
+      "mean_town_fraction": 0.12318384874156411,
+      "buy_commands": 0,
+      "sell_commands": 0,
+      "learning_buy_commands": 0,
+      "home_take_commands": 0,
+      "home_store_commands": 0,
+      "insufficient_gold_messages": 0
+    },
+    "utility-reference": {
+      "attempts": 45,
+      "valid": 45,
+      "deaths": 13,
+      "failures": {},
+      "mean_character_level": 4.266666666666667,
+      "mean_deepest_level": 2.2,
+      "reached_dl3": 7,
+      "mean_last_observed_gold": 570.7111111111111,
+      "mean_town_fraction": 0.3197321865749476,
+      "buy_commands": 1310,
+      "sell_commands": 98998,
+      "learning_buy_commands": 550,
+      "home_take_commands": 3,
+      "home_store_commands": 474,
+      "insufficient_gold_messages": 0
+    },
+    "utility-cash50": {
+      "attempts": 45,
+      "valid": 45,
+      "deaths": 13,
+      "failures": {},
+      "mean_character_level": 3.7777777777777777,
+      "mean_deepest_level": 1.8222222222222222,
+      "reached_dl3": 3,
+      "mean_last_observed_gold": 381.64444444444445,
+      "mean_town_fraction": 0.32944506342435276,
+      "buy_commands": 1317,
+      "sell_commands": 64266,
+      "learning_buy_commands": 575,
+      "home_take_commands": 3,
+      "home_store_commands": 494,
+      "insufficient_gold_messages": 0
+    }
+  },
+  "paired": {
+    "no-shops": {
+      "pairs": 45,
+      "control_died_arm_alive": 5,
+      "control_alive_arm_died": 11,
+      "identical_keys": 0,
+      "mean_depth_change": 0.17777777777777778
+    },
+    "utility-reference": {
+      "pairs": 45,
+      "control_died_arm_alive": 8,
+      "control_alive_arm_died": 8,
+      "identical_keys": 0,
+      "mean_depth_change": -0.044444444444444446
+    },
+    "utility-cash50": {
+      "pairs": 45,
+      "control_died_arm_alive": 6,
+      "control_alive_arm_died": 6,
+      "identical_keys": 0,
+      "mean_depth_change": -0.4222222222222222
+    }
+  },
+  "interpretation": "45 paired starts per arm, corrected menu birth, 100000 turns; exploratory, not an improvement claim"
+}

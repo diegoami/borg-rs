@@ -15,12 +15,20 @@ def sha(path):
 
 
 def diagnostics(path, cap):
-    buying = selling = refusals = live = 0
+    buying = selling = refusals = live = learning = home_buys = home_sales = 0
+    store = None
     if (path/'messages.log').exists():
         with (path/'messages.log').open(errors='replace') as stream:
             for line in stream:
-                if '# Buying ' in line and not line.split('# Buying ',1)[1].startswith("'"): buying += 1
-                if '# Selling ' in line and not line.split('# Selling ',1)[1].startswith("'"): selling += 1
+                match = re.search(r"Currently in preferred store '(\d+)'", line)
+                if match: store = int(match[1])
+                if '# Buying ' in line and not line.split('# Buying ',1)[1].startswith(("'", 'time ')):
+                    buying += 1
+                    learning += '{unseen}' in line or '{??}' in line
+                    home_buys += store == 8
+                if '# Selling ' in line and not line.split('# Selling ',1)[1].startswith("'"):
+                    selling += 1
+                    home_sales += store == 8
                 refusals += 'not have enough gold' in line
                 live += '# Town plan live:' in line
     previous = None; town = elapsed = 0
@@ -35,7 +43,7 @@ def diagnostics(path, cap):
                     if previous[1] == 0: town += dt
                 previous = turn, depth
     return {'buy_commands': buying, 'sell_commands': selling, 'insufficient_gold_messages': refusals,
-            'live_intents': live, 'town_world_turns': town, 'observed_world_turns': elapsed,
+            'live_intents': live, 'learning_buy_commands': learning, 'home_take_commands': home_buys, 'home_store_commands': home_sales, 'town_world_turns': town, 'observed_world_turns': elapsed,
             'town_fraction': town/elapsed if elapsed else None}
 
 
@@ -46,10 +54,13 @@ def metrics(rows):
             'mean_character_level':statistics.mean(r['clevel'] for r in valid) if valid else None,
             'mean_deepest_level':statistics.mean(r['max_depth'] for r in valid) if valid else None,
             'reached_dl3':sum(r['max_depth']>=3 for r in valid),
-            'mean_final_gold':statistics.mean(r['gold'] for r in valid) if valid else None,
+            'mean_last_observed_gold':statistics.mean(r['gold'] for r in valid) if valid else None,
             'mean_town_fraction':statistics.mean(r['diagnostics']['town_fraction'] for r in valid if r['diagnostics']['town_fraction'] is not None) if valid else None,
             'buy_commands':sum(r.get('diagnostics',{}).get('buy_commands',0) for r in rows),
             'sell_commands':sum(r.get('diagnostics',{}).get('sell_commands',0) for r in rows),
+            'learning_buy_commands':sum(r.get('diagnostics',{}).get('learning_buy_commands',0) for r in rows),
+            'home_take_commands':sum(r.get('diagnostics',{}).get('home_take_commands',0) for r in rows),
+            'home_store_commands':sum(r.get('diagnostics',{}).get('home_store_commands',0) for r in rows),
             'insufficient_gold_messages':sum(r.get('diagnostics',{}).get('insufficient_gold_messages',0) for r in rows)}
 
 

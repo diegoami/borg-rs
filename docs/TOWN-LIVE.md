@@ -68,3 +68,18 @@ After the local results, choose a small parameter subset based on provisioning,
 spending, Home traffic and failures. Freeze a separate zoo development grid and
 fresh-seed confirmation plan. Do not start a large hosted workflow or claim
 improvement from five starts per class alone.
+
+## Measured result and next grid
+
+The corrected [full-suite report](validation/2026-11-14-town-live-full/README.md)
+contains 180/180 valid games. Utility reference: 11 deaths, mean level 4.29,
+mean maximum depth 2.18, seven reaching DL3+. Current: 13, 4.11, 2.24, nine.
+Cash priority 50: 11, 3.71, 1.71, one. This is not a demonstrated improvement.
+
+The proposed zoo grid varies only Knowledge priority 5/25 and Home discount
+250/500, holding cash priority 25 and all other settings fixed. Those axes
+address excess unseen-ware buying and Home traffic; no class-specific map is
+accepted from five starts/class. The native profile/suite plan validates to
+10800 development cells (six arms × classes-1800), with a 108-cell catalogue
+smoke first and fresh classes-1800-b confirmation later. No hosted workflow
+has been dispatched. Proposed specimen ref is the measured ac63c5e runtime.

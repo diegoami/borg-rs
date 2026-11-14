@@ -166,3 +166,13 @@ reported per class, including failures and Ranger/Blackguard.
 Class-profile export, per-cell shadow capture and parsed-settings verification
 are requested in [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
 The request does not authorise a live executor or a hosted experiment dispatch.
+
+## Live local outcome pilot
+
+The owner requested the experimental executor and a local full-suite comparison.
+`borg_town_plan = 1` now executes the utility strategy; default 0 remains the
+unchanged current control. The [live outcome report](validation/2026-11-14-town-live-full/README.md)
+records all 180 matched attempts and the focused Knowledge/Home grid for a
+later zoo development run. Six native profiles and the measured source pin
+are in `tools/town-plan/zoo-live-grid-{profiles,specimen,experiment}.json`.
+The existing zoo planner validates 10800 cells; no workflow is dispatched.

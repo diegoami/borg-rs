@@ -1,0 +1,20 @@
+2025 17865 0 # Attacking with weapon 'Rapier (1d6) (+0,+0)'
+2027 17865 3 You miss the acolyte.
+2027 17872 34 The acolyte hits you.
+2028 17875 0 # MISS:the acolyte (+)
+2028 17875 0 # HIT_BY:The acolyte (+)
+2028 17875 0 # MISS:the acolyte (2)
+2028 17875 0 # HIT_BY:The acolyte (3)
+2028 17875 0 # Scary guy on level.
+2028 17875 0 # Loc:33,98 Dep:1 Lev:1 HP:0/10 SP:1/2 Danger:p=101
+2028 17875 0 # Fleeing and leaving the level. (scaryguy)
+2028 17875 0 # Bored, or recalling and fighting a monster on Scaryguy Level.
+2028 17875 0 # Performing attack type 1 with value 133.
+2028 17875 0 # Facing acolyte at (33,97) who has 19 Hit Points.
+2028 17875 0 # Attacking with weapon 'Rapier (1d6) (+0,+0)'
+2030 17875 2 You hit the acolyte.
+2030 17882 34 The acolyte hits you.
+2030 17882 8 You die.
+2031 17882 0 Score not registered for borgs.
+2031 17882 0 # Aborting (death).
+2031 17882 0 # Aborting (player died).
