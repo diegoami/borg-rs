@@ -187,6 +187,20 @@ the producer runs, so the two cannot drift apart.
   standing poison capability); "the Home as a floor source" stays a gap,
   now for the urgent pass. The guards, the exclusions and A.4 stand.
 
+### B.6 Added 2026-11-14, with slice 3 (the dispositions)
+
+- **`kit`** follows `tryon`: per pack and Home stack, `[place, slot, kind,
+  qty, weight, need, reduction, power, proceeds, sell_shop, flags]` -
+  `place` 0 pack 1 Home; `power` the try-off (pack: what `borg_power`
+  loses without it) or try-on (Home: what it gains in the pack);
+  `proceeds` 0 under `birth_no_selling`; `flags` bit 0 unknown, bit 1
+  unknown flavour, bit 2 just bought. The replay recomputes the
+  dispositions from it.
+- **`dispose`** follows `kit`: one code per stack, 0 keep, 1 store, 2 sell,
+  3 drop, 4 take.
+- `paction` uses the extended codes: the dispositions come before the
+  purchases (pack sales and drops, stores, Home sales, takes).
+
 ## Part C - to decide in phase 4 (from the phase-3 re-review)
 
 Not entry criteria; recorded so that they are decided in the phase, not

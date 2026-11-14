@@ -428,7 +428,7 @@ pub fn needs_served(st: &BorgState, item: &borg_item) -> Vec<Need> {
             || sval == v.sv_potion_cure_serious
             || sval == v.sv_potion_cure_critical
         {
-            out.push(Need::Bleeding);
+            out.push(Need::Healing);
         }
         if sval == v.sv_potion_cure_poison || sval == v.sv_potion_cure_critical {
             out.push(Need::Poison);
