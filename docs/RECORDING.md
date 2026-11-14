@@ -205,11 +205,36 @@ in determinism. For the Borg, it means a Borg restarted at that point,
 which is also what branching from a turn does
 (`scripts/play-from-replay.py`).
 
-### Still to check by running it
+### Checked by running it (2026-11-14)
 
-* Load a save, record a stretch of play, then replay it from the same save:
-  every channel must match (the existing `--verify-only` check, from a
-  mid-game save instead of a birth).
+A recording that starts from a mid-game save replays exactly:
+
+1. `scripts/run-borg-headless.py SaveTest --new --seed 4242 --race 0 --class 0
+   --turns 20000`: a Human Warrior from birth, alive at clvl 10, depth 6.
+2. `scripts/run-borg-headless.py SaveTest --turns 20000`: the same character,
+   loaded from that save in a new process (`run_kind`: "save continuation;
+   fresh Borg"; `rng_origin`: "saved engine RNG preserved"). Its frozen
+   `origin.save` is byte-identical to run 1's `final.save` (SHA-256
+   `225f17f3…`). It played game turns ~20,000 → ~38,000: 2,996 Borg keys,
+   2,006 terminal events, 49 clock reads and 108 file reads, all recorded.
+3. `scripts/replay-borg.py <run 2> --verify-only`: **VERIFIED**. The rerun
+   from the frozen origin reproduced the keys, the messages, the player state,
+   the terminal frames, the 18 scheduled world saves and the final save,
+   byte for byte.
+
+What this does not cover:
+
+* it is one headless run, played by the Borg, one class. A human-played GUI
+  recording from a save is the same mechanism, but it was not run;
+* the headless front end pins the holiday date to the epoch, so the clock's
+  effect on monster generation is not exercised here (the clock stream itself
+  was recorded and fed back);
+* the save came from a session that ended normally. The "switch on in game"
+  trigger (save, then restart from it) does not exist yet. This check covers
+  the restart half of it.
+
+### Still to check
+
 * Look for anything else the game reads from outside after a load. The
   read-time file capture and the `time()` wrapper should catch it, but an
   unconsumed or missing stream is the signal.
