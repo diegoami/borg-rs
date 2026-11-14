@@ -13,8 +13,8 @@ def cemetery_root(root=ROOT):
     if result.returncode == 0:
         common = Path(result.stdout.strip())
         if common.name == '.git':
-            return common.parent.parent / 'borg-cemetery'
-    return root.parent / 'borg-cemetery'
+            return common.parent.parent / 'player-cemetery'
+    return root.parent / 'player-cemetery'
 
 
 def data_root_for(root=ROOT):
