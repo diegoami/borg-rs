@@ -169,11 +169,13 @@ X11. Ctrl-X saves; Escape closes the native exit screen. See
 
 ### Death records
 
-Completed natural deaths automatically create a dossier in the local registry
-`.angband-rust/deaths/` (outside Git: the records are no longer committed, #62),
-with native maps/death logs, build/input hashes, actual pre-death observations,
-checkpoint metadata and an unassessed diagnosis/action file. Replay accepts a
-dossier directory too. The process: [feedback](docs/death-workflow/FEEDBACK.md),
+Completed natural deaths automatically create a dossier, with native
+maps/death logs, build/input hashes, actual pre-death observations,
+checkpoint metadata and an unassessed diagnosis/action file, in the local
+registry `.angband-rust/deaths/`. The records are kept in
+[borg-cemetery](https://github.com/diegoami/borg-cemetery) (`deaths/`), not
+here (#62): set `BORG_DEATH_RECORDS_DIR` to a borg-cemetery checkout's
+`deaths/` to write them there. Replay accepts a dossier directory too. The process: [feedback](docs/death-workflow/FEEDBACK.md),
 [review template](docs/death-workflow/REVIEW-TEMPLATE.md).
 [Add owner feedback on death-review hub #3](https://github.com/diegoami/borg-rs/issues/3).
 Set `BORG_DEATH_RECORDS_DIR` for a separate registry; attach a discussion with

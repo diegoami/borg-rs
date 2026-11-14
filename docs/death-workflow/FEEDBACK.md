@@ -1,7 +1,7 @@
 # Death feedback and investigation
 
 Adapted from better-borg-c's death workflow at f3ced6219768. Open the
-registry (the local `.angband-rust/deaths/README.md`, outside Git since #62) and use a case's Discuss link when assigned. Reports
+registry (`deaths/README.md` in diegoami/borg-cemetery, or the local `.angband-rust/deaths/README.md`) and use a case's Discuss link when assigned. Reports
 without an investigation link remain explicitly unassigned. Logging never
 creates issues or changes gameplay automatically. Supply --death-issue URL
 on the headless command, BORG_DEATH_ISSUE for GUI play, or --investigation URL

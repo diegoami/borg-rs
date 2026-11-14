@@ -164,8 +164,11 @@ C consumer's ownership/source links, rather than a second direct tracker queue.
 
 Named GUI/headless launchers export completed natural deaths automatically,
 into the local registry `.angband-rust/deaths/` (or BORG_DEATH_RECORDS_DIR).
-Owner decision (2026-11-14, #62): death records are no longer committed; the
-six earlier dossiers stay in Git history (removed after `4ed3263`). Read
+Owner decision (2026-11-14, #62): death records are no longer committed here;
+they are kept in [diegoami/borg-cemetery](https://github.com/diegoami/borg-cemetery)
+(`deaths/`, written there with BORG_DEATH_RECORDS_DIR pointing at a checkout).
+The six earlier dossiers moved there byte-identical; in this repository they
+stay in Git history (removed after `4ed3263`). Read
 docs/death-workflow/FEEDBACK.md when collecting or investigating cases. Keep actual source/binary/input identity and curated original observations;
 full raw bundles/saves/builds stay outside Git. Use tools/record-death.py and
 aggregate-deaths.py for qualified manual exports; historical cases without

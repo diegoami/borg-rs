@@ -253,7 +253,7 @@ prospective comparison, not one rescue or this smoke qualification.
 | `harness/out/death-workflow/` or BORG_DEATH_WORKFLOW_DIR | Collections, local review receipts, observer caches and historical helper builds |
 | `build/death-workflow/` | Immutable committed-source/native-build/tool snapshots; preserve dependencies |
 | Branch `runtime/`, `capture/`, `profile/recordings/` | Exact helper, qualified native snapshot and separately recorded manual sessions |
-| `.angband-rust/deaths/` or BORG_DEATH_RECORDS_DIR | Curated dossiers (local, outside Git since #62); use a private override for tests |
+| `.angband-rust/deaths/` or BORG_DEATH_RECORDS_DIR | Curated dossiers (outside this repository since #62; kept in diegoami/borg-cemetery `deaths/`); use a private override for tests |
 | New replay `--output` or retained temporary path | Positive/negative certificates and actual rerun outputs |
 
 | Lock | Scope |

@@ -161,9 +161,10 @@ independent world-turn/key/wall limits. These launchers are not fully identical
 argument sets. Donor death-issue defaults are not copied across repos.
 
 Both launchers export each confirmed natural terminal death after the session
-completes. The registry defaults to .angband-rust/deaths (local, outside Git: the
-death records are no longer committed, see #62); BORG_DEATH_RECORDS_DIR
-overrides it for private/testing profiles. Registry allocation is locked and dossier
+completes. The registry defaults to .angband-rust/deaths (local, outside Git); the
+records are kept in diegoami/borg-cemetery (deaths/), so point
+BORG_DEATH_RECORDS_DIR at a borg-cemetery checkout to write there (#62). It
+also overrides the default for private/testing profiles. Registry allocation is locked and dossier
 publication uses a staged directory; original identity and evidence are not
 replaced by later builds. Caps, failures and retirement do not become deaths.
 Borg/game cheat-enabled cases are rejected from natural-death export. GUI mixed
