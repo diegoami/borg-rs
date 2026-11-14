@@ -89,3 +89,7 @@ pub(crate) mod borg_util;
 pub(crate) mod engine;
 pub(crate) mod state;
 pub mod regress;
+
+// Link the recorder through this existing Rust staticlib, never a second runtime.
+#[cfg(feature = "recording")]
+pub use angband_recorder as recorder;

@@ -21,7 +21,7 @@ SRC_BEFORE=$("$ID" source-hash "$IMPL")
 # Always pass BORG_IMPL: it is a CMake cache variable, so a build dir once
 # configured with another value would otherwise keep it.
 cmake -S "$ROOT/angband" -B "$BUILD" -DCMAKE_BUILD_TYPE=Release \
-    -DSUPPORT_BORG_HARNESS=ON -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+    -DSUPPORT_BORG_HARNESS=ON -DSUPPORT_BORG_RECORDING=OFF -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
     -DBORG_IMPL="$IMPL" >"$BUILD.cmake.log" 2>&1 || {
     cat "$BUILD.cmake.log"; exit 1; }
 make -C "$BUILD" -j"$(nproc)" >"$BUILD.make.log" 2>&1 || {

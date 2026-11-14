@@ -58,13 +58,21 @@ def patch(source):
     path.write_text(text)
     shutil.copy2(ROOT / 'tools/human-takeover.inc', source / 'angband/src/human-takeover.inc')
     native = source / 'angband/src/native-replay.c'
-    with native.open('a') as stream:
-        stream.write('\nbool human_private_snapshot(const char *path) { return snapshot(path); }\n')
-        stream.write(GUI_CAPTURE)
-    text = native.read_text()
-    text = replace_once(text, 'void record_frame(const char *phase, long decisions)', 'static void human_gui_capture(const char *phase);\nvoid record_frame(const char *phase, long decisions)')
-    text = replace_once(text, '    fflush(frames);\n}', '    fflush(frames);\n    human_gui_capture(phase);\n}')
-    native.write_text(text)
+    if 'vendor/angband-recorder' in native.read_text():
+        native.write_text('static void human_gui_capture(const char *phase);\n'
+            '#define ar_frame(phase, observation) do { ar_frame(phase, observation); human_gui_capture(phase); } while (0)\n'
+            + native.read_text() + '\n#undef ar_frame\n'
+            '#define snapshot(path) (ar_host_save(path) == 0)\n'
+            '#define frame_count (ar_frame_count())\n'
+            'bool human_private_snapshot(const char *path) { return snapshot(path); }\n' + GUI_CAPTURE)
+    else:
+        with native.open('a') as stream:
+            stream.write('\nbool human_private_snapshot(const char *path) { return snapshot(path); }\n')
+            stream.write(GUI_CAPTURE)
+        text = native.read_text()
+        text = replace_once(text, 'void record_frame(const char *phase, long decisions)', 'static void human_gui_capture(const char *phase);\nvoid record_frame(const char *phase, long decisions)')
+        text = replace_once(text, '    fflush(frames);\n}', '    fflush(frames);\n    human_gui_capture(phase);\n}')
+        native.write_text(text)
     path = source / 'angband/src/main.c'
     path.write_text(replace_once(path.read_text(), '\tinit_angband();',
         '#ifdef BORG_HARNESS\n\t{ extern void borgh_human_mode_init(void); borgh_human_mode_init(); }\n#endif\n\tinit_angband();'))
@@ -86,7 +94,7 @@ def qualified_engine(bundle, record, timeout):
             source.mkdir(exist_ok=False)
             archive = base / 'source.tar'
             subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=tar', '-o', str(archive), pin,
-                            'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement'], check=True)
+                            'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', *workflow.recorder_paths(pin)], check=True)
             with tarfile.open(archive) as stream:
                 stream.extractall(source, filter='data')
             original = {str(p.relative_to(source)): runtime.sha(p) for p in source.rglob('*') if p.is_file()}

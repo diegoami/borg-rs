@@ -24,14 +24,16 @@
     "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
     "path": "tools/native-replay.c",
     "original_sha256": "b3124d9f18ffba871a4785af10d97380ebdbd0a746b24f03b30baceef15355dd",
-    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs"
+    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs",
+    "superseded_by": "angband-recorder v0.1.0 c4986b26b9fd1c14852df4f1b7393d9030cf812a; recorder-pin.json"
   },
   "angband/src/native-replay.h": {
     "repository": "diegoami/better-borg-c",
     "commit": "08a5cd0198b2a2a9ceb426d4cc4704fd5364d519",
     "path": "tools/native-replay.h",
     "original_sha256": "c57d2b898559fe6d46bbb88a44925d3dc2a172431b47e9fd25b3b9d48e314f50",
-    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs"
+    "adaptation": "engine-only interactive recorder; forked world saves; no C Borg dependency; terminal, clock, RNG initialization PID and file inputs",
+    "superseded_by": "angband-recorder v0.1.0 c4986b26b9fd1c14852df4f1b7393d9030cf812a; recorder-pin.json"
   },
   "angband/src/native-replay.c snapshot helper": {
     "repository": "diegoami/better-borg-c",
@@ -113,14 +115,16 @@
     "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
     "path": "tools/native-inventory.h",
     "original_sha256": "7126f4b7747dea270d0f72e8abb36371afc1c96f6ab2cd1f983d64f6ddf575cd",
-    "adaptation": "engine player-known descriptions, labels/equipment/quiver/weight; transient seen flags restored"
+    "adaptation": "engine player-known descriptions, labels/equipment/quiver/weight; transient seen flags restored",
+    "superseded_by": "angband-recorder v0.1.0 c4986b26b9fd1c14852df4f1b7393d9030cf812a; recorder-pin.json"
   },
   "angband/src/replay-native-spells.h": {
     "repository": "diegoami/better-borg-c",
     "commit": "85b6ba8e3748e061db1ff1206163c27272d2de31",
     "path": "tools/native-spells.h",
     "original_sha256": "c9c10f54c2baa118fe08777495d61c6e505b3125735e32dc03963f84e618d249",
-    "adaptation": "native learned/forgotten spells, current book/mana/failure and availability; no C Borg state"
+    "adaptation": "native learned/forgotten spells, current book/mana/failure and availability; no C Borg state",
+    "superseded_by": "angband-recorder v0.1.0 c4986b26b9fd1c14852df4f1b7393d9030cf812a; recorder-pin.json"
   },
   "tools/replay_observations.py": {
     "repository": "diegoami/better-borg-c",
