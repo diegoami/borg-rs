@@ -39,6 +39,14 @@ are not enough to adopt class-specific winners.
 issues zero actual buy/sell commands; the report excludes the unrelated
 "Buying time waiting for Recall" note.
 
+## What was actually bought
+
+The [confirmed town ledger](../../town-transactions/README.md) shows every
+retail purchase with quantity, native receipt, exact purse decrease and
+per-class/seed chronology, plus confirmed normal-executor Home transfers.
+It includes buy-then-store behaviour and the ration deposit/rebuy sequence.
+The receipt audit verifies all 4454 retail purchases across the shopping arms.
+
 ## Why these parameters next
 
 | Diagnostic over all 45 starts | Current | Utility reference | Cash50 |
