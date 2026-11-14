@@ -171,3 +171,71 @@ q.addEventListener('input',render);n.addEventListener('change',render);s.addEven
 '''
 OUT.write_text(page.replace('__DATA__', payload))
 print(f'{OUT}: {len(rows)} kinds, {explicit} ordinary shop offers')
+
+# GitHub does not execute the offline page's JavaScript. Keep a rendered
+# Markdown counterpart so the owner can review every row in the repository.
+md = ['# Town inventory: item catalogue', '',
+      'Owner review · phase 4 shadow mode · implementation baseline `5203a06`.', '',
+      'This table describes the current implementation; it proposes no new runtime mappings. '
+      '“None” means no direct purchase value once known. Missing mappings are marked **GAP**. '
+      'The [offline page](town-item-catalogue.html) adds search and filters.', '',
+      'Unknown wares also receive Knowledge = 25 for the first copy per ware when '
+      '`needs_ident || !flavour_aware`. This can coexist with the listed primary need '
+      'and currently duplicates across shops. Cures may serve multiple urgent needs, '
+      'while regular purchases use one primary need.', '',
+      '## Needs and units', '',
+      '| Need | Carried measure | Target / gap | Weight |',
+      '| --- | --- | --- | --- |',
+      '| Light | Number of light sources | 1; 2 when max depth + 5 ≥ 15 | 100 |',
+      '| Food | BI_FOOD count, including hunger scrolls/spells | 10 | 100 |',
+      '| Healing | BI_ACLW + BI_ACSW + BI_ACCW | 5 wound cures; devices may contribute 1000; spells are not trip stock | 100 |',
+      '| Poison | Cure for the current poison | 1 only while poisoned with no alternative | 100 |',
+      '| Escape | BI_APHASE | 1 | 50 |',
+      '| Trip | BI_RECALL, including rods, spells and gear | 2 | 50 |',
+      '| Power | Positive try-on gain in borg_power units | Standing gap 200000 | 50 |',
+      '| Knowledge | Unknown first copy per ware | One learning bonus per ware | 25 |', '',
+      'Urgent means needed now with no alternative: no light; hungry/weak with no food; '
+      'cut with no wound cure; poisoned with no poison cure. There are no floors.', '',
+      '**Review points:** Remove Hunger, fuel, books, ammunition, diggers, devices '
+      'and higher healing potions lack direct mappings. Carried traits and shop '
+      'reductions do not yet agree on every kind. At this baseline, dispositions '
+      'also receive inventory power, including level-gated consumables; removing '
+      'that consumable power is the next approved correction.', '',
+      f'## Ordinary shop stock: 104 distinct kinds, {explicit} offers', '',
+      'Every named normal/always stock entry is included, with town books expanded '
+      'from class data. Player-sold items can broaden these generation lists. '
+      'Kind names and types identify rows; numeric kind IDs are assigned at load.', '']
+
+
+def table(selected):
+    result = ['| Kind | Type | Shop / supply | Primary need | Unit | Behavior / review note |',
+              '| --- | --- | --- | --- | --- | --- |']
+    for row in selected:
+        cells = [row[k] for k in ('kind', 'type', 'shops', 'need', 'unit', 'note')]
+        cells[0] = f'[{cells[0]}]({row["source"]})'
+        result.append('| ' + ' | '.join(c.replace('|', r'\|') for c in cells) + ' |')
+    return result
+
+
+ordinary = [r for r in rows if not r['shops'].startswith('Black Market')]
+black_only = [r for r in rows if r['shops'].startswith('Black Market')]
+assert len(ordinary) == 104
+md += table(ordinary)
+md += ['', f'## Additional Black Market candidates: {len(black_only)} kinds', '',
+       'These are allocation candidates, not guaranteed stock. Random quality, '
+       'depth, value, curses and duplicate stock determine actual availability '
+       'through `store_create_random` and `black_market_ok`. Home is not a shop; '
+       'its urgent-source gap remains open.', '',
+       '<details>', '<summary>Expand the additional Black Market kinds</summary>', '']
+md += table(black_only)
+md += ['', '</details>', '', '## Sources and regeneration', '',
+       '- `angband/lib/gamedata/store.txt`, `object.txt` and `class.txt`.',
+       '- `borg_town_shadow::{ware_role,try_on,kit_of}`.',
+       '- `borg_town_stock::needs_served`.',
+       '- `borg_town_usefulness::{counted,deficit,Trip}`.', '',
+       'Rebuild both views with `python3 tools/town-plan/catalogue.py`. '
+       'The generator resolves every ordinary stock entry; classification '
+       'documents the shadow implementation rather than defining runtime policy.', '']
+markdown_out = ROOT / 'docs/TOWN-ITEM-CATALOGUE.md'
+markdown_out.write_text('\n'.join(md))
+print(f'{markdown_out}: {len(ordinary)} ordinary + {len(black_only)} additional kinds')
