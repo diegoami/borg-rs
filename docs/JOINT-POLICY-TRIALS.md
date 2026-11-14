@@ -62,12 +62,13 @@ we actually want it to make.
 
 ## What did the experiments establish?
 
-We ran 24 bounded games across different settings and starting cases. We
+We tried 24 games with a 100,000-turn limit, using different settings and
+starting cases. We
 verified actual purchases, sales and Home transfers. We also fixed two
 execution bugs: repeatedly offering items a shop would not buy, and trying
 to buy an item using an incorrect price.
 
-**We have not established a best configuration.** Some characters using the
+**We have not established a best set of choices.** Some characters using the
 new policies died. These few cases do not show that the new behaviour is
 safer than the old behaviour.
 
