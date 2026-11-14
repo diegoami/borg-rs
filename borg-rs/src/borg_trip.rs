@@ -65,7 +65,7 @@ pub struct TripParams {
     /// fewer are free, counted per distinct stack (the town plan's count).
     pub pack_slack: i32,
     /// `borg_trip_unknown_stacks`, stacks: return when this many carried
-    /// stacks are not fully known (0 = never for this reason).
+    /// equipment or device stacks are not fully known (0 = never for this reason).
     pub unknown_stacks: i32,
     /// `borg_trip_return_gold`, gold per character level: return when the
     /// gold carried plus the estimated sale value reaches this times the
@@ -148,6 +148,10 @@ pub struct TripInputs {
     /// Carried stacks the player does not fully know: an unaware flavour, or
     /// runes not yet learnt (`borg_item_note_needs_id`).
     pub unknown_stacks: i32,
+    /// Unknown equipment/device stacks: the knowledge-return backlog.
+    /// Routine consumables still occupy pack slots, but do not independently
+    /// justify a trip solely because their flavour is unknown.
+    pub unknown_gear_stacks: i32,
     /// `BI_RECALL`: Word of Recall scrolls and equivalents.
     pub recall: i32,
     /// Staircases seen on this level.
@@ -239,7 +243,7 @@ impl Reason {
                 format!("unprepared(depth {depth} > prepared {prepared_depth})")
             }
             Reason::PackFull { free, slack } => format!("pack(free {free} <= {slack})"),
-            Reason::Unknown { stacks, threshold } => format!("unknown({stacks} >= {threshold})"),
+            Reason::Unknown { stacks, threshold } => format!("unknown-gear({stacks} >= {threshold})"),
             Reason::Purse { worth, threshold } => format!("purse({worth} >= {threshold})"),
             Reason::BelowPlan { depth, target } => format!("below-plan({depth} < {target})"),
             Reason::AtPlan { depth, target } => format!("at-plan({depth} = {target})"),
@@ -260,7 +264,7 @@ pub struct Decision {
 }
 
 impl Decision {
-    /// `return via recall: pack(free 1 <= 2) unknown(5 >= 4)`
+    /// `return via recall: pack(free 1 <= 2) unknown-gear(5 >= 4)`
     pub fn summary(&self) -> String {
         let reasons: Vec<String> = self.reasons.iter().map(Reason::text).collect();
         format!(
@@ -326,8 +330,8 @@ pub fn decide(i: &TripInputs, p: &TripParams) -> Decision {
     if i.pack_free() <= p.pack_slack {
         back.push(Reason::PackFull { free: i.pack_free(), slack: p.pack_slack });
     }
-    if p.unknown_stacks > 0 && i.unknown_stacks >= p.unknown_stacks {
-        back.push(Reason::Unknown { stacks: i.unknown_stacks, threshold: p.unknown_stacks });
+    if p.unknown_stacks > 0 && i.unknown_gear_stacks >= p.unknown_stacks {
+        back.push(Reason::Unknown { stacks: i.unknown_gear_stacks, threshold: p.unknown_stacks });
     }
     if p.return_gold > 0 {
         let worth = i.gold + i.sale_value;
@@ -422,24 +426,37 @@ fn restock_probe(st: &mut BorgState) -> bool {
     due
 }
 
+/// Equipment, ammunition and devices can conceal reusable powers. Count
+/// their unknown stacks as backlog; routine consumables and books do not
+/// receive an independent knowledge-return vote. Uses only visible tval,
+/// never the hidden kind level, true value or powers.
+fn knowledge_backlog_type(tval: u8) -> bool {
+    use crate::headers::list_tvals_h::{TV_SHOT, TV_ROD};
+    (TV_SHOT..=TV_ROD).contains(&u32::from(tval))
+}
+
 /// The pack slots in use, one per distinct stack, as the town plan counts
 /// them, and the stacks that are not fully known.
-fn pack_counts(st: &BorgState) -> (i32, i32, i64) {
+fn pack_counts(st: &BorgState) -> (i32, i32, i32, i64) {
     let facts = crate::borg_town_budget::Facts::of(st);
     let n = usize::try_from(facts.pack_capacity).unwrap_or(0).min(st.items.items.len());
     let pack = &st.items.items[..n];
     let used = crate::borg_town_stock::pack_slots_used_of(pack);
     let mut unknown = 0;
+    let mut unknown_gear = 0;
     let mut sale = 0i64;
     for item in pack.iter().filter(|it| it.iqty != 0) {
         if !item.aware || crate::borg_item_id::borg_item_note_needs_id(st, item) {
             unknown += 1;
+            if knowledge_backlog_type(item.tval) {
+                unknown_gear += 1;
+            }
         }
         if item.value > 0 {
             sale += i64::from(item.value) * i64::from(item.iqty);
         }
     }
-    (used, unknown, sale)
+    (used, unknown, unknown_gear, sale)
 }
 
 /// Read the inputs from the state. `sellable` is what the caller already
@@ -453,7 +470,7 @@ pub fn observe(st: &mut BorgState, sellable: i32) -> TripInputs {
     }
     let prepared_here = depth <= 1 || prepared_probe(st, depth);
     let restock = restock_probe(st);
-    let (pack_used, unknown_stacks, sale_value) = pack_counts(st);
+    let (pack_used, unknown_stacks, unknown_gear_stacks, sale_value) = pack_counts(st);
     let facts = crate::borg_town_budget::Facts::of(st);
     TripInputs {
         clevel: st.borg.tr(BI_CLEVEL),
@@ -471,6 +488,7 @@ pub fn observe(st: &mut BorgState, sellable: i32) -> TripInputs {
         pack_capacity: facts.pack_capacity,
         pack_used,
         unknown_stacks,
+        unknown_gear_stacks,
         recall: st.borg.tr(BI_RECALL),
         up_stairs_known: st.stairs.less.num > 0,
         down_stairs_known: st.stairs.more.num > 0,
@@ -493,26 +511,30 @@ fn record_file() -> Option<&'static Mutex<File>> {
     .as_ref()
 }
 
-/// The last decision recorded or noted: a record is written when the
-/// decision or the level changes, not every time it is asked.
+/// The last decision noted. Records also include input-only changes via
+/// `LAST_INPUTS`; gameplay notes remain limited to decision/level changes.
 static LAST: Mutex<Option<(i32, i32, String)>> = Mutex::new(None);
+/// Keep inventory/input changes visible even when the recommendation stays
+/// the same. Otherwise a suppressed knowledge trigger disappears from the
+/// evidence we need to assess it. This does not add gameplay notes.
+static LAST_INPUTS: Mutex<Option<(i32, TripInputs)>> = Mutex::new(None);
 
 /// One record line: the version, the clock, the effective parameters, the
 /// inputs and the decision. Integers and fixed words only.
 pub fn record_line(turn: i32, i: &TripInputs, p: &TripParams, d: &Decision) -> String {
     let reasons: Vec<String> = d.reasons.iter().map(|r| format!("\"{}\"", r.text())).collect();
     format!(
-        "{{\"v\":1,\"turn\":{turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
+        "{{\"v\":2,\"turn\":{turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
          \"unknown_stacks\":{},\"return_gold\":{}}},\"inputs\":{{\"clevel\":{},\"max_clevel\":{},\
          \"class\":{},\"race\":{},\"depth\":{},\"max_depth\":{},\"prepared_depth\":{},\
          \"prepared_here\":{},\"restock\":{},\"gold\":{},\"sale_value\":{},\"sellable\":{},\
-         \"pack_capacity\":{},\"pack_used\":{},\"unknown_stacks\":{},\"recall\":{},\
+         \"pack_capacity\":{},\"pack_used\":{},\"unknown_stacks\":{},\"unknown_gear_stacks\":{},\"recall\":{},\
          \"up_stairs_known\":{},\"down_stairs_known\":{}}},\"decision\":{{\"action\":\"{}\",\
          \"route\":\"{}\",\"target\":{},\"reasons\":[{}]}}}}",
         p.policy, p.depth_margin, p.pack_slack, p.unknown_stacks, p.return_gold,
         i.clevel, i.max_clevel, i.class, i.race, i.depth, i.max_depth, i.prepared_depth,
         i.prepared_here, i.restock, i.gold, i.sale_value, i.sellable, i.pack_capacity,
-        i.pack_used, i.unknown_stacks, i.recall, i.up_stairs_known, i.down_stairs_known,
+        i.pack_used, i.unknown_stacks, i.unknown_gear_stacks, i.recall, i.up_stairs_known, i.down_stairs_known,
         d.action.name(), d.route.name(), d.target, reasons.join(","),
     )
 }
@@ -539,15 +561,22 @@ pub fn consult(st: &mut BorgState, sellable: i32) -> Option<Decision> {
         *last = Some(key);
         changed
     };
-    if changed {
-        if let Some(f) = file {
+    if let Some(f) = file {
+        let inputs_changed = {
+            let key = (st.borg.time.level, inputs);
+            let mut last = LAST_INPUTS.lock().unwrap_or_else(|e| e.into_inner());
+            let changed = last.as_ref() != Some(&key);
+            *last = Some(key);
+            changed
+        };
+        if changed || inputs_changed {
             let line = record_line(st.borg.time.now, &inputs, &params, &decision);
             let mut f = f.lock().unwrap_or_else(|e| e.into_inner());
             let _ = writeln!(f, "{line}");
         }
-        if act {
-            crate::borg_io::borg_note(st, &format!("# Trip: {summary}"));
-        }
+    }
+    if changed && act {
+        crate::borg_io::borg_note(st, &format!("# Trip: {summary}"));
     }
     act.then_some(decision)
 }
@@ -592,6 +621,7 @@ mod tests {
             pack_capacity: 23,
             pack_used: 10,
             unknown_stacks: 0,
+            unknown_gear_stacks: 0,
             recall: 1,
             up_stairs_known: true,
             down_stairs_known: true,
@@ -655,18 +685,47 @@ mod tests {
     #[test]
     fn returning_with_unidentified_items_is_justified() {
         let p = params();
-        let i = TripInputs { unknown_stacks: 5, ..base() };
+        let i = TripInputs { unknown_stacks: 5, unknown_gear_stacks: 5, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Return);
         assert_eq!(d.route, Route::Recall);
         assert_eq!(d.reasons, vec![Reason::Unknown { stacks: 5, threshold: 4 }]);
         // below the threshold, the trip goes on
-        let i = TripInputs { unknown_stacks: 3, ..base() };
+        let i = TripInputs { unknown_stacks: 3, unknown_gear_stacks: 3, ..base() };
         assert_eq!(decide(&i, &p).action, Action::Descend);
         // 0 switches the reason off
         let off = TripParams { unknown_stacks: 0, ..p };
-        let i = TripInputs { unknown_stacks: 20, ..base() };
+        let i = TripInputs { unknown_stacks: 20, unknown_gear_stacks: 20, ..base() };
         assert_eq!(decide(&i, &off).action, Action::Descend);
+    }
+
+    #[test]
+    fn routine_unknown_finds_do_not_end_a_trip_with_room_left() {
+        let p = params();
+        let i = TripInputs { clevel: 1, depth: 1, prepared_depth: 1,
+            unknown_stacks: 8, unknown_gear_stacks: 0, ..base() };
+        assert_eq!(decide(&i, &p).action, Action::Continue);
+        // They still fill the pack: the pack-pressure reason is unchanged.
+        let full = TripInputs { pack_used: 21, ..i };
+        assert_eq!(decide(&full, &p).reasons,
+            vec![Reason::PackFull { free: 2, slack: 2 }]);
+        // A mixed pack counts only its equipment/device backlog.
+        let mixed = TripInputs { unknown_gear_stacks: 4, ..i };
+        assert_eq!(decide(&mixed, &p).reasons,
+            vec![Reason::Unknown { stacks: 4, threshold: 4 }]);
+    }
+
+    #[test]
+    fn knowledge_backlog_uses_visible_item_categories() {
+        use crate::headers::list_tvals_h::*;
+        for tval in [TV_SHOT, TV_ARROW, TV_BOLT, TV_BOW, TV_SWORD,
+            TV_SOFT_ARMOR, TV_LIGHT, TV_AMULET, TV_RING, TV_STAFF, TV_WAND, TV_ROD] {
+            assert!(knowledge_backlog_type(tval as u8), "tval {tval}");
+        }
+        for tval in [TV_NULL, TV_CHEST, TV_SCROLL, TV_POTION, TV_FLASK,
+            TV_FOOD, TV_MUSHROOM, TV_MAGIC_BOOK, TV_GOLD] {
+            assert!(!knowledge_backlog_type(tval as u8), "tval {tval}");
+        }
     }
 
     /// Pack pressure is counted per distinct stack: a pack of 21 stacks
@@ -702,7 +761,7 @@ mod tests {
     #[test]
     fn every_reason_is_recorded() {
         let p = TripParams { return_gold: 1, ..params() };
-        let i = TripInputs { restock: true, pack_used: 23, unknown_stacks: 6, ..base() };
+        let i = TripInputs { restock: true, pack_used: 23, unknown_stacks: 6, unknown_gear_stacks: 6, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Return);
         assert_eq!(d.reasons.len(), 4);
@@ -714,7 +773,7 @@ mod tests {
     #[test]
     fn unprepared_ascends_and_restock_outranks_it() {
         let p = params();
-        let i = TripInputs { prepared_here: false, prepared_depth: 4, unknown_stacks: 9, ..base() };
+        let i = TripInputs { prepared_here: false, prepared_depth: 4, unknown_stacks: 9, unknown_gear_stacks: 9, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Ascend);
         assert_eq!(d.reasons[0], Reason::Unprepared { depth: 5, prepared_depth: 4 });
@@ -781,14 +840,15 @@ mod tests {
     #[test]
     fn the_record_line_is_stable() {
         let p = params();
-        let i = TripInputs { unknown_stacks: 5, ..base() };
+        let i = TripInputs { unknown_stacks: 5, unknown_gear_stacks: 5, ..base() };
         let d = decide(&i, &p);
         let line = record_line(1234, &i, &p, &d);
-        assert!(line.starts_with("{\"v\":1,\"turn\":1234,\"params\":{\"policy\":0,"));
+        assert!(line.starts_with("{\"v\":2,\"turn\":1234,\"params\":{\"policy\":0,"));
         assert!(line.contains("\"unknown_stacks\":5,"));
+        assert!(line.contains("\"unknown_gear_stacks\":5,"));
         assert!(line.ends_with(
             "\"decision\":{\"action\":\"return\",\"route\":\"recall\",\"target\":8,\
-             \"reasons\":[\"unknown(5 >= 4)\"]}}"
+             \"reasons\":[\"unknown-gear(5 >= 4)\"]}}"
         ));
         assert!(!line.contains('\n'));
     }

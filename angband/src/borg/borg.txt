@@ -336,8 +336,9 @@ borg_town_food_trip = 10
 #                           level the Borg is prepared for.
 # borg_trip_pack_slack      pack slots (per distinct stack): go back when
 #                           this many or fewer are free.
-# borg_trip_unknown_stacks  stacks: go back when this many carried stacks
+# borg_trip_unknown_stacks  equipment/device stacks: go back when this many
 #                           are not fully known (0 = never for this reason).
+#                           Routine consumables still count toward pack pressure.
 # borg_trip_return_gold     gold per character level: go back when the gold
 #                           plus the pack's estimated sale value reaches it
 #                           (0 = never for this reason).

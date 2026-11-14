@@ -266,7 +266,8 @@ be fitted and confirmed (§10) before it can become the default.
 | `sale_value` | gold | sum of the Borg's own value of each carried stack x quantity: an estimate from what it knows; the shops pay less |
 | `sellable` | items | `borg_count_sell`, as `borg_leave_level` counted it (recorded) |
 | `pack_capacity`, `pack_used` | pack slots, **per distinct stack** | `borg_town_budget::Facts`, `borg_town_stock::pack_slots_used_of` - the town plan's count |
-| `unknown_stacks` | stacks | carried stacks with an unaware flavour or unknown runes (`borg_item_note_needs_id`) |
+| `unknown_stacks` | stacks | all carried stacks with an unaware flavour or unknown runes (`borg_item_note_needs_id`), recorded |
+| `unknown_gear_stacks` | stacks | the unknown equipment, ammunition and device subset; used by the return decision |
 | `recall` | scrolls | `BI_RECALL` |
 | `up_stairs_known`, `down_stairs_known` | bool | the stair lists |
 
@@ -277,7 +278,7 @@ be fitted and confirmed (§10) before it can become the default.
 | `borg_trip_policy` | 0/1 | 0 | 0: today's behaviour (the policy only records); 1: it acts |
 | `borg_trip_depth_margin` | levels | 0 | the **depth/return factor**: plan this many levels above `prepared_depth` |
 | `borg_trip_pack_slack` | pack slots | 2 | return when free slots <= this |
-| `borg_trip_unknown_stacks` | stacks | 4 | return when unknown stacks >= this (0 = off) |
+| `borg_trip_unknown_stacks` | stacks | 4 | return when unknown equipment/device stacks >= this (0 = off) |
 | `borg_trip_return_gold` | gold per clevel | 0 | return when `gold + sale_value >= this x clevel` (0 = off) |
 
 The defaults of 2, 4 and 0 are placeholders chosen to be plausible, not
@@ -296,9 +297,11 @@ Priorities, highest first:
    return reasons below are still recorded).
 3. **The value of going back** - **return**, with every one that fired:
    * pack pressure: free slots (per distinct stack) <= `pack_slack`;
-   * knowledge: unknown stacks >= `unknown_stacks` - town can identify
-     them (buying a copy identifies the kind; the Identify Rune; sell and
-     rebuy), sell what is junk, and free the slots;
+   * knowledge: unknown equipment/device stacks >= `unknown_stacks`;
+     their unresolved powers can hide upgrades. Routine consumables and
+     books have no independent knowledge-return vote; they still count
+     toward pack pressure. Returning creates an opportunity to resolve
+     the backlog, not a guarantee that the town can identify every item;
    * purse: gold + estimated sale >= `return_gold x clevel` - what the
      character could usefully spend scales with its level.
 4. **The planned depth** - **descend** above it, **continue** at it,
@@ -314,7 +317,7 @@ that cannot be executed yet is not a different decision; it is recorded as
 `prepared_depth` (the preparation tests are by class and level); gold and
 spending opportunity through the purse term; sale inventory through
 `sale_value`; pack pressure through slots per stack; unidentified items
-through `unknown_stacks`. Race is recorded only.
+through `unknown_gear_stacks`. Race is recorded only.
 
 **First observation (2026-11-14, one seed, not evidence):** with
 `BORG_TRIP_RECORD` on seed 101 (Human Warrior, 20,000 turns, policy off),
@@ -326,9 +329,27 @@ reason needs weighting - by the depth the item came from, by tval, or
 against what the town can identify for the purse - before it is fitted; it
 is the first factor the evaluation should look at.
 
-**Not yet:** a value for the unknowns (by depth found, by tval); the town
-plan's own estimate of what the purse would buy (§9); trip duration. These
+**Refinement (2026-11-14, provisional):** the knowledge trigger now uses
+only the equipment/ammunition/device subset (`TV_SHOT` through `TV_ROD`),
+with one vote per unknown stack. This is a categorical 0/1 weighting by
+visible item type, not a fitted gold value. The old all-unknown count stays
+in the record alongside `unknown_gear_stacks`; record version 2 marks the
+changed decision semantics. No thresholds or default activation changed.
+
+**Not yet:** a graded value for the unknowns; proof that town can resolve
+the particular backlog; protection against repeated trips with an unchanged
+unresolved inventory; the town plan's own estimate of what the purse would
+buy (§9); trip duration. These
 are the next factors to consider once runs show they matter.
+
+The bounded follow-up captures the flat-count false alarm at turn 644 of
+seed 101: four unknown stacks, zero unknown gear, and a revised decision
+to descend. At 100,000 turns the enabled policy reaches clevel 7/depth 3 versus
+9/depth 5 for the off control; these are descriptive observations, not an
+acceptance criterion. The owner clarified that slower progress and earlier
+returns are intended. The gear threshold never fires in either arm.
+See [the return-policy check](validation/2026-11-14-trip-policy/return-policy.md)
+for the run bounds and remaining limitations.
 
 ## 7. The seam: deciding is not moving
 
@@ -358,18 +379,18 @@ and purse reasons; every other rule of the map stands.
 
 ## 8. Logging
 
-* `BORG_TRIP_RECORD=<file>`: one JSON line (version 1) each time the
-  decision, the level or the reasons change: the turn, the effective
+* `BORG_TRIP_RECORD=<file>`: one JSON line (version 2) each time the
+  decision, any observed input or the level changes: the turn, the effective
   parameters, every input and the decision with its route, planned depth
   and reasons. With the policy off it **observes only**: it presses no key
   and writes no message, and `borg_prepared`'s side effects are restored,
   so the play is the same with and without it. Example:
 
   ```json
-  {"v":1,"turn":1234,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown(5 >= 4)"]}}
+  {"v":2,"turn":1234,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown-gear(5 >= 4)"]}}
   ```
-* With the policy acting, the same change also writes a note in the
-  message log: `# Trip: return via recall (plan 8): unknown(5 >= 4)`.
+* With the policy acting, decision/level/reason changes also write a note in the
+  message log: `# Trip: return via recall (plan 8): unknown-gear(5 >= 4)`.
 
 Owner feedback on a case should quote the record line; it names the input
 that decided and the threshold it was held to.
@@ -429,8 +450,12 @@ Bounded; nothing is tuned on this branch.
   (`unknown_stacks`: 2, 4, 8; `pack_slack`: 1, 2, 4; `return_gold`: 0, 100,
   500; `depth_margin`: 0, 2, 5) - at most a dozen arms, within the zoo's
   budget.
+* **Owner clarification (2026-11-14):** slower progress is intended.
+  Descent speed, max depth and character level at a fixed turn budget do
+  not judge this policy. Record them only as context. Assess whether returns
+  have useful reasons and help resolve carried inventory, alongside survival.
 * **Endpoints, prespecified per comparison:** survival (deaths per 10^6
-  game turns), progress (max clevel, max depth at fixed turns), trip
+  game turns), trip
   duration (turns between town visits), useful town visits (visits with at
   least one sale, purchase or identification - the town record says),
   inventory pressure at return (free slots, unknown stacks), and stalls.
