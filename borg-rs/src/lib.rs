@@ -89,6 +89,7 @@ pub(crate) mod borg_town_shadow;
 pub(crate) mod borg_town_solve;
 pub(crate) mod borg_town_stock;
 pub(crate) mod borg_town_usefulness;
+pub(crate) mod borg_town_utility;
 pub(crate) mod borg_trip;
 pub(crate) mod borg_trait;
 pub(crate) mod borg_trait_swap;

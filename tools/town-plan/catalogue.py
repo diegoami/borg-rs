@@ -2,7 +2,7 @@
 """Build the owner-review catalogue from this checkout's game data.
 
 Run from anywhere: python3 tools/town-plan/catalogue.py
-The classification documents the shadow producer at 5203a06; it is not a
+The classification documents the v5 shadow utility producer; it is not a
 runtime reduction table. Black Market rows are allocation candidates, not a
 promise that store_create_random/black_market_ok will accept a particular item.
 """
@@ -95,17 +95,19 @@ def role(obj):
                               (typ == 'mushroom' and 'NOURISH:INC_BY' in effects))
     poison_food = typ in ('food', 'mushroom') and not harmful and 'CURE:POISONED' in effects
     if typ == 'light':
-        return 'Light', '1 source / copy', 'Target 1, or 2 at descent target ≥ 15. Fuel and radius do not change the unit.'
+        return 'Light', '1 source / copy', 'Diminishing trip coverage, using duration / approximate torch lifetime; no source-count target.'
     if typ == 'scroll' and name in ('Phase Door', 'Word of Recall'):
-        return ('Escape', '1 escape / copy', 'Target 1 per five-level trip.') if name == 'Phase Door' else ('Trip', '1 recall / copy', 'Target 2; carried BI_RECALL also includes rods, spells and gear.')
+        return ('Escape', '1 escape / copy', 'Utility rises with duration and depth relative to character level; additional escapes share diminishing coverage.') if name == 'Phase Door' else ('Trip', '1 recall / copy', 'Utility is avoided walking on the intended trip. No two-scroll requirement; reusable Recall is a capability.')
+    if typ == 'scroll' and name == 'Remove Hunger':
+        return 'Food', '1 ration-equivalent / copy', 'Mapped to Food, including the urgent pass. Usable hunger spells can substitute.'
     if food_ok:
-        return 'Food', '1 food count / copy', 'Target 10. Also cures poison in urgent pass.' if poison_food else 'Target 10; nutrition is not converted to turns.'
+        return 'Food', '1/3 ration-equivalent / copy' if name in {'Apple', 'Handful of Dried Fruits', 'Slime Mold', 'Pint of Fine Wine', 'Sip of Miruvor'} else '1 ration-equivalent / copy', 'Duration-relative diminishing coverage; a ration approximates 3000 actions. Also cures urgent Poison.' if poison_food else 'Duration-relative diminishing coverage; food equivalents remain approximate, especially mushrooms.'
     if poison_food or (typ == 'potion' and name == 'Neutralize Poison'):
         return 'Poison', '1 cure / copy', 'Only valued while poisoned with no alternative cure.'
-    if typ == 'potion' and name in ('Cure Light Wounds', 'Cure Serious Wounds', 'Cure Critical Wounds'):
-        return 'Healing', '1 wound cure / copy', 'Target 5; all three strengths have equal units.' + (' Also serves urgent Poison; primary value is Healing.' if name == 'Cure Critical Wounds' else '')
+    if typ == 'potion' and name in ('Cure Light Wounds', 'Cure Serious Wounds', 'Cure Critical Wounds', 'Healing', '*Healing*', 'Life'):
+        return 'Healing', {'Cure Light Wounds': '20 HP', 'Cure Serious Wounds': '40 HP', 'Cure Critical Wounds': '60 HP', 'Healing': '300 HP (conservative)', '*Healing*': '1200 HP', 'Life': 'max HP'}[name] + ' / copy, capped at max HP', 'Shared diminishing HP coverage scales with trip exposure. A spell/device is no stock of physical potions.' + (' Also serves urgent Poison.' if name in ('Cure Critical Wounds', 'Healing', '*Healing*', 'Life') else '')
     if typ in gear:
-        return 'Power', 'Δ borg_power / equipped copy', 'Try-on against current equipment; gap 200000, weight 50. Gain may be zero or negative.'
+        return 'Power', 'Δ borg_power / equipped copy', 'Diminishing utility relative to intended depth advancement (default 40000 power per floor, configurable). No consumable inventory-power bonus.'
     note = 'No direct purchase value once known.'
     if typ == 'scroll' and name == 'Remove Hunger':
         note = 'GAP: carried BI_FOOD counts it, but purchase/urgent Food mapping omits it.'
@@ -141,20 +143,11 @@ page = '''<!doctype html>
 :root{font:16px/1.5 system-ui,sans-serif;color:#192a32;background:#f5f4ee}body{max-width:1500px;margin:40px auto;padding:0 24px}h1{font-size:2.2rem;line-height:1.15}p{max-width:100ch}aside{padding:16px 22px;background:#e6ede8;border-left:4px solid #3c6e54}label{display:inline-block;margin:18px 18px 12px 0}input,select{font:inherit;padding:8px;border:1px solid #87958e;border-radius:4px}input{width:min(60vw,380px)}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #d9ded7}th{position:sticky;top:0;background:#244936;color:white}td:first-child{font-weight:600;min-width:140px}.gap{background:#fff4df}small{color:#53665d}summary{cursor:pointer}a{color:#256348}@media print{label{display:none}th{position:static}body{margin:0}tr{break-inside:avoid}}
 </style>
 <h1>Town inventory: item catalogue</h1>
-<p>Owner review · phase 4 shadow mode · implementation baseline <code>5203a06</code> · generated from repository game data.</p>
-<aside><strong>Read each row as implemented behavior.</strong> The primary need and unit are what the shop purchase receives today; they are not proposed new mappings. “None” means no direct value after identification, not that the item is useless. No runtime behavior changes are made by this catalogue.</aside>
-<p>Unknown wares also receive <strong>Knowledge = 25 for the first copy per ware</strong> when <code>needs_ident || !flavour_aware</code>. That bonus can coexist with the listed need; it currently duplicates across shops. Cures may cover multiple urgent needs, but regular purchases use one primary need. All values are capped by the remaining deficit.</p>
-<details><summary>Need targets and units</summary><ul>
-<li>Light: count sources, target 1 or 2 when max depth + 5 ≥ 15; weight 100.</li>
-<li>Food: BI_FOOD count, target 10; weight 100. Spells/Remove Hunger can satisfy the carried side.</li>
-<li>Healing: BI_ACLW + BI_ACSW + BI_ACCW, target 5; weight 100. Devices can contribute 1000; a spell is no trip stock. Cut without a cure is urgent.</li>
-<li>Poison: one cure while poisoned with no alternative; weight 100. No standing reserve target.</li>
-<li>Escape: BI_APHASE, target 1; weight 50.</li>
-<li>Trip: BI_RECALL, target 2; weight 50.</li>
-<li>Power: positive try-on gain in borg_power units, standing gap 200000; weight 50. The pending gear-only change will remove consumable power from dispositions.</li>
-<li>Knowledge: first unknown copy per ware; weight 25.</li></ul></details>
-<p><strong>Scope:</strong> all named normal/always stock, expanded town books, and Black Market allocation candidates. Random quality, allocation depth, value, curses and duplicate stock affect actual Black Market availability; these rows do not promise stock. Player-sold items can broaden ordinary shops beyond their generation lists. Home is not a shop; its urgent-source gap remains open. Kind names and types are used instead of runtime kind numbers, which are assigned at load.</p>
-<p><strong>Review points:</strong> the gold rows mark missing mappings. In particular: Remove Hunger, fuel, books, ammunition, diggers, healing/recall/teleport devices and higher healing potions. Carry-side traits and the shop reduction table do not yet agree on all these kinds. Dispositions at this baseline additionally receive inventory power, including level-gated consumables; that is the next approved correction.</p>
+<p>Owner review · phase 4 shadow mode · <strong>v5 trip-relative utility</strong></p>
+<aside>The fixed food, healing, escape and Recall stock targets are replaced. Each row identifies the supply unit; purchases compare marginal trip utility with carrying burden and retaining gold. The Home can retain supplies for future trips.</aside>
+<p>Destination is explicit <code>borg_town_target_depth</code>, or max depth + 1. Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
+<p>Weights remain configurable priorities. Food/lifetime/exposure rates are estimates, not measured survival probabilities. See <a href="TOWN-UTILITY.md">the model specification</a> and <a href="TOWN-ITEM-CATALOGUE.md">the GitHub-rendered table</a>. The planner is still observation-only.</p>
+<p>Scope: named ordinary stock, town books, and possible Black Market allocations. Random generation filters determine actual availability. Gold rows show remaining mapping gaps; the Home's urgent-source gap remains open.</p>
 <label>Find <input id="query" type="search" placeholder="Item, shop, unit or gap…"></label>
 <label>Need <select id="need"><option value="">All needs</option></select></label>
 <label>Stock <select id="stock"><option value="">All candidates</option><option value="ordinary">Named ordinary shop stock</option><option value="black">Black Market only</option></select></label>
@@ -175,36 +168,39 @@ print(f'{OUT}: {len(rows)} kinds, {explicit} ordinary shop offers')
 # GitHub does not execute the offline page's JavaScript. Keep a rendered
 # Markdown counterpart so the owner can review every row in the repository.
 md = ['# Town inventory: item catalogue', '',
-      'Owner review · phase 4 shadow mode · implementation baseline `5203a06`.', '',
-      'This table describes the current implementation; it proposes no new runtime mappings. '
-      '“None” means no direct purchase value once known. Missing mappings are marked **GAP**. '
-      'The [offline page](town-item-catalogue.html) adds search and filters.', '',
-      'Unknown wares also receive Knowledge = 25 for the first copy per ware when '
-      '`needs_ident || !flavour_aware`. This can coexist with the listed primary need '
-      'and currently duplicates across shops. Cures may serve multiple urgent needs, '
-      'while regular purchases use one primary need.', '',
-      '## Needs and units', '',
-      '| Need | Carried measure | Target / gap | Weight |',
+      'Owner review · phase 4 shadow mode · **v5 trip-relative utility**.', '',
+      '**The old fixed stock targets are replaced.** The table below maps '
+      'items to units of utility; it is not a shopping list or a minimum kit. '
+      'The [model specification](TOWN-UTILITY.md) gives the equations, assumptions '
+      'and limitations. The [offline page](town-item-catalogue.html) adds search.', '',
+      '## What determines a purchase now', '',
+      '| Need | Supply unit | Utility depends on | Weight |',
       '| --- | --- | --- | --- |',
-      '| Light | Number of light sources | 1; 2 when max depth + 5 ≥ 15 | 100 |',
-      '| Food | BI_FOOD count, including hunger scrolls/spells | 10 | 100 |',
-      '| Healing | BI_ACLW + BI_ACSW + BI_ACCW | 5 wound cures; devices may contribute 1000; spells are not trip stock | 100 |',
-      '| Poison | Cure for the current poison | 1 only while poisoned with no alternative | 100 |',
-      '| Escape | BI_APHASE | 1 | 50 |',
-      '| Trip | BI_RECALL, including rods, spells and gear | 2 | 50 |',
-      '| Power | Positive try-on gain in borg_power units | Standing gap 200000 | 50 |',
-      '| Knowledge | Unknown first copy per ware | One learning bonus per ware | 25 |', '',
-      'Urgent means needed now with no alternative: no light; hungry/weak with no food; '
-      'cut with no wound cure; poisoned with no poison cure. There are no floors.', '',
-      '**Review points:** Remove Hunger, fuel, books, ammunition, diggers, devices '
-      'and higher healing potions lack direct mappings. Carried traits and shop '
-      'reductions do not yet agree on every kind. At this baseline, dispositions '
-      'also receive inventory power, including level-gated consumables; removing '
-      'that consumable power is the next approved correction.', '',
+      '| Light | Sources | Trip duration relative to approximate torch lifetime; decreasing value of spares | 100 |',
+      '| Food | Ration-equivalents | Expected trip duration; substitutes share coverage | 100 |',
+      '| Healing | HP, capped at max HP per use | HP, duration and destination depth relative to character level | 100 |',
+      '| Poison | Cure for the current condition | Poisoned now, with no alternative cure | 100 |',
+      '| Escape | Uses | Duration and destination depth relative to character level | 50 |',
+      '| Trip / Recall | Uses | Walking avoided on the intended journey; shallow return on foot competes | 50 |',
+      '| Power | Positive gear/tool power difference | Intended depth advancement; consumables get no inventory-power bonus | 50 |',
+      '| Knowledge | First unknown copy | Learning a kind; no benefit from repeated copies of that kind within one shared supply option | 25 |',
+      '| Retained gold | Gold left after the entire plan | Increasing marginal cost as the remaining purse shrinks; no fixed reserve fraction | 25 |', '',
+      'Destination is explicit `borg_town_target_depth`, or the next frontier '
+      '(max depth + 1). Duration is explicit `borg_town_trip_turns`, or an '
+      'exploration-and-walking forecast. These settings declare ambition '
+      'without setting item quantities. Utility uses thousandths in v5 records.', '',
+      'Keeping an item competes with storing it for later. The Home retains '
+      'discounted future supply utility, including shallow-trip Recall, even '
+      'when the pack has room. Ordinary purchases compete with retaining cash. '
+      'Current urgent conditions still take precedence; there are no floors.', '',
+      '**Remaining gaps:** fuel, books, ammunition, diggers and devices do not '
+      'all have direct purchase mappings. Food/lifetime/exposure forecasts '
+      'are approximate policy rates, not measured survival probabilities. '
+      'The planner remains observation-only.', '',
       f'## Ordinary shop stock: 104 distinct kinds, {explicit} offers', '',
-      'Every named normal/always stock entry is included, with town books expanded '
-      'from class data. Player-sold items can broaden these generation lists. '
-      'Kind names and types identify rows; numeric kind IDs are assigned at load.', '']
+      'Every named normal/always stock entry is included, with town books '
+      'expanded from class data. Player-sold stock can broaden these lists. '
+      'Numeric kind IDs are assigned at load.', '']
 
 
 def table(selected):
@@ -232,7 +228,7 @@ md += ['', '</details>', '', '## Sources and regeneration', '',
        '- `angband/lib/gamedata/store.txt`, `object.txt` and `class.txt`.',
        '- `borg_town_shadow::{ware_role,try_on,kit_of}`.',
        '- `borg_town_stock::needs_served`.',
-       '- `borg_town_usefulness::{counted,deficit,Trip}`.', '',
+       '- `borg_town_utility::{Journey,Utility,dispositions,shared_groups}`.', '',
        'Rebuild both views with `python3 tools/town-plan/catalogue.py`. '
        'The generator resolves every ordinary stock entry; classification '
        'documents the shadow implementation rather than defining runtime policy.', '']

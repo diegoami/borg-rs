@@ -17,12 +17,24 @@ pub type C2RustUnnamedH_9 = ::core::ffi::c_uint;
 // (`borg_init::RETIRED_SETTINGS`) and the five `borg_trip_*` settings are
 // appended. Settings are matched by name, never by index, across the two
 // backends (`the_c_table_matches_the_rust_table`).
-pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 52;
-pub const BORG_TRIP_RETURN_GOLD: C2RustUnnamedH_9 = 51;
-pub const BORG_TRIP_UNKNOWN_STACKS: C2RustUnnamedH_9 = 50;
-pub const BORG_TRIP_PACK_SLACK: C2RustUnnamedH_9 = 49;
-pub const BORG_TRIP_DEPTH_MARGIN: C2RustUnnamedH_9 = 48;
-pub const BORG_TRIP_POLICY: C2RustUnnamedH_9 = 47;
+pub const BORG_TOWN_TARGET_DEPTH: C2RustUnnamedH_9 = 47;
+pub const BORG_TOWN_TRIP_TURNS: C2RustUnnamedH_9 = 48;
+pub const BORG_TOWN_W_GOLD: C2RustUnnamedH_9 = 49;
+pub const BORG_TOWN_DEPTH_GAIN: C2RustUnnamedH_9 = 50;
+pub const BORG_TOWN_EXPLORE_TURNS: C2RustUnnamedH_9 = 51;
+pub const BORG_TOWN_STAIR_TURNS: C2RustUnnamedH_9 = 52;
+pub const BORG_TOWN_FOOD_TURNS: C2RustUnnamedH_9 = 53;
+pub const BORG_TOWN_LIGHT_TURNS: C2RustUnnamedH_9 = 54;
+pub const BORG_TOWN_RISK: C2RustUnnamedH_9 = 55;
+pub const BORG_TOWN_HOME_DISCOUNT: C2RustUnnamedH_9 = 56;
+pub const BORG_TOWN_W_SPACE: C2RustUnnamedH_9 = 57;
+pub const BORG_TOWN_POWER_SCALE: C2RustUnnamedH_9 = 58;
+pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 64;
+pub const BORG_TRIP_RETURN_GOLD: C2RustUnnamedH_9 = 63;
+pub const BORG_TRIP_UNKNOWN_STACKS: C2RustUnnamedH_9 = 62;
+pub const BORG_TRIP_PACK_SLACK: C2RustUnnamedH_9 = 61;
+pub const BORG_TRIP_DEPTH_MARGIN: C2RustUnnamedH_9 = 60;
+pub const BORG_TRIP_POLICY: C2RustUnnamedH_9 = 59;
 pub const BORG_TOWN_FOOD_TRIP: C2RustUnnamedH_9 = 46;
 pub const BORG_TOWN_LIGHT_DEPTH: C2RustUnnamedH_9 = 45;
 pub const BORG_TOWN_SHARE: C2RustUnnamedH_9 = 44;

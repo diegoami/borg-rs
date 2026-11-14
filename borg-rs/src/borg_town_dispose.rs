@@ -69,6 +69,8 @@ pub struct KitItem {
     pub need: i8,
     /// What one copy closes of that need.
     pub reduction: i64,
+    /// v5 secondary capabilities, independent of primary utility units.
+    pub serves: u8,
     /// The power it is worth: for a pack stack, what `borg_power` loses
     /// without it; for a Home stack, what it gains with it in the pack.
     pub power: i64,
@@ -278,6 +280,7 @@ mod tests {
             weight: 10,
             need,
             reduction: 1,
+            serves: 0,
             power: 0,
             proceeds: 5,
             sell_shop: 0,

@@ -56,21 +56,45 @@ fn need_index(need: Need) -> i8 {
 /// table, as far as the needs that are priced today go (see the module
 /// doc). `(-1, 0)` for a ware that serves none of them.
 fn ware_role(st: &BorgState, item: &borg_item) -> (i8, i64) {
+    use crate::borg_town_utility::UNIT;
+    use crate::headers::list_tvals_h::{TV_FOOD, TV_POTION};
+    let hp = i64::from(st.borg.tr(crate::borg_headers::borg_trait_h::BI_MAXHP)).max(1);
+    if u32::from(item.tval) == TV_POTION {
+        let v = &st.item_val;
+        let sval = i32::from(item.sval);
+        let heal = if sval == v.sv_potion_cure_light { 20 }
+            else if sval == v.sv_potion_cure_serious { 40 }
+            else if sval == v.sv_potion_cure_critical { 60 }
+            else if sval == v.sv_potion_healing { 300 }
+            else if sval == v.sv_potion_star_healing { 1200 }
+            else if sval == v.sv_potion_life { hp }
+            else { 0 };
+        if heal > 0 { return (need_index(Need::Healing), heal.min(hp) * UNIT); }
+    }
+
     use crate::headers::list_tvals_h::{TV_LIGHT, TV_SCROLL};
     let tval = u32::from(item.tval);
     if tval == TV_LIGHT {
-        return (need_index(Need::Light), 1);
+        return (need_index(Need::Light), UNIT);
     }
     if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_phase_door {
-        return (need_index(Need::Escape), 1);
+        return (need_index(Need::Escape), UNIT);
     }
     if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_word_of_recall {
-        return (need_index(Need::Trip), 1);
+        return (need_index(Need::Trip), UNIT);
+    }
+    if tval == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_satisfy_hunger {
+        return (need_index(Need::Food), UNIT);
     }
     // The urgent needs' classification already mirrors borg_trait's counting
     // of food, cures and poison cures; its first need is the ware's.
     match needs_served(st, item).first() {
-        Some(&n) => (need_index(n), 1),
+        Some(&n) => {
+            let low_food = tval == TV_FOOD && [st.item_val.sv_food_apple,
+                st.item_val.sv_food_handful, st.item_val.sv_food_slime_mold,
+                st.item_val.sv_food_pint, st.item_val.sv_food_sip].contains(&i32::from(item.sval));
+            (need_index(n), if n == Need::Food && low_food { UNIT / 3 } else { UNIT })
+        },
         None => (-1, 0),
     }
 }
@@ -151,6 +175,13 @@ fn try_on(st: &mut BorgState, stock: &Stock) -> (Vec<TryOn>, Vec<(usize, i32)>) 
     (tryon, slots)
 }
 
+/// Consumables receive utility from their effects, never from inventory
+/// power's level-gated bonuses. Durable gear/tools retain the try-off.
+fn has_inventory_power(it: &borg_item) -> bool {
+    use crate::headers::list_tvals_h::{TV_FLASK, TV_FOOD, TV_MUSHROOM, TV_POTION, TV_SCROLL};
+    !matches!(u32::from(it.tval), TV_FLASK | TV_FOOD | TV_MUSHROOM | TV_POTION | TV_SCROLL)
+}
+
 /// The kit: the pack's and the Home's stacks, with what the dispositions
 /// read (slice 3). The power of a pack stack is a **try-off** - its
 /// quantity set to 0, `borg_notice` and `borg_power` run - and of a Home
@@ -167,10 +198,12 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
     let no_selling = engine::player_opt(OPT_birth_no_selling);
     let pack_end = inven_wield() as usize;
     let fact = |st: &BorgState, it: &borg_item, place: Place, slot: usize, power: i64| -> KitItem {
-        let (need, reduction) = ware_role(st, it);
+        let (mut need, mut reduction) = ware_role(st, it);
         let tval = u32::from(it.tval);
         let flavoured = tval == TV_POTION || tval == TV_SCROLL;
         let consumable = flavoured || tval == TV_FOOD || tval == TV_MUSHROOM || tval == TV_FLASK;
+        let unknown_flavour = !it.aware && flavoured;
+        if unknown_flavour { need = -1; reduction = 0; }
         let bought = &st.buy;
         let just_bought = (0..usize::try_from(bought.bought_item_num).unwrap_or(0).min(10))
             .any(|i| bought.bought_item_tval[i] == i32::from(it.tval) && bought.bought_item_sval[i] == i32::from(it.sval));
@@ -182,13 +215,14 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             weight: i32::from(it.weight),
             need,
             reduction,
-            power,
+            serves: if unknown_flavour { 0 } else { needs_served(st, it).iter().fold(0u8, |m, &n| m | (1 << need_index(n))) },
+            power: if consumable { 0 } else { power },
             proceeds: if no_selling { 0 } else { i64::from(it.value) * i64::from(it.iqty) * 2 / 3 },
             sell_shop: (0..7i8)
                 .find(|&who| crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
                 .unwrap_or(-1),
             unknown: it.needs_ident && !consumable,
-            unknown_flavour: !it.aware && flavoured,
+            unknown_flavour,
             just_bought,
         }
     };
@@ -208,6 +242,10 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
         if it.iqty == 0 {
             continue;
         }
+        if !has_inventory_power(&it) {
+            kit.push(fact(st, &it, Place::Pack, slot, 0));
+            continue;
+        }
         st.items.items[slot].iqty = 0;
         crate::borg_trait::borg_notice(st, true);
         let loss = base - i64::from(crate::borg_power::borg_power(st));
@@ -219,7 +257,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
         if it.iqty == 0 {
             continue;
         }
-        let gain = match hole {
+        let gain = match hole.filter(|_| has_inventory_power(it)) {
             Some(h) => {
                 st.items.items[h] = *it;
                 crate::borg_trait::borg_notice(st, true);
@@ -331,6 +369,7 @@ pub fn shadow_visit(st: &mut BorgState) {
         .collect();
     let limits = Limits::of(&budget);
     let out = step(&StepInput {
+        utility: true,
         candidates: stock.candidates.clone(),
         facts: &wares,
         tryon: &tryon,
@@ -347,6 +386,7 @@ pub fn shadow_visit(st: &mut BorgState) {
     let (paction, act, for_need, now) = first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit);
 
     let rec = PlanRecord {
+        schema: crate::borg_town_record::PLAN_SCHEMA,
         mode: 0,
         visit,
         step: step_no,
@@ -399,4 +439,24 @@ pub fn shadow_visit(st: &mut BorgState) {
     rec.push_fields(&mut line);
     line.push('}');
     crate::borg_town_dump::write_record(Some(file), &line);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::headers::list_tvals_h::*;
+
+    #[test]
+    fn consumables_do_not_inherit_inventory_powers_level_gates() {
+        for tval in [TV_POTION, TV_SCROLL, TV_FOOD, TV_MUSHROOM, TV_FLASK] {
+            let mut it = crate::borg_item::blank_item();
+            it.tval = tval as u8;
+            assert!(!has_inventory_power(&it));
+        }
+        for tval in [TV_SWORD, TV_HARD_ARMOR, TV_RING, TV_WAND] {
+            let mut it = crate::borg_item::blank_item();
+            it.tval = tval as u8;
+            assert!(has_inventory_power(&it));
+        }
+    }
 }

@@ -1,5 +1,15 @@
 # The town inventory strategy: the implementation plan
 
+**Current shadow-model revision (2026-11-14):** the owner rejected fixed
+stock targets that ignored level, ambition, shallow walking returns and cash.
+[Trip-relative utility](TOWN-UTILITY.md) replaces those targets in schema 5;
+[the catalogue](TOWN-ITEM-CATALOGUE.md) now describes supply units rather than
+quotas. New settings declare destination, duration and retained-gold priority.
+Historical slice notes below describe the earlier v4 model and remain replayable.
+Bounded validation passes: 229 tests, both Clippy versions, C/Rust smoke 3/3,
+21 calibration executions and all 1827 records replayed;
+[receipt](validation/2026-11-14-town-utility/README.md). This is still shadow mode.
+
 Status: **accepted**. Phases 0-2 landed 2026-11-12, phase 3 on 2026-11-13; the owner decisions of
 2026-11-12 (the epic log, full record on PR #42) are applied inline.
 

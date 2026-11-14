@@ -26,7 +26,7 @@ test `upstream_defaults_are_unchanged` is what keeps that true. **No setting
 the upstream had has a different default here**, in either the table or the
 configuration.
 
-Twenty-two settings are not in the upstream. They are listed below.
+Thirty-four settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
@@ -56,13 +56,13 @@ The C oracle keeps them, and `harness/diff` accepts them on the C side at
 those values only. The five `borg_trip_*` settings are new, at the end of the
 table; `borg_trip_policy = 0` is today's play, so they too keep rule 1. The
 rows and the paragraphs below stay as the record of the settings before the
-removal; the count is now twenty-one less five retired plus five new.
+removal. The twelve town-utility settings below are active additions too.
 
-All twenty-one keep rule 1: their built-in default does what the original C
-Borg did, so an unconfigured Borg is the original C Borg. Twelve of them are
+All active additions keep rule 1: their built-in default does what the original C
+Borg did, so an unconfigured Borg is the original C Borg. The town settings are
 the town inventory redesign's parameter vector (borg-rs#36): they are read
-only when `borg_town_plan = 1`, and the plan is off by default, so every one
-of them is inert in an unconfigured run.
+by the optional shadow observer (`BORG_TOWN_PLAN_RECORD`) while live execution
+remains off. Without that observer, they are inert in an unconfigured run.
 
 | setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
 |---|---|---|---|---|---|---|
@@ -93,6 +93,27 @@ of them is inert in an unconfigured run.
 | `borg_trip_pack_slack` | int | 2 | inert while `borg_trip_policy = 0` | 2 | no | borg-rs#60; free pack slots per stack |
 | `borg_trip_unknown_stacks` | int | 4 | inert while `borg_trip_policy = 0` | 4 | no | borg-rs#60; unknown stacks |
 | `borg_trip_return_gold` | int | 0 | inert while `borg_trip_policy = 0` | 0 | no | borg-rs#60; gold per character level |
+
+
+The v5 shadow-utility revision adds twelve integer settings. Each has the
+same built-in and delivered default and changes no unconfigured run. The C
+control reads them without using them. Their full meaning, ranges and portable
+sample arms are in [TOWN-UTILITY](TOWN-UTILITY.md#zoo-calibration-parameters).
+
+| Setting suffix (`borg_town_…`) | Default |
+| --- | --- |
+| `target_depth` | 0 |
+| `trip_turns` | 0 |
+| `w_gold` | 25 |
+| `depth_gain` | 1 |
+| `explore_turns` | 1000 |
+| `stair_turns` | 50 |
+| `food_turns` | 3000 |
+| `light_turns` | 5000 |
+| `risk` | 1000 |
+| `home_discount` | 500 |
+| `w_space` | 25 |
+| `power_scale` | 40000 |
 
 The built-in and delivered defaults now agree: `borg_munchkin_start` and
 `borg_munchkin_by_class` are both FALSE. No class gets a munchkin start

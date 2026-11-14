@@ -1,5 +1,12 @@
 # Phase 4 readiness: the Stay rules as the plan implements them, and the plan record (P13)
 
+> **Utility revision, 2026-11-14 (owner direction):** fixed stock targets and
+> the five-level default ambition are superseded for new shadow records by
+> [the trip-relative utility model](TOWN-UTILITY.md). Supply value scales with
+> journey duration, destination and character capability; retaining gold and
+> storing supplies for later trips compete with purchasing/carrying. v4 replay
+> preserves the historical model. No live execution is enabled.
+
 Status: **accepted** (owner, 2026-11-13): Part A as drafted, both literal
 changes intended and the Home a floor source; #37's four open questions as
 recommended; Part B with "displaced" = the runner-up and the stack class

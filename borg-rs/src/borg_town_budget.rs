@@ -34,7 +34,7 @@
 
 use crate::borg_headers::borg_trait_h::{BI_CARRY, BI_GOLD, BI_QUIVER_SLOTS, BI_WEIGHT};
 use crate::borg_town_stock::{Candidate, Stock};
-use crate::borg_town_usefulness::{urgent_needs, Need, Trip};
+use crate::borg_town_usefulness::{Need, Trip};
 use crate::state::BorgState;
 
 /// The raw numbers the budget is computed from.
@@ -225,7 +225,7 @@ impl Budget {
     /// trip carries what the urgent needs read beyond the traits (the
     /// curing spell).
     pub fn of(st: &BorgState, stock: &Stock, trip: &Trip) -> Self {
-        Self::build(&Facts::of(st), stock, &urgent_needs(st, trip), |c| {
+        Self::build(&Facts::of(st), stock, &crate::borg_town_utility::urgent_needs(st, trip), |c| {
             let ware = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
             crate::borg_town_stock::needs_served(st, ware)
         })
