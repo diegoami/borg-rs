@@ -145,13 +145,45 @@ changed files. The reviewer's recheck at `071c5c5` (the head that also
 carries the refreshed oracle corpus) reports **no remaining findings**.
 
 The reviewer could not run the build or the tests: Cargo is not available
-on their side and the repository has **no CI workflow** (no
+on their side and, at review time, the repository had **no CI workflow** (no
 `.github/workflows` at the repository root on `main` or on this branch, so
-no Actions run exists for any head), so the build and test evidence is
+no Actions run existed for any head), so the build and test evidence is
 the author's - taken on the exact pushed tree and recorded in [the
 receipt](../../validation/2026-11-13-c-v12r/README.md). The finding itself
-was raised by source inspection.
+was raised by source inspection. After the review, the owner added a
+minimal Rust test workflow (`.github/workflows/rust-test.yml`, `6b066ea`):
+branch heads now carry green Actions runs - the final branch head `b26d6d9`
+runs 122 tests (0 failed, 1 ignored) on GitHub's runner.
 
 The implementation branch is `claude/v12r-carry`; the tracking issue is
-[borg-rs#57](https://github.com/diegoami/borg-rs/issues/57). Owner
-acceptance and any v12R tag decision remain with the owner.
+[borg-rs#57](https://github.com/diegoami/borg-rs/issues/57).
+
+## Owner acceptance
+
+Owner direction (2026-11-14): accept v12R and place the tag, delete the two
+probe branches, refresh the `options` and `deep` oracles, and add the CI
+workflow. All four were done:
+
+- **Accepted and merged.** [PR #58](https://github.com/diegoami/borg-rs/pull/58)
+  was merged into `main` as merge commit `e6d13fc`
+  (branch head `b26d6d9`, the reviewed content plus the CI workflow and the
+  `options`/`deep` oracle refresh).
+- **Tagged.** The annotated tag **`4.2.6-impact-v12`** is placed on the
+  merged main commit `e6d13fc`, continuing the series
+  (`4.2.6-impact-v11` marked v11R).
+- **The standing C oracle is complete.** `options` (25 runs) and `deep`
+  (9 runs of 1,000,000 turns) were refreshed from the v12R C build with the
+  two-pass method on this machine, where a C pass costs minutes, not the
+  sandbox's hours: both passes identical, pass 2 re-checked against the
+  stored oracle, and the Rust roles match **25/25** and **9/9** on keys,
+  messages and state - the first C/Rust parity check of these suites on the
+  imported engine. All seven standing suite oracles now describe the v12R C
+  build; the digests cover 576 files.
+- **CI.** `.github/workflows/rust-test.yml` gives every head an Actions run
+  (122 tests on GitHub's runner at `b26d6d9`), closing the review's
+  qualification gap.
+- **Probe branches deleted.** `claude/v12r-oracle-probe` and `tmp-probe`
+  are gone from the remote; they held only the connector's binary-transport
+  probe commits.
+- Tracking issue [borg-rs#57](https://github.com/diegoami/borg-rs/issues/57)
+  is closed. The post-M10 family lane is separate and unaffected.

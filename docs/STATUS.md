@@ -77,13 +77,14 @@ adds none. Receipt:
 The import changes engine behaviour, so the standing C reference (recorded
 on the `e473720ed` engine) no longer described the Borg: the new C build
 matched 0/45 of `harness/reference/full`. That was the expected consequence
-of the import. On owner direction the oracle has since been refreshed: the
-suite oracles `smoke`, `full`, `classes`, `config` and `config-six` were
-re-made from the v12R C build, each suite run twice with the two passes
-identical, and the Rust role matches the new oracles 3/3, 45/45, 16/16 and
-6/6 on keys, messages and state. The `options` and `deep` oracles are still
-the M1-era recordings (on the imported engine `options` costs about four
-hours per C pass here), as are the investigation corpora;
+of the import. On owner direction the oracle has since been refreshed, and
+completed on 2026-11-14: all seven suite oracles (`smoke`, `full`,
+`classes`, `config`, `config-six`, `options`, `deep`) are now the v12R C
+build, each suite run twice with the two passes identical, and the Rust
+role matches every oracle on keys, messages and state (3/3, 45/45, 16/16,
+6/6 and, for the `options`/`deep` refresh on the owner's machine, 25/25 and
+9/9 - the first C/Rust parity check of those two suites on the imported
+engine). The investigation corpora are untouched;
 `harness/reference/README.md` maps every corpus to what it is.
 
 Independent review of [PR #58](https://github.com/diegoami/borg-rs/pull/58): one
@@ -91,12 +92,22 @@ blocking finding - the branch did not compile, because `borg.rs:433` and
 `borg_caution.rs:1509` still read the removed `MsgState.dont_react` after the
 reaction gate moved to `borg.dont_react` (a stale push of those two files, not the
 carry). Fixed in `c1e5df3`; the recheck at `071c5c5` reports **no remaining
-findings**. The reviewer could not run the build or the tests (no Cargo on their
-side, and the repository has no CI workflow, so no Actions run exists for any head);
-the build and test evidence is the author's, taken on the exact pushed tree - 122
-tests pass, the same seven pre-existing clippy findings, 70/70 C/Rust parity and a
-fresh C run matching the installed oracle 3/3. The carry is reviewed and awaits
-owner acceptance; the v12R tag decision remains with the owner.
+findings**. At review time the repository had no CI workflow, so the build
+and test evidence was the author's, taken on the exact pushed tree - 122
+tests pass, the same seven pre-existing clippy findings, 70/70 C/Rust parity
+and a fresh C run matching the installed oracle 3/3. The owner has since
+added a minimal Rust test workflow, so branch heads now carry green Actions
+runs (122 tests at `b26d6d9`).
+
+**Accepted 2026-11-14.** Owner direction: accept v12R and place the tag,
+delete the probe branches, refresh the `options` and `deep` oracles, and
+add the CI workflow. [PR #58](https://github.com/diegoami/borg-rs/pull/58)
+was merged at `e6d13fc` and the annotated tag **`4.2.6-impact-v12`** marks
+the merged main commit, continuing the series after
+`4.2.6-impact-v11` (v11R). Tracking issue
+[#57](https://github.com/diegoami/borg-rs/issues/57) is closed; the probe
+branches `claude/v12r-oracle-probe` and `tmp-probe` are deleted. The
+post-M10 family lane is separate and unaffected.
 
 ## Previous: carry better-borg-c milestone 11 as v11R (impact v11R)
 

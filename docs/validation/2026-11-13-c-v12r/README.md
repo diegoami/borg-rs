@@ -241,16 +241,25 @@ The reviewer's recheck at **`071c5c5`** (the head that also carries the refreshe
 corpus) reports **no remaining findings**.
 
 **Qualification.** The reviewer could not run the build or the tests: Cargo is not
-available on their side, and the repository has **no CI workflow** (there is no
+available on their side, and at review time the repository had **no CI workflow** (no
 `.github/workflows` at the repository root on `main` or on this branch, so no Actions
-run exists for any head - the only workflows in the tree are the vendored
+run existed for any head - the only workflows in the tree are the vendored
 `angband/.github/workflows/*`, which are upstream's and do not apply here). The build
-and test evidence is therefore the author's, taken on the exact pushed tree: 122 tests
+and test evidence was therefore the author's, taken on the exact pushed tree: 122 tests
 pass, clippy reports the same seven pre-existing findings, 70/70 C/Rust parity, and a
 fresh C run matches the oracle now installed on the branch 3/3. The finding itself was
 raised by source inspection and was confirmed by the reviewer that way.
 
-Owner acceptance and the tag decision remain with the owner; no `v12R` tag is placed.
+**After the review (owner direction, 2026-11-14).** The repository gained a minimal
+Rust test workflow, `.github/workflows/rust-test.yml` (added in `6b066ea`): checkout,
+a Rust toolchain and `cargo test --release --manifest-path borg-rs/Cargo.toml`, which
+needs no C engine. Branch heads now carry green Actions runs - the final branch head
+`b26d6d9` runs 122 tests (0 failed, 1 ignored) on GitHub's runner, closing the
+qualification gap above for this and future reviews.
+
+Owner acceptance: given on 2026-11-14 (see [the adoption record](../../adoption/c-v12r/README.md)).
+The milestone is merged as PR #58 (merge commit `e6d13fc`) and tagged
+`4.2.6-impact-v12` on the merged main commit.
 
 ## Limits
 
@@ -258,16 +267,16 @@ Owner acceptance and the tag decision remain with the owner; no `v12R` tag is pl
   its 95-group/290-case matrix. Those remain the consumer's native evidence
   for the target; this repository checks the Rust translation against the
   consumer's C blobs through the shared harness.
-- The `deep` suite (9 runs of 1,000,000 turns) and the `options` suite (25
-  runs) were **not** run: on this two-core sandbox they cost about two hours
-  and about forty minutes per role, and the suites above already cover the
-  carried changes as a regression check. The `config` suite's seventh run
-  (1,000,000 turns) was replaced by the six-run `config-six` suite for the
-  same reason. The suites are a whole-program parity check, not a per-unit
-  oracle: the changed branches (a newly seen wall-walker, an emergency swap,
-  a knockout) are rare events, and the consumer's own fixtures remain the
-  per-unit evidence.
+- The v12R validation matrix did not include the `deep` suite (9 runs of
+  1,000,000 turns) or the `options` suite (25 runs); both were run afterwards
+  for the 2026-11-14 oracle refresh, twice in the C role and once in the
+  Rust role, with full parity (see the refresh section above). The `config`
+  suite's seventh run (1,000,000 turns) was replaced by the six-run
+  `config-six` suite. The suites are a whole-program parity check, not a
+  per-unit oracle: the changed branches (a newly seen wall-walker, an
+  emergency swap, a knockout) are rare events, and the consumer's own
+  fixtures remain the per-unit evidence.
 - No cohort, per-mode effect, survival or progress claim is made. The
   consumer's package records every unit's per-mode effect as not measured.
-- The v12R milestone is the Rust counterpart only. No `v12R` tag is placed;
-  acceptance and any tag decision remain with the owner.
+- The v12R milestone is the Rust counterpart only. It is accepted, merged
+  as PR #58 and tagged `4.2.6-impact-v12`.
