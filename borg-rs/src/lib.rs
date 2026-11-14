@@ -27,7 +27,6 @@ pub(crate) mod headers;
 
 pub(crate) mod borg;
 pub(crate) mod borg_buy_strategy;
-pub(crate) mod borg_attack_munchkin;
 pub(crate) mod borg_cave;
 pub(crate) mod borg_caution;
 pub(crate) mod borg_cave_light;
@@ -89,6 +88,7 @@ pub(crate) mod borg_town_shadow;
 pub(crate) mod borg_town_solve;
 pub(crate) mod borg_town_stock;
 pub(crate) mod borg_town_usefulness;
+pub(crate) mod borg_trip;
 pub(crate) mod borg_trait;
 pub(crate) mod borg_trait_swap;
 pub(crate) mod borg_update;

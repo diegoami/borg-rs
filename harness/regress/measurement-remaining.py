@@ -4,6 +4,11 @@
 Compare both rebuilt backends against the preserved pre-harness M2 binary.
 Historical M4 references remain untouched: they predate gameplay adoption.
 """
+# Historical (borg-rs#60): this verifies a receipt recorded before the munchkin
+# and lunal modes were removed, and reads the lunal-investigation suite and the
+# synth-lunal cases, which the current tree no longer has. Run it from the
+# checkout the receipt names.
+
 import argparse
 import concurrent.futures
 import hashlib

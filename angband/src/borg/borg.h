@@ -102,6 +102,13 @@ enum {
     BORG_TOWN_SHARE,
     BORG_TOWN_LIGHT_DEPTH,
     BORG_TOWN_FOOD_TRIP,
+    /* The trip policy (borg-rs#60): Rust-only, registered and ignored here
+     * so that both backends report the same effective settings. */
+    BORG_TRIP_POLICY,
+    BORG_TRIP_DEPTH_MARGIN,
+    BORG_TRIP_PACK_SLACK,
+    BORG_TRIP_UNKNOWN_STACKS,
+    BORG_TRIP_RETURN_GOLD,
     BORG_MAX_SETTINGS
 };
 extern int *borg_cfg;

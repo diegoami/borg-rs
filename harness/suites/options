@@ -29,14 +29,14 @@ opt-wgold-war              2000   0    0     200000  menu,cheat,borg_worships_go
 opt-risky-war              42     0    0     100000  menu,cheat,borg_plays_risky=TRUE
 opt-uniques-war            42     0    0     100000  menu,cheat,borg_kills_uniques=TRUE
 opt-noswap-war             42     0    0     100000  menu,cheat,borg_uses_swaps=FALSE
-# Depth and level limits, autosave, verbose notes, chests, munchkin limits
+# Depth and level limits, autosave, verbose notes, chests (the munchkin
+# limits case went with the mode, borg-rs#60; its reference is history)
 opt-nodeeper-war           42     0    0     100000  menu,cheat,borg_no_deeper=3
 opt-stopdlevel-war         42     0    0     100000  menu,cheat,borg_stop_dlevel=2
 opt-stopclevel-war         42     0    0     100000  menu,cheat,borg_stop_clevel=5
 opt-autosave-war           42     0    0     100000  menu,cheat,borg_autosave=TRUE
 opt-verbose-war            42     0    0     100000  menu,cheat,borg_verbose=TRUE
 opt-chest-war              2000   0    0     400000  menu,cheat,borg_chest_fail_tolerance=0
-opt-munchkin-limits-war    42     0    0     100000  menu,cheat,munchkin,borg_munchkin_level=5,borg_munchkin_depth=4
 # Respawn: game option cheat_live on, Borg cheat death off; the Borg
 # reincarnates at each death (seed 1021 dies at turn 5865 in reference/full)
 opt-respawn-druid          1021   3    2     100000  menu,cheatlive

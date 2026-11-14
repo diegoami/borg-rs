@@ -473,7 +473,7 @@ pub fn borg_thrust_damage_one(st: &BorgState, i: i32) -> i32 {
 /// plus the danger bonus.
 fn melee_score(st: &mut BorgState, k: i32, x: i32, y: i32, mut d: i32) -> Option<i32> {
     /* Avoid waking most "hard" sleeping monsters */
-    if !st.kills.kills[k as usize].awake && d <= power(st, k as usize) && !st.borg.munchkin_mode {
+    if !st.kills.kills[k as usize].awake && d <= power(st, k as usize) {
         /* Calculate danger */
         let p = borg_danger_one_kill(st, y, x, 1, k, true, true);
 
@@ -1415,7 +1415,7 @@ fn borg_launch_bolt_aux_hack(st: &mut BorgState, i: i32, dam: i32, typ: i32, amm
     let p2 = borg_danger_one_kill(st, dy, dx, 1, i, true, false);
 
     /* Avoid waking most "hard" sleeping monsters */
-    if !kill.awake && p2 > avoid(st) / 2 && d < i32::from(kill.power) && !st.borg.munchkin_mode {
+    if !kill.awake && p2 > avoid(st) / 2 && d < i32::from(kill.power) {
         return -999;
     }
 
@@ -2375,8 +2375,9 @@ fn borg_attack_aux_rest(st: &mut BorgState) -> i32 {
 ///
 /// C has no `return` at the end (after the keys): the value of a real
 /// call is whatever is left in the return register, but no caller uses
-/// it (`borg_attack` and the munchkin attacks ignore the result of the
-/// real call). Rust returns `b_n`, as the c2rust translation did.
+/// it (`borg_attack` ignores the result of the real call; so did the
+/// munchkin attacks, removed with the mode in borg-rs#60).
+/// Rust returns `b_n`, as the c2rust translation did.
 fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
     let mut b_k: i32 = -1;
     let mut b_d: i32 = -1;
@@ -2944,7 +2945,7 @@ fn borg_attack_aux_wand_bolt(st: &mut BorgState, sval: i32, rad: i32, dam: i32, 
      * are he could have taken the orcs with the wand.  So use them in
      * an emergency after all the borg_caution() steps have failed
      */
-    if sval == st.item_val.sv_wand_wonder && !st.borg.munchkin_mode {
+    if sval == st.item_val.sv_wand_wonder {
         /* check the danger */
         if b_n > 0 && danger_here(st, 1, true) >= (avoid(st) * 7 / 10) {
             /* make the wand appear deadly */
@@ -3572,7 +3573,7 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
     }
 
     /* Avoid waking most "hard" sleeping monsters */
-    if !kill.awake && d <= i32::from(kill.power) && !st.borg.munchkin_mode {
+    if !kill.awake && d <= i32::from(kill.power) {
         /* Calculate danger */
         let p = borg_danger_one_kill(st, y, x, 1, k, true, true);
 

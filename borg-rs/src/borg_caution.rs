@@ -1714,8 +1714,6 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     if st.borg.goal.leaving
         || st.borg.goal.fleeing
         || st.borg.mon.scary
-        || st.borg.goal.fleeing_lunal
-        || st.borg.goal.fleeing_munchkin
         || ((pos_danger > avoidance || (st.borg.tr(BI_CLEVEL) < 5 && pos_danger > avoidance / 2))
             && on_upstair)
     // danger and standing on stair
@@ -1742,11 +1740,7 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
     if st.borg.stair_more && st.borg.goal.recalling == 0 {
         // Usable stairs
         if u32::from(st.cave.grid(st.borg.c.x, st.borg.c.y).feat) == FEAT_MORE || on_dnstair {
-            // Do these if not lunal mode
-            if !st.borg.goal.fleeing_lunal
-                && !st.borg.goal.fleeing_munchkin
-                && borg_prep_leave_level_spells(st)
-            {
+            if borg_prep_leave_level_spells(st) {
                 return true;
             }
 
@@ -1952,7 +1946,6 @@ pub fn borg_caution(st: &mut BorgState) -> bool {
 
     // Use "recall" to flee if possible
     if st.borg.goal.fleeing
-        && !st.borg.goal.fleeing_munchkin
         && !st.borg.goal.fleeing_to_town
         && st.borg.tr(BI_CDEPTH) >= 1
         && borg_recall(st)
@@ -2009,12 +2002,6 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
         if st.borg.mon.scary {
             borg_note(st, "# Fleeing and leaving the level. (scaryguy)");
         }
-        if st.borg.goal.fleeing_lunal {
-            borg_note(st, "# Fleeing and leaving the level. (fleeing_lunal)");
-        }
-        if st.borg.goal.fleeing_munchkin {
-            borg_note(st, "# Fleeing and leaving the level. (fleeing munchkin)");
-        }
         if pos_danger > i32::from(st.borg.avoidance)
             && st.borg.tr(BI_CLEVEL) <= 49
             && u32::from(st.cave.grid(st.borg.c.x, st.borg.c.y).feat) == FEAT_LESS
@@ -2028,7 +2015,7 @@ fn choose_stairs(st: &mut BorgState, pos_danger: i32) {
     }
 
     // Only go down if fleeing or prepared
-    if st.borg.goal.fleeing || st.borg.goal.fleeing_lunal || st.borg.goal.fleeing_munchkin {
+    if st.borg.goal.fleeing {
         st.borg.stair_more = true;
     }
 

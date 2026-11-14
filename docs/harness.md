@@ -193,7 +193,10 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   frontend"). Config flags each set one more option of the run's
   `borg.txt`:
   * `munchkin` (`borg_munchkin_start = TRUE`), `lunal`
-    (`borg_lunal_mode = TRUE`), `selflunal` (`borg_self_lunal = TRUE`);
+    (`borg_lunal_mode = TRUE`), `selflunal` (`borg_self_lunal = TRUE`) -
+    **refused since 2026-11-14** (borg-rs#60): the modes were removed, and
+    `run.sh` exits 2 naming the flag; a historical mode run needs a checkout
+    from before the removal;
   * `NAME=VALUE`, any option: the line `NAME = ...` becomes
     `NAME = VALUE`, e.g. `borg_money_scum_amount=5000`,
     `borg_uses_swaps=FALSE`, `borg_no_deeper=3`. `NAME` is the option's
@@ -382,6 +385,12 @@ suites run with the stock `borg.txt`; see "The options suite" for what
 each option reaches).
 
 ### The config suite
+
+**2026-11-14 (borg-rs#60):** the `config` and `lunal-investigation` suites
+are removed, and the mode cases of `options` (`opt-munchkin-limits-war`) and
+`synthetic-tactics` (`synth-lunal-*`) with them; `family-buying`'s warrior
+pair uses the class masks. Their references under `harness/reference/` stay
+as the record. The description below is that record.
 
 `harness/suites/config` replays the runs the second external review
 (`REVIEW-821cad310`) made by hand, plus one long run. Every run uses

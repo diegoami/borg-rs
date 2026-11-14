@@ -64,6 +64,13 @@ home-selling decision.
 | `borg_buy_strategy_current_munchkin_classes` | `0` | Class+munchkin mask forcing current |
 | `borg_buy_strategy_reserve410_munchkin_classes` | `0` | Class+munchkin mask forcing reserve410 |
 
+**2026-11-14 (borg-rs#60): the munchkin dimension is gone.** There is one
+play mode, so the three munchkin rows above are retired settings (an old
+config gets a warning at their inert values, -1/0/0, and a refusal
+otherwise), and the precedence below is now: ordinary class masks, then the
+global default. To select a strategy for a class, use the class masks; the
+munchkin examples below are the record of the earlier selection.
+
 Class masks use `1 << class`: Warrior 1, Mage 2, Druid 4, Priest 8,
 Necromancer 16, Paladin 32, Rogue 64, Ranger 128, Blackguard 256 (`0x1ff` is
 all nine). Resolution precedence is:
@@ -147,6 +154,9 @@ counted as passes.
 ## Small future zoo plan (not run by this issue)
 
 Use the existing borgh measurement interface from `docs/harness.md` and #7.
+(2026-11-14, borg-rs#60: the mode axis of this plan no longer exists; the
+matrix below is the record of the plan as written.)
+
 Freeze the seeds and exact source/config identities before any comparison. A
 small first matrix is 24 runs:
 

@@ -66,9 +66,8 @@ use crate::headers::z_type_h::loc;
 use crate::state::BorgState;
 use crate::{borg_flow, borg_flow_misc};
 
-/// `GOAL_KILL`, `GOAL_TAKE`, `GOAL_DIGGING` (borg-flow.h)
+/// `GOAL_KILL`, `GOAL_DIGGING` (borg-flow.h)
 const GOAL_KILL: i16 = 1;
-const GOAL_TAKE: i16 = 2;
 const GOAL_DIGGING: i32 = 10;
 
 /// `CLASS_*` (list-class.h order)
@@ -649,13 +648,12 @@ fn borg_follow_kill_aux(st: &BorgState, i: usize, y: i32, x: i32) -> bool {
 }
 
 /// Clear the goal after a tracked monster moved: kill goals aimed at its
-/// new grid (without ESP), or any munchkin take goal.
+/// new grid (without ESP).
 fn clear_goal_after_move(st: &mut BorgState, pos: loc) {
     let (fy, fx) = st.flow.first();
-    if (st.borg.tr(BI_ESP) == 0
+    if st.borg.tr(BI_ESP) == 0
         && st.borg.goal.type_0 == GOAL_KILL
-        && (fy == pos.y && fx == pos.x))
-        || (st.borg.goal.type_0 == GOAL_TAKE && st.borg.munchkin_mode)
+        && (fy == pos.y && fx == pos.x)
     {
         st.borg.goal.type_0 = 0;
     }

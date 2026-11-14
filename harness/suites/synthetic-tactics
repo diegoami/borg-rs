@@ -1,9 +1,8 @@
 # Synthetic engine states built with harness/scenarios; fresh Borg on each replay.
 # Set SAVE_ROOT=harness/saves/synthetic-tactics (or the generator's accepted pass).
 # NAME                  SEED RACE CLASS TURNS FLAGS
-synth-lunal-ready        7200 0    0     1000  menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-ready.save
-synth-lunal-disabled     7200 0    0     1000  menu,finalsave,borg_self_lunal=FALSE,borg_stop_dlevel=21,save=lunal-ready.save
-synth-lunal-history      7200 0    0     1000  menu,finalsave,selflunal,borg_stop_dlevel=21,save=lunal-shallow-history.save
+# (The three synth-lunal cases went with the self-lunal mode, borg-rs#60;
+# their references under harness/reference/synthetic-tactics* are history.)
 synth-glyph-ready        7201 0    0     15    menu,finalsave,save=glyph-ready.save
 synth-glyph-low-supply   7201 0    0     15    menu,finalsave,save=glyph-low-supply.save
 synth-glyph-prelaid      7201 0    0     15    menu,finalsave,save=glyph-complete.save

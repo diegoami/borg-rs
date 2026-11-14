@@ -1107,11 +1107,6 @@ pub fn borg_drop_slow(st: &mut BorgState) -> bool {
         return false;
     }
 
-    /* Not if in munchkin mode */
-    if st.borg.munchkin_mode {
-        return false;
-    }
-
     /* Calculate "greed" factor */
     let mut greed = (i64::from(st.borg.tr(BI_GOLD)) / 100 + 100) as i32;
 

@@ -43,6 +43,21 @@ The rule for a setting the upstream never had:
    value the configuration gives it, and `every_setting_is_declared` fails if
    a setting is added without that. Adding a setting is a deliberate act.
 
+**2026-11-14 (borg-rs#60) - the modes are removed.** The munchkin and lunal
+modes no longer exist in the Rust Borg. Five rows of the table below
+(`borg_munchkin_by_class`, `borg_munchkin_class_depth`,
+`borg_buy_strategy_munchkin`, `borg_buy_strategy_current_munchkin_classes`,
+`borg_buy_strategy_reserve410_munchkin_classes`) and the upstream
+`borg_munchkin_start`/`_level`/`_depth`, `borg_lunal_mode` and
+`borg_self_lunal` are **retired**: an old borg.txt that names one at its
+"off" value starts with a warning, one that would enable a mode is refused at
+start-up (`borg_init::RETIRED_SETTINGS`; docs/TRIP-POLICY.md, "Migration").
+The C oracle keeps them, and `harness/diff` accepts them on the C side at
+those values only. The five `borg_trip_*` settings are new, at the end of the
+table; `borg_trip_policy = 0` is today's play, so they too keep rule 1. The
+rows and the paragraphs below stay as the record of the settings before the
+removal; the count is now twenty-one less five retired plus five new.
+
 All twenty-one keep rule 1: their built-in default does what the original C
 Borg did, so an unconfigured Borg is the original C Borg. Twelve of them are
 the town inventory redesign's parameter vector (borg-rs#36): they are read
@@ -73,6 +88,11 @@ of them is inert in an unconfigured run.
 | `borg_town_share` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the purse-share cap |
 | `borg_town_light_depth` | int | 15 | inert while `borg_town_plan = 0` | 15 | no | with `borg_town_plan`; the trip model's light threshold |
 | `borg_town_food_trip` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the trip model's ration count |
+| `borg_trip_policy` | int | 0 | 0 is today's play; the policy only records (`BORG_TRIP_RECORD`) | 0 | no | borg-rs#60 |
+| `borg_trip_depth_margin` | int | 0 | inert while `borg_trip_policy = 0` | 0 | no | borg-rs#60; levels above the prepared depth |
+| `borg_trip_pack_slack` | int | 2 | inert while `borg_trip_policy = 0` | 2 | no | borg-rs#60; free pack slots per stack |
+| `borg_trip_unknown_stacks` | int | 4 | inert while `borg_trip_policy = 0` | 4 | no | borg-rs#60; unknown stacks |
+| `borg_trip_return_gold` | int | 0 | inert while `borg_trip_policy = 0` | 0 | no | borg-rs#60; gold per character level |
 
 The built-in and delivered defaults now agree: `borg_munchkin_start` and
 `borg_munchkin_by_class` are both FALSE. No class gets a munchkin start
