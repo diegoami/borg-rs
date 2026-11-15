@@ -268,6 +268,7 @@ be fitted and confirmed (§10) before it can become the default.
 | `pack_capacity`, `pack_used` | pack slots, **per distinct stack** | `borg_town_budget::Facts`, `borg_town_stock::pack_slots_used_of` - the town plan's count |
 | `unknown_stacks` | stacks | all carried stacks with an unaware flavour or unknown runes (`borg_item_note_needs_id`), recorded |
 | `unknown_gear_stacks` | stacks | the unknown equipment, ammunition and device subset; diagnostic only since trip record v3 |
+| `knowledge_actionable`, `knowledge_exploratory`, `knowledge_deferred` | stacks | known learning mechanism, exploratory visit, or unchanged/unavailable task; the first two contribute to the threshold |
 | `recall` | scrolls | `BI_RECALL` |
 | `up_stairs_known`, `down_stairs_known` | bool | the stair lists |
 
@@ -416,7 +417,7 @@ and purse reasons; every other rule of the map stands.
 
 ## 8. Logging
 
-* `BORG_TRIP_RECORD=<file>`: one JSON line (version 2) each time the
+* `BORG_TRIP_RECORD=<file>`: one JSON line (version 3) each time the
   decision, any observed input or the level changes: the turn, the effective
   parameters, every input and the decision with its route, planned depth
   and reasons. With the policy off it **observes only**: it presses no key
@@ -424,10 +425,10 @@ and purse reasons; every other rule of the map stands.
   so the play is the same with and without it. Example:
 
   ```json
-  {"v":2,"turn":1234,"game_turn":12345,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown-gear(5 >= 4)"]}}
+  {"v":3,"turn":1234,"game_turn":12345,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":0,"knowledge_actionable":4,"knowledge_exploratory":1,"knowledge_deferred":0,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown(5 >= 4)"]}}
   ```
 * With the policy acting, decision/level/reason changes also write a note in the
-  message log: `# Trip: return via recall (plan 8): unknown-gear(5 >= 4)`.
+  message log: `# Trip: return via recall (plan 8): unknown(5 >= 4)`.
 
 Records also include a player-known `pack` projection: slot, type, quantity,
 the Borg's value estimate, flavour awareness and unresolved-rune status.
