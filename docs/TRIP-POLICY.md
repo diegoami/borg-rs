@@ -1,4 +1,11 @@
-> Owner correction, 2026-11-15: preserve the inherited selling-pressure return
+> Owner clarification, 2026-11-15: the added policy may request a return to
+> town. It must not change shopping forecasts, combat oil reserves, or the
+> inherited depth decisions. The live shared-forecast integration is removed;
+> historical proposals below describing it are superseded. Depth-margin and
+> non-return recommendations remain diagnostic only. Legacy return rules stay
+> active with either setting of `borg_trip_policy`.
+>
+> Earlier owner correction, 2026-11-15: preserve the inherited selling-pressure return
 > and descent-hold rules as backstops even when the trip policy is enabled.
 > The new thresholds add return requests; they do not veto these backstops.
 > Historical text describing their replacement below is superseded by this note.
