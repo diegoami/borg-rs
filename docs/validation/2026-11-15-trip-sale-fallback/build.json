@@ -1,0 +1,22 @@
+{
+  "binary_sha256": "e980192bbe77eff794869d6d02ab7a8989da0ad8b2fdf1f54642f5189e1603ac",
+  "build_id": {
+    "binary": "/tmp/borg-trip-sale-fallback/build/rust/game/angband",
+    "binary_sha256": "e980192bbe77eff794869d6d02ab7a8989da0ad8b2fdf1f54642f5189e1603ac",
+    "built_utc": "2026-11-15T13:22:49Z",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "git_dirty": "no",
+    "git_rev": "6d3b345ebdc73ee17b404b0f5e564b607b707159",
+    "impl": "rust",
+    "inputs_dirty": "no",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "source_sha256": "5ae0b88a65a059fbf5a107765e927ff4abb1a54cf6c0381b6b69c8321bb45d24"
+  },
+  "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+  "complete": true,
+  "impl": "rust",
+  "kind": "borg-rs",
+  "platform": "Linux x86_64",
+  "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+  "source_commit": "6d3b345ebdc73ee17b404b0f5e564b607b707159"
+}

@@ -1,0 +1,20 @@
+1612 14109 0 # HIT_BY:The giant yellow centipede (3)
+1612 14109 0 # HIT_BY:The giant yellow centipede (3)
+1612 14109 0 # Loc:49,124 Dep:1 Lev:1 HP:2/11 SP:2/2 Danger:p=12
+1612 14109 0 # Performing attack type 1 with value 19.
+1612 14109 0 # Facing giant yellow centipede at (49,125) who has 6 Hit Points.
+1612 14109 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1614 14109 3 You miss the giant yellow centipede.
+1615 14119 0 # MISS:the giant yellow centipede (+)
+1615 14119 0 # MISS:the giant yellow centipede (2)
+1615 14119 0 # Loc:49,124 Dep:1 Lev:1 HP:2/11 SP:2/2 Danger:p=12
+1615 14119 0 # Performing attack type 1 with value 19.
+1615 14119 0 # Facing giant yellow centipede at (49,125) who has 6 Hit Points.
+1615 14119 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1617 14119 3 You miss the giant yellow centipede.
+1617 14120 39 The giant yellow centipede bites you.
+1618 14120 40 The giant yellow centipede stings you.
+1619 14120 8 You die.
+1620 14120 0 Score not registered for borgs.
+1620 14120 0 # Aborting (death).
+1620 14120 0 # Aborting (player died).

@@ -1,0 +1,110 @@
+[
+  {
+    "run": "ranger-1021027760-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1021027760-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-763715166-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-763715166-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-285192323-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-285192323-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1770524781-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1770524781-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-285192323-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-285192323-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1401471427-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1401471427-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-763715166-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-763715166-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1021027760-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1021027760-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1632766293-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1632766293-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1770524781-generic",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1770524781-rs-kit-trip-default",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1632766293-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1632766293-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "run": "ranger-1401471427-existing",
+    "prior": "/home/diego/projects/borg-rs/harness/out/town-pr83-fixes-2026-11-15-final/pilot-ranger-1401471427-rs-kit-trip-control",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  }
+]

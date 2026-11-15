@@ -1,5 +1,12 @@
 # borg-rs status
 
+Owner-directed town/trip integration (2026-11-15): the experimental feature
+is integrated with accepted M13 and the current recording/cemetery
+work. Both new policies remain off by default. The feature retires the Rust
+munchkin/lunal modes; the older mode-off update below is historical. See
+[TOWN-MAIN-INTEGRATION](TOWN-MAIN-INTEGRATION.md) for scope, ABI compatibility,
+validation and the unchanged M12-pinned Zoo experiment.
+
 ## Current direction: a Borg family after impact v10
 
 Starting from the owner-accepted `4.2.6-impact-v10` snapshot, borg-rs diverges

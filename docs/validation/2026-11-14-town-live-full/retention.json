@@ -1,0 +1,10 @@
+{
+  "persistent_root": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14",
+  "corrected_directory": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e",
+  "first_batch_archive": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/first-batch-492fce5.tar.gz",
+  "first_batch_archive_sha256": "f3cec9d9ac1a8204f3f252ab5761ee200c099bd78d4dc7da2a5840ab2972f660",
+  "measured_binary_sha256": "078660bc4465eea907bc0ab9310171acbf6184347a7e52239eca434420daa7e5",
+  "corrected_manifest_sha256": "b4a372c4969433a88637aff35eaaabf0ca36c0a9de0c5ca2dbf186889fe691f7",
+  "game_assets": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/game-assets",
+  "qualification": "Original source/build/input identities retained; byte-identical control repeats and all live-plan replays checked. No native movie or private-state replay claim."
+}

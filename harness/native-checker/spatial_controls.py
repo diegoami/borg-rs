@@ -36,7 +36,3 @@ assert text.count('v < b_v')==2
 (out/'glyph-tie-fault.rs').write_text(text.replace('v < b_v','v <= b_v'))
 before,after=text.rsplit('v < b_v',1)
 (out/'glyph-old-tie-fault.rs').write_text(before+'v <= b_v'+after)
-
-text=(root/'borg-rs/src/borg_think_dungeon.rs').read_text();a=text.index('fn borg_think_dungeon_lunal(');b=text.index('\n}',a)
-body=text[a:b];old='st.borg.goal.fleeing_lunal = false;';assert old in body
-(out/'lunal-fault.rs').write_text(text[:a]+body.replace(old,'st.borg.goal.fleeing_lunal = true;',1)+text[b:])

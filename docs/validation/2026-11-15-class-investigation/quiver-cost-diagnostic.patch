@@ -1,0 +1,22 @@
+diff --git a/borg-rs/src/borg_town_stock.rs b/borg-rs/src/borg_town_stock.rs
+index e74906d..c787c47 100644
+--- a/borg-rs/src/borg_town_stock.rs
++++ b/borg-rs/src/borg_town_stock.rs
+@@ -346 +346 @@ impl Stock {
+-        Self::build(&shops, pack, home, |held, ware| {
++        let mut stock = Self::build(&shops, pack, home, |held, ware| {
+@@ -348 +348,13 @@ impl Stock {
+-        })
++        });
++        // Diagnostic only: do not charge pack room when this copy joins
++        // an existing compatible quiver stack (the native UI does not).
++        let quiver = crate::borg_item::quiver_start() as usize;
++        for c in &mut stock.candidates {
++            let ware = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
++            if c.slots_cost > 0 && st.items.items.iter().skip(quiver)
++                .any(|held| held.iqty > 0 && held.kind == ware.kind
++                    && crate::borg_store_sell::borg_object_similar(st, held, ware)) {
++                c.slots_cost = 0;
++            }
++        }
++        stock

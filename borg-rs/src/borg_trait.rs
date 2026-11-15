@@ -39,7 +39,7 @@ use crate::borg_magic::{
 };
 use crate::borg_trait_swap::{borg_notice_armour_swap, borg_notice_weapon_swap};
 use crate::borg_headers::borg_h::{
-    BORG_ENCHANT_LIMIT, BORG_MUNCHKIN_LEVEL, BORG_MUNCHKIN_START, BORG_USES_SWAPS,
+    BORG_ENCHANT_LIMIT, BORG_USES_SWAPS,
 };
 use crate::borg_headers::borg_item_h::*;
 use crate::borg_headers::borg_magic_h::*;
@@ -1770,7 +1770,8 @@ fn notice_food(st: &mut BorgState, item: &borg_item) {
     let iqty = i32::from(item.iqty);
 
     /* check for food that hurts us */
-    if borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1)
+    let capability_mode = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+    if (!capability_mode && borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1))
         || borg_obj_has_effect(item.kind, EF_TIMED_INC as i32, TMD_CONFUSED as i32)
     {
         return;
@@ -1781,7 +1782,11 @@ fn notice_food(st: &mut BorgState, item: &borg_item) {
     let mut t = Traits(&mut st.borg.trait_);
 
     /* check for food that gives nutrition */
-    if u32::from(item.tval) == TV_MUSHROOM {
+    if capability_mode {
+        if borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0) || borg_obj_has_effect(item.kind, EF_NOURISH as i32, 3) {
+            t[BI_FOOD_LO] += iqty;
+        }
+    } else if u32::from(item.tval) == TV_MUSHROOM {
         /* mushrooms that increase nutrition are low effect */
         if borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0) {
             t[BI_FOOD_LO] += iqty;
@@ -1848,29 +1853,11 @@ fn notice_pack_item(st: &mut BorgState, item: &borg_item, remove_hunger: &mut i3
 
         /* Food */
         TV_MUSHROOM => {
-            let v = &st.item_val;
-            let cfg = &st.core.cfg;
-            let munchkin = cfg[BORG_MUNCHKIN_START as usize] != 0;
-            let maxclevel = t(st, BI_MAXCLEVEL);
-            if (sval == v.sv_mush_purging
-                || sval == v.sv_mush_restoring
-                || sval == v.sv_mush_cure_mind)
-                && munchkin
-                && maxclevel < cfg[BORG_MUNCHKIN_LEVEL as usize]
-            {
-                return;
-            }
-            if (sval == v.sv_mush_second_sight
-                || sval == v.sv_mush_emergency
-                || sval == v.sv_mush_terror
-                || sval == v.sv_mush_stoneskin
-                || sval == v.sv_mush_debility
-                || sval == v.sv_mush_sprinting)
-                && munchkin
-                && maxclevel >= cfg[BORG_MUNCHKIN_LEVEL as usize]
-            {
-                tr(st)[BI_ASHROOM] += iqty;
-            }
+            /* The munchkin start counted some mushrooms (Purging, Restoring,
+             * Clear Mind kept out until the munchkin level, the six combat
+             * mushrooms in BI_ASHROOM after it). Without the mode neither
+             * rule applies: no mushroom is skipped and BI_ASHROOM stays 0,
+             * exactly as with borg_munchkin_start = FALSE (borg-rs#60). */
             /* fall through */
             notice_food(st, item);
         }
@@ -2174,9 +2161,7 @@ fn borg_notice_inventory(st: &mut BorgState) {
     }
 
     /* Reset books */
-    for i in 0..9 {
-        st.borg.amt_book[i] = 0;
-    }
+    st.borg.amt_book.fill(0);
 
     /*** Process the inventory ***/
 

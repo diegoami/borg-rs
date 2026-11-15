@@ -1,0 +1,20 @@
+7351 53977 0 # Tracking a monster 'giant white louse' at (14,169) from (14,170)
+7351 53977 0 # Tracking a monster 'giant white louse' at (12,174) from (13,175)
+7351 53977 0 # HIT:the giant white louse (2)
+7351 53977 0 # KILL:the giant white louse (2)
+7351 53977 0 # HIT_BY:The giant white louse (3)
+7351 53977 0 # Possibility of being surrounded (monsters/safegrids)(13/1)
+7351 53977 0 # Scary guy on level.
+7351 53977 0 # Loc:9,168 Dep:1 Lev:6 HP:1/48 SP:1/2 Danger:p=35
+7351 53977 0 # Fleeing and leaving the level. (scaryguy)
+7351 53977 0 # Performing attack type 1 with value 13.
+7351 53977 0 # Facing giant white louse at (10,168) who has 1 Hit Points.
+7351 53977 0 # Attacking with weapon 'Dagger (1d4) (+0,+0)'
+7353 53977 2 You hit the giant white louse.
+7353 53977 6 You have slain the giant white louse.
+7353 53978 39 The giant white louse bites you.
+7354 53978 39 The giant white louse bites you.
+7354 53978 8 You die.
+7356 53978 0 Score not registered for borgs.
+7356 53978 0 # Aborting (death).
+7356 53978 0 # Aborting (player died).

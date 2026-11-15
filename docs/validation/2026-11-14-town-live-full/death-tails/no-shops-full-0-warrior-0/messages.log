@@ -1,0 +1,20 @@
+8426 62353 39 Something bites you.
+8429 62354 0 # HIT_BY:Something (+)
+8429 62354 0 # HIT_BY:Something (+)
+8429 62354 0 # Invisible monster nearby.
+8429 62354 0 # Invisible monster nearby.
+8429 62354 0 # Invisible monster nearby.
+8429 62354 0 # Invisible monster nearby.
+8429 62354 0 # Fearing region (8,152) value 12 because of a non-LOS Something
+8429 62354 0 # Fearing region (8,152) value 12 because of a non-LOS Something
+8429 62354 0 # HIT_BY:Something (5)
+8429 62354 0 # HIT_BY:Something (5)
+8429 62354 0 # Loc:8,152 Dep:11 Lev:5 HP:3/45 SP:0/0 Danger:p=96
+8429 62354 0 # Using unknown Staff Mulberry Staff.
+8431 62354 0 You have a Staff of Confuse Monsters (5 charges) (q).
+8431 62363 34 Something hits you.
+8432 62363 8 You die.
+8433 62363 0 You have a Ring of Open Wounds (r).
+8433 62363 0 Score not registered for borgs.
+8433 62363 0 # Aborting (death).
+8433 62363 0 # Aborting (player died).

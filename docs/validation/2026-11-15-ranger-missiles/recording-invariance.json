@@ -1,0 +1,47 @@
+[
+  {
+    "name": "ranger-285192323-missiles250",
+    "source": {
+      "source_commit": "5d8511c9478ceae7faf6067f2b361fe72ebe5416",
+      "binary_sha256": "b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3",
+      "build_id": "impl=rust\ngit_rev=5d8511c9478ceae7faf6067f2b361fe72ebe5416\ngit_dirty=no\ninputs_dirty=no\nsource_sha256=2064664ac833fe2f020b95e7b001fb77fe50aa540aaf20a91d7f13a819477f12\nbinary=/tmp/borg-town-class-fixes/build/rust/game/angband\nbinary_sha256=b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nrustc=rustc 1.98.1 (48a229cea 2026-09-01)\nbuilt_utc=2026-11-15T11:13:17Z\n"
+    },
+    "out": "/home/diego/projects/borg-rs/harness/out/ranger-missile-calibration-2026-11-15-selected/recording-off/ranger-285192323-missiles250",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    },
+    "returncode": 0
+  },
+  {
+    "name": "ranger-508-missiles250",
+    "source": {
+      "source_commit": "5d8511c9478ceae7faf6067f2b361fe72ebe5416",
+      "binary_sha256": "b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3",
+      "build_id": "impl=rust\ngit_rev=5d8511c9478ceae7faf6067f2b361fe72ebe5416\ngit_dirty=no\ninputs_dirty=no\nsource_sha256=2064664ac833fe2f020b95e7b001fb77fe50aa540aaf20a91d7f13a819477f12\nbinary=/tmp/borg-town-class-fixes/build/rust/game/angband\nbinary_sha256=b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nrustc=rustc 1.98.1 (48a229cea 2026-09-01)\nbuilt_utc=2026-11-15T11:13:17Z\n"
+    },
+    "out": "/home/diego/projects/borg-rs/harness/out/ranger-missile-calibration-2026-11-15-selected/recording-off/ranger-508-missiles250",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    },
+    "returncode": 0
+  },
+  {
+    "name": "necro-505",
+    "source": {
+      "source_commit": "5d8511c9478ceae7faf6067f2b361fe72ebe5416",
+      "binary_sha256": "b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3",
+      "build_id": "impl=rust\ngit_rev=5d8511c9478ceae7faf6067f2b361fe72ebe5416\ngit_dirty=no\ninputs_dirty=no\nsource_sha256=2064664ac833fe2f020b95e7b001fb77fe50aa540aaf20a91d7f13a819477f12\nbinary=/tmp/borg-town-class-fixes/build/rust/game/angband\nbinary_sha256=b2c95417a1a5aff4ad9663e539d2743f1506591f7c0f32f58ff977433152c6f3\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nrustc=rustc 1.98.1 (48a229cea 2026-09-01)\nbuilt_utc=2026-11-15T11:13:17Z\n"
+    },
+    "out": "/home/diego/projects/borg-rs/harness/out/ranger-missile-calibration-2026-11-15-selected/recording-off/necro-505",
+    "equal": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    },
+    "returncode": 0
+  }
+]

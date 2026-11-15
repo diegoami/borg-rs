@@ -1,0 +1,74 @@
+{
+  "scope": "Diagnostic failed live trial before sale-eligibility and no-progress corrections; not a parameter comparison.",
+  "run": "/tmp/borg-joint-live-trials/learning-priority/101",
+  "native_turn": 85756,
+  "action": 3,
+  "selected": [
+    4,
+    6,
+    1,
+    0
+  ],
+  "pack_entry": [
+    6,
+    26,
+    35,
+    2,
+    0,
+    1
+  ],
+  "kit_entry": [
+    0,
+    6,
+    258,
+    2,
+    4,
+    -1,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0
+  ],
+  "model_disposition": 2,
+  "unchanged_tail_selections": [
+    {
+      "native_turn": 85756,
+      "action": 3,
+      "selected": [
+        4,
+        6,
+        1,
+        0
+      ]
+    },
+    {
+      "native_turn": 85756,
+      "action": 3,
+      "selected": [
+        4,
+        6,
+        1,
+        0
+      ]
+    },
+    {
+      "native_turn": 85756,
+      "action": 3,
+      "selected": [
+        4,
+        6,
+        1,
+        0
+      ]
+    }
+  ],
+  "process": {
+    "status": "timeout",
+    "exit_code": 124,
+    "executable_sha256_before": "7a02fb82513840fecb6803cbd4d1981891aad3396b27b23a774481e56ab0dc33"
+  },
+  "cause": "Known worthless potion was considered saleable by type alone. The native store refuses apparently worthless goods; queued sales made no inventory progress.",
+  "correction": "Reject apparently worthless merchant offers in producer facts, and exclude a sale for the visit after an unchanged inventory receipt."
+}

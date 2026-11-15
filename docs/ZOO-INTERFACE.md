@@ -34,7 +34,7 @@ test `upstream_defaults_are_unchanged` is what keeps that true. **No setting
 the upstream had has a different default here**, in either the table or the
 configuration.
 
-Nine settings are not in the upstream. They are listed below.
+Thirty-four settings are not in the upstream. They are listed below.
 
 ## The settings the upstream did not have
 
@@ -51,12 +51,30 @@ The rule for a setting the upstream never had:
    value the configuration gives it, and `every_setting_is_declared` fails if
    a setting is added without that. Adding a setting is a deliberate act.
 
-All nine keep rule 1: their built-in default does what the original C Borg
-did, so an unconfigured Borg is the original C Borg.
+**2026-11-14 (borg-rs#60) - the modes are removed.** The munchkin and lunal
+modes no longer exist in the Rust Borg. Five rows of the table below
+(`borg_munchkin_by_class`, `borg_munchkin_class_depth`,
+`borg_buy_strategy_munchkin`, `borg_buy_strategy_current_munchkin_classes`,
+`borg_buy_strategy_reserve410_munchkin_classes`) and the upstream
+`borg_munchkin_start`/`_level`/`_depth`, `borg_lunal_mode` and
+`borg_self_lunal` are **retired**: an old borg.txt that names one at its
+"off" value starts with a warning, one that would enable a mode is refused at
+start-up (`borg_init::RETIRED_SETTINGS`; docs/TRIP-POLICY.md, "Migration").
+The C oracle keeps them, and `harness/diff` accepts them on the C side at
+those values only. The five `borg_trip_*` settings are new, at the end of the
+table; `borg_trip_policy = 0` is today's play, so they too keep rule 1. The
+rows and the paragraphs below stay as the record of the settings before the
+removal. The twelve town-utility settings below are active additions too.
+
+All active additions keep rule 1: their built-in default does what the original C
+Borg did, so an unconfigured Borg is the original C Borg. The town settings are
+the town inventory redesign's parameter vector (borg-rs#36): they are read
+by the optional shadow observer (`BORG_TOWN_PLAN_RECORD`) while live execution
+remains off. Without that observer, they are inert in an unconfigured run.
 
 | setting | kind | built-in default | the original C Borg's behaviour | the two `borg.txt` files | changes an unconfigured run? | added by |
 |---|---|---|---|---|---|---|
-| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **TRUE** | **yes, through the config**: a Borg that reads the delivered `borg.txt` plays Warrior, Druid and Ranger with the stair-scum start; a Borg that reads no `borg.txt` does not | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
+| `borg_munchkin_by_class` | bool | **FALSE** | the class rule is off, as it was | **FALSE** | no: class-based munchkin start requires an explicit opt-in | M8 - better-borg-c PR302 (`fd683ced`), carried by owner decision 2026-11-09 |
 | `borg_munchkin_class_depth` | int | 6 | inert: the rule is off, so the class depth never applies | 6 | no | M8, with the rule |
 | `borg_buy_strategy_default` | int | 0 | 0 is the original buying | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_munchkin` | int | -1 | -1 is every class, which is the original buying | -1 | no | borg-rs PR #26/#28 |
@@ -65,23 +83,54 @@ did, so an unconfigured Borg is the original C Borg.
 | `borg_buy_strategy_current_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_strategy_reserve410_munchkin_classes` | int | 0 | no class switches | 0 | no | borg-rs PR #26/#28 |
 | `borg_buy_identify` | int | 0 | 0 is off, and the original C Borg never bought to identify | 0 | no | borg-rs PR #28 |
+| `borg_town_no_stores` | bool | FALSE | FALSE is what a Borg does today: the store exists, the Borg does not use it | FALSE | no - FALSE is today's behaviour | borg-rs PR #42, the negative-baseline arm for the town inventory redesign (borg-rs#36) |
+| `borg_town_plan` | int | 0 | 0 is off: the plan does not run, which is today's behaviour | 0 | no | borg-rs PR #42, the town inventory redesign's parameter vector (borg-rs#36) |
+| `borg_town_w_light` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan`; the phase-1 numeraire |
+| `borg_town_w_food` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_bleeding` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_poison` | int | 100 | inert while `borg_town_plan = 0` | 100 | no | with `borg_town_plan` |
+| `borg_town_w_escape` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_w_knowledge` | int | 25 | inert while `borg_town_plan = 0` | 25 | no | with `borg_town_plan` |
+| `borg_town_w_power` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_w_trip` | int | 50 | inert while `borg_town_plan = 0` | 50 | no | with `borg_town_plan` |
+| `borg_town_share` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the purse-share cap |
+| `borg_town_light_depth` | int | 15 | inert while `borg_town_plan = 0` | 15 | no | with `borg_town_plan`; the trip model's light threshold |
+| `borg_town_food_trip` | int | 10 | inert while `borg_town_plan = 0` | 10 | no | with `borg_town_plan`; the trip model's ration count |
+| `borg_trip_policy` | int | 0 | 0 is today's play; the policy only records (`BORG_TRIP_RECORD`) | 0 | no | borg-rs#60 |
+| `borg_trip_depth_margin` | int | 0 | inert while `borg_trip_policy = 0` | 0 | no | borg-rs#60; levels above the prepared depth |
+| `borg_trip_pack_slack` | int | 2 | inert while `borg_trip_policy = 0` | 2 | no | borg-rs#60; free pack slots per stack |
+| `borg_trip_unknown_stacks` | int | 4 | inert while `borg_trip_policy = 0` | 4 | no | borg-rs#60; unknown stacks |
+| `borg_trip_return_gold` | int | 0 | inert while `borg_trip_policy = 0` | 0 | no | borg-rs#60; gold per character level |
 
-**One departure, and it is deliberate.** `borg_munchkin_by_class` is the only
-setting whose built-in default and configured value differ. The built-in
-default is FALSE - what the original C Borg did - and the product's milestone 8
-decision is carried by the two `borg.txt` files, which say TRUE. So:
 
-- a Borg that reads **no** `borg.txt` plays the **original C Borg's**
-  behaviour;
-- a Borg that reads the **delivered** `borg.txt` plays the **product's**
-  behaviour;
-- every tool that runs a Borg **names the setting**, so the difference never
-  reaches a measurement by accident.
+The v5 shadow-utility revision adds twelve integer settings. Each has the
+same built-in and delivered default and changes no unconfigured run. The C
+control reads them without using them. Their full meaning, ranges and portable
+sample arms are in [TOWN-UTILITY](TOWN-UTILITY.md#zoo-calibration-parameters).
 
-The owner decided this on 2026-11-12, after the defaults audit.
+| Setting suffix (`borg_town_…`) | Default |
+| --- | --- |
+| `target_depth` | 0 |
+| `trip_turns` | 0 |
+| `w_gold` | 25 |
+| `depth_gain` | 1 |
+| `explore_turns` | 1000 |
+| `stair_turns` | 50 |
+| `food_turns` | 3000 |
+| `light_turns` | 5000 |
+| `risk` | 1000 |
+| `home_discount` | 500 |
+| `w_space` | 25 |
+| `power_scale` | 40000 |
 
-The C parser registers `borg_munchkin_by_class` and the C Borg reads it, so
-the two backends agree on both sides of that line.
+The built-in and delivered defaults now agree: `borg_munchkin_start` and
+`borg_munchkin_by_class` are both FALSE. No class gets a munchkin start
+unless the run explicitly enables it. Profiles still name their mode flags.
+
+Historically, M8 enabled the class override in both delivered configs, and
+that choice was retained in the 2026-11-12 defaults audit. The owner reversed
+that default on 2026-11-14 after finding it active in interactive play.
+The optional class rule remains available in both C and Rust.
 
 ## The zoo contract
 
@@ -131,3 +180,27 @@ git show e473720ed88a0f0c7ca66815cef3000eb4a38bc3:src/borg/borg.txt     # the or
 Compare them with `angband/src/borg/borg-init.c`, `borg-rs/src/borg_init.rs`,
 `harness/borg.txt` and `angband/src/borg/borg.txt`. The audit was done on
 2026-11-12 and the result is the table above.
+
+## Class-aware calibration
+
+Shared defaults, optional class baselines and per-arm class overrides are now
+resolved before birth. The native export uses the zoo's existing `by_class`
+and `otherwise` selector. The reference still uses one shared vector for all
+nine classes; probe overrides are validation fixtures. See
+[TOWN-CLASS-CALIBRATION](TOWN-CLASS-CALIBRATION.md) for precedence, commands,
+validation and the live-testing/confirmation gates. New runner manifests are
+reported per class, including failures and Ranger/Blackguard.
+
+Class-profile export, per-cell shadow capture and parsed-settings verification
+are requested in [borg-zoo#88](https://github.com/diegoami/borg-zoo/issues/88).
+The request does not authorise a live executor or a hosted experiment dispatch.
+
+## Live local outcome pilot
+
+The owner requested the experimental executor and a local full-suite comparison.
+`borg_town_plan = 1` now executes the utility strategy; default 0 remains the
+unchanged current control. The [live outcome report](validation/2026-11-14-town-live-full/README.md)
+records all 180 matched attempts and the focused Knowledge/Home grid for a
+later zoo development run. Six native profiles and the measured source pin
+are in `tools/town-plan/zoo-live-grid-{profiles,specimen,experiment}.json`.
+The existing zoo planner validates 10800 cells; no workflow is dispatched.

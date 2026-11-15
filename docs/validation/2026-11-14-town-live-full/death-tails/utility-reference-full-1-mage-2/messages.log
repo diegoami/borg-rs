@@ -1,0 +1,20 @@
+199 1441 0 # Fleeing and leaving the level. (scaryguy)
+199 1441 0 # Flowing toward Alchemy Shop at cost 6
+200 1451 0 # Tracking a monster 'battle-scarred veteran' at (10,14) from (12,15)
+200 1451 0 # Scary guy on level.
+200 1451 0 # Fleeing and leaving the level. (scaryguy)
+200 1451 0 # Flowing toward Alchemy Shop at cost 5
+201 1461 0 # Tracking a monster 'battle-scarred veteran' at (11,15) from (10,14)
+201 1461 0 # Scary guy on level.
+201 1461 0 # Loc:12,15 Dep:0 Lev:1 HP:1/7 SP:2/2 Danger:p=12
+201 1461 0 # Fleeing and leaving the level. (scaryguy)
+201 1461 0 # Backing up to 15,13 (12 > 0)
+202 1471 0 # Tracking a monster 'battle-scarred veteran' at (11,14) from (11,15)
+202 1471 0 # Scary guy on level.
+202 1471 0 # Fleeing and leaving the level. (scaryguy)
+202 1471 0 # Flowing toward Alchemy Shop at cost 5
+203 1477 34 The battle-scarred veteran hits you.
+203 1477 8 You die.
+204 1477 0 Score not registered for borgs.
+204 1477 0 # Aborting (death).
+204 1477 0 # Aborting (player died).

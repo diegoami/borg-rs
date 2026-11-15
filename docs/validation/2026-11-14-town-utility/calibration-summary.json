@@ -1,0 +1,397 @@
+{
+  "scope": "shadow decision snapshots, not executed transactions or a survival comparison",
+  "parameter_names": [
+    "borg_town_plan",
+    "borg_town_w_light",
+    "borg_town_w_food",
+    "borg_town_w_bleeding",
+    "borg_town_w_poison",
+    "borg_town_w_escape",
+    "borg_town_w_knowledge",
+    "borg_town_w_power",
+    "borg_town_w_trip",
+    "borg_town_share",
+    "borg_town_light_depth",
+    "borg_town_food_trip",
+    "borg_town_target_depth",
+    "borg_town_trip_turns",
+    "borg_town_w_gold",
+    "borg_town_depth_gain",
+    "borg_town_explore_turns",
+    "borg_town_stair_turns",
+    "borg_town_food_turns",
+    "borg_town_light_turns",
+    "borg_town_risk",
+    "borg_town_home_discount",
+    "borg_town_w_space",
+    "borg_town_power_scale"
+  ],
+  "arms": {
+    "reference": {
+      "completed_runs": 7,
+      "snapshots": 609,
+      "median_planned_spend_percent_of_available_gold": 54.815,
+      "minimum_gold_retained_from_positive_purse": 2,
+      "positive_purse_exhausted_by_discretionary_plan": 0,
+      "snapshots_planning_recall_purchase": 0,
+      "snapshots_planning_recall_storage": 50
+    },
+    "shallow": {
+      "completed_runs": 7,
+      "snapshots": 609,
+      "median_planned_spend_percent_of_available_gold": 54.631,
+      "minimum_gold_retained_from_positive_purse": 2,
+      "positive_purse_exhausted_by_discretionary_plan": 0,
+      "snapshots_planning_recall_purchase": 0,
+      "snapshots_planning_recall_storage": 50
+    },
+    "cash-cautious": {
+      "completed_runs": 7,
+      "snapshots": 609,
+      "median_planned_spend_percent_of_available_gold": 40.323,
+      "minimum_gold_retained_from_positive_purse": 2,
+      "positive_purse_exhausted_by_discretionary_plan": 0,
+      "snapshots_planning_recall_purchase": 0,
+      "snapshots_planning_recall_storage": 50
+    }
+  },
+  "runs": {
+    "reference/501": {
+      "seed": 501,
+      "class_idx": 0,
+      "class": "Warrior",
+      "records": 125,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "778dc336d52dc2d3d6dc3619901543831709ffb9d33a8c1b7b7683b4fe6beba2",
+      "channels": {
+        "keys.log": "e75cfcad0388c5370645ddbf689586985b4bd7eb1db2e28596b9b8698f5e45b8",
+        "messages.log": "b94b8e64a7bc4914bbe7d525b103da91e2a335bc025567f20123ce9d2bd8e986",
+        "state.log": "7764c365caa1243c87416bd6baf6d357a2fa0b75bbc85dc38cdbd0b6c6304b0a"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/502": {
+      "seed": 502,
+      "class_idx": 1,
+      "class": "Mage",
+      "records": 122,
+      "stop_reason": "turns",
+      "game_turns": 30196,
+      "death_cause": "",
+      "plan_sha256": "0adcb3481eb28dc096166361869149f631785ebc2ea323c00a5fbc3d9fb0636f",
+      "channels": {
+        "keys.log": "d5bedf8b6a90e8fa2c6dbb6e30dd8bbdaecb72c5b70c1cf7e71a3dd9f9596e24",
+        "messages.log": "1805de579ddf3c23da9a7fbfc879a960b23a02fff87cca9ca7ba9a0fd492eaa8",
+        "state.log": "21200d1f9f9c297b4c04e88dec1da5bd1571488fa21dbce992c9a5df328394be"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/503": {
+      "seed": 503,
+      "class_idx": 2,
+      "class": "Druid",
+      "records": 97,
+      "stop_reason": "turns",
+      "game_turns": 30001,
+      "death_cause": "",
+      "plan_sha256": "eef8c0c3b1f7daecf99c4410fdbe44a7498692b47a2a6a405273310d86cb2920",
+      "channels": {
+        "keys.log": "c63f853e394e03fcf2d5d32ff857e64853f7127c029868e74fcbe369523377e4",
+        "messages.log": "956d1985531c844c7368b2be974c40514603975f51a9542f01f8628062094c72",
+        "state.log": "f9fddd44929929683e29ff1fc99b22dd64c481edd73bf02565092e3ea30c135e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/504": {
+      "seed": 504,
+      "class_idx": 3,
+      "class": "Priest",
+      "records": 30,
+      "stop_reason": "death",
+      "game_turns": 1765,
+      "death_cause": "Fang, Farmer Maggot's Dog",
+      "plan_sha256": "05475b285a9890983c873cac9d059de6447af3ad599a643769471efc25a0e104",
+      "channels": {
+        "keys.log": "f545c6e5953f4fe46349638c117a0360a8e6887f7fd570ac61fe5261baf5947a",
+        "messages.log": "c07333a891fa6d341229ae2b4e8afa4124dfb0483631344f05f9b6cb642c265c",
+        "state.log": "c18b4285968843d27cdd56ad5d6f65b4a41728fd4d391ee18729836193a3f101"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/505": {
+      "seed": 505,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "records": 63,
+      "stop_reason": "turns",
+      "game_turns": 30043,
+      "death_cause": "",
+      "plan_sha256": "ffa164464548fe73bff29d3170ca34716f56df433cb8101c6ea9db6f50723207",
+      "channels": {
+        "keys.log": "48a700605597f38c6dbfc743052bd911651788426418581379fb20ffb7d4fadd",
+        "messages.log": "e9db4f61d58c95182c00f9ae50b76b5cbb12bb5cc8bce2282c9d3bc17430daa0",
+        "state.log": "835182f1d0840c5dcbadab22f7c165c7c38b8d5bd48cd2473b414896fd09395d"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/506": {
+      "seed": 506,
+      "class_idx": 5,
+      "class": "Paladin",
+      "records": 57,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "2e26c7d902b3a3aae66da530ef1d160e4f6a8027801f1c286923c70c254e1fa2",
+      "channels": {
+        "keys.log": "8a025dd873f203b6c65d9971db1daff7dcb0146a4afe69067156092bf5309f51",
+        "messages.log": "981d565046df2e2be747ec2a55610c7d320df36853a0a1d9a0a147154576f367",
+        "state.log": "9ef01db73b7de9804ced74d9b8bc0cb97ab453914f8ebbdcfa9076935bc1389e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "reference/507": {
+      "seed": 507,
+      "class_idx": 6,
+      "class": "Rogue",
+      "records": 115,
+      "stop_reason": "turns",
+      "game_turns": 30002,
+      "death_cause": "",
+      "plan_sha256": "a2bfbe9acaa8508575013826923c0cfb5f6a3b6d9ea8c9424cc8be400d98896c",
+      "channels": {
+        "keys.log": "b75e1462534ad10115672da2a9a983fb34e049d000674526e19793fe713544b4",
+        "messages.log": "0edf642869e20ed5c0218779c63f6eb5677b615999c7569f46a115a9517be5e0",
+        "state.log": "4fd057d9402b32e837feb59846b7df771cb4647b692afb818c49793a10a69ab0"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/501": {
+      "seed": 501,
+      "class_idx": 0,
+      "class": "Warrior",
+      "records": 125,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "482518c0d1d209d486ed73bf0d6e5bf903280d8dbb1556d6a1a8758e98b36461",
+      "channels": {
+        "keys.log": "e75cfcad0388c5370645ddbf689586985b4bd7eb1db2e28596b9b8698f5e45b8",
+        "messages.log": "b94b8e64a7bc4914bbe7d525b103da91e2a335bc025567f20123ce9d2bd8e986",
+        "state.log": "7764c365caa1243c87416bd6baf6d357a2fa0b75bbc85dc38cdbd0b6c6304b0a"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/502": {
+      "seed": 502,
+      "class_idx": 1,
+      "class": "Mage",
+      "records": 122,
+      "stop_reason": "turns",
+      "game_turns": 30196,
+      "death_cause": "",
+      "plan_sha256": "b7847ecd57855dbd65e640424878c3857e5222fe2d2f95386b7618a240672d21",
+      "channels": {
+        "keys.log": "d5bedf8b6a90e8fa2c6dbb6e30dd8bbdaecb72c5b70c1cf7e71a3dd9f9596e24",
+        "messages.log": "1805de579ddf3c23da9a7fbfc879a960b23a02fff87cca9ca7ba9a0fd492eaa8",
+        "state.log": "21200d1f9f9c297b4c04e88dec1da5bd1571488fa21dbce992c9a5df328394be"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/503": {
+      "seed": 503,
+      "class_idx": 2,
+      "class": "Druid",
+      "records": 97,
+      "stop_reason": "turns",
+      "game_turns": 30001,
+      "death_cause": "",
+      "plan_sha256": "a1bb18a081c4c1fde35c6384ecce48085b7788e873ed8b29fd570dbc4ded97f0",
+      "channels": {
+        "keys.log": "c63f853e394e03fcf2d5d32ff857e64853f7127c029868e74fcbe369523377e4",
+        "messages.log": "956d1985531c844c7368b2be974c40514603975f51a9542f01f8628062094c72",
+        "state.log": "f9fddd44929929683e29ff1fc99b22dd64c481edd73bf02565092e3ea30c135e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/504": {
+      "seed": 504,
+      "class_idx": 3,
+      "class": "Priest",
+      "records": 30,
+      "stop_reason": "death",
+      "game_turns": 1765,
+      "death_cause": "Fang, Farmer Maggot's Dog",
+      "plan_sha256": "e539bc1754ddf0362d739edbaa09c2d36fc74af56a3d92e5238e518e9d2a4f5b",
+      "channels": {
+        "keys.log": "f545c6e5953f4fe46349638c117a0360a8e6887f7fd570ac61fe5261baf5947a",
+        "messages.log": "c07333a891fa6d341229ae2b4e8afa4124dfb0483631344f05f9b6cb642c265c",
+        "state.log": "c18b4285968843d27cdd56ad5d6f65b4a41728fd4d391ee18729836193a3f101"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/505": {
+      "seed": 505,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "records": 63,
+      "stop_reason": "turns",
+      "game_turns": 30043,
+      "death_cause": "",
+      "plan_sha256": "ba3c23ffe48be0b4a55cc461503b78d85c5d593fa3d59a04665f37cd188ebc30",
+      "channels": {
+        "keys.log": "48a700605597f38c6dbfc743052bd911651788426418581379fb20ffb7d4fadd",
+        "messages.log": "e9db4f61d58c95182c00f9ae50b76b5cbb12bb5cc8bce2282c9d3bc17430daa0",
+        "state.log": "835182f1d0840c5dcbadab22f7c165c7c38b8d5bd48cd2473b414896fd09395d"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/506": {
+      "seed": 506,
+      "class_idx": 5,
+      "class": "Paladin",
+      "records": 57,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "1a628c09f664f0c2b08fa6192afd6ba07d0984247d93634ae9e6487f36e78809",
+      "channels": {
+        "keys.log": "8a025dd873f203b6c65d9971db1daff7dcb0146a4afe69067156092bf5309f51",
+        "messages.log": "981d565046df2e2be747ec2a55610c7d320df36853a0a1d9a0a147154576f367",
+        "state.log": "9ef01db73b7de9804ced74d9b8bc0cb97ab453914f8ebbdcfa9076935bc1389e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "shallow/507": {
+      "seed": 507,
+      "class_idx": 6,
+      "class": "Rogue",
+      "records": 115,
+      "stop_reason": "turns",
+      "game_turns": 30002,
+      "death_cause": "",
+      "plan_sha256": "e85133e6d1fffa3448e152e1452bb84b151eab6ef4afb9e2bd29a895f495a8c8",
+      "channels": {
+        "keys.log": "b75e1462534ad10115672da2a9a983fb34e049d000674526e19793fe713544b4",
+        "messages.log": "0edf642869e20ed5c0218779c63f6eb5677b615999c7569f46a115a9517be5e0",
+        "state.log": "4fd057d9402b32e837feb59846b7df771cb4647b692afb818c49793a10a69ab0"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/501": {
+      "seed": 501,
+      "class_idx": 0,
+      "class": "Warrior",
+      "records": 125,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "b24f0e54ad2784abcc47f362b88829c7708c6e43df6612106c4975113f9c56d4",
+      "channels": {
+        "keys.log": "e75cfcad0388c5370645ddbf689586985b4bd7eb1db2e28596b9b8698f5e45b8",
+        "messages.log": "b94b8e64a7bc4914bbe7d525b103da91e2a335bc025567f20123ce9d2bd8e986",
+        "state.log": "7764c365caa1243c87416bd6baf6d357a2fa0b75bbc85dc38cdbd0b6c6304b0a"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/502": {
+      "seed": 502,
+      "class_idx": 1,
+      "class": "Mage",
+      "records": 122,
+      "stop_reason": "turns",
+      "game_turns": 30196,
+      "death_cause": "",
+      "plan_sha256": "8864f167877673b457ab215d48d0f6d00decf3fd6c828484c1a0a4da7c6a9d08",
+      "channels": {
+        "keys.log": "d5bedf8b6a90e8fa2c6dbb6e30dd8bbdaecb72c5b70c1cf7e71a3dd9f9596e24",
+        "messages.log": "1805de579ddf3c23da9a7fbfc879a960b23a02fff87cca9ca7ba9a0fd492eaa8",
+        "state.log": "21200d1f9f9c297b4c04e88dec1da5bd1571488fa21dbce992c9a5df328394be"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/503": {
+      "seed": 503,
+      "class_idx": 2,
+      "class": "Druid",
+      "records": 97,
+      "stop_reason": "turns",
+      "game_turns": 30001,
+      "death_cause": "",
+      "plan_sha256": "45fe19d3ee8d409a2a32fb7dac9a3cd3416ac6fed8055f164cfa33b4d4c0fd3d",
+      "channels": {
+        "keys.log": "c63f853e394e03fcf2d5d32ff857e64853f7127c029868e74fcbe369523377e4",
+        "messages.log": "956d1985531c844c7368b2be974c40514603975f51a9542f01f8628062094c72",
+        "state.log": "f9fddd44929929683e29ff1fc99b22dd64c481edd73bf02565092e3ea30c135e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/504": {
+      "seed": 504,
+      "class_idx": 3,
+      "class": "Priest",
+      "records": 30,
+      "stop_reason": "death",
+      "game_turns": 1765,
+      "death_cause": "Fang, Farmer Maggot's Dog",
+      "plan_sha256": "c89883d49bb9420e39f50156ff5753262315325a4c2a539721f5bcec31c3be64",
+      "channels": {
+        "keys.log": "f545c6e5953f4fe46349638c117a0360a8e6887f7fd570ac61fe5261baf5947a",
+        "messages.log": "c07333a891fa6d341229ae2b4e8afa4124dfb0483631344f05f9b6cb642c265c",
+        "state.log": "c18b4285968843d27cdd56ad5d6f65b4a41728fd4d391ee18729836193a3f101"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/505": {
+      "seed": 505,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "records": 63,
+      "stop_reason": "turns",
+      "game_turns": 30043,
+      "death_cause": "",
+      "plan_sha256": "ce05a1b8729e7562b9805051f8f8d7cc8cf6c47a7fa3e5eed8be462d199e1606",
+      "channels": {
+        "keys.log": "48a700605597f38c6dbfc743052bd911651788426418581379fb20ffb7d4fadd",
+        "messages.log": "e9db4f61d58c95182c00f9ae50b76b5cbb12bb5cc8bce2282c9d3bc17430daa0",
+        "state.log": "835182f1d0840c5dcbadab22f7c165c7c38b8d5bd48cd2473b414896fd09395d"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/506": {
+      "seed": 506,
+      "class_idx": 5,
+      "class": "Paladin",
+      "records": 57,
+      "stop_reason": "turns",
+      "game_turns": 30004,
+      "death_cause": "",
+      "plan_sha256": "9d6f877fb24b8516b5b4ae9d65ff134583a55a5a098d6f8a7ae8101b847f4d84",
+      "channels": {
+        "keys.log": "8a025dd873f203b6c65d9971db1daff7dcb0146a4afe69067156092bf5309f51",
+        "messages.log": "981d565046df2e2be747ec2a55610c7d320df36853a0a1d9a0a147154576f367",
+        "state.log": "9ef01db73b7de9804ced74d9b8bc0cb97ab453914f8ebbdcfa9076935bc1389e"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    },
+    "cash-cautious/507": {
+      "seed": 507,
+      "class_idx": 6,
+      "class": "Rogue",
+      "records": 115,
+      "stop_reason": "turns",
+      "game_turns": 30002,
+      "death_cause": "",
+      "plan_sha256": "46336bcd9ce46f8e58f009a79c5f23ca4327bcadd1b0a6c9a21de52169f3d24a",
+      "channels": {
+        "keys.log": "b75e1462534ad10115672da2a9a983fb34e049d000674526e19793fe713544b4",
+        "messages.log": "0edf642869e20ed5c0218779c63f6eb5677b615999c7569f46a115a9517be5e0",
+        "state.log": "4fd057d9402b32e837feb59846b7df771cb4647b692afb818c49793a10a69ab0"
+      },
+      "binary_sha256": "8e9c2361f0a489e806f68b7c951f79945e87805e59b61144fdeb2056f4655537"
+    }
+  },
+  "matched_gameplay": "7/7 seed/class pairs identical across all 3 parameter settings on keys/messages/state and gameplay summaries"
+}
