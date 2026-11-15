@@ -22,7 +22,6 @@ pub fn engine_index(record: usize) -> Option<usize> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::borg_headers::borg_trait_h::BI_MAX;
     #[test]
     fn m13_projection_is_a_bijection_and_keeps_m12_ids() {
         assert_eq!(BI_MAX,270,"new engine traits require an explicit serialization mapping");
