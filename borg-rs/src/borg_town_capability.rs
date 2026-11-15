@@ -632,7 +632,7 @@ mod tests {
     fn ranger_empty_quiver_remains_valuable_when_devices_cover_damage() {
         let mut m = model();
         m.curves[ATTACK] = [ATTACK as i64, 100 * UNIT, 60 * UNIT, 100000 * UNIT, 0];
-        m.curves[RANGER_MISSILES] = [RANGER_MISSILES as i64, 1000 * UNIT, 22 * UNIT, 0, 0];
+        m.curves[RANGER_MISSILES] = [RANGER_MISSILES as i64, 250 * UNIT, 22 * UNIT, 0, 0];
         let arrow = missile_supply(CLASS_RANGER, 6 * UNIT);
         let empty = m.gain(&arrow);
         // A 1-gold arrow beats a 15-gold first-copy learning bonus of 25.

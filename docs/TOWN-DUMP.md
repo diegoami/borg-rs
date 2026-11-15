@@ -295,7 +295,7 @@ Schema 10 preserves IDs 0–56 and all schema 9 transaction/packing behavior.
 ID 57 is Ranger usable shots: each known, non-cursed missile compatible with
 the current launcher supplies one shot in addition to its damage. Oil, devices
 and spells supply no shots. Pack, quiver and Home supply use the same curves.
-The Ranger-only weight is `borg_town_w_ranger_missiles` (initial candidate 1000;
+The Ranger-only weight is `borg_town_w_ranger_missiles` (calibrated candidate 250;
 0 disables); demand is planned trip turns / `borg_town_ranger_missile_turns`
 (initial candidate 50 actions/shot), at least one shot. Decreasing marginal
 utility lets price, gold, healing, escape and capacity still compete. These
