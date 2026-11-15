@@ -288,3 +288,21 @@ Active condition demands and reductions use actual native timer units.
 See [the review disposition map](TOWN-PR83-FIXES.md) for classifier, rod,
 random-branch, shared-slot and reserve changes. Native receipts and observed
 wallet/inventory changes establish transactions; a queued command does not.
+
+## Ranger missile utility (schema 10)
+
+Schema 10 preserves IDs 0–56 and all schema 9 transaction/packing behavior.
+ID 57 is Ranger usable shots: each known, non-cursed missile compatible with
+the current launcher supplies one shot in addition to its damage. Oil, devices
+and spells supply no shots. Pack, quiver and Home supply use the same curves.
+The Ranger-only weight is `borg_town_w_ranger_missiles` (initial candidate 1000;
+0 disables); demand is planned trip turns / `borg_town_ranger_missile_turns`
+(initial candidate 50 actions/shot), at least one shot. Decreasing marginal
+utility lets price, gold, healing, escape and capacity still compete. These
+are policy estimates for calibration, not measured combat rates or fixed quotas.
+
+Native `PF_UNLIGHT` suppresses fuel utility even with a worn light. Torches
+are unavailable purchase/urgent-withdrawal candidates for unlight characters,
+before equipment or learning bonuses; the recorded `available` rows preserve
+that eligibility decision. Other equipment lights may still offer gear benefits.
+Schemas 4–9 retain their original recorded curves and replay behavior.

@@ -15,7 +15,8 @@ continues to come from the trip policy when enabled.
 ## Capabilities
 
 - Ammunition supplies expected ranged damage, only for a matching launcher.
-  Existing quiver stock counts. Oil reserves whole bottles against the forecast fuel
+  Rangers additionally value usable shots as a separate trip-relative reserve;
+  oil/devices cannot satisfy it. Existing quiver stock counts. Oil reserves whole bottles against the forecast fuel
   shortfall of a lantern; surplus bottles supply thrown damage. A bottle is
   never counted for both uses. Attack supplies share coverage with offensive devices.
 - Known devices supply their native effects using actual charges or expected

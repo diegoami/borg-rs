@@ -344,6 +344,10 @@ pub fn live_action(st: &mut BorgState) -> TownAction {
     evaluate(st, true)
 }
 
+fn unusable_torch(unlight: bool, tval: u8, sval: u8, torch: i32) -> bool {
+    unlight && u32::from(tval) == crate::headers::list_tvals_h::TV_LIGHT && i32::from(sval) == torch
+}
+
 fn effective_params(mut params: [i64; PARAMS], forecast: Option<crate::borg_trip::PlannedTrip>) -> [i64; PARAMS] {
     use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
     let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
@@ -389,13 +393,17 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     }
     // Rejections apply only while the observed carrying/purse context is
     // unchanged. Keep zero-quantity rows to preserve recorded candidate order.
+    let unlight = engine::player_has(crate::headers::list_player_flags_h::PF_UNLIGHT);
     for c in &mut stock.candidates {
+        // Unlight supplies sight without a carried torch. Keep this physical
+        // suitability gate ahead of fuel, gear try-on and learning bonuses.
+        if unusable_torch(unlight, c.tval, c.sval, st.item_val.sv_light_torch) { c.qty = 0; }
         if live && crate::borg_town_live::buy_rejected(st, c.shop as i16, c.slot as usize) { c.qty = 0; }
     }
     let mut class = stock.candidates.iter().map(|c| c.class).max().unwrap_or(0).saturating_add(1);
     for (slot, item) in st.store.shops[BORG_HOME].ware.iter().enumerate() {
         if item.iqty == 0 { continue; }
-        let available = item.aware && !(live && crate::borg_town_live::buy_rejected(st, 7, slot));
+        let available = item.aware && !unusable_torch(unlight, item.tval, item.sval, st.item_val.sv_light_torch) && !(live && crate::borg_town_live::buy_rejected(st, 7, slot));
         let native = engine::store_stock(&st.access, BORG_HOME);
         let joins = native.get(slot).is_some_and(|o| o.merge_capacity() >= 1);
         stock.candidates.push(crate::borg_town_stock::Candidate { shop:7,slot:slot as u8,
@@ -613,5 +621,17 @@ mod tests {
             it.tval = tval as u8;
             assert!(has_inventory_power(&it));
         }
+    }
+}
+
+#[cfg(test)]
+mod missile_and_light_tests {
+    #[test]
+    fn unlight_rejects_torches_before_knowledge_or_equipment_scoring() {
+        use crate::headers::list_tvals_h::{TV_LIGHT, TV_FLASK};
+        assert!(super::unusable_torch(true, TV_LIGHT as u8, 1, 1));
+        assert!(!super::unusable_torch(false, TV_LIGHT as u8, 1, 1));
+        assert!(!super::unusable_torch(true, TV_LIGHT as u8, 2, 1));
+        assert!(!super::unusable_torch(true, TV_FLASK as u8, 1, 1));
     }
 }

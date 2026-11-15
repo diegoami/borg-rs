@@ -11,7 +11,7 @@ a claimed resolution merely because a new test repeats the implementation.
 Trace native transaction completion/capacity, exact sale offers, Home urgency
 and reserve changes, shared slot/capability accounting, branch alternatives,
 partial timers and rod readiness. Check partial rune identity and task-specific
-opportunity reopening. Examine historical replay (4–8) and schema 9 facts,
+opportunity reopening. Examine historical replay (4–9) and schema 10 facts,
 including excluded offers. Preserve off-policy behavior except the explicitly
 mirrored empty-light correction. The test-town-review feature must be absent
 from normal builds.
@@ -21,6 +21,12 @@ claims, native/public versus diagnostic facts, and selection limitations.
 Separate isolated post-hoc diagnostics from combined-candidate validation.
 In particular, the 200-seed light result is not a fresh zoo confirmation and
 cannot fairly be compared to uncorrected control.
+
+Also review the owner-requested Ranger missile calibration addendum. Only usable
+missiles should satisfy the Ranger shot reserve; devices/oil must not suppress
+it. Check trip scaling, diminishing marginal value, carried quiver/Home supply,
+calibration settings, and unlight torch exclusion before learning/gear scoring.
+Arrow purchase totals are a calibration target, not proof of improved survival.
 
 Run relevant unit, clippy, native fixture, coverage, replay and smoke checks
 from the validation receipt. Inspect any natural deaths for contradictory

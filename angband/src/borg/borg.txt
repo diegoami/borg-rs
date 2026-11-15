@@ -381,6 +381,10 @@ borg_town_w_support = 50
 borg_town_w_restore = 100
 borg_town_attack_turns = 100
 borg_town_support_turns = 1000
+# Ranger-only usable missile reserve: utility weight (0 disables);
+# forecast actions per shot. Demand follows trip duration, not a fixed quota.
+borg_town_w_ranger_missiles = 1000
+borg_town_ranger_missile_turns = 50
 
 
 

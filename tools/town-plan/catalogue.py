@@ -2,7 +2,7 @@
 """Build the owner-review catalogue from this checkout's game data.
 
 Run from anywhere: python3 tools/town-plan/catalogue.py
-The classification documents the v9 capability utility producer; it is not a
+The classification documents the v10 capability utility producer; it is not a
 runtime reduction table. Black Market rows are allocation candidates, not a
 promise that store_create_random/black_market_ok will accept a particular item.
 """
@@ -97,7 +97,7 @@ def role(obj):
     if typ == 'flask':
         return 'Ranged damage + fuel', 'throw damage; 7500 lantern-fuel turns', 'Reserve whole bottles for the forecast fuel shortfall first; surplus is ammunition. Oil is not another light source and a bottle is not counted for both uses.'
     if typ in ('shot', 'arrow', 'bolt'):
-        return 'Ranged damage', 'average damage × matching launcher multiplier', 'Zero without a matching launcher; carried pack and quiver stock share diminishing coverage.'
+        return 'Ranged damage + Ranger missile reserve', 'average damage × matching launcher multiplier; one usable shot', 'Zero without a matching launcher. Rangers also value a trip-relative shot reserve that oil/devices cannot fill. Carried pack and quiver stock reduce marginal demand.'
     if typ == 'digger':
         return 'Digging', 'digging tool availability', 'Shared with Stone to Mud; retaining a tool and buying one use the same supply facts.'
     if typ.endswith('book'):
@@ -155,7 +155,7 @@ page = '''<!doctype html>
 :root{font:16px/1.5 system-ui,sans-serif;color:#192a32;background:#f5f4ee}body{max-width:1500px;margin:40px auto;padding:0 24px}h1{font-size:2.2rem;line-height:1.15}p{max-width:100ch}aside{padding:16px 22px;background:#e6ede8;border-left:4px solid #3c6e54}label{display:inline-block;margin:18px 18px 12px 0}input,select{font:inherit;padding:8px;border:1px solid #87958e;border-radius:4px}input{width:min(60vw,380px)}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #d9ded7}th{position:sticky;top:0;background:#244936;color:white}td:first-child{font-weight:600;min-width:140px}.gap{background:#fff4df}small{color:#53665d}summary{cursor:pointer}a{color:#256348}@media print{label{display:none}th{position:static}body{margin:0}tr{break-inside:avoid}}
 </style>
 <h1>Town inventory: item catalogue</h1>
-<p>Owner review · experimental live mode · <strong>v9 capability utility</strong></p>
+<p>Owner review · experimental live mode · <strong>v10 capability utility</strong></p>
 <aside>The fixed food, healing, escape and Recall stock targets are replaced. Each row identifies the supply unit; purchases compare marginal trip utility with carrying burden and retaining gold. The Home can retain supplies for future trips.</aside>
 <p>Destination is explicit <code>borg_town_target_depth</code>, or the shared trip forecast (max depth + configured gain when trip policy is off). Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
 <p>Weights remain configurable priorities. Food/lifetime/exposure rates are estimates, not measured survival probabilities. See <a href="TOWN-UTILITY.md">the model specification</a> and <a href="TOWN-ITEM-CATALOGUE.md">the GitHub-rendered table</a>. Live execution remains opt-in; the frozen milestone-12 zoo candidate is unchanged.</p>

@@ -61,16 +61,18 @@ const ACQUIRE: usize = 53;
 const CUT: usize = 54;
 const STUN: usize = 55;
 const CONTROL: usize = 56;
+const RANGER_MISSILES: usize = 57;
+const CLASS_RANGER: i32 = 7;
 const COUNT: usize = NAMES.len();
 
-pub const NAMES: [&str; 57] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
+pub const NAMES: [&str; 58] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
     "ranged damage", "teleport", "level escape", "teleport other", "digging", "trap/door detection",
     "monster detection", "invisible detection", "mapping", "illumination", "speed", "resist fire",
     "resist cold", "resist poison", "resist acid", "resist electricity", "combat buff", "mana",
     "restore experience", "remove curse", "enchantment", "recharging", "confusion cure", "blindness cure",
     "fear cure", "glyph", "strength", "intelligence", "wisdom", "dexterity", "constitution", "charisma",
     "book 0", "book 1", "book 2", "book 3", "book 4", "book 5", "book 6", "book 7", "book 8",
-    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target", "equipment opportunity", "cut reduction", "stun reduction", "monster control"];
+    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target", "equipment opportunity", "cut reduction", "stun reduction", "monster control", "Ranger usable shots"];
 
 /// Curves: [capability, weight in utility thousandths, demand, carried, Home].
 /// Supplies: [scope (shop 0..7, pack 8, Home 9), slot, capability, units/copy].
@@ -276,6 +278,14 @@ fn oil_supply(quantity: i64, fuel_bottles: i64, damage: i64, fuel: i64) -> Vec<(
     out
 }
 
+// Called only after native launcher compatibility and curse checks. Each
+// arrow contributes both damage and one reliable shot, separate objectives.
+fn missile_supply(class: i32, damage: i64) -> Vec<(usize, i64)> {
+    let mut out = vec![(ATTACK, damage)];
+    if class == CLASS_RANGER { out.push((RANGER_MISSILES, UNIT)); }
+    out
+}
+
 fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize, i64)> {
     if item.iqty == 0 || item.kind == 0 { return Vec::new(); }
     let tval = u32::from(item.tval);
@@ -310,7 +320,7 @@ fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize
         let damage = (i64::from(item.dd) * (i64::from(item.ds) + 1) * UNIT / 2
             + (i64::from(item.to_d) + i64::from(st.borg.tr(BI_BTODAM))) * UNIT).max(UNIT)
             * i64::from(st.borg.tr(BI_AMMO_POWER)).max(1);
-        return vec![(ATTACK, damage)];
+        return missile_supply(st.borg.tr(BI_CLASS), damage);
     }
     if tval == TV_LIGHT {
         return if item.timeout > 0 { vec![(LIGHT, i64::from(item.timeout) * UNIT)] } else { Vec::new() };
@@ -396,6 +406,10 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     curve(RECALL, cfg(BORG_TOWN_W_TRIP) * UNIT * journey.walk / journey.turns.max(journey.walk).max(1), UNIT);
     let damage_scale = journey.level * 2 + 4;
     curve(ATTACK, risk(BORG_TOWN_W_ATTACK), damage_scale * journey.turns * UNIT / cfg(BORG_TOWN_ATTACK_TURNS).max(1));
+    // Reliable bow ammunition is a separate reserve for Rangers. Oil, devices
+    // and spells supply damage but cannot replenish usable missile shots.
+    curve(RANGER_MISSILES, if st.borg.tr(BI_CLASS) == CLASS_RANGER { risk(BORG_TOWN_W_RANGER_MISSILES) } else { 0 },
+          (journey.turns * UNIT / cfg(BORG_TOWN_RANGER_MISSILE_TURNS).max(1)).max(UNIT));
     for id in [TELEPORT, LEVEL, OTHER] { curve(id, risk(BORG_TOWN_W_ESCAPE), exposure); }
     for cap in [TRAPS, MONSTERS, INVISIBLE, MAP, ILLUMINATE] { curve(cap, ordinary, journey.turns * UNIT); }
     curve(MANA, if t(BI_MAXSP) > 0 { risk(BORG_TOWN_W_MAGIC) } else { 0 }, t(BI_MAXSP).max(1) * exposure);
@@ -445,7 +459,7 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
         for (cap, n) in supplies(item, &ctx, (10, 0)) { model.curves[cap][3] += n * i64::from(item.iqty); }
     }
     use crate::headers::list_object_flags_h::OF_NO_FUEL;
-    if light.iqty > 0 && engine::flag_has(&light.flags, OF_NO_FUEL as i32) || t(BI_LIGHT) > 0 && light.iqty == 0 {
+    if engine::player_has(crate::headers::list_player_flags_h::PF_UNLIGHT) || light.iqty > 0 && engine::flag_has(&light.flags, OF_NO_FUEL as i32) || t(BI_LIGHT) > 0 && light.iqty == 0 {
         model.curves[LIGHT][1] = 0;
     }
     // Reliable renewable spells cover a capability without pretending they
@@ -614,6 +628,25 @@ mod tests {
         KitItem { joins_pack: false, place, slot, kind: 1, qty: count, weight: 10, need: -1, reduction: 0,
             power: 0, proceeds: 0, sell_shop: 0, unknown: false, unknown_flavour: false, just_bought: false, serves: 0 }
     }
+    #[test]
+    fn ranger_empty_quiver_remains_valuable_when_devices_cover_damage() {
+        let mut m = model();
+        m.curves[ATTACK] = [ATTACK as i64, 100 * UNIT, 60 * UNIT, 100000 * UNIT, 0];
+        m.curves[RANGER_MISSILES] = [RANGER_MISSILES as i64, 1000 * UNIT, 22 * UNIT, 0, 0];
+        let arrow = missile_supply(CLASS_RANGER, 6 * UNIT);
+        let empty = m.gain(&arrow);
+        // A 1-gold arrow beats a 15-gold first-copy learning bonus of 25.
+        assert!(empty * 15 > 25 * UNIT);
+        assert!(empty > 100 * m.gain(&[(ATTACK, 6 * UNIT)]), "devices cannot close the shot reserve");
+        m.curves[RANGER_MISSILES][3] = 40 * UNIT;
+        assert!(m.gain(&arrow) < empty / 5, "already carried arrows reduce marginal buying priority");
+        m.curves[RANGER_MISSILES][2] *= 2;
+        assert!(m.gain(&arrow) > 0, "longer trips retain missile value");
+        m.curves[RANGER_MISSILES][1] = 0;
+        assert_eq!(m.gain(&arrow), m.gain(&[(ATTACK, 6 * UNIT)]), "zero weight restores generic attack valuation");
+        assert_eq!(missile_supply(0, 6 * UNIT), [(ATTACK, 6 * UNIT)], "other classes keep their existing supply");
+    }
+
     #[test]
     fn wand_teleport_other_and_stone_to_mud_are_services_not_damage() {
         use crate::headers::list_projections_h::*;
