@@ -1,0 +1,37 @@
+{
+  "candidate": {
+    "impl": "rust",
+    "git_rev": "c91fc3640f22155218d1299c81d2a2a1d63ed167",
+    "git_dirty": "no",
+    "inputs_dirty": "no",
+    "source_sha256": "4ea7c6eea22811566087c2650c6cfa3fe320b32dd86e5ceb1857d02f10d698c5",
+    "binary": "/tmp/borg-town-capabilities/build/rust/game/angband",
+    "binary_sha256": "5b72abd9371e322d47c3062797e69d41aec6c46af0b3bc4a21ea1427a9b92453",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "built_utc": "2026-11-15T00:13:54Z"
+  },
+  "baseline": {
+    "impl": "rust",
+    "git_rev": "d9a56f48bac8675c91f551619492af36b698b4cf",
+    "git_dirty": "no",
+    "inputs_dirty": "no",
+    "source_sha256": "d0a8b702e39eeefe50e4597f7a9d1947fef7e057ed010409ece83f9a96c39f51",
+    "binary": "/tmp/borg-joint-evidence-source/build/rust/game/angband",
+    "binary_sha256": "5824fffa1d6e3e57e5c6ab2ba5fa6f64565bfdb62f624f480bb504b36d52bcc3",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "built_utc": "2026-11-14T22:12:05Z"
+  },
+  "c-smoke-oracle": {
+    "impl": "c",
+    "git_rev": "5a209f3cce991e75f56021a790c917c423cb070b",
+    "git_dirty": "no",
+    "inputs_dirty": "no",
+    "source_sha256": "9b823bdebf1d5687a442718e360577770237cf6d2fbccefc753219bf94d9d4ac",
+    "binary": "/tmp/borg-town-capabilities/build/c/game/angband",
+    "binary_sha256": "6440019337f4bb9f95c2da59e1d8260486d6a70d2fee5d4227291b7dede1bb61",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "built_utc": "2026-11-14T23:59:16Z"
+  }
+}

@@ -5,14 +5,14 @@ use super::*;
 #[derive(Copy, Clone)]
 #[repr(C)]
 pub struct player_options {
-    pub opt: [bool; 46],
+    pub opt: [bool; 47],
     pub hitpoint_warn: uint8_t,
     pub lazymove_delay: uint8_t,
     pub delay_factor: uint8_t,
     pub name_suffix: uint8_t,
 }
 pub type C2RustUnnamedH_21 = ::core::ffi::c_uint;
-pub const OPT_MAX: C2RustUnnamedH_21 = 46;
+pub const OPT_MAX: C2RustUnnamedH_21 = 47;
 extern "C" {
     pub static mut screensaver: bool;
 }

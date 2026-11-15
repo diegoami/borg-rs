@@ -1,0 +1,111 @@
+{
+  "schema": 2,
+  "purpose": "shadow calibration; these profiles do not change actual game decisions",
+  "base": {
+    "borg_town_no_stores": false,
+    "borg_town_plan": 0,
+    "borg_buy_strategy_default": 0,
+    "borg_buy_identify": 0,
+    "borg_town_w_light": 100,
+    "borg_town_w_food": 100,
+    "borg_town_w_bleeding": 100,
+    "borg_town_w_poison": 100,
+    "borg_town_w_escape": 50,
+    "borg_town_w_knowledge": 25,
+    "borg_town_w_power": 50,
+    "borg_town_w_trip": 50,
+    "borg_town_share": 10,
+    "borg_town_target_depth": 0,
+    "borg_town_trip_turns": 0,
+    "borg_town_w_gold": 25,
+    "borg_town_depth_gain": 1,
+    "borg_town_explore_turns": 1000,
+    "borg_town_stair_turns": 50,
+    "borg_town_food_turns": 3000,
+    "borg_town_light_turns": 5000,
+    "borg_town_risk": 1000,
+    "borg_town_home_discount": 500,
+    "borg_town_w_space": 25,
+    "borg_town_power_scale": 40000,
+    "borg_town_w_attack": 100,
+    "borg_town_w_magic": 100,
+    "borg_town_w_support": 50,
+    "borg_town_w_restore": 100,
+    "borg_town_attack_turns": 100,
+    "borg_town_support_turns": 1000,
+    "borg_town_w_ranger_missiles": 250,
+    "borg_town_ranger_missile_turns": 50,
+    "borg_trip_policy": 0
+  },
+  "arms": {
+    "reference": {
+      "description": "reference sensitivity candidate; not an accepted class policy",
+      "settings": {}
+    },
+    "shallow": {
+      "description": "shallow sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_target_depth": 2,
+        "borg_town_trip_turns": 1000
+      },
+      "calibration_only": true
+    },
+    "long-shallow": {
+      "description": "long shallow sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_target_depth": 2,
+        "borg_town_trip_turns": 5000
+      },
+      "calibration_only": true
+    },
+    "greater-ambition": {
+      "description": "greater ambition sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_depth_gain": 3,
+        "borg_town_risk": 1500
+      }
+    },
+    "cash-cautious": {
+      "description": "cash cautious sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_w_gold": 50
+      }
+    },
+    "home-favoured": {
+      "description": "home favoured sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_home_discount": 750,
+        "borg_town_w_space": 50
+      }
+    },
+    "no-cash-value": {
+      "description": "no cash value sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_w_gold": 0
+      }
+    },
+    "no-future-home-value": {
+      "description": "no future home value sensitivity candidate; not an accepted class policy",
+      "settings": {
+        "borg_town_home_discount": 0
+      }
+    },
+    "class-selection-probe": {
+      "description": "Validation only: Mage cash=50, Ranger future Home=750, Blackguard risk=1500; other classes use shared defaults",
+      "settings": {},
+      "probe_only": true,
+      "class_overrides": {
+        "Mage": {
+          "borg_town_w_gold": 50
+        },
+        "Ranger": {
+          "borg_town_home_discount": 750
+        },
+        "Blackguard": {
+          "borg_town_risk": 1500
+        }
+      }
+    }
+  },
+  "class_defaults": {}
+}

@@ -1,0 +1,20 @@
+3348 26296 39 The giant brown bat bites you.
+3349 26298 0 # SELF:lite (+)
+3349 26298 0 # HIT_BY:The giant brown bat (+)
+3349 26298 0 # Called lite at (41,73)
+3349 26298 0 # SELF:lite (1)
+3349 26298 0 # HIT_BY:The giant brown bat (3)
+3349 26298 0 # Scary guy on level.
+3349 26298 0 # Loc:41,73 Dep:6 Lev:3 HP:5/43 SP:0/0 Danger:p=12
+3349 26298 0 # Fleeing and leaving the level. (scaryguy)
+3349 26298 0 # Adjacent to monster on Scaryguy Level.
+3349 26298 0 # Fleeing and leaving the level. (Looking for any stair)
+3349 26298 0 # Fleeing and leaving the level (Looking for Up Stair).
+3349 26298 0 # Flowing toward dark-2 at cost 3
+3350 26299 39 The giant brown bat bites you.
+3350 26302 39 The giant brown bat bites you.
+3350 26305 39 The giant brown bat bites you.
+3351 26305 8 You die.
+3352 26305 0 Score not registered for borgs.
+3352 26305 0 # Aborting (death).
+3352 26305 0 # Aborting (player died).

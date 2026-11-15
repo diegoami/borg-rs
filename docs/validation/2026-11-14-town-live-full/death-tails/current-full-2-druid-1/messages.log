@@ -1,0 +1,20 @@
+3918 30103 0 # KILL:the clear icky thing (+)
+3918 30103 0 # HIT_BY:The fruit bat (+)
+3918 30103 0 # Forgetting a monster 'clear icky thing' at (11,124)
+3918 30103 0 # HIT:the clear icky thing (2)
+3918 30103 0 # KILL:the clear icky thing (2)
+3918 30103 0 # HIT_BY:The fruit bat (3)
+3918 30103 0 # Scary guy on level.
+3918 30103 0 # Loc:11,123 Dep:1 Lev:1 HP:1/10 SP:2/2 Danger:p=2
+3918 30103 0 # Fleeing and leaving the level. (scaryguy)
+3918 30103 0 # Adjacent to monster on Scaryguy Level.
+3918 30103 0 # Performing attack type 1 with value 4.
+3918 30103 0 # Facing fruit bat at (11,122) who has 4 Hit Points.
+3918 30103 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+3920 30103 3 You miss the fruit bat.
+3920 30104 39 The fruit bat bites you.
+3920 30109 39 The fruit bat bites you.
+3921 30109 8 You die.
+3922 30109 0 Score not registered for borgs.
+3922 30109 0 # Aborting (death).
+3922 30109 0 # Aborting (player died).

@@ -1,0 +1,20 @@
+6232 52613 34 The small kobold hits you.
+6233 52617 0 # HIT_BY:The small kobold (+)
+6233 52617 0 # HIT_BY:The small kobold (3)
+6233 52617 0 # Possibility of being surrounded (monsters/safegrids)(1/0)
+6233 52617 0 # Scary guy on level.
+6233 52617 0 # Loc:44,71 Dep:1 Lev:3 HP:0/21 SP:2/2 Danger:p=10
+6233 52617 0 # Fleeing and leaving the level. (scaryguy)
+6233 52617 0 # Backing up to 72,44 (10 > 0)
+6234 52627 0 # Tracking a monster 'small kobold' at (44,71) from (44,70)
+6234 52627 0 # Possibility of being surrounded (monsters/safegrids)(1/0)
+6234 52627 0 # Scary guy on level.
+6234 52627 0 # Loc:44,72 Dep:1 Lev:3 HP:0/21 SP:2/2 Danger:p=10
+6234 52627 0 # Fleeing and leaving the level. (scaryguy)
+6234 52627 0 # Backing up to 73,43 (10 > 0)
+6235 52627 16 You feel a wall blocking your way.
+6235 52631 34 The small kobold hits you.
+6235 52631 8 You die.
+6236 52631 0 Score not registered for borgs.
+6236 52631 0 # Aborting (death).
+6236 52631 0 # Aborting (player died).

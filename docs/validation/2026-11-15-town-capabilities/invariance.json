@@ -1,0 +1,72 @@
+[
+  {
+    "a": "live",
+    "b": "live-unrecorded",
+    "class": "Warrior",
+    "hashes": {
+      "keys.log": "64709287c21146af1de26ed8f042a48763e717b1c9ed1e789f831eaa63fa8e68",
+      "messages.log": "8ac0973770f1101c43773569ae7f53f31c010800f2d87d6aac9dd03cc520dd40",
+      "state.log": "cf38fc3af5db50af0f95baa8236b05c3b80b7de4f135d92d78fa946c7b7df708"
+    }
+  },
+  {
+    "a": "live",
+    "b": "live-unrecorded",
+    "class": "Mage",
+    "hashes": {
+      "keys.log": "e1f32f02e704affc868fa1a195653786840dd505cf2f9d02a8dff1311e338104",
+      "messages.log": "a84811e5a5663034a95ba5775b690d6ead8e3464e85dc4fdd6cd73e215237b32",
+      "state.log": "9cbca931d03d6f20b37d9614784502b272ee30f82c163efc8f8251e83384d654"
+    }
+  },
+  {
+    "a": "control",
+    "b": "baseline-control",
+    "class": "Warrior",
+    "hashes": {
+      "keys.log": "8d3029a7a4558e087ce1e6e51b51f2f2c777dbbb7ad7f8be65ee9c956108a6c5",
+      "messages.log": "44d0e6524730ad31c740d42f31e927df3daca12022d540246beac4ad4f6ede4d",
+      "state.log": "1983f4060195ab32de6ac50fdb351e46d837883945eb9909376b630b9ac19a57"
+    }
+  },
+  {
+    "a": "control",
+    "b": "baseline-control",
+    "class": "Mage",
+    "hashes": {
+      "keys.log": "45e4e34f149c05d2ab7483b4efc685a420edbb8c12145bd20e87fb4fae43c3e1",
+      "messages.log": "ffb6aba4e81622a444b383d7cbc6dd234bbbab81e262eeac50e99c53303fb845",
+      "state.log": "135e0260912360677eb76da62aa3a288447f80224d1625a23a14966c1e5edf60"
+    }
+  },
+  {
+    "a": "control",
+    "b": "baseline-control",
+    "class": "Druid",
+    "hashes": {
+      "keys.log": "e8e44947ef77714539fcd0c28b180b29d89efae31ef40f7ba02020f53d9a5dbb",
+      "messages.log": "a65309406da0cea127978be30e40ce2d86106f8cf882176649f9201eab7b26a9",
+      "state.log": "6778dc26292ea98d179192347950bd96c3632313200d4ae0e53e1d2729f83439"
+    }
+  },
+  {
+    "a": "control",
+    "b": "control-recorded",
+    "class": "Warrior",
+    "hashes": {
+      "keys.log": "8d3029a7a4558e087ce1e6e51b51f2f2c777dbbb7ad7f8be65ee9c956108a6c5",
+      "messages.log": "44d0e6524730ad31c740d42f31e927df3daca12022d540246beac4ad4f6ede4d",
+      "state.log": "1983f4060195ab32de6ac50fdb351e46d837883945eb9909376b630b9ac19a57"
+    }
+  },
+  {
+    "a": "control",
+    "b": "control-recorded",
+    "class": "Mage",
+    "hashes": {
+      "keys.log": "45e4e34f149c05d2ab7483b4efc685a420edbb8c12145bd20e87fb4fae43c3e1",
+      "messages.log": "ffb6aba4e81622a444b383d7cbc6dd234bbbab81e262eeac50e99c53303fb845",
+      "state.log": "135e0260912360677eb76da62aa3a288447f80224d1625a23a14966c1e5edf60"
+    }
+  }
+]

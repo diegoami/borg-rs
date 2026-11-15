@@ -1,0 +1,5 @@
+{
+  "source_commit": "207795e7c0024b60a8153c39b70bb0efbd1b370b",
+  "binary_sha256": "64be3bbc707e6b0bc04dc8588b086a8576535603c04ed35f2352f260229c9f25",
+  "build_id": "impl=rust\ngit_rev=207795e7c0024b60a8153c39b70bb0efbd1b370b\ngit_dirty=no\ninputs_dirty=no\nsource_sha256=7b9d912e3b43666e9ed4531aaa7710986d359b241833c4041e6f11dbb73c576e\nbinary=/tmp/borg-town-class-fixes/build/rust/game/angband\nbinary_sha256=64be3bbc707e6b0bc04dc8588b086a8576535603c04ed35f2352f260229c9f25\ncc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0\nrustc=rustc 1.98.1 (48a229cea 2026-09-01)\nbuilt_utc=2026-11-15T11:06:11Z\n"
+}

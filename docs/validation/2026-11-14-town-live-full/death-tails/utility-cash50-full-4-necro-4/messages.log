@@ -1,0 +1,20 @@
+906 6798 0 # Tracking a monster 'Fang, Farmer Maggot's Dog' at (11,16) from (12,15)
+906 6798 0 # MISS:Fang, Farmer Maggot's Dog (2)
+906 6798 0 # HIT_BY:Fang, Farmer Maggot's Dog (3)
+906 6798 0 # Scary guy on level.
+906 6798 0 # Loc:12,14 Dep:1 Lev:1 HP:1/13 SP:0/2 Danger:p=4
+906 6798 0 # Fleeing and leaving the level. (scaryguy)
+906 6798 0 # Backing up to 13,11 (4 > 0)
+907 6808 0 # Tracking a monster 'Fang, Farmer Maggot's Dog' at (11,14) from (11,16)
+907 6808 0 # Scary guy on level.
+907 6808 0 # Loc:11,13 Dep:1 Lev:1 HP:1/13 SP:0/2 Danger:p=12
+907 6808 0 # Fleeing and leaving the level. (scaryguy)
+907 6808 0 # Performing attack type 1 with value 26.
+907 6808 0 # Facing Fang, Farmer Maggot's Dog at (11,14) who has 17 Hit Points.
+907 6808 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+909 6808 2 You hit Fang, Farmer Maggot's Dog.
+909 6818 39 Fang, Farmer Maggot's Dog, bites you.
+909 6818 8 You die.
+911 6818 0 Score not registered for borgs.
+911 6818 0 # Aborting (death).
+911 6818 0 # Aborting (player died).

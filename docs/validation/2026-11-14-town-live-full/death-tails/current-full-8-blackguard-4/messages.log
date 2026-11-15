@@ -1,0 +1,20 @@
+2753 22905 0 # HIT_BY:The small kobold (+)
+2753 22905 0 # HIT_BY:The small kobold (+)
+2753 22905 0 # HIT_BY:The small kobold (3)
+2753 22905 0 # HIT_BY:The small kobold (3)
+2753 22905 0 # Possibility of being surrounded (monsters/safegrids)(2/0)
+2753 22905 0 # Scary guy on level.
+2753 22905 0 # Loc:11,60 Dep:1 Lev:2 HP:0/36 SP:3/3 Danger:p=214
+2753 22905 0 # Fleeing and leaving the level. (scaryguy)
+2753 22905 0 # Adjacent to monster on Scaryguy Level.
+2753 22905 0 # Adjacent to monster on Scaryguy Level.
+2753 22905 0 # Performing attack type 1 with value 412.
+2753 22905 0 # Facing grey mushroom patch at (11,61) who has 2 Hit Points.
+2753 22905 0 # Attacking with weapon 'Tulwar (2d4) (+0,+0)'
+2755 22905 0 You are confused.
+2755 22905 0 You chip away futilely with your weapon at the granite wall.
+2756 22908 49 The grey mushroom patch releases spores at you.
+2757 22908 8 You die.
+2758 22908 0 Score not registered for borgs.
+2758 22908 0 # Aborting (death).
+2758 22908 0 # Aborting (player died).

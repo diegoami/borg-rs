@@ -1,0 +1,514 @@
+{
+  "schema": "borg-rs/town-live-full@1",
+  "source_commit": "ac63c5e914f18ba10aa491736ef8453ee59e9aef",
+  "build": {
+    "impl": "rust",
+    "git_rev": "492fce570136a450e86e05088bed9f82da764b25",
+    "git_dirty": "yes",
+    "inputs_dirty": "yes",
+    "source_sha256": "1bc561d0985a91f6238035ab580965df958fcf9d8c8825f56b7295a008828031",
+    "binary": "/tmp/borg-rs-town-inventory/build/rust/game/angband",
+    "binary_sha256": "078660bc4465eea907bc0ab9310171acbf6184347a7e52239eca434420daa7e5",
+    "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+    "built_utc": "2026-11-14T19:41:12Z"
+  },
+  "runtime_inputs_sha256": "1bc561d0985a91f6238035ab580965df958fcf9d8c8825f56b7295a008828031",
+  "birth": "full-suite seed/race/class rows with menu-letter selection",
+  "cap": 100000,
+  "wall_seconds": 180,
+  "jobs": 4,
+  "endpoint": "deaths, terminal character level, maximum dungeon depth, count reaching DL3+; failures visible per arm/class",
+  "boundary": "after-key; actual game turns retained; no cheat death",
+  "tuning_rule": "initial comparison only; choose a small parameter subset after inspecting these results, no improvement claim from 5 starts/class",
+  "starts": [
+    {
+      "name": "full-0-warrior-0",
+      "seed": 1000,
+      "race_idx": 0,
+      "class_idx": 0,
+      "class": "Warrior",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-0-warrior-1",
+      "seed": 1001,
+      "race_idx": 1,
+      "class_idx": 0,
+      "class": "Warrior",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-0-warrior-2",
+      "seed": 1002,
+      "race_idx": 2,
+      "class_idx": 0,
+      "class": "Warrior",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-0-warrior-3",
+      "seed": 1003,
+      "race_idx": 3,
+      "class_idx": 0,
+      "class": "Warrior",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-0-warrior-4",
+      "seed": 1004,
+      "race_idx": 4,
+      "class_idx": 0,
+      "class": "Warrior",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-1-mage-0",
+      "seed": 1010,
+      "race_idx": 1,
+      "class_idx": 1,
+      "class": "Mage",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-1-mage-1",
+      "seed": 1011,
+      "race_idx": 2,
+      "class_idx": 1,
+      "class": "Mage",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-1-mage-2",
+      "seed": 1012,
+      "race_idx": 3,
+      "class_idx": 1,
+      "class": "Mage",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-1-mage-3",
+      "seed": 1013,
+      "race_idx": 4,
+      "class_idx": 1,
+      "class": "Mage",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-1-mage-4",
+      "seed": 1014,
+      "race_idx": 5,
+      "class_idx": 1,
+      "class": "Mage",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-2-druid-0",
+      "seed": 1020,
+      "race_idx": 2,
+      "class_idx": 2,
+      "class": "Druid",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-2-druid-1",
+      "seed": 1021,
+      "race_idx": 3,
+      "class_idx": 2,
+      "class": "Druid",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-2-druid-2",
+      "seed": 1022,
+      "race_idx": 4,
+      "class_idx": 2,
+      "class": "Druid",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-2-druid-3",
+      "seed": 1023,
+      "race_idx": 5,
+      "class_idx": 2,
+      "class": "Druid",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-2-druid-4",
+      "seed": 1024,
+      "race_idx": 6,
+      "class_idx": 2,
+      "class": "Druid",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-3-priest-0",
+      "seed": 1030,
+      "race_idx": 3,
+      "class_idx": 3,
+      "class": "Priest",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-3-priest-1",
+      "seed": 1031,
+      "race_idx": 4,
+      "class_idx": 3,
+      "class": "Priest",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-3-priest-2",
+      "seed": 1032,
+      "race_idx": 5,
+      "class_idx": 3,
+      "class": "Priest",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-3-priest-3",
+      "seed": 1033,
+      "race_idx": 6,
+      "class_idx": 3,
+      "class": "Priest",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-3-priest-4",
+      "seed": 1034,
+      "race_idx": 7,
+      "class_idx": 3,
+      "class": "Priest",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-4-necro-0",
+      "seed": 1040,
+      "race_idx": 4,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-4-necro-1",
+      "seed": 1041,
+      "race_idx": 5,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-4-necro-2",
+      "seed": 1042,
+      "race_idx": 6,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-4-necro-3",
+      "seed": 1043,
+      "race_idx": 7,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-4-necro-4",
+      "seed": 1044,
+      "race_idx": 8,
+      "class_idx": 4,
+      "class": "Necromancer",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-5-paladin-0",
+      "seed": 1050,
+      "race_idx": 5,
+      "class_idx": 5,
+      "class": "Paladin",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-5-paladin-1",
+      "seed": 1051,
+      "race_idx": 6,
+      "class_idx": 5,
+      "class": "Paladin",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-5-paladin-2",
+      "seed": 1052,
+      "race_idx": 7,
+      "class_idx": 5,
+      "class": "Paladin",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-5-paladin-3",
+      "seed": 1053,
+      "race_idx": 8,
+      "class_idx": 5,
+      "class": "Paladin",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-5-paladin-4",
+      "seed": 1054,
+      "race_idx": 9,
+      "class_idx": 5,
+      "class": "Paladin",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-6-rogue-0",
+      "seed": 1060,
+      "race_idx": 6,
+      "class_idx": 6,
+      "class": "Rogue",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-6-rogue-1",
+      "seed": 1061,
+      "race_idx": 7,
+      "class_idx": 6,
+      "class": "Rogue",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-6-rogue-2",
+      "seed": 1062,
+      "race_idx": 8,
+      "class_idx": 6,
+      "class": "Rogue",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-6-rogue-3",
+      "seed": 1063,
+      "race_idx": 9,
+      "class_idx": 6,
+      "class": "Rogue",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-6-rogue-4",
+      "seed": 1064,
+      "race_idx": 10,
+      "class_idx": 6,
+      "class": "Rogue",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-7-ranger-0",
+      "seed": 1070,
+      "race_idx": 7,
+      "class_idx": 7,
+      "class": "Ranger",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-7-ranger-1",
+      "seed": 1071,
+      "race_idx": 8,
+      "class_idx": 7,
+      "class": "Ranger",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-7-ranger-2",
+      "seed": 1072,
+      "race_idx": 9,
+      "class_idx": 7,
+      "class": "Ranger",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-7-ranger-3",
+      "seed": 1073,
+      "race_idx": 10,
+      "class_idx": 7,
+      "class": "Ranger",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-7-ranger-4",
+      "seed": 1074,
+      "race_idx": 0,
+      "class_idx": 7,
+      "class": "Ranger",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-8-blackguard-0",
+      "seed": 1080,
+      "race_idx": 8,
+      "class_idx": 8,
+      "class": "Blackguard",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-8-blackguard-1",
+      "seed": 1081,
+      "race_idx": 9,
+      "class_idx": 8,
+      "class": "Blackguard",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-8-blackguard-2",
+      "seed": 1082,
+      "race_idx": 10,
+      "class_idx": 8,
+      "class": "Blackguard",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-8-blackguard-3",
+      "seed": 1083,
+      "race_idx": 0,
+      "class_idx": 8,
+      "class": "Blackguard",
+      "turn_cap": 100000
+    },
+    {
+      "name": "full-8-blackguard-4",
+      "seed": 1084,
+      "race_idx": 1,
+      "class_idx": 8,
+      "class": "Blackguard",
+      "turn_cap": 100000
+    }
+  ],
+  "arm_settings": {
+    "current": {
+      "borg_munchkin_start": false,
+      "borg_munchkin_by_class": false,
+      "borg_lunal_mode": false,
+      "borg_self_lunal": false,
+      "borg_town_no_stores": false,
+      "borg_town_plan": 0,
+      "borg_buy_strategy_default": 0,
+      "borg_buy_identify": 0,
+      "borg_town_w_light": 100,
+      "borg_town_w_food": 100,
+      "borg_town_w_bleeding": 100,
+      "borg_town_w_poison": 100,
+      "borg_town_w_escape": 50,
+      "borg_town_w_knowledge": 25,
+      "borg_town_w_power": 50,
+      "borg_town_w_trip": 50,
+      "borg_town_share": 10,
+      "borg_town_target_depth": 0,
+      "borg_town_trip_turns": 0,
+      "borg_town_w_gold": 25,
+      "borg_town_depth_gain": 1,
+      "borg_town_explore_turns": 1000,
+      "borg_town_stair_turns": 50,
+      "borg_town_food_turns": 3000,
+      "borg_town_light_turns": 5000,
+      "borg_town_risk": 1000,
+      "borg_town_home_discount": 500,
+      "borg_town_w_space": 25,
+      "borg_town_power_scale": 40000
+    },
+    "no-shops": {
+      "borg_munchkin_start": false,
+      "borg_munchkin_by_class": false,
+      "borg_lunal_mode": false,
+      "borg_self_lunal": false,
+      "borg_town_no_stores": true,
+      "borg_town_plan": 0,
+      "borg_buy_strategy_default": 0,
+      "borg_buy_identify": 0,
+      "borg_town_w_light": 100,
+      "borg_town_w_food": 100,
+      "borg_town_w_bleeding": 100,
+      "borg_town_w_poison": 100,
+      "borg_town_w_escape": 50,
+      "borg_town_w_knowledge": 25,
+      "borg_town_w_power": 50,
+      "borg_town_w_trip": 50,
+      "borg_town_share": 10,
+      "borg_town_target_depth": 0,
+      "borg_town_trip_turns": 0,
+      "borg_town_w_gold": 25,
+      "borg_town_depth_gain": 1,
+      "borg_town_explore_turns": 1000,
+      "borg_town_stair_turns": 50,
+      "borg_town_food_turns": 3000,
+      "borg_town_light_turns": 5000,
+      "borg_town_risk": 1000,
+      "borg_town_home_discount": 500,
+      "borg_town_w_space": 25,
+      "borg_town_power_scale": 40000
+    },
+    "utility-reference": {
+      "borg_munchkin_start": false,
+      "borg_munchkin_by_class": false,
+      "borg_lunal_mode": false,
+      "borg_self_lunal": false,
+      "borg_town_no_stores": false,
+      "borg_town_plan": 1,
+      "borg_buy_strategy_default": 0,
+      "borg_buy_identify": 0,
+      "borg_town_w_light": 100,
+      "borg_town_w_food": 100,
+      "borg_town_w_bleeding": 100,
+      "borg_town_w_poison": 100,
+      "borg_town_w_escape": 50,
+      "borg_town_w_knowledge": 25,
+      "borg_town_w_power": 50,
+      "borg_town_w_trip": 50,
+      "borg_town_share": 10,
+      "borg_town_target_depth": 0,
+      "borg_town_trip_turns": 0,
+      "borg_town_w_gold": 25,
+      "borg_town_depth_gain": 1,
+      "borg_town_explore_turns": 1000,
+      "borg_town_stair_turns": 50,
+      "borg_town_food_turns": 3000,
+      "borg_town_light_turns": 5000,
+      "borg_town_risk": 1000,
+      "borg_town_home_discount": 500,
+      "borg_town_w_space": 25,
+      "borg_town_power_scale": 40000
+    },
+    "utility-cash50": {
+      "borg_munchkin_start": false,
+      "borg_munchkin_by_class": false,
+      "borg_lunal_mode": false,
+      "borg_self_lunal": false,
+      "borg_town_no_stores": false,
+      "borg_town_plan": 1,
+      "borg_buy_strategy_default": 0,
+      "borg_buy_identify": 0,
+      "borg_town_w_light": 100,
+      "borg_town_w_food": 100,
+      "borg_town_w_bleeding": 100,
+      "borg_town_w_poison": 100,
+      "borg_town_w_escape": 50,
+      "borg_town_w_knowledge": 25,
+      "borg_town_w_power": 50,
+      "borg_town_w_trip": 50,
+      "borg_town_share": 10,
+      "borg_town_target_depth": 0,
+      "borg_town_trip_turns": 0,
+      "borg_town_w_gold": 50,
+      "borg_town_depth_gain": 1,
+      "borg_town_explore_turns": 1000,
+      "borg_town_stair_turns": 50,
+      "borg_town_food_turns": 3000,
+      "borg_town_light_turns": 5000,
+      "borg_town_risk": 1000,
+      "borg_town_home_discount": 500,
+      "borg_town_w_space": 25,
+      "borg_town_power_scale": 40000
+    }
+  },
+  "attempts": 180,
+  "paired_starting_conditions": 45
+}

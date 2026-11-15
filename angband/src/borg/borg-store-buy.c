@@ -1209,11 +1209,13 @@ bool borg_think_shop_buy(void)
 
         /* Buy the desired item */
         borg_keypress(purchase_target);
-        borg_keypress('p');
+        if (!OPT(player, store_buy_direct)) {
+            borg_keypress('p');
 
-        /* Mega-Hack -- Accept the purchase */
-        borg_keypress(KC_ENTER);
-        borg_keypress(KC_ENTER);
+            /* Mega-Hack -- Accept the purchase */
+            borg_keypress(KC_ENTER);
+            borg_keypress(KC_ENTER);
+        }
 
         /* if the borg is scumming and bought it.,
          * reset the scum amount.

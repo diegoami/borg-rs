@@ -1,0 +1,35 @@
+{
+  "status": "tested candidate, defaults unchanged",
+  "engine": "4.2.6-impact-v12",
+  "name": "higher-risk-budget",
+  "settings": {
+    "borg_trip_policy": 1,
+    "borg_town_plan": 1,
+    "borg_town_no_stores": 0,
+    "borg_buy_strategy_default": 0,
+    "borg_buy_identify": 0,
+    "borg_trip_depth_margin": 0,
+    "borg_trip_pack_slack": 2,
+    "borg_trip_unknown_stacks": 4,
+    "borg_trip_return_gold": 0,
+    "borg_town_target_depth": 0,
+    "borg_town_trip_turns": 0,
+    "borg_town_depth_gain": 1,
+    "borg_town_w_gold": 25,
+    "borg_town_w_bleeding": 100,
+    "borg_town_w_knowledge": 25,
+    "borg_town_risk": 2000
+  },
+  "search_metrics": {
+    "deaths": 8,
+    "mean_character_level": 4.177777777777778,
+    "mean_deepest_level": 1.9777777777777779,
+    "reached_dl3": 6
+  },
+  "confirmation_metrics": {
+    "deaths": 9,
+    "mean_character_level": 4.044444444444444,
+    "mean_deepest_level": 2.0444444444444443,
+    "reached_dl3": 6
+  }
+}

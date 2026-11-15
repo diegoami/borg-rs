@@ -1,0 +1,20 @@
+8310 67095 0 # HIT_BY:The metallic blue centipede (+)
+8310 67095 0 # MISS_BY:The metallic blue centipede (+)
+8310 67095 0 # Tracking a monster 'rock lizard' at (3,158) from (3,157)
+8310 67095 0 # MISS:the metallic blue centipede (2)
+8310 67095 0 # HIT_BY:The metallic blue centipede (3)
+8310 67095 0 # HIT_BY:The metallic blue centipede (3)
+8310 67095 0 # HIT_BY:The metallic blue centipede (3)
+8310 67095 0 # MISS_BY:The metallic blue centipede (3)
+8310 67095 0 # Loc:5,157 Dep:1 Lev:2 HP:3/13 SP:4/4 Danger:p=19
+8310 67095 0 # Performing attack type 1 with value 31.
+8310 67095 0 # Facing metallic blue centipede at (4,157) who has 12 Hit Points.
+8310 67095 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+8312 67095 2 You hit the metallic blue centipede.
+8312 67098 44 The metallic blue centipede crawls on you.
+8313 67098 0 You are struck by electricity!
+8314 67098 40 The metallic blue centipede stings you.
+8314 67098 8 You die.
+8316 67098 0 Score not registered for borgs.
+8316 67098 0 # Aborting (death).
+8316 67098 0 # Aborting (player died).

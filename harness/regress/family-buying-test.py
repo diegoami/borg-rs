@@ -16,11 +16,11 @@ EXPECTED = {
     "family-reserve-warrior": {"borg_buy_strategy_default": 1},
     "family-reserve-warrior-selected": {
         "borg_buy_strategy_default": 0,
-        "borg_buy_strategy_reserve410_munchkin_classes": 1,
+        "borg_buy_strategy_reserve410_classes": 1,
     },
     "family-current-warrior-selected": {
         "borg_buy_strategy_default": 1,
-        "borg_buy_strategy_current_munchkin_classes": 1,
+        "borg_buy_strategy_current_classes": 1,
     },
     "family-current-mage": {"borg_buy_strategy_default": 0},
     "family-reserve-mage": {"borg_buy_strategy_default": 1},

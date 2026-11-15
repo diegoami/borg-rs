@@ -1,0 +1,319 @@
+{
+  "zoo_commit": "7ae123b8240e92428470e9c2b6145eebc9ef614b",
+  "module_blobs": {
+    "catalogue.py": "7b3a074d31a1519e63aca22d5f52ac6907db5794",
+    "borgrs.py": "bfdcc7d3c2104bda6d5096122a376dd37506ec60",
+    "stall.py": "6e20567b44d7df379fb49b473123f336eb6437e3"
+  },
+  "source_commit": "785f5064c60db8e8809a7a8eb6900cb7d9fe887f",
+  "profiles_sha256": "0bfc75396eec512ce9b488e7275382d9297d2219fac20951386dd15332792f05",
+  "cells": [
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-warrior",
+      "seed": 901,
+      "race": "Human",
+      "class": "Warrior"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-warrior",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Warrior"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-warrior",
+      "seed": 901,
+      "race": "Human",
+      "class": "Warrior"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-warrior",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Warrior"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-mage",
+      "seed": 901,
+      "race": "Human",
+      "class": "Mage"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-mage",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Mage"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-mage",
+      "seed": 901,
+      "race": "Human",
+      "class": "Mage"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-mage",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Mage"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-druid",
+      "seed": 901,
+      "race": "Human",
+      "class": "Druid"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-druid",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Druid"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-druid",
+      "seed": 901,
+      "race": "Human",
+      "class": "Druid"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-druid",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Druid"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-priest",
+      "seed": 901,
+      "race": "Human",
+      "class": "Priest"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-priest",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Priest"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-priest",
+      "seed": 901,
+      "race": "Human",
+      "class": "Priest"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-priest",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Priest"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-necromancer",
+      "seed": 901,
+      "race": "Human",
+      "class": "Necromancer"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-necromancer",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Necromancer"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-necromancer",
+      "seed": 901,
+      "race": "Human",
+      "class": "Necromancer"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-necromancer",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Necromancer"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-paladin",
+      "seed": 901,
+      "race": "Human",
+      "class": "Paladin"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-paladin",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Paladin"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-paladin",
+      "seed": 901,
+      "race": "Human",
+      "class": "Paladin"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-paladin",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Paladin"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-rogue",
+      "seed": 901,
+      "race": "Human",
+      "class": "Rogue"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-rogue",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Rogue"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-rogue",
+      "seed": 901,
+      "race": "Human",
+      "class": "Rogue"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-rogue",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Rogue"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-ranger",
+      "seed": 901,
+      "race": "Human",
+      "class": "Ranger"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-ranger",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Ranger"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-ranger",
+      "seed": 901,
+      "race": "Human",
+      "class": "Ranger"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-ranger",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Ranger"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-blackguard",
+      "seed": 901,
+      "race": "Human",
+      "class": "Blackguard"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-reference-by-class-normal",
+      "suite": "town-class-blackguard",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Blackguard"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-blackguard",
+      "seed": 901,
+      "race": "Human",
+      "class": "Blackguard"
+    },
+    {
+      "specimen": "rs-town-class-shadow",
+      "profile": "rs-town-class-selection-probe-by-class-normal",
+      "suite": "town-class-blackguard",
+      "seed": 1901,
+      "race": "Human",
+      "class": "Blackguard"
+    }
+  ],
+  "cap": 2000,
+  "seeds": [
+    901,
+    1901
+  ],
+  "classes": [
+    "Warrior",
+    "Mage",
+    "Druid",
+    "Priest",
+    "Necromancer",
+    "Paladin",
+    "Rogue",
+    "Ranger",
+    "Blackguard"
+  ],
+  "mode": "normal; shadow only",
+  "endpoint": "correct selection/written+parsed settings/replay; gameplay identical within class+seed",
+  "selection_rule": "prespecified probe overrides; no parameters selected using outcomes"
+}

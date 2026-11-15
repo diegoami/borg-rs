@@ -1,0 +1,6 @@
+{
+  "qualification": "Synthetic negative control: Arrow supply facts removed from copies of genuine audits; original raw files unchanged. Not game outcomes.",
+  "failures": [
+    "arrow Arrow: no native capability or explicit contextual exclusion"
+  ]
+}

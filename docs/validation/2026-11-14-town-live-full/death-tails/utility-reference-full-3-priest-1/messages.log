@@ -1,0 +1,20 @@
+7823 81472 0 # No Phase. scary squares: 100
+7823 81472 0 # Reading Scrolls of Phase Door.
+7823 81472 0 # Danger Level 1.2  Critical Phase
+7827 81472 0 You have 4 Scrolls of Phase Door (m).
+7828 81482 0 # Creating an object 'copper' at (171,43)
+7828 81482 0 # Creating a monster 'soldier ant' at (46,170), HP: 5, Index: 30
+7828 81482 0 # Removing Regional Fear (46,170) because of a LOS soldier ant
+7828 81482 0 # Scary guy on level.
+7828 81482 0 # Loc:45,169 Dep:1 Lev:4 HP:0/26 SP:1/7 Danger:p=2
+7828 81482 0 # Fleeing and leaving the level. (scaryguy)
+7828 81482 0 # Safe to Phase. scary squares: 41
+7828 81482 0 # Reading Scrolls of Phase Door.
+7828 81482 0 # Danger Level 1.
+7832 81482 0 You have 3 Scrolls of Phase Door (m).
+7832 81487 0 Grip, Farmer Maggot's Dog, misses you.
+7833 81492 39 Grip, Farmer Maggot's Dog, bites you.
+7834 81492 8 You die.
+7835 81492 0 Score not registered for borgs.
+7835 81492 0 # Aborting (death).
+7835 81492 0 # Aborting (player died).

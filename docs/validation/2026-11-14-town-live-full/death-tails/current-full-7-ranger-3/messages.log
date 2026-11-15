@@ -1,0 +1,20 @@
+14125 94842 2 You hit the gallant.
+14125 94848 0 The gallant misses you.
+14125 94848 0 The gallant misses you.
+14126 94850 0 # HIT:the gallant (+)
+14126 94850 0 # MISS_BY:The gallant (+)
+14126 94850 0 # MISS_BY:The gallant (+)
+14126 94850 0 # HIT:the gallant (2)
+14126 94850 0 # MISS_BY:The gallant (3)
+14126 94850 0 # MISS_BY:The gallant (3)
+14126 94850 0 # Loc:8,89 Dep:7 Lev:4 HP:10/23 SP:3/3 Danger:p=79
+14126 94850 0 # Performing attack type 1 with value 42.
+14126 94850 0 # Facing gallant at (8,90) who has 17 Hit Points.
+14126 94850 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+14128 94850 2 You hit the gallant.
+14128 94852 0 The scout fires a small arrow.
+14128 94857 34 The gallant hits you.
+14129 94857 8 You die.
+14130 94857 0 Score not registered for borgs.
+14130 94857 0 # Aborting (death).
+14130 94857 0 # Aborting (player died).

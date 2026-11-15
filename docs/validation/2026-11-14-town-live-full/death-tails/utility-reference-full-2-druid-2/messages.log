@@ -1,0 +1,20 @@
+1374 9819 0 # HIT_BY:The blubbering icky thing (+)
+1374 9819 0 # Tracking a monster 'white harpy' at (46,139) from (45,140)
+1374 9819 0 # HIT:the blubbering icky thing (2)
+1374 9819 0 # HIT_BY:The small kobold (3)
+1374 9819 0 # HIT_BY:The blubbering icky thing (3)
+1374 9819 0 # Scary guy on level.
+1374 9819 0 # Loc:46,138 Dep:1 Lev:1 HP:4/11 SP:2/2 Danger:p=59
+1374 9819 0 # Fleeing and leaving the level. (scaryguy)
+1374 9819 0 # Adjacent to monster on Scaryguy Level.
+1374 9819 0 # Adjacent to monster on Scaryguy Level.
+1374 9819 0 # Adjacent to monster on Scaryguy Level.
+1374 9819 0 # Performing attack type 1 with value 28.
+1374 9819 0 # Facing blubbering icky thing at (47,139) who has 16 Hit Points.
+1374 9819 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1376 9819 2 You hit the blubbering icky thing.
+1376 9827 34 The small kobold hits you.
+1376 9827 8 You die.
+1377 9827 0 Score not registered for borgs.
+1377 9827 0 # Aborting (death).
+1377 9827 0 # Aborting (player died).

@@ -1,0 +1,247 @@
+{
+  "zoo_commit": "7ae123b8240e92428470e9c2b6145eebc9ef614b",
+  "source_commit": "785f5064c60db8e8809a7a8eb6900cb7d9fe887f",
+  "planned_attempts": 36,
+  "retained_attempts": 36,
+  "pairs": [
+    {
+      "class": "Warrior",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Warrior",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Mage",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Mage",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Druid",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Druid",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Priest",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Priest",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Necromancer",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Necromancer",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Paladin",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Paladin",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Rogue",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Rogue",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Ranger",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Ranger",
+      "seed": 1901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Blackguard",
+      "seed": 901,
+      "gameplay_identical": true
+    },
+    {
+      "class": "Blackguard",
+      "seed": 1901,
+      "gameplay_identical": true
+    }
+  ],
+  "per_class": {
+    "Warrior": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Mage": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-mage-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-mage-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Druid": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "death",
+        "gameplay_identical": true
+      }
+    ],
+    "Priest": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "death",
+        "gameplay_identical": true
+      }
+    ],
+    "Necromancer": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Paladin": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Rogue": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Ranger": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-ranger-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-ranger-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ],
+    "Blackguard": [
+      {
+        "seed": 901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-blackguard-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      },
+      {
+        "seed": 1901,
+        "control_profile": "rs-town-reference-normal",
+        "probe_profile": "rs-town-class-selection-probe-blackguard-normal",
+        "outcome": "turn_cap",
+        "gameplay_identical": true
+      }
+    ]
+  },
+  "records": 1370,
+  "failures": [],
+  "interpretation": "class selection and parser/record fidelity only; no tuned class policy or survival benefit established"
+}
