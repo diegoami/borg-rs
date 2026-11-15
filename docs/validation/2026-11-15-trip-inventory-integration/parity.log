@@ -1,0 +1,7 @@
+A: /tmp/trip-integrated-validation/c-smoke: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=707d488d337877e7
+A:   built from 1651f808219e (dirty=no, inputs dirty=no) source_sha256=6bd1d1de3a108627; run at 1651f808219e (dirty=no) overrides=none
+B: /tmp/trip-integrated-validation/rust-smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=2b80ec0153523b25
+B:   built from 1651f808219e (dirty=no, inputs dirty=no) source_sha256=345e824cc9aded36; run at 1651f808219e (dirty=no) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

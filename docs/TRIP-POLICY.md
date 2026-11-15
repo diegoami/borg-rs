@@ -267,7 +267,8 @@ be fitted and confirmed (§10) before it can become the default.
 | `sellable` | items | `borg_count_sell`, as `borg_leave_level` counted it (recorded) |
 | `pack_capacity`, `pack_used` | pack slots, **per distinct stack** | `borg_town_budget::Facts`, `borg_town_stock::pack_slots_used_of` - the town plan's count |
 | `unknown_stacks` | stacks | all carried stacks with an unaware flavour or unknown runes (`borg_item_note_needs_id`), recorded |
-| `unknown_gear_stacks` | stacks | the unknown equipment, ammunition and device subset; used by the return decision |
+| `unknown_gear_stacks` | stacks | the unknown equipment, ammunition and device subset; diagnostic only since trip record v3 |
+| `knowledge_actionable`, `knowledge_exploratory`, `knowledge_deferred` | stacks | known learning mechanism, exploratory visit, or unchanged/unavailable task; the first two contribute to the threshold |
 | `recall` | scrolls | `BI_RECALL` |
 | `up_stairs_known`, `down_stairs_known` | bool | the stair lists |
 
@@ -317,7 +318,7 @@ that cannot be executed yet is not a different decision; it is recorded as
 `prepared_depth` (the preparation tests are by class and level); gold and
 spending opportunity through the purse term; sale inventory through
 `sale_value`; pack pressure through slots per stack; unidentified items
-through `unknown_gear_stacks`. Race is recorded only.
+through actionable and exploratory learning opportunities across all carried item types. Race is recorded only.
 
 **First observation (2026-11-14, one seed, not evidence):** with
 `BORG_TRIP_RECORD` on seed 101 (Human Warrior, 20,000 turns, policy off),
@@ -329,7 +330,7 @@ reason needs weighting - by the depth the item came from, by tval, or
 against what the town can identify for the purse - before it is fitted; it
 is the first factor the evaluation should look at.
 
-**Refinement (2026-11-14, provisional):** the knowledge trigger now uses
+**Historical refinement (2026-11-14, superseded by v3 below):** the knowledge trigger used
 only the equipment/ammunition/device subset (`TV_SHOT` through `TV_ROD`),
 with one vote per unknown stack. This is a categorical 0/1 weighting by
 visible item type, not a fitted gold value. The old all-unknown count stays
@@ -339,11 +340,32 @@ Earliness alone does not make a return wrong. Excluding consumables is still
 an experimental classification, not a demonstrated benefit or an accepted
 owner preference; the owner's objective values learning and earlier returns.
 
-**Not yet:** a graded value for the unknowns; proof that town can resolve
-the particular backlog; protection against repeated trips with an unchanged
-unresolved inventory; the town plan's own estimate of what the purse would
-buy (§9); trip duration. These
-are the next factors to consider once runs show they matter.
+**Integration update (trip record v3):** every carried stack counts, including
+food, mushrooms, potions, scrolls, devices, equipment and quiver ammunition.
+The trigger counts learning opportunities rather than only gear. An allowed
+sale of an unaware consumable can teach its flavour even with no gold; a rune
+backlog can use carried Identify Rune resources, a legal identification spell,
+or an affordable resource last seen in town (including free known Home scrolls).
+Other new unknowns can justify an exploratory visit when stores are enabled and
+the character has money. This is an opportunity estimate, not a guarantee about
+current stock. The dungeon decision never reads fresh shop stock.
+
+A successful native sale identifies flavour and runes, but the policy protects
+unknown reusable equipment/devices instead of sacrificing them solely to learn.
+Home storage does not identify anything. Unknown consumables without a buyer
+are kept or stored, never dropped as an identification action.
+
+The last town snapshot remembers unresolved public item descriptions without
+quantities or inscriptions. The same unresolved stacks do not repeatedly
+trigger returns by themselves. A new unknown stack, a newly affordable observed
+learning offer, another identification resource or a newly legal spell can make
+the reason eligible again. Pack pressure, restocking and all other return
+reasons still apply independently. The cache resets with the process; it is
+not persisted in game saves. Record v3 exposes actionable, exploratory and
+deferred counts; `unknown_gear_stacks` remains a diagnostic subset.
+
+A graded learning value and the town plan's estimate of exactly what the purse
+would buy remain uncalibrated. No threshold or default activation changes.
 
 The bounded follow-up captures the early flat-count trigger at turn 644 of
 seed 101: four unknown stacks, zero unknown gear, and a revised decision
@@ -395,7 +417,7 @@ and purse reasons; every other rule of the map stands.
 
 ## 8. Logging
 
-* `BORG_TRIP_RECORD=<file>`: one JSON line (version 2) each time the
+* `BORG_TRIP_RECORD=<file>`: one JSON line (version 3) each time the
   decision, any observed input or the level changes: the turn, the effective
   parameters, every input and the decision with its route, planned depth
   and reasons. With the policy off it **observes only**: it presses no key
@@ -403,10 +425,10 @@ and purse reasons; every other rule of the map stands.
   so the play is the same with and without it. Example:
 
   ```json
-  {"v":2,"turn":1234,"game_turn":12345,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":5,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown-gear(5 >= 4)"]}}
+  {"v":3,"turn":1234,"game_turn":12345,"params":{"policy":0,"depth_margin":0,"pack_slack":2,"unknown_stacks":4,"return_gold":0},"inputs":{"clevel":10,...,"unknown_stacks":5,"unknown_gear_stacks":0,"knowledge_actionable":4,"knowledge_exploratory":1,"knowledge_deferred":0,"recall":1,...},"decision":{"action":"return","route":"recall","target":8,"reasons":["unknown(5 >= 4)"]}}
   ```
 * With the policy acting, decision/level/reason changes also write a note in the
-  message log: `# Trip: return via recall (plan 8): unknown-gear(5 >= 4)`.
+  message log: `# Trip: return via recall (plan 8): unknown(5 >= 4)`.
 
 Records also include a player-known `pack` projection: slot, type, quantity,
 the Borg's value estimate, flavour awareness and unresolved-rune status.

@@ -106,3 +106,15 @@ cover the committed combined runtime. All 104 ordinary kinds are accounted for;
 all 530 observed purchases pass native receipt/wallet checks. The nine-start
 comparison has two deaths versus one baseline death, so these checks establish
 coverage/execution, not improved survival or calibrated priorities.
+
+
+## Trip-return integration
+
+The integration branch builds on inventory commit `d489117`. It keeps this
+capability model and extends learning-by-sale to unaware food and mushrooms as
+well as potions/scrolls. Unknown carried stacks with no buyer remain protected.
+Plan schema 8 uses the same capability facts as schema 7 and changes the
+no-buyer learning disposition; historical schemas 4–7 retain their original
+replay decisions. Trip record v3 reports actionable, exploratory and deferred
+learning tasks, covering equipment and quiver as well as pack contents. See
+[the return rule](TRIP-POLICY.md) for repeat suppression and its limits.

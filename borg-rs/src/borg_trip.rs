@@ -52,6 +52,127 @@ pub const RECALL_MIN_DEPTH: i32 = 5;
 /// The deepest level.
 pub const MAX_DEPTH: i32 = 127;
 
+#[derive(Default)]
+pub struct TripState {
+    town_seen: bool,
+    id_price: Option<i64>,
+    learning_price: Option<i64>,
+    departure_gold: i64,
+    departure_id: i32,
+    departure_spell: bool,
+    unresolved: Vec<Vec<u8>>,
+}
+
+impl TripState {
+    fn new_opportunity(&self, gold: i64, ids: i32, spell: bool) -> bool {
+        ids > self.departure_id || spell && !self.departure_spell
+            || [self.id_price, self.learning_price].into_iter().flatten()
+                .any(|p| gold >= p && self.departure_gold < p)
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+enum Learning { Actionable, Exploratory, Deferred }
+
+/// Pure opportunity rule. New unknowns may justify exploring town stock;
+/// unchanged tasks already taken through town do not trigger a bounce.
+fn learning_opportunity(already_tried: bool, new_opportunity: bool,
+    rune_resource: bool, sale_learning: bool, stores: bool, gold: i64) -> Learning {
+    if already_tried && !new_opportunity { return Learning::Deferred; }
+    if rune_resource || sale_learning { Learning::Actionable }
+    else if stores && gold > 0 { Learning::Exploratory }
+    else { Learning::Deferred }
+}
+
+fn is_unknown(st: &BorgState, item: &crate::borg_headers::borg_item_h::borg_item) -> bool {
+    !item.ident || !item.aware || crate::borg_item_id::borg_item_note_needs_id(st, item)
+}
+
+fn learning_key(st: &BorgState, slot: usize) -> Vec<u8> {
+    let wield = crate::borg_item::inven_wield() as usize;
+    let quiver = crate::borg_item::quiver_start() as usize;
+    let obj = if slot < wield { crate::engine::inven_object(&st.access, slot) }
+        else if slot < quiver { crate::engine::equip_object(&st.access, slot - wield) }
+        else { crate::engine::quiver_object(&st.access, slot - quiver) };
+    let mut key = vec![st.items.items[slot].tval];
+    if let Some(obj) = obj { key.extend(crate::engine::object_learning_key(obj)); }
+    key
+}
+
+fn id_spell(st: &BorgState) -> bool {
+    crate::borg_magic::borg_spell_legal(st, crate::borg_headers::borg_magic_h::IDENTIFY_RUNE)
+}
+
+/// Cache only information observed in town, never current hidden dungeon-
+/// time shop stock. Prices are public shop quotes. The cache is explicitly
+/// a last-visit opportunity, not a promise stock remains unchanged.
+pub fn observe_town(st: &mut BorgState) {
+    if (!acting(st) && record_file().is_none()) || st.borg.tr(BI_CDEPTH) != 0 { return; }
+    use crate::headers::list_tvals_h::TV_SCROLL;
+    let stores = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_NO_STORES) == 0;
+    let mut id_price = None;
+    let mut learning_price = None;
+    if stores {
+        for (shop, stock) in st.store.shops.iter().enumerate() {
+            if shop == crate::borg_store::BORG_HOME {
+                if stock.ware.iter().any(|item| item.iqty > 0 && item.aware
+                    && u32::from(item.tval) == TV_SCROLL
+                    && i32::from(item.sval) == st.item_val.sv_scroll_identify) {
+                    id_price = Some(0); // A known Home scroll can be withdrawn free.
+                }
+                continue;
+            }
+            let native = crate::engine::store_stock(&st.access, shop);
+            for (slot, item) in stock.ware.iter().enumerate().filter(|(_, i)| i.iqty > 0) {
+                let Some(obj) = native.get(slot) else { continue; };
+                let price = i64::from(obj.purchase_quote(shop));
+                if u32::from(item.tval) == TV_SCROLL && i32::from(item.sval) == st.item_val.sv_scroll_identify {
+                    id_price = Some(id_price.map_or(price, |p: i64| p.min(price)));
+                }
+                if !item.flavour_aware || item.needs_ident {
+                    learning_price = Some(learning_price.map_or(price, |p: i64| p.min(price)));
+                }
+            }
+        }
+    }
+    let unresolved = st.items.items.iter().enumerate().filter(|(_, i)| i.iqty > 0 && is_unknown(st, i))
+        .map(|(slot, _)| learning_key(st, slot)).collect();
+    st.trip = TripState { town_seen: true, id_price, learning_price,
+        departure_gold: i64::from(st.borg.tr(BI_GOLD)),
+        departure_id: st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID),
+        departure_spell: id_spell(st), unresolved };
+}
+
+fn learning_counts(st: &BorgState) -> (i32, i32, i32) {
+    let stores = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_NO_STORES) == 0;
+    let gold = i64::from(st.borg.tr(BI_GOLD));
+    let ids = st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID);
+    let spell = id_spell(st);
+    let affordable = |price: Option<i64>| price.is_some_and(|p| gold >= p);
+    let new_opportunity = st.trip.new_opportunity(gold, ids, spell);
+    let mut matched = vec![false; st.trip.unresolved.len()];
+    let mut counts = (0, 0, 0);
+    for (slot, item) in st.items.items.iter().enumerate().filter(|(_, i)| i.iqty > 0 && is_unknown(st, i)) {
+        let key = learning_key(st, slot);
+        let previous = st.trip.unresolved.iter().enumerate()
+            .find(|(i, old)| !matched[*i] && **old == key).map(|(i, _)| i);
+        if let Some(i) = previous { matched[i] = true; }
+        let runes = crate::borg_item_id::borg_item_note_needs_id(st, item);
+        let rune_resource = runes && (ids > 0 || spell || stores && affordable(st.trip.id_price));
+        // Learning by disposal is allowed for unaware consumables, including
+        // mushrooms/food. Unknown equipment/devices remain protected.
+        let sale_learning = stores && !item.aware && crate::borg_item_id::flavour_sale_type(item.tval)
+            && item.value > 0 && (0..7).any(|shop| crate::borg_store_sell::borg_store_buys(item, shop));
+        match learning_opportunity(st.trip.town_seen && previous.is_some(), new_opportunity,
+            rune_resource, sale_learning, stores, gold) {
+            Learning::Actionable => counts.0 += 1,
+            Learning::Exploratory => counts.1 += 1,
+            Learning::Deferred => counts.2 += 1,
+        }
+    }
+    counts
+}
+
 /// The five `borg_trip_*` settings.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct TripParams {
@@ -65,7 +186,8 @@ pub struct TripParams {
     /// fewer are free, counted per distinct stack (the town plan's count).
     pub pack_slack: i32,
     /// `borg_trip_unknown_stacks`, stacks: return when this many carried
-    /// equipment or device stacks are not fully known (0 = never for this reason).
+    /// unknown stacks have actionable or exploratory learning opportunities
+    /// in town (0 = never for this reason). Includes all carried item types.
     pub unknown_stacks: i32,
     /// `borg_trip_return_gold`, gold per character level: return when the
     /// gold carried plus the estimated sale value reaches this times the
@@ -148,10 +270,14 @@ pub struct TripInputs {
     /// Carried stacks the player does not fully know: an unaware flavour, or
     /// runes not yet learnt (`borg_item_note_needs_id`).
     pub unknown_stacks: i32,
-    /// Unknown equipment/device stacks: the knowledge-return backlog.
-    /// Routine consumables still occupy pack slots, but do not independently
-    /// justify a trip solely because their flavour is unknown.
+    /// Diagnostic subset: unknown equipment/device stacks. The return
+    /// decision uses learning opportunities across every carried item type.
     pub unknown_gear_stacks: i32,
+    /// All item types: matching known learning mechanisms, exploratory
+    /// opportunities, and tasks already attempted or currently unavailable.
+    pub knowledge_actionable: i32,
+    pub knowledge_exploratory: i32,
+    pub knowledge_deferred: i32,
     /// `BI_RECALL`: Word of Recall scrolls and equivalents.
     pub recall: i32,
     /// Staircases seen on this level.
@@ -243,7 +369,7 @@ impl Reason {
                 format!("unprepared(depth {depth} > prepared {prepared_depth})")
             }
             Reason::PackFull { free, slack } => format!("pack(free {free} <= {slack})"),
-            Reason::Unknown { stacks, threshold } => format!("unknown-gear({stacks} >= {threshold})"),
+            Reason::Unknown { stacks, threshold } => format!("unknown({stacks} >= {threshold})"),
             Reason::Purse { worth, threshold } => format!("purse({worth} >= {threshold})"),
             Reason::BelowPlan { depth, target } => format!("below-plan({depth} < {target})"),
             Reason::AtPlan { depth, target } => format!("at-plan({depth} = {target})"),
@@ -264,7 +390,7 @@ pub struct Decision {
 }
 
 impl Decision {
-    /// `return via recall: pack(free 1 <= 2) unknown-gear(5 >= 4)`
+    /// `return via recall: pack(free 1 <= 2) unknown(5 >= 4)`
     pub fn summary(&self) -> String {
         let reasons: Vec<String> = self.reasons.iter().map(Reason::text).collect();
         format!(
@@ -330,8 +456,8 @@ pub fn decide(i: &TripInputs, p: &TripParams) -> Decision {
     if i.pack_free() <= p.pack_slack {
         back.push(Reason::PackFull { free: i.pack_free(), slack: p.pack_slack });
     }
-    if p.unknown_stacks > 0 && i.unknown_gear_stacks >= p.unknown_stacks {
-        back.push(Reason::Unknown { stacks: i.unknown_gear_stacks, threshold: p.unknown_stacks });
+    if p.unknown_stacks > 0 && i.knowledge_actionable + i.knowledge_exploratory >= p.unknown_stacks {
+        back.push(Reason::Unknown { stacks: i.knowledge_actionable + i.knowledge_exploratory, threshold: p.unknown_stacks });
     }
     if p.return_gold > 0 {
         let worth = i.gold + i.sale_value;
@@ -423,11 +549,9 @@ fn restock_probe(st: &mut BorgState) -> bool {
     due
 }
 
-/// Equipment, ammunition and devices can conceal reusable powers. Count
-/// their unknown stacks as backlog; routine consumables and books do not
-/// receive an independent knowledge-return vote. Uses only visible tval,
-/// never the hidden kind level, true value or powers.
-fn knowledge_backlog_type(tval: u8) -> bool {
+/// Diagnostic equipment/ammunition/device subset, using only visible tval.
+/// All item types can contribute to the learning-return decision.
+fn gear_type(tval: u8) -> bool {
     use crate::headers::list_tvals_h::{TV_SHOT, TV_ROD};
     (TV_SHOT..=TV_ROD).contains(&u32::from(tval))
 }
@@ -442,14 +566,14 @@ fn pack_counts(st: &BorgState) -> (i32, i32, i32, i64) {
     let mut unknown = 0;
     let mut unknown_gear = 0;
     let mut sale = 0i64;
-    for item in pack.iter().filter(|it| it.iqty != 0) {
-        if !item.aware || crate::borg_item_id::borg_item_note_needs_id(st, item) {
+    for (slot, item) in st.items.items.iter().enumerate().filter(|(_, it)| it.iqty != 0) {
+        if is_unknown(st, item) {
             unknown += 1;
-            if knowledge_backlog_type(item.tval) {
+            if gear_type(item.tval) {
                 unknown_gear += 1;
             }
         }
-        if item.value > 0 {
+        if slot < n && item.value > 0 {
             sale += i64::from(item.value) * i64::from(item.iqty);
         }
     }
@@ -469,6 +593,7 @@ pub fn observe(st: &mut BorgState, sellable: i32) -> TripInputs {
     let restock = restock_probe(st);
     let (pack_used, unknown_stacks, unknown_gear_stacks, sale_value) = pack_counts(st);
     let facts = crate::borg_town_budget::Facts::of(st);
+    let (knowledge_actionable, knowledge_exploratory, knowledge_deferred) = learning_counts(st);
     TripInputs {
         clevel: st.borg.tr(BI_CLEVEL),
         max_clevel: st.borg.tr(BI_MAXCLEVEL),
@@ -486,6 +611,7 @@ pub fn observe(st: &mut BorgState, sellable: i32) -> TripInputs {
         pack_used,
         unknown_stacks,
         unknown_gear_stacks,
+        knowledge_actionable, knowledge_exploratory, knowledge_deferred,
         recall: st.borg.tr(BI_RECALL),
         up_stairs_known: st.stairs.less.num > 0,
         down_stairs_known: st.stairs.more.num > 0,
@@ -525,7 +651,7 @@ fn pack_record(st: &BorgState, capacity: i32) -> String {
         .filter(|(_, item)| item.iqty > 0)
         .map(|(slot, item)| {
             let runes_unknown = crate::borg_item_id::borg_item_note_needs_id(st, item);
-            let unknown = !item.aware || runes_unknown;
+            let unknown = is_unknown(st, item);
             format!("{{\"slot\":{slot},\"tval\":{},\"qty\":{},\"known_value\":{},\"flavour_known\":{},\"runes_unknown\":{runes_unknown},\"unknown\":{unknown}}}",
                 item.tval, item.iqty, item.value, item.aware)
         }).collect();
@@ -537,17 +663,17 @@ fn pack_record(st: &BorgState, capacity: i32) -> String {
 pub fn record_line(turn: i32, game_turn: i32, i: &TripInputs, p: &TripParams, d: &Decision) -> String {
     let reasons: Vec<String> = d.reasons.iter().map(|r| format!("\"{}\"", r.text())).collect();
     format!(
-        "{{\"v\":2,\"turn\":{turn},\"game_turn\":{game_turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
+        "{{\"v\":3,\"turn\":{turn},\"game_turn\":{game_turn},\"params\":{{\"policy\":{},\"depth_margin\":{},\"pack_slack\":{},\
          \"unknown_stacks\":{},\"return_gold\":{}}},\"inputs\":{{\"clevel\":{},\"max_clevel\":{},\
          \"class\":{},\"race\":{},\"depth\":{},\"max_depth\":{},\"prepared_depth\":{},\
          \"prepared_here\":{},\"restock\":{},\"gold\":{},\"sale_value\":{},\"sellable\":{},\
-         \"pack_capacity\":{},\"pack_used\":{},\"unknown_stacks\":{},\"unknown_gear_stacks\":{},\"recall\":{},\
+         \"pack_capacity\":{},\"pack_used\":{},\"unknown_stacks\":{},\"unknown_gear_stacks\":{},\"knowledge_actionable\":{},\"knowledge_exploratory\":{},\"knowledge_deferred\":{},\"recall\":{},\
          \"up_stairs_known\":{},\"down_stairs_known\":{}}},\"decision\":{{\"action\":\"{}\",\
          \"route\":\"{}\",\"target\":{},\"reasons\":[{}]}}}}",
         p.policy, p.depth_margin, p.pack_slack, p.unknown_stacks, p.return_gold,
         i.clevel, i.max_clevel, i.class, i.race, i.depth, i.max_depth, i.prepared_depth,
         i.prepared_here, i.restock, i.gold, i.sale_value, i.sellable, i.pack_capacity,
-        i.pack_used, i.unknown_stacks, i.unknown_gear_stacks, i.recall, i.up_stairs_known, i.down_stairs_known,
+        i.pack_used, i.unknown_stacks, i.unknown_gear_stacks, i.knowledge_actionable, i.knowledge_exploratory, i.knowledge_deferred, i.recall, i.up_stairs_known, i.down_stairs_known,
         d.action.name(), d.route.name(), d.target, reasons.join(","),
     )
 }
@@ -618,6 +744,21 @@ fn legacy_sale_gate(acting: bool, depth: i32, clevel: i32, gold: i32) -> bool {
 mod tests {
     use super::*;
 
+    #[test]
+    fn town_learning_requires_a_mechanism_or_an_explicit_exploratory_visit() {
+        assert_eq!(learning_opportunity(false, false, false, true, true, 0), Learning::Actionable,
+            "unknown food/mushrooms can be sold to learn even with no gold");
+        assert_eq!(learning_opportunity(false, false, false, false, true, 0), Learning::Deferred,
+            "protected gear without resources has no funded learning opportunity");
+        assert_eq!(learning_opportunity(false, false, false, false, true, 10), Learning::Exploratory);
+        assert_eq!(learning_opportunity(false, false, true, false, false, 0), Learning::Actionable,
+            "a known rune resource can be used safely in town without stores");
+        assert_eq!(learning_opportunity(false, false, false, false, false, 100), Learning::Deferred);
+        assert_eq!(learning_opportunity(true, false, true, true, true, 100), Learning::Deferred,
+            "unchanged unresolved tasks must not cause repeated immediate trips");
+        assert_eq!(learning_opportunity(true, true, true, false, true, 100), Learning::Actionable);
+    }
+
     /// A level-10 character on level 5, prepared down to 8, with room in the
     /// pack, nothing unknown, a Recall scroll and both staircases seen.
     fn base() -> TripInputs {
@@ -638,6 +779,7 @@ mod tests {
             pack_used: 10,
             unknown_stacks: 0,
             unknown_gear_stacks: 0,
+            knowledge_actionable: 0, knowledge_exploratory: 0, knowledge_deferred: 0,
             recall: 1,
             up_stairs_known: true,
             down_stairs_known: true,
@@ -701,34 +843,29 @@ mod tests {
     #[test]
     fn returning_with_unidentified_items_is_justified() {
         let p = params();
-        let i = TripInputs { unknown_stacks: 5, unknown_gear_stacks: 5, ..base() };
+        let i = TripInputs { unknown_stacks: 5, knowledge_exploratory: 5, unknown_gear_stacks: 5, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Return);
         assert_eq!(d.route, Route::Recall);
         assert_eq!(d.reasons, vec![Reason::Unknown { stacks: 5, threshold: 4 }]);
         // below the threshold, the trip goes on
-        let i = TripInputs { unknown_stacks: 3, unknown_gear_stacks: 3, ..base() };
+        let i = TripInputs { unknown_stacks: 3, knowledge_exploratory: 3, unknown_gear_stacks: 3, ..base() };
         assert_eq!(decide(&i, &p).action, Action::Descend);
         // 0 switches the reason off
         let off = TripParams { unknown_stacks: 0, ..p };
-        let i = TripInputs { unknown_stacks: 20, unknown_gear_stacks: 20, ..base() };
+        let i = TripInputs { unknown_stacks: 20, knowledge_exploratory: 20, unknown_gear_stacks: 20, ..base() };
         assert_eq!(decide(&i, &off).action, Action::Descend);
     }
 
     #[test]
-    fn routine_unknown_finds_do_not_end_a_trip_with_room_left() {
-        let p = params();
-        let i = TripInputs { clevel: 1, depth: 1, prepared_depth: 1,
-            unknown_stacks: 8, unknown_gear_stacks: 0, ..base() };
-        assert_eq!(decide(&i, &p).action, Action::Continue);
-        // They still fill the pack: the pack-pressure reason is unchanged.
-        let full = TripInputs { pack_used: 21, ..i };
-        assert_eq!(decide(&full, &p).reasons,
-            vec![Reason::PackFull { free: 2, slack: 2 }]);
-        // A mixed pack counts only its equipment/device backlog.
-        let mixed = TripInputs { unknown_gear_stacks: 4, ..i };
-        assert_eq!(decide(&mixed, &p).reasons,
-            vec![Reason::Unknown { stacks: 4, threshold: 4 }]);
+    fn unknown_consumables_can_end_a_roomy_trip() {
+        let i = TripInputs { unknown_stacks: 4, knowledge_actionable: 4,
+            unknown_gear_stacks: 0, ..base() };
+        assert_eq!(decide(&i, &params()).action, Action::Return);
+        let unavailable = TripInputs { knowledge_actionable: 0, knowledge_deferred: 4, ..i };
+        assert_eq!(decide(&unavailable, &params()).action, Action::Descend);
+        let explore = TripInputs { knowledge_exploratory: 4, ..unavailable };
+        assert_eq!(decide(&explore, &params()).action, Action::Return);
     }
 
     #[test]
@@ -736,11 +873,52 @@ mod tests {
         use crate::headers::list_tvals_h::*;
         for tval in [TV_SHOT, TV_ARROW, TV_BOLT, TV_BOW, TV_SWORD,
             TV_SOFT_ARMOR, TV_LIGHT, TV_AMULET, TV_RING, TV_STAFF, TV_WAND, TV_ROD] {
-            assert!(knowledge_backlog_type(tval as u8), "tval {tval}");
+            assert!(gear_type(tval as u8), "tval {tval}");
         }
         for tval in [TV_NULL, TV_CHEST, TV_SCROLL, TV_POTION, TV_FLASK,
             TV_FOOD, TV_MUSHROOM, TV_MAGIC_BOOK, TV_GOLD] {
-            assert!(!knowledge_backlog_type(tval as u8), "tval {tval}");
+            assert!(!gear_type(tval as u8), "tval {tval}");
+        }
+    }
+
+    #[test]
+    fn unchanged_backlog_is_reconsidered_when_resources_change() {
+        let cache = TripState { town_seen: true, id_price: Some(50),
+            learning_price: Some(100), departure_gold: 40, ..TripState::default() };
+        assert!(!cache.new_opportunity(49, 0, false));
+        assert!(cache.new_opportunity(50, 0, false));
+        assert!(cache.new_opportunity(40, 1, false));
+        assert!(cache.new_opportunity(40, 0, true));
+        let free_home_scroll = TripState { id_price: Some(0), ..TripState::default() };
+        assert!(!free_home_scroll.new_opportunity(0, 0, false));
+        for tval in [crate::headers::list_tvals_h::TV_MUSHROOM,
+            crate::headers::list_tvals_h::TV_FOOD] {
+            assert!(crate::borg_item_id::flavour_sale_type(tval as u8));
+            assert_eq!(learning_opportunity(false, false, false, true, true, 0), Learning::Actionable);
+            assert_eq!(learning_opportunity(true, false, false, true, true, 0), Learning::Deferred);
+            assert_eq!(learning_opportunity(true, true, true, false, true, 50), Learning::Actionable);
+        }
+    }
+
+    #[test]
+    fn every_carried_item_family_can_have_unknown_flavour_or_properties() {
+        use crate::headers::list_tvals_h::*;
+        let st = BorgState::default();
+        for tval in [TV_MUSHROOM, TV_FOOD, TV_FLASK, TV_POTION, TV_SCROLL,
+            TV_SHOT, TV_ARROW, TV_BOLT, TV_STAFF, TV_WAND, TV_ROD,
+            TV_MAGIC_BOOK, TV_PRAYER_BOOK, TV_NATURE_BOOK, TV_SHADOW_BOOK,
+            TV_OTHER_BOOK, TV_LIGHT, TV_RING, TV_AMULET, TV_SWORD, TV_BOOTS] {
+            let mut item = crate::borg_item::blank_item();
+            item.tval = tval as u8;
+            item.iqty = 1;
+            item.ident = true;
+            item.aware = false;
+            assert!(is_unknown(&st, &item), "unaware tval {tval}");
+            item.aware = true;
+            assert!(!is_unknown(&st, &item), "fully known tval {tval}");
+            item.ident = false;
+            item.needs_ident = true;
+            assert!(is_unknown(&st, &item), "unknown properties tval {tval}");
         }
     }
 
@@ -800,7 +978,7 @@ mod tests {
     #[test]
     fn every_reason_is_recorded() {
         let p = TripParams { return_gold: 1, ..params() };
-        let i = TripInputs { restock: true, pack_used: 23, unknown_stacks: 6, unknown_gear_stacks: 6, ..base() };
+        let i = TripInputs { restock: true, pack_used: 23, unknown_stacks: 6, knowledge_exploratory: 6, unknown_gear_stacks: 6, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Return);
         assert_eq!(d.reasons.len(), 4);
@@ -812,7 +990,7 @@ mod tests {
     #[test]
     fn unprepared_ascends_and_restock_outranks_it() {
         let p = params();
-        let i = TripInputs { prepared_here: false, prepared_depth: 4, unknown_stacks: 9, unknown_gear_stacks: 9, ..base() };
+        let i = TripInputs { prepared_here: false, prepared_depth: 4, unknown_stacks: 9, knowledge_exploratory: 9, unknown_gear_stacks: 9, ..base() };
         let d = decide(&i, &p);
         assert_eq!(d.action, Action::Ascend);
         assert_eq!(d.reasons[0], Reason::Unprepared { depth: 5, prepared_depth: 4 });
@@ -879,15 +1057,15 @@ mod tests {
     #[test]
     fn the_record_line_is_stable() {
         let p = params();
-        let i = TripInputs { unknown_stacks: 5, unknown_gear_stacks: 5, ..base() };
+        let i = TripInputs { unknown_stacks: 5, knowledge_exploratory: 5, unknown_gear_stacks: 5, ..base() };
         let d = decide(&i, &p);
         let line = record_line(1234, 5678, &i, &p, &d);
-        assert!(line.starts_with("{\"v\":2,\"turn\":1234,\"game_turn\":5678,\"params\":{\"policy\":0,"));
+        assert!(line.starts_with("{\"v\":3,\"turn\":1234,\"game_turn\":5678,\"params\":{\"policy\":0,"));
         assert!(line.contains("\"unknown_stacks\":5,"));
         assert!(line.contains("\"unknown_gear_stacks\":5,"));
         assert!(line.ends_with(
             "\"decision\":{\"action\":\"return\",\"route\":\"recall\",\"target\":8,\
-             \"reasons\":[\"unknown-gear(5 >= 4)\"]}}"
+             \"reasons\":[\"unknown(5 >= 4)\"]}}"
         ));
         assert!(!line.contains('\n'));
     }

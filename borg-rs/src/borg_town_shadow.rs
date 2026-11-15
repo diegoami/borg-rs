@@ -179,7 +179,7 @@ fn has_inventory_power(it: &borg_item) -> bool {
 
 fn unknown_durable(it: &borg_item) -> bool {
     use crate::headers::list_tvals_h::{TV_FLASK, TV_FOOD, TV_MUSHROOM, TV_POTION, TV_SCROLL};
-    (!it.aware || it.needs_ident)
+    (!it.ident || !it.aware || it.needs_ident)
         && !matches!(u32::from(it.tval), TV_FLASK | TV_FOOD | TV_MUSHROOM | TV_POTION | TV_SCROLL)
 }
 
@@ -201,15 +201,12 @@ fn apparently_saleable(it: &borg_item) -> bool {
 /// names.
 fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
     use crate::headers::list_options_h::OPT_birth_no_selling;
-    use crate::headers::list_tvals_h::{TV_FLASK, TV_FOOD, TV_MUSHROOM, TV_POTION, TV_SCROLL};
     let no_selling = engine::player_opt(OPT_birth_no_selling);
     let pack_end = inven_wield() as usize;
     let fact = |st: &BorgState, it: &borg_item, place: Place, slot: usize, power: i64| -> KitItem {
         let (mut need, mut reduction) = ware_role(st, it);
-        let tval = u32::from(it.tval);
-        let flavoured = tval == TV_POTION || tval == TV_SCROLL;
-        let consumable = flavoured || tval == TV_FOOD || tval == TV_MUSHROOM || tval == TV_FLASK;
-        let unknown_flavour = !it.aware && flavoured;
+        let consumable = crate::borg_item_id::flavour_sale_type(it.tval);
+        let unknown_flavour = !it.aware && consumable;
         if unknown_flavour { need = -1; reduction = 0; }
         let bought = &st.buy;
         let just_bought = (0..usize::try_from(bought.bought_item_num).unwrap_or(0).min(10))
@@ -230,7 +227,7 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
                     && !crate::borg_town_live::sale_rejected(st, i16::from(who), it)
                     && crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
                 .unwrap_or(-1),
-            unknown: unknown_durable(it),
+            unknown: unknown_durable(it) || unknown_flavour,
             unknown_flavour,
             just_bought,
         }
@@ -539,6 +536,7 @@ mod tests {
         it.value = 70;
         assert!(unknown_durable(&it));
         it.aware = true;
+        it.ident = true;
         assert!(!unknown_durable(&it));
         it.needs_ident = true;
         assert!(unknown_durable(&it));
