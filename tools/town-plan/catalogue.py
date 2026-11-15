@@ -95,7 +95,7 @@ def role(obj):
     if typ == 'light':
         return 'Light', 'remaining fuel turns / copy', 'Current worn fuel and compatible spares share endurance coverage; permanent light suppresses fuel demand.'
     if typ == 'flask':
-        return 'Ranged damage + fuel', 'throw damage; 7500 lantern-fuel turns', 'Attack supply competes with arrows and devices. Fuel applies only with a lantern; oil is not another light source.'
+        return 'Ranged damage + fuel', 'throw damage; 7500 lantern-fuel turns', 'Reserve whole bottles for the forecast fuel shortfall first; surplus is ammunition. Oil is not another light source and a bottle is not counted for both uses.'
     if typ in ('shot', 'arrow', 'bolt'):
         return 'Ranged damage', 'average damage × matching launcher multiplier', 'Zero without a matching launcher; carried pack and quiver stock share diminishing coverage.'
     if typ == 'digger':
@@ -108,7 +108,7 @@ def role(obj):
                'GAIN_EXP':'Experience', 'RESTORE_STAT':'Restore stats', 'GAIN_STAT':'Stat growth',
                'REMOVE_CURSE':'Remove Curse', 'ENCHANT':'Enchantment', 'RECHARGE':'Recharging',
                'MAP_AREA':'Mapping', 'LIGHT_AREA':'Illumination', 'LIGHT_LEVEL':'Mapping',
-               'IDENTIFY':'Rune identification', 'GLYPH':'Glyph', 'BANISH':'Banishment',
+               'IDENTIFY':'Rune identification', 'ACQUIRE':'Equipment opportunity', 'GLYPH':'Glyph', 'BANISH':'Banishment',
                'MASS_BANISH':'Banishment', 'DESTRUCTION':'Destruction', 'EARTHQUAKE':'Destruction',
                'BRAND_WEAPON':'Enchantment', 'BRAND_AMMO':'Enchantment', 'BRAND_BOLTS':'Enchantment'}
     roles = set()
@@ -129,11 +129,12 @@ def role(obj):
             continue
         elif head.startswith('DETECT_') or head.startswith('SENSE_') or head in ('PROBE','READ_MINDS'): roles.add('Detection')
         elif head in ('LINE','BOLT','BOLT_OR_BEAM','BEAM','BALL','BREATH','ARC','SHORT_BEAM','SWARM','STRIKE','STAR','STAR_BALL','SPOT','SPHERE','PROJECT_LOS','PROJECT_LOS_AWARE','BOLT_AWARE','WONDER'): roles.add('Ranged damage')
+        elif head == 'BOLT_STATUS_DAM' and sub == 'MON_DRAIN': roles.add('Ranged damage')
         elif head in ('BOLT_STATUS','BOLT_STATUS_DAM','TOUCH','TOUCH_AWARE','MON_TIMED_INC'): roles.add('Combat control')
         elif head in mapping: roles.add(mapping[head])
     if roles:
         return ' + '.join(sorted(roles)), 'native effect amounts; devices use charges/cooldown', 'All mapped effects contribute. Repairs require a relevant deficit; mana requires a caster. Substitutes share coverage. Known carried stock, devices and usable information spells reduce replenishment value.'
-    return 'Excluded', 'no positive known-use utility', 'No mapped safe service: harmful/monster-aiding effects, or route-changing/random services outside this supply policy. Unknown first-copy learning remains separate.'
+    return 'Excluded', 'no positive known-use utility', 'No mapped usable service: harmful/monster-aiding effects, unsupported consumers (Infravision/Disable Traps), or route-changing services outside this supply policy. Unknown first-copy learning remains separate.'
 
 
 rows = []

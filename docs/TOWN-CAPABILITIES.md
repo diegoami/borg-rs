@@ -15,8 +15,9 @@ continues to come from the trip policy when enabled.
 ## Capabilities
 
 - Ammunition supplies expected ranged damage, only for a matching launcher.
-  Existing quiver stock counts. Oil supplies thrown damage and, when carrying a
-  lantern, fuel. Attack supplies share coverage with offensive devices.
+  Existing quiver stock counts. Oil reserves whole bottles against the forecast fuel
+  shortfall of a lantern; surplus bottles supply thrown damage. A bottle is
+  never counted for both uses. Attack supplies share coverage with offensive devices.
 - Known devices supply their native effects using actual charges or expected
   rod uses from the trip duration and native cooldown. Teleport Other and
   Stone to Mud are services, not damage; monster-healing/haste/clone/poly devices
@@ -81,9 +82,20 @@ and wallet changes; neither this diagnostic nor a planner record is a receipt.
 See [the item catalogue](TOWN-ITEM-CATALOGUE.md). Validation results and known
 limits belong in the accompanying dated receipt before this is promoted.
 
-The opt-in throwing path also reserves the last oil only for a fuel-burning
-lantern. The control retains its original gate, which could otherwise prevent
+The opt-in throwing path reserves the forecast fuel shortfall only for a
+fuel-burning lantern, taking its remaining fuel and the planned duration into
+account. The control retains its original gate, which could otherwise prevent
 throwing bought oil with a torch and no spare fuel. Device replenishment and
 recharging remain separate: recharging utility requires a depleted, still-carried
 usable device; selling or storing that target removes the demand. Empty devices
 are not automatically refurbished by this policy.
+
+Snapshot information services use the configurable support interval as covered
+time, so timed sight/telepathy and repeated detection are not mixed as cast
+counts versus durations. Acquirement supplies discounted equipment opportunity
+using the gear priority and trip exposure. Harmful monster-aiding projections
+are excluded even when their native effect uses a status or area form.
+
+Known consumer limits are explicit: this Borg has no known-use action for
+Infravision potions or Disable Traps devices, and Deep Descent is outside the
+trip router. These are excluded rather than assigned a fictitious benefit.

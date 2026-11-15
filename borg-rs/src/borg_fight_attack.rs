@@ -2426,8 +2426,12 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
             let lantern = u32::from(light.tval) == crate::headers::list_tvals_h::TV_LIGHT
                 && i32::from(light.sval) == st.item_val.sv_light_lantern
                 && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
-            if oil_reserved(st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1,
-                lantern, tr(st, BI_AFUEL), st.borg.near.unique != 0) { continue; }
+            let policy = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+            let reserve = if policy && lantern {
+                ((crate::borg_town_utility::Journey::of(st).turns - i64::from(light.timeout)).max(0) as u64)
+                    .div_ceil(i64::from(item.pval).max(1) as u64) as i32
+            } else { 0 };
+            if oil_reserved(policy, reserve, tr(st, BI_AFUEL), st.borg.near.unique != 0) { continue; }
         }
 
         /* Dont throw wands or rods */
@@ -2493,8 +2497,8 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
 /// The experimental supply model may stock oil for throwing with a torch.
 /// Preserve the control's gate; reserve fuel only for a fuel-burning lantern
 /// under the new policy. The unique-fight emergency exception stays intact.
-fn oil_reserved(capability_policy: bool, lantern: bool, fuel: i32, unique: bool) -> bool {
-    fuel <= 1 && !unique && (!capability_policy || lantern)
+fn oil_reserved(capability_policy: bool, required: i32, fuel: i32, unique: bool) -> bool {
+    !unique && fuel <= if capability_policy { required } else { 1 } && (!capability_policy || required > 0)
 }
 
 /// The class's main attack spell, which is not penalized for its mana
@@ -4597,10 +4601,12 @@ mod town_oil_tests {
     use super::oil_reserved;
     #[test]
     fn throwing_oil_does_not_wait_for_unneeded_lantern_fuel_with_a_torch() {
-        assert!(!oil_reserved(true, false, 0, false));
-        assert!(oil_reserved(true, true, 1, false));
-        assert!(!oil_reserved(true, true, 2, false));
-        assert!(!oil_reserved(true, true, 1, true));
-        assert!(oil_reserved(false, false, 0, false), "control retains its original behaviour");
+        assert!(!oil_reserved(true, 0, 0, false));
+        assert!(oil_reserved(true, 1, 1, false));
+        assert!(!oil_reserved(true, 1, 2, false));
+        assert!(!oil_reserved(true, 1, 1, true));
+        assert!(oil_reserved(true, 3, 3, false), "a longer forecast can need several fuel bottles");
+        assert!(!oil_reserved(true, 0, 1, false), "a filled lantern can cover the forecast already");
+        assert!(oil_reserved(false, 0, 0, false), "control retains its original behaviour");
     }
 }

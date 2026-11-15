@@ -57,16 +57,17 @@ const WOUNDS: usize = 49;
 const IDENTIFY: usize = 50;
 const GAIN_EXPERIENCE: usize = 51;
 const RECHARGE_TARGET: usize = 52;
+const ACQUIRE: usize = 53;
 const COUNT: usize = NAMES.len();
 
-pub const NAMES: [&str; 53] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
+pub const NAMES: [&str; 54] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
     "ranged damage", "teleport", "level escape", "teleport other", "digging", "trap/door detection",
     "monster detection", "invisible detection", "mapping", "illumination", "speed", "resist fire",
     "resist cold", "resist poison", "resist acid", "resist electricity", "combat buff", "mana",
     "restore experience", "remove curse", "enchantment", "recharging", "confusion cure", "blindness cure",
     "fear cure", "glyph", "strength", "intelligence", "wisdom", "dexterity", "constitution", "charisma",
     "book 0", "book 1", "book 2", "book 3", "book 4", "book 5", "book 6", "book 7", "book 8",
-    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target"];
+    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target", "equipment opportunity"];
 
 /// Curves: [capability, weight in utility thousandths, demand, carried, Home].
 /// Supplies: [scope (shop 0..7, pack 8, Home 9), slot, capability, units/copy].
@@ -131,8 +132,8 @@ impl Model {
         self.units(i64::from(shop), i64::from(slot), 1).iter().fold(0, |m, &(id, _)| m | (1 << id))
     }
     pub fn valid(&self) -> bool {
-        self.curves.len() == COUNT && self.curves.iter().enumerate().all(|(i, r)| r[0] == i as i64 && r[1] >= 0 && r[3] >= 0 && r[4] >= 0)
-            && self.supplies.iter().all(|r| (0..=HOME).contains(&r[0]) && r[1] >= 0 && (0..COUNT as i64).contains(&r[2]) && r[3] > 0)
+        (53..=COUNT).contains(&self.curves.len()) && self.curves.iter().enumerate().all(|(i, r)| r[0] == i as i64 && r[1] >= 0 && r[3] >= 0 && r[4] >= 0)
+            && self.supplies.iter().all(|r| (0..=HOME).contains(&r[0]) && r[1] >= 0 && (0..self.curves.len() as i64).contains(&r[2]) && r[3] > 0)
     }
 }
 
@@ -158,11 +159,12 @@ fn timed_cap(timed: u32) -> Option<usize> {
 
 /// Effects with contextual relevance, in physical units. Metadata/control
 /// effects do not earn utility by themselves. Harmful effects never do.
-fn effect_supply(effects: &[(u16, i32, i64)], hp: i64) -> Vec<(usize, i64)> {
+fn effect_supply(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Vec<(usize, i64)> {
     use crate::headers::list_projections_h::*;
     let mut out = BTreeMap::<usize, i64>::new();
     for &(effect, subtype, amount) in effects {
         let n = amount.max(1) * UNIT;
+        let service = service_turns.max(1) * UNIT;
         let role = match u32::from(effect) {
             EF_NOURISH if subtype != 1 && amount > 0 => Some((FOOD, n)), // A decreasing food effect is not nourishment.
             EF_HEAL_HP => Some((HEAL, amount.max(1).min(hp) * UNIT)),
@@ -178,20 +180,22 @@ fn effect_supply(effects: &[(u16, i32, i64)], hp: i64) -> Vec<(usize, i64)> {
             EF_RESTORE_MANA => Some((MANA, n)), EF_RESTORE_EXP => Some((EXPERIENCE, UNIT)),
             EF_GAIN_EXP => Some((GAIN_EXPERIENCE, UNIT)),
             EF_IDENTIFY => Some((IDENTIFY, UNIT)),
+            EF_ACQUIRE => Some((ACQUIRE, n)),
             EF_RESTORE_STAT | EF_GAIN_STAT if (0..5).contains(&subtype) => Some((STATS + subtype as usize, UNIT)),
             EF_REMOVE_CURSE => Some((CURSE, n)), EF_ENCHANT | EF_BRAND_WEAPON | EF_BRAND_AMMO | EF_BRAND_BOLTS => Some((ENCHANT, UNIT)),
             EF_RECHARGE => Some((RECHARGE, UNIT)),
-            EF_MAP_AREA | EF_LIGHT_LEVEL => Some((MAP, UNIT)), EF_LIGHT_AREA => Some((ILLUMINATE, UNIT)),
-            EF_DETECT_TRAPS | EF_DETECT_DOORS | EF_DETECT_STAIRS => Some((TRAPS, UNIT)),
-            EF_DETECT_EVIL | EF_DETECT_VISIBLE_MONSTERS | EF_DETECT_LIVING_MONSTERS | EF_DETECT_SOUL | EF_READ_MINDS => Some((MONSTERS, UNIT)),
-            EF_DETECT_INVISIBLE_MONSTERS => Some((INVISIBLE, UNIT)),
-            EF_DETECT_OBJECTS | EF_SENSE_OBJECTS | EF_DETECT_GOLD | EF_SENSE_GOLD | EF_DETECT_ORE | EF_PROBE => Some((MAP, UNIT)),
+            EF_MAP_AREA | EF_LIGHT_LEVEL => Some((MAP, service)), EF_LIGHT_AREA => Some((ILLUMINATE, service)),
+            EF_DETECT_TRAPS | EF_DETECT_DOORS | EF_DETECT_STAIRS => Some((TRAPS, service)),
+            EF_DETECT_EVIL | EF_DETECT_VISIBLE_MONSTERS | EF_DETECT_LIVING_MONSTERS | EF_DETECT_SOUL | EF_READ_MINDS => Some((MONSTERS, service)),
+            EF_DETECT_INVISIBLE_MONSTERS => Some((INVISIBLE, service)),
+            EF_DETECT_OBJECTS | EF_SENSE_OBJECTS | EF_DETECT_GOLD | EF_SENSE_GOLD | EF_DETECT_ORE | EF_PROBE => Some((MAP, service)),
             EF_GLYPH => Some((GLYPH, UNIT)), EF_BANISH | EF_MASS_BANISH => Some((BANISH, UNIT)),
             EF_DESTRUCTION | EF_EARTHQUAKE => Some((DESTROY, UNIT)),
             EF_BOLT | EF_BEAM | EF_BOLT_OR_BEAM | EF_BOLT_AWARE | EF_LINE | EF_BALL | EF_TOUCH | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE
                 if matches!(subtype as u32, PROJ_AWAY_ALL | PROJ_AWAY_EVIL | PROJ_AWAY_UNDEAD | PROJ_AWAY_SPIRIT) => Some((OTHER, UNIT)),
             EF_BOLT | EF_BEAM | EF_LINE | EF_TOUCH | EF_BOLT_AWARE if subtype as u32 == PROJ_KILL_WALL => Some((DIG, UNIT)),
-            EF_BOLT | EF_BEAM | EF_TOUCH | EF_BOLT_AWARE if matches!(subtype as u32, PROJ_MON_HEAL | PROJ_MON_SPEED | PROJ_MON_CLONE | PROJ_MON_POLY) => None,
+            EF_BOLT | EF_BEAM | EF_TOUCH | EF_TOUCH_AWARE | EF_BOLT_AWARE | EF_BOLT_STATUS | EF_BOLT_STATUS_DAM | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE if matches!(subtype as u32, PROJ_MON_HEAL | PROJ_MON_SPEED | PROJ_MON_CLONE | PROJ_MON_POLY) => None,
+            EF_BOLT_STATUS_DAM if subtype as u32 == PROJ_MON_DRAIN => Some((ATTACK, n)),
             EF_LINE | EF_BOLT | EF_BOLT_OR_BEAM | EF_BEAM | EF_BALL | EF_BREATH | EF_ARC | EF_SHORT_BEAM
                 | EF_SWARM | EF_STRIKE | EF_STAR | EF_STAR_BALL | EF_SPOT | EF_SPHERE
                 | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE | EF_BOLT_AWARE | EF_WONDER => Some((ATTACK, n)),
@@ -203,7 +207,15 @@ fn effect_supply(effects: &[(u16, i32, i64)], hp: i64) -> Vec<(usize, i64)> {
     out.into_iter().collect()
 }
 
-fn supplies(item: &borg_item, ctx: &Context) -> Vec<(usize, i64)> {
+fn oil_supply(quantity: i64, fuel_bottles: i64, damage: i64, fuel: i64) -> Vec<(usize, i64)> {
+    let mut out = Vec::new();
+    let n = quantity.max(1);
+    if fuel_bottles > 0 && fuel > 0 { out.push((LIGHT, fuel * UNIT * fuel_bottles / n)); }
+    if n > fuel_bottles { out.push((ATTACK, damage * (n - fuel_bottles) / n)); }
+    out
+}
+
+fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize, i64)> {
     if item.iqty == 0 || item.kind == 0 { return Vec::new(); }
     let tval = u32::from(item.tval);
     // A shop teaches its kind on purchase; carried unknown flavours/devices
@@ -216,9 +228,21 @@ fn supplies(item: &borg_item, ctx: &Context) -> Vec<(usize, i64)> {
         return vec![(PHASE, UNIT)]; // TELEPORT(10) is not full Teleportation.
     }
     if tval == TV_FLASK {
-        let mut out = vec![(ATTACK, (i64::from(item.dd) * (i64::from(item.ds) + 1) * UNIT / 2).max(UNIT))];
-        if ctx.lantern && item.pval > 0 { out.push((LIGHT, i64::from(item.pval) * UNIT)); }
-        return out;
+        let damage = (i64::from(item.dd) * (i64::from(item.ds) + 1) * UNIT / 2).max(UNIT);
+        let fuel = i64::from(item.pval).max(0);
+        let light = &st.items.items[(crate::borg_item::inven_wield() + 5) as usize];
+        let needed = if ctx.lantern && fuel > 0 {
+            ((ctx.journey.turns - i64::from(light.timeout)).max(0) as u64).div_ceil(fuel as u64) as i64
+        } else { 0 };
+        // Allocate whole bottles to fuel before ammunition. A bottle cannot
+        // supply both uses. Shop options are prospective single copies; live
+        // execution buys one then refreshes the allocation. Held stacks use
+        // an average per-copy vector whose whole-stack sum is conserved.
+        let end = if origin.0 == PACK { origin.1 } else { crate::borg_item::inven_wield() as usize };
+        let prior: i64 = st.items.items.iter().take(end).filter(|i| i.aware && u32::from(i.tval) == TV_FLASK)
+            .map(|i| i64::from(i.iqty)).sum();
+        let quantity = if origin.0 < PACK { 1 } else { qty };
+        return oil_supply(quantity, (needed - prior).clamp(0, quantity), damage, fuel);
     }
     if matches!(tval, TV_ARROW | TV_BOLT | TV_SHOT) {
         if st.borg.tr(BI_AMMO_TVAL) != i32::from(item.tval) || item.cursed { return Vec::new(); }
@@ -256,7 +280,7 @@ fn supplies(item: &borg_item, ctx: &Context) -> Vec<(usize, i64)> {
     for (e, _, amount) in &mut effects {
         if u32::from(*e) == EF_RESTORE_MANA && *amount == 0 { *amount = i64::from(st.borg.tr(BI_MAXSP)); }
     }
-    let mut out = effect_supply(&effects, ctx.journey.hp);
+    let mut out = effect_supply(&effects, ctx.journey.hp, i64::from(st.cfg(BORG_TOWN_SUPPORT_TURNS)).max(1));
     let uses = if tval == TV_WAND || tval == TV_STAFF { i64::from(item.pval).max(0) * UNIT / qty }
         else if tval == TV_ROD {
             // MINIMISE/AVERAGE are pure; the rod's physical cooldown is not a level gate.
@@ -285,7 +309,8 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     let support_demand = (journey.turns * UNIT / cfg(BORG_TOWN_SUPPORT_TURNS).max(1)).max(UNIT);
     let light_slot = crate::borg_item::inven_wield() as usize + 5;
     let light = st.items.items.get(light_slot).copied().unwrap_or_else(crate::borg_item::blank_item);
-    let lantern = light.iqty > 0 && u32::from(light.tval) == TV_LIGHT && i32::from(light.sval) == st.item_val.sv_light_lantern;
+    let lantern = light.iqty > 0 && u32::from(light.tval) == TV_LIGHT && i32::from(light.sval) == st.item_val.sv_light_lantern
+        && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
     let ctx = Context { st, journey, lantern };
     let mut model = Model { curves: (0..COUNT).map(|i| [i as i64, ordinary, support_demand, 0, 0]).collect(), supplies: Vec::new() };
     let mut curve = |id: usize, weight: i64, demand: i64| { model.curves[id][1] = weight; model.curves[id][2] = demand; };
@@ -302,9 +327,11 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     let damage_scale = journey.level * 2 + 4;
     curve(ATTACK, risk(BORG_TOWN_W_ATTACK), damage_scale * journey.turns * UNIT / cfg(BORG_TOWN_ATTACK_TURNS).max(1));
     for id in [TELEPORT, LEVEL, OTHER] { curve(id, risk(BORG_TOWN_W_ESCAPE), exposure); }
+    for cap in [TRAPS, MONSTERS, INVISIBLE, MAP, ILLUMINATE] { curve(cap, ordinary, journey.turns * UNIT); }
     curve(MANA, if t(BI_MAXSP) > 0 { risk(BORG_TOWN_W_MAGIC) } else { 0 }, t(BI_MAXSP).max(1) * exposure);
     curve(IDENTIFY, if t(BI_ALL_NEED_ID) > 0 { cfg(BORG_TOWN_W_KNOWLEDGE) * UNIT } else { 0 }, -UNIT);
     curve(GAIN_EXPERIENCE, cfg(BORG_TOWN_W_RESTORE) * UNIT, -UNIT);
+    curve(ACQUIRE, cfg(BORG_TOWN_W_POWER) * exposure, journey.advancement * UNIT);
     curve(EXPERIENCE, if t(BI_ISFIXEXP) > 0 || t(BI_ISFIXLEV) > 0 { cfg(BORG_TOWN_W_RESTORE) * UNIT } else { 0 }, -UNIT);
     curve(CURSE, if t(BI_FIRST_CURSED) > 0 { cfg(BORG_TOWN_W_RESTORE) * UNIT } else { 0 }, -UNIT);
     curve(ENCHANT, if t(BI_NEED_ENCHANT_TO_A) + t(BI_NEED_ENCHANT_TO_H) + t(BI_NEED_ENCHANT_TO_D) > 0 { cfg(BORG_TOWN_W_SUPPORT) * UNIT } else { 0 }, UNIT);
@@ -327,14 +354,14 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     // Per-item physical supply facts are independent of the quantities held.
     for c in &stock.candidates {
         let item = &st.store.shops[usize::from(c.shop)].ware[usize::from(c.slot)];
-        for (cap, n) in supplies(item, &ctx) {
+        for (cap, n) in supplies(item, &ctx, (i64::from(c.shop), usize::from(c.slot))) {
             model.supplies.push([i64::from(c.shop), i64::from(c.slot), cap as i64, n]);
         }
     }
     for it in kit {
         let item = if it.place == Place::Pack { &st.items.items[usize::from(it.slot)] }
             else { &st.store.shops[crate::borg_store::BORG_HOME].ware[usize::from(it.slot)] };
-        for (cap, n) in supplies(item, &ctx) {
+        for (cap, n) in supplies(item, &ctx, (Model::scope(it), usize::from(it.slot))) {
             model.supplies.push([Model::scope(it), i64::from(it.slot), cap as i64, n]);
             model.curves[cap][if it.place == Place::Pack { 3 } else { 4 }] += n * i64::from(it.qty);
         }
@@ -342,7 +369,7 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     // Equipment/quiver supplies are not movable pack stacks, but do close
     // the same needs (especially current fuel and already-loaded arrows).
     for item in st.items.items.iter().skip(crate::borg_item::inven_wield() as usize).filter(|i| i.iqty > 0) {
-        for (cap, n) in supplies(item, &ctx) { model.curves[cap][3] += n * i64::from(item.iqty); }
+        for (cap, n) in supplies(item, &ctx, (10, 0)) { model.curves[cap][3] += n * i64::from(item.iqty); }
     }
     use crate::headers::list_object_flags_h::OF_NO_FUEL;
     if light.iqty > 0 && engine::flag_has(&light.flags, OF_NO_FUEL as i32) || t(BI_LIGHT) > 0 && light.iqty == 0 {
@@ -357,7 +384,7 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
         // Only information/access services suppress duplicate purchases.
         // Mana-free attacks and healing remain valuable alongside spells.
         if effects.iter().any(|&(e, _, amount)| u32::from(e) == EF_TELEPORT && amount <= 10) { model.curves[PHASE][1] = 0; }
-        for (cap, _) in effect_supply(&effects, journey.hp) {
+        for (cap, _) in effect_supply(&effects, journey.hp, cfg(BORG_TOWN_SUPPORT_TURNS).max(1)) {
             if matches!(cap, TRAPS | MONSTERS | INVISIBLE | MAP | ILLUMINATE | DIG | RECALL | FOOD) {
                 model.curves[cap][1] = 0;
             }
@@ -379,7 +406,8 @@ pub fn audit(st: &BorgState, journey: Journey, model: &Model) {
     let Ok(mut file) = std::fs::File::create(path) else { return; };
     let light_slot = crate::borg_item::inven_wield() as usize + 5;
     let light = st.items.items.get(light_slot).copied().unwrap_or_else(crate::borg_item::blank_item);
-    let ctx = Context { st, journey, lantern: light.iqty > 0 && i32::from(light.sval) == st.item_val.sv_light_lantern };
+    let ctx = Context { st, journey, lantern: light.iqty > 0 && i32::from(light.sval) == st.item_val.sv_light_lantern
+        && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32) };
     let _ = writeln!(file, "{{\"hypothetical_known_items\":1,\"class\":{},\"level\":{},\"curves\":{:?}}}", st.borg.tr(BI_CLASS), journey.level, model.curves);
     for kind in 1..usize::from(engine::z_info().k_max) {
         let k = engine::kind(kind);
@@ -395,7 +423,7 @@ pub fn audit(st: &BorgState, journey: Journey, model: &Model) {
         if k.tval as u32 == TV_LIGHT {
             item.timeout = if k.sval == st.item_val.sv_light_torch { engine::z_info().fuel_torch } else { engine::z_info().fuel_lamp } as i16;
         }
-        let units = supplies(&item, &ctx);
+        let units = supplies(&item, &ctx, (0, 0));
         let units_json = units.iter().map(|(id, n)| format!("[{id},{n}]")).collect::<Vec<_>>().join(",");
         let _ = writeln!(file, "{{\"kind\":{},\"name\":{:?},\"tval\":{},\"sval\":{},\"supplies\":[{}],\"gain\":{},\"gear\":{}}}",
             kind, String::from_utf8_lossy(engine::kind_name(kind)), k.tval, k.sval, units_json,
@@ -496,31 +524,34 @@ mod tests {
     #[test]
     fn wand_teleport_other_and_stone_to_mud_are_services_not_damage() {
         use crate::headers::list_projections_h::*;
-        assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_AWAY_ALL as i32, 100)], 20), [(OTHER, UNIT)]);
-        assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_KILL_WALL as i32, 30)], 20), [(DIG, UNIT)]);
-        let light = effect_supply(&[(EF_LINE as u16, PROJ_LIGHT_WEAK as i32, 6)], 20);
+        assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_AWAY_ALL as i32, 100)], 20, 1000), [(OTHER, UNIT)]);
+        assert_eq!(effect_supply(&[(EF_BOLT as u16, PROJ_KILL_WALL as i32, 30)], 20, 1000), [(DIG, UNIT)]);
+        let light = effect_supply(&[(EF_LINE as u16, PROJ_LIGHT_WEAK as i32, 6)], 20, 1000);
         assert_eq!(light, [(ATTACK, 6 * UNIT)], "the shop's Wand of Light has a LINE effect");
         for projection in [PROJ_MON_HEAL, PROJ_MON_SPEED, PROJ_MON_CLONE, PROJ_MON_POLY] {
-            assert!(effect_supply(&[(EF_BOLT as u16, projection as i32, 100)], 20).is_empty());
+            for effect in [EF_BOLT, EF_BOLT_STATUS, EF_BOLT_AWARE, EF_PROJECT_LOS] {
+                assert!(effect_supply(&[(effect as u16, projection as i32, 100)], 20, 1000).is_empty());
+            }
         }
+        assert_eq!(effect_supply(&[(EF_BOLT_STATUS_DAM as u16, PROJ_MON_DRAIN as i32, 150)], 20, 1000), [(ATTACK, 150 * UNIT)]);
     }
     #[test]
     fn secondary_cures_and_buffs_are_not_discarded_by_a_primary_healing_role() {
         let units = effect_supply(&[(EF_HEAL_HP as u16, 0, 60), (EF_CURE as u16, TMD_CONFUSED as i32, 0),
-            (EF_CURE as u16, TMD_POISONED as i32, 0), (EF_CURE as u16, TMD_BLIND as i32, 0)], 25);
+            (EF_CURE as u16, TMD_POISONED as i32, 0), (EF_CURE as u16, TMD_BLIND as i32, 0)], 25, 1000);
         assert!(units.contains(&(HEAL, 25 * UNIT)));
         for cap in [CONFUSION, POISON, BLIND] { assert!(units.contains(&(cap, UNIT))); }
         let units = effect_supply(&[(EF_TIMED_INC as u16, TMD_FAST as i32, 30),
-            (EF_TIMED_INC as u16, TMD_OPP_FIRE as i32, 20)], 25);
+            (EF_TIMED_INC as u16, TMD_OPP_FIRE as i32, 20)], 25, 1000);
         assert!(units.contains(&(SPEED, 30 * UNIT)) && units.contains(&(FIRE, 20 * UNIT)));
     }
     #[test]
     fn food_uses_actual_nutrition_and_crunch_is_only_a_message() {
-        let biscuit = effect_supply(&[(EF_NOURISH as u16, 0, 10), (EF_CRUNCH as u16, 0, 0)], 20);
+        let biscuit = effect_supply(&[(EF_NOURISH as u16, 0, 10), (EF_CRUNCH as u16, 0, 0)], 20, 1000);
         assert_eq!(biscuit, [(FOOD, 10 * UNIT)]);
-        assert_eq!(effect_supply(&[(EF_NOURISH as u16, 0, 40)], 20), [(FOOD, 40 * UNIT)]);
-        assert!(effect_supply(&[(EF_NOURISH as u16, 1, 40)], 20).is_empty());
-        assert!(effect_supply(&[(EF_NOURISH as u16, 2, 0)], 20).is_empty());
+        assert_eq!(effect_supply(&[(EF_NOURISH as u16, 0, 40)], 20, 1000), [(FOOD, 40 * UNIT)]);
+        assert!(effect_supply(&[(EF_NOURISH as u16, 1, 40)], 20, 1000).is_empty());
+        assert!(effect_supply(&[(EF_NOURISH as u16, 2, 0)], 20, 1000).is_empty());
     }
     #[test]
     fn replenishment_competes_with_existing_and_substitute_stock() {
@@ -569,6 +600,26 @@ mod tests {
         assert_eq!(m.ware(4, 0, 2), m.ware(4, 0, 1));
         m.curves[BOOKS][3] = UNIT;
         assert_eq!(m.ware(4, 0, 1), 0);
+    }
+    #[test]
+    fn temporary_sight_and_snapshot_detection_share_time_units() {
+        assert_eq!(effect_supply(&[(EF_DETECT_INVISIBLE_MONSTERS as u16, 0, 0)], 20, 1000), [(INVISIBLE, 1000 * UNIT)]);
+        assert_eq!(effect_supply(&[(EF_TIMED_INC as u16, TMD_SINVIS as i32, 30)], 20, 1000), [(INVISIBLE, 30 * UNIT)]);
+    }
+    #[test]
+    fn schema_seven_accepts_its_earlier_append_only_table() {
+        let mut m = model();
+        m.curves.truncate(53);
+        assert!(m.valid());
+        assert!(m.gain(&[(ATTACK, UNIT)]) > 0);
+    }
+    #[test]
+    fn oil_is_allocated_to_fuel_or_ammunition_without_counting_a_bottle_twice() {
+        assert_eq!(oil_supply(1, 1, 2500, 7500), [(LIGHT, 7500 * UNIT)]);
+        assert_eq!(oil_supply(1, 0, 2500, 7500), [(ATTACK, 2500)]);
+        let held = oil_supply(5, 2, 2500, 7500);
+        assert_eq!(held, [(LIGHT, 3000 * UNIT), (ATTACK, 1500)]);
+        assert_eq!(held[0].1 * 5 / (7500 * UNIT) + held[1].1 * 5 / 2500, 5);
     }
     #[test]
     fn malformed_replay_facts_cannot_index_outside_the_capability_table() {
