@@ -77,7 +77,7 @@ class RecordingSafety(unittest.TestCase):
         import cemetery_publish
         with tempfile.TemporaryDirectory(prefix='cemetery-real-roundtrip-') as folder:
             root = Path(folder)
-            archive, _ = cemetery_publish.build_export(self.recording, root / 'exports')
+            archive, _, _ = cemetery_publish.build_export(self.recording, root / 'exports')
             restored = cemetery_publish.restore(archive, root / 'restored')
             self.assertTrue(runtime.verify(restored)['verified'])
 
