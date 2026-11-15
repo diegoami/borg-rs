@@ -33,7 +33,7 @@ heal or escape. The narrow `iqty != 0` guard is mirrored in C and Rust.
 See [the class investigation](TOWN-CLASS-INVESTIGATION-43667787016.md).
 
 Ammo joining an existing quiver stack now uses native compatibility and recorded
-quiver packing facts. Pack capacity uses the native forty-unit reservation bands,
+quiver packing facts. The town planner uses the native forty-unit reservation bands,
 including weighted throwing items. Overlapping ammo groups share reserved slack
 once. Existing joins are bounded by compatible stack room; new ammo classes are
 conservatively bounded to one quiver block and charged a slot. Live execution
@@ -51,6 +51,10 @@ Historical records and original zoo results are never rewritten.
 Opaque identity stays stable during partial learning and slot movement, but a
 split/newly acquired object is a new task. Identities are process-local and are
 not persisted across save/load; this is the existing in-memory suppression scope.
+A freed object's heap address can be reused for a different unknown item and
+alias a still-unresolved task. Generation-safe identity is not implemented;
+the current limitation can suppress a learning return. No reproduction or
+frequency estimate is claimed.
 The mixed capability solver remains a bounded surrogate, not a global optimum.
 Knowledge utility may still justify buying an otherwise unsupported unknown kind.
 Issues #79/#80 cover additional emergency tactical use; this change does not
@@ -81,3 +85,31 @@ This is calibration evidence, not survival acceptance: the selected arm
 rescues two but newly kills two relative to generic utility. Full death and
 resource observations remain visible. The initial correction validation above
 belongs to runtime e263db7; the addendum's selected defaults are runtime 5d8511c.
+
+## PR85 Sonnet review follow-up
+
+[Sonnet's qualified pass](https://github.com/diegoami/borg-rs/pull/85#issuecomment-6894417316)
+applies to head 434aa91, not the subsequent fixes. It is not Kimi's review.
+
+1. Confirmed unsupported control utility: remove Confuse Monster/Confuse
+   Monsters/Stun Monster device effects and control projections without an
+   enabled device consumer. Retain slow, hold, sleep-all/sleep-evil and fear-all.
+   In particular Scare Monster **does** have BF_WAND_FEAR_MONSTER, so its
+   TURN_ALL utility remains. First-copy learning is unchanged. This does not
+   repair the inherited Confuse Monster lookup or add new tactical consumers.
+2. A blocked urgent new stack no longer hides a later urgent purchase or Home
+   withdrawal that fits existing room. If none fits, retain feasible disposal
+   before leaving. Historical selection without a room filter keeps its order.
+3. Heap-address reuse is documented beside the in-memory identity scope above
+   and at the engine wrapper. A generation-safe identity remains a known gap.
+4. Oil-reservation trip forecasting is lazy: only a viable throwable flask
+   with a fuel-burning lantern and live town policy requests it, once per
+   object-attack evaluation. No cross-turn cache or invalidation is introduced.
+5. Native forty-unit pack accounting applies to the town planner. Other Borg
+   consumers still use BI_QUIVER_SLOTS (stack count); their disagreement is a
+   known integration gap, with no loop established. They are not changed by
+   this follow-up, which preserves the existing off-policy behavior.
+6. The owner-requested exclusion covers torches. Lanterns remain eligible for
+   actual equipment gain; unlight fuel utility is zero. The seven-run audit
+   proves zero torch purchases, not a ban on all lights or all future lantern
+   purchases. This distinction is deliberate and now explicit.

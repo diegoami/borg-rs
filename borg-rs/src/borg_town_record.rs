@@ -921,8 +921,11 @@ fn first_action_with_room(
     let need_of = |c: &Candidate| {
         facts.iter().find(|f| f.shop == c.shop && f.slot == c.slot).map_or(-1, |f| i64::from(f.need))
     };
-    let blocked_urgent = urgent.first().is_some_and(|f| pack_slots.is_some_and(|n| n < candidates[f.candidate].slots_cost));
-    if let Some(f) = urgent.first().filter(|_| !blocked_urgent) {
+    // A blocked new stack must not hide a later emergency that joins stock
+    // already carried. Historical shadow selection has no pack-room filter.
+    let feasible_urgent = urgent.iter().find(|f| pack_slots.is_none_or(|n| n >= candidates[f.candidate].slots_cost));
+    let blocked_urgent = !urgent.is_empty() && feasible_urgent.is_none();
+    if let Some(f) = feasible_urgent {
         let c = &candidates[f.candidate];
         let need = f.needs.first().and_then(|n| Need::ALL.iter().position(|x| x == n)).map_or(-1, |i| i as i64);
         return (if c.shop == 7 { action::TAKE_HOME } else { action::BUY }, [i64::from(c.shop), i64::from(c.slot), 1, i64::from(c.price)], need, true);
@@ -1713,6 +1716,23 @@ mod tests {
         assert!(Json::parse("{\"a\":1} x").is_err());
         assert!(Json::parse("[1,2").is_err());
     }
+    #[test]
+    fn a_blocked_urgent_purchase_does_not_hide_a_feasible_cure() {
+        let stock=stock();let (line,_)=produce(&stock,300,&traits(),&[],&[]);
+        let (_,mut out)=replay(&line).unwrap();out.solution.chosen.fill(0);
+        let mut cs=stock.candidates.clone();cs[0].slots_cost=1;cs[1].slots_cost=0;
+        let urgent=[UrgentPurchase {candidate:0,needs:vec![Need::Food]},
+            UrgentPurchase {candidate:1,needs:vec![Need::Poison]}];
+        let chosen=first_executable_action(&cs,&urgent,&out,&[],&[],1,0);
+        assert_eq!(chosen,(action::BUY,[i64::from(cs[1].shop),i64::from(cs[1].slot),1,i64::from(cs[1].price)],3,true));
+        // When room exists the original urgent order still wins.
+        assert_eq!(first_executable_action(&cs,&urgent,&out,&[],&[],1,1).1[1],i64::from(cs[0].slot));
+        cs[1].shop=7;
+        assert_eq!(first_executable_action(&cs,&urgent,&out,&[],&[],1,0).0,action::TAKE_HOME);
+        cs[1].slots_cost=1;
+        assert_eq!(first_executable_action(&cs,&urgent,&out,&[],&[],1,0).0,action::LEAVE);
+    }
+
     #[test]
     fn full_pack_frees_room_before_urgent_buy_and_does_not_queue_an_impossible_buy() {
         let stock=stock();let (line,_)=produce(&stock,300,&traits(),&[],&[]);

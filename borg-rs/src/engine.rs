@@ -1814,7 +1814,9 @@ pub fn object_desc_full(obj: CarriedObject<'_>) -> Vec<u8> {
     buf[..n].to_vec()
 }
 
-/// Stable player-visible learning task: singular, no quantity or inscription.
+/// Process-local opaque learning task, stable while the native object lives.
+/// A freed address can be reused and alias a still-unresolved task. It is not a
+/// generation identity and must not be persisted across save/load.
 /// No STORE/SPOIL flag and no hidden sval or generation level is exposed.
 pub fn object_learning_key(obj: CarriedObject<'_>) -> Vec<u8> {
     // Ownership identity is opaque: it conveys no hidden kind or rune.

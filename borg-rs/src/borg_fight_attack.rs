@@ -2379,10 +2379,9 @@ fn borg_attack_aux_rest(st: &mut BorgState) -> i32 {
 /// munchkin attacks, removed with the mode in borg-rs#60).
 /// Rust returns `b_n`, as the c2rust translation did.
 fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
-    let supply_journey = if st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1 {
-        let forecast = crate::borg_trip::forecast(st);
-        Some(crate::borg_town_utility::Journey::for_trip(st, forecast))
-    } else { None };
+    // The shared forecast is needed only for a throwable flask while a
+    // fuel-burning lantern is worn. Reuse it within this evaluation.
+    let mut supply_journey: Option<crate::borg_town_utility::Journey> = None;
     let mut b_k: i32 = -1;
     let mut b_d: i32 = -1;
 
@@ -2426,13 +2425,17 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
 
         /* Save last flasks for fuel, if needed */
         if u32::from(item.tval) == TV_FLASK {
-            let light = &st.items.items[(crate::borg_item::inven_wield() + 5) as usize];
+            let light = st.items.items[(crate::borg_item::inven_wield() + 5) as usize];
             let lantern = u32::from(light.tval) == crate::headers::list_tvals_h::TV_LIGHT
                 && i32::from(light.sval) == st.item_val.sv_light_lantern
                 && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
             let policy = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
             let reserve = if policy && lantern {
-                ((supply_journey.expect("active supply journey").turns - i64::from(light.timeout)).max(0) as u64)
+                let journey = supply_journey.get_or_insert_with(|| {
+                    let forecast = crate::borg_trip::forecast(st);
+                    crate::borg_town_utility::Journey::for_trip(st, forecast)
+                });
+                ((journey.turns - i64::from(light.timeout)).max(0) as u64)
                     .div_ceil(i64::from(item.pval).max(1) as u64) as i32
             } else { 0 };
             if oil_reserved(policy, reserve, tr(st, BI_AFUEL), st.borg.near.unique != 0) { continue; }

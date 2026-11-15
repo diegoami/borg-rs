@@ -126,8 +126,9 @@ def role(obj):
         elif sub.startswith('AWAY_'):
             roles.add('Teleport Other')
         elif sub == 'KILL_WALL': roles.add('Digging')
-        elif sub in ('MON_HEAL','MON_SPEED','MON_CLONE','MON_POLY','DARK_WEAK','MAKE_TRAP','MAKE_DOOR'):
+        elif sub in ('MON_HEAL','MON_SPEED','MON_CLONE','MON_POLY','MON_CONF','MON_STUN','SLEEP_UNDEAD','TURN_EVIL','TURN_LIVING','TURN_UNDEAD','DARK_WEAK','MAKE_TRAP','MAKE_DOOR'):
             continue
+        elif sub in ('MON_SLOW','MON_HOLD','SLEEP_ALL','SLEEP_EVIL','TURN_ALL'): roles.add('Combat control')
         elif head.startswith('DETECT_') or head.startswith('SENSE_') or head in ('PROBE','READ_MINDS'): roles.add('Detection')
         elif head in ('LINE','BOLT','BOLT_OR_BEAM','BEAM','BALL','BREATH','ARC','SHORT_BEAM','SWARM','STRIKE','STAR','STAR_BALL','SPOT','SPHERE','PROJECT_LOS','PROJECT_LOS_AWARE','BOLT_AWARE'): roles.add('Ranged damage')
         elif head == 'BOLT_STATUS_DAM' and sub == 'MON_DRAIN': roles.add('Ranged damage')

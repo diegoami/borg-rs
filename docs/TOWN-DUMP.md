@@ -306,3 +306,10 @@ are unavailable purchase/urgent-withdrawal candidates for unlight characters,
 before equipment or learning bonuses; the recorded `available` rows preserve
 that eligibility decision. Other equipment lights may still offer gear benefits.
 Schemas 4–9 retain their original recorded curves and replay behavior.
+
+The subsequent PR85 review follow-up narrows the live control-effect producer
+without changing row layouts: unsupported confusion/stun devices have no
+control supply, while slow/hold/sleep and the enabled Scare Monster consumer
+retain it. Schema 10 records freeze their own curves/supplies, so earlier
+recorded plans retain their original values during replay. Feasible urgent
+selection scans beyond a blocked first candidate in live mode.

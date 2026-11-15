@@ -252,9 +252,12 @@ fn effect_supply_linear(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64
                 | EF_STAR | EF_STAR_BALL | EF_MON_TIMED_INC => match subtype as u32 {
                     PROJ_AWAY_ALL | PROJ_AWAY_EVIL | PROJ_AWAY_UNDEAD | PROJ_AWAY_SPIRIT => Some((OTHER, UNIT)),
                     PROJ_KILL_WALL => Some((DIG, UNIT)),
-                    PROJ_MON_CONF | PROJ_MON_SLOW | PROJ_MON_HOLD | PROJ_MON_STUN | PROJ_SLEEP_ALL
-                        | PROJ_SLEEP_EVIL | PROJ_SLEEP_UNDEAD | PROJ_TURN_ALL | PROJ_TURN_EVIL
-                        | PROJ_TURN_LIVING | PROJ_TURN_UNDEAD => Some((CONTROL, UNIT)),
+                    // Shop control utility requires an enabled consumer. The
+                    // Confuse Monster wand lookup aliases Scare Monster, and
+                    // Confuse Monsters staff / Stun Monster wand are unused.
+                    // Keep fear: BF_WAND_FEAR_MONSTER uses Scare Monster.
+                    PROJ_MON_SLOW | PROJ_MON_HOLD | PROJ_SLEEP_ALL
+                        | PROJ_SLEEP_EVIL | PROJ_TURN_ALL => Some((CONTROL, UNIT)),
                     // Native elemental damage occupies 0..=24. DARK_WEAK,
                     // terrain creation/destruction and monster-aiding types
                     // are deliberately not generic damage or buff fallbacks.
@@ -766,6 +769,20 @@ mod tests {
         }
         assert_eq!(effect_supply(&[(EF_BOLT_STATUS as u16,PROJ_AWAY_ALL as i32,100)],20,1000),[(OTHER,UNIT)]);
     }
+    #[test]
+    fn shop_control_requires_a_working_consumer() {
+        use crate::headers::list_projections_h::*;
+        for effect in [EF_BOLT_AWARE, EF_PROJECT_LOS_AWARE] {
+            for projection in [PROJ_MON_CONF, PROJ_MON_STUN, PROJ_SLEEP_UNDEAD,
+                PROJ_TURN_EVIL, PROJ_TURN_LIVING, PROJ_TURN_UNDEAD] {
+                assert!(effect_supply(&[(effect as u16,projection as i32,20)],20,1000).is_empty());
+            }
+            for projection in [PROJ_MON_SLOW, PROJ_MON_HOLD, PROJ_SLEEP_ALL, PROJ_SLEEP_EVIL, PROJ_TURN_ALL] {
+                assert_eq!(effect_supply(&[(effect as u16,projection as i32,20)],20,1000),[(CONTROL,UNIT)]);
+            }
+        }
+    }
+
     #[test]
     fn mutually_exclusive_damage_branches_are_not_added() {
         use crate::headers::list_elements_h::{PROJ_FIRE,PROJ_COLD};

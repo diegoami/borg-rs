@@ -49,6 +49,11 @@ def check(paths):
         matches = native.get(key, [])
         if not matches:
             failures.append(f"{row['type']} {row['kind']}: absent from native audits")
+        elif row['type'] in ('wand', 'staff') and row['kind'] in ('Confuse Monster', 'Confuse Monsters', 'Stun Monster'):
+            if any(r['supplies'] for r in matches):
+                failures.append(f"{row['type']} {row['kind']}: unsupported device earns supply utility")
+            else:
+                exclusions.append([row['kind'], 'no enabled device consumer; first-copy learning remains separate'])
         elif any(r['gear'] or r['supplies'] for r in matches):
             covered.append(row['kind'])
         elif row['type'].endswith('book'):
