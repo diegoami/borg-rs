@@ -1,5 +1,12 @@
 # Experimental live town executor and local comparison
 
+> Historical town-only executor/report at `ac63c5e` (schema 6). The claims below
+> describe that source, including its urgent Home handling and v11R base.
+> Current combined M12 code and schema 8 are described in
+> [TOWN-CAPABILITIES.md](TOWN-CAPABILITIES.md) and [TRIP-POLICY.md](TRIP-POLICY.md).
+> The combined urgent pass currently considers shop purchases before ordinary
+> Home withdrawals; do not infer urgent Home-source support from this old report.
+
 **Active combined study:** the owner has already dispatched the milestone-12
 trip + live inventory experiments. See [exact pins and evidence boundaries](ACTIVE-JOINT-EXPERIMENT.md).
 The standalone local results and unrun Knowledge/Home grid below remain separate.

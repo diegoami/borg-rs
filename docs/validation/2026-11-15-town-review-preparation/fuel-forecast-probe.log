@@ -1,0 +1,21 @@
+   Compiling borg-rs v0.1.0 (/tmp/borg-town-review-dd3eeac/borg-rs)
+    Finished `release` profile [optimized + debuginfo] target(s) in 7.53s
+     Running unittests src/lib.rs (/tmp/borg-town-review-target/release/deps/borg_rs-e4e3d966bed16cea)
+
+running 1 test
+
+thread 'borg_town_shadow::review_forecast_probe::review_automatic_trip_forecast_must_agree_with_throwing_forecast' (572739) panicked at borg-rs/src/borg_town_shadow.rs:611:9:
+assertion `left == right` failed: town values fuel for the shared trip; the throwing guard must reserve it for that same trip
+  left: (1200, 0)
+ right: (12200, 1)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+test borg_town_shadow::review_forecast_probe::review_automatic_trip_forecast_must_agree_with_throwing_forecast ... FAILED
+
+failures:
+
+failures:
+    borg_town_shadow::review_forecast_probe::review_automatic_trip_forecast_must_agree_with_throwing_forecast
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 275 filtered out; finished in 0.00s
+
+error: test failed, to rerun pass `--lib`
