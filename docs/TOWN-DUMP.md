@@ -267,3 +267,24 @@ and demands are sufficient to reproduce each individual solve.
 Versions 4, 5 and 6 keep their historical replay paths. Version 7 uses capability
 facts consistently for pack/Home dispositions and purchases. The version-6
 worthless-storage and just-bought Home-sale guards are retained.
+
+## Schema 9: reviewed capacity and transaction facts
+
+The PR83 correction candidate writes schema 9; schemas 4–8 keep their original
+replay behavior. `packing=[quiver_slot_size,current_weighted_quiver_units]`
+and `quiver_classes=[[class,compatible_existing_stack_room],...]` record native
+quiver capacity. Ammo groups share the aggregate pack-reservation bands rather
+than each claiming the same free quiver room. `available=[[shop,slot,qty],...]`
+records effective offer quantities, including zero for offers rejected under
+an unchanged live carrying/wallet context and one for an urgent Home source.
+These quantities override raw stock quantity during replay, without editing
+v2's observed shop rows. Kit flag bit 3 marks a whole Home stack that fits
+existing reserved/pack stack room. Known Home sources can satisfy urgent needs
+before a paid purchase. Full-pack urgent actions first free feasible room.
+
+Capability IDs 54–56 append cut reduction, stun reduction and monster control;
+prior IDs are preserved, including the historical combined wound/stun row.
+Active condition demands and reductions use actual native timer units.
+See [the review disposition map](TOWN-PR83-FIXES.md) for classifier, rod,
+random-branch, shared-slot and reserve changes. Native receipts and observed
+wallet/inventory changes establish transactions; a queued command does not.

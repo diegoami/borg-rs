@@ -270,3 +270,25 @@ process would be
 [neo-angband-tracker](https://github.com/diegoami/neo-angband-tracker) with
 the `upstream-c` label, in the conventions of that repository. Nothing has
 been filed there yet.
+
+## Empty light slot during Recall (town/trip review, 2026-11-15)
+
+Owner-authorized class investigation of run 43667787016 confirmed that the
+light emergency helper treats an empty slot's timeout zero as an expiring lamp.
+Necromancers with `PF_UNLIGHT` consequently rest through Recall before caution
+can heal or escape. Require a real light item before testing expiry in both
+`borg-think-dungeon-util.c` and `borg_think_dungeon_util.rs`. An actually unlit
+character still enters the existing light emergency path. Original evidence and
+isolated same-seed probes are in [the investigation](TOWN-CLASS-INVESTIGATION-43667787016.md);
+corrected C/Rust repeated controls and smoke checks are in
+[validation](validation/2026-11-15-town-pr83-fixes/README.md).
+This is a local play-blocker correction, without an invented issue identifier
+or an upstream post.
+
+The opt-in town model also adds read-only engine affordance queries:
+`inven_merge_num`, `inven_quiver_stack_room` and `store_sale_quote`. They reuse
+native stacking, charge redistribution and store-price rules. They do not
+perform a trade, alter inventory/knowledge or advance RNG. Native fixture
+checks cover joins, capacity boundaries, sale quantities, owner caps and the
+no-selling option. The test-only Rust learning-key bridge is feature-gated and
+absent from ordinary builds.

@@ -29,6 +29,11 @@ jobs:
         run: BORG_IMPL=rust harness/build.sh
       - name: Catalogue and native capability coverage
         run: bash harness/check-town-capabilities.sh "$RUNNER_TEMP/town-capability-check"
+      - name: Native PR83 regression fixtures
+        run: |
+          cmake -S angband -B "$RUNNER_TEMP/town-review-build" -DCMAKE_BUILD_TYPE=Release -DSUPPORT_BORG_HARNESS=ON -DBORG_IMPL=rust -DBORG_RS_FEATURES=test-town-review
+          cmake --build "$RUNNER_TEMP/town-review-build" --target OurExecutable --parallel 2
+          python3 harness/regress/town-review/run.py "$RUNNER_TEMP/town-review-build" "$RUNNER_TEMP/town-capability-check/native-review"
       - name: Retain coverage evidence
         if: always()
         uses: actions/upload-artifact@v4

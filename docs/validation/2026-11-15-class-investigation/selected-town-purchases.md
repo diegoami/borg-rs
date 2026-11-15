@@ -142,4 +142,3 @@ These are first-shopping native receipts from the exact original binary. Selecti
 | Arrow (1d4) (+0,+0) | 1 | 1 |
 | Arrow (1d4) (+0,+0) | 1 | 1 |
 | Arrow (1d4) (+0,+0) | 1 | 1 |
-

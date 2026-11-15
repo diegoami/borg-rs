@@ -119,3 +119,5 @@ have separate identities. Death causes and before-death resources are preserved
 per case, including every diagnostic death; causes remain provisional beyond
 the confirmed source mechanisms. No new zoo issue, workflow or comment is
 posted by this change.
+
+The retained [light](validation/2026-11-15-class-investigation/empty-light-diagnostic.patch) and [quiver](validation/2026-11-15-class-investigation/quiver-cost-diagnostic.patch) diagnostic patches are independently relative to frozen `dd3eeac`. Apply either with `git apply --unidiff-zero` in an isolated checkout; they are diagnostics, not the complete production bundle.

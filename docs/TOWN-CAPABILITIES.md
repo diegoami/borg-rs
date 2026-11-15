@@ -118,3 +118,14 @@ no-buyer learning disposition; historical schemas 4–7 retain their original
 replay decisions. Trip record v3 reports actionable, exploratory and deferred
 learning tasks, covering equipment and quiver as well as pack contents. See
 [the return rule](TRIP-POLICY.md) for repeat suppression and its limits.
+
+## PR83 correction candidate
+
+The [combined review repairs](TOWN-PR83-FIXES.md) move new records to schema 9,
+remove unsupported Monster Confusion combat value, correct branch/condition/rod
+supply facts, and make gear/fuel and ammo capacity share their actual limits.
+Known Home supplies participate in urgent planning; live purchase completion
+requires observed native progress. Earlier receipts above describe their
+original source and are preserved. The [new validation receipt](validation/2026-11-15-town-pr83-fixes/README.md)
+separates correctness checks, selected class diagnostics and remaining policy
+questions. No fresh zoo performance claim or promotion follows from it.

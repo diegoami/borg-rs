@@ -1,0 +1,7 @@
+A: /tmp/town-fixes-complete-smoke-c: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=71755c3ae96d1f12
+A:   built from e263db712f1b (dirty=yes, inputs dirty=no) source_sha256=a139daf21b667a0c; run at e263db712f1b (dirty=yes) overrides=none
+B: /tmp/town-fixes-complete-smoke-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=ac720a200f1435bb
+B:   built from e263db712f1b (dirty=yes, inputs dirty=no) source_sha256=11eca0153b83489b; run at e263db712f1b (dirty=yes) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

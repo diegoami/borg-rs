@@ -175,4 +175,3 @@ At the unmodified candidate:
 - The isolated worktree remains clean; no production files were changed.
 
 The original `/tmp/trip-integrated-validation` files were unavailable, but the fresh seed-101 and disabled-shop runs reproduced their recorded stream hashes. The nine-start capability comparison still shows **two deaths versus one baseline death**, so neither survival improvement nor calibrated priorities are established.
-
