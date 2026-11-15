@@ -731,21 +731,39 @@ pub fn consult(st: &mut BorgState, sellable: i32) -> Option<Decision> {
     act.then_some(decision)
 }
 
+/// Observe how the policy changes the already-computed general leave decision.
+/// An existing rising goal may originate in an earlier policy consultation;
+/// it is deliberately not labelled a legacy cause. This is a request, not
+/// proof of a successful Recall or arrival in town.
+fn application_line(turn: i32, game_turn: i32, depth: i32, decision: &Decision,
+    before: (i32, bool), after: (i32, bool)) -> String {
+    format!("{{\"v\":4,\"event\":\"application\",\"turn\":{turn},\"game_turn\":{game_turn},\"depth\":{depth},\"action\":\"{}\",\"before\":{{\"direction\":{},\"rising\":{}}},\"after\":{{\"direction\":{},\"rising\":{}}},\"requested_return\":{},\"new_return_goal\":{},\"direction_changed\":{}}}",
+        decision.action.name(), before.0, before.1, after.0, after.1,
+        decision.action == Action::Return, !before.1 && after.1, before.0 != after.0)
+}
+
+pub fn record_application(st: &BorgState, decision: &Decision, before: (i32, bool), after: (i32, bool)) {
+    let Some(file) = record_file() else { return; };
+    let line = application_line(st.borg.time.now, crate::engine::game_turn(), st.borg.tr(BI_CDEPTH), decision, before, after);
+    let mut file = file.lock().unwrap_or_else(|e| e.into_inner());
+    let _ = writeln!(file, "{line}");
+}
+
 /// The legacy "needing to sell" hold: below character level 25 and 25,000
 /// gold, with 13 or more sellable items, the Borg does not go down and
 /// heads up. Four copies of this condition were spread over
 /// `borg_think_dungeon` and `borg_flow_stairs`; this is the one copy, in
 /// the C evaluation order (so `borg_count_sell` runs exactly when it did).
-/// With the policy acting, its pack and purse reasons replace the hold.
+/// This backstop remains active with the trip policy enabled.
 pub fn legacy_sale_hold(st: &mut BorgState) -> bool {
-    legacy_sale_gate(acting(st), st.borg.tr(BI_CDEPTH), st.borg.tr(BI_CLEVEL), st.borg.tr(BI_GOLD))
+    legacy_sale_gate(st.borg.tr(BI_CDEPTH), st.borg.tr(BI_CLEVEL), st.borg.tr(BI_GOLD))
         && crate::borg_store_sell::borg_count_sell(st) >= 13
 }
 
-/// The part of [`legacy_sale_hold`] before `borg_count_sell`: the policy
-/// off, in the dungeon, below level 25 and 25,000 gold.
-fn legacy_sale_gate(acting: bool, depth: i32, clevel: i32, gold: i32) -> bool {
-    !acting && depth != 0 && clevel < 25 && gold < 25000
+/// The part of [`legacy_sale_hold`] before `borg_count_sell`: in the
+/// dungeon, below level 25 and 25,000 gold, independently of the policy.
+fn legacy_sale_gate(depth: i32, clevel: i32, gold: i32) -> bool {
+    depth != 0 && clevel < 25 && gold < 25000
 }
 
 #[cfg(test)]
@@ -1078,15 +1096,42 @@ mod tests {
         assert!(!line.contains('\n'));
     }
 
+    #[test]
+    fn one_and_zero_thresholds_have_distinct_semantics() {
+        let mut p=params();p.pack_slack=1;p.unknown_stacks=0;
+        let mut i=base();i.pack_used=i.pack_capacity-1;
+        assert_eq!(decide(&i,&p).action,Action::Return);
+        i.pack_used-=1;
+        assert_ne!(decide(&i,&p).action,Action::Return);
+        p.pack_slack=0;p.unknown_stacks=1;i.knowledge_actionable=1;
+        assert_eq!(decide(&i,&p).action,Action::Return);
+        p.unknown_stacks=0;
+        assert_ne!(decide(&i,&p).action,Action::Return,"zero disables learning returns, not always true");
+        i.pack_used=i.pack_capacity;
+        assert_eq!(decide(&i,&p).action,Action::Return,"zero pack slack still returns when full");
+    }
+
+    #[test]
+    fn application_distinguishes_a_new_goal_from_an_existing_return() {
+        let decision=Decision {action:Action::Return,route:Route::Stairs,target:1,reasons:vec![]};
+        let fresh=application_line(1,10,1,&decision,(0,false),(-1,true));
+        assert!(fresh.contains("\"new_return_goal\":true"));
+        assert!(fresh.contains("\"direction_changed\":true"));
+        let existing=application_line(1,10,1,&decision,(-1,true),(-1,true));
+        assert!(existing.contains("\"new_return_goal\":false"));
+        assert!(existing.contains("\"requested_return\":true"));
+        assert!(existing.contains("\"direction_changed\":false"));
+        assert!(!fresh.contains('\n'));
+    }
+
     /// With the policy off, the legacy sale hold is the C condition; the
     /// sale count is only reached past the depth, level and gold tests.
     #[test]
-    fn the_legacy_gate_is_the_c_condition_and_off_with_the_policy() {
-        assert!(legacy_sale_gate(false, 3, 10, 100));
-        assert!(!legacy_sale_gate(false, 0, 10, 100), "town");
-        assert!(!legacy_sale_gate(false, 3, 25, 100), "level 25");
-        assert!(!legacy_sale_gate(false, 3, 10, 25000), "25,000 gold");
-        assert!(!legacy_sale_gate(true, 3, 10, 100), "the policy replaces the hold");
+    fn the_legacy_gate_keeps_the_c_backstop_independently_of_the_policy() {
+        assert!(legacy_sale_gate(3, 10, 100));
+        assert!(!legacy_sale_gate(0, 10, 100), "town");
+        assert!(!legacy_sale_gate(3, 25, 100), "level 25");
+        assert!(!legacy_sale_gate(3, 10, 25000), "25,000 gold");
     }
     #[test]
     fn scrolls_do_not_reopen_unchanged_tasks_already_covered_by_an_id_spell() {

@@ -778,7 +778,6 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
     /* The trip policy (borg-rs#60): None unless borg_trip_policy = 1. With
      * the policy off it only writes BORG_TRIP_RECORD, if that is set. */
     let trip = crate::borg_trip::consult(st, sellable_item_count);
-    let trip_acting = trip.is_some();
 
     /* Do not dive when "full" of items */
     if sellable_item_count >= 12 {
@@ -868,10 +867,9 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
         st.borg.goal.rising = true;
     }
 
-    /* Return to town to sell stuff -- No recall allowed. (With the trip
-     * policy acting, its pack and purse reasons decide this instead.) */
-    if !trip_acting
-        && ((st.cfg(BORG_WORSHIPS_GOLD) != 0 || st.borg.tr(BI_MAXCLEVEL) < 15)
+    /* Preserve the Borg's selling-pressure backstop with either policy.
+     * The trip policy may request an earlier return, never veto this one. */
+    if ((st.cfg(BORG_WORSHIPS_GOLD) != 0 || st.borg.tr(BI_MAXCLEVEL) < 15)
         && st.borg.tr(BI_MAXCLEVEL) <= 25)
         && sellable_item_count >= 12
     {
@@ -880,7 +878,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
     }
 
     /* Return to town to sell stuff (use Recall) */
-    if !trip_acting && (bored && st.borg.tr(BI_MAXCLEVEL) >= 26) && sellable_item_count >= 12 {
+    if (bored && st.borg.tr(BI_MAXCLEVEL) >= 26) && sellable_item_count >= 12 {
         borg_note(st, "# Going to town (Sell Stuff).");
         st.borg.goal.rising = true;
     }
@@ -995,6 +993,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
      * depth stops a descent past it. Survival (borg_caution) ran before. */
     if let Some(d) = &trip {
         use crate::borg_trip::Action;
+        let before = (g, st.borg.goal.rising);
         match d.action {
             Action::Return => {
                 st.borg.goal.rising = true;
@@ -1006,6 +1005,7 @@ pub fn borg_leave_level(st: &mut BorgState, mut bored: bool) -> bool {
             Action::Continue if g > 0 => g = if bored { -1 } else { 0 },
             Action::Continue | Action::Descend => {}
         }
+        crate::borg_trip::record_application(st, d, before, (g, st.borg.goal.rising));
     }
 
     /* Go Up */
