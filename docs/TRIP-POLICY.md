@@ -1,3 +1,10 @@
+> Owner correction, 2026-11-15: preserve the inherited selling-pressure return
+> and descent-hold rules as backstops even when the trip policy is enabled.
+> The new thresholds add return requests; they do not veto these backstops.
+> Historical text describing their replacement below is superseded by this note.
+> Application records now show whether a consultation newly sets the rising
+> goal or encounters an existing one. A request is not a confirmed town arrival.
+
 # The trip policy: one play mode, one dungeon trip and return policy
 
 Tracking issue: [borg-rs#60](https://github.com/diegoami/borg-rs/issues/60).
@@ -559,3 +566,30 @@ to.
    2026-11-14:** smoke 3/3, full 45/45, deep 9/9, options 24/24 and
    remaining synthetic tactics 3/3; family buying 8/8 and the seed-101 hash
    also pass. See [the merge validation receipt](validation/2026-11-14-trip-policy/README.md).
+
+## Return thresholds and the general Borg rules
+
+`borg_trip_policy=1` enables the added trip/return decision. The general Borg
+still controls danger response, restocking, preparedness, restoration and
+periodic returns, and the actual staircase/Recall movement. Selling pressure
+is also preserved: the old 12-sellable-stack return conditions and the
+13-stack descent hold retain their original level/gold/boredom conditions.
+The trip policy cannot cancel an existing rising goal.
+
+`borg_trip_pack_slack=1` requests a return with at most one free pack slot.
+Zero means wait until the pack is full; it does **not** disable this trigger.
+`borg_trip_unknown_stacks=1` requests a return for at least one eligible
+learning stack. Zero explicitly disables that trigger via `threshold > 0`.
+Deferred unchanged tasks do not count as new learning opportunities. Either
+extra trigger can request a return; a supply or safety reason can do so too.
+Increasing a threshold is not permission to ignore the general Borg rules.
+
+`BORG_TRIP_RECORD` keeps the existing v3 input/recommendation rows and appends
+v4 `event="application"` rows at the policy's application point in
+`borg_leave_level`. Fields `before` and `after` contain direction and rising
+(goal-to-town); `new_return_goal` marks false-to-true, `requested_return`
+marks a Return recommendation, and `direction_changed` records an ascent/
+descent change. An already-set goal can originate from an earlier policy
+consultation, so `before.rising` is not labelled a legacy cause. Recommendations,
+new goals and actual native town arrivals must be counted separately. This
+logging is optional and must preserve keys/messages/states when enabled.
