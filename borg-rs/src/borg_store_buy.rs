@@ -1395,20 +1395,19 @@ pub fn take_selected_for_sale(st: &mut BorgState) -> bool {
 }
 
 fn remember_purchase(st: &mut BorgState, item: &borg_item, shop: i32) {
-        let b = &mut st.buy;
-        if b.bought_item_nxt >= 9 {
-            b.bought_item_nxt = 0;
-        }
-        let i = b.bought_item_nxt as usize;
-        b.bought_item_pval[i] = i32::from(item.pval);
-        b.bought_item_tval[i] = i32::from(item.tval);
-        b.bought_item_sval[i] = i32::from(item.sval);
-        b.bought_item_store[i] = shop;
-        b.bought_item_nxt += 1;
-        if b.bought_item_num < b.bought_item_nxt {
-            b.bought_item_num = b.bought_item_nxt;
-        }
-
+    let b = &mut st.buy;
+    if b.bought_item_nxt >= 9 {
+        b.bought_item_nxt = 0;
+    }
+    let i = b.bought_item_nxt as usize;
+    b.bought_item_pval[i] = i32::from(item.pval);
+    b.bought_item_tval[i] = i32::from(item.tval);
+    b.bought_item_sval[i] = i32::from(item.sval);
+    b.bought_item_store[i] = shop;
+    b.bought_item_nxt += 1;
+    if b.bought_item_num < b.bought_item_nxt {
+        b.bought_item_num = b.bought_item_nxt;
+    }
 }
 
 /// Live mode calls this only after observing the native transaction.
@@ -1418,6 +1417,25 @@ pub fn confirm_purchase(st: &mut BorgState, item: &borg_item, shop: i32, keep: b
     crate::borg_object_log::log_buy(st, item, &shop_name, item.cost, shop == BORG_HOME as i32);
     crate::borg_town_dump::dump_purchase(st, shop, item);
     if keep { remember_purchase(st, item, shop); }
+    if crate::borg_town_live::active(st) { reset_money_scum(st, item); }
+}
+
+fn reset_money_scum(st: &mut BorgState, item: &borg_item) {
+    /* if the borg is scumming and bought it.,
+     * reset the scum amount.
+     */
+    let scum = st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize];
+    if scum != 0 && item.cost >= scum.wrapping_mul(9) / 10 {
+        st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize] = 0;
+
+        /* Log */
+        let msg = format!(
+            "# Setting Money Scum to {}.",
+            st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize]
+        );
+        borg_note(st, &msg);
+    }
+
 }
 
 fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
@@ -1449,20 +1467,7 @@ fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
             borg_keypress(st, KC_ENTER);
         }
 
-        /* if the borg is scumming and bought it.,
-         * reset the scum amount.
-         */
-        let scum = st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize];
-        if scum != 0 && item.cost >= scum.wrapping_mul(9) / 10 {
-            st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize] = 0;
-
-            /* Log */
-            let msg = format!(
-                "# Setting Money Scum to {}.",
-                st.core.cfg[BORG_MONEY_SCUM_AMOUNT as usize]
-            );
-            borg_note(st, &msg);
-        }
+        if !crate::borg_town_live::active(st) { reset_money_scum(st, &item); }
 
         if keep_purchase && !crate::borg_town_live::active(st) { remember_purchase(st, &item, shop); }
 

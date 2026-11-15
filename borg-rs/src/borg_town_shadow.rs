@@ -482,7 +482,15 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
 
     if live && paction != crate::borg_town_record::action::LEAVE && paction != crate::borg_town_record::action::DROP {
         if matches!(paction, crate::borg_town_record::action::SELL | crate::borg_town_record::action::SELL_HOME) && act[2] > 0 {
-            act[3] /= act[2];
+            // Charged devices need native splitting even for the one-copy
+            // action; a whole-stack average can differ from the first sale.
+            act[3] = if paction == crate::borg_town_record::action::SELL {
+                engine::inven_object(&st.access, act[1] as usize)
+                    .map_or(0, |o| i64::from(o.sale_quote(act[0] as usize, 1)))
+            } else {
+                engine::store_stock(&st.access, BORG_HOME).get(act[1] as usize)
+                    .map_or(0, |o| i64::from(o.sale_quote(act[0] as usize, 1)))
+            };
         }
         act[2] = 1;
     }
