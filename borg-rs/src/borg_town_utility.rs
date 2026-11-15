@@ -253,7 +253,7 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
     });
     for i in pack {
         let it = &input.kit[i];
-        if it.unknown_flavour && !it.just_bought {
+        if it.unknown_flavour && !it.just_bought && (input.revision < 8 || it.sell_shop >= 0) {
             out[i] = if it.sell_shop >= 0 { Disposition::Sell } else { Disposition::Drop };
             u.change(it, -1);
             freed.pack_slots += 1;
@@ -519,6 +519,37 @@ mod tests {
     fn recall(place: Place) -> KitItem {
         KitItem { place, slot: 0, kind: 42, qty: 1, weight: 5, need: index(Need::Trip) as i8,
             reduction: UNIT, serves: 0, power: 0, proceeds: 0, sell_shop: 4, unknown: false, unknown_flavour: false, just_bought: false }
+    }
+
+    #[test]
+    fn unknown_flavour_requires_a_buyer_and_is_never_dropped_for_learning() {
+        let st = state(0, 1, 20);
+        let unknown = KitItem { need: -1, reduction: 0, unknown: true,
+            unknown_flavour: true, sell_shop: -1, ..recall(Place::Pack) };
+        let kit = [unknown];
+        let mut inp = input(&kit);
+        inp.revision = 8;
+        inp.home_slots = 0;
+        let mut u = Utility::of(&st, inp.kit, false);
+        assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Keep]);
+        inp.home_slots = 20;
+        let mut u = Utility::of(&st, inp.kit, false);
+        assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Store]);
+        // Historical records retain their original decision.
+        inp.revision = 7;
+        let mut u = Utility::of(&st, inp.kit, false);
+        assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Drop]);
+        let sale = [KitItem { sell_shop: 4, ..unknown }];
+        let mut inp = input(&sale);
+        inp.revision = 8;
+        let mut u = Utility::of(&st, inp.kit, false);
+        assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Sell]);
+        // Stashing the item cannot be recorded as a learning sale.
+        let home = [KitItem { place: Place::Home, ..unknown }];
+        let mut inp = input(&home);
+        inp.revision = 8;
+        let mut u = Utility::of(&st, inp.kit, false);
+        assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Keep]);
     }
 
     #[test]

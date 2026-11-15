@@ -1777,6 +1777,13 @@ pub fn object_desc_full(obj: CarriedObject<'_>) -> Vec<u8> {
     let n = buf.iter().position(|&b| b == 0).unwrap_or(buf.len());
     buf[..n].to_vec()
 }
+
+/// Stable player-visible learning task: singular, no quantity or inscription.
+/// No STORE/SPOIL flag and no hidden sval or generation level is exposed.
+pub fn object_learning_key(obj: CarriedObject<'_>) -> Vec<u8> {
+    object_desc80(obj.0, crate::headers::obj_desc_h::ODESC_COMBAT
+        | crate::headers::obj_desc_h::ODESC_SINGULAR)
+}
 // Danger (borg-danger.c): cave squares, game tables and monster blows
 
 /// `square_in_bounds(cave, loc(x, y))` on the current level.
