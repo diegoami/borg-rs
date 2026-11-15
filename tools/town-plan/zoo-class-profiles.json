@@ -35,6 +35,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -77,6 +79,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -119,6 +123,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -161,6 +167,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -203,6 +211,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -245,6 +255,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -287,6 +299,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -329,6 +343,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -371,6 +387,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -408,6 +426,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -445,6 +465,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },
@@ -482,6 +504,8 @@
         "borg_town_w_restore": 100,
         "borg_town_attack_turns": 100,
         "borg_town_support_turns": 1000,
+        "borg_town_w_ranger_missiles": 250,
+        "borg_town_ranger_missile_turns": 50,
         "borg_trip_policy": 0
       }
     },

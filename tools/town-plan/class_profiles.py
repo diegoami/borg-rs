@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """Shared defaults and optional class calibration, exported to native zoo profiles.
 
-No class-specific policy is embedded in the Borg. Selection is done before
-birth by the runner; state/HP/spell adaptation stays in the shared evaluator.
+Profile selection is done before birth by the runner. The shared evaluator
+adapts to state/HP/spells and gives Rangers a separate usable-missile reserve.
 """
 import hashlib
 import json
@@ -27,7 +27,7 @@ RANGES = {
     'target_depth': (0, 100), 'trip_turns': (0, 1000000), 'depth_gain': (1, 100),
     'explore_turns': (1, 1000000), 'stair_turns': (0, 1000000), 'food_turns': (1, 1000000),
     'light_turns': (1, 1000000), 'risk': (0, 1000000), 'home_discount': (0, 1000),
-    'power_scale': (1, 1000000000), 'attack_turns': (1, 1000000), 'support_turns': (1, 1000000),
+    'power_scale': (1, 1000000000), 'attack_turns': (1, 1000000), 'support_turns': (1, 1000000), 'w_ranger_missiles': (0, 1000000), 'ranger_missile_turns': (1, 1000000),
 }
 
 

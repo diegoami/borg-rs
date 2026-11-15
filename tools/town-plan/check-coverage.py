@@ -49,12 +49,19 @@ def check(paths):
         matches = native.get(key, [])
         if not matches:
             failures.append(f"{row['type']} {row['kind']}: absent from native audits")
+        elif row['type'] in ('wand', 'staff') and row['kind'] in ('Confuse Monster', 'Confuse Monsters', 'Stun Monster'):
+            if any(r['supplies'] for r in matches):
+                failures.append(f"{row['type']} {row['kind']}: unsupported device earns supply utility")
+            else:
+                exclusions.append([row['kind'], 'no enabled device consumer; first-copy learning remains separate'])
         elif any(r['gear'] or r['supplies'] for r in matches):
             covered.append(row['kind'])
         elif row['type'].endswith('book'):
             exclusions.append([row['kind'], 'class/level/mana access unavailable in these contexts'])
         elif row['kind'] == 'Whisky' or row['kind'] == 'Flask of Whisky':
             exclusions.append([row['kind'], 'confusion makes it unsafe food'])
+        elif row['kind'] == 'Monster Confusion':
+            exclusions.append([row['kind'], 'no enabled tactical consumer (#80); first-copy learning remains separate'])
         elif row['kind'] == 'Purging':
             exclusions.append([row['kind'], 'restoration requires a drained stat; purging is not nourishment'])
         elif row['type'] in ('arrow', 'bolt', 'shot') and not any(c['ammo_tval'] == key[0] for c in contexts):

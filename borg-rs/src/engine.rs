@@ -1513,6 +1513,14 @@ pub fn store_stock(access: &Access, store: usize) -> Vec<StoreObject<'_>> {
     list.iter().take_while(|o| !o.is_null()).map(|&o| StoreObject(o, PhantomData)).collect()
 }
 
+fn native_sale_quote(obj: *const crate::headers::object_h::object, shop: usize, quantity: i32) -> i32 {
+    assert!(shop < usize::from(z_info().store_max));
+    assert!(quantity >= 1);
+    // SAFETY: callers hold a live object handle and validated quantity; the
+    // public store offer includes native owner caps and Black Market rules.
+    unsafe { crate::headers::store_h::store_sale_quote(crate::headers::store_h::stores.add(shop), obj, quantity) }
+}
+
 impl StoreObject<'_> {
 
     /// The native shop quote for one copy, as displayed to the player.
@@ -1524,6 +1532,28 @@ impl StoreObject<'_> {
         // checked number of entries. price_item reads the object/player
         // and returns the same public quote the store UI uses; no callbacks.
         unsafe { crate::headers::store_h::price_item(crate::headers::store_h::stores.add(store), self.0, false, 1) }
+    }
+
+    /// Native capacity for this offered stack; no inventory mutation.
+    pub fn carry_capacity(self) -> i32 {
+        // SAFETY: both player and borrowed object are live; query is read-only.
+        unsafe { crate::headers::obj_gear_h::inven_carry_num(crate::headers::player_h::player, self.0) }
+    }
+
+    pub fn quiver_stack_room(self) -> i32 {
+        // SAFETY: live object/player; counts native compatible quiver room only.
+        unsafe { crate::headers::obj_gear_h::inven_quiver_stack_room(crate::headers::player_h::player, self.0) }
+    }
+
+    pub fn merge_capacity(self) -> i32 {
+        // SAFETY: live object/player; native helper only counts existing room.
+        unsafe { crate::headers::obj_gear_h::inven_merge_num(crate::headers::player_h::player, self.0) }
+    }
+
+    pub fn sale_quote(self, shop: usize, quantity: i32) -> i32 {
+        // SAFETY: this handle borrows a live store stock object.
+        assert!(quantity > 0 && quantity <= unsafe { i32::from((*self.0).number) });
+        native_sale_quote(self.0, shop, quantity)
     }
 
     /// `object_desc(buf, 120, obj, mode, player)` (bytes up to the NUL).
@@ -1715,6 +1745,12 @@ pub fn prt(s: &[u8], row: i32, col: i32) {
 pub struct CarriedObject<'a>(*const crate::headers::object_h::object, PhantomData<&'a Access>);
 
 impl CarriedObject<'_> {
+    pub fn sale_quote(self, shop: usize, quantity: i32) -> i32 {
+        // SAFETY: handle is a live carried object; reading number cannot re-enter.
+        assert!(quantity > 0 && quantity <= unsafe { i32::from((*self.0).number) });
+        native_sale_quote(self.0, shop, quantity)
+    }
+
 
     /// `obj && obj->kind`
     /// (`access` is checked by the caller, before it reads the slot.)
@@ -1778,12 +1814,25 @@ pub fn object_desc_full(obj: CarriedObject<'_>) -> Vec<u8> {
     buf[..n].to_vec()
 }
 
-/// Stable player-visible learning task: singular, no quantity or inscription.
+/// Process-local opaque learning task, stable while the native object lives.
+/// A freed address can be reused and alias a still-unresolved task. It is not a
+/// generation identity and must not be persisted across save/load.
 /// No STORE/SPOIL flag and no hidden sval or generation level is exposed.
 pub fn object_learning_key(obj: CarriedObject<'_>) -> Vec<u8> {
-    object_desc80(obj.0, crate::headers::obj_desc_h::ODESC_COMBAT
-        | crate::headers::obj_desc_h::ODESC_SINGULAR)
+    // Ownership identity is opaque: it conveys no hidden kind or rune.
+    // Unlike combat descriptions it is stable while this object learns runes.
+    (obj.0 as usize).to_ne_bytes().to_vec()
 }
+/// Fixture-only bridge to the production learning key. Never linked into
+/// a normal Borg. The caller supplies a live native object.
+#[cfg(feature = "test-town-review")]
+#[no_mangle]
+pub unsafe extern "C" fn borg_rs_test_learning_identity(obj: *const crate::headers::object_h::object) -> u64 {
+    assert!(!obj.is_null());
+    object_learning_key(CarriedObject(obj, PhantomData)).into_iter()
+        .fold(1469598103934665603u64, |hash, b| (hash ^ u64::from(b)).wrapping_mul(1099511628211))
+}
+
 // Danger (borg-danger.c): cave squares, game tables and monster blows
 
 /// `square_in_bounds(cave, loc(x, y))` on the current level.
@@ -2325,10 +2374,13 @@ fn effect_values(mut e: *const crate::headers::object_h::effect, level: i32) -> 
         // evaluates bound dice expressions without rolling random numbers.
         unsafe {
             let mut value = crate::headers::z_rand_h::random_value { base: 0, dice: 0, sides: 0, m_bonus: 0 };
-            let amount = if (*e).dice.is_null() { 0 } else {
+            let mut amount = if (*e).dice.is_null() { 0 } else {
                 crate::headers::z_dice_h::dice_evaluate((*e).dice, level,
                     crate::headers::z_rand_h::AVERAGE, &mut value)
             };
+            if u32::from((*e).index) == crate::headers::list_effects_h::EF_TIMED_DEC && (*e).other > 0 {
+                amount = i32::from(player_timed((*e).subtype as u32)) / (*e).other;
+            }
             out.push(((*e).index, (*e).subtype, i64::from(amount)));
             e = (*e).next;
         }

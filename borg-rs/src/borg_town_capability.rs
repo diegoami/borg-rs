@@ -58,22 +58,29 @@ const IDENTIFY: usize = 50;
 const GAIN_EXPERIENCE: usize = 51;
 const RECHARGE_TARGET: usize = 52;
 const ACQUIRE: usize = 53;
+const CUT: usize = 54;
+const STUN: usize = 55;
+const CONTROL: usize = 56;
+const RANGER_MISSILES: usize = 57;
+const CLASS_RANGER: i32 = 7;
 const COUNT: usize = NAMES.len();
 
-pub const NAMES: [&str; 54] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
+pub const NAMES: [&str; 58] = ["light turns", "nutrition", "healing HP", "poison cure", "phase", "Recall",
     "ranged damage", "teleport", "level escape", "teleport other", "digging", "trap/door detection",
     "monster detection", "invisible detection", "mapping", "illumination", "speed", "resist fire",
     "resist cold", "resist poison", "resist acid", "resist electricity", "combat buff", "mana",
     "restore experience", "remove curse", "enchantment", "recharging", "confusion cure", "blindness cure",
     "fear cure", "glyph", "strength", "intelligence", "wisdom", "dexterity", "constitution", "charisma",
     "book 0", "book 1", "book 2", "book 3", "book 4", "book 5", "book 6", "book 7", "book 8",
-    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target", "equipment opportunity"];
+    "banishment", "destruction", "wound/stun cure", "identify runes", "gain experience", "recharge target", "equipment opportunity", "cut reduction", "stun reduction", "monster control", "Ranger usable shots"];
 
 /// Curves: [capability, weight in utility thousandths, demand, carried, Home].
 /// Supplies: [scope (shop 0..7, pack 8, Home 9), slot, capability, units/copy].
 /// All dynamic class/level/effect facts are frozen here for engine-free replay.
 #[derive(Clone, Debug, Default, Eq, PartialEq)]
 pub struct Model {
+    pub available: Vec<[i64;3]>,
+    pub packing: Option<crate::borg_town_packing::Packing>,
     pub curves: Vec<[i64; 5]>,
     pub supplies: Vec<[i64; 4]>,
 }
@@ -132,7 +139,8 @@ impl Model {
         self.units(i64::from(shop), i64::from(slot), 1).iter().fold(0, |m, &(id, _)| m | (1 << id))
     }
     pub fn valid(&self) -> bool {
-        (53..=COUNT).contains(&self.curves.len()) && self.curves.iter().enumerate().all(|(i, r)| r[0] == i as i64 && r[1] >= 0 && r[3] >= 0 && r[4] >= 0)
+        self.available.iter().all(|r| (0..=7).contains(&r[0]) && (0..=255).contains(&r[1]) && (0..=255).contains(&r[2]))
+            && (53..=COUNT).contains(&self.curves.len()) && self.packing.as_ref().is_none_or(|p| p.valid()) && self.curves.iter().enumerate().all(|(i, r)| r[0] == i as i64 && r[1] >= 0 && r[3] >= 0 && r[4] >= 0)
             && self.supplies.iter().all(|r| (0..=HOME).contains(&r[0]) && r[1] >= 0 && (0..self.curves.len() as i64).contains(&r[2]) && r[3] > 0)
     }
 }
@@ -150,16 +158,67 @@ fn timed_cap(timed: u32) -> Option<usize> {
         TMD_OPP_FIRE => Some(FIRE), TMD_OPP_COLD => Some(COLD), TMD_OPP_POIS => Some(RESPOIS),
         TMD_OPP_ACID => Some(ACID), TMD_OPP_ELEC => Some(ELEC),
         TMD_HERO | TMD_SHERO | TMD_BOLD | TMD_BLESSED | TMD_SHIELD | TMD_STONESKIN | TMD_PROTEVIL
-            | TMD_INVULN | TMD_ATT_CONF | TMD_ATT_ACID | TMD_ATT_ELEC | TMD_ATT_FIRE | TMD_ATT_COLD
+            | TMD_INVULN | TMD_ATT_ACID | TMD_ATT_ELEC | TMD_ATT_FIRE | TMD_ATT_COLD
             | TMD_ATT_POIS | TMD_ATT_EVIL | TMD_ATT_DEMON | TMD_ATT_VAMP | TMD_POWERSHOT => Some(BUFF),
         TMD_SINVIS => Some(INVISIBLE), TMD_TELEPATHY => Some(MONSTERS),
         _ => None,
     }
 }
 
+/// RANDOM/SELECT alternatives are mutually exclusive. Use the guaranteed
+/// component-wise service rather than adding incompatible branches.
+fn effect_supply(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Vec<(usize, i64)> {
+    let mut sum = BTreeMap::<usize, i64>::new();
+    let mut i = 0;
+    while i < effects.len() {
+        let e = effects[i];
+        if matches!(u32::from(e.0), EF_RANDOM | EF_SELECT) {
+            let n = (e.2.max(0) as usize).min(effects.len() - i - 1);
+            let branches: Vec<BTreeMap<usize, i64>> = effects[i+1..i+1+n].iter()
+                .map(|&b| effect_supply_linear(&[b], hp, service_turns).into_iter().collect()).collect();
+            if let Some(first) = branches.first() {
+                for &id in first.keys() {
+                    let amount = branches.iter().map(|b| *b.get(&id).unwrap_or(&0)).min().unwrap_or(0);
+                    *sum.entry(id).or_default() += amount;
+                }
+            }
+            i += n + 1;
+        } else {
+            for (id, n) in effect_supply_linear(&[e], hp, service_turns) { *sum.entry(id).or_default() += n; }
+            i += 1;
+        }
+    }
+    sum.into_iter().filter(|&(_, n)| n > 0).collect()
+}
+
+fn reduction_cap(subtype: u32) -> Option<usize> {
+    match subtype { TMD_POISONED => Some(POISON), TMD_CONFUSED => Some(CONFUSION),
+        TMD_BLIND => Some(BLIND), TMD_AFRAID => Some(FEAR), TMD_CUT => Some(CUT),
+        TMD_STUN => Some(STUN), _ => None }
+}
+
+/// A conservative independent-rod schedule. Initial ready rods come from
+/// native ceil(timeout/cooldown); do not average away a ready rod. Each use
+/// costs an action. Charge is allocated to at most that many charging rods.
+fn rod_uses(quantity: i64, timeout: i64, cooldown: i64, horizon: i64) -> i64 {
+    let q = quantity.clamp(1, 255);
+    let cool = cooldown.max(1);
+    let mut timeout = timeout.max(0);
+    let mut uses = 0;
+    // Match number_charging/recharge_timeout, using the native average
+    // cooldown as an explicit forecast (actual recharge rolls may differ).
+    for _ in 0..horizon.max(0) {
+        let charging = (timeout as u64).div_ceil(cool as u64).min(q as u64) as i64;
+        if charging < q { uses += 1; timeout += cool; }
+        let charging = (timeout as u64).div_ceil(cool as u64).min(q as u64) as i64;
+        timeout -= charging.min(timeout);
+    }
+    uses
+}
+
 /// Effects with contextual relevance, in physical units. Metadata/control
 /// effects do not earn utility by themselves. Harmful effects never do.
-fn effect_supply(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Vec<(usize, i64)> {
+fn effect_supply_linear(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Vec<(usize, i64)> {
     use crate::headers::list_projections_h::*;
     let mut out = BTreeMap::<usize, i64>::new();
     for &(effect, subtype, amount) in effects {
@@ -168,12 +227,8 @@ fn effect_supply(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Ve
         let role = match u32::from(effect) {
             EF_NOURISH if subtype != 1 && amount > 0 => Some((FOOD, n)), // A decreasing food effect is not nourishment.
             EF_HEAL_HP => Some((HEAL, amount.max(1).min(hp) * UNIT)),
-            EF_CURE | EF_TIMED_DEC => match subtype as u32 {
-                TMD_POISONED => Some((POISON, UNIT)), TMD_CONFUSED => Some((CONFUSION, UNIT)),
-                TMD_BLIND => Some((BLIND, UNIT)), TMD_AFRAID => Some((FEAR, UNIT)),
-                TMD_CUT | TMD_STUN => Some((WOUNDS, UNIT)),
-                _ => None,
-            },
+            EF_CURE => reduction_cap(subtype as u32).map(|cap| (cap, n)),
+            EF_TIMED_DEC if amount > 0 => reduction_cap(subtype as u32).map(|cap| (cap, n)),
             EF_TIMED_INC | EF_TIMED_INC_NO_RES | EF_TIMED_SET => timed_cap(subtype as u32).map(|cap| (cap, n)),
             EF_TELEPORT => Some((TELEPORT, UNIT)), EF_TELEPORT_LEVEL => Some((LEVEL, UNIT)),
             EF_TELEPORT_TO => Some((OTHER, UNIT)), EF_RECALL => Some((RECALL, UNIT)),
@@ -191,15 +246,26 @@ fn effect_supply(effects: &[(u16, i32, i64)], hp: i64, service_turns: i64) -> Ve
             EF_DETECT_OBJECTS | EF_SENSE_OBJECTS | EF_DETECT_GOLD | EF_SENSE_GOLD | EF_DETECT_ORE | EF_PROBE => Some((MAP, service)),
             EF_GLYPH => Some((GLYPH, UNIT)), EF_BANISH | EF_MASS_BANISH => Some((BANISH, UNIT)),
             EF_DESTRUCTION | EF_EARTHQUAKE => Some((DESTROY, UNIT)),
-            EF_BOLT | EF_BEAM | EF_BOLT_OR_BEAM | EF_BOLT_AWARE | EF_LINE | EF_BALL | EF_TOUCH | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE
-                if matches!(subtype as u32, PROJ_AWAY_ALL | PROJ_AWAY_EVIL | PROJ_AWAY_UNDEAD | PROJ_AWAY_SPIRIT) => Some((OTHER, UNIT)),
-            EF_BOLT | EF_BEAM | EF_LINE | EF_TOUCH | EF_BOLT_AWARE if subtype as u32 == PROJ_KILL_WALL => Some((DIG, UNIT)),
-            EF_BOLT | EF_BEAM | EF_TOUCH | EF_TOUCH_AWARE | EF_BOLT_AWARE | EF_BOLT_STATUS | EF_BOLT_STATUS_DAM | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE if matches!(subtype as u32, PROJ_MON_HEAL | PROJ_MON_SPEED | PROJ_MON_CLONE | PROJ_MON_POLY) => None,
-            EF_BOLT_STATUS_DAM if subtype as u32 == PROJ_MON_DRAIN => Some((ATTACK, n)),
-            EF_LINE | EF_BOLT | EF_BOLT_OR_BEAM | EF_BEAM | EF_BALL | EF_BREATH | EF_ARC | EF_SHORT_BEAM
-                | EF_SWARM | EF_STRIKE | EF_STAR | EF_STAR_BALL | EF_SPOT | EF_SPHERE
-                | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE | EF_BOLT_AWARE | EF_WONDER => Some((ATTACK, n)),
-            EF_BOLT_STATUS | EF_BOLT_STATUS_DAM | EF_TOUCH | EF_TOUCH_AWARE | EF_MON_TIMED_INC => Some((BUFF, UNIT)),
+            EF_BOLT | EF_BEAM | EF_BOLT_OR_BEAM | EF_BOLT_AWARE | EF_BOLT_STATUS | EF_BOLT_STATUS_DAM
+                | EF_LINE | EF_BALL | EF_TOUCH | EF_TOUCH_AWARE | EF_PROJECT_LOS | EF_PROJECT_LOS_AWARE
+                | EF_SPOT | EF_SPHERE | EF_BREATH | EF_ARC | EF_SHORT_BEAM | EF_SWARM | EF_STRIKE
+                | EF_STAR | EF_STAR_BALL | EF_MON_TIMED_INC => match subtype as u32 {
+                    PROJ_AWAY_ALL | PROJ_AWAY_EVIL | PROJ_AWAY_UNDEAD | PROJ_AWAY_SPIRIT => Some((OTHER, UNIT)),
+                    PROJ_KILL_WALL => Some((DIG, UNIT)),
+                    // Shop control utility requires an enabled consumer. The
+                    // Confuse Monster wand lookup aliases Scare Monster, and
+                    // Confuse Monsters staff / Stun Monster wand are unused.
+                    // Keep fear: BF_WAND_FEAR_MONSTER uses Scare Monster.
+                    PROJ_MON_SLOW | PROJ_MON_HOLD | PROJ_SLEEP_ALL
+                        | PROJ_SLEEP_EVIL | PROJ_TURN_ALL => Some((CONTROL, UNIT)),
+                    // Native elemental damage occupies 0..=24. DARK_WEAK,
+                    // terrain creation/destruction and monster-aiding types
+                    // are deliberately not generic damage or buff fallbacks.
+                    0..=24 | PROJ_LIGHT_WEAK | PROJ_MON_DRAIN | PROJ_MON_CRUSH
+                        | PROJ_DISP_ALL | PROJ_DISP_EVIL | PROJ_DISP_UNDEAD if amount > 0 => Some((ATTACK, amount * UNIT)),
+                    _ => None,
+                },
+            EF_WONDER => None, // no guaranteed damage for a random special handler
             _ => None,
         };
         if let Some((cap, units)) = role { *out.entry(cap).or_default() += units; }
@@ -212,6 +278,14 @@ fn oil_supply(quantity: i64, fuel_bottles: i64, damage: i64, fuel: i64) -> Vec<(
     let n = quantity.max(1);
     if fuel_bottles > 0 && fuel > 0 { out.push((LIGHT, fuel * UNIT * fuel_bottles / n)); }
     if n > fuel_bottles { out.push((ATTACK, damage * (n - fuel_bottles) / n)); }
+    out
+}
+
+// Called only after native launcher compatibility and curse checks. Each
+// arrow contributes both damage and one reliable shot, separate objectives.
+fn missile_supply(class: i32, damage: i64) -> Vec<(usize, i64)> {
+    let mut out = vec![(ATTACK, damage)];
+    if class == CLASS_RANGER { out.push((RANGER_MISSILES, UNIT)); }
     out
 }
 
@@ -249,7 +323,7 @@ fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize
         let damage = (i64::from(item.dd) * (i64::from(item.ds) + 1) * UNIT / 2
             + (i64::from(item.to_d) + i64::from(st.borg.tr(BI_BTODAM))) * UNIT).max(UNIT)
             * i64::from(st.borg.tr(BI_AMMO_POWER)).max(1);
-        return vec![(ATTACK, damage)];
+        return missile_supply(st.borg.tr(BI_CLASS), damage);
     }
     if tval == TV_LIGHT {
         return if item.timeout > 0 { vec![(LIGHT, i64::from(item.timeout) * UNIT)] } else { Vec::new() };
@@ -277,7 +351,12 @@ fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize
         }
         true
     });
-    for (e, _, amount) in &mut effects {
+    for (e, subtype, amount) in &mut effects {
+        if reduction_cap(*subtype as u32).is_some() {
+            let timer = i64::from(engine::player_timed(*subtype as u32)).max(0);
+            if u32::from(*e) == EF_CURE { *amount = timer.max(1); }
+            if u32::from(*e) == EF_TIMED_DEC { *amount = (*amount).max(0).min(timer); }
+        }
         if u32::from(*e) == EF_RESTORE_MANA && *amount == 0 { *amount = i64::from(st.borg.tr(BI_MAXSP)); }
     }
     let mut out = effect_supply(&effects, ctx.journey.hp, i64::from(st.cfg(BORG_TOWN_SUPPORT_TURNS)).max(1));
@@ -285,9 +364,7 @@ fn supplies(item: &borg_item, ctx: &Context, origin: (i64, usize)) -> Vec<(usize
         else if tval == TV_ROD {
             // MINIMISE/AVERAGE are pure; the rod's physical cooldown is not a level gate.
             let turns = engine::kind_recharge_average(item.kind as usize).max(1);
-            let ready_after = i64::from(item.timeout).max(0) / qty;
-            if ctx.journey.turns < ready_after { 0 }
-            else { (1 + (ctx.journey.turns - ready_after) / i64::from(turns)) * UNIT }
+            rod_uses(qty, i64::from(item.timeout), i64::from(turns), ctx.journey.turns) * UNIT / qty
         } else { UNIT };
     for (_, units) in &mut out { *units = *units * uses / UNIT; }
     out.retain(|&(_, units)| units > 0);
@@ -312,7 +389,7 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     let lantern = light.iqty > 0 && u32::from(light.tval) == TV_LIGHT && i32::from(light.sval) == st.item_val.sv_light_lantern
         && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
     let ctx = Context { st, journey, lantern };
-    let mut model = Model { curves: (0..COUNT).map(|i| [i as i64, ordinary, support_demand, 0, 0]).collect(), supplies: Vec::new() };
+    let mut model = Model { available: stock.candidates.iter().map(|c| [i64::from(c.shop),i64::from(c.slot),i64::from(c.qty)]).collect(), packing: Some(crate::borg_town_packing::Packing::of(st, stock)), curves: (0..COUNT).map(|i| [i as i64, ordinary, support_demand, 0, 0]).collect(), supplies: Vec::new() };
     let mut curve = |id: usize, weight: i64, demand: i64| { model.curves[id][1] = weight; model.curves[id][2] = demand; };
     curve(LIGHT, cfg(BORG_TOWN_W_LIGHT) * UNIT, journey.turns * UNIT);
     // Nutrition is the game's food-value unit (food_value=100), not an equal
@@ -320,12 +397,22 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     curve(FOOD, cfg(BORG_TOWN_W_FOOD) * journey.turns * UNIT / cfg(BORG_TOWN_FOOD_TURNS).max(1),
           journey.turns * 40 * UNIT / cfg(BORG_TOWN_FOOD_TURNS).max(1));
     curve(HEAL, risk(BORG_TOWN_W_BLEEDING), journey.hp * exposure);
-    curve(WOUNDS, if t(BI_ISCUT) > 0 || t(BI_ISSTUN) > 0 { cfg(BORG_TOWN_W_BLEEDING) * UNIT } else { 0 }, -UNIT);
-    curve(POISON, if t(BI_ISPOISONED) > 0 { cfg(BORG_TOWN_W_POISON) * UNIT } else { 0 }, -UNIT);
+    curve(WOUNDS, 0, UNIT); // historical combined status ID is retained for replay
+    for (cap, timed) in [(CUT, TMD_CUT), (STUN, TMD_STUN)] {
+        let timer = i64::from(engine::player_timed(timed)).max(0);
+        curve(cap, if timer > 0 { cfg(BORG_TOWN_W_BLEEDING) * UNIT } else { 0 }, -(timer * UNIT).max(UNIT));
+    }
+    curve(CONTROL, ordinary, exposure.max(UNIT));
+    curve(POISON, if t(BI_ISPOISONED) > 0 { cfg(BORG_TOWN_W_POISON) * UNIT } else { 0 },
+        -(i64::from(engine::player_timed(TMD_POISONED)).max(1) * UNIT));
     curve(PHASE, risk(BORG_TOWN_W_ESCAPE), exposure);
     curve(RECALL, cfg(BORG_TOWN_W_TRIP) * UNIT * journey.walk / journey.turns.max(journey.walk).max(1), UNIT);
     let damage_scale = journey.level * 2 + 4;
     curve(ATTACK, risk(BORG_TOWN_W_ATTACK), damage_scale * journey.turns * UNIT / cfg(BORG_TOWN_ATTACK_TURNS).max(1));
+    // Reliable bow ammunition is a separate reserve for Rangers. Oil, devices
+    // and spells supply damage but cannot replenish usable missile shots.
+    curve(RANGER_MISSILES, if st.borg.tr(BI_CLASS) == CLASS_RANGER { risk(BORG_TOWN_W_RANGER_MISSILES) } else { 0 },
+          (journey.turns * UNIT / cfg(BORG_TOWN_RANGER_MISSILE_TURNS).max(1)).max(UNIT));
     for id in [TELEPORT, LEVEL, OTHER] { curve(id, risk(BORG_TOWN_W_ESCAPE), exposure); }
     for cap in [TRAPS, MONSTERS, INVISIBLE, MAP, ILLUMINATE] { curve(cap, ordinary, journey.turns * UNIT); }
     curve(MANA, if t(BI_MAXSP) > 0 { risk(BORG_TOWN_W_MAGIC) } else { 0 }, t(BI_MAXSP).max(1) * exposure);
@@ -344,7 +431,10 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
     }
     for cap in [SPEED, BUFF] { curve(cap, ordinary, journey.turns * UNIT); }
     for (cap, condition) in [(CONFUSION, BI_ISCONFUSED), (BLIND, BI_ISBLIND), (FEAR, BI_ISAFRAID)] {
-        curve(cap, if t(condition) > 0 { cfg(BORG_TOWN_W_RESTORE) * UNIT } else { ordinary }, if t(condition) > 0 { -UNIT } else { exposure });
+        curve(cap, if t(condition) > 0 { cfg(BORG_TOWN_W_RESTORE) * UNIT } else { ordinary }, if t(condition) > 0 {
+            let timed = match cap { CONFUSION => TMD_CONFUSED, BLIND => TMD_BLIND, _ => TMD_AFRAID };
+            -(i64::from(engine::player_timed(timed)).max(1) * UNIT)
+        } else { exposure });
     }
     for stat in 0..5 {
         let drained = t(BI_ISFIXSTR + stat as u32) > 0;
@@ -372,7 +462,7 @@ pub fn observe(st: &BorgState, stock: &Stock, kit: &[KitItem], journey: Journey)
         for (cap, n) in supplies(item, &ctx, (10, 0)) { model.curves[cap][3] += n * i64::from(item.iqty); }
     }
     use crate::headers::list_object_flags_h::OF_NO_FUEL;
-    if light.iqty > 0 && engine::flag_has(&light.flags, OF_NO_FUEL as i32) || t(BI_LIGHT) > 0 && light.iqty == 0 {
+    if engine::player_has(crate::headers::list_player_flags_h::PF_UNLIGHT) || light.iqty > 0 && engine::flag_has(&light.flags, OF_NO_FUEL as i32) || t(BI_LIGHT) > 0 && light.iqty == 0 {
         model.curves[LIGHT][1] = 0;
     }
     // Reliable renewable spells cover a capability without pretending they
@@ -441,12 +531,25 @@ pub fn shared_groups(groups: Vec<crate::borg_town_solve::Group>, input: &crate::
     use crate::borg_town_solve::{Choice, Group, GroupKey};
     let facts: BTreeMap<_, _> = input.facts.iter().map(|f| ((f.shop, f.slot), f)).collect();
     let mut out = Vec::new();
+    let mut gear = BTreeMap::<usize,i64>::new();
+    if input.revision >= 9 {
+        for g in groups.iter().filter(|g| matches!(g.key, GroupKey::Slot(_))) {
+            for o in g.options.iter().skip(1) {
+                for &(i,n) in &o.picks {
+                    let c = &candidates[i];
+                    let learn = if facts.get(&(c.shop,c.slot)).is_some_and(|f| f.serves & (1 << 5) != 0) { knowledge * UNIT } else { 0 };
+                    gear.insert(i, o.value - model.ware(c.shop,c.slot,n) - learn);
+                }
+            }
+        }
+    }
     let mut sets: Vec<(u64, Vec<Group>)> = Vec::new();
     for group in groups {
-        if matches!(group.key, GroupKey::Slot(_)) { out.push(group); continue; }
+        if input.revision < 9 && matches!(group.key, GroupKey::Slot(_)) { out.push(group); continue; }
         let mut mask = 0;
         for option in &group.options {
-            for &(i, _) in &option.picks { let c = &candidates[i]; mask |= model.mask(c.shop, c.slot); }
+            for &(i, _) in &option.picks { let c = &candidates[i]; mask |= model.mask(c.shop, c.slot);
+                if model.packing.as_ref().is_some_and(|p| p.room(c.class).is_some()) { mask |= 1u64 << 63; } }
         }
         if mask == 0 { out.push(group); continue; }
         let mut joined = vec![group];
@@ -476,7 +579,9 @@ pub fn shared_groups(groups: Vec<crate::borg_town_solve::Group>, input: &crate::
             if facts.get(&(c.shop, c.slot)).is_some_and(|f| f.serves & (1 << crate::borg_town_utility::index(crate::borg_town_usefulness::Need::Knowledge)) != 0) { learned.insert(c.kind); }
         }
         choice.slots = slots.len() as i32;
-        choice.value = model.gain(&units) + learned.len() as i64 * knowledge * UNIT
+        if let Some(p) = &model.packing { p.reprice(&mut choice, candidates); }
+        choice.value = model.gain(&units) + choice.picks.iter().map(|&(i,_)| gear.get(&i).copied().unwrap_or(0)).sum::<i64>()
+            + learned.len() as i64 * knowledge * UNIT
             - crate::borg_town_utility::burden(space, choice.slots, choice.weight, limits.pack_slots, carry);
         choice
     };
@@ -487,23 +592,28 @@ pub fn shared_groups(groups: Vec<crate::borg_town_solve::Group>, input: &crate::
         loop {
             let picks = |pos: &[usize]| groups.iter().zip(pos).flat_map(|(g, &o)| g.options[o].picks.clone()).collect();
             let current = value(picks(&positions));
-            let mut best: Option<(usize, Choice)> = None;
+            let mut best: Option<(usize, usize, Choice)> = None;
             for (gi, g) in groups.iter().enumerate() {
-                let oi = positions[gi] + 1;
+                let alternatives: Vec<usize> = if input.revision >= 9 && matches!(g.key, GroupKey::Slot(_)) {
+                    (1..g.options.len()).filter(|&oi| oi != positions[gi]).collect()
+                } else { vec![positions[gi] + 1] };
+                for oi in alternatives {
                 if oi >= g.options.len() { continue; }
+                let previous = positions[gi];
                 positions[gi] = oi;
                 let next = value(picks(&positions));
-                positions[gi] -= 1;
+                positions[gi] = previous;
                 let gain = next.value - current.value;
                 let bm: i64 = next.picks.iter().filter(|&&(i, _)| candidates[i].is_black_market())
                     .map(|&(i, n)| i64::from(candidates[i].price) * i64::from(n)).sum();
                 let caution = input.params[9].max(1);
                 if gain <= 0 || next.cost > limits.gold || next.weight > limits.weight || next.slots > limits.pack_slots || bm.saturating_mul(caution) > limits.gold { continue; }
                 let price = (next.cost - current.cost).max(1);
-                if best.as_ref().is_none_or(|(_, b)| i128::from(gain) * i128::from((b.cost - current.cost).max(1)) > i128::from(b.value - current.value) * i128::from(price)) { best = Some((gi, next)); }
+                if best.as_ref().is_none_or(|(_, _, b)| i128::from(gain) * i128::from((b.cost - current.cost).max(1)) > i128::from(b.value - current.value) * i128::from(price)) { best = Some((gi, oi, next)); }
+                }
             }
-            let Some((gi, next)) = best else { break; };
-            positions[gi] += 1;
+            let Some((gi, oi, next)) = best else { break; };
+            positions[gi] = oi;
             options.push(next);
         }
         out.push(Group { key: GroupKey::Need(mask.trailing_zeros() as u8), options });
@@ -515,12 +625,31 @@ pub fn shared_groups(groups: Vec<crate::borg_town_solve::Group>, input: &crate::
 mod tests {
     use super::*;
     fn model() -> Model {
-        Model { curves: (0..COUNT).map(|i| [i as i64, 100 * UNIT, UNIT, 0, 0]).collect(), supplies: Vec::new() }
+        Model { available: Vec::new(), packing: None, curves: (0..COUNT).map(|i| [i as i64, 100 * UNIT, UNIT, 0, 0]).collect(), supplies: Vec::new() }
     }
     fn item(place: Place, slot: u8, count: i32) -> KitItem {
-        KitItem { place, slot, kind: 1, qty: count, weight: 10, need: -1, reduction: 0,
+        KitItem { joins_pack: false, place, slot, kind: 1, qty: count, weight: 10, need: -1, reduction: 0,
             power: 0, proceeds: 0, sell_shop: 0, unknown: false, unknown_flavour: false, just_bought: false, serves: 0 }
     }
+    #[test]
+    fn ranger_empty_quiver_remains_valuable_when_devices_cover_damage() {
+        let mut m = model();
+        m.curves[ATTACK] = [ATTACK as i64, 100 * UNIT, 60 * UNIT, 100000 * UNIT, 0];
+        m.curves[RANGER_MISSILES] = [RANGER_MISSILES as i64, 250 * UNIT, 22 * UNIT, 0, 0];
+        let arrow = missile_supply(CLASS_RANGER, 6 * UNIT);
+        let empty = m.gain(&arrow);
+        // A 1-gold arrow beats a 15-gold first-copy learning bonus of 25.
+        assert!(empty * 15 > 25 * UNIT);
+        assert!(empty > 100 * m.gain(&[(ATTACK, 6 * UNIT)]), "devices cannot close the shot reserve");
+        m.curves[RANGER_MISSILES][3] = 40 * UNIT;
+        assert!(m.gain(&arrow) < empty / 5, "already carried arrows reduce marginal buying priority");
+        m.curves[RANGER_MISSILES][2] *= 2;
+        assert!(m.gain(&arrow) > 0, "longer trips retain missile value");
+        m.curves[RANGER_MISSILES][1] = 0;
+        assert_eq!(m.gain(&arrow), m.gain(&[(ATTACK, 6 * UNIT)]), "zero weight restores generic attack valuation");
+        assert_eq!(missile_supply(0, 6 * UNIT), [(ATTACK, 6 * UNIT)], "other classes keep their existing supply");
+    }
+
     #[test]
     fn wand_teleport_other_and_stone_to_mud_are_services_not_damage() {
         use crate::headers::list_projections_h::*;
@@ -631,4 +760,82 @@ mod tests {
         m.supplies[0][3] = -UNIT;
         assert!(!m.valid());
     }
+    #[test]
+    fn unsupported_preparation_and_harmful_projections_have_no_combat_value() {
+        use crate::headers::list_projections_h::*;
+        assert!(effect_supply(&[(EF_TIMED_INC as u16,TMD_ATT_CONF as i32,10000)],20,1000).is_empty());
+        for (e,sub) in [(EF_SPHERE,PROJ_DARK_WEAK),(EF_TOUCH,PROJ_MAKE_TRAP)] {
+            assert!(effect_supply(&[(e as u16,sub as i32,20)],20,1000).is_empty());
+        }
+        assert_eq!(effect_supply(&[(EF_BOLT_STATUS as u16,PROJ_AWAY_ALL as i32,100)],20,1000),[(OTHER,UNIT)]);
+    }
+    #[test]
+    fn shop_control_requires_a_working_consumer() {
+        use crate::headers::list_projections_h::*;
+        for effect in [EF_BOLT_AWARE, EF_PROJECT_LOS_AWARE] {
+            for projection in [PROJ_MON_CONF, PROJ_MON_STUN, PROJ_SLEEP_UNDEAD,
+                PROJ_TURN_EVIL, PROJ_TURN_LIVING, PROJ_TURN_UNDEAD] {
+                assert!(effect_supply(&[(effect as u16,projection as i32,20)],20,1000).is_empty());
+            }
+            for projection in [PROJ_MON_SLOW, PROJ_MON_HOLD, PROJ_SLEEP_ALL, PROJ_SLEEP_EVIL, PROJ_TURN_ALL] {
+                assert_eq!(effect_supply(&[(effect as u16,projection as i32,20)],20,1000),[(CONTROL,UNIT)]);
+            }
+        }
+    }
+
+    #[test]
+    fn mutually_exclusive_damage_branches_are_not_added() {
+        use crate::headers::list_elements_h::{PROJ_FIRE,PROJ_COLD};
+        for e in [EF_RANDOM,EF_SELECT] {
+            assert_eq!(effect_supply(&[(e as u16,0,2),(EF_BALL as u16,PROJ_FIRE as i32,80),
+                (EF_BALL as u16,PROJ_COLD as i32,80)],20,1000),[(ATTACK,80*UNIT)]);
+            assert!(effect_supply(&[(e as u16,0,2),(EF_HEAL_HP as u16,0,20),
+                (EF_BALL as u16,PROJ_FIRE as i32,80)],20,1000).is_empty(),"no guaranteed shared service");
+        }
+    }
+    #[test]
+    fn partial_timed_reductions_leave_value_for_another_dose() {
+        let mut m=model();m.curves[CONFUSION]=[CONFUSION as i64,100*UNIT,-60*UNIT,0,0];
+        let partial=effect_supply(&[(EF_TIMED_DEC as u16,TMD_CONFUSED as i32,20)],20,1000);
+        assert_eq!(partial,[(CONFUSION,20*UNIT)]);
+        let first=m.gain(&partial);m.curves[CONFUSION][3]+=20*UNIT;
+        assert!(first>0 && m.gain(&partial)>0);
+        m.curves[CONFUSION][3]=60*UNIT;assert_eq!(m.gain(&partial),0);
+    }
+    #[test]
+    fn stacked_rods_keep_the_ready_rod_and_respect_charging_count() {
+        assert_eq!(rod_uses(2,40,40,10),1);
+        assert_eq!(rod_uses(2,40,40,20),1);
+        assert_eq!(rod_uses(2,80,40,10),0);
+        assert_eq!(rod_uses(2,0,40,2),2);
+        assert_eq!(rod_uses(1,0,40,41),2);
+    }
+    #[test]
+    fn wearable_and_fuel_share_one_curve_and_keep_slot_exclusivity() {
+        use crate::borg_town_stock::Candidate;
+        use crate::borg_town_solve::{Choice,Group,GroupKey,Limits};
+        let cs:Vec<_>=(0..3).map(|i|Candidate {shop:0,slot:i,kind:u32::from(i)+1,tval:0,sval:0,
+            price:1,qty:1,weight:0,slots_cost:1,stack_count:0,class:u16::from(i)}).collect();
+        let mut m=model();m.supplies=(0..3).map(|i|[0,i,LIGHT as i64,UNIT]).collect();
+        let choice=|i|Choice {picks:vec![(i,1)],cost:1,value:m.ware(0,i as u8,1),slots:1,weight:0};
+        let groups=vec![Group {key:GroupKey::Slot(5),options:vec![Choice::default(),choice(0),choice(1)]},
+            Group {key:GroupKey::Class(2),options:vec![Choice::default(),choice(2)]}];
+        let limits=Limits {gold:100,pack_slots:5,weight:100};
+        let input=crate::borg_town_record::StepInput {revision:9,capability:Some(&m),utility:true,candidates:cs.clone(),facts:&[],tryon:&[],limits,
+            urgent:vec![],params:[0;crate::borg_town_record::PARAMS],traits:&[],power:0,carried:&[],cure_spell:false,kit:&[],home_slots:10};
+        let merged=shared_groups(groups,&input,&cs,&m,&limits,(0,100,0));assert_eq!(merged.len(),1);
+        for option in &merged[0].options {
+            assert!(option.picks.iter().filter(|&&(i,_)|i<2).count()<=1);
+            assert_eq!(option.value,m.gain(&[(LIGHT,option.picks.len() as i64*UNIT)]));
+        }
+        assert!(merged[0].options.iter().any(|o|o.picks.len()==2));
+    }
+    #[test]
+    fn home_sale_changes_the_next_reserve_marginal() {
+        let mut m=model();let home=item(Place::Home,0,1);m.supplies=vec![[HOME,0,ATTACK as i64,UNIT]];
+        m.curves[ATTACK][4]=2*UNIT;let first=m.reserve(&home,-1,500);
+        m.change_home(&home,-1);let second=m.reserve(&home,-1,500);
+        assert!(second<first,"the final remaining reserve is more valuable");
+    }
+
 }

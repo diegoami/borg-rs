@@ -65,9 +65,8 @@ pub struct TripState {
 
 impl TripState {
     fn new_opportunity(&self, gold: i64, ids: i32, spell: bool) -> bool {
-        ids > self.departure_id || spell && !self.departure_spell
-            || [self.id_price, self.learning_price].into_iter().flatten()
-                .any(|p| gold >= p && self.departure_gold < p)
+        (!spell && !self.departure_spell && ids > self.departure_id) || spell && !self.departure_spell
+            || !spell && ids == 0 && self.id_price.is_some_and(|p| gold >= p && self.departure_gold < p)
     }
 }
 
@@ -139,14 +138,14 @@ pub fn observe_town(st: &mut BorgState) {
         .map(|(slot, _)| learning_key(st, slot)).collect();
     st.trip = TripState { town_seen: true, id_price, learning_price,
         departure_gold: i64::from(st.borg.tr(BI_GOLD)),
-        departure_id: st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID),
+        departure_id: st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID) % 1000,
         departure_spell: id_spell(st), unresolved };
 }
 
 fn learning_counts(st: &BorgState) -> (i32, i32, i32) {
     let stores = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_NO_STORES) == 0;
     let gold = i64::from(st.borg.tr(BI_GOLD));
-    let ids = st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID);
+    let ids = st.borg.tr(crate::borg_headers::borg_trait_h::BI_AID) % 1000;
     let spell = id_spell(st);
     let affordable = |price: Option<i64>| price.is_some_and(|p| gold >= p);
     let new_opportunity = st.trip.new_opportunity(gold, ids, spell);
@@ -163,7 +162,9 @@ fn learning_counts(st: &BorgState) -> (i32, i32, i32) {
         // mushrooms/food. Unknown equipment/devices remain protected.
         let sale_learning = stores && !item.aware && crate::borg_item_id::flavour_sale_type(item.tval)
             && item.value > 0 && (0..7).any(|shop| crate::borg_store_sell::borg_store_buys(item, shop));
-        match learning_opportunity(st.trip.town_seen && previous.is_some(), new_opportunity,
+        let relevant_new = runes && rune_resource && new_opportunity || !runes && stores
+            && st.trip.learning_price.is_some_and(|p| gold >= p && st.trip.departure_gold < p);
+        match learning_opportunity(st.trip.town_seen && previous.is_some(), relevant_new,
             rune_resource, sale_learning, stores, gold) {
             Learning::Actionable => counts.0 += 1,
             Learning::Exploratory => counts.1 += 1,
@@ -401,6 +402,13 @@ impl Decision {
             reasons.join(" ")
         )
     }
+}
+
+/// One current trip forecast for town supplies and tactical reserves.
+pub fn forecast(st: &mut BorgState) -> Option<PlannedTrip> {
+    if !acting(st) { return None; }
+    let inputs = observe(st, -1);
+    Some(plan_trip(&inputs, &TripParams::of(&st.core.cfg)))
 }
 
 /// The planned depth: the deepest prepared level less the margin, never
@@ -1080,4 +1088,14 @@ mod tests {
         assert!(!legacy_sale_gate(false, 3, 10, 25000), "25,000 gold");
         assert!(!legacy_sale_gate(true, 3, 10, 100), "the policy replaces the hold");
     }
+    #[test]
+    fn scrolls_do_not_reopen_unchanged_tasks_already_covered_by_an_id_spell() {
+        let cache=TripState {departure_id:0,departure_spell:true,..TripState::default()};
+        assert!(!cache.new_opportunity(0,1,true));
+        let priced=TripState {id_price:Some(50),learning_price:Some(50),departure_spell:true,..TripState::default()};
+        assert!(!priced.new_opportunity(100,1,true),"gold does not improve an existing rune spell");
+        assert!(!cache.new_opportunity(0,1,false),"losing a spell is not a new opportunity");
+        let cache=TripState {departure_spell:false,..cache};assert!(cache.new_opportunity(0,1,false));
+    }
+
 }

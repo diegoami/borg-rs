@@ -1,0 +1,117 @@
+class,race,seed,matches_zoo,endturn,cause,last_alive_turn,last_alive_hp,last_alive_mana,last_light,light_bought,matching_ammo_at_last_alive,heal_stock_at_last_alive,phase_stock_at_last_alive,buys,spend
+Necromancer,Dwarf,1405288147,True,1175,a wild cat,1171,2,1,(nothing),0,0,4,1,28,291
+Necromancer,Dwarf,848714845,True,15121,a metallic green centipede,15121,1,4,(nothing),0,0,2,1,39,482
+Necromancer,Kobold,813430662,True,87483,a small kobold,87456,5,5,(nothing),0,4,3,5,36,504
+Ranger,Dunadan,1632766293,True,1450,poison,1436,1,0,a Wooden Torch (4951 turns),0,18,0,0,6,98
+Ranger,Human,285192323,True,31303,a blue yeek,31303,1,3,a Wooden Torch (3928 turns),2,4,3,0,20,303
+Ranger,Half-Troll,1401471427,True,98946,a pseudo-dragon,98937,4,5,a Wooden Torch (2271 turns),1,0,20,0,123,961
+Necromancer,Hobbit,2001339718,True,19130,a fruit bat,19123,1,0,(nothing),0,0,5,6,49,549
+Ranger,Hobbit,57574802,True,40674,a crow,40674,3,3,a Wooden Torch (4137 turns),2,0,11,0,42,251
+Necromancer,Human,478686038,True,16865,a giant yellow centipede,16865,1,0,(nothing),0,0,7,0,38,473
+Ranger,Dwarf,86658838,True,7751,a soldier,7746,6,0,a Wooden Torch (4589 turns),0,17,4,0,14,108
+Ranger,Half-Orc,552033146,True,53014,a blue worm mass,53006,3,5,a Wooden Torch (3161 turns),4,0,8,0,47,493
+Necromancer,Hobbit,1294313097,True,68012,a small kobold,68008,1,5,(nothing),0,0,4,1,21,355
+Necromancer,High-Elf,698746402,True,2864,"Fang, Farmer Maggot's Dog",2859,4,1,(nothing),0,0,3,2,35,311
+Ranger,Dunadan,1790099723,True,37053,a scout,37051,1,3,a Wooden Torch (3112 turns),2,0,1,0,36,324
+Necromancer,Half-Troll,233631825,True,3812,a giant white mouse,3806,1,2,(nothing),0,0,3,1,21,318
+Ranger,Half-Elf,989264041,True,85101,a white worm mass,85100,1,4,a Wooden Torch (4158 turns),3,0,8,0,90,754
+Necromancer,Human,377266770,True,45067,a tamer,45067,2,5,(nothing),0,0,19,0,29,420
+Ranger,Half-Elf,1247105992,True,94156,a baby blue dragon,94156,19,5,a Wooden Torch (1678 turns),3,0,9,4,84,724
+Ranger,Gnome,1268356177,True,25196,a giant yellow centipede,25194,2,0,a Wooden Torch (3172 turns),3,24,5,0,52,572
+Ranger,High-Elf,1251311666,True,45182,a forest troll,45182,4,5,a Wooden Torch (4599 turns),6,13,5,0,92,855
+Necromancer,Elf,1685366890,True,7109,a giant yellow centipede,7099,3,2,(nothing),0,0,10,0,24,335
+Ranger,Half-Elf,1069774415,True,51879,a snaga,51872,8,3,a Wooden Torch (1161 turns),3,2,6,0,44,590
+Necromancer,Gnome,1796461301,True,64320,a fruit bat,64309,2,3,(nothing),0,0,4,2,42,566
+Necromancer,High-Elf,1485833785,True,9084,a blue yeek,9081,1,1,(nothing),0,0,4,4,33,386
+Ranger,Hobbit,332765105,True,3101,"Grip, Farmer Maggot's Dog",3101,2,0,a Wooden Torch (4904 turns),0,19,3,1,11,177
+Ranger,Gnome,791627090,True,39783,a metallic red centipede,39783,1,2,a Wooden Torch (3168 turns),2,0,5,0,48,394
+Necromancer,Hobbit,714960944,True,76406,"Fang, Farmer Maggot's Dog",76402,1,3,(nothing),0,0,10,1,49,933
+Necromancer,High-Elf,1190030584,True,28323,a soldier,28315,1,0,(nothing),0,0,7,0,44,599
+Ranger,Half-Orc,248980934,True,6214,a soldier,6213,2,0,a Wooden Torch (4570 turns),2,25,0,0,28,190
+Necromancer,Elf,1761122633,True,24563,a grey mushroom patch,24553,4,4,(nothing),0,0,3,2,26,380
+Necromancer,Hobbit,328663706,True,5078,a fruit bat,5071,1,2,(nothing),0,0,4,1,34,433
+Ranger,Gnome,2011501415,True,42241,a baby blue dragon,42241,3,3,a Wooden Torch (2921 turns),2,0,9,0,41,298
+Ranger,Elf,760364256,True,17071,a cutpurse,17060,4,0,a Wooden Torch (3451 turns),1,7,6,0,28,129
+Ranger,Hobbit,831425592,True,6279,a scout,6274,1,0,a Wooden Torch (4549 turns),0,14,1,0,6,98
+Necromancer,Gnome,112988790,True,49421,a small kobold,49409,3,3,(nothing),0,0,4,0,23,316
+Necromancer,Dwarf,2120595991,True,5828,a wild dog,5821,1,2,(nothing),0,0,3,1,25,305
+Necromancer,High-Elf,2045641956,True,6166,a cave spider,6160,4,2,(nothing),0,0,4,1,27,395
+Ranger,Dwarf,536223986,True,94791,a scout,94791,2,5,a Wooden Torch (2212 turns),4,0,11,0,120,1007
+Necromancer,Half-Troll,459873184,True,21315,a wild dog,21307,1,3,(nothing),0,0,3,4,27,406
+Necromancer,Kobold,1943088325,True,8356,a giant white mouse,8321,1,2,(nothing),0,0,3,1,27,325
+Necromancer,Gnome,333129115,True,6111,a small kobold,6099,2,1,(nothing),0,0,3,0,23,314
+Ranger,Dunadan,1471890887,True,6901,a grey mushroom patch,6901,2,0,a Wooden Torch (4375 turns),0,17,2,0,6,110
+Necromancer,Elf,1002244563,True,15769,an apprentice,15763,5,2,(nothing),0,0,4,2,26,323
+Ranger,Half-Troll,887586168,True,22560,a grey mushroom patch,22560,2,0,a Wooden Torch (3822 turns),1,21,2,1,42,350
+Necromancer,Half-Elf,1551700963,True,15232,"Grip, Farmer Maggot's Dog",15228,2,3,(nothing),0,0,10,0,33,408
+Necromancer,Half-Orc,1549877728,True,5461,a white harpy,5452,2,1,(nothing),0,0,8,6,27,311
+Necromancer,Elf,1103449608,True,14386,a grey mushroom patch,14380,2,4,(nothing),0,0,3,3,22,333
+Ranger,Hobbit,1523068491,True,69007,a crow,69004,1,3,a Wooden Torch of Brightness (2824 turns) <+1>,5,18,0,0,94,1604
+Necromancer,High-Elf,1871180645,True,39122,"Grip, Farmer Maggot's Dog",39114,4,5,(nothing),0,3,7,1,32,658
+Necromancer,Dwarf,590384031,True,9961,a blue yeek,9945,4,2,(nothing),0,0,5,0,52,444
+Ranger,Kobold,1905734156,True,84977,a wild cat,84977,2,4,a Wooden Torch (4392 turns),0,12,4,0,128,878
+Necromancer,Dwarf,1176131278,True,12759,a kobold,12755,2,3,(nothing),0,0,4,2,30,321
+Necromancer,Gnome,628446065,True,11604,a giant white mouse,11594,1,2,(nothing),0,0,4,0,33,455
+Ranger,Gnome,1519814491,True,80985,a kobold shaman,80985,4,4,a Wooden Torch (3071 turns),5,0,11,0,114,1709
+Ranger,Human,963130881,True,8541,a crow,8531,5,0,a Wooden Torch (4351 turns),0,9,0,0,18,195
+Ranger,Dwarf,1070927012,True,72700,poison,72690,1,4,a Wooden Torch (1453 turns),3,0,0,0,69,694
+Necromancer,Half-Elf,1303740928,True,13780,a giant yellow centipede,13772,2,2,(nothing),0,0,6,2,36,343
+Necromancer,Half-Orc,1886698173,True,15574,"Grip, Farmer Maggot's Dog",15562,2,3,(nothing),0,0,3,1,24,384
+Ranger,Half-Troll,1339940435,True,5734,a cave spider,5729,5,0,a Wooden Torch (4766 turns),1,26,0,0,27,162
+Necromancer,Dwarf,1737133250,True,9198,an apprentice,9173,4,1,(nothing),0,0,3,0,26,312
+Ranger,Hobbit,44340025,True,19821,a small kobold,19820,1,0,a Wooden Torch (3639 turns),2,9,3,0,25,197
+Ranger,Half-Troll,703776998,True,2664,a wild cat,2655,3,0,a Wooden Torch (4868 turns),2,17,0,3,12,105
+Necromancer,Half-Elf,1780271741,True,9276,a giant yellow centipede,9264,1,2,(nothing),0,0,7,0,22,398
+Ranger,Half-Elf,332321018,True,18992,a giant white mouse,18992,1,1,a Wooden Torch (3549 turns),2,1,4,0,32,293
+Necromancer,Dwarf,1117668746,True,3019,"Fang, Farmer Maggot's Dog",3019,1,0,(nothing),0,0,3,0,18,319
+Necromancer,Half-Elf,336393570,True,65490,a black naga,65486,1,1,(nothing),0,0,1,0,31,465
+Ranger,High-Elf,1212107065,True,94410,poison,94408,1,5,a Wooden Torch (1130 turns),4,0,26,0,98,554
+Necromancer,Elf,573570403,True,58867,"Fang, Farmer Maggot's Dog",58867,2,3,(nothing),0,0,4,0,36,710
+Ranger,Gnome,241506535,True,14200,poison,14183,1,0,a Wooden Torch of Brightness (4337 turns) <+1>,1,20,1,0,30,341
+Necromancer,Dwarf,1176625550,True,17090,"Fang, Farmer Maggot's Dog",17081,2,3,(nothing),0,0,4,2,41,655
+Necromancer,Half-Elf,451174312,True,16197,"Grip, Farmer Maggot's Dog",16179,3,4,(nothing),0,0,5,5,34,416
+Necromancer,Dunadan,1230491284,True,4432,a crow,4431,1,1,(nothing),0,5,3,1,27,328
+Ranger,Gnome,159222484,True,53270,poison,53257,1,3,a Wooden Torch (2278 turns),3,0,0,0,72,746
+Ranger,Gnome,708362972,True,25391,"Grip, Farmer Maggot's Dog",25391,2,0,a Wooden Torch (3070 turns),2,1,6,0,26,142
+Necromancer,High-Elf,2043613030,True,55059,a soldier ant,55045,5,2,(nothing),0,0,6,4,33,577
+Necromancer,Gnome,2014358391,True,23020,a rock lizard,23002,1,2,(nothing),0,0,3,2,26,322
+Necromancer,Half-Orc,1007826762,True,6324,a salamander,6316,2,2,(nothing),0,0,3,1,21,325
+Necromancer,Human,1668116316,True,8899,a giant white mouse,8895,1,2,(nothing),0,0,4,0,26,322
+Ranger,Gnome,1289074765,True,25001,an apprentice,24996,1,0,a Wooden Torch (3212 turns),1,14,2,4,25,400
+Necromancer,Dwarf,2085970948,True,24925,a giant white mouse,24916,1,3,(nothing),0,0,8,6,52,2054
+Necromancer,Hobbit,610838615,True,16460,poison,16444,1,1,(nothing),0,0,8,1,34,422
+Necromancer,Half-Orc,1266165376,True,2496,"Fang, Farmer Maggot's Dog",2491,2,2,(nothing),0,0,3,1,28,322
+Necromancer,Kobold,772179495,True,20078,"Fang, Farmer Maggot's Dog",20070,2,4,(nothing),0,0,2,2,23,348
+Ranger,Half-Elf,1976435747,True,18004,"Grip, Farmer Maggot's Dog",17999,1,0,a Wooden Torch (3518 turns),2,25,2,0,26,225
+Necromancer,Dunadan,1707157928,True,11270,a floating eye,11252,1,1,(nothing),0,0,3,0,25,377
+Necromancer,Hobbit,959619208,True,24370,a fatal wound,24352,2,4,(nothing),0,0,5,7,46,441
+Necromancer,Half-Troll,1559818645,True,6939,a soldier,6931,2,1,(nothing),0,0,3,1,23,338
+Necromancer,Kobold,883771,True,15317,"Fang, Farmer Maggot's Dog",15317,2,0,(nothing),0,0,6,2,30,384
+Necromancer,Half-Elf,609339619,True,15702,"Fang, Farmer Maggot's Dog",15702,2,1,(nothing),0,5,10,0,38,363
+Ranger,High-Elf,1104369599,True,39925,a homunculus,39924,15,6,a Wooden Torch of Brightness (1496 turns) <+1>,1,0,5,0,25,193
+Necromancer,High-Elf,1727366747,True,1559,a wild cat,1553,5,1,(nothing),0,0,3,1,27,305
+Ranger,Elf,1296627287,True,5670,a crow,5670,2,0,a Wooden Torch (4711 turns),1,26,1,0,18,151
+Necromancer,Half-Orc,652620523,True,40950,a yellow jelly,40945,1,5,(nothing),0,0,4,0,24,354
+Ranger,Elf,1281137496,True,1599,a wild cat,1594,4,0,a Wooden Torch (4992 turns),1,14,2,1,7,109
+Necromancer,Half-Orc,431832332,True,20568,a tamer,20563,3,3,(nothing),0,0,3,0,36,380
+Necromancer,Half-Elf,78209847,True,10309,"Fang, Farmer Maggot's Dog",10305,1,1,(nothing),0,0,4,1,25,356
+Necromancer,Human,175903448,True,8228,a small kobold,8228,3,4,(nothing),0,0,4,0,32,312
+Ranger,Elf,1183772963,True,13218,a grey mushroom patch,13218,1,0,a Wooden Torch (4185 turns),0,14,2,1,19,205
+Ranger,Hobbit,155125437,True,18648,a grey mushroom patch,18648,2,0,a Wooden Torch (3923 turns),2,31,10,7,39,315
+Ranger,Dwarf,654768786,True,81484,a tengu,81478,2,7,a Wooden Torch (3167 turns),4,0,5,0,123,1166
+Ranger,Half-Elf,442659446,True,3974,a wild dog,3970,4,0,a Wooden Torch (4681 turns),0,18,2,0,6,108
+Necromancer,Dunadan,1377090871,True,62252,burning to a cinder in lava,62252,22,0,(nothing),0,0,4,0,36,582
+Necromancer,Human,2052979338,True,15157,a giant white centipede,15148,1,4,(nothing),0,0,2,0,20,332
+Ranger,High-Elf,1762317769,True,4101,a grey mushroom patch,4099,3,0,a Wooden Torch (4776 turns),1,15,1,1,7,95
+Ranger,Half-Orc,539214571,True,73369,a large kobold,73364,3,5,a Wooden Torch of Brightness (1144 turns) <+1>,3,0,21,0,98,675
+Necromancer,Half-Troll,1363079995,True,51902,a small kobold,51893,1,3,(nothing),0,0,9,1,49,1048
+Necromancer,Half-Troll,643954509,True,6347,a giant white mouse,6333,1,2,(nothing),0,0,4,0,38,316
+Ranger,High-Elf,1235151907,True,77058,"Grishnákh, the Hill Orc",77058,8,5,a Wooden Torch (3784 turns),5,0,5,0,121,1100
+Ranger,Dwarf,1771890651,True,40312,a soldier,40312,3,2,a Wooden Torch of Brightness (3656 turns) <+1>,2,39,9,0,94,1047
+Necromancer,Dwarf,1320792772,True,5291,"Grip, Farmer Maggot's Dog",5282,3,0,(nothing),0,0,6,2,41,479
+Ranger,Half-Elf,2094357358,True,67322,a scout,67317,1,3,a Wooden Torch of Brightness (1598 turns) <+1>,2,8,14,0,89,1206
+Necromancer,Half-Troll,715984624,True,7295,a giant white mouse,7286,1,3,(nothing),0,0,3,6,25,324
+Necromancer,Human,1041462939,True,4434,"Grip, Farmer Maggot's Dog",4429,4,2,(nothing),0,0,3,0,34,348
+Ranger,Half-Orc,912509248,True,64087,a white wolf,64087,1,8,a Wooden Torch (3698 turns),3,0,14,0,49,781
+Ranger,High-Elf,336095323,True,30282,a cutpurse,30282,2,2,a Wooden Torch (3411 turns),5,32,13,0,74,641
+Ranger,Dwarf,1373224148,True,50855,a white wolf,50850,2,4,a Wooden Torch (1912 turns),3,13,21,0,78,725

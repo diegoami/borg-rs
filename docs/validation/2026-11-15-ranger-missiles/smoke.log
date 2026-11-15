@@ -1,0 +1,21 @@
+done smoke-mage-2
+done smoke-priest-3
+done smoke-warrior-1
+suite=smoke impl=c jobs=3 wall_seconds=2.988591174 result=OK
+smoke-warrior-1 turns turns=20001 pturns=2070 clev=3 maxdepth=2 keys=2616 wall=2.9 Human Warrior
+smoke-mage-2 turns turns=20008 pturns=2035 clev=2 maxdepth=2 keys=1639 wall=0.9 Elf Mage
+smoke-priest-3 turns turns=20879 pturns=2119 clev=2 maxdepth=2 keys=1913 wall=1.3 Dwarf Priest
+done smoke-mage-2
+done smoke-priest-3
+done smoke-warrior-1
+suite=smoke impl=rust jobs=3 wall_seconds=2.995003173 result=OK
+smoke-warrior-1 turns turns=20001 pturns=2070 clev=3 maxdepth=2 keys=2616 wall=2.9 Human Warrior
+smoke-mage-2 turns turns=20008 pturns=2035 clev=2 maxdepth=2 keys=1639 wall=0.9 Elf Mage
+smoke-priest-3 turns turns=20879 pturns=2119 clev=2 maxdepth=2 keys=1913 wall=1.4 Dwarf Priest
+A: harness/out/ranger-missile-smoke-c: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=ceec2d0f0b2694b3
+A:   built from 5d8511c9478c (dirty=no, inputs dirty=no) source_sha256=d07fdc181cded598; run at 5d8511c9478c (dirty=no) overrides=none
+B: harness/out/ranger-missile-smoke-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=b2c95417a1a5aff4
+B:   built from 5d8511c9478c (dirty=no, inputs dirty=no) source_sha256=2064664ac833fe2f; run at 5d8511c9478c (dirty=no) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

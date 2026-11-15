@@ -208,10 +208,25 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
         let consumable = crate::borg_item_id::flavour_sale_type(it.tval);
         let unknown_flavour = !it.aware && consumable;
         if unknown_flavour { need = -1; reduction = 0; }
+        let sell_shop = (0..7i8).find(|&who| apparently_saleable(it)
+            && !crate::borg_town_live::sale_rejected(st, i16::from(who), it)
+            && crate::borg_store_sell::borg_store_buys(it, i32::from(who))).unwrap_or(-1);
+        let proceeds = if no_selling || sell_shop < 0 { 0 } else {
+            match place {
+                Place::Pack => engine::inven_object(&st.access, slot)
+                    .map_or(0, |o| i64::from(o.sale_quote(sell_shop as usize, i32::from(it.iqty)))),
+                Place::Home => engine::store_stock(&st.access, BORG_HOME).get(slot)
+                    .map_or(0, |o| i64::from(o.sale_quote(sell_shop as usize, i32::from(it.iqty)))),
+            }
+        };
         let bought = &st.buy;
         let just_bought = (0..usize::try_from(bought.bought_item_num).unwrap_or(0).min(10))
             .any(|i| bought.bought_item_tval[i] == i32::from(it.tval) && bought.bought_item_sval[i] == i32::from(it.sval));
         KitItem {
+            joins_pack: if place == Place::Home {
+                engine::store_stock(&st.access, BORG_HOME).get(slot)
+                    .is_some_and(|o| o.merge_capacity() >= i32::from(it.iqty))
+            } else { false },
             place,
             slot: slot as u8,
             kind: it.kind,
@@ -221,12 +236,8 @@ fn kit_of(st: &mut BorgState) -> Vec<KitItem> {
             reduction,
             serves: if unknown_flavour { 0 } else { needs_served(st, it).iter().fold(0u8, |m, &n| m | (1 << need_index(n))) },
             power: if consumable { 0 } else { power },
-            proceeds: if no_selling { 0 } else { i64::from(it.value) * i64::from(it.iqty) * 2 / 3 },
-            sell_shop: (0..7i8)
-                .find(|&who| apparently_saleable(it)
-                    && !crate::borg_town_live::sale_rejected(st, i16::from(who), it)
-                    && crate::borg_store_sell::borg_store_buys(it, i32::from(who)))
-                .unwrap_or(-1),
+            proceeds,
+            sell_shop,
             unknown: unknown_durable(it) || unknown_flavour,
             unknown_flavour,
             just_bought,
@@ -333,6 +344,10 @@ pub fn live_action(st: &mut BorgState) -> TownAction {
     evaluate(st, true)
 }
 
+fn unusable_torch(unlight: bool, tval: u8, sval: u8, torch: i32) -> bool {
+    unlight && u32::from(tval) == crate::headers::list_tvals_h::TV_LIGHT && i32::from(sval) == torch
+}
+
 fn effective_params(mut params: [i64; PARAMS], forecast: Option<crate::borg_trip::PlannedTrip>) -> [i64; PARAMS] {
     use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
     let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
@@ -344,10 +359,7 @@ fn effective_params(mut params: [i64; PARAMS], forecast: Option<crate::borg_trip
 
 fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     let file = crate::borg_town_dump::plan_record_file();
-    let forecast = if crate::borg_trip::acting(st) {
-        let inputs = crate::borg_trip::observe(st, -1);
-        Some(crate::borg_trip::plan_trip(&inputs, &crate::borg_trip::TripParams::of(&st.core.cfg)))
-    } else { None };
+    let forecast = crate::borg_trip::forecast(st);
 
     // A new visit when the level clock moved (new_level restarts it on
     // every arrival, the town included).
@@ -379,6 +391,26 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     for &(i, cost) in &wear_slots {
         stock.candidates[i].slots_cost = cost;
     }
+    // Rejections apply only while the observed carrying/purse context is
+    // unchanged. Keep zero-quantity rows to preserve recorded candidate order.
+    let unlight = engine::player_has(crate::headers::list_player_flags_h::PF_UNLIGHT);
+    for c in &mut stock.candidates {
+        // Unlight supplies sight without a carried torch. Keep this physical
+        // suitability gate ahead of fuel, gear try-on and learning bonuses.
+        if unusable_torch(unlight, c.tval, c.sval, st.item_val.sv_light_torch) { c.qty = 0; }
+        if live && crate::borg_town_live::buy_rejected(st, c.shop as i16, c.slot as usize) { c.qty = 0; }
+    }
+    let mut class = stock.candidates.iter().map(|c| c.class).max().unwrap_or(0).saturating_add(1);
+    for (slot, item) in st.store.shops[BORG_HOME].ware.iter().enumerate() {
+        if item.iqty == 0 { continue; }
+        let available = item.aware && !unusable_torch(unlight, item.tval, item.sval, st.item_val.sv_light_torch) && !(live && crate::borg_town_live::buy_rejected(st, 7, slot));
+        let native = engine::store_stock(&st.access, BORG_HOME);
+        let joins = native.get(slot).is_some_and(|o| o.merge_capacity() >= 1);
+        stock.candidates.push(crate::borg_town_stock::Candidate { shop:7,slot:slot as u8,
+            kind:item.kind,tval:item.tval,sval:item.sval,price:0,qty:i32::from(available),weight:i32::from(item.weight),
+            slots_cost:i32::from(!joins),stack_count:0,class });
+        class = class.saturating_add(1);
+    }
     let st: &BorgState = st;
     let budget = Budget::of(st, &stock, &trip);
     let mask = |ns: &[Need]| ns.iter().fold(0u8, |m, &n| m | (1 << need_index(n)));
@@ -404,7 +436,7 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
                 // makes the flavour aware and learns every rune
                 // (store.c, "Learn flavor, any effect and all the runes").
                 serves: mask(&needs_served(st, item))
-                    | if item.needs_ident || !item.flavour_aware { 1 << need_index(Need::Knowledge) } else { 0 },
+                    | if c.shop != 7 && (item.needs_ident || !item.flavour_aware) { 1 << need_index(Need::Knowledge) } else { 0 },
             }
         })
         .collect();
@@ -432,8 +464,8 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     forecast_state.borg.trait_ = st.borg.trait_.clone();
     for (i, &value) in params.iter().enumerate() { forecast_state.core.cfg[(BORG_TOWN_PLAN as usize) + i] = value as i32; }
     let capability = crate::borg_town_capability::observe(st, &stock, &kit,
-        crate::borg_town_utility::Journey::of(&forecast_state));
-    crate::borg_town_capability::audit(st, crate::borg_town_utility::Journey::of(&forecast_state), &capability);
+        crate::borg_town_utility::Journey::for_trip(&forecast_state, forecast));
+    crate::borg_town_capability::audit(st, crate::borg_town_utility::Journey::for_trip(&forecast_state, forecast), &capability);
     let limits = Limits::of(&budget);
     let out = step(&StepInput {
         revision: crate::borg_town_record::PLAN_SCHEMA,
@@ -453,12 +485,20 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
         home_slots: budget.home_slots,
     });
     let (paction, mut act, for_need, now) = if live {
-        crate::borg_town_record::first_executable_action(&stock.candidates, &budget.urgent, &out, &wares, &kit, budget.home_slots)
+        crate::borg_town_record::first_executable_action(&stock.candidates, &budget.urgent, &out, &wares, &kit, budget.home_slots, crate::borg_town_budget::Facts::of(st).pack_capacity - stock.pack_slots_used())
     } else { first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit) };
 
     if live && paction != crate::borg_town_record::action::LEAVE && paction != crate::borg_town_record::action::DROP {
         if matches!(paction, crate::borg_town_record::action::SELL | crate::borg_town_record::action::SELL_HOME) && act[2] > 0 {
-            act[3] /= act[2];
+            // Charged devices need native splitting even for the one-copy
+            // action; a whole-stack average can differ from the first sale.
+            act[3] = if paction == crate::borg_town_record::action::SELL {
+                engine::inven_object(&st.access, act[1] as usize)
+                    .map_or(0, |o| i64::from(o.sale_quote(act[0] as usize, 1)))
+            } else {
+                engine::store_stock(&st.access, BORG_HOME).get(act[1] as usize)
+                    .map_or(0, |o| i64::from(o.sale_quote(act[0] as usize, 1)))
+            };
         }
         act[2] = 1;
     }
@@ -581,5 +621,17 @@ mod tests {
             it.tval = tval as u8;
             assert!(has_inventory_power(&it));
         }
+    }
+}
+
+#[cfg(test)]
+mod missile_and_light_tests {
+    #[test]
+    fn unlight_rejects_torches_before_knowledge_or_equipment_scoring() {
+        use crate::headers::list_tvals_h::{TV_LIGHT, TV_FLASK};
+        assert!(super::unusable_torch(true, TV_LIGHT as u8, 1, 1));
+        assert!(!super::unusable_torch(false, TV_LIGHT as u8, 1, 1));
+        assert!(!super::unusable_torch(true, TV_LIGHT as u8, 2, 1));
+        assert!(!super::unusable_torch(true, TV_FLASK as u8, 1, 1));
     }
 }

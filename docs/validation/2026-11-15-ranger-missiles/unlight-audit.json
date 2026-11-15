@@ -1,0 +1,51 @@
+[
+  {
+    "name": "necro-1405288147",
+    "records": 201,
+    "observed_torch_offers_excluded": 250,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-848714845",
+    "records": 241,
+    "observed_torch_offers_excluded": 284,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-813430662",
+    "records": 177,
+    "observed_torch_offers_excluded": 199,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-825451786",
+    "records": 208,
+    "observed_torch_offers_excluded": 354,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-1094770785",
+    "records": 209,
+    "observed_torch_offers_excluded": 241,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-485772878",
+    "records": 98,
+    "observed_torch_offers_excluded": 98,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  },
+  {
+    "name": "necro-505",
+    "records": 180,
+    "observed_torch_offers_excluded": 180,
+    "light_weight_zero": true,
+    "torch_buys": 0
+  }
+]

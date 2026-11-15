@@ -108,15 +108,30 @@ def parse_run(path, arm, name, cls):
             if live: code,shop,slot,q,need=map(int,live.groups())
             else:
                 code,shop,slot=map(int,combined.groups());q=1
+            # Live execution can enter Home without the legacy preferred-store
+            # log. Its explicit shop overrides stale UI-navigation context.
+            if 0 <= shop < len(SHOPS): store=shop
             intent=None
             for idx in range(cursor,len(records)):
                 r=records[idx]
                 rshop=7 if r['paction'] in (2,4,5) else r['act'][0]
                 if r['gturn']==turn and r['paction']==code and rshop==shop and r['act'][1]==slot and r['act'][2]==q:
                     intent={'record':r,'record_index':idx,'quantity':q,'code':code};cursor=idx+1;break
+            if intent and intent['record'].get('v',0)>=9 and code in (1,2,4):
+                if pending: unconfirmed.append(pending)
+                pending={'command':'Buying','key':key,'turn':turn,'store':shop,**intent}
             continue
         command=re.match(r'^# (Buying|Selling) (.+)$',text)
         if command and not command[2].startswith(("'",'time ')):
+            # Schema 9 emits Buying only after native progress. The earlier
+            # executor intent supplies the wallet anchor; this later log adds
+            # the original shop description, never a second transaction.
+            if command[1]=='Buying' and intent and intent['record'].get('v',0)>=9:
+                if events and events[-1]['plan_seq']==intent['record']['seq'] and events[-1]['kind'] in ('buy','home_take'):
+                    events[-1]['shop_description']=command[2].removesuffix('.')
+                    if events[-1]['kind']=='buy':
+                        events[-1]['unseen_or_unknown_at_purchase']=any(x in command[2] for x in ('{unseen}','{??}'))
+                continue
             if pending:unconfirmed.append(pending)
             pending={'command':command[1],'description':command[2].removesuffix('.'),
                      'key':key,'turn':turn,'store':store,**(intent or {})}

@@ -157,6 +157,8 @@ pub const BORG_SETTINGS: [BorgSetting; BORG_MAX_SETTINGS as usize] = [
     i(c"borg_town_w_restore", 100),
     i(c"borg_town_attack_turns", 100),
     i(c"borg_town_support_turns", 1000),
+    i(c"borg_town_w_ranger_missiles", 250),
+    i(c"borg_town_ranger_missile_turns", 50),
 ];
 
 /// What a retired setting may still say in an old borg.txt (borg-rs#60).
@@ -1277,7 +1279,7 @@ mod tests {
              borg_trip_policy = 0\nborg_trip_depth_margin = 0\nborg_trip_pack_slack = 2\n\
              borg_trip_unknown_stacks = 4\nborg_trip_return_gold = 0\n\
              borg_town_w_attack = 100\nborg_town_w_magic = 100\nborg_town_w_support = 50\n\
-             borg_town_w_restore = 100\nborg_town_attack_turns = 100\nborg_town_support_turns = 1000\n"
+             borg_town_w_restore = 100\nborg_town_attack_turns = 100\nborg_town_support_turns = 1000\nborg_town_w_ranger_missiles = 250\nborg_town_ranger_missile_turns = 50\n"
         ));
         assert!(!text.contains("munchkin") && !text.contains("lunal"));
     }
@@ -1422,6 +1424,8 @@ mod tests {
         ("borg_town_w_restore", b'i', 100, "100"),
         ("borg_town_attack_turns", b'i', 100, "100"),
         ("borg_town_support_turns", b'i', 1000, "1000"),
+        ("borg_town_w_ranger_missiles", b'i', 250, "250"),
+        ("borg_town_ranger_missile_turns", b'i', 50, "50"),
 
     ];
 

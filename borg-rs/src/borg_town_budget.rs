@@ -32,7 +32,7 @@
 //! Nothing in production calls this module yet; every public item carries
 //! a self-removing `expect(dead_code)` marker, as phase 1's do.
 
-use crate::borg_headers::borg_trait_h::{BI_CARRY, BI_GOLD, BI_QUIVER_SLOTS, BI_WEIGHT};
+use crate::borg_headers::borg_trait_h::{BI_CARRY, BI_GOLD, BI_WEIGHT};
 use crate::borg_town_stock::{Candidate, Stock};
 use crate::borg_town_usefulness::{Need, Trip};
 use crate::state::BorgState;
@@ -58,7 +58,7 @@ impl Facts {
         let z = crate::engine::z_info();
         Facts {
             gold: i64::from(st.borg.tr(BI_GOLD)),
-            pack_capacity: i32::from(z.pack_size) - st.borg.tr(BI_QUIVER_SLOTS),
+            pack_capacity: i32::from(z.pack_size) - crate::borg_town_packing::reserved(st),
             home_capacity: i32::from(z.store_inven_max),
             carry: st.borg.tr(BI_CARRY),
             weight: st.borg.tr(BI_WEIGHT),
@@ -452,5 +452,18 @@ mod tests {
         let a = Budget::build(&facts(40), &s, &unmet, serves);
         let b = Budget::build(&facts(40), &s, &unmet, serves);
         assert_eq!(a, b);
+    }    #[test]
+    fn an_urgent_home_cure_precedes_a_paid_shop_cure() {
+        let mut s=build(&general_and_alchemist(),&[]);
+        let mut home=*s.candidates.iter().find(|c|c.kind==CURE_POISON).unwrap();
+        home.shop=7;home.slot=0;home.class=200;home.qty=1;home.price=0;home.slots_cost=0;
+        s.candidates.push(home);
+        let mut f=facts(0);f.pack_capacity=0;
+        let b=Budget::build(&f,&s,&[Need::Poison],serves);
+        assert!(b.unmet.is_empty());assert_eq!(b.gold,0);assert_eq!(b.pack_slots,0);
+        assert_eq!(s.candidates[b.urgent[0].candidate].shop,7);
+        let b=Budget::build(&facts(100),&s,&[Need::Poison],serves);
+        assert_eq!(s.candidates[b.urgent[0].candidate].shop,7);
     }
+
 }

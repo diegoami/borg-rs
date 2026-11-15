@@ -1,0 +1,7 @@
+diff --git a/borg-rs/src/borg_think_dungeon_util.rs b/borg-rs/src/borg_think_dungeon_util.rs
+index 836bb8d..914a4fa 100644
+--- a/borg-rs/src/borg_think_dungeon_util.rs
++++ b/borg-rs/src/borg_think_dungeon_util.rs
+@@ -202 +202 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
+-    let dying = light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);
++    let dying = light.iqty != 0 && light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);

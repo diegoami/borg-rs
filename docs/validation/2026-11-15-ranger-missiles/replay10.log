@@ -1,0 +1,14 @@
+    Finished `release` profile [optimized + debuginfo] target(s) in 0.02s
+     Running unittests src/lib.rs (/tmp/borg-town-fixes-target/release/deps/borg_rs-e4e3d966bed16cea)
+
+running 1 test
+replayed 39341 records: 35416 with a plan, 2 taking an urgent purchase first
+test borg_town_record::tests::a_run_s_records_all_replay ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 290 filtered out; finished in 21.21s
+
+   Doc-tests borg_rs
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

@@ -1,3 +1,4 @@
+import json
 import tempfile
 from pathlib import Path
 import unittest
@@ -19,6 +20,24 @@ class ConfirmedTransactions(unittest.TestCase):
         self.assertEqual((rows[0]['item'],rows[0]['quantity'],rows[0]['gold_spent']),('Potion of Cure Light Wounds',1,20))
         self.assertEqual((rows[0]['gold_before'],rows[0]['gold_after'],rows[0]['wallet_verified']),(100,80,True))
         self.assertEqual(rows[0]['inventory_after'],'2 Potions of Cure Light Wounds')
+
+    def test_schema_nine_confirmation_log_follows_the_native_receipt(self):
+        p=self.fixture("0 1 0 # Town plan executing action 1 at shop 4 slot 0\n1 1 0 You bought a Green Potion for 20 gold.\n1 1 0 You have 2 Potions of Cure Light Wounds (b).\n2 1 0 # Buying Potion of Cure Light Wounds {unseen}.\n",[100,80,80])
+        rec={'v':9,'seq':1,'gturn':1,'paction':1,'act':[4,0,1,20],'for':2,'wares':[], 'tryon':[], 'capability_supplies':[]}
+        (p/'plan.jsonl').write_text(json.dumps(rec)+'\n')
+        rows,missing=parse_run(p,'live','test','Warrior')
+        self.assertEqual(missing,[]);self.assertEqual(len(rows),1)
+        self.assertTrue(rows[0]['wallet_verified']);self.assertEqual(rows[0]['plan_seq'],1)
+        self.assertTrue(rows[0]['unseen_or_unknown_at_purchase'])
+        self.assertEqual(rows[0]['item'],'Potion of Cure Light Wounds')
+
+    def test_live_home_transfer_overrides_stale_shop_navigation(self):
+        p=self.fixture("0 1 0 # Entering a '4' shop\n1 2 0 # Town plan executing action 5 at shop 7 slot 0\n1 2 0 # Selling Scroll of Monster Confusion\n2 2 0 You drop a Scroll of Monster Confusion (a).\n",[100]*3)
+        rec={'v':10,'seq':1,'gturn':2,'paction':5,'act':[7,0,1,0],'for':-1}
+        (p/'plan.jsonl').write_text(json.dumps(rec)+'\n')
+        rows,missing=parse_run(p,'live','test','Ranger')
+        self.assertEqual(missing,[]);self.assertEqual(len(rows),1)
+        self.assertEqual((rows[0]['kind'],rows[0]['shop'],rows[0]['quantity']),('home_store','Home',1))
 
     def test_executor_message_without_receipt_is_not_a_purchase(self):
         p=self.fixture("0 1 0 # Currently in preferred store '5'.\n0 1 0 # Buying Potions of Cure Light Wounds.\n",[100])

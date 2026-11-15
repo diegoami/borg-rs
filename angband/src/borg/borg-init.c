@@ -146,6 +146,8 @@ struct borg_setting borg_settings[] = {
     { "borg_town_w_restore", 'i', 100 },
     { "borg_town_attack_turns", 'i', 100 },
     { "borg_town_support_turns", 'i', 1000 },
+    { "borg_town_w_ranger_missiles", 'i', 250 },
+    { "borg_town_ranger_missile_turns", 'i', 50 },
 
     { 0, 0, 0 }};
 
