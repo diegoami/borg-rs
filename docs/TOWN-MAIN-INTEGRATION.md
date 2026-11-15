@@ -50,3 +50,9 @@ opt-in town/trip wiring, and the native recording round trip. Build/run
 receipts and any observed limitations are attached after verification.
 Historical archived CSV/log whitespace is preserved rather than rewriting
 published evidence; runtime-source whitespace is checked separately.
+
+
+[Completed validation and exact receipts](validation/2026-11-15-town-main-integration/README.md).
+The requested integration snapshot tag is `4.2.6-rs-town-trip-m13-v1`;
+it marks the merged, default-off code and is not a claim of Zoo performance
+acceptance. The tag is placed only after the integration PR merges.

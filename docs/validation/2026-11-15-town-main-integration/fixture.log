@@ -1,0 +1,225 @@
+-- The C compiler identification is GNU 15.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Python: /home/diego/.local/bin/python3.12 (found version "3.12.14") found components: Interpreter
+-- Could NOT find Sphinx (missing: SPHINX_EXECUTABLE) 
+-- Performing Test HAVE_linker_c_lgcov
+-- Performing Test HAVE_linker_c_lgcov - Success
+-- Performing Test HAVE_c_coverage
+-- Performing Test HAVE_c_coverage - Success
+-- Performing Test HAVE_c_fprofile_arcs
+-- Performing Test HAVE_c_fprofile_arcs - Success
+-- Performing Test HAVE_c_ftest_coverage
+-- Performing Test HAVE_c_ftest_coverage - Success
+-- Performing Test HAVE_c_fprofile_abs_path
+-- Performing Test HAVE_c_fprofile_abs_path - Success
+-- Found X11: /usr/include
+-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so
+-- Looking for XOpenDisplay in /usr/lib/x86_64-linux-gnu/libX11.so - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for connect
+-- Looking for connect - found
+-- Looking for remove
+-- Looking for remove - found
+-- Looking for shmat
+-- Looking for shmat - found
+-- Support for X11 front end - Ready
+-- Support for spoiler front end - Ready
+-- Found Python3: /home/diego/.local/bin/python3.12 (found version "3.12.14") found components: Interpreter
+-- Support for borg-rs harness front end - Ready
+-- Configuring done (9.1s)
+-- Generating done (0.3s)
+-- Build files have been written to: /tmp/borg-town-main-integration/build/town-review
+[  0%] Building C object CMakeFiles/OurCoreLib.dir/src/buildid.c.o
+[  0%] Building C object CMakeFiles/OurCoreLib.dir/src/cave-map.c.o
+[  0%] Building C object CMakeFiles/OurCoreLib.dir/src/cave-square.c.o
+[  2%] Building C object CMakeFiles/OurCoreLib.dir/src/cave-view.c.o
+[  2%] Built target BorghOverlay
+[  2%] Building C object CMakeFiles/OurCoreLib.dir/src/cave.c.o
+[  2%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-cave.c.o
+[  4%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-core.c.o
+[  4%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-misc.c.o
+[  4%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-obj.c.o
+[  6%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-pickup.c.o
+[  6%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-spoil.c.o
+[  6%] Building C object CMakeFiles/OurCoreLib.dir/src/cmd-wizard.c.o
+[  6%] Building C object CMakeFiles/OurCoreLib.dir/src/datafile.c.o
+[  8%] Building C object CMakeFiles/OurCoreLib.dir/src/debug.c.o
+[  8%] Building C object CMakeFiles/OurCoreLib.dir/src/effect-handler-attack.c.o
+/tmp/borg-town-main-integration/angband/src/datafile.c: In function ‘grab_int_range’:
+/tmp/borg-town-main-integration/angband/src/datafile.c:339:20: warning: assignment discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+  339 |                 pe = strstr(range, sep);
+      |                    ^
+[  8%] Building C object CMakeFiles/OurCoreLib.dir/src/effect-handler-general.c.o
+[ 10%] Building C object CMakeFiles/OurCoreLib.dir/src/effects.c.o
+[ 10%] Building C object CMakeFiles/OurCoreLib.dir/src/effects-info.c.o
+[ 10%] Building C object CMakeFiles/OurCoreLib.dir/src/game-event.c.o
+[ 13%] Building C object CMakeFiles/OurCoreLib.dir/src/game-input.c.o
+[ 13%] Building C object CMakeFiles/OurCoreLib.dir/src/game-world.c.o
+[ 13%] Building C object CMakeFiles/OurCoreLib.dir/src/gen-cave.c.o
+[ 13%] Building C object CMakeFiles/OurCoreLib.dir/src/gen-chunk.c.o
+[ 15%] Building C object CMakeFiles/OurCoreLib.dir/src/gen-monster.c.o
+[ 15%] Building C object CMakeFiles/OurCoreLib.dir/src/gen-room.c.o
+[ 15%] Building C object CMakeFiles/OurCoreLib.dir/src/gen-util.c.o
+[ 17%] Building C object CMakeFiles/OurCoreLib.dir/src/generate.c.o
+[ 17%] Building C object CMakeFiles/OurCoreLib.dir/src/grafmode.c.o
+[ 17%] Building C object CMakeFiles/OurCoreLib.dir/src/guid.c.o
+[ 19%] Building C object CMakeFiles/OurCoreLib.dir/src/init.c.o
+[ 19%] Building C object CMakeFiles/OurCoreLib.dir/src/load.c.o
+[ 19%] Building C object CMakeFiles/OurCoreLib.dir/src/message.c.o
+[ 21%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-attack.c.o
+[ 21%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-blows.c.o
+[ 21%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-desc.c.o
+[ 21%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-group.c.o
+[ 23%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-init.c.o
+[ 23%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-list.c.o
+[ 23%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-lore.c.o
+[ 26%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-make.c.o
+[ 26%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-move.c.o
+[ 26%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-msg.c.o
+[ 28%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-predicate.c.o
+[ 28%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-spell.c.o
+[ 28%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-summon.c.o
+[ 28%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-timed.c.o
+[ 30%] Building C object CMakeFiles/OurCoreLib.dir/src/mon-util.c.o
+[ 30%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-chest.c.o
+[ 30%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-curse.c.o
+[ 32%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-desc.c.o
+[ 32%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-gear.c.o
+[ 32%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-ignore.c.o
+[ 34%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-info.c.o
+[ 34%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-init.c.o
+/tmp/borg-town-main-integration/angband/src/obj-init.c: In function ‘grab_element_flag’:
+/tmp/borg-town-main-integration/angband/src/obj-init.c:90:23: warning: initialization discards ‘const’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+   90 |         char *under = strchr(flag_name, '_');
+      |                       ^~~~~~
+[ 34%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-knowledge.c.o
+[ 34%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-list.c.o
+[ 36%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-make.c.o
+[ 36%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-pile.c.o
+[ 36%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-power.c.o
+[ 39%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-properties.c.o
+[ 39%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-randart.c.o
+[ 39%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-slays.c.o
+[ 41%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-tval.c.o
+[ 41%] Building C object CMakeFiles/OurCoreLib.dir/src/obj-util.c.o
+[ 41%] Building C object CMakeFiles/OurCoreLib.dir/src/option.c.o
+   Compiling libc v0.2.191
+   Compiling borg-rs v0.1.0 (/tmp/borg-town-main-integration/build/town-review/measurement-rust/borg-rs)
+[ 43%] Building C object CMakeFiles/OurCoreLib.dir/src/parser.c.o
+[ 43%] Building C object CMakeFiles/OurCoreLib.dir/src/player-attack.c.o
+[ 43%] Building C object CMakeFiles/OurCoreLib.dir/src/player-birth.c.o
+[ 43%] Building C object CMakeFiles/OurCoreLib.dir/src/player-calcs.c.o
+[ 45%] Building C object CMakeFiles/OurCoreLib.dir/src/player-class.c.o
+[ 45%] Building C object CMakeFiles/OurCoreLib.dir/src/player-history.c.o
+[ 45%] Building C object CMakeFiles/OurCoreLib.dir/src/player-path.c.o
+[ 47%] Building C object CMakeFiles/OurCoreLib.dir/src/player-properties.c.o
+[ 47%] Building C object CMakeFiles/OurCoreLib.dir/src/player-quest.c.o
+[ 47%] Building C object CMakeFiles/OurCoreLib.dir/src/player-race.c.o
+[ 50%] Building C object CMakeFiles/OurCoreLib.dir/src/player-spell.c.o
+[ 50%] Building C object CMakeFiles/OurCoreLib.dir/src/player-timed.c.o
+[ 50%] Building C object CMakeFiles/OurCoreLib.dir/src/player-util.c.o
+[ 50%] Building C object CMakeFiles/OurCoreLib.dir/src/player.c.o
+[ 52%] Building C object CMakeFiles/OurCoreLib.dir/src/project-feat.c.o
+[ 52%] Building C object CMakeFiles/OurCoreLib.dir/src/project-mon.c.o
+[ 52%] Building C object CMakeFiles/OurCoreLib.dir/src/project-obj.c.o
+[ 54%] Building C object CMakeFiles/OurCoreLib.dir/src/project-player.c.o
+[ 54%] Building C object CMakeFiles/OurCoreLib.dir/src/project.c.o
+[ 54%] Building C object CMakeFiles/OurCoreLib.dir/src/randname.c.o
+[ 56%] Building C object CMakeFiles/OurCoreLib.dir/src/save.c.o
+[ 56%] Building C object CMakeFiles/OurCoreLib.dir/src/save-charoutput.c.o
+[ 56%] Building C object CMakeFiles/OurCoreLib.dir/src/savefile.c.o
+[ 56%] Building C object CMakeFiles/OurCoreLib.dir/src/score.c.o
+[ 58%] Building C object CMakeFiles/OurCoreLib.dir/src/score-util.c.o
+[ 58%] Building C object CMakeFiles/OurCoreLib.dir/src/sound-core.c.o
+[ 58%] Building C object CMakeFiles/OurCoreLib.dir/src/source.c.o
+[ 60%] Building C object CMakeFiles/OurCoreLib.dir/src/store.c.o
+[ 60%] Building C object CMakeFiles/OurCoreLib.dir/src/target.c.o
+[ 60%] Building C object CMakeFiles/OurCoreLib.dir/src/trap.c.o
+[ 63%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-birth.c.o
+[ 63%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-command.c.o
+[ 63%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-context.c.o
+[ 65%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-curse.c.o
+[ 65%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-death.c.o
+[ 65%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-display.c.o
+[ 65%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-effect.c.o
+[ 67%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-entry-combiner.c.o
+[ 67%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-entry-renderers.c.o
+[ 67%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-entry.c.o
+[ 69%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-equip-cmp.c.o
+[ 69%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-event.c.o
+[ 69%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-game.c.o
+[ 71%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-help.c.o
+[ 71%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-history.c.o
+[ 71%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-init.c.o
+[ 71%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-input.c.o
+[ 73%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-keymap.c.o
+[ 73%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-knowledge.c.o
+[ 73%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-map.c.o
+[ 76%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-menu.c.o
+[ 76%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-mon-list.c.o
+[ 76%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-mon-lore.c.o
+[ 78%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-obj-list.c.o
+[ 78%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-object.c.o
+[ 78%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-options.c.o
+[ 78%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-output.c.o
+[ 80%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-player-properties.c.o
+[ 80%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-player.c.o
+[ 80%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-prefs.c.o
+[ 82%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-score.c.o
+[ 82%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-signals.c.o
+[ 82%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-spell.c.o
+[ 84%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-spoil.c.o
+[ 84%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-store.c.o
+[ 84%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-target.c.o
+[ 86%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-term.c.o
+[ 86%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-visuals.c.o
+[ 86%] Building C object CMakeFiles/OurCoreLib.dir/src/ui-wizard.c.o
+[ 86%] Building C object CMakeFiles/OurCoreLib.dir/src/wiz-debug.c.o
+[ 89%] Building C object CMakeFiles/OurCoreLib.dir/src/wiz-spoil.c.o
+[ 89%] Building C object CMakeFiles/OurCoreLib.dir/src/wiz-stats.c.o
+[ 89%] Building C object CMakeFiles/OurCoreLib.dir/src/z-bitflag.c.o
+[ 91%] Building C object CMakeFiles/OurCoreLib.dir/src/z-color.c.o
+[ 91%] Building C object CMakeFiles/OurCoreLib.dir/src/z-dice.c.o
+[ 91%] Building C object CMakeFiles/OurCoreLib.dir/src/z-expression.c.o
+[ 93%] Building C object CMakeFiles/OurCoreLib.dir/src/z-file.c.o
+[ 93%] Building C object CMakeFiles/OurCoreLib.dir/src/z-form.c.o
+[ 93%] Building C object CMakeFiles/OurCoreLib.dir/src/z-quark.c.o
+[ 93%] Building C object CMakeFiles/OurCoreLib.dir/src/z-queue.c.o
+[ 95%] Building C object CMakeFiles/OurCoreLib.dir/src/z-rand.c.o
+[ 95%] Building C object CMakeFiles/OurCoreLib.dir/src/z-textblock.c.o
+[ 95%] Building C object CMakeFiles/OurCoreLib.dir/src/z-type.c.o
+[ 97%] Building C object CMakeFiles/OurCoreLib.dir/src/z-util.c.o
+[ 97%] Building C object CMakeFiles/OurCoreLib.dir/src/z-virt.c.o
+[ 97%] Built target OurCoreLib
+    Finished `release` profile [optimized + debuginfo] target(s) in 7.50s
+[ 97%] Built target BorgRs
+[ 97%] Building C object CMakeFiles/OurExecutable.dir/src/main-x11.c.o
+[100%] Building C object CMakeFiles/OurExecutable.dir/src/main-spoil.c.o
+[100%] Building C object CMakeFiles/OurExecutable.dir/src/main-borgh.c.o
+[100%] Building C object CMakeFiles/OurExecutable.dir/src/main.c.o
+/tmp/borg-town-main-integration/angband/src/main-borgh.c: In function ‘diagnostics’:
+/tmp/borg-town-main-integration/angband/src/main-borgh.c:299:9: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  299 |         if (comma) fprintf(frames_fp, ","); comma = 1;
+      |         ^~
+/tmp/borg-town-main-integration/angband/src/main-borgh.c:299:45: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  299 |         if (comma) fprintf(frames_fp, ","); comma = 1;
+      |                                             ^~~~~
+/tmp/borg-town-main-integration/angband/src/main-borgh.c: In function ‘borgh_finish’:
+/tmp/borg-town-main-integration/angband/src/main-borgh.c:487:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+  487 |     if (streq(reason, "stalled"))
+      |     ^~
+/tmp/borg-town-main-integration/angband/src/main-borgh.c:491:9: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+  491 |         fprintf(fp, "  \"wall_seconds\": %.3f\n", secs);
+      |         ^~~~~~~
+/tmp/borg-town-main-integration/angband/src/main-borgh.c: In function ‘borgh_key’:
+/tmp/borg-town-main-integration/angband/src/main-borgh.c:714:41: warning: comparison of integer expressions of different signedness: ‘long unsigned int’ and ‘long int’ [-Wsign-compare]
+  714 |         if (opt_keys > 0 && keys_logged >= opt_keys) borgh_finish("keys");
+      |                                         ^~
+[100%] Linking C executable game/angband
+[100%] Built target OurExecutable
+Native partial runes, full pack/quiver/Home joins, sale quotes and rod charging passed

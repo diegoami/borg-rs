@@ -1,0 +1,9 @@
+impl=c
+git_rev=03f9d2ea68e1cbce2e90dfb0e411f5218e2b8458
+git_dirty=no
+inputs_dirty=no
+source_sha256=47c3523e9beee766272b78dc7b57f016332cbaa32699b7d05bda14e4d8c809e4
+binary=/tmp/borg-town-main-integration/build/c/game/angband
+binary_sha256=45f643c84d3c37dd3751a4d17b8e0f4054a1496277521d4169d2d9d3287396fa
+cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+built_utc=2026-11-15T17:16:43Z

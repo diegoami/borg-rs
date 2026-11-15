@@ -1,7 +1,7 @@
 # borg-rs status
 
 Owner-directed town/trip integration (2026-11-15): the experimental feature
-is being integrated with accepted M13 and the current recording/cemetery
+is integrated with accepted M13 and the current recording/cemetery
 work. Both new policies remain off by default. The feature retires the Rust
 munchkin/lunal modes; the older mode-off update below is historical. See
 [TOWN-MAIN-INTEGRATION](TOWN-MAIN-INTEGRATION.md) for scope, ABI compatibility,
