@@ -40,3 +40,11 @@ locations, reproducer and smallest correction for each finding. Identify any
 untested claims and distinguish confirmed defects from policy/calibration leads.
 Post the review only on the new PR if the owner authorizes posting; otherwise
 return it to the owner. Do not alter zoo pins, post upstream or invent bug IDs.
+
+
+PR85 received a [Sonnet qualified pass](https://github.com/diegoami/borg-rs/pull/85#issuecomment-6894417316)
+at head 434aa91. The subsequent [review follow-up](validation/2026-11-15-pr85-followup/README.md)
+changes unsupported control utility, urgent selection and forecast evaluation.
+Review this delta explicitly; the old verdict is not approval of the new head.
+Check that supported Scare Monster retains value and that the address-reuse,
+quiver-consumer and Lantern eligibility limitations are described accurately.

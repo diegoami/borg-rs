@@ -1,0 +1,192 @@
+{
+  "ordinary_kinds": 104,
+  "contexts": [
+    {
+      "class": 0,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 1,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 2,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 3,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 4,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 5,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 6,
+      "level": 1,
+      "ammo_tval": -1
+    },
+    {
+      "class": 7,
+      "level": 1,
+      "ammo_tval": 3
+    },
+    {
+      "class": 8,
+      "level": 1,
+      "ammo_tval": -1
+    }
+  ],
+  "covered": [
+    "Resist Acid",
+    "Slow Digestion",
+    "Arrow",
+    "Pair of Iron Shod Boots",
+    "Pair of Leather Boots",
+    "Pair of Leather Sandals",
+    "Light Crossbow",
+    "Long Bow",
+    "Short Bow",
+    "Sling",
+    "Cloak",
+    "Pick",
+    "Shovel",
+    "Flask of oil",
+    "Hard Biscuit",
+    "Pint of Fine Wine",
+    "Ration of Food",
+    "Slime Mold",
+    "Set of Gauntlets",
+    "Set of Leather Gloves",
+    "Whip",
+    "Chain Mail",
+    "Metal Scale Mail",
+    "Hard Leather Cap",
+    "Iron Helm",
+    "Metal Cap",
+    "Wooden Torch",
+    "[First Spells]",
+    "Purging",
+    "Stoneskin",
+    "[Lesser Charms]",
+    "Awl-Pike",
+    "Battle Axe",
+    "Beaked Axe",
+    "Broad Axe",
+    "Lance",
+    "Lucerne Hammer",
+    "Pike",
+    "Spear",
+    "Trident",
+    "Berserk Strength",
+    "Boldness",
+    "Cure Critical Wounds",
+    "Cure Light Wounds",
+    "Cure Serious Wounds",
+    "Neutralize Poison",
+    "Resist Cold",
+    "Resist Heat",
+    "Restore Life Levels",
+    "[Novice's Handbook]",
+    "Feather Falling",
+    "Open Wounds",
+    "Protection",
+    "Searching",
+    "Blessing",
+    "Detect Invisible",
+    "Holy Chant",
+    "Magic Mapping",
+    "Phase Door",
+    "Recharging",
+    "Remove Curse",
+    "Remove Hunger",
+    "Word of Recall",
+    "[Into the Shadows]",
+    "Leather Shield",
+    "Small Metal Shield",
+    "Wicker Shield",
+    "Hard Leather Armour",
+    "Leather Scale Mail",
+    "Robe",
+    "Soft Leather Armour",
+    "Studded Leather Armour",
+    "Detect Evil",
+    "Detect Invisible",
+    "Light",
+    "Mapping",
+    "Teleportation",
+    "Bastard Sword",
+    "Broad Sword",
+    "Cutlass",
+    "Dagger",
+    "Katana",
+    "Long Sword",
+    "Main Gauche",
+    "Rapier",
+    "Scimitar",
+    "Short Sword",
+    "Tulwar",
+    "Light",
+    "Magic Missile",
+    "Slow Monster",
+    "Stinking Cloud",
+    "Stone to Mud"
+  ],
+  "contextual_exclusions": [
+    [
+      "Bolt",
+      "no matching launcher in the audited contexts"
+    ],
+    [
+      "Flask of Whisky",
+      "confusion makes it unsafe food"
+    ],
+    [
+      "[Attacks and Knowledge]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "[Magical Defences]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "[Gifts of Nature]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "[Cleansing Power]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "Monster Confusion",
+      "no enabled tactical consumer (#80); first-copy learning remains separate"
+    ],
+    [
+      "[Dark Rituals]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "[Fear and Torment]",
+      "class/level/mana access unavailable in these contexts"
+    ],
+    [
+      "Iron Shot",
+      "no matching launcher in the audited contexts"
+    ],
+    [
+      "Confuse Monster",
+      "no enabled device consumer; first-copy learning remains separate"
+    ]
+  ],
+  "failures": []
+}
