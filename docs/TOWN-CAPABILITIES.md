@@ -34,8 +34,8 @@ continues to come from the trip policy when enabled.
   `CRUNCH` messages do not disqualify Hard Biscuits. Whisky's confusion does
   disqualify it as safe food. Fuel uses remaining lifetime, including the worn
   light, and a permanent light suppresses fuel utility.
-- Reliable usable information/food/Recall spells suppress redundant purchases
-  for those services. Mana-free attack and healing supplies remain valuable
+- Reliable usable detection, mapping, illumination, food and Recall spells
+  suppress redundant purchases for those services. Mana-free attack and healing supplies remain valuable
   alongside spells. Unknown carried flavours are not valued using hidden kinds.
 
 Positive supply coverage has decreasing marginal returns. One-time access and
@@ -68,15 +68,16 @@ Longer/deeper trips raise exposure; replenishment loses value as coverage grows.
 
 Schema 7 records contain `capability_curves` and `capability_supplies`: evaluated
 weights/demands, carried/Home baselines and per-copy engine facts. Replay uses
-those facts without loading game data. Historical schema 4/5 decisions retain
+those facts without loading game data. Historical schema 4/5/6 decisions retain
 their original model. Native effective settings report the six new parameters.
 
 `BORG_TOWN_CAPABILITY_AUDIT=<file>` writes one engine-backed catalogue per
 process at the first town evaluation: hypothetical known single items, their
 native supply vectors and marginal values in the current class context. It does
-not insert items into the game or claim purchases. Coverage checks join this
+not insert items into the game or claim purchases. The CI-native coverage job joins this
 with ordinary shop stock and require a capability, gear evaluation or an
-explicit contextual exclusion. Actual purchases require native retail receipts
+explicit contextual exclusion. A matching launcher is verified from the native trait record before ammunition
+can be contextually excluded. Actual purchases require native retail receipts
 and wallet changes; neither this diagnostic nor a planner record is a receipt.
 
 See [the item catalogue](TOWN-ITEM-CATALOGUE.md). Validation results and known
@@ -99,3 +100,9 @@ are excluded even when their native effect uses a status or area form.
 Known consumer limits are explicit: this Borg has no known-use action for
 Infravision potions or Disable Traps devices, and Deep Descent is outside the
 trip router. These are excluded rather than assigned a fictitious benefit.
+
+[Validation and confirmed shopping ledgers](validation/2026-11-15-town-capabilities/README.md)
+cover the committed combined runtime. All 104 ordinary kinds are accounted for;
+all 530 observed purchases pass native receipt/wallet checks. The nine-start
+comparison has two deaths versus one baseline death, so these checks establish
+coverage/execution, not improved survival or calibrated priorities.

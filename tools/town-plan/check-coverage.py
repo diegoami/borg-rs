@@ -25,7 +25,13 @@ def check(paths):
     contexts = []
     for path in paths:
         records = [json.loads(line) for line in Path(path).read_text().splitlines()]
-        contexts.append(records[0])
+        context = records[0]
+        plan = Path(path).with_name('plan.jsonl')
+        first = json.loads(plan.open().readline())
+        trait_source = (ROOT / 'borg-rs/src/borg_headers/borg_trait_h.rs').read_text()
+        ammo_trait = int(re.search(r'pub const BI_AMMO_TVAL:[^=]+ = (\d+);', trait_source)[1])
+        context['ammo_tval'] = dict(first['traits']).get(ammo_trait, 0)
+        contexts.append(context)
         if records[0].get('hypothetical_known_items') != 1:
             raise ValueError(f'not a native hypothetical-item audit: {path}')
         for row in records[1:]:
@@ -51,12 +57,12 @@ def check(paths):
             exclusions.append([row['kind'], 'confusion makes it unsafe food'])
         elif row['kind'] == 'Purging':
             exclusions.append([row['kind'], 'restoration requires a drained stat; purging is not nourishment'])
-        elif row['type'] in ('arrow', 'bolt', 'shot'):
+        elif row['type'] in ('arrow', 'bolt', 'shot') and not any(c['ammo_tval'] == key[0] for c in contexts):
             exclusions.append([row['kind'], 'no matching launcher in the audited contexts'])
         else:
             failures.append(f"{row['type']} {row['kind']}: no native capability or explicit contextual exclusion")
     return {'ordinary_kinds': len(covered) + len(exclusions) + len(failures),
-            'contexts': [{'class': r['class'], 'level': r['level']} for r in contexts],
+            'contexts': [{'class': r['class'], 'level': r['level'], 'ammo_tval': r['ammo_tval']} for r in contexts],
             'covered': covered, 'contextual_exclusions': exclusions, 'failures': failures}
 
 

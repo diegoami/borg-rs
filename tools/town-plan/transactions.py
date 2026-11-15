@@ -33,7 +33,7 @@ def quantity(text):
 def label(text):
     text = re.sub(r'\s*\{(?:unseen|\?\?)\}', '', text).strip().rstrip('.')
     text = re.sub(r'^(?:a|an|the|\d+) ', '', text, flags=re.I)
-    for plural,singular in [('Potions','Potion'),('Scrolls','Scroll'),('Rations','Ration'),
+    for plural,singular in [('Iron Shots','Iron Shot'),('Pints','Pint'),('Potions','Potion'),('Scrolls','Scroll'),('Rations','Ration'),
                             ('Wooden Torches','Wooden Torch'),('Lanterns','Lantern'),
                             ('Flasks','Flask'),('Cloaks','Cloak'),('Daggers','Dagger'),
                             ('Rings','Ring'),('Amulets','Amulet'),('Wands','Wand'),('Staves','Staff'),

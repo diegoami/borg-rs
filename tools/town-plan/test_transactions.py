@@ -1,7 +1,7 @@
 import tempfile
 from pathlib import Path
 import unittest
-from transactions import parse_run, quantity, components
+from transactions import parse_run, quantity, components, label
 
 
 class ConfirmedTransactions(unittest.TestCase):
@@ -34,6 +34,10 @@ class ConfirmedTransactions(unittest.TestCase):
     def test_receipt_cost_must_match_observed_wallet(self):
         p=self.fixture("0 1 0 # Buying Potions of Healing.\n1 1 0 You bought a Potion of Healing for 20 gold.\n",[100,99])
         with self.assertRaisesRegex(ValueError,'wallet mismatch'):parse_run(p,'current','test','Warrior')
+
+    def test_inventory_stack_names_do_not_split_identical_shot_and_wine_purchases(self):
+        self.assertEqual(label('22 Iron Shots (1d4) (+0,+0)'), 'Iron Shot (1d4) (+0,+0)')
+        self.assertEqual(label('3 Pints of Fine Wine'), 'Pint of Fine Wine')
 
     def test_engine_prefix_rule_includes_unprefixed_armour(self):
         self.assertEqual(quantity('Soft Leather Armour [8,+0]'),1)
