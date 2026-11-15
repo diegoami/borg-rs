@@ -491,12 +491,8 @@ pub fn decide(i: &TripInputs, p: &TripParams) -> Decision {
     }
 }
 
-/// The trip the town plan should supply (borg-rs#60 with #36): where it
-/// aims, how many levels it crosses from the recall depth, and how many
-/// Word of Recall scrolls it consumes.
-///
-/// The town evaluator reads the target and levels when the policy acts.
-/// Recall utility remains the town model's marginal travel valuation.
+/// Historical forecast shape retained for compatibility and arithmetic tests.
+/// Live shopping and combat do not obtain this from the return policy.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct PlannedTrip {
     pub depth_target: i32,
