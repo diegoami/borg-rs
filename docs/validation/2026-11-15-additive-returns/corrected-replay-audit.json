@@ -1,0 +1,198 @@
+{
+  "build": {
+    "source_commit": "audit-additive-a174d418a67b0205d59cb7ef726c641120bdf0a1705bffc0417eacac5adb96a7",
+    "impl": "rust",
+    "binary_sha256": "6f19f1efb2926e989c814f49ba4bdccbc2dcf1e76177464bea7412d7fcfc2a18",
+    "build_id": {
+      "impl": "rust",
+      "git_rev": "71cff24ef45731e55aa9687930cd2d766dd0695e",
+      "git_dirty": "yes",
+      "inputs_dirty": "yes",
+      "source_sha256": "a174d418a67b0205d59cb7ef726c641120bdf0a1705bffc0417eacac5adb96a7",
+      "binary": "/tmp/borg-pr85-audit/build/rust/game/angband",
+      "binary_sha256": "6f19f1efb2926e989c814f49ba4bdccbc2dcf1e76177464bea7412d7fcfc2a18",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+      "built_utc": "2026-11-15T19:49:33Z"
+    },
+    "compiler": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "rustc": "rustc 1.99.1 (58cf8f9c3 2026-10-13)",
+    "platform": "Linux x86_64",
+    "candidate_base": "71cff24ef45731e55aa9687930cd2d766dd0695e"
+  },
+  "cases": [
+    {
+      "seed": 1642225607,
+      "profile": "rs-pr85-shopping-only",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100325,
+        "depth": 0,
+        "max_depth": 1,
+        "level": 5,
+        "max_level": 5,
+        "hp": null,
+        "decisions": null,
+        "keys": 6639
+      },
+      "play_sha256": "8f443436b18b99615b25876f0638626ec5743ee9e7c6a32a1994e1747da3c578",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 1642225607,
+      "profile": "rs-pr85-return-p0-u0",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100325,
+        "depth": 0,
+        "max_depth": 1,
+        "level": 5,
+        "max_level": 5,
+        "hp": null,
+        "decisions": null,
+        "keys": 6639
+      },
+      "play_sha256": "8f443436b18b99615b25876f0638626ec5743ee9e7c6a32a1994e1747da3c578",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 1693286929,
+      "profile": "rs-pr85-shopping-only",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100002,
+        "depth": 0,
+        "max_depth": 2,
+        "level": 7,
+        "max_level": 7,
+        "hp": null,
+        "decisions": null,
+        "keys": 16137
+      },
+      "play_sha256": "1639b4e34a67021fd29ef67453113d3b5deaeb40161ef54cc54466cd7eb6c531",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 1693286929,
+      "profile": "rs-pr85-return-p0-u0",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100002,
+        "depth": 0,
+        "max_depth": 2,
+        "level": 7,
+        "max_level": 7,
+        "hp": null,
+        "decisions": null,
+        "keys": 16137
+      },
+      "play_sha256": "1639b4e34a67021fd29ef67453113d3b5deaeb40161ef54cc54466cd7eb6c531",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 1308749979,
+      "profile": "rs-pr85-shopping-only",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100163,
+        "depth": 0,
+        "max_depth": 2,
+        "level": 3,
+        "max_level": 3,
+        "hp": null,
+        "decisions": null,
+        "keys": 7417
+      },
+      "play_sha256": "8b6509de9b9e0457427af7d2d4335389f9729e755b12422cf8f61bf421c55b6c",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 1308749979,
+      "profile": "rs-pr85-return-p0-u0",
+      "checks_against_original_shopping": {
+        "outcome": true,
+        "cause": true,
+        "final": true,
+        "play_sha256": true,
+        "played_class": true,
+        "played_race": true
+      },
+      "final": {
+        "kind": "turns",
+        "turn": 100163,
+        "depth": 0,
+        "max_depth": 2,
+        "level": 3,
+        "max_level": 3,
+        "hp": null,
+        "decisions": null,
+        "keys": 7417
+      },
+      "play_sha256": "8b6509de9b9e0457427af7d2d4335389f9729e755b12422cf8f61bf421c55b6c",
+      "new_custom_goals": 0,
+      "state_matches_original_shopping": true
+    },
+    {
+      "seed": 235607,
+      "profile": "rs-pr85-return-p1-u2",
+      "final": {
+        "kind": "turns",
+        "turn": 100000,
+        "depth": 8,
+        "max_depth": 9,
+        "level": 6,
+        "max_level": 6,
+        "hp": null,
+        "decisions": null,
+        "keys": 10710
+      },
+      "outcome": "turn_cap",
+      "new_custom_goals": 1
+    }
+  ]
+}

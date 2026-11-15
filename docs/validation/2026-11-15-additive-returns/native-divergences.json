@@ -1,0 +1,296 @@
+[
+  {
+    "seed": 1642225607,
+    "birth_state_equal": true,
+    "first_different_key_index": 628,
+    "control_key": "3102 1 39 0",
+    "original_00_key": "3102 1 37 0",
+    "pre_state_equal": true,
+    "pre_state": "3102 32,12 d0/1 hp12/12 sp2/2 f8689 au77 xp2 lv1 t- o- p782a1210ffbde085 e44681a57d4b9e4bb rdbb9fa197f4a7174",
+    "first_different_shopping_action": {
+      "row": 72,
+      "game_turn": 3102,
+      "native_inputs_equal": {
+        "traits": true,
+        "pack": true,
+        "equip": true,
+        "home": true,
+        "shops": true,
+        "gold": true,
+        "depth": true,
+        "level": true
+      },
+      "control_action": [
+        1,
+        [
+          4,
+          3,
+          1,
+          8
+        ]
+      ],
+      "original_00_action": [
+        1,
+        [
+          1,
+          12,
+          1,
+          6
+        ]
+      ],
+      "control_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        0,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ],
+      "original_00_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        1,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ]
+    },
+    "original_00_policy_actions": {
+      "continue": 23
+    },
+    "original_00_direction_changes": 0,
+    "original_00_new_return_goals": 0
+  },
+  {
+    "seed": 1693286929,
+    "birth_state_equal": true,
+    "first_different_key_index": 306,
+    "control_key": "1651 1 31 0",
+    "original_00_key": "1651 1 33 0",
+    "pre_state_equal": true,
+    "pre_state": "1651 37,4 d0/1 hp13/13 sp2/2 f8839 au114 xp0 lv1 t- o2:5000 pd3ef0643b3797a4b e5ba0659ac95a4d70 r6f73b7f7c7e09015",
+    "first_different_shopping_action": {
+      "row": 33,
+      "game_turn": 1651,
+      "native_inputs_equal": {
+        "traits": true,
+        "pack": true,
+        "equip": true,
+        "home": true,
+        "shops": true,
+        "gold": true,
+        "depth": true,
+        "level": true
+      },
+      "control_action": [
+        2,
+        [
+          7,
+          0,
+          1,
+          0
+        ]
+      ],
+      "original_00_action": [
+        1,
+        [
+          0,
+          3,
+          1,
+          2
+        ]
+      ],
+      "control_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        0,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ],
+      "original_00_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        1,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ]
+    },
+    "original_00_policy_actions": {
+      "continue": 27
+    },
+    "original_00_direction_changes": 1,
+    "original_00_new_return_goals": 0
+  },
+  {
+    "seed": 1308749979,
+    "birth_state_equal": true,
+    "first_different_key_index": 599,
+    "control_key": "3042 1 31 0",
+    "original_00_key": "3042 1 33 0",
+    "pre_state_equal": true,
+    "pre_state": "3042 15,8 d0/1 hp11/11 sp2/2 f8699 au51 xp4 lv1 t- o3:4988,5:5000 pe7d71e06fd59f5e9 e9dadc2c4432af7fd r0fe8aedc619a1f65",
+    "first_different_shopping_action": {
+      "row": 66,
+      "game_turn": 3042,
+      "native_inputs_equal": {
+        "traits": true,
+        "pack": true,
+        "equip": true,
+        "home": true,
+        "shops": true,
+        "gold": true,
+        "depth": true,
+        "level": true
+      },
+      "control_action": [
+        1,
+        [
+          4,
+          0,
+          1,
+          20
+        ]
+      ],
+      "original_00_action": [
+        7,
+        [
+          -1,
+          -1,
+          -1,
+          -1
+        ]
+      ],
+      "control_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        0,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ],
+      "original_00_params": [
+        1,
+        100,
+        100,
+        100,
+        100,
+        50,
+        25,
+        50,
+        50,
+        10,
+        15,
+        10,
+        1,
+        0,
+        25,
+        1,
+        1000,
+        50,
+        3000,
+        5000,
+        1000,
+        500,
+        25,
+        40000
+      ]
+    },
+    "original_00_policy_actions": {
+      "continue": 53
+    },
+    "original_00_direction_changes": 3,
+    "original_00_new_return_goals": 0
+  }
+]

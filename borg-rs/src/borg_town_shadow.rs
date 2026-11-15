@@ -348,18 +348,8 @@ fn unusable_torch(unlight: bool, tval: u8, sval: u8, torch: i32) -> bool {
     unlight && u32::from(tval) == crate::headers::list_tvals_h::TV_LIGHT && i32::from(sval) == torch
 }
 
-fn effective_params(mut params: [i64; PARAMS], forecast: Option<crate::borg_trip::PlannedTrip>) -> [i64; PARAMS] {
-    use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
-    let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
-    if params[index] == 0 {
-        if let Some(forecast) = forecast { params[index] = i64::from(forecast.depth_target.clamp(1, 100)); }
-    }
-    params
-}
-
 fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     let file = crate::borg_town_dump::plan_record_file();
-    let forecast = crate::borg_trip::forecast(st);
 
     // A new visit when the level clock moved (new_level restarts it on
     // every arrival, the town included).
@@ -379,10 +369,6 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     );
     let mut trip = Trip::of(st);
     trip.cure_spell = cure_spell;
-    if let Some(forecast) = forecast {
-        trip.depth_target = forecast.depth_target;
-        trip.levels_per_trip = forecast.levels;
-    }
     let mut stock = Stock::of(st);
     // The wearables: their power gain, and their slot cost (the worn item
     // moves to the pack).
@@ -445,10 +431,6 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
         *p = i64::from(st.cfg(BORG_TOWN_PLAN + i as u32));
     }
     let configured_params = params;
-    // Materialize the shared trip target in the effective model inputs;
-    // replay reads the identical effective parameters. Keep the configured
-    // parameters separately in the log, including any zero (automatic) value.
-    params = effective_params(params, forecast);
     // The pack and the equipment, as v2 writes them: the light need
     // counts the light sources among them.
     let carried: Vec<(u8, i32)> = st
@@ -459,13 +441,9 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
         .filter(|it| it.iqty != 0)
         .map(|it| (it.tval, i32::from(it.iqty)))
         .collect();
-    let mut forecast_state = BorgState::default();
-    forecast_state.core.cfg = st.core.cfg.clone();
-    forecast_state.borg.trait_ = st.borg.trait_.clone();
-    for (i, &value) in params.iter().enumerate() { forecast_state.core.cfg[(BORG_TOWN_PLAN as usize) + i] = value as i32; }
     let capability = crate::borg_town_capability::observe(st, &stock, &kit,
-        crate::borg_town_utility::Journey::for_trip(&forecast_state, forecast));
-    crate::borg_town_capability::audit(st, crate::borg_town_utility::Journey::for_trip(&forecast_state, forecast), &capability);
+        crate::borg_town_utility::Journey::of(st));
+    crate::borg_town_capability::audit(st, crate::borg_town_utility::Journey::of(st), &capability);
     let limits = Limits::of(&budget);
     let out = step(&StepInput {
         revision: crate::borg_town_record::PLAN_SCHEMA,
@@ -593,20 +571,6 @@ mod tests {
         it.aware = false;
         it.value = 20;
         assert!(apparently_saleable(&it), "an unknown flavour may still be sold to learn it");
-    }
-
-    #[test]
-    fn automatic_forecast_uses_trip_target_but_explicit_target_is_preserved() {
-        use crate::borg_headers::borg_h::BORG_TOWN_TARGET_DEPTH;
-        let index = (BORG_TOWN_TARGET_DEPTH - BORG_TOWN_PLAN) as usize;
-        let automatic = [0; PARAMS];
-        let forecast = crate::borg_trip::PlannedTrip { depth_target: 18, levels: 3, recall_scrolls: 2, recall_carry: 3 };
-        assert_eq!(effective_params(automatic, Some(forecast))[index], 18);
-        assert_eq!(effective_params(automatic, None), automatic);
-        assert_eq!(automatic[index], 0, "configured inputs must remain intact for the record");
-        let mut explicit = automatic;
-        explicit[index] = 7;
-        assert_eq!(effective_params(explicit, Some(forecast)), explicit);
     }
 
     #[test]

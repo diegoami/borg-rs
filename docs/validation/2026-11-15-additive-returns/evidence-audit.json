@@ -1,0 +1,108 @@
+{
+  "cohort_checks": {
+    "records": 10800,
+    "raw_cells": 338,
+    "raw_files": 5173,
+    "native_endpoint_checks": 338
+  },
+  "problems": [],
+  "binary_hashes": {
+    "08357c005d06724ec62734c45baf7749b596ef11a8a2c49f92b7e9a759da9118": 10800
+  },
+  "source_pins": {
+    "71cff24ef45731e55aa9687930cd2d766dd0695e": 10800
+  },
+  "duplicate_cells": 0,
+  "death_timing": {
+    "rs-pr85-existing": {
+      "dl1_deaths": 417,
+      "median_world_turn": 11623,
+      "time_bins": {
+        "5000_to_9999": 87,
+        "1000_to_4999": 89,
+        "50000_plus": 34,
+        "10000_to_24999": 147,
+        "25000_to_49999": 54,
+        "under_1000": 6
+      },
+      "already_visited_town": 404,
+      "previously_reached_dl2": 119,
+      "still_character_level_1": 206
+    },
+    "rs-pr85-return-p0-u0": {
+      "dl1_deaths": 344,
+      "median_world_turn": 18578.0,
+      "time_bins": {
+        "50000_plus": 48,
+        "10000_to_24999": 104,
+        "25000_to_49999": 88,
+        "1000_to_4999": 42,
+        "5000_to_9999": 60,
+        "under_1000": 2
+      },
+      "already_visited_town": 341,
+      "previously_reached_dl2": 93,
+      "still_character_level_1": 112
+    },
+    "rs-pr85-return-p1-u2": {
+      "dl1_deaths": 332,
+      "median_world_turn": 20797.0,
+      "time_bins": {
+        "10000_to_24999": 90,
+        "25000_to_49999": 89,
+        "1000_to_4999": 42,
+        "50000_plus": 53,
+        "5000_to_9999": 56,
+        "under_1000": 2
+      },
+      "already_visited_town": 329,
+      "previously_reached_dl2": 85,
+      "still_character_level_1": 104
+    },
+    "rs-pr85-return-p1-u4": {
+      "dl1_deaths": 342,
+      "median_world_turn": 18436.0,
+      "time_bins": {
+        "50000_plus": 50,
+        "10000_to_24999": 101,
+        "25000_to_49999": 87,
+        "1000_to_4999": 42,
+        "5000_to_9999": 60,
+        "under_1000": 2
+      },
+      "already_visited_town": 339,
+      "previously_reached_dl2": 91,
+      "still_character_level_1": 112
+    },
+    "rs-pr85-return-p2-u4": {
+      "dl1_deaths": 342,
+      "median_world_turn": 18436.0,
+      "time_bins": {
+        "50000_plus": 50,
+        "10000_to_24999": 101,
+        "25000_to_49999": 87,
+        "1000_to_4999": 42,
+        "5000_to_9999": 60,
+        "under_1000": 2
+      },
+      "already_visited_town": 339,
+      "previously_reached_dl2": 91,
+      "still_character_level_1": 112
+    },
+    "rs-pr85-shopping-only": {
+      "dl1_deaths": 254,
+      "median_world_turn": 16151.5,
+      "time_bins": {
+        "10000_to_24999": 85,
+        "5000_to_9999": 57,
+        "1000_to_4999": 27,
+        "50000_plus": 36,
+        "under_1000": 1,
+        "25000_to_49999": 48
+      },
+      "already_visited_town": 251,
+      "previously_reached_dl2": 80,
+      "still_character_level_1": 85
+    }
+  }
+}

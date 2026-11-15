@@ -1,0 +1,194 @@
+[
+  {
+    "seed": 1642225607,
+    "profile": "rs-pr85-shopping-only",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "8f443436b18b99615b25876f0638626ec5743ee9e7c6a32a1994e1747da3c578",
+    "final": {
+      "kind": "turns",
+      "turn": 100325,
+      "depth": 0,
+      "max_depth": 1,
+      "level": 5,
+      "max_level": 5,
+      "hp": null,
+      "decisions": null,
+      "keys": 6639
+    },
+    "cause": "(alive and well)",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "seed": 1642225607,
+    "profile": "rs-pr85-return-p0-u0",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "bc8a4e60ba40451645fee0ea7f7dde0c7c2ac49ef6dbec0bfa28ace12024d7b0",
+    "final": {
+      "kind": "death",
+      "turn": 6810,
+      "depth": 1,
+      "max_depth": 1,
+      "level": 1,
+      "max_level": 1,
+      "hp": null,
+      "decisions": null,
+      "keys": 1190
+    },
+    "cause": "Fang, Farmer Maggot's Dog",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "seed": 1693286929,
+    "profile": "rs-pr85-shopping-only",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "1639b4e34a67021fd29ef67453113d3b5deaeb40161ef54cc54466cd7eb6c531",
+    "final": {
+      "kind": "turns",
+      "turn": 100002,
+      "depth": 0,
+      "max_depth": 2,
+      "level": 7,
+      "max_level": 7,
+      "hp": null,
+      "decisions": null,
+      "keys": 16137
+    },
+    "cause": "(alive and well)",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "seed": 1693286929,
+    "profile": "rs-pr85-return-p0-u0",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "1dc2b0acd5d9e3b3a19725430217e94726062357b1cdea771ac01a12c5b2d737",
+    "final": {
+      "kind": "death",
+      "turn": 9089,
+      "depth": 1,
+      "max_depth": 1,
+      "level": 1,
+      "max_level": 1,
+      "hp": null,
+      "decisions": null,
+      "keys": 1501
+    },
+    "cause": "Grip, Farmer Maggot's Dog",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "seed": 1308749979,
+    "profile": "rs-pr85-shopping-only",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "8b6509de9b9e0457427af7d2d4335389f9729e755b12422cf8f61bf421c55b6c",
+    "final": {
+      "kind": "turns",
+      "turn": 100163,
+      "depth": 0,
+      "max_depth": 2,
+      "level": 3,
+      "max_level": 3,
+      "hp": null,
+      "decisions": null,
+      "keys": 7417
+    },
+    "cause": "(alive and well)",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  },
+  {
+    "seed": 1308749979,
+    "profile": "rs-pr85-return-p0-u0",
+    "checks": {
+      "outcome": true,
+      "cause": true,
+      "final": true,
+      "play_sha256": true,
+      "effective_settings": true,
+      "config_sha256": true,
+      "played_class": true,
+      "played_race": true
+    },
+    "hash": "631837658560270791beb74be25b8c35b025a5126f8c61718e8f3b2cb14bb6d4",
+    "final": {
+      "kind": "death",
+      "turn": 35269,
+      "depth": 1,
+      "max_depth": 1,
+      "level": 3,
+      "max_level": 3,
+      "hp": null,
+      "decisions": null,
+      "keys": 2975
+    },
+    "cause": "a wild cat",
+    "original_channel_checks": {
+      "keys.log": true,
+      "messages.log": true,
+      "state.log": true
+    }
+  }
+]
