@@ -1,0 +1,64 @@
+   Compiling version_check v0.9.5
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.27
+   Compiling quote v1.0.47
+   Compiling typenum v1.20.1
+   Compiling serde_core v1.0.229
+   Compiling zmij v1.0.23
+   Compiling serde_json v1.0.154
+   Compiling serde v1.0.229
+   Compiling cpufeatures v0.2.17
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.19
+   Compiling cfg-if v1.0.5
+   Compiling generic-array v0.14.7
+   Compiling syn v3.0.10
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling digest v0.10.7
+   Compiling sha2 v0.10.9
+   Compiling serde_derive v1.0.229
+   Compiling angband-recorder v0.1.0 (/tmp/borg-rs-recorder-v020/vendor/angband-recorder)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 4.68s
+     Running unittests src/lib.rs (vendor/angband-recorder/target/debug/deps/angband_recorder-97f4a77a9b37219a)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running unittests src/main.rs (vendor/angband-recorder/target/debug/deps/angband_recorder-5566d28ffb95d018)
+
+running 2 tests
+test tests::review_f20_original_directory_overrides_are_removed_before_the_tail ... ok
+test tests::review_f20_private_directories_precede_every_engine_argument ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/streams.rs (vendor/angband-recorder/target/debug/deps/streams-e265546721c6f8bf)
+
+running 16 tests
+test review_f16_host_extensions_cannot_replace_core_or_panic_on_shape ... ok
+test directory_filter_buffer_and_entry_domains_fail_closed ... ok
+test review_f5_cannot_open_a_stale_or_symlinked_absent_input ... ok
+test review_f2_rejects_native_narrowing_and_invalid_queue_domains ... ok
+test bot_actions_are_checked_not_supplied ... ok
+test host_logs_can_precede_capture_without_overwriting_a_recording ... ok
+test review_f6_sealed_streams_cannot_be_appended ... ok
+test review_f3_f9_filesystem_decisions_are_ordered_inputs_not_live_state ... ok
+test call_order_and_peek_take_semantics_are_checked ... ok
+test corrupt_file_cannot_be_replayed ... ok
+test cannot_complete_an_unconsumed_or_malformed_replay ... ok
+test identity_and_output_are_guarded ... ok
+test review_f1_rejects_extra_blobs_and_truncated_observations ... ok
+test review_f6_missing_blob_after_start_and_creation_errors_poison_completion ... ok
+test round_trip_replays_external_values_and_captured_read_bytes ... ok
+test review_f1_requires_all_streams_and_typed_matching_receipts ... ok
+
+test result: ok. 16 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 4.24s
+
+   Doc-tests angband_recorder
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

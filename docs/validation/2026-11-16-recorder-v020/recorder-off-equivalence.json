@@ -1,0 +1,53 @@
+{
+  "baseline": "7251f64a9c3bf75fb8b90940d3fda54c4fa610bb",
+  "cases": [
+    {
+      "seed": 101,
+      "class_index": 0,
+      "hashes": {
+        "baseline": {
+          "keys.log": "8d3029a7a4558e087ce1e6e51b51f2f2c777dbbb7ad7f8be65ee9c956108a6c5",
+          "messages.log": "44d0e6524730ad31c740d42f31e927df3daca12022d540246beac4ad4f6ede4d",
+          "state.log": "1983f4060195ab32de6ac50fdb351e46d837883945eb9909376b630b9ac19a57"
+        },
+        "candidate": {
+          "keys.log": "8d3029a7a4558e087ce1e6e51b51f2f2c777dbbb7ad7f8be65ee9c956108a6c5",
+          "messages.log": "44d0e6524730ad31c740d42f31e927df3daca12022d540246beac4ad4f6ede4d",
+          "state.log": "1983f4060195ab32de6ac50fdb351e46d837883945eb9909376b630b9ac19a57"
+        }
+      }
+    },
+    {
+      "seed": 301,
+      "class_index": 1,
+      "hashes": {
+        "baseline": {
+          "keys.log": "45e4e34f149c05d2ab7483b4efc685a420edbb8c12145bd20e87fb4fae43c3e1",
+          "messages.log": "ffb6aba4e81622a444b383d7cbc6dd234bbbab81e262eeac50e99c53303fb845",
+          "state.log": "135e0260912360677eb76da62aa3a288447f80224d1625a23a14966c1e5edf60"
+        },
+        "candidate": {
+          "keys.log": "45e4e34f149c05d2ab7483b4efc685a420edbb8c12145bd20e87fb4fae43c3e1",
+          "messages.log": "ffb6aba4e81622a444b383d7cbc6dd234bbbab81e262eeac50e99c53303fb845",
+          "state.log": "135e0260912360677eb76da62aa3a288447f80224d1625a23a14966c1e5edf60"
+        }
+      }
+    },
+    {
+      "seed": 401,
+      "class_index": 3,
+      "hashes": {
+        "baseline": {
+          "keys.log": "835de50f3767d358ce95e24d3b4d6db8225800f9ebcc697ac5fd2342b3e4810f",
+          "messages.log": "1db91af65c59a6135caffc8616d6deb0822ce91d7e9111e7786c706f2583e1bd",
+          "state.log": "e94f85f710ce80d85cf88f9bab35770197df73b50b8c29f8b676bc463321f678"
+        },
+        "candidate": {
+          "keys.log": "835de50f3767d358ce95e24d3b4d6db8225800f9ebcc697ac5fd2342b3e4810f",
+          "messages.log": "1db91af65c59a6135caffc8616d6deb0822ce91d7e9111e7786c706f2583e1bd",
+          "state.log": "e94f85f710ce80d85cf88f9bab35770197df73b50b8c29f8b676bc463321f678"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "binary_sha256": "103eb00088288c5e2406648c9b3451f0603fb2114a1007f8edec288292ad35bb",
+  "recorder_pin": "ee8b133ad22f66e7dad6e1b63a2d3e40b9a41ebd",
+  "cases": [
+    {
+      "case": "fresh-birth",
+      "schema": "angband-recorder-streams@2",
+      "final_save_sha256": "11ea1deefda00536da5ebe0fb384d3cfce0f428ca9a515216203434fc0314fb2",
+      "final_save_bytes_match": true,
+      "matching_checkpoints": 6,
+      "input_families": {
+        "exists": 29,
+        "terminal_init": 1,
+        "file": 112,
+        "poll": 64,
+        "clock": 6,
+        "bot": 53
+      },
+      "loaded_target_removed_before_replay": false
+    },
+    {
+      "case": "loaded-save",
+      "schema": "angband-recorder-streams@2",
+      "final_save_sha256": "a6d924b7490b22b39410b3b0eb8ac45d266b988d0364499928aacd0adb84fa7c",
+      "final_save_bytes_match": true,
+      "matching_checkpoints": 6,
+      "input_families": {
+        "exists": 30,
+        "terminal_init": 1,
+        "file": 109,
+        "poll": 68,
+        "newer": 1,
+        "bot": 140,
+        "clock": 2
+      },
+      "loaded_target_removed_before_replay": true
+    },
+    {
+      "case": "save-menu-enumeration",
+      "schema": "angband-recorder-streams@2",
+      "input_families": {
+        "terminal_init": 1,
+        "exists": 9,
+        "file": 98,
+        "clock": 1,
+        "poll": 4,
+        "directory_open": 1,
+        "directory_read": 2
+      },
+      "live_save_directory_empty_before_replay": true,
+      "enumerated_save_name": "1000.RecorderCheck"
+    }
+  ]
+}

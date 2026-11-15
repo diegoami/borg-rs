@@ -1,0 +1,9 @@
+{
+  "mutation": "Replaced the direct stat(path) save-target gate with the old recorded file_exists(path) gate in the consumer only.",
+  "vendor_modified": false,
+  "fresh_round_trip": "passed",
+  "loaded_replay": "rejected",
+  "observed_error": "borgh: cannot save living character to /tmp/borg-recorder-v020-save-fault/loaded/loaded-character.save",
+  "correct_source_restored": true,
+  "corrected_all_three_cases": "passed"
+}

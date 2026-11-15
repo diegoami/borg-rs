@@ -956,7 +956,11 @@ void file_get_tempfile(char *filename, size_t max, const char *base,
 /**
  * Return true if first is newer than second, false otherwise.
  */
+#ifdef BORG_RECORDING
+static bool recording_real_file_newer(const char *first, const char *second)
+#else
 bool file_newer(const char *first, const char *second)
+#endif
 {
 #ifdef HAVE_STAT
 	struct stat stat1, stat2;
@@ -1455,13 +1459,24 @@ ang_dir *my_dopen(const char *dirname)
 	DIR *d;
 
 	/* Try to open the directory */
+#ifdef BORG_RECORDING
+	if (ar_replaying()) {
+		if (!ar_directory_open(false)) return NULL;
+		d = NULL;
+	} else {
+		d = opendir(dirname);
+		if (ar_active()) ar_directory_open(d != NULL);
+		if (!d) return NULL;
+	}
+#else
 	d = opendir(dirname);
 	if (!d) return NULL;
+#endif
 
 	/* Allocate memory for the handle */
 	dir = mem_zalloc(sizeof(ang_dir));
 	if (!dir) {
-		closedir(d);
+		if (d) closedir(d);
 		return NULL;
 	}
 
@@ -1482,7 +1497,11 @@ bool alter_ang_dir_only_files(ang_dir *dir, bool newval)
 	return oldval;
 }
 
+#ifdef BORG_RECORDING
+static bool recording_real_dread(ang_dir *dir, char *fname, size_t len)
+#else
 bool my_dread(ang_dir *dir, char *fname, size_t len)
+#endif
 {
 	struct dirent *entry;
 	struct stat filedata;
@@ -1515,6 +1534,17 @@ bool my_dread(ang_dir *dir, char *fname, size_t len)
 	return true;
 }
 
+#ifdef BORG_RECORDING
+bool my_dread(ang_dir *dir, char *fname, size_t len)
+{
+	bool present;
+	if (ar_replaying()) return ar_directory_read(dir->only_files, len, fname, false);
+	present = recording_real_dread(dir, fname, len);
+	if (ar_active()) ar_directory_read(dir->only_files, len, fname, present);
+	return present;
+}
+#endif
+
 void my_dclose(ang_dir *dir)
 {
 	/* Close directory */
@@ -1528,4 +1558,12 @@ void my_dclose(ang_dir *dir)
 
 #endif /* HAVE_DIRENT_H */
 #endif /* WINDOWS */
+
+#ifdef BORG_RECORDING
+bool file_newer(const char *first, const char *second)
+{
+	if (ar_replaying()) return ar_newer(false);
+	return ar_newer(recording_real_file_newer(first, second));
+}
+#endif
 

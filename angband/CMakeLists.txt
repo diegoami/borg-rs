@@ -417,7 +417,7 @@ if(SUPPORT_BORG_RECORDING)
     target_sources(OurCoreLib PRIVATE src/native-replay.c "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/host/observations.c")
     target_include_directories(OurCoreLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src"
         "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/include" "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/host")
-    target_compile_definitions(OurCoreLib PRIVATE ANGBAND_RECORDER_BUILD="borg-rs-recorder-v0.1.0")
+    target_compile_definitions(OurCoreLib PRIVATE ANGBAND_RECORDER_BUILD="borg-rs-recorder-v0.2.0")
     list(APPEND ANGBAND_CORE_LINK_LIBRARIES "-Wl,--wrap=time")
 endif()
 
