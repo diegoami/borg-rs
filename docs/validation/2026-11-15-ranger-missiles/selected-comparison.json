@@ -1,0 +1,1549 @@
+[
+  {
+    "seed": 1632766293,
+    "race": "Dunadan",
+    "existing_arrows": 0,
+    "selected_arrows": 163,
+    "existing_dead": false,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 100001,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 163,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Ration of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 8
+        },
+        {
+          "label": "b",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "c",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 22
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "18 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 36
+        }
+      ],
+      "total_weight": 153,
+      "remaining_weight": 1046
+    }
+  },
+  {
+    "seed": 285192323,
+    "race": "Human",
+    "existing_arrows": 68,
+    "selected_arrows": 26,
+    "existing_dead": false,
+    "selected_dead": true,
+    "matched_world_turn_horizon": 2225,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 26,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "2 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 16
+        },
+        {
+          "label": "b",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "c",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 22
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "20 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 40
+        }
+      ],
+      "total_weight": 165,
+      "remaining_weight": 974
+    }
+  },
+  {
+    "seed": 1401471427,
+    "race": "Half-Troll",
+    "existing_arrows": 177,
+    "selected_arrows": 251,
+    "existing_dead": false,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 100005,
+    "existing_at_horizon": 177,
+    "selected_at_horizon": 251,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "2 Potions of Cure Light Wounds",
+          "slot": "",
+          "attr": 3,
+          "weight": 8
+        },
+        {
+          "label": "b",
+          "description": "a Potion of Boldness",
+          "slot": "",
+          "attr": 21,
+          "weight": 4
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Phase Door",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "d",
+          "description": "a Scroll of Detect Invisible",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "e",
+          "description": "a Scroll of Remove Hunger",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "f",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "g",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 22
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "40 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 80
+        },
+        {
+          "label": "1",
+          "description": "8 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 16
+        }
+      ],
+      "total_weight": 232,
+      "remaining_weight": 1327
+    }
+  },
+  {
+    "seed": 1770524781,
+    "race": "Elf",
+    "existing_arrows": 0,
+    "selected_arrows": 175,
+    "existing_dead": true,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 23425,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 81,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Potion of Cure Light Wounds",
+          "slot": "",
+          "attr": 8,
+          "weight": 4
+        },
+        {
+          "label": "b",
+          "description": "a Potion of Boldness",
+          "slot": "",
+          "attr": 4,
+          "weight": 4
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Phase Door",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "d",
+          "description": "a Scroll of Detect Invisible",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "e",
+          "description": "a Scroll of Remove Hunger",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "f",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "40 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 80
+        },
+        {
+          "label": "1",
+          "description": "8 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 16
+        }
+      ],
+      "total_weight": 206,
+      "remaining_weight": 873
+    }
+  },
+  {
+    "seed": 1021027760,
+    "race": "Kobold",
+    "existing_arrows": 60,
+    "selected_arrows": 182,
+    "existing_dead": false,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 100004,
+    "existing_at_horizon": 60,
+    "selected_at_horizon": 182,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "2 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 16
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "d",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 22
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "16 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 32
+        }
+      ],
+      "total_weight": 187,
+      "remaining_weight": 892
+    }
+  },
+  {
+    "seed": 763715166,
+    "race": "Human",
+    "existing_arrows": 0,
+    "selected_arrows": 34,
+    "existing_dead": true,
+    "selected_dead": true,
+    "matched_world_turn_horizon": 3854,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 34,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Ration of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 8
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "15 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 30
+        }
+      ],
+      "total_weight": 155,
+      "remaining_weight": 984
+    }
+  },
+  {
+    "seed": 508,
+    "race": "Human",
+    "existing_arrows": 23,
+    "selected_arrows": 98,
+    "existing_dead": false,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 100001,
+    "existing_at_horizon": 23,
+    "selected_at_horizon": 98,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Ration of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 8
+        },
+        {
+          "label": "b",
+          "description": "a Potion of Cure Light Wounds",
+          "slot": "",
+          "attr": 4,
+          "weight": 4
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Remove Hunger",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "d",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "18 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 36
+        }
+      ],
+      "total_weight": 140,
+      "remaining_weight": 999
+    }
+  },
+  {
+    "seed": 509,
+    "race": "Human",
+    "existing_arrows": 0,
+    "selected_arrows": 132,
+    "existing_dead": true,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 31494,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 65,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "3 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 24
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "20 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 40
+        }
+      ],
+      "total_weight": 181,
+      "remaining_weight": 958
+    }
+  },
+  {
+    "seed": 510,
+    "race": "Human",
+    "existing_arrows": 69,
+    "selected_arrows": 254,
+    "existing_dead": true,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 98040,
+    "existing_at_horizon": 69,
+    "selected_at_horizon": 254,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Ration of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 8
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        },
+        {
+          "label": "d",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "",
+          "attr": 7,
+          "weight": 22
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "20 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 40
+        }
+      ],
+      "total_weight": 187,
+      "remaining_weight": 952
+    }
+  },
+  {
+    "seed": 511,
+    "race": "Human",
+    "existing_arrows": 0,
+    "selected_arrows": 190,
+    "existing_dead": true,
+    "selected_dead": true,
+    "matched_world_turn_horizon": 80371,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 190,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Ration of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 8
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "18 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 36
+        }
+      ],
+      "total_weight": 161,
+      "remaining_weight": 978
+    }
+  },
+  {
+    "seed": 512,
+    "race": "Human",
+    "existing_arrows": 0,
+    "selected_arrows": 111,
+    "existing_dead": false,
+    "selected_dead": false,
+    "matched_world_turn_horizon": 100002,
+    "existing_at_horizon": 0,
+    "selected_at_horizon": 111,
+    "selected_first_descent_inventory": {
+      "pack": [
+        {
+          "label": "a",
+          "description": "a Book of Nature Magics [Lesser Charms]",
+          "slot": "",
+          "attr": 11,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "2 Rations of Food",
+          "slot": "",
+          "attr": 15,
+          "weight": 16
+        },
+        {
+          "label": "c",
+          "description": "a Scroll of Word of Recall",
+          "slot": "",
+          "attr": 1,
+          "weight": 5
+        }
+      ],
+      "equipment": [
+        {
+          "label": "a",
+          "description": "a Main Gauche (1d5) (+0,+0)",
+          "slot": "weapon",
+          "attr": 9,
+          "weight": 30
+        },
+        {
+          "label": "b",
+          "description": "a Short Bow (x2) (+0,+0)",
+          "slot": "shooting",
+          "attr": 15,
+          "weight": 30
+        },
+        {
+          "label": "c",
+          "description": "(nothing)",
+          "slot": "right hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "d",
+          "description": "(nothing)",
+          "slot": "left hand",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "e",
+          "description": "(nothing)",
+          "slot": "neck",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "f",
+          "description": "a Wooden Torch (5000 turns)",
+          "slot": "light",
+          "attr": 7,
+          "weight": 22
+        },
+        {
+          "label": "g",
+          "description": "(nothing)",
+          "slot": "body",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "i",
+          "description": "(nothing)",
+          "slot": "back",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "m",
+          "description": "(nothing)",
+          "slot": "arm",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "n",
+          "description": "(nothing)",
+          "slot": "head",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "o",
+          "description": "(nothing)",
+          "slot": "hands",
+          "attr": 2,
+          "weight": 0
+        },
+        {
+          "label": "p",
+          "description": "(nothing)",
+          "slot": "feet",
+          "attr": 2,
+          "weight": 0
+        }
+      ],
+      "quiver": [
+        {
+          "label": "0",
+          "description": "20 Arrows (1d4) (+0,+0)",
+          "slot": "",
+          "attr": 15,
+          "weight": 40
+        }
+      ],
+      "total_weight": 173,
+      "remaining_weight": 966
+    }
+  }
+]

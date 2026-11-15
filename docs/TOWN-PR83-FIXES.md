@@ -42,7 +42,7 @@ unbounded free ammunition storage.
 
 ## Records and limits
 
-New records use **schema 9**. `packing=[block,used]`, `quiver_classes=[class,room]`
+The initial correction candidate used **schema 9**; the current owner-requested Ranger calibration appends schema 10 (see below). `packing=[block,used]`, `quiver_classes=[class,room]`
 and `available=[shop,slot,quantity]` freeze native capacity and rejected-offer facts
 for engine-free replay. Kit flags add bit 3 for a whole-stack Home join. The
 new disposition/order logic is revision-gated; schemas 4–8 retain their old model.
@@ -59,3 +59,25 @@ pretend those new consumers exist or close them.
 See [validation](validation/2026-11-15-town-pr83-fixes/README.md) for the final
 source/build identities, checks, native receipts and bounded gameplay results.
 These checks cannot establish a fresh zoo survival benefit.
+
+## Owner-requested Ranger calibration and Necromancer torch guard
+
+The quiver correction alone did not establish adequate missile priority.
+Rangers now also value a trip-relative usable-shot reserve; only compatible,
+non-cursed missiles supply it. Oil/devices retain damage utility without
+substituting for that reserve. The calibrated defaults are weight 250 and
+50 planned actions per shot, exposed as `borg_town_w_ranger_missiles` and
+`borg_town_ranger_missile_turns`; weight 0 disables the added preference.
+Native unlight disables fuel value and excludes torch purchase candidates
+before gear/learning scores. Other classes retain their existing attack policy.
+
+[Complete calibration, actual shopping and validation](validation/2026-11-15-ranger-missiles/README.md)
+records seven Ranger arms on eleven starts and seven Necromancer audits.
+Selected arrows bought: 1616 versus 397 for the existing shopper; at the shared
+elapsed-turn horizon every pair meets the purchase target. One early-death
+case does not meet the surviving control's whole-run count. All seven
+Necromancers bought zero torches; all observed torch offers were excluded.
+This is calibration evidence, not survival acceptance: the selected arm
+rescues two but newly kills two relative to generic utility. Full death and
+resource observations remain visible. The initial correction validation above
+belongs to runtime e263db7; the addendum's selected defaults are runtime 5d8511c.

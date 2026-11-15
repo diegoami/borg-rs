@@ -22,7 +22,7 @@ Separate isolated post-hoc diagnostics from combined-candidate validation.
 In particular, the 200-seed light result is not a fresh zoo confirmation and
 cannot fairly be compared to uncorrected control.
 
-Also review the owner-requested Ranger missile calibration addendum. Only usable
+Also review the owner-requested [Ranger missile calibration addendum](validation/2026-11-15-ranger-missiles/README.md). Only usable
 missiles should satisfy the Ranger shot reserve; devices/oil must not suppress
 it. Check trip scaling, diminishing marginal value, carried quiver/Home supply,
 calibration settings, and unlight torch exclusion before learning/gear scoring.

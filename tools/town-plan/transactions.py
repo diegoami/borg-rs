@@ -108,6 +108,9 @@ def parse_run(path, arm, name, cls):
             if live: code,shop,slot,q,need=map(int,live.groups())
             else:
                 code,shop,slot=map(int,combined.groups());q=1
+            # Live execution can enter Home without the legacy preferred-store
+            # log. Its explicit shop overrides stale UI-navigation context.
+            if 0 <= shop < len(SHOPS): store=shop
             intent=None
             for idx in range(cursor,len(records)):
                 r=records[idx]
