@@ -42,3 +42,18 @@ recorder round trip are preserved outside Git at:
 ```
 /home/diego/projects/borg-rs/harness/out/town-main-integration-2026-11-15
 ```
+
+
+## Coverage reader correction before merge
+
+The initial local and hosted native coverage checks failed: the Python reader
+looked up the native M13 BI_AMMO_TVAL index in the stable serialized town
+namespace. That misclassified a dice field as the ammo type. The initial
+failure is retained as coverage-before-reader-fix.json; it is not a pass.
+The reader now consumes the stable AMMO_TVAL=152 constant exported by the
+projection module, with a Rust mapping assertion. No game decision function
+changes. Reprocessing the same retained native audit files passes all104
+kinds, with Ranger arrow compatibility and no compatible bolt launcher.
+The original45-case runtime parity and record/replay checks remain qualified
+by their recorded runtime source identity. Fresh builds and native checks
+validate the reader-only correction before merge.

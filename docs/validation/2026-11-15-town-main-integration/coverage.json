@@ -4,47 +4,47 @@
     {
       "class": 0,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 1,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 2,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 3,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 4,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 5,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 6,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     },
     {
       "class": 7,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": 3
     },
     {
       "class": 8,
       "level": 1,
-      "ammo_tval": 4
+      "ammo_tval": -1
     }
   ],
   "covered": [
@@ -145,6 +145,10 @@
   ],
   "contextual_exclusions": [
     [
+      "Bolt",
+      "no matching launcher in the audited contexts"
+    ],
+    [
       "Flask of Whisky",
       "confusion makes it unsafe food"
     ],
@@ -181,7 +185,5 @@
       "no matching launcher in the audited contexts"
     ]
   ],
-  "failures": [
-    "bolt Bolt: no native capability or explicit contextual exclusion"
-  ]
+  "failures": []
 }

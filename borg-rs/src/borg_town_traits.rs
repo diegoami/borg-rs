@@ -2,6 +2,10 @@
 //! stun protection and four vulnerabilities append at 265..269. The engine
 //! enum is independent: M13 inserted these fields inside its native vector.
 
+/// Stable serialized ID consumed by the native Python coverage reader.
+#[cfg_attr(not(test), expect(dead_code))]
+pub const AMMO_TVAL: usize = 152;
+
 pub fn record_index(native: usize) -> usize {
     match native {
         85 => 265,
@@ -31,6 +35,7 @@ mod tests {
             assert_eq!(engine_index(record),Some(native));
         }
         use crate::borg_headers::borg_trait_h::*;
+        assert_eq!(record_index(BI_AMMO_TVAL as usize),AMMO_TVAL);
         assert_eq!(record_index(BI_MAXDEPTH as usize),106);
         assert_eq!(record_index(BI_ACLW as usize),233);
         assert_eq!(record_index(BI_CARRY as usize),261);

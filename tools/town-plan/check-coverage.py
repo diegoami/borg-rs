@@ -28,8 +28,8 @@ def check(paths):
         context = records[0]
         plan = Path(path).with_name('plan.jsonl')
         first = json.loads(plan.open().readline())
-        trait_source = (ROOT / 'borg-rs/src/borg_headers/borg_trait_h.rs').read_text()
-        ammo_trait = int(re.search(r'pub const BI_AMMO_TVAL:[^=]+ = (\d+);', trait_source)[1])
+        trait_source = (ROOT / 'borg-rs/src/borg_town_traits.rs').read_text()
+        ammo_trait = int(re.search(r'pub const AMMO_TVAL: usize = (\d+);', trait_source)[1])
         context['ammo_tval'] = dict(first['traits']).get(ammo_trait, 0)
         contexts.append(context)
         if records[0].get('hypothetical_known_items') != 1:
