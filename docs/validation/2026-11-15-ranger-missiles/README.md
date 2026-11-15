@@ -59,6 +59,7 @@ Sweep runtime: **207795e7c0024b60a8153c39b70bb0efbd1b370b**; [exact binary/sourc
 
 - 287 Rust tests and 26 Python tests pass; clippy warnings denied on Rust 1.98.1 and 1.100.0.
 - Native nine-class ordinary-shop coverage passes (104 kinds accounted for).
+- Native partial-rune, full-pack/quiver/Home, exact-sale and rod regression fixtures pass on the final runtime inputs ([receipt](native-fixture.json)).
 - Corrected C/Rust smoke: 3/3 key/message/state matches.
 - All 39341 schema-10 sweep records replay on the final runtime; all 7953 preserved schema-9 records replay.
 - Twelve disabled-policy/generic-reserve-zero runs reproduce the previous candidate streams exactly.
