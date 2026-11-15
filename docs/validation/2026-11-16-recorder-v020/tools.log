@@ -1,0 +1,495 @@
+configure /home/diego/projects/borg-rs/build/death-workflow/24b73ecea22b3e774ec9/build
+build /home/diego/projects/borg-rs/build/death-workflow/24b73ecea22b3e774ec9/build
+Immutable session evidence: /tmp/borg-record-test-mxe6t63d/recordings/20261115T224824.303605Z-Recorded
+.......turns: level1, depth1, dead=False
+Save: /tmp/borg-record-test-mxe6t63d/save/Recorded
+Recording: /tmp/borg-record-test-mxe6t63d/recordings/20261115T224824.303605Z-Recorded
+Replay: /tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-record-test-mxe6t63d/recordings/20261115T224824.303605Z-Recorded
+Restored recording: /tmp/cemetery-real-roundtrip-kvh9tbo2/restored
+Preserved current save: /tmp/borg-save-test-f75bnt6b/backups/Hero/before-restore-20261115T224828.647149Z.save
+Restored backup slot 3: /tmp/borg-save-test-f75bnt6b/Hero
+....Recording 1/3: seed=4294967295, random race/class, character=Random-97cf0df9-0001-4294967295
+Recording 2/3: seed=0, random race/class, character=Random-97cf0df9-0002-0
+Recording 3/3: seed=1, random race/class, character=Random-97cf0df9-0003-1
+.Recording 1/3: seed=2528858738, random race/class, character=Random-f12140a1-0001-2528858738
+synthetic failure
+Batch stopped; existing recording evidence is retained.
+...Published 20260101-Test-9ff04be4d440.zip to cemetery at 570a6537f0e6319c3716df729760b965fc2fc443
+Restored recording: /tmp/cemetery-publish-j9htgl8s/restored
+Published 20260101-Test-9ff04be4d440.zip to cemetery at 570a6537f0e6319c3716df729760b965fc2fc443
+..Published 20260101-Test-2f2cf5cdac6e.zip to cemetery at 89c13a9456f922659727142e85a3e0dc8ecf03bf
+............Published 20260101-Test-7f507aa6efdc.zip to cemetery at e35010006023eb0915f2a699297ff86d3628018b
+.Published 20260101-Test-cab445106afd.zip to cemetery at 1172afc9a102b01ada37514c4d8f712ea3109db1
+...s.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 3; Human Warrior; cap 100 engine ticks
+Outcome: Alive at engine tick limit
+Report: /tmp/borg-collect-control-cdl1fn3v/collection/game-001-seed-3/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-cdl1fn3v/collection/game-001-seed-3/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-cdl1fn3v/collection/game-001-seed-3/recordings/run --from-turn latest
+
+
+Game 2/3
+Seed 4; Human Warrior; cap 100 engine ticks
+Natural death: /tmp/borg-collect-control-cdl1fn3v/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/borg-collect-control-cdl1fn3v/collection/game-002-seed-4/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-cdl1fn3v/collection/game-002-seed-4/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-cdl1fn3v/collection/game-002-seed-4/recordings/run --from-turn latest
+
+
+Game 3/3
+Seed 5; Human Warrior; cap 100 engine ticks
+Natural death: /tmp/borg-collect-control-cdl1fn3v/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/borg-collect-control-cdl1fn3v/collection/game-003-seed-5/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-cdl1fn3v/collection/game-003-seed-5/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-cdl1fn3v/collection/game-003-seed-5/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 3 Outcomes: {'turn_cap': 1, 'death': 2}
+Comparison: /tmp/borg-collect-control-cdl1fn3v/collection/reports.md
+Deaths:
+4 /tmp/borg-collect-control-cdl1fn3v/D0001
+5 /tmp/borg-collect-control-cdl1fn3v/D0001
+.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 3; Human Warrior; cap 100 engine ticks
+Outcome: Died naturally
+Report: /tmp/borg-collect-control-j_3kof5m/collection/game-001-seed-3/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-j_3kof5m/collection/game-001-seed-3/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-j_3kof5m/collection/game-001-seed-3/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 1 Outcomes: {'death': 1}
+Comparison: /tmp/borg-collect-control-j_3kof5m/collection/reports.md
+Deaths:
+3 export unavailable
+..
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 3; Human Warrior; cap 100 engine ticks
+Outcome: Alive at engine tick limit
+Report: /tmp/borg-collect-control-ur8f1ri3/collection/game-001-seed-3/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-ur8f1ri3/collection/game-001-seed-3/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-ur8f1ri3/collection/game-001-seed-3/recordings/run --from-turn latest
+
+
+Game 2/3
+Seed 4; Human Warrior; cap 100 engine ticks
+Outcome: Alive at Borg event limit
+Report: /tmp/borg-collect-control-ur8f1ri3/collection/game-002-seed-4/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-ur8f1ri3/collection/game-002-seed-4/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-ur8f1ri3/collection/game-002-seed-4/recordings/run --from-turn latest
+
+
+Game 3/3
+Seed 5; Human Warrior; cap 100 engine ticks
+Outcome: Alive at engine tick limit
+Report: /tmp/borg-collect-control-ur8f1ri3/collection/game-003-seed-5/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-ur8f1ri3/collection/game-003-seed-5/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-ur8f1ri3/collection/game-003-seed-5/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 3 Outcomes: {'turn_cap': 2, 'key_cap': 1}
+Comparison: /tmp/borg-collect-control-ur8f1ri3/collection/reports.md
+Deaths:
+.....
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 3; Human Warrior; cap 100 engine ticks
+Outcome: stall
+Report: /tmp/borg-collect-control-050uamsl/collection/game-001-seed-3/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/borg-collect-control-050uamsl/collection/game-001-seed-3/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/borg-collect-control-050uamsl/collection/game-001-seed-3/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 1 Outcomes: {'stall': 1}
+Comparison: /tmp/borg-collect-control-050uamsl/collection/reports.md
+Deaths:
+...No unreviewed encounter with an available full recording.
+Use --list for legacy/missing/reviewed cases; ./produce_death.py collects new recorded games.
+Replay D0001: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0001
+Closing the viewer does not mark a review complete.
+...Replay D0002: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0002
+Closing the viewer does not mark a review complete.
+.Replay D0001: a synthetic foe at turn 77.
+When finished reviewing: ./replay_next_death.py --mark-reviewed D0001
+Closing the viewer does not mark a review complete.
+.....ssssssssssssssss......sss...........ssssss.....
+Build
+Requested source: pin
+No compatible frozen Rust toolkit build is available.
+.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 100; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmpyhvil5yg/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmpyhvil5yg/collection/game-001-seed-100/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpyhvil5yg/collection/game-001-seed-100/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpyhvil5yg/collection/game-001-seed-100/recordings/run --from-turn latest
+
+
+Game 2/3
+Seed 101; native random race/class; cap 100 engine ticks
+Outcome: exit_failure
+Report: /tmp/tmpyhvil5yg/collection/game-002-seed-101/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpyhvil5yg/collection/game-002-seed-101/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpyhvil5yg/collection/game-002-seed-101/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 2 Outcomes: {'death': 1, 'exit_failure': 1}
+Comparison: /tmp/tmpyhvil5yg/collection/reports.md
+Deaths:
+100 /tmp/tmpyhvil5yg/D0001
+.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/3
+Seed 100; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmphc7b4291/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmphc7b4291/collection/game-001-seed-100/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmphc7b4291/collection/game-001-seed-100/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmphc7b4291/collection/game-001-seed-100/recordings/run --from-turn latest
+
+
+Game 2/3
+Seed 101; native random race/class; cap 100 engine ticks
+Outcome: Died naturally
+Report: /tmp/tmphc7b4291/collection/game-002-seed-101/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmphc7b4291/collection/game-002-seed-101/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmphc7b4291/collection/game-002-seed-101/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 2 Outcomes: {'death': 2}
+Comparison: /tmp/tmphc7b4291/collection/reports.md
+Deaths:
+100 /tmp/tmphc7b4291/D0001
+101 export unavailable
+.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/4
+Seed 100; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmpnm0m5sw9/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmpnm0m5sw9/collection/game-001-seed-100/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpnm0m5sw9/collection/game-001-seed-100/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpnm0m5sw9/collection/game-001-seed-100/recordings/run --from-turn latest
+
+
+Game 2/4
+Seed 101; native random race/class; cap 100 engine ticks
+Outcome: Alive at engine tick limit
+Report: /tmp/tmpnm0m5sw9/collection/game-002-seed-101/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpnm0m5sw9/collection/game-002-seed-101/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpnm0m5sw9/collection/game-002-seed-101/recordings/run --from-turn latest
+
+
+Game 3/4
+Seed 102; native random race/class; cap 100 engine ticks
+Outcome: Alive at finalized wall limit
+Report: /tmp/tmpnm0m5sw9/collection/game-003-seed-102/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpnm0m5sw9/collection/game-003-seed-102/recordings/run --view-only
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpnm0m5sw9/collection/game-003-seed-102/recordings/run --from-turn latest
+
+
+Game 4/4
+Seed 103; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmpnm0m5sw9/D0002
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmpnm0m5sw9/collection/game-004-seed-103/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmpnm0m5sw9/collection/game-004-seed-103/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmpnm0m5sw9/collection/game-004-seed-103/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 4 Outcomes: {'death': 2, 'turn_cap': 1, 'wall_timeout': 1}
+Comparison: /tmp/tmpnm0m5sw9/collection/reports.md
+Deaths:
+100 /tmp/tmpnm0m5sw9/D0001
+103 /tmp/tmpnm0m5sw9/D0002
+..Report: /tmp/tmph6c2t5uo/attempt/reports/failure-1794782912930133411.md Watch/manual unavailable: no captured movie.
+.
+Build preparation
+Preparing the pinned Rust recording runtime...
+
+Game 1/10
+Seed 100; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0001
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-001-seed-100/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-001-seed-100/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-001-seed-100/recordings/run --from-turn latest
+
+
+Game 2/10
+Seed 101; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0002
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-002-seed-101/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-002-seed-101/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-002-seed-101/recordings/run --from-turn latest
+
+
+Game 3/10
+Seed 102; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0003
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-003-seed-102/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-003-seed-102/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-003-seed-102/recordings/run --from-turn latest
+
+
+Game 4/10
+Seed 103; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0004
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-004-seed-103/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-004-seed-103/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-004-seed-103/recordings/run --from-turn latest
+
+
+Game 5/10
+Seed 104; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0005
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-005-seed-104/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-005-seed-104/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-005-seed-104/recordings/run --from-turn latest
+
+
+Game 6/10
+Seed 105; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0006
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-006-seed-105/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-006-seed-105/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-006-seed-105/recordings/run --from-turn latest
+
+
+Game 7/10
+Seed 106; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0007
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-007-seed-106/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-007-seed-106/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-007-seed-106/recordings/run --from-turn latest
+
+
+Game 8/10
+Seed 107; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0008
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-008-seed-107/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-008-seed-107/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-008-seed-107/recordings/run --from-turn latest
+
+
+Game 9/10
+Seed 108; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0009
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-009-seed-108/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-009-seed-108/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-009-seed-108/recordings/run --from-turn latest
+
+
+Game 10/10
+Seed 109; native random race/class; cap 100 engine ticks
+Natural death: /tmp/tmp2etrjm52/D0010
+Next: ./replay_next_death.py; viewing alone does not mark owner review complete.
+Outcome: Died naturally
+Report: /tmp/tmp2etrjm52/collection/game-010-seed-109/reports/summary.md
+Watch:
+
+/tmp/borg-rs-recorder-v020/replay-borg.py /tmp/tmp2etrjm52/collection/game-010-seed-109/recordings/run
+
+Manual:
+
+/tmp/borg-rs-recorder-v020/play-from-replay.py /tmp/tmp2etrjm52/collection/game-010-seed-109/recordings/run --from-turn latest
+
+
+Batch results
+Actual attempts: 10 Outcomes: {'death': 10}
+Comparison: /tmp/tmp2etrjm52/collection/reports.md
+Deaths:
+100 /tmp/tmp2etrjm52/D0001
+101 /tmp/tmp2etrjm52/D0002
+102 /tmp/tmp2etrjm52/D0003
+103 /tmp/tmp2etrjm52/D0004
+104 /tmp/tmp2etrjm52/D0005
+105 /tmp/tmp2etrjm52/D0006
+106 /tmp/tmp2etrjm52/D0007
+107 /tmp/tmp2etrjm52/D0008
+108 /tmp/tmp2etrjm52/D0009
+109 /tmp/tmp2etrjm52/D0010
+............
+----------------------------------------------------------------------
+Ran 119 tests in 47.797s
+
+OK (skipped=26)

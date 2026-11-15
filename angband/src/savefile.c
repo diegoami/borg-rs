@@ -1,5 +1,6 @@
 #ifdef BORG_RECORDING
 #include "native-replay.h"
+#include <sys/stat.h>
 #endif
 /**
  * \file savefile.c
@@ -427,7 +428,14 @@ bool savefile_save(const char *path)
 
 		safe_setuid_grab();
 
+#ifdef BORG_RECORDING
+		/* This session's save target is live output state. A replay can
+		 * recreate it even when the original session loaded an existing save. */
+		struct stat save_st;
+		if (stat(path, &save_st) == 0 && !file_move(path, old_savefile)) {
+#else
 		if (file_exists(path) && !file_move(path, old_savefile)) {
+#endif
 			ok = false;
 		} else if (!file_move(new_savefile, path)) {
 			ok = false;

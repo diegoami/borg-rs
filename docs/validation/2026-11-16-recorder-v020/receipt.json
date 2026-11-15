@@ -1,0 +1,48 @@
+{
+  "issue": "https://github.com/diegoami/borg-rs/issues/89",
+  "base_commit": "7251f64a9c3bf75fb8b90940d3fda54c4fa610bb",
+  "release": "v0.2.0",
+  "upstream_commit": "ee8b133ad22f66e7dad6e1b63a2d3e40b9a41ebd",
+  "vendored_files": 41,
+  "native_schema": "angband-recorder-streams@2",
+  "binary_sha256": "103eb00088288c5e2406648c9b3451f0603fb2114a1007f8edec288292ad35bb",
+  "consumer_tests": {
+    "passed": 295,
+    "ignored": 4,
+    "failed": 0
+  },
+  "tool_tests": {
+    "run": 119,
+    "skipped": 26,
+    "failed": 0
+  },
+  "vendor_tests_passed_by_target": [
+    0,
+    2,
+    16,
+    0
+  ],
+  "lint": {
+    "consumer_recording_feature_clippy": "passed, warnings denied",
+    "vendor_ffi_all_targets_clippy": "passed, warnings denied",
+    "vendor_fmt_check": "passed",
+    "consumer_diff_check": "passed excluding byte-sealed upstream patch context"
+  },
+  "native_cases": [
+    "fresh birth: matching final save and six forked checkpoints",
+    "loaded save: missing live replay save target, matching final save and six forked checkpoints, recorded panic-recovery newer event",
+    "save menu: recorded directory_open/read with empty live replay save directory"
+  ],
+  "recorder_off": "Three 20000-turn Human Warrior/Mage/Priest starts match clean base keys, messages and per-key states exactly.",
+  "negative_control": "Restoring the old save gate is rejected by loaded replay.",
+  "limits": [
+    "Headless native and stock test frontend checks; no new human GUI qualification.",
+    "Old schema-v1 recordings retain their original frozen runtime/reader; this adoption writes schema v2.",
+    "No upstream tag or vendored byte was changed. No acceptance tag or milestone is created."
+  ],
+  "raw_evidence": [
+    "/tmp/borg-recorder-v020-verified-check",
+    "/tmp/borg-recorder-v020-off-check",
+    "/tmp/borg-recorder-v020-save-fault"
+  ]
+}

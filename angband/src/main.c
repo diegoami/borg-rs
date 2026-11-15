@@ -351,6 +351,9 @@ static void list_saves(void)
  */
 int main(int argc, char *argv[])
 {
+#ifdef BORG_RECORDING
+	record_early_init();
+#endif
 	int i;
 	bool new_game = false, select_game = false;
 	bool done = false;

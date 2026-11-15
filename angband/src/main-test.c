@@ -288,7 +288,7 @@ static void term_data_link(int i) {
 #endif
 
 #ifdef BORG_RECORDING
-    if (getenv("BORG_REPLAY_DIR")) {
+    if (ar_replaying()) {
         t->soft_cursor = getenv("BORG_REPLAY_SOFT_CURSOR") && atoi(getenv("BORG_REPLAY_SOFT_CURSOR"));
         t->complex_input = getenv("BORG_REPLAY_COMPLEX_INPUT") && atoi(getenv("BORG_REPLAY_COMPLEX_INPUT"));
     }
@@ -326,9 +326,6 @@ errr init_test(int argc, char *argv[]) {
 	 * Reset savefile set by main.c:  don't want it to interfere with the
 	 * test.
 	 */
-#ifdef BORG_RECORDING
-	if (!getenv("BORG_REPLAY_DIR"))
-#endif
 	savefile[0] = '\0';
 
 	term_data_link(0);
