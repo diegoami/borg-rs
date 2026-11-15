@@ -1,6 +1,7 @@
 //! Execute the town plan through the existing store UI, refreshing after
 //! every transaction. Default-off: the historical chooser remains control.
 use crate::borg_headers::borg_h::{BORG_TOWN_NO_STORES, BORG_TOWN_PLAN};
+use crate::borg_store::BORG_HOME;
 use crate::borg_headers::borg_trait_h::BI_CDEPTH;
 use crate::borg_io::{borg_keypress, borg_keypresses, borg_note, KC_ENTER};
 use crate::borg_town_record::action;
@@ -52,6 +53,16 @@ pub struct LiveState {
     rejected_sales: Vec<SaleStamp>,
     pending_buy: Option<BuyAttempt>,
     rejected_buys: Vec<BuyAttempt>,
+    /// Home transactions executed this visit: (item kind, true = stored,
+    /// false = taken out). The planner re-solves after every action and one
+    /// unit can look better on each side in turn; the reverse of an executed
+    /// Home move is not offered again within the visit (borg-rs#90).
+    home_moves: Vec<(u32, bool)>,
+}
+
+/// Whether this visit already moved `kind` into (`stored`) or out of the Home.
+pub fn home_moved(st: &BorgState, kind: u32, stored: bool) -> bool {
+    st.think.town_live.home_moves.iter().any(|&(k, s)| k == kind && s == stored)
 }
 
 /// The native store may reject an otherwise plausible offer (for example,
@@ -162,6 +173,11 @@ pub fn execute_store(st: &mut BorgState) -> bool {
         st.think.town_live.pending_buy = Some(attempt);
     }
     borg_note(st, &format!("# Town plan executing action {} at shop {} slot {}", a.code, st.think.shop_num, a.at[1]));
+    let moved = match a.code {
+        action::STORE => st.items.items.get(a.at[1] as usize).map(|i| (i.kind, true)),
+        action::TAKE_HOME => st.store.shops[BORG_HOME].ware.get(a.at[1] as usize).map(|i| (i.kind, false)),
+        _ => None,
+    };
     let executed = match a.code {
         action::BUY | action::TAKE_HOME => crate::borg_store_buy::borg_think_shop_buy(st),
         action::SELL_HOME => crate::borg_store_buy::take_selected_for_sale(st),
@@ -173,7 +189,10 @@ pub fn execute_store(st: &mut BorgState) -> bool {
         }
         _ => false,
     };
-    if executed { st.think.town_action = None; }
+    if executed {
+        if let Some(m) = moved { st.think.town_live.home_moves.push(m); }
+        st.think.town_action = None;
+    }
     else { st.think.town_live.pending_buy = None; }
     executed
 }
@@ -257,6 +276,17 @@ mod tests {
         assert_eq!(goal(a(action::LEAVE, -1, -1)), None);
         assert_eq!(goal(a(action::BUY, 99, 2)), None);
         assert_eq!(goal(a(action::SELL, 1, -1)), None);
+    }
+    #[test]
+    fn home_moves_are_remembered_per_direction() {
+        let mut st = state();
+        st.think.town_live.home_moves.push((42, true));
+        assert!(home_moved(&st, 42, true));
+        assert!(!home_moved(&st, 42, false), "only the executed direction is recorded");
+        assert!(!home_moved(&st, 43, true));
+        // A new visit rebuilds LiveState (settle_sale), dropping the moves.
+        st.think.town_live = LiveState::default();
+        assert!(!home_moved(&st, 42, true));
     }
     #[test]
     fn rejected_buys_are_scoped_to_the_offer_and_carrying_context() {
