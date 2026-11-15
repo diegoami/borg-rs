@@ -29,7 +29,7 @@ receipts, matching wallet deductions, and a matched planner record. Unconfirmed
 commands: zero. Native receipts determine purchased quantities; resulting pack
 stack counts are not reused as purchase counts.
 
-The repair buys **80 oil flasks**, compared with zero in the baseline, and the
+The repair buys **70 oil flasks**, compared with zero in the baseline, and the
 native logs contain **30 oil-hit messages**. The Warrior buys 22 iron shots and
 four flasks; the Ranger buys 18 arrows and a usable Nature book. The ledgers also
 show spending on learning and support supplies, allowing their costs to be
