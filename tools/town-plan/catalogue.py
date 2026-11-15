@@ -2,7 +2,7 @@
 """Build the owner-review catalogue from this checkout's game data.
 
 Run from anywhere: python3 tools/town-plan/catalogue.py
-The classification documents the v7 capability utility producer; it is not a
+The classification documents the v9 capability utility producer; it is not a
 runtime reduction table. Black Market rows are allocation candidates, not a
 promise that store_create_random/black_market_ok will accept a particular item.
 """
@@ -120,20 +120,21 @@ def role(obj):
         if head in ('TIMED_INC','TIMED_INC_NO_RES','TIMED_SET'):
             if sub in ('FAST','SPRINT'): roles.add('Speed')
             elif sub.startswith('OPP_'): roles.add('Temporary resistance')
+            elif sub == 'ATT_CONF': continue  # No enabled melee-preparation consumer (#80).
             elif sub in ('BOLD','HERO','SHERO','BLESSED','SHIELD','STONESKIN','PROTEVIL','INVULN') or sub.startswith('ATT_'): roles.add('Combat buff')
             elif sub in ('SINVIS','TELEPATHY'): roles.add('Detection')
         elif sub.startswith('AWAY_'):
             roles.add('Teleport Other')
         elif sub == 'KILL_WALL': roles.add('Digging')
-        elif sub in ('MON_HEAL','MON_SPEED','MON_CLONE','MON_POLY'):
+        elif sub in ('MON_HEAL','MON_SPEED','MON_CLONE','MON_POLY','DARK_WEAK','MAKE_TRAP','MAKE_DOOR'):
             continue
         elif head.startswith('DETECT_') or head.startswith('SENSE_') or head in ('PROBE','READ_MINDS'): roles.add('Detection')
-        elif head in ('LINE','BOLT','BOLT_OR_BEAM','BEAM','BALL','BREATH','ARC','SHORT_BEAM','SWARM','STRIKE','STAR','STAR_BALL','SPOT','SPHERE','PROJECT_LOS','PROJECT_LOS_AWARE','BOLT_AWARE','WONDER'): roles.add('Ranged damage')
+        elif head in ('LINE','BOLT','BOLT_OR_BEAM','BEAM','BALL','BREATH','ARC','SHORT_BEAM','SWARM','STRIKE','STAR','STAR_BALL','SPOT','SPHERE','PROJECT_LOS','PROJECT_LOS_AWARE','BOLT_AWARE'): roles.add('Ranged damage')
         elif head == 'BOLT_STATUS_DAM' and sub == 'MON_DRAIN': roles.add('Ranged damage')
         elif head in ('BOLT_STATUS','BOLT_STATUS_DAM','TOUCH','TOUCH_AWARE','MON_TIMED_INC'): roles.add('Combat control')
         elif head in mapping: roles.add(mapping[head])
     if roles:
-        return ' + '.join(sorted(roles)), 'native effect amounts; devices use charges/cooldown', 'All mapped effects contribute. Repairs require a relevant deficit; mana requires a caster. Substitutes share coverage. Known carried stock, devices and usable information spells reduce replenishment value.'
+        return ' + '.join(sorted(roles)), 'native effect amounts; devices use charges/cooldown', 'Compatible effects contribute; RANDOM/SELECT alternatives use conservative shared coverage. Repairs require a relevant deficit; mana requires a caster. Substitutes share coverage. Known carried stock, devices and usable information spells reduce replenishment value.'
     return 'Excluded', 'no positive known-use utility', 'No mapped usable service: harmful/monster-aiding effects, unsupported consumers (Infravision/Disable Traps), or route-changing services outside this supply policy. Unknown first-copy learning remains separate.'
 
 
@@ -154,11 +155,11 @@ page = '''<!doctype html>
 :root{font:16px/1.5 system-ui,sans-serif;color:#192a32;background:#f5f4ee}body{max-width:1500px;margin:40px auto;padding:0 24px}h1{font-size:2.2rem;line-height:1.15}p{max-width:100ch}aside{padding:16px 22px;background:#e6ede8;border-left:4px solid #3c6e54}label{display:inline-block;margin:18px 18px 12px 0}input,select{font:inherit;padding:8px;border:1px solid #87958e;border-radius:4px}input{width:min(60vw,380px)}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #d9ded7}th{position:sticky;top:0;background:#244936;color:white}td:first-child{font-weight:600;min-width:140px}.gap{background:#fff4df}small{color:#53665d}summary{cursor:pointer}a{color:#256348}@media print{label{display:none}th{position:static}body{margin:0}tr{break-inside:avoid}}
 </style>
 <h1>Town inventory: item catalogue</h1>
-<p>Owner review · experimental live mode · <strong>v7 capability utility</strong></p>
+<p>Owner review · experimental live mode · <strong>v9 capability utility</strong></p>
 <aside>The fixed food, healing, escape and Recall stock targets are replaced. Each row identifies the supply unit; purchases compare marginal trip utility with carrying burden and retaining gold. The Home can retain supplies for future trips.</aside>
-<p>Destination is explicit <code>borg_town_target_depth</code>, or max depth + 1. Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
+<p>Destination is explicit <code>borg_town_target_depth</code>, or the shared trip forecast (max depth + configured gain when trip policy is off). Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
 <p>Weights remain configurable priorities. Food/lifetime/exposure rates are estimates, not measured survival probabilities. See <a href="TOWN-UTILITY.md">the model specification</a> and <a href="TOWN-ITEM-CATALOGUE.md">the GitHub-rendered table</a>. Live execution remains opt-in; the frozen milestone-12 zoo candidate is unchanged.</p>
-<p>Scope: named ordinary stock, town books, and possible Black Market allocations. Random generation filters determine actual availability. Excluded rows state deliberate policy limits; the Home's urgent-source gap remains open.</p>
+<p>Scope: named ordinary stock, town books, and possible Black Market allocations. Random generation filters determine actual availability. Excluded rows state deliberate policy limits; known Home supplies participate in urgent planning.</p>
 <label>Find <input id="query" type="search" placeholder="Item, shop, unit or gap…"></label>
 <label>Need <select id="need"><option value="">All needs</option></select></label>
 <label>Stock <select id="stock"><option value="">All candidates</option><option value="ordinary">Named ordinary shop stock</option><option value="black">Black Market only</option></select></label>

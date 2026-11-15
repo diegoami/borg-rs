@@ -199,7 +199,7 @@ pub fn borg_think_dungeon_light(st: &mut BorgState) -> bool {
     }
 
     let light = &st.items.items[inven_light()];
-    let dying = light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);
+    let dying = light.iqty != 0 && light.timeout <= 3 && !engine::flag_has(&light.flags, OF_NO_FUEL as i32);
     if !((st.borg.tr(BI_LIGHT) == 0 || dying) && st.borg.tr(BI_CDEPTH) >= 1) {
         /* Nothing to do */
         return false;

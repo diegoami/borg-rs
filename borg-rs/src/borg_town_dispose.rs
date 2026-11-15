@@ -58,6 +58,8 @@ pub enum Disposition {
 /// The facts of one stack the dispositions read.
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub struct KitItem {
+    /// Schema 9: the whole withdrawal can join existing carried stock.
+    pub joins_pack: bool,
     pub place: Place,
     /// The slot in the pack, or in the Home's stock.
     pub slot: u8,
@@ -273,6 +275,7 @@ mod tests {
 
     fn item(place: Place, slot: u8, need: i8, qty: i32) -> KitItem {
         KitItem {
+            joins_pack: false,
             place,
             slot,
             kind: u32::from(slot) + 100,

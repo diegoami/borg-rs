@@ -63,7 +63,7 @@ def main():
             lines = (run / 'plan.jsonl').read_text().splitlines()
             rows = [json.loads(x) for x in lines]
             for r in rows:
-                assert r['v'] in (5, 6, 7, 8) and len(r['params']) == 24
+                assert r['v'] in (5, 6, 7, 8, 9) and len(r['params']) == 24
                 assert all(r.get('configured_params', r['params'])[i] == summary['effective_settings'][key] for i, key in enumerate(parameter_names))
                 assert all(len(k) == 12 for k in r['kit'])
                 gold = r['limits'][0] + sum(k[8] for k, d in zip(r['kit'], r['dispose']) if d == 2)

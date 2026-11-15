@@ -779,6 +779,36 @@ int inven_carry_num(const struct player *p, const struct object *obj)
 	return obj->number - MAX(num_left, 0);
 }
 
+/* FORK: exact compatible room in existing quiver stacks. The planner
+ * separately accounts for the aggregate pack slots reserved by missiles. */
+int inven_quiver_stack_room(const struct player *p, const struct object *obj)
+{
+    int i, room = 0;
+    if (!tval_is_ammo(obj)) return 0;
+    for (i = 0; i < z_info->quiver_size; ++i) {
+        const struct object *held = p->upkeep->quiver[i];
+        if (held && object_stackable(held, obj, OSTACK_PACK))
+            room += MAX(z_info->quiver_slot_size - held->number, 0);
+    }
+    return room;
+}
+
+/* FORK: read-only Borg affordance query. Restrict quiver expansion to
+ * already reserved pack room, then count existing pack-stack absorption.
+ * This does not carry, split, identify or otherwise change an object. */
+int inven_merge_num(const struct player *p, const struct object *obj)
+{
+    int remaining = obj->number, free_pack = 0, quiver = 0, i;
+    quiver_absorb_num(p, obj, &free_pack, &quiver);
+    remaining -= quiver;
+    for (i = 0; i < z_info->pack_size && remaining > 0; ++i) {
+        const struct object *held = p->upkeep->inven[i];
+        if (held && object_stackable(held, obj, OSTACK_PACK))
+            remaining -= held->kind->base->max_stack - held->number;
+    }
+    return obj->number - MAX(remaining, 0);
+}
+
 /**
  * Check if we have space for some of an item in the pack.
  */

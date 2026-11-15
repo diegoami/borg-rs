@@ -55,6 +55,8 @@ def check(paths):
             exclusions.append([row['kind'], 'class/level/mana access unavailable in these contexts'])
         elif row['kind'] == 'Whisky' or row['kind'] == 'Flask of Whisky':
             exclusions.append([row['kind'], 'confusion makes it unsafe food'])
+        elif row['kind'] == 'Monster Confusion':
+            exclusions.append([row['kind'], 'no enabled tactical consumer (#80); first-copy learning remains separate'])
         elif row['kind'] == 'Purging':
             exclusions.append([row['kind'], 'restoration requires a drained stat; purging is not nourishment'])
         elif row['type'] in ('arrow', 'bolt', 'shot') and not any(c['ammo_tval'] == key[0] for c in contexts):

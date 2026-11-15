@@ -1,0 +1,78 @@
+{
+  "build/4.2.6-rs-kit-trip-m12-dd3eeac": {
+    "binary_sha256": "aad647601182e14de7e75c575e9ecd7aa9afb989945156c777478dd70d6aa646",
+    "build_id": {
+      "binary": "/home/runner/work/borg-zoo/borg-zoo/source/build/rust/game/angband",
+      "binary_sha256": "aad647601182e14de7e75c575e9ecd7aa9afb989945156c777478dd70d6aa646",
+      "built_utc": "2026-11-15T02:27:50Z",
+      "cc": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+      "git_dirty": "no",
+      "git_rev": "dd3eeac646e097bcdd7c289c092e91400896a713",
+      "impl": "rust",
+      "inputs_dirty": "no",
+      "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+      "source_sha256": "345e824cc9aded36589e4ce274f82f1467cd514492f5bfa9a8914ebab5ac86c1"
+    },
+    "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0",
+    "complete": true,
+    "impl": "rust",
+    "kind": "borg-rs",
+    "platform": "Linux x86_64",
+    "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+    "source_commit": "dd3eeac646e097bcdd7c289c092e91400896a713"
+  },
+  "rebuilt-baseline": {
+    "source_commit": "dd3eeac646e097bcdd7c289c092e91400896a713",
+    "binary_sha256": "621bbeea9e20d9ec68d696f425c61a0f25be2fb799b93373260a52c237e51a4d",
+    "build_id": {
+      "impl": "rust",
+      "git_rev": "dd3eeac646e097bcdd7c289c092e91400896a713",
+      "git_dirty": "no",
+      "inputs_dirty": "no",
+      "source_sha256": "345e824cc9aded36589e4ce274f82f1467cd514492f5bfa9a8914ebab5ac86c1",
+      "binary": "/tmp/borg-necro-light-counterfactual/build/rust/game/angband",
+      "binary_sha256": "621bbeea9e20d9ec68d696f425c61a0f25be2fb799b93373260a52c237e51a4d",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "built_utc": "2026-11-15T09:04:27Z"
+    },
+    "impl": "rust"
+  },
+  "empty-light-probe-build": {
+    "source_commit": "bcbd0df260e0d69f4ebb5f84a3fc8ba48948164f",
+    "source_parent": "dd3eeac646e097bcdd7c289c092e91400896a713",
+    "binary_sha256": "e76974d357234a91ff4a2b4390b43a9e237b03d3c4a2f89adc3d6ff9c1ba60a3",
+    "build_id": {
+      "impl": "rust",
+      "git_rev": "bcbd0df260e0d69f4ebb5f84a3fc8ba48948164f",
+      "git_dirty": "no",
+      "inputs_dirty": "no",
+      "source_sha256": "749b85291116d136596bdf9743efaa2fb1fbbb2ce45973cb802429a97568507b",
+      "binary": "/tmp/borg-necro-light-counterfactual/build/rust/game/angband",
+      "binary_sha256": "e76974d357234a91ff4a2b4390b43a9e237b03d3c4a2f89adc3d6ff9c1ba60a3",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "built_utc": "2026-11-15T09:09:08Z"
+    },
+    "impl": "rust",
+    "diagnostic_only": true
+  },
+  "quiver-probe-build": {
+    "source_commit": "a1676fb2fe14e561d82ef4eb9bf495c6a1af2d22",
+    "binary_sha256": "3fca77b19147b0377f5b04560432388379198c792f82707df339b8f35738ec41",
+    "source_parent": "dd3eeac646e097bcdd7c289c092e91400896a713",
+    "build_id": {
+      "impl": "rust",
+      "git_rev": "a1676fb2fe14e561d82ef4eb9bf495c6a1af2d22",
+      "git_dirty": "no",
+      "inputs_dirty": "no",
+      "source_sha256": "a97edd424041ff8a210c69430892e3bb168e319641752c317996da463d7d46a5",
+      "binary": "/tmp/borg-necro-light-counterfactual/build/rust/game/angband",
+      "binary_sha256": "3fca77b19147b0377f5b04560432388379198c792f82707df339b8f35738ec41",
+      "cc": "cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "rustc": "rustc 1.98.1 (48a229cea 2026-09-01)",
+      "built_utc": "2026-11-15T09:20:40Z"
+    },
+    "impl": "rust"
+  }
+}

@@ -1394,6 +1394,32 @@ pub fn take_selected_for_sale(st: &mut BorgState) -> bool {
     buy_selected(st, false)
 }
 
+fn remember_purchase(st: &mut BorgState, item: &borg_item, shop: i32) {
+        let b = &mut st.buy;
+        if b.bought_item_nxt >= 9 {
+            b.bought_item_nxt = 0;
+        }
+        let i = b.bought_item_nxt as usize;
+        b.bought_item_pval[i] = i32::from(item.pval);
+        b.bought_item_tval[i] = i32::from(item.tval);
+        b.bought_item_sval[i] = i32::from(item.sval);
+        b.bought_item_store[i] = shop;
+        b.bought_item_nxt += 1;
+        if b.bought_item_num < b.bought_item_nxt {
+            b.bought_item_num = b.bought_item_nxt;
+        }
+
+}
+
+/// Live mode calls this only after observing the native transaction.
+pub fn confirm_purchase(st: &mut BorgState, item: &borg_item, shop: i32, keep: bool) {
+    note_desc(st, "# Buying ", item, ".");
+    let shop_name = String::from_utf8_lossy(&crate::engine::store_feat_name(shop as usize)).to_string();
+    crate::borg_object_log::log_buy(st, item, &shop_name, item.cost, shop == BORG_HOME as i32);
+    crate::borg_town_dump::dump_purchase(st, shop, item);
+    if keep { remember_purchase(st, item, shop); }
+}
+
 fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
     /* Buy something if requested */
     if i32::from(st.borg.goal.shop) == i32::from(st.think.shop_num) && st.borg.goal.ware >= 0 {
@@ -1411,17 +1437,7 @@ fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
             return false;
         }
 
-        /* Log */
-        note_desc(st, "# Buying ", &item, ".");
-
-        /* The session object log: what the Borg bought, with the store and
-         * the price (or, in the home, what it took back). */
-        let shop_name =
-            String::from_utf8_lossy(&crate::engine::store_feat_name(shop as usize)).to_string();
-        crate::borg_object_log::log_buy(st, &item, &shop_name, item.cost, shop == BORG_HOME as i32);
-
-        /* Town-visit dump: the purchase that was actually carried out. */
-        crate::borg_town_dump::dump_purchase(st, shop, &item);
+        if !crate::borg_town_live::active(st) { confirm_purchase(st, &item, shop, false); }
 
         /* Buy the desired item */
         borg_keypress(st, purchase_target);
@@ -1448,23 +1464,7 @@ fn buy_selected(st: &mut BorgState, keep_purchase: bool) -> bool {
             borg_note(st, &msg);
         }
 
-        if keep_purchase {
-        /* Remember what we bought to avoid buy/sell loops */
-        let b = &mut st.buy;
-        if b.bought_item_nxt >= 9 {
-            b.bought_item_nxt = 0;
-        }
-        let i = b.bought_item_nxt as usize;
-        b.bought_item_pval[i] = i32::from(item.pval);
-        b.bought_item_tval[i] = i32::from(item.tval);
-        b.bought_item_sval[i] = i32::from(item.sval);
-        b.bought_item_store[i] = i32::from(st.borg.goal.shop);
-        b.bought_item_nxt += 1;
-        if b.bought_item_num < b.bought_item_nxt {
-            b.bought_item_num = b.bought_item_nxt;
-        }
-
-        }
+        if keep_purchase && !crate::borg_town_live::active(st) { remember_purchase(st, &item, shop); }
 
         purchase_done(st);
 

@@ -38,10 +38,13 @@ pub struct Journey {
     power_scale: i64,
 }
 impl Journey {
-    pub fn of(st: &BorgState) -> Self {
+    pub fn of(st: &BorgState) -> Self { Self::for_trip(st, None) }
+
+    pub fn for_trip(st: &BorgState, forecast: Option<crate::borg_trip::PlannedTrip>) -> Self {
         let known = i64::from(st.borg.tr(BI_MAXDEPTH)).clamp(0, 100);
         let requested = i64::from(st.cfg(BORG_TOWN_TARGET_DEPTH));
-        let depth = if requested > 0 { requested } else { known + i64::from(st.cfg(BORG_TOWN_DEPTH_GAIN)).clamp(1, 100) }.clamp(1, 100);
+        let depth = if requested > 0 { requested } else { forecast.map_or_else(
+            || known + i64::from(st.cfg(BORG_TOWN_DEPTH_GAIN)).clamp(1, 100), |f| i64::from(f.depth_target)) }.clamp(1, 100);
         let advancement = (depth - known).max(1);
         let walk = 2 * i64::from(st.cfg(BORG_TOWN_STAIR_TURNS)).clamp(0, 1_000_000) * depth;
         let declared = i64::from(st.cfg(BORG_TOWN_TRIP_TURNS));
@@ -271,7 +274,11 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
         // A worthless Home stack can pay for room even under no-selling.
         // Unknown durable items and this visit's purchases stay protected.
         let spare = input.kit.iter().enumerate().find(|(j, k)| k.place == Place::Home
-            && out[*j] == Disposition::Keep && !k.unknown && !k.just_bought && k.sell_shop >= 0
+            && out[*j] == Disposition::Keep
+            && !u.capability.as_ref().is_some_and(|m| m.available.iter().any(|r| r[0] == 7 && r[1] == i64::from(k.slot) && r[2] == 0))
+            && !(input.revision >= 9 && input.urgent.iter().any(|f| {
+                let c = &input.candidates[f.candidate]; c.shop == 7 && c.slot == k.slot
+            })) && !k.unknown && !k.just_bought && k.sell_shop >= 0
             && u.power(k.power) == 0 && (if let Some(m) = &u.capability {
                 m.take(k) == 0 && m.reserve(k, -1, u.home_discount) == 0
             } else { k.unknown_flavour ||
@@ -308,6 +315,12 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
                 if home_free <= 0 {
                     if let Some(j) = spare {
                         out[j] = Disposition::Sell;
+                        if input.revision >= 9 {
+                            if let Some(m) = &mut u.capability { m.change_home(&input.kit[j], -1); }
+                            if let Ok(n) = usize::try_from(input.kit[j].need) {
+                                if let Some(v) = u.home.get_mut(n) { *v = (*v - input.kit[j].reduction * i64::from(input.kit[j].qty)).max(0); }
+                            }
+                        }
                         freed.home_slots += 1;
                         freed.gold += input.kit[j].proceeds;
                         home_free += 1;
@@ -324,6 +337,13 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
     // several Home stacks must not all satisfy the same missing need.
     for (i, it) in input.kit.iter().enumerate().filter(|(_, it)| it.place == Place::Home) {
         if out[i] != Disposition::Keep || it.unknown_flavour { continue; }
+        if input.revision >= 9 && u.capability.as_ref().is_some_and(|m|
+            m.available.iter().any(|r| r[0] == 7 && r[1] == i64::from(it.slot) && r[2] == 0)) { continue; }
+        // One urgent copy is already accounted for. Re-evaluate the remaining
+        // stack after that native withdrawal, rather than taking it twice.
+        if input.revision >= 9 && input.urgent.iter().any(|f| {
+            let c = &input.candidates[f.candidate]; c.shop == 7 && c.slot == it.slot
+        }) { continue; }
         let weight = i64::from(it.weight) * i64::from(it.qty);
         let slots = input.limits.pack_slots + freed.pack_slots;
         let need = usize::try_from(it.need).ok().and_then(|n| Need::ALL.get(n)).copied();
@@ -333,17 +353,22 @@ pub fn dispositions(input: &StepInput, u: &mut Utility, st: &BorgState) -> (Vec<
             let h = u.home[index(n)];
             u.reserve(n, h) - u.reserve(n, (h - units).max(0))
         }), |m| -m.reserve(it, -1, u.home_discount)) + u.power(it.power) * u.home_discount / UNIT;
-        let cost = burden(u.space_weight, 1, weight, slots, carry);
-        if slots > 0 && weight <= input.limits.weight + freed.weight && value - cost > future_loss {
+        let opening = i32::from(!it.joins_pack || input.revision < 9);
+        let cost = burden(u.space_weight, opening, weight, slots, carry);
+        if slots >= opening && weight <= input.limits.weight + freed.weight && value - cost > future_loss {
             out[i] = Disposition::Take;
             u.change(it, 1);
             if let Some(m) = &mut u.capability { m.change_home(it, -1); }
             if let Some(n) = need { u.home[index(n)] = (u.home[index(n)] - units).max(0); }
-            freed.pack_slots -= 1;
+            freed.pack_slots -= opening;
             freed.home_slots += 1;
             freed.weight -= weight;
         } else if value == 0 && future_loss == 0 && !it.unknown && (input.revision < 6 || !it.just_bought) && it.proceeds > 0 && it.sell_shop >= 0 {
             out[i] = Disposition::Sell;
+            if input.revision >= 9 {
+                if let Some(m) = &mut u.capability { m.change_home(it, -1); }
+                if let Some(n) = need { u.home[index(n)] = (u.home[index(n)] - units).max(0); }
+            }
             freed.home_slots += 1;
             freed.gold += it.proceeds;
         }
@@ -517,14 +542,14 @@ mod tests {
     }
 
     fn recall(place: Place) -> KitItem {
-        KitItem { place, slot: 0, kind: 42, qty: 1, weight: 5, need: index(Need::Trip) as i8,
+        KitItem { joins_pack: false, place, slot: 0, kind: 42, qty: 1, weight: 5, need: index(Need::Trip) as i8,
             reduction: UNIT, serves: 0, power: 0, proceeds: 0, sell_shop: 4, unknown: false, unknown_flavour: false, just_bought: false }
     }
 
     #[test]
     fn unknown_flavour_requires_a_buyer_and_is_never_dropped_for_learning() {
         let st = state(0, 1, 20);
-        let unknown = KitItem { need: -1, reduction: 0, unknown: true,
+        let unknown = KitItem { joins_pack: false, need: -1, reduction: 0, unknown: true,
             unknown_flavour: true, sell_shop: -1, ..recall(Place::Pack) };
         let kit = [unknown];
         let mut inp = input(&kit);
@@ -539,13 +564,13 @@ mod tests {
         inp.revision = 7;
         let mut u = Utility::of(&st, inp.kit, false);
         assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Drop]);
-        let sale = [KitItem { sell_shop: 4, ..unknown }];
+        let sale = [KitItem { joins_pack: false, sell_shop: 4, ..unknown }];
         let mut inp = input(&sale);
         inp.revision = 8;
         let mut u = Utility::of(&st, inp.kit, false);
         assert_eq!(dispositions(&inp, &mut u, &st).0, [Disposition::Sell]);
         // Stashing the item cannot be recorded as a learning sale.
-        let home = [KitItem { place: Place::Home, ..unknown }];
+        let home = [KitItem { joins_pack: false, place: Place::Home, ..unknown }];
         let mut inp = input(&home);
         inp.revision = 8;
         let mut u = Utility::of(&st, inp.kit, false);
@@ -591,7 +616,7 @@ mod tests {
         let mut st = state(0, 1, 20);
         st.borg.trait_[BI_ISCUT as usize] = 1;
         st.borg.trait_[BI_ACLW as usize] = 1;
-        let kit = [KitItem { need: index(Need::Healing) as i8, reduction: 20 * UNIT, ..recall(Place::Pack) }];
+        let kit = [KitItem { joins_pack: false, need: index(Need::Healing) as i8, reduction: 20 * UNIT, ..recall(Place::Pack) }];
         let mut u = Utility::of(&st, &kit, false);
         let mut inp = input(&kit);
         inp.limits.weight = -100;
@@ -664,7 +689,7 @@ mod tests {
         st.borg.trait_[BI_ISPOISONED as usize] = 1;
         st.borg.trait_[BI_ACCW as usize] = 1;
         st.borg.trait_[BI_ACLW as usize] = 50;
-        let kit = [KitItem { need: index(Need::Healing) as i8, reduction: 20 * UNIT,
+        let kit = [KitItem { joins_pack: false, need: index(Need::Healing) as i8, reduction: 20 * UNIT,
             serves: (1 << index(Need::Healing)) | (1 << index(Need::Poison)), ..recall(Place::Pack) }];
         let mut u = Utility::of(&st, &kit, false);
         let mut inp = input(&kit);
@@ -700,12 +725,12 @@ mod tests {
     fn unknown_flavours_do_not_count_as_known_healing_or_get_stored_by_hidden_kind() {
         let mut st = state(0, 1, 20);
         st.borg.trait_[BI_ACLW as usize] = 5;
-        let unknown = KitItem { need: -1, reduction: 0, unknown_flavour: true, ..recall(Place::Pack) };
+        let unknown = KitItem { joins_pack: false, need: -1, reduction: 0, unknown_flavour: true, ..recall(Place::Pack) };
         let kit = [unknown];
         let mut u = Utility::of(&st, &kit, false);
         assert_eq!(u.carried[index(Need::Healing)], 0);
         assert_eq!(dispositions(&input(&kit), &mut u, &st).0, [Disposition::Sell]);
-        let home = [KitItem { place: Place::Home, ..unknown }];
+        let home = [KitItem { joins_pack: false, place: Place::Home, ..unknown }];
         let mut u = Utility::of(&st, &home, false);
         assert_eq!(dispositions(&input(&home), &mut u, &st).0, [Disposition::Keep], "unaware Home stock is no known supply");
     }
@@ -714,8 +739,8 @@ mod tests {
     fn full_home_frees_worthless_stock_for_needed_storage_without_gold() {
         let mut st = state(0, 1, 20);
         st.borg.trait_[BI_FOOD as usize] = 1;
-        let junk = KitItem { place: Place::Home, need: -1, reduction: 0, ..recall(Place::Pack) };
-        let heavy = KitItem { slot: 1, need: index(Need::Food) as i8, weight: 2000, ..recall(Place::Pack) };
+        let junk = KitItem { joins_pack: false, place: Place::Home, need: -1, reduction: 0, ..recall(Place::Pack) };
+        let heavy = KitItem { joins_pack: false, slot: 1, need: index(Need::Food) as i8, weight: 2000, ..recall(Place::Pack) };
         let kit = [junk, heavy];
         let mut u = Utility::of(&st, &kit, false);
         let mut inp = input(&kit);
@@ -729,9 +754,9 @@ mod tests {
     #[test]
     fn overweight_gear_stores_the_lowest_utility_per_weight_first() {
         let st = state(0, 1, 20);
-        let a = KitItem { need: -1, reduction: 0, weight: 100, power: 200000, ..recall(Place::Pack) };
-        let b = KitItem { slot: 1, power: 40000, ..a };
-        let c = KitItem { slot: 2, weight: 10, ..b };
+        let a = KitItem { joins_pack: false, need: -1, reduction: 0, weight: 100, power: 200000, ..recall(Place::Pack) };
+        let b = KitItem { joins_pack: false, slot: 1, power: 40000, ..a };
+        let c = KitItem { joins_pack: false, slot: 2, weight: 10, ..b };
         let kit = [a, b, c];
         let mut u = Utility::of(&st, &kit, false);
         let mut inp = input(&kit);
@@ -745,4 +770,24 @@ mod tests {
         st.core.cfg[BORG_TOWN_W_GOLD as usize] = 0;
         assert_eq!(Utility::of(&st, &[], false).gold_weight, 0);
     }
+    #[test]
+    fn a_home_join_can_be_withdrawn_into_a_full_pack() {
+        let mut st=state(10,10,100);st.core.cfg[BORG_TOWN_W_SPACE as usize]=0;
+        let kit=[KitItem {joins_pack:true,just_bought:true,..recall(Place::Home)}];
+        let mut inp=input(&kit);inp.revision=9;inp.limits.pack_slots=0;
+        let mut u=Utility::of(&st,&kit,false);u.home_discount=0;
+        let (d,freed)=dispositions(&inp,&mut u,&st);assert_eq!(d,[Disposition::Take]);assert_eq!(freed.pack_slots,0);
+        let kit=[KitItem {joins_pack:false,..kit[0]}];let mut inp=input(&kit);inp.revision=9;inp.limits.pack_slots=0;
+        let mut u=Utility::of(&st,&kit,false);u.home_discount=0;
+        assert_eq!(dispositions(&inp,&mut u,&st).0,[Disposition::Keep]);
+    }
+    #[test]
+    fn a_shared_forecast_preserves_declared_overrides_for_town_and_throwing() {
+        let mut st=state(0,1,20);
+        let forecast=crate::borg_trip::PlannedTrip {depth_target:12,levels:1,recall_scrolls:0,recall_carry:0};
+        let town=Journey::for_trip(&st,Some(forecast));assert_eq!(town.depth,12);
+        st.core.cfg[BORG_TOWN_TARGET_DEPTH as usize]=2;st.core.cfg[BORG_TOWN_TRIP_TURNS as usize]=777;
+        let explicit=Journey::for_trip(&st,Some(forecast));assert_eq!((explicit.depth,explicit.turns),(2,777));
+    }
+
 }

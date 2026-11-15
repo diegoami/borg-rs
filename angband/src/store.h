@@ -96,4 +96,7 @@ extern void do_cmd_stash(struct command *cmd);
 extern void do_cmd_buy(struct command *cmd);
 extern void do_cmd_retrieve(struct command *cmd);
 
+/* Read-only quote for an exact player sale, including charge splitting. */
+int store_sale_quote(struct store *store, const struct object *obj, int qty);
+
 #endif /* INCLUDED_STORE_H */
