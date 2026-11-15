@@ -8,3 +8,6 @@ __pycache__/
 /docs/deaths/.registry.lock
 c-oracle-v12r.tar.gz
 check_oracle_digests.py
+
+# Local worktrees (same convention as better-borg-c)
+/.worktrees/
