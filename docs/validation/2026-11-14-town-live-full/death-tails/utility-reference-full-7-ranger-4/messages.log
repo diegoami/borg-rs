@@ -1,0 +1,20 @@
+8407 62672 2 You hit the apprentice.
+8408 62680 0 # HIT:the apprentice (+)
+8408 62680 0 # Tracking a monster 'blubbering icky thing' at (43,22) from (44,22)
+8408 62680 0 # HIT:the apprentice (2)
+8408 62680 0 # There was a monster 'shrieker mushroom patch' at (54,21)
+8408 62680 0 # Scary guy on level.
+8408 62680 0 # Loc:45,22 Dep:2 Lev:4 HP:2/40 SP:3/3 Danger:p=26
+8408 62680 0 # Fleeing and leaving the level. (scaryguy)
+8408 62680 0 # Adjacent to monster on Scaryguy Level.
+8408 62680 0 # Adjacent to monster on Scaryguy Level.
+8408 62680 0 # Performing attack type 1 with value 108.
+8408 62680 0 # Facing apprentice at (46,22) who has 5 Hit Points.
+8408 62680 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+8410 62680 3 You miss the apprentice.
+8410 62682 0 The apprentice fires a magic missile.
+8410 62682 8 You die.
+8411 62682 0 You have a Cloak of Protection [1,+10] (i).
+8411 62682 0 Score not registered for borgs.
+8411 62682 0 # Aborting (death).
+8411 62682 0 # Aborting (player died).

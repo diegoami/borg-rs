@@ -29,7 +29,7 @@ pub const BORG_TOWN_RISK: C2RustUnnamedH_9 = 55;
 pub const BORG_TOWN_HOME_DISCOUNT: C2RustUnnamedH_9 = 56;
 pub const BORG_TOWN_W_SPACE: C2RustUnnamedH_9 = 57;
 pub const BORG_TOWN_POWER_SCALE: C2RustUnnamedH_9 = 58;
-pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 64;
+pub const BORG_MAX_SETTINGS: C2RustUnnamedH_9 = 72;
 pub const BORG_TRIP_RETURN_GOLD: C2RustUnnamedH_9 = 63;
 pub const BORG_TRIP_UNKNOWN_STACKS: C2RustUnnamedH_9 = 62;
 pub const BORG_TRIP_PACK_SLACK: C2RustUnnamedH_9 = 61;
@@ -83,3 +83,13 @@ pub const BORG_WORSHIPS_SPEED: C2RustUnnamedH_9 = 2;
 pub const BORG_WORSHIPS_DAMAGE: C2RustUnnamedH_9 = 1;
 pub const BORG_VERBOSE: C2RustUnnamedH_9 = 0;
 
+
+pub const BORG_TOWN_W_ATTACK: C2RustUnnamedH_9 = 64;
+pub const BORG_TOWN_W_MAGIC: C2RustUnnamedH_9 = 65;
+pub const BORG_TOWN_W_SUPPORT: C2RustUnnamedH_9 = 66;
+pub const BORG_TOWN_W_RESTORE: C2RustUnnamedH_9 = 67;
+pub const BORG_TOWN_ATTACK_TURNS: C2RustUnnamedH_9 = 68;
+pub const BORG_TOWN_SUPPORT_TURNS: C2RustUnnamedH_9 = 69;
+
+pub const BORG_TOWN_W_RANGER_MISSILES: C2RustUnnamedH_9 = 70;
+pub const BORG_TOWN_RANGER_MISSILE_TURNS: C2RustUnnamedH_9 = 71;

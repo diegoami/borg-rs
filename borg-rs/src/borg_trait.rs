@@ -1723,7 +1723,8 @@ fn notice_food(st: &mut BorgState, item: &borg_item) {
     let iqty = i32::from(item.iqty);
 
     /* check for food that hurts us */
-    if borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1)
+    let capability_mode = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+    if (!capability_mode && borg_obj_has_effect(item.kind, EF_CRUNCH as i32, -1))
         || borg_obj_has_effect(item.kind, EF_TIMED_INC as i32, TMD_CONFUSED as i32)
     {
         return;
@@ -1734,7 +1735,11 @@ fn notice_food(st: &mut BorgState, item: &borg_item) {
     let mut t = Traits(&mut st.borg.trait_);
 
     /* check for food that gives nutrition */
-    if u32::from(item.tval) == TV_MUSHROOM {
+    if capability_mode {
+        if borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0) || borg_obj_has_effect(item.kind, EF_NOURISH as i32, 3) {
+            t[BI_FOOD_LO] += iqty;
+        }
+    } else if u32::from(item.tval) == TV_MUSHROOM {
         /* mushrooms that increase nutrition are low effect */
         if borg_obj_has_effect(item.kind, EF_NOURISH as i32, 0) {
             t[BI_FOOD_LO] += iqty;

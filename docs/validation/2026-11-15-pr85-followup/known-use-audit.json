@@ -1,0 +1,1379 @@
+[
+  {
+    "class": 0,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      5000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 8123,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 12819,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 1,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      15000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 1619,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 3296,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 2,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      10000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 3077,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 5695,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 3,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      10000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 3077,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 5695,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 4,
+    "level": 1,
+    "light_curve": [
+      0,
+      0,
+      1100000,
+      0,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 0,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 0,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 5,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      10000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 3077,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 5695,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 6,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      5000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 8123,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 12819,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 7,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      10000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 3077,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 5695,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  },
+  {
+    "class": 8,
+    "level": 1,
+    "light_curve": [
+      0,
+      100000,
+      1100000,
+      15000000,
+      0
+    ],
+    "hypothetical_known_items": true,
+    "items": [
+      {
+        "kind": 4,
+        "name": "& Wooden Torch~",
+        "tval": 19,
+        "sval": 1,
+        "supplies": [
+          [
+            0,
+            5000000
+          ]
+        ],
+        "gain": 1619,
+        "gear": 1
+      },
+      {
+        "kind": 5,
+        "name": "& Lantern~",
+        "tval": 19,
+        "sval": 2,
+        "supplies": [
+          [
+            0,
+            15000000
+          ]
+        ],
+        "gain": 3296,
+        "gear": 1
+      },
+      {
+        "kind": 275,
+        "name": "Slow Monster",
+        "tval": 23,
+        "sval": 11,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 276,
+        "name": "Confuse Monster",
+        "tval": 23,
+        "sval": 12,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 277,
+        "name": "Hold Monster",
+        "tval": 23,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            5000
+          ]
+        ],
+        "gain": 45081,
+        "gear": 0
+      },
+      {
+        "kind": 278,
+        "name": "Stun Monster",
+        "tval": 23,
+        "sval": 14,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 279,
+        "name": "Scare Monster",
+        "tval": 23,
+        "sval": 15,
+        "supplies": [
+          [
+            56,
+            6000
+          ]
+        ],
+        "gain": 46478,
+        "gear": 0
+      },
+      {
+        "kind": 300,
+        "name": "Confuse Monsters",
+        "tval": 22,
+        "sval": 6,
+        "supplies": [],
+        "gain": 0,
+        "gear": 0
+      },
+      {
+        "kind": 302,
+        "name": "Sleep Monsters",
+        "tval": 22,
+        "sval": 8,
+        "supplies": [
+          [
+            56,
+            9000
+          ]
+        ],
+        "gain": 49009,
+        "gear": 0
+      },
+      {
+        "kind": 331,
+        "name": "Slow Monster",
+        "tval": 24,
+        "sval": 13,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      },
+      {
+        "kind": 332,
+        "name": "Hold Monster",
+        "tval": 24,
+        "sval": 14,
+        "supplies": [
+          [
+            56,
+            28000
+          ]
+        ],
+        "gain": 52920,
+        "gear": 0
+      }
+    ]
+  }
+]

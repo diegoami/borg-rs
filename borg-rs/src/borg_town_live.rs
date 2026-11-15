@@ -25,11 +25,33 @@ impl SaleStamp {
     }
 }
 
+#[derive(Clone, PartialEq, Eq)]
+struct CarryContext {
+    gold: i32,
+    inventory: Vec<([core::ffi::c_char; 80], u8)>,
+}
+impl CarryContext {
+    fn of(st: &BorgState) -> Self {
+        Self { gold: st.borg.tr(crate::borg_headers::borg_trait_h::BI_GOLD),
+            inventory: st.items.items.iter().map(|i| (i.desc, i.iqty)).collect() }
+    }
+    fn quantity(&self) -> u32 { self.inventory.iter().map(|i| u32::from(i.1)).sum() }
+}
+#[derive(Clone)]
+struct BuyAttempt {
+    offer: SaleStamp,
+    context: CarryContext,
+    item: crate::borg_headers::borg_item_h::borg_item,
+    keep: bool,
+}
+
 #[derive(Default)]
 pub struct LiveState {
     clock: Option<i32>,
     pending_sale: Option<SaleStamp>,
     rejected_sales: Vec<SaleStamp>,
+    pending_buy: Option<BuyAttempt>,
+    rejected_buys: Vec<BuyAttempt>,
 }
 
 /// The native store may reject an otherwise plausible offer (for example,
@@ -37,6 +59,15 @@ pub struct LiveState {
 fn settle_sale(st: &mut BorgState) {
     if st.think.town_live.clock != Some(st.borg.time.level) {
         st.think.town_live = LiveState { clock: Some(st.borg.time.level), ..LiveState::default() };
+    }
+    if let Some(attempt) = st.think.town_live.pending_buy.take() {
+        let now = CarryContext::of(st);
+        if now.quantity() > attempt.context.quantity() || now.gold < attempt.context.gold {
+            crate::borg_store_buy::confirm_purchase(st, &attempt.item, i32::from(attempt.offer.shop), attempt.keep);
+        } else {
+            st.think.town_live.rejected_buys.push(attempt);
+            borg_note(st, "# Town plan: purchase made no progress; exclude unchanged offer/context");
+        }
     }
     if let Some(attempt) = st.think.town_live.pending_sale.take() {
         if st.items.items.get(attempt.slot).is_some_and(|it| attempt.matches(it)) {
@@ -48,6 +79,13 @@ fn settle_sale(st: &mut BorgState) {
 
 pub fn sale_rejected(st: &BorgState, shop: i16, item: &crate::borg_headers::borg_item_h::borg_item) -> bool {
     st.think.town_live.rejected_sales.iter().any(|s| s.shop == shop && s.matches(item))
+}
+
+pub fn buy_rejected(st: &BorgState, shop: i16, slot: usize) -> bool {
+    let Some(item) = st.store.shops.get(shop as usize).and_then(|s| s.ware.get(slot)) else { return true; };
+    let context = CarryContext::of(st);
+    st.think.town_live.rejected_buys.iter().any(|a|
+        a.offer.shop == shop && a.offer.slot == slot && a.offer.matches(item) && a.context == context)
 }
 
 pub fn active(st: &BorgState) -> bool { st.cfg(BORG_TOWN_PLAN) == 1 }
@@ -107,18 +145,21 @@ pub fn choose(st: &mut BorgState) -> bool {
 pub fn execute_store(st: &mut BorgState) -> bool {
     let Some(a) = st.think.town_action else { return false; };
     if st.borg.goal.shop != st.think.shop_num || st.think.shop_num < 0 { return false; }
-    // Reject a transient Home withdrawal without carrying room. Replanning
-    // may request it after a pack disposition; never send an invalid slot.
-    if matches!(a.code, action::TAKE_HOME | action::SELL_HOME) {
-        let Some(item) = st.store.shops[7].ware.get(a.at[1] as usize).copied() else { clear(st); return false; };
-        if item.iqty == 0 { clear(st); return false; }
-        if crate::borg_inventory::borg_first_empty_inventory_slot(st) < 0
-            && !st.items.items.iter().take(crate::borg_item::inven_wield() as usize)
-                .any(|held| held.iqty > 0 && crate::borg_store_sell::borg_object_similar(st, held, &item)) {
-            borg_note(st, "# Town plan: Home withdrawal blocked by pack space");
+    if matches!(a.code, action::BUY | action::TAKE_HOME | action::SELL_HOME) {
+        let shop = st.think.shop_num as usize;
+        let slot = a.at[1] as usize;
+        let Some(item) = st.store.shops[shop].ware.get(slot).copied().filter(|i| i.iqty > 0) else { clear(st); return false; };
+        let attempt = BuyAttempt { offer: SaleStamp::of(shop as i16, slot, &item),
+            context: CarryContext::of(st), item, keep: a.code != action::SELL_HOME };
+        let fits = crate::engine::store_stock(&st.access, shop).get(slot)
+            .is_some_and(|o| o.carry_capacity() > 0);
+        if !fits {
+            st.think.town_live.rejected_buys.push(attempt);
+            borg_note(st, "# Town plan: native carrying preflight rejected purchase");
             clear(st);
             return false;
         }
+        st.think.town_live.pending_buy = Some(attempt);
     }
     borg_note(st, &format!("# Town plan executing action {} at shop {} slot {}", a.code, st.think.shop_num, a.at[1]));
     let executed = match a.code {
@@ -133,6 +174,7 @@ pub fn execute_store(st: &mut BorgState) -> bool {
         _ => false,
     };
     if executed { st.think.town_action = None; }
+    else { st.think.town_live.pending_buy = None; }
     executed
 }
 
@@ -216,4 +258,15 @@ mod tests {
         assert_eq!(goal(a(action::BUY, 99, 2)), None);
         assert_eq!(goal(a(action::SELL, 1, -1)), None);
     }
+    #[test]
+    fn rejected_buys_are_scoped_to_the_offer_and_carrying_context() {
+        let mut st=state();st.items.items=vec![crate::borg_item::blank_item()];
+        st.store.shops=(0..8).map(|_|crate::borg_store::BorgShop::default()).collect();
+        st.store.shops[4].ware=vec![crate::borg_item::blank_item()];st.store.shops[4].ware[0].iqty=3;
+        let item=st.store.shops[4].ware[0];
+        st.think.town_live.rejected_buys.push(BuyAttempt {offer:SaleStamp::of(4,0,&item),context:CarryContext::of(&st),item,keep:true});
+        assert!(buy_rejected(&st,4,0));st.items.items[0].iqty=1;assert!(!buy_rejected(&st,4,0));
+        st.items.items[0].iqty=0;st.store.shops[4].ware[0].iqty=2;assert!(!buy_rejected(&st,4,0));
+    }
+
 }

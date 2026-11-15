@@ -1,0 +1,20 @@
+50 171 0 # Considering Phase (twitchy)
+50 171 0 # Boosting bravery (2) from 3 to 40!
+50 171 0 # Performing attack type 1 with value 25.
+50 171 0 # Facing giant white centipede at (13,176) who has 10 Hit Points.
+50 171 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+52 171 2 You hit the giant white centipede.
+53 180 0 # HIT:the giant white centipede (+)
+53 180 0 # HIT:the giant white centipede (2)
+53 180 0 # Loc:14,176 Dep:1 Lev:1 HP:3/10 SP:1/2 Danger:p=26
+53 180 0 # Performing attack type 1 with value 19.
+53 180 0 # Facing giant white centipede at (13,176) who has 9 Hit Points.
+53 180 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+55 180 3 You miss the giant white centipede.
+55 182 44 The giant white centipede crawls on you.
+56 182 0 You are covered with frost!
+56 182 40 The giant white centipede stings you.
+57 182 8 You die.
+58 182 0 Score not registered for borgs.
+58 182 0 # Aborting (death).
+58 182 0 # Aborting (player died).

@@ -1,0 +1,20 @@
+174 1121 0 # Flowing toward stairs at cost 9
+175 1131 0 # Tracking a monster 'aimless-looking merchant' at (6,33) from (6,34)
+175 1131 0 # Tracking a monster 'squint-eyed rogue' at (4,31) from (4,30)
+175 1131 0 # Scary guy on level.
+175 1131 0 # Loc:4,34 Dep:0 Lev:1 HP:16/16 SP:2/2 Danger:p=8
+175 1131 0 # Fleeing and leaving the level. (scaryguy)
+175 1131 0 # Adjacent to monster on Scaryguy Level.
+175 1131 0 # Adjacent to monster on Scaryguy Level.
+175 1131 0 # Fleeing and leaving the level. (Looking for any stair)
+176 1141 0 # Tracking a monster 'aimless-looking merchant' at (7,32) from (6,33)
+176 1141 0 # Tracking a monster 'squint-eyed rogue' at (4,32) from (4,31)
+176 1141 0 # Scary guy on level.
+176 1141 0 # Loc:5,34 Dep:0 Lev:1 HP:16/16 SP:2/2 Danger:p=19
+176 1141 0 # Fleeing and leaving the level. (scaryguy)
+176 1141 0 # Backing up to 35,4 (19 > 0)
+178 1141 0 The lava burns you!
+178 1141 8 You die.
+179 1141 0 Score not registered for borgs.
+179 1141 0 # Aborting (death).
+179 1141 0 # Aborting (player died).

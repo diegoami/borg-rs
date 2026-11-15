@@ -1,0 +1,150 @@
+{
+  "counts": {
+    "6": 1000,
+    "7": 1000,
+    "5": 888,
+    "8": 1000
+  },
+  "files": [
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e/utility-reference/full-7-ranger-1/plan.jsonl",
+      "schema": 6,
+      "records": 239
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e/utility-reference/full-0-warrior-0/plan.jsonl",
+      "schema": 6,
+      "records": 240
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e/utility-reference/full-7-ranger-4/plan.jsonl",
+      "schema": 6,
+      "records": 157
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e/utility-reference/full-6-rogue-2/plan.jsonl",
+      "schema": 6,
+      "records": 218
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-live-2026-11-14/corrected-ac63c5e/utility-reference/full-5-paladin-0/plan.jsonl",
+      "schema": 6,
+      "records": 146
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-4/plan.jsonl",
+      "schema": 7,
+      "records": 90
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-2/plan.jsonl",
+      "schema": 7,
+      "records": 133
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-6/plan.jsonl",
+      "schema": 7,
+      "records": 130
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-5/plan.jsonl",
+      "schema": 7,
+      "records": 216
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-3/plan.jsonl",
+      "schema": 7,
+      "records": 110
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-1/plan.jsonl",
+      "schema": 7,
+      "records": 106
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-7/plan.jsonl",
+      "schema": 7,
+      "records": 159
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/live/class-0/plan.jsonl",
+      "schema": 7,
+      "records": 56
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-4/plan.jsonl",
+      "schema": 5,
+      "records": 89
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-2/plan.jsonl",
+      "schema": 5,
+      "records": 90
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-5/plan.jsonl",
+      "schema": 5,
+      "records": 99
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-6/plan.jsonl",
+      "schema": 5,
+      "records": 102
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-3/plan.jsonl",
+      "schema": 5,
+      "records": 74
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-1/plan.jsonl",
+      "schema": 5,
+      "records": 97
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-7/plan.jsonl",
+      "schema": 5,
+      "records": 110
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-0/plan.jsonl",
+      "schema": 5,
+      "records": 98
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-8/plan.jsonl",
+      "schema": 5,
+      "records": 129
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-256383035/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 160
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-1946189188/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 197
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-52505938/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 138
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-1619201335/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 208
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-1836426488/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 168
+    },
+    {
+      "path": "/home/diego/projects/borg-rs/harness/out/class-analysis-43667787016/empty-light-probe-all/necromancer-787245118/rs-kit-trip-default/plan.jsonl",
+      "schema": 8,
+      "records": 129
+    }
+  ]
+}

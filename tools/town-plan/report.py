@@ -22,6 +22,18 @@ def main():
     parser.add_argument('--root', type=Path, default=ROOT / 'harness/out/rust/town-utility')
     parser.add_argument('--records-out', type=Path)
     args = parser.parse_args()
+    if (args.root / 'experiment.json').exists():
+        from class_report import report
+        result = report(args.root)
+        if args.records_out:
+            lines = []
+            for cell in result['cells']:
+                source = args.root / cell['arm'] / f"{cell['seed']}-class{cell['class_idx']}" / 'plan.jsonl'
+                if source.exists():
+                    lines.extend(source.read_text().splitlines())
+            args.records_out.write_text('\n'.join(lines) + '\n')
+        print(json.dumps(result, indent=2))
+        return
     constants = (ROOT / 'borg-rs/src/borg_headers/borg_h.rs').read_text()
     names = {int(n): key.lower() for key, n in re.findall(r'pub const (BORG_TOWN_\w+):[^=]+ = (\d+);', constants)}
     by_name = {name: index for index, name in names.items()}
@@ -51,8 +63,8 @@ def main():
             lines = (run / 'plan.jsonl').read_text().splitlines()
             rows = [json.loads(x) for x in lines]
             for r in rows:
-                assert r['v'] == 5 and len(r['params']) == 24
-                assert all(r['params'][i] == summary['effective_settings'][key] for i, key in enumerate(parameter_names))
+                assert r['v'] in (5, 6, 7, 8, 9, 10) and len(r['params']) == 24
+                assert all(r.get('configured_params', r['params'])[i] == summary['effective_settings'][key] for i, key in enumerate(parameter_names))
                 assert all(len(k) == 12 for k in r['kit'])
                 gold = r['limits'][0] + sum(k[8] for k, d in zip(r['kit'], r['dispose']) if d == 2)
                 spent = sum(e[4] for e in r['plan'])

@@ -1,0 +1,41 @@
+{
+  "code_candidate": "dd3eeac646e097bcdd7c289c092e91400896a713",
+  "pr": 83,
+  "review_base": "d9a56f48bac8675c91f551619492af36b698b4cf",
+  "context_main": "727ccff75cfc731f953a296c14ef3071a57c28fb",
+  "author_preparation": true,
+  "independent_verdict": "pending",
+  "checks": {
+    "rust_release": {
+      "passed": 271,
+      "ignored": 4
+    },
+    "town_python": 24,
+    "trip_python": 6,
+    "clippy": "pass",
+    "historical_records_replayed": 9791,
+    "earlier_schema7_records_replayed": 1522,
+    "temporary_fuel_probe": "fails: raw (1200,0), effective (12200,1)",
+    "native_games_this_preparation": 0,
+    "latest_schema8_raw_available": false
+  },
+  "production_files_changed_by_package": [],
+  "findings": [
+    {
+      "id": "R1",
+      "severity": "P2",
+      "status": "open",
+      "issue": 81
+    },
+    {
+      "id": "R2",
+      "severity": "P2",
+      "status": "reproduced; not fixed"
+    },
+    {
+      "id": "R3",
+      "severity": "P2",
+      "status": "historical documentation clarified"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+367 2780 56 You are poisoned!
+368 2781 0 # HIT_BY:The white worm mass (+)
+368 2781 0 # HIT_BY:The white worm mass (3)
+368 2781 0 # There was a monster 'grey mushroom patch' at (56,87)
+368 2781 0 # Scary guy on level.
+368 2781 0 # Loc:57,84 Dep:1 Lev:1 HP:1/13 SP:1/2 Danger:p=32
+368 2781 0 # Fleeing and leaving the level. (scaryguy)
+368 2781 0 # Flowing toward up-stairs at cost 4
+368 2781 0 # Desperate for Stairs (three)
+369 2781 0 You are confused.
+370 2791 0 # Scary guy on level.
+370 2791 0 # Loc:56,84 Dep:1 Lev:1 HP:0/13 SP:1/2 Danger:p=1
+370 2791 0 # Fleeing and leaving the level. (scaryguy)
+370 2791 0 # Flowing toward up-stairs at cost 4
+370 2791 0 # Desperate for Stairs (three)
+371 2791 0 You are confused.
+371 2800 8 You die.
+372 2800 0 Score not registered for borgs.
+372 2800 0 # Aborting (death).
+372 2800 0 # Aborting (player died).

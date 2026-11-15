@@ -241,3 +241,75 @@ engine data at replay. The reader also accepts historical v4 records with their
 12 parameters, 11-field kit rows and old fixed-target code path. Unit and utility
 semantics are chosen by the schema, never inferred from the numeric magnitudes.
 See [TOWN-UTILITY](TOWN-UTILITY.md) for equations and policy assumptions.
+
+## Live record revision 6
+
+The [experimental live executor](TOWN-LIVE.md) emits revision 6 with the same
+row layouts and 24 parameters. Mode 1 records actual quote-based live planning;
+mode 0 remains observational. Purchases are applied one copy at a time. The
+revision also distinguishes the empty-value Home-cycle correction from schema
+5's historical dispositions; schemas 4/5 still replay with their original rules.
+
+### Capability records (v7)
+
+The combined capability repair adds integer tables `capability_curves`
+(`[id, evaluated_weight, demand, carried_units, Home_units]`) and
+`capability_supplies` (`[scope, slot, id, units_per_copy]`). Scopes 0–6 are
+shops, 8 is the pack and 9 is the Home. IDs are append-only in
+`borg_town_capability::NAMES`; the recharge-target row is a zero-weight
+prerequisite marker. Negative demand denotes a one-time access/repair
+requirement, positive demand a diminishing stock-coverage scale. All native
+class, item-effect and spell facts necessary for pricing are materialized;
+replay does not consult live game data. Raw new calibration settings remain
+visible in native `effective_settings` and the run's config; derived weights
+and demands are sufficient to reproduce each individual solve.
+
+Versions 4, 5 and 6 keep their historical replay paths. Version 7 uses capability
+facts consistently for pack/Home dispositions and purchases. The version-6
+worthless-storage and just-bought Home-sale guards are retained.
+
+## Schema 9: reviewed capacity and transaction facts
+
+The PR83 correction candidate writes schema 9; schemas 4–8 keep their original
+replay behavior. `packing=[quiver_slot_size,current_weighted_quiver_units]`
+and `quiver_classes=[[class,compatible_existing_stack_room],...]` record native
+quiver capacity. Ammo groups share the aggregate pack-reservation bands rather
+than each claiming the same free quiver room. `available=[[shop,slot,qty],...]`
+records effective offer quantities, including zero for offers rejected under
+an unchanged live carrying/wallet context and one for an urgent Home source.
+These quantities override raw stock quantity during replay, without editing
+v2's observed shop rows. Kit flag bit 3 marks a whole Home stack that fits
+existing reserved/pack stack room. Known Home sources can satisfy urgent needs
+before a paid purchase. Full-pack urgent actions first free feasible room.
+
+Capability IDs 54–56 append cut reduction, stun reduction and monster control;
+prior IDs are preserved, including the historical combined wound/stun row.
+Active condition demands and reductions use actual native timer units.
+See [the review disposition map](TOWN-PR83-FIXES.md) for classifier, rod,
+random-branch, shared-slot and reserve changes. Native receipts and observed
+wallet/inventory changes establish transactions; a queued command does not.
+
+## Ranger missile utility (schema 10)
+
+Schema 10 preserves IDs 0–56 and all schema 9 transaction/packing behavior.
+ID 57 is Ranger usable shots: each known, non-cursed missile compatible with
+the current launcher supplies one shot in addition to its damage. Oil, devices
+and spells supply no shots. Pack, quiver and Home supply use the same curves.
+The Ranger-only weight is `borg_town_w_ranger_missiles` (calibrated candidate 250;
+0 disables); demand is planned trip turns / `borg_town_ranger_missile_turns`
+(initial candidate 50 actions/shot), at least one shot. Decreasing marginal
+utility lets price, gold, healing, escape and capacity still compete. These
+are policy estimates for calibration, not measured combat rates or fixed quotas.
+
+Native `PF_UNLIGHT` suppresses fuel utility even with a worn light. Torches
+are unavailable purchase/urgent-withdrawal candidates for unlight characters,
+before equipment or learning bonuses; the recorded `available` rows preserve
+that eligibility decision. Other equipment lights may still offer gear benefits.
+Schemas 4–9 retain their original recorded curves and replay behavior.
+
+The subsequent PR85 review follow-up narrows the live control-effect producer
+without changing row layouts: unsupported confusion/stun devices have no
+control supply, while slow/hold/sleep and the enabled Scare Monster consumer
+retain it. Schema 10 records freeze their own curves/supplies, so earlier
+recorded plans retain their original values during replay. Feasible urgent
+selection scans beyond a blocked first candidate in live mode.

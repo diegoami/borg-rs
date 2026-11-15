@@ -1,0 +1,8 @@
+/tmp/borg-rs-trip-integrated/docs/town-item-catalogue.html: 369 kinds, 107 ordinary shop offers
+/tmp/borg-rs-trip-integrated/docs/TOWN-ITEM-CATALOGUE.md: 104 ordinary + 265 additional kinds
+........................
+----------------------------------------------------------------------
+Ran 24 tests in 0.020s
+
+OK
+Nine native class contexts and ordinary shop coverage passed

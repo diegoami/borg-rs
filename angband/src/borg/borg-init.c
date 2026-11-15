@@ -140,6 +140,15 @@ struct borg_setting borg_settings[] = {
     { "borg_trip_pack_slack", 'i', 2 },
     { "borg_trip_unknown_stacks", 'i', 4 },
     { "borg_trip_return_gold", 'i', 0 },
+    { "borg_town_w_attack", 'i', 100 },
+    { "borg_town_w_magic", 'i', 100 },
+    { "borg_town_w_support", 'i', 50 },
+    { "borg_town_w_restore", 'i', 100 },
+    { "borg_town_attack_turns", 'i', 100 },
+    { "borg_town_support_turns", 'i', 1000 },
+    { "borg_town_w_ranger_missiles", 'i', 250 },
+    { "borg_town_ranger_missile_turns", 'i', 50 },
+
     { 0, 0, 0 }};
 
 /* The munchkin start settings as borg.txt gave them, before the class rule */

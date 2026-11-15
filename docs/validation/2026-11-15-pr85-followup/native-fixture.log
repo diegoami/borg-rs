@@ -1,0 +1,8 @@
+[ 97%] Built target OurCoreLib
+[ 97%] Built target BorghOverlay
+   Compiling borg-rs v0.1.0 (/tmp/borg-town-class-fixes/build/review-probe/measurement-rust/borg-rs)
+    Finished `release` profile [optimized + debuginfo] target(s) in 11.76s
+[ 97%] Built target BorgRs
+[ 97%] Linking C executable game/angband
+[100%] Built target OurExecutable
+Native partial runes, full pack/quiver/Home joins, sale quotes and rod charging passed

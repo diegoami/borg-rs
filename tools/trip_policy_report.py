@@ -85,8 +85,8 @@ def inventory(record):
 
 def summarize(state_lines, trips, town):
     for row in trips:
-        if row.get("v") != 2 or "game_turn" not in row:
-            raise ValueError("trip records need v2 with game_turn; Borg turns cannot join native turns")
+        if row.get("v") not in (2, 3) or "game_turn" not in row:
+            raise ValueError("trip records need v2/v3 with game_turn; Borg turns cannot join native turns")
     for row in town:
         if row.get("v") != 3 or row.get("depth") != 0:
             raise ValueError("expected BORG_TOWN_STATE native-clock v3 records")

@@ -1,6 +1,6 @@
-# Minimal build evidence for reviewers: build the Rust crate and run its
-# tests. This needs no C engine and no cmake: the Rust crate links no C
-# Borg (harness/check-no-c-borg.sh), so a stock runner suffices.
+# Unit tests remain a cheap independent job. The native town coverage job
+# also checks the loaded game catalogue against the actual capability mapper,
+# so an omitted supply kind cannot silently pass on unit tests alone.
 #
 # Note: pushes made with a GitHub App token do not trigger workflow runs
 # (GitHub suppresses those events); owner pushes and manual dispatch do.
@@ -14,3 +14,31 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: cargo test --release
         run: cargo test --release --manifest-path borg-rs/Cargo.toml
+
+  town-capability-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libx11-dev libxext-dev
+      - name: Build the Rust harness
+        run: BORG_IMPL=rust harness/build.sh
+      - name: Catalogue and native capability coverage
+        run: bash harness/check-town-capabilities.sh "$RUNNER_TEMP/town-capability-check"
+      - name: Native PR83 regression fixtures
+        run: |
+          cmake -S angband -B "$RUNNER_TEMP/town-review-build" -DCMAKE_BUILD_TYPE=Release -DSUPPORT_BORG_HARNESS=ON -DBORG_IMPL=rust -DBORG_RS_FEATURES=test-town-review
+          cmake --build "$RUNNER_TEMP/town-review-build" --target OurExecutable --parallel 2
+          python3 harness/regress/town-review/run.py "$RUNNER_TEMP/town-review-build" "$RUNNER_TEMP/town-capability-check/native-review"
+      - name: Retain coverage evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: town-capability-coverage
+          path: ${{ runner.temp }}/town-capability-check
+          retention-days: 14
+          if-no-files-found: ignore

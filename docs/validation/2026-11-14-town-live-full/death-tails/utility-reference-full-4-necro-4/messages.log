@@ -1,0 +1,20 @@
+944 6835 39 The crow bites you.
+945 6839 0 # HIT_BY:The crow (+)
+945 6839 0 # HIT_BY:The crow (+)
+945 6839 0 # Tracking a monster 'crow' at (45,32) from (44,31)
+945 6839 0 # Creating a monster 'giant white centipede' at (47,32), HP: 9, Index: 20
+945 6839 0 # HIT_BY:The crow (3)
+945 6839 0 # HIT_BY:The crow (3)
+945 6839 0 # Loc:46,33 Dep:1 Lev:1 HP:3/13 SP:2/2 Danger:p=31
+945 6839 0 # Performing attack type 1 with value 31.
+945 6839 0 # Facing crow at (45,32) who has 8 Hit Points.
+945 6839 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+947 6839 2 You hit the crow.
+947 6839 4 The crow flees in terror!
+947 6840 39 The crow bites you.
+947 6840 39 The crow bites you.
+948 6842 44 The giant white centipede crawls on you.
+948 6842 8 You die.
+949 6842 0 Score not registered for borgs.
+949 6842 0 # Aborting (death).
+949 6842 0 # Aborting (player died).

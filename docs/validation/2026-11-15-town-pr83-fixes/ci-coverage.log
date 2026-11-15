@@ -1,0 +1,8 @@
+/tmp/borg-town-class-fixes/docs/town-item-catalogue.html: 369 kinds, 107 ordinary shop offers
+/tmp/borg-town-class-fixes/docs/TOWN-ITEM-CATALOGUE.md: 104 ordinary + 265 additional kinds
+.........................
+----------------------------------------------------------------------
+Ran 25 tests in 0.020s
+
+OK
+Nine native class contexts and ordinary shop coverage passed

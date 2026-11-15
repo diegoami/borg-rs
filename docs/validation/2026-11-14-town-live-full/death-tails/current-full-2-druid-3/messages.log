@@ -1,0 +1,20 @@
+1830 13174 0 # HIT_BY:The metallic red centipede (+)
+1830 13174 0 # MISS_BY:The metallic red centipede (+)
+1830 13174 0 # MISS_BY:The metallic red centipede (+)
+1830 13174 0 # MISS:the metallic red centipede (2)
+1830 13174 0 # HIT_BY:The metallic red centipede (3)
+1830 13174 0 # MISS_BY:The metallic red centipede (3)
+1830 13174 0 # MISS_BY:The metallic red centipede (3)
+1830 13174 0 # Loc:53,95 Dep:1 Lev:1 HP:3/14 SP:2/2 Danger:p=18
+1830 13174 0 # Performing attack type 1 with value 32.
+1830 13174 0 # Facing metallic red centipede at (53,94) who has 17 Hit Points.
+1830 13174 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+1832 13174 2 You hit the metallic red centipede.
+1832 13179 44 The metallic red centipede crawls on you.
+1833 13179 0 You are enveloped in flames!
+1833 13179 40 The metallic red centipede stings you.
+1834 13184 44 The metallic red centipede crawls on you.
+1835 13184 8 You die.
+1836 13184 0 Score not registered for borgs.
+1836 13184 0 # Aborting (death).
+1836 13184 0 # Aborting (player died).

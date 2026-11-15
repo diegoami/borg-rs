@@ -1,0 +1,20 @@
+1069 6719 0 The wild dog misses you.
+1069 6725 49 The grey mold releases spores at you.
+1069 6725 49 The grey mold releases spores at you.
+1071 6729 0 # MISS_BY:The wild dog (+)
+1071 6729 0 # HIT_BY:The grey mold (+)
+1071 6729 0 # HIT_BY:The grey mold (+)
+1071 6729 0 # Tracking a monster 'wild dog' at (55,80) from (54,81)
+1071 6729 0 # MISS_BY:The wild dog (3)
+1071 6729 0 # HIT_BY:The grey mold (3)
+1071 6729 0 # HIT_BY:The grey mold (3)
+1071 6729 0 # Possibility of being surrounded (monsters/safegrids)(3/2)
+1071 6729 0 # Loc:55,79 Dep:1 Lev:1 HP:1/11 SP:2/2 Danger:p=26
+1071 6729 0 # Flowing toward up-stairs at cost 9
+1071 6729 0 # Desperate for Stairs (two)
+1072 6736 49 The grey mold releases spores at you.
+1072 6736 49 The grey mold releases spores at you.
+1073 6736 8 You die.
+1074 6736 0 Score not registered for borgs.
+1074 6736 0 # Aborting (death).
+1074 6736 0 # Aborting (player died).

@@ -2,7 +2,7 @@
 """Build the owner-review catalogue from this checkout's game data.
 
 Run from anywhere: python3 tools/town-plan/catalogue.py
-The classification documents the v5 shadow utility producer; it is not a
+The classification documents the v10 capability utility producer; it is not a
 runtime reduction table. Black Market rows are allocation candidates, not a
 promise that store_create_random/black_market_ok will accept a particular item.
 """
@@ -90,40 +90,53 @@ gear = {'sword', 'polearm', 'hafted', 'bow', 'boots', 'gloves', 'helm', 'crown',
 def role(obj):
     typ, name = obj['type'], obj['name']
     effects = obj['fields']['effect']
-    harmful = any(e.startswith('CRUNCH') or e.startswith('TIMED_INC:CONFUSED') for e in effects)
-    food_ok = not harmful and ((typ == 'food' and name in food) or
-                              (typ == 'mushroom' and 'NOURISH:INC_BY' in effects))
-    poison_food = typ in ('food', 'mushroom') and not harmful and 'CURE:POISONED' in effects
-    if typ == 'light':
-        return 'Light', '1 source / copy', 'Diminishing trip coverage, using duration / approximate torch lifetime; no source-count target.'
-    if typ == 'scroll' and name in ('Phase Door', 'Word of Recall'):
-        return ('Escape', '1 escape / copy', 'Utility rises with duration and depth relative to character level; additional escapes share diminishing coverage.') if name == 'Phase Door' else ('Trip', '1 recall / copy', 'Utility is avoided walking on the intended trip. No two-scroll requirement; reusable Recall is a capability.')
-    if typ == 'scroll' and name == 'Remove Hunger':
-        return 'Food', '1 ration-equivalent / copy', 'Mapped to Food, including the urgent pass. Usable hunger spells can substitute.'
-    if food_ok:
-        return 'Food', '1/3 ration-equivalent / copy' if name in {'Apple', 'Handful of Dried Fruits', 'Slime Mold', 'Pint of Fine Wine', 'Sip of Miruvor'} else '1 ration-equivalent / copy', 'Duration-relative diminishing coverage; a ration approximates 3000 actions. Also cures urgent Poison.' if poison_food else 'Duration-relative diminishing coverage; food equivalents remain approximate, especially mushrooms.'
-    if poison_food or (typ == 'potion' and name == 'Neutralize Poison'):
-        return 'Poison', '1 cure / copy', 'Only valued while poisoned with no alternative cure.'
-    if typ == 'potion' and name in ('Cure Light Wounds', 'Cure Serious Wounds', 'Cure Critical Wounds', 'Healing', '*Healing*', 'Life'):
-        return 'Healing', {'Cure Light Wounds': '20 HP', 'Cure Serious Wounds': '40 HP', 'Cure Critical Wounds': '60 HP', 'Healing': '300 HP (conservative)', '*Healing*': '1200 HP', 'Life': 'max HP'}[name] + ' / copy, capped at max HP', 'Shared diminishing HP coverage scales with trip exposure. A spell/device is no stock of physical potions.' + (' Also serves urgent Poison.' if name in ('Cure Critical Wounds', 'Healing', '*Healing*', 'Life') else '')
     if typ in gear:
-        return 'Power', 'Δ borg_power / equipped copy', 'Diminishing utility relative to intended depth advancement (default 40000 power per floor, configurable). No consumable inventory-power bonus.'
-    note = 'No direct purchase value once known.'
-    if typ == 'scroll' and name == 'Remove Hunger':
-        note = 'GAP: carried BI_FOOD counts it, but purchase/urgent Food mapping omits it.'
-    elif typ in ('wand', 'staff', 'rod'):
-        note = 'GAP: no direct device role; carried traits may count capabilities or charges.'
-    elif typ.endswith('book'):
-        note = 'GAP: no direct spellbook role; class and spell access are not priced.'
-    elif typ in ('shot', 'arrow', 'bolt', 'digger'):
-        note = 'GAP: no purchase try-on or direct need role.'
-    elif typ == 'flask':
-        note = 'GAP: fuel is not a light source and has no direct role.'
-    elif typ == 'food':
-        note = 'Not in the ten-food whitelist, even if the game nourishes the character.'
-    elif typ == 'potion' and name in ('Healing', '*Healing*', 'Life'):
-        note = 'GAP: not one of the three wound potions mapped to Healing.'
-    return 'None', '0 direct need units', note
+        return 'Power', 'positive equipped borg_power gain', 'Equipment try-on; the supply model never borrows consumable inventory-power bonuses.'
+    if typ == 'light':
+        return 'Light', 'remaining fuel turns / copy', 'Current worn fuel and compatible spares share endurance coverage; permanent light suppresses fuel demand.'
+    if typ == 'flask':
+        return 'Ranged damage + fuel', 'throw damage; 7500 lantern-fuel turns', 'Reserve whole bottles for the forecast fuel shortfall first; surplus is ammunition. Oil is not another light source and a bottle is not counted for both uses.'
+    if typ in ('shot', 'arrow', 'bolt'):
+        return 'Ranged damage + Ranger missile reserve', 'average damage × matching launcher multiplier; one usable shot', 'Zero without a matching launcher. Rangers also value a trip-relative shot reserve that oil/devices cannot fill. Carried pack and quiver stock reduce marginal demand.'
+    if typ == 'digger':
+        return 'Digging', 'digging tool availability', 'Shared with Stone to Mud; retaining a tool and buying one use the same supply facts.'
+    if typ.endswith('book'):
+        return 'Spell access', 'one usable class book', 'Only the player class and books with level/mana-eligible spells count. Owning it closes the same access requirement; duplicates do not unlock more spells.'
+    mapping = {'HEAL_HP':'Healing', 'CURE':'Condition cures', 'TIMED_DEC':'Condition cures',
+               'NOURISH':'Food', 'RECALL':'Recall', 'TELEPORT':'Escape', 'TELEPORT_LEVEL':'Level escape',
+               'TELEPORT_TO':'Teleport Other', 'RESTORE_MANA':'Mana', 'RESTORE_EXP':'Restore experience',
+               'GAIN_EXP':'Experience', 'RESTORE_STAT':'Restore stats', 'GAIN_STAT':'Stat growth',
+               'REMOVE_CURSE':'Remove Curse', 'ENCHANT':'Enchantment', 'RECHARGE':'Recharging',
+               'MAP_AREA':'Mapping', 'LIGHT_AREA':'Illumination', 'LIGHT_LEVEL':'Mapping',
+               'IDENTIFY':'Rune identification', 'ACQUIRE':'Equipment opportunity', 'GLYPH':'Glyph', 'BANISH':'Banishment',
+               'MASS_BANISH':'Banishment', 'DESTRUCTION':'Destruction', 'EARTHQUAKE':'Destruction',
+               'BRAND_WEAPON':'Enchantment', 'BRAND_AMMO':'Enchantment', 'BRAND_BOLTS':'Enchantment'}
+    roles = set()
+    harmful_food = any(e.startswith(('TIMED_INC:CONFUSED', 'TIMED_INC:POISONED', 'TIMED_INC_NO_RES:PARALYZED')) for e in effects)
+    for effect in effects:
+        parts = effect.split(':'); head = parts[0]; sub = parts[1] if len(parts) > 1 else ''
+        if head == 'NOURISH' and (harmful_food or sub in ('DEC_BY', 'SET_TO')):
+            continue
+        if head in ('TIMED_INC','TIMED_INC_NO_RES','TIMED_SET'):
+            if sub in ('FAST','SPRINT'): roles.add('Speed')
+            elif sub.startswith('OPP_'): roles.add('Temporary resistance')
+            elif sub == 'ATT_CONF': continue  # No enabled melee-preparation consumer (#80).
+            elif sub in ('BOLD','HERO','SHERO','BLESSED','SHIELD','STONESKIN','PROTEVIL','INVULN') or sub.startswith('ATT_'): roles.add('Combat buff')
+            elif sub in ('SINVIS','TELEPATHY'): roles.add('Detection')
+        elif sub.startswith('AWAY_'):
+            roles.add('Teleport Other')
+        elif sub == 'KILL_WALL': roles.add('Digging')
+        elif sub in ('MON_HEAL','MON_SPEED','MON_CLONE','MON_POLY','MON_CONF','MON_STUN','SLEEP_UNDEAD','TURN_EVIL','TURN_LIVING','TURN_UNDEAD','DARK_WEAK','MAKE_TRAP','MAKE_DOOR'):
+            continue
+        elif sub in ('MON_SLOW','MON_HOLD','SLEEP_ALL','SLEEP_EVIL','TURN_ALL'): roles.add('Combat control')
+        elif head.startswith('DETECT_') or head.startswith('SENSE_') or head in ('PROBE','READ_MINDS'): roles.add('Detection')
+        elif head in ('LINE','BOLT','BOLT_OR_BEAM','BEAM','BALL','BREATH','ARC','SHORT_BEAM','SWARM','STRIKE','STAR','STAR_BALL','SPOT','SPHERE','PROJECT_LOS','PROJECT_LOS_AWARE','BOLT_AWARE'): roles.add('Ranged damage')
+        elif head == 'BOLT_STATUS_DAM' and sub == 'MON_DRAIN': roles.add('Ranged damage')
+        elif head in ('BOLT_STATUS','BOLT_STATUS_DAM','TOUCH','TOUCH_AWARE','MON_TIMED_INC'): roles.add('Combat control')
+        elif head in mapping: roles.add(mapping[head])
+    if roles:
+        return ' + '.join(sorted(roles)), 'native effect amounts; devices use charges/cooldown', 'Compatible effects contribute; RANDOM/SELECT alternatives use conservative shared coverage. Repairs require a relevant deficit; mana requires a caster. Substitutes share coverage. Known carried stock, devices and usable information spells reduce replenishment value.'
+    return 'Excluded', 'no positive known-use utility', 'No mapped usable service: harmful/monster-aiding effects, unsupported consumers (Infravision/Disable Traps), or route-changing services outside this supply policy. Unknown first-copy learning remains separate.'
 
 
 rows = []
@@ -143,11 +156,11 @@ page = '''<!doctype html>
 :root{font:16px/1.5 system-ui,sans-serif;color:#192a32;background:#f5f4ee}body{max-width:1500px;margin:40px auto;padding:0 24px}h1{font-size:2.2rem;line-height:1.15}p{max-width:100ch}aside{padding:16px 22px;background:#e6ede8;border-left:4px solid #3c6e54}label{display:inline-block;margin:18px 18px 12px 0}input,select{font:inherit;padding:8px;border:1px solid #87958e;border-radius:4px}input{width:min(60vw,380px)}table{border-collapse:collapse;width:100%;background:white;font-size:14px}th,td{text-align:left;vertical-align:top;padding:12px;border-bottom:1px solid #d9ded7}th{position:sticky;top:0;background:#244936;color:white}td:first-child{font-weight:600;min-width:140px}.gap{background:#fff4df}small{color:#53665d}summary{cursor:pointer}a{color:#256348}@media print{label{display:none}th{position:static}body{margin:0}tr{break-inside:avoid}}
 </style>
 <h1>Town inventory: item catalogue</h1>
-<p>Owner review · phase 4 shadow mode · <strong>v5 trip-relative utility</strong></p>
+<p>Owner review · experimental live mode · <strong>v10 capability utility</strong></p>
 <aside>The fixed food, healing, escape and Recall stock targets are replaced. Each row identifies the supply unit; purchases compare marginal trip utility with carrying burden and retaining gold. The Home can retain supplies for future trips.</aside>
-<p>Destination is explicit <code>borg_town_target_depth</code>, or max depth + 1. Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
-<p>Weights remain configurable priorities. Food/lifetime/exposure rates are estimates, not measured survival probabilities. See <a href="TOWN-UTILITY.md">the model specification</a> and <a href="TOWN-ITEM-CATALOGUE.md">the GitHub-rendered table</a>. The planner is still observation-only.</p>
-<p>Scope: named ordinary stock, town books, and possible Black Market allocations. Random generation filters determine actual availability. Gold rows show remaining mapping gaps; the Home's urgent-source gap remains open.</p>
+<p>Destination is explicit <code>borg_town_target_depth</code>, or the shared trip forecast (max depth + configured gain when trip policy is off). Duration is explicit <code>borg_town_trip_turns</code>, or an exploration-and-walking forecast. Healing uses HP rather than equal potion counts. Recall is valued by walking avoided, with no two-scroll requirement. Utility has decreasing marginal returns and substitutes share coverage.</p>
+<p>Weights remain configurable priorities. Food/lifetime/exposure rates are estimates, not measured survival probabilities. See <a href="TOWN-UTILITY.md">the model specification</a> and <a href="TOWN-ITEM-CATALOGUE.md">the GitHub-rendered table</a>. Live execution remains opt-in; the frozen milestone-12 zoo candidate is unchanged.</p>
+<p>Scope: named ordinary stock, town books, and possible Black Market allocations. Random generation filters determine actual availability. Excluded rows state deliberate policy limits; known Home supplies participate in urgent planning.</p>
 <label>Find <input id="query" type="search" placeholder="Item, shop, unit or gap…"></label>
 <label>Need <select id="need"><option value="">All needs</option></select></label>
 <label>Stock <select id="stock"><option value="">All candidates</option><option value="ordinary">Named ordinary shop stock</option><option value="black">Black Market only</option></select></label>

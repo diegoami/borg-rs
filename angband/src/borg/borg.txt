@@ -361,9 +361,10 @@ borg_town_power_scale = 40000
 #                           level the Borg is prepared for.
 # borg_trip_pack_slack      pack slots (per distinct stack): go back when
 #                           this many or fewer are free.
-# borg_trip_unknown_stacks  equipment/device stacks: go back when this many
-#                           are not fully known (0 = never for this reason).
-#                           Routine consumables still count toward pack pressure.
+# borg_trip_unknown_stacks  all carried item types: go back when this many
+#                           unknown stacks have a learning opportunity in town
+#                           (0 = never for this reason). Unchanged unresolved
+#                           items from the last town visit do not trigger it.
 # borg_trip_return_gold     gold per character level: go back when the gold
 #                           plus the pack's estimated sale value reaches it
 #                           (0 = never for this reason).
@@ -372,6 +373,19 @@ borg_trip_depth_margin = 0
 borg_trip_pack_slack = 2
 borg_trip_unknown_stacks = 4
 borg_trip_return_gold = 0
+
+# Capability utility priorities and forecast actions per ranged/support use.
+borg_town_w_attack = 100
+borg_town_w_magic = 100
+borg_town_w_support = 50
+borg_town_w_restore = 100
+borg_town_attack_turns = 100
+borg_town_support_turns = 1000
+# Ranger-only usable missile reserve: utility weight (0 disables);
+# forecast actions per shot. Demand follows trip duration, not a fixed quota.
+borg_town_w_ranger_missiles = 250
+borg_town_ranger_missile_turns = 50
+
 
 
 ### Enchant Limit ###

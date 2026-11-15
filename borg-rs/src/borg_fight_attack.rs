@@ -2379,6 +2379,9 @@ fn borg_attack_aux_rest(st: &mut BorgState) -> i32 {
 /// munchkin attacks, removed with the mode in borg-rs#60).
 /// Rust returns `b_n`, as the c2rust translation did.
 fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
+    // The shared forecast is needed only for a throwable flask while a
+    // fuel-burning lantern is worn. Reuse it within this evaluation.
+    let mut supply_journey: Option<crate::borg_town_utility::Journey> = None;
     let mut b_k: i32 = -1;
     let mut b_d: i32 = -1;
 
@@ -2421,8 +2424,21 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
         }
 
         /* Save last flasks for fuel, if needed */
-        if u32::from(item.tval) == TV_FLASK && (tr(st, BI_AFUEL) <= 1 && st.borg.near.unique == 0) {
-            continue;
+        if u32::from(item.tval) == TV_FLASK {
+            let light = st.items.items[(crate::borg_item::inven_wield() + 5) as usize];
+            let lantern = u32::from(light.tval) == crate::headers::list_tvals_h::TV_LIGHT
+                && i32::from(light.sval) == st.item_val.sv_light_lantern
+                && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
+            let policy = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+            let reserve = if policy && lantern {
+                let journey = supply_journey.get_or_insert_with(|| {
+                    let forecast = crate::borg_trip::forecast(st);
+                    crate::borg_town_utility::Journey::for_trip(st, forecast)
+                });
+                ((journey.turns - i64::from(light.timeout)).max(0) as u64)
+                    .div_ceil(i64::from(item.pval).max(1) as u64) as i32
+            } else { 0 };
+            if oil_reserved(policy, reserve, tr(st, BI_AFUEL), st.borg.near.unique != 0) { continue; }
         }
 
         /* Dont throw wands or rods */
@@ -2483,6 +2499,13 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
 
     /* Value */
     b_n
+}
+
+/// The experimental supply model may stock oil for throwing with a torch.
+/// Preserve the control's gate; reserve fuel only for a fuel-burning lantern
+/// under the new policy. The unique-fight emergency exception stays intact.
+fn oil_reserved(capability_policy: bool, required: i32, fuel: i32, unique: bool) -> bool {
+    !unique && fuel <= if capability_policy { required } else { 1 } && (!capability_policy || required > 0)
 }
 
 /// The class's main attack spell, which is not penalized for its mana
@@ -4578,4 +4601,19 @@ pub fn borg_attack(st: &mut BorgState, boosted_bravery: bool) -> bool {
 
     /* Success */
     true
+}
+
+#[cfg(test)]
+mod town_oil_tests {
+    use super::oil_reserved;
+    #[test]
+    fn throwing_oil_does_not_wait_for_unneeded_lantern_fuel_with_a_torch() {
+        assert!(!oil_reserved(true, 0, 0, false));
+        assert!(oil_reserved(true, 1, 1, false));
+        assert!(!oil_reserved(true, 1, 2, false));
+        assert!(!oil_reserved(true, 1, 1, true));
+        assert!(oil_reserved(true, 3, 3, false), "a longer forecast can need several fuel bottles");
+        assert!(!oil_reserved(true, 0, 1, false), "a filled lantern can cover the forecast already");
+        assert!(oil_reserved(false, 0, 0, false), "control retains its original behaviour");
+    }
 }

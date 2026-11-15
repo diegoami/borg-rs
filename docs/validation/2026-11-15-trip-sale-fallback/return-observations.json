@@ -1,0 +1,84 @@
+[
+  {
+    "case": "warrior",
+    "profile": "rs-pr85-return-p2-u4",
+    "return_activity": {
+      "schema": "borg-zoo/return-activity@1",
+      "state_available": true,
+      "departures": 26,
+      "town_arrivals": 25,
+      "application_records": 183,
+      "invalid_trip_records": 0,
+      "new_return_goals": 1,
+      "new_custom_return_goals": 1,
+      "arrivals_after_custom_goal": 0,
+      "arrivals_with_selling_note": 0,
+      "unfinished_journeys_with_custom_goal": 1,
+      "already_rising_applications": 14,
+      "return_recommendation_records": 10,
+      "custom_reasons_by_journey": {
+        "unknown": 1
+      },
+      "general_notes_by_journey": {
+        "scared": 12
+      },
+      "sampled_town_turns": 2605,
+      "sampled_dungeon_turns": 27399,
+      "qualification": "Actual arrivals use observed depth>0 to depth=0 transitions. Time allocation uses the previous per-key state. New goals require v4 application records; older logs cannot establish them. Custom goals exclude co-firing restock. Associations and general notes can overlap; no exclusive counterfactual cause is claimed."
+    }
+  },
+  {
+    "case": "necro",
+    "profile": "rs-pr85-return-p0-u0",
+    "return_activity": {
+      "schema": "borg-zoo/return-activity@1",
+      "state_available": true,
+      "departures": 19,
+      "town_arrivals": 18,
+      "application_records": 35,
+      "invalid_trip_records": 0,
+      "new_return_goals": 0,
+      "new_custom_return_goals": 0,
+      "arrivals_after_custom_goal": 0,
+      "arrivals_with_selling_note": 0,
+      "unfinished_journeys_with_custom_goal": 0,
+      "already_rising_applications": 0,
+      "return_recommendation_records": 0,
+      "custom_reasons_by_journey": {},
+      "general_notes_by_journey": {
+        "scared": 11
+      },
+      "sampled_town_turns": 7888,
+      "sampled_dungeon_turns": 22185,
+      "qualification": "Actual arrivals use observed depth>0 to depth=0 transitions. Time allocation uses the previous per-key state. New goals require v4 application records; older logs cannot establish them. Custom goals exclude co-firing restock. Associations and general notes can overlap; no exclusive counterfactual cause is claimed."
+    }
+  },
+  {
+    "case": "ranger",
+    "profile": "rs-pr85-return-p1-u2",
+    "return_activity": {
+      "schema": "borg-zoo/return-activity@1",
+      "state_available": true,
+      "departures": 10,
+      "town_arrivals": 9,
+      "application_records": 39,
+      "invalid_trip_records": 0,
+      "new_return_goals": 1,
+      "new_custom_return_goals": 1,
+      "arrivals_after_custom_goal": 1,
+      "arrivals_with_selling_note": 0,
+      "unfinished_journeys_with_custom_goal": 0,
+      "already_rising_applications": 7,
+      "return_recommendation_records": 7,
+      "custom_reasons_by_journey": {
+        "unknown": 1
+      },
+      "general_notes_by_journey": {
+        "scared": 6
+      },
+      "sampled_town_turns": 2764,
+      "sampled_dungeon_turns": 27243,
+      "qualification": "Actual arrivals use observed depth>0 to depth=0 transitions. Time allocation uses the previous per-key state. New goals require v4 application records; older logs cannot establish them. Custom goals exclude co-firing restock. Associations and general notes can overlap; no exclusive counterfactual cause is claimed."
+    }
+  }
+]

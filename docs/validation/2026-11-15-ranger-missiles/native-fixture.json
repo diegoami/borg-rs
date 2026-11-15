@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "case": "partial-rune",
+      "description_changed": true,
+      "still_unknown": true,
+      "same_learning_key": true
+    },
+    {
+      "case": "native-capacity",
+      "quiver_join": 38,
+      "expansion_blocked": true,
+      "full_pack_home_join": 1
+    },
+    {
+      "case": "native-sale",
+      "partial_device_quote": 146,
+      "normal": 453,
+      "black_market": 113,
+      "owner_cap": 3,
+      "no_selling": 0
+    },
+    {
+      "case": "native-rods",
+      "one_charging": 1,
+      "two_charging": 2
+    }
+  ],
+  "probe_sha256": "d3b5fe76e0c83e8bde5cd67f303fad979987b3d273e3eb0c4135bae567bb1b0f",
+  "binary_sha256": "ba694e32486f28265a3bcc74ab12ef190d39502222be7f5c9bf10db1f74c3d0d",
+  "source_commit": "dc4f1b569c61f3f00b104b56e966ea06c9755341",
+  "production_input_sha256": "2064664ac833fe2f020b95e7b001fb77fe50aa540aaf20a91d7f13a819477f12",
+  "feature": "test-town-review"
+}

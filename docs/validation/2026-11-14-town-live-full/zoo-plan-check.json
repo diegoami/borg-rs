@@ -1,0 +1,24 @@
+{
+  "zoo_commit": "7ae123b8240e92428470e9c2b6145eebc9ef614b",
+  "specimen": {
+    "kind": "borg-rs",
+    "impl": "rust",
+    "repository": "diegoami/borg-rs",
+    "ref": "ac63c5e914f18ba10aa491736ef8453ee59e9aef",
+    "mode_side": "post",
+    "depth_stream": true,
+    "label": "Experimental live town utility; default remains current; measured local full-suite runtime; no derived tag or improvement claim"
+  },
+  "cells": 10800,
+  "profiles": [
+    "rs-town-current-normal",
+    "rs-town-no-shops-normal",
+    "rs-town-live-reference-by-class-normal",
+    "rs-town-live-knowledge5-by-class-normal",
+    "rs-town-live-home250-by-class-normal",
+    "rs-town-live-knowledge5-home250-by-class-normal"
+  ],
+  "suite": "classes-1800",
+  "confirmation_suite": "classes-1800-b",
+  "workflow_dispatched": false
+}

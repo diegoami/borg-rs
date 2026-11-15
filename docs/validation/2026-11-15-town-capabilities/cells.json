@@ -1,0 +1,380 @@
+[
+  {
+    "arm": "live",
+    "class": "Warrior",
+    "seed": 501,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 2,
+    "game_turns": 30007,
+    "cause": "",
+    "purchases": 62,
+    "gold_spent": 628,
+    "oil_bought": 4,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-0",
+    "hashes": {
+      "keys.log": "64709287c21146af1de26ed8f042a48763e717b1c9ed1e789f831eaa63fa8e68",
+      "messages.log": "8ac0973770f1101c43773569ae7f53f31c010800f2d87d6aac9dd03cc520dd40",
+      "state.log": "cf38fc3af5db50af0f95baa8236b05c3b80b7de4f135d92d78fa946c7b7df708"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Mage",
+    "seed": 502,
+    "outcome": "turns",
+    "dead": false,
+    "level": 4,
+    "max_depth": 2,
+    "game_turns": 30008,
+    "cause": "",
+    "purchases": 22,
+    "gold_spent": 296,
+    "oil_bought": 10,
+    "oil_hit_messages": 3,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-1",
+    "hashes": {
+      "keys.log": "e1f32f02e704affc868fa1a195653786840dd505cf2f9d02a8dff1311e338104",
+      "messages.log": "a84811e5a5663034a95ba5775b690d6ead8e3464e85dc4fdd6cd73e215237b32",
+      "state.log": "9cbca931d03d6f20b37d9614784502b272ee30f82c163efc8f8251e83384d654"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Druid",
+    "seed": 503,
+    "outcome": "death",
+    "dead": true,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 15941,
+    "cause": "a blue yeek",
+    "purchases": 39,
+    "gold_spent": 523,
+    "oil_bought": 15,
+    "oil_hit_messages": 6,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-2",
+    "hashes": {
+      "keys.log": "33335ed6b06edaec0fe9512bd2ccaeb649c6ff782d1dd1bfb73b76e9d66417ae",
+      "messages.log": "cd325362530f12e84c9da50dff2df7a2eba3e76fe1cf4b545c80c464e5968985",
+      "state.log": "4ca97826e49abb1252c76ed7d55cf999df520da9f2da463d9ce266e6eb276660"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Priest",
+    "seed": 504,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30002,
+    "cause": "",
+    "purchases": 26,
+    "gold_spent": 251,
+    "oil_bought": 8,
+    "oil_hit_messages": 4,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-3",
+    "hashes": {
+      "keys.log": "6ee313a8330a87256f7d982a9cc0bc59a126513f08dc94ce0e50a7dd32a1e416",
+      "messages.log": "077fad56f7ad0434597d16092c5991fdf9eb628320912c16c1881edad451c079",
+      "state.log": "18df64601307428a3d513280adca5ec2803f2023060a6fbce27e6bfee576a477"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Necromancer",
+    "seed": 505,
+    "outcome": "death",
+    "dead": true,
+    "level": 1,
+    "max_depth": 1,
+    "game_turns": 14218,
+    "cause": "a wild dog",
+    "purchases": 32,
+    "gold_spent": 452,
+    "oil_bought": 11,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-4",
+    "hashes": {
+      "keys.log": "0aa4ec440c539f7bc172490bc0b936170a9203508085c1eea08f80f7cf448720",
+      "messages.log": "375076819c63020f7478d05df19a68336907bc069e63fd21870b373d84f59a3e",
+      "state.log": "813d6ee85b84c140ea214faceb0c50111f7ea2a5b8cdcb2c087d708d00897d3c"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Paladin",
+    "seed": 506,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 1,
+    "game_turns": 30009,
+    "cause": "",
+    "purchases": 57,
+    "gold_spent": 820,
+    "oil_bought": 10,
+    "oil_hit_messages": 8,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-5",
+    "hashes": {
+      "keys.log": "74468da522aab47e576949c246fdd9076ab3a83ef7c0cc579f2b907077f0d910",
+      "messages.log": "be5ed256abc409f75bb4ab11fb8881eb620d74bd84a95b81b841470b1a1558ba",
+      "state.log": "3964730782407b319d516922056821821ce1c766bab0bd1cbf09cab976a8249a"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Rogue",
+    "seed": 507,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 2,
+    "game_turns": 30001,
+    "cause": "",
+    "purchases": 30,
+    "gold_spent": 473,
+    "oil_bought": 5,
+    "oil_hit_messages": 3,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-6",
+    "hashes": {
+      "keys.log": "855cbfc695a6f99073ebcf7141161aaf26291592595717d44f0015c39d234c92",
+      "messages.log": "500d41561ec70bccca28cdbf97d449cc5798f5e1329d8384bec12ba41f927f99",
+      "state.log": "a3208e6c0ce8c52cf1f0161ea88dc68274cbcd9b2f161585b3046c1b2047bb26"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Ranger",
+    "seed": 508,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 2,
+    "game_turns": 30000,
+    "cause": "",
+    "purchases": 39,
+    "gold_spent": 383,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-7",
+    "hashes": {
+      "keys.log": "6b9d4af57a0d41eaf732b2b96bd5a295be0a2c348b3fdf34022838b05961f458",
+      "messages.log": "b8a84aad116dc122ce0bd2f4e8fa547f5f33b4f71c8938db9d8b74724ba67ee4",
+      "state.log": "2b03754e2fa20f73c2e32f0130de493239c2bffef1f0a72b76c0e6b91c9ce789"
+    }
+  },
+  {
+    "arm": "live",
+    "class": "Blackguard",
+    "seed": 509,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30004,
+    "cause": "",
+    "purchases": 51,
+    "gold_spent": 641,
+    "oil_bought": 7,
+    "oil_hit_messages": 6,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15-final/live/class-8",
+    "hashes": {
+      "keys.log": "d13637e85bfa4040ac77b7377abfef029d70705dd268dbfb5700bf24e8fafb2f",
+      "messages.log": "631a2357b13999c74111ebb606a2cdd22624b784e71aad0a680daad52bc0af40",
+      "state.log": "7cef5507cba9101ca9a86b482339fa13fc07a467b0347cea0ae3011f426d8db5"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Warrior",
+    "seed": 501,
+    "outcome": "turns",
+    "dead": false,
+    "level": 4,
+    "max_depth": 2,
+    "game_turns": 30002,
+    "cause": "",
+    "purchases": 17,
+    "gold_spent": 237,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-0",
+    "hashes": {
+      "keys.log": "307efde241beac0c58062298f6432a76ec44a693fc2d32927687b7d1a37487c2",
+      "messages.log": "263d256c5a966504d0e700181f770564befab6cb340478210896ee02e04e8724",
+      "state.log": "819a28342c134d97acdbb34a1d608a544783e85b34a11677f0acee3ed8a6a256"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Mage",
+    "seed": 502,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 1,
+    "game_turns": 30208,
+    "cause": "",
+    "purchases": 22,
+    "gold_spent": 526,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-1",
+    "hashes": {
+      "keys.log": "7923fefbc8cb589e663505145d5ba2c52dff37a43131697e21debb38d6857107",
+      "messages.log": "ad1a39e23fa7bce40fc50686b0aa2a9164f6a65a830aaa2b4662ef42e3417413",
+      "state.log": "298025707da70fbf1a856217983fe9e04d21f8ed7ad3a0dbd7534d5db90bed15"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Druid",
+    "seed": 503,
+    "outcome": "death",
+    "dead": true,
+    "level": 1,
+    "max_depth": 1,
+    "game_turns": 13160,
+    "cause": "poison",
+    "purchases": 25,
+    "gold_spent": 495,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-2",
+    "hashes": {
+      "keys.log": "2f87905a91616228007e63278eff1f044a31cb45cc45173c755cb4d310e2871d",
+      "messages.log": "5afceeafd93f0155f7e3c93b76a1aa6c838a4868902918f4ff4ec6073da66245",
+      "state.log": "e351e5bcbed13ec6bc7af6c44d3d551f28cd6b5e65f02b7f37c19a65bd0db22f"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Priest",
+    "seed": 504,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30246,
+    "cause": "",
+    "purchases": 10,
+    "gold_spent": 164,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-3",
+    "hashes": {
+      "keys.log": "9a888e665db668dad0be7bd396e8537bc96801aee5767a5e88fa88f96eb892a2",
+      "messages.log": "058d0a59bea0a4ab2b711b0322817704e7a3fc90317c52a84e129b2da7787681",
+      "state.log": "f96cf2ba761df511b4efe490713d11a78531632675de2d6a79e19f68fbc27102"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Necromancer",
+    "seed": 505,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30208,
+    "cause": "",
+    "purchases": 18,
+    "gold_spent": 328,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-4",
+    "hashes": {
+      "keys.log": "29705e430e03f87cb516449dc8ba38ce00e28a258df31b0f1796abf57be61a71",
+      "messages.log": "3c0e697187bb27e92932c4d9d571bb830a173cdff255af98b005f7ba9a4280f9",
+      "state.log": "fb2308cd1410ef85fc0431b56723ebc23559e4bf2d4e4888caa290aaf9c2cdd8"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Paladin",
+    "seed": 506,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 2,
+    "game_turns": 30129,
+    "cause": "",
+    "purchases": 21,
+    "gold_spent": 387,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-5",
+    "hashes": {
+      "keys.log": "dff4e3978a82f14bd1ddcfc05d5a2114ec119ef16f130cc780104fa85dac42ac",
+      "messages.log": "5ee5e4b7f5b923f902bb2f1c86b5d261faa5252972120c02572d55058f738406",
+      "state.log": "f03e360938f74bb3aa120dfa91bf3d70c8532b12b3197a11cbc0378b00572837"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Rogue",
+    "seed": 507,
+    "outcome": "turns",
+    "dead": false,
+    "level": 3,
+    "max_depth": 1,
+    "game_turns": 30001,
+    "cause": "",
+    "purchases": 18,
+    "gold_spent": 398,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-6",
+    "hashes": {
+      "keys.log": "705271736d5dc22e36ce58d607578c5c98c31e161e243f403f9a0a545f7af74d",
+      "messages.log": "50268c2226ce8e7c4a44a6df555117335191328403ad5a650b3b99fbb7662480",
+      "state.log": "fbfcca8998170cd0f9af8f414284c6548e0605c486a7998136babaa1642935e9"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Ranger",
+    "seed": 508,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30005,
+    "cause": "",
+    "purchases": 19,
+    "gold_spent": 359,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-7",
+    "hashes": {
+      "keys.log": "0f04048378519b8bef868265bce85ab067bf19ddcf6324806cd0658ea7736bbe",
+      "messages.log": "09d3bd21ad90fdae17f09102ac5de0d44fd92624441223b127933fbc375776f6",
+      "state.log": "3d31ae88eb0a48cd17bffee570415fc4dde240bd54b796d8cbf838c81c57e9fe"
+    }
+  },
+  {
+    "arm": "baseline-live",
+    "class": "Blackguard",
+    "seed": 509,
+    "outcome": "turns",
+    "dead": false,
+    "level": 2,
+    "max_depth": 1,
+    "game_turns": 30000,
+    "cause": "",
+    "purchases": 22,
+    "gold_spent": 490,
+    "oil_bought": 0,
+    "oil_hit_messages": 0,
+    "out": "/home/diego/projects/borg-rs/harness/out/town-capabilities-2026-11-15/baseline-live/class-8",
+    "hashes": {
+      "keys.log": "80c4606a437023bfe55c0dddccc1be2c61ac668bbf5801d11f05f3e747b40a45",
+      "messages.log": "dde72f941bd794ef65e002db65e36181624d66facae0ec1d416103b9aa4f9efa",
+      "state.log": "1c4d73453308b1a953458bd21cbb773e566299d88beef3547c66cadaf66baea2"
+    }
+  }
+]

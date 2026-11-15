@@ -576,6 +576,19 @@ static bool store_will_buy(struct store *store, const struct object *obj)
  *
  * The black market always charges twice as much as it should.
  */
+/* FORK: read-only public sale offer for the exact stack the store would
+ * receive, including native charge/timeout redistribution and owner caps. */
+int store_sale_quote(struct store *store, const struct object *obj, int qty)
+{
+    struct object offered;
+    int price;
+    assert(obj && qty > 0 && qty <= obj->number);
+    object_copy_amt(&offered, (struct object *)obj, qty);
+    price = price_item(store, &offered, true, qty);
+    object_wipe(&offered);
+    return price;
+}
+
 int price_item(struct store *store, const struct object *obj,
 			   bool store_buying, int qty)
 {

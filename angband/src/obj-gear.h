@@ -54,6 +54,8 @@ void gear_insert_end(struct player *p, struct object *obj);
 struct object *gear_object_for_use(struct player *p, struct object *obj,
 	int num, bool message, bool *none_left);
 int inven_carry_num(const struct player *p, const struct object *obj);
+int inven_quiver_stack_room(const struct player *p, const struct object *obj);
+int inven_merge_num(const struct player *p, const struct object *obj);
 bool inven_carry_okay(const struct object *obj);
 void inven_item_charges(struct object *obj);
 void inven_carry(struct player *p, struct object *obj, bool absorb,
