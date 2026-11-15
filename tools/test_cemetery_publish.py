@@ -160,6 +160,94 @@ class Publication(unittest.TestCase):
         self.assertIn('deaths/D0001-recorded/record.json', names)
         self.assertNotIn('deaths/D0001-recorded/owner-note', names)
 
+    def test_review_f21_late_ignore_edit_is_refused_and_preserved(self):
+        ignore=self.root/'.gitignore';ignore.write_text('owner ignore\n')
+        command('git','-C',self.root,'add','.gitignore');command('git','-C',self.root,'commit','-qm','Owner ignore')
+        command('git','-C',self.root,'push','-q','origin','main')
+        before=command('git','-C',self.root,'rev-parse','HEAD')
+        original=pub.atomic_at
+        def late_edit(directory,name,data,**kwargs):
+            if name=='.gitignore':ignore.write_text('OWNER LATE EDIT\n')
+            return original(directory,name,data,**kwargs)
+        with mock.patch.object(pub,'atomic_at',side_effect=late_edit),self.assertRaisesRegex(ValueError,'Concurrent cemetery edit'):
+            pub.publish(self.bundle,self.root)
+        self.assertEqual(ignore.read_text(),'OWNER LATE EDIT\n')
+        self.assertEqual(command('git','-C',self.root,'rev-parse','HEAD'),before)
+        self.assertEqual(command('git','-C',self.root,'diff','--cached','--name-only'),'')
+
+    def test_review_f22_concurrent_head_commit_is_never_dropped(self):
+        base=command('git','-C',self.root,'rev-parse','HEAD')
+        original_git=pub.git
+        def head_race(root,*args,**kwargs):
+            # An owner commit that lands right before ours, moved with
+            # plumbing so the held index.lock does not block it.
+            if args and args[0]=='commit':
+                made=subprocess.run(['git','-C',str(self.root),'hash-object','-w','--stdin'],input=b'OWNER COMMIT B\n',capture_output=True,check=True)
+                blob=made.stdout.decode().strip()
+                made=subprocess.run(['git','-C',str(self.root),'mktree'],input=f'100644 blob {blob}\tREADME.md\n',capture_output=True,text=True,check=True)
+                tree=made.stdout.strip()
+                made=subprocess.run(['git','-C',str(self.root),'commit-tree',tree,'-p',base,'-m','Owner commit B'],capture_output=True,text=True,check=True)
+                owner=made.stdout.strip()
+                subprocess.run(['git','-C',str(self.root),'update-ref','refs/heads/main',owner],check=True)
+            return original_git(root,*args,**kwargs)
+        with mock.patch.object(pub,'git',side_effect=head_race),self.assertRaisesRegex(ValueError,'Concurrent cemetery commit'):
+            pub.publish(self.bundle,self.root)
+        self.assertEqual(command('git','-C',self.root,'rev-parse','HEAD'),command('git','-C',self.root,'rev-parse','refs/heads/main'))
+        self.assertNotEqual(command('git','-C',self.root,'rev-parse','HEAD'),base)
+        self.assertIn('OWNER COMMIT B',command('git','-C',self.root,'show','HEAD:README.md'))
+        # The owner's index is untouched: it still describes the base tree.
+        index_tree=command('git','-C',self.root,'write-tree')
+        self.assertEqual(index_tree,command('git','-C',self.root,'rev-parse',base+'^{tree}'))
+
+    def test_review_f23_post_build_archive_replacement_is_refused(self):
+        original=pub.build_export
+        def swap(*args):
+            archive,index,expected=original(*args)
+            archive.write_bytes(b'replaced archive bytes')
+            return archive,index,expected
+        with mock.patch.object(pub,'build_export',side_effect=swap),self.assertRaisesRegex(ValueError,'digest continuity'):
+            pub.publish(self.bundle,self.root)
+        self.assertEqual(command('git','-C',self.root,'diff','--cached','--name-only'),'')
+
+    def test_review_f25_oversized_selected_file_is_refused_before_buffering(self):
+        # A two-megabyte .gitignore exceeds the 1 MiB metadata bound and must
+        # be refused from its stat size, before any whole-file buffering.
+        (self.root/'.gitignore').write_text('x' * (2 * 1024 * 1024))
+        with self.assertRaisesRegex(ValueError,'read bound'):
+            pub.publish(self.bundle,self.root)
+        self.assertEqual(command('git','-C',self.root,'diff','--cached','--name-only'),'')
+
+    def test_review_f26_lock_setup_failure_leaks_nothing_and_foreign_lock_survives(self):
+        with mock.patch.object(pub.tempfile,'mkstemp',side_effect=OSError('injected')),self.assertRaises(OSError):
+            pub.publish(self.bundle,self.root)
+        self.assertFalse((self.root/'.git/index.lock').exists(),'a failed setup leaked index.lock')
+        captured={}
+        original_replace=pub.os.replace
+        def replace_after(src,dst,*args,**kwargs):
+            result=original_replace(src,dst,*args,**kwargs)
+            if str(dst).endswith('/index'):
+                captured['foreign']=self.root/'.git/index.lock'
+                captured['foreign'].write_text('foreign\n')
+            return result
+        try:
+            with mock.patch.object(pub.os,'replace',side_effect=replace_after):
+                pub.publish(self.bundle,self.root)
+            self.assertTrue(captured.get('foreign',self.root/'.git/none').exists(),'a foreign lock created after our rename was deleted')
+        finally:
+            if captured.get('foreign') is not None and captured['foreign'].read_text()=='foreign\n':
+                captured['foreign'].unlink()
+
+    def test_review_f30_executable_selected_files_keep_their_mode(self):
+        death=self.root/'deaths/D0001-recorded';death.mkdir(parents=True)
+        (death/'record.json').write_text(json.dumps({'attempts':[{'raw_directory':str(self.bundle)}],'files_sha256':{}}))
+        (self.root/'deaths/README.md').write_text('index')
+        (self.root/'deaths/index.json').write_text('{}')
+        (death/'report.md').write_text('curated case');(death/'report.md').chmod(0o755)
+        pub.publish(self.bundle,self.root)
+        listed=command('git','-C',self.root,'ls-tree','-r','HEAD')
+        self.assertRegex(listed,r'100755 blob [0-9a-f]+\tdeaths/D0001-recorded/report\.md')
+        self.assertRegex(listed,r'100644 blob [0-9a-f]+\tdeaths/D0001-recorded/record\.json')
+
     def test_review_f4_rejects_output_symlinks_before_any_external_write(self):
         outside=self.base/'outside';outside.mkdir();target=outside/'owner';target.write_text('OWNER ORIGINAL')
         (self.root/'.gitignore').symlink_to(target)
@@ -201,7 +289,7 @@ class Publication(unittest.TestCase):
         self.assertEqual(command('git','--git-dir',self.remote,'rev-parse','refs/heads/main'),before)
 
     def test_review_f18_caps_metadata_before_read_or_output_creation(self):
-        archive,_=pub.build_export(self.bundle,self.root/'recordings')
+        archive,_,_=pub.build_export(self.bundle,self.root/'recordings')
         with mock.patch.object(pub,'MAX_EXPORT_JSON',8),self.assertRaisesRegex(ValueError,'metadata exceeds'):
             pub.restore(archive,self.base/'no-metadata-allocation')
         self.assertFalse((self.base/'no-metadata-allocation').exists())
@@ -213,7 +301,7 @@ class Publication(unittest.TestCase):
             pub.build_export(self.bundle,self.root/'recordings')
 
     def test_restore_rejects_wrong_binary_and_escaping_members(self):
-        archive, _ = pub.build_export(self.bundle, self.root / 'recordings')
+        archive, _, _ = pub.build_export(self.bundle, self.root / 'recordings')
         (self.bundle / 'runtime/game/angband').unlink()
         with self.assertRaisesRegex(ValueError, 'Matching executable'):
             pub.restore(archive, self.base / 'no-binary')
