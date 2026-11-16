@@ -403,7 +403,21 @@ set_target_properties(OurCoreLib PROPERTIES C_STANDARD 99)
 set(ANGBAND_CORE_INCLUDE_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/src")
 set(ANGBAND_CORE_LINK_LIBRARIES "")
 if(SUPPORT_BORG_RECORDING)
-    target_sources(OurCoreLib PRIVATE src/native-replay.c)
+    if(NOT BORG_IMPL STREQUAL "rust")
+        message(FATAL_ERROR "Recording is available only in Rust builds")
+    endif()
+    find_package(Python3 REQUIRED COMPONENTS Interpreter)
+    execute_process(COMMAND "${Python3_EXECUTABLE}" "${CMAKE_CURRENT_SOURCE_DIR}/../borg-rs/check-recorder-pin.py"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../recorder-pin.json" "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder"
+        RESULT_VARIABLE RECORDER_PIN_STATUS)
+    if(NOT RECORDER_PIN_STATUS EQUAL 0)
+        message(FATAL_ERROR "Recorder pin differs")
+    endif()
+    include_directories("${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/include")
+    target_sources(OurCoreLib PRIVATE src/native-replay.c "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/host/observations.c")
+    target_include_directories(OurCoreLib PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src"
+        "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/include" "${CMAKE_CURRENT_SOURCE_DIR}/../vendor/angband-recorder/host")
+    target_compile_definitions(OurCoreLib PRIVATE ANGBAND_RECORDER_BUILD="borg-rs-recorder-v0.1.0")
     list(APPEND ANGBAND_CORE_LINK_LIBRARIES "-Wl,--wrap=time")
 endif()
 
@@ -552,6 +566,10 @@ if(BORG_IMPL STREQUAL "rust")
     # Test-only cargo features (e.g. test-force-nested for
     # harness/regress/nested); empty for every real build.
     set(BORG_RS_FEATURES "" CACHE STRING "borg-rs cargo features (tests only)")
+    if(SUPPORT_BORG_RECORDING)
+        list(APPEND BORG_RS_FEATURES recording)
+        list(JOIN BORG_RS_FEATURES "," BORG_RS_FEATURES)
+    endif()
     set(BORG_RS_FEATURE_ARGS "")
     if(BORG_RS_FEATURES)
         set(BORG_RS_FEATURE_ARGS --features "${BORG_RS_FEATURES}")

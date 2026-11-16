@@ -1,0 +1,20 @@
+2963 23419 0 # HIT:the wild cat (2)
+2963 23419 0 # HIT_BY:The wild cat (3)
+2963 23419 0 # MISS_BY:The wild cat (3)
+2963 23419 0 # MISS_BY:The wild cat (3)
+2963 23419 0 # HIT_BY:The wild cat (3)
+2963 23419 0 # Scary guy on level.
+2963 23419 0 # Loc:25,84 Dep:1 Lev:2 HP:3/19 SP:0/3 Danger:p=18
+2963 23419 0 # Fleeing and leaving the level. (scaryguy)
+2963 23419 0 # Adjacent to monster on Scaryguy Level.
+2963 23419 0 # Performing attack type 1 with value 33.
+2963 23419 0 # Facing wild cat at (25,83) who has 6 Hit Points.
+2963 23419 0 # Attacking with weapon 'Main Gauche (1d5) (+0,+0)'
+2965 23419 2 You hit the wild cat.
+2965 23419 4 The wild cat flees in terror!
+2965 23423 38 The wild cat claws you.
+2966 23423 38 The wild cat claws you.
+2966 23423 8 You die.
+2967 23423 0 Score not registered for borgs.
+2967 23423 0 # Aborting (death).
+2967 23423 0 # Aborting (player died).

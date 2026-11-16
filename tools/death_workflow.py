@@ -28,7 +28,7 @@ TOOLS = ('produce_death.py', 'replay_next_death.py', 'replay-borg.py',
          'tools/death_workflow.py', 'tools/borg_runtime.py', 'tools/borg_deaths.py',
          'tools/borg_saves.py', 'tools/borg_gui.py', 'tools/borg_replay_viewer.py', 'tools/replay_observations.py',
          'harness/run.sh', 'harness/supervise.py', 'harness/identity.sh',
-         'tools/toolkit_native.py', 'tools/native-combat.h', 'tools/toolkit_common.py', 'tools/run_report.py', 'tools/display_font.py', 'tools/start_recorded_borg.py', 'tools/inspect-save.c')
+         'tools/toolkit_native.py', 'tools/native-combat.h', 'tools/toolkit_common.py', 'tools/run_report.py', 'tools/display_font.py', 'tools/start_recorded_borg.py', 'tools/recording_paths.py', 'tools/cemetery_publish.py', 'tools/inspect-save.c')
 LOADED_TOOLS = {name: runtime.sha(ROOT / name) for name in TOOLS}
 
 
@@ -76,9 +76,15 @@ def source_commit(ref):
     return git('rev-parse', '--verify', '--end-of-options', ref + '^{commit}').strip()
 
 
+def recorder_paths(commit):
+    # Old frozen engines predate the extraction and have no vendor/pin paths.
+    return [p for p in ('vendor/angband-recorder','recorder-pin.json')
+            if git('ls-tree','--name-only',commit,'--',p).strip()]
+
+
 def source_inputs(commit):
     rows = []
-    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', binary=True).split(b'\0'):
+    for item in git('ls-tree', '-r', '-z', commit, '--', 'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/measurement', 'vendor/angband-recorder', 'recorder-pin.json', binary=True).split(b'\0'):
         if not item:
             continue
         metadata, name = item.split(b'\t', 1)
@@ -281,7 +287,7 @@ def prepare_runtime(args, commit, hashes):
             raise ValueError('Observation tool changed while freezing: ' + name)
     archive = cache / 'source.tar'
     subprocess.run(['git', '-C', str(ROOT), 'archive', '--format=tar', '-o', str(archive), commit,
-                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt', 'harness/measurement'], check=True)
+                    'angband', 'borg-rs', 'Cargo.toml', 'Cargo.lock', 'harness/borg.txt', 'harness/measurement', *recorder_paths(commit)], check=True)
     with tarfile.open(archive) as saved:
         saved.extractall(source, filter='data')
     frontend = (source / 'angband/src/main-borgh.c').read_text()
@@ -335,6 +341,8 @@ def prepare_runtime(args, commit, hashes):
         text, count = re.subn(r'^' + name + r' = .*$', name + ' = ' + value, text, flags=re.M)
         if count != 1:
             raise ValueError('Missing/ambiguous native safety setting: ' + name)
+    # A source commit from before borg-rs#60 still has the line; later ones
+    # do not, and the substitution is then a no-op.
     text = re.sub(r'^borg_munchkin_start = .*$', 'borg_munchkin_start = FALSE', text, flags=re.M)
     config.write_text(text)
     manifests = {str(p.relative_to(cache)): sha(p) for p in cache.rglob('*') if p.is_file() and p != manifest_path

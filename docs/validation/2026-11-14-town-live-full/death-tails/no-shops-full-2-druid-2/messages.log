@@ -1,0 +1,20 @@
+172 1711 0 You are confused.
+172 1711 16 There is a wall in the way!
+172 1716 39 The fruit bat bites you.
+172 1721 39 The fruit bat bites you.
+174 1721 0 # HIT_BY:The fruit bat (+)
+174 1721 0 # HIT_BY:The fruit bat (+)
+174 1721 0 # Tracking a monster 'fruit bat' at (9,88) from (9,87)
+174 1721 0 # HIT_BY:The fruit bat (3)
+174 1721 0 # HIT_BY:The fruit bat (3)
+174 1721 0 # Loc:9,89 Dep:1 Lev:1 HP:0/11 SP:2/2 Danger:p=3
+174 1721 0 # Performing attack type 1 with value 6.
+174 1721 0 # Facing fruit bat at (9,88) who has 1 Hit Points.
+174 1721 0 # Attacking with weapon 'Whip (1d3) (+0,+0)'
+176 1721 0 You are confused.
+176 1721 0 You spin around.
+176 1726 39 The fruit bat bites you.
+176 1726 8 You die.
+177 1726 0 Score not registered for borgs.
+177 1726 0 # Aborting (death).
+177 1726 0 # Aborting (player died).

@@ -1,0 +1,7 @@
+A: harness/out/c/smoke: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=6440019337f4bb9f
+A:   built from 5a209f3cce99 (dirty=no, inputs dirty=no) source_sha256=9b823bdebf1d5687; run at 5a209f3cce99 (dirty=yes) overrides=none
+B: harness/out/rust/smoke: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=5b72abd9371e322d
+B:   built from c91fc3640f22 (dirty=no, inputs dirty=no) source_sha256=4ea7c6eea2281156; run at c91fc3640f22 (dirty=no) overrides=none
+3/3 runs identical (expected 3)
+messages.log compared in 3 run(s)
+state.log compared in 3 run(s)

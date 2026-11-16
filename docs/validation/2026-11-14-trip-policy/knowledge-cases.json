@@ -1,0 +1,1418 @@
+{
+  "v": 1,
+  "scope": "Curated player-known snapshots from bounded resumed-save replays; not independent lives or a fitting set.",
+  "cases": [
+    {
+      "case": "warrior78",
+      "fixture": "harness/saves/captured-extended/ext-long-warrior-2007-checkpoint-000003-t0003000001.save",
+      "save_sha256": "004d869f8605b04729f15ad14bfa7e71278b244500709b82974cea741f1f702a",
+      "source_game_turn": 3000001,
+      "record": {
+        "v": 2,
+        "turn": 113,
+        "game_turn": 3000214,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 50,
+          "max_clevel": 50,
+          "class": 0,
+          "race": 0,
+          "depth": 78,
+          "max_depth": 78,
+          "prepared_depth": 126,
+          "prepared_here": true,
+          "restock": false,
+          "gold": 805334,
+          "sale_value": 287084,
+          "sellable": 0,
+          "pack_capacity": 23,
+          "pack_used": 22,
+          "unknown_stacks": 1,
+          "unknown_gear_stacks": 1,
+          "recall": 100,
+          "up_stairs_known": true,
+          "down_stairs_known": false
+        },
+        "decision": {
+          "action": "return",
+          "route": "recall",
+          "target": 126,
+          "reasons": [
+            "pack(free 1 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 28,
+            "qty": 8,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 28,
+            "qty": 3,
+            "known_value": 10,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 26,
+            "qty": 15,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 1,
+            "known_value": 1500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 25,
+            "qty": 18,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 6,
+            "tval": 25,
+            "qty": 1,
+            "known_value": 40,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 3,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 13,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 25,
+            "qty": 1,
+            "known_value": 50,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 24,
+            "qty": 3,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 24,
+            "qty": 7,
+            "known_value": 2500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 24,
+            "qty": 3,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 23,
+            "qty": 1,
+            "known_value": 3500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 23,
+            "qty": 2,
+            "known_value": 1320,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 22,
+            "qty": 4,
+            "known_value": 4100,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 17,
+            "tval": 22,
+            "qty": 1,
+            "known_value": 70,
+            "flavour_known": false,
+            "runes_unknown": false,
+            "unknown": true
+          },
+          {
+            "slot": 18,
+            "tval": 14,
+            "qty": 1,
+            "known_value": 162000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 19,
+            "tval": 10,
+            "qty": 1,
+            "known_value": 1507,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 20,
+            "tval": 7,
+            "qty": 1,
+            "known_value": 38400,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 21,
+            "tval": 7,
+            "qty": 1,
+            "known_value": 10753,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "blackguard40",
+      "fixture": "harness/saves/captured-extended/ext-long-blackguard-3100-checkpoint-000003-t0003000387.save",
+      "save_sha256": "290bf6f9f36f172b8697682ed091ffe6b224edf02418417a18b29c61c589e829",
+      "source_game_turn": 3000387,
+      "record": {
+        "v": 2,
+        "turn": 161,
+        "game_turn": 3002360,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 35,
+          "max_clevel": 35,
+          "class": 8,
+          "race": 8,
+          "depth": 40,
+          "max_depth": 40,
+          "prepared_depth": 30,
+          "prepared_here": false,
+          "restock": false,
+          "gold": 76560,
+          "sale_value": 97605,
+          "sellable": 1,
+          "pack_capacity": 20,
+          "pack_used": 18,
+          "unknown_stacks": 0,
+          "unknown_gear_stacks": 0,
+          "recall": 7,
+          "up_stairs_known": true,
+          "down_stairs_known": true
+        },
+        "decision": {
+          "action": "ascend",
+          "route": "stairs",
+          "target": 30,
+          "reasons": [
+            "unprepared(depth 40 > prepared 30)",
+            "pack(free 2 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 33,
+            "qty": 2,
+            "known_value": 25,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 33,
+            "qty": 2,
+            "known_value": 1600,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 33,
+            "qty": 1,
+            "known_value": 30000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 28,
+            "qty": 10,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 8,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 26,
+            "qty": 8,
+            "known_value": 350,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 6,
+            "tval": 26,
+            "qty": 19,
+            "known_value": 75,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 15,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 25,
+            "qty": 7,
+            "known_value": 125,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 3000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 24,
+            "qty": 6,
+            "known_value": 2500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 5000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 4500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 22,
+            "qty": 2,
+            "known_value": 2800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 11,
+            "qty": 1,
+            "known_value": 14000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 17,
+            "tval": 6,
+            "qty": 1,
+            "known_value": 7300,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "warrior42",
+      "fixture": "harness/saves/captured-extended/ext-long-warrior-2000-checkpoint-000005-t0005000001.save",
+      "save_sha256": "95a525317059fbc525cc3d56c27fc181436b3a14275dde4ca27d18015d941c9c",
+      "source_game_turn": 5000001,
+      "record": {
+        "v": 2,
+        "turn": 21,
+        "game_turn": 5000065,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 42,
+          "max_clevel": 42,
+          "class": 0,
+          "race": 0,
+          "depth": 42,
+          "max_depth": 44,
+          "prepared_depth": 42,
+          "prepared_here": true,
+          "restock": false,
+          "gold": 230890,
+          "sale_value": 138743,
+          "sellable": 4,
+          "pack_capacity": 23,
+          "pack_used": 21,
+          "unknown_stacks": 0,
+          "unknown_gear_stacks": 0,
+          "recall": 100,
+          "up_stairs_known": true,
+          "down_stairs_known": true
+        },
+        "decision": {
+          "action": "return",
+          "route": "recall",
+          "target": 42,
+          "reasons": [
+            "pack(free 2 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 28,
+            "qty": 11,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 26,
+            "qty": 21,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 26,
+            "qty": 5,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 30,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 100,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 25,
+            "qty": 17,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 6,
+            "tval": 25,
+            "qty": 2,
+            "known_value": 40,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 14,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 3000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 24,
+            "qty": 5,
+            "known_value": 2500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 3500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 25000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 23,
+            "qty": 1,
+            "known_value": 400,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 17,
+            "tval": 23,
+            "qty": 1,
+            "known_value": 4025,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 18,
+            "tval": 22,
+            "qty": 3,
+            "known_value": 3900,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 19,
+            "tval": 9,
+            "qty": 1,
+            "known_value": 36100,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 20,
+            "tval": 6,
+            "qty": 1,
+            "known_value": 7260,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "warrior42",
+      "fixture": "harness/saves/captured-extended/ext-long-warrior-2000-checkpoint-000005-t0005000001.save",
+      "save_sha256": "95a525317059fbc525cc3d56c27fc181436b3a14275dde4ca27d18015d941c9c",
+      "source_game_turn": 5000001,
+      "record": {
+        "v": 2,
+        "turn": 105,
+        "game_turn": 5000436,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 42,
+          "max_clevel": 42,
+          "class": 0,
+          "race": 0,
+          "depth": 42,
+          "max_depth": 44,
+          "prepared_depth": 42,
+          "prepared_here": true,
+          "restock": false,
+          "gold": 232225,
+          "sale_value": 138833,
+          "sellable": 4,
+          "pack_capacity": 23,
+          "pack_used": 22,
+          "unknown_stacks": 1,
+          "unknown_gear_stacks": 1,
+          "recall": 100,
+          "up_stairs_known": true,
+          "down_stairs_known": true
+        },
+        "decision": {
+          "action": "return",
+          "route": "recall",
+          "target": 42,
+          "reasons": [
+            "pack(free 1 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 28,
+            "qty": 11,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 26,
+            "qty": 21,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 26,
+            "qty": 5,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 30,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 100,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 25,
+            "qty": 17,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 6,
+            "tval": 25,
+            "qty": 2,
+            "known_value": 40,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 14,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 3000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 24,
+            "qty": 5,
+            "known_value": 2500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 3500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 4000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 25000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 90,
+            "flavour_known": false,
+            "runes_unknown": false,
+            "unknown": true
+          },
+          {
+            "slot": 17,
+            "tval": 23,
+            "qty": 1,
+            "known_value": 400,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 18,
+            "tval": 23,
+            "qty": 1,
+            "known_value": 4025,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 19,
+            "tval": 22,
+            "qty": 3,
+            "known_value": 3900,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 20,
+            "tval": 9,
+            "qty": 1,
+            "known_value": 36100,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 21,
+            "tval": 6,
+            "qty": 1,
+            "known_value": 7260,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "warrior32",
+      "fixture": "harness/saves/captured-extended/ext-warrior-checkpoint-000002-t0002000005.save",
+      "save_sha256": "d34f79d8d4fcceb2bf5d76a0b20963160a50093ed03e04995a63ba23a147cf7e",
+      "source_game_turn": 2000005,
+      "record": {
+        "v": 2,
+        "turn": 13,
+        "game_turn": 2000015,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 34,
+          "max_clevel": 34,
+          "class": 0,
+          "race": 0,
+          "depth": 32,
+          "max_depth": 34,
+          "prepared_depth": 29,
+          "prepared_here": false,
+          "restock": false,
+          "gold": 115030,
+          "sale_value": 62410,
+          "sellable": 2,
+          "pack_capacity": 21,
+          "pack_used": 20,
+          "unknown_stacks": 0,
+          "unknown_gear_stacks": 0,
+          "recall": 11,
+          "up_stairs_known": false,
+          "down_stairs_known": false
+        },
+        "decision": {
+          "action": "ascend",
+          "route": "search",
+          "target": 29,
+          "reasons": [
+            "unprepared(depth 32 > prepared 29)",
+            "pack(free 1 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 28,
+            "qty": 8,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 28,
+            "qty": 3,
+            "known_value": 10,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 26,
+            "qty": 10,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 26,
+            "qty": 4,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 20,
+            "known_value": 75,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 30,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 6,
+            "tval": 25,
+            "qty": 17,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 40,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 25,
+            "qty": 5,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 25,
+            "qty": 11,
+            "known_value": 125,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 25,
+            "qty": 1,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 25,
+            "qty": 2,
+            "known_value": 50,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 5000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 20000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 24,
+            "qty": 6,
+            "known_value": 500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 17,
+            "tval": 22,
+            "qty": 1,
+            "known_value": 2800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 18,
+            "tval": 8,
+            "qty": 1,
+            "known_value": 7476,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 19,
+            "tval": 6,
+            "qty": 1,
+            "known_value": 6160,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "warrior24",
+      "fixture": "harness/saves/captured-extended/ext-long-warrior-2007-checkpoint-000001-t0001000005.save",
+      "save_sha256": "943584d9648df63ade3e3bcd198ee13662d19d691ed4fc49995edef9485f2e80",
+      "source_game_turn": 1000005,
+      "record": {
+        "v": 2,
+        "turn": 37,
+        "game_turn": 1000100,
+        "params": {
+          "policy": 0,
+          "depth_margin": 0,
+          "pack_slack": 2,
+          "unknown_stacks": 4,
+          "return_gold": 0
+        },
+        "inputs": {
+          "clevel": 30,
+          "max_clevel": 30,
+          "class": 0,
+          "race": 0,
+          "depth": 24,
+          "max_depth": 26,
+          "prepared_depth": 25,
+          "prepared_here": true,
+          "restock": false,
+          "gold": 29811,
+          "sale_value": 80942,
+          "sellable": 1,
+          "pack_capacity": 22,
+          "pack_used": 21,
+          "unknown_stacks": 2,
+          "unknown_gear_stacks": 1,
+          "recall": 13,
+          "up_stairs_known": false,
+          "down_stairs_known": false
+        },
+        "decision": {
+          "action": "return",
+          "route": "recall",
+          "target": 25,
+          "reasons": [
+            "pack(free 1 <= 2)"
+          ]
+        },
+        "pack": [
+          {
+            "slot": 0,
+            "tval": 28,
+            "qty": 14,
+            "known_value": 3,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 1,
+            "tval": 26,
+            "qty": 10,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 2,
+            "tval": 26,
+            "qty": 20,
+            "known_value": 75,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 3,
+            "tval": 26,
+            "qty": 4,
+            "known_value": 30,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 4,
+            "tval": 26,
+            "qty": 4,
+            "known_value": 30,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 5,
+            "tval": 26,
+            "qty": 3,
+            "known_value": 20,
+            "flavour_known": false,
+            "runes_unknown": false,
+            "unknown": true
+          },
+          {
+            "slot": 6,
+            "tval": 25,
+            "qty": 33,
+            "known_value": 15,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 7,
+            "tval": 25,
+            "qty": 10,
+            "known_value": 40,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 8,
+            "tval": 25,
+            "qty": 4,
+            "known_value": 800,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 9,
+            "tval": 25,
+            "qty": 3,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 10,
+            "tval": 25,
+            "qty": 13,
+            "known_value": 125,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 11,
+            "tval": 24,
+            "qty": 2,
+            "known_value": 2500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 12,
+            "tval": 24,
+            "qty": 1,
+            "known_value": 2000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 13,
+            "tval": 24,
+            "qty": 3,
+            "known_value": 500,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 14,
+            "tval": 23,
+            "qty": 4,
+            "known_value": 200,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 15,
+            "tval": 23,
+            "qty": 2,
+            "known_value": 5600,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 16,
+            "tval": 22,
+            "qty": 1,
+            "known_value": 2300,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 17,
+            "tval": 22,
+            "qty": 1,
+            "known_value": 70,
+            "flavour_known": false,
+            "runes_unknown": false,
+            "unknown": true
+          },
+          {
+            "slot": 18,
+            "tval": 21,
+            "qty": 1,
+            "known_value": 900,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 19,
+            "tval": 18,
+            "qty": 1,
+            "known_value": 41000,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          },
+          {
+            "slot": 20,
+            "tval": 6,
+            "qty": 1,
+            "known_value": 6010,
+            "flavour_known": true,
+            "runes_unknown": false,
+            "unknown": false
+          }
+        ]
+      }
+    }
+  ]
+}

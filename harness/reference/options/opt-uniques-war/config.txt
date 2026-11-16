@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_kills_uniques=TRUE
-borg_txt_sha256=aa18c245360a3b3296ea169dd134ff3dee682b028c3072de1b738b3bdd949d0c
+borg_txt_sha256=91adebbb35c6faba19ceac9c6590e3543cc5c5d923bd797af380c82d6f6f8283

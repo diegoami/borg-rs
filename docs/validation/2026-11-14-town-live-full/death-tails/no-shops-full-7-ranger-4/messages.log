@@ -1,0 +1,20 @@
+4325 34550 0 # Tracking a monster 'kobold' at (21,14) from (22,15)
+4325 34550 0 # HIT_BY:The kobold (3)
+4325 34550 0 # There was an object '& Flask~ of oil' at (15,24)
+4325 34550 0 # Scary guy on level.
+4325 34550 0 # Loc:20,13 Dep:1 Lev:4 HP:9/40 SP:3/3 Danger:p=8
+4325 34550 0 # Fleeing and leaving the level. (scaryguy)
+4325 34550 0 # Backing up to 12,19 (8 > 0)
+4326 34559 34 The kobold hits you.
+4327 34560 0 # HIT_BY:The kobold (+)
+4327 34560 0 # Tracking a monster 'kobold' at (20,13) from (21,14)
+4327 34560 0 # HIT_BY:The kobold (3)
+4327 34560 0 # Scary guy on level.
+4327 34560 0 # Loc:19,12 Dep:1 Lev:4 HP:7/40 SP:3/3 Danger:p=8
+4327 34560 0 # Fleeing and leaving the level. (scaryguy)
+4327 34560 0 # Backing up to 11,20 (8 > 0)
+4328 34569 34 The kobold hits you.
+4328 34569 8 You die.
+4329 34569 0 Score not registered for borgs.
+4329 34569 0 # Aborting (death).
+4329 34569 0 # Aborting (player died).

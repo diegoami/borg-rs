@@ -1,5 +1,12 @@
 # borg-rs status
 
+Owner-directed town/trip integration (2026-11-15): the experimental feature
+is integrated with accepted M13 and the current recording/cemetery
+work. Both new policies remain off by default. The feature retires the Rust
+munchkin/lunal modes; the older mode-off update below is historical. See
+[TOWN-MAIN-INTEGRATION](TOWN-MAIN-INTEGRATION.md) for scope, ABI compatibility,
+validation and the unchanged M12-pinned Zoo experiment.
+
 ## Current direction: a Borg family after impact v10
 
 Starting from the owner-accepted `4.2.6-impact-v10` snapshot, borg-rs diverges
@@ -45,6 +52,56 @@ reviewed head `be5f4891f`. The stacked #27 tranche (buy-to-identify,
 variant tag is placed: the family lane remains an experiment with no benefit
 claim.
 
+
+**Update 2026-11-14, later: munchkin off.** Owner direction: turn the
+implicit munchkin start off (`borg_munchkin_by_class = FALSE` in
+`harness/borg.txt`; the global start was already FALSE). No class
+stair-scums at the start any more; the C/Rust code keeps the better-borg-c
+PR302 feature and the suite `munchkin` flag still forces it for the
+`cfg-munchkin-*` and `opt-munchkin-limits-war` runs. The whole standing
+oracle was re-made from the same v12R C build with the two-pass method and
+the Rust role ran every suite: **111/111 runs identical** in all columns
+(record: [docs/validation/2026-11-14-munchkin-off](validation/2026-11-14-munchkin-off/README.md)).
+The munchkin-flavoured runs collapsed (smoke warrior 9,681 -> 2,616 keys,
+`opt-wdam-war` 80,635 -> 14,278); no survival or progress claim is made
+for either setting.
+
+## Carry better-borg-c milestone 13 as v13R (impact v13R)
+
+Owner direction (2026-11-14, "you can do v13r"): carry the consumer's
+milestone 13 (`4.2.6-impact-v13`, `9ccb2aaee`) into borg-rs as **v13R**,
+the Rust counterpart of its nineteen carry units 0119-0137 - twelve from
+the consumer's issue-426 queue, seven from its owner-directed
+source-board pairs. This is an explicit carry, not an automatic queue;
+the family lane is untouched. Record:
+[docs/adoption/c-v13r](adoption/c-v13r/README.md).
+
+The units span heal amounts (fixed 20/40/60), cure lists that drop what
+cannot cure, stun protection modelled separately (`BI_PSTUN`), elemental
+vulnerability in the danger model, swap fear protection, wand svals by
+name, dead-unique bookkeeping, the respawn birth menu letters, glyph-flow
+fixes, three dead-code removals and two comments. The consumer's own
+milestone-13 review was open at carry time; its package and review map
+are the review input, and this repository's validation is its own
+evidence. The consumer's post-tag carries 0138-0140 (sources 154, 590,
+591) are milestone-14 scope there and are not taken.
+
+Validation: 123 Rust tests (one existing ignored), clippy clean, no C
+Borg in the Rust binary, and a full two-pass oracle re-record with the
+Rust role on every suite: **111/111 runs identical** on keys, messages
+and state in all three columns. Against the previous corpus 103 of the
+111 runs are byte-identical; the 8 that changed are listed in the
+receipt. Independent review: **approve with corrections** - one low
+finding (F1, this count was first written as 7/104), corrected here.
+Receipt:
+[docs/validation/2026-11-14-c-v13r](validation/2026-11-14-c-v13r/README.md).
+The implementation branch is `claude/v13r-carry`.
+
+**Accepted 2026-11-14.** Owner direction: accept and merge. PR #72 was
+merged at `5dcc1db` and the annotated tag **`4.2.6-impact-v13`** marks
+the merged main commit, after `4.2.6-impact-v12`. Tracking issue
+[#73](https://github.com/diegoami/borg-rs/issues/73) is closed; the
+GitHub milestone "4.2.6 impact v13" is created and closed.
 
 ## Carry better-borg-c milestone 12 as v12R (impact v12R)
 

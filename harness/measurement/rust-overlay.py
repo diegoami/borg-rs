@@ -11,6 +11,8 @@ root, out = map(Path, sys.argv[1:])
 files = [root / 'Cargo.toml', root / 'Cargo.lock']
 files += sorted(p for p in (root / 'borg-rs').rglob('*')
                 if p.is_file() and 'target' not in p.relative_to(root).parts)
+files += sorted(p for p in (root / 'vendor/angband-recorder').rglob('*') if p.is_file() and '__pycache__' not in p.parts and 'target' not in p.parts)
+files += [root / 'recorder-pin.json']
 for source in files:
     relative = source.relative_to(root)
     data = source.read_bytes()

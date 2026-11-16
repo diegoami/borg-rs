@@ -19,7 +19,9 @@ For the next session working on borg-rs. Read this first, then
 
 A faithful port to Rust of the Angband Borg, the game's built-in automatic
 player (59 C modules, about 64k lines in `angband/src/borg/`, Angband
-`e473720ed`, vendored as a git subtree and locally corrected only under `docs/FORK-CORRECTIONS.md`). The Rust Borg
+`42cd156ac` — moved from `e473720ed` by the v12R official import — vendored
+as a git subtree, with the documented fork corrections (`docs/FORK-CORRECTIONS.md`)
+and gated harness hooks on top). The Rust Borg
 must produce the same keypress stream as the C Borg, byte for byte, when it
 drives the same C engine with the same seed. It is not a redesign: no new
 tactics. Targeted crash/play-blocker fixes are now authorized. C bugs are recorded and listed in

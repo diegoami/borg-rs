@@ -14,20 +14,24 @@ import borg_runtime as runtime
 import borg_saves as saves
 import death_workflow as workflow
 import display_font
+import cemetery_publish
 from toolkit_common import native_lock
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(prog="start-recording.sh", description="Start recorded Angband play; the Rust Borg is optional.")
     parser.add_argument('name', nargs='?', default=os.environ.get('BORG_PLAY_CHARACTER', 'RustBorg'))
     parser.add_argument('--seed', type=int)
     parser.add_argument('--from-backup', nargs='?', type=int, const=1, choices=range(1, 6))
     parser.add_argument('--build-only', action='store_true')
+    parser.add_argument('--auto-push', '--auto-commit-and-push', dest='auto_push', action='store_true', help='archive the completed session, commit its export and push to the cemetery origin')
     args, extra = parser.parse_known_args(argv)
     try:
         runtime.character_name(args.name)
         if args.seed is not None and not 0 <= args.seed <= 0xffffffff:
             raise ValueError('Seed must be uint32')
+        if args.auto_push and not args.build_only:
+            cemetery_publish.preflight(runtime.data_root())
         if not args.build_only:
             display_font.probe()
         pin = workflow.source_commit('HEAD')
@@ -67,8 +71,10 @@ def main(argv=None):
                        'rng_origin': 'seeded birth' if fresh else 'native saved RNG; fresh Borg'}
             arguments = extra if '--' in extra else extra + ['--', '-n1']
             print('Create/load your character. Ctrl-Z then z starts the Rust Borg; Ctrl-X saves and exits.', flush=True)
-            gui.start(Path(prepared['binary']), profile, args.name, arguments, lock_fd=held.fileno(),
+            bundle = gui.start(Path(prepared['binary']), profile, args.name, arguments, lock_fd=held.fileno(),
                       data_source=Path(prepared['source_root']) / 'angband/lib', build_identity=prepared['build_id'], session_context=context)
+        if args.auto_push:
+            cemetery_publish.publish(bundle, profile)
         return 0
     except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(str(error), file=sys.stderr); return 1

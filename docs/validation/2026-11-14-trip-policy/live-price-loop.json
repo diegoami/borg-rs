@@ -1,0 +1,26 @@
+{
+  "scope": "Diagnostic pre-quote correction, not a parameter comparison.",
+  "run": "/tmp/borg-joint-live-corrected/supply-cautious/401",
+  "native_turn": 12541,
+  "gold": 34,
+  "action": 1,
+  "selected": [
+    6,
+    5,
+    1,
+    0
+  ],
+  "ware": [
+    5,
+    21,
+    24,
+    1,
+    0,
+    3
+  ],
+  "stop_reason": "keys",
+  "native_message": "You do not have enough gold for this item.",
+  "executable_sha256": "344a6c2be51f21f6439779508723e5cfbbfd5d958622fe1b035ec361072a2dd4",
+  "cause": "The legacy Borg approximation can return zero before applying the native shop MAX(value_real,value) quote. An unseen Ring of the Mouse was treated as free.",
+  "correction": "Opt-in live mode uses the public native price_item quote for one copy; the historical chooser retains its old input for parity."
+}

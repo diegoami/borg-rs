@@ -1,0 +1,21 @@
+{
+  "schema": "borg-zoo/experiment@1",
+  "name": "rs-town-utility-knowledge-home-development",
+  "description": "Proposed development grid after matched local full-suite pilot; no workflow dispatched; one live-enabled source pin shared by all arms.",
+  "specimens": [
+    "4.2.6-rs-town-live"
+  ],
+  "profiles": [
+    "rs-town-current-normal",
+    "rs-town-no-shops-normal",
+    "rs-town-live-reference-by-class-normal",
+    "rs-town-live-knowledge5-by-class-normal",
+    "rs-town-live-home250-by-class-normal",
+    "rs-town-live-knowledge5-home250-by-class-normal"
+  ],
+  "suites": [
+    "classes-1800"
+  ],
+  "control": "4.2.6-rs-town-live",
+  "control_profile": "rs-town-current-normal"
+}

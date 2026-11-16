@@ -1,0 +1,20 @@
+800 6268 0 # heading up (bored and unable to dive: restock food < 3)
+800 6268 0 # Looking for up stairs.  Going up.
+800 6268 0 # Bored but unable to flow to up stairs.
+800 6268 0 # no up stairs found, going down
+800 6268 0 # Flowing toward spastic at cost 6
+800 6268 0 # Closing a door
+801 6278 0 # Scary guy on level.
+801 6278 0 # Fleeing and leaving the level. (scaryguy)
+801 6278 0 # Fleeing and leaving the level. (Looking for any stair)
+801 6278 0 # Fleeing and leaving the level (Looking for Up Stair).
+802 6288 0 # Scary guy on level.
+802 6288 0 # Fleeing and leaving the level. (scaryguy)
+802 6288 0 # Fleeing and leaving the level. (Looking for any stair)
+802 6288 0 # Fleeing and leaving the level (Looking for Up Stair).
+803 6289 49 The grey mold releases spores at you.
+803 6289 49 The grey mold releases spores at you.
+804 6289 8 You die.
+805 6289 0 Score not registered for borgs.
+805 6289 0 # Aborting (death).
+805 6289 0 # Aborting (player died).

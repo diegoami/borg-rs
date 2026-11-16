@@ -1,0 +1,20 @@
+98 651 0 # HIT_BY:The giant yellow centipede (3)
+98 651 0 # HIT_BY:The giant yellow centipede (3)
+101 652 0 The giant yellow centipede misses you.
+101 652 40 The giant yellow centipede stings you.
+102 661 39 The giant yellow centipede bites you.
+103 661 40 The giant yellow centipede stings you.
+105 661 0 # MISS_BY:The giant yellow centipede (+)
+105 661 0 # HIT_BY:The giant yellow centipede (+)
+105 661 0 # HIT_BY:The giant yellow centipede (+)
+105 661 0 # HIT_BY:The giant yellow centipede (+)
+105 661 0 # MISS_BY:The giant yellow centipede (3)
+105 661 0 # HIT_BY:The giant yellow centipede (3)
+105 661 0 # HIT_BY:The giant yellow centipede (3)
+105 661 0 # HIT_BY:The giant yellow centipede (3)
+108 670 39 The giant yellow centipede bites you.
+108 670 40 The giant yellow centipede stings you.
+109 670 8 You die.
+110 670 0 Score not registered for borgs.
+110 670 0 # Aborting (death).
+110 670 0 # Aborting (player died).

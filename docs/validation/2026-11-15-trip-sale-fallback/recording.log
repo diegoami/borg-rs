@@ -1,0 +1,7 @@
+necro-on 0 turns
+necro-off 0 turns
+warrior-off 0 turns
+warrior-on 0 turns
+ranger-on 0 turns
+ranger-off 0 turns
+[{'case': 'warrior', 'equal': {'keys.log': True, 'messages.log': True, 'state.log': True}}, {'case': 'necro', 'equal': {'keys.log': True, 'messages.log': True, 'state.log': True}}, {'case': 'ranger', 'equal': {'keys.log': True, 'messages.log': True, 'state.log': True}}]

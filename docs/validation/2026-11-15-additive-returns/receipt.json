@@ -1,0 +1,33 @@
+{
+  "scope": "Return-policy coupling correction. Native replay receipts belong to the M12 experiment source; current M13 validation is listed separately. Selected diagnostics are not a new survival cohort.",
+  "experiment_source": "71cff24ef45731e55aa9687930cd2d766dd0695e",
+  "original_binary_sha256": "08357c005d06724ec62734c45baf7749b596ef11a8a2c49f92b7e9a759da9118",
+  "m12_diagnostics": {
+    "seeds": [
+      1642225607,
+      1693286929,
+      1308749979
+    ],
+    "original_reproductions": 6,
+    "corrected_paired_executions": 6,
+    "original_channels": "keys, messages and state hashes match retained originals",
+    "corrected_channels": "keys and state match original shopping-only controls in all six corrected executions",
+    "learning_canary": {
+      "seed": 235607,
+      "profile": "(1,2)",
+      "outcome": "turn cap",
+      "new_custom_return_goals": 1
+    }
+  },
+  "m13_base": "1443c2d1b97d110ffbf5ae420d6c6b97ac15f7ea",
+  "m13_validation": {
+    "unit_tests": {
+      "passed": 295,
+      "failed": 0,
+      "ignored": 4
+    },
+    "clippy": "cargo clippy --release --lib -- -D warnings passed",
+    "native_replays": "M12 native receipts were not re-earned as M13 runtime evidence"
+  },
+  "cohort_integrity": "10800 records checked; one raw shard independently recovered: 338 attempts, 5173 files, no mismatches."
+}

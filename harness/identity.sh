@@ -28,7 +28,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 inputs_of() {
     case "$1" in
         c) echo "angband harness/measurement";;
-        rust) echo "angband borg-rs Cargo.toml Cargo.lock harness/measurement";;
+        rust) echo "angband borg-rs Cargo.toml Cargo.lock harness/measurement vendor/angband-recorder recorder-pin.json";;
         *) echo "identity.sh: implementation must be c or rust, not '$1'" >&2; exit 2;;
     esac
 }

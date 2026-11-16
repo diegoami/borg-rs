@@ -69,9 +69,12 @@ subset and excluded fixes/dependencies explicitly. No automatic version chase,
 merge, release or wholesale donor-tree replacement is part of this contract.
 
 Tool sources08a5cd019 and f3ced6219768 in IMPORTED.json remain tooling provenance.
-They are not by themselves accepted gameplay targets. The current official
-engine base remains e473720ed plus the documented local fork corrections until
-a deliberate, qualified adoption changes it.
+They are not by themselves accepted gameplay targets. The engine base moves
+through a deliberate, qualified adoption: it is currently the official
+import `42cd156ac` (v12R, owner-accepted 2026-11-13) plus the documented
+local fork corrections and harness hooks. The base is not itself a
+constraint - the constraint is the path: verified milestone, review,
+owner acceptance and tag.
 
 ## Reconcile and implement a bounded batch
 

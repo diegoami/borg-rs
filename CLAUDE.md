@@ -168,7 +168,8 @@ C consumer's ownership/source links, rather than a second direct tracker queue.
     4. a one-line summary
     5. the `c-bugs.md` text quoted
     6. `C context:` a link to the C lines at the pinned upstream commit
-       `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`
+       (`42cd156ac9f95ddf4311e88dd7ad462292d6d1d6` since the v12R
+       official import; older entries link `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`)
     7. `Discovery:` a link to the `docs/c-bugs.md` lines at the pushed
        borg-rs commit
     8. the consumer note: the C source state belongs on the issue; borg-rs

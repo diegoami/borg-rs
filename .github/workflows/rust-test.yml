@@ -14,3 +14,57 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - name: cargo test --release
         run: cargo test --release --manifest-path borg-rs/Cargo.toml
+
+  recorder:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libx11-dev
+      - run: cmake -S angband -B build/recorder -DBORG_IMPL=rust -DSUPPORT_BORG_RECORDING=ON -DSUPPORT_BORG_HARNESS=ON -DSUPPORT_TEST_FRONTEND=ON -DBUILD_DOC=OFF
+      - run: cmake --build build/recorder -j4
+      - run: python3 harness/check-recorder.py --binary build/recorder/game/angband --output "$RUNNER_TEMP/recorder-check"
+
+  tools:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@stable
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libx11-dev
+      - run: bash -n start-recording.sh run-rust-borg.sh
+      - run: ./start-recording.sh --help && ./record-random-runs.py --help
+      - run: python3 -m unittest discover -s tools
+        env:
+          BORG_DEATH_RECORDS_DIR: ${{ runner.temp }}/tools-test-deaths
+
+  town-capability-coverage:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Native build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libx11-dev libxext-dev
+      - name: Build the Rust harness
+        run: BORG_IMPL=rust harness/build.sh
+      - name: Catalogue and native capability coverage
+        run: bash harness/check-town-capabilities.sh "$RUNNER_TEMP/town-capability-check"
+      - name: Native PR83 regression fixtures
+        run: |
+          cmake -S angband -B "$RUNNER_TEMP/town-review-build" -DCMAKE_BUILD_TYPE=Release -DSUPPORT_BORG_HARNESS=ON -DBORG_IMPL=rust -DBORG_RS_FEATURES=test-town-review
+          cmake --build "$RUNNER_TEMP/town-review-build" --target OurExecutable --parallel 2
+          python3 harness/regress/town-review/run.py "$RUNNER_TEMP/town-review-build" "$RUNNER_TEMP/town-capability-check/native-review"
+      - name: Retain coverage evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: town-capability-coverage
+          path: ${{ runner.temp }}/town-capability-check
+          retention-days: 14
+          if-no-files-found: ignore

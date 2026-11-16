@@ -21,6 +21,7 @@ import time
 import signal
 
 from toolkit_common import serialized
+from recording_paths import data_root_for
 
 import borg_saves as saves
 
@@ -41,7 +42,7 @@ def sha(path):
 
 
 def data_root():
-    return Path(os.environ.get('BORG_PLAY_DATA_DIR', ROOT / '.angband-rust')).resolve()
+    return data_root_for(ROOT)
 
 
 def character_name(name):
@@ -225,7 +226,8 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
         if not origin and args.race is None and args.cls is None:
             flags += ',random-birth'
         if getattr(args, 'munchkin', False):
-            flags += ',munchkin'
+            # harness/run.sh refuses the flag too; fail here with the reason
+            raise ValueError('the munchkin mode was removed (borg-rs#60); use a pre-removal checkout')
         if origin:
             shutil.copy2(save.parent / 'backups' / save.name / 'save.1', runtime / 'harness/saves/origin.save')
             if sha(runtime / 'harness/saves/origin.save') != initial:
@@ -261,7 +263,7 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
             and summary and summary.get('stop_reason') == 'wall_timeout' and (bundle / 'run/native/record-complete.json').exists())
         if result.returncode and not consistent_timeout:
             record['status'] = 'failed'
-            record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
+            record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*') if p.is_file() and p != bundle / 'recording.json'}
             write(bundle / 'recording.json', record)
             raise ValueError(f'Headless run failed; named save preserved. Evidence: {bundle}')
         final = bundle / 'run/final.save'
@@ -278,7 +280,7 @@ def record_run(args, *, prepared=None, profile_root=None, export_death=True):
         os.replace(compressed, bundle / 'frames.jsonl.gz')
         record.update(status='timeout' if consistent_timeout else 'complete', summary=summary, publication='pending', finalized=True)
         record['files_sha256'] = {str(p.relative_to(bundle)): sha(p) for p in bundle.rglob('*')
-                                 if p.is_file() and p.name != 'recording.json'}
+                                 if p.is_file() and p != bundle / 'recording.json'}
         write(bundle / 'recording.json', record)
         validate(bundle, require_complete=not consistent_timeout)
         if consistent_timeout:

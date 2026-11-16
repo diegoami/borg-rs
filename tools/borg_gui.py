@@ -49,11 +49,11 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
     held = os.fstat(lock_fd)
     expected = lock.stat()
     if (held.st_dev, held.st_ino) != (expected.st_dev, expected.st_ino):
-        raise ValueError('Launch GUI recording through start-borg.sh or run-rust-borg.sh')
+        raise ValueError('Launch GUI recording through start-recording.sh or run-rust-borg.sh')
     fcntl.flock(lock_fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
     before_frontend = arguments[:arguments.index('--')] if '--' in arguments else arguments
     if any(arg.startswith(('-d', '-m', '-u')) for arg in before_frontend):
-        raise ValueError('Use BORG_PLAY_DATA_DIR and start-borg.sh NAME to select the recorded profile')
+        raise ValueError('Use BORG_PLAY_DATA_DIR and start-recording.sh NAME to select the recorded profile')
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S.%fZ')
     bundle = profile / 'recordings' / (stamp + '-' + character)
     frozen = bundle / 'runtime/game'
@@ -178,7 +178,7 @@ def start(binary, profile, character, arguments, *, lock_fd=9, data_source=None,
     record['captured_views'] = {'inventory': 'inventory' in first_frame, 'spells': 'spells' in first_frame,
                                 'native_messages': (output / 'native-messages.jsonl').is_file()}
     record.update(status='complete')
-    record['files_sha256'] = {str(p.relative_to(bundle)): runtime.sha(p) for p in bundle.rglob('*') if p.is_file() and p.name != 'recording.json'}
+    record['files_sha256'] = {str(p.relative_to(bundle)): runtime.sha(p) for p in bundle.rglob('*') if p.is_file() and p != bundle / 'recording.json'}
     runtime.write(bundle / 'recording.json', record)
     print(f'GUI recording complete: {bundle}', flush=True)
     if not session_context or session_context.get('kind') != 'human_takeover':
@@ -281,6 +281,8 @@ def verify(bundle, output=None, timeout=None, *, engine=None):
         streams = (*STREAMS, 'native-messages.jsonl') if (bundle / 'run/native-messages.jsonl').exists() else STREAMS
         if (bundle / 'run/combat.jsonl').exists():
             streams = (*streams, 'combat.jsonl')
+        if (bundle / 'run/recording.json').exists():
+            streams = (*streams, 'recording.json', 'inputs.jsonl', 'messages.jsonl', 'complete.json')
         for name in streams:
             if not (output_run / name).exists() or runtime.sha(output_run / name) != runtime.sha(bundle / 'run' / name):
                 # Save only a useful first divergence, never overwrite originals.

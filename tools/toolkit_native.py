@@ -13,6 +13,12 @@ FILES = ('tools/toolkit_native.py', 'tools/native-combat.h')
 
 def replace(path, old, new):
     text = path.read_text()
+    # New captures use the pinned Rust core. These legacy recorder rewrites
+    # remain available only for historical C-core source exports.
+    if path.name in ('native-replay.c', 'native-replay.h') and 'vendor/angband-recorder' in text:
+        return
+    if path.name == "main-borgh.c" and old == "\t_exit(0);\n}" and "extern void ar_finish(void)" in text:
+        return
     if text.count(old) != 1:
         raise ValueError('Unsupported frozen instrumentation site: ' + str(path) + ': ' + old[:70])
     path.write_text(text.replace(old, new))
@@ -160,3 +166,9 @@ def apply(source):
             '\tif (getenv("BORG_TOOLKIT_HEADLESS") && borg_started && player && !player->is_dead) {\n'
             '\t    if (toolkit_key_cap) borgh_finish("keys");\n'
             '\t    if (opt_turns > 0 && turn >= opt_turns) borgh_finish("turns");\n\t}')
+
+    if 'vendor/angband-recorder' in (src / 'native-replay.c').read_text():
+        # The engine observation callback supplies private harness diagnostics;
+        # the pinned recorder and its hash manifest remain byte-identical.
+        with (src / 'main-borgh.c').open('a') as saved:
+            saved.write('\n#ifdef BORG_RECORDING\nvoid ar_host_extensions(FILE *fp) { toolkit_borg_state(fp); }\n#endif\n')

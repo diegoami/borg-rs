@@ -473,7 +473,7 @@ pub fn borg_thrust_damage_one(st: &BorgState, i: i32) -> i32 {
 /// plus the danger bonus.
 fn melee_score(st: &mut BorgState, k: i32, x: i32, y: i32, mut d: i32) -> Option<i32> {
     /* Avoid waking most "hard" sleeping monsters */
-    if !st.kills.kills[k as usize].awake && d <= power(st, k as usize) && !st.borg.munchkin_mode {
+    if !st.kills.kills[k as usize].awake && d <= power(st, k as usize) {
         /* Calculate danger */
         let p = borg_danger_one_kill(st, y, x, 1, k, true, true);
 
@@ -1415,7 +1415,7 @@ fn borg_launch_bolt_aux_hack(st: &mut BorgState, i: i32, dam: i32, typ: i32, amm
     let p2 = borg_danger_one_kill(st, dy, dx, 1, i, true, false);
 
     /* Avoid waking most "hard" sleeping monsters */
-    if !kill.awake && p2 > avoid(st) / 2 && d < i32::from(kill.power) && !st.borg.munchkin_mode {
+    if !kill.awake && p2 > avoid(st) / 2 && d < i32::from(kill.power) {
         return -999;
     }
 
@@ -2375,9 +2375,14 @@ fn borg_attack_aux_rest(st: &mut BorgState) -> i32 {
 ///
 /// C has no `return` at the end (after the keys): the value of a real
 /// call is whatever is left in the return register, but no caller uses
-/// it (`borg_attack` and the munchkin attacks ignore the result of the
-/// real call). Rust returns `b_n`, as the c2rust translation did.
+/// it (`borg_attack` ignores the result of the real call; so did the
+/// munchkin attacks, removed with the mode in borg-rs#60).
+/// Rust returns `b_n`, as the c2rust translation did.
 fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
+    // The shopping supply estimate is needed only for a throwable flask
+    // while a fuel-burning lantern is worn. It is independent of the return
+    // policy and reused within this evaluation.
+    let mut supply_journey: Option<crate::borg_town_utility::Journey> = None;
     let mut b_k: i32 = -1;
     let mut b_d: i32 = -1;
 
@@ -2420,8 +2425,19 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
         }
 
         /* Save last flasks for fuel, if needed */
-        if u32::from(item.tval) == TV_FLASK && (tr(st, BI_AFUEL) <= 1 && st.borg.near.unique == 0) {
-            continue;
+        if u32::from(item.tval) == TV_FLASK {
+            let light = st.items.items[(crate::borg_item::inven_wield() + 5) as usize];
+            let lantern = u32::from(light.tval) == crate::headers::list_tvals_h::TV_LIGHT
+                && i32::from(light.sval) == st.item_val.sv_light_lantern
+                && !engine::flag_has(&light.flags, crate::headers::list_object_flags_h::OF_NO_FUEL as i32);
+            let policy = st.cfg(crate::borg_headers::borg_h::BORG_TOWN_PLAN) == 1;
+            let reserve = if policy && lantern {
+                let journey = supply_journey.get_or_insert_with(||
+                    crate::borg_town_utility::Journey::of(st));
+                ((journey.turns - i64::from(light.timeout)).max(0) as u64)
+                    .div_ceil(i64::from(item.pval).max(1) as u64) as i32
+            } else { 0 };
+            if oil_reserved(policy, reserve, tr(st, BI_AFUEL), st.borg.near.unique != 0) { continue; }
         }
 
         /* Dont throw wands or rods */
@@ -2482,6 +2498,13 @@ fn borg_attack_aux_object(st: &mut BorgState) -> i32 {
 
     /* Value */
     b_n
+}
+
+/// The experimental supply model may stock oil for throwing with a torch.
+/// Preserve the control's gate; reserve fuel only for a fuel-burning lantern
+/// under the new policy. The unique-fight emergency exception stays intact.
+fn oil_reserved(capability_policy: bool, required: i32, fuel: i32, unique: bool) -> bool {
+    !unique && fuel <= if capability_policy { required } else { 1 } && (!capability_policy || required > 0)
 }
 
 /// The class's main attack spell, which is not penalized for its mana
@@ -2944,7 +2967,7 @@ fn borg_attack_aux_wand_bolt(st: &mut BorgState, sval: i32, rad: i32, dam: i32, 
      * are he could have taken the orcs with the wand.  So use them in
      * an emergency after all the borg_caution() steps have failed
      */
-    if sval == st.item_val.sv_wand_wonder && !st.borg.munchkin_mode {
+    if sval == st.item_val.sv_wand_wonder {
         /* check the danger */
         if b_n > 0 && danger_here(st, 1, true) >= (avoid(st) * 7 / 10) {
             /* make the wand appear deadly */
@@ -3572,7 +3595,7 @@ fn borg_attack_aux_vampire_strike(st: &mut BorgState) -> i32 {
     }
 
     /* Avoid waking most "hard" sleeping monsters */
-    if !kill.awake && d <= i32::from(kill.power) && !st.borg.munchkin_mode {
+    if !kill.awake && d <= i32::from(kill.power) {
         /* Calculate danger */
         let p = borg_danger_one_kill(st, y, x, 1, k, true, true);
 
@@ -4577,4 +4600,19 @@ pub fn borg_attack(st: &mut BorgState, boosted_bravery: bool) -> bool {
 
     /* Success */
     true
+}
+
+#[cfg(test)]
+mod town_oil_tests {
+    use super::oil_reserved;
+    #[test]
+    fn throwing_oil_does_not_wait_for_unneeded_lantern_fuel_with_a_torch() {
+        assert!(!oil_reserved(true, 0, 0, false));
+        assert!(oil_reserved(true, 1, 1, false));
+        assert!(!oil_reserved(true, 1, 2, false));
+        assert!(!oil_reserved(true, 1, 1, true));
+        assert!(oil_reserved(true, 3, 3, false), "a longer forecast can need several fuel bottles");
+        assert!(!oil_reserved(true, 0, 1, false), "a filled lantern can cover the forecast already");
+        assert!(oil_reserved(false, 0, 0, false), "control retains its original behaviour");
+    }
 }

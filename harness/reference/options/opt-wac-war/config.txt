@@ -1,2 +1,2 @@
 flags=menu,cheat,borg_worships_ac=TRUE
-borg_txt_sha256=7e8d023438e8e4a32be4acc60f3cee02af1453ae018b0276a170a223229d87f7
+borg_txt_sha256=bfbfec0c91140cd92e68814a11e28559210c12a66ae6d192ca5482b12edee6c1

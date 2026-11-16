@@ -1,2 +1,2 @@
 flags=menu,cheat,munchkin
-borg_txt_sha256=b7b880520646f8f06e2842afe2c039ded4f13d7ac0572b23a0d267a2ed5bf902
+borg_txt_sha256=5d351b4f8d2a6b6890c6d12494eba4160a2f6973f48e5e6b0a89648db52898f1

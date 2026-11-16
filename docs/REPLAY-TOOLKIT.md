@@ -11,9 +11,9 @@ licensing are recorded in [IMPORTED.json](../tools/IMPORTED.json).
 ## Play or advance a named character
 
 ```sh
-./start-borg.sh MyBorg --seed 42
+./start-recording.sh MyBorg --seed 42
 ./run-borg-headless.py MyBorg --turns 10000 --timeout 300
-./start-borg.sh MyBorg --from-backup=2
+./start-recording.sh MyBorg --from-backup=2
 ```
 
 Visible play loads/creates the character and leaves the Borg off. Create the
@@ -24,7 +24,7 @@ keys. Font selection actually probes X11 loading before build/launch. Precedence
 10x20, 9x18, fixed. Explicit invalid fonts fail without silently substituting one.
 No font installation or owner display manipulation is performed.
 
-Both launchers use `.angband-rust/save/NAME` and the same per-character lock.
+Both launchers use `player-cemetery/save/NAME` and the same per-character lock.
 `BORG_PLAY_DATA_DIR` selects another profile, including its save/user/recordings
 folders. Different names can be open concurrently. A second launcher for the
 same name fails. There are five rolling **pre-launch** save backups under
@@ -259,7 +259,7 @@ prospective comparison, not one rescue or this smoke qualification.
 
 | Location | Contents |
 | --- | --- |
-| `.angband-rust/` or BORG_PLAY_DATA_DIR | Named save/user/backups and raw session recordings |
+| `player-cemetery/` or BORG_PLAY_DATA_DIR | Named save/user/backups and raw session recordings |
 | `harness/out/death-workflow/` or BORG_DEATH_WORKFLOW_DIR | Collections, local review receipts, observer caches and historical helper builds |
 | `build/death-workflow/` | Immutable committed-source/native-build/tool snapshots; preserve dependencies |
 | Branch `runtime/`, `capture/`, `profile/recordings/` | Exact helper, qualified native snapshot and separately recorded manual sessions |

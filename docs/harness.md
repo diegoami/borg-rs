@@ -37,9 +37,11 @@ logs or summaries. See `harness/saves/README.md` for recipes and limits.
 `harness/regress/save-load/run.sh` checks C/C and C/Rust replay and rejects
 missing saves, wrong races and mismatched fixture hashes.
 
-The harness runs the unmodified Angband engine (pinned upstream
-`e473720ed88a0f0c7ca66815cef3000eb4a38bc3`, in `angband/`) with a Borg
-behind the `inkey_hack` seam. It records every key the Borg returns, every
+The harness runs the vendored Angband engine — upstream Angband at
+`42cd156ac9f95ddf4311e88dd7ad462292d6d1d6` (the official import that
+moved the pin from `e473720ed88a0f0c7ca66815cef3000eb4a38bc3`; v12R),
+with the gated `#ifdef BORG_HARNESS` hooks and the documented fork
+corrections on top — and a Borg behind the `inkey_hack` seam. It records every key the Borg returns, every
 message added to the game's message log (Borg notes included) and, per
 key, a digest of the engine state. Two Borg implementations (C and Rust)
 are equivalent when these three logs are byte-identical for the same
@@ -193,7 +195,10 @@ Borg's own respawn code has the same C bug (`docs/c-bugs.md` #11).
   frontend"). Config flags each set one more option of the run's
   `borg.txt`:
   * `munchkin` (`borg_munchkin_start = TRUE`), `lunal`
-    (`borg_lunal_mode = TRUE`), `selflunal` (`borg_self_lunal = TRUE`);
+    (`borg_lunal_mode = TRUE`), `selflunal` (`borg_self_lunal = TRUE`) -
+    **refused since 2026-11-14** (borg-rs#60): the modes were removed, and
+    `run.sh` exits 2 naming the flag; a historical mode run needs a checkout
+    from before the removal;
   * `NAME=VALUE`, any option: the line `NAME = ...` becomes
     `NAME = VALUE`, e.g. `borg_money_scum_amount=5000`,
     `borg_uses_swaps=FALSE`, `borg_no_deeper=3`. `NAME` is the option's
@@ -390,6 +395,12 @@ suites run with the stock `borg.txt`; see "The options suite" for what
 each option reaches).
 
 ### The config suite
+
+**2026-11-14 (borg-rs#60):** the `config` and `lunal-investigation` suites
+are removed, and the mode cases of `options` (`opt-munchkin-limits-war`) and
+`synthetic-tactics` (`synth-lunal-*`) with them; `family-buying`'s warrior
+pair uses the class masks. Their references under `harness/reference/` stay
+as the record. The description below is that record.
 
 `harness/suites/config` replays the runs the second external review
 (`REVIEW-821cad310`) made by hand, plus one long run. Every run uses

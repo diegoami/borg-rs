@@ -1,0 +1,9 @@
+impl=c
+git_rev=e263db712f1b09f456e8b8de760a2614712f1134
+git_dirty=yes
+inputs_dirty=no
+source_sha256=a139daf21b667a0c367b092fea543563be3e47fc3a4826b31dd05b2fa653229d
+binary=/tmp/borg-town-class-fixes/build/c/game/angband
+binary_sha256=71755c3ae96d1f12b482c05309585c19bd8c12f2f132a7b85091bcd2b84888fb
+cc=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+built_utc=2026-11-15T10:48:06Z

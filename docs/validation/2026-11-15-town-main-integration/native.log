@@ -1,0 +1,196 @@
+done full-0-warrior-3
+done full-0-warrior-2
+done full-0-warrior-0
+done full-1-mage-1
+done full-1-mage-0
+done full-1-mage-2
+done full-1-mage-3
+done full-2-druid-0
+done full-0-warrior-1
+done full-2-druid-1
+done full-0-warrior-4
+done full-1-mage-4
+done full-2-druid-3
+done full-2-druid-2
+done full-3-priest-1
+done full-2-druid-4
+done full-3-priest-2
+done full-3-priest-0
+done full-4-necro-0
+done full-3-priest-3
+done full-4-necro-1
+done full-3-priest-4
+done full-4-necro-2
+done full-4-necro-3
+done full-4-necro-4
+done full-5-paladin-0
+done full-5-paladin-3
+done full-5-paladin-4
+done full-5-paladin-1
+done full-5-paladin-2
+done full-6-rogue-2
+done full-6-rogue-0
+done full-6-rogue-1
+done full-6-rogue-3
+done full-7-ranger-2
+done full-6-rogue-4
+done full-7-ranger-1
+done full-7-ranger-0
+done full-7-ranger-4
+done full-8-blackguard-0
+done full-8-blackguard-1
+done full-7-ranger-3
+done full-8-blackguard-3
+done full-8-blackguard-4
+done full-8-blackguard-2
+suite=town-main-full-menu.suite impl=c jobs=4 wall_seconds=83.397010583 result=OK
+full-0-warrior-0 turns turns=100005 pturns=10126 clev=8 maxdepth=4 keys=13675 wall=11.2 Human Warrior
+full-0-warrior-1 turns turns=100008 pturns=10144 clev=7 maxdepth=3 keys=12476 wall=21.6 Half-Elf Warrior
+full-0-warrior-2 turns turns=100001 pturns=10247 clev=6 maxdepth=2 keys=14773 wall=11.1 Elf Warrior
+full-0-warrior-3 turns turns=100007 pturns=10149 clev=6 maxdepth=4 keys=15009 wall=10.8 Hobbit Warrior
+full-0-warrior-4 turns turns=100002 pturns=10212 clev=6 maxdepth=2 keys=12989 wall=15.1 Gnome Warrior
+full-1-mage-0 turns turns=100152 pturns=10298 clev=4 maxdepth=2 keys=7217 wall=4.1 Half-Elf Mage
+full-1-mage-1 death turns=18903 pturns=1921 clev=2 maxdepth=1 keys=1939 wall=2.0 Elf Mage
+full-1-mage-2 turns turns=100004 pturns=10272 clev=4 maxdepth=1 keys=7959 wall=5.8 Hobbit Mage
+full-1-mage-3 turns turns=100073 pturns=10303 clev=4 maxdepth=2 keys=7345 wall=4.1 Gnome Mage
+full-1-mage-4 turns turns=100096 pturns=10208 clev=6 maxdepth=2 keys=8149 wall=6.8 Dwarf Mage
+full-2-druid-0 death turns=9547 pturns=1002 clev=1 maxdepth=1 keys=1324 wall=1.1 Elf Druid
+full-2-druid-1 death turns=30109 pturns=3149 clev=1 maxdepth=1 keys=3923 wall=3.9 Hobbit Druid
+full-2-druid-2 death turns=14120 pturns=1447 clev=1 maxdepth=1 keys=1621 wall=6.9 Gnome Druid
+full-2-druid-3 death turns=13184 pturns=1379 clev=1 maxdepth=1 keys=1837 wall=1.4 Dwarf Druid
+full-2-druid-4 turns turns=100004 pturns=10178 clev=5 maxdepth=2 keys=9248 wall=6.8 Half-Orc Druid
+full-3-priest-0 turns turns=100175 pturns=10485 clev=3 maxdepth=2 keys=8867 wall=8.8 Hobbit Priest
+full-3-priest-1 turns turns=100006 pturns=10373 clev=3 maxdepth=2 keys=8193 wall=6.4 Gnome Priest
+full-3-priest-2 turns turns=100599 pturns=10337 clev=4 maxdepth=2 keys=7207 wall=5.7 Dwarf Priest
+full-3-priest-3 turns turns=100563 pturns=10248 clev=5 maxdepth=2 keys=6637 wall=6.6 Half-Orc Priest
+full-3-priest-4 turns turns=100008 pturns=10134 clev=5 maxdepth=2 keys=8801 wall=7.0 Half-Troll Priest
+full-4-necro-0 turns turns=100003 pturns=10064 clev=5 maxdepth=2 keys=5229 wall=3.7 Gnome Necromancer
+full-4-necro-1 turns turns=100151 pturns=10100 clev=3 maxdepth=2 keys=5480 wall=4.6 Dwarf Necromancer
+full-4-necro-2 turns turns=100204 pturns=10122 clev=3 maxdepth=1 keys=4581 wall=3.0 Half-Orc Necromancer
+full-4-necro-3 death turns=23423 pturns=2433 clev=2 maxdepth=1 keys=2968 wall=2.6 Half-Troll Necromancer
+full-4-necro-4 turns turns=100395 pturns=10102 clev=2 maxdepth=2 keys=3523 wall=2.3 Dunadan Necromancer
+full-5-paladin-0 death turns=24096 pturns=2486 clev=2 maxdepth=1 keys=2671 wall=2.3 Dwarf Paladin
+full-5-paladin-1 turns turns=100010 pturns=10253 clev=4 maxdepth=2 keys=6184 wall=7.0 Half-Orc Paladin
+full-5-paladin-2 turns turns=100001 pturns=10272 clev=5 maxdepth=2 keys=9034 wall=6.8 Half-Troll Paladin
+full-5-paladin-3 turns turns=100003 pturns=10229 clev=4 maxdepth=2 keys=6454 wall=4.4 Dunadan Paladin
+full-5-paladin-4 turns turns=100001 pturns=10123 clev=4 maxdepth=2 keys=6913 wall=5.1 High-Elf Paladin
+full-6-rogue-0 turns turns=100006 pturns=10258 clev=6 maxdepth=3 keys=13662 wall=10.4 Half-Orc Rogue
+full-6-rogue-1 turns turns=100007 pturns=10176 clev=6 maxdepth=2 keys=12629 wall=10.2 Half-Troll Rogue
+full-6-rogue-2 death turns=49147 pturns=5061 clev=3 maxdepth=3 keys=6308 wall=6.8 Dunadan Rogue
+full-6-rogue-3 turns turns=100007 pturns=10196 clev=6 maxdepth=3 keys=13966 wall=11.8 High-Elf Rogue
+full-6-rogue-4 turns turns=100005 pturns=10366 clev=4 maxdepth=2 keys=13396 wall=13.5 Kobold Rogue
+full-7-ranger-0 turns turns=100001 pturns=10249 clev=5 maxdepth=2 keys=14904 wall=14.1 Half-Troll Ranger
+full-7-ranger-1 turns turns=100005 pturns=10280 clev=5 maxdepth=3 keys=13917 wall=12.9 Dunadan Ranger
+full-7-ranger-2 death turns=40785 pturns=4159 clev=4 maxdepth=2 keys=5926 wall=6.5 High-Elf Ranger
+full-7-ranger-3 death turns=94857 pturns=9873 clev=4 maxdepth=7 keys=14131 wall=13.2 Kobold Ranger
+full-7-ranger-4 death turns=22250 pturns=2302 clev=3 maxdepth=2 keys=3227 wall=3.4 Human Ranger
+full-8-blackguard-0 turns turns=100608 pturns=10153 clev=3 maxdepth=2 keys=3928 wall=3.7 Dunadan Blackguard
+full-8-blackguard-1 turns turns=100224 pturns=10177 clev=4 maxdepth=2 keys=6995 wall=7.8 High-Elf Blackguard
+full-8-blackguard-2 turns turns=106437 pturns=10894 clev=6 maxdepth=2 keys=10831 wall=10.7 Kobold Blackguard
+full-8-blackguard-3 turns turns=100009 pturns=10210 clev=5 maxdepth=2 keys=6553 wall=6.4 Human Blackguard
+full-8-blackguard-4 death turns=22908 pturns=2357 clev=2 maxdepth=3 keys=2759 wall=2.2 Half-Elf Blackguard
+done full-0-warrior-3
+done full-0-warrior-2
+done full-0-warrior-0
+done full-1-mage-1
+done full-1-mage-0
+done full-1-mage-2
+done full-1-mage-3
+done full-0-warrior-1
+done full-2-druid-0
+done full-2-druid-1
+done full-0-warrior-4
+done full-2-druid-3
+done full-1-mage-4
+done full-2-druid-2
+done full-2-druid-4
+done full-3-priest-2
+done full-3-priest-1
+done full-3-priest-0
+done full-4-necro-0
+done full-3-priest-3
+done full-4-necro-1
+done full-4-necro-2
+done full-3-priest-4
+done full-4-necro-3
+done full-4-necro-4
+done full-5-paladin-0
+done full-5-paladin-3
+done full-5-paladin-1
+done full-5-paladin-4
+done full-5-paladin-2
+done full-6-rogue-2
+done full-6-rogue-0
+done full-6-rogue-1
+done full-6-rogue-3
+done full-7-ranger-2
+done full-6-rogue-4
+done full-7-ranger-1
+done full-7-ranger-0
+done full-7-ranger-4
+done full-8-blackguard-0
+done full-8-blackguard-1
+done full-7-ranger-3
+done full-8-blackguard-3
+done full-8-blackguard-4
+done full-8-blackguard-2
+suite=town-main-full-menu.suite impl=rust jobs=4 wall_seconds=85.176573963 result=OK
+full-0-warrior-0 turns turns=100005 pturns=10126 clev=8 maxdepth=4 keys=13675 wall=11.9 Human Warrior
+full-0-warrior-1 turns turns=100008 pturns=10144 clev=7 maxdepth=3 keys=12476 wall=21.3 Half-Elf Warrior
+full-0-warrior-2 turns turns=100001 pturns=10247 clev=6 maxdepth=2 keys=14773 wall=11.8 Elf Warrior
+full-0-warrior-3 turns turns=100007 pturns=10149 clev=6 maxdepth=4 keys=15009 wall=11.4 Hobbit Warrior
+full-0-warrior-4 turns turns=100002 pturns=10212 clev=6 maxdepth=2 keys=12989 wall=15.3 Gnome Warrior
+full-1-mage-0 turns turns=100152 pturns=10298 clev=4 maxdepth=2 keys=7217 wall=4.3 Half-Elf Mage
+full-1-mage-1 death turns=18903 pturns=1921 clev=2 maxdepth=1 keys=1939 wall=2.1 Elf Mage
+full-1-mage-2 turns turns=100004 pturns=10272 clev=4 maxdepth=1 keys=7959 wall=6.1 Hobbit Mage
+full-1-mage-3 turns turns=100073 pturns=10303 clev=4 maxdepth=2 keys=7345 wall=4.4 Gnome Mage
+full-1-mage-4 turns turns=100096 pturns=10208 clev=6 maxdepth=2 keys=8149 wall=7.5 Dwarf Mage
+full-2-druid-0 death turns=9547 pturns=1002 clev=1 maxdepth=1 keys=1324 wall=1.2 Elf Druid
+full-2-druid-1 death turns=30109 pturns=3149 clev=1 maxdepth=1 keys=3923 wall=4.1 Hobbit Druid
+full-2-druid-2 death turns=14120 pturns=1447 clev=1 maxdepth=1 keys=1621 wall=6.7 Gnome Druid
+full-2-druid-3 death turns=13184 pturns=1379 clev=1 maxdepth=1 keys=1837 wall=1.4 Dwarf Druid
+full-2-druid-4 turns turns=100004 pturns=10178 clev=5 maxdepth=2 keys=9248 wall=7.0 Half-Orc Druid
+full-3-priest-0 turns turns=100175 pturns=10485 clev=3 maxdepth=2 keys=8867 wall=8.9 Hobbit Priest
+full-3-priest-1 turns turns=100006 pturns=10373 clev=3 maxdepth=2 keys=8193 wall=6.7 Gnome Priest
+full-3-priest-2 turns turns=100599 pturns=10337 clev=4 maxdepth=2 keys=7207 wall=5.8 Dwarf Priest
+full-3-priest-3 turns turns=100563 pturns=10248 clev=5 maxdepth=2 keys=6637 wall=6.7 Half-Orc Priest
+full-3-priest-4 turns turns=100008 pturns=10134 clev=5 maxdepth=2 keys=8801 wall=7.1 Half-Troll Priest
+full-4-necro-0 turns turns=100003 pturns=10064 clev=5 maxdepth=2 keys=5229 wall=3.7 Gnome Necromancer
+full-4-necro-1 turns turns=100151 pturns=10100 clev=3 maxdepth=2 keys=5480 wall=4.7 Dwarf Necromancer
+full-4-necro-2 turns turns=100204 pturns=10122 clev=3 maxdepth=1 keys=4581 wall=3.1 Half-Orc Necromancer
+full-4-necro-3 death turns=23423 pturns=2433 clev=2 maxdepth=1 keys=2968 wall=2.6 Half-Troll Necromancer
+full-4-necro-4 turns turns=100395 pturns=10102 clev=2 maxdepth=2 keys=3523 wall=2.4 Dunadan Necromancer
+full-5-paladin-0 death turns=24096 pturns=2486 clev=2 maxdepth=1 keys=2671 wall=2.4 Dwarf Paladin
+full-5-paladin-1 turns turns=100010 pturns=10253 clev=4 maxdepth=2 keys=6184 wall=7.0 Half-Orc Paladin
+full-5-paladin-2 turns turns=100001 pturns=10272 clev=5 maxdepth=2 keys=9034 wall=7.0 Half-Troll Paladin
+full-5-paladin-3 turns turns=100003 pturns=10229 clev=4 maxdepth=2 keys=6454 wall=4.6 Dunadan Paladin
+full-5-paladin-4 turns turns=100001 pturns=10123 clev=4 maxdepth=2 keys=6913 wall=5.3 High-Elf Paladin
+full-6-rogue-0 turns turns=100006 pturns=10258 clev=6 maxdepth=3 keys=13662 wall=10.5 Half-Orc Rogue
+full-6-rogue-1 turns turns=100007 pturns=10176 clev=6 maxdepth=2 keys=12629 wall=10.5 Half-Troll Rogue
+full-6-rogue-2 death turns=49147 pturns=5061 clev=3 maxdepth=3 keys=6308 wall=6.9 Dunadan Rogue
+full-6-rogue-3 turns turns=100007 pturns=10196 clev=6 maxdepth=3 keys=13966 wall=12.0 High-Elf Rogue
+full-6-rogue-4 turns turns=100005 pturns=10366 clev=4 maxdepth=2 keys=13396 wall=13.5 Kobold Rogue
+full-7-ranger-0 turns turns=100001 pturns=10249 clev=5 maxdepth=2 keys=14904 wall=14.0 Half-Troll Ranger
+full-7-ranger-1 turns turns=100005 pturns=10280 clev=5 maxdepth=3 keys=13917 wall=12.9 Dunadan Ranger
+full-7-ranger-2 death turns=40785 pturns=4159 clev=4 maxdepth=2 keys=5926 wall=6.6 High-Elf Ranger
+full-7-ranger-3 death turns=94857 pturns=9873 clev=4 maxdepth=7 keys=14131 wall=13.5 Kobold Ranger
+full-7-ranger-4 death turns=22250 pturns=2302 clev=3 maxdepth=2 keys=3227 wall=3.4 Human Ranger
+full-8-blackguard-0 turns turns=100608 pturns=10153 clev=3 maxdepth=2 keys=3928 wall=3.8 Dunadan Blackguard
+full-8-blackguard-1 turns turns=100224 pturns=10177 clev=4 maxdepth=2 keys=6995 wall=8.2 High-Elf Blackguard
+full-8-blackguard-2 turns turns=106437 pturns=10894 clev=6 maxdepth=2 keys=10831 wall=11.1 Kobold Blackguard
+full-8-blackguard-3 turns turns=100009 pturns=10210 clev=5 maxdepth=2 keys=6553 wall=6.5 Human Blackguard
+full-8-blackguard-4 death turns=22908 pturns=2357 clev=2 maxdepth=3 keys=2759 wall=2.2 Half-Elf Blackguard
+A: harness/out/main-integration-full-c: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=45f643c84d3c37dd
+A:   built from 03f9d2ea68e1 (dirty=no, inputs dirty=no) source_sha256=47c3523e9beee766; run at 03f9d2ea68e1 (dirty=no) overrides=none
+B: harness/out/main-integration-full-rust: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=01344cd570d7f2f0
+B:   built from 03f9d2ea68e1 (dirty=no, inputs dirty=no) source_sha256=7fb73c8d0983cf67; run at 03f9d2ea68e1 (dirty=no) overrides=none
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)
+/tmp/borg-town-main-integration/docs/town-item-catalogue.html: 369 kinds, 107 ordinary shop offers
+/tmp/borg-town-main-integration/docs/TOWN-ITEM-CATALOGUE.md: 104 ordinary + 265 additional kinds
+..........................
+----------------------------------------------------------------------
+Ran 26 tests in 0.024s
+
+OK

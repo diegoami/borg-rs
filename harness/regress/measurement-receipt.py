@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 """Recheck the complete measured corpus and export a small, source-bound receipt."""
+# Historical (borg-rs#60): this verifies a receipt recorded before the munchkin
+# and lunal modes were removed, and reads the lunal-investigation suite and the
+# synth-lunal cases, which the current tree no longer has. Run it from the
+# checkout the receipt names.
+
 import argparse
 import hashlib
 import json
