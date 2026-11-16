@@ -30,7 +30,7 @@ use crate::borg_headers::borg_trait_h::BI_CDEPTH;
 use crate::borg_item::inven_wield;
 use crate::borg_town_budget::Budget;
 use crate::borg_store::BORG_HOME;
-use crate::borg_town_dispose::{KitItem, Place};
+use crate::borg_town_dispose::{Disposition, KitItem, Place};
 use crate::borg_town_record::{first_action, step, PlanRecord, StepInput, TryOn, WareFact, PARAMS};
 use crate::borg_town_solve::Limits;
 use crate::borg_town_stock::{needs_served, Stock};
@@ -389,7 +389,8 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
     let mut class = stock.candidates.iter().map(|c| c.class).max().unwrap_or(0).saturating_add(1);
     for (slot, item) in st.store.shops[BORG_HOME].ware.iter().enumerate() {
         if item.iqty == 0 { continue; }
-        let available = item.aware && !unusable_torch(unlight, item.tval, item.sval, st.item_val.sv_light_torch) && !(live && crate::borg_town_live::buy_rejected(st, 7, slot));
+        let available = item.aware && !unusable_torch(unlight, item.tval, item.sval, st.item_val.sv_light_torch) && !(live && crate::borg_town_live::buy_rejected(st, 7, slot))
+            && !(live && crate::borg_town_live::home_moved(st, item.kind, true));
         let native = engine::store_stock(&st.access, BORG_HOME);
         let joins = native.get(slot).is_some_and(|o| o.merge_capacity() >= 1);
         stock.candidates.push(crate::borg_town_stock::Candidate { shop:7,slot:slot as u8,
@@ -463,7 +464,18 @@ fn evaluate(st: &mut BorgState, live: bool) -> TownAction {
         home_slots: budget.home_slots,
     });
     let (paction, mut act, for_need, now) = if live {
-        crate::borg_town_record::first_executable_action(&stock.candidates, &budget.urgent, &out, &wares, &kit, budget.home_slots, crate::borg_town_budget::Facts::of(st).pack_capacity - stock.pack_slots_used())
+        // Do not undo this visit's Home moves (borg-rs#90). The recorded
+        // step output stays as solved; only the executed choice is barred.
+        let mut chosen_from = out.clone();
+        for (k, d) in kit.iter().zip(chosen_from.dispositions.iter_mut()) {
+            let reverses = match (k.place, *d) {
+                (Place::Pack, Disposition::Store) => crate::borg_town_live::home_moved(st, k.kind, false),
+                (Place::Home, Disposition::Take) => crate::borg_town_live::home_moved(st, k.kind, true),
+                _ => false,
+            };
+            if reverses { *d = Disposition::Keep; }
+        }
+        crate::borg_town_record::first_executable_action(&stock.candidates, &budget.urgent, &chosen_from, &wares, &kit, budget.home_slots, crate::borg_town_budget::Facts::of(st).pack_capacity - stock.pack_slots_used())
     } else { first_action(&stock.candidates, &budget.urgent, &out, &wares, &kit) };
 
     if live && paction != crate::borg_town_record::action::LEAVE && paction != crate::borg_town_record::action::DROP {

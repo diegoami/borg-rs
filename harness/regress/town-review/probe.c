@@ -1,4 +1,4 @@
-/* Disposable native PR83 fixture; relinked test binary only. */
+/* Disposable native town regression fixture; relinked test binary only. */
 #include "angband.h"
 #include "init.h"
 #include "object.h"
@@ -14,6 +14,7 @@
 #include "store.h"
 extern bool __real_savefile_load(const char *, bool);
 extern uint64_t borg_rs_test_learning_identity(const struct object *);
+extern uint32_t borg_rs_test_home_attempt(bool, bool, uint32_t);
 #define CHECK(x) do { if (!(x)) { fprintf(stderr,"town review check failed: %s:%d: %s\n",__FILE__,__LINE__,#x); _Exit(9); } } while (0)
 static struct object *make(int tval, const char *name, int count)
 {
@@ -101,5 +102,18 @@ bool __wrap_savefile_load(const char *path, bool cheat)
     partial=wand->timeout; recharge_timeout(wand); CHECK(wand->timeout==partial-1);
     wand->timeout=80; CHECK(number_charging(wand)==2); recharge_timeout(wand); CHECK(wand->timeout==78);
     printf("{\"case\":\"native-rods\",\"one_charging\":1,\"two_charging\":2}\n");
+    /* Queue real live STORE/TAKE_HOME paths, then supply controlled refreshed
+       inventory: no change means cancellation, one unit moved means success.
+       This is not a reproduction of the original seed-501 oil loop. */
+    offer=make(TV_FLASK,"Flask of oil",2);
+    offer->kind->aware=true;
+    stores[7].stock=offer; stores[7].stock_k=offer->known; stores[7].stock_num=1;
+    for(i=0;i<4;i++) {
+        bool stored=i>=2, success=(i%2)!=0;
+        uint32_t result=borg_rs_test_home_attempt(stored,success,offer->kind->kidx);
+        uint32_t expected=1u | 16u | (success ? 4u : 0u) | (!stored && !success ? 8u : 0u);
+        CHECK(result==expected);
+    }
+    printf("{\"case\":\"home-history\",\"store_success\":true,\"store_rejected\":true,\"take_success\":true,\"take_rejected\":true,\"visit_reset\":true}\n");
     fflush(stdout); _Exit(0);
 }
