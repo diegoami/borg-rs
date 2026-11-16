@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "case": "partial-rune",
+      "description_changed": true,
+      "still_unknown": true,
+      "same_learning_key": true
+    },
+    {
+      "case": "native-capacity",
+      "quiver_join": 38,
+      "expansion_blocked": true,
+      "full_pack_home_join": 1
+    },
+    {
+      "case": "native-sale",
+      "partial_device_quote": 146,
+      "normal": 453,
+      "black_market": 113,
+      "owner_cap": 3,
+      "no_selling": 0
+    },
+    {
+      "case": "native-rods",
+      "one_charging": 1,
+      "two_charging": 2
+    },
+    {
+      "case": "home-history",
+      "store_success": true,
+      "store_rejected": true,
+      "take_success": true,
+      "take_rejected": true,
+      "visit_reset": true
+    }
+  ],
+  "probe_sha256": "ad9b808d65c46ebb9aaabf9991d90f1de1565a8d6ff8b8123a6bc182f59aa050",
+  "binary_sha256": "72a9abe59705877b531f2e595050b2581a61ff87bbaee856493dbeb60b1b6dd3"
+}
