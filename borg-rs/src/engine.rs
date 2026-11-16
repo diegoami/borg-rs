@@ -3498,4 +3498,3 @@ mod arith_tests {
         modify_stat_value(18, i32::MIN);
     }
 }
-
