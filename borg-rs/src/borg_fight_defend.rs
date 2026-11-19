@@ -921,7 +921,7 @@ fn borg_defend_aux_resist_e(st: &mut BorgState, mut p1: i32) -> i32 {
         }
 
         /* (C's note says RAcid here too) */
-        borg_note(st, "# Attempting to cast RAcid");
+        borg_note(st, "# Attempting to cast RElec");
 
         /* do it! */
         if borg_spell(st, RESISTANCE) {

@@ -1047,29 +1047,18 @@ fn retreat(st: &mut BorgState, pos_danger: i32, borg_surround: bool) -> bool {
                     }
                 }
 
-                // "Skip this grid if it is adjacent to a monster": the
-                // `break` only leaves this scan, so the test has no effect
-                // (kept, as in C).
-                for ii in 1..i32::from(st.kills.nxt).max(1) {
-                    let kill = &st.kills.kills[ii as usize];
-
-                    // Skip dead monsters
-                    if kill.r_idx == 0 {
-                        continue;
-                    }
-
-                    // Require current knowledge
-                    if borg_timer(st, kill.when) > 2 {
-                        continue;
-                    }
-
-                    // Check distance -- 1 grid away
-                    if engine::distance(kill.pos, loc { x: x1, y: y1 }) <= 1
-                        && i32::from(kill.speed) > st.borg.tr(BI_SPEED)
-                        && !borg_surround
-                    {
-                        break;
-                    }
+                // A faster monster adjacent to the first step can hit us there.
+                if !borg_surround
+                    && st.kills.kills[1..st.kills.nxt.max(1) as usize]
+                        .iter()
+                        .any(|kill| {
+                            kill.r_idx != 0
+                                && borg_timer(st, kill.when) <= 2
+                                && engine::distance(kill.pos, loc { x: x1, y: y1 }) <= 1
+                                && i32::from(kill.speed) > st.borg.tr(BI_SPEED)
+                        })
+                {
+                    break;
                 }
             }
 

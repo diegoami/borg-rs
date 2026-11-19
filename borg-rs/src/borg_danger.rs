@@ -1390,7 +1390,11 @@ fn borg_danger_spell(
 
             RSF_MIND_BLAST => {
                 if st.borg.tr(BI_SAV) < 100 {
-                    z = spell_power / 2 + 1;
+                    // 8d8 damage followed by 3+1d4 turns of confusion.
+                    z = 8 * 8;
+                    if st.borg.tr(BI_RCONF) == 0 {
+                        p += 10;
+                    }
                 }
             }
 

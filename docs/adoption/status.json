@@ -21,6 +21,16 @@
   },
   "adopted_batches": [
     {
+      "id": "c-v15r",
+      "target_commit": "646ebfc2a3a80a0caf87f1ab72fe4bcee0d94343",
+      "target_tag": "4.2.6-impact-v15",
+      "previous_commit": "9ccb2aaeebc56ad6aeb35b668f112f0f58b142f8",
+      "engine_commit": "574b618c3bfec595f3503a58f8e488b1c4ae3a46",
+      "state": "carried_pending_review",
+      "tracking_record": "docs/adoption/c-v15r/README.md",
+      "source_review": "https://github.com/diegoami/better-borg-c/issues/547"
+    },
+    {
       "id": "c-v13r",
       "target_commit": "9ccb2aaeebc56ad6aeb35b668f112f0f58b142f8",
       "target_tag": "4.2.6-impact-v13",
