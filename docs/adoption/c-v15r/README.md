@@ -28,3 +28,35 @@ applied under `angband/src/` and the Borg deltas are reconciled in C and Rust.
 Donor CI workflows, release tooling, blocked carries 0141 and 0145, and unrelated
 donor recorder tooling are outside this batch. The recorder's own vendored
 baseline and the historical harness references retain their original identities.
+
+## Validation
+
+- Rust release tests passed (298 passed, 4 ignored), as did release Clippy
+  with warnings denied. The root Python tooling suite completed with 127
+  tests, including 26 skips.
+- The native C gate passed 966 unit checks and 5 test-frontend checks.
+- C and Rust matched on keypresses, messages, and engine state in all three
+  smoke scenarios.
+- Two candidate runs of the eight native C fixture kits passed all 18 modes
+  and produced identical logs. The fixtures use C Borg internals. Rust
+  comparison uses the harness binaries.
+
+The [native fixture runner](../../../harness/adoption/v15r/check-native.py)
+reads the sources and profiles by commit from a better-borg-c Git checkout.
+For a shallow clone, fetch the donor release tag and the two pinned tracker
+fixture objects before running it.
+
+```sh
+git -C ../better-borg-c fetch origin tag 4.2.6-impact-v15
+git -C ../better-borg-c fetch --depth=1 https://github.com/diegoami/neo-angband-tracker.git \
+  f88fee1e3ace2b5f34f6fc8a1b4fbc30d3f94da1 \
+  25b0118631f108edc926856c8f4b3c35d3611bf9
+cmake -S angband -B build/native-v15 -DBORG_IMPL=c -DSUPPORT_TEST_FRONTEND=ON
+cmake --build build/native-v15 --target alltests --parallel 4
+python3 harness/adoption/v15r/check-native.py --source ../better-borg-c \
+  --build build/native-v15 --output build/v15-fixtures
+```
+
+For the Rust repository's pre-carry C build at `8c5d000a58e9ddca1f1954ab9552e505856b313f`,
+run the same fixture checker with `--before`. It expects the six v14
+regression modes to fail and both already-carried behaviors to pass.
