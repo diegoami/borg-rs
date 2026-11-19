@@ -35,11 +35,21 @@ baseline and the historical harness references retain their original identities.
   with warnings denied. The root Python tooling suite completed with 127
   tests, including 26 skips.
 - The native C gate passed 966 unit checks and 5 test-frontend checks.
-- C and Rust matched on keypresses, messages, and engine state in all three
-  smoke scenarios.
+  The pre-carry C gate passed 965 unit checks and 5 frontend checks.
+- The link audit found zero C Borg objects in the Rust build. All 155
+  production engine objects matched byte for byte. The audited relink
+  reproduced the Rust binary exactly.
+- C and Rust matched on keypresses, messages, and engine state in all
+  3 smoke scenarios and all 45 full-suite scenarios. Both builds used
+  runtime commit `5e6cd07565d145d8d5044d4c31536318ba38f785` and the
+  repository harness configuration. The suite reported no overrides.
 - Two candidate runs of the eight native C fixture kits passed all 18 modes
-  and produced identical logs. The fixtures use C Borg internals. Rust
-  comparison uses the harness binaries.
+  and produced identical logs. The six v14 regression modes failed on
+  the pre-carry build as expected. The pre-carry and candidate control
+  logs match except for Deep Descent, which adds one teleport diagnostic
+  line with the same decision. The heal and slay fixture logs also match
+  across the two builds. The fixtures use C Borg internals. Rust parity
+  is measured through the harness binaries.
 
 The [native fixture runner](../../../harness/adoption/v15r/check-native.py)
 reads the sources and profiles by commit from a better-borg-c Git checkout.
