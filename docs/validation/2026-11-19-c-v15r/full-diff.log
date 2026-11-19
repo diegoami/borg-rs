@@ -1,0 +1,7 @@
+A: ../v15-runs/c-full: impl=c (BORG_IMPL=c; executable c, CMakeCache c, BUILD_ID c) binary_sha256=fbd9b3181e90b58c
+A:   built from 5e6cd07565d1 (dirty=no, inputs dirty=no) source_sha256=368b1e1ef665d12b; run at 5e6cd07565d1 (dirty=no) overrides=none
+B: ../v15-runs/rust-full: impl=rust (BORG_IMPL=rust; executable rust, CMakeCache rust, BUILD_ID rust) binary_sha256=1c6218505931a388
+B:   built from 5e6cd07565d1 (dirty=no, inputs dirty=no) source_sha256=be2fd86e7350f936; run at 5e6cd07565d1 (dirty=no) overrides=none
+45/45 runs identical (expected 45)
+messages.log compared in 45 run(s)
+state.log compared in 45 run(s)

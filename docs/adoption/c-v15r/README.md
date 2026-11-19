@@ -8,7 +8,9 @@ through [better-borg-c v15](https://github.com/diegoami/better-borg-c/releases/t
 `b684b95b450f89ba3d819482d41af2a6946d14cf`.
 The [v14 review corrections](https://github.com/diegoami/better-borg-c/pull/543)
 concern the donor's evidence and documentation. The [v15 review](https://github.com/diegoami/better-borg-c/issues/547)
-was open when this candidate was prepared.
+returned approve with corrections. The [follow-up](https://github.com/diegoami/better-borg-c/pull/550)
+fixed the donor retirement verifier, release patch base check, and
+documentation. These corrections leave the carried runtime unchanged.
 
 | Carry | Source | Disposition in borg-rs |
 | --- | --- | --- |
@@ -70,3 +72,11 @@ python3 harness/adoption/v15r/check-native.py --source ../better-borg-c \
 For the Rust repository's pre-carry C build at `8c5d000a58e9ddca1f1954ab9552e505856b313f`,
 run the same fixture checker with `--before`. It expects the six v14
 regression modes to fail and both already-carried behaviors to pass.
+
+## Independent review
+
+The [PR review](https://github.com/diegoami/borg-rs/pull/109#pullrequestreview-5984695685)
+approved `d1b74dbc` and independently reproduced the native gate and fixtures.
+The [fork corrections](../../FORK-CORRECTIONS.md#rubble-map-bounds-in-the-v15-carry)
+and [validation receipt](../../validation/2026-11-19-c-v15r/README.md) record
+the two documentation observations. Owner acceptance is pending.
