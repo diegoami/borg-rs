@@ -79,4 +79,4 @@ The [PR review](https://github.com/diegoami/borg-rs/pull/109#pullrequestreview-5
 approved `d1b74dbc` and independently reproduced the native gate and fixtures.
 The [fork corrections](../../FORK-CORRECTIONS.md#rubble-map-bounds-in-the-v15-carry)
 and [validation receipt](../../validation/2026-11-19-c-v15r/README.md) record
-the two documentation observations. Owner acceptance is pending.
+the two documentation observations. The owner accepted the carry on 2026-11-20.
