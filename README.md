@@ -243,8 +243,8 @@ automatically, and replays/backup branches do not inflate independent deaths.
 
 ## Repository layout
 
-* `angband/`: upstream Angband at `42cd156ac9f95ddf4311e88dd7ad462292d6d1d6`
-  (git subtree; moved from `e473720ed` by the v12R official import), plus
+* `angband/`: upstream Angband at `574b618c3bfec595f3503a58f8e488b1c4ae3a46`
+  (git subtree; see the [reconciliation record](docs/adoption/c-v15r/README.md)), plus
   optional harness/GUI recording hooks and the documented matching fork
   corrections in `docs/FORK-CORRECTIONS.md`
 * `borg-rs/`: the Rust port of the Borg itself

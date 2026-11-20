@@ -89,8 +89,7 @@ See M4-PLAN.md for the next-stage sequence.
 ## Layout
 
 ```
-angband/             upstream Angband 42cd156ac (git subtree; moved from
-                     e473720ed by the v12R official import), plus small
+angband/             upstream Angband 574b618c3 (git subtree), plus small
                      #ifdef BORG_HARNESS hooks and documented FORK corrections
 harness/             build.sh, run.sh, suite.sh, diff, check-no-c-borg.sh,
                      suites/, reference/ (C oracle logs, xz), native-checker/,

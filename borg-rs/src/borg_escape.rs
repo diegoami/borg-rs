@@ -468,7 +468,7 @@ pub fn borg_caution_teleport(st: &mut BorgState, emergency: i32, turns: i32) -> 
     let q_y = st.core.w_y / borg_panel_hgt();
 
     // must have the ability
-    if st.borg.tr(BI_ATELEPORT) == 0 || st.borg.tr(BI_AESCAPE) == 0 {
+    if st.borg.tr(BI_ATELEPORT) == 0 && st.borg.tr(BI_AESCAPE) == 0 {
         return false;
     }
 
@@ -615,7 +615,7 @@ pub fn borg_dimension_door(st: &mut BorgState, allow_fail: i32) -> bool {
     false
 }
 
-fn borg_teleport_off_level(st: &mut BorgState) -> bool {
+fn borg_teleport_off_level(st: &mut BorgState, allow_delayed: bool) -> bool {
     // don't if we are already recalling or waiting for
     // deep descent
     if !(st.borg.goal.recalling != 0 || st.borg.goal.descending != 0) {
@@ -626,8 +626,10 @@ fn borg_teleport_off_level(st: &mut BorgState) -> bool {
             return true;
         }
 
-        if borg_activate_item(st, st.act.deep_descent)
-            || borg_read_scroll(st, st.item_val.sv_scroll_deep_descent)
+        // Deep Descent takes several turns, so only use it when delay is safe.
+        if allow_delayed
+            && (borg_activate_item(st, st.act.deep_descent)
+                || borg_read_scroll(st, st.item_val.sv_scroll_deep_descent))
         {
             return true;
         }
@@ -710,7 +712,7 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
     // the benefit of rising to town.
     if st.borg.tr(BI_ISWEAK) != 0
         && st.borg.tr(BI_CDEPTH) == 1
-        && borg_teleport_off_level(st)
+        && borg_teleport_off_level(st, true)
     {
         borg_note(st, "# Attempting to leave via teleport level/deep descent");
         return true;
@@ -753,7 +755,7 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
                     || borg_read_scroll(st, st.item_val.sv_scroll_teleport)
                     || borg_use_staff_fail(st, st.item_val.sv_staff_teleportation)
                     || borg_activate_item(st, st.act.tele_long)
-                    || borg_teleport_off_level(st)
+                    || borg_teleport_off_level(st, false)
                     // revisit spells, increased fail rate
                     || borg_dimension_door(st, tmp_allow_fail + 9)
                     || borg_spell_fail(st, TELEPORT_SELF, tmp_allow_fail + 9)
@@ -949,7 +951,7 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
         }
 
         // Use Tport Level after the above attempts failed.
-        if borg_teleport_off_level(st) {
+        if borg_teleport_off_level(st, false) {
             // Flee!
             borg_note(st, "# Danger Level 3.4");
             reset_antisummon(st);
@@ -1237,7 +1239,7 @@ pub fn borg_escape(st: &mut BorgState, b_q: i32) -> bool {
                 || borg_activate_item(st, st.act.tele_long)
                 || borg_read_scroll(st, st.item_val.sv_scroll_teleport)
                 || borg_use_staff_fail(st, st.item_val.sv_staff_teleportation)
-                || borg_teleport_off_level(st))
+                || borg_teleport_off_level(st, false))
         {
             // Flee!
             borg_note(st, "# Danger Level 8");

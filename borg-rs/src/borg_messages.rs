@@ -1114,22 +1114,18 @@ fn borg_parse_aux(st: &mut BorgState, msg: &[u8], len: i32) {
         return;
     }
 
-    // Removed rubble.  Important when out of lite
+    // In the dark, clear remembered rubble around the borg.
     if prefix(msg, b"You have removed the ") {
-        // remove rubbles from array: the loop runs over 2x2 grids but
-        // only ever looks at the goal grid
-        let c = st.borg.c;
-        for _y in c.y - 1..c.y + 1 {
-            for _x in c.x - 1..c.x + 1 {
-                // replace all rubble with broken doors, the borg ignores
-                // broken doors.  This routine is only needed if the borg
-                // is out of lite and searching in the dark.
-                if st.borg.tr(BI_LIGHT) != 0 {
-                    continue;
-                }
-
-                if ag_feat(st) == FEAT_RUBBLE as i32 {
-                    set_ag_feat(st, FEAT_BROKEN);
+        if st.borg.tr(BI_LIGHT) == 0 {
+            let c = st.borg.c;
+            for y in c.y - 1..=c.y + 1 {
+                for x in c.x - 1..=c.x + 1 {
+                    if engine::square_in_bounds(x, y) {
+                        let grid = st.cave.grid_mut(x, y);
+                        if grid.feat == FEAT_RUBBLE as u8 {
+                            grid.feat = FEAT_BROKEN as u8;
+                        }
+                    }
                 }
             }
         }

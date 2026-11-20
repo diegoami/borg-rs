@@ -1225,21 +1225,17 @@ static void borg_parse_aux(char *msg, int len)
         return;
     }
 
-    /* Removed rubble.  Important when out of lite */
+    /* In the dark, clear remembered rubble around the borg. */
     if (prefix(msg, "You have removed the ")) {
         int x, y;
-        /* remove rubbles from array */
-        for (y = borg.c.y - 1; y < borg.c.y + 1; y++) {
-            for (x = borg.c.x - 1; x < borg.c.x + 1; x++) {
-                /* replace all rubble with broken doors, the borg ignores
-                 * broken doors.  This routine is only needed if the borg
-                 * is out of lite and searching in the dark.
-                 */
-                if (borg.trait[BI_LIGHT])
-                    continue;
+        if (borg.trait[BI_LIGHT])
+            return;
 
-                if (ag->feat == FEAT_RUBBLE)
-                    ag->feat = FEAT_BROKEN;
+        for (y = borg.c.y - 1; y <= borg.c.y + 1; y++) {
+            for (x = borg.c.x - 1; x <= borg.c.x + 1; x++) {
+                if (square_in_bounds(cave, loc(x, y))
+                    && borg_grids[y][x].feat == FEAT_RUBBLE)
+                    borg_grids[y][x].feat = FEAT_BROKEN;
             }
         }
         return;
